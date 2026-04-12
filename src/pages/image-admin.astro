@@ -135,6 +135,11 @@ const initialState = {
                 >
                   Eredeti kép megnyitása
                 </a>
+
+                <div class="dnd-image-admin__sizes">
+                  <p class="dnd-image-admin__panel-kicker">Elérhető méretek</p>
+                  <div id="dnd-image-admin-sizes"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -204,6 +209,7 @@ const initialState = {
       const currentImageTitle = document.getElementById("dnd-image-admin-current-image-title");
       const currentImageAlt = document.getElementById("dnd-image-admin-current-image-alt");
       const currentImageLink = document.getElementById("dnd-image-admin-current-image-link");
+      const sizesContainer = document.getElementById("dnd-image-admin-sizes");
 
       let activeSlotKey = state.initialSlotKey;
       let mapping = state.mapping || {};
@@ -214,6 +220,54 @@ const initialState = {
 
       function getMediaItem(mediaId) {
         return (state.mediaItems || []).find((item) => String(item.id) === String(mediaId));
+      }
+
+      function renderSizes(selected) {
+        if (!sizesContainer) {
+          return;
+        }
+
+        const mediaItem = selected ? getMediaItem(selected.id) : null;
+        const sizes = mediaItem?.sizes || [];
+
+        if (!sizes.length) {
+          sizesContainer.innerHTML =
+            '<p class="dnd-image-admin__sizes-empty">Ehhez a képhez nem érkezett size adat.</p>';
+          return;
+        }
+
+        const rows = sizes
+          .map((size) => {
+            const dimensions =
+              size.width && size.height ? `${size.width} × ${size.height}` : "Ismeretlen";
+
+            return `
+              <tr>
+                <td>${size.name}</td>
+                <td>${dimensions}</td>
+                <td>${size.mimeType || "Nincs adat"}</td>
+                <td><a href="${size.url}" target="_blank" rel="noopener noreferrer">Megnyitás</a></td>
+              </tr>
+            `;
+          })
+          .join("");
+
+        sizesContainer.innerHTML = `
+          <div class="dnd-image-admin__sizes-summary">Összes változat: ${sizes.length}</div>
+          <div class="dnd-image-admin__sizes-table-wrap">
+            <table class="dnd-image-admin__sizes-table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Méret</th>
+                  <th>MIME</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        `;
       }
 
       function syncHiddenInputs() {
@@ -270,6 +324,7 @@ const initialState = {
           currentImageAlt.textContent = "Nincs alt szöveg.";
           currentImageLink.classList.add("is-hidden");
           currentImageLink.setAttribute("href", "#");
+          renderSizes(null);
           return;
         }
 
@@ -283,6 +338,7 @@ const initialState = {
         currentImageAlt.textContent = selected.altText || "Nincs alt szöveg.";
         currentImageLink.classList.remove("is-hidden");
         currentImageLink.setAttribute("href", selected.sourceUrl);
+        renderSizes(selected);
       }
 
       function renderAll() {
@@ -548,6 +604,47 @@ const initialState = {
 
     .dnd-image-admin__source-link.is-hidden {
       display: none;
+    }
+
+    .dnd-image-admin__sizes {
+      margin-top: 18px;
+    }
+
+    .dnd-image-admin__sizes-summary,
+    .dnd-image-admin__sizes-empty {
+      margin: 0 0 10px;
+      color: rgba(0, 0, 0, 0.68);
+      line-height: 1.6;
+    }
+
+    .dnd-image-admin__sizes-table-wrap {
+      overflow-x: auto;
+    }
+
+    .dnd-image-admin__sizes-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .dnd-image-admin__sizes-table th,
+    .dnd-image-admin__sizes-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .dnd-image-admin__sizes-table th {
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.52);
+    }
+
+    .dnd-image-admin__sizes-table a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .dnd-image-admin__search {
