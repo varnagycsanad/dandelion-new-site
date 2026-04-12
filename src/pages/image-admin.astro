@@ -224,19 +224,52 @@ const initialState = {
         return (state.mediaItems || []).find((item) => String(item.id) === String(mediaId));
       }
 
-      function renderSizesTableRows(sizes) {
+      function renderExtraSizeListItems(sizes) {
         return sizes
           .map((size) => {
             const dimensions =
               size.width && size.height ? `${size.width} × ${size.height}` : "Ismeretlen";
 
             return `
-              <tr>
-                <td>${size.name}</td>
-                <td>${dimensions}</td>
-                <td>${size.mimeType || "Nincs adat"}</td>
-                <td><a href="${size.url}" target="_blank" rel="noopener noreferrer">Megnyitás</a></td>
-              </tr>
+              <li class="dnd-image-admin__size-list-item">
+                <div class="dnd-image-admin__size-list-copy">
+                  <strong>${size.name}</strong>
+                  <span>${dimensions}</span>
+                </div>
+                <a href="${size.url}" target="_blank" rel="noopener noreferrer">Megnyitás</a>
+              </li>
+            `;
+          })
+          .join("");
+      }
+
+      function getPrimarySizeLabel(sizeName) {
+        const labels = {
+          full: "Eredeti",
+          large: "Desktop",
+          medium_large: "Tablet",
+          medium: "Kártya",
+          thumbnail: "Mini"
+        };
+
+        return labels[sizeName] || sizeName;
+      }
+
+      function renderPrimarySizeCards(sizes) {
+        return sizes
+          .map((size) => {
+            const dimensions =
+              size.width && size.height ? `${size.width} × ${size.height}` : "Ismeretlen";
+
+            return `
+              <article class="dnd-image-admin__size-card">
+                <div class="dnd-image-admin__size-card-head">
+                  <strong>${size.name}</strong>
+                  <span>${getPrimarySizeLabel(size.name)}</span>
+                </div>
+                <p class="dnd-image-admin__size-card-meta">${dimensions}</p>
+                <a href="${size.url}" target="_blank" rel="noopener noreferrer">Megnyitás</a>
+              </article>
             `;
           })
           .join("");
@@ -260,23 +293,13 @@ const initialState = {
           return;
         }
 
-        const primaryRows = renderSizesTableRows(primarySizes);
-        const extraRows = renderSizesTableRows(extraSizes);
+        const primaryRows = renderPrimarySizeCards(primarySizes);
+        const extraRows = renderExtraSizeListItems(extraSizes);
         const primaryBlock = primarySizes.length
           ? `
             <div class="dnd-image-admin__sizes-group">
-              <div class="dnd-image-admin__sizes-table-wrap">
-                <table class="dnd-image-admin__sizes-table">
-                  <thead>
-                    <tr>
-                      <th>Size</th>
-                      <th>Méret</th>
-                      <th>MIME</th>
-                      <th>URL</th>
-                    </tr>
-                  </thead>
-                  <tbody>${primaryRows}</tbody>
-                </table>
+              <div class="dnd-image-admin__size-cards">
+                ${primaryRows}
               </div>
             </div>
           `
@@ -285,19 +308,9 @@ const initialState = {
           ? `
             <details class="dnd-image-admin__sizes-details">
               <summary>Összes további méret (${extraSizes.length})</summary>
-              <div class="dnd-image-admin__sizes-table-wrap">
-                <table class="dnd-image-admin__sizes-table">
-                  <thead>
-                    <tr>
-                      <th>Size</th>
-                      <th>Méret</th>
-                      <th>MIME</th>
-                      <th>URL</th>
-                    </tr>
-                  </thead>
-                  <tbody>${extraRows}</tbody>
-                </table>
-              </div>
+              <ul class="dnd-image-admin__size-list">
+                ${extraRows}
+              </ul>
             </details>
           `
           : "";
@@ -656,34 +669,83 @@ const initialState = {
       line-height: 1.6;
     }
 
-    .dnd-image-admin__sizes-table-wrap {
-      overflow-x: auto;
+    .dnd-image-admin__size-cards {
+      display: grid;
+      gap: 10px;
     }
 
-    .dnd-image-admin__sizes-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.92rem;
+    .dnd-image-admin__size-card {
+      display: grid;
+      gap: 8px;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
     }
 
-    .dnd-image-admin__sizes-table th,
-    .dnd-image-admin__sizes-table td {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      text-align: left;
-      vertical-align: top;
+    .dnd-image-admin__size-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .dnd-image-admin__sizes-table th {
-      font-size: 0.82rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(0, 0, 0, 0.52);
+    .dnd-image-admin__size-card-head strong {
+      font-size: 0.98rem;
     }
 
-    .dnd-image-admin__sizes-table a {
+    .dnd-image-admin__size-card-head span {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(217, 158, 43, 0.14);
+      color: #7d5600;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .dnd-image-admin__size-card-meta {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.68);
+      line-height: 1.5;
+    }
+
+    .dnd-image-admin__size-card a,
+    .dnd-image-admin__size-list-item a {
       text-decoration: underline;
       text-underline-offset: 3px;
+      font-weight: 600;
+    }
+
+    .dnd-image-admin__size-list {
+      display: grid;
+      gap: 10px;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .dnd-image-admin__size-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .dnd-image-admin__size-list-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .dnd-image-admin__size-list-copy strong,
+    .dnd-image-admin__size-list-copy span {
+      display: block;
+    }
+
+    .dnd-image-admin__size-list-copy span {
+      margin-top: 4px;
+      color: rgba(0, 0, 0, 0.68);
     }
 
     .dnd-image-admin__sizes-details {
@@ -710,10 +772,6 @@ const initialState = {
 
     .dnd-image-admin__sizes-details[open] summary::before {
       content: "−";
-    }
-
-    .dnd-image-admin__sizes-details .dnd-image-admin__sizes-table-wrap {
-      margin-top: 10px;
     }
 
     .dnd-image-admin__search {
@@ -807,6 +865,12 @@ const initialState = {
       .dnd-image-admin__save .dnd-btn,
       .dnd-image-admin__current-head .dnd-btn {
         width: 100%;
+      }
+
+      .dnd-image-admin__size-card-head,
+      .dnd-image-admin__size-list-item {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
   </style>
