@@ -1,0 +1,75 @@
+---
+const WP_API_BASE = import.meta.env.WP_API_BASE;
+const WP_API_USER = import.meta.env.WP_API_USER;
+const WP_API_APP_PASSWORD = import.meta.env.WP_API_APP_PASSWORD;
+
+let items: any[] = [];
+let error = '';
+
+try {
+  const token = Buffer.from(`${WP_API_USER}:${WP_API_APP_PASSWORD}`).toString('base64');
+
+  const totalPagesToLoad = 6;
+  const perPage = 100;
+
+  const requests = Array.from({ length: totalPagesToLoad }, (_, index) => {
+    const page = index + 1;
+
+    return fetch(`${WP_API_BASE}/wp-json/wp/v2/media?per_page=${perPage}&page=${page}`, {
+      headers: {
+        Authorization: `Basic ${token}`,
+        Accept: 'application/json',
+      },
+    }).then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} az ${page}. oldalnál`);
+      }
+
+      return response.json();
+    });
+  });
+
+  const pages = await Promise.all(requests);
+  items = pages.flat();
+} catch (err) {
+  error = err instanceof Error ? err.message : 'Ismeretlen hiba';
+}
+---
+
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WP média teszt</title>
+  </head>
+  <body>
+    <main style="max-width:1400px;margin:40px auto;padding:0 16px;font-family:Arial,sans-serif;">
+      <h1>WP média teszt</h1>
+      <p style="margin:0 0 24px;color:#555;">Betöltött képek száma: {items.length}</p>
+
+      {error && <p style="color:red;font-weight:bold;">Hiba: {error}</p>}
+
+      {!error && (
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+          {items.map((item: any) => (
+            <article style="border:1px solid #ddd;border-radius:12px;overflow:hidden;background:#fff;">
+              <img
+                src={item.source_url}
+                alt={item.alt_text || item.title?.rendered || ''}
+                style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#f3f3f3;"
+                loading="lazy"
+              />
+              <div style="padding:12px;">
+                <div style="font-weight:bold;margin-bottom:6px;">
+                  {item.title?.rendered || 'Névtelen kép'}
+                </div>
+                <div style="font-size:12px;color:#555;">ID: {item.id}</div>
+                <div style="font-size:12px;color:#555;">{item.mime_type}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </main>
+  </body>
+</html>
