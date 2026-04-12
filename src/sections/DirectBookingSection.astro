@@ -1,0 +1,49 @@
+---
+const bookingLink =
+  "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+
+const benefits = [
+  {
+    title: "Közvetlenebb ajánlat",
+    text: "Azonnal a hivatalos foglalási felületre jutsz, felesleges köztes lépések nélkül."
+  },
+  {
+    title: "Gyors döntés, tiszta folyamat",
+    text: "A szabad időpontok és a foglalási lépések egy helyen, egyszerűen átláthatók."
+  },
+  {
+    title: "Közvetlen kapcsolat",
+    text: "A Dandelion élményhez a legegyszerűbb út a közvetlen foglalás, külön kerülők nélkül."
+  }
+];
+---
+
+<section class="dnd-section dnd-direct-booking">
+  <div class="dnd-container dnd-direct-booking__wrap">
+    <div class="dnd-direct-booking__content">
+      <span class="dnd-section-kicker">Közvetlen foglalás</span>
+      <h2 class="dnd-section-title">
+        Akkor működik igazán jól a pihenés, ha a foglalás is gyors, tiszta és kézenfekvő.
+      </h2>
+      <p class="dnd-section-intro">
+        A Dandelion oldalon minden fontos CTA a közvetlen foglalás felé vezet, hogy a kereséstől
+        a döntésig minél rövidebb legyen az út.
+      </p>
+    </div>
+
+    <div class="dnd-direct-booking__grid">
+      {benefits.map((benefit) => (
+        <article class="dnd-direct-booking__card">
+          <h3>{benefit.title}</h3>
+          <p>{benefit.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="dnd-direct-booking__actions">
+      <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
+        Foglalás
+      </a>
+    </div>
+  </div>
+</section>

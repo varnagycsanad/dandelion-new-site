@@ -1,0 +1,89 @@
+---
+const bookingLink =
+  "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+
+const stays = [
+  {
+    name: "Dandelion D1",
+    description: "Modern, világos vendégház nyugodt reggelekkel és könnyű balatoni napokkal.",
+    image:
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    name: "Dandelion D2",
+    description: "Letisztult terek, finom részletek és otthonos boutique hangulat pároknak is.",
+    image:
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80&sat=-10"
+  },
+  {
+    name: "Dandelion Fügeház",
+    description: "Meleg tónusú enteriőr, zöld környezet és lassabb, csendesebb kikapcsolódás.",
+    image:
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    name: "Dandelion Zsálya Vendégház",
+    description: "Természetközeli menedék családi pihenéshez, kerttel és kényelmes közösségi terekkel.",
+    image:
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    name: "Dandelion Szőlőliget Vendégház",
+    description: "Balaton-felvidéki hangulat szőlősorok, napfény és nyugodt esték közelségében.",
+    image:
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80&hue=20"
+  },
+  {
+    name: "Dandelion Szépvölgyi Vendégház",
+    description: "Elegáns, tágas szállás azoknak, akik a csendet és a panorámát együtt keresik.",
+    image:
+      "https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    name: "Dandelion Royal Homes",
+    description: "Prémium elvonulás markáns designnal, nagyvonalú terekkel és különleges atmoszférával.",
+    image:
+      "https://images.unsplash.com/photo-1464146072230-91cabc968266?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    name: "Dandelion Vintage Vendégház",
+    description: "Lágy karakter, egyedi részletek és időtlen nyugalom egy szerethető házban.",
+    image:
+      "https://images.unsplash.com/photo-1505692952047-1a78307da8f2?auto=format&fit=crop&w=1200&q=80"
+  }
+];
+---
+
+<section class="dnd-section dnd-stays">
+  <div class="dnd-container">
+    <div class="dnd-section-heading">
+      <span class="dnd-section-kicker">Nyolc különleges ház</span>
+      <h2 class="dnd-section-title dnd-section-title--wide">
+        Válaszd ki azt a Dandelion házat, amelyik legjobban illik a pihenésed ritmusához.
+      </h2>
+      <p class="dnd-section-intro">
+        Mind a nyolc szállás más karaktert hoz, de közös bennük a nyugodt környezet,
+        a gondosan megtervezett terek és a közvetlen foglalás egyszerűsége.
+      </p>
+    </div>
+
+    <div class="dnd-stays__grid">
+      {stays.map((stay) => (
+        <article class="dnd-stay-card">
+          <img class="dnd-stay-card__image" src={stay.image} alt={stay.name} loading="lazy" />
+
+          <div class="dnd-stay-card__content">
+            <h3>{stay.name}</h3>
+            <p>{stay.description}</p>
+            <div class="dnd-stay-card__actions">
+              <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállás</a>
+              <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
+                Foglalás
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

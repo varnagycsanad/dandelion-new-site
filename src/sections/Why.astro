@@ -1,31 +1,44 @@
-<section class="dnd-section dnd-section--line">
+---
+const items = [
+  {
+    title: "Családbarát pihenés",
+    text: "Kényelmes, jól használható terek és nyugodt környezet, ahol a közös idő valóban minőségi lehet."
+  },
+  {
+    title: "Természetközeli élmény",
+    text: "A házak és a környezet együtt adják azt a lelassulós balatoni hangulatot, amiért jó megérkezni."
+  },
+  {
+    title: "Közvetlen foglalás",
+    text: "A fő útvonal mindenhol a közvetlen foglalás felé vezet, felesleges kerülők és bonyolítás nélkül."
+  },
+  {
+    title: "Több különleges ház",
+    text: "Nyolc eltérő karakterű Dandelion szállás közül választhatsz a saját ritmusodhoz igazítva."
+  }
+];
+---
+
+<section class="dnd-section dnd-usp">
   <div class="dnd-container">
-    <h2 class="dnd-section-title">Miért fog ez működni?</h2>
+    <div class="dnd-section-heading">
+      <span class="dnd-section-kicker">Miért Dandelion</span>
+      <h2 class="dnd-section-title dnd-section-title--wide">
+        Modern vidéki pihenés, amely egyszerre könnyed, vizuálisan tiszta és foglalásra kész.
+      </h2>
+      <p class="dnd-section-intro">
+        A Dandelion főoldal nem csak bemutatja a szállásokat, hanem gyorsan megmutatja azt is,
+        miért érdemes itt megszállni és közvetlenül foglalni.
+      </p>
+    </div>
 
-    <div class="dnd-card-grid">
-      <article class="dnd-card">
-        <h3>Gyors és tiszta</h3>
-        <p>
-          Nincs WordPress és nincs builder-terhelés. A cél a gyors, jól
-          kontrollálható oldal.
-        </p>
-      </article>
-
-      <article class="dnd-card">
-        <h3>Szállásra optimalizált</h3>
-        <p>
-          Minden oldal a közvetlen foglalást támogatja, nem csak információt
-          önt ki magából.
-        </p>
-      </article>
-
-      <article class="dnd-card">
-        <h3>AI-val fejleszthető</h3>
-        <p>
-          Az oldal komponens-alapú lesz, ezért gyorsan lehet új házat,
-          landing oldalt vagy új blokkot építeni.
-        </p>
-      </article>
+    <div class="dnd-usp__grid">
+      {items.map((item) => (
+        <article class="dnd-usp__card">
+          <span class="dnd-usp__index">{item.title}</span>
+          <p>{item.text}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>

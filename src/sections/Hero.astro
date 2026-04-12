@@ -1,44 +1,60 @@
+---
+const bookingLink =
+  "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+---
+
 <section class="dnd-hero">
   <div class="dnd-container dnd-hero__grid">
     <div class="dnd-hero__content">
       <span class="dnd-eyebrow">Balaton-felvidék • közvetlen foglalás</span>
-      <span class="dnd-agent-badge">Agent test</span>
       <h1 class="dnd-title">
-        Természetközeli szállások, ahol tényleg le lehet lassulni.
+        Nyugodt, designérzékeny vendégházak a Balaton-felvidék legszebb ritmusában.
       </h1>
       <p class="dnd-lead">
-        A Dandelion Vendégházak célja nem csak az, hogy legyen hol aludni.
-        Hanem az, hogy a vendég már az első pillanatban érezze: jó helyre jött.
+        A Dandelion Vendégházak modern, természetközeli szállásai azoknak készültek,
+        akik prémium környezetben szeretnének lelassulni, feltöltődni és közvetlenül foglalni.
       </p>
 
       <div class="dnd-hero__actions">
-        <a
-          href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
-          class="dnd-btn dnd-btn--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
           Foglalás
         </a>
         <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállások</a>
       </div>
+
+      <div class="dnd-hero__metrics">
+        <article class="dnd-hero__metric">
+          <strong>8</strong>
+          <span>különleges ház</span>
+        </article>
+        <article class="dnd-hero__metric">
+          <strong>100%</strong>
+          <span>közvetlen foglalási út</span>
+        </article>
+        <article class="dnd-hero__metric">
+          <strong>Balaton</strong>
+          <span>természet, design, nyugalom</span>
+        </article>
+      </div>
+    </div>
+
+    <div class="dnd-hero__visual">
+      <div class="dnd-hero__image-stack">
+        <img
+          class="dnd-hero__image dnd-hero__image--large"
+          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
+          alt="Modern vendégház enteriőr"
+        />
+        <img
+          class="dnd-hero__image dnd-hero__image--small"
+          src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=900&q=80"
+          alt="Balaton-felvidéki természetközeli hangulat"
+        />
+        <div class="dnd-hero__floating-card">
+          <span class="dnd-hero__floating-label">Boutique rural stay</span>
+          <strong>Letisztult terek, csendes reggelek, erős helyszínélmény.</strong>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .dnd-agent-badge {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 0 18px;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--dnd-line);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--dnd-text);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    line-height: 1;
-  }
-</style>

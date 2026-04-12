@@ -6,6 +6,10 @@
   --dnd-radius-sm: 5px;
   --dnd-radius-md: 8px;
   --dnd-container: 1200px;
+  --dnd-surface: #fffefb;
+  --dnd-surface-strong: #f6f0e4;
+  --dnd-shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.08);
+  --dnd-shadow-card: 0 20px 44px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -21,7 +25,9 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: var(--dnd-text);
-  background: var(--dnd-bg);
+  background:
+    radial-gradient(circle at top left, rgba(217, 158, 43, 0.14), transparent 26%),
+    linear-gradient(180deg, #fffaf2 0%, var(--dnd-bg) 34%, #fffdf9 100%);
 }
 
 a {
@@ -34,6 +40,10 @@ img {
   max-width: 100%;
 }
 
+main {
+  overflow: clip;
+}
+
 .dnd-container {
   width: min(100% - 32px, var(--dnd-container));
   margin: 0 auto;
@@ -43,9 +53,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(253, 251, 247, 0.96);
-  border-bottom: 1px solid var(--dnd-line);
-  backdrop-filter: blur(8px);
+  background: rgba(253, 251, 247, 0.82);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.85);
+  backdrop-filter: blur(14px);
 }
 
 .dnd-header__inner {
@@ -53,12 +63,13 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 78px;
+  min-height: 82px;
 }
 
 .dnd-logo {
   font-size: 1.25rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .dnd-nav {
@@ -75,107 +86,424 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0 18px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid transparent;
   border-radius: var(--dnd-radius-md);
   font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dnd-btn--primary {
-  background: var(--dnd-accent);
-  color: #000;
-  box-shadow: 0 8px 20px rgba(217, 158, 43, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .dnd-btn:hover {
   transform: translateY(-1px);
 }
 
-.dnd-hero {
-  padding: 88px 0 72px;
+.dnd-btn--primary {
+  background: var(--dnd-accent);
+  color: #000;
+  box-shadow: 0 12px 26px rgba(217, 158, 43, 0.26);
 }
 
-.dnd-hero__grid {
-  display: grid;
-  gap: 32px;
-  align-items: center;
+.dnd-btn--secondary {
+  border-color: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.dnd-section {
+  padding: 96px 0;
+}
+
+.dnd-section-title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.dnd-section-title--wide {
+  max-width: 900px;
+}
+
+.dnd-section-kicker {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dnd-accent);
+}
+
+.dnd-section-heading {
+  margin-bottom: 40px;
+}
+
+.dnd-section-intro {
+  max-width: 700px;
+  margin: 16px 0 0;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.74);
 }
 
 .dnd-eyebrow {
   display: inline-block;
-  margin-bottom: 16px;
-  font-size: 0.875rem;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--dnd-accent);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .dnd-title {
-  margin: 0 0 18px;
-  font-size: clamp(2.25rem, 4vw, 4.5rem);
-  line-height: 1.06;
+  margin: 0;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.96;
   font-weight: 700;
 }
 
 .dnd-lead {
-  max-width: 720px;
-  margin: 0 0 28px;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  margin: 22px 0 0;
+  max-width: 640px;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.dnd-hero {
+  padding: 48px 0 44px;
+}
+
+.dnd-hero__grid {
+  display: grid;
+  gap: 36px;
+  align-items: center;
 }
 
 .dnd-hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+  margin-top: 32px;
 }
 
-.dnd-btn--secondary {
-  border: 1px solid var(--dnd-line);
-  background: #fff;
-}
-
-.dnd-section {
-  padding: 72px 0;
-}
-
-.dnd-section--line {
-  border-top: 1px solid var(--dnd-line);
-}
-
-.dnd-section-title {
-  margin: 0 0 20px;
-  font-size: clamp(1.6rem, 2vw, 2.25rem);
-  font-weight: 700;
-}
-
-.dnd-card-grid {
+.dnd-hero__metrics {
   display: grid;
-  gap: 20px;
+  gap: 14px;
+  margin-top: 34px;
 }
 
-.dnd-card {
-  padding: 24px;
-  background: #fff;
-  border: 1px solid var(--dnd-line);
-  border-radius: var(--dnd-radius-md);
+.dnd-hero__metric {
+  padding: 18px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--dnd-shadow-card);
 }
 
-.dnd-card h3 {
-  margin: 0 0 12px;
-  font-size: 1.1rem;
+.dnd-hero__metric strong,
+.dnd-hero__metric span {
+  display: block;
+}
+
+.dnd-hero__metric strong {
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+}
+
+.dnd-hero__metric span {
+  color: rgba(0, 0, 0, 0.68);
+}
+
+.dnd-hero__visual {
+  position: relative;
+}
+
+.dnd-hero__image-stack {
+  position: relative;
+  min-height: 540px;
+}
+
+.dnd-hero__image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 28px;
+  box-shadow: var(--dnd-shadow-soft);
+}
+
+.dnd-hero__image--large {
+  height: 540px;
+}
+
+.dnd-hero__image--small {
+  position: absolute;
+  right: -18px;
+  bottom: -34px;
+  width: min(44%, 260px);
+  height: 240px;
+  border: 6px solid rgba(253, 251, 247, 0.96);
+}
+
+.dnd-hero__floating-card {
+  position: absolute;
+  left: -18px;
+  bottom: 34px;
+  max-width: 260px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--dnd-shadow-soft);
+}
+
+.dnd-hero__floating-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dnd-accent);
+}
+
+.dnd-usp {
+  padding-top: 64px;
+}
+
+.dnd-usp__grid {
+  display: grid;
+  gap: 18px;
+}
+
+.dnd-usp__card {
+  padding: 28px;
+  min-height: 180px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 240, 228, 0.82));
+  box-shadow: var(--dnd-shadow-card);
+}
+
+.dnd-usp__index {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1.18rem;
   font-weight: 700;
 }
 
-.dnd-card p {
+.dnd-usp__card p,
+.dnd-direct-booking__card p,
+.dnd-location__highlight p,
+.dnd-stay-card p {
   margin: 0;
   line-height: 1.7;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.dnd-stays {
+  padding-top: 40px;
+}
+
+.dnd-stays__grid {
+  display: grid;
+  gap: 22px;
+}
+
+.dnd-stay-card {
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--dnd-shadow-card);
+}
+
+.dnd-stay-card__image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.dnd-stay-card__content {
+  padding: 24px;
+}
+
+.dnd-stay-card h3,
+.dnd-direct-booking__card h3,
+.dnd-location__highlight strong {
+  margin: 0 0 10px;
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.dnd-stay-card__actions,
+.dnd-closing-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.dnd-location__grid {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+
+.dnd-location__map-shell {
+  position: relative;
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(217, 158, 43, 0.25), transparent 18%),
+    radial-gradient(circle at 78% 25%, rgba(217, 158, 43, 0.2), transparent 20%),
+    linear-gradient(145deg, #f5efe2 0%, #fbf8f2 48%, #f2ebde 100%);
+  box-shadow: var(--dnd-shadow-soft);
+}
+
+.dnd-location__map-card {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  max-width: 260px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--dnd-shadow-card);
+}
+
+.dnd-location__map-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.18rem;
+}
+
+.dnd-location__map-card p {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.65;
+}
+
+.dnd-location__eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--dnd-accent);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dnd-location__pin {
+  position: absolute;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--dnd-shadow-card);
+}
+
+.dnd-location__pin--1 {
+  right: 20%;
+  top: 32%;
+}
+
+.dnd-location__pin--2 {
+  left: 24%;
+  bottom: 22%;
+}
+
+.dnd-location__pin--3 {
+  right: 16%;
+  bottom: 18%;
+}
+
+.dnd-location__route {
+  position: absolute;
+  inset: 18% 14% 20% 18%;
+  border: 2px dashed rgba(0, 0, 0, 0.18);
+  border-radius: 38% 62% 48% 52% / 45% 38% 62% 55%;
+  transform: rotate(-8deg);
+}
+
+.dnd-location__highlights {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.dnd-location__highlight {
+  padding: 20px 22px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dnd-direct-booking__wrap {
+  padding: 38px;
+  border-radius: 34px;
+  background: linear-gradient(135deg, #111111 0%, #2a2417 100%);
+  color: #fff;
+  box-shadow: var(--dnd-shadow-soft);
+}
+
+.dnd-direct-booking__content .dnd-section-title,
+.dnd-direct-booking__content .dnd-section-intro {
+  color: #fff;
+}
+
+.dnd-direct-booking__content .dnd-section-intro {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.dnd-direct-booking__grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.dnd-direct-booking__card {
+  padding: 24px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dnd-direct-booking__card p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.dnd-direct-booking__actions {
+  margin-top: 28px;
+}
+
+.dnd-closing-cta {
+  padding-top: 44px;
+}
+
+.dnd-closing-cta__panel {
+  padding: 44px 28px;
+  border-radius: 34px;
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.92), rgba(246, 240, 228, 0.92)),
+    var(--dnd-surface);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--dnd-shadow-card);
+}
+
+.dnd-closing-cta__title {
+  max-width: 840px;
+}
+
+.dnd-closing-cta__intro {
+  max-width: 620px;
 }
 
 .dnd-footer {
-  padding: 28px 0;
+  padding: 28px 0 34px;
   border-top: 1px solid var(--dnd-line);
 }
 
@@ -184,31 +512,134 @@ img {
   font-size: 0.95rem;
 }
 
-@media (min-width: 900px) {
-  .dnd-hero__grid,
-  .dnd-card-grid {
-    grid-template-columns: repeat(3, 1fr);
+@media (min-width: 768px) {
+  .dnd-hero__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .dnd-hero__content {
-    grid-column: 1 / -1;
+  .dnd-usp__grid,
+  .dnd-direct-booking__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dnd-stays__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dnd-location__highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .dnd-hero__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
+    gap: 48px;
+  }
+
+  .dnd-stays__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .dnd-location__grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .dnd-direct-booking__wrap {
+    padding: 48px;
+  }
+
+  .dnd-direct-booking__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 959px) {
+  .dnd-hero__image-stack {
+    min-height: 460px;
+  }
+
+  .dnd-hero__image--large {
+    height: 460px;
+  }
+
+  .dnd-hero__image--small {
+    width: min(42%, 220px);
+    height: 200px;
   }
 }
 
 @media (max-width: 767px) {
   .dnd-header__inner {
-    min-height: 70px;
+    min-height: 72px;
   }
 
   .dnd-nav {
     display: none;
   }
 
-  .dnd-title {
-    font-size: 2.3rem;
+  .dnd-section {
+    padding: 78px 0;
   }
 
   .dnd-hero {
-    padding: 56px 0 48px;
+    padding-top: 30px;
+  }
+
+  .dnd-title {
+    font-size: 2.85rem;
+  }
+
+  .dnd-hero__image-stack {
+    min-height: 360px;
+  }
+
+  .dnd-hero__image--large {
+    height: 360px;
+  }
+
+  .dnd-hero__image--small {
+    right: 10px;
+    bottom: -22px;
+    width: 42%;
+    height: 150px;
+  }
+
+  .dnd-hero__floating-card {
+    left: 12px;
+    right: 12px;
+    bottom: 18px;
+    max-width: none;
+  }
+
+  .dnd-usp__card,
+  .dnd-stay-card__content,
+  .dnd-direct-booking__card,
+  .dnd-location__highlight,
+  .dnd-closing-cta__panel,
+  .dnd-location__map-card {
+    padding: 22px;
+  }
+
+  .dnd-location__map-shell {
+    min-height: 380px;
+  }
+
+  .dnd-location__pin {
+    font-size: 0.76rem;
+  }
+
+  .dnd-direct-booking__wrap {
+    padding: 28px 22px;
+  }
+
+  .dnd-btn {
+    width: 100%;
+  }
+
+  .dnd-hero__actions .dnd-btn,
+  .dnd-stay-card__actions .dnd-btn,
+  .dnd-closing-cta__actions .dnd-btn {
+    width: auto;
   }
 }
