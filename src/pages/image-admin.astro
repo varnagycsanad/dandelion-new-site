@@ -110,7 +110,10 @@ const initialState = {
                       alt={mapping[initialSlotKey]?.altText || mapping[initialSlotKey]?.title || ""}
                     />
                   ) : (
-                    <div class="dnd-image-admin__preview-empty">Még nincs kép hozzárendelve ehhez a slothoz.</div>
+                    <div class="dnd-image-admin__preview-empty">
+                      <strong>Nincs kiválasztott kép</strong>
+                      <span>Válassz egy képet a médiatárból, és itt fog megjelenni az előnézet.</span>
+                    </div>
                   )
                 }
               </div>
@@ -637,6 +640,7 @@ const initialState = {
     }
 
     .dnd-image-admin__preview {
+      display: grid;
       overflow: hidden;
       border-radius: 22px;
       background: linear-gradient(135deg, #f1ecdf 0%, #fbf8f1 100%);
@@ -652,23 +656,29 @@ const initialState = {
     }
 
     .dnd-image-admin__preview-empty {
-      display: grid;
-      align-content: center;
-      justify-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 8px;
-      min-height: 260px;
+      width: 100%;
+      min-height: inherit;
       padding: 28px;
       text-align: center;
       color: rgba(0, 0, 0, 0.56);
     }
 
     .dnd-image-admin__preview-empty strong {
+      display: block;
       font-size: 1rem;
+      line-height: 1.2;
       color: rgba(0, 0, 0, 0.8);
     }
 
     .dnd-image-admin__preview-empty span {
+      display: block;
       max-width: 280px;
+      margin: 0 auto;
       font-size: 0.92rem;
       line-height: 1.6;
     }
