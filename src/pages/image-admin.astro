@@ -210,6 +210,8 @@ const initialState = {
       const currentImageAlt = document.getElementById("dnd-image-admin-current-image-alt");
       const currentImageLink = document.getElementById("dnd-image-admin-current-image-link");
       const sizesContainer = document.getElementById("dnd-image-admin-sizes");
+      const primarySizeNames = ["full", "large", "medium_large", "medium", "thumbnail"];
+
 
       let activeSlotKey = state.initialSlotKey;
       let mapping = state.mapping || {};
@@ -222,21 +224,8 @@ const initialState = {
         return (state.mediaItems || []).find((item) => String(item.id) === String(mediaId));
       }
 
-      function renderSizes(selected) {
-        if (!sizesContainer) {
-          return;
-        }
-
-        const mediaItem = selected ? getMediaItem(selected.id) : null;
-        const sizes = mediaItem?.sizes || [];
-
-        if (!sizes.length) {
-          sizesContainer.innerHTML =
-            '<p class="dnd-image-admin__sizes-empty">Ehhez a képhez nem érkezett size adat.</p>';
-          return;
-        }
-
-        const rows = sizes
+      function renderSizesTableRows(sizes) {
+        return sizes
           .map((size) => {
             const dimensions =
               size.width && size.height ? `${size.width} × ${size.height}` : "Ismeretlen";
@@ -251,22 +240,72 @@ const initialState = {
             `;
           })
           .join("");
+      }
+
+      function renderSizes(selected) {
+        if (!sizesContainer) {
+          return;
+        }
+
+        const mediaItem = selected ? getMediaItem(selected.id) : null;
+        const sizes = mediaItem?.sizes || [];
+        const primarySizes = primarySizeNames
+          .map((name) => sizes.find((size) => size.name === name))
+          .filter(Boolean);
+        const extraSizes = sizes.filter((size) => !primarySizeNames.includes(size.name));
+
+        if (!sizes.length) {
+          sizesContainer.innerHTML =
+            '<p class="dnd-image-admin__sizes-empty">Ehhez a képhez nem érkezett size adat.</p>';
+          return;
+        }
+
+        const primaryRows = renderSizesTableRows(primarySizes);
+        const extraRows = renderSizesTableRows(extraSizes);
+        const primaryBlock = primarySizes.length
+          ? `
+            <div class="dnd-image-admin__sizes-group">
+              <div class="dnd-image-admin__sizes-table-wrap">
+                <table class="dnd-image-admin__sizes-table">
+                  <thead>
+                    <tr>
+                      <th>Size</th>
+                      <th>Méret</th>
+                      <th>MIME</th>
+                      <th>URL</th>
+                    </tr>
+                  </thead>
+                  <tbody>${primaryRows}</tbody>
+                </table>
+              </div>
+            </div>
+          `
+          : '<p class="dnd-image-admin__sizes-empty">Ehhez a képhez a kiemelt alapméretek közül egyik sem érhető el.</p>';
+        const extraBlock = extraSizes.length
+          ? `
+            <details class="dnd-image-admin__sizes-details">
+              <summary>Összes további méret (${extraSizes.length})</summary>
+              <div class="dnd-image-admin__sizes-table-wrap">
+                <table class="dnd-image-admin__sizes-table">
+                  <thead>
+                    <tr>
+                      <th>Size</th>
+                      <th>Méret</th>
+                      <th>MIME</th>
+                      <th>URL</th>
+                    </tr>
+                  </thead>
+                  <tbody>${extraRows}</tbody>
+                </table>
+              </div>
+            </details>
+          `
+          : "";
 
         sizesContainer.innerHTML = `
           <div class="dnd-image-admin__sizes-summary">Összes változat: ${sizes.length}</div>
-          <div class="dnd-image-admin__sizes-table-wrap">
-            <table class="dnd-image-admin__sizes-table">
-              <thead>
-                <tr>
-                  <th>Size</th>
-                  <th>Méret</th>
-                  <th>MIME</th>
-                  <th>URL</th>
-                </tr>
-              </thead>
-              <tbody>${rows}</tbody>
-            </table>
-          </div>
+          ${primaryBlock}
+          ${extraBlock}
         `;
       }
 
@@ -645,6 +684,36 @@ const initialState = {
     .dnd-image-admin__sizes-table a {
       text-decoration: underline;
       text-underline-offset: 3px;
+    }
+
+    .dnd-image-admin__sizes-details {
+      margin-top: 14px;
+    }
+
+    .dnd-image-admin__sizes-details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.78);
+      list-style: none;
+    }
+
+    .dnd-image-admin__sizes-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dnd-image-admin__sizes-details summary::before {
+      content: "+";
+      display: inline-block;
+      margin-right: 8px;
+      font-weight: 700;
+    }
+
+    .dnd-image-admin__sizes-details[open] summary::before {
+      content: "−";
+    }
+
+    .dnd-image-admin__sizes-details .dnd-image-admin__sizes-table-wrap {
+      margin-top: 10px;
     }
 
     .dnd-image-admin__search {
