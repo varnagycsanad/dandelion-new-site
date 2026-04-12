@@ -1,0 +1,54 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Dandelion Vendégházak",
+  description = "Természetközeli szállások a Balaton-felvidéken."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header class="dnd-header">
+      <div class="dnd-container dnd-header__inner">
+        <a href="/" class="dnd-logo">Dandelion</a>
+
+        <nav class="dnd-nav">
+          <a href="/szallasok">Szállások</a>
+          <a href="/blog">Blog</a>
+          <a href="/kapcsolat">Kapcsolat</a>
+        </nav>
+
+        <a href="#" class="dnd-btn dnd-btn--primary">Foglalás</a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="dnd-footer">
+      <div class="dnd-container">
+        <p class="dnd-footer__text">Dandelion Vendégházak • Balaton-felvidék</p>
+      </div>
+    </footer>
+  </body>
+</html>
