@@ -1,60 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../sections/Hero.astro";
+import Why from "../sections/Why.astro";
 ---
 
-<BaseLayout
-  title="Dandelion Vendégházak | Balaton-felvidéki szállások"
-  description="Természetközeli, közvetlenül foglalható szállások a Balaton-felvidéken."
->
-  <section class="dnd-hero">
-    <div class="dnd-container dnd-hero__grid">
-      <div class="dnd-hero__content">
-        <span class="dnd-eyebrow">Balaton-felvidék • közvetlen foglalás</span>
-        <h1 class="dnd-title">
-          Természetközeli szállások, ahol tényleg le lehet lassulni.
-        </h1>
-        <p class="dnd-lead">
-          A Dandelion Vendégházak célja nem csak az, hogy legyen hol aludni.
-          Hanem az, hogy a vendég már az első pillanatban érezze: jó helyre jött.
-        </p>
-
-        <div class="dnd-hero__actions">
-          <a href="#" class="dnd-btn dnd-btn--primary">Foglalás</a>
-          <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállások</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="dnd-section dnd-section--line">
-    <div class="dnd-container">
-      <h2 class="dnd-section-title">Miért fog ez működni?</h2>
-
-      <div class="dnd-card-grid">
-        <article class="dnd-card">
-          <h3>Gyors és tiszta</h3>
-          <p>
-            Nincs WordPress és nincs builder-terhelés. A cél a gyors, jól
-            kontrollálható oldal.
-          </p>
-        </article>
-
-        <article class="dnd-card">
-          <h3>Szállásra optimalizált</h3>
-          <p>
-            Minden oldal a közvetlen foglalást támogatja, nem csak információt
-            önt ki magából.
-          </p>
-        </article>
-
-        <article class="dnd-card">
-          <h3>AI-val fejleszthető</h3>
-          <p>
-            Az oldal komponens-alapú lesz, ezért gyorsan lehet új házat,
-            landing oldalt vagy új blokkot építeni.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
+<BaseLayout>
+  <Hero />
+  <Why />
 </BaseLayout>
