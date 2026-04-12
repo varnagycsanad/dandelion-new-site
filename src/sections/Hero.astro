@@ -1,6 +1,9 @@
 ---
 const bookingLink =
   "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+const heroVideo =
+  "https://dandelionhouse.hu/wp-content/uploads/2025/08/202507-V1.mp4";
+const heroPoster = "";
 ---
 
 <section class="dnd-hero">
@@ -39,20 +42,22 @@ const bookingLink =
     </div>
 
     <div class="dnd-hero__visual">
-      <div class="dnd-hero__image-stack">
-        <img
-          class="dnd-hero__image dnd-hero__image--large"
-          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
-          alt="Modern vendégház enteriőr"
-        />
-        <img
-          class="dnd-hero__image dnd-hero__image--small"
-          src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=900&q=80"
-          alt="Balaton-felvidéki természetközeli hangulat"
-        />
+      <div class="dnd-hero__media-shell">
+        <video
+          class="dnd-hero__video"
+          src={heroVideo}
+          poster={heroPoster}
+          autoplay
+          muted
+          loop
+          playsinline
+        >
+          A böngésződ nem támogatja a háttérvideó lejátszását.
+        </video>
+        <div class="dnd-hero__video-overlay"></div>
         <div class="dnd-hero__floating-card">
-          <span class="dnd-hero__floating-label">Boutique rural stay</span>
-          <strong>Letisztult terek, csendes reggelek, erős helyszínélmény.</strong>
+          <span class="dnd-hero__floating-label">Hero film</span>
+          <strong>Hangulat, fények és helyszínélmény ugyanabban a prémium nyitóképben.</strong>
         </div>
       </div>
     </div>
