@@ -5,6 +5,10 @@ import {
   readHomepageImageMapping,
   type HomepageImageMapping
 } from "../lib/homepage-image-mapping";
+import {
+  apartmentOptions,
+  readMediaApartmentAssignments
+} from "../lib/media-apartment-assignments";
 import { fetchWordPressMedia } from "../lib/wp-media";
 
 const requestedSlot = Astro.url.searchParams.get("slot");
@@ -13,6 +17,7 @@ const initialSlotKey =
   homepageImageSlots[0].key;
 
 let mapping: HomepageImageMapping = await readHomepageImageMapping();
+const apartmentAssignments = await readMediaApartmentAssignments();
 let mediaItems = [];
 let mediaError = "";
 let mediaWarning = "";
@@ -30,8 +35,11 @@ try {
 const initialState = {
   slots: homepageImageSlots,
   mapping,
+  apartmentOptions,
+  apartmentAssignments,
   mediaItems,
-  initialSlotKey
+  initialSlotKey,
+  initialApartmentFilter: "all"
 };
 const initialSelectedMedia =
   mediaItems.find((item) => item.id === mapping[initialSlotKey]?.id) || null;
@@ -69,11 +77,35 @@ const initialSelectedMedia =
       <p id="dnd-image-admin-meta-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
         Hiba: A meta mentése nem sikerült.
       </p>
+      <p id="dnd-image-admin-apartment-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
+        A lakas hozzarendelese elmentve.
+      </p>
+      <p id="dnd-image-admin-apartment-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
+        Hiba: A lakas hozzarendelese nem sikerult.
+      </p>
       {mediaWarning && <p class="dnd-image-admin__notice dnd-image-admin__notice--warning">{mediaWarning}</p>}
       {mediaError && <p class="dnd-image-admin__notice dnd-image-admin__notice--error">Hiba: {mediaError}</p>}
 
       <div class="dnd-image-admin__layout">
         <aside class="dnd-image-admin__sidebar">
+          <div class="dnd-image-admin__panel">
+            <h2>Lakas szuro</h2>
+            <div class="dnd-image-admin__filter-list">
+              {apartmentOptions.map((option) => (
+                <button
+                  type="button"
+                  class:list={[
+                    "dnd-image-admin__filter-button",
+                    option.key === "all" && "is-active"
+                  ]}
+                  data-apartment-filter={option.key}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div class="dnd-image-admin__panel">
             <h2>Képhelyek</h2>
             <div class="dnd-image-admin__slot-list">
@@ -197,6 +229,33 @@ const initialSelectedMedia =
                         disabled={!initialSelectedMedia}
                       >{initialSelectedMedia?.description || ""}</textarea>
                     </label>
+                    <label class="dnd-image-admin__field">
+                      <span>Hozzarendelt lakas</span>
+                      <select
+                        id="dnd-image-admin-apartment-select"
+                        disabled={!initialSelectedMedia}
+                      >
+                        <option value="">Nincs hozzarendelve</option>
+                        {apartmentOptions
+                          .filter((option) => option.key !== "all")
+                          .map((option) => (
+                            <option
+                              value={option.key}
+                              selected={apartmentAssignments[String(initialSelectedMedia?.id || "")] === option.key}
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                    <button
+                      id="dnd-image-admin-apartment-submit"
+                      class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                      type="button"
+                      disabled={!initialSelectedMedia}
+                    >
+                      Lakas hozzarendeles mentese
+                    </button>
                     <button
                       id="dnd-image-admin-meta-submit"
                       class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
@@ -235,6 +294,7 @@ const initialSelectedMedia =
                     data-media-id={item.id}
                     data-title={item.title.toLowerCase()}
                     data-alt={item.altText.toLowerCase()}
+                    data-apartment={apartmentAssignments[String(item.id)] || ""}
                   >
                     <img
                       src={item.thumbnailUrl || item.sourceUrl}
@@ -263,6 +323,7 @@ const initialSelectedMedia =
     if (stateElement) {
       const state = JSON.parse(stateElement.textContent || "{}");
       const slotButtons = Array.from(document.querySelectorAll("[data-slot-key]"));
+      const apartmentFilterButtons = Array.from(document.querySelectorAll("[data-apartment-filter]"));
       const mediaCards = Array.from(document.querySelectorAll("[data-media-id]"));
       const mappingInput = document.getElementById("dnd-image-admin-mapping-input");
       const slotInput = document.getElementById("dnd-image-admin-slot-input");
@@ -286,13 +347,20 @@ const initialSelectedMedia =
       const metaAlt = document.getElementById("dnd-image-admin-meta-alt");
       const metaTitle = document.getElementById("dnd-image-admin-meta-title");
       const metaDescription = document.getElementById("dnd-image-admin-meta-description");
+      const apartmentSuccess = document.getElementById("dnd-image-admin-apartment-success");
+      const apartmentError = document.getElementById("dnd-image-admin-apartment-error");
+      const apartmentSelect = document.getElementById("dnd-image-admin-apartment-select");
+      const apartmentSubmit = document.getElementById("dnd-image-admin-apartment-submit");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
       const primarySizeNames = ["full", "large", "medium_large", "medium", "thumbnail"];
 
 
       let activeSlotKey = state.initialSlotKey;
+      let activeApartmentFilter = state.initialApartmentFilter || "all";
       let mapping = state.mapping || {};
+      let apartmentAssignments = state.apartmentAssignments || {};
       let isMetaSaving = false;
+      let isApartmentSaving = false;
       let mediaMetaOverrides = {};
 
       function getSlotDefinition(slotKey) {
@@ -351,6 +419,16 @@ const initialSelectedMedia =
         };
       }
 
+      function getSelectedApartmentAssignment() {
+        const mediaItem = getSelectedMediaForEditor();
+
+        if (!mediaItem) {
+          return "";
+        }
+
+        return apartmentAssignments[String(mediaItem.id)] || "";
+      }
+
       function showMetaMessage(success, message) {
         if (metaSuccess) {
           metaSuccess.classList.toggle("is-hidden", !success);
@@ -361,6 +439,25 @@ const initialSelectedMedia =
           if (!success) {
             metaError.textContent = `Hiba: ${message}`;
           }
+        }
+      }
+
+      function showApartmentMessage(success, message) {
+        if (apartmentSuccess) {
+          apartmentSuccess.classList.toggle("is-hidden", !success);
+        }
+
+        if (apartmentError) {
+          apartmentError.classList.toggle("is-hidden", success);
+          if (!success) {
+            apartmentError.textContent = `Hiba: ${message}`;
+          }
+        }
+      }
+
+      function updateApartmentSubmitState(hasMedia) {
+        if (apartmentSubmit) {
+          apartmentSubmit.disabled = !hasMedia || isApartmentSaving;
         }
       }
 
@@ -392,7 +489,13 @@ const initialSelectedMedia =
           metaDescription.disabled = !hasMedia;
         }
 
+        if (apartmentSelect) {
+          apartmentSelect.value = hasMedia ? getSelectedApartmentAssignment() : "";
+          apartmentSelect.disabled = !hasMedia;
+        }
+
         updateMetaSubmitState(hasMedia);
+        updateApartmentSubmitState(hasMedia);
       }
 
       function updateSelectedMediaState(nextMedia) {
@@ -575,6 +678,42 @@ const initialSelectedMedia =
         });
       }
 
+      function renderApartmentFilter() {
+        apartmentFilterButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.apartmentFilter === activeApartmentFilter);
+        });
+      }
+
+      function renderMediaGridVisibility() {
+        const searchTerm = searchInput?.value.trim().toLowerCase() || "";
+
+        mediaCards.forEach((card) => {
+          const haystack = `${card.dataset.title || ""} ${card.dataset.alt || ""}`;
+          const apartmentKey = card.dataset.apartment || "";
+          const matchesSearch = searchTerm.length === 0 || haystack.includes(searchTerm);
+          const matchesApartment =
+            activeApartmentFilter === "all" || apartmentKey === activeApartmentFilter;
+
+          card.hidden = !matchesSearch || !matchesApartment;
+        });
+      }
+
+      function updateApartmentAssignmentState(mediaId, apartmentKey) {
+        if (apartmentKey) {
+          apartmentAssignments[String(mediaId)] = apartmentKey;
+        } else {
+          delete apartmentAssignments[String(mediaId)];
+        }
+
+        const mediaCard = mediaCards.find(
+          (card) => Number(card.dataset.mediaId) === Number(mediaId)
+        );
+
+        if (mediaCard) {
+          mediaCard.dataset.apartment = apartmentKey || "";
+        }
+      }
+
       function renderMediaSelection() {
         mediaCards.forEach((card) => {
           const mediaId = Number(card.dataset.mediaId);
@@ -640,8 +779,16 @@ const initialSelectedMedia =
         if (metaError) {
           metaError.classList.add("is-hidden");
         }
+        if (apartmentSuccess) {
+          apartmentSuccess.classList.add("is-hidden");
+        }
+        if (apartmentError) {
+          apartmentError.classList.add("is-hidden");
+        }
+        renderApartmentFilter();
         renderSlotList();
         renderMediaSelection();
+        renderMediaGridVisibility();
         renderPreview();
       }
 
@@ -662,6 +809,14 @@ const initialSelectedMedia =
         button.addEventListener("click", () => {
           activeSlotKey = button.dataset.slotKey || activeSlotKey;
           renderAll();
+        });
+      });
+
+      apartmentFilterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeApartmentFilter = button.dataset.apartmentFilter || "all";
+          renderApartmentFilter();
+          renderMediaGridVisibility();
         });
       });
 
@@ -693,12 +848,7 @@ const initialSelectedMedia =
 
       if (searchInput) {
         searchInput.addEventListener("input", () => {
-          const term = searchInput.value.trim().toLowerCase();
-
-          mediaCards.forEach((card) => {
-            const haystack = `${card.dataset.title || ""} ${card.dataset.alt || ""}`;
-            card.hidden = term.length > 0 && !haystack.includes(term);
-          });
+          renderMediaGridVisibility();
         });
       }
 
@@ -719,6 +869,20 @@ const initialSelectedMedia =
           updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
         });
       });
+
+      if (apartmentSelect) {
+        apartmentSelect.addEventListener("change", () => {
+          if (apartmentSuccess) {
+            apartmentSuccess.classList.add("is-hidden");
+          }
+
+          if (apartmentError) {
+            apartmentError.classList.add("is-hidden");
+          }
+
+          updateApartmentSubmitState(Boolean(getSelectedMediaForEditor()));
+        });
+      }
 
       if (saveForm) {
         saveForm.addEventListener("submit", async (event) => {
@@ -805,6 +969,53 @@ const initialSelectedMedia =
         });
       }
 
+      if (apartmentSubmit) {
+        apartmentSubmit.addEventListener("click", async () => {
+          const selectedMediaItem = getSelectedMediaForEditor();
+
+          if (!selectedMediaItem || !apartmentSelect) {
+            showApartmentMessage(false, "Nincs kiválasztott kép a lakás hozzárendeléshez.");
+            return;
+          }
+
+          try {
+            isApartmentSaving = true;
+            updateApartmentSubmitState(true);
+
+            const response = await fetch("/api/image-admin/save-apartment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                id: selectedMediaItem.id,
+                apartmentKey: apartmentSelect.value || null
+              })
+            });
+
+            if (!response.ok) {
+              const payload = await response.json().catch(() => null);
+              throw new Error(payload?.message || "A lakás hozzárendelése nem sikerült.");
+            }
+
+            const payload = await response.json();
+
+            updateApartmentAssignmentState(payload?.id, payload?.apartmentKey || null);
+            renderApartmentFilter();
+            renderMediaGridVisibility();
+            showApartmentMessage(true, "");
+          } catch (error) {
+            showApartmentMessage(
+              false,
+              error instanceof Error ? error.message : "A lakás hozzárendelése nem sikerült."
+            );
+          } finally {
+            isApartmentSaving = false;
+            updateApartmentSubmitState(Boolean(getSelectedMediaForEditor()));
+          }
+        });
+      }
+
       renderAll();
     }
   </script>
@@ -878,7 +1089,14 @@ const initialSelectedMedia =
       margin-top: 18px;
     }
 
+    .dnd-image-admin__filter-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
     .dnd-image-admin__slot-button,
+    .dnd-image-admin__filter-button,
     .dnd-image-admin__media-card {
       width: 100%;
       border: 1px solid rgba(0, 0, 0, 0.08);
@@ -893,13 +1111,23 @@ const initialSelectedMedia =
       transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .dnd-image-admin__filter-button {
+      padding: 12px 14px;
+      border-radius: 14px;
+      font: inherit;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
     .dnd-image-admin__slot-button:hover,
+    .dnd-image-admin__filter-button:hover,
     .dnd-image-admin__media-card:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
     }
 
     .dnd-image-admin__slot-button.is-active,
+    .dnd-image-admin__filter-button.is-active,
     .dnd-image-admin__media-card.is-selected {
       border-color: var(--dnd-accent);
       box-shadow: 0 0 0 2px rgba(217, 158, 43, 0.18);
@@ -1085,6 +1313,7 @@ const initialSelectedMedia =
     }
 
     .dnd-image-admin__field input,
+    .dnd-image-admin__field select,
     .dnd-image-admin__field textarea {
       width: 100%;
       min-height: 38px;
