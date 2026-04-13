@@ -83,6 +83,12 @@ const initialSelectedMedia =
       <p id="dnd-image-admin-apartment-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
         Hiba: A lakas hozzarendelese nem sikerult.
       </p>
+      <p id="dnd-image-admin-bulk-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
+        A kivalasztott kepek lakas hozzarendelese elmentve.
+      </p>
+      <p id="dnd-image-admin-bulk-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
+        Hiba: A tobbes lakas hozzarendelese nem sikerult.
+      </p>
       {mediaWarning && <p class="dnd-image-admin__notice dnd-image-admin__notice--warning">{mediaWarning}</p>}
       {mediaError && <p class="dnd-image-admin__notice dnd-image-admin__notice--error">Hiba: {mediaError}</p>}
 
@@ -285,17 +291,63 @@ const initialSelectedMedia =
               </label>
             </div>
 
+            <div class="dnd-image-admin__bulk-bar">
+              <div class="dnd-image-admin__bulk-copy">
+                <strong id="dnd-image-admin-bulk-count">0 kep kijelolve</strong>
+                <span>Jelolj ki tobb kepet, majd add meg a cel lakast.</span>
+              </div>
+              <div class="dnd-image-admin__bulk-actions">
+                <select id="dnd-image-admin-bulk-apartment-select">
+                  <option value="">Valassz lakast</option>
+                  {apartmentOptions
+                    .filter((option) => option.key !== "all")
+                    .map((option) => (
+                      <option value={option.key}>{option.label}</option>
+                    ))}
+                </select>
+                <button
+                  id="dnd-image-admin-bulk-submit"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__bulk-button"
+                  type="button"
+                  disabled
+                >
+                  Bulk lakas hozzarendeles
+                </button>
+                <button
+                  id="dnd-image-admin-bulk-clear"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__bulk-button"
+                  type="button"
+                  disabled
+                >
+                  Osszes kijeloles torlese
+                </button>
+              </div>
+            </div>
+
             {!mediaError && (
               <div id="dnd-image-admin-grid" class="dnd-image-admin__media-grid">
                 {mediaItems.map((item) => (
-                  <button
-                    type="button"
+                  <article
                     class="dnd-image-admin__media-card"
                     data-media-id={item.id}
                     data-title={item.title.toLowerCase()}
                     data-alt={item.altText.toLowerCase()}
                     data-apartment={apartmentAssignments[String(item.id)] || ""}
+                    data-bulk-selected="false"
                   >
+                    <button
+                      type="button"
+                      class="dnd-image-admin__media-bulk-toggle"
+                      data-bulk-toggle={item.id}
+                      aria-pressed="false"
+                    >
+                      Kijeloles
+                    </button>
+                    <button
+                      type="button"
+                      class="dnd-image-admin__media-open"
+                      data-open-media={item.id}
+                    >
                     <img
                       src={item.thumbnailUrl || item.sourceUrl}
                       alt={item.altText || item.title}
@@ -305,7 +357,8 @@ const initialSelectedMedia =
                       <strong>{item.title}</strong>
                       <small>{item.altText || "Nincs alt szöveg"}</small>
                     </span>
-                  </button>
+                    </button>
+                  </article>
                 ))}
               </div>
             )}
@@ -325,6 +378,8 @@ const initialSelectedMedia =
       const slotButtons = Array.from(document.querySelectorAll("[data-slot-key]"));
       const apartmentFilterButtons = Array.from(document.querySelectorAll("[data-apartment-filter]"));
       const mediaCards = Array.from(document.querySelectorAll("[data-media-id]"));
+      const mediaOpenButtons = Array.from(document.querySelectorAll("[data-open-media]"));
+      const mediaBulkToggleButtons = Array.from(document.querySelectorAll("[data-bulk-toggle]"));
       const mappingInput = document.getElementById("dnd-image-admin-mapping-input");
       const slotInput = document.getElementById("dnd-image-admin-slot-input");
       const saveForm = document.getElementById("dnd-image-admin-save-form");
@@ -351,6 +406,12 @@ const initialSelectedMedia =
       const apartmentError = document.getElementById("dnd-image-admin-apartment-error");
       const apartmentSelect = document.getElementById("dnd-image-admin-apartment-select");
       const apartmentSubmit = document.getElementById("dnd-image-admin-apartment-submit");
+      const bulkSuccess = document.getElementById("dnd-image-admin-bulk-success");
+      const bulkError = document.getElementById("dnd-image-admin-bulk-error");
+      const bulkCount = document.getElementById("dnd-image-admin-bulk-count");
+      const bulkApartmentSelect = document.getElementById("dnd-image-admin-bulk-apartment-select");
+      const bulkSubmit = document.getElementById("dnd-image-admin-bulk-submit");
+      const bulkClear = document.getElementById("dnd-image-admin-bulk-clear");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
       const primarySizeNames = ["full", "large", "medium_large", "medium", "thumbnail"];
 
@@ -361,6 +422,8 @@ const initialSelectedMedia =
       let apartmentAssignments = state.apartmentAssignments || {};
       let isMetaSaving = false;
       let isApartmentSaving = false;
+      let isBulkSaving = false;
+      let selectedBulkMediaIds = [];
       let mediaMetaOverrides = {};
 
       function getSlotDefinition(slotKey) {
@@ -455,9 +518,35 @@ const initialSelectedMedia =
         }
       }
 
+      function showBulkMessage(success, message) {
+        if (bulkSuccess) {
+          bulkSuccess.classList.toggle("is-hidden", !success);
+        }
+
+        if (bulkError) {
+          bulkError.classList.toggle("is-hidden", success);
+          if (!success) {
+            bulkError.textContent = `Hiba: ${message}`;
+          }
+        }
+      }
+
       function updateApartmentSubmitState(hasMedia) {
         if (apartmentSubmit) {
           apartmentSubmit.disabled = !hasMedia || isApartmentSaving;
+        }
+      }
+
+      function updateBulkSubmitState() {
+        const hasSelection = selectedBulkMediaIds.length > 0;
+        const hasApartment = Boolean(bulkApartmentSelect?.value);
+
+        if (bulkSubmit) {
+          bulkSubmit.disabled = !hasSelection || !hasApartment || isBulkSaving;
+        }
+
+        if (bulkClear) {
+          bulkClear.disabled = !hasSelection || isBulkSaving;
         }
       }
 
@@ -684,6 +773,29 @@ const initialSelectedMedia =
         });
       }
 
+      function renderBulkSelection() {
+        const selectedIds = new Set(selectedBulkMediaIds.map((id) => String(id)));
+
+        mediaCards.forEach((card) => {
+          const isSelected = selectedIds.has(String(card.dataset.mediaId));
+          card.dataset.bulkSelected = isSelected ? "true" : "false";
+          card.classList.toggle("is-bulk-selected", isSelected);
+        });
+
+        mediaBulkToggleButtons.forEach((button) => {
+          const isSelected = selectedIds.has(String(button.dataset.bulkToggle));
+          button.classList.toggle("is-active", isSelected);
+          button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+          button.textContent = isSelected ? "Kijelolve" : "Kijeloles";
+        });
+
+        if (bulkCount) {
+          bulkCount.textContent = `${selectedBulkMediaIds.length} kep kijelolve`;
+        }
+
+        updateBulkSubmitState();
+      }
+
       function renderMediaGridVisibility() {
         const searchTerm = searchInput?.value.trim().toLowerCase() || "";
 
@@ -711,6 +823,22 @@ const initialSelectedMedia =
 
         if (mediaCard) {
           mediaCard.dataset.apartment = apartmentKey || "";
+        }
+      }
+
+      function updateApartmentAssignmentsState(mediaIds, apartmentKey) {
+        mediaIds.forEach((mediaId) => {
+          updateApartmentAssignmentState(mediaId, apartmentKey);
+        });
+
+        const selectedMediaItem = getSelectedMediaForEditor();
+
+        if (
+          apartmentSelect &&
+          selectedMediaItem &&
+          mediaIds.some((mediaId) => Number(mediaId) === Number(selectedMediaItem.id))
+        ) {
+          apartmentSelect.value = apartmentKey || "";
         }
       }
 
@@ -785,7 +913,14 @@ const initialSelectedMedia =
         if (apartmentError) {
           apartmentError.classList.add("is-hidden");
         }
+        if (bulkSuccess) {
+          bulkSuccess.classList.add("is-hidden");
+        }
+        if (bulkError) {
+          bulkError.classList.add("is-hidden");
+        }
         renderApartmentFilter();
+        renderBulkSelection();
         renderSlotList();
         renderMediaSelection();
         renderMediaGridVisibility();
@@ -820,9 +955,9 @@ const initialSelectedMedia =
         });
       });
 
-      mediaCards.forEach((card) => {
-        card.addEventListener("click", () => {
-          const item = getMediaItem(card.dataset.mediaId);
+      mediaOpenButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = getMediaItem(button.dataset.openMedia);
           if (!item) {
             return;
           }
@@ -836,6 +971,33 @@ const initialSelectedMedia =
           };
 
           renderAll();
+        });
+      });
+
+      mediaBulkToggleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const mediaId = Number(button.dataset.bulkToggle);
+
+          if (!mediaId) {
+            return;
+          }
+
+          if (selectedBulkMediaIds.includes(mediaId)) {
+            selectedBulkMediaIds = selectedBulkMediaIds.filter((id) => id !== mediaId);
+          } else {
+            selectedBulkMediaIds = [...selectedBulkMediaIds, mediaId];
+          }
+
+          if (bulkSuccess) {
+            bulkSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkError) {
+            bulkError.classList.add("is-hidden");
+          }
+
+          renderBulkSelection();
+          renderMediaGridVisibility();
         });
       });
 
@@ -881,6 +1043,20 @@ const initialSelectedMedia =
           }
 
           updateApartmentSubmitState(Boolean(getSelectedMediaForEditor()));
+        });
+      }
+
+      if (bulkApartmentSelect) {
+        bulkApartmentSelect.addEventListener("change", () => {
+          if (bulkSuccess) {
+            bulkSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkError) {
+            bulkError.classList.add("is-hidden");
+          }
+
+          updateBulkSubmitState();
         });
       }
 
@@ -1012,6 +1188,68 @@ const initialSelectedMedia =
           } finally {
             isApartmentSaving = false;
             updateApartmentSubmitState(Boolean(getSelectedMediaForEditor()));
+          }
+        });
+      }
+
+      if (bulkClear) {
+        bulkClear.addEventListener("click", () => {
+          selectedBulkMediaIds = [];
+
+          if (bulkSuccess) {
+            bulkSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkError) {
+            bulkError.classList.add("is-hidden");
+          }
+
+          renderBulkSelection();
+          renderMediaGridVisibility();
+        });
+      }
+
+      if (bulkSubmit) {
+        bulkSubmit.addEventListener("click", async () => {
+          if (!bulkApartmentSelect || !bulkApartmentSelect.value || selectedBulkMediaIds.length === 0) {
+            showBulkMessage(false, "Valassz lakast es legalabb egy kepet a tobbes menteshez.");
+            return;
+          }
+
+          try {
+            isBulkSaving = true;
+            updateBulkSubmitState();
+
+            const response = await fetch("/api/image-admin/save-apartments", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                ids: selectedBulkMediaIds,
+                apartmentKey: bulkApartmentSelect.value
+              })
+            });
+
+            if (!response.ok) {
+              const payload = await response.json().catch(() => null);
+              throw new Error(payload?.message || "A tobbes lakas hozzarendelese nem sikerult.");
+            }
+
+            const payload = await response.json();
+            updateApartmentAssignmentsState(payload?.ids || [], payload?.apartmentKey || null);
+            selectedBulkMediaIds = [];
+            renderBulkSelection();
+            renderMediaGridVisibility();
+            showBulkMessage(true, "");
+          } catch (error) {
+            showBulkMessage(
+              false,
+              error instanceof Error ? error.message : "A tobbes lakas hozzarendelese nem sikerult."
+            );
+          } finally {
+            isBulkSaving = false;
+            updateBulkSubmitState();
           }
         });
       }
@@ -1153,6 +1391,52 @@ const initialSelectedMedia =
       justify-content: space-between;
       gap: 16px;
       margin-bottom: 20px;
+    }
+
+    .dnd-image-admin__bulk-bar {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 18px;
+      background: rgba(246, 240, 228, 0.42);
+    }
+
+    .dnd-image-admin__bulk-copy {
+      display: grid;
+      gap: 4px;
+    }
+
+    .dnd-image-admin__bulk-copy strong {
+      font-size: 0.98rem;
+    }
+
+    .dnd-image-admin__bulk-copy span {
+      color: rgba(0, 0, 0, 0.62);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .dnd-image-admin__bulk-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dnd-image-admin__bulk-actions select {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      background: #fff;
+      font: inherit;
+    }
+
+    .dnd-image-admin__bulk-button {
+      min-height: 42px;
+      padding: 0 16px;
     }
 
     .dnd-image-admin__panel-kicker {
@@ -1487,9 +1771,47 @@ const initialSelectedMedia =
     }
 
     .dnd-image-admin__media-card {
+      position: relative;
       overflow: hidden;
       padding: 0;
       border-radius: 20px;
+    }
+
+    .dnd-image-admin__media-open {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .dnd-image-admin__media-bulk-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .dnd-image-admin__media-bulk-toggle.is-active,
+    .dnd-image-admin__media-card.is-bulk-selected .dnd-image-admin__media-bulk-toggle {
+      background: var(--dnd-accent);
+      border-color: var(--dnd-accent);
+      color: #000;
+    }
+
+    .dnd-image-admin__media-card.is-bulk-selected {
+      border-color: #000;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12);
     }
 
     .dnd-image-admin__media-card img {
@@ -1553,6 +1875,16 @@ const initialSelectedMedia =
       }
 
       .dnd-image-admin__save {
+        width: 100%;
+      }
+
+      .dnd-image-admin__bulk-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dnd-image-admin__bulk-actions select,
+      .dnd-image-admin__bulk-button {
         width: 100%;
       }
 
