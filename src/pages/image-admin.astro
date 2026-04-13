@@ -15,9 +15,13 @@ const initialSlotKey =
 let mapping: HomepageImageMapping = await readHomepageImageMapping();
 let mediaItems = [];
 let mediaError = "";
+let mediaWarning = "";
 
 try {
-  mediaItems = await fetchWordPressMedia();
+  const mediaResult = await fetchWordPressMedia();
+  mediaItems = mediaResult.items;
+  mediaError = mediaResult.error;
+  mediaWarning = mediaResult.warning;
 } catch (error) {
   mediaError =
     error instanceof Error ? error.message : "A WordPress média lekérése nem sikerült.";
@@ -29,6 +33,8 @@ const initialState = {
   mediaItems,
   initialSlotKey
 };
+const initialSelectedMedia =
+  mediaItems.find((item) => item.id === mapping[initialSlotKey]?.id) || null;
 ---
 
 <BaseLayout title="Képkezelő admin" description="Dandelion WP média és főoldali képhoztárendelések kezelése.">
@@ -57,6 +63,13 @@ const initialState = {
       <p id="dnd-image-admin-save-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
         Hiba: A mentés nem sikerült.
       </p>
+      <p id="dnd-image-admin-meta-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
+        A kép meta adatai elmentve.
+      </p>
+      <p id="dnd-image-admin-meta-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
+        Hiba: A meta mentése nem sikerült.
+      </p>
+      {mediaWarning && <p class="dnd-image-admin__notice dnd-image-admin__notice--warning">{mediaWarning}</p>}
       {mediaError && <p class="dnd-image-admin__notice dnd-image-admin__notice--error">Hiba: {mediaError}</p>}
 
       <div class="dnd-image-admin__layout">
@@ -139,10 +152,59 @@ const initialState = {
                   Eredeti kép megnyitása
                 </a>
 
-                <div class="dnd-image-admin__sizes">
-                  <p class="dnd-image-admin__panel-kicker">Elérhető méretek</p>
+                <details class="dnd-image-admin__meta-editor" open>
+                  <summary>Cím / Meta adatok</summary>
+                  <form id="dnd-image-admin-meta-form" class="dnd-image-admin__meta-form">
+                    <label class="dnd-image-admin__field">
+                      <span>Fájlnév</span>
+                      <input
+                        id="dnd-image-admin-meta-filename"
+                        type="text"
+                        value={initialSelectedMedia?.filename || ""}
+                        readonly
+                      />
+                    </label>
+                    <label class="dnd-image-admin__field">
+                      <span>Alt szöveg</span>
+                      <input
+                        id="dnd-image-admin-meta-alt"
+                        type="text"
+                        value={initialSelectedMedia?.altText || ""}
+                        disabled={!initialSelectedMedia}
+                      />
+                    </label>
+                    <label class="dnd-image-admin__field">
+                      <span>Cím</span>
+                      <input
+                        id="dnd-image-admin-meta-title"
+                        type="text"
+                        value={initialSelectedMedia?.title || ""}
+                        disabled={!initialSelectedMedia}
+                      />
+                    </label>
+                    <label class="dnd-image-admin__field">
+                      <span>Leírás</span>
+                      <textarea
+                        id="dnd-image-admin-meta-description"
+                        rows="3"
+                        disabled={!initialSelectedMedia}
+                      >{initialSelectedMedia?.description || ""}</textarea>
+                    </label>
+                    <button
+                      id="dnd-image-admin-meta-submit"
+                      class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                      type="submit"
+                      disabled={!initialSelectedMedia}
+                    >
+                      Meta adatok mentése
+                    </button>
+                  </form>
+                </details>
+
+                <details class="dnd-image-admin__sizes" open={false}>
+                  <summary>Elérhető méretek</summary>
                   <div id="dnd-image-admin-sizes"></div>
-                </div>
+                </details>
               </div>
             </div>
           </div>
@@ -214,6 +276,14 @@ const initialState = {
       const currentImageLink = document.getElementById("dnd-image-admin-current-image-link");
       const currentMeta = document.getElementById("dnd-image-admin-current-meta");
       const sizesContainer = document.getElementById("dnd-image-admin-sizes");
+      const metaForm = document.getElementById("dnd-image-admin-meta-form");
+      const metaSuccess = document.getElementById("dnd-image-admin-meta-success");
+      const metaError = document.getElementById("dnd-image-admin-meta-error");
+      const metaFilename = document.getElementById("dnd-image-admin-meta-filename");
+      const metaAlt = document.getElementById("dnd-image-admin-meta-alt");
+      const metaTitle = document.getElementById("dnd-image-admin-meta-title");
+      const metaDescription = document.getElementById("dnd-image-admin-meta-description");
+      const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
       const primarySizeNames = ["full", "large", "medium_large", "medium", "thumbnail"];
 
 
@@ -226,6 +296,77 @@ const initialState = {
 
       function getMediaItem(mediaId) {
         return (state.mediaItems || []).find((item) => String(item.id) === String(mediaId));
+      }
+
+      function getSelectedMediaItem() {
+        const selected = mapping[activeSlotKey];
+        return selected ? getMediaItem(selected.id) : null;
+      }
+
+      function showMetaMessage(success, message) {
+        if (metaSuccess) {
+          metaSuccess.classList.toggle("is-hidden", !success);
+        }
+
+        if (metaError) {
+          metaError.classList.toggle("is-hidden", success);
+          if (!success) {
+            metaError.textContent = `Hiba: ${message}`;
+          }
+        }
+      }
+
+      function renderMetaEditor(mediaItem) {
+        const hasMedia = Boolean(mediaItem);
+
+        if (metaFilename) {
+          metaFilename.value = mediaItem?.filename || "";
+        }
+
+        if (metaAlt) {
+          metaAlt.value = mediaItem?.altText || "";
+          metaAlt.disabled = !hasMedia;
+        }
+
+        if (metaTitle) {
+          metaTitle.value = mediaItem?.title || "";
+          metaTitle.disabled = !hasMedia;
+        }
+
+        if (metaDescription) {
+          metaDescription.value = mediaItem?.description || "";
+          metaDescription.disabled = !hasMedia;
+        }
+
+        if (metaSubmit) {
+          metaSubmit.disabled = !hasMedia;
+        }
+      }
+
+      function updateSelectedMediaState(nextMedia) {
+        const selected = mapping[activeSlotKey];
+
+        if (!selected || selected.id !== nextMedia.id) {
+          return;
+        }
+
+        const mediaIndex = (state.mediaItems || []).findIndex((item) => item.id === nextMedia.id);
+
+        if (mediaIndex >= 0) {
+          state.mediaItems[mediaIndex] = {
+            ...state.mediaItems[mediaIndex],
+            filename: nextMedia.filename,
+            title: nextMedia.title,
+            altText: nextMedia.altText,
+            description: nextMedia.description
+          };
+        }
+
+        mapping[activeSlotKey] = {
+          ...selected,
+          title: nextMedia.title,
+          altText: nextMedia.altText
+        };
       }
 
       function renderExtraSizeListItems(sizes) {
@@ -361,6 +502,7 @@ const initialState = {
       function renderPreview() {
         const slot = getSlotDefinition(activeSlotKey);
         const selected = mapping[activeSlotKey];
+        const selectedMediaItem = getSelectedMediaItem();
 
         if (currentSlotTitle) {
           currentSlotTitle.textContent = slot?.label || "";
@@ -386,6 +528,7 @@ const initialState = {
           currentImageAlt.textContent = "Ha kiválasztasz egy képet, itt látod majd az alt szöveget és a fő méreteket.";
           currentImageLink.classList.add("is-hidden");
           currentImageLink.setAttribute("href", "#");
+          renderMetaEditor(null);
           renderSizes(null);
           return;
         }
@@ -401,11 +544,18 @@ const initialState = {
         currentImageAlt.textContent = selected.altText || "Nincs alt szöveg.";
         currentImageLink.classList.remove("is-hidden");
         currentImageLink.setAttribute("href", selected.sourceUrl);
+        renderMetaEditor(selectedMediaItem);
         renderSizes(selected);
       }
 
       function renderAll() {
         syncHiddenInputs();
+        if (metaSuccess) {
+          metaSuccess.classList.add("is-hidden");
+        }
+        if (metaError) {
+          metaError.classList.add("is-hidden");
+        }
         renderSlotList();
         renderMediaSelection();
         renderPreview();
@@ -491,6 +641,57 @@ const initialState = {
             showSaveMessage(
               false,
               error instanceof Error ? error.message : "A mentés nem sikerült."
+            );
+          }
+        });
+      }
+
+      if (metaForm) {
+        metaForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const selectedMediaItem = getSelectedMediaItem();
+
+          if (!selectedMediaItem || !metaAlt || !metaTitle || !metaDescription) {
+            showMetaMessage(false, "Nincs kiválasztott kép a meta adatok mentéséhez.");
+            return;
+          }
+
+          try {
+            const response = await fetch("/api/image-admin/update-media", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                id: selectedMediaItem.id,
+                altText: metaAlt.value,
+                title: metaTitle.value,
+                description: metaDescription.value
+              })
+            });
+
+            if (!response.ok) {
+              const payload = await response.json().catch(() => null);
+              throw new Error(payload?.message || "A meta mentése nem sikerült.");
+            }
+
+            const payload = await response.json();
+            const nextMedia = payload?.media;
+
+            if (!nextMedia?.id) {
+              throw new Error("A WordPress nem adott vissza frissített média adatot.");
+            }
+
+            updateSelectedMediaState(nextMedia);
+            currentImageTitle.textContent = nextMedia.title || "Nincs kiválasztott kép";
+            currentImageAlt.textContent = nextMedia.altText || "Nincs alt szöveg.";
+            renderAll();
+            showMetaMessage(true, "");
+          } catch (error) {
+            showMetaMessage(
+              false,
+              error instanceof Error ? error.message : "A meta mentése nem sikerült."
             );
           }
         });
@@ -710,29 +911,109 @@ const initialState = {
       display: none;
     }
 
+    .dnd-image-admin__meta-editor,
     .dnd-image-admin__sizes {
       margin-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 10px;
+    }
+
+    .dnd-image-admin__meta-editor summary,
+    .dnd-image-admin__sizes summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dnd-accent);
+    }
+
+    .dnd-image-admin__meta-editor summary::-webkit-details-marker,
+    .dnd-image-admin__sizes summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dnd-image-admin__meta-editor summary::before,
+    .dnd-image-admin__sizes summary::before {
+      content: "+";
+      display: inline-block;
+      margin-right: 8px;
+      font-weight: 700;
+    }
+
+    .dnd-image-admin__meta-editor[open] summary::before,
+    .dnd-image-admin__sizes[open] summary::before {
+      content: "−";
+    }
+
+    .dnd-image-admin__meta-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .dnd-image-admin__field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .dnd-image-admin__field span {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    .dnd-image-admin__field input,
+    .dnd-image-admin__field textarea {
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      font: inherit;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: inherit;
+    }
+
+    .dnd-image-admin__field textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .dnd-image-admin__field input[readonly] {
+      background: rgba(0, 0, 0, 0.03);
+      color: rgba(0, 0, 0, 0.58);
+    }
+
+    .dnd-image-admin__field input:disabled,
+    .dnd-image-admin__field textarea:disabled {
+      background: rgba(0, 0, 0, 0.03);
+      color: rgba(0, 0, 0, 0.48);
+      cursor: not-allowed;
     }
 
     .dnd-image-admin__sizes-summary,
     .dnd-image-admin__sizes-empty {
-      margin: 0 0 8px;
+      margin: 10px 0 6px;
       color: rgba(0, 0, 0, 0.68);
-      font-size: 0.86rem;
-      line-height: 1.45;
+      font-size: 0.8rem;
+      line-height: 1.35;
     }
 
     .dnd-image-admin__size-cards {
       display: grid;
-      gap: 8px;
+      gap: 6px;
     }
 
     .dnd-image-admin__size-card {
       display: grid;
-      gap: 5px;
-      padding: 10px 12px;
+      gap: 4px;
+      padding: 8px 10px;
       border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 14px;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.78);
     }
 
@@ -744,7 +1025,7 @@ const initialState = {
     }
 
     .dnd-image-admin__size-card-head strong {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       line-height: 1.2;
     }
 
@@ -760,22 +1041,22 @@ const initialState = {
     .dnd-image-admin__size-card-meta {
       margin: 0;
       color: rgba(0, 0, 0, 0.68);
-      font-size: 0.82rem;
-      line-height: 1.35;
+      font-size: 0.76rem;
+      line-height: 1.3;
     }
 
     .dnd-image-admin__size-card a,
     .dnd-image-admin__size-list-item a {
       text-decoration: underline;
       text-underline-offset: 3px;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       font-weight: 500;
     }
 
     .dnd-image-admin__size-list {
       display: grid;
-      gap: 8px;
-      margin: 8px 0 0;
+      gap: 6px;
+      margin: 10px 0 0;
       padding: 0;
       list-style: none;
     }
@@ -784,8 +1065,8 @@ const initialState = {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 8px 0;
+      gap: 10px;
+      padding: 6px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
 
@@ -802,19 +1083,19 @@ const initialState = {
     .dnd-image-admin__size-list-copy span {
       margin-top: 3px;
       color: rgba(0, 0, 0, 0.68);
-      font-size: 0.8rem;
-      line-height: 1.35;
+      font-size: 0.76rem;
+      line-height: 1.3;
     }
 
     .dnd-image-admin__sizes-details {
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .dnd-image-admin__sizes-details summary {
       cursor: pointer;
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      color: rgba(0, 0, 0, 0.72);
+      color: rgba(0, 0, 0, 0.68);
       list-style: none;
     }
 
@@ -825,7 +1106,7 @@ const initialState = {
     .dnd-image-admin__sizes-details summary::before {
       content: "+";
       display: inline-block;
-      margin-right: 8px;
+      margin-right: 6px;
       font-weight: 700;
     }
 
@@ -889,6 +1170,11 @@ const initialState = {
     .dnd-image-admin__notice--error {
       background: rgba(164, 31, 31, 0.1);
       color: #8a1616;
+    }
+
+    .dnd-image-admin__notice--warning {
+      background: rgba(217, 158, 43, 0.14);
+      color: #7d5600;
     }
 
     .dnd-image-admin__notice.is-hidden {
