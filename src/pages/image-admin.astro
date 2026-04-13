@@ -115,7 +115,8 @@ const initialSelectedMedia =
             </div>
 
             <div class="dnd-image-admin__current-card">
-              <div id="dnd-image-admin-preview" class="dnd-image-admin__preview">
+              <div class="dnd-image-admin__preview-column">
+                <div id="dnd-image-admin-preview" class="dnd-image-admin__preview">
                 {
                   mapping[initialSlotKey] ? (
                     <img
@@ -129,6 +130,12 @@ const initialSelectedMedia =
                     </div>
                   )
                 }
+                </div>
+
+                <details class="dnd-image-admin__sizes" open={false}>
+                  <summary>Elérhető méretek</summary>
+                  <div id="dnd-image-admin-sizes"></div>
+                </details>
               </div>
 
               <div id="dnd-image-admin-current-meta" class="dnd-image-admin__current-meta">
@@ -201,10 +208,6 @@ const initialSelectedMedia =
                   </form>
                 </details>
 
-                <details class="dnd-image-admin__sizes" open={false}>
-                  <summary>Elérhető méretek</summary>
-                  <div id="dnd-image-admin-sizes"></div>
-                </details>
               </div>
             </div>
           </div>
@@ -289,6 +292,8 @@ const initialSelectedMedia =
 
       let activeSlotKey = state.initialSlotKey;
       let mapping = state.mapping || {};
+      let isMetaSaving = false;
+      let mediaMetaOverrides = {};
 
       function getSlotDefinition(slotKey) {
         return (state.slots || []).find((slot) => slot.key === slotKey);
@@ -303,6 +308,49 @@ const initialSelectedMedia =
         return selected ? getMediaItem(selected.id) : null;
       }
 
+      function getSelectedMediaForEditor() {
+        const selectedMediaItem = getSelectedMediaItem();
+        const selected = mapping[activeSlotKey];
+        const override = selected ? mediaMetaOverrides[selected.id] : null;
+
+        if (selectedMediaItem) {
+          return override
+            ? {
+                ...selectedMediaItem,
+                ...override
+              }
+            : selectedMediaItem;
+        }
+
+        if (!selected) {
+          return null;
+        }
+
+        if (override) {
+          return {
+            id: selected.id,
+            filename: override.filename || "",
+            title: override.title || selected.title || "",
+            altText: override.altText || selected.altText || "",
+            description: override.description || "",
+            sourceUrl: selected.sourceUrl || "",
+            thumbnailUrl: selected.thumbnailUrl || "",
+            sizes: []
+          };
+        }
+
+        return {
+          id: selected.id,
+          filename: "",
+          title: selected.title || "",
+          altText: selected.altText || "",
+          description: "",
+          sourceUrl: selected.sourceUrl || "",
+          thumbnailUrl: selected.thumbnailUrl || "",
+          sizes: []
+        };
+      }
+
       function showMetaMessage(success, message) {
         if (metaSuccess) {
           metaSuccess.classList.toggle("is-hidden", !success);
@@ -313,6 +361,12 @@ const initialSelectedMedia =
           if (!success) {
             metaError.textContent = `Hiba: ${message}`;
           }
+        }
+      }
+
+      function updateMetaSubmitState(hasMedia) {
+        if (metaSubmit) {
+          metaSubmit.disabled = !hasMedia || isMetaSaving;
         }
       }
 
@@ -338,13 +392,18 @@ const initialSelectedMedia =
           metaDescription.disabled = !hasMedia;
         }
 
-        if (metaSubmit) {
-          metaSubmit.disabled = !hasMedia;
-        }
+        updateMetaSubmitState(hasMedia);
       }
 
       function updateSelectedMediaState(nextMedia) {
         const selected = mapping[activeSlotKey];
+
+        mediaMetaOverrides[nextMedia.id] = {
+          filename: nextMedia.filename,
+          title: nextMedia.title,
+          altText: nextMedia.altText,
+          description: nextMedia.description
+        };
 
         if (!selected || selected.id !== nextMedia.id) {
           return;
@@ -360,6 +419,31 @@ const initialSelectedMedia =
             altText: nextMedia.altText,
             description: nextMedia.description
           };
+        }
+
+        const mediaCard = mediaCards.find(
+          (card) => Number(card.dataset.mediaId) === nextMedia.id
+        );
+
+        if (mediaCard) {
+          mediaCard.dataset.title = (nextMedia.title || "").toLowerCase();
+          mediaCard.dataset.alt = (nextMedia.altText || "").toLowerCase();
+
+          const image = mediaCard.querySelector("img");
+          const title = mediaCard.querySelector("strong");
+          const alt = mediaCard.querySelector("small");
+
+          if (image) {
+            image.alt = nextMedia.altText || nextMedia.title || "";
+          }
+
+          if (title) {
+            title.textContent = nextMedia.title || "Nincs kiválasztott kép";
+          }
+
+          if (alt) {
+            alt.textContent = nextMedia.altText || "Nincs alt szöveg";
+          }
         }
 
         mapping[activeSlotKey] = {
@@ -502,7 +586,7 @@ const initialSelectedMedia =
       function renderPreview() {
         const slot = getSlotDefinition(activeSlotKey);
         const selected = mapping[activeSlotKey];
-        const selectedMediaItem = getSelectedMediaItem();
+        const selectedMediaItem = getSelectedMediaForEditor();
 
         if (currentSlotTitle) {
           currentSlotTitle.textContent = slot?.label || "";
@@ -618,6 +702,24 @@ const initialSelectedMedia =
         });
       }
 
+      [metaAlt, metaTitle, metaDescription].forEach((field) => {
+        if (!field) {
+          return;
+        }
+
+        field.addEventListener("input", () => {
+          if (metaSuccess) {
+            metaSuccess.classList.add("is-hidden");
+          }
+
+          if (metaError) {
+            metaError.classList.add("is-hidden");
+          }
+
+          updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
+        });
+      });
+
       if (saveForm) {
         saveForm.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -650,7 +752,7 @@ const initialSelectedMedia =
         metaForm.addEventListener("submit", async (event) => {
           event.preventDefault();
 
-          const selectedMediaItem = getSelectedMediaItem();
+          const selectedMediaItem = getSelectedMediaForEditor();
 
           if (!selectedMediaItem || !metaAlt || !metaTitle || !metaDescription) {
             showMetaMessage(false, "Nincs kiválasztott kép a meta adatok mentéséhez.");
@@ -658,6 +760,9 @@ const initialSelectedMedia =
           }
 
           try {
+            isMetaSaving = true;
+            updateMetaSubmitState(true);
+
             const response = await fetch("/api/image-admin/update-media", {
               method: "POST",
               headers: {
@@ -693,6 +798,9 @@ const initialSelectedMedia =
               false,
               error instanceof Error ? error.message : "A meta mentése nem sikerült."
             );
+          } finally {
+            isMetaSaving = false;
+            updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
           }
         });
       }
@@ -833,6 +941,13 @@ const initialSelectedMedia =
       gap: 18px;
     }
 
+    .dnd-image-admin__preview-column {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      min-width: 0;
+    }
+
     .dnd-image-admin__current-meta {
       display: grid;
       align-content: start;
@@ -916,6 +1031,11 @@ const initialSelectedMedia =
       margin-top: 12px;
       border-top: 1px solid rgba(0, 0, 0, 0.08);
       padding-top: 10px;
+    }
+
+    .dnd-image-admin__preview-column .dnd-image-admin__sizes {
+      margin-top: 0;
+      padding-top: 12px;
     }
 
     .dnd-image-admin__meta-editor summary,
