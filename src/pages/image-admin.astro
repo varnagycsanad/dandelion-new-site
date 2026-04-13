@@ -9,6 +9,10 @@ import {
   apartmentOptions,
   readMediaApartmentAssignments
 } from "../lib/media-apartment-assignments";
+import {
+  readMediaSeoFields,
+  themeRoomOptions
+} from "../lib/media-seo-fields";
 import { fetchWordPressMedia } from "../lib/wp-media";
 
 const requestedSlot = Astro.url.searchParams.get("slot");
@@ -18,6 +22,7 @@ const initialSlotKey =
 
 let mapping: HomepageImageMapping = await readHomepageImageMapping();
 const apartmentAssignments = await readMediaApartmentAssignments();
+const mediaSeoFields = await readMediaSeoFields();
 let mediaItems = [];
 let mediaError = "";
 let mediaWarning = "";
@@ -37,9 +42,15 @@ const initialState = {
   mapping,
   apartmentOptions,
   apartmentAssignments,
+  themeRoomOptions,
+  mediaSeoFields,
   mediaItems,
   initialSlotKey,
-  initialApartmentFilter: "all"
+  initialApartmentFilter: "all",
+  initialQuickFilters: {
+    missingAlt: false,
+    unassignedApartment: false
+  }
 };
 const initialSelectedMedia =
   mediaItems.find((item) => item.id === mapping[initialSlotKey]?.id) || null;
@@ -88,6 +99,12 @@ const initialSelectedMedia =
       </p>
       <p id="dnd-image-admin-bulk-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
         Hiba: A tobbes lakas hozzarendelese nem sikerult.
+      </p>
+      <p id="dnd-image-admin-seo-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
+        A kep SEO mezoit elmentettuk.
+      </p>
+      <p id="dnd-image-admin-seo-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
+        Hiba: A kep SEO mezoinek mentese nem sikerult.
       </p>
       {mediaWarning && <p class="dnd-image-admin__notice dnd-image-admin__notice--warning">{mediaWarning}</p>}
       {mediaError && <p class="dnd-image-admin__notice dnd-image-admin__notice--error">Hiba: {mediaError}</p>}
@@ -235,6 +252,59 @@ const initialSelectedMedia =
                         disabled={!initialSelectedMedia}
                       >{initialSelectedMedia?.description || ""}</textarea>
                     </label>
+                    <div class="dnd-image-admin__seo-fields">
+                      <label class="dnd-image-admin__field">
+                        <span>Theme / room</span>
+                        <select
+                          id="dnd-image-admin-seo-theme-room"
+                          disabled={!initialSelectedMedia}
+                        >
+                          {themeRoomOptions.map((option) => (
+                            <option
+                              value={option.key}
+                              selected={mediaSeoFields[String(initialSelectedMedia?.id || "")]?.themeRoom === option.key}
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label class="dnd-image-admin__field">
+                        <span>Feature / focus</span>
+                        <input
+                          id="dnd-image-admin-seo-feature-focus"
+                          type="text"
+                          value={mediaSeoFields[String(initialSelectedMedia?.id || "")]?.featureFocus || ""}
+                          disabled={!initialSelectedMedia}
+                        />
+                      </label>
+                      <div class="dnd-image-admin__seo-actions">
+                        <button
+                          id="dnd-image-admin-suggest-alt"
+                          class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                          type="button"
+                          disabled={!initialSelectedMedia}
+                        >
+                          ALT javaslat
+                        </button>
+                        <button
+                          id="dnd-image-admin-suggest-title"
+                          class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                          type="button"
+                          disabled={!initialSelectedMedia}
+                        >
+                          Title javaslat
+                        </button>
+                        <button
+                          id="dnd-image-admin-seo-submit"
+                          class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                          type="button"
+                          disabled={!initialSelectedMedia}
+                        >
+                          SEO mezok mentese
+                        </button>
+                      </div>
+                    </div>
                     <label class="dnd-image-admin__field">
                       <span>Hozzarendelt lakas</span>
                       <select
@@ -285,10 +355,28 @@ const initialSelectedMedia =
                   Betöltött képek száma: {mediaItems.length}
                 </p>
               </div>
-              <label class="dnd-image-admin__search">
-                <span>Keresés</span>
-                <input id="dnd-image-admin-search" type="search" placeholder="Kép címe vagy alt szöveg" />
-              </label>
+              <div class="dnd-image-admin__media-tools">
+                <div class="dnd-image-admin__quick-filters">
+                  <button
+                    id="dnd-image-admin-filter-missing-alt"
+                    class="dnd-image-admin__quick-filter"
+                    type="button"
+                  >
+                    Hianyzo ALT
+                  </button>
+                  <button
+                    id="dnd-image-admin-filter-unassigned-apartment"
+                    class="dnd-image-admin__quick-filter"
+                    type="button"
+                  >
+                    Nincs lakashoz rendelve
+                  </button>
+                </div>
+                <label class="dnd-image-admin__search">
+                  <span>Keresés</span>
+                  <input id="dnd-image-admin-search" type="search" placeholder="Kép címe vagy alt szöveg" />
+                </label>
+              </div>
             </div>
 
             <div class="dnd-image-admin__bulk-bar">
@@ -333,6 +421,7 @@ const initialSelectedMedia =
                     data-title={item.title.toLowerCase()}
                     data-alt={item.altText.toLowerCase()}
                     data-apartment={apartmentAssignments[String(item.id)] || ""}
+                    data-has-alt={item.altText.trim() ? "true" : "false"}
                     data-bulk-selected="false"
                   >
                     <button
@@ -402,6 +491,13 @@ const initialSelectedMedia =
       const metaAlt = document.getElementById("dnd-image-admin-meta-alt");
       const metaTitle = document.getElementById("dnd-image-admin-meta-title");
       const metaDescription = document.getElementById("dnd-image-admin-meta-description");
+      const seoSuccess = document.getElementById("dnd-image-admin-seo-success");
+      const seoError = document.getElementById("dnd-image-admin-seo-error");
+      const seoThemeRoom = document.getElementById("dnd-image-admin-seo-theme-room");
+      const seoFeatureFocus = document.getElementById("dnd-image-admin-seo-feature-focus");
+      const seoSubmit = document.getElementById("dnd-image-admin-seo-submit");
+      const suggestAlt = document.getElementById("dnd-image-admin-suggest-alt");
+      const suggestTitle = document.getElementById("dnd-image-admin-suggest-title");
       const apartmentSuccess = document.getElementById("dnd-image-admin-apartment-success");
       const apartmentError = document.getElementById("dnd-image-admin-apartment-error");
       const apartmentSelect = document.getElementById("dnd-image-admin-apartment-select");
@@ -412,6 +508,8 @@ const initialSelectedMedia =
       const bulkApartmentSelect = document.getElementById("dnd-image-admin-bulk-apartment-select");
       const bulkSubmit = document.getElementById("dnd-image-admin-bulk-submit");
       const bulkClear = document.getElementById("dnd-image-admin-bulk-clear");
+      const quickFilterMissingAlt = document.getElementById("dnd-image-admin-filter-missing-alt");
+      const quickFilterUnassignedApartment = document.getElementById("dnd-image-admin-filter-unassigned-apartment");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
       const primarySizeNames = ["full", "large", "medium_large", "medium", "thumbnail"];
 
@@ -423,8 +521,14 @@ const initialSelectedMedia =
       let isMetaSaving = false;
       let isApartmentSaving = false;
       let isBulkSaving = false;
+      let isSeoSaving = false;
       let selectedBulkMediaIds = [];
       let mediaMetaOverrides = {};
+      let mediaSeoFields = state.mediaSeoFields || {};
+      let quickFilters = state.initialQuickFilters || {
+        missingAlt: false,
+        unassignedApartment: false
+      };
 
       function getSlotDefinition(slotKey) {
         return (state.slots || []).find((slot) => slot.key === slotKey);
@@ -492,6 +596,24 @@ const initialSelectedMedia =
         return apartmentAssignments[String(mediaItem.id)] || "";
       }
 
+      function getSelectedSeoFields() {
+        const mediaItem = getSelectedMediaForEditor();
+
+        if (!mediaItem) {
+          return {
+            themeRoom: "",
+            featureFocus: ""
+          };
+        }
+
+        return (
+          mediaSeoFields[String(mediaItem.id)] || {
+            themeRoom: "",
+            featureFocus: ""
+          }
+        );
+      }
+
       function showMetaMessage(success, message) {
         if (metaSuccess) {
           metaSuccess.classList.toggle("is-hidden", !success);
@@ -531,6 +653,19 @@ const initialSelectedMedia =
         }
       }
 
+      function showSeoMessage(success, message) {
+        if (seoSuccess) {
+          seoSuccess.classList.toggle("is-hidden", !success);
+        }
+
+        if (seoError) {
+          seoError.classList.toggle("is-hidden", success);
+          if (!success) {
+            seoError.textContent = `Hiba: ${message}`;
+          }
+        }
+      }
+
       function updateApartmentSubmitState(hasMedia) {
         if (apartmentSubmit) {
           apartmentSubmit.disabled = !hasMedia || isApartmentSaving;
@@ -550,6 +685,20 @@ const initialSelectedMedia =
         }
       }
 
+      function updateSeoSubmitState(hasMedia) {
+        if (seoSubmit) {
+          seoSubmit.disabled = !hasMedia || isSeoSaving;
+        }
+
+        if (suggestAlt) {
+          suggestAlt.disabled = !hasMedia;
+        }
+
+        if (suggestTitle) {
+          suggestTitle.disabled = !hasMedia;
+        }
+      }
+
       function updateMetaSubmitState(hasMedia) {
         if (metaSubmit) {
           metaSubmit.disabled = !hasMedia || isMetaSaving;
@@ -558,6 +707,7 @@ const initialSelectedMedia =
 
       function renderMetaEditor(mediaItem) {
         const hasMedia = Boolean(mediaItem);
+        const seoFields = getSelectedSeoFields();
 
         if (metaFilename) {
           metaFilename.value = mediaItem?.filename || "";
@@ -578,6 +728,16 @@ const initialSelectedMedia =
           metaDescription.disabled = !hasMedia;
         }
 
+        if (seoThemeRoom) {
+          seoThemeRoom.value = seoFields.themeRoom || "";
+          seoThemeRoom.disabled = !hasMedia;
+        }
+
+        if (seoFeatureFocus) {
+          seoFeatureFocus.value = seoFields.featureFocus || "";
+          seoFeatureFocus.disabled = !hasMedia;
+        }
+
         if (apartmentSelect) {
           apartmentSelect.value = hasMedia ? getSelectedApartmentAssignment() : "";
           apartmentSelect.disabled = !hasMedia;
@@ -585,6 +745,7 @@ const initialSelectedMedia =
 
         updateMetaSubmitState(hasMedia);
         updateApartmentSubmitState(hasMedia);
+        updateSeoSubmitState(hasMedia);
       }
 
       function updateSelectedMediaState(nextMedia) {
@@ -636,6 +797,8 @@ const initialSelectedMedia =
           if (alt) {
             alt.textContent = nextMedia.altText || "Nincs alt szöveg";
           }
+
+          mediaCard.dataset.hasAlt = nextMedia.altText?.trim() ? "true" : "false";
         }
 
         mapping[activeSlotKey] = {
@@ -643,6 +806,111 @@ const initialSelectedMedia =
           title: nextMedia.title,
           altText: nextMedia.altText
         };
+      }
+
+      function updateSeoFieldsState(mediaId, nextFields) {
+        if (nextFields.themeRoom || nextFields.featureFocus) {
+          mediaSeoFields[String(mediaId)] = {
+            themeRoom: nextFields.themeRoom || "",
+            featureFocus: nextFields.featureFocus || ""
+          };
+        } else {
+          delete mediaSeoFields[String(mediaId)];
+        }
+      }
+
+      function getApartmentLabel(apartmentKey) {
+        const apartmentOption = (state.apartmentOptions || []).find(
+          (option) => option.key === apartmentKey
+        );
+
+        return apartmentOption?.label || "";
+      }
+
+      function getThemeRoomLabel(themeRoomKey) {
+        const themeRoomOption = (state.themeRoomOptions || []).find(
+          (option) => option.key === themeRoomKey
+        );
+
+        return themeRoomOption?.label || "";
+      }
+
+      function toLowerTrimmedWords(value) {
+        return String(value || "")
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, " ");
+      }
+
+      function toSentenceCase(value) {
+        const normalized = String(value || "").trim();
+
+        if (!normalized) {
+          return "";
+        }
+
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+      }
+
+      function buildApartmentPlaceSuffix(apartmentLabel) {
+        if (!apartmentLabel) {
+          return "";
+        }
+
+        return apartmentLabel === "D1" || apartmentLabel === "D2"
+          ? `a Dandelion ${apartmentLabel} apartmanban`
+          : `a ${apartmentLabel}ban`;
+      }
+
+      function buildAltSuggestion() {
+        const apartmentLabel = getApartmentLabel(apartmentSelect?.value || getSelectedApartmentAssignment());
+        const themeRoomKey = seoThemeRoom?.value || "";
+        const themeRoomLabel = getThemeRoomLabel(themeRoomKey);
+        const featureValue = toLowerTrimmedWords(seoFeatureFocus?.value || "");
+        const apartmentSuffix = buildApartmentPlaceSuffix(apartmentLabel);
+
+        if (!apartmentLabel || !themeRoomLabel || !apartmentSuffix) {
+          return "";
+        }
+
+        const specialTemplates = {
+          terasz: featureValue
+            ? `${toSentenceCase(featureValue)} terasz ${apartmentSuffix}`
+            : `Terasz ${apartmentSuffix}`,
+          nappali: featureValue
+            ? `Nappali ${featureValue} ${apartmentSuffix}`
+            : `Nappali ${apartmentSuffix}`,
+          furdo: featureValue
+            ? `Furdoszoba ${featureValue} ${apartmentSuffix}`
+            : `Furdoszoba ${apartmentSuffix}`,
+          panorama: featureValue
+            ? `${toSentenceCase(featureValue)} panorama ${apartmentSuffix}`
+            : `Panorama ${apartmentSuffix}`
+        };
+
+        if (specialTemplates[themeRoomKey]) {
+          return specialTemplates[themeRoomKey];
+        }
+
+        if (featureValue) {
+          return `${toSentenceCase(themeRoomLabel)} ${featureValue} ${apartmentSuffix}`;
+        }
+
+        return `${toSentenceCase(themeRoomLabel)} ${apartmentSuffix}`;
+      }
+
+      function buildTitleSuggestion() {
+        const apartmentLabel = getApartmentLabel(apartmentSelect?.value || getSelectedApartmentAssignment());
+        const themeRoomLabel = getThemeRoomLabel(seoThemeRoom?.value || "");
+        const featureValue = toSentenceCase(toLowerTrimmedWords(seoFeatureFocus?.value || ""));
+
+        if (!apartmentLabel || !themeRoomLabel) {
+          return "";
+        }
+
+        return featureValue
+          ? `${apartmentLabel} | ${themeRoomLabel} | ${featureValue}`
+          : `${apartmentLabel} | ${themeRoomLabel}`;
       }
 
       function renderExtraSizeListItems(sizes) {
@@ -773,6 +1041,19 @@ const initialSelectedMedia =
         });
       }
 
+      function renderQuickFilters() {
+        if (quickFilterMissingAlt) {
+          quickFilterMissingAlt.classList.toggle("is-active", Boolean(quickFilters.missingAlt));
+        }
+
+        if (quickFilterUnassignedApartment) {
+          quickFilterUnassignedApartment.classList.toggle(
+            "is-active",
+            Boolean(quickFilters.unassignedApartment)
+          );
+        }
+      }
+
       function renderBulkSelection() {
         const selectedIds = new Set(selectedBulkMediaIds.map((id) => String(id)));
 
@@ -805,8 +1086,16 @@ const initialSelectedMedia =
           const matchesSearch = searchTerm.length === 0 || haystack.includes(searchTerm);
           const matchesApartment =
             activeApartmentFilter === "all" || apartmentKey === activeApartmentFilter;
+          const matchesMissingAlt =
+            !quickFilters.missingAlt || card.dataset.hasAlt !== "true";
+          const matchesUnassignedApartment =
+            !quickFilters.unassignedApartment || !apartmentKey;
 
-          card.hidden = !matchesSearch || !matchesApartment;
+          card.hidden =
+            !matchesSearch ||
+            !matchesApartment ||
+            !matchesMissingAlt ||
+            !matchesUnassignedApartment;
         });
       }
 
@@ -919,7 +1208,14 @@ const initialSelectedMedia =
         if (bulkError) {
           bulkError.classList.add("is-hidden");
         }
+        if (seoSuccess) {
+          seoSuccess.classList.add("is-hidden");
+        }
+        if (seoError) {
+          seoError.classList.add("is-hidden");
+        }
         renderApartmentFilter();
+        renderQuickFilters();
         renderBulkSelection();
         renderSlotList();
         renderMediaSelection();
@@ -954,6 +1250,22 @@ const initialSelectedMedia =
           renderMediaGridVisibility();
         });
       });
+
+      if (quickFilterMissingAlt) {
+        quickFilterMissingAlt.addEventListener("click", () => {
+          quickFilters.missingAlt = !quickFilters.missingAlt;
+          renderQuickFilters();
+          renderMediaGridVisibility();
+        });
+      }
+
+      if (quickFilterUnassignedApartment) {
+        quickFilterUnassignedApartment.addEventListener("click", () => {
+          quickFilters.unassignedApartment = !quickFilters.unassignedApartment;
+          renderQuickFilters();
+          renderMediaGridVisibility();
+        });
+      }
 
       mediaOpenButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -1029,6 +1341,36 @@ const initialSelectedMedia =
           }
 
           updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
+        });
+      });
+
+      [seoThemeRoom, seoFeatureFocus].forEach((field) => {
+        if (!field) {
+          return;
+        }
+
+        field.addEventListener("input", () => {
+          if (seoSuccess) {
+            seoSuccess.classList.add("is-hidden");
+          }
+
+          if (seoError) {
+            seoError.classList.add("is-hidden");
+          }
+
+          updateSeoSubmitState(Boolean(getSelectedMediaForEditor()));
+        });
+
+        field.addEventListener("change", () => {
+          if (seoSuccess) {
+            seoSuccess.classList.add("is-hidden");
+          }
+
+          if (seoError) {
+            seoError.classList.add("is-hidden");
+          }
+
+          updateSeoSubmitState(Boolean(getSelectedMediaForEditor()));
         });
       });
 
@@ -1141,6 +1483,102 @@ const initialSelectedMedia =
           } finally {
             isMetaSaving = false;
             updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
+          }
+        });
+      }
+
+      if (suggestAlt) {
+        suggestAlt.addEventListener("click", () => {
+          if (!metaAlt) {
+            return;
+          }
+
+          const suggestion = buildAltSuggestion();
+
+          if (!suggestion) {
+            showSeoMessage(false, "Az ALT javaslathoz elobb adj meg lakast es theme/room mezot.");
+            return;
+          }
+
+          metaAlt.value = suggestion;
+          updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
+          if (seoSuccess) {
+            seoSuccess.classList.add("is-hidden");
+          }
+          if (seoError) {
+            seoError.classList.add("is-hidden");
+          }
+        });
+      }
+
+      if (suggestTitle) {
+        suggestTitle.addEventListener("click", () => {
+          if (!metaTitle) {
+            return;
+          }
+
+          const suggestion = buildTitleSuggestion();
+
+          if (!suggestion) {
+            showSeoMessage(false, "A title javaslathoz elobb adj meg lakast es theme/room mezot.");
+            return;
+          }
+
+          metaTitle.value = suggestion;
+          updateMetaSubmitState(Boolean(getSelectedMediaForEditor()));
+          if (seoSuccess) {
+            seoSuccess.classList.add("is-hidden");
+          }
+          if (seoError) {
+            seoError.classList.add("is-hidden");
+          }
+        });
+      }
+
+      if (seoSubmit) {
+        seoSubmit.addEventListener("click", async () => {
+          const selectedMediaItem = getSelectedMediaForEditor();
+
+          if (!selectedMediaItem || !seoThemeRoom || !seoFeatureFocus) {
+            showSeoMessage(false, "Nincs kivalasztott kep a SEO mezok mentesehez.");
+            return;
+          }
+
+          try {
+            isSeoSaving = true;
+            updateSeoSubmitState(true);
+
+            const response = await fetch("/api/image-admin/save-seo-fields", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                id: selectedMediaItem.id,
+                themeRoom: seoThemeRoom.value || "",
+                featureFocus: seoFeatureFocus.value || ""
+              })
+            });
+
+            if (!response.ok) {
+              const payload = await response.json().catch(() => null);
+              throw new Error(payload?.message || "A SEO mezok mentese nem sikerult.");
+            }
+
+            const payload = await response.json();
+            updateSeoFieldsState(payload?.id, {
+              themeRoom: payload?.themeRoom || "",
+              featureFocus: payload?.featureFocus || ""
+            });
+            showSeoMessage(true, "");
+          } catch (error) {
+            showSeoMessage(
+              false,
+              error instanceof Error ? error.message : "A SEO mezok mentese nem sikerult."
+            );
+          } finally {
+            isSeoSaving = false;
+            updateSeoSubmitState(Boolean(getSelectedMediaForEditor()));
           }
         });
       }
@@ -1393,6 +1831,36 @@ const initialSelectedMedia =
       margin-bottom: 20px;
     }
 
+    .dnd-image-admin__media-tools {
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+    }
+
+    .dnd-image-admin__quick-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .dnd-image-admin__quick-filter {
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 999px;
+      background: #fff;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .dnd-image-admin__quick-filter.is-active {
+      border-color: var(--dnd-accent);
+      box-shadow: 0 0 0 2px rgba(217, 158, 43, 0.18);
+    }
+
     .dnd-image-admin__bulk-bar {
       display: grid;
       gap: 12px;
@@ -1583,6 +2051,18 @@ const initialSelectedMedia =
       display: grid;
       gap: 10px;
       margin-top: 10px;
+    }
+
+    .dnd-image-admin__seo-fields {
+      display: grid;
+      gap: 10px;
+      padding: 10px 0 2px;
+    }
+
+    .dnd-image-admin__seo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .dnd-image-admin__field {
@@ -1874,6 +2354,17 @@ const initialSelectedMedia =
         flex-direction: column;
       }
 
+      .dnd-image-admin__media-tools,
+      .dnd-image-admin__quick-filters {
+        width: 100%;
+        justify-items: stretch;
+        justify-content: flex-start;
+      }
+
+      .dnd-image-admin__quick-filter {
+        width: 100%;
+      }
+
       .dnd-image-admin__save {
         width: 100%;
       }
@@ -1889,7 +2380,8 @@ const initialSelectedMedia =
       }
 
       .dnd-image-admin__save .dnd-btn,
-      .dnd-image-admin__current-head .dnd-btn {
+      .dnd-image-admin__current-head .dnd-btn,
+      .dnd-image-admin__seo-actions .dnd-btn {
         width: 100%;
       }
 
