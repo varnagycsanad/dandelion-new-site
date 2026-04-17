@@ -6,7 +6,7 @@ const heroVideo =
 const heroPoster = "";
 ---
 
-<!-- [CHANGE 2026-04-17 20:24] Hero arányok és tartalom egyszerűsítés -->
+<!-- [CHANGE 2026-04-17 20:24] Hero redesigned toward visual-first layout -->
 <section class="dnd-hero">
   <div class="dnd-container dnd-hero__grid">
     <div class="dnd-hero__content">
@@ -21,21 +21,6 @@ const heroPoster = "";
           Foglalás
         </a>
         <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállások</a>
-      </div>
-
-      <div class="dnd-hero__metrics">
-        <article class="dnd-hero__metric">
-          <strong>8</strong>
-          <span>különleges ház</span>
-        </article>
-        <article class="dnd-hero__metric">
-          <strong>100%</strong>
-          <span>közvetlen foglalási út</span>
-        </article>
-        <article class="dnd-hero__metric">
-          <strong>Balaton</strong>
-          <span>természet, design, nyugalom</span>
-        </article>
       </div>
     </div>
 
@@ -53,71 +38,84 @@ const heroPoster = "";
           A böngésződ nem támogatja a háttérvideó lejátszását.
         </video>
         <div class="dnd-hero__video-overlay"></div>
-        <div class="dnd-hero__floating-card">
-          <span class="dnd-hero__floating-label">Hero film</span>
-          <strong>Hangulat, fények és helyszínélmény ugyanabban a prémium nyitóképben.</strong>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .dnd-hero {
+    padding: 28px 0 34px;
+  }
+
   .dnd-hero__grid {
-    gap: 28px;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .dnd-hero__content {
+    max-width: 420px;
   }
 
   .dnd-title {
-    max-width: 8ch;
-    font-size: clamp(2.9rem, 5.2vw, 4.7rem);
+    max-width: 7ch;
+    font-size: clamp(2.8rem, 4.6vw, 4rem);
+    line-height: 0.98;
   }
 
   .dnd-lead {
-    max-width: 520px;
-    margin-top: 18px;
+    max-width: 32ch;
+    margin-top: 16px;
+    font-size: 1rem;
+    line-height: 1.65;
   }
 
   .dnd-hero__actions {
-    margin-top: 26px;
-  }
-
-  .dnd-hero__metrics {
-    margin-top: 24px;
+    margin-top: 22px;
   }
 
   .dnd-hero__media-shell {
-    min-height: 500px;
+    min-height: 520px;
+    border-radius: 34px;
   }
 
   @media (min-width: 960px) {
     .dnd-hero__grid {
-      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-      gap: 36px;
+      grid-template-columns: minmax(320px, 0.68fr) minmax(0, 1.32fr);
+      gap: 28px;
     }
   }
 
   @media (max-width: 959px) {
+    .dnd-hero {
+      padding-top: 24px;
+    }
+
     .dnd-hero__media-shell {
-      min-height: 420px;
+      min-height: 400px;
     }
   }
 
   @media (max-width: 767px) {
+    .dnd-hero {
+      padding: 18px 0 28px;
+    }
+
+    .dnd-hero__content {
+      max-width: none;
+    }
+
     .dnd-title {
-      max-width: 10ch;
-      font-size: 2.7rem;
+      max-width: 9ch;
+      font-size: 2.45rem;
     }
 
     .dnd-lead {
-      margin-top: 14px;
-    }
-
-    .dnd-hero__metrics {
-      margin-top: 20px;
+      margin-top: 12px;
     }
 
     .dnd-hero__media-shell {
-      min-height: 340px;
+      min-height: 300px;
     }
   }
 </style>
