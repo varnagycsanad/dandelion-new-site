@@ -6,16 +6,14 @@ const heroVideo =
 const heroPoster = "";
 ---
 
+<!-- [CHANGE 2026-04-17 20:24] Hero arányok és tartalom egyszerűsítés -->
 <section class="dnd-hero">
   <div class="dnd-container dnd-hero__grid">
     <div class="dnd-hero__content">
       <span class="dnd-eyebrow">Balaton-felvidék • közvetlen foglalás</span>
-      <h1 class="dnd-title">
-        Nyugodt, designérzékeny vendégházak a Balaton-felvidék legszebb ritmusában.
-      </h1>
+      <h1 class="dnd-title">Lassulj le a Balaton-felvidéken</h1>
       <p class="dnd-lead">
-        A Dandelion Vendégházak modern, természetközeli szállásai azoknak készültek,
-        akik prémium környezetben szeretnének lelassulni, feltöltődni és közvetlenül foglalni.
+        Természetközeli, prémium vendégházak közvetlen foglalással.
       </p>
 
       <div class="dnd-hero__actions">
@@ -63,3 +61,63 @@ const heroPoster = "";
     </div>
   </div>
 </section>
+
+<style>
+  .dnd-hero__grid {
+    gap: 28px;
+  }
+
+  .dnd-title {
+    max-width: 8ch;
+    font-size: clamp(2.9rem, 5.2vw, 4.7rem);
+  }
+
+  .dnd-lead {
+    max-width: 520px;
+    margin-top: 18px;
+  }
+
+  .dnd-hero__actions {
+    margin-top: 26px;
+  }
+
+  .dnd-hero__metrics {
+    margin-top: 24px;
+  }
+
+  .dnd-hero__media-shell {
+    min-height: 500px;
+  }
+
+  @media (min-width: 960px) {
+    .dnd-hero__grid {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+      gap: 36px;
+    }
+  }
+
+  @media (max-width: 959px) {
+    .dnd-hero__media-shell {
+      min-height: 420px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .dnd-title {
+      max-width: 10ch;
+      font-size: 2.7rem;
+    }
+
+    .dnd-lead {
+      margin-top: 14px;
+    }
+
+    .dnd-hero__metrics {
+      margin-top: 20px;
+    }
+
+    .dnd-hero__media-shell {
+      min-height: 340px;
+    }
+  }
+</style>
