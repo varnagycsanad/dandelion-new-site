@@ -9,8 +9,8 @@ const regionStories = [
     ctaLabel: "Fedezd fel a tanúhegyek környéki házakat",
     ctaHref: "/szallasok",
     image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Balaton-felvidéki táj tanúhegyekkel és szőlősorokkal",
+      "https://dandelionhouse.hu/wp-content/uploads/2026/04/DJI_20260407175709_0028_D.jpg.webp",
+    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel",
     panelPosition: "right-lower"
   },
   {
@@ -23,7 +23,7 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Fényes balatoni vízfelület part menti hangulattal",
+    imageAlt: "Balaton-parti hangulatkép",
     panelPosition: "left-mid"
   },
   {
@@ -35,8 +35,8 @@ const regionStories = [
     ctaLabel: "Fedezd fel a Káli-medence világát",
     ctaHref: "/szallasok",
     image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Káli-medencei táj nyitott terekkel és csendes vidéki atmoszférával",
+      "https://dandelionhouse.hu/wp-content/uploads/2026/04/2026-04-17-11-49-24.jpeg.webp",
+    imageAlt: "Káli-medence tájképe",
     panelPosition: "right-mid"
   }
 ];
@@ -63,8 +63,8 @@ const regionStories = [
           <div class="dnd-region-story__panel">
             <p class="dnd-region-story__kicker">{story.kicker}</p>
             <h3 class="dnd-region-story__title">{story.title}</h3>
-            <p class="dnd-region-story__description">{story.description}</p>
-            <p class="dnd-region-story__meta">{story.meta}</p>
+            <p class="dnd-region-story__description dnd-region-story__text">{story.description}</p>
+            <p class="dnd-region-story__meta dnd-region-story__text">{story.meta}</p>
 
             <a href={story.ctaHref} class="dnd-region-story__cta">{story.ctaLabel}</a>
           </div>
@@ -169,33 +169,35 @@ const regionStories = [
 
   .dnd-region-story__kicker {
     margin: 0 0 14px;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.5);
+    color: #888;
   }
 
   .dnd-region-story__title {
     margin: 0;
     max-width: 10ch;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(32px, 3vw, 52px);
-    line-height: 1.1;
+    font-size: clamp(28px, 2.4vw, 44px);
+    line-height: 1.15;
     font-weight: 400;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.01em;
     color: rgba(0, 0, 0, 0.88);
+  }
+
+  .dnd-region-story__text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
   }
 
   .dnd-region-story__description {
     margin: 18px 0 0;
-    line-height: 1.72;
-    color: rgba(0, 0, 0, 0.72);
   }
 
   .dnd-region-story__meta {
     margin: 12px 0 0;
-    line-height: 1.58;
-    color: rgba(0, 0, 0, 0.54);
   }
 
   .dnd-region-story__cta {
@@ -232,17 +234,21 @@ const regionStories = [
 
   .dnd-region-story--1 .dnd-region-story__panel {
     right: -40px;
-    bottom: 40px;
+    bottom: 48px;
   }
 
   .dnd-region-story--2 .dnd-region-story__panel {
-    left: -40px;
-    top: 60px;
+    left: -48px;
+    top: 56px;
   }
 
   .dnd-region-story--3 .dnd-region-story__panel {
-    right: -60px;
-    top: 80px;
+    right: -56px;
+    top: 72px;
+  }
+
+  .dnd-region-story--3 .dnd-region-story__media img {
+    object-position: center 30%;
   }
 
   @media (max-width: 1199px) {
