@@ -10,8 +10,7 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://dandelionhouse.hu/wp-content/uploads/2026/04/DJI_20260407175709_0028_D.jpg.webp",
-    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel",
-    panelPosition: "right-lower"
+    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel"
   },
   {
     kicker: "Keszthely · Badacsonyörs",
@@ -23,8 +22,7 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Balaton-parti hangulatkép",
-    panelPosition: "left-mid"
+    imageAlt: "Balaton-parti hangulatkép"
   },
   {
     kicker: "Köveskál · Káli-medence",
@@ -36,26 +34,25 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://dandelionhouse.hu/wp-content/uploads/2026/04/2026-04-17-11-49-24.jpeg.webp",
-    imageAlt: "Káli-medence tájképe",
-    panelPosition: "right-mid"
+    imageAlt: "Káli-medence tájképe"
   }
 ];
 ---
 
-<!-- [CHANGE 2026-04-17 11:05] Rebuild stays section into overlay-based editorial region stories -->
+<!-- [CHANGE 2026-04-18 13:01] Restore stable RegionStories overlay layout -->
 <section id="stays" class="dnd-section dnd-region-stories">
-  <div class="dnd-container">
+  <div class="dnd-region-stories__inner">
     <div class="dnd-region-stories__intro">
       <span class="dnd-section-kicker">Szállások</span>
-      <h2 class="dnd-region-stories__heading">Nem egy helyszín. Három külön világ.</h2>
+      <h2 class="dnd-region-stories__heading">Nem egy helyszín — három külön világ</h2>
       <p class="dnd-region-stories__lead">
         Vendégházaink a Balaton-felvidék több karakteres térségében találhatók. Van, ahol a tanúhegyek adják a hátteret, van, ahol a Balaton közelsége, és van, ahol a csendes Káli-medence hangulata viszi a prímet.
       </p>
     </div>
 
     <div class="dnd-region-stories__list">
-      {regionStories.map((story) => (
-        <article class:list={["dnd-region-story", `dnd-region-story--${story.panelPosition}`, `dnd-region-story--${regionStories.indexOf(story) + 1}`]}>
+      {regionStories.map((story, index) => (
+        <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
             <img src={story.image} alt={story.imageAlt} loading="lazy" />
           </div>
@@ -65,7 +62,6 @@ const regionStories = [
             <h3 class="dnd-region-story__title">{story.title}</h3>
             <p class="dnd-region-story__description dnd-region-story__text">{story.description}</p>
             <p class="dnd-region-story__meta dnd-region-story__text">{story.meta}</p>
-
             <a href={story.ctaHref} class="dnd-region-story__cta">{story.ctaLabel}</a>
           </div>
         </article>
@@ -76,77 +72,62 @@ const regionStories = [
 
 <style>
   .dnd-region-stories {
-    padding-top: 48px;
     position: relative;
+    padding: 48px 0 0;
   }
 
-  .dnd-region-stories::before {
-    content: "";
-    position: absolute;
-    inset: 24px 0 auto;
-    height: 420px;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 18% 20%, rgba(217, 158, 43, 0.08), transparent 28%),
-      radial-gradient(circle at 82% 34%, rgba(196, 182, 153, 0.12), transparent 26%),
-      linear-gradient(180deg, rgba(253, 251, 247, 0.55), rgba(253, 251, 247, 0));
-    opacity: 0.05;
-    filter: blur(40px);
+  .dnd-region-stories__inner {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
   }
 
   .dnd-region-stories__intro {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    margin-bottom: clamp(48px, 6vw, 72px);
+    max-width: 760px;
+    margin: 0 auto 64px;
+    text-align: center;
   }
 
   .dnd-region-stories__heading {
-    margin: 10px 0 0;
-    max-width: 11ch;
+    margin: 12px auto 0;
+    max-width: none;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2.3rem, 4.3vw, 3.6rem);
-    line-height: 1;
+    font-size: clamp(1.1rem, 1.8vw, 1.7rem);
+    line-height: 1.1;
     font-weight: 400;
-    letter-spacing: -0.02em;
-    color: rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgba(0, 0, 0, 0.78);
   }
 
   .dnd-region-stories__lead {
-    max-width: 58ch;
-    margin: 18px 0 0;
-    line-height: 1.78;
+    max-width: 62ch;
+    margin: 22px auto 0;
+    line-height: 1.72;
     color: rgba(0, 0, 0, 0.7);
   }
 
   .dnd-region-stories__list {
+    display: grid;
+    gap: 84px;
     position: relative;
     z-index: 1;
-    display: grid;
-    gap: clamp(72px, 8vw, 108px);
   }
 
   .dnd-region-story {
     position: relative;
-    margin-bottom: 120px;
+    display: grid;
+    margin-bottom: 84px;
   }
 
   .dnd-region-story__media {
     position: relative;
-    width: min(100%, 1040px);
+    z-index: 1;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: 30px;
-    background:
-      linear-gradient(135deg, rgba(28, 27, 24, 0.08), rgba(28, 27, 24, 0.18)),
-      #ddd5c8;
-  }
-
-  .dnd-region-story__media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(20, 18, 15, 0.04), rgba(20, 18, 15, 0.22));
+    border-radius: 32px;
+    width: min(100%, 1040px);
+    background: #ddd5c8;
   }
 
   .dnd-region-story__media img {
@@ -154,41 +135,40 @@ const regionStories = [
     height: 100%;
     object-fit: cover;
     object-position: center 40%;
+    display: block;
   }
 
   .dnd-region-story__panel {
     position: absolute;
-    z-index: 1;
-    width: min(100% - 40px, 420px);
+    z-index: 2;
     max-width: 420px;
     padding: 32px 28px;
     background: rgba(253, 251, 247, 0.92);
     border: 1px solid rgba(0, 0, 0, 0.04);
-    backdrop-filter: blur(6px);
   }
 
   .dnd-region-story__kicker {
     margin: 0 0 14px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
+    font-size: 10px;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: #888;
+    color: #8a8a8a;
   }
 
   .dnd-region-story__title {
     margin: 0;
     max-width: 10ch;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(28px, 2.4vw, 44px);
-    line-height: 1.15;
-    font-weight: 400;
+    font-size: clamp(22px, 1.9vw, 34px);
+    line-height: 1.1;
     letter-spacing: -0.01em;
+    font-weight: 400;
     color: rgba(0, 0, 0, 0.88);
   }
 
   .dnd-region-story__text {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
     color: #333;
   }
 
@@ -219,17 +199,17 @@ const regionStories = [
     border-color: rgba(0, 0, 0, 0.46);
   }
 
-  .dnd-region-story--right-lower .dnd-region-story__media,
-  .dnd-region-story--right-mid .dnd-region-story__media {
+  .dnd-region-story--1 .dnd-region-story__media,
+  .dnd-region-story--3 .dnd-region-story__media {
     margin-right: auto;
   }
 
-  .dnd-region-story--left-mid .dnd-region-story__media {
+  .dnd-region-story--2 .dnd-region-story__media {
     margin-left: auto;
   }
 
-  .dnd-region-story--right-mid .dnd-region-story__media {
-    width: min(100%, 980px);
+  .dnd-region-story--3 .dnd-region-story__media img {
+    object-position: center 30%;
   }
 
   .dnd-region-story--1 .dnd-region-story__panel {
@@ -247,80 +227,67 @@ const regionStories = [
     top: 72px;
   }
 
-  .dnd-region-story--3 .dnd-region-story__media img {
-    object-position: center 30%;
-  }
-
   @media (max-width: 1199px) {
-    .dnd-region-story__media,
-    .dnd-region-story--right-mid .dnd-region-story__media {
+    .dnd-region-story__media {
       width: 100%;
       margin-left: 0;
       margin-right: 0;
     }
 
-    .dnd-region-story--1 .dnd-region-story__panel {
+    .dnd-region-story--1 .dnd-region-story__panel,
+    .dnd-region-story--3 .dnd-region-story__panel {
       right: 20px;
     }
 
     .dnd-region-story--2 .dnd-region-story__panel {
       left: 20px;
     }
-
-    .dnd-region-story--3 .dnd-region-story__panel {
-      right: 20px;
-    }
   }
 
   @media (max-width: 960px) {
-    .dnd-region-stories {
-      padding-top: 40px;
+    .dnd-region-stories__list {
+      gap: 56px;
     }
 
     .dnd-region-story {
-      margin-bottom: 80px;
-    }
-
-    .dnd-region-story__media {
-      border-radius: 26px;
-      margin-bottom: 0;
+      margin-bottom: 56px;
     }
 
     .dnd-region-story__panel {
-      position: relative !important;
+      position: relative;
       left: auto !important;
       right: auto !important;
       top: auto !important;
       bottom: auto !important;
       transform: none !important;
+      margin: -60px 16px 0 16px;
       width: auto;
       max-width: none;
-      margin: -60px 16px 0 16px;
-      padding: 26px 24px 24px;
-    }
-
-    .dnd-region-story__title {
-      font-size: clamp(2.6rem, 7.2vw, 3.4rem);
-      line-height: 1;
     }
   }
 
   @media (max-width: 767px) {
+    .dnd-region-stories {
+      padding-top: 40px;
+    }
+
+    .dnd-region-stories__inner {
+      width: min(100% - 24px, 1200px);
+    }
+
     .dnd-region-stories__intro {
-      margin-bottom: 42px;
+      margin-bottom: 44px;
     }
 
     .dnd-region-stories__heading {
-      font-size: 2.5rem;
+      max-width: 24ch;
+      font-size: 1.3rem;
+      white-space: normal;
     }
 
     .dnd-region-stories__lead {
-      margin-top: 14px;
+      margin-top: 16px;
       line-height: 1.68;
-    }
-
-    .dnd-region-stories__list {
-      gap: 62px;
     }
 
     .dnd-region-story__media {
@@ -329,23 +296,11 @@ const regionStories = [
     }
 
     .dnd-region-story__panel {
-      width: calc(100% - 24px);
-      margin-top: -26px;
       padding: 24px 22px 22px;
     }
 
     .dnd-region-story__title {
-      font-size: 2.08rem;
-      line-height: 1.02;
-    }
-
-    .dnd-region-story__description,
-    .dnd-region-story__meta {
-      line-height: 1.62;
-    }
-
-    .dnd-region-story__cta {
-      margin-top: 22px;
+      font-size: 22px;
     }
   }
 </style>
