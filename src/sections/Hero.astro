@@ -1,43 +1,48 @@
 ---
-const bookingLink =
-  "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const heroVideo =
   "https://dandelionhouse.hu/wp-content/uploads/2025/08/202507-V1.mp4";
 const heroPoster = "";
 ---
 
-<!-- [CHANGE 2026-04-17 20:24] Hero redesigned toward visual-first layout -->
+<!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
 <section class="dnd-hero">
-  <div class="dnd-container dnd-hero__grid">
-    <div class="dnd-hero__content">
-      <span class="dnd-eyebrow">Balaton-felvidék • közvetlen foglalás</span>
-      <h1 class="dnd-title">Lassulj le a Balaton-felvidéken</h1>
-      <p class="dnd-lead">
-        Természetközeli, prémium vendégházak közvetlen foglalással.
-      </p>
+  <video
+    class="dnd-hero__video"
+    src={heroVideo}
+    poster={heroPoster}
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+    A böngésződ nem támogatja a háttérvideó lejátszását.
+  </video>
 
-      <div class="dnd-hero__actions">
-        <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
-          Foglalás
-        </a>
-        <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállások</a>
-      </div>
-    </div>
+  <div class="dnd-hero__overlay"></div>
 
-    <div class="dnd-hero__visual">
-      <div class="dnd-hero__media-shell">
-        <video
-          class="dnd-hero__video"
-          src={heroVideo}
-          poster={heroPoster}
-          autoplay
-          muted
-          loop
-          playsinline
-        >
-          A böngésződ nem támogatja a háttérvideó lejátszását.
-        </video>
-        <div class="dnd-hero__video-overlay"></div>
+  <div class="dnd-hero__content">
+    <div class="dnd-container dnd-hero__inner">
+      <div class="dnd-hero__text">
+        <h1 class="dnd-hero__title">
+          <span class="dnd-hero__title-block dnd-hero__title-block--top">
+            <span class="dnd-hero__title-line">Reggel</span>
+            <span class="dnd-hero__title-line">hegyekkel.</span>
+          </span>
+          <span class="dnd-hero__divider" aria-hidden="true">
+            <span class="dnd-hero__divider-line"></span>
+            <span class="dnd-hero__divider-circle"></span>
+            <span class="dnd-hero__divider-line"></span>
+          </span>
+          <span class="dnd-hero__title-block dnd-hero__title-block--bottom">
+            <span class="dnd-hero__title-line">Este</span>
+            <span class="dnd-hero__title-line">csillagokkal.</span>
+          </span>
+        </h1>
+        <p class="dnd-hero__desc">Vendégházak a Balaton-felvidéken, távol a nyüzsgéstől.</p>
+
+        <div class="dnd-hero__cta">
+          <a href="#stays" class="dnd-btn dnd-btn--primary">Szállásaink</a>
+        </div>
       </div>
     </div>
   </div>
@@ -45,77 +50,281 @@ const heroPoster = "";
 
 <style>
   .dnd-hero {
-    padding: 28px 0 34px;
+    position: relative;
+    min-height: 600px;
+    height: 86vh;
+    overflow: hidden;
+    background: #171717;
   }
 
-  .dnd-hero__grid {
-    gap: 22px;
-    align-items: center;
+  .dnd-hero__video,
+  .dnd-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .dnd-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dnd-hero__overlay {
+    background:
+      linear-gradient(90deg, rgba(16, 14, 12, 0.46) 0%, rgba(16, 14, 12, 0.18) 46%, rgba(16, 14, 12, 0.28) 100%),
+      rgba(8, 7, 6, 0.12);
   }
 
   .dnd-hero__content {
-    max-width: 420px;
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+    color: #fff;
   }
 
-  .dnd-title {
-    max-width: 7ch;
-    font-size: clamp(2.8rem, 4.6vw, 4rem);
-    line-height: 0.98;
+  .dnd-hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 100%;
+    max-width: none;
+    padding: 148px clamp(8vw, 10vw, 12vw) clamp(20vh, 24vh, 30vh) 40px;
   }
 
-  .dnd-lead {
-    max-width: 32ch;
-    margin-top: 16px;
+  .dnd-hero__text {
+    width: min(100%, 540px);
+    text-align: left;
+  }
+
+  .dnd-hero__title {
+    margin: 0;
+    max-width: 10.5ch;
+    font-size: clamp(56px, 4.4vw, 64px);
+    line-height: 1.02;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .dnd-hero__divider {
+    display: none;
+  }
+
+  .dnd-hero__desc {
+    margin: 14px 0 0;
+    max-width: 34ch;
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.72;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.68);
   }
 
-  .dnd-hero__actions {
-    margin-top: 22px;
+  .dnd-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
   }
 
-  .dnd-hero__media-shell {
-    min-height: 520px;
-    border-radius: 34px;
+  .dnd-hero__cta .dnd-btn {
+    min-height: 42px;
+    padding: 0 24px;
+    border-color: rgba(255, 250, 241, 0.88);
+    border-width: 1px;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255, 250, 241, 0.96);
+    box-shadow: none;
   }
 
-  @media (min-width: 960px) {
-    .dnd-hero__grid {
-      grid-template-columns: minmax(320px, 0.68fr) minmax(0, 1.32fr);
-      gap: 28px;
-    }
+  .dnd-hero__cta .dnd-btn:hover,
+  .dnd-hero__cta .dnd-btn:focus-visible {
+    background: rgba(255, 250, 241, 0.08);
+    border-color: rgba(255, 250, 241, 1);
   }
 
-  @media (max-width: 959px) {
+  @media (min-width: 768px) {
     .dnd-hero {
-      padding-top: 24px;
+      padding: 0;
     }
 
-    .dnd-hero__media-shell {
-      min-height: 400px;
+    .dnd-hero__inner {
+      align-items: center;
+      justify-content: flex-start;
+      padding: clamp(280px, 40vh, 420px) clamp(48px, 7vw, 96px) 96px;
+    }
+
+    .dnd-hero__text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(100%, 1040px);
+      text-align: center;
+    }
+
+    .dnd-hero__title {
+      max-width: none;
+      font-size: clamp(30px, 2.35vw, 42px);
+      line-height: 1.08;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-wrap: initial;
+      white-space: nowrap;
+    }
+
+    .dnd-hero__title-block,
+    .dnd-hero__title-line {
+      display: inline;
+    }
+
+    .dnd-hero__divider {
+      display: grid;
+      grid-template-columns: minmax(120px, 1fr) 14px minmax(120px, 1fr);
+      align-items: center;
+      gap: 24px;
+      width: min(100%, 430px);
+      margin: 26px auto 22px;
+      color: rgba(255, 250, 241, 0.72);
+    }
+
+    .dnd-hero__divider-line {
+      height: 1px;
+      background: currentColor;
+    }
+
+    .dnd-hero__divider-circle {
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .dnd-hero__desc {
+      margin: 0 auto;
+      max-width: 40ch;
+      font-size: 1.08rem;
+      line-height: 1.55;
+      font-weight: 400;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .dnd-hero__cta {
+      justify-content: center;
+      margin-top: 24px;
     }
   }
 
   @media (max-width: 767px) {
     .dnd-hero {
-      padding: 18px 0 28px;
+      min-height: 500px;
+      height: auto;
     }
 
     .dnd-hero__content {
+      min-height: 500px;
+    }
+
+    .dnd-hero__inner {
+      align-items: flex-start;
+      justify-content: flex-start;
       max-width: none;
+      min-height: 500px;
+      padding: 0;
     }
 
-    .dnd-title {
-      max-width: 9ch;
-      font-size: 2.45rem;
+    .dnd-hero__text {
+      margin-top: 280px;
+      margin-bottom: 40px;
+      width: 100%;
+      max-width: 360px;
     }
 
-    .dnd-lead {
-      margin-top: 12px;
+    .dnd-hero__title {
+      display: grid;
+      gap: 12px;
+      max-width: 22ch;
+      font-size: clamp(1.38rem, 6.8vw, 1.72rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+      text-wrap: initial;
     }
 
-    .dnd-hero__media-shell {
-      min-height: 300px;
+    .dnd-hero__title-block {
+      display: grid;
+      gap: 5px;
+    }
+
+    .dnd-hero__title-block--top {
+      display: block;
+      font-size: 23px;
+      line-height: 1.06;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .dnd-hero__title-block--bottom {
+      display: block;
+      margin-top: 4px;
+      font-size: 22px;
+      line-height: 1.04;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+      white-space: nowrap;
+    }
+
+    .dnd-hero__title-line {
+      display: inline;
+      white-space: nowrap;
+    }
+
+    .dnd-hero__title-block--bottom .dnd-hero__title-line {
+      display: inline;
+    }
+
+    .dnd-hero__divider {
+      display: grid;
+      grid-template-columns: minmax(28px, 1fr) 10px minmax(28px, 1fr);
+      align-items: center;
+      gap: 9px;
+      width: 132px;
+      margin: 8px 0;
+      color: rgba(255, 250, 241, 0.58);
+    }
+
+    .dnd-hero__divider-line {
+      height: 1px;
+      background: currentColor;
+    }
+
+    .dnd-hero__divider-circle {
+      width: 10px;
+      height: 10px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .dnd-hero__desc {
+      margin-top: 26px;
+      max-width: 30ch;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .dnd-hero__cta {
+      margin-top: 24px;
+      gap: 10px;
+    }
+
+    .dnd-hero__cta .dnd-btn {
+      min-height: 38px;
+      padding: 0 18px;
+      font-size: 0.82rem;
     }
   }
 </style>

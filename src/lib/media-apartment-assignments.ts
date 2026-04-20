@@ -2,13 +2,13 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 export const apartmentOptions = [
-  { key: "all", label: "Osszes" },
+  { key: "all", label: "Összes" },
   { key: "d1", label: "D1" },
   { key: "d2", label: "D2" },
-  { key: "fugehaz", label: "Fugehaz" },
-  { key: "zsalya", label: "Zsalya" },
-  { key: "szololiget", label: "Szololiget" },
-  { key: "szepvolgyi", label: "Szepvolgyi" },
+  { key: "fugehaz", label: "Fügeház" },
+  { key: "zsalya", label: "Zsálya" },
+  { key: "szololiget", label: "Szőlőliget" },
+  { key: "szepvolgyi", label: "Szépvölgyi" },
   { key: "royal_homes", label: "Royal Homes" },
   { key: "vintage", label: "Vintage" }
 ] as const;

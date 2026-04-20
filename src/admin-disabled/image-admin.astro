@@ -89,22 +89,28 @@ const initialSelectedMedia =
         Hiba: A meta mentése nem sikerült.
       </p>
       <p id="dnd-image-admin-apartment-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
-        A lakas hozzarendelese elmentve.
+        A lakás hozzárendelése elmentve.
       </p>
       <p id="dnd-image-admin-apartment-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
-        Hiba: A lakas hozzarendelese nem sikerult.
+        Hiba: A lakás hozzárendelése nem sikerült.
       </p>
       <p id="dnd-image-admin-bulk-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
-        A kivalasztott kepek lakas hozzarendelese elmentve.
+        A kiválasztott képek lakás-hozzárendelése elmentve.
       </p>
       <p id="dnd-image-admin-bulk-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
-        Hiba: A tobbes lakas hozzarendelese nem sikerult.
+        Hiba: A tömeges lakás-hozzárendelés nem sikerült.
+      </p>
+      <p id="dnd-image-admin-bulk-seo-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
+        A kijelölt képek SEO javaslatai elkészültek.
+      </p>
+      <p id="dnd-image-admin-bulk-seo-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
+        Hiba: A tömeges SEO javaslat nem sikerült.
       </p>
       <p id="dnd-image-admin-seo-success" class="dnd-image-admin__notice dnd-image-admin__notice--success is-hidden">
-        A kep SEO mezoit elmentettuk.
+        A kép SEO mezőit elmentettük.
       </p>
       <p id="dnd-image-admin-seo-error" class="dnd-image-admin__notice dnd-image-admin__notice--error is-hidden">
-        Hiba: A kep SEO mezoinek mentese nem sikerult.
+        Hiba: A kép SEO mezőinek mentése nem sikerült.
       </p>
       {mediaWarning && <p class="dnd-image-admin__notice dnd-image-admin__notice--warning">{mediaWarning}</p>}
       {mediaError && <p class="dnd-image-admin__notice dnd-image-admin__notice--error">Hiba: {mediaError}</p>}
@@ -112,7 +118,7 @@ const initialSelectedMedia =
       <div class="dnd-image-admin__layout">
         <aside class="dnd-image-admin__sidebar">
           <div class="dnd-image-admin__panel">
-            <h2>Lakas szuro</h2>
+            <h2>Lakás szűrő</h2>
             <div class="dnd-image-admin__filter-list">
               {apartmentOptions.map((option) => (
                 <button
@@ -254,7 +260,7 @@ const initialSelectedMedia =
                     </label>
                     <div class="dnd-image-admin__seo-fields">
                       <label class="dnd-image-admin__field">
-                        <span>Theme / room</span>
+                        <span>Téma / helyiség</span>
                         <select
                           id="dnd-image-admin-seo-theme-room"
                           disabled={!initialSelectedMedia}
@@ -270,7 +276,7 @@ const initialSelectedMedia =
                         </select>
                       </label>
                       <label class="dnd-image-admin__field">
-                        <span>Feature / focus</span>
+                        <span>Fókusz / részlet</span>
                         <input
                           id="dnd-image-admin-seo-feature-focus"
                           type="text"
@@ -301,17 +307,17 @@ const initialSelectedMedia =
                           type="button"
                           disabled={!initialSelectedMedia}
                         >
-                          SEO mezok mentese
+                          SEO mezők mentése
                         </button>
                       </div>
                     </div>
                     <label class="dnd-image-admin__field">
-                      <span>Hozzarendelt lakas</span>
+                      <span>Hozzárendelt lakás</span>
                       <select
                         id="dnd-image-admin-apartment-select"
                         disabled={!initialSelectedMedia}
                       >
-                        <option value="">Nincs hozzarendelve</option>
+                        <option value="">Nincs hozzárendelve</option>
                         {apartmentOptions
                           .filter((option) => option.key !== "all")
                           .map((option) => (
@@ -330,7 +336,7 @@ const initialSelectedMedia =
                       type="button"
                       disabled={!initialSelectedMedia}
                     >
-                      Lakas hozzarendeles mentese
+                      Lakás-hozzárendelés mentése
                     </button>
                     <button
                       id="dnd-image-admin-meta-submit"
@@ -362,14 +368,14 @@ const initialSelectedMedia =
                     class="dnd-image-admin__quick-filter"
                     type="button"
                   >
-                    Hianyzo ALT
+                    Hiányzó ALT
                   </button>
                   <button
                     id="dnd-image-admin-filter-unassigned-apartment"
                     class="dnd-image-admin__quick-filter"
                     type="button"
                   >
-                    Nincs lakashoz rendelve
+                    Nincs lakáshoz rendelve
                   </button>
                 </div>
                 <label class="dnd-image-admin__search">
@@ -381,12 +387,12 @@ const initialSelectedMedia =
 
             <div class="dnd-image-admin__bulk-bar">
               <div class="dnd-image-admin__bulk-copy">
-                <strong id="dnd-image-admin-bulk-count">0 kep kijelolve</strong>
-                <span>Jelolj ki tobb kepet, majd add meg a cel lakast.</span>
+                <strong id="dnd-image-admin-bulk-count">0 kép kijelölve</strong>
+                <span>Jelölj ki több képet, majd add meg a cél lakást.</span>
               </div>
               <div class="dnd-image-admin__bulk-actions">
                 <select id="dnd-image-admin-bulk-apartment-select">
-                  <option value="">Valassz lakast</option>
+                  <option value="">Válassz lakást</option>
                   {apartmentOptions
                     .filter((option) => option.key !== "all")
                     .map((option) => (
@@ -394,12 +400,28 @@ const initialSelectedMedia =
                     ))}
                 </select>
                 <button
+                  id="dnd-image-admin-bulk-suggest-alt"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__bulk-button"
+                  type="button"
+                  disabled
+                >
+                  Bulk ALT javaslat
+                </button>
+                <button
+                  id="dnd-image-admin-bulk-suggest-title"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__bulk-button"
+                  type="button"
+                  disabled
+                >
+                  Bulk Title javaslat
+                </button>
+                <button
                   id="dnd-image-admin-bulk-submit"
                   class="dnd-btn dnd-btn--secondary dnd-image-admin__bulk-button"
                   type="button"
                   disabled
                 >
-                  Bulk lakas hozzarendeles
+                  Bulk lakás-hozzárendelés
                 </button>
                 <button
                   id="dnd-image-admin-bulk-clear"
@@ -407,7 +429,7 @@ const initialSelectedMedia =
                   type="button"
                   disabled
                 >
-                  Osszes kijeloles torlese
+                  Összes kijelölés törlése
                 </button>
               </div>
             </div>
@@ -418,10 +440,10 @@ const initialSelectedMedia =
                   <article
                     class="dnd-image-admin__media-card"
                     data-media-id={item.id}
-                    data-title={item.title.toLowerCase()}
-                    data-alt={item.altText.toLowerCase()}
+                    data-title={(mediaSeoFields[String(item.id)]?.title || item.title).toLowerCase()}
+                    data-alt={(mediaSeoFields[String(item.id)]?.altText || item.altText).toLowerCase()}
                     data-apartment={apartmentAssignments[String(item.id)] || ""}
-                    data-has-alt={item.altText.trim() ? "true" : "false"}
+                    data-has-alt={(mediaSeoFields[String(item.id)]?.altText || item.altText).trim() ? "true" : "false"}
                     data-bulk-selected="false"
                   >
                     <button
@@ -430,7 +452,7 @@ const initialSelectedMedia =
                       data-bulk-toggle={item.id}
                       aria-pressed="false"
                     >
-                      Kijeloles
+                      Kijelölés
                     </button>
                     <button
                       type="button"
@@ -443,8 +465,8 @@ const initialSelectedMedia =
                       loading="lazy"
                     />
                     <span class="dnd-image-admin__media-copy">
-                      <strong>{item.title}</strong>
-                      <small>{item.altText || "Nincs alt szöveg"}</small>
+                      <strong>{mediaSeoFields[String(item.id)]?.title || item.title}</strong>
+                      <small>{mediaSeoFields[String(item.id)]?.altText || item.altText || "Nincs alt szöveg"}</small>
                     </span>
                     </button>
                   </article>
@@ -506,8 +528,12 @@ const initialSelectedMedia =
       const bulkError = document.getElementById("dnd-image-admin-bulk-error");
       const bulkCount = document.getElementById("dnd-image-admin-bulk-count");
       const bulkApartmentSelect = document.getElementById("dnd-image-admin-bulk-apartment-select");
+      const bulkSuggestAlt = document.getElementById("dnd-image-admin-bulk-suggest-alt");
+      const bulkSuggestTitle = document.getElementById("dnd-image-admin-bulk-suggest-title");
       const bulkSubmit = document.getElementById("dnd-image-admin-bulk-submit");
       const bulkClear = document.getElementById("dnd-image-admin-bulk-clear");
+      const bulkSeoSuccess = document.getElementById("dnd-image-admin-bulk-seo-success");
+      const bulkSeoError = document.getElementById("dnd-image-admin-bulk-seo-error");
       const quickFilterMissingAlt = document.getElementById("dnd-image-admin-filter-missing-alt");
       const quickFilterUnassignedApartment = document.getElementById("dnd-image-admin-filter-unassigned-apartment");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
@@ -521,6 +547,7 @@ const initialSelectedMedia =
       let isMetaSaving = false;
       let isApartmentSaving = false;
       let isBulkSaving = false;
+      let isBulkSeoSaving = false;
       let isSeoSaving = false;
       let selectedBulkMediaIds = [];
       let mediaMetaOverrides = {};
@@ -547,14 +574,23 @@ const initialSelectedMedia =
         const selectedMediaItem = getSelectedMediaItem();
         const selected = mapping[activeSlotKey];
         const override = selected ? mediaMetaOverrides[selected.id] : null;
+        const seoFields = selected ? mediaSeoFields[String(selected.id)] : null;
 
         if (selectedMediaItem) {
-          return override
-            ? {
-                ...selectedMediaItem,
-                ...override
-              }
-            : selectedMediaItem;
+          return {
+            ...selectedMediaItem,
+            title:
+              override?.title ||
+              selectedMediaItem.title ||
+              seoFields?.title ||
+              "",
+            altText:
+              override?.altText ||
+              selectedMediaItem.altText ||
+              seoFields?.altText ||
+              "",
+            description: override?.description || selectedMediaItem.description || ""
+          };
         }
 
         if (!selected) {
@@ -577,8 +613,8 @@ const initialSelectedMedia =
         return {
           id: selected.id,
           filename: "",
-          title: selected.title || "",
-          altText: selected.altText || "",
+          title: seoFields?.title || selected.title || "",
+          altText: seoFields?.altText || selected.altText || "",
           description: "",
           sourceUrl: selected.sourceUrl || "",
           thumbnailUrl: selected.thumbnailUrl || "",
@@ -602,14 +638,18 @@ const initialSelectedMedia =
         if (!mediaItem) {
           return {
             themeRoom: "",
-            featureFocus: ""
+            featureFocus: "",
+            altText: "",
+            title: ""
           };
         }
 
         return (
           mediaSeoFields[String(mediaItem.id)] || {
             themeRoom: "",
-            featureFocus: ""
+            featureFocus: "",
+            altText: "",
+            title: ""
           }
         );
       }
@@ -643,12 +683,31 @@ const initialSelectedMedia =
       function showBulkMessage(success, message) {
         if (bulkSuccess) {
           bulkSuccess.classList.toggle("is-hidden", !success);
+          if (success) {
+            bulkSuccess.textContent = message;
+          }
         }
 
         if (bulkError) {
           bulkError.classList.toggle("is-hidden", success);
           if (!success) {
             bulkError.textContent = `Hiba: ${message}`;
+          }
+        }
+      }
+
+      function showBulkSeoMessage(success, message) {
+        if (bulkSeoSuccess) {
+          bulkSeoSuccess.classList.toggle("is-hidden", !success);
+          if (success) {
+            bulkSeoSuccess.textContent = message;
+          }
+        }
+
+        if (bulkSeoError) {
+          bulkSeoError.classList.toggle("is-hidden", success);
+          if (!success) {
+            bulkSeoError.textContent = `Hiba: ${message}`;
           }
         }
       }
@@ -677,11 +736,19 @@ const initialSelectedMedia =
         const hasApartment = Boolean(bulkApartmentSelect?.value);
 
         if (bulkSubmit) {
-          bulkSubmit.disabled = !hasSelection || !hasApartment || isBulkSaving;
+          bulkSubmit.disabled = !hasSelection || !hasApartment || isBulkSaving || isBulkSeoSaving;
         }
 
         if (bulkClear) {
-          bulkClear.disabled = !hasSelection || isBulkSaving;
+          bulkClear.disabled = !hasSelection || isBulkSaving || isBulkSeoSaving;
+        }
+
+        if (bulkSuggestAlt) {
+          bulkSuggestAlt.disabled = !hasSelection || isBulkSeoSaving;
+        }
+
+        if (bulkSuggestTitle) {
+          bulkSuggestTitle.disabled = !hasSelection || isBulkSeoSaving;
         }
       }
 
@@ -806,25 +873,64 @@ const initialSelectedMedia =
           title: nextMedia.title,
           altText: nextMedia.altText
         };
+
+        if (mediaSeoFields[String(nextMedia.id)]) {
+          mediaSeoFields[String(nextMedia.id)] = {
+            ...mediaSeoFields[String(nextMedia.id)],
+            altText: nextMedia.altText || "",
+            title: nextMedia.title || ""
+          };
+        }
       }
 
       function updateSeoFieldsState(mediaId, nextFields) {
-        if (nextFields.themeRoom || nextFields.featureFocus) {
+        if (nextFields.themeRoom || nextFields.featureFocus || nextFields.altText || nextFields.title) {
           mediaSeoFields[String(mediaId)] = {
             themeRoom: nextFields.themeRoom || "",
-            featureFocus: nextFields.featureFocus || ""
+            featureFocus: nextFields.featureFocus || "",
+            altText: nextFields.altText || "",
+            title: nextFields.title || ""
           };
         } else {
           delete mediaSeoFields[String(mediaId)];
         }
+
+        const mediaCard = mediaCards.find(
+          (card) => Number(card.dataset.mediaId) === Number(mediaId)
+        );
+        const mediaItem = getMediaItem(mediaId);
+        const effectiveAlt =
+          nextFields.altText || mediaItem?.altText || "";
+
+        if (mediaCard) {
+          mediaCard.dataset.title = (nextFields.title || mediaItem?.title || "").toLowerCase();
+          mediaCard.dataset.alt = effectiveAlt.toLowerCase();
+          mediaCard.dataset.hasAlt = effectiveAlt.trim() ? "true" : "false";
+
+          const title = mediaCard.querySelector("strong");
+          const alt = mediaCard.querySelector("small");
+          if (title) {
+            title.textContent = nextFields.title || mediaItem?.title || "";
+          }
+          if (alt) {
+            alt.textContent = effectiveAlt || "Nincs alt szöveg";
+          }
+        }
       }
 
       function getApartmentLabel(apartmentKey) {
-        const apartmentOption = (state.apartmentOptions || []).find(
-          (option) => option.key === apartmentKey
-        );
+        const labels = {
+          d1: "D1",
+          d2: "D2",
+          fugehaz: "Fügeház",
+          zsalya: "Zsálya Vendégház",
+          szololiget: "Szőlőliget Vendégház",
+          szepvolgyi: "Szépvölgyi Vendégház",
+          royal_homes: "Royal Homes",
+          vintage: "Vintage Vendégház"
+        };
 
-        return apartmentOption?.label || "";
+        return labels[apartmentKey] || "";
       }
 
       function getThemeRoomLabel(themeRoomKey) {
@@ -833,6 +939,17 @@ const initialSelectedMedia =
         );
 
         return themeRoomOption?.label || "";
+      }
+
+      function getSeoFieldsForMediaId(mediaId) {
+        return (
+          mediaSeoFields[String(mediaId)] || {
+            themeRoom: "",
+            featureFocus: "",
+            altText: "",
+            title: ""
+          }
+        );
       }
 
       function toLowerTrimmedWords(value) {
@@ -852,22 +969,58 @@ const initialSelectedMedia =
         return normalized.charAt(0).toUpperCase() + normalized.slice(1);
       }
 
+      function getFeaturePhrase(value) {
+        const normalized = toLowerTrimmedWords(value);
+        const phrases = {
+          kandallo: "kandallóval",
+          "nagy ablak": "nagy ablakokkal",
+          panoramas: "panorámás",
+          zuhanyzo: "zuhanyzóval",
+          "fa gerenda": "fa gerendával",
+          "reggeli feny": "reggeli fényben"
+        };
+
+        return phrases[normalized] || normalized;
+      }
+
       function buildApartmentPlaceSuffix(apartmentLabel) {
         if (!apartmentLabel) {
           return "";
         }
 
-        return apartmentLabel === "D1" || apartmentLabel === "D2"
-          ? `a Dandelion ${apartmentLabel} apartmanban`
-          : `a ${apartmentLabel}ban`;
+        if (apartmentLabel === "D1" || apartmentLabel === "D2") {
+          return `a Dandelion ${apartmentLabel} apartmanban`;
+        }
+
+        if (apartmentLabel === "Royal Homes") {
+          return "a Royal Homes szálláson";
+        }
+
+        return `a ${apartmentLabel}ban`;
       }
 
-      function buildAltSuggestion() {
-        const apartmentLabel = getApartmentLabel(apartmentSelect?.value || getSelectedApartmentAssignment());
-        const themeRoomKey = seoThemeRoom?.value || "";
+      function buildApartmentBySuffix(apartmentLabel) {
+        if (!apartmentLabel) {
+          return "";
+        }
+
+        if (apartmentLabel === "D1" || apartmentLabel === "D2") {
+          return `a Dandelion ${apartmentLabel} apartmannál`;
+        }
+
+        if (apartmentLabel === "Royal Homes") {
+          return "a Royal Homes szállásnál";
+        }
+
+        return `a ${apartmentLabel}nál`;
+      }
+
+      function buildAltSuggestionForValues(apartmentKey, themeRoomKey, featureFocusValue) {
+        const apartmentLabel = getApartmentLabel(apartmentKey);
         const themeRoomLabel = getThemeRoomLabel(themeRoomKey);
-        const featureValue = toLowerTrimmedWords(seoFeatureFocus?.value || "");
+        const featureValue = getFeaturePhrase(featureFocusValue);
         const apartmentSuffix = buildApartmentPlaceSuffix(apartmentLabel);
+        const apartmentBySuffix = buildApartmentBySuffix(apartmentLabel);
 
         if (!apartmentLabel || !themeRoomLabel || !apartmentSuffix) {
           return "";
@@ -875,17 +1028,26 @@ const initialSelectedMedia =
 
         const specialTemplates = {
           terasz: featureValue
-            ? `${toSentenceCase(featureValue)} terasz ${apartmentSuffix}`
-            : `Terasz ${apartmentSuffix}`,
+            ? `${toSentenceCase(featureValue)} terasz ${apartmentBySuffix}`
+            : `Terasz ${apartmentBySuffix}`,
           nappali: featureValue
             ? `Nappali ${featureValue} ${apartmentSuffix}`
             : `Nappali ${apartmentSuffix}`,
+          halo: featureValue
+            ? `Hálószoba ${featureValue} ${apartmentSuffix}`
+            : `Hálószoba ${apartmentSuffix}`,
           furdo: featureValue
-            ? `Furdoszoba ${featureValue} ${apartmentSuffix}`
-            : `Furdoszoba ${apartmentSuffix}`,
+            ? `Fürdőszoba ${featureValue} ${apartmentSuffix}`
+            : `Fürdőszoba ${apartmentSuffix}`,
           panorama: featureValue
-            ? `${toSentenceCase(featureValue)} panorama ${apartmentSuffix}`
-            : `Panorama ${apartmentSuffix}`
+            ? `${toSentenceCase(featureValue)} panoráma ${apartmentBySuffix}`
+            : `Panoráma ${apartmentBySuffix}`,
+          kulso: featureValue
+            ? `Külső nézet ${featureValue} ${apartmentBySuffix}`
+            : `Külső nézet ${apartmentBySuffix}`,
+          kornyek: featureValue
+            ? `${toSentenceCase(featureValue)} környék ${apartmentBySuffix}`
+            : `Környék ${apartmentBySuffix}`
         };
 
         if (specialTemplates[themeRoomKey]) {
@@ -899,10 +1061,18 @@ const initialSelectedMedia =
         return `${toSentenceCase(themeRoomLabel)} ${apartmentSuffix}`;
       }
 
-      function buildTitleSuggestion() {
-        const apartmentLabel = getApartmentLabel(apartmentSelect?.value || getSelectedApartmentAssignment());
-        const themeRoomLabel = getThemeRoomLabel(seoThemeRoom?.value || "");
-        const featureValue = toSentenceCase(toLowerTrimmedWords(seoFeatureFocus?.value || ""));
+      function buildAltSuggestion() {
+        return buildAltSuggestionForValues(
+          apartmentSelect?.value || getSelectedApartmentAssignment(),
+          seoThemeRoom?.value || "",
+          seoFeatureFocus?.value || ""
+        );
+      }
+
+      function buildTitleSuggestionForValues(apartmentKey, themeRoomKey, featureFocusValue) {
+        const apartmentLabel = getApartmentLabel(apartmentKey);
+        const themeRoomLabel = getThemeRoomLabel(themeRoomKey);
+        const featureValue = toSentenceCase(getFeaturePhrase(featureFocusValue));
 
         if (!apartmentLabel || !themeRoomLabel) {
           return "";
@@ -911,6 +1081,14 @@ const initialSelectedMedia =
         return featureValue
           ? `${apartmentLabel} | ${themeRoomLabel} | ${featureValue}`
           : `${apartmentLabel} | ${themeRoomLabel}`;
+      }
+
+      function buildTitleSuggestion() {
+        return buildTitleSuggestionForValues(
+          apartmentSelect?.value || getSelectedApartmentAssignment(),
+          seoThemeRoom?.value || "",
+          seoFeatureFocus?.value || ""
+        );
       }
 
       function renderExtraSizeListItems(sizes) {
@@ -1067,11 +1245,11 @@ const initialSelectedMedia =
           const isSelected = selectedIds.has(String(button.dataset.bulkToggle));
           button.classList.toggle("is-active", isSelected);
           button.setAttribute("aria-pressed", isSelected ? "true" : "false");
-          button.textContent = isSelected ? "Kijelolve" : "Kijeloles";
+          button.textContent = isSelected ? "Kijelölve" : "Kijelölés";
         });
 
         if (bulkCount) {
-          bulkCount.textContent = `${selectedBulkMediaIds.length} kep kijelolve`;
+          bulkCount.textContent = `${selectedBulkMediaIds.length} kép kijelölve`;
         }
 
         updateBulkSubmitState();
@@ -1180,8 +1358,9 @@ const initialSelectedMedia =
         preview.appendChild(image);
 
         currentMeta.classList.remove("is-empty");
-        currentImageTitle.textContent = selected.title;
-        currentImageAlt.textContent = selected.altText || "Nincs alt szöveg.";
+        currentImageTitle.textContent = selectedMediaItem?.title || selected.title;
+        currentImageAlt.textContent =
+          selectedMediaItem?.altText || selected.altText || "Nincs alt szöveg.";
         currentImageLink.classList.remove("is-hidden");
         currentImageLink.setAttribute("href", selected.sourceUrl);
         renderMetaEditor(selectedMediaItem);
@@ -1207,6 +1386,12 @@ const initialSelectedMedia =
         }
         if (bulkError) {
           bulkError.classList.add("is-hidden");
+        }
+        if (bulkSeoSuccess) {
+          bulkSeoSuccess.classList.add("is-hidden");
+        }
+        if (bulkSeoError) {
+          bulkSeoError.classList.add("is-hidden");
         }
         if (seoSuccess) {
           seoSuccess.classList.add("is-hidden");
@@ -1308,6 +1493,14 @@ const initialSelectedMedia =
             bulkError.classList.add("is-hidden");
           }
 
+          if (bulkSeoSuccess) {
+            bulkSeoSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkSeoError) {
+            bulkSeoError.classList.add("is-hidden");
+          }
+
           renderBulkSelection();
           renderMediaGridVisibility();
         });
@@ -1398,8 +1591,121 @@ const initialSelectedMedia =
             bulkError.classList.add("is-hidden");
           }
 
+          if (bulkSeoSuccess) {
+            bulkSeoSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkSeoError) {
+            bulkSeoError.classList.add("is-hidden");
+          }
+
           updateBulkSubmitState();
         });
+      }
+
+      async function runBulkSeoSuggestion(kind) {
+        const selectedIds = [...selectedBulkMediaIds];
+
+        if (selectedIds.length === 0) {
+          showBulkSeoMessage(false, "Előbb jelölj ki legalább egy képet.");
+          return;
+        }
+
+        let updatedCount = 0;
+        let skippedCount = 0;
+
+        try {
+          isBulkSeoSaving = true;
+          updateBulkSubmitState();
+
+          for (const mediaId of selectedIds) {
+            const mediaItem = getMediaItem(mediaId);
+            const seoFields = getSeoFieldsForMediaId(mediaId);
+            const apartmentKey = apartmentAssignments[String(mediaId)] || "";
+            const nextThemeRoom = seoFields.themeRoom || "";
+            const nextFeatureFocus = seoFields.featureFocus || "";
+            const currentAlt =
+              mediaMetaOverrides[mediaId]?.altText ||
+              mediaItem?.altText ||
+              seoFields.altText ||
+              "";
+            const currentTitle =
+              mediaMetaOverrides[mediaId]?.title ||
+              mediaItem?.title ||
+              seoFields.title ||
+              "";
+
+            if (!apartmentKey || !nextThemeRoom) {
+              skippedCount += 1;
+              continue;
+            }
+
+            const nextAltText =
+              kind === "alt" && !currentAlt.trim()
+                ? buildAltSuggestionForValues(apartmentKey, nextThemeRoom, nextFeatureFocus)
+                : seoFields.altText || "";
+            const nextTitle =
+              kind === "title" && !currentTitle.trim()
+                ? buildTitleSuggestionForValues(apartmentKey, nextThemeRoom, nextFeatureFocus)
+                : seoFields.title || "";
+
+            if (
+              (kind === "alt" && !nextAltText) ||
+              (kind === "title" && !nextTitle) ||
+              (kind === "alt" && currentAlt.trim()) ||
+              (kind === "title" && currentTitle.trim())
+            ) {
+              skippedCount += 1;
+              continue;
+            }
+
+            const response = await fetch("/api/image-admin/save-seo-fields", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                id: mediaId,
+                themeRoom: nextThemeRoom,
+                featureFocus: nextFeatureFocus,
+                altText: kind === "alt" ? nextAltText : seoFields.altText || "",
+                title: kind === "title" ? nextTitle : seoFields.title || ""
+              })
+            });
+
+            if (!response.ok) {
+              const payload = await response.json().catch(() => null);
+              throw new Error(payload?.message || "A tömeges SEO javaslat mentése nem sikerült.");
+            }
+
+            const payload = await response.json();
+            updateSeoFieldsState(payload?.id, {
+              themeRoom: payload?.themeRoom || "",
+              featureFocus: payload?.featureFocus || "",
+              altText: payload?.altText || "",
+              title: payload?.title || ""
+            });
+
+            updatedCount += 1;
+          }
+
+          renderMediaGridVisibility();
+          renderPreview();
+
+          const subject = kind === "alt" ? "ALT javaslat" : "Title javaslat";
+          showBulkSeoMessage(
+            true,
+            `${subject}: ${updatedCount} képnél készült javaslat${skippedCount ? `, ${skippedCount} kép kimaradt.` : "."}`
+          );
+        } catch (error) {
+          showBulkSeoMessage(
+            false,
+            error instanceof Error ? error.message : "A tömeges SEO javaslat mentése nem sikerült."
+          );
+        } finally {
+          isBulkSeoSaving = false;
+          updateBulkSubmitState();
+        }
       }
 
       if (saveForm) {
@@ -1496,7 +1802,7 @@ const initialSelectedMedia =
           const suggestion = buildAltSuggestion();
 
           if (!suggestion) {
-            showSeoMessage(false, "Az ALT javaslathoz elobb adj meg lakast es theme/room mezot.");
+            showSeoMessage(false, "Az ALT javaslathoz előbb adj meg lakást és témát vagy helyiséget.");
             return;
           }
 
@@ -1520,7 +1826,7 @@ const initialSelectedMedia =
           const suggestion = buildTitleSuggestion();
 
           if (!suggestion) {
-            showSeoMessage(false, "A title javaslathoz elobb adj meg lakast es theme/room mezot.");
+            showSeoMessage(false, "A title javaslathoz előbb adj meg lakást és témát vagy helyiséget.");
             return;
           }
 
@@ -1540,7 +1846,7 @@ const initialSelectedMedia =
           const selectedMediaItem = getSelectedMediaForEditor();
 
           if (!selectedMediaItem || !seoThemeRoom || !seoFeatureFocus) {
-            showSeoMessage(false, "Nincs kivalasztott kep a SEO mezok mentesehez.");
+            showSeoMessage(false, "Nincs kiválasztott kép a SEO mezők mentéséhez.");
             return;
           }
 
@@ -1562,7 +1868,7 @@ const initialSelectedMedia =
 
             if (!response.ok) {
               const payload = await response.json().catch(() => null);
-              throw new Error(payload?.message || "A SEO mezok mentese nem sikerult.");
+              throw new Error(payload?.message || "A SEO mezők mentése nem sikerült.");
             }
 
             const payload = await response.json();
@@ -1574,7 +1880,7 @@ const initialSelectedMedia =
           } catch (error) {
             showSeoMessage(
               false,
-              error instanceof Error ? error.message : "A SEO mezok mentese nem sikerult."
+              error instanceof Error ? error.message : "A SEO mezők mentése nem sikerült."
             );
           } finally {
             isSeoSaving = false;
@@ -1642,15 +1948,35 @@ const initialSelectedMedia =
             bulkError.classList.add("is-hidden");
           }
 
+          if (bulkSeoSuccess) {
+            bulkSeoSuccess.classList.add("is-hidden");
+          }
+
+          if (bulkSeoError) {
+            bulkSeoError.classList.add("is-hidden");
+          }
+
           renderBulkSelection();
           renderMediaGridVisibility();
+        });
+      }
+
+      if (bulkSuggestAlt) {
+        bulkSuggestAlt.addEventListener("click", async () => {
+          await runBulkSeoSuggestion("alt");
+        });
+      }
+
+      if (bulkSuggestTitle) {
+        bulkSuggestTitle.addEventListener("click", async () => {
+          await runBulkSeoSuggestion("title");
         });
       }
 
       if (bulkSubmit) {
         bulkSubmit.addEventListener("click", async () => {
           if (!bulkApartmentSelect || !bulkApartmentSelect.value || selectedBulkMediaIds.length === 0) {
-            showBulkMessage(false, "Valassz lakast es legalabb egy kepet a tobbes menteshez.");
+            showBulkMessage(false, "Válassz lakást és legalább egy képet a tömeges mentéshez.");
             return;
           }
 
@@ -1671,7 +1997,7 @@ const initialSelectedMedia =
 
             if (!response.ok) {
               const payload = await response.json().catch(() => null);
-              throw new Error(payload?.message || "A tobbes lakas hozzarendelese nem sikerult.");
+              throw new Error(payload?.message || "A tömeges lakás-hozzárendelés nem sikerült.");
             }
 
             const payload = await response.json();
@@ -1679,11 +2005,11 @@ const initialSelectedMedia =
             selectedBulkMediaIds = [];
             renderBulkSelection();
             renderMediaGridVisibility();
-            showBulkMessage(true, "");
+            showBulkMessage(true, "A kijelölt képek lakás-hozzárendelése elmentve.");
           } catch (error) {
             showBulkMessage(
               false,
-              error instanceof Error ? error.message : "A tobbes lakas hozzarendelese nem sikerult."
+              error instanceof Error ? error.message : "A tömeges lakás-hozzárendelés nem sikerült."
             );
           } finally {
             isBulkSaving = false;

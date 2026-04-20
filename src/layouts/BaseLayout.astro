@@ -10,6 +10,12 @@ const {
   title = "Dandelion Vendégházak",
   description = "Természetközeli szállások a Balaton-felvidéken."
 } = Astro.props;
+
+const quickContacts = [
+  { label: "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
+  { label: "E-mail", href: "mailto:hello@dandelionhouse.hu", shortLabel: "MAIL" },
+  { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
+];
 ---
 
 <!DOCTYPE html>
@@ -32,9 +38,23 @@ const {
       <div class="dnd-container dnd-header__desktop">
         <div class="dnd-header__top">
           <div class="dnd-header__contact" aria-label="Kapcsolat">
-            <a href="tel:+36207730807">+36 20 773 0807</a>
-            <a href="mailto:hello@dandelionhouse.hu">hello@dandelionhouse.hu</a>
-            <a href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="tel:+36207730807" aria-label="Telefon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.3 2.2Z" />
+              </svg>
+            </a>
+            <a href="mailto:hello@dandelionhouse.hu" aria-label="E-mail">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 6.5h15c.8 0 1.5.7 1.5 1.5v8.5c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5V8c0-.8.7-1.5 1.5-1.5Z" />
+                <path d="m4 8 8 5.4L20 8" />
+              </svg>
+            </a>
+            <a href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.2 20 5.4 16.5A8.2 8.2 0 1 1 8 19l-3.8 1Z" />
+                <path d="M9.1 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.5.6c-.1.1-.1.3 0 .5.5.9 1.3 1.7 2.2 2.2.2.1.4.1.5 0l.7-.6c.2-.1.4-.2.6-.1l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1.2.5-1.9.4-3.4-.5-6.1-3.2-6.6-6.6-.1-.7.1-1.3.4-1.8Z" />
+              </svg>
+            </a>
           </div>
 
           <a href="/" class="dnd-logo" aria-label="Dandelion Vendégházak">
@@ -107,11 +127,27 @@ const {
       </div>
     </footer>
 
+    <div class="dnd-quick-contact" data-dnd-quick-contact>
+      <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>
+        {quickContacts.map((item) => (
+          <a href={item.href} class="dnd-quick-contact__item">
+            <span>{item.shortLabel}</span>
+            {item.label}
+          </a>
+        ))}
+      </div>
+      <button class="dnd-quick-contact__toggle" type="button" aria-label="Gyors kapcsolat megnyitása" aria-expanded="false" data-dnd-quick-contact-toggle>
+        Kapcsolat
+      </button>
+    </div>
+
     <script>
       (() => {
         const header = document.querySelector("[data-dnd-header]");
         const toggle = document.querySelector("[data-dnd-menu-toggle]");
         const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
+        const quickContact = document.querySelector("[data-dnd-quick-contact]");
+        const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
 
         if (!header) return;
 
@@ -126,6 +162,11 @@ const {
           const isOpen = header.classList.toggle("is-menu-open");
           toggle.setAttribute("aria-expanded", String(isOpen));
           mobileMenu?.setAttribute("data-open", String(isOpen));
+        });
+
+        quickContactToggle?.addEventListener("click", () => {
+          const isOpen = quickContact?.classList.toggle("is-open") ?? false;
+          quickContactToggle.setAttribute("aria-expanded", String(isOpen));
         });
       })();
     </script>

@@ -12,6 +12,8 @@ interface SaveSeoFieldsPayload {
   id: number;
   themeRoom: ThemeRoomKey;
   featureFocus: string;
+  altText?: string;
+  title?: string;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -19,18 +21,32 @@ export const POST: APIRoute = async ({ request }) => {
     const payload = (await request.json()) as Partial<SaveSeoFieldsPayload>;
 
     if (typeof payload.id !== "number") {
-      throw new Error("Hianyzik vagy hibas media azonosito.");
+      throw new Error("Hiányzik vagy hibás média azonosító.");
     }
 
-    const themeRoom = typeof payload.themeRoom === "string" ? payload.themeRoom : "";
-    const featureFocus = typeof payload.featureFocus === "string" ? payload.featureFocus.trim() : "";
-
     const seoFields = await readMediaSeoFields();
+    const previousEntry = seoFields[String(payload.id)] || {
+      themeRoom: "",
+      featureFocus: "",
+      altText: "",
+      title: ""
+    };
+    const themeRoom =
+      typeof payload.themeRoom === "string" ? payload.themeRoom : previousEntry.themeRoom;
+    const featureFocus =
+      typeof payload.featureFocus === "string"
+        ? payload.featureFocus.trim()
+        : previousEntry.featureFocus;
+    const altText =
+      typeof payload.altText === "string" ? payload.altText.trim() : previousEntry.altText;
+    const title = typeof payload.title === "string" ? payload.title.trim() : previousEntry.title;
 
-    if (themeRoom || featureFocus) {
+    if (themeRoom || featureFocus || altText || title) {
       seoFields[String(payload.id)] = {
         themeRoom,
-        featureFocus
+        featureFocus,
+        altText,
+        title
       };
     } else {
       delete seoFields[String(payload.id)];
@@ -43,7 +59,9 @@ export const POST: APIRoute = async ({ request }) => {
         ok: true,
         id: payload.id,
         themeRoom,
-        featureFocus
+        featureFocus,
+        altText,
+        title
       }),
       {
         status: 200,
@@ -56,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         ok: false,
-        message: error instanceof Error ? error.message : "A SEO mezok mentese nem sikerult."
+        message: error instanceof Error ? error.message : "A SEO mezők mentése nem sikerült."
       }),
       {
         status: 400,

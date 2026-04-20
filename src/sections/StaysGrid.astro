@@ -2,88 +2,196 @@
 const bookingLink =
   "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 
-const stays = [
+const featuredStay = {
+  name: "Dandelion D2",
+  description: "Családbarát pihenés a hegy lábánál, nyugodt kerttel és esti dézsával.",
+  image:
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80&sat=-10",
+  tags: ["4–6 fő", "Dézsa"]
+};
+
+const secondaryStays = [
+  {
+    name: "Fügeház",
+    description: "Hangulatos kuckó pároknak, panorámával és csendes reggelekkel.",
+    image:
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1200&q=80",
+    tags: ["2–4 fő", "Panoráma"]
+  },
   {
     name: "Dandelion D1",
-    description: "Modern, világos vendégház nyugodt reggelekkel és könnyű balatoni napokkal.",
+    description: "Tágas vendégház közös főzésekhez és nyugodt balatoni hétvégékhez.",
     image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    name: "Dandelion D2",
-    description: "Letisztult terek, finom részletek és otthonos boutique hangulat pároknak is.",
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80&sat=-10"
-  },
-  {
-    name: "Dandelion Fügeház",
-    description: "Meleg tónusú enteriőr, zöld környezet és lassabb, csendesebb kikapcsolódás.",
-    image:
-      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    name: "Dandelion Zsálya Vendégház",
-    description: "Természetközeli menedék családi pihenéshez, kerttel és kényelmes közösségi terekkel.",
-    image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    name: "Dandelion Szőlőliget Vendégház",
-    description: "Balaton-felvidéki hangulat szőlősorok, napfény és nyugodt esték közelségében.",
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80&hue=20"
-  },
-  {
-    name: "Dandelion Szépvölgyi Vendégház",
-    description: "Elegáns, tágas szállás azoknak, akik a csendet és a panorámát együtt keresik.",
-    image:
-      "https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    name: "Dandelion Royal Homes",
-    description: "Prémium elvonulás markáns designnal, nagyvonalú terekkel és különleges atmoszférával.",
-    image:
-      "https://images.unsplash.com/photo-1464146072230-91cabc968266?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    name: "Dandelion Vintage Vendégház",
-    description: "Lágy karakter, egyedi részletek és időtlen nyugalom egy szerethető házban.",
-    image:
-      "https://images.unsplash.com/photo-1505692952047-1a78307da8f2?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
+    tags: ["6–8 fő", "Kandalló"]
   }
 ];
 ---
 
-<section class="dnd-section dnd-stays">
+<!-- [CHANGE 2026-04-17 08:50] Add anchor target for hero CTA scroll -->
+<section id="stays" class="dnd-section dnd-stays">
   <div class="dnd-container">
-    <div class="dnd-section-heading">
-      <span class="dnd-section-kicker">Nyolc különleges ház</span>
-      <h2 class="dnd-section-title dnd-section-title--wide">
-        Válaszd ki azt a Dandelion házat, amelyik legjobban illik a pihenésed ritmusához.
-      </h2>
-      <p class="dnd-section-intro">
-        Mind a nyolc szállás más karaktert hoz, de közös bennük a nyugodt környezet,
-        a gondosan megtervezett terek és a közvetlen foglalás egyszerűsége.
-      </p>
+    <div class="dnd-section-heading dnd-stays__heading">
+      <h2 class="dnd-section-title">Szállásaink</h2>
+      <p class="dnd-section-intro">Válaszd ki a hozzád illő vendégházat.</p>
     </div>
 
-    <div class="dnd-stays__grid">
-      {stays.map((stay) => (
-        <article class="dnd-stay-card">
-          <img class="dnd-stay-card__image" src={stay.image} alt={stay.name} loading="lazy" />
+    <div class="dnd-stays__layout">
+      <article class="dnd-stay-card dnd-stay-card--featured">
+        <img class="dnd-stay-card__image" src={featuredStay.image} alt={featuredStay.name} loading="lazy" />
 
-          <div class="dnd-stay-card__content">
-            <h3>{stay.name}</h3>
-            <p>{stay.description}</p>
-            <div class="dnd-stay-card__actions">
-              <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Szállás</a>
-              <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
-                Foglalás
-              </a>
-            </div>
+        <div class="dnd-stay-card__content">
+          <h3>{featuredStay.name}</h3>
+          <p>{featuredStay.description}</p>
+
+          <ul class="dnd-stay-card__tags" aria-label={`${featuredStay.name} jellemzői`}>
+            {featuredStay.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+
+          <div class="dnd-stay-card__actions">
+            <a href={bookingLink} class="dnd-btn dnd-btn--primary" target="_blank" rel="noopener noreferrer">
+              Foglalás
+            </a>
           </div>
-        </article>
-      ))}
+        </div>
+      </article>
+
+      <div class="dnd-stays__stack">
+        {secondaryStays.map((stay) => (
+          <article class="dnd-stay-card dnd-stay-card--compact">
+            <img class="dnd-stay-card__image" src={stay.image} alt={stay.name} loading="lazy" />
+
+            <div class="dnd-stay-card__content">
+              <h3>{stay.name}</h3>
+              <p>{stay.description}</p>
+
+              <ul class="dnd-stay-card__tags" aria-label={`${stay.name} jellemzői`}>
+                {stay.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+
+              <div class="dnd-stay-card__actions">
+                <a href={bookingLink} class="dnd-btn dnd-btn--secondary" target="_blank" rel="noopener noreferrer">
+                  Foglalás
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="dnd-stays__footer">
+      <a href="/szallasok" class="dnd-btn dnd-btn--secondary">Összes szállás</a>
     </div>
   </div>
 </section>
+
+<style>
+  .dnd-stays__heading {
+    margin-bottom: 32px;
+  }
+
+  .dnd-stays__layout {
+    display: grid;
+    gap: 22px;
+  }
+
+  .dnd-stays__stack {
+    display: grid;
+    gap: 22px;
+  }
+
+  .dnd-stay-card {
+    overflow: hidden;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: var(--dnd-shadow-card);
+  }
+
+  .dnd-stay-card__image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+
+  .dnd-stay-card--featured .dnd-stay-card__image {
+    height: 420px;
+  }
+
+  .dnd-stay-card__content {
+    display: grid;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .dnd-stay-card h3 {
+    margin: 0;
+    font-size: 1.32rem;
+    font-weight: 700;
+  }
+
+  .dnd-stay-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.72);
+  }
+
+  .dnd-stay-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dnd-stay-card__tags li {
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(246, 240, 228, 0.88);
+    color: rgba(0, 0, 0, 0.74);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+
+  .dnd-stay-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .dnd-stays__footer {
+    margin-top: 26px;
+  }
+
+  @media (min-width: 960px) {
+    .dnd-stays__layout {
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      align-items: stretch;
+    }
+
+    .dnd-stay-card--featured {
+      height: 100%;
+    }
+
+    .dnd-stay-card--featured .dnd-stay-card__image {
+      height: 100%;
+      min-height: 100%;
+    }
+
+    .dnd-stay-card--featured {
+      display: grid;
+      grid-template-rows: minmax(380px, 1fr) auto;
+    }
+
+    .dnd-stay-card--compact .dnd-stay-card__image {
+      height: 180px;
+    }
+  }
+</style>

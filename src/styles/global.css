@@ -90,7 +90,7 @@ main {
   display: flex;
   align-items: center;
   flex: 1;
-  gap: 16px;
+  gap: 14px;
 }
 
 .dnd-logo {
@@ -130,6 +130,51 @@ main {
 .dnd-nav a {
   opacity: 0.9;
   transition: opacity 0.2s ease;
+}
+
+.dnd-header__contact a {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 999px;
+  color: inherit;
+  opacity: 0.86;
+  transition: opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.dnd-header__contact a svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dnd-header__contact a:hover,
+.dnd-header__contact a:focus-visible {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.dnd-header.is-scrolled .dnd-header__contact a,
+.dnd-header.is-menu-open .dnd-header__contact a {
+  border-color: rgba(94, 65, 39, 0.18);
+  background: rgba(255, 252, 246, 0.22);
+}
+
+.dnd-header.is-scrolled .dnd-header__contact a:hover,
+.dnd-header.is-scrolled .dnd-header__contact a:focus-visible,
+.dnd-header.is-menu-open .dnd-header__contact a:hover,
+.dnd-header.is-menu-open .dnd-header__contact a:focus-visible {
+  border-color: rgba(94, 65, 39, 0.36);
+  background: rgba(255, 252, 246, 0.46);
 }
 
 .dnd-header__contact a:hover,
@@ -222,6 +267,10 @@ main {
   width: 16px;
   height: 1px;
   background: currentColor;
+}
+
+.dnd-quick-contact {
+  display: none;
 }
 
 .dnd-btn {
@@ -718,27 +767,95 @@ main {
     align-items: center;
     justify-content: space-between;
     min-height: 66px;
-    gap: 14px;
+    gap: 18px;
   }
 
   .dnd-logo--mobile img {
-    width: 126px;
+    width: 118px;
   }
 
   .dnd-header__mobile-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
+    flex: 0 0 auto;
   }
 
   .dnd-header-cta--mobile {
     min-width: 0;
-    min-height: 34px;
-    padding: 0 10px;
-    font-size: 0.62rem;
+    min-height: 32px;
+    padding: 0 9px;
+    font-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     width: auto;
+  }
+
+  .dnd-menu-toggle {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+  }
+
+  .dnd-quick-contact {
+    position: fixed;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(24px, calc(env(safe-area-inset-bottom) + 18px));
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .dnd-quick-contact__toggle {
+    min-height: 42px;
+    padding: 0 15px;
+    border: 1px solid rgba(73, 52, 34, 0.16);
+    border-radius: 999px;
+    background: rgba(239, 228, 211, 0.96);
+    color: #2d241c;
+    box-shadow: 0 14px 34px rgba(49, 36, 22, 0.16);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dnd-quick-contact__panel {
+    display: grid;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .dnd-quick-contact.is-open .dnd-quick-contact__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .dnd-quick-contact__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(253, 251, 247, 0.96);
+    color: #2d241c;
+    box-shadow: 0 10px 26px rgba(49, 36, 22, 0.12);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .dnd-quick-contact__item span {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    opacity: 0.62;
   }
 
   .dnd-mobile-menu {

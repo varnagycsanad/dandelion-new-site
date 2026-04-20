@@ -3,17 +3,17 @@ import { fileURLToPath } from "node:url";
 
 export const themeRoomOptions = [
   { key: "", label: "Nincs megadva" },
-  { key: "kulso", label: "Kulso" },
+  { key: "kulso", label: "Külső" },
   { key: "terasz", label: "Terasz" },
   { key: "nappali", label: "Nappali" },
-  { key: "halo", label: "Halo" },
+  { key: "halo", label: "Háló" },
   { key: "konyha", label: "Konyha" },
-  { key: "furdo", label: "Furdo" },
-  { key: "etkezo", label: "Etkezo" },
+  { key: "furdo", label: "Fürdő" },
+  { key: "etkezo", label: "Étkező" },
   { key: "kert", label: "Kert" },
-  { key: "panorama", label: "Panorama" },
-  { key: "reszlet", label: "Reszlet" },
-  { key: "kornyek", label: "Kornyek" }
+  { key: "panorama", label: "Panoráma" },
+  { key: "reszlet", label: "Részlet" },
+  { key: "kornyek", label: "Környék" }
 ] as const;
 
 export type ThemeRoomKey = (typeof themeRoomOptions)[number]["key"];
@@ -21,6 +21,8 @@ export type ThemeRoomKey = (typeof themeRoomOptions)[number]["key"];
 export interface MediaSeoFieldsEntry {
   themeRoom: ThemeRoomKey;
   featureFocus: string;
+  altText: string;
+  title: string;
 }
 
 export type MediaSeoFieldsMap = Record<string, MediaSeoFieldsEntry>;
@@ -44,7 +46,9 @@ function sanitizeEntry(value: unknown): MediaSeoFieldsEntry {
   if (!value || typeof value !== "object") {
     return {
       themeRoom: "",
-      featureFocus: ""
+      featureFocus: "",
+      altText: "",
+      title: ""
     };
   }
 
@@ -52,7 +56,9 @@ function sanitizeEntry(value: unknown): MediaSeoFieldsEntry {
 
   return {
     themeRoom: sanitizeThemeRoom(candidate.themeRoom),
-    featureFocus: sanitizeFeatureFocus(candidate.featureFocus)
+    featureFocus: sanitizeFeatureFocus(candidate.featureFocus),
+    altText: sanitizeFeatureFocus(candidate.altText),
+    title: sanitizeFeatureFocus(candidate.title)
   };
 }
 
@@ -65,7 +71,7 @@ export async function readMediaSeoFields(): Promise<MediaSeoFieldsMap> {
     for (const [key, value] of Object.entries(parsed)) {
       const entry = sanitizeEntry(value);
 
-      if (entry.themeRoom || entry.featureFocus) {
+      if (entry.themeRoom || entry.featureFocus || entry.altText || entry.title) {
         result[key] = entry;
       }
     }
@@ -82,7 +88,7 @@ export async function writeMediaSeoFields(fields: MediaSeoFieldsMap): Promise<vo
   for (const [key, value] of Object.entries(fields)) {
     const entry = sanitizeEntry(value);
 
-    if (entry.themeRoom || entry.featureFocus) {
+    if (entry.themeRoom || entry.featureFocus || entry.altText || entry.title) {
       sanitized[key] = entry;
     }
   }
