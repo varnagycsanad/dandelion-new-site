@@ -19,7 +19,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="https://dandelionhouse.hu/wp-content/uploads/2025/02/cropped-Reklam-anyagok-a-hazakhoz.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,25 +28,73 @@ const {
     />
   </head>
   <body>
-    <header class="dnd-header">
-      <div class="dnd-container dnd-header__inner">
-        <a href="/" class="dnd-logo">Dandelion</a>
+    <header class="dnd-header" data-dnd-header>
+      <div class="dnd-container dnd-header__desktop">
+        <div class="dnd-header__top">
+          <div class="dnd-header__contact" aria-label="Kapcsolat">
+            <a href="tel:+36207730807">+36 20 773 0807</a>
+            <a href="mailto:hello@dandelionhouse.hu">hello@dandelionhouse.hu</a>
+            <a href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
 
-        <nav class="dnd-nav">
-          <a href="/szallasok">Szállások</a>
-          <a href="/blog">Blog</a>
-          <a href="/kapcsolat">Kapcsolat</a>
+          <a href="/" class="dnd-logo" aria-label="Dandelion Vendégházak">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
+          </a>
+
+          <div class="dnd-header__actions">
+            <nav class="dnd-language" aria-label="Nyelvváltó">
+              <a href="/" aria-current="page">HU</a>
+              <a href="/en">EN</a>
+              <a href="/de">DE</a>
+            </nav>
+            <a
+              href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
+              class="dnd-header-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Foglalás / Árak</span>
+              <small>Elérhetőség ellenőrzése</small>
+            </a>
+          </div>
+        </div>
+
+        <nav class="dnd-nav" aria-label="Fő navigáció">
+          <a href="/">Főoldal</a>
+          <a href="/szallasok">Szállások–Házak</a>
+          <a href="/elmenyek">Élmények</a>
+          <a href="/galeria">Galéria</a>
         </nav>
-
-        <a
-          href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
-          class="dnd-btn dnd-btn--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Foglalás
-        </a>
       </div>
+
+      <div class="dnd-container dnd-header__mobile">
+        <a href="/" class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
+          <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
+        </a>
+
+        <div class="dnd-header__mobile-actions">
+          <a
+            href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
+            class="dnd-header-cta dnd-header-cta--mobile"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Foglalás / Árak
+          </a>
+          <button class="dnd-menu-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false" data-dnd-menu-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
+        <a href="/">Főoldal</a>
+        <a href="/szallasok">Szállások–Házak</a>
+        <a href="/elmenyek">Élmények</a>
+        <a href="/galeria">Galéria</a>
+      </nav>
     </header>
 
     <main>
@@ -58,5 +106,28 @@ const {
         <p class="dnd-footer__text">Dandelion Vendégházak • Balaton-felvidék</p>
       </div>
     </footer>
+
+    <script>
+      (() => {
+        const header = document.querySelector("[data-dnd-header]");
+        const toggle = document.querySelector("[data-dnd-menu-toggle]");
+        const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
+
+        if (!header) return;
+
+        const updateHeader = () => {
+          header.classList.toggle("is-scrolled", window.scrollY > 24);
+        };
+
+        updateHeader();
+        window.addEventListener("scroll", updateHeader, { passive: true });
+
+        toggle?.addEventListener("click", () => {
+          const isOpen = header.classList.toggle("is-menu-open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          mobileMenu?.setAttribute("data-open", String(isOpen));
+        });
+      })();
+    </script>
   </body>
 </html>

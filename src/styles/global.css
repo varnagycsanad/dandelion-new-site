@@ -49,37 +49,179 @@ main {
   margin: 0 auto;
 }
 
+/* [CHANGE 2026-04-20] Two-level transparent/sticky hospitality header */
 .dnd-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(253, 251, 247, 0.82);
-  border-bottom: 1px solid rgba(238, 238, 238, 0.85);
-  backdrop-filter: blur(14px);
+  margin-bottom: 0;
+  background: transparent;
+  border-bottom: 0;
+  color: #fff;
+  transition: background 0.28s ease, border-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
 }
 
-.dnd-header__inner {
+.dnd-header.is-scrolled,
+.dnd-header.is-menu-open {
+  background: rgba(239, 228, 211, 0.94);
+  border-bottom: 1px solid rgba(111, 87, 59, 0.1);
+  box-shadow: 0 14px 34px rgba(79, 52, 29, 0.08);
+  color: #2d241c;
+  backdrop-filter: blur(12px);
+}
+
+.dnd-header__desktop {
+  display: block;
+  width: min(100% - 56px, 1500px);
+}
+
+.dnd-header__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  min-height: 82px;
+  gap: 18px;
+  min-height: 76px;
+}
+
+.dnd-header__contact,
+.dnd-header__actions {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 16px;
 }
 
 .dnd-logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  display: inline-flex;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.dnd-logo img {
+  width: 170px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  transition: filter 0.28s ease;
+}
+
+.dnd-header.is-scrolled .dnd-logo img,
+.dnd-header.is-menu-open .dnd-logo img {
+  filter: none;
+}
+
+.dnd-header__actions {
+  justify-content: flex-end;
+}
+
+.dnd-header__contact,
+.dnd-language,
+.dnd-nav {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.dnd-header__contact a,
+.dnd-language a,
+.dnd-nav a {
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.dnd-header__contact a:hover,
+.dnd-language a:hover,
+.dnd-nav a:hover {
+  opacity: 1;
+}
+
+.dnd-language {
+  display: flex;
+  align-items: center;
+  gap: 9px;
 }
 
 .dnd-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  gap: clamp(34px, 6vw, 92px);
+  min-height: 42px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.dnd-nav a {
+.dnd-header.is-scrolled .dnd-nav,
+.dnd-header.is-menu-open .dnd-nav {
+  border-top-color: rgba(94, 65, 39, 0.12);
+}
+
+.dnd-header-cta {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 132px;
+  min-height: 48px;
+  padding: 7px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dnd-header.is-scrolled .dnd-header-cta,
+.dnd-header.is-menu-open .dnd-header-cta {
+  border-color: rgba(94, 65, 39, 0.16);
+  background: rgba(255, 252, 246, 0.46);
+}
+
+.dnd-header-cta:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.dnd-header-cta span {
+  font-size: 0.68rem;
   font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.dnd-header-cta small {
+  margin-top: 3px;
+  font-size: 0.56rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.dnd-header__mobile,
+.dnd-mobile-menu {
+  display: none;
+}
+
+.dnd-menu-toggle {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dnd-menu-toggle span {
+  width: 16px;
+  height: 1px;
+  background: currentColor;
 }
 
 .dnd-btn {
@@ -563,12 +705,61 @@ main {
 }
 
 @media (max-width: 767px) {
-  .dnd-header__inner {
-    min-height: 72px;
+  .dnd-header {
+    margin-bottom: 0;
   }
 
-  .dnd-nav {
+  .dnd-header__desktop {
     display: none;
+  }
+
+  .dnd-header__mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 66px;
+    gap: 14px;
+  }
+
+  .dnd-logo--mobile img {
+    width: 126px;
+  }
+
+  .dnd-header__mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dnd-header-cta--mobile {
+    min-width: 0;
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    width: auto;
+  }
+
+  .dnd-mobile-menu {
+    display: grid;
+    gap: 14px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    background: rgba(239, 228, 211, 0.98);
+    color: #2d241c;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: max-height 0.24s ease, padding 0.24s ease;
+  }
+
+  .dnd-mobile-menu[data-open="true"] {
+    max-height: 260px;
+    padding-top: 14px;
+    padding-bottom: 22px;
   }
 
   .dnd-section {
