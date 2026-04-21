@@ -1,0 +1,242 @@
+---
+const experiences = [
+  {
+    title: "BICIKLI",
+    description:
+      "Fedezd fel a vidéket két keréken. Kijelölt túraútvonalak, csendes mellékutak és lélegzetelállító kilátások várnak.",
+    image:
+      "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Kerékpár vidéki környezetben",
+  },
+  {
+    title: "BORTÚRA",
+    description:
+      "Helyi borászatok, autentikus pincék és kiváló borok. Ismerd meg a Balaton-felvidék boros hagyományait.",
+    image:
+      "https://images.unsplash.com/photo-1659904825585-2fdf22b3aa73?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Borospohár, palack és szőlő",
+  },
+  {
+    title: "BALATON",
+    description:
+      "Strandok, naplementék és frissítő fürdőzések. A magyar tenger mindig különleges élményt ad.",
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Naplementés vízparti hangulat",
+  },
+  {
+    title: "HEGYEK",
+    description:
+      "Tanúhegyek, kilátók és erdei ösvények. Túrázz, kapcsolódj ki, és élvezd a természet nyugalmát.",
+    image:
+      "https://dandelionhouse.hu/wp-content/uploads/2026/01/variant-1.jpg.webp",
+    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
+  },
+];
+---
+
+<section class="dnd-section dnd-experiences" id="elmenyek">
+  <div class="dnd-experiences__inner">
+    <div class="dnd-experiences__intro">
+      <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
+      <p class="dnd-experiences__lead">
+        A Dandelion napok lassan indulnak, és élményekkel telnek. Fedezd fel a
+        környék legszebb útvonalait, kóstold meg a helyi borokat, csobbanj a
+        a Balatonban, vagy túrázz a tanúhegyek között.
+      </p>
+      <a href="/elmenyek" class="dnd-experiences__cta">RÉSZLETEK</a>
+    </div>
+
+    <div class="dnd-experiences__grid">
+      {
+        experiences.map((experience, index) => (
+          <article
+            class={`dnd-experience-card ${index > 0 ? "dnd-experience-card--desktop" : ""}`}
+          >
+            <img src={experience.image} alt={experience.imageAlt} loading="lazy" />
+            <div class="dnd-experience-card__body">
+              <h3>{experience.title}</h3>
+              <p>{experience.description}</p>
+              {index === 0 && (
+                <a href="/elmenyek" class="dnd-experience-card__mobile-cta">
+                  RÉSZLETEK
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .dnd-experiences {
+    background: #fbfaf7;
+    padding: 118px 0 132px;
+    scroll-margin-top: 150px;
+  }
+
+  .dnd-experiences__inner {
+    display: grid;
+    grid-template-columns: 310px minmax(0, 1fr);
+    gap: 34px;
+    width: min(100% - 96px, 1460px);
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .dnd-experiences__intro {
+    padding-top: 86px;
+    text-align: center;
+  }
+
+  .dnd-experiences__title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.15rem, 2.25vw, 2.85rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.84);
+  }
+
+  .dnd-experiences__lead {
+    margin: 32px auto 0;
+    max-width: 28ch;
+    font-size: 1rem;
+    line-height: 1.72;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .dnd-experiences__cta,
+  .dnd-experience-card__mobile-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 196px;
+    min-height: 46px;
+    margin-top: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.52);
+    background: transparent;
+    color: rgba(0, 0, 0, 0.78);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .dnd-experiences__cta:hover,
+  .dnd-experiences__cta:focus-visible,
+  .dnd-experience-card__mobile-cta:hover,
+  .dnd-experience-card__mobile-cta:focus-visible {
+    border-color: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.92);
+  }
+
+  .dnd-experiences__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .dnd-experience-card {
+    min-width: 0;
+  }
+
+  .dnd-experience-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  .dnd-experience-card__body {
+    padding: 26px 0 0;
+  }
+
+  .dnd-experience-card h3 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.15em;
+    color: rgba(0, 0, 0, 0.78);
+  }
+
+  .dnd-experience-card h3::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 1px;
+    margin-top: 14px;
+    background: rgba(217, 158, 43, 0.72);
+  }
+
+  .dnd-experience-card p {
+    margin: 18px 0 0;
+    max-width: 27ch;
+    font-size: 0.94rem;
+    line-height: 1.68;
+    color: rgba(0, 0, 0, 0.58);
+  }
+
+  .dnd-experience-card__mobile-cta {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .dnd-experiences {
+      padding: 64px 0 70px;
+    }
+
+    .dnd-experiences__inner {
+      display: block;
+      width: min(100% - 24px, 420px);
+    }
+
+    .dnd-experiences__intro {
+      padding-top: 0;
+      text-align: left;
+    }
+
+    .dnd-experiences__title {
+      font-size: 1.55rem;
+      letter-spacing: 0.12em;
+    }
+
+    .dnd-experiences__lead,
+    .dnd-experiences__cta,
+    .dnd-experience-card--desktop {
+      display: none;
+    }
+
+    .dnd-experiences__grid {
+      display: block;
+      margin-top: 26px;
+    }
+
+    .dnd-experience-card img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .dnd-experience-card__body {
+      padding: 20px 0 0;
+    }
+
+    .dnd-experience-card p {
+      max-width: 28ch;
+    }
+
+    .dnd-experience-card__mobile-cta {
+      display: inline-flex;
+      margin-top: 22px;
+    }
+  }
+</style>

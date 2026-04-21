@@ -16,6 +16,12 @@ const quickContacts = [
   { label: "E-mail", href: "mailto:hello@dandelionhouse.hu", shortLabel: "MAIL" },
   { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
+
+const homeHref = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const staysHref = `${homeHref}#stays`;
+const experiencesHref = `${homeHref}#elmenyek`;
 ---
 
 <!DOCTYPE html>
@@ -57,7 +63,7 @@ const quickContacts = [
             </a>
           </div>
 
-          <a href="/" class="dnd-logo" aria-label="Dandelion Vendégházak">
+          <a href={homeHref} class="dnd-logo" aria-label="Dandelion Vendégházak">
             <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
           </a>
 
@@ -80,15 +86,15 @@ const quickContacts = [
         </div>
 
         <nav class="dnd-nav" aria-label="Fő navigáció">
-          <a href="/">Főoldal</a>
-          <a href="/szallasok">Szállások–Házak</a>
-          <a href="/elmenyek">Élmények</a>
-          <a href="/galeria">Galéria</a>
+          <a href={homeHref}>Főoldal</a>
+          <a href={staysHref}>Szállások–Házak</a>
+          <a href={experiencesHref}>Élmények</a>
+          <a href="/">Galéria</a>
         </nav>
       </div>
 
       <div class="dnd-container dnd-header__mobile">
-        <a href="/" class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
+        <a href={homeHref} class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
           <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
         </a>
 
@@ -110,10 +116,10 @@ const quickContacts = [
       </div>
 
       <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
-        <a href="/">Főoldal</a>
-        <a href="/szallasok">Szállások–Házak</a>
-        <a href="/elmenyek">Élmények</a>
-        <a href="/galeria">Galéria</a>
+        <a href={homeHref}>Főoldal</a>
+        <a href={staysHref}>Szállások–Házak</a>
+        <a href={experiencesHref}>Élmények</a>
+        <a href="/">Galéria</a>
       </nav>
     </header>
 
