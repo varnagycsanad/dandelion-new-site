@@ -1,0 +1,451 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { accommodationSections, accommodations } from "../data/accommodations";
+import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
+
+const imageMapping = await readHomepageImageMapping();
+
+const sections = accommodationSections.map((section) => ({
+  ...section,
+  stays: accommodations
+    .filter((stay) => stay.section === section.key)
+    .map((stay) => ({
+      ...stay,
+      image: imageMapping[stay.imageSlot]
+    }))
+}));
+---
+
+<BaseLayout
+  title="Szállások | Dandelion Vendégházak"
+  description="Dandelion vendégházak a Balaton-felvidéken, statikus szállás listing oldal."
+>
+  <div id="dnd-apts-final" lang="hu">
+    <div class="dnd-wrap">
+      {sections.map((section) => (
+        <div class="dnd-section">
+          <h2 class="dnd-h2">{section.title}</h2>
+          <p class="dnd-sub">{section.subtitle}</p>
+
+          <div class={`dnd-grid ${section.gridClass}`}>
+            {section.stays.map((stay) => {
+              const cardContent = (
+                <>
+                  <div class="dnd-media">
+                    {stay.image ? (
+                      <img src={stay.image.sourceUrl} alt={stay.image.altText || stay.name} loading="lazy" />
+                    ) : (
+                      <div class="dnd-media-placeholder" aria-label={`${stay.name} kép hamarosan`}>
+                        <span>{stay.name}</span>
+                        <small>Kép hamarosan</small>
+                      </div>
+                    )}
+                    {stay.badge && <div class="dnd-badge">{stay.badge}</div>}
+                    <div class="dnd-overlay"></div>
+                    <p class="dnd-hover-text">{stay.hoverText}</p>
+                  </div>
+                  <div class="dnd-info">
+                    <h3 class="dnd-title">{stay.name}</h3>
+                    <div class="dnd-chips">
+                      {stay.chips.map((chip) => (
+                        <span class={`dnd-chip${chip.type && chip.type !== "default" ? ` dnd-chip--${chip.type}` : ""}`}>
+                          {chip.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              );
+
+              return stay.url ? (
+                <a class="dnd-card is-link" href={stay.url}>
+                  {cardContent}
+                </a>
+              ) : (
+                <div class="dnd-card is-disabled">
+                  {cardContent}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  #dnd-apts-final {
+    --accent: #f7941d;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --c-gray-bg: #f3f4f6;
+    --c-gray-txt: #374151;
+    --c-accent-bg: rgba(247, 148, 29, 0.12);
+    --c-accent-txt: #b06200;
+    --c-blue-bg: #e0f2fe;
+    --c-blue-txt: #0369a1;
+    --c-green-bg: #dcfce7;
+    --c-green-txt: #15803d;
+    --c-purple-bg: #f3e8ff;
+    --c-purple-txt: #6b21a8;
+    --radius: 20px;
+    --shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    --shadow2: 0 25px 60px rgba(0, 0, 0, 0.12);
+    --max: 1320px;
+    --pad: 16px;
+    --gap: 22px;
+    --card-h: 460px;
+    --img-h: 340px;
+    --info-h: 120px;
+    --title: 21px;
+    --chipfs: 11px;
+    display: block !important;
+    width: 100% !important;
+    clear: both !important;
+    padding: 160px 0 70px;
+    color: var(--text);
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+
+  #dnd-apts-final * {
+    box-sizing: border-box;
+  }
+
+  #dnd-apts-final a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #dnd-apts-final .dnd-wrap {
+    display: block !important;
+    width: 100% !important;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  #dnd-apts-final .dnd-section {
+    display: block !important;
+    width: 100% !important;
+    margin: 10px 0 45px;
+  }
+
+  #dnd-apts-final .dnd-h2 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  #dnd-apts-final .dnd-sub {
+    max-width: 900px;
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #dnd-apts-final .dnd-grid {
+    display: grid !important;
+    width: 100% !important;
+    gap: var(--gap);
+    align-items: stretch;
+  }
+
+  #dnd-apts-final .dnd-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #dnd-apts-final .dnd-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #dnd-apts-final .dnd-card {
+    position: relative;
+    display: flex;
+    height: var(--card-h);
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #dnd-apts-final .dnd-card.is-link {
+    cursor: pointer;
+  }
+
+  #dnd-apts-final .dnd-card.is-disabled {
+    cursor: default;
+    opacity: 0.9;
+  }
+
+  #dnd-apts-final .dnd-media {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: var(--img-h);
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    text-align: center;
+  }
+
+  #dnd-apts-final .dnd-media img {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #dnd-apts-final .dnd-media-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-content: center;
+    gap: 8px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f3f4f6, #fff8ec);
+    color: rgba(31, 41, 55, 0.72);
+  }
+
+  #dnd-apts-final .dnd-media-placeholder span {
+    font-weight: 800;
+  }
+
+  #dnd-apts-final .dnd-media-placeholder small {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #dnd-apts-final .dnd-overlay {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  #dnd-apts-final .dnd-hover-text {
+    position: relative;
+    z-index: 3;
+    padding: 0 24px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    opacity: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(10px);
+    transition: all 0.3s ease 0.05s;
+  }
+
+  #dnd-apts-final .dnd-info {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    height: var(--info-h);
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  #dnd-apts-final .dnd-title {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: var(--title);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+  }
+
+  #dnd-apts-final .dnd-chips {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    flex-wrap: wrap;
+    gap: 5px 6px;
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+
+  #dnd-apts-final .dnd-chip {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--c-gray-bg);
+    color: var(--c-gray-txt);
+    font-size: var(--chipfs);
+    font-weight: 650;
+    line-height: 1.2;
+  }
+
+  #dnd-apts-final .dnd-chip--accent {
+    background: var(--c-accent-bg);
+    color: var(--c-accent-txt);
+  }
+
+  #dnd-apts-final .dnd-chip--blue {
+    background: var(--c-blue-bg);
+    color: var(--c-blue-txt);
+  }
+
+  #dnd-apts-final .dnd-chip--green {
+    background: var(--c-green-bg);
+    color: var(--c-green-txt);
+  }
+
+  #dnd-apts-final .dnd-chip--purple {
+    background: var(--c-purple-bg);
+    color: var(--c-purple-txt);
+  }
+
+  #dnd-apts-final .dnd-badge {
+    position: absolute;
+    z-index: 20;
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  @media (hover: hover) {
+    #dnd-apts-final .dnd-card.is-link:hover {
+      box-shadow: var(--shadow2);
+      transform: translateY(-6px);
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-media img {
+      transform: scale(1.08);
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-overlay {
+      opacity: 0.85;
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-hover-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 980px) {
+    #dnd-apts-final .dnd-grid--3,
+    #dnd-apts-final .dnd-grid--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover {
+      box-shadow: var(--shadow);
+      transform: none;
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-media img {
+      transform: none;
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-overlay {
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #dnd-apts-final {
+      --pad: 12px;
+      --gap: 12px;
+      padding-top: 96px;
+    }
+
+    #dnd-apts-final .dnd-grid--3,
+    #dnd-apts-final .dnd-grid--2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #dnd-apts-final .dnd-card {
+      height: 200px;
+      margin: 0;
+      border-radius: 14px;
+    }
+
+    #dnd-apts-final .dnd-media {
+      width: 100%;
+      height: 100%;
+    }
+
+    #dnd-apts-final .dnd-media img {
+      height: 100%;
+    }
+
+    #dnd-apts-final .dnd-hover-text,
+    #dnd-apts-final .dnd-overlay {
+      display: none !important;
+    }
+
+    #dnd-apts-final .dnd-info {
+      position: absolute;
+      z-index: 20;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: auto;
+      justify-content: flex-end;
+      padding: 40px 10px 12px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+      box-shadow: none;
+      pointer-events: none;
+    }
+
+    #dnd-apts-final .dnd-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #dnd-apts-final .dnd-chips {
+      display: none !important;
+    }
+
+    #dnd-apts-final .dnd-h2 {
+      padding: 0 4px;
+      font-size: 24px;
+    }
+
+    #dnd-apts-final .dnd-sub {
+      padding: 0 4px;
+      font-size: 14px;
+    }
+
+    #dnd-apts-final .dnd-badge {
+      top: 8px;
+      right: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+  }
+</style>
