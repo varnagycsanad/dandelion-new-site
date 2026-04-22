@@ -1,0 +1,176 @@
+<section class="dnd-section dnd-google-region-map">
+  <div class="dnd-google-region-map__inner">
+    <div class="dnd-google-region-map__content">
+      <span class="dnd-google-region-map__kicker">Balaton-felvidék</span>
+      <h2>A környék</h2>
+      <p>
+        A Dandelion vendégházak környezete a Tapolcai-medence, a Káli-medence
+        és a Balaton nyugati térségének legszebb részeit kapcsolja össze.
+        Szőlőhegyek, csendes falvak és tóparti utak adják ennek a vidéknek a
+        nyugodt ritmusát.
+      </p>
+    </div>
+
+    <div class="dnd-google-region-map__card">
+      <div class="dnd-google-region-map__frame" data-dnd-map-frame>
+        <iframe
+          class="dnd-google-region-map__canvas"
+          src="https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV89dI5KAxhqc-I&ehbc=2E312F"
+          title="Dandelion Balaton-felvidék térkép"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <button class="dnd-google-region-map__overlay" type="button" data-dnd-map-activate>
+          Kattints a térkép aktiválásához
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("[data-dnd-map-frame]").forEach((frame) => {
+    const activator = frame.querySelector("[data-dnd-map-activate]");
+
+    activator?.addEventListener("click", () => {
+      frame.classList.add("is-active");
+    });
+  });
+</script>
+
+<style>
+  .dnd-google-region-map {
+    background: #f7f2e7;
+    padding: 110px 0;
+  }
+
+  .dnd-google-region-map__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 2.4fr) minmax(280px, 0.8fr);
+    grid-template-areas: "map text";
+    gap: clamp(28px, 4vw, 56px);
+    width: min(100% - 96px, 1320px);
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .dnd-google-region-map__content {
+    grid-area: text;
+    max-width: 330px;
+  }
+
+  .dnd-google-region-map__card {
+    grid-area: map;
+  }
+
+  .dnd-google-region-map__kicker {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(121, 93, 48, 0.82);
+  }
+
+  .dnd-google-region-map h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.6rem, 2vw, 2.35rem);
+    font-weight: 400;
+    line-height: 1.08;
+    color: rgba(39, 32, 24, 0.92);
+  }
+
+  .dnd-google-region-map p {
+    margin: 26px 0 0;
+    max-width: 34ch;
+    font-size: 0.92rem;
+    line-height: 1.76;
+    color: rgba(39, 32, 24, 0.68);
+  }
+
+  .dnd-google-region-map__card {
+    position: relative;
+    height: 440px;
+    min-height: 440px;
+    overflow: hidden;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 24px;
+    background: #fbfaf5;
+    box-shadow: 0 24px 56px rgba(80, 57, 31, 0.1);
+  }
+
+  .dnd-google-region-map__frame,
+  .dnd-google-region-map__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .dnd-google-region-map__canvas {
+    position: absolute;
+    top: -64px;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: calc(100% + 64px);
+    border: 0;
+    pointer-events: none;
+  }
+
+  .dnd-google-region-map__frame.is-active .dnd-google-region-map__canvas {
+    pointer-events: auto;
+  }
+
+  .dnd-google-region-map__overlay {
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 18px 24px;
+    border: 0;
+    background: linear-gradient(180deg, transparent 42%, rgba(247, 242, 231, 0.78));
+    color: rgba(39, 32, 24, 0.82);
+    font-family: Poppins, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+  }
+
+  .dnd-google-region-map__frame.is-active .dnd-google-region-map__overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 860px) {
+    .dnd-google-region-map {
+      padding: 72px 0;
+    }
+
+    .dnd-google-region-map__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "text"
+        "map";
+      width: min(100% - 24px, 620px);
+      gap: 30px;
+    }
+
+    .dnd-google-region-map__content {
+      max-width: none;
+    }
+
+    .dnd-google-region-map__card {
+      height: 380px;
+      min-height: 380px;
+    }
+
+    .dnd-google-region-map__card {
+      border-radius: 18px;
+    }
+  }
+</style>
