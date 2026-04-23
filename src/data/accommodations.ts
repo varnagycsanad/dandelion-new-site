@@ -23,16 +23,18 @@ export interface Accommodation {
 export const accommodationSections = [
   {
     key: "upland",
-    title: "Balaton-felvidék - Kisapáti környéke",
+    eyebrow: "Kisapáti · Szent György-hegy · Tapolcai-medence",
+    title: "Tanúhegyek ölelésében",
     subtitle:
-      "Nyáron strandolás (a Balaton csak 8 km / 5 perc autóval), ősszel-tavasszal túrák a Tanúhegyeken, télen pedig csendes, bekuckózós elvonulás.",
+      "Szőlősorok, tanúhegyek, csendes utcák és lassú reggelek adják ennek a tájnak a ritmusát. Itt a pihenés nem elszakadás, hanem megérkezés: panoráma, természetközeli nyugalom és a Balaton közelsége egy helyen.",
     gridClass: "dnd-grid--3"
   },
   {
     key: "shore",
-    title: "Balaton-part",
+    eyebrow: "Keszthely · Badacsonyörs · vízparti kikapcsolódás",
+    title: "Balaton-parti könnyedség",
     subtitle:
-      "Vízpart, strandolás és modern kényelem - karnyújtásnyira Keszthely és Veszprém kulturális élményeitől.",
+      "Itt a Balaton közelsége adja a ritmust: strandolás, naplementék, könnyebb nyári napok és kényelmes, jól megközelíthető szállások. A vízparti élmény itt modernebb, lazább és közvetlenebb formában érkezik.",
     gridClass: "dnd-grid--2"
   }
 ] as const;

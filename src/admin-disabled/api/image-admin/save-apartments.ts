@@ -4,7 +4,7 @@ import {
   readMediaApartmentAssignments,
   writeMediaApartmentAssignments,
   type ApartmentAssignmentKey
-} from "../../../lib/media-apartment-assignments";
+} from "@lib/media-apartment-assignments";
 
 export const prerender = false;
 

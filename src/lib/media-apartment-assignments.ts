@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 
 export const apartmentOptions = [
   { key: "all", label: "Összes" },
@@ -17,7 +17,7 @@ export type ApartmentAssignmentKey = (typeof apartmentOptions)[number]["key"];
 export type ApartmentFilterKey = ApartmentAssignmentKey;
 export type MediaApartmentAssignments = Record<string, Exclude<ApartmentAssignmentKey, "all"> | null>;
 
-const assignmentsFileUrl = new URL("../data/media-apartment-assignments.json", import.meta.url);
+const assignmentsFilePath = resolve(process.cwd(), "src", "data", "media-apartment-assignments.json");
 const allowedAssignmentKeys = new Set(
   apartmentOptions.filter((option) => option.key !== "all").map((option) => option.key)
 );
@@ -34,7 +34,7 @@ function sanitizeAssignment(value: unknown): Exclude<ApartmentAssignmentKey, "al
 
 export async function readMediaApartmentAssignments(): Promise<MediaApartmentAssignments> {
   try {
-    const raw = await readFile(assignmentsFileUrl, "utf8");
+    const raw = await readFile(assignmentsFilePath, "utf8");
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const result: MediaApartmentAssignments = {};
 
@@ -62,7 +62,7 @@ export async function writeMediaApartmentAssignments(
   }
 
   await writeFile(
-    fileURLToPath(assignmentsFileUrl),
+    assignmentsFilePath,
     `${JSON.stringify(sanitized, null, 2)}\n`,
     "utf8"
   );

@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { homepageImageSlots } from "../data/homepage-image-slots";
 import {
@@ -15,6 +15,7 @@ import {
 } from "../lib/media-seo-fields";
 import { fetchWordPressMedia } from "../lib/wp-media";
 
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const requestedSlot = Astro.url.searchParams.get("slot");
 const initialSlotKey =
   homepageImageSlots.find((slot) => slot.key === requestedSlot)?.key ||
@@ -56,7 +57,7 @@ const initialSelectedMedia =
   mediaItems.find((item) => item.id === mapping[initialSlotKey]?.id) || null;
 ---
 
-<BaseLayout title="Képkezelő admin" description="Dandelion WP média és főoldali képhoztárendelések kezelése.">
+<BaseLayout hideHeader={true} hideFooter={true} title="Képkezelő admin" description="Dandelion WP média és főoldali képhoztárendelések kezelése.">
   <section class="dnd-image-admin">
     <div class="dnd-container">
       <div class="dnd-image-admin__header">
@@ -481,10 +482,11 @@ const initialSelectedMedia =
 
   <script id="dnd-image-admin-state" type="application/json" set:html={JSON.stringify(initialState)}></script>
 
-  <script>
+  <script define:vars={{ adminApiBase: `${baseHref}api/image-admin/` }}>
     const stateElement = document.getElementById("dnd-image-admin-state");
 
     if (stateElement) {
+      const apiUrl = (endpoint) => `${adminApiBase}${endpoint}`;
       const state = JSON.parse(stateElement.textContent || "{}");
       const slotButtons = Array.from(document.querySelectorAll("[data-slot-key]"));
       const apartmentFilterButtons = Array.from(document.querySelectorAll("[data-apartment-filter]"));
@@ -1659,7 +1661,7 @@ const initialSelectedMedia =
               continue;
             }
 
-            const response = await fetch("/api/image-admin/save-seo-fields", {
+            const response = await fetch(apiUrl("save-seo-fields"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -1713,7 +1715,7 @@ const initialSelectedMedia =
           event.preventDefault();
 
           try {
-            const response = await fetch("/api/image-admin/save", {
+            const response = await fetch(apiUrl("save"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -1751,7 +1753,7 @@ const initialSelectedMedia =
             isMetaSaving = true;
             updateMetaSubmitState(true);
 
-            const response = await fetch("/api/image-admin/update-media", {
+            const response = await fetch(apiUrl("update-media"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -1854,7 +1856,7 @@ const initialSelectedMedia =
             isSeoSaving = true;
             updateSeoSubmitState(true);
 
-            const response = await fetch("/api/image-admin/save-seo-fields", {
+            const response = await fetch(apiUrl("save-seo-fields"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -1902,7 +1904,7 @@ const initialSelectedMedia =
             isApartmentSaving = true;
             updateApartmentSubmitState(true);
 
-            const response = await fetch("/api/image-admin/save-apartment", {
+            const response = await fetch(apiUrl("save-apartment"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -1984,7 +1986,7 @@ const initialSelectedMedia =
             isBulkSaving = true;
             updateBulkSubmitState();
 
-            const response = await fetch("/api/image-admin/save-apartments", {
+            const response = await fetch(apiUrl("save-apartments"), {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -2022,7 +2024,7 @@ const initialSelectedMedia =
     }
   </script>
 
-  <style>
+  <style is:global>
     .dnd-image-admin {
       padding: 44px 0 96px;
     }

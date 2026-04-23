@@ -1,5 +1,39 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
+
+function localImageAdmin() {
+  const route = (path) => fileURLToPath(new URL(path, import.meta.url));
+
+  return {
+    name: 'dandelion-local-image-admin',
+    hooks: {
+      'astro:config:setup': ({ command, injectRoute }) => {
+        injectRoute({
+          pattern: '/_local/image-admin',
+          entrypoint: route('./src/admin-disabled/image-admin.astro'),
+        });
+
+        if (command !== 'dev') {
+          return;
+        }
+
+        for (const endpoint of [
+          'save',
+          'update-media',
+          'save-apartment',
+          'save-apartments',
+          'save-seo-fields',
+        ]) {
+          injectRoute({
+            pattern: `/api/image-admin/${endpoint}`,
+            entrypoint: route(`./src/admin-disabled/api/image-admin/${endpoint}.ts`),
+          });
+        }
+      },
+    },
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -7,8 +41,14 @@ export default defineConfig({
   // [CHANGE 2026-04-17 21:06] Set base path for /ujsite/ static deploy
   base: '/ujsite/',
   output: 'static',
+  integrations: [localImageAdmin()],
   // [CHANGE 2026-04-19] Avoid @ characters in generated asset filenames for /ujsite/ hosting.
   vite: {
+    resolve: {
+      alias: {
+        '@lib': fileURLToPath(new URL('./src/lib', import.meta.url)),
+      },
+    },
     build: {
       rollupOptions: {
         output: {

@@ -1,15 +1,20 @@
----
+﻿---
 import "../styles/global.css";
+import { accommodations } from "../data/accommodations";
 
 interface Props {
   title?: string;
   description?: string;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
 const {
   title = "Dandelion Vendégházak",
   description = "Természetközeli szállások a Balaton-felvidéken."
 } = Astro.props;
+
+const { hideHeader = false, hideFooter = false } = Astro.props;
 
 const quickContacts = [
   { label: "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
@@ -22,6 +27,10 @@ const homeHref = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 const staysHref = `${homeHref}#stays`;
 const experiencesHref = `${homeHref}#elmenyek`;
+const stayLinks = accommodations.map((stay) => ({
+  label: stay.name,
+  href: stay.slug === "dandelion-d2" ? `${homeHref}dandelion-d2/` : stay.url
+}));
 ---
 
 <!DOCTYPE html>
@@ -40,7 +49,7 @@ const experiencesHref = `${homeHref}#elmenyek`;
     />
   </head>
   <body>
-    <header class="dnd-header" data-dnd-header>
+    {!hideHeader && <header class="dnd-header" data-dnd-header>
       <div class="dnd-container dnd-header__desktop">
         <div class="dnd-header__top">
           <div class="dnd-header__contact" aria-label="Kapcsolat">
@@ -87,7 +96,14 @@ const experiencesHref = `${homeHref}#elmenyek`;
 
         <nav class="dnd-nav" aria-label="Fő navigáció">
           <a href={homeHref}>Főoldal</a>
-          <a href={staysHref}>Szállások–Házak</a>
+          <div class="dnd-nav__item dnd-nav__item--has-submenu">
+            <a href={staysHref}>Szállások–Házak</a>
+            <div class="dnd-nav__submenu" aria-label="Szállások almenü">
+              {stayLinks.map((stay) => (
+                <a href={stay.href}>{stay.label}</a>
+              ))}
+            </div>
+          </div>
           <a href={experiencesHref}>Élmények</a>
           <a href="/">Galéria</a>
         </nav>
@@ -118,22 +134,25 @@ const experiencesHref = `${homeHref}#elmenyek`;
       <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
         <a href={homeHref}>Főoldal</a>
         <a href={staysHref}>Szállások–Házak</a>
+        {stayLinks.map((stay) => (
+          <a href={stay.href} class="dnd-mobile-menu__subitem">{stay.label}</a>
+        ))}
         <a href={experiencesHref}>Élmények</a>
         <a href="/">Galéria</a>
       </nav>
-    </header>
+    </header>}
 
     <main>
       <slot />
     </main>
 
-    <footer class="dnd-footer">
+    {!hideFooter && <footer class="dnd-footer">
       <div class="dnd-container">
         <p class="dnd-footer__text">Dandelion Vendégházak • Balaton-felvidék</p>
       </div>
-    </footer>
+    </footer>}
 
-    <div class="dnd-quick-contact" data-dnd-quick-contact>
+    {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
       <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>
         {quickContacts.map((item) => (
           <a href={item.href} class="dnd-quick-contact__item">
@@ -145,7 +164,7 @@ const experiencesHref = `${homeHref}#elmenyek`;
       <button class="dnd-quick-contact__toggle" type="button" aria-label="Gyors kapcsolat megnyitása" aria-expanded="false" data-dnd-quick-contact-toggle>
         Kapcsolat
       </button>
-    </div>
+    </div>}
 
     <script>
       (() => {

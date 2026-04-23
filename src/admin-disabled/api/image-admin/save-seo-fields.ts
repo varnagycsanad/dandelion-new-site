@@ -4,7 +4,7 @@ import {
   readMediaSeoFields,
   writeMediaSeoFields,
   type ThemeRoomKey
-} from "../../../lib/media-seo-fields";
+} from "@lib/media-seo-fields";
 
 export const prerender = false;
 

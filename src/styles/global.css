@@ -198,6 +198,66 @@ main {
   border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+.dnd-nav__item {
+  position: relative;
+  z-index: 2;
+}
+
+.dnd-nav__item--has-submenu {
+  display: flex;
+  align-items: center;
+}
+
+.dnd-nav__item--has-submenu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+
+.dnd-nav__submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  display: grid;
+  gap: 4px;
+  min-width: 220px;
+  padding: 14px 14px;
+  border: 1px solid rgba(94, 65, 39, 0.12);
+  border-radius: 8px;
+  background: rgba(253, 251, 247, 0.98);
+  box-shadow: 0 16px 36px rgba(49, 36, 22, 0.1);
+  color: #2d241c;
+  z-index: 12;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.dnd-nav__submenu a {
+  display: block;
+  padding: 8px 10px;
+  line-height: 1.55;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.dnd-nav__submenu a:hover,
+.dnd-nav__submenu a:focus-visible {
+  background: rgba(217, 158, 43, 0.08);
+  opacity: 1;
+}
+
+.dnd-nav__item--has-submenu:hover .dnd-nav__submenu,
+.dnd-nav__item--has-submenu:focus-within .dnd-nav__submenu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
 .dnd-header.is-scrolled .dnd-nav,
 .dnd-header.is-menu-open .dnd-nav {
   border-top-color: rgba(94, 65, 39, 0.12);
@@ -871,6 +931,11 @@ main {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     transition: max-height 0.24s ease, padding 0.24s ease;
+  }
+
+  .dnd-mobile-menu__subitem {
+    padding-left: 18px;
+    opacity: 0.72;
   }
 
   .dnd-mobile-menu[data-open="true"] {

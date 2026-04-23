@@ -3,7 +3,7 @@ import type { APIRoute } from "astro";
 import {
   parseHomepageImageMapping,
   writeHomepageImageMapping
-} from "../../../lib/homepage-image-mapping";
+} from "@lib/homepage-image-mapping";
 
 export const prerender = false;
 

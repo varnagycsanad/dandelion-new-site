@@ -1,10 +1,11 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 import {
   homepageImageSlots,
   type HomepageImageSlotKey
 } from "../data/homepage-image-slots";
+import homepageImageMappingData from "../data/homepage-image-mapping.json";
 
 export interface HomepageImageSelection {
   id: number;
@@ -54,19 +55,14 @@ function sanitizeSelection(value: unknown): HomepageImageSelection | null {
 }
 
 export async function readHomepageImageMapping(): Promise<HomepageImageMapping> {
-  try {
-    const raw = await readFile(mappingFileUrl, "utf8");
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const fallback = createEmptyMapping();
+  const parsed = homepageImageMappingData as Record<string, unknown>;
+  const fallback = createEmptyMapping();
 
-    for (const slot of homepageImageSlots) {
-      fallback[slot.key] = sanitizeSelection(parsed[slot.key]);
-    }
-
-    return fallback;
-  } catch {
-    return createEmptyMapping();
+  for (const slot of homepageImageSlots) {
+    fallback[slot.key] = sanitizeSelection(parsed[slot.key]);
   }
+
+  return fallback;
 }
 
 export async function writeHomepageImageMapping(

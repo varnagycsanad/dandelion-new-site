@@ -1,0 +1,719 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { accommodations } from "../data/accommodations";
+import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
+import { readMediaApartmentAssignments } from "../lib/media-apartment-assignments";
+import { fetchWordPressMedia } from "../lib/wp-media";
+
+const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
+
+// [CHANGE 2026-04-23 20:15] Keep the full D2 page image set in one place so later real photos are easy to swap in.
+const d2PlaceholderGallery = [
+  {
+    src: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Világos, természetközeli nappali nagy ablakokkal"
+  },
+  {
+    src: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Letisztult étkező és nappali természetes fénnyel"
+  },
+  {
+    src: "https://images.pexels.com/photos/6489127/pexels-photo-6489127.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Világos étkező és konyha természetes anyagokkal"
+  },
+  {
+    src: "https://images.pexels.com/photos/6585619/pexels-photo-6585619.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Nyugodt hálószoba puha, világos tónusokkal"
+  },
+  {
+    src: "https://images.pexels.com/photos/5998138/pexels-photo-5998138.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Terasz vidéki környezetben"
+  },
+  {
+    src: "https://images.pexels.com/photos/3935331/pexels-photo-3935331.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Nappali részlet nagy üvegfelületekkel"
+  },
+  {
+    src: "https://images.pexels.com/photos/7031408/pexels-photo-7031408.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Letisztult enteriőr természetes fénnyel"
+  },
+  {
+    src: "https://images.pexels.com/photos/5997994/pexels-photo-5997994.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Kültéri pihenősarok növények között"
+  },
+  {
+    src: "https://images.pexels.com/photos/7534556/pexels-photo-7534556.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Világos apartmanrészlet otthonos hangulattal"
+  },
+  {
+    src: "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Tágas, családbarát enteriőr nyugodt színekkel"
+  }
+] as const;
+
+const primaryFacts = [
+  "A D2 könnyed, családbarát apartman a Szent György-hegy lábánál, ahol a pihenés ritmusát a kert, a terasz és a Balaton-felvidék csendje adja.",
+  "A tér egyszerre praktikus és otthonos: világos nappali, kényelmes étkezések, nyugodt esték és olyan környezet, ahol gyerekekkel is könnyű megérkezni."
+];
+
+const featureGroups = [
+  {
+    title: "Alapadatok",
+    items: [
+      ["Férőhely", "4–6 fő"],
+      ["Méret", "kb. 75 m²"],
+      ["Ágyak", "2 háló + nappali"],
+      ["Parkolás", "ingyenes udvari parkolás"]
+    ]
+  },
+  {
+    title: "Kényelem",
+    items: [
+      ["Wifi", "gyors, stabil kapcsolat"],
+      ["Konyha", "jól felszerelt"],
+      ["Fürdő", "kényelmes, családbarát"],
+      ["Jelleg", "családbarát pihenés"]
+    ]
+  }
+] as const;
+
+const featureIcons = [
+  { label: "Wifi", icon: "◌" },
+  { label: "Felszerelt konyha", icon: "□" },
+  { label: "Kényelmes fürdő", icon: "◍" },
+  { label: "Saját parkolás", icon: "△" },
+  { label: "Családbarát", icon: "◎" },
+  { label: "Nyugodt kertkapcsolat", icon: "◇" }
+] as const;
+
+// [CHANGE 2026-04-24 00:43] Resolve D2 gallery deterministically from assigned media IDs and only fall back on 0 valid images.
+const apartmentAssignments = await readMediaApartmentAssignments();
+const d2AssignedIds = Object.entries(apartmentAssignments)
+  .filter(([, apartmentKey]) => apartmentKey === "d2")
+  .map(([id]) => Number(id))
+  .filter((id) => Number.isInteger(id) && id > 0);
+
+let d2GalleryImages = d2PlaceholderGallery;
+
+try {
+  const mediaResult = await fetchWordPressMedia();
+
+  if (mediaResult.warning) {
+    console.warn(`[D2 gallery] WordPress media warning: ${mediaResult.warning}`);
+  }
+
+  if (mediaResult.error) {
+    console.warn(`[D2 gallery] WordPress media error: ${mediaResult.error}`);
+  }
+
+  const mediaById = new Map(mediaResult.items.map((item) => [item.id, item]));
+  const resolvedAssignedImages = d2AssignedIds
+    .map((id) => {
+      const item = mediaById.get(id);
+
+      if (!item || !item.sourceUrl) {
+        return null;
+      }
+
+      return {
+        src: item.sourceUrl,
+        alt: item.altText || item.title || `Dandelion D2 galéria kép ${id}`
+      };
+    })
+    .filter((item): item is { src: string; alt: string } => Boolean(item));
+
+  const missingAssignedIds = d2AssignedIds.filter((id) => !mediaById.has(id));
+
+  console.warn(
+    `[D2 gallery] assigned=${d2AssignedIds.length}, fetched=${mediaResult.items.length}, resolved=${resolvedAssignedImages.length}, missing=${missingAssignedIds.length}`
+  );
+
+  if (missingAssignedIds.length) {
+    console.warn(
+      `[D2 gallery] ${missingAssignedIds.length} assigned media item missing from fetched WP media: ${missingAssignedIds.join(", ")}`
+    );
+  }
+
+  if (resolvedAssignedImages.length > 0) {
+    d2GalleryImages = resolvedAssignedImages;
+  } else {
+    console.warn("[D2 gallery] No usable D2 assigned images resolved; using placeholder fallback.");
+  }
+} catch (error) {
+  console.warn(
+    `[D2 gallery] Failed to resolve assigned gallery images: ${
+      error instanceof Error ? error.message : "Unknown error"
+    }`
+  );
+}
+
+const imageMapping = await readHomepageImageMapping();
+const relatedStays = accommodations
+  .filter((stay) => stay.slug !== "dandelion-d2")
+  .slice(0, 3)
+  .map((stay) => ({
+    ...stay,
+    href: resolveStayHref(stay.url),
+    image: imageMapping[stay.imageSlot]
+  }));
+---
+
+<BaseLayout
+  title="Dandelion D2 | Dandelion Vendégházak"
+  description="Dandelion D2 külön oldal a Balaton-felvidéki, családbarát pihenés hangulatára építve."
+>
+  <section class="d2-hero">
+    <img src={d2PlaceholderGallery[0].src} alt={d2PlaceholderGallery[0].alt} class="d2-hero__image" />
+    <div class="d2-hero__overlay"></div>
+    <div class="dnd-container d2-hero__content">
+      <div class="d2-hero__copy">
+        <span class="d2-kicker">Balaton-felvidék · Szent György-hegy</span>
+        <h1>Dandelion D2</h1>
+        <p class="d2-hero__subtitle">családbarát apartman a Szent György-hegy lábánál</p>
+        <p class="d2-hero__lead">
+          Világos terek, nyugodt kertkapcsolat és kényelmes, természetközeli pihenés azoknak,
+          akik a Balaton-felvidéket nem sietve, hanem ráérősen szeretnék megélni.
+        </p>
+        <div class="d2-hero__actions">
+          <button type="button" class="dnd-btn dnd-btn--primary" onclick="OpenBE()">Árak és foglalás</button>
+          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary">Galéria megtekintése</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="d2-intro dnd-section">
+    <div class="dnd-container">
+      <div class="d2-intro__inner">
+        <span class="dnd-section-kicker">Nyugalom · családbarát pihenés</span>
+        <h2 class="d2-intro__title">Kényelmes megérkezés a hegy lábánál</h2>
+        <p class="dnd-section-intro">
+          A D2 azoknak szól, akik a balatoni napok mellé valódi lelassulást keresnek: reggeli fényt
+          a teraszon, tágas közös tereket és egy olyan apartmant, amely természetesen simul bele a táj ritmusába.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="d2-details dnd-section">
+    <div class="dnd-container d2-details__grid">
+      <div class="d2-details__story">
+        <span class="dnd-section-kicker">Dandelion D2</span>
+        <h2 class="d2-section-title">Átgondolt, könnyen belakható apartman</h2>
+        {primaryFacts.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        <button type="button" class="dnd-btn dnd-btn--secondary d2-details__cta" onclick="OpenBE()">
+          Árak és foglalás
+        </button>
+      </div>
+
+      <div class="d2-details__facts">
+        <div class="d2-details__fact-grid">
+          {featureGroups.map((group) => (
+            <section class="d2-fact-group">
+              <h3>{group.title}</h3>
+              <dl>
+                {group.items.map(([term, value]) => (
+                  <div>
+                    <dt>{term}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+        </div>
+
+        <section class="d2-feature-icons">
+          <h3>Felszereltség</h3>
+          <div class="d2-feature-icons__grid">
+            {featureIcons.map((item) => (
+              <div class="d2-feature-icons__item">
+                <span aria-hidden="true">{item.icon}</span>
+                <strong>{item.label}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section id="d2-gallery" class="d2-gallery dnd-section">
+    <div class="dnd-container">
+      <div class="d2-gallery__heading">
+        <span class="dnd-section-kicker">Galéria</span>
+        <h2 class="d2-section-title">Tíz pillanat a D2 hangulatából</h2>
+      </div>
+      <div class="d2-gallery__grid">
+        {d2GalleryImages.map((image, index) => (
+          <figure class="d2-gallery__item">
+            <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="d2-location dnd-section">
+    <div class="dnd-container d2-location__grid">
+      <div class="d2-location__media">
+        <img src={d2PlaceholderGallery[4].src} alt="Terasz zöld környezetben" loading="lazy" />
+      </div>
+      <div class="d2-location__copy">
+        <span class="dnd-section-kicker">Környék és elhelyezkedés</span>
+        <h2 class="d2-section-title">Tanúhegyek, Balaton, csendes utak</h2>
+        <p>
+          A Szent György-hegy közelsége egyszerre ad karaktert és nyugalmat ennek a környéknek:
+          rövid kirándulások, szőlőhegyek, balatoni kitérők és olyan esték, amikor a táj már magától lelassít.
+        </p>
+        <p>
+          Innen a Balaton sem távoli program, hanem természetes része a napnak – de a D2 valódi ereje mégis az,
+          hogy visszaérkezve csendet és kényelmes, családbarát ritmust ad.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="d2-booking dnd-section">
+    <div class="dnd-container">
+      <div class="d2-booking__panel">
+        <span class="dnd-section-kicker">Foglalás</span>
+        <h2 class="d2-section-title">Megnéznéd a szabad időpontokat?</h2>
+        <p>
+          A D2 ideális választás, ha a Balaton-felvidéket kényelmes, családbarát apartmanból szeretnéd felfedezni.
+        </p>
+        <button type="button" class="dnd-btn dnd-btn--primary d2-booking__cta" onclick="OpenBE()">
+          Árak és foglalás
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="d2-related dnd-section">
+    <div class="dnd-container">
+      <div class="d2-related__heading">
+        <span class="dnd-section-kicker">További szállások</span>
+        <h2 class="d2-section-title">Más Dandelion helyek ugyanebben a hangulatban</h2>
+      </div>
+      <div class="d2-related__grid">
+        {relatedStays.map((stay) => (
+          <a href={stay.href} class="d2-related__card">
+            {stay.image ? (
+              <img src={stay.image.sourceUrl} alt={stay.image.altText || stay.name} loading="lazy" />
+            ) : (
+              <div class="d2-related__placeholder">Kép hamarosan</div>
+            )}
+            <div class="d2-related__copy">
+              <strong>{stay.name}</strong>
+              <span>{stay.location}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ bookingLink }}>
+    if (typeof window.OpenBE !== "function") {
+      window.OpenBE = () => {
+        window.open(bookingLink, "_blank", "noopener,noreferrer");
+      };
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .d2-hero {
+    position: relative;
+    min-height: 88vh;
+    color: #fff;
+  }
+
+  .d2-hero__image,
+  .d2-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .d2-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .d2-hero__overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.52));
+  }
+
+  .d2-hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 88vh;
+    align-items: flex-end;
+    padding-top: 150px;
+    padding-bottom: 76px;
+  }
+
+  .d2-hero__copy {
+    max-width: 620px;
+  }
+
+  .d2-kicker,
+  .d2-section-title,
+  .d2-intro__title,
+  .d2-hero h1 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  }
+
+  .d2-kicker {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(253, 251, 247, 0.86);
+  }
+
+  .d2-hero h1 {
+    margin: 0;
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .d2-hero__subtitle {
+    margin: 20px 0 0;
+    font-size: 1.12rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(253, 251, 247, 0.84);
+  }
+
+  .d2-hero__lead {
+    max-width: 560px;
+    margin: 18px 0 0;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: rgba(253, 251, 247, 0.92);
+  }
+
+  .d2-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .d2-intro {
+    padding-bottom: 74px;
+  }
+
+  .d2-intro__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .d2-intro__title,
+  .d2-section-title {
+    margin: 0;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    line-height: 1.04;
+    font-weight: 500;
+  }
+
+  .d2-intro__inner .dnd-section-intro {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .d2-details {
+    padding-top: 28px;
+  }
+
+  .d2-details__grid {
+    display: grid;
+    gap: 46px;
+    align-items: start;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .d2-details__story p,
+  .d2-location__copy p,
+  .d2-booking__panel p {
+    margin: 16px 0 0;
+    color: rgba(0, 0, 0, 0.72);
+    line-height: 1.78;
+  }
+
+  .d2-details__cta {
+    margin-top: 30px;
+  }
+
+  .d2-details__facts {
+    padding: 34px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .d2-details__fact-grid {
+    display: grid;
+    gap: 26px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-fact-group h3,
+  .d2-feature-icons h3 {
+    margin: 0 0 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .d2-fact-group dl {
+    margin: 0;
+    display: grid;
+    gap: 14px;
+  }
+
+  .d2-fact-group div {
+    display: grid;
+    gap: 4px;
+  }
+
+  .d2-fact-group dt {
+    color: rgba(0, 0, 0, 0.52);
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .d2-fact-group dd {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .d2-feature-icons {
+    margin-top: 34px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .d2-feature-icons__grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-feature-icons__item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .d2-feature-icons__item span {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 999px;
+    color: #d99e2b;
+    font-size: 0.95rem;
+  }
+
+  .d2-feature-icons__item strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .d2-gallery {
+    padding-top: 38px;
+  }
+
+  .d2-gallery .dnd-container {
+    width: min(100% - 16px, 1900px);
+  }
+
+  .d2-gallery__heading,
+  .d2-related__heading {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .d2-gallery__grid {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .d2-gallery__item {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .d2-gallery__item img,
+  .d2-location__media img,
+  .d2-related__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .d2-gallery__item img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .d2-location__grid {
+    display: grid;
+    gap: 44px;
+    align-items: center;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+
+  .d2-location__media {
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .d2-location__media img {
+    aspect-ratio: 5 / 4;
+  }
+
+  .d2-booking__panel {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 52px 46px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 8px;
+    background: rgba(246, 240, 228, 0.62);
+    text-align: center;
+  }
+
+  .d2-booking__panel p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .d2-booking__cta {
+    margin-top: 28px;
+  }
+
+  .d2-related {
+    padding-top: 8px;
+  }
+
+  .d2-related__grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .d2-related__card {
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .d2-related__card img,
+  .d2-related__placeholder {
+    aspect-ratio: 4 / 3;
+  }
+
+  .d2-related__placeholder {
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .d2-related__copy {
+    display: grid;
+    gap: 4px;
+    padding: 16px 18px 18px;
+  }
+
+  .d2-related__copy strong {
+    font-size: 1rem;
+  }
+
+  .d2-related__copy span {
+    color: rgba(0, 0, 0, 0.58);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 959px) {
+    .d2-details__grid,
+    .d2-location__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .d2-gallery__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .d2-related__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .d2-hero,
+    .d2-hero__content {
+      min-height: 76vh;
+    }
+
+    .d2-hero__content {
+      padding-top: 112px;
+      padding-bottom: 44px;
+    }
+
+    .d2-hero__subtitle {
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .d2-hero__lead {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .d2-hero__actions {
+      flex-direction: column;
+    }
+
+    .d2-hero__actions .dnd-btn {
+      width: 100%;
+    }
+
+    .d2-details__facts,
+    .d2-booking__panel {
+      padding: 28px 22px;
+    }
+
+    .d2-details__fact-grid,
+    .d2-feature-icons__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .d2-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+  }
+</style>
