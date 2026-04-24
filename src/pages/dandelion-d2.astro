@@ -54,8 +54,8 @@ const d2PlaceholderGallery = [
 ] as const;
 
 const primaryFacts = [
-  "A D2 könnyed, családbarát apartman a Szent György-hegy lábánál, ahol a pihenés ritmusát a kert, a terasz és a Balaton-felvidék csendje adja.",
-  "A tér egyszerre praktikus és otthonos: világos nappali, kényelmes étkezések, nyugodt esték és olyan környezet, ahol gyerekekkel is könnyű megérkezni."
+  "A D2 jól felszerelt, családbarát apartman, ahol a világos terek és a praktikus elrendezés a nyugodt pihenést szolgálják.",
+  "Kényelmes nappali, használható konyha és otthonos szobák várják azokat, akik szeretnének egyszerűen megérkezni és kikapcsolni."
 ];
 
 const featureGroups = [
@@ -79,13 +79,13 @@ const featureGroups = [
   }
 ] as const;
 
-const featureIcons = [
-  { label: "Wifi", icon: "◌" },
-  { label: "Felszerelt konyha", icon: "□" },
-  { label: "Kényelmes fürdő", icon: "◍" },
-  { label: "Saját parkolás", icon: "△" },
-  { label: "Családbarát", icon: "◎" },
-  { label: "Nyugodt kertkapcsolat", icon: "◇" }
+const featureHighlights = [
+  "Gyors wifi",
+  "Jól felszerelt konyha",
+  "Kényelmes fürdő",
+  "Saját parkolás",
+  "Családbarát elrendezés",
+  "Nyugodt kertkapcsolat"
 ] as const;
 
 // [CHANGE 2026-04-24 00:43] Resolve D2 gallery deterministically from assigned media IDs and only fall back on 0 valid images.
@@ -149,6 +149,10 @@ try {
   );
 }
 
+const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
+const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
+const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
+
 const imageMapping = await readHomepageImageMapping();
 const relatedStays = accommodations
   .filter((stay) => stay.slug !== "dandelion-d2")
@@ -173,8 +177,7 @@ const relatedStays = accommodations
         <h1>Dandelion D2</h1>
         <p class="d2-hero__subtitle">családbarát apartman a Szent György-hegy lábánál</p>
         <p class="d2-hero__lead">
-          Világos terek, nyugodt kertkapcsolat és kényelmes, természetközeli pihenés azoknak,
-          akik a Balaton-felvidéket nem sietve, hanem ráérősen szeretnék megélni.
+          Világos terek, kertkapcsolat és kényelmes, természetközeli pihenés a Balaton-felvidék nyugodt ritmusában.
         </p>
         <div class="d2-hero__actions">
           <button type="button" class="dnd-btn dnd-btn--primary" onclick="OpenBE()">Árak és foglalás</button>
@@ -188,10 +191,9 @@ const relatedStays = accommodations
     <div class="dnd-container">
       <div class="d2-intro__inner">
         <span class="dnd-section-kicker">Nyugalom · családbarát pihenés</span>
-        <h2 class="d2-intro__title">Kényelmes megérkezés a hegy lábánál</h2>
+        <h2 class="d2-intro__title">Otthonos terek, nyugodt pihenés</h2>
         <p class="dnd-section-intro">
-          A D2 azoknak szól, akik a balatoni napok mellé valódi lelassulást keresnek: reggeli fényt
-          a teraszon, tágas közös tereket és egy olyan apartmant, amely természetesen simul bele a táj ritmusába.
+          Világos belső terek, kellemes terasz és praktikus elrendezés várja azokat, akik kényelmes, családbarát pihenést keresnek a Balaton-felvidéken.
         </p>
       </div>
     </div>
@@ -201,7 +203,7 @@ const relatedStays = accommodations
     <div class="dnd-container d2-details__grid">
       <div class="d2-details__story">
         <span class="dnd-section-kicker">Dandelion D2</span>
-        <h2 class="d2-section-title">Átgondolt, könnyen belakható apartman</h2>
+        <h2 class="d2-section-title">Gazdag felszereltség, otthonos terek</h2>
         {primaryFacts.map((paragraph) => (
           <p>{paragraph}</p>
         ))}
@@ -230,10 +232,9 @@ const relatedStays = accommodations
         <section class="d2-feature-icons">
           <h3>Felszereltség</h3>
           <div class="d2-feature-icons__grid">
-            {featureIcons.map((item) => (
+            {featureHighlights.map((item) => (
               <div class="d2-feature-icons__item">
-                <span aria-hidden="true">{item.icon}</span>
-                <strong>{item.label}</strong>
+                <strong>{item}</strong>
               </div>
             ))}
           </div>
@@ -246,12 +247,26 @@ const relatedStays = accommodations
     <div class="dnd-container">
       <div class="d2-gallery__heading">
         <span class="dnd-section-kicker">Galéria</span>
-        <h2 class="d2-section-title">Tíz pillanat a D2 hangulatából</h2>
+        <h2 class="d2-section-title">Tizenkét pillanat a D2 hangulatából</h2>
+        <p class="d2-gallery__hint">
+          {d2GalleryHasMore ? "További képekért kattints" : "A galéria képei kattinthatók"}
+        </p>
       </div>
       <div class="d2-gallery__grid">
-        {d2GalleryImages.map((image, index) => (
+        {d2GalleryPreviewImages.map((image, index) => (
           <figure class="d2-gallery__item">
-            <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+            <button
+              type="button"
+              class="d2-gallery__trigger"
+              data-d2-gallery-trigger
+              data-d2-gallery-index={index}
+              aria-label="Galériakép megnyitása"
+            >
+              <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+              {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
+                <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
+              )}
+            </button>
           </figure>
         ))}
       </div>
@@ -267,12 +282,10 @@ const relatedStays = accommodations
         <span class="dnd-section-kicker">Környék és elhelyezkedés</span>
         <h2 class="d2-section-title">Tanúhegyek, Balaton, csendes utak</h2>
         <p>
-          A Szent György-hegy közelsége egyszerre ad karaktert és nyugalmat ennek a környéknek:
-          rövid kirándulások, szőlőhegyek, balatoni kitérők és olyan esték, amikor a táj már magától lelassít.
+          A Szent György-hegy közelsége karaktert és nyugalmat ad ennek a környéknek: rövid kirándulások, szőlőhegyek és balatoni kitérők egy helyen.
         </p>
         <p>
-          Innen a Balaton sem távoli program, hanem természetes része a napnak – de a D2 valódi ereje mégis az,
-          hogy visszaérkezve csendet és kényelmes, családbarát ritmust ad.
+          A Balaton innen természetes része a napnak, a D2 pedig visszaérkezve csendet és kényelmes ritmust ad.
         </p>
       </div>
     </div>
@@ -284,7 +297,7 @@ const relatedStays = accommodations
         <span class="dnd-section-kicker">Foglalás</span>
         <h2 class="d2-section-title">Megnéznéd a szabad időpontokat?</h2>
         <p>
-          A D2 ideális választás, ha a Balaton-felvidéket kényelmes, családbarát apartmanból szeretnéd felfedezni.
+          Nézd meg, mikor szabad a D2, és tervezd meg nyugodtan a következő balatoni napokat.
         </p>
         <button type="button" class="dnd-btn dnd-btn--primary d2-booking__cta" onclick="OpenBE()">
           Árak és foglalás
@@ -317,11 +330,124 @@ const relatedStays = accommodations
     </div>
   </section>
 
-  <script define:vars={{ bookingLink }}>
+  <div class="d2-lightbox" data-d2-lightbox hidden>
+    <div class="d2-lightbox__backdrop" data-d2-lightbox-close></div>
+    <div class="d2-lightbox__dialog" role="dialog" aria-modal="true" aria-label="D2 galéria">
+      <button type="button" class="d2-lightbox__close" data-d2-lightbox-close aria-label="Galéria bezárása">
+        ×
+      </button>
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--prev" data-d2-lightbox-prev aria-label="Előző kép">
+        ‹
+      </button>
+      <figure class="d2-lightbox__figure">
+        <img src="" alt="" class="d2-lightbox__image" data-d2-lightbox-image />
+        <figcaption class="d2-lightbox__meta">
+          <span class="d2-lightbox__counter" data-d2-lightbox-counter></span>
+        </figcaption>
+      </figure>
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--next" data-d2-lightbox-next aria-label="Következő kép">
+        ›
+      </button>
+    </div>
+  </div>
+
+  <script define:vars={{ bookingLink, d2GalleryImages }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
+    }
+
+    const lightbox = document.querySelector("[data-d2-lightbox]");
+    const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
+    const lightboxCounter = document.querySelector("[data-d2-lightbox-counter]");
+    const galleryTriggers = Array.from(document.querySelectorAll("[data-d2-gallery-trigger]"));
+    const closeButtons = Array.from(document.querySelectorAll("[data-d2-lightbox-close]"));
+    const prevButton = document.querySelector("[data-d2-lightbox-prev]");
+    const nextButton = document.querySelector("[data-d2-lightbox-next]");
+
+    if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && d2GalleryImages.length) {
+      let activeIndex = 0;
+      let autoplayTimer = null;
+
+      const stopAutoplay = () => {
+        if (autoplayTimer) {
+          window.clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      };
+
+      const renderLightbox = () => {
+        const currentImage = d2GalleryImages[activeIndex];
+
+        if (!currentImage) {
+          return;
+        }
+
+        lightboxImage.src = currentImage.src;
+        lightboxImage.alt = currentImage.alt;
+        lightboxCounter.textContent = `${activeIndex + 1} / ${d2GalleryImages.length}`;
+      };
+
+      const startAutoplay = () => {
+        stopAutoplay();
+        autoplayTimer = window.setInterval(() => {
+          activeIndex = (activeIndex + 1) % d2GalleryImages.length;
+          renderLightbox();
+        }, 4800);
+      };
+
+      const openLightbox = (index) => {
+        activeIndex = index;
+        lightbox.hidden = false;
+        document.body.classList.add("d2-lightbox-open");
+        renderLightbox();
+        startAutoplay();
+      };
+
+      const closeLightbox = () => {
+        lightbox.hidden = true;
+        document.body.classList.remove("d2-lightbox-open");
+        stopAutoplay();
+      };
+
+      const stepLightbox = (direction) => {
+        activeIndex = (activeIndex + direction + d2GalleryImages.length) % d2GalleryImages.length;
+        renderLightbox();
+        startAutoplay();
+      };
+
+      galleryTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const nextIndex = Number(trigger.getAttribute("data-d2-gallery-index"));
+          openLightbox(Number.isFinite(nextIndex) ? nextIndex : 0);
+        });
+      });
+
+      closeButtons.forEach((button) => {
+        button.addEventListener("click", closeLightbox);
+      });
+
+      prevButton?.addEventListener("click", () => stepLightbox(-1));
+      nextButton?.addEventListener("click", () => stepLightbox(1));
+
+      document.addEventListener("keydown", (event) => {
+        if (lightbox.hidden) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          closeLightbox();
+        }
+
+        if (event.key === "ArrowLeft") {
+          stepLightbox(-1);
+        }
+
+        if (event.key === "ArrowRight") {
+          stepLightbox(1);
+        }
+      });
     }
   </script>
 </BaseLayout>
@@ -382,9 +508,10 @@ const relatedStays = accommodations
 
   .d2-hero h1 {
     margin: 0;
-    font-size: clamp(3rem, 7vw, 5.8rem);
-    font-weight: 500;
-    line-height: 0.98;
+    font-size: clamp(2.9rem, 6.4vw, 5.4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .d2-hero__subtitle {
@@ -398,8 +525,8 @@ const relatedStays = accommodations
   .d2-hero__lead {
     max-width: 560px;
     margin: 18px 0 0;
-    font-size: 1.08rem;
-    line-height: 1.8;
+    font-size: 1.02rem;
+    line-height: 1.72;
     color: rgba(253, 251, 247, 0.92);
   }
 
@@ -411,7 +538,7 @@ const relatedStays = accommodations
   }
 
   .d2-intro {
-    padding-bottom: 74px;
+    padding-bottom: 62px;
   }
 
   .d2-intro__inner {
@@ -434,12 +561,12 @@ const relatedStays = accommodations
   }
 
   .d2-details {
-    padding-top: 28px;
+    padding-top: 18px;
   }
 
   .d2-details__grid {
     display: grid;
-    gap: 46px;
+    gap: 40px;
     align-items: start;
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   }
@@ -447,9 +574,9 @@ const relatedStays = accommodations
   .d2-details__story p,
   .d2-location__copy p,
   .d2-booking__panel p {
-    margin: 16px 0 0;
+    margin: 14px 0 0;
     color: rgba(0, 0, 0, 0.72);
-    line-height: 1.78;
+    line-height: 1.68;
   }
 
   .d2-details__cta {
@@ -457,10 +584,11 @@ const relatedStays = accommodations
   }
 
   .d2-details__facts {
-    padding: 34px;
+    padding: 32px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 14px 30px rgba(32, 21, 10, 0.04);
   }
 
   .d2-details__fact-grid {
@@ -510,35 +638,34 @@ const relatedStays = accommodations
 
   .d2-feature-icons__grid {
     display: grid;
-    gap: 16px;
+    gap: 12px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .d2-feature-icons__item {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .d2-feature-icons__item span {
-    display: inline-flex;
-    width: 34px;
-    height: 34px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 999px;
-    color: #d99e2b;
-    font-size: 0.95rem;
+    position: relative;
+    padding: 0 0 0 16px;
   }
 
   .d2-feature-icons__item strong {
     font-size: 0.95rem;
     font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .d2-feature-icons__item::before {
+    content: "";
+    position: absolute;
+    top: 0.72rem;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #d99e2b;
   }
 
   .d2-gallery {
-    padding-top: 38px;
+    padding-top: 26px;
   }
 
   .d2-gallery .dnd-container {
@@ -547,8 +674,15 @@ const relatedStays = accommodations
 
   .d2-gallery__heading,
   .d2-related__heading {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     text-align: center;
+  }
+
+  .d2-gallery__hint {
+    margin: 10px 0 0;
+    color: rgba(0, 0, 0, 0.58);
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
   .d2-gallery__grid {
@@ -564,6 +698,16 @@ const relatedStays = accommodations
     background: rgba(0, 0, 0, 0.04);
   }
 
+  .d2-gallery__trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
   .d2-gallery__item img,
   .d2-location__media img,
   .d2-related__card img {
@@ -574,6 +718,19 @@ const relatedStays = accommodations
 
   .d2-gallery__item img {
     aspect-ratio: 4 / 3;
+  }
+
+  .d2-gallery__more-badge {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(17, 12, 9, 0.62);
+    color: #fdfbf7;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .d2-location__grid {
@@ -656,6 +813,138 @@ const relatedStays = accommodations
     font-size: 0.92rem;
   }
 
+  .d2-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .d2-lightbox[hidden] {
+    display: none;
+  }
+
+  .d2-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 11, 9, 0.62);
+    backdrop-filter: blur(3px);
+  }
+
+  .d2-lightbox__dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: min(100%, 1420px);
+    max-height: calc(100vh - 48px);
+    padding: 0 68px;
+  }
+
+  .d2-lightbox__figure {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: transparent;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
+  }
+
+  .d2-lightbox__image {
+    display: block;
+    width: auto;
+    max-width: min(calc(100vw - 180px), 1280px);
+    max-height: calc(100vh - 108px);
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .d2-lightbox__meta {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    display: inline-flex;
+    justify-content: flex-end;
+    padding: 7px 11px;
+    border: 1px solid rgba(253, 251, 247, 0.14);
+    border-radius: 999px;
+    background: rgba(17, 12, 9, 0.42);
+    color: rgba(253, 251, 247, 0.88);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .d2-lightbox__close,
+  .d2-lightbox__nav {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(253, 251, 247, 0.16);
+    background: rgba(253, 251, 247, 0.07);
+    color: #fdfbf7;
+    cursor: pointer;
+    font: inherit;
+    backdrop-filter: blur(8px);
+    transition: background 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .d2-lightbox__nav {
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    height: 58px;
+    border-radius: 999px;
+    font-size: 1.45rem;
+    transform: translateY(-50%);
+  }
+
+  .d2-lightbox__close:hover,
+  .d2-lightbox__close:focus-visible,
+  .d2-lightbox__nav:hover,
+  .d2-lightbox__nav:focus-visible {
+    background: rgba(253, 251, 247, 0.14);
+    border-color: rgba(253, 251, 247, 0.26);
+  }
+
+  .d2-lightbox__close:hover,
+  .d2-lightbox__close:focus-visible {
+    transform: scale(1.03);
+  }
+
+  .d2-lightbox__nav:hover,
+  .d2-lightbox__nav:focus-visible {
+    transform: translateY(-50%) scale(1.03);
+  }
+
+  .d2-lightbox__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    font-size: 1.15rem;
+    z-index: 2;
+  }
+
+  .d2-lightbox__nav--prev {
+    left: 10px;
+  }
+
+  .d2-lightbox__nav--next {
+    right: 10px;
+  }
+
+  .d2-lightbox-open {
+    overflow: hidden;
+  }
+
   @media (max-width: 959px) {
     .d2-details__grid,
     .d2-location__grid {
@@ -669,6 +958,11 @@ const relatedStays = accommodations
 
     .d2-related__grid {
       grid-template-columns: 1fr;
+    }
+
+    .d2-lightbox__dialog {
+      width: min(100%, 980px);
+      padding: 0 54px;
     }
   }
 
@@ -714,6 +1008,57 @@ const relatedStays = accommodations
     .d2-gallery__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
+    }
+
+    .d2-gallery__hint {
+      font-size: 0.88rem;
+    }
+
+    .d2-lightbox {
+      padding: 10px;
+    }
+
+    .d2-lightbox__figure {
+      border-radius: 8px;
+    }
+
+    .d2-lightbox__image {
+      max-width: calc(100vw - 20px);
+      max-height: calc(100vh - 92px);
+    }
+
+    .d2-lightbox__close {
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      background: rgba(17, 12, 9, 0.56);
+      font-size: 1.05rem;
+    }
+
+    .d2-lightbox__nav {
+      width: 40px;
+      height: 52px;
+      font-size: 1.2rem;
+    }
+
+    .d2-lightbox__meta {
+      right: 10px;
+      bottom: 10px;
+      padding: 6px 9px;
+      font-size: 0.74rem;
+    }
+
+    .d2-lightbox__dialog {
+      padding: 0 8px;
+    }
+
+    .d2-lightbox__nav--prev {
+      left: 6px;
+    }
+
+    .d2-lightbox__nav--next {
+      right: 6px;
     }
   }
 </style>
