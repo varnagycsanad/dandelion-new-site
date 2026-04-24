@@ -1,0 +1,63 @@
+{
+  "d2": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": [
+      {
+        "id": 7875,
+        "sortOrder": 5
+      }
+    ]
+  },
+  "d1": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "fugehaz": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "zsalya": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "szololiget": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "szepvolgyi": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "royal_homes": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  },
+  "vintage": {
+    "hero": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": []
+  }
+}

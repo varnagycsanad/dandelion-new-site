@@ -1,0 +1,50 @@
+
+> dandelion-astro@0.0.1 dev
+> astro dev --host 127.0.0.1 --port 4331
+
+[vite] connected.
+[2m23:24:45[22m [34m[types][39m Generated [2m2ms[22m
+[33m[1m23:24:45[22m [WARN] [content][39m Content config not loaded
+[42m[1m astro [22m[49m [32mv6.1.5[39m [2mready in[22m 3827 [2mms[22m
+[2m┃[22m Local    [36mhttp://127.0.0.1:4331/ujsite/[39m
+[2m23:24:45[22m [32mwatching for file changes...[39m
+[2m23:24:49[22m [34m[200][39m /_local/image-admin [2m3508ms[22m
+[2m23:24:50[22m [34m[200][39m /_local/image-admin [2m2429ms[22m
+[2m23:24:52[22m [34m[200][39m /_local/image-admin [2m2138ms[22m
+[2m23:24:55[22m [34m[200][39m /_local/image-admin [2m2162ms[22m
+[2m23:24:57[22m [34m[200][39m /_local/image-admin [2m2184ms[22m
+[2m23:25:00[22m [34m[200][39m /_local/image-admin [2m2215ms[22m
+[2m23:25:03[22m [34m[200][39m /_local/image-admin [2m3331ms[22m
+[2m23:25:05[22m [34m[200][39m /_local/image-admin [2m2315ms[22m
+[2m23:25:07[22m [34m[200][39m /_local/image-admin [2m2157ms[22m
+[2m23:25:10[22m [34m[200][39m /_local/image-admin [2m2240ms[22m
+[2m23:25:12[22m [34m[200][39m /_local/image-admin [2m2257ms[22m
+[2m23:25:15[22m [34m[200][39m /_local/image-admin [2m2043ms[22m
+[2m23:25:17[22m [34m[200][39m /_local/image-admin [2m2037ms[22m
+[2m23:25:20[22m [34m[200][39m /_local/image-admin [2m2098ms[22m
+[2m23:25:22[22m [34m[200][39m /_local/image-admin [2m2146ms[22m
+[2m23:25:25[22m [34m[200][39m /_local/image-admin [2m2104ms[22m
+[2m23:25:27[22m [34m[200][39m /_local/image-admin [2m2091ms[22m
+[2m23:25:30[22m [34m[200][39m /_local/image-admin [2m2220ms[22m
+[2m23:25:32[22m [34m[200][39m /_local/image-admin [2m2241ms[22m
+[2m23:25:35[22m [34m[200][39m /_local/image-admin [2m2169ms[22m
+[2m23:25:38[22m [34m[200][39m /_local/image-admin [2m2364ms[22m
+[2m23:25:40[22m [34m[200][39m /_local/image-admin [2m2597ms[22m
+[2m23:25:43[22m [34m[200][39m /_local/image-admin [2m2327ms[22m
+[2m23:25:45[22m [34m[200][39m /_local/image-admin [2m2124ms[22m
+[2m23:25:48[22m [34m[200][39m /_local/image-admin [2m2287ms[22m
+[2m23:25:50[22m [34m[200][39m /_local/image-admin [2m2476ms[22m
+[2m23:25:53[22m [34m[200][39m /_local/image-admin [2m2420ms[22m
+[2m23:25:56[22m [34m[200][39m /_local/image-admin [2m2735ms[22m
+[2m23:25:59[22m [34m[200][39m /_local/image-admin [2m3163ms[22m
+[2m23:26:00[22m [34m[200][39m /_local/image-admin [2m2458ms[22m
+[2m23:26:03[22m [34m[200][39m /_local/image-admin [2m2904ms[22m
+[2m23:26:05[22m [34m[200][39m /_local/image-admin [2m2458ms[22m
+[2m23:26:08[22m [34m[200][39m /_local/image-admin [2m2225ms[22m
+[2m23:26:10[22m [34m[200][39m /_local/image-admin [2m2436ms[22m
+[2m23:26:13[22m [34m[200][39m /_local/image-admin [2m2059ms[22m
+[2m23:26:15[22m [34m[200][39m /_local/image-admin [2m2262ms[22m
+[2m23:26:18[22m [34m[200][39m /_local/image-admin [2m2422ms[22m
+[2m23:26:20[22m [34m[200][39m /_local/image-admin [2m2334ms[22m
+[2m23:26:23[22m [34m[200][39m /_local/image-admin [2m1982ms[22m
+[2m23:26:24[22m [34m[200][39m [34mPOST[39m /api/image-admin/save-apartment [2m23ms[22m

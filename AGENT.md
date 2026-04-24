@@ -255,7 +255,7 @@ Ha a publikus build azért törik el, mert root pathra épül almappa helyett:
 
 ## HOSTING-SAFE ASSET RULE
 
-Publikus static buildnél a generált asset fájlneveknek hosting-safe formát kell követniük.
+Publikus static buildnél a generált asset fájlneveknek hosting-safe formát kell követni.
 
 TILOS olyan asset fájlnév, amely tartalmaz:
 - `@`
@@ -268,109 +268,56 @@ Elvárt asset fájlnév-karakterkészlet:
 - aláhúzás (`_`)
 - pont (`.`)
 
-Indok:
-a publikus tárhelyen már bizonyítottan előfordult, hogy az `@` karakteres buildelt asset URL
-(pl. `index@_@astro...css`) 404-et adott, miközben ugyanaz a fájl egyszerű néven elérhető volt.
-
-KÖTELEZŐ SZABÁLY:
-- ha publikus buildelt asset fájlnév `@` karaktert tartalmaz, azt forrás/config szinten kell megszüntetni
-- ezt build output naming configgal kell javítani
-- NEM kézi `dist` átnevezéssel
-- NEM szerveren manuális átnevezéssel
-- NEM FTP utólagos barkáccsal
-
-A helyes javítás helye:
-- `astro.config.mjs`
-- vagy az ahhoz kapcsolódó Vite / Rollup output naming beállítás
-
-A `dist/` csak build output, ezért:
-- a `dist` fájlneveit kézzel módosítani tilos
-- a szerveren a buildelt assetet kézzel átnevezni tilos
-
-Ha a task publikus buildet érint, a Codexnek külön ellenőriznie kell:
-1. generálódik-e asset fájlnév `@` karakterrel
-2. a buildelt `index.html` milyen asset útvonalra hivatkozik
-3. a build output alkalmas-e shared hostingos statikus kiszolgálásra
-
-Ha a publikus build asset neve hosting-szinten kockázatos:
-→ minimális config diff  
-→ build újrafuttatás  
-→ ellenőrzött, tiszta `dist`
+KÖTELEZŐ:
+- ha buildelt asset név tartalmaz `@` karaktert → configban kell javítani
+- NEM dist-ben
+- NEM szerveren
 
 ---
 
 ## BUILD RULE
 
 Publikus site esetén a cél:
-- helyi `npm run build`
+- `npm run build`
 - sikeres static build
 - használható `dist/`
-
-A Codex nem deployol a szerverre.
-A Codex nem dolgozik közvetlenül a szerveren.
-A Codex feladata csak a helyi projekt rendbetétele.
 
 ---
 
 ## BUILD STEP (KÖTELEZŐ)
 
-Minden publikus frontend task után kötelező:
-
-1. futtasd:
-   npm run build
-
-2. ellenőrizd:
-   - a build sikeresen lefutott
-   - a `dist/` újragenerálódott
-   - nincs build error
-
-3. ha a build hibára fut:
-   - csak a buildet törő hibát javítsd
-   - ne refaktorálj
-   - ne bővíts scope-ot
-
-4. a `dist/` fájlokat kézzel módosítani tilos
+1. npm run build  
+2. ellenőrizd: sikeres-e  
+3. ha hiba: csak azt javítsd  
+4. dist-hez nem nyúlunk
 
 ---
 
 ## GIT RULE
 
-A dirty worktree önmagában nem STOP.
-
-Ami számít:
-- a staged lista legyen tiszta
-- csak a taskhoz tartozó fájl legyen commitban
-
-Ha commit a feladat:
-- csak a célzott fájlokat stage-elje
-- ellenőrizze: `git diff --cached --name-only`
-- ha staged-ben unrelated fájl is van: STOP
+- csak target fájl stage-elhető
+- ellenőrzés: `git diff --cached --name-only`
+- ha más is benne van → STOP
 
 ---
 
 ## STOP RULE
 
 STOP ha:
-- nem egyértelmű a feladat
-- túl nagy diff kellene
-- több logikai módosítás nyílna meg
-- a célfájl érintett sora encoding hibás
-- publikus és admin scope összecsúszna
-- a task refaktorba fordulna át
-- a megoldás csak szerveres kézi hackkel lenne tartható
+- nem egyértelmű task
+- túl nagy diff
+- encoding hiba
+- scope keveredik
+- redesign indul
 
 ---
 
 ## CHECK
 
-Task végén:
-- nincs új encoding hiba
-- nincs nyilvánvaló Astro / TS / JS / CSS hiba
-- diff kicsi maradt
-- csak célzott módosítás történt
-- a publikus build logika nem sérült
-- ha érintett, almappás (`/ujsite/`) működés ne törjön el
-- nincs hosting-szinten problémás asset fájlnév a build outputban
+- nincs encoding hiba
+- diff kicsi
+- build ok
+- almappa működik
 
 ---
 
@@ -383,40 +330,29 @@ RESULT
 - Risk:
 - Build:
 
-Utána röviden:
-1. mi változott
-2. mi készült el
-3. mi nincs még kész / korlát
-4. rövid manuális ellenőrzés
-
-Ha kérve van, plusz:
-- commit hash
-- push eredmény
-- staged file lista
-
 ---
 
 ## MANUAL PUBLISH CONTEXT
 
-A tényleges publikálás kézi.
-
-Ez azt jelenti:
-- Codex nem tölti fel a szerverre
-- a user tölti fel a friss `dist` tartalmát VPN/FTP-n keresztül
-- a tesztelés a szerveren történik
-
-A Codexnek ezért publikus tasknál úgy kell dolgoznia, hogy:
-- a buildelt output önmagában feltölthető legyen
-- ne igényeljen Netlify-t
-- ne igényeljen SSR adaptert
-- ne igényeljen futó backend route-okat a publikus oldalhoz
+- user tölti fel
+- Codex nem deployol
+- dist-nek önmagában működnie kell
 
 ---
 
-## ELV
+## DANDELION PROJECT RULE FILE
 
-Gyors > okoskodás  
-Kis diff > nagy javítás  
-Helyi forrás > szerveres kézi barkács  
-Buildelt `dist` > teljes projekt feltöltése  
-Te döntesz → agent végrehajt
+A projekt tartalmaz egy külön szabályfájlt:
+
+`DANDELION_RULES.md`
+
+KÖTELEZŐ:
+- minden honlapos task előtt be kell olvasni
+- a benne lévő design és struktúra szabályok kötelezőek
+
+Szerepek:
+- AGENTS.md → működés
+- DANDELION_RULES.md → design + layout
+
+Ha UI-t érint a task:
+→ DANDELION_RULES az elsődleges

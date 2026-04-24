@@ -1,6 +1,8 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodations } from "../data/accommodations";
+import { apartments } from "../data/apartments";
+import { readApartmentImageAssignments } from "../lib/apartment-image-assignments";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 import { readMediaApartmentAssignments } from "../lib/media-apartment-assignments";
 import { fetchWordPressMedia } from "../lib/wp-media";
@@ -8,46 +10,60 @@ import { fetchWordPressMedia } from "../lib/wp-media";
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
+const apartmentKey = apartments.d2.key;
+const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
+  `/wp-json/dandelion/v1/apartment-image-config/${nextApartmentKey}`;
+const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
 
 // [CHANGE 2026-04-23 20:15] Keep the full D2 page image set in one place so later real photos are easy to swap in.
 const d2PlaceholderGallery = [
   {
+    id: -1,
     src: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Világos, természetközeli nappali nagy ablakokkal"
   },
   {
+    id: -2,
     src: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Letisztult étkező és nappali természetes fénnyel"
   },
   {
+    id: -3,
     src: "https://images.pexels.com/photos/6489127/pexels-photo-6489127.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Világos étkező és konyha természetes anyagokkal"
   },
   {
+    id: -4,
     src: "https://images.pexels.com/photos/6585619/pexels-photo-6585619.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Nyugodt hálószoba puha, világos tónusokkal"
   },
   {
+    id: -5,
     src: "https://images.pexels.com/photos/5998138/pexels-photo-5998138.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Terasz vidéki környezetben"
   },
   {
+    id: -6,
     src: "https://images.pexels.com/photos/3935331/pexels-photo-3935331.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Nappali részlet nagy üvegfelületekkel"
   },
   {
+    id: -7,
     src: "https://images.pexels.com/photos/7031408/pexels-photo-7031408.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Letisztult enteriőr természetes fénnyel"
   },
   {
+    id: -8,
     src: "https://images.pexels.com/photos/5997994/pexels-photo-5997994.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Kültéri pihenősarok növények között"
   },
   {
+    id: -9,
     src: "https://images.pexels.com/photos/7534556/pexels-photo-7534556.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Világos apartmanrészlet otthonos hangulattal"
   },
   {
+    id: -10,
     src: "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1600",
     alt: "Tágas, családbarát enteriőr nyugodt színekkel"
   }
@@ -88,10 +104,13 @@ const featureHighlights = [
   "Nyugodt kertkapcsolat"
 ] as const;
 
-// [CHANGE 2026-04-24 00:43] Resolve D2 gallery deterministically from assigned media IDs and only fall back on 0 valid images.
-const apartmentAssignments = await readMediaApartmentAssignments();
-const d2AssignedIds = Object.entries(apartmentAssignments)
-  .filter(([, apartmentKey]) => apartmentKey === "d2")
+// [CHANGE 2026-04-24 11:35] Keep legacy D2 assignments as the gallery source and apply admin sortOrder only as ordering metadata.
+const apartmentImageAssignments = await readApartmentImageAssignments();
+const d2GalleryAssignments = apartmentImageAssignments[apartmentKey]?.gallery || [];
+
+const legacyApartmentAssignments = await readMediaApartmentAssignments();
+const legacyD2AssignedIds = Object.entries(legacyApartmentAssignments)
+  .filter(([, assignedApartmentKey]) => assignedApartmentKey === apartmentKey)
   .map(([id]) => Number(id))
   .filter((id) => Number.isInteger(id) && id > 0);
 
@@ -108,8 +127,25 @@ try {
     console.warn(`[D2 gallery] WordPress media error: ${mediaResult.error}`);
   }
 
+  const sortOrderById = new Map(d2GalleryAssignments.map((item) => [item.id, item.sortOrder]));
   const mediaById = new Map(mediaResult.items.map((item) => [item.id, item]));
-  const resolvedAssignedImages = d2AssignedIds
+  const orderedD2GalleryIds = [...legacyD2AssignedIds].sort((leftId, rightId) => {
+    const leftSortOrder = sortOrderById.get(leftId);
+    const rightSortOrder = sortOrderById.get(rightId);
+    const leftHasSortOrder = typeof leftSortOrder === "number";
+    const rightHasSortOrder = typeof rightSortOrder === "number";
+
+    if (leftHasSortOrder && rightHasSortOrder && leftSortOrder !== rightSortOrder) {
+      return leftSortOrder - rightSortOrder;
+    }
+
+    if (leftHasSortOrder !== rightHasSortOrder) {
+      return leftHasSortOrder ? -1 : 1;
+    }
+
+    return legacyD2AssignedIds.indexOf(leftId) - legacyD2AssignedIds.indexOf(rightId);
+  });
+  const resolvedAssignedImages = orderedD2GalleryIds
     .map((id) => {
       const item = mediaById.get(id);
 
@@ -118,16 +154,18 @@ try {
       }
 
       return {
+        id,
         src: item.sourceUrl,
-        alt: item.altText || item.title || `Dandelion D2 galéria kép ${id}`
+        alt: item.altText || item.title || `Dandelion D2 gallery image ${id}`
       };
     })
-    .filter((item): item is { src: string; alt: string } => Boolean(item));
+    .filter((item): item is { id: number; src: string; alt: string } => Boolean(item));
 
-  const missingAssignedIds = d2AssignedIds.filter((id) => !mediaById.has(id));
+  const mediaIds = new Set(mediaResult.items.map((item) => item.id));
+  const missingAssignedIds = legacyD2AssignedIds.filter((id) => !mediaIds.has(id));
 
   console.warn(
-    `[D2 gallery] assigned=${d2AssignedIds.length}, fetched=${mediaResult.items.length}, resolved=${resolvedAssignedImages.length}, missing=${missingAssignedIds.length}`
+    `[D2 gallery] source=media-apartment-assignments, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, fetched=${mediaResult.items.length}, resolved=${resolvedAssignedImages.length}, missing=${missingAssignedIds.length}`
   );
 
   if (missingAssignedIds.length) {
@@ -139,7 +177,7 @@ try {
   if (resolvedAssignedImages.length > 0) {
     d2GalleryImages = resolvedAssignedImages;
   } else {
-    console.warn("[D2 gallery] No usable D2 assigned images resolved; using placeholder fallback.");
+    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source; using placeholder fallback.");
   }
 } catch (error) {
   console.warn(
@@ -169,7 +207,12 @@ const relatedStays = accommodations
   description="Dandelion D2 külön oldal a Balaton-felvidéki, családbarát pihenés hangulatára építve."
 >
   <section class="d2-hero">
-    <img src={d2PlaceholderGallery[0].src} alt={d2PlaceholderGallery[0].alt} class="d2-hero__image" />
+    <img
+      src={d2PlaceholderGallery[0].src}
+      alt={d2PlaceholderGallery[0].alt}
+      class="d2-hero__image"
+      data-d2-hero-image
+    />
     <div class="d2-hero__overlay"></div>
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
@@ -260,6 +303,7 @@ const relatedStays = accommodations
               class="d2-gallery__trigger"
               data-d2-gallery-trigger
               data-d2-gallery-index={index}
+              data-d2-gallery-id={image.id}
               aria-label="Galériakép megnyitása"
             >
               <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
@@ -351,16 +395,18 @@ const relatedStays = accommodations
     </div>
   </div>
 
-  <script define:vars={{ bookingLink, d2GalleryImages }}>
+  <script define:vars={{ bookingLink, d2GalleryImages, d2RuntimeGalleryEndpoint }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
     }
 
+    const heroImage = document.querySelector("[data-d2-hero-image]");
     const lightbox = document.querySelector("[data-d2-lightbox]");
     const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
     const lightboxCounter = document.querySelector("[data-d2-lightbox-counter]");
+    const galleryGrid = document.querySelector(".d2-gallery__grid");
     const galleryTriggers = Array.from(document.querySelectorAll("[data-d2-gallery-trigger]"));
     const closeButtons = Array.from(document.querySelectorAll("[data-d2-lightbox-close]"));
     const prevButton = document.querySelector("[data-d2-lightbox-prev]");
@@ -369,6 +415,22 @@ const relatedStays = accommodations
     if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && d2GalleryImages.length) {
       let activeIndex = 0;
       let autoplayTimer = null;
+      let runtimeHeroImages = null;
+      const heroMediaQuery = window.matchMedia("(max-width: 767px)");
+      const heroFallback = heroImage
+        ? {
+            src: heroImage.getAttribute("src") || "",
+            alt: heroImage.getAttribute("alt") || ""
+          }
+        : null;
+      const previewItems = galleryTriggers
+        .map((trigger) => ({
+          trigger,
+          figure: trigger.closest(".d2-gallery__item"),
+          image: trigger.querySelector("img"),
+          badge: trigger.querySelector(".d2-gallery__more-badge")
+        }))
+        .filter((item) => item.figure && item.image);
 
       const stopAutoplay = () => {
         if (autoplayTimer) {
@@ -387,6 +449,127 @@ const relatedStays = accommodations
         lightboxImage.src = currentImage.src;
         lightboxImage.alt = currentImage.alt;
         lightboxCounter.textContent = `${activeIndex + 1} / ${d2GalleryImages.length}`;
+      };
+
+      const renderPreviewGrid = () => {
+        if (!galleryGrid || !previewItems.length) {
+          return;
+        }
+
+        const previewImages = d2GalleryImages.slice(0, previewItems.length);
+        const hasMore = d2GalleryImages.length > previewImages.length;
+        const moreCount = Math.max(d2GalleryImages.length - previewImages.length, 0);
+
+        previewItems.forEach((item, index) => {
+          const nextImage = previewImages[index];
+
+          if (!nextImage || !item.image || !item.figure) {
+            return;
+          }
+
+          item.trigger.setAttribute("data-d2-gallery-index", String(index));
+          item.trigger.setAttribute("data-d2-gallery-id", String(nextImage.id));
+          item.image.src = nextImage.src;
+          item.image.alt = nextImage.alt;
+          item.image.loading = index < 2 ? "eager" : "lazy";
+
+          if (item.badge) {
+            item.badge.remove();
+          }
+
+          if (hasMore && index === previewImages.length - 1) {
+            const nextBadge = document.createElement("span");
+            nextBadge.className = "d2-gallery__more-badge";
+            nextBadge.textContent = `+${moreCount} kép`;
+            item.trigger.appendChild(nextBadge);
+          }
+
+          galleryGrid.appendChild(item.figure);
+        });
+      };
+
+      const applyRuntimeGalleryOrder = (galleryAssignments) => {
+        if (!Array.isArray(galleryAssignments) || !galleryAssignments.length) {
+          return;
+        }
+
+        const sortOrderById = new Map(
+          galleryAssignments
+            .map((item) => {
+              const id = Number(item?.id);
+              const sortOrder = Number(item?.sortOrder);
+
+              if (!Number.isInteger(id) || id <= 0 || !Number.isFinite(sortOrder)) {
+                return null;
+              }
+
+              return [id, sortOrder];
+            })
+            .filter(Boolean)
+        );
+
+        if (!sortOrderById.size) {
+          return;
+        }
+
+        const orderedImages = d2GalleryImages
+          .map((image, originalIndex) => ({
+            ...image,
+            originalIndex,
+            sortOrder: sortOrderById.get(Number(image.id))
+          }))
+          .sort((left, right) => {
+            const leftHasSortOrder = typeof left.sortOrder === "number";
+            const rightHasSortOrder = typeof right.sortOrder === "number";
+
+            if (leftHasSortOrder && rightHasSortOrder && left.sortOrder !== right.sortOrder) {
+              return left.sortOrder - right.sortOrder;
+            }
+
+            if (leftHasSortOrder !== rightHasSortOrder) {
+              return leftHasSortOrder ? -1 : 1;
+            }
+
+            return left.originalIndex - right.originalIndex;
+          })
+          .map(({ id, src, alt }) => ({ id, src, alt }));
+
+        d2GalleryImages.splice(0, d2GalleryImages.length, ...orderedImages);
+        renderPreviewGrid();
+
+        if (!lightbox.hidden) {
+          activeIndex = Math.min(activeIndex, d2GalleryImages.length - 1);
+          renderLightbox();
+        }
+      };
+
+      const getActiveRuntimeHeroImage = () => {
+        if (!runtimeHeroImages) {
+          return null;
+        }
+
+        if (heroMediaQuery.matches) {
+          return runtimeHeroImages.mobile || runtimeHeroImages.desktop || null;
+        }
+
+        return runtimeHeroImages.desktop || null;
+      };
+
+      const renderHeroImage = () => {
+        if (!heroImage || !heroFallback) {
+          return;
+        }
+
+        const nextHeroImage = getActiveRuntimeHeroImage();
+
+        if (!nextHeroImage?.url) {
+          heroImage.src = heroFallback.src;
+          heroImage.alt = heroFallback.alt;
+          return;
+        }
+
+        heroImage.src = nextHeroImage.url;
+        heroImage.alt = nextHeroImage.alt || nextHeroImage.title || heroFallback.alt;
       };
 
       const startAutoplay = () => {
@@ -448,6 +631,58 @@ const relatedStays = accommodations
           stepLightbox(1);
         }
       });
+
+      fetch(d2RuntimeGalleryEndpoint, {
+        headers: {
+          Accept: "application/json"
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Runtime gallery order request failed.");
+          }
+
+          return response.json();
+        })
+        .then((payload) => {
+          const desktopHeroImage =
+            payload?.heroImages?.desktop && typeof payload.heroImages.desktop.url === "string"
+              ? payload.heroImages.desktop
+              : null;
+          const mobileHeroImage =
+            payload?.heroImages?.mobile && typeof payload.heroImages.mobile.url === "string"
+              ? payload.heroImages.mobile
+              : null;
+
+          runtimeHeroImages = {
+            desktop: desktopHeroImage,
+            mobile: mobileHeroImage
+          };
+
+          applyRuntimeGalleryOrder(payload?.gallery || []);
+          renderHeroImage();
+        })
+        .catch((error) => {
+          // Keep the build-time gallery order when the runtime config is unavailable.
+          console.warn(
+            `[D2 hero] Runtime apartment image config unavailable: ${
+              error instanceof Error ? error.message : "Unknown error"
+            }`
+          );
+        });
+
+      const handleHeroViewportChange = () => {
+        renderHeroImage();
+      };
+
+      if (typeof heroMediaQuery.addEventListener === "function") {
+        heroMediaQuery.addEventListener("change", handleHeroViewportChange);
+      } else if (typeof heroMediaQuery.addListener === "function") {
+        heroMediaQuery.addListener(handleHeroViewportChange);
+      }
+
+      window.addEventListener("resize", handleHeroViewportChange);
+      window.addEventListener("orientationchange", handleHeroViewportChange);
     }
   </script>
 </BaseLayout>

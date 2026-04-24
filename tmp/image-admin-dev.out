@@ -1,0 +1,36 @@
+
+> dandelion-astro@0.0.1 dev
+> astro dev --host 127.0.0.1 --port 4327
+
+[vite] connected.
+[2m19:47:36[22m [34m[types][39m Generated [2m1ms[22m
+[33m[1m19:47:36[22m [WARN] [content][39m Content config not loaded
+[42m[1m astro [22m[49m [32mv6.1.5[39m [2mready in[22m 3572 [2mms[22m
+[2m┃[22m Local    [36mhttp://127.0.0.1:4327/ujsite/[39m
+[2m19:47:36[22m [32mwatching for file changes...[39m
+[2m19:48:04[22m [34m[200][39m /_local/image-admin [2m4911ms[22m
+[2m19:48:07[22m [34m[200][39m /_local/image-admin [2m2483ms[22m
+[2m19:48:38[22m [34m[200][39m /_local/image-admin [2m2953ms[22m
+[2m19:48:39[22m [34m[vite][39m [32m✨ new dependencies optimized: [33mastro/runtime/client/dev-toolbar/entrypoint.js[32m[39m
+[2m19:48:39[22m [34m[vite][39m [32m✨ optimized dependencies changed. reloading[39m
+[2m19:48:42[22m [34m[200][39m /_local/image-admin [2m2791ms[22m
+[2m19:50:08[22m [34m[200][39m /_local/image-admin [2m3719ms[22m
+[2m19:50:53[22m [34m[200][39m / [2m74ms[22m
+[2m19:51:02[22m [34m[200][39m /_local/image-admin [2m4657ms[22m
+[2m19:51:04[22m [34m[200][39m /_local/image-admin [2m3995ms[22m
+[2m19:51:06[22m [34m[200][39m /_local/image-admin [2m3063ms[22m
+[2m19:52:02[22m [34m[200][39m /_local/image-admin [2m4154ms[22m
+[2m19:57:45[22m [34m[watch][39m src/layouts/BaseLayout.astro
+[2m19:57:49[22m [34m[200][39m /_local/image-admin [2m3844ms[22m
+[2m19:57:49[22m [34m[200][39m /_local/image-admin [2m3951ms[22m
+[2m19:57:53[22m [34m[watch][39m src/layouts/BaseLayout.astro
+[2m19:57:56[22m [34m[200][39m /_local/image-admin [2m2509ms[22m
+[2m19:57:56[22m [34m[200][39m /_local/image-admin [2m2899ms[22m
+[2m19:58:22[22m [34m[watch][39m src/admin-disabled/image-admin.astro
+[2m19:58:26[22m [34m[200][39m /_local/image-admin [2m3531ms[22m
+[2m19:58:26[22m [34m[200][39m /_local/image-admin [2m3619ms[22m
+[2m19:58:47[22m [34m[200][39m /_local/image-admin [2m3277ms[22m
+[2m19:59:00[22m [34m[200][39m /_local/image-admin [2m2644ms[22m
+[2m19:59:37[22m [34m[200][39m /_local/image-admin [2m3385ms[22m
+[2m23:46:34[22m [34m[200][39m /_local/image-admin [2m13297237ms[22m
+[2m23:46:35[22m [34m[200][39m /_local/image-admin [2m13297715ms[22m
