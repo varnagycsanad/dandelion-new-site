@@ -114,7 +114,7 @@ const legacyD2AssignedIds = Object.entries(legacyApartmentAssignments)
   .map(([id]) => Number(id))
   .filter((id) => Number.isInteger(id) && id > 0);
 
-let d2GalleryImages = d2PlaceholderGallery;
+let d2GalleryImages: { id: number; src: string; alt: string }[] = [];
 
 try {
   const mediaResult = await fetchWordPressMedia();
@@ -177,13 +177,13 @@ try {
   if (resolvedAssignedImages.length > 0) {
     d2GalleryImages = resolvedAssignedImages;
   } else {
-    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source; using placeholder fallback.");
+    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source; gallery will not use placeholder images.");
   }
 } catch (error) {
   console.warn(
     `[D2 gallery] Failed to resolve assigned gallery images: ${
       error instanceof Error ? error.message : "Unknown error"
-    }`
+    }; gallery will not use placeholder images.`
   );
 }
 
