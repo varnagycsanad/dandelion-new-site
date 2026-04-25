@@ -858,27 +858,20 @@ main {
   }
 
   .dnd-quick-contact {
-    position: fixed;
-    right: max(18px, env(safe-area-inset-right));
-    bottom: max(24px, calc(env(safe-area-inset-bottom) + 18px));
-    z-index: 60;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    display: none;
   }
 
   .dnd-quick-contact__toggle {
-    min-height: 42px;
-    padding: 0 15px;
+    min-height: 36px;
+    padding: 0 12px;
     border: 1px solid rgba(73, 52, 34, 0.16);
     border-radius: 999px;
     background: rgba(239, 228, 211, 0.96);
     color: #2d241c;
-    box-shadow: 0 14px 34px rgba(49, 36, 22, 0.16);
-    font-size: 0.68rem;
+    box-shadow: 0 10px 24px rgba(49, 36, 22, 0.14);
+    font-size: 0.6rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
 
@@ -901,14 +894,14 @@ main {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 8px;
-    min-height: 38px;
-    padding: 0 12px;
+    gap: 7px;
+    min-height: 34px;
+    padding: 0 10px;
     border-radius: 999px;
     background: rgba(253, 251, 247, 0.96);
     color: #2d241c;
     box-shadow: 0 10px 26px rgba(49, 36, 22, 0.12);
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 600;
   }
 
