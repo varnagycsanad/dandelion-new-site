@@ -14,19 +14,19 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      # Required for optional SSH deploy:
-      # UJSITE_DEPLOY_HOST: remote SSH host
-      # UJSITE_DEPLOY_USER: remote SSH user
-      # UJSITE_DEPLOY_SSH_KEY: private key for the SSH user
+      # Required for optional FTP deploy:
+      # UJSITE_FTP_HOST: remote FTP host
+      # UJSITE_FTP_USER: remote FTP username
+      # UJSITE_FTP_PASSWORD: remote FTP password
       # Optional:
-      # UJSITE_DEPLOY_PORT: SSH port, defaults to 22 when omitted
-      # UJSITE_DEPLOY_PATH: absolute remote target folder for the built site.
+      # UJSITE_FTP_PORT: FTP port, defaults to 21 when omitted
+      # UJSITE_FTP_PATH: absolute remote target folder for the built site.
       # It should point to the /ujsite/ publish directory, not the WordPress root.
-      UJSITE_DEPLOY_HOST: ${{ secrets.UJSITE_DEPLOY_HOST }}
-      UJSITE_DEPLOY_USER: ${{ secrets.UJSITE_DEPLOY_USER }}
-      UJSITE_DEPLOY_SSH_KEY: ${{ secrets.UJSITE_DEPLOY_SSH_KEY }}
-      UJSITE_DEPLOY_PORT: ${{ secrets.UJSITE_DEPLOY_PORT }}
-      UJSITE_DEPLOY_PATH: ${{ secrets.UJSITE_DEPLOY_PATH }}
+      UJSITE_FTP_HOST: ${{ secrets.UJSITE_FTP_HOST }}
+      UJSITE_FTP_USER: ${{ secrets.UJSITE_FTP_USER }}
+      UJSITE_FTP_PASSWORD: ${{ secrets.UJSITE_FTP_PASSWORD }}
+      UJSITE_FTP_PORT: ${{ secrets.UJSITE_FTP_PORT }}
+      UJSITE_FTP_PATH: ${{ secrets.UJSITE_FTP_PATH }}
 
     steps:
       - name: Checkout
@@ -46,16 +46,16 @@ jobs:
         run: npm run build
 
       - name: Prepare deploy payload
-        if: env.UJSITE_DEPLOY_HOST != '' && env.UJSITE_DEPLOY_USER != '' && env.UJSITE_DEPLOY_SSH_KEY != '' && env.UJSITE_DEPLOY_PATH != ''
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
         run: |
           set -euo pipefail
 
-          case "${UJSITE_DEPLOY_PATH}" in
+          case "${UJSITE_FTP_PATH}" in
             */ujsite|*/ujsite/)
               ;;
             *)
-              echo "UJSITE_DEPLOY_PATH must point to the /ujsite/ target directory." >&2
+              echo "UJSITE_FTP_PATH must point to the /ujsite/ target directory." >&2
               exit 1
               ;;
           esac
@@ -63,25 +63,31 @@ jobs:
           mkdir -p deploy-dist
           rsync -av --delete --exclude "_local/" dist/ deploy-dist/
 
-      - name: Resolve deploy port
-        if: env.UJSITE_DEPLOY_HOST != '' && env.UJSITE_DEPLOY_USER != '' && env.UJSITE_DEPLOY_SSH_KEY != '' && env.UJSITE_DEPLOY_PATH != ''
+      - name: Install lftp
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      - name: Resolve FTP port
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         id: deploy_port
         shell: bash
         run: |
-          if [ -n "${UJSITE_DEPLOY_PORT}" ]; then
-            echo "value=${UJSITE_DEPLOY_PORT}" >> "$GITHUB_OUTPUT"
+          if [ -n "${UJSITE_FTP_PORT}" ]; then
+            echo "value=${UJSITE_FTP_PORT}" >> "$GITHUB_OUTPUT"
           else
-            echo "value=22" >> "$GITHUB_OUTPUT"
+            echo "value=21" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy dist contents to /ujsite/ over SSH
-        if: env.UJSITE_DEPLOY_HOST != '' && env.UJSITE_DEPLOY_USER != '' && env.UJSITE_DEPLOY_SSH_KEY != '' && env.UJSITE_DEPLOY_PATH != ''
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ env.UJSITE_DEPLOY_SSH_KEY }}
-          REMOTE_HOST: ${{ env.UJSITE_DEPLOY_HOST }}
-          REMOTE_USER: ${{ env.UJSITE_DEPLOY_USER }}
-          REMOTE_PORT: ${{ steps.deploy_port.outputs.value }}
-          SOURCE: deploy-dist/
-          TARGET: ${{ env.UJSITE_DEPLOY_PATH }}
-          ARGS: -rlgoDzvc --delete
+      - name: Deploy dist contents to /ujsite/ over FTP
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          mirror -R --delete deploy-dist/ "${UJSITE_FTP_PATH}"
+          bye
+          EOF
