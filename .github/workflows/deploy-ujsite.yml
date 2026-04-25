@@ -91,3 +91,7 @@ jobs:
           mirror -R --delete deploy-dist/ "${UJSITE_FTP_PATH}"
           bye
           EOF
+
+      - name: Check live /ujsite/ deploy
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        run: npm run check:ujsite
