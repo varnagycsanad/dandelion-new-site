@@ -14,6 +14,17 @@ const apartmentKey = apartments.d2.key;
 const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
   `/wp-json/dandelion/v1/apartment-image-config/${nextApartmentKey}`;
 const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
+const publicWordPressMediaEndpoint = "https://dandelionhouse.hu/wp-json/wp/v2/media";
+
+type D2GalleryImage = { id: number; src: string; alt: string };
+type D2RawPublicMediaItem = {
+  id?: number;
+  source_url?: string;
+  alt_text?: string;
+  title?: {
+    rendered?: string;
+  };
+};
 
 // [CHANGE 2026-04-23 20:15] Keep the full D2 page image set in one place so later real photos are easy to swap in.
 const d2PlaceholderGallery = [
@@ -114,7 +125,88 @@ const legacyD2AssignedIds = Object.entries(legacyApartmentAssignments)
   .map(([id]) => Number(id))
   .filter((id) => Number.isInteger(id) && id > 0);
 
-let d2GalleryImages: { id: number; src: string; alt: string }[] = [];
+const sortOrderById = new Map(d2GalleryAssignments.map((item) => [item.id, item.sortOrder]));
+const orderedD2GalleryIds = [...legacyD2AssignedIds].sort((leftId, rightId) => {
+  const leftSortOrder = sortOrderById.get(leftId);
+  const rightSortOrder = sortOrderById.get(rightId);
+  const leftHasSortOrder = typeof leftSortOrder === "number";
+  const rightHasSortOrder = typeof rightSortOrder === "number";
+
+  if (leftHasSortOrder && rightHasSortOrder && leftSortOrder !== rightSortOrder) {
+    return leftSortOrder - rightSortOrder;
+  }
+
+  if (leftHasSortOrder !== rightHasSortOrder) {
+    return leftHasSortOrder ? -1 : 1;
+  }
+
+  return legacyD2AssignedIds.indexOf(leftId) - legacyD2AssignedIds.indexOf(rightId);
+});
+
+let d2GalleryImages: D2GalleryImage[] = [];
+let d2GalleryWarning = "";
+
+const stripInlineHtml = (value: string | undefined) => (value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+const resolveGalleryImages = (
+  mediaItems: { id: number; sourceUrl: string; altText?: string; title?: string }[]
+): D2GalleryImage[] => {
+  const mediaById = new Map(mediaItems.map((item) => [item.id, item]));
+
+  return orderedD2GalleryIds
+    .map((id) => {
+      const item = mediaById.get(id);
+
+      if (!item?.sourceUrl) {
+        return null;
+      }
+
+      return {
+        id,
+        src: item.sourceUrl,
+        alt: item.altText || item.title || `Dandelion D2 gallery image ${id}`
+      };
+    })
+    .filter((item): item is D2GalleryImage => Boolean(item));
+};
+
+const fetchPublicAssignedMedia = async (): Promise<D2GalleryImage[]> => {
+  if (!orderedD2GalleryIds.length) {
+    return [];
+  }
+
+  const endpoint = new URL(publicWordPressMediaEndpoint);
+  endpoint.searchParams.set("include", orderedD2GalleryIds.join(","));
+  endpoint.searchParams.set("per_page", String(Math.min(orderedD2GalleryIds.length, 100)));
+  endpoint.searchParams.set("_fields", "id,source_url,alt_text,title");
+
+  const response = await fetch(endpoint, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Public WordPress media request failed with HTTP ${response.status}.`);
+  }
+
+  const items = (await response.json()) as D2RawPublicMediaItem[];
+
+  if (!Array.isArray(items)) {
+    return [];
+  }
+
+  return resolveGalleryImages(
+    items
+      .map((item) => ({
+        id: typeof item.id === "number" ? item.id : 0,
+        sourceUrl: item.source_url || "",
+        altText: item.alt_text?.trim() || "",
+        title: stripInlineHtml(item.title?.rendered)
+      }))
+      .filter((item) => item.id > 0 && item.sourceUrl)
+  );
+};
 
 try {
   const mediaResult = await fetchWordPressMedia();
@@ -127,40 +219,7 @@ try {
     console.warn(`[D2 gallery] WordPress media error: ${mediaResult.error}`);
   }
 
-  const sortOrderById = new Map(d2GalleryAssignments.map((item) => [item.id, item.sortOrder]));
-  const mediaById = new Map(mediaResult.items.map((item) => [item.id, item]));
-  const orderedD2GalleryIds = [...legacyD2AssignedIds].sort((leftId, rightId) => {
-    const leftSortOrder = sortOrderById.get(leftId);
-    const rightSortOrder = sortOrderById.get(rightId);
-    const leftHasSortOrder = typeof leftSortOrder === "number";
-    const rightHasSortOrder = typeof rightSortOrder === "number";
-
-    if (leftHasSortOrder && rightHasSortOrder && leftSortOrder !== rightSortOrder) {
-      return leftSortOrder - rightSortOrder;
-    }
-
-    if (leftHasSortOrder !== rightHasSortOrder) {
-      return leftHasSortOrder ? -1 : 1;
-    }
-
-    return legacyD2AssignedIds.indexOf(leftId) - legacyD2AssignedIds.indexOf(rightId);
-  });
-  const resolvedAssignedImages = orderedD2GalleryIds
-    .map((id) => {
-      const item = mediaById.get(id);
-
-      if (!item || !item.sourceUrl) {
-        return null;
-      }
-
-      return {
-        id,
-        src: item.sourceUrl,
-        alt: item.altText || item.title || `Dandelion D2 gallery image ${id}`
-      };
-    })
-    .filter((item): item is { id: number; src: string; alt: string } => Boolean(item));
-
+  const resolvedAssignedImages = resolveGalleryImages(mediaResult.items);
   const mediaIds = new Set(mediaResult.items.map((item) => item.id));
   const missingAssignedIds = legacyD2AssignedIds.filter((id) => !mediaIds.has(id));
 
@@ -185,6 +244,25 @@ try {
       error instanceof Error ? error.message : "Unknown error"
     }; gallery will not use placeholder images.`
   );
+}
+
+if (!d2GalleryImages.length) {
+  try {
+    d2GalleryImages = await fetchPublicAssignedMedia();
+    console.warn(
+      `[D2 gallery] source=public-wordpress-media, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, resolved=${d2GalleryImages.length}`
+    );
+  } catch (error) {
+    console.warn(
+      `[D2 gallery] Public assigned media fallback failed: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
+  }
+}
+
+if (!d2GalleryImages.length) {
+  d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
 
 const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
@@ -295,25 +373,29 @@ const relatedStays = accommodations
           {d2GalleryHasMore ? "További képekért kattints" : "A galéria képei kattinthatók"}
         </p>
       </div>
-      <div class="d2-gallery__grid">
-        {d2GalleryPreviewImages.map((image, index) => (
-          <figure class="d2-gallery__item">
-            <button
-              type="button"
-              class="d2-gallery__trigger"
-              data-d2-gallery-trigger
-              data-d2-gallery-index={index}
-              data-d2-gallery-id={image.id}
-              aria-label="Galériakép megnyitása"
-            >
-              <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
-              {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
-                <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
-              )}
-            </button>
-          </figure>
-        ))}
-      </div>
+      {d2GalleryPreviewImages.length > 0 ? (
+        <div class="d2-gallery__grid">
+          {d2GalleryPreviewImages.map((image, index) => (
+            <figure class="d2-gallery__item">
+              <button
+                type="button"
+                class="d2-gallery__trigger"
+                data-d2-gallery-trigger
+                data-d2-gallery-index={index}
+                data-d2-gallery-id={image.id}
+                aria-label="Galériakép megnyitása"
+              >
+                <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+                {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
+                  <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
+                )}
+              </button>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div class="d2-gallery__empty" role="status">{d2GalleryWarning}</div>
+      )}
     </div>
   </section>
 
@@ -969,6 +1051,19 @@ const relatedStays = accommodations
     display: grid;
     gap: 6px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .d2-gallery__empty {
+    display: grid;
+    min-height: 160px;
+    place-items: center;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 8px;
+    background: rgba(246, 240, 228, 0.54);
+    color: rgba(39, 32, 24, 0.64);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    text-align: center;
   }
 
   .d2-gallery__item {
