@@ -1,6 +1,7 @@
 // [CHANGE 2026-04-26 00:00] Accommodation source image inventory váz létrehozása.
 // [CHANGE 2026-04-26 00:00] D2 source image inventory felvétele source_found státusszal.
 // [CHANGE 2026-04-26 00:00] D2 source inventory selection státuszok frissítése review döntés alapján.
+// [CHANGE 2026-04-26 00:00] D2 selected galéria targetPlan nevek normalizálása 01–10 aktív sorrendre.
 
 import type { ImageSourceCandidate } from "./image-types";
 
@@ -29,14 +30,29 @@ const d2GallerySourceFiles: Array<{
   { wpId: 7873, filename: "IMG_9346.jpg", status: "selected" },
 ];
 
+const d2SelectedGallerySequenceBySourceId: Record<string, string> = {
+  "d2-source-gallery-01": "01",
+  "d2-source-gallery-04": "02",
+  "d2-source-gallery-05": "03",
+  "d2-source-gallery-07": "04",
+  "d2-source-gallery-09": "05",
+  "d2-source-gallery-10": "06",
+  "d2-source-gallery-11": "07",
+  "d2-source-gallery-13": "08",
+  "d2-source-gallery-14": "09",
+  "d2-source-gallery-16": "10",
+};
+
 const d2GallerySourceImages: ImageSourceCandidate[] = d2GallerySourceFiles.map(
   ({ wpId, filename, status }, index) => {
     const order = index + 1;
-    const sequence = String(order).padStart(2, "0");
+    const sourceId = `d2-source-gallery-${String(order).padStart(2, "0")}`;
+    const normalizedSelectedSequence = d2SelectedGallerySequenceBySourceId[sourceId];
+    const targetSequence = normalizedSelectedSequence ?? String(order).padStart(2, "0");
     const currentUrl = `https://dandelionhouse.hu/wp-content/uploads/2025/09/${filename}`;
 
     return {
-      id: `d2-source-gallery-${sequence}`,
+      id: sourceId,
       apartmentKey: "d2",
       source: {
         type: "wordpress",
@@ -51,7 +67,7 @@ const d2GallerySourceImages: ImageSourceCandidate[] = d2GallerySourceFiles.map(
       aspectRatio: "4:3",
       intendedRoles: ["gallery", "thumbnail"],
       theme: "gallery",
-      sortOrder: order,
+      sortOrder: status === "selected" && normalizedSelectedSequence ? Number(normalizedSelectedSequence) : order,
       status,
       seoDraft: {
         approved: false,
@@ -59,14 +75,14 @@ const d2GallerySourceImages: ImageSourceCandidate[] = d2GallerySourceFiles.map(
       targetPlans: [
         {
           role: "gallery",
-          targetPath: `/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-${sequence}.webp`,
+          targetPath: `/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-${targetSequence}.webp`,
           width: 1600,
           cropMode: "contain",
           focusPoint: "center center",
         },
         {
           role: "thumbnail",
-          targetPath: `/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-${sequence}.webp`,
+          targetPath: `/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-${targetSequence}.webp`,
           width: 600,
           cropMode: "cover",
           focusPoint: "center center",
