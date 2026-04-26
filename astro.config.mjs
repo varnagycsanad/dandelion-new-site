@@ -19,6 +19,7 @@ function localImageAdmin() {
         }
 
         for (const endpoint of [
+          'intake-source',
           'save',
           'update-media',
           'save-apartment',

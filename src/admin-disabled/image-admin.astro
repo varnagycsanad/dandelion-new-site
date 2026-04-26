@@ -139,6 +139,70 @@ const initialSelectedMedia =
       <div class="dnd-image-admin__layout">
         <aside class="dnd-image-admin__sidebar">
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
+            <h2>Új kép beemelése a képrendszerbe</h2>
+            <form id="dnd-image-admin-intake-form" class="dnd-image-admin__intake-form">
+              <label class="dnd-image-admin__field">
+                <span>WP media ID</span>
+                <input id="dnd-image-admin-intake-wp-id" type="number" min="1" inputmode="numeric" />
+              </label>
+              <label class="dnd-image-admin__field">
+                <span>Apartman kulcs</span>
+                <select id="dnd-image-admin-intake-apartment">
+                  {apartmentOptions
+                    .filter((option) => option.key !== "all")
+                    .map((option) => (
+                      <option value={option.key} selected={option.key === "d2"}>
+                        {option.key}
+                      </option>
+                    ))}
+                </select>
+              </label>
+              <label class="dnd-image-admin__field">
+                <span>Role</span>
+                <select id="dnd-image-admin-intake-role">
+                  <option value="gallery" selected>gallery</option>
+                  <option value="hero_desktop">hero_desktop</option>
+                  <option value="hero_mobile">hero_mobile</option>
+                  <option value="card">card</option>
+                  <option value="thumbnail">thumbnail</option>
+                </select>
+              </label>
+              <label class="dnd-image-admin__field">
+                <span>Theme</span>
+                <input id="dnd-image-admin-intake-theme" type="text" />
+              </label>
+              <label class="dnd-image-admin__field">
+                <span>Room</span>
+                <input id="dnd-image-admin-intake-room" type="text" />
+              </label>
+              <label class="dnd-image-admin__field">
+                <span>Sort order</span>
+                <input id="dnd-image-admin-intake-sort-order" type="number" min="0" inputmode="numeric" />
+              </label>
+              <div class="dnd-image-admin__intake-actions">
+                <button
+                  id="dnd-image-admin-intake-preview"
+                  class="dnd-btn dnd-btn--secondary"
+                  type="button"
+                >
+                  Előnézet
+                </button>
+                <button
+                  id="dnd-image-admin-intake-submit"
+                  class="dnd-btn dnd-btn--primary"
+                  type="button"
+                >
+                  Beemelés source inventoryba
+                </button>
+              </div>
+              <p id="dnd-image-admin-intake-status" class="dnd-image-admin__panel-text">
+                Add meg a WP media ID-t és az alap mezőket, majd kérj előnézetet vagy valós intake-et.
+              </p>
+              <pre id="dnd-image-admin-intake-output" class="dnd-image-admin__intake-output">Még nincs válasz.</pre>
+            </form>
+          </div>
+
+          <div class="dnd-image-admin__panel" data-admin-tab="apartments">
             <h2>Lakás</h2>
             <label class="dnd-image-admin__field dnd-image-admin__apartment-select-field">
               <span>Lakás</span>
@@ -673,6 +737,17 @@ const initialSelectedMedia =
       const bulkClear = document.getElementById("dnd-image-admin-bulk-clear");
       const bulkSeoSuccess = document.getElementById("dnd-image-admin-bulk-seo-success");
       const bulkSeoError = document.getElementById("dnd-image-admin-bulk-seo-error");
+      const intakeForm = document.getElementById("dnd-image-admin-intake-form");
+      const intakeWpIdInput = document.getElementById("dnd-image-admin-intake-wp-id");
+      const intakeApartmentSelect = document.getElementById("dnd-image-admin-intake-apartment");
+      const intakeRoleSelect = document.getElementById("dnd-image-admin-intake-role");
+      const intakeThemeInput = document.getElementById("dnd-image-admin-intake-theme");
+      const intakeRoomInput = document.getElementById("dnd-image-admin-intake-room");
+      const intakeSortOrderInput = document.getElementById("dnd-image-admin-intake-sort-order");
+      const intakePreviewButton = document.getElementById("dnd-image-admin-intake-preview");
+      const intakeSubmitButton = document.getElementById("dnd-image-admin-intake-submit");
+      const intakeStatus = document.getElementById("dnd-image-admin-intake-status");
+      const intakeOutput = document.getElementById("dnd-image-admin-intake-output");
       const quickFilterMissingAlt = document.getElementById("dnd-image-admin-filter-missing-alt");
       const quickFilterUnassignedApartment = document.getElementById("dnd-image-admin-filter-unassigned-apartment");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
@@ -695,6 +770,7 @@ const initialSelectedMedia =
       let apartmentGalleryOrderDrafts = {};
       let mediaMetaOverrides = {};
       let mediaSeoFields = state.mediaSeoFields || {};
+      let isIntakeSubmitting = false;
       let quickFilters = state.initialQuickFilters || {
         missingAlt: false,
         unassignedApartment: false
@@ -757,6 +833,85 @@ const initialSelectedMedia =
           return serialized.length > 240 ? `${serialized.slice(0, 237)}...` : serialized;
         } catch {
           return String(payload);
+        }
+      }
+
+      function updateIntakeUiState() {
+        if (intakePreviewButton) {
+          intakePreviewButton.disabled = isIntakeSubmitting;
+        }
+
+        if (intakeSubmitButton) {
+          intakeSubmitButton.disabled = isIntakeSubmitting;
+        }
+      }
+
+      function setIntakeResult(ok, statusMessage, outputText) {
+        if (intakeStatus) {
+          intakeStatus.textContent = statusMessage;
+          intakeStatus.style.color = ok ? "#6b4a00" : "#8a1616";
+        }
+
+        if (intakeOutput) {
+          intakeOutput.textContent = outputText || "Nincs válasz.";
+          intakeOutput.dataset.state = ok ? "success" : "error";
+        }
+      }
+
+      function collectIntakePayload(dryRun) {
+        return {
+          apartment: intakeApartmentSelect?.value || "",
+          wpId: intakeWpIdInput?.value || "",
+          role: intakeRoleSelect?.value || "",
+          theme: intakeThemeInput?.value || "",
+          room: intakeRoomInput?.value || "",
+          sortOrder: intakeSortOrderInput?.value || "",
+          dryRun
+        };
+      }
+
+      async function runIntakeRequest(dryRun) {
+        if (!intakeForm) {
+          return;
+        }
+
+        try {
+          isIntakeSubmitting = true;
+          updateIntakeUiState();
+          setIntakeResult(true, dryRun ? "Source candidate előnézet készül..." : "Source candidate létrehozása folyamatban...", "");
+
+          const response = await fetch(apiUrl("intake-source"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(collectIntakePayload(dryRun))
+          });
+
+          const payload = await response.json().catch(() => null);
+          const stdout = payload?.stdout || "";
+          const stderr = payload?.stderr || "";
+          const formattedOutput = [stdout, stderr].filter(Boolean).join("\n\n").trim();
+
+          if (!response.ok || !payload?.ok) {
+            setIntakeResult(false, "Intake hiba", formattedOutput || payload?.error || "Az intake kérés nem sikerült.");
+            return;
+          }
+
+          setIntakeResult(
+            true,
+            dryRun ? "Source candidate előkészítve (dry-run)" : "Source candidate előkészítve",
+            formattedOutput || "Az intake kérés sikeresen lefutott."
+          );
+        } catch (error) {
+          setIntakeResult(
+            false,
+            "Intake hiba",
+            error instanceof Error ? error.message : "Az intake kérés nem sikerült."
+          );
+        } finally {
+          isIntakeSubmitting = false;
+          updateIntakeUiState();
         }
       }
 
@@ -2447,6 +2602,24 @@ const initialSelectedMedia =
         });
       }
 
+      if (intakeForm) {
+        intakeForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+        });
+      }
+
+      if (intakePreviewButton) {
+        intakePreviewButton.addEventListener("click", async () => {
+          await runIntakeRequest(true);
+        });
+      }
+
+      if (intakeSubmitButton) {
+        intakeSubmitButton.addEventListener("click", async () => {
+          await runIntakeRequest(false);
+        });
+      }
+
       if (metaForm) {
         metaForm.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -3568,6 +3741,37 @@ const initialSelectedMedia =
       font-size: 0.76rem;
       font-weight: 600;
       color: rgba(0, 0, 0, 0.72);
+    }
+
+    .dnd-image-admin__intake-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .dnd-image-admin__intake-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dnd-image-admin__intake-output {
+      overflow: auto;
+      margin: 0;
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      color: rgba(0, 0, 0, 0.78);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .dnd-image-admin__intake-output[data-state="error"] {
+      border-color: rgba(164, 31, 31, 0.22);
+      background: rgba(164, 31, 31, 0.05);
     }
 
     .dnd-image-admin__field input,
