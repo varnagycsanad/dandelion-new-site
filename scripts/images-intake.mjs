@@ -2,12 +2,14 @@
 // [CHANGE 2026-04-27 00:00] images:intake MVP parancs hozzáadása WordPress source candidate felvételhez.
 // [CHANGE 2026-04-27 00:00] WP media metadata lookup hozzáadása images:intake parancshoz.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
+import { accommodationImages } from "../src/data/images/accommodation-images.ts";
 
 const SOURCE_FILE_URL = new URL("../src/data/images/accommodation-source-images.ts", import.meta.url);
 const SOURCE_FILE_PATH = fileURLToPath(SOURCE_FILE_URL);
+const PUBLIC_ACCOMMODATIONS_ROOT_URL = new URL("../public/images/accommodations/", import.meta.url);
 
 const args = process.argv.slice(2);
 const options = parseOptions(args);
@@ -85,7 +87,18 @@ if (duplicateCandidate) {
 }
 
 const wpMediaMetadata = await fetchWordPressMediaMetadata({ wpBaseUrl, wpId });
-const sequence = getNextSequence(existingCandidates, apartmentKey, role);
+const occupiedTargets = await getOccupiedTargetData({
+  apartment: apartmentKey,
+  roleName: role,
+  candidates: existingCandidates,
+  registryImages: accommodationImages[apartmentKey],
+});
+const sequence = getNextSequence({
+  apartment: apartmentKey,
+  roleName: role,
+  candidates: existingCandidates,
+  occupiedSequences: occupiedTargets.sequences,
+});
 const sequenceLabel = String(sequence).padStart(2, "0");
 const baseSlug = resolveBaseSlug(apartmentKey, existingCandidates);
 const now = new Date().toISOString();
@@ -104,6 +117,17 @@ const candidate = createSourceCandidate({
   wpMediaMetadata,
   now,
 });
+
+const collidingTarget = candidate.targetPlans
+  .flatMap((plan) => [plan.targetPath, plan.thumbPath])
+  .filter(Boolean)
+  .find((targetPath) => occupiedTargets.paths.has(targetPath));
+
+if (collidingTarget) {
+  console.error("Target path collision detected. No file changes were made.");
+  console.error(`colliding target: ${collidingTarget}`);
+  process.exit(1);
+}
 
 const sourceFileContent = await readFile(SOURCE_FILE_PATH, "utf8");
 const nextSourceFileContent = upsertCandidateForApartment(sourceFileContent, apartmentKey, candidate);
@@ -167,7 +191,47 @@ function resolveBaseSlug(apartment, candidates) {
   return `dandelion-${apartment}`;
 }
 
-function getNextSequence(candidates, apartment, roleName) {
+async function getOccupiedTargetData({ apartment, roleName, candidates, registryImages }) {
+  const occupiedPaths = new Set();
+  const occupiedSequences = new Set();
+
+  if (roleName !== "gallery" && roleName !== "thumbnail") {
+    return { paths: occupiedPaths, sequences: occupiedSequences };
+  }
+
+  for (const candidate of candidates) {
+    for (const plan of candidate.targetPlans || []) {
+      collectTargetPath(occupiedPaths, occupiedSequences, apartment, plan.targetPath);
+      collectTargetPath(occupiedPaths, occupiedSequences, apartment, plan.thumbPath);
+    }
+  }
+
+  for (const image of registryImages?.gallery || []) {
+    collectTargetPath(occupiedPaths, occupiedSequences, apartment, image.src);
+    collectTargetPath(occupiedPaths, occupiedSequences, apartment, image.thumb);
+  }
+
+  const galleryDirectoryUrl = new URL(`${apartment}/gallery/`, PUBLIC_ACCOMMODATIONS_ROOT_URL);
+  const thumbDirectoryUrl = new URL(`${apartment}/thumbs/`, PUBLIC_ACCOMMODATIONS_ROOT_URL);
+  const [galleryFiles, thumbFiles] = await Promise.all([
+    safeReadDir(fileURLToPath(galleryDirectoryUrl)),
+    safeReadDir(fileURLToPath(thumbDirectoryUrl)),
+  ]);
+
+  for (const fileName of galleryFiles) {
+    const targetPath = `/images/accommodations/${apartment}/gallery/${fileName}`;
+    collectTargetPath(occupiedPaths, occupiedSequences, apartment, targetPath);
+  }
+
+  for (const fileName of thumbFiles) {
+    const targetPath = `/images/accommodations/${apartment}/thumbs/${fileName}`;
+    collectTargetPath(occupiedPaths, occupiedSequences, apartment, targetPath);
+  }
+
+  return { paths: occupiedPaths, sequences: occupiedSequences };
+}
+
+function getNextSequence({ candidates, apartment, roleName, occupiedSequences }) {
   const roleIdTokenByRole = {
     hero_desktop: "hero-desktop",
     hero_mobile: "hero-mobile",
@@ -175,6 +239,18 @@ function getNextSequence(candidates, apartment, roleName) {
     gallery: "gallery",
     thumbnail: "thumb",
   };
+
+  if (roleName === "gallery" || roleName === "thumbnail") {
+    let maxValue = 0;
+
+    for (const currentValue of occupiedSequences) {
+      if (Number.isInteger(currentValue) && currentValue > maxValue) {
+        maxValue = currentValue;
+      }
+    }
+
+    return maxValue + 1;
+  }
 
   const roleToken = roleIdTokenByRole[roleName];
   const sequencePattern = new RegExp(`^${escapeRegex(apartment)}-source-${escapeRegex(roleToken)}-(\\d+)$`);
@@ -193,6 +269,37 @@ function getNextSequence(candidates, apartment, roleName) {
   }
 
   return maxValue + 1;
+}
+
+async function safeReadDir(directoryPath) {
+  try {
+    return await readdir(directoryPath);
+  } catch {
+    return [];
+  }
+}
+
+function collectTargetPath(pathSet, sequenceSet, apartment, targetPath) {
+  if (typeof targetPath !== "string" || targetPath.trim() === "") {
+    return;
+  }
+
+  pathSet.add(targetPath);
+
+  const fileName = targetPath.split("/").pop() || "";
+  const match = /-(gallery|thumb)-(\d+)\.webp$/i.exec(fileName);
+  if (!match) {
+    return;
+  }
+
+  if (!targetPath.includes(`/images/accommodations/${apartment}/`)) {
+    return;
+  }
+
+  const currentValue = Number(match[2]);
+  if (Number.isInteger(currentValue) && currentValue > 0) {
+    sequenceSet.add(currentValue);
+  }
 }
 
 function createSourceCandidate({
