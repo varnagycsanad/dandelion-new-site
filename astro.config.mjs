@@ -21,6 +21,7 @@ function localImageAdmin() {
         for (const endpoint of [
           'intake-source',
           'list-sources',
+          'process-source',
           'save',
           'select-source',
           'update-media',

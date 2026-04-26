@@ -810,6 +810,7 @@ const initialSelectedMedia =
       let mediaSeoFields = state.mediaSeoFields || {};
       let isIntakeSubmitting = false;
       let isSourceListLoading = false;
+      let isSourceProcessSubmitting = false;
       let isSourceSelectSubmitting = false;
       let sourceCandidates = [];
       let quickFilters = state.initialQuickFilters || {
@@ -901,11 +902,13 @@ const initialSelectedMedia =
 
       function updateSourceListUiState() {
         if (sourceListRefreshButton) {
-          sourceListRefreshButton.disabled = isSourceListLoading || isSourceSelectSubmitting;
+          sourceListRefreshButton.disabled =
+            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
         }
 
         if (sourceListApartmentSelect) {
-          sourceListApartmentSelect.disabled = isSourceListLoading || isSourceSelectSubmitting;
+          sourceListApartmentSelect.disabled =
+            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
         }
 
         if (!sourceListContainer) {
@@ -913,9 +916,10 @@ const initialSelectedMedia =
         }
 
         sourceListContainer
-          .querySelectorAll("[data-source-select-button]")
+          .querySelectorAll("[data-source-select-button], [data-source-process-button]")
           .forEach((button) => {
-            button.disabled = isSourceListLoading || isSourceSelectSubmitting;
+            button.disabled =
+              isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
           });
       }
 
@@ -965,10 +969,10 @@ const initialSelectedMedia =
               ? `<div class="dnd-image-admin__source-path"><strong>Source:</strong> ${escapeHtml(candidate.originalUrl)}</div>`
               : "";
             const galleryTarget = candidate.galleryTargetPath
-              ? `<div class="dnd-image-admin__source-path"><strong>Gallery:</strong> ${escapeHtml(candidate.galleryTargetPath)}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Gallery:</strong> ${escapeHtml(candidate.galleryTargetPath)}${candidate.galleryExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
             const thumbTarget = candidate.thumbTargetPath
-              ? `<div class="dnd-image-admin__source-path"><strong>Thumb:</strong> ${escapeHtml(candidate.thumbTargetPath)}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Thumb:</strong> ${escapeHtml(candidate.thumbTargetPath)}${candidate.thumbExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
 
             let actionMarkup = `<span class="dnd-image-admin__source-state">Státusz: ${escapeHtml(candidate.status)}</span>`;
@@ -983,8 +987,22 @@ const initialSelectedMedia =
                   Jóváhagyás feldolgozásra
                 </button>
               `;
-            } else if (candidate.status === "selected") {
-              actionMarkup = '<span class="dnd-image-admin__source-state is-approved">Már jóváhagyva</span>';
+            } else if (candidate.status === "selected" && !candidate.processed) {
+              actionMarkup = `
+                <button
+                  type="button"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__source-action"
+                  data-source-process-button="${escapeHtml(candidate.id)}"
+                >
+                  WebP gyártás
+                </button>
+              `;
+            } else if (candidate.status === "selected" && candidate.processed) {
+              actionMarkup = `
+                <span class="dnd-image-admin__source-state is-approved">
+                  WebP már elkészült
+                </span>
+              `;
             }
 
             return `
@@ -1021,6 +1039,19 @@ const initialSelectedMedia =
               }
 
               await runSourceSelectRequest(sourceListApartmentSelect.value, sourceId);
+            });
+          });
+
+        sourceListContainer
+          .querySelectorAll("[data-source-process-button]")
+          .forEach((button) => {
+            button.addEventListener("click", async () => {
+              const sourceId = button.getAttribute("data-source-process-button");
+              if (!sourceId || !sourceListApartmentSelect) {
+                return;
+              }
+
+              await runSourceProcessRequest(sourceListApartmentSelect.value, sourceId);
             });
           });
 
@@ -1112,6 +1143,55 @@ const initialSelectedMedia =
           );
         } finally {
           isSourceSelectSubmitting = false;
+          updateSourceListUiState();
+        }
+      }
+
+      async function runSourceProcessRequest(apartment, sourceId) {
+        try {
+          isSourceProcessSubmitting = true;
+          updateSourceListUiState();
+          setSourceListResult(true, `WebP gyártás folyamatban: ${sourceId}`, "");
+
+          const response = await fetch(apiUrl("process-source"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              apartment,
+              source: sourceId
+            })
+          });
+
+          const payload = await response.json().catch(() => null);
+          const stdout = payload?.stdout || "";
+          const stderr = payload?.stderr || "";
+          const formattedOutput = [stdout, stderr].filter(Boolean).join("\n\n").trim();
+
+          if (!response.ok || !payload?.ok) {
+            setSourceListResult(
+              false,
+              "Process hiba",
+              formattedOutput || payload?.error || "A process kérés nem sikerült.",
+            );
+            return;
+          }
+
+          setSourceListResult(
+            true,
+            "WebP gyártás sikeres",
+            formattedOutput || "A process kérés sikeres.",
+          );
+          await loadSourceCandidates();
+        } catch (error) {
+          setSourceListResult(
+            false,
+            "Process hiba",
+            error instanceof Error ? error.message : "A process kérés nem sikerült.",
+          );
+        } finally {
+          isSourceProcessSubmitting = false;
           updateSourceListUiState();
         }
       }

@@ -1,8 +1,15 @@
 import type { APIRoute } from "astro";
+import { access } from "node:fs/promises";
+import { constants as fsConstants } from "node:fs";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 import { accommodationSourceImages } from "../../../data/images/accommodation-source-images.ts";
 
 export const prerender = false;
+
+const WORKSPACE_ROOT = fileURLToPath(new URL("../../../../", import.meta.url));
+const PUBLIC_ROOT = path.join(WORKSPACE_ROOT, "public");
 
 export const GET: APIRoute = async ({ url }) => {
   const apartment = url.searchParams.get("apartment")?.trim() || "";
@@ -29,14 +36,16 @@ export const GET: APIRoute = async ({ url }) => {
     );
   }
 
-  return jsonResponse({
-    ok: true,
-    apartment,
-    candidates: candidates.map((candidate) => {
+  const serializedCandidates = await Promise.all(
+    candidates.map(async (candidate) => {
       const galleryPlan = candidate.targetPlans?.find((plan) => plan.role === "gallery");
       const thumbPlan = candidate.targetPlans?.find(
         (plan) => plan.role === "thumbnail" || plan.role === "thumb",
       );
+      const galleryTargetPath = galleryPlan?.targetPath || "";
+      const thumbTargetPath = thumbPlan?.targetPath || thumbPlan?.thumbPath || "";
+      const galleryExists = await fileExists(resolvePublicPath(galleryTargetPath));
+      const thumbExists = await fileExists(resolvePublicPath(thumbTargetPath));
 
       return {
         id: candidate.id,
@@ -51,10 +60,19 @@ export const GET: APIRoute = async ({ url }) => {
         sortOrder: candidate.sortOrder ?? null,
         wpId: candidate.source?.wpId ?? null,
         originalUrl: candidate.source?.originalUrl || "",
-        galleryTargetPath: galleryPlan?.targetPath || "",
-        thumbTargetPath: thumbPlan?.targetPath || thumbPlan?.thumbPath || "",
+        galleryTargetPath,
+        thumbTargetPath,
+        galleryExists,
+        thumbExists,
+        processed: galleryExists && thumbExists,
       };
     }),
+  );
+
+  return jsonResponse({
+    ok: true,
+    apartment,
+    candidates: serializedCandidates,
   });
 };
 
@@ -65,4 +83,25 @@ function jsonResponse(payload: Record<string, unknown>, status = 200) {
       "Content-Type": "application/json",
     },
   });
+}
+
+function resolvePublicPath(targetPath: string) {
+  if (!targetPath || !targetPath.startsWith("/")) {
+    return "";
+  }
+
+  return path.join(PUBLIC_ROOT, targetPath.replace(/^\/+/, "").replace(/\//g, path.sep));
+}
+
+async function fileExists(filePath: string) {
+  if (!filePath) {
+    return false;
+  }
+
+  try {
+    await access(filePath, fsConstants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
 }
