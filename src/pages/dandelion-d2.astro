@@ -14,15 +14,28 @@ const apartmentKey = apartments.d2.key;
 const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
   `/wp-json/dandelion/v1/apartment-image-config/${nextApartmentKey}`;
 const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
+const d2RuntimeGalleryEndpointUrl = `https://dandelionhouse.hu${d2RuntimeGalleryEndpoint}`;
 const publicWordPressMediaEndpoint = "https://dandelionhouse.hu/wp-json/wp/v2/media";
 
 type D2GalleryImage = { id: number; src: string; alt: string };
+type D2HeroImage = { src: string; alt: string };
 type D2RawPublicMediaItem = {
   id?: number;
   source_url?: string;
   alt_text?: string;
   title?: {
     rendered?: string;
+  };
+};
+type D2RuntimeHeroImage = {
+  url?: string;
+  alt?: string;
+  title?: string;
+};
+type D2RuntimeImageConfig = {
+  heroImages?: {
+    desktop?: D2RuntimeHeroImage | null;
+    mobile?: D2RuntimeHeroImage | null;
   };
 };
 
@@ -161,6 +174,36 @@ let d2GalleryWarning = "";
 
 const stripInlineHtml = (value: string | undefined) => (value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
+const normalizeRuntimeHeroImage = (image: D2RuntimeHeroImage | null | undefined): D2HeroImage | null => {
+  if (!image?.url) {
+    return null;
+  }
+
+  return {
+    src: image.url,
+    alt: image.alt?.trim() || image.title?.trim() || "Dandelion D2"
+  };
+};
+
+const fetchRuntimeHeroImages = async (): Promise<{ desktop: D2HeroImage | null; mobile: D2HeroImage | null }> => {
+  const response = await fetch(d2RuntimeGalleryEndpointUrl, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Runtime image config request failed with HTTP ${response.status}.`);
+  }
+
+  const payload = (await response.json()) as D2RuntimeImageConfig;
+
+  return {
+    desktop: normalizeRuntimeHeroImage(payload?.heroImages?.desktop),
+    mobile: normalizeRuntimeHeroImage(payload?.heroImages?.mobile)
+  };
+};
+
 const resolveGalleryImages = (
   mediaItems: { id: number; sourceUrl: string; altText?: string; title?: string }[]
 ): D2GalleryImage[] => {
@@ -278,7 +321,28 @@ if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
 
-const d2InitialHeroImage = d2GalleryImages[0] || d2PlaceholderGallery[0];
+const d2HeroFallback = d2GalleryImages[0] || d2PlaceholderGallery[0];
+let d2InitialHeroImages = {
+  desktop: d2HeroFallback,
+  mobile: d2HeroFallback
+};
+
+try {
+  const runtimeHeroImages = await fetchRuntimeHeroImages();
+
+  d2InitialHeroImages = {
+    desktop: runtimeHeroImages.desktop || d2InitialHeroImages.desktop,
+    mobile: runtimeHeroImages.mobile || runtimeHeroImages.desktop || d2InitialHeroImages.mobile
+  };
+} catch (error) {
+  console.warn(
+    `[D2 hero] Failed to resolve runtime hero image for first render: ${
+      error instanceof Error ? error.message : "Unknown error"
+    }`
+  );
+}
+
+const d2InitialHeroImage = d2InitialHeroImages.desktop;
 const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
 const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
 const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
@@ -299,12 +363,18 @@ const relatedStays = accommodations
   description="Dandelion D2 külön oldal a Balaton-felvidéki, családbarát pihenés hangulatára építve."
 >
   <section class="d2-hero">
-    <img
-      src={d2InitialHeroImage.src}
-      alt={d2InitialHeroImage.alt}
-      class="d2-hero__image"
-      data-d2-hero-image
-    />
+    <picture class="d2-hero__picture">
+      <source media="(max-width: 767px)" srcset={d2InitialHeroImages.mobile.src} />
+      <img
+        src={d2InitialHeroImage.src}
+        alt={d2InitialHeroImage.alt}
+        class="d2-hero__image"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        data-d2-hero-image
+      />
+    </picture>
     <div class="d2-hero__overlay"></div>
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
@@ -316,7 +386,7 @@ const relatedStays = accommodations
         </p>
         <div class="d2-hero__actions">
           <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">Árak és foglalás</button>
-          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary">Galéria megtekintése</a>
+          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary">Képek megtekintése</a>
         </div>
       </div>
     </div>
@@ -925,10 +995,14 @@ const relatedStays = accommodations
     color: #fff;
   }
 
-  .d2-hero__image,
+  .d2-hero__picture,
   .d2-hero__overlay {
     position: absolute;
     inset: 0;
+  }
+
+  .d2-hero__picture {
+    display: block;
   }
 
   .d2-hero__image {
@@ -1662,6 +1736,7 @@ const relatedStays = accommodations
     }
 
     .d2-hero__actions {
+      align-items: flex-start;
       flex-direction: column;
       gap: 10px;
       margin-top: 20px;
@@ -1672,13 +1747,18 @@ const relatedStays = accommodations
     }
 
     .d2-hero__actions .dnd-btn {
-      width: 100%;
+      width: auto;
     }
 
     .d2-hero__actions .dnd-btn--secondary {
+      width: min(75%, 18rem);
+      min-height: 40px;
+      padding: 10px 16px 11px;
       border-color: rgba(253, 251, 247, 0.9);
       background: rgba(253, 251, 247, 0.94);
       color: #2d241c;
+      font-size: 0.72rem;
+      letter-spacing: 0.11em;
       box-shadow: 0 12px 28px rgba(17, 12, 9, 0.18);
     }
 
