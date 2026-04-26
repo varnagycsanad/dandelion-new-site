@@ -205,6 +205,15 @@ const initialSelectedMedia =
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
             <h2>Feldolgozásra váró képek</h2>
             <form id="dnd-image-admin-source-list-form" class="dnd-image-admin__intake-form">
+              <div class="dnd-image-admin__source-summary">
+                <div class="dnd-image-admin__source-summary-head">
+                  <h3 class="dnd-image-admin__source-summary-title">Képfeldolgozási állapot</h3>
+                  <p class="dnd-image-admin__panel-text">Az aktuális apartman candidate-jeinek rövid összesítése.</p>
+                </div>
+                <div id="dnd-image-admin-source-summary-grid" class="dnd-image-admin__source-summary-grid">
+                  <div class="dnd-image-admin__source-summary-empty">Nincs betöltött állapot.</div>
+                </div>
+              </div>
               <label class="dnd-image-admin__field">
                 <span>Apartman kulcs</span>
                 <select id="dnd-image-admin-source-list-apartment">
@@ -786,6 +795,7 @@ const initialSelectedMedia =
       const sourceListStatus = document.getElementById("dnd-image-admin-source-list-status");
       const sourceListOutput = document.getElementById("dnd-image-admin-source-list-output");
       const sourceListContainer = document.getElementById("dnd-image-admin-source-list");
+      const sourceSummaryGrid = document.getElementById("dnd-image-admin-source-summary-grid");
       const quickFilterMissingAlt = document.getElementById("dnd-image-admin-filter-missing-alt");
       const quickFilterUnassignedApartment = document.getElementById("dnd-image-admin-filter-unassigned-apartment");
       const metaSubmit = document.getElementById("dnd-image-admin-meta-submit");
@@ -937,7 +947,7 @@ const initialSelectedMedia =
       }
 
       function escapeHtml(value) {
-        return String(value || "")
+        return String(value ?? "")
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")
@@ -945,10 +955,62 @@ const initialSelectedMedia =
           .replace(/'/g, "&#39;");
       }
 
+      function computeSourceSummary(candidates) {
+        const list = Array.isArray(candidates) ? candidates : [];
+
+        return {
+          total: list.length,
+          sourceFound: list.filter((candidate) => candidate.status === "source_found").length,
+          selected: list.filter((candidate) => candidate.status === "selected").length,
+          selectedUnprocessed: list.filter(
+            (candidate) => candidate.status === "selected" && candidate.processed === false,
+          ).length,
+          processedUnpublished: list.filter(
+            (candidate) => candidate.processed === true && candidate.published === false,
+          ).length,
+          published: list.filter((candidate) => candidate.published === true).length,
+        };
+      }
+
+      function renderSourceSummary() {
+        if (!sourceSummaryGrid) {
+          return;
+        }
+
+        if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
+          sourceSummaryGrid.innerHTML =
+            '<div class="dnd-image-admin__source-summary-empty">Nincs betöltött állapot.</div>';
+          return;
+        }
+
+        const summary = computeSourceSummary(sourceCandidates);
+        const cards = [
+          ["Összes candidate", summary.total],
+          ["source_found", summary.sourceFound],
+          ["selected", summary.selected],
+          ["selected, de WebP még nincs kész", summary.selectedUnprocessed],
+          ["processed, de nincs published", summary.processedUnpublished],
+          ["published", summary.published],
+        ];
+
+        sourceSummaryGrid.innerHTML = cards
+          .map(
+            ([label, value]) => `
+              <article class="dnd-image-admin__source-summary-card">
+                <span>${escapeHtml(label)}</span>
+                <strong>${escapeHtml(value)}</strong>
+              </article>
+            `,
+          )
+          .join("");
+      }
+
       function renderSourceCandidates() {
         if (!sourceListContainer) {
           return;
         }
+
+        renderSourceSummary();
 
         if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
           sourceListContainer.innerHTML =
@@ -4221,6 +4283,56 @@ const initialSelectedMedia =
     .dnd-image-admin__source-list {
       display: grid;
       gap: 10px;
+    }
+
+    .dnd-image-admin__source-summary {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 14px;
+      background: rgba(246, 240, 228, 0.24);
+    }
+
+    .dnd-image-admin__source-summary-head {
+      display: grid;
+      gap: 4px;
+    }
+
+    .dnd-image-admin__source-summary-title {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+    .dnd-image-admin__source-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+    }
+
+    .dnd-image-admin__source-summary-card,
+    .dnd-image-admin__source-summary-empty {
+      display: grid;
+      gap: 4px;
+      min-height: 74px;
+      align-content: start;
+      padding: 10px 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .dnd-image-admin__source-summary-card span,
+    .dnd-image-admin__source-summary-empty {
+      color: rgba(0, 0, 0, 0.64);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .dnd-image-admin__source-summary-card strong {
+      font-size: 1.15rem;
+      line-height: 1.1;
+      color: rgba(0, 0, 0, 0.86);
     }
 
     .dnd-image-admin__source-card {
