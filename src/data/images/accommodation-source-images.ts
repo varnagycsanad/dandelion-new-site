@@ -1,5 +1,6 @@
 // [CHANGE 2026-04-26 00:00] Accommodation source image inventory váz létrehozása.
 // [CHANGE 2026-04-26 00:00] D2 source image inventory felvétele source_found státusszal.
+// [CHANGE 2026-04-26 00:00] D2 source inventory selection státuszok frissítése review döntés alapján.
 
 import type { ImageSourceCandidate } from "./image-types";
 
@@ -8,27 +9,28 @@ const d2InventoryTimestamp = "2026-04-26T00:00:00.000Z";
 const d2GallerySourceFiles: Array<{
   wpId: number;
   filename: string;
+  status: "selected" | "needs_review";
 }> = [
-  { wpId: 7872, filename: "2025-09-29-10-19-03.webp" },
-  { wpId: 7851, filename: "2025-09-29-10-36-45.jpeg" },
-  { wpId: 7857, filename: "2025-09-29-10-39-12.jpeg" },
-  { wpId: 7871, filename: "2025-09-29-10-26-50.webp" },
-  { wpId: 7875, filename: "IMG_9347.webp" },
-  { wpId: 7866, filename: "2025-09-29-10-19-03-1.webp" },
-  { wpId: 7846, filename: "2025-09-29-10-34-41.jpeg" },
-  { wpId: 7864, filename: "2025-09-29-10-26-50-1.webp" },
-  { wpId: 7853, filename: "2025-09-29-10-38-00.jpeg" },
-  { wpId: 7855, filename: "2025-09-29-10-38-30.jpeg" },
-  { wpId: 7860, filename: "2025-09-29-10-39-48.jpeg" },
-  { wpId: 7862, filename: "2025-09-29-10-27-54-1.webp" },
-  { wpId: 7865, filename: "2025-09-29-10-23-57.webp" },
-  { wpId: 7868, filename: "2025-09-29-10-28-14.webp" },
-  { wpId: 7870, filename: "2025-09-29-10-27-39.webp" },
-  { wpId: 7873, filename: "IMG_9346.jpg" },
+  { wpId: 7872, filename: "2025-09-29-10-19-03.webp", status: "selected" },
+  { wpId: 7851, filename: "2025-09-29-10-36-45.jpeg", status: "needs_review" },
+  { wpId: 7857, filename: "2025-09-29-10-39-12.jpeg", status: "needs_review" },
+  { wpId: 7871, filename: "2025-09-29-10-26-50.webp", status: "selected" },
+  { wpId: 7875, filename: "IMG_9347.webp", status: "selected" },
+  { wpId: 7866, filename: "2025-09-29-10-19-03-1.webp", status: "needs_review" },
+  { wpId: 7846, filename: "2025-09-29-10-34-41.jpeg", status: "selected" },
+  { wpId: 7864, filename: "2025-09-29-10-26-50-1.webp", status: "needs_review" },
+  { wpId: 7853, filename: "2025-09-29-10-38-00.jpeg", status: "selected" },
+  { wpId: 7855, filename: "2025-09-29-10-38-30.jpeg", status: "selected" },
+  { wpId: 7860, filename: "2025-09-29-10-39-48.jpeg", status: "selected" },
+  { wpId: 7862, filename: "2025-09-29-10-27-54-1.webp", status: "needs_review" },
+  { wpId: 7865, filename: "2025-09-29-10-23-57.webp", status: "selected" },
+  { wpId: 7868, filename: "2025-09-29-10-28-14.webp", status: "selected" },
+  { wpId: 7870, filename: "2025-09-29-10-27-39.webp", status: "needs_review" },
+  { wpId: 7873, filename: "IMG_9346.jpg", status: "selected" },
 ];
 
 const d2GallerySourceImages: ImageSourceCandidate[] = d2GallerySourceFiles.map(
-  ({ wpId, filename }, index) => {
+  ({ wpId, filename, status }, index) => {
     const order = index + 1;
     const sequence = String(order).padStart(2, "0");
     const currentUrl = `https://dandelionhouse.hu/wp-content/uploads/2025/09/${filename}`;
@@ -50,7 +52,7 @@ const d2GallerySourceImages: ImageSourceCandidate[] = d2GallerySourceFiles.map(
       intendedRoles: ["gallery", "thumbnail"],
       theme: "gallery",
       sortOrder: order,
-      status: "source_found",
+      status,
       seoDraft: {
         approved: false,
       },
@@ -94,7 +96,7 @@ export const accommodationSourceImages: Record<string, ImageSourceCandidate[]> =
       fileSize: 184004,
       intendedRoles: ["hero_mobile"],
       theme: "hero",
-      status: "source_found",
+      status: "selected",
       seoDraft: {
         approved: false,
       },
@@ -127,7 +129,7 @@ export const accommodationSourceImages: Record<string, ImageSourceCandidate[]> =
       aspectRatio: "4:3",
       intendedRoles: ["hero_desktop"],
       theme: "hero",
-      status: "source_found",
+      status: "selected",
       seoDraft: {
         approved: false,
       },
@@ -155,7 +157,7 @@ export const accommodationSourceImages: Record<string, ImageSourceCandidate[]> =
       currentFilename: "2024-06-14-15-27-24-scaled.jpeg.webp",
       intendedRoles: ["card"],
       theme: "card",
-      status: "source_found",
+      status: "selected",
       seoDraft: {
         approved: false,
       },
