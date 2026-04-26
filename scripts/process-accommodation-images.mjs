@@ -2,15 +2,23 @@
 // [CHANGE 2026-04-26 00:00] Dry-run image processing script váz létrehozása source inventory listázáshoz.
 // [CHANGE 2026-04-26 00:00] Plan export mód hozzáadása image processing dry-run scripthhez.
 // [CHANGE 2026-04-26 00:00] Plan export fájlnevek szétválasztása selected és all módra.
+// [CHANGE 2026-04-26 00:00] Korlátozott local write mód hozzáadása egyetlen mobil hero WebP feldolgozásához.
 
 import { access, mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import sharp from "sharp";
+import { fileURLToPath } from "node:url";
 import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
 
 const args = process.argv.slice(2);
+const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
 
-const allowedStandaloneArgs = new Set(["--include-needs-review", "--export-plan"]);
+const allowedStandaloneArgs = new Set(["--include-needs-review", "--export-plan", "--write"]);
 const unknownArgs = args.filter(
-  (arg) => !arg.startsWith("--apartment=") && !allowedStandaloneArgs.has(arg),
+  (arg) =>
+    !arg.startsWith("--apartment=") &&
+    !arg.startsWith("--source=") &&
+    !allowedStandaloneArgs.has(arg),
 );
 
 if (unknownArgs.length > 0) {
@@ -24,12 +32,19 @@ if (unknownArgs.length > 0) {
 }
 
 const apartmentKey = readOption("apartment");
+const sourceId = readOption("source");
 const includeNeedsReview = args.includes("--include-needs-review");
 const exportPlan = args.includes("--export-plan");
+const writeMode = args.includes("--write");
 
 if (!apartmentKey) {
   console.error("Missing required argument: --apartment=<apartmentKey>");
   console.error("Example: node scripts/process-accommodation-images.mjs --apartment=d2");
+  process.exit(1);
+}
+
+if (writeMode && !sourceId) {
+  console.error("WRITE MODE requires --source=<sourceId>.");
   process.exit(1);
 }
 
@@ -53,6 +68,15 @@ const selectedCandidates = candidates.filter((candidate) => allowedStatuses.has(
 const skippedNeedsReview = includeNeedsReview
   ? 0
   : candidates.filter((candidate) => candidate.status === "needs_review").length;
+
+if (writeMode) {
+  await processSingleLocalWrite({
+    apartmentKey,
+    candidates,
+    sourceId,
+  });
+  process.exit(0);
+}
 
 console.log("DRY RUN - no files written");
 console.log("No images will be downloaded, converted, moved, or written.");
@@ -274,4 +298,84 @@ async function fileExists(fileUrl) {
   } catch {
     return false;
   }
+}
+
+async function processSingleLocalWrite({ apartmentKey, candidates, sourceId }) {
+  const candidate = candidates.find((entry) => entry.id === sourceId);
+
+  if (!candidate) {
+    console.error(`Unknown source id for apartment ${apartmentKey}: ${sourceId}`);
+    process.exit(1);
+  }
+
+  if (candidate.source.type !== "local") {
+    console.error(`WRITE MODE only supports local sources in this version. Received: ${candidate.source.type}`);
+    process.exit(1);
+  }
+
+  if (candidate.status !== "selected") {
+    console.error(`WRITE MODE requires status "selected". Received: ${candidate.status}`);
+    process.exit(1);
+  }
+
+  if (!candidate.currentUrl?.startsWith("/images/")) {
+    console.error(`Unsupported local currentUrl: ${candidate.currentUrl ?? "(missing)"}`);
+    process.exit(1);
+  }
+
+  if ((candidate.targetPlans ?? []).length !== 1) {
+    console.error("WRITE MODE expects exactly one target plan for this single-source test.");
+    process.exit(1);
+  }
+
+  const targetPlan = candidate.targetPlans[0];
+
+  if (!targetPlan.targetPath?.startsWith("/images/")) {
+    console.error(`Unsupported targetPath: ${targetPlan.targetPath ?? "(missing)"}`);
+    process.exit(1);
+  }
+
+  const sourceFilePath = resolvePublicImagePath(candidate.currentUrl);
+  const targetFilePath = resolvePublicImagePath(targetPlan.targetPath);
+
+  if (await fileExists(targetFilePath)) {
+    console.error(`Target file already exists: ${targetFilePath}`);
+    process.exit(1);
+  }
+
+  if (!(await fileExists(sourceFilePath))) {
+    console.error(`Source file not found: ${sourceFilePath}`);
+    process.exit(1);
+  }
+
+  await mkdir(path.dirname(targetFilePath), { recursive: true });
+
+  console.log("WRITE MODE - one local source only.");
+  console.log(`source id: ${candidate.id}`);
+  console.log(`source path: ${sourceFilePath}`);
+  console.log(`target path: ${targetFilePath}`);
+
+  await sharp(sourceFilePath)
+    .resize({
+      width: targetPlan.width ?? candidate.width,
+      height: targetPlan.height ?? candidate.height,
+      fit: "fill",
+      withoutEnlargement: false,
+    })
+    .webp({
+      quality: 85,
+    })
+    .toFile(targetFilePath);
+
+  const outputMetadata = await sharp(targetFilePath).metadata();
+
+  console.log("output metadata:");
+  console.log(`- format: ${outputMetadata.format ?? "(unknown)"}`);
+  console.log(`- width: ${outputMetadata.width ?? "(unknown)"}`);
+  console.log(`- height: ${outputMetadata.height ?? "(unknown)"}`);
+}
+
+function resolvePublicImagePath(publicUrlPath) {
+  const relativePath = publicUrlPath.replace(/^\/images\//, "");
+  return path.join(workspaceRoot, "public", "images", relativePath);
 }
