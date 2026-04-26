@@ -80,9 +80,14 @@ const d2PlaceholderGallery = [
   }
 ] as const;
 
-const primaryFacts = [
-  "A D2 jól felszerelt, családbarát apartman, ahol a világos terek és a praktikus elrendezés a nyugodt pihenést szolgálják.",
-  "Kényelmes nappali, használható konyha és otthonos szobák várják azokat, akik szeretnének egyszerűen megérkezni és kikapcsolni."
+const d2ShortDescription =
+  "A Dandelion D2 világos, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Kényelmes választás 4–6 főnek, saját parkolóval, terasszal és nyugodt kertkapcsolattal.";
+
+const d2LongDescription = [
+  "A D2 Kisapátiban, a Szent György-hegy lábánál ad nyugodt, jól használható bázist a Balaton-felvidéki napokhoz.",
+  "A lakás 4 főnek kényelmes, a kihúzható kanapéval pedig akár 6 főnek is megoldást ad. A nappali, a konyha és az étkező egy praktikus, világos élettérben kapcsolódik össze.",
+  "A terasz és a kertkapcsolat lassabb reggelekhez és esti beszélgetésekhez is jól működik, saját parkolóval, klímával és kandallóval egész évben kényelmes.",
+  "A Balaton rövid autózással elérhető, bababarát felszereltség kérésre adható, a D1 vendégházzal együtt pedig nagyobb családnak vagy baráti társaságnak is jó választás lehet."
 ];
 
 const featureGroups = [
@@ -90,15 +95,15 @@ const featureGroups = [
     title: "Alapadatok",
     items: [
       ["Férőhely", "4–6 fő"],
-      ["Méret", "kb. 75 m²"],
-      ["Ágyak", "2 háló + nappali"],
+      ["Méret", "65 m²"],
+      ["Ágyak", "1 franciaágy, 2 szimpla ágy, 1 kihúzható kanapé"],
       ["Parkolás", "ingyenes udvari parkolás"]
     ]
   },
   {
     title: "Kényelem",
     items: [
-      ["Wifi", "gyors, stabil kapcsolat"],
+      ["Wifi", "Gigabites Wi-Fi"],
       ["Konyha", "jól felszerelt"],
       ["Fürdő", "kényelmes, családbarát"],
       ["Jelleg", "családbarát pihenés"]
@@ -109,7 +114,7 @@ const featureGroups = [
 const mobileFactItems = featureGroups.flatMap((group) => group.items);
 
 const featureHighlights = [
-  { label: "Gyors wifi", icon: "wifi" },
+  { label: "Gigabites Wi-Fi", icon: "wifi" },
   { label: "Jól felszerelt konyha", icon: "utensils" },
   { label: "Kényelmes fürdő", icon: "shower" },
   { label: "Saját parkolás", icon: "car" },
@@ -273,6 +278,7 @@ if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
 
+const d2InitialHeroImage = d2GalleryImages[0] || d2PlaceholderGallery[0];
 const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
 const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
 const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
@@ -294,8 +300,8 @@ const relatedStays = accommodations
 >
   <section class="d2-hero">
     <img
-      src={d2PlaceholderGallery[0].src}
-      alt={d2PlaceholderGallery[0].alt}
+      src={d2InitialHeroImage.src}
+      alt={d2InitialHeroImage.alt}
       class="d2-hero__image"
       data-d2-hero-image
     />
@@ -303,13 +309,13 @@ const relatedStays = accommodations
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
         <span class="d2-kicker">Balaton-felvidék · Szent György-hegy</span>
-        <h1>Dandelion D2</h1>
-        <p class="d2-hero__subtitle">családbarát apartman a Szent György-hegy lábánál</p>
+        <h1>Dandelion <span>D2</span></h1>
+        <p class="d2-hero__subtitle">világos apartman Kisapátin</p>
         <p class="d2-hero__lead">
-          Világos terek, kertkapcsolat és kényelmes, természetközeli pihenés a Balaton-felvidék nyugodt ritmusában.
+          Családbarát pihenés 4–6 főnek, terasszal és nyugodt kertkapcsolattal.
         </p>
         <div class="d2-hero__actions">
-          <button type="button" class="dnd-btn dnd-btn--primary" onclick="OpenBE()">Árak és foglalás</button>
+          <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">Árak és foglalás</button>
           <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary">Galéria megtekintése</a>
         </div>
       </div>
@@ -333,9 +339,15 @@ const relatedStays = accommodations
       <div class="d2-details__story">
         <span class="dnd-section-kicker">Dandelion D2</span>
         <h2 class="d2-section-title">Gazdag felszereltség, otthonos terek</h2>
-        {primaryFacts.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+        <p>{d2ShortDescription}</p>
+        <details class="d2-details__more">
+          <summary>Bővebben a D2-ről</summary>
+          <div>
+            {d2LongDescription.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </details>
         <button type="button" class="dnd-btn dnd-btn--secondary d2-details__cta" onclick="OpenBE()">
           Árak és foglalás
         </button>
@@ -966,6 +978,15 @@ const relatedStays = accommodations
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.03em;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
+  }
+
+  .d2-hero h1 span {
+    display: inline-block;
+    font-size: 0.98em;
+    line-height: 1;
+    vertical-align: baseline;
   }
 
   .d2-hero__subtitle {
@@ -1035,6 +1056,46 @@ const relatedStays = accommodations
 
   .d2-details__cta {
     margin-top: 30px;
+  }
+
+  .d2-details__more {
+    margin-top: 18px;
+  }
+
+  .d2-details__more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(121, 93, 48, 0.92);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .d2-details__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .d2-details__more summary::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.18s ease;
+  }
+
+  .d2-details__more[open] summary::after {
+    transform: translateY(2px) rotate(225deg);
+  }
+
+  .d2-details__more div {
+    margin-top: 12px;
   }
 
   .d2-details__facts {
@@ -1565,30 +1626,58 @@ const relatedStays = accommodations
   @media (max-width: 767px) {
     .d2-hero,
     .d2-hero__content {
-      min-height: 76vh;
+      min-height: 66vh;
     }
 
     .d2-hero__content {
-      padding-top: 112px;
-      padding-bottom: 44px;
+      padding-top: 104px;
+      padding-bottom: 34px;
+    }
+
+    .d2-kicker {
+      margin-bottom: 10px;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+    }
+
+    .d2-hero h1 {
+      font-size: clamp(2.36rem, 13vw, 3.45rem);
+      letter-spacing: -0.015em;
     }
 
     .d2-hero__subtitle {
-      font-size: 0.9rem;
-      line-height: 1.55;
+      margin-top: 14px;
+      font-size: 0.74rem;
+      line-height: 1.45;
+      letter-spacing: 0.075em;
     }
 
     .d2-hero__lead {
-      font-size: 1rem;
-      line-height: 1.7;
+      max-width: 24rem;
+      margin-top: 10px;
+      font-size: 0.88rem;
+      line-height: 1.48;
     }
 
     .d2-hero__actions {
       flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .d2-hero__booking {
+      display: none;
     }
 
     .d2-hero__actions .dnd-btn {
       width: 100%;
+    }
+
+    .d2-hero__actions .dnd-btn--secondary {
+      border-color: rgba(253, 251, 247, 0.9);
+      background: rgba(253, 251, 247, 0.94);
+      color: #2d241c;
+      box-shadow: 0 12px 28px rgba(17, 12, 9, 0.18);
     }
 
     .d2-details__facts,
@@ -1620,8 +1709,22 @@ const relatedStays = accommodations
       line-height: 1.58;
     }
 
-    .d2-details__story p + p {
-      display: none;
+    .d2-details__more {
+      margin-top: 14px;
+    }
+
+    .d2-details__more summary {
+      font-size: 0.72rem;
+      letter-spacing: 0.075em;
+    }
+
+    .d2-details__more div {
+      margin-top: 10px;
+    }
+
+    .d2-details__more p {
+      font-size: 0.88rem;
+      line-height: 1.58;
     }
 
     .d2-details__cta {
@@ -1648,9 +1751,9 @@ const relatedStays = accommodations
       min-height: 58px;
       align-content: center;
       padding: 10px 10px 9px;
-      border: 1px solid rgba(91, 70, 42, 0.1);
+      border: 1px solid rgba(217, 158, 43, 0.22);
       border-radius: 7px;
-      background: rgba(253, 251, 247, 0.64);
+      background: linear-gradient(180deg, rgba(253, 251, 247, 0.82), rgba(246, 240, 228, 0.56));
     }
 
     .d2-details__mobile-fact span {
@@ -1690,9 +1793,9 @@ const relatedStays = accommodations
       align-items: center;
       min-height: 48px;
       padding: 8px 9px;
-      border: 1px solid rgba(91, 70, 42, 0.1);
+      border: 1px solid rgba(217, 158, 43, 0.18);
       border-radius: 7px;
-      background: rgba(253, 251, 247, 0.5);
+      background: rgba(253, 251, 247, 0.62);
     }
 
     .d2-feature-icons__item svg,
@@ -1758,6 +1861,10 @@ const relatedStays = accommodations
       gap: 9px;
       font-size: 0.86rem;
       line-height: 1.42;
+    }
+
+    .d2-booking {
+      display: none;
     }
 
     .d2-lightbox {
