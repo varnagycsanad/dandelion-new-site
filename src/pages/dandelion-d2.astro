@@ -12,6 +12,12 @@ const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 // [CHANGE 2026-04-26 00:00] D2 mobil hero kép útvonalának átkötése az új strukturált WebP-re.
 const d2MobileHeroImage = `${baseHref}images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp`;
+// [CHANGE 2026-04-26 00:00] D2 desktop hero átkötése az image registry lokális WebP képére.
+const d2DesktopHeroRegistryImage = accommodationImages.d2?.hero.desktop;
+const d2DesktopHeroImage = d2DesktopHeroRegistryImage?.src
+  ? `${baseHref}${d2DesktopHeroRegistryImage.src.replace(/^\/+/, "")}`
+  : "";
+const d2DesktopHeroAlt = d2DesktopHeroRegistryImage?.alt.hu || "Dandelion D2";
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
 const apartmentKey = apartments.d2.key;
 const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
@@ -354,7 +360,10 @@ if (!d2GalleryImages.length) {
 
 const d2HeroFallback = d2LegacyGalleryImages[0] || d2GalleryImages[0] || d2PlaceholderGallery[0];
 let d2InitialHeroImages = {
-  desktop: d2HeroFallback,
+  desktop: {
+    src: d2DesktopHeroImage || d2HeroFallback.src,
+    alt: d2DesktopHeroAlt || d2HeroFallback.alt
+  },
   mobile: d2HeroFallback
 };
 
@@ -362,7 +371,7 @@ try {
   const runtimeHeroImages = await fetchRuntimeHeroImages();
 
   d2InitialHeroImages = {
-    desktop: runtimeHeroImages.desktop || d2InitialHeroImages.desktop,
+    desktop: d2InitialHeroImages.desktop,
     mobile: runtimeHeroImages.mobile || runtimeHeroImages.desktop || d2InitialHeroImages.mobile
   };
 } catch (error) {
@@ -739,7 +748,7 @@ const relatedStays = accommodations
     });
   </script>
 
-  <script define:vars={{ bookingLink, d2GalleryImages, d2RuntimeGalleryEndpoint }}>
+  <script define:vars={{ bookingLink, d2GalleryImages, d2RuntimeGalleryEndpoint, d2DesktopHeroImage, d2DesktopHeroAlt }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
@@ -942,14 +951,8 @@ const relatedStays = accommodations
           return;
         }
 
-        if (!nextHeroImage?.url) {
-          heroImage.src = heroFallback.src;
-          heroImage.alt = heroFallback.alt;
-          return;
-        }
-
-        heroImage.src = nextHeroImage.url;
-        heroImage.alt = nextHeroImage.alt || nextHeroImage.title || heroFallback.alt;
+        heroImage.src = d2DesktopHeroImage || heroFallback.src;
+        heroImage.alt = d2DesktopHeroAlt || heroFallback.alt;
       };
 
       const startAutoplay = () => {
