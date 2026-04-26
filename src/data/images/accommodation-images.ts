@@ -2,6 +2,7 @@
 // [CHANGE 2026-04-26 00:00] Lakáskulcs-alapú üres accommodation image registry inicializálása.
 // [CHANGE 2026-04-26 00:00] D2 gallery ImageAsset registry kitöltése lokális WebP és thumb képekkel.
 // [CHANGE 2026-04-26 00:00] D2 hero ImageAsset registry kitöltése lokális desktop és mobil WebP képekkel.
+// [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
 import type { AccommodationImageSet } from "./image-types";
 
 export const accommodationImages: Record<string, AccommodationImageSet> = {
@@ -76,7 +77,39 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         updatedAt: "2026-04-26",
       },
     },
-    card: null,
+    card: {
+      id: "d2-card-01",
+      apartmentKey: "d2",
+      role: "card",
+      room: "külső",
+      theme: "vendégház / kert",
+      src: "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp",
+      width: 900,
+      height: 675,
+      aspectRatio: "4:3",
+      alt: {
+        hu: "Dandelion D2 vendégház kerttel és fedett terasszal",
+        en: "Dandelion D2 guesthouse with garden and covered terrace",
+      },
+      title: {
+        hu: "D2 vendégház kerttel",
+        en: "D2 guesthouse with garden",
+      },
+      caption: {
+        hu: "Kertes, önálló vendégház fedett terasszal.",
+        en: "A private garden guesthouse with a covered terrace.",
+      },
+      focusPoint: "center center",
+      sortOrder: 1,
+      status: "active",
+      source: {
+        type: "wordpress",
+        originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2024/11/2024-06-14-15-27-24-scaled.jpeg.webp",
+        originalFilename: "2024-06-14-15-27-24-scaled.jpeg.webp",
+      },
+      createdAt: "2026-04-26",
+      updatedAt: "2026-04-26",
+    },
     gallery: [
       {
         id: "d2-gallery-01",
