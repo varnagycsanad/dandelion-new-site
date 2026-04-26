@@ -1,4 +1,5 @@
 // [CHANGE 2026-04-26 00:00] Projekt szintű image registry típusok létrehozása.
+// [CHANGE 2026-04-26 00:00] Source/import image inventory típusok hozzáadása a feldolgozás előtti képekhez.
 export type LocalizedText = {
   hu: string;
   en: string;
@@ -26,12 +27,63 @@ export type ImageStatus =
   | "delete_candidate"
   | "deleted";
 
+export type ImageSourceStatus =
+  | "source_found"
+  | "selected"
+  | "rejected"
+  | "needs_review"
+  | "ready_for_processing"
+  | "processed"
+  | "archived"
+  | "delete_candidate";
+
 export interface ImageSource {
   type: "pcloud" | "wordpress" | "local" | "external";
   wpId?: number;
   originalUrl?: string;
   originalFilename?: string;
   pcloudNote?: string;
+}
+
+export interface ImageSeoDraft {
+  alt?: Partial<LocalizedText>;
+  title?: Partial<LocalizedText>;
+  caption?: Partial<LocalizedText>;
+  approved?: boolean;
+}
+
+export interface ImageTargetPlan {
+  role: ImageRole;
+  targetPath?: string;
+  thumbPath?: string;
+  width?: number;
+  height?: number;
+  quality?: number;
+  cropMode?: "cover" | "contain" | "manual";
+  focusPoint?: string;
+}
+
+export interface ImageSourceCandidate {
+  id: string;
+  apartmentKey?: string;
+  pageKey?: string;
+  source: ImageSource;
+  currentUrl?: string;
+  currentFilename?: string;
+  width?: number;
+  height?: number;
+  aspectRatio?: string;
+  fileSize?: number;
+  intendedRoles: ImageRole[];
+  room?: string;
+  theme?: string;
+  sortOrder?: number;
+  status: ImageSourceStatus;
+  seoDraft?: ImageSeoDraft;
+  targetPlans?: ImageTargetPlan[];
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ImageAsset {
