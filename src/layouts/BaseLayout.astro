@@ -47,6 +47,7 @@ const stayLinks = accommodations.map((stay) => ({
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <slot name="head" />
   </head>
   <body>
     {!hideHeader && <header class="dnd-header" data-dnd-header>
