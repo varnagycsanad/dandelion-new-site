@@ -1,4 +1,5 @@
 [CHANGE 2026-04-26 00:00] D2 kép SEO és fókuszpont review dokumentum létrehozása a source inventory alapján.
+[CHANGE 2026-04-26 00:00] D2 SEO és fókuszpont v0 javaslatok beírása review célra.
 
 # D2 kép SEO + fókuszpont review
 
@@ -57,15 +58,15 @@ Forrás:
 - target thumb path: -
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / fedett terasz / kert
+- alt.hu: Dandelion D2 vendégház fedett terasza és kertje Kisapátiban
+- alt.en: Covered terrace and garden of the Dandelion D2 guesthouse in Kisapáti
+- title.hu: D2 fedett terasz és kert
+- title.en: D2 covered terrace and garden
+- caption.hu: A Dandelion D2 vendégház fedett terasza és zárt kertje.
+- caption.en: The covered terrace and enclosed garden of the Dandelion D2 guesthouse.
+- focusPoint: center center
+- crop note: Mobil herohoz jó, a ház és a sárga teraszbútor maradjon középen.
 - approved: no
 
 Megjegyzés:
@@ -84,15 +85,15 @@ Forrás:
 - target thumb path: -
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / vendégház / terasz
+- alt.hu: Dandelion D2 kertes vendégház fedett terasszal Kisapátiban
+- alt.en: Dandelion D2 garden guesthouse with covered terrace in Kisapáti
+- title.hu: D2 kertes vendégház
+- title.en: D2 garden guesthouse
+- caption.hu: A Dandelion D2 vendégház kívülről, fedett terasszal és kerttel.
+- caption.en: Exterior view of Dandelion D2 with covered terrace and garden.
+- focusPoint: center center
+- crop note: Desktop herohoz jó; a ház és a terasz legyen a fő fókusz.
 - approved: no
 
 Megjegyzés:
@@ -111,15 +112,15 @@ Forrás:
 - target thumb path: -
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / vendégház / kert
+- alt.hu: Dandelion D2 vendégház kerttel és fedett terasszal
+- alt.en: Dandelion D2 guesthouse with garden and covered terrace
+- title.hu: D2 vendégház kerttel
+- title.en: D2 guesthouse with garden
+- caption.hu: Kertes, önálló vendégház fedett terasszal.
+- caption.en: A private garden guesthouse with a covered terrace.
+- focusPoint: center center
+- crop note: Kártyaképhez jó, de később érdemes kevésbé széles / tisztább vágást választani.
 - approved: no
 
 Megjegyzés:
@@ -138,15 +139,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-01.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: nappali / kandalló / teraszkapcsolat
+- alt.hu: Nappali kandallóval és teraszkapcsolattal a Dandelion D2 vendégházban
+- alt.en: Living room with fireplace and terrace access at Dandelion D2
+- title.hu: D2 nappali teraszkapcsolattal
+- title.en: D2 living room with terrace access
+- caption.hu: Világos nappali kandallóval, közvetlen kijárattal a fedett teraszra.
+- caption.en: Bright living room with a fireplace and direct access to the covered terrace.
+- focusPoint: center center
+- crop note: A kandalló, kanapé és nyitott teraszajtó maradjon látható.
 - approved: no
 
 Megjegyzés:
@@ -165,15 +166,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: nappali / kandalló
+- alt.hu: Dandelion D2 nappali kanapéval, kandallóval és nagy üvegajtóval
+- alt.en: Dandelion D2 living room with sofa, fireplace and large glass door
+- title.hu: D2 nappali kandallóval
+- title.en: D2 living room with fireplace
+- caption.hu: A nappali kandallós ülősarka természetes fénnyel és teraszkapcsolattal.
+- caption.en: The fireplace seating area with natural light and terrace access.
+- focusPoint: center center
+- crop note: Jó galériakép; ha ritkítunk, gallery-01 vagy gallery-02 közül elég lehet egy.
 - approved: no
 
 Megjegyzés:
@@ -192,15 +193,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: nappali / galéria / belső tér
+- alt.hu: Galériás belső tér kandallóval a Dandelion D2 vendégházban
+- alt.en: Gallery-style interior with fireplace at the Dandelion D2 guesthouse
+- title.hu: D2 galériás belső tér
+- title.en: D2 gallery-style interior
+- caption.hu: A D2 galériás belső tere, nappalival és fa szerkezetű mennyezettel.
+- caption.en: The gallery-style interior of D2 with living area and wooden ceiling structure.
+- focusPoint: center center
+- crop note: A ferde nézőpont miatt óvatosan; ne legyen fő hero kép.
 - approved: no
 
 Megjegyzés:
@@ -219,15 +220,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-04.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: fedett terasz / kert
+- alt.hu: Fedett terasz sárga étkezőasztallal a Dandelion D2 kertjében
+- alt.en: Covered terrace with yellow dining table in the Dandelion D2 garden
+- title.hu: D2 fedett terasz
+- title.en: D2 covered terrace
+- caption.hu: A fedett terasz kültéri étkezővel és kertkapcsolattal.
+- caption.en: Covered outdoor dining terrace connected to the garden.
+- focusPoint: center center
+- crop note: Jó teraszkép; a sárga asztal legyen fókuszban.
 - approved: no
 
 Megjegyzés:
@@ -246,15 +247,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-05.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: fürdőszoba
+- alt.hu: Dandelion D2 fürdőszoba káddal, mosdóval és világos ablakkal
+- alt.en: Dandelion D2 bathroom with bathtub, sink and bright window
+- title.hu: D2 fürdőszoba káddal
+- title.en: D2 bathroom with bathtub
+- caption.hu: Világos fürdőszoba káddal, mosdóval és praktikus tárolóval.
+- caption.en: Bright bathroom with bathtub, sink and practical storage.
+- focusPoint: center center
+- crop note: Galériába jó, thumbnailnél a mosdó és kád maradjon felismerhető.
 - approved: no
 
 Megjegyzés:
@@ -273,15 +274,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: nappali / kandalló / terasz
+- alt.hu: Nappali kandallóval és kertre nyíló teraszajtóval a Dandelion D2-ben
+- alt.en: Living room with fireplace and garden-facing terrace door at Dandelion D2
+- title.hu: D2 nappali kertkapcsolattal
+- title.en: D2 living room with garden access
+- caption.hu: A nappaliból közvetlenül elérhető a fedett terasz és a kert.
+- caption.en: The living room opens directly to the covered terrace and garden.
+- focusPoint: center center
+- crop note: Hasonló a gallery-01-hez; végleges galériában lehet, hogy elég az egyik.
 - approved: no
 
 Megjegyzés:
@@ -300,15 +301,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-07.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: hálószoba / franciaágy
+- alt.hu: Dandelion D2 hálószoba franciaággyal és kék textilekkel
+- alt.en: Dandelion D2 bedroom with double bed and blue textiles
+- title.hu: D2 franciaágyas hálószoba
+- title.en: D2 double bedroom
+- caption.hu: Kényelmes hálószoba franciaággyal és természetes hangulatú berendezéssel.
+- caption.en: Comfortable bedroom with double bed and a warm natural interior.
+- focusPoint: center center
+- crop note: Ágy maradjon középen; jó galériakép.
 - approved: no
 
 Megjegyzés:
@@ -327,15 +328,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: fedett terasz / kert
+- alt.hu: Dandelion D2 fedett terasza sárga kültéri étkezővel
+- alt.en: Dandelion D2 covered terrace with yellow outdoor dining set
+- title.hu: D2 terasz kültéri étkezővel
+- title.en: D2 terrace with outdoor dining set
+- caption.hu: Fedett terasz sárga kültéri bútorokkal, közvetlen kertkapcsolattal.
+- caption.en: Covered terrace with yellow outdoor furniture and direct garden access.
+- focusPoint: center center
+- crop note: Nagyon hasonló a gallery-04-hez; végleges galériában lehet választani kell.
 - approved: no
 
 Megjegyzés:
@@ -354,15 +355,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-09.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: konyha / étkező / galéria
+- alt.hu: Dandelion D2 konyha sárga étkezőasztallal és galériás térrel
+- alt.en: Dandelion D2 kitchen with yellow dining table and gallery-style interior
+- title.hu: D2 konyha és étkező
+- title.en: D2 kitchen and dining area
+- caption.hu: A konyha és étkező a galériás belső térrel együtt.
+- caption.en: Kitchen and dining area within the gallery-style interior.
+- focusPoint: center center
+- crop note: Jó, mert mutatja a konyhát és a galériát is.
 - approved: no
 
 Megjegyzés:
@@ -381,15 +382,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: konyha
+- alt.hu: Dandelion D2 felszerelt konyhája fehér konyhabútorral
+- alt.en: Equipped kitchen at Dandelion D2 with white cabinetry
+- title.hu: D2 felszerelt konyha
+- title.en: D2 equipped kitchen
+- caption.hu: Praktikus, felszerelt konyha a D2 vendégházban.
+- caption.en: Practical equipped kitchen in the Dandelion D2 guesthouse.
+- focusPoint: center center
+- crop note: A pult és konyhabútor maradjon középen.
 - approved: no
 
 Megjegyzés:
@@ -408,15 +409,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-11.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: emeleti galériás hálószoba / két ágy
+- alt.hu: Emeleti galériás hálószoba két külön ággyal a Dandelion D2-ben
+- alt.en: Upstairs gallery bedroom with two single beds at Dandelion D2
+- title.hu: D2 emeleti galériás hálószoba
+- title.en: D2 upstairs gallery bedroom
+- caption.hu: A galériaszinten kialakított hálórész két külön ággyal.
+- caption.en: The upstairs gallery sleeping area with two single beds.
+- focusPoint: center center
+- crop note: Fontos D2-kép; SEO-ban jó, mert mutatja a galériás hálót.
 - approved: no
 
 Megjegyzés:
@@ -435,15 +436,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-12.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / fedett terasz / kert
+- alt.hu: Dandelion D2 fedett terasza és kertje kívülről
+- alt.en: Exterior view of Dandelion D2 covered terrace and garden
+- title.hu: D2 külső terasznézet
+- title.en: D2 exterior terrace view
+- caption.hu: A ház fedett terasza és kertje kívülről.
+- caption.en: Exterior view of the covered terrace and garden.
+- focusPoint: center center
+- crop note: Hasonló a hero/mobile képekhez; végleges galériában duplikációt ellenőrizni.
 - approved: no
 
 Megjegyzés:
@@ -462,15 +463,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-13.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: nappali / kanapé / kilátás
+- alt.hu: Dandelion D2 nappali kanapéval és ablakon át látható hegyi kilátással
+- alt.en: Dandelion D2 living room with sofa and mountain view through the window
+- title.hu: D2 nappali kilátással
+- title.en: D2 living room with view
+- caption.hu: A nappali ülősarka ablakon át látható hegyi kilátással.
+- caption.en: The living room seating area with a mountain view through the window.
+- focusPoint: center center
+- crop note: A képet csak részben látom a screenshoton; ellenőrizd teljes nézetben.
 - approved: no
 
 Megjegyzés:
@@ -489,15 +490,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-14.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / fedett terasz / kert
+- alt.hu: Fedett terasz és kert a Dandelion D2 vendégháznál
+- alt.en: Covered terrace and garden at the Dandelion D2 guesthouse
+- title.hu: D2 kert és fedett terasz
+- title.en: D2 garden and covered terrace
+- caption.hu: A D2 fedett terasza kültéri étkezővel és zöld kerttel.
+- caption.en: D2 covered terrace with outdoor dining area and green garden.
+- focusPoint: center center
+- crop note: Jó külső kép; hero/mobile képekkel együtt duplikációt ellenőrizni.
 - approved: no
 
 Megjegyzés:
@@ -516,15 +517,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-15.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: külső / vendégház / terasz
+- alt.hu: Dandelion D2 vendégház külső nézete fedett terasszal
+- alt.en: Exterior view of Dandelion D2 guesthouse with covered terrace
+- title.hu: D2 külső nézet
+- title.en: D2 exterior view
+- caption.hu: A D2 vendégház kívülről, fedett terasszal és kerttel.
+- caption.en: Exterior view of the D2 guesthouse with covered terrace and garden.
+- focusPoint: center center
+- crop note: Ez a desktop hero-val azonos/azonosnak tűnik; végleges galériában lehet, hogy ne szerepeljen külön.
 - approved: no
 
 Megjegyzés:
@@ -543,15 +544,15 @@ Forrás:
 - target thumb path: /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-16.webp
 
 Kitöltendő review mezők:
-- room/theme:
-- alt.hu:
-- alt.en:
-- title.hu:
-- title.en:
-- caption.hu:
-- caption.en:
-- focusPoint:
-- crop note:
+- room/theme: fürdőszoba
+- alt.hu: Dandelion D2 fürdőszoba mosdóval, káddal és WC-vel
+- alt.en: Dandelion D2 bathroom with sink, bathtub and toilet
+- title.hu: D2 fürdőszoba
+- title.en: D2 bathroom
+- caption.hu: A D2 fürdőszobája mosdóval, káddal és WC-vel.
+- caption.en: The D2 bathroom with sink, bathtub and toilet.
+- focusPoint: center center
+- crop note: Jó második fürdőszobakép; ha rövidebb galéria kell, gallery-05 vagy 16 közül elég lehet egy.
 - approved: no
 
 Megjegyzés:
