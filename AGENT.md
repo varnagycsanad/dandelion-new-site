@@ -1,6 +1,6 @@
-# DANDELION – AGENT RULES (LEAN)
+[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési végrehajtási szabályok hozzáadva: WebP, image registry, WordPress media import, SEO képadatok, fókuszpont, performance és scope korlátok.
 
----
+# DANDELION – AGENT RULES (LEAN)
 
 ## ALAPELV
 
@@ -275,6 +275,89 @@ KÖTELEZŐ:
 
 ---
 
+## IMAGE WORKFLOW RULE
+
+Ez a szabály nem csak D2-re vonatkozik.
+
+Minden képes taskra érvényes:
+- főoldal
+- RegionStories
+- Experiences
+- szálláskártyák
+- lakásoldalak
+- hero képek
+- mobil hero képek
+- galériák
+- thumbnail képek
+- blog / SEO képek
+- WordPress médiából importált képek
+- image-admin későbbi fejlesztés
+
+Képes feladatoknál a Codex nem kezelheti a képeket véletlenszerű assetként.
+
+KÖTELEZŐ:
+- a `DANDELION_RULES.md` képkezelési fejezetét be kell olvasni
+- a frontendben használt kép végső forrása optimalizált WebP legyen
+- a kép hozzárendelése apartmentKey / image registry alapú legyen, ahol lakáshoz kapcsolódik
+- nem lakásoldali képnél is központi, strukturált image registry / képadat modell szerint kell gondolkodni
+- fontos tartalmi képhez legyen alt adat
+- hero és card képeknél figyelni kell a mobil/desktop vágásra és fókuszpontra
+- képes módosításnál ellenőrizni kell a PageSpeed/LCP kockázatot
+
+Nyers képek:
+- az eredeti JPG-k pCloud archívumban maradnak
+- a nyers telefonos JPG nem frontend asset
+- HEIC feldolgozással jelenleg nem kell számolni
+- eredeti képet nem szabad törölni vagy lecserélni
+
+WordPress média:
+- a WordPress médiatárban lévő kép csak forrásanyag lehet
+- a WordPress media alt/title/caption mezői nem tekinthetők megbízható SEO forrásnak
+- ha a WordPress media alt/title/caption mezői üresek vagy hiányoznak, a Codex nem töltheti ki automatikusan éles adatként külön jóváhagyás nélkül
+- a végleges SEO képadat az image registryben kezelendő
+- a frontend nem használhatja végleges képként a nyers WordPress JPG URL-t
+
+Frontend képek:
+- a publikus oldalon ne használjon nyers JPG-t közvetlenül
+- ne hardcode-oljon random WordPress média URL-t komponensbe
+- ne használjon `IMG_1234` jellegű fájlnevet
+- ne hozzon létre új képlogikát oldalonként vagy lakásonként
+- ne másoljon D2-specifikus képkezelést más lakásokra
+
+Elvárt képforrás:
+- optimalizált WebP
+- `public/images/...` vagy később központi image registry által megadott útvonal
+- lakásképeknél lakáskulcs alapján rendezett struktúra
+- általános oldalképeknél szintén rendezett, szerep-alapú struktúra
+
+SEO képadatok:
+- alt szöveg nem lehet kulcsszóhalmozás
+- alt szöveg csak azt írhatja le, ami ténylegesen látható
+- magyar és angol mezők előkészítése kötelező, ha image registryt érint a task
+- caption/title mezők csak akkor módosíthatók, ha a task erre szól
+
+Performance:
+- csak az oldal fő LCP/hero képe lehet preload + eager + fetchpriority high
+- galéria képei alapból lazy
+- thumbnail és nagy galéria kép ne ugyanaz a túlméretes fájl legyen
+- nem szabad minden képet eagerre állítani
+- CSS background-image fontos SEO képnél kerülendő
+
+TILOS:
+- WordPress médiatárat végleges frontend igazságforrásként kezelni
+- image-admin / REST réteget önállóan visszakötni publikus taskban
+- képeket tömegesen átnevezni külön task nélkül
+- meglévő képstruktúrát refaktorálni külön engedély nélkül
+- eredeti JPG-ket törölni
+- külső Unsplash/Pexels képeket végleges megoldásként beépíteni
+- képoptimalizálási pipeline-t önállóan kitalálni
+
+Ha a képfeladat túlmutat egy fájl vagy egy konkrét kép cseréjén:
+→ STOP
+→ IMAGE WORKFLOW SCOPE TOO LARGE
+
+---
+
 ## BUILD RULE
 
 Publikus site esetén a cél:
@@ -351,8 +434,8 @@ KÖTELEZŐ:
 - a benne lévő design és struktúra szabályok kötelezőek
 
 Szerepek:
-- AGENTS.md → működés
-- DANDELION_RULES.md → design + layout
+- AGENTS.md → működés, scope, build, git, képkezelési végrehajtási korlátok
+- DANDELION_RULES.md → design, layout, struktúra, projekt szintű képkezelési alapelvek
 
 Ha UI-t érint a task:
 → DANDELION_RULES az elsődleges
