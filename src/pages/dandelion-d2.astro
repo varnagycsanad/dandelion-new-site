@@ -372,6 +372,7 @@ const relatedStays = accommodations
       media="(max-width: 767px)"
       fetchpriority="high"
     />
+    <meta name="theme-color" content="#efe4d3" media="(max-width: 767px)" />
   </Fragment>
 
   <section class="d2-hero">
@@ -398,7 +399,7 @@ const relatedStays = accommodations
         </p>
         <div class="d2-hero__actions">
           <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">Árak és foglalás</button>
-          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary">Képek megtekintése</a>
+          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary" data-d2-gallery-jump>Képek megtekintése</a>
         </div>
       </div>
     </div>
@@ -717,6 +718,7 @@ const relatedStays = accommodations
 
     const heroImage = document.querySelector("[data-d2-hero-image]");
     const heroMobileSource = document.querySelector("[data-d2-hero-mobile-source]");
+    const galleryJump = document.querySelector("[data-d2-gallery-jump]");
     const lightbox = document.querySelector("[data-d2-lightbox]");
     const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
     const lightboxCounter = document.querySelector("[data-d2-lightbox-counter]");
@@ -725,6 +727,27 @@ const relatedStays = accommodations
     const closeButtons = Array.from(document.querySelectorAll("[data-d2-lightbox-close]"));
     const prevButton = document.querySelector("[data-d2-lightbox-prev]");
     const nextButton = document.querySelector("[data-d2-lightbox-next]");
+    const navigationEntries =
+      typeof performance.getEntriesByType === "function"
+        ? performance.getEntriesByType("navigation")
+        : [];
+    const isReloadNavigation = navigationEntries[0]?.type === "reload";
+
+    if (isReloadNavigation && window.location.hash === "#d2-gallery") {
+      history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+      requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
+    }
+
+    galleryJump?.addEventListener("click", (event) => {
+      const gallery = document.getElementById("d2-gallery");
+
+      if (!gallery) {
+        return;
+      }
+
+      event.preventDefault();
+      gallery.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && d2GalleryImages.length) {
       let activeIndex = 0;
@@ -1719,12 +1742,17 @@ const relatedStays = accommodations
   @media (max-width: 767px) {
     .d2-hero,
     .d2-hero__content {
-      min-height: 66vh;
+      min-height: 100vh;
+      min-height: 100svh;
     }
 
     .d2-hero__content {
-      padding-top: 104px;
-      padding-bottom: 34px;
+      padding-top: calc(108px + env(safe-area-inset-top, 0px));
+      padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .d2-hero__image {
+      object-position: 52% center;
     }
 
     .d2-kicker {
@@ -1756,8 +1784,8 @@ const relatedStays = accommodations
     .d2-hero__actions {
       align-items: flex-start;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 8px;
+      margin-top: 18px;
     }
 
     .d2-hero__booking {
@@ -1769,15 +1797,15 @@ const relatedStays = accommodations
     }
 
     .d2-hero__actions .dnd-btn--secondary {
-      width: min(75%, 18rem);
-      min-height: 40px;
-      padding: 10px 16px 11px;
-      border-color: rgba(253, 251, 247, 0.9);
-      background: rgba(253, 251, 247, 0.94);
-      color: #2d241c;
-      font-size: 0.72rem;
+      width: min(68%, 16rem);
+      min-height: 36px;
+      padding: 8px 14px 9px;
+      border-color: rgba(253, 251, 247, 0.58);
+      background: rgba(253, 251, 247, 0.72);
+      color: rgba(45, 36, 28, 0.92);
+      font-size: 0.68rem;
       letter-spacing: 0.11em;
-      box-shadow: 0 12px 28px rgba(17, 12, 9, 0.18);
+      box-shadow: 0 8px 20px rgba(17, 12, 9, 0.1);
     }
 
     .d2-details__facts,
