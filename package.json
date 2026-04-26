@@ -10,6 +10,10 @@
     "build": "astro build",
     "check:ujsite": "node scripts/check-ujsite-deploy.mjs",
     "images:dry-run": "node scripts/process-accommodation-images.mjs",
+    "images:intake": "node scripts/images-intake.mjs",
+    "images:select": "node scripts/images-select.mjs",
+    "images:process": "node scripts/process-accommodation-images.mjs",
+    "images:publish": "node scripts/images-publish.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
