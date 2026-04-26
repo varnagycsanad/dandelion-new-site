@@ -1,12 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodationSections, accommodations } from "../data/accommodations";
+import { accommodationImages } from "../data/images/accommodation-images";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const imageMapping = await readHomepageImageMapping();
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const d2Href = `${baseHref}dandelion-d2/`;
+// [CHANGE 2026-04-26 00:00] Szállások oldal D2 card képének átkötése accommodation image registryre.
+const resolveRegistryImagePath = (imagePath: string) =>
+  imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
+const d2RegistryCard = accommodationImages.d2?.card;
+const d2RegistryCardImage = d2RegistryCard
+  ? {
+      id: d2RegistryCard.source.wpId ?? 0,
+      title: d2RegistryCard.title.hu || "Dandelion D2",
+      altText: d2RegistryCard.alt.hu || "Dandelion D2",
+      sourceUrl: resolveRegistryImagePath(d2RegistryCard.src),
+      thumbnailUrl: resolveRegistryImagePath(d2RegistryCard.src)
+    }
+  : null;
 
 const sections = accommodationSections.map((section) => ({
   ...section,
@@ -14,7 +28,10 @@ const sections = accommodationSections.map((section) => ({
     .filter((stay) => stay.section === section.key)
     .map((stay) => ({
       ...stay,
-      image: imageMapping[stay.imageSlot]
+      image:
+        stay.slug === "dandelion-d2"
+          ? d2RegistryCardImage || imageMapping[stay.imageSlot]
+          : imageMapping[stay.imageSlot]
     }))
 }));
 ---
