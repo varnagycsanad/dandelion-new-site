@@ -1,0 +1,852 @@
+<!-- [CHANGE 2026-04-26 00:00] D2 vizuális kép review kontaktlap létrehozása source inventory alapján. -->
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D2 kép review kontaktlap</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f4ee;
+        --surface: #ffffff;
+        --surface-soft: #fbfaf7;
+        --text: #1f1d1a;
+        --muted: #6c665e;
+        --border: #ddd5ca;
+        --accent: #d99e2b;
+        --danger: #8a4d10;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1480px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 48px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(30px, 4vw, 52px);
+        line-height: 1.05;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .intro {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 28px;
+        max-width: 980px;
+      }
+
+      .notice {
+        border: 1px solid #e5c580;
+        background: #fff7e4;
+        color: var(--danger);
+        padding: 14px 16px;
+        border-radius: 8px;
+      }
+
+      .summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        min-height: 30px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+      }
+
+      .image-card {
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      .preview {
+        display: grid;
+        place-items: center;
+        min-height: 240px;
+        background: #e8e1d7;
+      }
+
+      .preview img {
+        display: block;
+        width: 100%;
+        max-width: 320px;
+        height: 240px;
+        object-fit: cover;
+      }
+
+      .content {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .meta,
+      .review {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .label {
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .value {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .status {
+        display: inline-flex;
+        width: fit-content;
+        border: 1px solid var(--accent);
+        color: #7a5513;
+        background: #fff8e8;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .fields {
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+        background: var(--surface-soft);
+      }
+
+      .fields h3 {
+        margin: 0 0 10px;
+        font-size: 15px;
+      }
+
+      code {
+        font-family:
+          "SFMono-Regular",
+          Consolas,
+          "Liberation Mono",
+          monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title">D2 kép review kontaktlap</h1>
+        <p>Ez belső review segédanyag. Nem frontend adatforrás.</p>
+        <p>A képek egy része WP URL-ről jelenik meg, kizárólag review célból. Ez nem jelent frontend WP URL használatot.</p>
+        <p>A végleges frontend képek később optimalizált WebP-k lesznek. A SEO mezők csak jóváhagyás után kerülhetnek registrybe.</p>
+        <div class="notice">
+          Figyelem: ez a kontaktlap a source inventory előnézete. A WP alt/title/caption mezők nem megbízható SEO források, ezért itt sem szerepel végleges SEO szöveg.
+        </div>
+        <div class="summary" aria-label="Kontaktlap összefoglaló">
+          <span class="pill">19 képkártya</span>
+          <span class="pill">1 mobil hero</span>
+          <span class="pill">1 desktop hero</span>
+          <span class="pill">1 card kép</span>
+          <span class="pill">16 galériakép</span>
+          <span class="pill">Review státusz: TODO</span>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="D2 source képek">
+        <article class="image-card">
+          <div class="preview">
+            <img src="/images/d2-hero-mobile.webp" alt="d2-source-hero-mobile-01" loading="eager" />
+          </div>
+          <div class="content">
+            <h2>d2-source-hero-mobile-01</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">hero_mobile</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">local</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">d2-hero-mobile.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>/images/d2-hero-mobile.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1080x810</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">-</dd></div>
+              <div class="row"><dt class="label">Target path</dt><dd class="value"><code>/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp" alt="d2-source-hero-desktop-01" loading="eager" />
+          </div>
+          <div class="content">
+            <h2>d2-source-hero-desktop-01</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">hero_desktop</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7870</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-27-39.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">-</dd></div>
+              <div class="row"><dt class="label">Target path</dt><dd class="value"><code>/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2024/11/2024-06-14-15-27-24-scaled.jpeg.webp" alt="d2-source-card-01" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-card-01</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">card</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2024-06-14-15-27-24-scaled.jpeg.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2024/11/2024-06-14-15-27-24-scaled.jpeg.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">TODO</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">-</dd></div>
+              <div class="row"><dt class="label">Target path</dt><dd class="value"><code>/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-19-03.webp" alt="d2-source-gallery-01" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-01</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7872</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-19-03.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-19-03.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">1</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-01.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-01.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-36-45.jpeg" alt="d2-source-gallery-02" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-02</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7851</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-36-45.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-36-45.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">2</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-02.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-12.jpeg" alt="d2-source-gallery-03" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-03</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7857</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-39-12.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-12.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">3</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-26-50.webp" alt="d2-source-gallery-04" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-04</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7871</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-26-50.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-26-50.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">4</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-04.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-04.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp" alt="d2-source-gallery-05" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-05</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7875</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">IMG_9347.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">5</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-05.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-05.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-19-03-1.webp" alt="d2-source-gallery-06" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-06</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7866</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-19-03-1.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-19-03-1.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">6</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-06.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-34-41.jpeg" alt="d2-source-gallery-07" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-07</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7846</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-34-41.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-34-41.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">7</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-07.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-07.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-26-50-1.webp" alt="d2-source-gallery-08" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-08</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7864</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-26-50-1.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-26-50-1.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">8</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-08.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-00.jpeg" alt="d2-source-gallery-09" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-09</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7853</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-38-00.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-00.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">9</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-09.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-09.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-30.jpeg" alt="d2-source-gallery-10" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-10</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7855</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-38-30.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-30.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">10</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-10.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-48.jpeg" alt="d2-source-gallery-11" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-11</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7860</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-39-48.jpeg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-48.jpeg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">11</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-11.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-11.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-54-1.webp" alt="d2-source-gallery-12" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-12</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7862</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-27-54-1.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-54-1.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">12</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-12.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-12.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-23-57.webp" alt="d2-source-gallery-13" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-13</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7865</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-23-57.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-23-57.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">13</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-13.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-13.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-28-14.webp" alt="d2-source-gallery-14" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-14</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7868</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-28-14.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-28-14.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">14</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-14.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-14.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp" alt="d2-source-gallery-15" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-15</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7870</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">2025-09-29-10-27-39.webp</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">15</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-15.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-15.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="image-card">
+          <div class="preview">
+            <img src="https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9346.jpg" alt="d2-source-gallery-16" loading="lazy" />
+          </div>
+          <div class="content">
+            <h2>d2-source-gallery-16</h2>
+            <dl class="meta">
+              <div class="row"><dt class="label">Role</dt><dd class="value">gallery, thumbnail</dd></div>
+              <div class="row"><dt class="label">WP/local</dt><dd class="value">WP 7873</dd></div>
+              <div class="row"><dt class="label">Filename</dt><dd class="value">IMG_9346.jpg</dd></div>
+              <div class="row"><dt class="label">Current URL</dt><dd class="value"><code>https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9346.jpg</code></dd></div>
+              <div class="row"><dt class="label">Méret</dt><dd class="value">1440x1080</dd></div>
+              <div class="row"><dt class="label">Sort order</dt><dd class="value">16</dd></div>
+              <div class="row"><dt class="label">Target paths</dt><dd class="value"><code>/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-16.webp</code><br /><code>/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-16.webp</code></dd></div>
+              <div class="row"><dt class="label">Review</dt><dd class="value"><span class="status">TODO</span></dd></div>
+            </dl>
+            <div class="fields">
+              <h3>Kitöltendő review mezők</h3>
+              <dl class="review">
+                <div class="row"><dt class="label">room/theme</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">alt.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">title.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.hu</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">caption.en</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">focusPoint</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">crop note</dt><dd class="value">TODO</dd></div>
+                <div class="row"><dt class="label">approved</dt><dd class="value">no</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
