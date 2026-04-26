@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // [CHANGE 2026-04-26 00:00] Dry-run image processing script váz létrehozása source inventory listázáshoz.
 // [CHANGE 2026-04-26 00:00] Plan export mód hozzáadása image processing dry-run scripthhez.
+// [CHANGE 2026-04-26 00:00] Plan export fájlnevek szétválasztása selected és all módra.
 
 import { access, mkdir, writeFile } from "node:fs/promises";
 import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
@@ -107,14 +108,22 @@ async function exportPlanFiles({
   includeNeedsReview,
 }) {
   const generatedDir = new URL("../project-docs/image-workflow/generated/", import.meta.url);
-  const jsonPlanUrl = new URL(`${apartmentKey}-processing-plan.json`, generatedDir);
-  const markdownPlanUrl = new URL(`${apartmentKey}-processing-plan.md`, generatedDir);
+  const exportModeKey = includeNeedsReview ? "all" : "selected";
+  const jsonPlanUrl = new URL(
+    `${apartmentKey}-processing-plan-${exportModeKey}.json`,
+    generatedDir,
+  );
+  const markdownPlanUrl = new URL(
+    `${apartmentKey}-processing-plan-${exportModeKey}.md`,
+    generatedDir,
+  );
   const plan = createProcessingPlan({
     apartmentKey,
     candidates,
     selectedCandidates,
     skippedNeedsReview,
     includeNeedsReview,
+    exportModeKey,
   });
 
   await mkdir(generatedDir, { recursive: true });
@@ -127,8 +136,12 @@ async function exportPlanFiles({
   await writeFile(markdownPlanUrl, createMarkdownPlan(plan), "utf8");
 
   console.log("Plan export written:");
-  console.log(`- project-docs/image-workflow/generated/${apartmentKey}-processing-plan.json`);
-  console.log(`- project-docs/image-workflow/generated/${apartmentKey}-processing-plan.md`);
+  console.log(
+    `- project-docs/image-workflow/generated/${apartmentKey}-processing-plan-${exportModeKey}.json`,
+  );
+  console.log(
+    `- project-docs/image-workflow/generated/${apartmentKey}-processing-plan-${exportModeKey}.md`,
+  );
   console.log("DRY RUN - no image files written and public/images was not modified.");
 }
 
@@ -138,9 +151,11 @@ function createProcessingPlan({
   selectedCandidates,
   skippedNeedsReview,
   includeNeedsReview,
+  exportModeKey,
 }) {
   return {
     apartmentKey,
+    exportMode: exportModeKey,
     generatedAt: new Date().toISOString(),
     mode: "dry-run",
     selectedCount: selectedCandidates.filter((candidate) => candidate.status === "selected").length,
@@ -192,6 +207,7 @@ function createMarkdownPlan(plan) {
     "## Summary",
     "",
     `- apartmentKey: ${plan.apartmentKey}`,
+    `- exportMode: ${plan.exportMode}`,
     `- generatedAt: ${plan.generatedAt}`,
     `- mode: ${plan.mode}`,
     `- selectedCount: ${plan.selectedCount}`,

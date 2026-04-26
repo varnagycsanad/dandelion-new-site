@@ -1,6 +1,7 @@
 {
   "apartmentKey": "d2",
-  "generatedAt": "2026-04-26T14:53:40.480Z",
+  "exportMode": "all",
+  "generatedAt": "2026-04-26T16:27:43.602Z",
   "mode": "dry-run",
   "selectedCount": 13,
   "plannedCandidateCount": 19,
