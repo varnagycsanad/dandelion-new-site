@@ -3,10 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodations } from "../data/accommodations";
 import { apartments } from "../data/apartments";
 import { accommodationImages } from "../data/images/accommodation-images";
-import { readApartmentImageAssignments } from "../lib/apartment-image-assignments";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
-import { readMediaApartmentAssignments } from "../lib/media-apartment-assignments";
-import { fetchWordPressMedia } from "../lib/wp-media";
 
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -24,7 +21,6 @@ const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
   `/wp-json/dandelion/v1/apartment-image-config/${nextApartmentKey}`;
 const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
 const d2RuntimeGalleryEndpointUrl = `https://dandelionhouse.hu${d2RuntimeGalleryEndpoint}`;
-const publicWordPressMediaEndpoint = "https://dandelionhouse.hu/wp-json/wp/v2/media";
 
 type D2GalleryImage = {
   id: number;
@@ -36,14 +32,6 @@ type D2GalleryImage = {
   sortOrder?: number;
 };
 type D2HeroImage = { src: string; alt: string };
-type D2RawPublicMediaItem = {
-  id?: number;
-  source_url?: string;
-  alt_text?: string;
-  title?: {
-    rendered?: string;
-  };
-};
 type D2RuntimeHeroImage = {
   url?: string;
   alt?: string;
@@ -123,40 +111,10 @@ const d2RegistryGalleryImages: D2GalleryImage[] = (accommodationImages.d2?.galle
 const d2LocationImage = d2RegistryGalleryImages.find((image) => image.sortOrder === 9) || d2RegistryGalleryImages[0];
 
 // [CHANGE 2026-04-26 00:00] D2 galéria átkötése az image registry lokális WebP és thumb képeire.
+// [CHANGE 2026-04-26 00:00] D2 nem használt WP galéria és legacy fallback képlogika cleanup 1. kör.
 let d2GalleryImages: D2GalleryImage[] = d2RegistryGalleryImages;
-let d2LegacyGalleryImages: D2GalleryImage[] = [];
-
-// [CHANGE 2026-04-24 11:35] Keep legacy D2 assignments as the gallery source and apply admin sortOrder only as ordering metadata.
-const apartmentImageAssignments = await readApartmentImageAssignments();
-const d2GalleryAssignments = apartmentImageAssignments[apartmentKey]?.gallery || [];
-
-const legacyApartmentAssignments = await readMediaApartmentAssignments();
-const legacyD2AssignedIds = Object.entries(legacyApartmentAssignments)
-  .filter(([, assignedApartmentKey]) => assignedApartmentKey === apartmentKey)
-  .map(([id]) => Number(id))
-  .filter((id) => Number.isInteger(id) && id > 0);
-
-const sortOrderById = new Map(d2GalleryAssignments.map((item) => [item.id, item.sortOrder]));
-const orderedD2GalleryIds = [...legacyD2AssignedIds].sort((leftId, rightId) => {
-  const leftSortOrder = sortOrderById.get(leftId);
-  const rightSortOrder = sortOrderById.get(rightId);
-  const leftHasSortOrder = typeof leftSortOrder === "number";
-  const rightHasSortOrder = typeof rightSortOrder === "number";
-
-  if (leftHasSortOrder && rightHasSortOrder && leftSortOrder !== rightSortOrder) {
-    return leftSortOrder - rightSortOrder;
-  }
-
-  if (leftHasSortOrder !== rightHasSortOrder) {
-    return leftHasSortOrder ? -1 : 1;
-  }
-
-  return legacyD2AssignedIds.indexOf(leftId) - legacyD2AssignedIds.indexOf(rightId);
-});
 
 let d2GalleryWarning = "";
-
-const stripInlineHtml = (value: string | undefined) => (value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 const normalizeRuntimeHeroImage = (image: D2RuntimeHeroImage | null | undefined): D2HeroImage | null => {
   if (!image?.url) {
@@ -188,120 +146,6 @@ const fetchRuntimeHeroImages = async (): Promise<{ desktop: D2HeroImage | null; 
   };
 };
 
-const resolveGalleryImages = (
-  mediaItems: { id: number; sourceUrl: string; altText?: string; title?: string }[]
-): D2GalleryImage[] => {
-  const mediaById = new Map(mediaItems.map((item) => [item.id, item]));
-
-  return orderedD2GalleryIds
-    .map((id) => {
-      const item = mediaById.get(id);
-
-      if (!item?.sourceUrl) {
-        return null;
-      }
-
-      return {
-        id,
-        src: item.sourceUrl,
-        thumb: item.sourceUrl,
-        alt: item.altText || item.title || `Dandelion D2 gallery image ${id}`
-      };
-    })
-    .filter((item): item is D2GalleryImage => Boolean(item));
-};
-
-const fetchPublicAssignedMedia = async (): Promise<D2GalleryImage[]> => {
-  if (!orderedD2GalleryIds.length) {
-    return [];
-  }
-
-  const endpoint = new URL(publicWordPressMediaEndpoint);
-  endpoint.searchParams.set("include", orderedD2GalleryIds.join(","));
-  endpoint.searchParams.set("per_page", String(Math.min(orderedD2GalleryIds.length, 100)));
-  endpoint.searchParams.set("_fields", "id,source_url,alt_text,title");
-
-  const response = await fetch(endpoint, {
-    headers: {
-      Accept: "application/json"
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Public WordPress media request failed with HTTP ${response.status}.`);
-  }
-
-  const items = (await response.json()) as D2RawPublicMediaItem[];
-
-  if (!Array.isArray(items)) {
-    return [];
-  }
-
-  return resolveGalleryImages(
-    items
-      .map((item) => ({
-        id: typeof item.id === "number" ? item.id : 0,
-        sourceUrl: item.source_url || "",
-        altText: item.alt_text?.trim() || "",
-        title: stripInlineHtml(item.title?.rendered)
-      }))
-      .filter((item) => item.id > 0 && item.sourceUrl)
-  );
-};
-
-try {
-  const mediaResult = await fetchWordPressMedia();
-
-  if (mediaResult.warning) {
-    console.warn(`[D2 gallery] WordPress media warning: ${mediaResult.warning}`);
-  }
-
-  if (mediaResult.error) {
-    console.warn(`[D2 gallery] WordPress media error: ${mediaResult.error}`);
-  }
-
-  const resolvedAssignedImages = resolveGalleryImages(mediaResult.items);
-  const mediaIds = new Set(mediaResult.items.map((item) => item.id));
-  const missingAssignedIds = legacyD2AssignedIds.filter((id) => !mediaIds.has(id));
-
-  console.warn(
-    `[D2 gallery] source=media-apartment-assignments, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, fetched=${mediaResult.items.length}, resolved=${resolvedAssignedImages.length}, missing=${missingAssignedIds.length}`
-  );
-
-  if (missingAssignedIds.length) {
-    console.warn(
-      `[D2 gallery] ${missingAssignedIds.length} assigned media item missing from fetched WP media: ${missingAssignedIds.join(", ")}`
-    );
-  }
-
-  if (resolvedAssignedImages.length > 0) {
-    d2LegacyGalleryImages = resolvedAssignedImages;
-  } else {
-    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source for hero fallback.");
-  }
-} catch (error) {
-  console.warn(
-    `[D2 gallery] Failed to resolve assigned gallery images: ${
-      error instanceof Error ? error.message : "Unknown error"
-    }; hero fallback will not use assignment images.`
-  );
-}
-
-if (!d2LegacyGalleryImages.length) {
-  try {
-    d2LegacyGalleryImages = await fetchPublicAssignedMedia();
-    console.warn(
-      `[D2 gallery] source=public-wordpress-media, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, resolved=${d2LegacyGalleryImages.length}`
-    );
-  } catch (error) {
-    console.warn(
-      `[D2 gallery] Public assigned media fallback failed: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-  }
-}
-
 if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
@@ -311,7 +155,7 @@ const d2LocalHeroFallback: D2HeroImage = {
   src: d2MobileHeroImage,
   alt: "Dandelion D2"
 };
-const d2HeroFallback = d2LegacyGalleryImages[0] || d2GalleryImages[0] || d2LocalHeroFallback;
+const d2HeroFallback = d2GalleryImages[0] || d2LocalHeroFallback;
 let d2InitialHeroImages = {
   desktop: {
     src: d2DesktopHeroImage || d2HeroFallback.src,
