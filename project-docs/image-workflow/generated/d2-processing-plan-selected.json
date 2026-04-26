@@ -1,7 +1,7 @@
 {
   "apartmentKey": "d2",
   "exportMode": "selected",
-  "generatedAt": "2026-04-26T16:27:43.606Z",
+  "generatedAt": "2026-04-26T20:47:44.535Z",
   "mode": "dry-run",
   "selectedCount": 13,
   "plannedCandidateCount": 13,
@@ -163,6 +163,98 @@
       "targetPlans": [
         {
           "role": "gallery",
+          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-02.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ],
+      "plannedOutputs": [
+        {
+          "role": "gallery",
+          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-02.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ]
+    },
+    {
+      "sourceId": "d2-source-gallery-05",
+      "status": "selected",
+      "intendedRoles": [
+        "gallery",
+        "thumbnail"
+      ],
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp",
+      "currentFilename": "IMG_9347.webp",
+      "source": {
+        "type": "wordpress",
+        "wpId": 7875
+      },
+      "targetPlans": [
+        {
+          "role": "gallery",
+          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ],
+      "plannedOutputs": [
+        {
+          "role": "gallery",
+          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ]
+    },
+    {
+      "sourceId": "d2-source-gallery-07",
+      "status": "selected",
+      "intendedRoles": [
+        "gallery",
+        "thumbnail"
+      ],
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-34-41.jpeg",
+      "currentFilename": "2025-09-29-10-34-41.jpeg",
+      "source": {
+        "type": "wordpress",
+        "wpId": 7846
+      },
+      "targetPlans": [
+        {
+          "role": "gallery",
           "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-04.webp",
           "width": 1600,
           "cropMode": "contain",
@@ -194,17 +286,17 @@
       ]
     },
     {
-      "sourceId": "d2-source-gallery-05",
+      "sourceId": "d2-source-gallery-09",
       "status": "selected",
       "intendedRoles": [
         "gallery",
         "thumbnail"
       ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp",
-      "currentFilename": "IMG_9347.webp",
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-00.jpeg",
+      "currentFilename": "2025-09-29-10-38-00.jpeg",
       "source": {
         "type": "wordpress",
-        "wpId": 7875
+        "wpId": 7853
       },
       "targetPlans": [
         {
@@ -240,17 +332,63 @@
       ]
     },
     {
-      "sourceId": "d2-source-gallery-07",
+      "sourceId": "d2-source-gallery-10",
       "status": "selected",
       "intendedRoles": [
         "gallery",
         "thumbnail"
       ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-34-41.jpeg",
-      "currentFilename": "2025-09-29-10-34-41.jpeg",
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-30.jpeg",
+      "currentFilename": "2025-09-29-10-38-30.jpeg",
       "source": {
         "type": "wordpress",
-        "wpId": 7846
+        "wpId": 7855
+      },
+      "targetPlans": [
+        {
+          "role": "gallery",
+          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-06.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ],
+      "plannedOutputs": [
+        {
+          "role": "gallery",
+          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-06.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ]
+    },
+    {
+      "sourceId": "d2-source-gallery-11",
+      "status": "selected",
+      "intendedRoles": [
+        "gallery",
+        "thumbnail"
+      ],
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-48.jpeg",
+      "currentFilename": "2025-09-29-10-39-48.jpeg",
+      "source": {
+        "type": "wordpress",
+        "wpId": 7860
       },
       "targetPlans": [
         {
@@ -286,17 +424,63 @@
       ]
     },
     {
-      "sourceId": "d2-source-gallery-09",
+      "sourceId": "d2-source-gallery-13",
       "status": "selected",
       "intendedRoles": [
         "gallery",
         "thumbnail"
       ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-00.jpeg",
-      "currentFilename": "2025-09-29-10-38-00.jpeg",
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-23-57.webp",
+      "currentFilename": "2025-09-29-10-23-57.webp",
       "source": {
         "type": "wordpress",
-        "wpId": 7853
+        "wpId": 7865
+      },
+      "targetPlans": [
+        {
+          "role": "gallery",
+          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-08.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ],
+      "plannedOutputs": [
+        {
+          "role": "gallery",
+          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-08.webp",
+          "width": 1600,
+          "cropMode": "contain",
+          "focusPoint": "center center"
+        },
+        {
+          "role": "thumbnail",
+          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp",
+          "width": 600,
+          "cropMode": "cover",
+          "focusPoint": "center center"
+        }
+      ]
+    },
+    {
+      "sourceId": "d2-source-gallery-14",
+      "status": "selected",
+      "intendedRoles": [
+        "gallery",
+        "thumbnail"
+      ],
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-28-14.webp",
+      "currentFilename": "2025-09-29-10-28-14.webp",
+      "source": {
+        "type": "wordpress",
+        "wpId": 7868
       },
       "targetPlans": [
         {
@@ -332,17 +516,17 @@
       ]
     },
     {
-      "sourceId": "d2-source-gallery-10",
+      "sourceId": "d2-source-gallery-16",
       "status": "selected",
       "intendedRoles": [
         "gallery",
         "thumbnail"
       ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-38-30.jpeg",
-      "currentFilename": "2025-09-29-10-38-30.jpeg",
+      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9346.jpg",
+      "currentFilename": "IMG_9346.jpg",
       "source": {
         "type": "wordpress",
-        "wpId": 7855
+        "wpId": 7873
       },
       "targetPlans": [
         {
@@ -371,190 +555,6 @@
         {
           "role": "thumbnail",
           "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ]
-    },
-    {
-      "sourceId": "d2-source-gallery-11",
-      "status": "selected",
-      "intendedRoles": [
-        "gallery",
-        "thumbnail"
-      ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-39-48.jpeg",
-      "currentFilename": "2025-09-29-10-39-48.jpeg",
-      "source": {
-        "type": "wordpress",
-        "wpId": 7860
-      },
-      "targetPlans": [
-        {
-          "role": "gallery",
-          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-11.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-11.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ],
-      "plannedOutputs": [
-        {
-          "role": "gallery",
-          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-11.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-11.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ]
-    },
-    {
-      "sourceId": "d2-source-gallery-13",
-      "status": "selected",
-      "intendedRoles": [
-        "gallery",
-        "thumbnail"
-      ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-23-57.webp",
-      "currentFilename": "2025-09-29-10-23-57.webp",
-      "source": {
-        "type": "wordpress",
-        "wpId": 7865
-      },
-      "targetPlans": [
-        {
-          "role": "gallery",
-          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-13.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-13.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ],
-      "plannedOutputs": [
-        {
-          "role": "gallery",
-          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-13.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-13.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ]
-    },
-    {
-      "sourceId": "d2-source-gallery-14",
-      "status": "selected",
-      "intendedRoles": [
-        "gallery",
-        "thumbnail"
-      ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-28-14.webp",
-      "currentFilename": "2025-09-29-10-28-14.webp",
-      "source": {
-        "type": "wordpress",
-        "wpId": 7868
-      },
-      "targetPlans": [
-        {
-          "role": "gallery",
-          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-14.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-14.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ],
-      "plannedOutputs": [
-        {
-          "role": "gallery",
-          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-14.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-14.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ]
-    },
-    {
-      "sourceId": "d2-source-gallery-16",
-      "status": "selected",
-      "intendedRoles": [
-        "gallery",
-        "thumbnail"
-      ],
-      "currentUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9346.jpg",
-      "currentFilename": "IMG_9346.jpg",
-      "source": {
-        "type": "wordpress",
-        "wpId": 7873
-      },
-      "targetPlans": [
-        {
-          "role": "gallery",
-          "targetPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-16.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "targetPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-16.webp",
-          "width": 600,
-          "cropMode": "cover",
-          "focusPoint": "center center"
-        }
-      ],
-      "plannedOutputs": [
-        {
-          "role": "gallery",
-          "outputPath": "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-16.webp",
-          "width": 1600,
-          "cropMode": "contain",
-          "focusPoint": "center center"
-        },
-        {
-          "role": "thumbnail",
-          "outputPath": "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-16.webp",
           "width": 600,
           "cropMode": "cover",
           "focusPoint": "center center"

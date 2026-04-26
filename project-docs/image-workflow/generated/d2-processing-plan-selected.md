@@ -13,7 +13,7 @@ This is a dry-run documentation export. It is not image conversion.
 
 - apartmentKey: d2
 - exportMode: selected
-- generatedAt: 2026-04-26T16:27:43.606Z
+- generatedAt: 2026-04-26T20:47:44.535Z
 - mode: dry-run
 - selectedCount: 13
 - plannedCandidateCount: 13
@@ -39,28 +39,28 @@ This is a dry-run documentation export. It is not image conversion.
 | Source ID | Status | Current filename | Output role | Output path | Width | Crop | Focus |
 |---|---|---|---|---|---:|---|---|
 | d2-source-gallery-01 | selected | 2025-09-29-10-19-03.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-01.webp | 1600 | contain | center center |
-| d2-source-gallery-04 | selected | 2025-09-29-10-26-50.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-04.webp | 1600 | contain | center center |
-| d2-source-gallery-05 | selected | IMG_9347.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-05.webp | 1600 | contain | center center |
-| d2-source-gallery-07 | selected | 2025-09-29-10-34-41.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-07.webp | 1600 | contain | center center |
-| d2-source-gallery-09 | selected | 2025-09-29-10-38-00.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-09.webp | 1600 | contain | center center |
-| d2-source-gallery-10 | selected | 2025-09-29-10-38-30.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-10.webp | 1600 | contain | center center |
-| d2-source-gallery-11 | selected | 2025-09-29-10-39-48.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-11.webp | 1600 | contain | center center |
-| d2-source-gallery-13 | selected | 2025-09-29-10-23-57.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-13.webp | 1600 | contain | center center |
-| d2-source-gallery-14 | selected | 2025-09-29-10-28-14.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-14.webp | 1600 | contain | center center |
-| d2-source-gallery-16 | selected | IMG_9346.jpg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-16.webp | 1600 | contain | center center |
+| d2-source-gallery-04 | selected | 2025-09-29-10-26-50.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-02.webp | 1600 | contain | center center |
+| d2-source-gallery-05 | selected | IMG_9347.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp | 1600 | contain | center center |
+| d2-source-gallery-07 | selected | 2025-09-29-10-34-41.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-04.webp | 1600 | contain | center center |
+| d2-source-gallery-09 | selected | 2025-09-29-10-38-00.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-05.webp | 1600 | contain | center center |
+| d2-source-gallery-10 | selected | 2025-09-29-10-38-30.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-06.webp | 1600 | contain | center center |
+| d2-source-gallery-11 | selected | 2025-09-29-10-39-48.jpeg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-07.webp | 1600 | contain | center center |
+| d2-source-gallery-13 | selected | 2025-09-29-10-23-57.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-08.webp | 1600 | contain | center center |
+| d2-source-gallery-14 | selected | 2025-09-29-10-28-14.webp | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-09.webp | 1600 | contain | center center |
+| d2-source-gallery-16 | selected | IMG_9346.jpg | gallery | /images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-10.webp | 1600 | contain | center center |
 
 ## thumbnails
 
 | Source ID | Status | Current filename | Output role | Output path | Width | Crop | Focus |
 |---|---|---|---|---|---:|---|---|
 | d2-source-gallery-01 | selected | 2025-09-29-10-19-03.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-01.webp | 600 | cover | center center |
-| d2-source-gallery-04 | selected | 2025-09-29-10-26-50.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-04.webp | 600 | cover | center center |
-| d2-source-gallery-05 | selected | IMG_9347.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-05.webp | 600 | cover | center center |
-| d2-source-gallery-07 | selected | 2025-09-29-10-34-41.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-07.webp | 600 | cover | center center |
-| d2-source-gallery-09 | selected | 2025-09-29-10-38-00.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-09.webp | 600 | cover | center center |
-| d2-source-gallery-10 | selected | 2025-09-29-10-38-30.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp | 600 | cover | center center |
-| d2-source-gallery-11 | selected | 2025-09-29-10-39-48.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-11.webp | 600 | cover | center center |
-| d2-source-gallery-13 | selected | 2025-09-29-10-23-57.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-13.webp | 600 | cover | center center |
-| d2-source-gallery-14 | selected | 2025-09-29-10-28-14.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-14.webp | 600 | cover | center center |
-| d2-source-gallery-16 | selected | IMG_9346.jpg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-16.webp | 600 | cover | center center |
+| d2-source-gallery-04 | selected | 2025-09-29-10-26-50.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp | 600 | cover | center center |
+| d2-source-gallery-05 | selected | IMG_9347.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp | 600 | cover | center center |
+| d2-source-gallery-07 | selected | 2025-09-29-10-34-41.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-04.webp | 600 | cover | center center |
+| d2-source-gallery-09 | selected | 2025-09-29-10-38-00.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-05.webp | 600 | cover | center center |
+| d2-source-gallery-10 | selected | 2025-09-29-10-38-30.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp | 600 | cover | center center |
+| d2-source-gallery-11 | selected | 2025-09-29-10-39-48.jpeg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-07.webp | 600 | cover | center center |
+| d2-source-gallery-13 | selected | 2025-09-29-10-23-57.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp | 600 | cover | center center |
+| d2-source-gallery-14 | selected | 2025-09-29-10-28-14.webp | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-09.webp | 600 | cover | center center |
+| d2-source-gallery-16 | selected | IMG_9346.jpg | thumbnail | /images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp | 600 | cover | center center |
 
