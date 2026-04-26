@@ -3,6 +3,7 @@
 // [CHANGE 2026-04-26 00:00] Plan export mód hozzáadása image processing dry-run scripthhez.
 // [CHANGE 2026-04-26 00:00] Plan export fájlnevek szétválasztása selected és all módra.
 // [CHANGE 2026-04-26 00:00] Korlátozott local write mód hozzáadása egyetlen mobil hero WebP feldolgozásához.
+// [CHANGE 2026-04-26 00:00] Korlátozott remote WP source write mód hozzáadása egyetlen D2 galériaképhez.
 
 import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -13,7 +14,12 @@ import { accommodationSourceImages } from "../src/data/images/accommodation-sour
 const args = process.argv.slice(2);
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
 
-const allowedStandaloneArgs = new Set(["--include-needs-review", "--export-plan", "--write"]);
+const allowedStandaloneArgs = new Set([
+  "--include-needs-review",
+  "--export-plan",
+  "--write",
+  "--allow-remote",
+]);
 const unknownArgs = args.filter(
   (arg) =>
     !arg.startsWith("--apartment=") &&
@@ -36,6 +42,7 @@ const sourceId = readOption("source");
 const includeNeedsReview = args.includes("--include-needs-review");
 const exportPlan = args.includes("--export-plan");
 const writeMode = args.includes("--write");
+const allowRemote = args.includes("--allow-remote");
 
 if (!apartmentKey) {
   console.error("Missing required argument: --apartment=<apartmentKey>");
@@ -74,6 +81,7 @@ if (writeMode) {
     apartmentKey,
     candidates,
     sourceId,
+    allowRemote,
   });
   process.exit(0);
 }
@@ -300,16 +308,11 @@ async function fileExists(fileUrl) {
   }
 }
 
-async function processSingleLocalWrite({ apartmentKey, candidates, sourceId }) {
+async function processSingleLocalWrite({ apartmentKey, candidates, sourceId, allowRemote }) {
   const candidate = candidates.find((entry) => entry.id === sourceId);
 
   if (!candidate) {
     console.error(`Unknown source id for apartment ${apartmentKey}: ${sourceId}`);
-    process.exit(1);
-  }
-
-  if (candidate.source.type !== "local") {
-    console.error(`WRITE MODE only supports local sources in this version. Received: ${candidate.source.type}`);
     process.exit(1);
   }
 
@@ -318,61 +321,125 @@ async function processSingleLocalWrite({ apartmentKey, candidates, sourceId }) {
     process.exit(1);
   }
 
-  if (!candidate.currentUrl?.startsWith("/images/")) {
-    console.error(`Unsupported local currentUrl: ${candidate.currentUrl ?? "(missing)"}`);
+  if (!candidate.targetPlans?.length) {
+    console.error("WRITE MODE requires at least one target plan.");
     process.exit(1);
   }
 
-  if ((candidate.targetPlans ?? []).length !== 1) {
-    console.error("WRITE MODE expects exactly one target plan for this single-source test.");
+  for (const targetPlan of candidate.targetPlans) {
+    const outputPath = targetPlan.targetPath ?? targetPlan.thumbPath;
+
+    if (!outputPath?.startsWith("/images/")) {
+      console.error(`Unsupported targetPath: ${outputPath ?? "(missing)"}`);
+      process.exit(1);
+    }
+  }
+
+  let inputDescriptor = "";
+  let sharpInput;
+
+  if (candidate.source.type === "local") {
+    if (!candidate.currentUrl?.startsWith("/images/")) {
+      console.error(`Unsupported local currentUrl: ${candidate.currentUrl ?? "(missing)"}`);
+      process.exit(1);
+    }
+
+    const sourceFilePath = resolvePublicImagePath(candidate.currentUrl);
+
+    if (!(await fileExists(sourceFilePath))) {
+      console.error(`Source file not found: ${sourceFilePath}`);
+      process.exit(1);
+    }
+
+    inputDescriptor = sourceFilePath;
+    sharpInput = sourceFilePath;
+  } else if (candidate.source.type === "wordpress") {
+    if (!allowRemote) {
+      console.error("Remote source processing requires explicit --allow-remote.");
+      process.exit(1);
+    }
+
+    if (!candidate.currentUrl?.startsWith("http")) {
+      console.error(`Unsupported remote currentUrl: ${candidate.currentUrl ?? "(missing)"}`);
+      process.exit(1);
+    }
+
+    console.log("Downloading remote source once for this write test.");
+    const response = await fetch(candidate.currentUrl);
+
+    if (!response.ok) {
+      console.error(`Remote source request failed with HTTP ${response.status}.`);
+      process.exit(1);
+    }
+
+    const sourceBuffer = Buffer.from(await response.arrayBuffer());
+
+    inputDescriptor = candidate.currentUrl;
+    sharpInput = sourceBuffer;
+  } else {
+    console.error(`WRITE MODE does not support source type: ${candidate.source.type}`);
     process.exit(1);
   }
 
-  const targetPlan = candidate.targetPlans[0];
+  const targetFiles = candidate.targetPlans.map((targetPlan) =>
+    resolvePublicImagePath(targetPlan.targetPath ?? targetPlan.thumbPath),
+  );
 
-  if (!targetPlan.targetPath?.startsWith("/images/")) {
-    console.error(`Unsupported targetPath: ${targetPlan.targetPath ?? "(missing)"}`);
-    process.exit(1);
+  for (const targetFilePath of targetFiles) {
+    if (await fileExists(targetFilePath)) {
+      console.error(`Target file already exists: ${targetFilePath}`);
+      process.exit(1);
+    }
   }
 
-  const sourceFilePath = resolvePublicImagePath(candidate.currentUrl);
-  const targetFilePath = resolvePublicImagePath(targetPlan.targetPath);
-
-  if (await fileExists(targetFilePath)) {
-    console.error(`Target file already exists: ${targetFilePath}`);
-    process.exit(1);
+  for (const targetFilePath of targetFiles) {
+    await mkdir(path.dirname(targetFilePath), { recursive: true });
   }
 
-  if (!(await fileExists(sourceFilePath))) {
-    console.error(`Source file not found: ${sourceFilePath}`);
-    process.exit(1);
-  }
-
-  await mkdir(path.dirname(targetFilePath), { recursive: true });
-
-  console.log("WRITE MODE - one local source only.");
+  console.log("WRITE MODE - one source only.");
   console.log(`source id: ${candidate.id}`);
-  console.log(`source path: ${sourceFilePath}`);
-  console.log(`target path: ${targetFilePath}`);
+  console.log(`source type: ${candidate.source.type}`);
+  console.log(`source path: ${inputDescriptor}`);
 
-  await sharp(sourceFilePath)
-    .resize({
+  const outputMetadataByRole = [];
+
+  for (const targetPlan of candidate.targetPlans) {
+    const outputPath = targetPlan.targetPath ?? targetPlan.thumbPath;
+    const targetFilePath = resolvePublicImagePath(outputPath);
+    const resizeOptions = {
       width: targetPlan.width ?? candidate.width,
-      height: targetPlan.height ?? candidate.height,
-      fit: "fill",
+      height: targetPlan.height,
+      fit: targetPlan.cropMode === "contain" ? "contain" : targetPlan.cropMode === "cover" ? "cover" : "fill",
       withoutEnlargement: false,
-    })
-    .webp({
-      quality: 85,
-    })
-    .toFile(targetFilePath);
+    };
+    const quality = targetPlan.role === "thumbnail" ? 76 : candidate.source.type === "local" ? 85 : 82;
 
-  const outputMetadata = await sharp(targetFilePath).metadata();
+    console.log(`target path (${targetPlan.role}): ${targetFilePath}`);
+
+    await sharp(sharpInput)
+      .resize(resizeOptions)
+      .webp({
+        quality,
+      })
+      .toFile(targetFilePath);
+
+    const outputMetadata = await sharp(targetFilePath).metadata();
+    outputMetadataByRole.push({
+      role: targetPlan.role,
+      format: outputMetadata.format ?? "(unknown)",
+      width: outputMetadata.width ?? "(unknown)",
+      height: outputMetadata.height ?? "(unknown)",
+    });
+  }
 
   console.log("output metadata:");
-  console.log(`- format: ${outputMetadata.format ?? "(unknown)"}`);
-  console.log(`- width: ${outputMetadata.width ?? "(unknown)"}`);
-  console.log(`- height: ${outputMetadata.height ?? "(unknown)"}`);
+
+  for (const entry of outputMetadataByRole) {
+    console.log(`- role: ${entry.role}`);
+    console.log(`  format: ${entry.format}`);
+    console.log(`  width: ${entry.width}`);
+    console.log(`  height: ${entry.height}`);
+  }
 }
 
 function resolvePublicImagePath(publicUrlPath) {
