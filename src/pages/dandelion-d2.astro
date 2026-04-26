@@ -9,7 +9,8 @@ import { fetchWordPressMedia } from "../lib/wp-media";
 
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const d2MobileHeroImage = `${baseHref}images/d2-hero-mobile.webp`;
+// [CHANGE 2026-04-26 00:00] D2 mobil hero kép útvonalának átkötése az új strukturált WebP-re.
+const d2MobileHeroImage = `${baseHref}images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp`;
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
 const apartmentKey = apartments.d2.key;
 const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
