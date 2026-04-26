@@ -75,3 +75,22 @@ npm run build
 - a `dist` tartalmazza a gallery és thumb WebP fájlokat
 - a buildelt D2 HTML hivatkozik az új képekre
 - a helyi dev szerver HTTP 200-at ad
+
+## 8. Sequence / fájlnévütközés tanulság
+
+A második D2 kép próbánál először azért álltunk meg már a dry-run után, mert az intake ugyanarra a target fájlnévre akart tervezni, mint az első CLI teszt:
+
+- `gallery-17.webp`
+- `thumb-17.webp`
+
+Ez azért volt jó STOP pont, mert még valós írás előtt látszott, hogy a következő candidate felülírná a már létező outputot.
+
+Az `e70efcb` commit ezt javította: az `images:intake` már nem csak a régi source mintákból számolja a következő gallery/thumb sorszámot, hanem figyelembe veszi:
+
+- a source inventory target pathjait
+- a frontend registry `src` / `thumb` értékeit
+- a tényleges `public/images/accommodations/.../gallery` és `thumbs` fájlokat
+
+Így az intake gallery/thumb esetben `max(existing) + 1` logikával dolgozik, nem lyukkereséssel és nem a régi `d2-source-gallery-XX` minta alapján.
+
+Ez azért fontos, mert a valós workflow-ban a target ütközést nem elméleti source ID-k, hanem a már kiosztott output nevek és a ténylegesen létező fájlok alapján kell elkerülni.
