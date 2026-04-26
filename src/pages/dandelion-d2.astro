@@ -9,6 +9,7 @@ import { fetchWordPressMedia } from "../lib/wp-media";
 
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const d2MobileHeroImage = `${baseHref}images/d2-hero-mobile.webp`;
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
 const apartmentKey = apartments.d2.key;
 const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
@@ -362,9 +363,20 @@ const relatedStays = accommodations
   title="Dandelion D2 | Dandelion Vendégházak"
   description="Dandelion D2 külön oldal a Balaton-felvidéki, családbarát pihenés hangulatára építve."
 >
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href={d2MobileHeroImage}
+      type="image/webp"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+  </Fragment>
+
   <section class="d2-hero">
     <picture class="d2-hero__picture">
-      <source media="(max-width: 767px)" srcset={d2InitialHeroImages.mobile.src} />
+      <source media="(max-width: 767px)" srcset={d2MobileHeroImage} data-d2-hero-mobile-source />
       <img
         src={d2InitialHeroImage.src}
         alt={d2InitialHeroImage.alt}
@@ -704,6 +716,7 @@ const relatedStays = accommodations
     }
 
     const heroImage = document.querySelector("[data-d2-hero-image]");
+    const heroMobileSource = document.querySelector("[data-d2-hero-mobile-source]");
     const lightbox = document.querySelector("[data-d2-lightbox]");
     const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
     const lightboxCounter = document.querySelector("[data-d2-lightbox-counter]");
@@ -862,6 +875,11 @@ const relatedStays = accommodations
         }
 
         const nextHeroImage = getActiveRuntimeHeroImage();
+
+        if (heroMediaQuery.matches && heroMobileSource?.getAttribute("srcset")) {
+          heroImage.alt = nextHeroImage?.alt || nextHeroImage?.title || heroFallback.alt;
+          return;
+        }
 
         if (!nextHeroImage?.url) {
           heroImage.src = heroFallback.src;

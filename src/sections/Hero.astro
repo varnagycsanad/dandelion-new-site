@@ -1,33 +1,22 @@
 ---
-interface Props {
-  desktopImage?: string;
-  mobileImage?: string;
-}
-
-const baseHref = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
-const {
-  desktopImage = `${baseHref}images/homepage-hero-desktop.webp`,
-  mobileImage = `${baseHref}images/homepage-hero-mobile.webp`
-} = Astro.props;
+const heroVideo =
+  "https://dandelionhouse.hu/wp-content/uploads/2025/08/202507-V1.mp4";
+const heroPoster = "";
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
 <section class="dnd-hero">
-  <picture class="dnd-hero__picture">
-    <source media="(max-width: 767px)" srcset={mobileImage} type="image/webp" />
-    <img
-      class="dnd-hero__image"
-      src={desktopImage}
-      alt=""
-      width="2100"
-      height="1063"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-    />
-  </picture>
+  <video
+    class="dnd-hero__video"
+    src={heroVideo}
+    poster={heroPoster}
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+    A böngésződ nem támogatja a háttérvideó lejátszását.
+  </video>
 
   <div class="dnd-hero__overlay"></div>
 
@@ -68,18 +57,13 @@ const {
     background: #171717;
   }
 
-  .dnd-hero__picture,
-  .dnd-hero__image,
+  .dnd-hero__video,
   .dnd-hero__overlay {
     position: absolute;
     inset: 0;
   }
 
-  .dnd-hero__picture {
-    display: block;
-  }
-
-  .dnd-hero__image {
+  .dnd-hero__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
