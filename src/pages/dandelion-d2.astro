@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodations } from "../data/accommodations";
 import { apartments } from "../data/apartments";
+import { accommodationImages } from "../data/images/accommodation-images";
 import { readApartmentImageAssignments } from "../lib/apartment-image-assignments";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 import { readMediaApartmentAssignments } from "../lib/media-apartment-assignments";
@@ -19,7 +20,15 @@ const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
 const d2RuntimeGalleryEndpointUrl = `https://dandelionhouse.hu${d2RuntimeGalleryEndpoint}`;
 const publicWordPressMediaEndpoint = "https://dandelionhouse.hu/wp-json/wp/v2/media";
 
-type D2GalleryImage = { id: number; src: string; alt: string };
+type D2GalleryImage = {
+  id: number;
+  src: string;
+  thumb: string;
+  alt: string;
+  title?: string;
+  caption?: string;
+  sortOrder?: number;
+};
 type D2HeroImage = { src: string; alt: string };
 type D2RawPublicMediaItem = {
   id?: number;
@@ -143,6 +152,26 @@ const locationBenefits = [
   { label: "Balaton rövid autózással", icon: "route" }
 ] as const;
 
+const resolveRegistryImagePath = (imagePath: string) =>
+  imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
+
+const d2RegistryGalleryImages: D2GalleryImage[] = (accommodationImages.d2?.gallery || [])
+  .slice()
+  .sort((left, right) => left.sortOrder - right.sortOrder)
+  .map((image) => ({
+    id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
+    src: resolveRegistryImagePath(image.src),
+    thumb: resolveRegistryImagePath(image.thumb),
+    alt: image.alt.hu,
+    title: image.title.hu,
+    caption: image.caption.hu,
+    sortOrder: image.sortOrder
+  }));
+
+// [CHANGE 2026-04-26 00:00] D2 galéria átkötése az image registry lokális WebP és thumb képeire.
+let d2GalleryImages: D2GalleryImage[] = d2RegistryGalleryImages;
+let d2LegacyGalleryImages: D2GalleryImage[] = [];
+
 // [CHANGE 2026-04-24 11:35] Keep legacy D2 assignments as the gallery source and apply admin sortOrder only as ordering metadata.
 const apartmentImageAssignments = await readApartmentImageAssignments();
 const d2GalleryAssignments = apartmentImageAssignments[apartmentKey]?.gallery || [];
@@ -171,7 +200,6 @@ const orderedD2GalleryIds = [...legacyD2AssignedIds].sort((leftId, rightId) => {
   return legacyD2AssignedIds.indexOf(leftId) - legacyD2AssignedIds.indexOf(rightId);
 });
 
-let d2GalleryImages: D2GalleryImage[] = [];
 let d2GalleryWarning = "";
 
 const stripInlineHtml = (value: string | undefined) => (value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
@@ -222,6 +250,7 @@ const resolveGalleryImages = (
       return {
         id,
         src: item.sourceUrl,
+        thumb: item.sourceUrl,
         alt: item.altText || item.title || `Dandelion D2 gallery image ${id}`
       };
     })
@@ -292,23 +321,23 @@ try {
   }
 
   if (resolvedAssignedImages.length > 0) {
-    d2GalleryImages = resolvedAssignedImages;
+    d2LegacyGalleryImages = resolvedAssignedImages;
   } else {
-    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source; gallery will not use placeholder images.");
+    console.warn("[D2 gallery] No usable D2 gallery images resolved from active assignment source for hero fallback.");
   }
 } catch (error) {
   console.warn(
     `[D2 gallery] Failed to resolve assigned gallery images: ${
       error instanceof Error ? error.message : "Unknown error"
-    }; gallery will not use placeholder images.`
+    }; hero fallback will not use assignment images.`
   );
 }
 
-if (!d2GalleryImages.length) {
+if (!d2LegacyGalleryImages.length) {
   try {
-    d2GalleryImages = await fetchPublicAssignedMedia();
+    d2LegacyGalleryImages = await fetchPublicAssignedMedia();
     console.warn(
-      `[D2 gallery] source=public-wordpress-media, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, resolved=${d2GalleryImages.length}`
+      `[D2 gallery] source=public-wordpress-media, assigned=${legacyD2AssignedIds.length}, ordered=${d2GalleryAssignments.length}, resolved=${d2LegacyGalleryImages.length}`
     );
   } catch (error) {
     console.warn(
@@ -323,7 +352,7 @@ if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
 
-const d2HeroFallback = d2GalleryImages[0] || d2PlaceholderGallery[0];
+const d2HeroFallback = d2LegacyGalleryImages[0] || d2GalleryImages[0] || d2PlaceholderGallery[0];
 let d2InitialHeroImages = {
   desktop: d2HeroFallback,
   mobile: d2HeroFallback
@@ -484,7 +513,7 @@ const relatedStays = accommodations
     <div class="dnd-container">
       <div class="d2-gallery__heading">
         <span class="dnd-section-kicker">Galéria</span>
-        <h2 class="d2-section-title">Tizenkét pillanat a D2 hangulatából</h2>
+        <h2 class="d2-section-title">Tíz pillanat a D2 hangulatából</h2>
         <p class="d2-gallery__hint">
           {d2GalleryHasMore ? "További képekért kattints" : "A galéria képei kattinthatók"}
         </p>
@@ -501,7 +530,7 @@ const relatedStays = accommodations
                 data-d2-gallery-id={image.id}
                 aria-label="Galériakép megnyitása"
               >
-                <img src={image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+                <img src={image.thumb || image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
                 {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
                   <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
                 )}
@@ -807,7 +836,7 @@ const relatedStays = accommodations
 
           item.trigger.setAttribute("data-d2-gallery-index", String(index));
           item.trigger.setAttribute("data-d2-gallery-id", String(nextImage.id));
-          item.image.src = nextImage.src;
+          item.image.src = nextImage.thumb || nextImage.src;
           item.image.alt = nextImage.alt;
           item.image.loading = index < 2 ? "eager" : "lazy";
 
@@ -870,7 +899,15 @@ const relatedStays = accommodations
 
             return left.originalIndex - right.originalIndex;
           })
-          .map(({ id, src, alt }) => ({ id, src, alt }));
+          .map(({ id, src, thumb, alt, title, caption, sortOrder }) => ({
+            id,
+            src,
+            thumb,
+            alt,
+            title,
+            caption,
+            sortOrder
+          }));
 
         d2GalleryImages.splice(0, d2GalleryImages.length, ...orderedImages);
         renderPreviewGrid();
