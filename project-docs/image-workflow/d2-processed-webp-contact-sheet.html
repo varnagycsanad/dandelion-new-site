@@ -1,0 +1,326 @@
+<!-- [CHANGE 2026-04-26 00:00] D2 feldolgozott WebP gallery és thumb review kontaktlap létrehozása. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D2 processed WebP review</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f3f5f7;
+        --panel: #ffffff;
+        --text: #1f2a37;
+        --muted: #5b6675;
+        --border: #d8dee6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      .wrap {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+      }
+
+      .intro {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 18px;
+        line-height: 1.5;
+      }
+
+      .intro p {
+        margin: 6px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px;
+      }
+
+      .media {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .media-item {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        background: #f7f9fb;
+      }
+
+      .media-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .label {
+        margin: 0;
+        padding: 6px 8px;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+
+      dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px 10px;
+        font-size: 13px;
+      }
+
+      dt {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>D2 processed WebP review</h1>
+      <div class="intro">
+        <p>This is an internal review helper document.</p>
+        <p>This is not a frontend data source.</p>
+        <p>Images are loaded from the local <code>public/images/accommodations/d2</code> structure.</p>
+        <p>Goal: visual validation before switching D2 gallery frontend paths.</p>
+      </div>
+
+      <section class="grid">
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-01.webp" alt="gallery-01 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-01.webp" alt="thumb-01 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-01.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-01.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-02.webp" alt="gallery-02 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-02.webp" alt="thumb-02 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-02.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-02.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp" alt="gallery-03 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp" alt="thumb-03 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-03.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-03.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-04.webp" alt="gallery-04 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-04.webp" alt="thumb-04 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-04.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-04.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-05.webp" alt="gallery-05 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-05.webp" alt="thumb-05 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-05.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-05.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-06.webp" alt="gallery-06 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-06.webp" alt="thumb-06 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-06.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-06.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-07.webp" alt="gallery-07 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-07.webp" alt="thumb-07 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-07.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-07.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-08.webp" alt="gallery-08 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-08.webp" alt="thumb-08 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-08.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-08.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-09.webp" alt="gallery-09 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-09.webp" alt="thumb-09 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-09.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-09.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-10.webp" alt="gallery-10 preview" loading="lazy" />
+              <figcaption class="label">gallery</figcaption>
+            </figure>
+            <figure class="media-item">
+              <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-10.webp" alt="thumb-10 preview" loading="lazy" />
+              <figcaption class="label">thumb</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>role</dt><dd>gallery + thumbnail</dd>
+            <dt>gallery filename</dt><dd>dandelion-d2-kisapati-gallery-10.webp</dd>
+            <dt>thumb filename</dt><dd>dandelion-d2-kisapati-thumb-10.webp</dd>
+            <dt>review note</dt><dd>TODO</dd>
+            <dt>approved</dt><dd>no</dd>
+          </dl>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>
