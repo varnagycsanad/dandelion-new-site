@@ -20,7 +20,9 @@ function localImageAdmin() {
 
         for (const endpoint of [
           'intake-source',
+          'list-sources',
           'save',
+          'select-source',
           'update-media',
           'save-apartment',
           'save-apartments',
