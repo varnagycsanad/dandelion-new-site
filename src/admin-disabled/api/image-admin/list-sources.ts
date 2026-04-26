@@ -26,6 +26,7 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   const candidates = accommodationSourceImages[apartment];
+  const apartmentRegistry = accommodationImages[apartment];
   const registryGallery = accommodationImages[apartment]?.gallery || [];
 
   if (!Array.isArray(candidates)) {
@@ -40,28 +41,66 @@ export const GET: APIRoute = async ({ url }) => {
 
   const serializedCandidates = await Promise.all(
     candidates.map(async (candidate) => {
+      const role =
+        candidate.intendedRoles?.[0] ||
+        candidate.targetPlans?.[0]?.role ||
+        "";
       const galleryPlan = candidate.targetPlans?.find((plan) => plan.role === "gallery");
       const thumbPlan = candidate.targetPlans?.find(
         (plan) => plan.role === "thumbnail" || plan.role === "thumb",
       );
+      const rolePlan =
+        candidate.targetPlans?.find((plan) => plan.role === role) ||
+        galleryPlan ||
+        thumbPlan ||
+        candidate.targetPlans?.[0];
       const galleryTargetPath = galleryPlan?.targetPath || "";
       const thumbTargetPath = thumbPlan?.targetPath || thumbPlan?.thumbPath || "";
+      const roleTargetPath = rolePlan?.targetPath || rolePlan?.thumbPath || "";
       const galleryExists = await fileExists(resolvePublicPath(galleryTargetPath));
       const thumbExists = await fileExists(resolvePublicPath(thumbTargetPath));
+      const roleTargetExists = await fileExists(resolvePublicPath(roleTargetPath));
       const registryMatch =
         registryGallery.find(
           (entry) =>
             (galleryTargetPath && entry.src === galleryTargetPath) ||
             (thumbTargetPath && entry.thumb === thumbTargetPath),
         ) || null;
+      const heroDesktopRegistry = apartmentRegistry?.hero?.desktop;
+      const heroMobileRegistry = apartmentRegistry?.hero?.mobile;
+      const cardRegistry = apartmentRegistry?.card;
+
+      let processed = galleryExists && thumbExists;
+      let published = Boolean(registryMatch);
+      let registryId = registryMatch?.id || "";
+      let registrySrc = registryMatch?.src || "";
+      let registryThumb = registryMatch?.thumb || "";
+
+      if (role === "hero_mobile" || role === "hero_desktop" || role === "card") {
+        processed = roleTargetExists;
+      }
+
+      if (role === "hero_desktop" && heroDesktopRegistry?.src === roleTargetPath) {
+        published = true;
+        registryId = heroDesktopRegistry.id || "";
+        registrySrc = heroDesktopRegistry.src || "";
+        registryThumb = "";
+      } else if (role === "hero_mobile" && heroMobileRegistry?.src === roleTargetPath) {
+        published = true;
+        registryId = heroMobileRegistry.id || "";
+        registrySrc = heroMobileRegistry.src || "";
+        registryThumb = "";
+      } else if (role === "card" && cardRegistry?.src === roleTargetPath) {
+        published = true;
+        registryId = cardRegistry.id || "";
+        registrySrc = cardRegistry.src || "";
+        registryThumb = "";
+      }
 
       return {
         id: candidate.id,
         status: candidate.status,
-        role:
-          candidate.intendedRoles?.[0] ||
-          candidate.targetPlans?.[0]?.role ||
-          "",
+        role,
         intendedRoles: candidate.intendedRoles || [],
         theme: candidate.theme || "",
         room: candidate.room || "",
@@ -72,11 +111,13 @@ export const GET: APIRoute = async ({ url }) => {
         thumbTargetPath,
         galleryExists,
         thumbExists,
-        processed: galleryExists && thumbExists,
-        published: Boolean(registryMatch),
-        registryId: registryMatch?.id || "",
-        registrySrc: registryMatch?.src || "",
-        registryThumb: registryMatch?.thumb || "",
+        roleTargetPath,
+        roleTargetExists,
+        processed,
+        published,
+        registryId,
+        registrySrc,
+        registryThumb,
       };
     }),
   );
