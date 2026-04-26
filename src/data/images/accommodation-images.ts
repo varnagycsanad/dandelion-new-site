@@ -1,14 +1,80 @@
 // [CHANGE 2026-04-26 00:00] Üres accommodation image registry váz létrehozása.
 // [CHANGE 2026-04-26 00:00] Lakáskulcs-alapú üres accommodation image registry inicializálása.
 // [CHANGE 2026-04-26 00:00] D2 gallery ImageAsset registry kitöltése lokális WebP és thumb képekkel.
+// [CHANGE 2026-04-26 00:00] D2 hero ImageAsset registry kitöltése lokális desktop és mobil WebP képekkel.
 import type { AccommodationImageSet } from "./image-types";
 
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: {
+        id: "d2-hero-desktop-01",
+        apartmentKey: "d2",
+        role: "hero_desktop",
+        room: "külső",
+        theme: "vendégház / terasz",
+        src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp",
+        width: 1920,
+        height: 1440,
+        aspectRatio: "4:3",
+        alt: {
+          hu: "Dandelion D2 kertes vendégház fedett terasszal Kisapátiban",
+          en: "Dandelion D2 garden guesthouse with covered terrace in Kisapáti",
+        },
+        title: {
+          hu: "D2 kertes vendégház",
+          en: "D2 garden guesthouse",
+        },
+        caption: {
+          hu: "A Dandelion D2 vendégház kívülről, fedett terasszal és kerttel.",
+          en: "Exterior view of Dandelion D2 with covered terrace and garden.",
+        },
+        focusPoint: "center center",
+        sortOrder: 1,
+        status: "active",
+        source: {
+          type: "wordpress",
+          wpId: 7870,
+          originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp",
+          originalFilename: "2025-09-29-10-27-39.webp",
+        },
+        createdAt: "2026-04-26",
+        updatedAt: "2026-04-26",
+      },
+      mobile: {
+        id: "d2-hero-mobile-01",
+        apartmentKey: "d2",
+        role: "hero_mobile",
+        room: "külső",
+        theme: "fedett terasz / kert",
+        src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
+        width: 1080,
+        height: 810,
+        aspectRatio: "4:3",
+        alt: {
+          hu: "Dandelion D2 vendégház fedett terasza és kertje Kisapátiban",
+          en: "Covered terrace and garden of the Dandelion D2 guesthouse in Kisapáti",
+        },
+        title: {
+          hu: "D2 fedett terasz és kert",
+          en: "D2 covered terrace and garden",
+        },
+        caption: {
+          hu: "A Dandelion D2 vendégház fedett terasza és zárt kertje.",
+          en: "The covered terrace and enclosed garden of the Dandelion D2 guesthouse.",
+        },
+        focusPoint: "center center",
+        sortOrder: 1,
+        status: "active",
+        source: {
+          type: "local",
+          originalUrl: "/images/d2-hero-mobile.webp",
+          originalFilename: "d2-hero-mobile.webp",
+        },
+        createdAt: "2026-04-26",
+        updatedAt: "2026-04-26",
+      },
     },
     card: null,
     gallery: [
