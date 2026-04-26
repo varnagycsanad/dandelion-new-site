@@ -1,4 +1,5 @@
 <!-- [CHANGE 2026-04-26 00:00] D2 feldolgozott WebP gallery és thumb review kontaktlap létrehozása. -->
+<!-- [CHANGE 2026-04-26 00:00] Processed WebP kontaktlap képelőnézeti méreteinek javítása vizuális review-hoz. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,22 +53,22 @@
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        gap: 16px;
       }
 
       .card {
         background: var(--panel);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 12px;
+        padding: 14px;
       }
 
       .media {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 10px;
-        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 12px;
       }
 
       .media-item {
@@ -75,12 +76,31 @@
         border-radius: 6px;
         overflow: hidden;
         background: #f7f9fb;
+        margin: 0;
       }
 
-      .media-item img {
+      .media-item:first-child {
+        min-height: 300px;
+      }
+
+      .media-item:first-child img {
         display: block;
         width: 100%;
+        min-height: 300px;
+        object-fit: contain;
+        background: #eef2f7;
+      }
+
+      .media-item:last-child {
+        width: 180px;
+      }
+
+      .media-item:last-child img {
+        display: block;
+        width: 180px;
         height: auto;
+        object-fit: contain;
+        background: #eef2f7;
       }
 
       .label {
@@ -107,6 +127,24 @@
       dd {
         margin: 0;
         overflow-wrap: anywhere;
+      }
+
+      @media (max-width: 700px) {
+        body {
+          padding: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .media-item:first-child {
+          min-height: 240px;
+        }
+
+        .media-item:first-child img {
+          min-height: 240px;
+        }
       }
     </style>
   </head>
