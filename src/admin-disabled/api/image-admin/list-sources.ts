@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 import { accommodationSourceImages } from "../../../data/images/accommodation-source-images.ts";
+import { accommodationImages } from "../../../data/images/accommodation-images.ts";
 
 export const prerender = false;
 
@@ -25,6 +26,7 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   const candidates = accommodationSourceImages[apartment];
+  const registryGallery = accommodationImages[apartment]?.gallery || [];
 
   if (!Array.isArray(candidates)) {
     return jsonResponse(
@@ -46,6 +48,12 @@ export const GET: APIRoute = async ({ url }) => {
       const thumbTargetPath = thumbPlan?.targetPath || thumbPlan?.thumbPath || "";
       const galleryExists = await fileExists(resolvePublicPath(galleryTargetPath));
       const thumbExists = await fileExists(resolvePublicPath(thumbTargetPath));
+      const registryMatch =
+        registryGallery.find(
+          (entry) =>
+            (galleryTargetPath && entry.src === galleryTargetPath) ||
+            (thumbTargetPath && entry.thumb === thumbTargetPath),
+        ) || null;
 
       return {
         id: candidate.id,
@@ -65,6 +73,10 @@ export const GET: APIRoute = async ({ url }) => {
         galleryExists,
         thumbExists,
         processed: galleryExists && thumbExists,
+        published: Boolean(registryMatch),
+        registryId: registryMatch?.id || "",
+        registrySrc: registryMatch?.src || "",
+        registryThumb: registryMatch?.thumb || "",
       };
     }),
   );

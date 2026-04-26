@@ -811,6 +811,7 @@ const initialSelectedMedia =
       let isIntakeSubmitting = false;
       let isSourceListLoading = false;
       let isSourceProcessSubmitting = false;
+      let isSourcePublishSubmitting = false;
       let isSourceSelectSubmitting = false;
       let sourceCandidates = [];
       let quickFilters = state.initialQuickFilters || {
@@ -903,12 +904,12 @@ const initialSelectedMedia =
       function updateSourceListUiState() {
         if (sourceListRefreshButton) {
           sourceListRefreshButton.disabled =
-            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
+            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting || isSourcePublishSubmitting;
         }
 
         if (sourceListApartmentSelect) {
           sourceListApartmentSelect.disabled =
-            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
+            isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting || isSourcePublishSubmitting;
         }
 
         if (!sourceListContainer) {
@@ -916,10 +917,10 @@ const initialSelectedMedia =
         }
 
         sourceListContainer
-          .querySelectorAll("[data-source-select-button], [data-source-process-button]")
+          .querySelectorAll("[data-source-select-button], [data-source-process-button], [data-source-publish-button]")
           .forEach((button) => {
             button.disabled =
-              isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting;
+              isSourceListLoading || isSourceSelectSubmitting || isSourceProcessSubmitting || isSourcePublishSubmitting;
           });
       }
 
@@ -974,6 +975,16 @@ const initialSelectedMedia =
             const thumbTarget = candidate.thumbTargetPath
               ? `<div class="dnd-image-admin__source-path"><strong>Thumb:</strong> ${escapeHtml(candidate.thumbTargetPath)}${candidate.thumbExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
+            const registryEntry = candidate.registryId
+              ? `<div class="dnd-image-admin__source-path"><strong>Registry:</strong> ${escapeHtml(candidate.registryId)}</div>`
+              : "";
+            const registrySrc = candidate.registrySrc
+              ? `<div class="dnd-image-admin__source-path"><strong>Registry src:</strong> ${escapeHtml(candidate.registrySrc)}</div>`
+              : "";
+            const registryThumb = candidate.registryThumb
+              ? `<div class="dnd-image-admin__source-path"><strong>Registry thumb:</strong> ${escapeHtml(candidate.registryThumb)}</div>`
+              : "";
+            const canProcess = candidate.status === "selected" && Boolean(candidate.galleryTargetPath) && Boolean(candidate.thumbTargetPath);
 
             let actionMarkup = `<span class="dnd-image-admin__source-state">Státusz: ${escapeHtml(candidate.status)}</span>`;
 
@@ -987,7 +998,23 @@ const initialSelectedMedia =
                   Jóváhagyás feldolgozásra
                 </button>
               `;
-            } else if (candidate.status === "selected" && !candidate.processed) {
+            } else if (canProcess && candidate.processed && candidate.published) {
+              actionMarkup = `
+                <span class="dnd-image-admin__source-state is-approved">
+                  Már publikálva
+                </span>
+              `;
+            } else if (canProcess && candidate.processed && !candidate.published) {
+              actionMarkup = `
+                <button
+                  type="button"
+                  class="dnd-btn dnd-btn--secondary dnd-image-admin__source-action"
+                  data-source-publish-button="${escapeHtml(candidate.id)}"
+                >
+                  Publikálás galériába
+                </button>
+              `;
+            } else if (canProcess && !candidate.processed) {
               actionMarkup = `
                 <button
                   type="button"
@@ -1021,6 +1048,9 @@ const initialSelectedMedia =
                 ${originalUrl}
                 ${galleryTarget}
                 ${thumbTarget}
+                ${registryEntry}
+                ${registrySrc}
+                ${registryThumb}
                 <div class="dnd-image-admin__source-actions">
                   ${actionMarkup}
                 </div>
@@ -1052,6 +1082,19 @@ const initialSelectedMedia =
               }
 
               await runSourceProcessRequest(sourceListApartmentSelect.value, sourceId);
+            });
+          });
+
+        sourceListContainer
+          .querySelectorAll("[data-source-publish-button]")
+          .forEach((button) => {
+            button.addEventListener("click", async () => {
+              const sourceId = button.getAttribute("data-source-publish-button");
+              if (!sourceId || !sourceListApartmentSelect) {
+                return;
+              }
+
+              await runSourcePublishRequest(sourceListApartmentSelect.value, sourceId);
             });
           });
 
@@ -1192,6 +1235,55 @@ const initialSelectedMedia =
           );
         } finally {
           isSourceProcessSubmitting = false;
+          updateSourceListUiState();
+        }
+      }
+
+      async function runSourcePublishRequest(apartment, sourceId) {
+        try {
+          isSourcePublishSubmitting = true;
+          updateSourceListUiState();
+          setSourceListResult(true, `Publikálás folyamatban: ${sourceId}`, "");
+
+          const response = await fetch(apiUrl("publish-source"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              apartment,
+              source: sourceId
+            })
+          });
+
+          const payload = await response.json().catch(() => null);
+          const stdout = payload?.stdout || "";
+          const stderr = payload?.stderr || "";
+          const formattedOutput = [stdout, stderr].filter(Boolean).join("\n\n").trim();
+
+          if (!response.ok || !payload?.ok) {
+            setSourceListResult(
+              false,
+              "Publish hiba",
+              formattedOutput || payload?.error || "A publish kérés nem sikerült.",
+            );
+            return;
+          }
+
+          setSourceListResult(
+            true,
+            "Galéria publikálás sikeres",
+            formattedOutput || "A publish kérés sikeres.",
+          );
+          await loadSourceCandidates();
+        } catch (error) {
+          setSourceListResult(
+            false,
+            "Publish hiba",
+            error instanceof Error ? error.message : "A publish kérés nem sikerült.",
+          );
+        } finally {
+          isSourcePublishSubmitting = false;
           updateSourceListUiState();
         }
       }
