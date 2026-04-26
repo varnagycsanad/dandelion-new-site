@@ -56,60 +56,6 @@ type D2RuntimeImageConfig = {
   };
 };
 
-// [CHANGE 2026-04-23 20:15] Keep the full D2 page image set in one place so later real photos are easy to swap in.
-const d2PlaceholderGallery = [
-  {
-    id: -1,
-    src: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Világos, természetközeli nappali nagy ablakokkal"
-  },
-  {
-    id: -2,
-    src: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Letisztult étkező és nappali természetes fénnyel"
-  },
-  {
-    id: -3,
-    src: "https://images.pexels.com/photos/6489127/pexels-photo-6489127.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Világos étkező és konyha természetes anyagokkal"
-  },
-  {
-    id: -4,
-    src: "https://images.pexels.com/photos/6585619/pexels-photo-6585619.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Nyugodt hálószoba puha, világos tónusokkal"
-  },
-  {
-    id: -5,
-    src: "https://images.pexels.com/photos/5998138/pexels-photo-5998138.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Terasz vidéki környezetben"
-  },
-  {
-    id: -6,
-    src: "https://images.pexels.com/photos/3935331/pexels-photo-3935331.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Nappali részlet nagy üvegfelületekkel"
-  },
-  {
-    id: -7,
-    src: "https://images.pexels.com/photos/7031408/pexels-photo-7031408.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Letisztult enteriőr természetes fénnyel"
-  },
-  {
-    id: -8,
-    src: "https://images.pexels.com/photos/5997994/pexels-photo-5997994.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Kültéri pihenősarok növények között"
-  },
-  {
-    id: -9,
-    src: "https://images.pexels.com/photos/7534556/pexels-photo-7534556.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Világos apartmanrészlet otthonos hangulattal"
-  },
-  {
-    id: -10,
-    src: "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Tágas, családbarát enteriőr nyugodt színekkel"
-  }
-] as const;
-
 const d2ShortDescription =
   "A Dandelion D2 világos, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Kényelmes választás 4–6 főnek, saját parkolóval, terasszal és nyugodt kertkapcsolattal.";
 
@@ -360,7 +306,12 @@ if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
 
-const d2HeroFallback = d2LegacyGalleryImages[0] || d2GalleryImages[0] || d2PlaceholderGallery[0];
+// [CHANGE 2026-04-26 00:00] D2 nem használt Pexels placeholder/fallback képlogika eltávolítása.
+const d2LocalHeroFallback: D2HeroImage = {
+  src: d2MobileHeroImage,
+  alt: "Dandelion D2"
+};
+const d2HeroFallback = d2LegacyGalleryImages[0] || d2GalleryImages[0] || d2LocalHeroFallback;
 let d2InitialHeroImages = {
   desktop: {
     src: d2DesktopHeroImage || d2HeroFallback.src,
