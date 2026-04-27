@@ -112,6 +112,39 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
     },
     gallery: [
       {
+        id: "d2-gallery-03",
+        apartmentKey: "d2",
+        role: "gallery",
+        src: "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp",
+        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp",
+        width: 1600,
+        height: 1200,
+        aspectRatio: "4:3",
+        alt: {
+          hu: "Dandelion D2 fürdőszoba káddal, mosdóval és világos ablakkal",
+          en: "Dandelion D2 bathroom with bathtub, sink and bright window",
+        },
+        title: {
+          hu: "D2 fürdőszoba káddal",
+          en: "D2 bathroom with bathtub",
+        },
+        caption: {
+          hu: "Világos fürdőszoba káddal, mosdóval és praktikus tárolóval.",
+          en: "Bright bathroom with bathtub, sink and practical storage.",
+        },
+        focusPoint: "center center",
+        sortOrder: 1,
+        status: "active",
+        source: {
+          type: "wordpress",
+          wpId: 7875,
+          originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp",
+          originalFilename: "IMG_9347.webp",
+        },
+        createdAt: "2026-04-26",
+        updatedAt: "2026-04-26",
+      },
+      {
         id: "d2-gallery-01",
         apartmentKey: "d2",
         role: "gallery",
@@ -133,7 +166,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Bright living room with a fireplace and direct access to the covered terrace.",
         },
         focusPoint: "center center",
-        sortOrder: 1,
+        sortOrder: 2,
         status: "active",
         source: {
           type: "wordpress",
@@ -166,46 +199,13 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Covered outdoor dining terrace connected to the garden.",
         },
         focusPoint: "center center",
-        sortOrder: 2,
+        sortOrder: 3,
         status: "active",
         source: {
           type: "wordpress",
           wpId: 7871,
           originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-26-50.webp",
           originalFilename: "2025-09-29-10-26-50.webp",
-        },
-        createdAt: "2026-04-26",
-        updatedAt: "2026-04-26",
-      },
-      {
-        id: "d2-gallery-03",
-        apartmentKey: "d2",
-        role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-03.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-03.webp",
-        width: 1600,
-        height: 1200,
-        aspectRatio: "4:3",
-        alt: {
-          hu: "Dandelion D2 fürdőszoba káddal, mosdóval és világos ablakkal",
-          en: "Dandelion D2 bathroom with bathtub, sink and bright window",
-        },
-        title: {
-          hu: "D2 fürdőszoba káddal",
-          en: "D2 bathroom with bathtub",
-        },
-        caption: {
-          hu: "Világos fürdőszoba káddal, mosdóval és praktikus tárolóval.",
-          en: "Bright bathroom with bathtub, sink and practical storage.",
-        },
-        focusPoint: "center center",
-        sortOrder: 3,
-        status: "active",
-        source: {
-          type: "wordpress",
-          wpId: 7875,
-          originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_9347.webp",
-          originalFilename: "IMG_9347.webp",
         },
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26",
@@ -474,7 +474,6 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26"
       },
-    
       {
         id: "d2-gallery-12",
         apartmentKey: "d2",
@@ -507,8 +506,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         },
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26"
-      }
-    ,
+      },
       {
         id: "d2-gallery-19",
         apartmentKey: "d2",
@@ -531,7 +529,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Terrace of the Dandelion D2 guesthouse in Kisapáti."
         },
         focusPoint: "center center",
-        sortOrder: 19,
+        sortOrder: 13,
         status: "active",
         source: {
           type: "wordpress",
