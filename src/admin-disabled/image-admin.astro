@@ -181,6 +181,13 @@ const initialSelectedMedia =
               </label>
               <div class="dnd-image-admin__intake-actions">
                 <button
+                  id="dnd-image-admin-intake-use-selected"
+                  class="dnd-btn dnd-btn--secondary"
+                  type="button"
+                >
+                  Kiválasztott kép használata
+                </button>
+                <button
                   id="dnd-image-admin-intake-preview"
                   class="dnd-btn dnd-btn--secondary"
                   type="button"
@@ -380,6 +387,9 @@ const initialSelectedMedia =
                   </h3>
                   <p id="dnd-image-admin-current-image-alt" class="dnd-image-admin__panel-text">
                     {mapping[initialSlotKey]?.altText || "Nincs alt szöveg."}
+                  </p>
+                  <p id="dnd-image-admin-current-image-media-id" class="dnd-image-admin__panel-text">
+                    WP media ID: {initialSelectedMedia?.id || "-"}
                   </p>
                   <a
                     id="dnd-image-admin-current-image-link"
@@ -734,6 +744,7 @@ const initialSelectedMedia =
       const currentApartmentDescription = document.getElementById("dnd-image-admin-current-apartment-description");
       const currentImageTitle = document.getElementById("dnd-image-admin-current-image-title");
       const currentImageAlt = document.getElementById("dnd-image-admin-current-image-alt");
+      const currentImageMediaId = document.getElementById("dnd-image-admin-current-image-media-id");
       const currentImageLink = document.getElementById("dnd-image-admin-current-image-link");
       const currentMeta = document.getElementById("dnd-image-admin-current-meta");
       const apartmentHeroDesktopTitle = document.getElementById("dnd-image-admin-apartment-hero-desktop-title");
@@ -785,6 +796,7 @@ const initialSelectedMedia =
       const intakeThemeInput = document.getElementById("dnd-image-admin-intake-theme");
       const intakeRoomInput = document.getElementById("dnd-image-admin-intake-room");
       const intakeSortOrderInput = document.getElementById("dnd-image-admin-intake-sort-order");
+      const intakeUseSelectedButton = document.getElementById("dnd-image-admin-intake-use-selected");
       const intakePreviewButton = document.getElementById("dnd-image-admin-intake-preview");
       const intakeSubmitButton = document.getElementById("dnd-image-admin-intake-submit");
       const intakeStatus = document.getElementById("dnd-image-admin-intake-status");
@@ -890,6 +902,10 @@ const initialSelectedMedia =
       }
 
       function updateIntakeUiState() {
+        if (intakeUseSelectedButton) {
+          intakeUseSelectedButton.disabled = isIntakeSubmitting || !getSelectedMediaForEditor();
+        }
+
         if (intakePreviewButton) {
           intakePreviewButton.disabled = isIntakeSubmitting;
         }
@@ -909,6 +925,59 @@ const initialSelectedMedia =
           intakeOutput.textContent = outputText || "Nincs válasz.";
           intakeOutput.dataset.state = ok ? "success" : "error";
         }
+      }
+
+      function buildThemeSuggestion(mediaItem) {
+        if (!mediaItem) {
+          return "";
+        }
+
+        const candidates = [
+          mediaItem.title,
+          mediaItem.filename ? String(mediaItem.filename).replace(/\.[a-z0-9]+$/i, "") : "",
+        ];
+
+        for (const candidate of candidates) {
+          const suggestion = slugifyThemeCandidate(candidate);
+          if (suggestion) {
+            return suggestion;
+          }
+        }
+
+        return "";
+      }
+
+      function slugifyThemeCandidate(value) {
+        const normalized = String(value ?? "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .replace(/-{2,}/g, "-");
+
+        if (!/[a-z]/.test(normalized) || normalized.length < 3) {
+          return "";
+        }
+
+        return normalized;
+      }
+
+      function useSelectedMediaForIntake() {
+        const mediaItem = getSelectedMediaForEditor();
+
+        if (!mediaItem || !intakeWpIdInput) {
+          setIntakeResult(false, "Intake hiba", "Előbb válassz ki egy képet.");
+          return;
+        }
+
+        intakeWpIdInput.value = String(mediaItem.id || "");
+
+        if (intakeThemeInput) {
+          intakeThemeInput.value = buildThemeSuggestion(mediaItem);
+        }
+
+        setIntakeResult(true, "Source candidate előkészítve", "A kiválasztott kép adatai bekerültek az intake mezőkbe.");
       }
 
       function updateSourceListUiState() {
@@ -2654,6 +2723,9 @@ const initialSelectedMedia =
           currentMeta.classList.add("is-empty");
           currentImageTitle.textContent = "Nincs kiválasztott kép";
           currentImageAlt.textContent = "Ha kiválasztasz egy képet, itt látod majd az alt szöveget és a fő méreteket.";
+          if (currentImageMediaId) {
+            currentImageMediaId.textContent = "WP media ID: -";
+          }
           currentImageLink.classList.add("is-hidden");
           currentImageLink.setAttribute("href", "#");
           renderMetaEditor(null);
@@ -2671,6 +2743,9 @@ const initialSelectedMedia =
         currentImageTitle.textContent = selectedMediaItem?.title || selected.title;
         currentImageAlt.textContent =
           selectedMediaItem?.altText || selected.altText || "Nincs alt szöveg.";
+        if (currentImageMediaId) {
+          currentImageMediaId.textContent = `WP media ID: ${selectedMediaItem?.id || "-"}`;
+        }
         currentImageLink.classList.remove("is-hidden");
         currentImageLink.setAttribute("href", selected.sourceUrl);
         renderMetaEditor(selectedMediaItem);
@@ -2679,6 +2754,7 @@ const initialSelectedMedia =
 
       function renderAll() {
         syncHiddenInputs();
+        updateIntakeUiState();
         if (metaSuccess) {
           metaSuccess.classList.add("is-hidden");
         }
@@ -3109,6 +3185,12 @@ const initialSelectedMedia =
       if (intakePreviewButton) {
         intakePreviewButton.addEventListener("click", async () => {
           await runIntakeRequest(true);
+        });
+      }
+
+      if (intakeUseSelectedButton) {
+        intakeUseSelectedButton.addEventListener("click", () => {
+          useSelectedMediaForIntake();
         });
       }
 
