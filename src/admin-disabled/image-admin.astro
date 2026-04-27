@@ -767,6 +767,17 @@ const initialSelectedMedia =
 
     if (stateElement) {
       const apiUrl = (endpoint) => `${adminApiBase}${endpoint}`;
+      const adminBaseHref = (() => {
+        const marker = "api/image-admin/";
+        const markerIndex = adminApiBase.indexOf(marker);
+
+        if (markerIndex < 0) {
+          return "/";
+        }
+
+        const rawBase = adminApiBase.slice(0, markerIndex);
+        return rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
+      })();
       const imageAdminRoot = document.querySelector(".dnd-image-admin");
       const state = JSON.parse(stateElement.textContent || "{}");
       const adminTabButtons = Array.from(document.querySelectorAll("[data-admin-tab-button]"));
@@ -1099,6 +1110,32 @@ const initialSelectedMedia =
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;")
           .replace(/'/g, "&#39;");
+      }
+
+      function resolveGalleryImageUrl(rawPath) {
+        const value = typeof rawPath === "string" ? rawPath.trim() : "";
+
+        if (!value) {
+          return "";
+        }
+
+        if (
+          /^https?:\/\//i.test(value) ||
+          value.startsWith("//") ||
+          value.startsWith("data:")
+        ) {
+          return value;
+        }
+
+        if (value.startsWith("/images/")) {
+          return `${adminBaseHref.replace(/\/$/, "")}${value}`;
+        }
+
+        if (value.startsWith("/")) {
+          return value;
+        }
+
+        return `${adminBaseHref}${value.replace(/^\.?\/+/, "")}`;
       }
 
       function computeSourceSummary(candidates) {
@@ -2899,7 +2936,7 @@ const initialSelectedMedia =
 
         galleryOrderList.innerHTML = orderedItems
           .map((item, index) => {
-            const imageUrl = item.thumb || "";
+            const imageUrl = resolveGalleryImageUrl(item.thumb || item.src || "");
             const altText = item.altHu || item.titleHu || item.id || `Gallery #${index + 1}`;
             const sortLabel = item.sortOrder == null ? "-" : item.sortOrder;
             const moveUpDisabled = index === 0 ? "disabled" : "";
@@ -2916,7 +2953,7 @@ const initialSelectedMedia =
                   ${
                     imageUrl
                       ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(altText)}" />`
-                      : '<div class="dnd-image-admin__gallery-order-placeholder">Nincs thumb</div>'
+                      : '<div class="dnd-image-admin__gallery-order-placeholder">Nincs kép</div>'
                   }
                 </div>
                 <div class="dnd-image-admin__gallery-order-copy">
