@@ -245,7 +245,17 @@ const initialSelectedMedia =
               <p id="dnd-image-admin-source-list-status" class="dnd-image-admin__panel-text">
                 Itt a source inventory source_found és selected elemei ellenőrizhetők.
               </p>
-              <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output">Még nincs lista betöltve.</pre>
+              <div id="dnd-image-admin-source-list-warning" class="dnd-image-admin__source-warning is-hidden"></div>
+              <div class="dnd-image-admin__source-diagnostics">
+                <button
+                  id="dnd-image-admin-source-list-toggle-output"
+                  class="dnd-btn dnd-btn--secondary"
+                  type="button"
+                >
+                  Technikai részletek mutatása
+                </button>
+              </div>
+              <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output is-hidden">Még nincs lista betöltve.</pre>
               <div id="dnd-image-admin-source-list" class="dnd-image-admin__source-list"></div>
             </form>
           </div>
@@ -817,6 +827,8 @@ const initialSelectedMedia =
       const sourceListApartmentSelect = document.getElementById("dnd-image-admin-source-list-apartment");
       const sourceListRefreshButton = document.getElementById("dnd-image-admin-source-list-refresh");
       const sourceListStatus = document.getElementById("dnd-image-admin-source-list-status");
+      const sourceListWarning = document.getElementById("dnd-image-admin-source-list-warning");
+      const sourceListToggleOutputButton = document.getElementById("dnd-image-admin-source-list-toggle-output");
       const sourceListOutput = document.getElementById("dnd-image-admin-source-list-output");
       const sourceListContainer = document.getElementById("dnd-image-admin-source-list");
       const sourceSummaryGrid = document.getElementById("dnd-image-admin-source-summary-grid");
@@ -848,6 +860,7 @@ const initialSelectedMedia =
       let isSourcePublishSubmitting = false;
       let isSourceSelectSubmitting = false;
       let sourceCandidates = [];
+      let sourceListDiagnosticsVisible = false;
       let quickFilters = state.initialQuickFilters || {
         missingAlt: false,
         unassignedApartment: false
@@ -1031,6 +1044,20 @@ const initialSelectedMedia =
         }
       }
 
+      function setSourceListDiagnosticsVisibility(visible) {
+        sourceListDiagnosticsVisible = Boolean(visible);
+
+        if (sourceListOutput) {
+          sourceListOutput.classList.toggle("is-hidden", !sourceListDiagnosticsVisible);
+        }
+
+        if (sourceListToggleOutputButton) {
+          sourceListToggleOutputButton.textContent = sourceListDiagnosticsVisible
+            ? "Technikai részletek elrejtése"
+            : "Technikai részletek mutatása";
+        }
+      }
+
       function escapeHtml(value) {
         return String(value ?? "")
           .replace(/&/g, "&amp;")
@@ -1055,6 +1082,38 @@ const initialSelectedMedia =
           ).length,
           published: list.filter((candidate) => candidate.published === true).length,
         };
+      }
+
+      function getSourceStatusLabel(candidate) {
+        if (candidate?.status === "source_found") {
+          return "Beemelve, jóváhagyásra vár";
+        }
+
+        if (candidate?.status === "selected") {
+          return "Jóváhagyva";
+        }
+
+        return candidate?.status || "Ismeretlen";
+      }
+
+      function getSourceSortPriority(candidate) {
+        if (candidate?.status === "source_found") {
+          return 0;
+        }
+
+        if (candidate?.status === "selected" && candidate?.processed === false) {
+          return 1;
+        }
+
+        if (candidate?.processed === true && candidate?.published === false) {
+          return 2;
+        }
+
+        if (candidate?.published === true) {
+          return 3;
+        }
+
+        return 4;
       }
 
       function renderSourceSummary() {
@@ -1098,14 +1157,46 @@ const initialSelectedMedia =
         renderSourceSummary();
 
         if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
+          if (sourceListWarning) {
+            sourceListWarning.classList.add("is-hidden");
+            sourceListWarning.textContent = "";
+          }
           sourceListContainer.innerHTML =
             '<div class="dnd-image-admin__source-empty">Nincs source candidate a kiválasztott apartmanhoz.</div>';
           updateSourceListUiState();
           return;
         }
 
-        sourceListContainer.innerHTML = sourceCandidates
+        const sortedCandidates = [...sourceCandidates].sort((left, right) => {
+          const priorityDiff = getSourceSortPriority(left) - getSourceSortPriority(right);
+          if (priorityDiff !== 0) {
+            return priorityDiff;
+          }
+
+          const leftSort = Number.isFinite(Number(left?.sortOrder)) ? Number(left.sortOrder) : Number.MAX_SAFE_INTEGER;
+          const rightSort = Number.isFinite(Number(right?.sortOrder)) ? Number(right.sortOrder) : Number.MAX_SAFE_INTEGER;
+          if (leftSort !== rightSort) {
+            return leftSort - rightSort;
+          }
+
+          return String(left?.id || "").localeCompare(String(right?.id || ""));
+        });
+
+        const hasPendingApproval = sortedCandidates.some((candidate) => candidate.status === "source_found");
+        if (sourceListWarning) {
+          if (hasPendingApproval) {
+            sourceListWarning.textContent =
+              "Van jóváhagyásra váró kép. A következő lépés: Jóváhagyás feldolgozásra.";
+            sourceListWarning.classList.remove("is-hidden");
+          } else {
+            sourceListWarning.classList.add("is-hidden");
+            sourceListWarning.textContent = "";
+          }
+        }
+
+        sourceListContainer.innerHTML = sortedCandidates
           .map((candidate) => {
+            const statusLabel = getSourceStatusLabel(candidate);
             const wpId = candidate.wpId ? `<div><strong>WP ID:</strong> ${escapeHtml(candidate.wpId)}</div>` : "";
             const theme = candidate.theme ? `<div><strong>Theme:</strong> ${escapeHtml(candidate.theme)}</div>` : "";
             const room = candidate.room ? `<div><strong>Room:</strong> ${escapeHtml(candidate.room)}</div>` : "";
@@ -1131,9 +1222,15 @@ const initialSelectedMedia =
             const registryThumb = candidate.registryThumb
               ? `<div class="dnd-image-admin__source-path"><strong>Registry thumb:</strong> ${escapeHtml(candidate.registryThumb)}</div>`
               : "";
+            const roleTargetPath = candidate.roleTargetPath
+              ? `<div class="dnd-image-admin__source-path"><strong>Role target:</strong> ${escapeHtml(candidate.roleTargetPath)}${candidate.roleTargetExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
+              : "";
             const canProcess = candidate.status === "selected" && Boolean(candidate.galleryTargetPath) && Boolean(candidate.thumbTargetPath);
+            const sourceFoundLead = candidate.status === "source_found"
+              ? '<div class="dnd-image-admin__source-lead">Következő teendő</div>'
+              : "";
 
-            let actionMarkup = `<span class="dnd-image-admin__source-state">Státusz: ${escapeHtml(candidate.status)}</span>`;
+            let actionMarkup = `<span class="dnd-image-admin__source-state">Státusz: ${escapeHtml(statusLabel)}</span>`;
 
             if (candidate.status === "source_found") {
               actionMarkup = `
@@ -1180,13 +1277,14 @@ const initialSelectedMedia =
             }
 
             return `
-              <article class="dnd-image-admin__source-card">
+              <article class="dnd-image-admin__source-card${candidate.status === "source_found" ? " is-next-step" : ""}">
+                ${sourceFoundLead}
                 <div class="dnd-image-admin__source-card-head">
                   <strong>${escapeHtml(candidate.id)}</strong>
                   <span class="dnd-image-admin__source-badge">${escapeHtml(candidate.role || "-")}</span>
                 </div>
                 <div class="dnd-image-admin__source-meta">
-                  <div><strong>Státusz:</strong> ${escapeHtml(candidate.status)}</div>
+                  <div><strong>Státusz:</strong> ${escapeHtml(statusLabel)}</div>
                   ${wpId}
                   ${theme}
                   ${room}
@@ -1195,6 +1293,7 @@ const initialSelectedMedia =
                 ${originalUrl}
                 ${galleryTarget}
                 ${thumbTarget}
+                ${roleTargetPath}
                 ${registryEntry}
                 ${registrySrc}
                 ${registryThumb}
@@ -3234,6 +3333,12 @@ const initialSelectedMedia =
         });
       }
 
+      if (sourceListToggleOutputButton) {
+        sourceListToggleOutputButton.addEventListener("click", () => {
+          setSourceListDiagnosticsVisibility(!sourceListDiagnosticsVisible);
+        });
+      }
+
       if (metaForm) {
         metaForm.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -3758,6 +3863,7 @@ const initialSelectedMedia =
 
       renderAll();
       renderSourceCandidates();
+      setSourceListDiagnosticsVisibility(false);
       loadSourceCandidates();
     }
   </script>
@@ -4390,6 +4496,31 @@ const initialSelectedMedia =
       background: rgba(164, 31, 31, 0.05);
     }
 
+    .dnd-image-admin__intake-output.is-hidden {
+      display: none;
+    }
+
+    .dnd-image-admin__source-warning {
+      padding: 12px 14px;
+      border: 1px solid rgba(217, 158, 43, 0.28);
+      border-radius: 12px;
+      background: rgba(217, 158, 43, 0.1);
+      color: #7d5600;
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .dnd-image-admin__source-warning.is-hidden {
+      display: none;
+    }
+
+    .dnd-image-admin__source-diagnostics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .dnd-image-admin__source-list {
       display: grid;
       gap: 10px;
@@ -4452,6 +4583,20 @@ const initialSelectedMedia =
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.88);
+    }
+
+    .dnd-image-admin__source-card.is-next-step {
+      border-color: rgba(217, 158, 43, 0.38);
+      background: rgba(255, 251, 243, 0.98);
+      box-shadow: 0 0 0 1px rgba(217, 158, 43, 0.14);
+    }
+
+    .dnd-image-admin__source-lead {
+      color: #7d5600;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .dnd-image-admin__source-card-head {
