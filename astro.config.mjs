@@ -29,6 +29,8 @@ function localImageAdmin() {
           'save-apartment',
           'save-apartments',
           'save-seo-fields',
+          'list-gallery-registry',
+          'save-gallery-order',
         ]) {
           injectRoute({
             pattern: `/api/image-admin/${endpoint}`,

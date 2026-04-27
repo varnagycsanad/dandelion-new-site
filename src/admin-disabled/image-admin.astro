@@ -331,19 +331,46 @@ const initialSelectedMedia =
             >
               <div class="dnd-image-admin__gallery-order-head">
                 <div>
-                  <h3 class="dnd-image-admin__gallery-order-title">Lakásoldali galéria sorrend</h3>
+                  <h3 class="dnd-image-admin__gallery-order-title">Galéria sorrend</h3>
                   <p class="dnd-image-admin__gallery-order-text">
-                    Húzd át a képeket a kívánt sorrendbe.
+                    Registry alapú sorrendezés fel/le gombokkal.
                   </p>
                 </div>
-                <button
-                  id="dnd-image-admin-gallery-order-save"
-                  class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
-                  type="button"
-                >
-                  Galéria sorrend mentése
-                </button>
               </div>
+              <div class="dnd-image-admin__gallery-order-tools">
+                <label class="dnd-image-admin__field">
+                  <span>Apartman kulcs</span>
+                  <select id="dnd-image-admin-gallery-order-apartment">
+                    {apartmentOptions
+                      .filter((option) => option.key !== "all")
+                      .map((option) => (
+                        <option value={option.key} selected={option.key === "d2"}>
+                          {option.key}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+                <div class="dnd-image-admin__intake-actions">
+                  <button
+                    id="dnd-image-admin-gallery-order-load"
+                    class="dnd-btn dnd-btn--secondary"
+                    type="button"
+                  >
+                    Galéria betöltése
+                  </button>
+                  <button
+                    id="dnd-image-admin-gallery-order-save"
+                    class="dnd-btn dnd-btn--secondary dnd-image-admin__meta-submit"
+                    type="button"
+                  >
+                    Sorrend mentése
+                  </button>
+                </div>
+              </div>
+              <p id="dnd-image-admin-gallery-order-status" class="dnd-image-admin__panel-text">
+                Válassz apartmant, majd töltsd be a registry galériát.
+              </p>
+              <pre id="dnd-image-admin-gallery-order-output" class="dnd-image-admin__intake-output">Még nincs galéria betöltve.</pre>
               <div id="dnd-image-admin-gallery-order-list" class="dnd-image-admin__gallery-order-list"></div>
             </div>
 
@@ -799,8 +826,12 @@ const initialSelectedMedia =
       const apartmentSortOrderInput = document.getElementById("dnd-image-admin-apartment-sort-order");
       const apartmentSubmit = document.getElementById("dnd-image-admin-apartment-submit");
       const galleryOrderPanel = document.getElementById("dnd-image-admin-gallery-order-panel");
+      const galleryOrderApartmentSelect = document.getElementById("dnd-image-admin-gallery-order-apartment");
+      const galleryOrderLoad = document.getElementById("dnd-image-admin-gallery-order-load");
       const galleryOrderList = document.getElementById("dnd-image-admin-gallery-order-list");
       const galleryOrderSave = document.getElementById("dnd-image-admin-gallery-order-save");
+      const galleryOrderStatus = document.getElementById("dnd-image-admin-gallery-order-status");
+      const galleryOrderOutput = document.getElementById("dnd-image-admin-gallery-order-output");
       const bulkSuccess = document.getElementById("dnd-image-admin-bulk-success");
       const bulkError = document.getElementById("dnd-image-admin-bulk-error");
       const bulkCount = document.getElementById("dnd-image-admin-bulk-count");
@@ -846,12 +877,15 @@ const initialSelectedMedia =
       let apartmentImageAssignments = state.apartmentImageAssignments || {};
       let isMetaSaving = false;
       let isApartmentSaving = false;
+      let isGalleryOrderLoading = false;
       let isGalleryOrderSaving = false;
       let isBulkSaving = false;
       let isBulkSeoSaving = false;
       let isSeoSaving = false;
       let selectedBulkMediaIds = [];
       let apartmentGalleryOrderDrafts = {};
+      let registryGalleryItems = [];
+      let activeRegistryGalleryApartment = "d2";
       let mediaMetaOverrides = {};
       let mediaSeoFields = state.mediaSeoFields || {};
       let isIntakeSubmitting = false;
@@ -1744,58 +1778,16 @@ const initialSelectedMedia =
         };
       }
 
-      function getApartmentGalleryIdsFromAssignments(apartmentKey) {
-        return Object.entries(apartmentAssignments)
-          .filter(([, assignedApartmentKey]) => assignedApartmentKey === apartmentKey)
-          .map(([mediaId]) => Number(mediaId))
-          .filter((mediaId) => Number.isInteger(mediaId) && mediaId > 0);
-      }
-
-      function getApartmentGalleryOrderedIds(apartmentKey) {
-        if (!apartmentKey || apartmentKey === "all") {
-          return [];
+      function setGalleryOrderResult(ok, statusMessage, outputText) {
+        if (galleryOrderStatus) {
+          galleryOrderStatus.textContent = statusMessage;
+          galleryOrderStatus.style.color = ok ? "#6b4a00" : "#8a1616";
         }
 
-        const draftIds = apartmentGalleryOrderDrafts[apartmentKey];
-
-        if (Array.isArray(draftIds)) {
-          return draftIds;
+        if (galleryOrderOutput) {
+          galleryOrderOutput.textContent = outputText || "Nincs válasz.";
+          galleryOrderOutput.dataset.state = ok ? "success" : "error";
         }
-
-        const legacyIds = getApartmentGalleryIdsFromAssignments(apartmentKey);
-        const config = ensureApartmentImageConfig(apartmentKey);
-        const galleryIds = (config.gallery || []).map((item) => Number(item.id));
-        const sortOrderById = new Map(
-          (config.gallery || []).map((item) => [Number(item.id), Number(item.sortOrder)])
-        );
-        const combinedIds = [...legacyIds];
-
-        galleryIds.forEach((mediaId) => {
-          if (!combinedIds.includes(mediaId)) {
-            combinedIds.push(mediaId);
-          }
-        });
-
-        const originalIndexById = new Map(
-          combinedIds.map((mediaId, index) => [mediaId, index])
-        );
-
-        return combinedIds.sort((leftId, rightId) => {
-          const leftSortOrder = sortOrderById.get(leftId);
-          const rightSortOrder = sortOrderById.get(rightId);
-          const leftHasSortOrder = Number.isFinite(leftSortOrder);
-          const rightHasSortOrder = Number.isFinite(rightSortOrder);
-
-          if (leftHasSortOrder && rightHasSortOrder && leftSortOrder !== rightSortOrder) {
-            return leftSortOrder - rightSortOrder;
-          }
-
-          if (leftHasSortOrder !== rightHasSortOrder) {
-            return leftHasSortOrder ? -1 : 1;
-          }
-
-          return (originalIndexById.get(leftId) || 0) - (originalIndexById.get(rightId) || 0);
-        });
       }
 
       function resetApartmentGalleryOrderDraft(apartmentKey) {
@@ -1816,14 +1808,141 @@ const initialSelectedMedia =
           .filter((id) => Number.isInteger(id) && id > 0);
       }
 
-      function getApartmentGalleryOrderedIdsFromDom() {
-        if (!galleryOrderList) {
-          return [];
+      function updateGalleryOrderUiState() {
+        const disabled = isGalleryOrderLoading || isGalleryOrderSaving;
+
+        if (galleryOrderApartmentSelect) {
+          galleryOrderApartmentSelect.disabled = disabled;
         }
 
-        return Array.from(galleryOrderList.querySelectorAll("[data-gallery-order-item]"))
-          .map((item) => Number(item.getAttribute("data-media-id")))
-          .filter((id) => Number.isInteger(id) && id > 0);
+        if (galleryOrderLoad) {
+          galleryOrderLoad.disabled = disabled;
+        }
+
+        if (galleryOrderSave) {
+          galleryOrderSave.disabled = disabled || registryGalleryItems.length === 0;
+        }
+      }
+
+      function moveRegistryGalleryItem(index, direction) {
+        const fromIndex = Number(index);
+        const toIndex = fromIndex + direction;
+
+        if (
+          !Number.isInteger(fromIndex) ||
+          fromIndex < 0 ||
+          toIndex < 0 ||
+          toIndex >= registryGalleryItems.length
+        ) {
+          return;
+        }
+
+        const reordered = [...registryGalleryItems];
+        const [moved] = reordered.splice(fromIndex, 1);
+        reordered.splice(toIndex, 0, moved);
+        registryGalleryItems = reordered;
+        renderApartmentGalleryOrder();
+      }
+
+      async function loadRegistryGallery(apartmentOverride) {
+        const apartmentValue =
+          typeof apartmentOverride === "string" && apartmentOverride
+            ? apartmentOverride
+            : (galleryOrderApartmentSelect?.value || "d2");
+
+        activeRegistryGalleryApartment = apartmentValue;
+
+        try {
+          isGalleryOrderLoading = true;
+          updateGalleryOrderUiState();
+          setGalleryOrderResult(true, "Galéria betöltése folyamatban...", "");
+
+          const response = await fetch(
+            `${apiUrl("list-gallery-registry")}?apartment=${encodeURIComponent(apartmentValue)}`,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+              },
+            },
+          );
+          const payload = await response.json().catch(() => null);
+
+          if (!response.ok || !payload?.ok) {
+            throw new Error(payload?.error || "A galéria betöltése nem sikerült.");
+          }
+
+          registryGalleryItems = Array.isArray(payload.gallery) ? payload.gallery : [];
+          renderApartmentGalleryOrder();
+          setGalleryOrderResult(
+            true,
+            `Galéria betöltve: ${registryGalleryItems.length} elem.`,
+            JSON.stringify(payload, null, 2),
+          );
+        } catch (error) {
+          registryGalleryItems = [];
+          renderApartmentGalleryOrder();
+          setGalleryOrderResult(
+            false,
+            "Sorrend mentési hiba",
+            error instanceof Error ? error.message : "A galéria betöltése nem sikerült.",
+          );
+        } finally {
+          isGalleryOrderLoading = false;
+          updateGalleryOrderUiState();
+        }
+      }
+
+      async function saveRegistryGalleryOrder() {
+        const apartmentValue = galleryOrderApartmentSelect?.value || activeRegistryGalleryApartment || "d2";
+
+        if (!apartmentValue) {
+          setGalleryOrderResult(false, "Sorrend mentési hiba", "Az apartman kulcs kötelező.");
+          return;
+        }
+
+        if (!registryGalleryItems.length) {
+          setGalleryOrderResult(false, "Sorrend mentési hiba", "Nincs betöltött galéria.");
+          return;
+        }
+
+        try {
+          isGalleryOrderSaving = true;
+          updateGalleryOrderUiState();
+          setGalleryOrderResult(true, "Sorrend mentése folyamatban...", "");
+
+          const response = await fetch(apiUrl("save-gallery-order"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              apartment: apartmentValue,
+              orderedIds: registryGalleryItems.map((item) => item.id),
+            }),
+          });
+          const payload = await response.json().catch(() => null);
+
+          if (!response.ok || !payload?.ok) {
+            throw new Error(payload?.error || "A galéria sorrend mentése nem sikerült.");
+          }
+
+          setGalleryOrderResult(
+            true,
+            "Galéria sorrend mentve",
+            JSON.stringify(payload, null, 2),
+          );
+          await loadRegistryGallery(apartmentValue);
+        } catch (error) {
+          setGalleryOrderResult(
+            false,
+            "Sorrend mentési hiba",
+            error instanceof Error ? error.message : "A galéria sorrend mentése nem sikerült.",
+          );
+        } finally {
+          isGalleryOrderSaving = false;
+          updateGalleryOrderUiState();
+        }
       }
 
       function getMediaCardRoleBadgeState(apartmentKey, mediaId) {
@@ -2760,55 +2879,62 @@ const initialSelectedMedia =
           return;
         }
 
-        if (!activeApartmentFilter || activeApartmentFilter === "all") {
+        if (activeAdminTab !== "apartments") {
           galleryOrderPanel.classList.add("is-hidden");
-          galleryOrderList.innerHTML = "";
-          galleryOrderSave.disabled = true;
           return;
         }
 
         galleryOrderPanel.classList.remove("is-hidden");
-        const orderedIds = getApartmentGalleryOrderedIds(activeApartmentFilter);
+        const orderedItems = Array.isArray(registryGalleryItems) ? registryGalleryItems : [];
 
-        if (!orderedIds.length) {
+        if (!orderedItems.length) {
           galleryOrderList.innerHTML = `
             <div class="dnd-image-admin__gallery-order-empty">
-              Ehhez a lakáshoz még nincs legacy vagy galéria-listás kép.
+              Ehhez a lakáshoz még nincs betöltött gallery registry elem.
             </div>
           `;
-          galleryOrderSave.disabled = isGalleryOrderSaving;
+          updateGalleryOrderUiState();
           return;
         }
 
-        galleryOrderList.innerHTML = orderedIds
-          .map((mediaId, index) => {
-            const mediaItem = getMediaItem(mediaId);
-            const imageUrl = mediaItem?.thumbnailUrl || mediaItem?.sourceUrl || "";
+        galleryOrderList.innerHTML = orderedItems
+          .map((item, index) => {
+            const imageUrl = item.thumb || "";
+            const altText = item.altHu || item.titleHu || item.id || `Gallery #${index + 1}`;
+            const sortLabel = item.sortOrder == null ? "-" : item.sortOrder;
+            const moveUpDisabled = index === 0 ? "disabled" : "";
+            const moveDownDisabled = index === orderedItems.length - 1 ? "disabled" : "";
 
             return `
               <article
                 class="dnd-image-admin__gallery-order-item"
-                data-gallery-order-item="${mediaId}"
-                data-media-id="${mediaId}"
-                draggable="true"
+                data-gallery-order-item="${escapeHtml(item.id)}"
+                data-gallery-order-index="${index}"
               >
                 <div class="dnd-image-admin__gallery-order-media">
                   <span class="dnd-image-admin__gallery-order-index">${index + 1}</span>
                   ${
                     imageUrl
-                      ? `<img src="${imageUrl}" alt="${mediaItem?.altText || `Media #${mediaId}`}" />`
-                      : '<div class="dnd-image-admin__gallery-order-placeholder">Nincs kep</div>'
+                      ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(altText)}" />`
+                      : '<div class="dnd-image-admin__gallery-order-placeholder">Nincs thumb</div>'
                   }
                 </div>
                 <div class="dnd-image-admin__gallery-order-copy">
-                  <span>ID: ${mediaId}</span>
+                  <span>ID: ${escapeHtml(item.id || "-")}</span>
+                  <span>SRC: ${escapeHtml(item.src || "-")}</span>
+                  <span>Sort: ${escapeHtml(sortLabel)}</span>
+                  <span>ALT(HU): ${escapeHtml(item.altHu || "-")}</span>
+                </div>
+                <div class="dnd-image-admin__gallery-order-actions">
+                  <button type="button" class="dnd-btn dnd-btn--secondary dnd-image-admin__gallery-order-button" data-gallery-order-move="up" data-gallery-order-index="${index}" ${moveUpDisabled}>Fel</button>
+                  <button type="button" class="dnd-btn dnd-btn--secondary dnd-image-admin__gallery-order-button" data-gallery-order-move="down" data-gallery-order-index="${index}" ${moveDownDisabled}>Le</button>
                 </div>
               </article>
             `;
           })
           .join("");
 
-        galleryOrderSave.disabled = isGalleryOrderSaving;
+        updateGalleryOrderUiState();
       }
 
       function renderPreview() {
@@ -3553,146 +3679,35 @@ const initialSelectedMedia =
       }
 
       if (galleryOrderList) {
-        let draggedGalleryMediaId = null;
+        galleryOrderList.addEventListener("click", (event) => {
+          const button = event.target instanceof HTMLElement
+            ? event.target.closest("[data-gallery-order-move]")
+            : null;
 
-        galleryOrderList.addEventListener("dragstart", (event) => {
-          const item = event.target instanceof HTMLElement ? event.target.closest("[data-gallery-order-item]") : null;
-
-          if (!item || activeApartmentFilter === "all") {
+          if (!button) {
             return;
           }
 
-          draggedGalleryMediaId = Number(item.getAttribute("data-media-id"));
-          item.classList.add("is-dragging");
+          const direction = button.getAttribute("data-gallery-order-move");
+          const index = Number(button.getAttribute("data-gallery-order-index"));
 
-          if (event.dataTransfer) {
-            event.dataTransfer.effectAllowed = "move";
-            event.dataTransfer.setData("text/plain", String(draggedGalleryMediaId));
+          if (direction === "up") {
+            moveRegistryGalleryItem(index, -1);
+          } else if (direction === "down") {
+            moveRegistryGalleryItem(index, 1);
           }
         });
+      }
 
-        galleryOrderList.addEventListener("dragover", (event) => {
-          const item = event.target instanceof HTMLElement ? event.target.closest("[data-gallery-order-item]") : null;
-
-          if (!item || draggedGalleryMediaId == null) {
-            return;
-          }
-
-          event.preventDefault();
-          if (event.dataTransfer) {
-            event.dataTransfer.dropEffect = "move";
-          }
-        });
-
-        galleryOrderList.addEventListener("drop", (event) => {
-          const item = event.target instanceof HTMLElement ? event.target.closest("[data-gallery-order-item]") : null;
-          const targetMediaId = Number(item?.getAttribute("data-media-id"));
-
-          if (!item || draggedGalleryMediaId == null || !Number.isInteger(targetMediaId)) {
-            return;
-          }
-
-          event.preventDefault();
-
-          const orderedIds = [...getApartmentGalleryOrderedIds(activeApartmentFilter)];
-          const fromIndex = orderedIds.findIndex((id) => Number(id) === draggedGalleryMediaId);
-          const toIndex = orderedIds.findIndex((id) => Number(id) === targetMediaId);
-
-          if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) {
-            return;
-          }
-
-          const [movedId] = orderedIds.splice(fromIndex, 1);
-          orderedIds.splice(toIndex, 0, movedId);
-          setApartmentGalleryOrderDraft(activeApartmentFilter, orderedIds);
-          renderApartmentGalleryOrder();
-        });
-
-        galleryOrderList.addEventListener("dragend", () => {
-          draggedGalleryMediaId = null;
-          galleryOrderList
-            .querySelectorAll(".dnd-image-admin__gallery-order-item.is-dragging")
-            .forEach((item) => item.classList.remove("is-dragging"));
+      if (galleryOrderLoad) {
+        galleryOrderLoad.addEventListener("click", async () => {
+          await loadRegistryGallery(galleryOrderApartmentSelect?.value || "d2");
         });
       }
 
       if (galleryOrderSave) {
         galleryOrderSave.addEventListener("click", async () => {
-          if (!activeApartmentFilter || activeApartmentFilter === "all") {
-            showApartmentMessage(false, "Valassz lakast a galeria sorrend mentesehez.");
-            return;
-          }
-
-          try {
-            isGalleryOrderSaving = true;
-            renderApartmentGalleryOrder();
-            const orderedIds = getApartmentGalleryOrderedIdsFromDom().length
-              ? getApartmentGalleryOrderedIdsFromDom()
-              : getApartmentGalleryOrderedIds(activeApartmentFilter);
-            const bridgeConfig = getImageAdminBridgeConfig();
-            const savePayload = JSON.stringify({
-              apartmentKey: activeApartmentFilter,
-              galleryIds: orderedIds
-            });
-            let saveUrl = apiUrl("save-apartment");
-            let response;
-
-            if (bridgeConfig) {
-              saveUrl = `${bridgeConfig.restRoot.replace(/\/+$/, "")}/${bridgeConfig.endpoint.replace(/^\/+/, "")}`;
-              response = await fetch(saveUrl, {
-                method: "POST",
-                credentials: "same-origin",
-                headers: {
-                  "Content-Type": "application/json",
-                  "X-WP-Nonce": bridgeConfig.nonce
-                },
-                body: savePayload
-              });
-            } else {
-              response = await fetch(saveUrl, {
-                method: "POST",
-                credentials: "same-origin",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: savePayload
-              });
-            }
-
-            const responsePayload = await parseResponsePayload(response);
-
-            if (!response.ok) {
-              const errorDetails = summarizeResponsePayload(responsePayload.json || responsePayload.text);
-              throw new Error(
-                `Mentés sikertelen (${response.status}): ${
-                  responsePayload.json?.message || responsePayload.text || response.statusText || "Ismeretlen hiba"
-                }${errorDetails ? ` | ${errorDetails}` : ""}`
-              );
-            }
-
-            const payload = responsePayload.json;
-            setApartmentGalleryOrderState(
-              payload?.apartmentKey || activeApartmentFilter,
-              bridgeConfig
-                ? orderedIds
-                : (payload?.gallery || []).map((item) => Number(item.id)).filter((id) => Number.isInteger(id) && id > 0)
-            );
-            renderMediaRoleBadges();
-            renderApartmentGalleryOrder();
-            renderMetaEditor(getSelectedMediaForEditor());
-            showApartmentMessage(
-              true,
-              `Mentve: ${summarizeResponsePayload(payload || responsePayload.text || { url: saveUrl }) || "OK"}`
-            );
-          } catch (error) {
-            showApartmentMessage(
-              false,
-              error instanceof Error ? error.message : "Mentés sikertelen"
-            );
-          } finally {
-            isGalleryOrderSaving = false;
-            renderApartmentGalleryOrder();
-          }
+          await saveRegistryGalleryOrder();
         });
       }
 
@@ -3865,6 +3880,11 @@ const initialSelectedMedia =
       renderSourceCandidates();
       setSourceListDiagnosticsVisibility(false);
       loadSourceCandidates();
+      if (galleryOrderApartmentSelect) {
+        galleryOrderApartmentSelect.value = galleryOrderApartmentSelect.value || "d2";
+      }
+      updateGalleryOrderUiState();
+      loadRegistryGallery(galleryOrderApartmentSelect?.value || "d2");
     }
   </script>
 
@@ -4337,6 +4357,11 @@ const initialSelectedMedia =
       gap: 12px;
     }
 
+    .dnd-image-admin__gallery-order-tools {
+      display: grid;
+      gap: 10px;
+    }
+
     .dnd-image-admin__gallery-order-title {
       margin: 0;
       font-size: 1rem;
@@ -4351,9 +4376,8 @@ const initialSelectedMedia =
 
     .dnd-image-admin__gallery-order-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 10px;
-      justify-items: start;
     }
 
     .dnd-image-admin__gallery-order-item {
@@ -4361,26 +4385,16 @@ const initialSelectedMedia =
       gap: 6px;
       align-content: start;
       width: 100%;
-      max-width: 150px;
       padding: 6px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.9);
-      cursor: grab;
-      user-select: none;
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .dnd-image-admin__gallery-order-item:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-    }
-
-    .dnd-image-admin__gallery-order-item.is-dragging {
-      opacity: 0.55;
-      cursor: grabbing;
-      border-color: var(--dnd-accent);
-      box-shadow: 0 0 0 2px rgba(217, 158, 43, 0.18);
     }
 
     .dnd-image-admin__gallery-order-media {
@@ -4411,14 +4425,26 @@ const initialSelectedMedia =
 
     .dnd-image-admin__gallery-order-copy {
       display: grid;
-      gap: 0;
+      gap: 3px;
       min-width: 0;
     }
 
     .dnd-image-admin__gallery-order-copy span {
       color: rgba(0, 0, 0, 0.62);
-      font-size: 0.66rem;
-      line-height: 1.2;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .dnd-image-admin__gallery-order-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dnd-image-admin__gallery-order-button {
+      min-height: 30px;
+      padding: 0 12px;
+      font-size: 0.78rem;
     }
 
     .dnd-image-admin__gallery-order-index {
