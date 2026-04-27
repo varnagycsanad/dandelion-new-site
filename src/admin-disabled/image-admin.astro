@@ -50,7 +50,7 @@ const initialState = {
   mediaSeoFields,
   mediaItems,
   initialSlotKey,
-  initialApartmentFilter: "all",
+  initialApartmentFilter: "d2",
   initialQuickFilters: {
     missingAlt: false,
     unassignedApartment: false
@@ -58,6 +58,17 @@ const initialState = {
 };
 const initialSelectedMedia =
   mediaItems.find((item) => item.id === mapping[initialSlotKey]?.id) || null;
+const apartmentWorkflowOptions = [
+  { key: "d1", label: "Dandelion D1" },
+  { key: "d2", label: "Dandelion D2" },
+  { key: "fugehaz", label: "Fügeház" },
+  { key: "zsalya", label: "Zsálya" },
+  { key: "szololiget", label: "Szőlőliget" },
+  { key: "szepvolgyi", label: "Szépvölgyi" },
+  { key: "royal_homes", label: "Royal Homes" },
+  { key: "vintage", label: "Vintage" },
+  { key: "koveskal", label: "Köveskál" }
+] as const;
 ---
 
 <BaseLayout hideHeader={true} hideFooter={true} title="Képkezelő admin" description="Dandelion WP média és főoldali képhoztárendelések kezelése.">
@@ -146,6 +157,23 @@ const initialSelectedMedia =
       <div class="dnd-image-admin__layout">
         <aside class="dnd-image-admin__sidebar">
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
+            <h2>Szállás kiválasztása</h2>
+            <label class="dnd-image-admin__field dnd-image-admin__apartment-select-field">
+              <span>Apartman</span>
+              <select id="dnd-image-admin-apartment-filter-select">
+                {apartmentWorkflowOptions.map((option) => (
+                  <option value={option.key} selected={option.key === "d2"}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p id="dnd-image-admin-active-apartment-summary" class="dnd-image-admin__panel-text">
+              Jelenleg szerkesztett szállás: Dandelion D2
+            </p>
+          </div>
+
+          <div class="dnd-image-admin__panel" data-admin-tab="apartments">
             <h2>Új kép beemelése a képrendszerbe</h2>
             <form id="dnd-image-admin-intake-form" class="dnd-image-admin__intake-form">
               <label class="dnd-image-admin__field">
@@ -155,13 +183,11 @@ const initialSelectedMedia =
               <label class="dnd-image-admin__field">
                 <span>Apartman kulcs</span>
                 <select id="dnd-image-admin-intake-apartment">
-                  {apartmentOptions
-                    .filter((option) => option.key !== "all")
-                    .map((option) => (
-                      <option value={option.key} selected={option.key === "d2"}>
-                        {option.key}
-                      </option>
-                    ))}
+                  {apartmentWorkflowOptions.map((option) => (
+                    <option value={option.key} selected={option.key === "d2"}>
+                      {option.key}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label class="dnd-image-admin__field">
@@ -231,13 +257,11 @@ const initialSelectedMedia =
               <label class="dnd-image-admin__field">
                 <span>Apartman kulcs</span>
                 <select id="dnd-image-admin-source-list-apartment">
-                  {apartmentOptions
-                    .filter((option) => option.key !== "all")
-                    .map((option) => (
-                      <option value={option.key} selected={option.key === "d2"}>
-                        {option.key}
-                      </option>
-                    ))}
+                  {apartmentWorkflowOptions.map((option) => (
+                    <option value={option.key} selected={option.key === "d2"}>
+                      {option.key}
+                    </option>
+                  ))}
                 </select>
               </label>
               <div class="dnd-image-admin__intake-actions">
@@ -268,17 +292,13 @@ const initialSelectedMedia =
           </div>
 
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
-            <h2>Lakás</h2>
-            <label class="dnd-image-admin__field dnd-image-admin__apartment-select-field">
-              <span>Lakás</span>
-              <select id="dnd-image-admin-apartment-filter-select">
-                {apartmentOptions.map((option) => (
-                  <option value={option.key} selected={option.key === "all"}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <details>
+              <summary>Régi lakásoldali eszközök</summary>
+              <p class="dnd-image-admin__panel-text">
+                A bridge-alapú lakásoldali mentési elemek kompatibilitási okból elérhetők maradnak.
+                A napi munkafolyamathoz használd a fenti, szállásra szűrt intake/source/gallery blokkokat.
+              </p>
+            </details>
           </div>
 
           <div class="dnd-image-admin__panel" data-admin-tab="homepage">
@@ -348,13 +368,11 @@ const initialSelectedMedia =
                 <label class="dnd-image-admin__field">
                   <span>Apartman kulcs</span>
                   <select id="dnd-image-admin-gallery-order-apartment">
-                    {apartmentOptions
-                      .filter((option) => option.key !== "all")
-                      .map((option) => (
-                        <option value={option.key} selected={option.key === "d2"}>
-                          {option.key}
-                        </option>
-                      ))}
+                    {apartmentWorkflowOptions.map((option) => (
+                      <option value={option.key} selected={option.key === "d2"}>
+                        {option.key}
+                      </option>
+                    ))}
                   </select>
                 </label>
                 <div class="dnd-image-admin__intake-actions">
@@ -808,6 +826,7 @@ const initialSelectedMedia =
       const adminTabSections = Array.from(document.querySelectorAll("[data-admin-tab]"));
       const slotButtons = Array.from(document.querySelectorAll("[data-slot-key]"));
       const apartmentFilterSelect = document.getElementById("dnd-image-admin-apartment-filter-select");
+      const activeApartmentSummary = document.getElementById("dnd-image-admin-active-apartment-summary");
       const libraryApartmentFilterSelect = document.getElementById(
         "dnd-image-admin-library-apartment-filter-select"
       );
@@ -909,7 +928,7 @@ const initialSelectedMedia =
 
       let activeAdminTab = "homepage";
       let activeSlotKey = state.initialSlotKey;
-      let activeApartmentFilter = state.initialApartmentFilter || "all";
+      let activeApartmentFilter = state.initialApartmentFilter || "d2";
       let activeLibraryApartmentFilter = "all";
       let mapping = state.mapping || {};
       let apartmentAssignments = state.apartmentAssignments || {};
@@ -1462,6 +1481,17 @@ const initialSelectedMedia =
           );
           const payload = await response.json().catch(() => null);
 
+          if (response.status === 404) {
+            sourceCandidates = [];
+            renderSourceCandidates();
+            setSourceListResult(
+              true,
+              "Candidate lista betöltve (0 elem)",
+              JSON.stringify(payload || { ok: true, apartment, candidates: [] }, null, 2),
+            );
+            return;
+          }
+
           if (!response.ok || !payload?.ok) {
             sourceCandidates = [];
             renderSourceCandidates();
@@ -1794,7 +1824,19 @@ const initialSelectedMedia =
       }
 
       function getApartmentLabel(apartmentKey) {
-        return state.apartmentOptions?.find((option) => option.key === apartmentKey)?.label || apartmentKey || "Nincs";
+        const labels = {
+          d1: "Dandelion D1",
+          d2: "Dandelion D2",
+          fugehaz: "Fügeház",
+          zsalya: "Zsálya",
+          szololiget: "Szőlőliget",
+          szepvolgyi: "Szépvölgyi",
+          royal_homes: "Royal Homes",
+          vintage: "Vintage",
+          koveskal: "Köveskál"
+        };
+
+        return labels[apartmentKey] || apartmentKey || "Nincs";
       }
 
       function getApartmentImageRoleState(apartmentKey, mediaId) {
@@ -2351,17 +2393,18 @@ const initialSelectedMedia =
 
       function getApartmentLabel(apartmentKey) {
         const labels = {
-          d1: "D1",
-          d2: "D2",
+          d1: "Dandelion D1",
+          d2: "Dandelion D2",
           fugehaz: "Fügeház",
-          zsalya: "Zsálya Vendégház",
-          szololiget: "Szőlőliget Vendégház",
-          szepvolgyi: "Szépvölgyi Vendégház",
+          zsalya: "Zsálya",
+          szololiget: "Szőlőliget",
+          szepvolgyi: "Szépvölgyi",
           royal_homes: "Royal Homes",
-          vintage: "Vintage Vendégház"
+          vintage: "Vintage",
+          koveskal: "Köveskál"
         };
 
-        return labels[apartmentKey] || "";
+        return labels[apartmentKey] || apartmentKey || "";
       }
 
       function getThemeRoomLabel(themeRoomKey) {
@@ -2648,11 +2691,55 @@ const initialSelectedMedia =
         if (apartmentFilterSelect) {
           apartmentFilterSelect.value = activeApartmentFilter;
         }
+
+        if (intakeApartmentSelect) {
+          intakeApartmentSelect.value = activeApartmentFilter;
+        }
+
+        if (sourceListApartmentSelect) {
+          sourceListApartmentSelect.value = activeApartmentFilter;
+        }
+
+        if (galleryOrderApartmentSelect) {
+          galleryOrderApartmentSelect.value = activeApartmentFilter;
+        }
+
+        if (activeApartmentSummary) {
+          activeApartmentSummary.textContent = `Jelenleg szerkesztett szállás: ${getApartmentLabel(activeApartmentFilter)}`;
+        }
       }
 
       function renderLibraryApartmentFilter() {
         if (libraryApartmentFilterSelect) {
           libraryApartmentFilterSelect.value = activeLibraryApartmentFilter;
+        }
+      }
+
+      async function syncApartmentWorkflow(apartmentKey, options = {}) {
+        const nextApartment = String(apartmentKey || "").trim();
+
+        if (!nextApartment) {
+          return;
+        }
+
+        const {
+          loadSource = true,
+          loadGallery = true
+        } = options;
+
+        activeApartmentFilter = nextApartment;
+        renderApartmentFilter();
+        renderApartmentHeroSummary();
+        renderMediaRoleBadges();
+        renderApartmentGalleryOrder();
+        renderMediaGridVisibility();
+
+        if (loadSource) {
+          await loadSourceCandidates();
+        }
+
+        if (loadGallery) {
+          await loadRegistryGallery(nextApartment);
         }
       }
 
@@ -3147,12 +3234,35 @@ const initialSelectedMedia =
       });
 
       if (apartmentFilterSelect) {
-        apartmentFilterSelect.addEventListener("change", () => {
-          activeApartmentFilter = apartmentFilterSelect.value || "all";
-          renderApartmentFilter();
-          renderMediaRoleBadges();
-          renderApartmentGalleryOrder();
-          renderMediaGridVisibility();
+        apartmentFilterSelect.addEventListener("change", async () => {
+          await syncApartmentWorkflow(apartmentFilterSelect.value || "d2");
+        });
+      }
+
+      if (intakeApartmentSelect) {
+        intakeApartmentSelect.addEventListener("change", async () => {
+          await syncApartmentWorkflow(intakeApartmentSelect.value || "d2", {
+            loadSource: false,
+            loadGallery: false
+          });
+        });
+      }
+
+      if (sourceListApartmentSelect) {
+        sourceListApartmentSelect.addEventListener("change", async () => {
+          await syncApartmentWorkflow(sourceListApartmentSelect.value || "d2", {
+            loadSource: true,
+            loadGallery: false
+          });
+        });
+      }
+
+      if (galleryOrderApartmentSelect) {
+        galleryOrderApartmentSelect.addEventListener("change", async () => {
+          await syncApartmentWorkflow(galleryOrderApartmentSelect.value || "d2", {
+            loadSource: false,
+            loadGallery: true
+          });
         });
       }
 
@@ -3961,12 +4071,11 @@ const initialSelectedMedia =
       renderAll();
       renderSourceCandidates();
       setSourceListDiagnosticsVisibility(false);
-      loadSourceCandidates();
-      if (galleryOrderApartmentSelect) {
-        galleryOrderApartmentSelect.value = galleryOrderApartmentSelect.value || "d2";
-      }
       updateGalleryOrderUiState();
-      loadRegistryGallery(galleryOrderApartmentSelect?.value || "d2");
+      syncApartmentWorkflow(activeApartmentFilter, {
+        loadSource: true,
+        loadGallery: true
+      });
     }
   </script>
 
