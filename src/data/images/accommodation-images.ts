@@ -508,6 +508,40 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26"
       }
+    ,
+      {
+        id: "d2-gallery-19",
+        apartmentKey: "d2",
+        role: "gallery",
+        src: "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-19.webp",
+        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-19.webp",
+        width: 1600,
+        height: 1200,
+        aspectRatio: "4:3",
+        alt: {
+          hu: "Dandelion D2 vendégház terasza Kisapátiban",
+          en: "Terrace of Dandelion D2 guesthouse in Kisapáti"
+        },
+        title: {
+          hu: "D2 terasz",
+          en: "D2 terrace"
+        },
+        caption: {
+          hu: "A Dandelion D2 vendégház terasza Kisapátiban.",
+          en: "Terrace of the Dandelion D2 guesthouse in Kisapáti."
+        },
+        focusPoint: "center center",
+        sortOrder: 19,
+        status: "active",
+        source: {
+          type: "wordpress",
+          wpId: 9954,
+          originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2026/04/dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp",
+          originalFilename: "dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp"
+        },
+        createdAt: "2026-04-27",
+        updatedAt: "2026-04-27"
+      }
     ],
     thumbnail: null,
   },

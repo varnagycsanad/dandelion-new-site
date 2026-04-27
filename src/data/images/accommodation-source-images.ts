@@ -277,5 +277,49 @@ export const accommodationSourceImages: Record<string, ImageSourceCandidate[]> =
       notes: "WP intake metadata loaded (mime: image/webp).",
       createdAt: "2026-04-26T22:52:33.447Z",
       updatedAt: "2026-04-26T22:52:33.447Z"
+    },
+    {
+      id: "d2-wp-9954-gallery-dandelion-d2-emeleti-haloszoba-kilatas-badacsony-hegy",
+      apartmentKey: "d2",
+      source: {
+        type: "wordpress",
+        wpId: 9954,
+        originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2026/04/dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp",
+        originalFilename: "dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp"
+      },
+      currentUrl: "https://dandelionhouse.hu/wp-content/uploads/2026/04/dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp",
+      currentFilename: "dandelion-d2-emeleti-haloszoba-kilatas-szent-gyorgy-hegy.webp",
+      width: 1440,
+      height: 1080,
+      aspectRatio: "1440:1080",
+      intendedRoles: [
+        "gallery",
+        "thumbnail"
+      ],
+      theme: "dandelion-d2-emeleti-haloszoba-kilatas-badacsony-hegy",
+      sortOrder: 19,
+      status: "selected",
+      seoDraft: {
+        approved: false
+      },
+      targetPlans: [
+        {
+          role: "gallery",
+          targetPath: "/images/accommodations/d2/gallery/dandelion-d2-kisapati-gallery-19.webp",
+          width: 1600,
+          cropMode: "contain",
+          focusPoint: "center center"
+        },
+        {
+          role: "thumbnail",
+          targetPath: "/images/accommodations/d2/thumbs/dandelion-d2-kisapati-thumb-19.webp",
+          width: 600,
+          cropMode: "cover",
+          focusPoint: "center center"
+        }
+      ],
+      notes: "WP intake metadata loaded (mime: image/webp).",
+      createdAt: "2026-04-27T00:21:10.511Z",
+      updatedAt: "2026-04-27T00:21:10.511Z"
     }],
 };
