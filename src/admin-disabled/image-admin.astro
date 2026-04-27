@@ -630,6 +630,22 @@ const initialSelectedMedia =
                 </p>
               </div>
               <div class="dnd-image-admin__media-tools">
+                <label class="dnd-image-admin__field">
+                  <span>Lakás szűrő</span>
+                  <select id="dnd-image-admin-library-apartment-filter-select">
+                    <option value="all" selected>Összes</option>
+                    <option value="d1">Dandelion D1</option>
+                    <option value="d2">Dandelion D2</option>
+                    <option value="fugehaz">Fügeház</option>
+                    <option value="zsalya">Zsálya</option>
+                    <option value="szololiget">Szőlőliget</option>
+                    <option value="szepvolgyi">Szépvölgyi</option>
+                    <option value="royal_homes">Royal Homes</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="koveskal">Köveskál</option>
+                    <option value="unassigned">Nincs lakáshoz rendelve</option>
+                  </select>
+                </label>
                 <div class="dnd-image-admin__quick-filters">
                   <button
                     id="dnd-image-admin-filter-missing-alt"
@@ -792,6 +808,9 @@ const initialSelectedMedia =
       const adminTabSections = Array.from(document.querySelectorAll("[data-admin-tab]"));
       const slotButtons = Array.from(document.querySelectorAll("[data-slot-key]"));
       const apartmentFilterSelect = document.getElementById("dnd-image-admin-apartment-filter-select");
+      const libraryApartmentFilterSelect = document.getElementById(
+        "dnd-image-admin-library-apartment-filter-select"
+      );
       const mediaCards = Array.from(document.querySelectorAll("[data-media-id]"));
       const mediaOpenButtons = Array.from(document.querySelectorAll("[data-open-media]"));
       const mediaHeroButtons = Array.from(document.querySelectorAll("[data-hero-variant]"));
@@ -891,6 +910,7 @@ const initialSelectedMedia =
       let activeAdminTab = "homepage";
       let activeSlotKey = state.initialSlotKey;
       let activeApartmentFilter = state.initialApartmentFilter || "all";
+      let activeLibraryApartmentFilter = "all";
       let mapping = state.mapping || {};
       let apartmentAssignments = state.apartmentAssignments || {};
       let apartmentImageAssignments = state.apartmentImageAssignments || {};
@@ -2630,6 +2650,12 @@ const initialSelectedMedia =
         }
       }
 
+      function renderLibraryApartmentFilter() {
+        if (libraryApartmentFilterSelect) {
+          libraryApartmentFilterSelect.value = activeLibraryApartmentFilter;
+        }
+      }
+
       function renderAdminTabs() {
         if (imageAdminRoot) {
           imageAdminRoot.setAttribute("data-active-admin-tab", activeAdminTab);
@@ -2740,15 +2766,23 @@ const initialSelectedMedia =
 
       function renderMediaGridVisibility() {
         const searchTerm = searchInput?.value.trim().toLowerCase() || "";
+        const selectedApartmentFilter =
+          activeAdminTab === "apartments"
+            ? activeApartmentFilter
+            : activeAdminTab === "library"
+              ? activeLibraryApartmentFilter
+              : "all";
 
         mediaCards.forEach((card) => {
           const haystack = `${card.dataset.title || ""} ${card.dataset.alt || ""}`;
           const apartmentKey = card.dataset.apartment || "";
           const matchesSearch = searchTerm.length === 0 || haystack.includes(searchTerm);
           const matchesApartment =
-            activeAdminTab !== "apartments" ||
-            activeApartmentFilter === "all" ||
-            apartmentKey === activeApartmentFilter;
+            selectedApartmentFilter === "all"
+              ? true
+              : selectedApartmentFilter === "unassigned"
+                ? !apartmentKey
+                : apartmentKey === selectedApartmentFilter;
           const matchesMissingAlt =
             !quickFilters.missingAlt || card.dataset.hasAlt !== "true";
           const matchesUnassignedApartment =
@@ -3074,6 +3108,7 @@ const initialSelectedMedia =
         renderAdminTabs();
         renderApartmentHeroSummary();
         renderApartmentFilter();
+        renderLibraryApartmentFilter();
         renderQuickFilters();
         renderBulkSelection();
         renderSlotList();
@@ -3117,6 +3152,14 @@ const initialSelectedMedia =
           renderApartmentFilter();
           renderMediaRoleBadges();
           renderApartmentGalleryOrder();
+          renderMediaGridVisibility();
+        });
+      }
+
+      if (libraryApartmentFilterSelect) {
+        libraryApartmentFilterSelect.addEventListener("change", () => {
+          activeLibraryApartmentFilter = libraryApartmentFilterSelect.value || "all";
+          renderLibraryApartmentFilter();
           renderMediaGridVisibility();
         });
       }
