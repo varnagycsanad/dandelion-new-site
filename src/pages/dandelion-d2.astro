@@ -839,7 +839,7 @@ const relatedStays = accommodations
             mobile: mobileHeroImage
           };
 
-          applyRuntimeGalleryOrder(payload?.gallery || []);
+          // [CHANGE 2026-04-27] Registry order remains authoritative for D2 gallery; runtime gallery order disabled.
           renderHeroImage();
         })
         .catch((error) => {
