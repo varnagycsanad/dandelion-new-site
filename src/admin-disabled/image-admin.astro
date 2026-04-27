@@ -391,6 +391,17 @@ const initialSelectedMedia =
                   <p id="dnd-image-admin-current-image-media-id" class="dnd-image-admin__panel-text">
                     WP media ID: {initialSelectedMedia?.id || "-"}
                   </p>
+                  <button
+                    id="dnd-image-admin-current-image-use-for-intake"
+                    class:list={[
+                      "dnd-btn",
+                      "dnd-btn--secondary",
+                      !initialSelectedMedia && "is-hidden"
+                    ]}
+                    type="button"
+                  >
+                    Kiválasztott kép használata beemeléshez
+                  </button>
                   <a
                     id="dnd-image-admin-current-image-link"
                     class:list={[
@@ -745,6 +756,7 @@ const initialSelectedMedia =
       const currentImageTitle = document.getElementById("dnd-image-admin-current-image-title");
       const currentImageAlt = document.getElementById("dnd-image-admin-current-image-alt");
       const currentImageMediaId = document.getElementById("dnd-image-admin-current-image-media-id");
+      const currentImageUseForIntakeButton = document.getElementById("dnd-image-admin-current-image-use-for-intake");
       const currentImageLink = document.getElementById("dnd-image-admin-current-image-link");
       const currentMeta = document.getElementById("dnd-image-admin-current-meta");
       const apartmentHeroDesktopTitle = document.getElementById("dnd-image-admin-apartment-hero-desktop-title");
@@ -902,6 +914,10 @@ const initialSelectedMedia =
       }
 
       function updateIntakeUiState() {
+        if (currentImageUseForIntakeButton) {
+          currentImageUseForIntakeButton.disabled = isIntakeSubmitting || !getSelectedMediaForEditor();
+        }
+
         if (intakeUseSelectedButton) {
           intakeUseSelectedButton.disabled = isIntakeSubmitting || !getSelectedMediaForEditor();
         }
@@ -2726,6 +2742,9 @@ const initialSelectedMedia =
           if (currentImageMediaId) {
             currentImageMediaId.textContent = "WP media ID: -";
           }
+          if (currentImageUseForIntakeButton) {
+            currentImageUseForIntakeButton.classList.add("is-hidden");
+          }
           currentImageLink.classList.add("is-hidden");
           currentImageLink.setAttribute("href", "#");
           renderMetaEditor(null);
@@ -2745,6 +2764,9 @@ const initialSelectedMedia =
           selectedMediaItem?.altText || selected.altText || "Nincs alt szöveg.";
         if (currentImageMediaId) {
           currentImageMediaId.textContent = `WP media ID: ${selectedMediaItem?.id || "-"}`;
+        }
+        if (currentImageUseForIntakeButton) {
+          currentImageUseForIntakeButton.classList.remove("is-hidden");
         }
         currentImageLink.classList.remove("is-hidden");
         currentImageLink.setAttribute("href", selected.sourceUrl);
@@ -3190,6 +3212,12 @@ const initialSelectedMedia =
 
       if (intakeUseSelectedButton) {
         intakeUseSelectedButton.addEventListener("click", () => {
+          useSelectedMediaForIntake();
+        });
+      }
+
+      if (currentImageUseForIntakeButton) {
+        currentImageUseForIntakeButton.addEventListener("click", () => {
           useSelectedMediaForIntake();
         });
       }
