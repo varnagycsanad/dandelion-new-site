@@ -174,6 +174,19 @@ const apartmentWorkflowOptions = [
           </div>
 
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
+            <h2>Képfeldolgozási állapot</h2>
+            <div class="dnd-image-admin__source-summary">
+              <div class="dnd-image-admin__source-summary-head">
+                <h3 class="dnd-image-admin__source-summary-title">Képfeldolgozási állapot</h3>
+                <p class="dnd-image-admin__panel-text">Az aktuális apartman képfeldolgozási elemeinek rövid összesítése.</p>
+              </div>
+              <div id="dnd-image-admin-source-summary-grid" class="dnd-image-admin__source-summary-grid">
+                <div class="dnd-image-admin__source-summary-empty">Nincs betöltött állapot.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dnd-image-admin__panel" data-admin-tab="apartments">
             <h2>Új kép beemelése a képrendszerbe</h2>
             <form id="dnd-image-admin-intake-form" class="dnd-image-admin__intake-form">
               <label class="dnd-image-admin__field">
@@ -253,18 +266,9 @@ const apartmentWorkflowOptions = [
           </div>
 
           <div class="dnd-image-admin__panel" data-admin-tab="apartments">
-            <h2>Feldolgozásra váró képek</h2>
+            <h2>Képek állapota</h2>
             <form id="dnd-image-admin-source-list-form" class="dnd-image-admin__intake-form">
-              <div class="dnd-image-admin__source-summary">
-                <div class="dnd-image-admin__source-summary-head">
-                  <h3 class="dnd-image-admin__source-summary-title">Képfeldolgozási állapot</h3>
-                  <p class="dnd-image-admin__panel-text">Az aktuális apartman képfeldolgozási elemeinek rövid összesítése.</p>
-                </div>
-                <div id="dnd-image-admin-source-summary-grid" class="dnd-image-admin__source-summary-grid">
-                  <div class="dnd-image-admin__source-summary-empty">Nincs betöltött állapot.</div>
-                </div>
-              </div>
-              <label class="dnd-image-admin__field">
+              <label class="dnd-image-admin__field" hidden>
                 <span>Apartman kulcs</span>
                 <select id="dnd-image-admin-source-list-apartment">
                   {apartmentWorkflowOptions.map((option) => (
@@ -286,19 +290,22 @@ const apartmentWorkflowOptions = [
               <p id="dnd-image-admin-source-list-status" class="dnd-image-admin__panel-text">
                 Itt a source inventory képfeldolgozási elemei ellenőrizhetők.
               </p>
-              <details class="dnd-image-admin__technical-details">
-                <summary>Súgó / részletek</summary>
-                <p class="dnd-image-admin__panel-text">
-                  A kártyák felső része a napi lépésekhez szükséges információkat mutatja. A fájlútvonalak,
-                  registry mezők és nyers diagnosztika a technikai részletek alatt találhatók.
-                </p>
-              </details>
               <div id="dnd-image-admin-source-list-warning" class="dnd-image-admin__source-warning is-hidden"></div>
-              <details id="dnd-image-admin-source-list-output-details" class="dnd-image-admin__technical-details">
-                <summary>Technikai válasz</summary>
-                <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output">Még nincs lista betöltve.</pre>
+              <details id="dnd-image-admin-source-list-details" class="dnd-image-admin__technical-details">
+                <summary id="dnd-image-admin-source-list-summary">Képek állapota (0 elem)</summary>
+                <details class="dnd-image-admin__technical-details">
+                  <summary>Súgó / részletek</summary>
+                  <p class="dnd-image-admin__panel-text">
+                    A kártyák felső része a napi lépésekhez szükséges információkat mutatja. A fájlútvonalak,
+                    registry mezők és nyers diagnosztika a technikai részletek alatt találhatók.
+                  </p>
+                </details>
+                <details id="dnd-image-admin-source-list-output-details" class="dnd-image-admin__technical-details">
+                  <summary>Technikai válasz</summary>
+                  <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output">Még nincs lista betöltve.</pre>
+                </details>
+                <div id="dnd-image-admin-source-list" class="dnd-image-admin__source-list"></div>
               </details>
-              <div id="dnd-image-admin-source-list" class="dnd-image-admin__source-list"></div>
             </form>
           </div>
 
@@ -930,6 +937,8 @@ const apartmentWorkflowOptions = [
       const sourceListRefreshButton = document.getElementById("dnd-image-admin-source-list-refresh");
       const sourceListStatus = document.getElementById("dnd-image-admin-source-list-status");
       const sourceListWarning = document.getElementById("dnd-image-admin-source-list-warning");
+      const sourceListDetails = document.getElementById("dnd-image-admin-source-list-details");
+      const sourceListSummary = document.getElementById("dnd-image-admin-source-list-summary");
       const sourceListOutputDetails = document.getElementById("dnd-image-admin-source-list-output-details");
       const sourceListOutput = document.getElementById("dnd-image-admin-source-list-output");
       const sourceListContainer = document.getElementById("dnd-image-admin-source-list");
@@ -1301,6 +1310,10 @@ const apartmentWorkflowOptions = [
 
         renderSourceSummary();
 
+        if (sourceListSummary) {
+          sourceListSummary.textContent = `Képek állapota (${Array.isArray(sourceCandidates) ? sourceCandidates.length : 0} elem)`;
+        }
+
         if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
           if (sourceListWarning) {
             sourceListWarning.classList.add("is-hidden");
@@ -1326,6 +1339,10 @@ const apartmentWorkflowOptions = [
 
           return String(left?.id || "").localeCompare(String(right?.id || ""));
         });
+
+        if (sourceListSummary) {
+          sourceListSummary.textContent = `Képek állapota (${sortedCandidates.length} elem)`;
+        }
 
         const hasPendingApproval = sortedCandidates.some((candidate) => candidate.status === "source_found");
         if (sourceListWarning) {
