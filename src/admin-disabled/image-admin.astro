@@ -191,25 +191,25 @@ const apartmentWorkflowOptions = [
                 </select>
               </label>
               <label class="dnd-image-admin__field">
-                <span>Role</span>
+                <span>Szerep</span>
                 <select id="dnd-image-admin-intake-role">
-                  <option value="gallery" selected>gallery</option>
-                  <option value="hero_desktop">hero_desktop</option>
-                  <option value="hero_mobile">hero_mobile</option>
-                  <option value="card">card</option>
+                  <option value="gallery" selected>Galéria</option>
+                  <option value="hero_desktop">Hero desktop</option>
+                  <option value="hero_mobile">Hero mobil</option>
+                  <option value="card">Kártyakép</option>
                   <option value="thumbnail">thumbnail</option>
                 </select>
               </label>
               <label class="dnd-image-admin__field">
-                <span>Theme</span>
+                <span>Téma</span>
                 <input id="dnd-image-admin-intake-theme" type="text" />
               </label>
               <label class="dnd-image-admin__field">
-                <span>Room</span>
+                <span>Helyiség</span>
                 <input id="dnd-image-admin-intake-room" type="text" />
               </label>
               <label class="dnd-image-admin__field">
-                <span>Sort order</span>
+                <span>Sorrend</span>
                 <input id="dnd-image-admin-intake-sort-order" type="number" min="0" inputmode="numeric" />
               </label>
               <div class="dnd-image-admin__intake-actions">
@@ -238,7 +238,17 @@ const apartmentWorkflowOptions = [
               <p id="dnd-image-admin-intake-status" class="dnd-image-admin__panel-text">
                 Add meg a WP media ID-t és az alap mezőket, majd kérj előnézetet vagy valós intake-et.
               </p>
-              <pre id="dnd-image-admin-intake-output" class="dnd-image-admin__intake-output">Még nincs válasz.</pre>
+              <details class="dnd-image-admin__technical-details">
+                <summary>Súgó / részletek</summary>
+                <p class="dnd-image-admin__panel-text">
+                  Előnézetnél (dry-run) ellenőrizheted a mezőket fájlmódosítás nélkül. A tényleges
+                  beemelés után az elem megjelenik a képfeldolgozási listában.
+                </p>
+              </details>
+              <details class="dnd-image-admin__technical-details">
+                <summary>Technikai válasz</summary>
+                <pre id="dnd-image-admin-intake-output" class="dnd-image-admin__intake-output">Még nincs válasz.</pre>
+              </details>
             </form>
           </div>
 
@@ -248,7 +258,7 @@ const apartmentWorkflowOptions = [
               <div class="dnd-image-admin__source-summary">
                 <div class="dnd-image-admin__source-summary-head">
                   <h3 class="dnd-image-admin__source-summary-title">Képfeldolgozási állapot</h3>
-                  <p class="dnd-image-admin__panel-text">Az aktuális apartman candidate-jeinek rövid összesítése.</p>
+                  <p class="dnd-image-admin__panel-text">Az aktuális apartman képfeldolgozási elemeinek rövid összesítése.</p>
                 </div>
                 <div id="dnd-image-admin-source-summary-grid" class="dnd-image-admin__source-summary-grid">
                   <div class="dnd-image-admin__source-summary-empty">Nincs betöltött állapot.</div>
@@ -274,19 +284,20 @@ const apartmentWorkflowOptions = [
                 </button>
               </div>
               <p id="dnd-image-admin-source-list-status" class="dnd-image-admin__panel-text">
-                Itt a source inventory source_found és selected elemei ellenőrizhetők.
+                Itt a source inventory képfeldolgozási elemei ellenőrizhetők.
               </p>
+              <details class="dnd-image-admin__technical-details">
+                <summary>Súgó / részletek</summary>
+                <p class="dnd-image-admin__panel-text">
+                  A kártyák felső része a napi lépésekhez szükséges információkat mutatja. A fájlútvonalak,
+                  registry mezők és nyers diagnosztika a technikai részletek alatt találhatók.
+                </p>
+              </details>
               <div id="dnd-image-admin-source-list-warning" class="dnd-image-admin__source-warning is-hidden"></div>
-              <div class="dnd-image-admin__source-diagnostics">
-                <button
-                  id="dnd-image-admin-source-list-toggle-output"
-                  class="dnd-btn dnd-btn--secondary"
-                  type="button"
-                >
-                  Technikai részletek mutatása
-                </button>
-              </div>
-              <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output is-hidden">Még nincs lista betöltve.</pre>
+              <details id="dnd-image-admin-source-list-output-details" class="dnd-image-admin__technical-details">
+                <summary>Technikai válasz</summary>
+                <pre id="dnd-image-admin-source-list-output" class="dnd-image-admin__intake-output">Még nincs lista betöltve.</pre>
+              </details>
               <div id="dnd-image-admin-source-list" class="dnd-image-admin__source-list"></div>
             </form>
           </div>
@@ -395,7 +406,10 @@ const apartmentWorkflowOptions = [
               <p id="dnd-image-admin-gallery-order-status" class="dnd-image-admin__panel-text">
                 Válassz apartmant, majd töltsd be a registry galériát.
               </p>
-              <pre id="dnd-image-admin-gallery-order-output" class="dnd-image-admin__intake-output">Még nincs galéria betöltve.</pre>
+              <details class="dnd-image-admin__technical-details">
+                <summary>Technikai válasz</summary>
+                <pre id="dnd-image-admin-gallery-order-output" class="dnd-image-admin__intake-output">Még nincs galéria betöltve.</pre>
+              </details>
               <div id="dnd-image-admin-gallery-order-list" class="dnd-image-admin__gallery-order-list"></div>
             </div>
 
@@ -916,7 +930,7 @@ const apartmentWorkflowOptions = [
       const sourceListRefreshButton = document.getElementById("dnd-image-admin-source-list-refresh");
       const sourceListStatus = document.getElementById("dnd-image-admin-source-list-status");
       const sourceListWarning = document.getElementById("dnd-image-admin-source-list-warning");
-      const sourceListToggleOutputButton = document.getElementById("dnd-image-admin-source-list-toggle-output");
+      const sourceListOutputDetails = document.getElementById("dnd-image-admin-source-list-output-details");
       const sourceListOutput = document.getElementById("dnd-image-admin-source-list-output");
       const sourceListContainer = document.getElementById("dnd-image-admin-source-list");
       const sourceSummaryGrid = document.getElementById("dnd-image-admin-source-summary-grid");
@@ -1098,7 +1112,7 @@ const apartmentWorkflowOptions = [
           intakeThemeInput.value = buildThemeSuggestion(mediaItem);
         }
 
-        setIntakeResult(true, "Source candidate előkészítve", "A kiválasztott kép adatai bekerültek az intake mezőkbe.");
+        setIntakeResult(true, "Képfeldolgozási elem előkészítve", "A kiválasztott kép adatai bekerültek az intake mezőkbe.");
       }
 
       function updateSourceListUiState() {
@@ -1139,14 +1153,8 @@ const apartmentWorkflowOptions = [
       function setSourceListDiagnosticsVisibility(visible) {
         sourceListDiagnosticsVisible = Boolean(visible);
 
-        if (sourceListOutput) {
-          sourceListOutput.classList.toggle("is-hidden", !sourceListDiagnosticsVisible);
-        }
-
-        if (sourceListToggleOutputButton) {
-          sourceListToggleOutputButton.textContent = sourceListDiagnosticsVisible
-            ? "Technikai részletek elrejtése"
-            : "Technikai részletek mutatása";
+        if (sourceListOutputDetails) {
+          sourceListOutputDetails.open = sourceListDiagnosticsVisible;
         }
       }
 
@@ -1203,6 +1211,14 @@ const apartmentWorkflowOptions = [
       }
 
       function getSourceStatusLabel(candidate) {
+        if (candidate?.published === true) {
+          return "Publikálva";
+        }
+
+        if (candidate?.processed === true) {
+          return "WebP elkészült";
+        }
+
         if (candidate?.status === "source_found") {
           return "Beemelve, jóváhagyásra vár";
         }
@@ -1212,6 +1228,17 @@ const apartmentWorkflowOptions = [
         }
 
         return candidate?.status || "Ismeretlen";
+      }
+
+      function getSourceRoleLabel(roleKey) {
+        const roleLabels = {
+          gallery: "Galéria",
+          hero_desktop: "Hero desktop",
+          hero_mobile: "Hero mobil",
+          card: "Kártyakép"
+        };
+
+        return roleLabels[roleKey] || roleKey || "-";
       }
 
       function getSourceSortPriority(candidate) {
@@ -1247,12 +1274,12 @@ const apartmentWorkflowOptions = [
 
         const summary = computeSourceSummary(sourceCandidates);
         const cards = [
-          ["Összes candidate", summary.total],
-          ["source_found", summary.sourceFound],
-          ["selected", summary.selected],
-          ["selected, de WebP még nincs kész", summary.selectedUnprocessed],
-          ["processed, de nincs published", summary.processedUnpublished],
-          ["published", summary.published],
+          ["Összes képfeldolgozási elem", summary.total],
+          ["Beemelve, jóváhagyásra vár", summary.sourceFound],
+          ["Jóváhagyva", summary.selected],
+          ["Jóváhagyva, de WebP még nincs kész", summary.selectedUnprocessed],
+          ["WebP elkészült, de még nincs publikálva", summary.processedUnpublished],
+          ["Publikálva", summary.published],
         ];
 
         sourceSummaryGrid.innerHTML = cards
@@ -1280,7 +1307,7 @@ const apartmentWorkflowOptions = [
             sourceListWarning.textContent = "";
           }
           sourceListContainer.innerHTML =
-            '<div class="dnd-image-admin__source-empty">Nincs source candidate a kiválasztott apartmanhoz.</div>';
+            '<div class="dnd-image-admin__source-empty">Nincs képfeldolgozási elem a kiválasztott apartmanhoz.</div>';
           updateSourceListUiState();
           return;
         }
@@ -1315,24 +1342,21 @@ const apartmentWorkflowOptions = [
         sourceListContainer.innerHTML = sortedCandidates
           .map((candidate) => {
             const statusLabel = getSourceStatusLabel(candidate);
+            const roleLabel = getSourceRoleLabel(candidate.role);
             const wpId = candidate.wpId ? `<div><strong>WP ID:</strong> ${escapeHtml(candidate.wpId)}</div>` : "";
-            const theme = candidate.theme ? `<div><strong>Theme:</strong> ${escapeHtml(candidate.theme)}</div>` : "";
-            const room = candidate.room ? `<div><strong>Room:</strong> ${escapeHtml(candidate.room)}</div>` : "";
-            const sortOrder =
-              candidate.sortOrder != null
-                ? `<div><strong>Sort:</strong> ${escapeHtml(candidate.sortOrder)}</div>`
-                : "";
+            const theme = candidate.theme ? `<div><strong>Téma:</strong> ${escapeHtml(candidate.theme)}</div>` : "";
+            const room = candidate.room ? `<div><strong>Helyiség:</strong> ${escapeHtml(candidate.room)}</div>` : "";
             const originalUrl = candidate.originalUrl
-              ? `<div class="dnd-image-admin__source-path"><strong>Source:</strong> ${escapeHtml(candidate.originalUrl)}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Eredeti URL:</strong> ${escapeHtml(candidate.originalUrl)}</div>`
               : "";
             const galleryTarget = candidate.galleryTargetPath
-              ? `<div class="dnd-image-admin__source-path"><strong>Gallery:</strong> ${escapeHtml(candidate.galleryTargetPath)}${candidate.galleryExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Galéria célútvonal:</strong> ${escapeHtml(candidate.galleryTargetPath)}${candidate.galleryExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
             const thumbTarget = candidate.thumbTargetPath
-              ? `<div class="dnd-image-admin__source-path"><strong>Thumb:</strong> ${escapeHtml(candidate.thumbTargetPath)}${candidate.thumbExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Thumb célútvonal:</strong> ${escapeHtml(candidate.thumbTargetPath)}${candidate.thumbExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
             const registryEntry = candidate.registryId
-              ? `<div class="dnd-image-admin__source-path"><strong>Registry:</strong> ${escapeHtml(candidate.registryId)}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Registry ID:</strong> ${escapeHtml(candidate.registryId)}</div>`
               : "";
             const registrySrc = candidate.registrySrc
               ? `<div class="dnd-image-admin__source-path"><strong>Registry src:</strong> ${escapeHtml(candidate.registrySrc)}</div>`
@@ -1341,12 +1365,31 @@ const apartmentWorkflowOptions = [
               ? `<div class="dnd-image-admin__source-path"><strong>Registry thumb:</strong> ${escapeHtml(candidate.registryThumb)}</div>`
               : "";
             const roleTargetPath = candidate.roleTargetPath
-              ? `<div class="dnd-image-admin__source-path"><strong>Role target:</strong> ${escapeHtml(candidate.roleTargetPath)}${candidate.roleTargetExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
+              ? `<div class="dnd-image-admin__source-path"><strong>Szerep célútvonal:</strong> ${escapeHtml(candidate.roleTargetPath)}${candidate.roleTargetExists ? " <em>(megvan)</em>" : " <em>(hiányzik)</em>"}</div>`
               : "";
+            const sortOrderTechnical =
+              candidate.sortOrder != null
+                ? `<div class="dnd-image-admin__source-path"><strong>Sorrend:</strong> ${escapeHtml(candidate.sortOrder)}</div>`
+                : "";
+            const sourceId = candidate.id
+              ? `<div class="dnd-image-admin__source-path"><strong>Source ID:</strong> ${escapeHtml(candidate.id)}</div>`
+              : "";
+            const rawJson = `<div class="dnd-image-admin__source-path"><strong>Raw JSON:</strong><pre class="dnd-image-admin__source-raw-json">${escapeHtml(JSON.stringify(candidate, null, 2))}</pre></div>`;
             const canProcess = candidate.status === "selected" && Boolean(candidate.galleryTargetPath) && Boolean(candidate.thumbTargetPath);
             const sourceFoundLead = candidate.status === "source_found"
               ? '<div class="dnd-image-admin__source-lead">Következő teendő</div>'
               : "";
+            let nextStepLabel = "Nincs további teendő";
+
+            if (candidate.status === "source_found") {
+              nextStepLabel = "Jóváhagyás feldolgozásra";
+            } else if (canProcess && !candidate.processed) {
+              nextStepLabel = "WebP gyártás";
+            } else if (canProcess && candidate.processed && !candidate.published) {
+              nextStepLabel = "Publikálás galériába";
+            } else if (canProcess && candidate.processed && candidate.published) {
+              nextStepLabel = "Kész";
+            }
 
             let actionMarkup = `<span class="dnd-image-admin__source-state">Státusz: ${escapeHtml(statusLabel)}</span>`;
 
@@ -1398,23 +1441,30 @@ const apartmentWorkflowOptions = [
               <article class="dnd-image-admin__source-card${candidate.status === "source_found" ? " is-next-step" : ""}">
                 ${sourceFoundLead}
                 <div class="dnd-image-admin__source-card-head">
-                  <strong>${escapeHtml(candidate.id)}</strong>
-                  <span class="dnd-image-admin__source-badge">${escapeHtml(candidate.role || "-")}</span>
+                  <strong>Képfeldolgozási elem</strong>
+                  <span class="dnd-image-admin__source-badge">${escapeHtml(roleLabel)}</span>
                 </div>
                 <div class="dnd-image-admin__source-meta">
                   <div><strong>Státusz:</strong> ${escapeHtml(statusLabel)}</div>
+                  <div><strong>Szerep:</strong> ${escapeHtml(roleLabel)} <small>(${escapeHtml(candidate.role || "-")})</small></div>
                   ${wpId}
                   ${theme}
                   ${room}
-                  ${sortOrder}
+                  <div><strong>Következő teendő:</strong> ${escapeHtml(nextStepLabel)}</div>
                 </div>
-                ${originalUrl}
-                ${galleryTarget}
-                ${thumbTarget}
-                ${roleTargetPath}
-                ${registryEntry}
-                ${registrySrc}
-                ${registryThumb}
+                <details class="dnd-image-admin__technical-details">
+                  <summary>Technikai részletek</summary>
+                  ${sourceId}
+                  ${sortOrderTechnical}
+                  ${originalUrl}
+                  ${galleryTarget}
+                  ${thumbTarget}
+                  ${roleTargetPath}
+                  ${registryEntry}
+                  ${registrySrc}
+                  ${registryThumb}
+                  ${rawJson}
+                </details>
                 <div class="dnd-image-admin__source-actions">
                   ${actionMarkup}
                 </div>
@@ -1473,7 +1523,7 @@ const apartmentWorkflowOptions = [
         try {
           isSourceListLoading = true;
           updateSourceListUiState();
-          setSourceListResult(true, "Candidate lista betöltése folyamatban...", "");
+          setSourceListResult(true, "Képfeldolgozási elemek betöltése folyamatban...", "");
 
           const apartment = sourceListApartmentSelect.value || "";
           const response = await fetch(
@@ -1486,7 +1536,7 @@ const apartmentWorkflowOptions = [
             renderSourceCandidates();
             setSourceListResult(
               true,
-              "Candidate lista betöltve (0 elem)",
+              "Képfeldolgozási elemek betöltve (0 elem)",
               JSON.stringify(payload || { ok: true, apartment, candidates: [] }, null, 2),
             );
             return;
@@ -1495,7 +1545,7 @@ const apartmentWorkflowOptions = [
           if (!response.ok || !payload?.ok) {
             sourceCandidates = [];
             renderSourceCandidates();
-            setSourceListResult(false, "Candidate lista hiba", payload?.error || "A source lista betöltése nem sikerült.");
+            setSourceListResult(false, "Képfeldolgozási elemek hiba", payload?.error || "A source lista betöltése nem sikerült.");
             return;
           }
 
@@ -1503,7 +1553,7 @@ const apartmentWorkflowOptions = [
           renderSourceCandidates();
           setSourceListResult(
             true,
-            `Candidate lista betöltve (${sourceCandidates.length} elem)`,
+            `Képfeldolgozási elemek betöltve (${sourceCandidates.length} elem)`,
             JSON.stringify(payload, null, 2),
           );
         } catch (error) {
@@ -1511,7 +1561,7 @@ const apartmentWorkflowOptions = [
           renderSourceCandidates();
           setSourceListResult(
             false,
-            "Candidate lista hiba",
+            "Képfeldolgozási elemek hiba",
             error instanceof Error ? error.message : "A source lista betöltése nem sikerült.",
           );
         } finally {
@@ -1683,7 +1733,7 @@ const apartmentWorkflowOptions = [
         try {
           isIntakeSubmitting = true;
           updateIntakeUiState();
-          setIntakeResult(true, dryRun ? "Source candidate előnézet készül..." : "Source candidate létrehozása folyamatban...", "");
+          setIntakeResult(true, dryRun ? "Képfeldolgozási elem előnézet készül..." : "Képfeldolgozási elem létrehozása folyamatban...", "");
 
           const response = await fetch(apiUrl("intake-source"), {
             method: "POST",
@@ -1705,7 +1755,7 @@ const apartmentWorkflowOptions = [
 
           setIntakeResult(
             true,
-            dryRun ? "Source candidate előkészítve (dry-run)" : "Source candidate előkészítve",
+            dryRun ? "Képfeldolgozási elem előkészítve (dry-run)" : "Képfeldolgozási elem előkészítve",
             formattedOutput || "Az intake kérés sikeresen lefutott."
           );
         } catch (error) {
@@ -3080,10 +3130,16 @@ const apartmentWorkflowOptions = [
                   }
                 </div>
                 <div class="dnd-image-admin__gallery-order-copy">
-                  <span>ID: ${escapeHtml(item.id || "-")}</span>
-                  <span>SRC: ${escapeHtml(item.src || "-")}</span>
-                  <span>Sort: ${escapeHtml(sortLabel)}</span>
-                  <span>ALT(HU): ${escapeHtml(item.altHu || "-")}</span>
+                  <strong>${escapeHtml(item.altHu || item.titleHu || `Kép #${index + 1}`)}</strong>
+                  <span>${escapeHtml(item.altHu ? `Cím: ${item.titleHu || "-"}` : item.titleHu ? `Cím: ${item.titleHu}` : "")}</span>
+                  <details class="dnd-image-admin__technical-details">
+                    <summary>Technikai részletek</summary>
+                    <span>ID: ${escapeHtml(item.id || "-")}</span>
+                    <span>SRC: ${escapeHtml(item.src || "-")}</span>
+                    <span>Thumb: ${escapeHtml(item.thumb || "-")}</span>
+                    <span>Sorrend (sortOrder): ${escapeHtml(sortLabel)}</span>
+                    <span>Cím (HU): ${escapeHtml(item.titleHu || "-")}</span>
+                  </details>
                 </div>
                 <div class="dnd-image-admin__gallery-order-actions">
                   <button type="button" class="dnd-btn dnd-btn--secondary dnd-image-admin__gallery-order-button" data-gallery-order-move="up" data-gallery-order-index="${index}" ${moveUpDisabled}>Fel</button>
@@ -3648,12 +3704,6 @@ const apartmentWorkflowOptions = [
       if (sourceListRefreshButton) {
         sourceListRefreshButton.addEventListener("click", async () => {
           await loadSourceCandidates();
-        });
-      }
-
-      if (sourceListToggleOutputButton) {
-        sourceListToggleOutputButton.addEventListener("click", () => {
-          setSourceListDiagnosticsVisibility(!sourceListDiagnosticsVisible);
         });
       }
 
@@ -4620,6 +4670,13 @@ const apartmentWorkflowOptions = [
       min-width: 0;
     }
 
+    .dnd-image-admin__gallery-order-copy strong {
+      font-size: 0.84rem;
+      line-height: 1.35;
+      color: rgba(0, 0, 0, 0.86);
+      word-break: break-word;
+    }
+
     .dnd-image-admin__gallery-order-copy span {
       color: rgba(0, 0, 0, 0.62);
       font-size: 0.72rem;
@@ -4715,6 +4772,23 @@ const apartmentWorkflowOptions = [
 
     .dnd-image-admin__intake-output.is-hidden {
       display: none;
+    }
+
+    .dnd-image-admin__technical-details {
+      display: grid;
+      gap: 8px;
+    }
+
+    .dnd-image-admin__technical-details summary {
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.68);
+      font-size: 0.8rem;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    .dnd-image-admin__technical-details[open] summary {
+      color: rgba(0, 0, 0, 0.82);
     }
 
     .dnd-image-admin__source-warning {
@@ -4852,6 +4926,20 @@ const apartmentWorkflowOptions = [
       color: rgba(0, 0, 0, 0.64);
       font-size: 0.76rem;
       line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .dnd-image-admin__source-raw-json {
+      margin: 6px 0 0;
+      padding: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.82);
+      color: rgba(0, 0, 0, 0.76);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.7rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
       word-break: break-word;
     }
 
