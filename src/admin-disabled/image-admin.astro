@@ -86,14 +86,21 @@ const initialSelectedMedia =
           class="dnd-image-admin__tab is-active"
           data-admin-tab-button="homepage"
         >
-          Főoldal képek
+          Főoldal
         </button>
         <button
           type="button"
           class="dnd-image-admin__tab"
           data-admin-tab-button="apartments"
         >
-          Lakásoldalak képei
+          Szállás oldalak
+        </button>
+        <button
+          type="button"
+          class="dnd-image-admin__tab"
+          data-admin-tab-button="library"
+        >
+          Képtár
         </button>
       </div>
 
@@ -614,7 +621,7 @@ const initialSelectedMedia =
             </div>
           </div>
 
-          <div class="dnd-image-admin__panel">
+          <div class="dnd-image-admin__panel" data-admin-tab="library">
             <div class="dnd-image-admin__media-head">
               <div>
                 <h2 id="dnd-image-admin-media-panel-title">WordPress média</h2>
@@ -640,7 +647,7 @@ const initialSelectedMedia =
                   </button>
                 </div>
                 <label class="dnd-image-admin__search">
-                  <span>Keresés</span>
+                  <span>Képek szűrése</span>
                   <input id="dnd-image-admin-search" type="search" placeholder="Kép címe vagy alt szöveg" />
                 </label>
               </div>
@@ -648,6 +655,7 @@ const initialSelectedMedia =
 
             <div class="dnd-image-admin__bulk-bar">
               <div class="dnd-image-admin__bulk-copy">
+                <span>Kijelölt képek</span>
                 <strong id="dnd-image-admin-bulk-count">0 kép kijelölve</strong>
                 <span>Jelölj ki több képet, majd add meg a cél lakást.</span>
               </div>
@@ -2636,17 +2644,11 @@ const initialSelectedMedia =
         });
 
         if (mediaPanelTitle) {
-          mediaPanelTitle.textContent =
-            activeAdminTab === "homepage" ? "WordPress média" : "Lakáshoz rendelt képek";
+          mediaPanelTitle.textContent = "WordPress média";
         }
 
         if (mediaPanelDescription) {
-          mediaPanelDescription.textContent =
-            activeAdminTab === "homepage"
-              ? `Betöltött képek száma: ${state.mediaItems?.length || 0}`
-              : activeApartmentFilter && activeApartmentFilter !== "all"
-                ? `${getApartmentLabel(activeApartmentFilter)} képei és szerepei.`
-                : "Válassz lakást a lakásoldali képek kezeléséhez.";
+          mediaPanelDescription.textContent = `Betöltött képek száma: ${state.mediaItems?.length || 0}`;
         }
       }
 
@@ -2744,7 +2746,7 @@ const initialSelectedMedia =
           const apartmentKey = card.dataset.apartment || "";
           const matchesSearch = searchTerm.length === 0 || haystack.includes(searchTerm);
           const matchesApartment =
-            activeAdminTab === "homepage" ||
+            activeAdminTab !== "apartments" ||
             activeApartmentFilter === "all" ||
             apartmentKey === activeApartmentFilter;
           const matchesMissingAlt =
