@@ -984,7 +984,9 @@ const apartmentWorkflowOptions = [
       let selectedBulkMediaIds = [];
       let apartmentGalleryOrderDrafts = {};
       let registryGalleryItems = [];
+      let registryGalleryBaselineIds = [];
       let activeRegistryGalleryApartment = "d2";
+      let hasUnsavedGalleryOrderChanges = false;
       let mediaMetaOverrides = {};
       let mediaSeoFields = state.mediaSeoFields || {};
       let isIntakeSubmitting = false;
@@ -1982,6 +1984,21 @@ const apartmentWorkflowOptions = [
         }
       }
 
+      function getRegistryGalleryIds(items = registryGalleryItems) {
+        return (Array.isArray(items) ? items : [])
+          .map((item) => String(item?.id || "").trim())
+          .filter(Boolean);
+      }
+
+      function setGalleryOrderDirtyState(nextDirty) {
+        hasUnsavedGalleryOrderChanges = Boolean(nextDirty);
+
+        if (hasUnsavedGalleryOrderChanges && !isGalleryOrderLoading && !isGalleryOrderSaving && galleryOrderStatus) {
+          galleryOrderStatus.textContent = "Mentetlen sorrendváltozás.";
+          galleryOrderStatus.style.color = "#b35f00";
+        }
+      }
+
       function resetApartmentGalleryOrderDraft(apartmentKey) {
         if (!apartmentKey || apartmentKey === "all") {
           return;
@@ -2013,6 +2030,8 @@ const apartmentWorkflowOptions = [
 
         if (galleryOrderSave) {
           galleryOrderSave.disabled = disabled || registryGalleryItems.length === 0;
+          galleryOrderSave.classList.toggle("is-dirty", hasUnsavedGalleryOrderChanges);
+          galleryOrderSave.textContent = isGalleryOrderSaving ? "Mentés folyamatban…" : "Sorrend mentése";
         }
       }
 
@@ -2033,6 +2052,10 @@ const apartmentWorkflowOptions = [
         const [moved] = reordered.splice(fromIndex, 1);
         reordered.splice(toIndex, 0, moved);
         registryGalleryItems = reordered;
+        const reorderedIds = getRegistryGalleryIds(reordered);
+        setGalleryOrderDirtyState(
+          JSON.stringify(reorderedIds) !== JSON.stringify(registryGalleryBaselineIds)
+        );
         renderApartmentGalleryOrder();
       }
 
@@ -2046,6 +2069,7 @@ const apartmentWorkflowOptions = [
 
         try {
           isGalleryOrderLoading = true;
+          setGalleryOrderDirtyState(false);
           updateGalleryOrderUiState();
           setGalleryOrderResult(true, "Galéria betöltése folyamatban...", "");
 
@@ -2065,6 +2089,8 @@ const apartmentWorkflowOptions = [
           }
 
           registryGalleryItems = Array.isArray(payload.gallery) ? payload.gallery : [];
+          registryGalleryBaselineIds = getRegistryGalleryIds(registryGalleryItems);
+          setGalleryOrderDirtyState(false);
           renderApartmentGalleryOrder();
           setGalleryOrderResult(
             true,
@@ -2073,6 +2099,8 @@ const apartmentWorkflowOptions = [
           );
         } catch (error) {
           registryGalleryItems = [];
+          registryGalleryBaselineIds = [];
+          setGalleryOrderDirtyState(false);
           renderApartmentGalleryOrder();
           setGalleryOrderResult(
             false,
@@ -2101,7 +2129,7 @@ const apartmentWorkflowOptions = [
         try {
           isGalleryOrderSaving = true;
           updateGalleryOrderUiState();
-          setGalleryOrderResult(true, "Sorrend mentése folyamatban...", "");
+          setGalleryOrderResult(true, "Mentés folyamatban…", "");
 
           const response = await fetch(apiUrl("save-gallery-order"), {
             method: "POST",
@@ -2121,15 +2149,16 @@ const apartmentWorkflowOptions = [
 
           setGalleryOrderResult(
             true,
-            "Galéria sorrend mentve",
+            "Sorrend elmentve.",
             JSON.stringify(payload, null, 2),
           );
           await loadRegistryGallery(apartmentValue);
         } catch (error) {
+          setGalleryOrderDirtyState(true);
           setGalleryOrderResult(
             false,
-            "Sorrend mentési hiba",
-            error instanceof Error ? error.message : "A galéria sorrend mentése nem sikerült.",
+            "A sorrend mentése nem sikerült.",
+            error instanceof Error ? error.message : "A sorrend mentése nem sikerült.",
           );
         } finally {
           isGalleryOrderSaving = false;
@@ -4728,6 +4757,13 @@ const apartmentWorkflowOptions = [
       min-height: 30px;
       padding: 0 12px;
       font-size: 0.78rem;
+    }
+
+    #dnd-image-admin-gallery-order-save.is-dirty {
+      border-color: rgba(217, 158, 43, 0.62);
+      background: rgba(217, 158, 43, 0.2);
+      color: #7d5600;
+      box-shadow: 0 0 0 2px rgba(217, 158, 43, 0.2);
     }
 
     .dnd-image-admin__gallery-order-index {
