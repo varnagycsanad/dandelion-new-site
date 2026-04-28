@@ -32,80 +32,56 @@ function dandelion_image_admin_can_manage() {
 	return is_user_logged_in() && current_user_can('manage_options');
 }
 
-function dandelion_image_admin_get_iframe_url() {
-	return site_url('/ujsite/_local/image-admin/');
-}
-
-function dandelion_image_admin_get_origin($url) {
-	$parts = wp_parse_url($url);
-
-	if (!is_array($parts) || empty($parts['scheme']) || empty($parts['host'])) {
-		return '';
-	}
-
-	$origin = $parts['scheme'] . '://' . $parts['host'];
-
-	if (!empty($parts['port'])) {
-		$origin .= ':' . (int) $parts['port'];
-	}
-
-	return $origin;
-}
-
 function dandelion_image_admin_render_admin_page() {
 	if (!dandelion_image_admin_can_manage()) {
 		wp_die(esc_html__('You do not have permission to access this page.', 'dandelion-image-admin-rest'));
 	}
 
-	$iframe_url = dandelion_image_admin_get_iframe_url();
-	$iframe_origin = dandelion_image_admin_get_origin($iframe_url);
+	// [CHANGE 2026-04-28 20:08] Replace public iframe entry with a protected wp-admin shell placeholder.
 	$bridge_payload = array(
 		'restRoot' => esc_url_raw(rest_url('dandelion/v1/')),
 		'nonce' => wp_create_nonce('wp_rest'),
 		'endpoint' => 'apartment-gallery-order',
+		'endpoints' => array(
+			'apartmentGalleryOrder' => 'apartment-gallery-order',
+			'apartmentHeroImage' => 'apartment-hero-image',
+			'apartmentImageConfig' => 'apartment-image-config',
+		),
+		'canManage' => true,
 	);
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html__('Dandelion Image Admin', 'dandelion-image-admin-rest'); ?></h1>
-		<p><?php echo esc_html__('The static image admin is loaded below inside the WordPress admin shell.', 'dandelion-image-admin-rest'); ?></p>
-		<iframe
-			id="dandelion-image-admin-frame"
-			src="<?php echo esc_url($iframe_url); ?>"
-			title="<?php echo esc_attr__('Dandelion Image Admin', 'dandelion-image-admin-rest'); ?>"
-			style="width:100%;min-height:80vh;border:1px solid #ccd0d4;border-radius:6px;background:#fff;"
-		></iframe>
+		<div
+			id="dandelion-image-admin-shell"
+			style="max-width:960px;padding:24px;border:1px solid #ccd0d4;border-radius:6px;background:#fff;"
+		>
+			<h2><?php echo esc_html__('Dandelion Image Admin - WordPress shell mukodik', 'dandelion-image-admin-rest'); ?></h2>
+			<p><?php echo esc_html__('A vedett WordPress admin belepesi pont elkeszult. A teljes image-admin UI bundle bekotese a kovetkezo lepes.', 'dandelion-image-admin-rest'); ?></p>
+			<table class="widefat striped" style="max-width:720px;">
+				<tbody>
+					<tr>
+						<th scope="row"><?php echo esc_html__('REST root', 'dandelion-image-admin-rest'); ?></th>
+						<td><code><?php echo esc_html($bridge_payload['restRoot']); ?></code></td>
+					</tr>
+					<tr>
+						<th scope="row"><?php echo esc_html__('Bridge allapot', 'dandelion-image-admin-rest'); ?></th>
+						<td><?php echo esc_html__('Elokeszitve', 'dandelion-image-admin-rest'); ?></td>
+					</tr>
+					<tr>
+						<th scope="row"><?php echo esc_html__('Nonce atadas', 'dandelion-image-admin-rest'); ?></th>
+						<td><?php echo esc_html__('JS konfiguracioban elerheto', 'dandelion-image-admin-rest'); ?></td>
+					</tr>
+					<tr>
+						<th scope="row"><?php echo esc_html__('Kovetkezo lepes', 'dandelion-image-admin-rest'); ?></th>
+						<td><?php echo esc_html__('Admin UI bundle bekotese vedett wp-admin shellbe.', 'dandelion-image-admin-rest'); ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<script>
-		(function () {
-			const frame = document.getElementById('dandelion-image-admin-frame');
-			const targetOrigin = <?php echo wp_json_encode($iframe_origin); ?>;
-			const payload = <?php echo wp_json_encode($bridge_payload); ?>;
-
-			if (!frame || !targetOrigin) {
-				return;
-			}
-
-			const sendBridgeMessage = function () {
-				if (!frame.contentWindow) {
-					return;
-				}
-
-				frame.contentWindow.postMessage(
-					{
-						type: 'dandelion:image-admin:bridge',
-						payload: payload
-					},
-					targetOrigin
-				);
-			};
-
-			frame.addEventListener('load', function () {
-				sendBridgeMessage();
-				window.setTimeout(sendBridgeMessage, 400);
-				window.setTimeout(sendBridgeMessage, 1200);
-				window.setTimeout(sendBridgeMessage, 2400);
-			});
-		}());
+		window.dandelionImageAdminBridge = <?php echo wp_json_encode($bridge_payload); ?>;
 	</script>
 	<?php
 }
