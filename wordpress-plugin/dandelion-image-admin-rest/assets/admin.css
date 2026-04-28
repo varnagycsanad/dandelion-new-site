@@ -1,0 +1,60 @@
+#dandelion-image-admin-root {
+	margin-top: 24px;
+}
+
+.dandelion-image-admin-bundle {
+	max-width: 720px;
+	padding: 20px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #f6f7f7;
+}
+
+.dandelion-image-admin-bundle__eyebrow {
+	margin: 0 0 8px;
+	color: #996800;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.dandelion-image-admin-bundle__title {
+	margin: 0 0 8px;
+	font-size: 22px;
+	line-height: 1.25;
+}
+
+.dandelion-image-admin-bundle__status {
+	margin: 0 0 16px;
+	font-size: 14px;
+}
+
+.dandelion-image-admin-bundle__details {
+	display: grid;
+	gap: 10px;
+}
+
+.dandelion-image-admin-bundle__row {
+	display: grid;
+	grid-template-columns: 140px minmax(0, 1fr);
+	gap: 12px;
+	align-items: start;
+}
+
+.dandelion-image-admin-bundle__label {
+	font-weight: 600;
+}
+
+.dandelion-image-admin-bundle__value {
+	display: block;
+	overflow-wrap: anywhere;
+	white-space: normal;
+}
+
+@media (max-width: 782px) {
+	.dandelion-image-admin-bundle__row {
+		grid-template-columns: 1fr;
+		gap: 4px;
+	}
+}

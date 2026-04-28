@@ -78,6 +78,7 @@ function dandelion_image_admin_render_admin_page() {
 					</tr>
 				</tbody>
 			</table>
+			<div id="dandelion-image-admin-root"></div>
 		</div>
 	</div>
 	<script>
@@ -95,6 +96,32 @@ function dandelion_image_admin_register_admin_page() {
 		'dandelion_image_admin_render_admin_page',
 		'dashicons-format-gallery',
 		59
+	);
+}
+
+function dandelion_image_admin_enqueue_admin_assets($hook_suffix) {
+	if ('toplevel_page_dandelion-image-admin' !== $hook_suffix) {
+		return;
+	}
+
+	$asset_base_url = plugin_dir_url(__FILE__) . 'assets/';
+	$asset_base_path = plugin_dir_path(__FILE__) . 'assets/';
+	$script_path = $asset_base_path . 'admin.js';
+	$style_path = $asset_base_path . 'admin.css';
+
+	wp_enqueue_style(
+		'dandelion-image-admin',
+		$asset_base_url . 'admin.css',
+		array(),
+		file_exists($style_path) ? (string) filemtime($style_path) : '0.1.0'
+	);
+
+	wp_enqueue_script(
+		'dandelion-image-admin',
+		$asset_base_url . 'admin.js',
+		array(),
+		file_exists($script_path) ? (string) filemtime($script_path) : '0.1.0',
+		true
 	);
 }
 
@@ -378,3 +405,4 @@ add_action(
 );
 
 add_action('admin_menu', 'dandelion_image_admin_register_admin_page');
+add_action('admin_enqueue_scripts', 'dandelion_image_admin_enqueue_admin_assets');
