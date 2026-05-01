@@ -383,9 +383,16 @@
 
 	function setMediaCategory(state, mediaId, value) {
 		const normalizedMediaId = String(mediaId || '');
-		const normalizedValue = normalizeCategoryValue(state, value) || 'marketing';
+		const normalizedValue = normalizeCategoryValue(state, value);
 		if (!normalizedMediaId) {
 			return normalizedValue;
+		}
+		if (!normalizedValue) {
+			if (state.usedImageCategoriesByMediaId) {
+				delete state.usedImageCategoriesByMediaId[normalizedMediaId];
+			}
+			persistUsedImageCategories(state);
+			return '';
 		}
 		state.usedImageCategoriesByMediaId[normalizedMediaId] = normalizedValue;
 		persistUsedImageCategories(state);
@@ -474,6 +481,23 @@
 		return options;
 	}
 
+	function getLibraryCategoryOptions(state) {
+		const defaults = getDefaultAdminSettings();
+		const settings = state.adminSettings || defaults;
+		const categoryNames = normalizeAdminSettingsList(settings.otherCategories, defaults.otherCategories);
+		const options = [];
+		const seen = {};
+		categoryNames.forEach(function (name) {
+			const value = normalizeUiValue(getOtherCategoryValueByName(name));
+			if (!value || seen[value]) {
+				return;
+			}
+			seen[value] = true;
+			options.push({ value: value, label: getDisplayLabel(value, state) });
+		});
+		return options;
+	}
+
 	function getApartmentGroupOptions(state) {
 		const defaults = getDefaultAdminSettings();
 		const settings = state.adminSettings || defaults;
@@ -491,7 +515,7 @@
 		return options;
 	}
 
-	// [CHANGE 2026-04-30] apartment truth source stabilizĂˇlĂˇs
+	// [CHANGE 2026-04-30] apartment truth source stabilizálás
 	async function syncApartmentGroupsWithBackend(state) {
 		if (!state.restRoot || state.isSyncingApartmentGroups) {
 			return;
@@ -535,12 +559,32 @@
 		}
 	}
 
-	function getDefaultCategoryForMedia(state, mediaItem) {
-		const assignments = state.apartmentAssignments[String(mediaItem && mediaItem.id || '')] || [];
-		if (assignments.length && assignments[0] && assignments[0].key) {
-			return String(assignments[0].key);
+	function getMediaAssignments(state, mediaId) {
+		const normalizedMediaId = String(mediaId || '');
+		const raw = state.apartmentAssignments[normalizedMediaId];
+		const directAssignments = Array.isArray(raw) ? raw.filter(Boolean) : [];
+		if (directAssignments.length) {
+			return directAssignments;
 		}
-		return 'marketing';
+
+		const derivedAssignments = [];
+		Object.keys(state.apartmentGalleryByApartment || {}).forEach(function (apartmentKey) {
+			const items = state.apartmentGalleryByApartment[apartmentKey];
+			if (!Array.isArray(items)) {
+				return;
+			}
+			const hasMedia = items.some(function (item) {
+				return String(item && item.id || '') === normalizedMediaId;
+			});
+			if (!hasMedia) {
+				return;
+			}
+			derivedAssignments.push({
+				key: apartmentKey,
+				name: getDisplayLabel(apartmentKey, state)
+			});
+		});
+		return derivedAssignments;
 	}
 
 	function getMediaCategory(state, mediaItem) {
@@ -549,12 +593,12 @@
 		if (typeof existing === 'string' && existing.trim()) {
 			return normalizeCategoryValue(state, existing);
 		}
-		return normalizeCategoryValue(state, getDefaultCategoryForMedia(state, mediaItem));
+		return null;
 	}
 
 	function getAssignmentSummary(state, mediaItem) {
 		const mediaId = String(mediaItem && mediaItem.id || '');
-		const assignments = state.apartmentAssignments[mediaId] || [];
+		const assignments = getMediaAssignments(state, mediaId);
 		if (!assignments.length) {
 			return 'Nincs társítva';
 		}
@@ -986,13 +1030,132 @@
 		return payload;
 	}
 
-	async function fetchMediaPage(state) {
-		const endpoint =
+	function getMediaPageEndpoint(state, pageNumber) {
+		return (
 			state.wpRestRoot +
 			'/media?media_type=image&per_page=50&page=' +
-			encodeURIComponent(String(state.libraryPage)) +
-			'&_fields=id,title,source_url,media_details,alt_text,caption,description,approved';
-		const response = await fetch(endpoint, {
+			encodeURIComponent(String(pageNumber)) +
+			'&_fields=id,title,source_url,media_details,alt_text,caption,description,approved'
+		);
+	}
+
+	function mapFetchedMediaItem(state, item) {
+		const url = item && item.source_url ? String(item.source_url) : '';
+		const thumb =
+			item &&
+			item.media_details &&
+			item.media_details.sizes &&
+			item.media_details.sizes.medium &&
+			item.media_details.sizes.medium.source_url
+				? String(item.media_details.sizes.medium.source_url)
+				: item &&
+				  item.media_details &&
+				  item.media_details.sizes &&
+				  item.media_details.sizes.thumbnail &&
+				  item.media_details.sizes.thumbnail.source_url
+					? String(item.media_details.sizes.thumbnail.source_url)
+					: url;
+		const title = item && item.title && item.title.rendered ? stripRenderedText(String(item.title.rendered)) : '';
+		const caption =
+			item && item.caption && item.caption.rendered
+				? stripRenderedText(String(item.caption.rendered))
+				: '';
+		const description =
+			item && item.description && item.description.rendered
+				? stripRenderedText(String(item.description.rendered))
+				: '';
+		const alt = item && typeof item.alt_text === 'string' ? item.alt_text.trim() : '';
+		const mediaId = item && item.id ? String(item.id) : '';
+		const mediaItem = {
+			id: mediaId,
+			title: title || (url ? url.split('/').pop() : '-'),
+			titleRaw: title,
+			fileName: url ? url.split('/').pop() : '-',
+			url: url,
+			thumb: thumb,
+			width:
+				item && item.media_details && item.media_details.width
+					? Number(item.media_details.width)
+					: 0,
+			height:
+				item && item.media_details && item.media_details.height
+					? Number(item.media_details.height)
+					: 0,
+			fileSize:
+				item && item.media_details && item.media_details.filesize
+					? Number(item.media_details.filesize)
+					: 0,
+			alt: alt,
+			caption: caption,
+			description: description,
+			approved: !!(item && item.approved)
+		};
+		state.mediaDetailsCache[mediaId] = {
+			id: mediaId,
+			title: title,
+			alt: mediaItem.alt,
+			caption: mediaItem.caption,
+			description: mediaItem.description,
+			url: mediaItem.url,
+			fileName: mediaItem.fileName || '',
+			thumb: mediaItem.thumb || '',
+			width: mediaItem.width || 0,
+			height: mediaItem.height || 0,
+			fileSize: mediaItem.fileSize || 0,
+			approved: mediaItem.approved
+		};
+		return mediaItem;
+	}
+
+	function hasActiveLibraryFilters(state) {
+		return !!(
+			String(state.librarySearch || '').trim() ||
+			normalizeUiValue(state.libraryFilterTarget || 'all') !== 'all' ||
+			normalizeUiValue(state.libraryFilterCategory || 'all') !== 'all' ||
+			state.libraryFilterUnassignedOnly ||
+			state.libraryFilterSeoIncompleteOnly ||
+			state.libraryFilterWebpMissingOnly
+		);
+	}
+
+	async function ensureAllLibraryMediaLoaded(state) {
+		if (state.libraryAllMediaLoaded && Array.isArray(state.libraryAllMediaItems) && state.libraryAllMediaItems.length) {
+			return;
+		}
+
+		const allItems = [];
+		let totalPages = state.libraryTotalPages || 1;
+		for (let page = 1; page <= totalPages; page += 1) {
+			const response = await fetch(getMediaPageEndpoint(state, page), {
+				method: 'GET',
+				credentials: 'same-origin',
+				headers: {
+					'X-WP-Nonce': state.nonce
+				}
+			});
+			const payload = await response.json().catch(function () {
+				return null;
+			});
+
+			if (!response.ok) {
+				throw new Error(
+					(payload && (payload.message || payload.error)) ||
+					('HTTP ' + response.status)
+				);
+			}
+
+			totalPages = Number(response.headers.get('X-WP-TotalPages') || String(totalPages || 1)) || 1;
+			(Array.isArray(payload) ? payload : []).forEach(function (item) {
+				allItems.push(mapFetchedMediaItem(state, item));
+			});
+		}
+
+		state.libraryAllMediaItems = allItems;
+		state.libraryAllMediaLoaded = true;
+	}
+
+	async function fetchMediaPage(state) {
+		const response = await fetch(getMediaPageEndpoint(state, state.libraryPage), {
 			method: 'GET',
 			credentials: 'same-origin',
 			headers: {
@@ -1014,73 +1177,11 @@
 		state.libraryTotalPages = Number(response.headers.get('X-WP-TotalPages') || '1') || 1;
 		state.mediaItems = Array.isArray(payload)
 			? payload.map(function (item) {
-				const url = item && item.source_url ? String(item.source_url) : '';
-				const thumb =
-					item &&
-					item.media_details &&
-					item.media_details.sizes &&
-					item.media_details.sizes.medium &&
-					item.media_details.sizes.medium.source_url
-						? String(item.media_details.sizes.medium.source_url)
-						: item &&
-						  item.media_details &&
-						  item.media_details.sizes &&
-						  item.media_details.sizes.thumbnail &&
-						  item.media_details.sizes.thumbnail.source_url
-							? String(item.media_details.sizes.thumbnail.source_url)
-							: url;
-				const title = item && item.title && item.title.rendered ? stripRenderedText(String(item.title.rendered)) : '';
-				const caption =
-					item && item.caption && item.caption.rendered
-						? stripRenderedText(String(item.caption.rendered))
-						: '';
-				const description =
-					item && item.description && item.description.rendered
-						? stripRenderedText(String(item.description.rendered))
-						: '';
-				const alt = item && typeof item.alt_text === 'string' ? item.alt_text.trim() : '';
-				const mediaId = item && item.id ? String(item.id) : '';
-				const mediaItem = {
-					id: mediaId,
-					title: title || (url ? url.split('/').pop() : '-'),
-					titleRaw: title,
-					fileName: url ? url.split('/').pop() : '-',
-					url: url,
-					thumb: thumb,
-					width:
-						item && item.media_details && item.media_details.width
-							? Number(item.media_details.width)
-							: 0,
-					height:
-						item && item.media_details && item.media_details.height
-							? Number(item.media_details.height)
-							: 0,
-					fileSize:
-						item && item.media_details && item.media_details.filesize
-							? Number(item.media_details.filesize)
-							: 0,
-					alt: alt,
-					caption: caption,
-					description: description,
-					approved: !!(item && item.approved)
-				};
-				state.mediaDetailsCache[mediaId] = {
-					id: mediaId,
-					title: title,
-					alt: mediaItem.alt,
-					caption: mediaItem.caption,
-					description: mediaItem.description,
-					url: mediaItem.url,
-					fileName: mediaItem.fileName || '',
-					thumb: mediaItem.thumb || '',
-					width: mediaItem.width || 0,
-					height: mediaItem.height || 0,
-					fileSize: mediaItem.fileSize || 0,
-					approved: mediaItem.approved
-				};
-				return mediaItem;
+				return mapFetchedMediaItem(state, item);
 			})
 			: [];
+		state.libraryAllMediaLoaded = false;
+		state.libraryAllMediaItems = [];
 		state.selectedMediaIds = [];
 	}
 
@@ -1594,7 +1695,7 @@
 	function renderBadges(state, mediaId) {
 		const wrap = document.createElement('div');
 		wrap.className = 'dnd-badge-row';
-		const items = state.apartmentAssignments[mediaId] || [];
+		const items = getMediaAssignments(state, mediaId);
 
 		if (!items.length) {
 			const badge = document.createElement('span');
@@ -1617,13 +1718,15 @@
 		const mediaId = String(mediaItem && mediaItem.id || '');
 		const wrap = document.createElement('div');
 		wrap.className = 'dnd-badge-row';
+		const categoryValue = getMediaCategory(state, mediaItem);
+		if (categoryValue) {
+			const categoryBadge = document.createElement('span');
+			categoryBadge.className = 'dnd-badge';
+			categoryBadge.textContent = getDisplayLabel(categoryValue, state);
+			wrap.append(categoryBadge);
+		}
 
-		const categoryBadge = document.createElement('span');
-		categoryBadge.className = 'dnd-badge';
-		categoryBadge.textContent = getDisplayLabel(getMediaCategory(state, mediaItem), state);
-		wrap.append(categoryBadge);
-
-		const assignments = state.apartmentAssignments[mediaId] || [];
+		const assignments = getMediaAssignments(state, mediaId);
 		if (!assignments.length) {
 			const emptyBadge = document.createElement('span');
 			emptyBadge.className = 'dnd-badge is-muted';
@@ -1645,9 +1748,13 @@
 	function renderCategoryBadgeRow(state, mediaItem) {
 		const wrap = document.createElement('div');
 		wrap.className = 'dnd-badge-row';
+		const categoryValue = getMediaCategory(state, mediaItem);
+		if (!categoryValue) {
+			return wrap;
+		}
 		const badge = document.createElement('span');
 		badge.className = 'dnd-badge';
-		badge.textContent = getDisplayLabel(getMediaCategory(state, mediaItem), state);
+		badge.textContent = getDisplayLabel(categoryValue, state);
 		wrap.append(badge);
 		return wrap;
 	}
@@ -2309,7 +2416,7 @@
 		};
 	}
 
-	// [CHANGE 2026-04-30] modal és kĂˇrtya stĂˇtuszforrĂˇs egysĂ©gesĂ­tése
+	// [CHANGE 2026-04-30] modal és kártya státuszforrás egységesítése
 	function getDetailedMediaSourceItem(state, mediaId, fallbackDetails) {
 		return getSeoStatusSourceItem(state, mediaId, fallbackDetails) || fallbackDetails || {};
 	}
@@ -2375,7 +2482,9 @@
 	}
 
 	async function goToLibraryPage(state, refresh, targetPage) {
-		const totalPages = state.libraryTotalPages || 1;
+		const totalPages = hasActiveLibraryFilters(state)
+			? (state.libraryFilteredTotalPages || 1)
+			: (state.libraryTotalPages || 1);
 		const nextPage = Math.min(Math.max(1, targetPage), totalPages);
 		if (nextPage === state.libraryPage) {
 			return;
@@ -2386,6 +2495,10 @@
 		state.selectedSeoMediaIds = [];
 		state.seoBulkMessage = '';
 		state.seoBulkType = '';
+		if (hasActiveLibraryFilters(state)) {
+			preserveScroll(refresh);
+			return;
+		}
 		state.isLibraryLoading = true;
 		preserveScroll(refresh);
 		try {
@@ -2400,13 +2513,13 @@
 		}
 	}
 
-	function renderLibraryPaginator(state, refresh) {
+	function renderLibraryPaginator(state, refresh, totalOverride) {
 		const wrapper = document.createElement('div');
 		wrapper.className = 'dnd-actions-row dnd-paging-bar';
 
-		const total = state.libraryTotal || 0;
+		const total = typeof totalOverride === 'number' ? totalOverride : (state.libraryTotal || 0);
 		const page = state.libraryPage || 1;
-		const totalPages = state.libraryTotalPages || 1;
+		const totalPages = Math.max(1, Math.ceil(total / 50)) || 1;
 		const start = total ? (page - 1) * 50 + 1 : 0;
 		const end = total ? Math.min(page * 50, total) : 0;
 
@@ -2990,6 +3103,66 @@
 
 		module.append(createStatus(state.galleryMeta.message || '', ''));
 
+		const filterGrid = document.createElement('div');
+		filterGrid.className = 'dnd-controls-grid';
+		const searchField = createInputField('Keresés', state.gallerySearch || '', 'Fájlnév vagy cím');
+		searchField.input.addEventListener('input', function () {
+			state.gallerySearch = searchField.input.value || '';
+			preserveScroll(refresh);
+		});
+		filterGrid.append(searchField.wrapper);
+
+		const categoryField = createSelectField('Kategória');
+		const allCategoryOption = document.createElement('option');
+		allCategoryOption.value = 'all';
+		allCategoryOption.textContent = 'Összes kategória';
+		categoryField.select.append(allCategoryOption);
+		getCategoryOptions(state).forEach(function (option) {
+			const node = document.createElement('option');
+			node.value = normalizeUiValue(option.value || '');
+			node.textContent = getDisplayLabel(option.value || '', state);
+			categoryField.select.append(node);
+		});
+		categoryField.select.value = normalizeUiValue(state.galleryFilterCategory || 'all');
+		categoryField.select.addEventListener('change', function () {
+			state.galleryFilterCategory = normalizeUiValue(categoryField.select.value || 'all');
+			preserveScroll(refresh);
+		});
+		filterGrid.append(categoryField.wrapper);
+		module.append(filterGrid);
+
+		const checkboxRow = document.createElement('div');
+		checkboxRow.className = 'dnd-actions-row';
+		// [CHANGE 2026-04-30] Oldalak/képhasználat szűrőrendszer
+		function createGalleryFilterCheckbox(labelText, checked, onChange) {
+			const label = document.createElement('label');
+			label.className = 'dnd-filter-checkbox';
+			const input = document.createElement('input');
+			input.type = 'checkbox';
+			input.checked = !!checked;
+			input.addEventListener('change', onChange);
+			const text = document.createElement('span');
+			text.textContent = labelText;
+			label.append(input, text);
+			return label;
+		}
+
+		checkboxRow.append(
+			createGalleryFilterCheckbox('Csak nincs hozzárendelve', state.galleryFilterUnassignedOnly, function () {
+				state.galleryFilterUnassignedOnly = !!this.checked;
+				preserveScroll(refresh);
+			}),
+			createGalleryFilterCheckbox('SEO hiányos', state.galleryFilterSeoIncompleteOnly, function () {
+				state.galleryFilterSeoIncompleteOnly = !!this.checked;
+				preserveScroll(refresh);
+			}),
+			createGalleryFilterCheckbox('WebP hiányzik', state.galleryFilterWebpMissingOnly, function () {
+				state.galleryFilterWebpMissingOnly = !!this.checked;
+				preserveScroll(refresh);
+			})
+		);
+		module.append(checkboxRow);
+
 		const saveBar = document.createElement('div');
 		saveBar.className = 'dnd-actions-row';
 		const saveButton = document.createElement('button');
@@ -3023,6 +3196,51 @@
 			return;
 		}
 
+		const visibleGalleryItems = state.galleryItems.filter(function (item) {
+			const detailedSourceItem = getDetailedMediaSourceItem(state, item.id, item);
+			const statusSummary = getMediaStatusSummary(state, item.id, detailedSourceItem);
+			const analysis = getSeoAnalysis(detailedSourceItem);
+			const assignments = state.apartmentAssignments[item.id] || [];
+			const category = normalizeUiValue(getMediaCategory(state, item));
+			const search = String(state.gallerySearch || '').trim().toLowerCase();
+			const categoryFilter = normalizeUiValue(state.galleryFilterCategory || 'all');
+
+			if (search) {
+				const haystack = [
+					item.fileName || '',
+					item.title || '',
+					item.id || ''
+				].join(' ').toLowerCase();
+				if (haystack.indexOf(search) === -1) {
+					return false;
+				}
+			}
+
+			if (categoryFilter !== 'all' && category !== categoryFilter) {
+				return false;
+			}
+
+			if (state.galleryFilterUnassignedOnly && assignments.length) {
+				return false;
+			}
+
+			if (state.galleryFilterSeoIncompleteOnly && !analysis.incomplete) {
+				return false;
+			}
+
+			if (state.galleryFilterWebpMissingOnly && statusSummary.webpReady) {
+				return false;
+			}
+
+			return true;
+		});
+
+		if (!visibleGalleryItems.length) {
+			module.append(createStatus('Nincs találat a szűrőkre.', ''));
+			container.append(module);
+			return;
+		}
+
 		if (state.galleryView === 'grid') {
 			const grid = document.createElement('div');
 			grid.className = 'dnd-gallery-grid';
@@ -3032,7 +3250,7 @@
 			primaryHeader.textContent = 'Oldalon megjeleno 12 kep';
 			grid.append(primaryHeader);
 
-			state.galleryItems.forEach(function (item, index) {
+			visibleGalleryItems.forEach(function (item, index) {
 				if (index === 12) {
 					const extraHeader = document.createElement('div');
 					extraHeader.className = 'dnd-gallery-section-title';
@@ -3062,7 +3280,7 @@
 		);
 		thead.append(headerRow);
 		const tbody = document.createElement('tbody');
-		state.galleryItems.forEach(function (item, index) {
+		visibleGalleryItems.forEach(function (item, index) {
 			const row = document.createElement('tr');
 			const thumbCell = document.createElement('td');
 			const img = createThumb(item.url, item.id || 'gallery image');
@@ -3172,12 +3390,16 @@
 		const assignmentText = document.createElement('p');
 		assignmentText.className = 'dnd-seo-card__details';
 		assignmentText.textContent = 'Lakás / társítás: ' + getAssignmentSummary(state, item);
-		const categoryText = document.createElement('p');
-		categoryText.className = 'dnd-seo-card__details';
-		categoryText.textContent = 'Kategória: ' + getDisplayLabel(getMediaCategory(state, item), state);
+		const categoryValue = getMediaCategory(state, item);
+		meta.append(name, assignmentText);
+		if (categoryValue) {
+			const categoryText = document.createElement('p');
+			categoryText.className = 'dnd-seo-card__details';
+			categoryText.textContent = 'Kategória: ' + getDisplayLabel(categoryValue, state);
+			meta.append(categoryText);
+		}
 
-		meta.append(name, assignmentText, categoryText);
-		card.append(imageWrap, meta, renderCategoryBadgeRow(state, item), check, previewButton);
+		card.append(imageWrap, meta, check, previewButton);
 		return card;
 	}
 
@@ -3242,6 +3464,167 @@
 		viewBar.append(gridButton, listButton);
 		module.append(viewBar);
 
+		const filterGrid = document.createElement('div');
+		filterGrid.className = 'dnd-controls-grid';
+		// [CHANGE 2026-04-30] Keptar szűrőrendszer
+		const searchField = createInputField('Kereses', state.librarySearch || '', 'Fajlnev vagy cim');
+		searchField.input.addEventListener('input', async function () {
+			state.librarySearch = searchField.input.value || '';
+			state.libraryPage = 1;
+			if (hasActiveLibraryFilters(state)) {
+				state.isLibraryLoading = true;
+				preserveScroll(refresh);
+				try {
+					await ensureAllLibraryMediaLoaded(state);
+				} catch (error) {
+					state.libraryStatusMessage =
+						'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+					state.libraryStatusType = 'error';
+				} finally {
+					state.isLibraryLoading = false;
+				}
+			}
+			preserveScroll(refresh);
+		});
+		filterGrid.append(searchField.wrapper);
+
+		const targetFilterField = createSelectField('Hozzárendelés szerint');
+		const allTargetOption = document.createElement('option');
+		allTargetOption.value = 'all';
+		allTargetOption.textContent = 'Összes hozzárendelés';
+		targetFilterField.select.append(allTargetOption);
+		getApartmentGroupOptions(state).forEach(function (option) {
+			const node = document.createElement('option');
+			node.value = normalizeUiValue(option.value || '');
+			node.textContent = option.label || getDisplayLabel(option.value || '', state);
+			targetFilterField.select.append(node);
+		});
+		targetFilterField.select.value = normalizeUiValue(state.libraryFilterTarget || 'all');
+		targetFilterField.select.addEventListener('change', async function () {
+			state.libraryFilterTarget = normalizeUiValue(targetFilterField.select.value || 'all');
+			state.libraryPage = 1;
+			if (hasActiveLibraryFilters(state)) {
+				state.isLibraryLoading = true;
+				preserveScroll(refresh);
+				try {
+					await ensureAllLibraryMediaLoaded(state);
+				} catch (error) {
+					state.libraryStatusMessage =
+						'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+					state.libraryStatusType = 'error';
+				} finally {
+					state.isLibraryLoading = false;
+				}
+			}
+			preserveScroll(refresh);
+		});
+		filterGrid.append(targetFilterField.wrapper);
+
+		const categoryField = createSelectField('Kategoria');
+		const allCategoryOption = document.createElement('option');
+		allCategoryOption.value = 'all';
+		allCategoryOption.textContent = 'Osszes kategoria';
+		categoryField.select.append(allCategoryOption);
+		getLibraryCategoryOptions(state).forEach(function (option) {
+			const node = document.createElement('option');
+			node.value = normalizeUiValue(option.value || '');
+			node.textContent = getDisplayLabel(option.value || '', state);
+			categoryField.select.append(node);
+		});
+		categoryField.select.value = normalizeUiValue(state.libraryFilterCategory || 'all');
+		categoryField.select.addEventListener('change', async function () {
+			state.libraryFilterCategory = normalizeUiValue(categoryField.select.value || 'all');
+			state.libraryPage = 1;
+			if (hasActiveLibraryFilters(state)) {
+				state.isLibraryLoading = true;
+				preserveScroll(refresh);
+				try {
+					await ensureAllLibraryMediaLoaded(state);
+				} catch (error) {
+					state.libraryStatusMessage =
+						'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+					state.libraryStatusType = 'error';
+				} finally {
+					state.isLibraryLoading = false;
+				}
+			}
+			preserveScroll(refresh);
+		});
+		filterGrid.append(categoryField.wrapper);
+		module.append(filterGrid);
+
+		const checkboxRow = document.createElement('div');
+		checkboxRow.className = 'dnd-actions-row';
+		function createLibraryFilterCheckbox(labelText, checked, onChange) {
+			const label = document.createElement('label');
+			label.className = 'dnd-filter-checkbox';
+			const input = document.createElement('input');
+			input.type = 'checkbox';
+			input.checked = !!checked;
+			input.addEventListener('change', onChange);
+			const text = document.createElement('span');
+			text.textContent = labelText;
+			label.append(input, text);
+			return label;
+		}
+		checkboxRow.append(
+			createLibraryFilterCheckbox('Csak nincs lakáshoz/oldalhoz rendelve', state.libraryFilterUnassignedOnly, async function () {
+				state.libraryFilterUnassignedOnly = !!this.checked;
+				state.libraryPage = 1;
+				if (hasActiveLibraryFilters(state)) {
+					state.isLibraryLoading = true;
+					preserveScroll(refresh);
+					try {
+						await ensureAllLibraryMediaLoaded(state);
+					} catch (error) {
+						state.libraryStatusMessage =
+							'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+						state.libraryStatusType = 'error';
+					} finally {
+						state.isLibraryLoading = false;
+					}
+				}
+				preserveScroll(refresh);
+			}),
+			createLibraryFilterCheckbox('SEO hianyos', state.libraryFilterSeoIncompleteOnly, async function () {
+				state.libraryFilterSeoIncompleteOnly = !!this.checked;
+				state.libraryPage = 1;
+				if (hasActiveLibraryFilters(state)) {
+					state.isLibraryLoading = true;
+					preserveScroll(refresh);
+					try {
+						await ensureAllLibraryMediaLoaded(state);
+					} catch (error) {
+						state.libraryStatusMessage =
+							'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+						state.libraryStatusType = 'error';
+					} finally {
+						state.isLibraryLoading = false;
+					}
+				}
+				preserveScroll(refresh);
+			}),
+			createLibraryFilterCheckbox('WebP hianyzik', state.libraryFilterWebpMissingOnly, async function () {
+				state.libraryFilterWebpMissingOnly = !!this.checked;
+				state.libraryPage = 1;
+				if (hasActiveLibraryFilters(state)) {
+					state.isLibraryLoading = true;
+					preserveScroll(refresh);
+					try {
+						await ensureAllLibraryMediaLoaded(state);
+					} catch (error) {
+						state.libraryStatusMessage =
+							'✕ Keptar betoltesi hiba: ' + (error instanceof Error ? error.message : 'ismeretlen hiba');
+						state.libraryStatusType = 'error';
+					} finally {
+						state.isLibraryLoading = false;
+					}
+				}
+				preserveScroll(refresh);
+			})
+		);
+		module.append(checkboxRow);
+
 		module.append(createStatus(state.libraryStatusMessage || '', state.libraryStatusType || ''));
 		if (state.isLibraryLoading) {
 			module.append(createStatus('Kepek betoltese...', ''));
@@ -3255,7 +3638,81 @@
 			return;
 		}
 
-		module.append(renderLibraryPaginator(state, refresh));
+		const librarySourceItems = hasActiveLibraryFilters(state) && state.libraryAllMediaLoaded
+			? state.libraryAllMediaItems
+			: state.mediaItems;
+		const filteredMediaItems = librarySourceItems.filter(function (item) {
+			const detailedSourceItem = getDetailedMediaSourceItem(state, item.id, item);
+			const statusSummary = getMediaStatusSummary(state, item.id, detailedSourceItem);
+			const analysis = getSeoAnalysis(detailedSourceItem);
+			const assignments = getMediaAssignments(state, item.id);
+			const category = normalizeUiValue(getMediaCategory(state, item));
+			const search = String(state.librarySearch || '').trim().toLowerCase();
+			const targetFilter = normalizeUiValue(state.libraryFilterTarget || 'all');
+			const categoryFilter = normalizeUiValue(state.libraryFilterCategory || 'all');
+
+			if (search) {
+				const haystack = [
+					item.fileName || '',
+					item.title || '',
+					item.id || ''
+				].join(' ').toLowerCase();
+				if (haystack.indexOf(search) === -1) {
+					return false;
+				}
+			}
+
+			if (targetFilter !== 'all') {
+				const normalizeAssignmentFilterValue = function (value) {
+					return String(value || '')
+						.toLowerCase()
+						.replace('dandelion ', '')
+						.trim();
+				};
+				const normalizedAssignments = assignments.map(function (entry) {
+					return normalizeAssignmentFilterValue(entry && entry.key || '');
+				});
+				const normalizedFilter = normalizeAssignmentFilterValue(targetFilter);
+				if (!normalizedAssignments.includes(normalizedFilter)) {
+					return false;
+				}
+			}
+
+			if (categoryFilter !== 'all' && category !== categoryFilter) {
+				return false;
+			}
+
+			if (state.libraryFilterUnassignedOnly && assignments.length) {
+				return false;
+			}
+
+			if (state.libraryFilterSeoIncompleteOnly && !analysis.incomplete) {
+				return false;
+			}
+
+			if (state.libraryFilterWebpMissingOnly && statusSummary.webpReady) {
+				return false;
+			}
+
+			return true;
+		});
+
+		const activeLibraryFilters = hasActiveLibraryFilters(state);
+		const filteredTotalPages = activeLibraryFilters ? Math.max(1, Math.ceil(filteredMediaItems.length / 50)) : (state.libraryTotalPages || 1);
+		if (state.libraryPage > filteredTotalPages) {
+			state.libraryPage = 1;
+		}
+		state.libraryFilteredTotalPages = filteredTotalPages;
+		const visibleMediaItems = activeLibraryFilters
+			? filteredMediaItems.slice((state.libraryPage - 1) * 50, state.libraryPage * 50)
+			: filteredMediaItems;
+		module.append(renderLibraryPaginator(state, refresh, activeLibraryFilters ? filteredMediaItems.length : undefined));
+
+		if (!visibleMediaItems.length) {
+			module.append(createStatus('Nincs talalat a szurokre.', ''));
+			container.append(module);
+			return;
+		}
 
 		if (state.libraryView === 'grid') {
 			const bulkBar = document.createElement('div');
@@ -3426,7 +3883,7 @@
 
 			const grid = document.createElement('div');
 			grid.className = 'dnd-library-grid';
-			state.mediaItems.forEach(function (item) {
+			visibleMediaItems.forEach(function (item) {
 				grid.append(renderLibraryCard(state, item, refresh));
 			});
 			module.append(grid);
@@ -3449,7 +3906,7 @@
 		);
 		thead.append(headerRow);
 		const tbody = document.createElement('tbody');
-		state.mediaItems.forEach(function (item) {
+		visibleMediaItems.forEach(function (item) {
 			const row = document.createElement('tr');
 			const thumbCell = document.createElement('td');
 			const img = createThumb(item.thumb || item.url, item.title || item.fileName || 'preview');
@@ -3648,6 +4105,10 @@
 			const categoryCell = document.createElement('td');
 			const categorySelect = document.createElement('select');
 			categorySelect.className = 'regular-text';
+			const emptyCategoryOption = document.createElement('option');
+			emptyCategoryOption.value = '';
+			emptyCategoryOption.textContent = 'Nincs kategória';
+			categorySelect.append(emptyCategoryOption);
 			getCategoryOptions(state).forEach(function (option) {
 				const node = document.createElement('option');
 				node.value = option.value;
@@ -3664,7 +4125,7 @@
 				categorySelect.value = currentCategory;
 			}
 			categorySelect.addEventListener('change', function () {
-				setMediaCategory(state, item.id, categorySelect.value || 'marketing');
+				setMediaCategory(state, item.id, categorySelect.value || '');
 				preserveScroll(refresh);
 			});
 			categoryCell.append(categorySelect);
@@ -3803,6 +4264,8 @@
 
 		const tbody = document.createElement('tbody');
 		visibleItems.forEach(function (item) {
+			const detailedSourceItem = getDetailedMediaSourceItem(state, item.id, item);
+			const statusSummary = getMediaStatusSummary(state, item.id, detailedSourceItem);
 			const row = document.createElement('tr');
 			row.className = 'dnd-used-image-row';
 			const thumbCell = document.createElement('td');
@@ -3820,6 +4283,10 @@
 			const categoryCell = document.createElement('td');
 			const categorySelect = document.createElement('select');
 			categorySelect.className = 'regular-text';
+			const emptyCategoryOption = document.createElement('option');
+			emptyCategoryOption.value = '';
+			emptyCategoryOption.textContent = 'Nincs kategória';
+			categorySelect.append(emptyCategoryOption);
 			categoryOptions.forEach(function (option) {
 				const node = document.createElement('option');
 				node.value = option.value;
@@ -3836,7 +4303,7 @@
 				categorySelect.value = currentCategory;
 			}
 			categorySelect.addEventListener('change', function () {
-				setMediaCategory(state, item.id, categorySelect.value || 'marketing');
+				setMediaCategory(state, item.id, categorySelect.value || '');
 				preserveScroll(refresh);
 			});
 			categoryCell.append(categorySelect);
@@ -4038,7 +4505,7 @@
 		controls.className = 'dnd-controls-grid';
 
 		const apartmentField = createSelectField('Lakas szerint');
-		// [CHANGE 2026-04-30] lakĂˇs és kategĂłria select forrĂˇsok szĂ©tválasztĂˇsa
+		// [CHANGE 2026-04-30] lakás és kategória select források szétválasztása
 		[
 			{ key: 'all', name: 'Osszes' }
 		].concat(
@@ -5455,8 +5922,8 @@
 			return section;
 		}
 
-		module.append(renderSettingsSection('Lakások / csoportok', 'Új lakás / csoport neve', 'settingsApartmentGroupDraft', 'apartmentGroups'));
-		module.append(renderSettingsSection('Egyéb kategóriák', 'Új kategória neve', 'settingsCategoryDraft', 'otherCategories'));
+		module.append(renderSettingsSection('Megjelenési célok', 'Új megjelenési cél neve', 'settingsApartmentGroupDraft', 'apartmentGroups'));
+		module.append(renderSettingsSection('Kategóriák', 'Új kategória neve', 'settingsCategoryDraft', 'otherCategories'));
 
 		container.append(module);
 	}
@@ -5488,7 +5955,7 @@
 
 		[
 			{ key: 'used', label: 'Használt képek' },
-			{ key: 'apartments', label: 'Lakas oldalak' },
+			{ key: 'apartments', label: 'Oldalak / képhasználat' },
 			{ key: 'library', label: 'Keptar' }
 		].forEach(function (tab) {
 			const button = document.createElement('button');
@@ -5590,6 +6057,12 @@
 			activeTab: 'used',
 			advancedOpen: false,
 			libraryView: 'grid',
+			librarySearch: '',
+			libraryFilterTarget: 'all',
+			libraryFilterCategory: 'all',
+			libraryFilterUnassignedOnly: false,
+			libraryFilterSeoIncompleteOnly: false,
+			libraryFilterWebpMissingOnly: false,
 			galleryView: 'grid',
 			seoView: 'grid',
 			seoApartmentFilter: 'all',
@@ -5608,6 +6081,12 @@
 			usedImagesCategoryFilter: 'all',
 			usedImagesViewMode: loadUsedImagesViewMode(),
 			usedImageCategoriesByMediaId: loadUsedImageCategories(),
+			gallerySearch: '',
+			galleryFilterTarget: 'all',
+			galleryFilterCategory: 'all',
+			galleryFilterUnassignedOnly: false,
+			galleryFilterSeoIncompleteOnly: false,
+			galleryFilterWebpMissingOnly: false,
 			settingsApartmentGroupDraft: '',
 			settingsCategoryDraft: '',
 			settingsStatusMessage: '',
@@ -5616,6 +6095,9 @@
 			webpPreparationByMediaId: loadWebpPreparationState(),
 			selectedApartmentKey: '',
 			libraryTargetKey: '',
+			libraryAllMediaItems: [],
+			libraryAllMediaLoaded: false,
+			libraryFilteredTotalPages: 1,
 			apartments: [],
 			galleryItems: [],
 			galleryInitialIds: [],
