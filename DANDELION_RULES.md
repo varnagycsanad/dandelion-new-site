@@ -1,4 +1,5 @@
-[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési szabályrendszer hozzáadva: nyers JPG → WebP workflow, WordPress media import, központi image registry, SEO képadatok, fókuszpont, responsive képek, cache/verziózás és lakásoldali képalapelvek frissítése.
+[CHANGE 2026-05-02 00:00] File-based Astro image pipeline véglegesítése: WordPress media, image-admin, REST és runtime képforrás kivezetése.
+[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési szabályrendszer hozzáadva: nyers JPG → WebP workflow, központi image registry, SEO képadatok, fókuszpont, responsive képek, cache/verziózás és lakásoldali képalapelvek frissítése.
 
 # DANDELION – DESIGN & STRUCTURE RULES
 
@@ -385,7 +386,28 @@ Playfair Display
 
 ---
 
-Ez a fejezet a Dandelion teljes honlapjának képkezelési alapszabálya. Nem D2-specifikus, hanem minden oldalra, minden lakásra, minden hero/kártya/galéria/blog képre és minden későbbi image-admin fejlesztésre vonatkozik.
+### AKTUÁLIS MŰKÖDÉSI MÓD
+
+A Dandelion képkezelés jelenlegi forrása az Astro projekt.
+
+A pipeline:
+1. `source-images/accommodations/...` JPG forrásképek
+2. script alapú fájlnév-normalizálás
+3. WebP + thumbnail generálás
+4. AI SEO draft generálás
+5. kézi review
+6. központi registry
+7. Astro build
+
+Jelenleg nem használunk:
+- WordPress médiatárat
+- image-admin felületet
+- REST endpointot
+- runtime képforrást
+
+---
+
+Ez a fejezet a Dandelion teljes honlapjának képkezelési alapszabálya. Nem D2-specifikus, hanem minden oldalra, minden lakásra, minden hero/kártya/galéria/blog képre vonatkozik.
 
 A Dandelion honlapon a képek nem kezelhetők véletlenszerű WordPress média URL-ekkel, hardcoded külső linkekkel vagy kézi másolgatással.
 
@@ -408,42 +430,29 @@ A szabály hatálya:
 - thumbnail képek
 - blogképek
 - SEO képek
-- WordPress médiából importált képek
-- image-admin későbbi fejlesztés
+- file-based registry képek
+- source-images alapú képfeldolgozás
 
 ---
 
 ### ALAPELV
 
-A WordPress médiatár nem a végleges képtár.
+A WordPress médiatár jelenleg nem része a képkezelési pipeline-nak.
 
-A WordPress médiatárban lévő kép csak forrásanyag lehet.
+Nem használható képforrásként, fallbackként vagy SEO-adat forrásként.
 
-A WordPress media alt/title/caption mezői nem tekinthetők megbízható SEO forrásnak:
-- lehetnek üresek
-- lehetnek hiányosak
-- lehetnek technikai vagy régi adatok
-- lehetnek SEO szempontból rosszak
+Az image-admin jelenleg legacy/elhagyott irány.
 
-Ha a WordPress media alt/title/caption mezői üresek vagy hiányoznak, a Codex nem töltheti ki automatikusan éles adatként külön jóváhagyás nélkül.
-
-A végleges SEO képadat az image registryben készül és ott kezelendő.
+A végleges SEO képadat az Astro projekt image registryjében készül és ott kezelendő.
 
 A végleges frontend képek forrása:
 
 - optimalizált WebP fájl
-- központi image registry
+- `public/images/...`
+- `src/data/images/...`
 - lakáskulcs / apartmentKey alapú hozzárendelés
 
-A WordPress médiatár vagy image-admin később használható:
-- feltöltési segédfelületként
-- válogatási felületként
-- forrásként
-- admin rétegként
-
-De a frontend végső igazságforrása nem lehet szétszórt WordPress média URL.
-
-A frontend nem használhatja végleges képként a nyers WordPress JPG URL-t.
+A frontend végső igazságforrása kizárólag `public/images/...` és `src/data/images/...`.
 
 ---
 
@@ -465,19 +474,14 @@ A nyers kép nem kerül közvetlenül az éles oldalra.
 
 Kötelező elv:
 
-1. Telefonos JPG elkészül
-2. Eredeti kép pCloud archívumban megmarad
-3. Kép kiválasztása adott lakáshoz
-4. Szerep meghatározása:
-   - hero desktop
-   - hero mobile
-   - card
-   - gallery
-   - thumbnail
-5. WebP verziók legyártása
-6. SEO adatok megadása
-7. Központi image registry frissítése
-8. Astro frontend csak a kész, optimalizált képeket használja
+1. JPG forrás bemásolása `source-images/accommodations/{apartmentKey}/`
+2. fájlnév-normalizálás
+3. WebP + thumbnail generálás
+4. registry draft létrehozás/frissítés
+5. AI SEO draft generálás `approved: false` értékkel
+6. kézi review / javítás
+7. jóváhagyott registry használata Astro oldalon
+8. build után a `dist` feltöltése
 
 ---
 
@@ -650,7 +654,7 @@ Később bővíthető:
 - alt.de
 - title.de
 - caption.de
-- sourceWpId
+- sourceFile
 - license
 - fileSize
 - dominantColor
@@ -808,13 +812,21 @@ Fontos SEO / tartalmi kép lehetőleg ne csak CSS háttérként jelenjen meg.
 
 ### KÖZPONTI IMAGE REGISTRY
 
-A frontend képek végső forrása központi image registry legyen.
+A frontend képek végső forrása központi image registry legyen az Astro projektben.
 
-Lakásképeknél javasolt fájl:
+Jelenlegi registry irány:
 
 ```txt
-src/data/accommodation-images.ts
+src/data/images/...
 ```
+
+Átmeneti draft/test JSON is használható, például:
+
+```txt
+src/data/images/accommodation-images.seo-test.json
+```
+
+A végleges adatforrás később TS vagy JSON lehet, de továbbra is az Astro projektben marad.
 
 A registry lakásonként kezelje:
 
@@ -894,7 +906,6 @@ Külső képek használata csak átmeneti lehet.
 
 Jelölni kell, ha a kép forrása:
 - saját
-- WordPress
 - Unsplash
 - Pexels
 - egyéb
@@ -909,6 +920,11 @@ Hosszú távú cél:
 
 - nyers telefonos JPG közvetlen használata éles oldalon
 - random WordPress média URL hardcode-olása komponensbe
+- WordPress media URL használata
+- image-admin visszakötése
+- REST alapú képbetöltés
+- runtime képforrás
+- SEO-adatok WordPressből olvasása
 - `IMG_1234` jellegű fájlnév használata
 - alt szöveg nélküli tartalmi kép
 - kulcsszóhalmozott alt szöveg
@@ -932,7 +948,8 @@ Kötelező elv:
 - a Hero desktop / Hero mobile kép a központi image registryből jöjjön
 - a galéria képei apartmentKey alapján jöjjenek
 - a kártyakép, hero kép, galéria és SEO képadatok egységes képrendszerből származzanak
-- a WordPress image-admin / REST config csak admin vagy forrás segédréteg lehet, nem végleges frontend igazságforrás
+- a lakásoldali hero/galéria/card képek kizárólag file-based registryből jöhetnek
+- runtime REST képbetöltés tilos
 - lakásonként csak az apartmentKey, szöveg, adatok és fallback képek térhetnek el
 
 Példa:
@@ -942,13 +959,7 @@ dandelion-d1.astro → apartmentKey: "d1"
 dandelion-figehaz.astro → apartmentKey: "figehaz"  
 dandelion-zsalya.astro → apartmentKey: "zsalya"  
 
-A későbbi admin / REST hívás kulcs alapján történhet:
-
-/wp-json/dandelion/v1/apartment-image-config/{apartmentKey}
-
-Ez azonban csak szerkesztési vagy adatforrás réteg lehet.
-
-A frontend build végső képei és SEO adatai a központi image registryből jöjjenek.
+A frontend build végső képei és SEO adatai a file-based központi image registryből jöjjenek.
 
 ---
 
@@ -957,6 +968,7 @@ A frontend build végső képei és SEO adatai a központi image registryből j�
 - minden lakásoldalhoz külön hero logikát írni
 - fixen d2-re kötött logikát más oldalakra másolni
 - új REST endpointot létrehozni lakásonként
+- REST alapú képbetöltést használni lakásoldalon
 - gallery vagy hero logikát lakásonként külön szétágaztatni
 - 9 új lakásoldalt kézzel, sablonosítás nélkül lemásolni
 

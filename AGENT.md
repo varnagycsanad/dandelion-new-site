@@ -1,4 +1,4 @@
-[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési végrehajtási szabályok hozzáadva: WebP, image registry, WordPress media import, SEO képadatok, fókuszpont, performance és scope korlátok.
+[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési végrehajtási szabályok hozzáadva: WebP, image registry, file-based Astro image pipeline, SEO képadatok, fókuszpont, performance és scope korlátok.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -122,10 +122,14 @@ Az első publikus release célja:
 Az admin rész jelenleg nem része a publikus static buildnek.
 
 Admin / disabled területek:
-- `image-admin`
+- `image-admin` (nem használt, csak legacy)
 - `wp-media-test`
 - korábbi `src/pages/api/image-admin/*`
-- minden server-only route vagy admin mentési logika
+
+Fontos:
+- a képkezelés NEM használ WordPress admin felületet
+- a képkezelés NEM használ REST endpointokat
+- minden kép fájlalapú pipeline-on keresztül kerül be
 
 A Codex funkcionális publikus tasknál ne próbálja ezeket visszakötni.
 Ha a feladat az adminra vonatkozik, az külön task.
@@ -277,6 +281,32 @@ KÖTELEZŐ:
 
 ## IMAGE WORKFLOW RULE
 
+### AKTUÁLIS MŰKÖDÉSI MÓD (KÖTELEZŐ)
+
+A projekt jelenlegi képkezelése:
+
+- teljesen fájlalapú
+- nincs WordPress media használat
+- nincs image-admin használat
+- nincs runtime API
+
+Pipeline:
+
+1. source-images (JPG)
+2. script → WebP + thumbnail
+3. SEO draft generálás
+4. kézi review
+5. registry (TS/JSON)
+6. Astro build → publikus oldal
+
+A frontend kizárólag:
+- `public/images/...`
+- `src/data/images/...`
+
+forrásból dolgozik.
+
+---
+
 Ez a szabály nem csak D2-re vonatkozik.
 
 Minden képes taskra érvényes:
@@ -290,8 +320,8 @@ Minden képes taskra érvényes:
 - galériák
 - thumbnail képek
 - blog / SEO képek
-- WordPress médiából importált képek
-- image-admin későbbi fejlesztés
+- fájlalapú pipeline-ból érkező képek
+- korábbi image-admin csak legacy, nem fejlesztési irány
 
 Képes feladatoknál a Codex nem kezelheti a képeket véletlenszerű assetként.
 
@@ -311,11 +341,10 @@ Nyers képek:
 - eredeti képet nem szabad törölni vagy lecserélni
 
 WordPress média:
-- a WordPress médiatárban lévő kép csak forrásanyag lehet
-- a WordPress media alt/title/caption mezői nem tekinthetők megbízható SEO forrásnak
-- ha a WordPress media alt/title/caption mezői üresek vagy hiányoznak, a Codex nem töltheti ki automatikusan éles adatként külön jóváhagyás nélkül
-- a végleges SEO képadat az image registryben kezelendő
-- a frontend nem használhatja végleges képként a nyers WordPress JPG URL-t
+- JELENLEG NEM HASZNÁLT
+- nem része a pipeline-nak
+- nem használható sem forrásként, sem fallbackként
+- minden kép a file-based pipeline-ból jön
 
 Frontend képek:
 - a publikus oldalon ne használjon nyers JPG-t közvetlenül
@@ -346,6 +375,10 @@ Performance:
 TILOS:
 - WordPress médiatárat végleges frontend igazságforrásként kezelni
 - image-admin / REST réteget önállóan visszakötni publikus taskban
+- WordPress vagy image-admin visszakötése
+- REST alapú képbetöltés
+- runtime képforrás használata
+- WP media URL használata bármilyen formában
 - képeket tömegesen átnevezni külön task nélkül
 - meglévő képstruktúrát refaktorálni külön engedély nélkül
 - eredeti JPG-ket törölni
@@ -434,7 +467,7 @@ KÖTELEZŐ:
 - a benne lévő design és struktúra szabályok kötelezőek
 
 Szerepek:
-- AGENTS.md → működés, scope, build, git, képkezelési végrehajtási korlátok
+- AGENT.md → működés, scope, build, git, képkezelési végrehajtási korlátok
 - DANDELION_RULES.md → design, layout, struktúra, projekt szintű képkezelési alapelvek
 
 Ha UI-t érint a task:
