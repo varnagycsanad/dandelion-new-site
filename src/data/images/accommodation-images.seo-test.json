@@ -1,0 +1,782 @@
+{
+  "d2": {
+    "apartmentKey": "d2",
+    "gallery": [
+      {
+        "id": "d2-001",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 fedett terasz sárga székekkel és asztallal",
+          "titleHu": "Dandelion D2 terasz székekkel",
+          "captionHu": "A Dandelion D2 teraszán sárga székek és egy asztal áll, közel a házhoz.",
+          "altEn": "Dandelion D2 covered terrace with yellow chairs and table",
+          "titleEn": "Dandelion D2 terrace with chairs",
+          "captionEn": "The terrace of Dandelion D2 has yellow chairs and a table near the house."
+        }
+      },
+      {
+        "id": "d2-002",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 kerti asztal sárga székekkel és terasz napozóágyakkal",
+          "titleHu": "Dandelion D2 kerti asztal és terasz",
+          "captionHu": "A kerti asztalon tányérok és italok vannak, a teraszon napozóágyak állnak.",
+          "altEn": "Dandelion D2 garden table with yellow chairs and terrace with lounge chairs",
+          "titleEn": "Dandelion D2 garden table and terrace",
+          "captionEn": "The garden table has plates and drinks, and the terrace has lounge chairs."
+        }
+      },
+      {
+        "id": "d2-003",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Erkély étkezőasztallal és sárga székekkel",
+          "titleHu": "Kültéri étkező sárga székekkel",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Balcony dining table with yellow chairs",
+          "titleEn": "Outdoor dining with yellow chairs",
+          "captionEn": "The image shows one detail of the accommodation."
+        }
+      },
+      {
+        "id": "d2-004",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 terasza sárga székekkel és hintaszékkel",
+          "titleHu": "Dandelion D2 terasz sárga székekkel",
+          "captionHu": "A teraszon sárga székek és egy fehér hintaszék állnak asztal mellett.",
+          "altEn": "Dandelion D2 terrace with yellow chairs and hanging chair",
+          "titleEn": "Dandelion D2 terrace with yellow chairs",
+          "captionEn": "The terrace has yellow chairs and a hanging chair by the table."
+        }
+      },
+      {
+        "id": "d2-005",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Gyerek színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal",
+          "titleHu": "Dandelion D2 kert pihenés gyerekkel",
+          "captionHu": "Egy gyerek egy színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal.",
+          "altEn": "Child sitting on colorful blanket in Dandelion D2 garden with basket and toys",
+          "titleEn": "Dandelion D2 garden rest with child",
+          "captionEn": "A child sits on a colorful blanket in the garden of Dandelion D2 with a basket and toys."
+        }
+      },
+      {
+        "id": "d2-006",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kényelmes ágy és szekrény a Dandelion D2 hálószobájában",
+          "titleHu": "Dandelion D2 hálószoba",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Comfortable bed and wardrobe in the Dandelion D2 bedroom",
+          "titleEn": "Dandelion D2 Bedroom",
+          "captionEn": "The bedroom has a comfortable bed and simple furniture."
+        }
+      },
+      {
+        "id": "d2-007",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 hálószoba fehér ággyal és díszpárnákkal",
+          "titleHu": "Dandelion D2 hálószoba ágyneművel",
+          "captionHu": "A hálószobában két egymás mellé tolható ágy van kék csíkos takaróval és párnákkal.",
+          "altEn": "Dandelion D2 bedroom with white bed and decorative pillows",
+          "titleEn": "Dandelion D2 bedroom with bedding",
+          "captionEn": "The bedroom has two beds pushed together with blue striped blankets and pillows."
+        }
+      },
+      {
+        "id": "d2-008",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 konyha és nappali rész világos fa padlóval és szürke kanapéval",
+          "titleHu": "Dandelion D2 konyha és nappali",
+          "captionHu": "A Dandelion D2 konyhája világos szekrényekkel és egy szürke kanapé van a nappaliban.",
+          "altEn": "Dandelion D2 kitchen and living area with light wood floor and gray sofa",
+          "titleEn": "Dandelion D2 kitchen and living area",
+          "captionEn": "The Dandelion D2 has a kitchen with light cabinets and a gray sofa in the living area."
+        }
+      },
+      {
+        "id": "d2-009",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és konyha Dandelion D2 apartmanban",
+          "titleHu": "Nappali és konyha Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and kitchen in Dandelion D2 apartment",
+          "titleEn": "Living room and kitchen in Dandelion D2",
+          "captionEn": "The comfortable living room has a kitchen and dining area."
+        }
+      },
+      {
+        "id": "d2-010",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali kandallóval és étkezősarokkal",
+          "titleHu": "Nappali a kandallóval",
+          "captionHu": "A nappali meleg hangulatú, étkezővel és kandallóval.",
+          "altEn": "Living room with fireplace and dining area",
+          "titleEn": "Living room with fireplace",
+          "captionEn": "The living room is cozy with a dining area and fireplace."
+        }
+      },
+      {
+        "id": "d2-011",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 nappali szürke kanapéval és nyitott ablakokkal",
+          "titleHu": "Dandelion D2 nappali kanapéval",
+          "captionHu": "A nappaliban egy szürke kanapé, egy dohányzóasztal és nyitott ablakok vannak.",
+          "altEn": "Dandelion D2 living room with gray sofa and open windows",
+          "titleEn": "Dandelion D2 living room sofa",
+          "captionEn": "The living room has a gray sofa, a small table, and open windows."
+        }
+      },
+      {
+        "id": "d2-012",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali kandallóval és nyitott teraszajtóval",
+          "titleHu": "Nappali kandallóval és terasszal",
+          "captionHu": "A nappaliban kandalló és kényelmes ülőhelyek vannak, nyitott teraszajtóval.",
+          "altEn": "Living room with fireplace and open terrace door",
+          "titleEn": "Living room with fireplace and terrace",
+          "captionEn": "The living room has a fireplace and comfortable seating with an open terrace door."
+        }
+      },
+      {
+        "id": "d2-013",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "konyha és étkező sárga székekkel",
+          "titleHu": "konyha az apartmanban",
+          "captionHu": "A konyha praktikus és világos, étkezőasztal sárga székekkel.",
+          "altEn": "kitchen with yellow chairs",
+          "titleEn": "apartment kitchen",
+          "captionEn": "The kitchen is practical and bright with a dining table and yellow chairs."
+        }
+      },
+      {
+        "id": "d2-014",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali kandallóval és ventilátorral a Dandelion D2-ben",
+          "titleHu": "Nappali kandallóval és ventilátorral",
+          "captionHu": "A nappali kandallóval és nagy ablakokkal világos és kényelmes.",
+          "altEn": "Living room with wood stove and ceiling fan at Dandelion D2",
+          "titleEn": "Living room with stove and fan",
+          "captionEn": "The living room is cozy with a wood stove and large windows."
+        }
+      },
+      {
+        "id": "d2-015",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és konyha világos mennyezettel és kanapéval",
+          "titleHu": "Nappali és konyha Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and kitchen with bright ceiling and sofa",
+          "titleEn": "Living room and kitchen in Dandelion D2",
+          "captionEn": "The living room has a comfortable sofa and a fully equipped kitchen."
+        }
+      },
+      {
+        "id": "d2-016",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba kád, mosdó és wc",
+          "titleHu": "Fürdőszoba Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with bathtub, sink and toilet",
+          "titleEn": "Bathroom in Dandelion D2",
+          "captionEn": "The bathroom has a bathtub, sink, and toilet."
+        }
+      },
+      {
+        "id": "d2-017",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-017.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba kád és mosdó",
+          "titleHu": "Fürdőszoba Dandelion D2",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with bathtub and sink",
+          "titleEn": "Bathroom Dandelion D2",
+          "captionEn": "The bathroom has a bathtub and a sink, it is bright and tidy."
+        }
+      }
+    ]
+  },
+  "koveskal": {
+    "apartmentKey": "koveskal",
+    "gallery": [
+      {
+        "id": "koveskal-001",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál terasz székekkel és asztallal",
+          "titleHu": "Dandelion Köveskál terasz",
+          "captionHu": "A teraszon székek és egy asztal állnak a pihenéshez.",
+          "altEn": "Dandelion Köveskál terrace with chairs and table",
+          "titleEn": "Dandelion Köveskál terrace",
+          "captionEn": "The terrace has chairs and a table for relaxing outdoors."
+        }
+      },
+      {
+        "id": "koveskal-002",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-002.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Étkező és bejárati ajtó a Dandelion Köveskálban",
+          "titleHu": "Étkező és bejárati ajtó",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Dining area and entrance door at Dandelion Köveskál",
+          "titleEn": "Dining area and entrance door",
+          "captionEn": "The dining area has a wooden table and chairs with strong natural light."
+        }
+      },
+      {
+        "id": "koveskal-003",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-003.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "konyha világos berendezéssel és sütővel",
+          "titleHu": "Konyha sütővel és mosogatóval",
+          "captionHu": "A konyha jól felszerelt, sütővel és mosogatóval.",
+          "altEn": "kitchen with bright furniture and oven",
+          "titleEn": "Kitchen with oven and sink",
+          "captionEn": "The kitchen is equipped with an oven and sink."
+        }
+      },
+      {
+        "id": "koveskal-004",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-004.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és étkező fa bútorokkal",
+          "titleHu": "Stílusos nappali és étkező",
+          "captionHu": "A nappali és az étkező világos, kényelmes bútorokkal berendezve.",
+          "altEn": "Living and dining area with wooden furniture",
+          "titleEn": "Stylish living and dining area",
+          "captionEn": "The living and dining area is bright with comfortable furniture."
+        }
+      },
+      {
+        "id": "koveskal-005",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-005.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba zuhanyzóval és mosdóval",
+          "titleHu": "Fürdőszoba zuhanyzóval",
+          "captionHu": "A fürdőszobában zuhanyzó és mosdó van.",
+          "altEn": "Bathroom with shower and sink",
+          "titleEn": "Bathroom with shower",
+          "captionEn": "The bathroom has a shower and a sink."
+        }
+      },
+      {
+        "id": "koveskal-006",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-006.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "fürdőszoba sarokkáddal és mosdóval",
+          "titleHu": "Fürdő sarokkáddal és mosdóval",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "bathroom with corner bathtub and sink",
+          "titleEn": "Bathroom with corner bathtub and sink",
+          "captionEn": "The bathroom has a corner bathtub and a sink with towels."
+        }
+      },
+      {
+        "id": "koveskal-007",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-007.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba sarokkáddal és bidével",
+          "titleHu": "Fürdőszoba sarokkáddal",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with corner bathtub and bidet",
+          "titleEn": "Bathroom with corner bathtub",
+          "captionEn": "The bathroom has a corner bathtub and bidet."
+        }
+      },
+      {
+        "id": "koveskal-008",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-008.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál hálószoba fa ággyal és nyitott ablakokkal",
+          "titleHu": "Dandelion Köveskál hálószoba",
+          "captionHu": "A hálószobában egy faágy, két éjjeliszekrény és nyitott ablakok vannak.",
+          "altEn": "Dandelion Köveskál bedroom with wooden bed and open windows",
+          "titleEn": "Dandelion Köveskál bedroom",
+          "captionEn": "The bedroom has a wooden bed, nightstands, and open windows."
+        }
+      },
+      {
+        "id": "koveskal-009",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-009.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kényelmes hálószoba ággyal és nyitott ablakokkal",
+          "titleHu": "Kényelmes hálószoba a Dandelion Köveskálnál",
+          "captionHu": "A hálószoba világos, kényelmes ággyal és friss levegővel.",
+          "altEn": "Cozy bedroom with bed and open windows",
+          "titleEn": "Cozy bedroom at Dandelion Köveskál",
+          "captionEn": "The bedroom is bright with a comfortable bed and fresh air."
+        }
+      },
+      {
+        "id": "koveskal-010",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-010.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál két egyszemélyes ágy és fa asztal a tetőtérben",
+          "titleHu": "Tetőtéri kétágyas szoba Dandelion Köveskál",
+          "captionHu": "A tetőtéri szobában két egyszemélyes ágy és egy fa asztal áll.",
+          "altEn": "Dandelion Köveskál attic room with two single beds and wooden table",
+          "titleEn": "Attic room with two single beds",
+          "captionEn": "The attic room has two single beds and a wooden table between them."
+        }
+      },
+      {
+        "id": "koveskal-011",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-011.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Két különálló ágy egy egyszerű szobában",
+          "titleHu": "Egyszerű szoba két ággyal",
+          "captionHu": "A szoba világos, két ággyal és egy középen álló asztallal.",
+          "altEn": "Two separate beds in a simple room",
+          "titleEn": "Simple room with two beds",
+          "captionEn": "The room is bright with two beds and a table in the center."
+        }
+      },
+      {
+        "id": "koveskal-012",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-012.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szoba ággyal és asztallal",
+          "titleHu": "Egyszerű szoba ággyal és asztallal",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Room with bed and table",
+          "titleEn": "Simple room with bed and table",
+          "captionEn": "The room has a bed, a table, and a wardrobe."
+        }
+      },
+      {
+        "id": "koveskal-013",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-013.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "belső lépcsőház fa mennyezettel és nagy ablakkal",
+          "titleHu": "Belső tér fa mennyezettel és nagy ablakkal",
+          "captionHu": "Ez a belső tér fa mennyezettel és nagy ablakkal világos és barátságos.",
+          "altEn": "interior stairway with wooden ceiling and large window",
+          "titleEn": "Interior space with wooden ceiling and large window",
+          "captionEn": "This interior space has a wooden ceiling and a large window, creating a bright and welcoming atmosphere."
+        }
+      },
+      {
+        "id": "koveskal-014",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-014.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "világos nappali két kanapéval és fa gerendákkal",
+          "titleHu": "Dandelion Köveskál nappali",
+          "captionHu": "A nappali kényelmes két kanapéval és fa gerendás mennyezettel.",
+          "altEn": "bright living room with two sofas and wooden beams",
+          "titleEn": "Dandelion Köveskál living room",
+          "captionEn": "The living room has two comfortable sofas and wooden beam ceiling."
+        }
+      },
+      {
+        "id": "koveskal-015",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-015.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali világos sarokkanapékkal",
+          "titleHu": "Nappali sarokkanapékkal",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room with corner sofas",
+          "titleEn": "Living room with sofas",
+          "captionEn": "The living room has two corner sofas and a wooden table."
+        }
+      },
+      {
+        "id": "koveskal-016",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-016.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál nappali kanapékkal és nagy ablakokkal",
+          "titleHu": "Dandelion Köveskál nappali",
+          "captionHu": "A nappaliban két kanapé és egy dohányzóasztal áll a nagy íves ablakok mellett.",
+          "altEn": "Dandelion Köveskál living room with sofas and large windows",
+          "titleEn": "Dandelion Köveskál living room",
+          "captionEn": "The living room has two sofas and a coffee table next to large arched windows."
+        }
+      },
+      {
+        "id": "koveskal-017",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-017.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál teraszon asztal és négy szék",
+          "titleHu": "Terasz asztallal és székekkel Dandelion Köveskálnál",
+          "captionHu": "A teraszon egy asztal és négy szék áll egy íves bejárat mellett.",
+          "altEn": "Terrace with table and four chairs at Dandelion Köveskál",
+          "titleEn": "Terrace with table and chairs at Dandelion Köveskál",
+          "captionEn": "The terrace has a table and four chairs by an arched entrance."
+        }
+      },
+      {
+        "id": "koveskal-018",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-018.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál fehér falú nyaraló bejárattal",
+          "titleHu": "Dandelion Köveskál bejárat",
+          "captionHu": "A Dandelion Köveskál nyaraló bejárata lépcsőkkel és tornáccal.",
+          "altEn": "Dandelion Köveskál white holiday house entrance",
+          "titleEn": "Dandelion Köveskál entrance",
+          "captionEn": "The entrance of Dandelion Köveskál holiday house with stairs and porch."
+        }
+      },
+      {
+        "id": "koveskal-019",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-019.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fehér ház piros tetővel és boltívekkel",
+          "titleHu": "Dandelion Köveskál ház kívülről",
+          "captionHu": "A Dandelion Köveskál fehér háza piros tetővel és boltíves verandával.",
+          "altEn": "White house with red roof and arches",
+          "titleEn": "Dandelion Köveskál house exterior",
+          "captionEn": "The Dandelion Köveskál is a white house with a red roof and arched porch."
+        }
+      },
+      {
+        "id": "koveskal-020",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-020.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál fehér vendégház boltíves terasszal és kőfallal",
+          "titleHu": "Dandelion Köveskál boltíves terasz",
+          "captionHu": "A vendégháznak boltíves terasza és kőfallal körülvett bejárata van.",
+          "altEn": "Dandelion Köveskál white guesthouse with arched terrace and stone wall",
+          "titleEn": "Dandelion Köveskál arched terrace",
+          "captionEn": "The guesthouse has an arched terrace and a stone wall around the entrance."
+        }
+      },
+      {
+        "id": "koveskal-021",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-021.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Köveskál ház piros tetővel és napelemekkel",
+          "titleHu": "Dandelion Köveskál tető napelemekkel",
+          "captionHu": "A Dandelion Köveskál ház piros tetővel és napelemekkel körülvéve fákkal és udvarral.",
+          "altEn": "Dandelion Köveskál house with red roof and solar panels",
+          "titleEn": "Dandelion Köveskál roof with solar panels",
+          "captionEn": "The Dandelion Köveskál house has a red roof with solar panels and is surrounded by trees and a yard."
+        }
+      }
+    ]
+  },
+  "fugehaz": {
+    "apartmentKey": "fugehaz",
+    "gallery": [
+      {
+        "id": "fugehaz-001",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fügebokor és a Fűgeház ház homlokzata",
+          "titleHu": "Fügebokor a Fűgeház mellett",
+          "captionHu": "A Fűgeház előtt egy fügebokor áll.",
+          "altEn": "Fig bush and the facade of Fugehaz house",
+          "titleEn": "Fig bush by Fugehaz",
+          "captionEn": "There is a fig bush in front of Fugehaz."
+        }
+      },
+      {
+        "id": "fugehaz-002",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-002.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fügeház kívülről, erkély és kert részlettel",
+          "titleHu": "Fügeház épülete kültéren",
+          "captionHu": "A Fügeházudvar kényelmes, nyugodt hely a pihenésre.",
+          "altEn": "Fugehaz exterior with balcony and garden details",
+          "titleEn": "Fugehaz building from outside",
+          "captionEn": "The Fugehaz yard is a comfortable and peaceful place to relax."
+        }
+      },
+      {
+        "id": "fugehaz-003",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-003.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Lakóépület bejárata és sétaút",
+          "titleHu": "A fülke ház bejárata",
+          "captionHu": "Az épület mellett egy sétány fut, ahol növények és fák állnak.",
+          "altEn": "Entrance of apartment and walkway",
+          "titleEn": "Entrance of Fugehaz",
+          "captionEn": "There is a walkway beside the building with plants and trees."
+        }
+      },
+      {
+        "id": "fugehaz-004",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-004.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fügeház hálószoba ággyal és terasszal napfényben",
+          "titleHu": "Fügeház hálószoba és terasz",
+          "captionHu": "A hálószobában ágy, fotel, és televízió van, nyílik a teraszra.",
+          "altEn": "Bedroom with bed and terrace in Fügeház",
+          "titleEn": "Fügeház Bedroom and Terrace",
+          "captionEn": "The bedroom has a bed, armchair, and TV, opening to the terrace."
+        }
+      },
+      {
+        "id": "fugehaz-005",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-005.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szoba ággyal és piros fotellel a Fűgeházban",
+          "titleHu": "Szoba a Fűgeházban",
+          "captionHu": "A szoba kényelmes ággyal és piros fotellel felszerelt.",
+          "altEn": "Room with bed and red armchair at Fugehaz",
+          "titleEn": "Room at Fugehaz",
+          "captionEn": "The room has a comfortable bed and a red armchair."
+        }
+      },
+      {
+        "id": "fugehaz-006",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-006.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "FĂĽgehĂˇz nappali Ă©s Ă©tkezĂˇs",
+          "titleHu": "FĂĽgehĂˇz nappali Ă©tkezĂłrĂŠszĂŠvel",
+          "captionHu": "A nappaliban Ă©tkezĂłasztal Ă©s hĂĄrom szĂ©k vĂĄrja a vendĂŠgeket.",
+          "altEn": "FĂĽgehĂˇz living and dining area",
+          "titleEn": "FĂĽgehĂˇz living room with dining table",
+          "captionEn": "The living room has a dining table with three chairs."
+        }
+      },
+      {
+        "id": "fugehaz-007",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-007.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "kandalló és étkező a Fűgeházban",
+          "titleHu": "Fűgeház kandalló és étkező",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "fireplace and dining area at Fugehaz",
+          "titleEn": "Fugehaz fireplace and dining area",
+          "captionEn": "There is a fireplace and staircase next to the dining table."
+        }
+      },
+      {
+        "id": "fugehaz-008",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-008.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Napfényes étkezőasztal és nyitott ajtó",
+          "titleHu": "Étkező a Fűgeházban",
+          "captionHu": "Az étkező világos és kényelmes, az ajtó nyitva van a friss levegőhöz.",
+          "altEn": "Sunny dining table and open door",
+          "titleEn": "Dining area at Fugehaz",
+          "captionEn": "The dining area is bright and cozy, with an open door for fresh air."
+        }
+      },
+      {
+        "id": "fugehaz-009",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-009.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kültéri ülősarok teraszon",
+          "titleHu": "Terasz ülőgarnitúrával",
+          "captionHu": "A terasz kényelmes ülőbútorokkal várja a vendégeket.",
+          "altEn": "Outdoor seating area on terrace",
+          "titleEn": "Terrace seating set",
+          "captionEn": "The terrace has comfortable furniture for guests to relax."
+        }
+      },
+      {
+        "id": "fugehaz-010",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-010.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fűgeház terasza székekkel és asztallal, virágokkal az ablakpárkányon",
+          "titleHu": "Fűgeház terasz kerti bútorokkal",
+          "captionHu": "A teraszon fotelek, kanapé és asztal áll, az ablakpárkányokon virágok vannak.",
+          "altEn": "Fugehaz terrace with chairs, sofa, table and flowers on window sill",
+          "titleEn": "Fugehaz terrace with garden furniture",
+          "captionEn": "The terrace has armchairs, a sofa, and a table with flowers on the window sill."
+        }
+      },
+      {
+        "id": "fugehaz-011",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-011.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fűgeház kertje ösvénnyel és növényekkel a terasz mellett",
+          "titleHu": "Fűgeház kert és ösvény",
+          "captionHu": "A Fűgeház kertjében egy ösvény vezet a bokrok és fák között.",
+          "altEn": "Fugehaz garden path with plants beside the terrace",
+          "titleEn": "Fugehaz garden path",
+          "captionEn": "The garden at Fugehaz shows a path with bushes and trees beside the terrace."
+        }
+      },
+      {
+        "id": "fugehaz-012",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-012.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "kert és környező házak a Fűgeházban",
+          "titleHu": "Fűgeház kertje és környék",
+          "captionHu": "A Fűgeház udvara és a környező házak panorámája napfényben.",
+          "altEn": "garden and surrounding houses at Fugehaz",
+          "titleEn": "Fugehaz garden and surroundings",
+          "captionEn": "The courtyard of Fugehaz and nearby houses in sunlight."
+        }
+      },
+      {
+        "id": "fugehaz-013",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-013.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fügeház teraszán fekvő vörös cica napfényben",
+          "titleHu": "Fügeház cica a teraszon",
+          "captionHu": "A Fügeház teraszán egy vörös cica pihen a napfényben.",
+          "altEn": "Red cat lying on the terrace of Fügeház in the sunlight",
+          "titleEn": "Cat on terrace at Fügeház",
+          "captionEn": "A red cat is resting on the terrace of Fügeház in the sunlight."
+        }
+      }
+    ]
+  }
+}
