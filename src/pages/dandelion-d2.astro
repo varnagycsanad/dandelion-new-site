@@ -352,31 +352,20 @@ const relatedStays = accommodations
         <span class="dnd-section-kicker">SZENT GYÖRGY-HEGY · KISAPÁTI</span>
         <h2 class="d2-section-title">D2 környéke</h2>
         <p>
-          A Dandelion D2 apartman a Szent György-hegy lábánál, Kisapátiban található. Innen könnyen elérhető a Tapolcai-medence, Badacsony és a Balaton-felvidék több kirándulóhelye.
+          A Dandelion D2 a Szent György-hegy lábánál, Kisapátiban van. Onnan könnyen elérhető a Tapolcai-medence, Badacsony és a Balaton-felvidék csendesebb része.
         </p>
       </div>
 
       <div class="d2-map__card">
-        <div class="d2-map__frame" data-d2-map-frame>
+        <div class="d2-map__frame">
           <iframe
             class="d2-map__canvas"
-            src="https://www.google.com/maps?q=Szent%20Gy%C3%B6rgy-hegy%20Kisap%C3%A1ti&output=embed"
+            src="https://www.google.com/maps/d/u/0/embed?mid=1YRCy3UzpGcrJ6YJ4ihdVcluhJWtisVk&ehbc=2E312F"
             title="Dandelion D2 környéke térkép"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
-          <button class="d2-map__overlay" type="button" data-d2-map-activate>
-            Kattints a térkép aktiválásához
-          </button>
         </div>
-        <a
-          class="d2-map__link"
-          href="https://www.google.com/maps/search/?api=1&query=Szent%20Gy%C3%B6rgy-hegy%20Kisap%C3%A1ti"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Megnyitás Google Térképen
-        </a>
       </div>
     </div>
   </section>
@@ -530,16 +519,6 @@ const relatedStays = accommodations
       <path d="M16 18a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z"></path>
     </symbol>
   </svg>
-
-  <script>
-    document.querySelectorAll("[data-d2-map-frame]").forEach((frame) => {
-      const activator = frame.querySelector("[data-d2-map-activate]");
-
-      activator?.addEventListener("click", () => {
-        frame.classList.add("is-active");
-      });
-    });
-  </script>
 
   <script define:vars={{ bookingLink, d2GalleryImages, d2DesktopHeroImage, d2DesktopHeroAlt }}>
     if (typeof window.OpenBE !== "function") {
@@ -1329,85 +1308,45 @@ const relatedStays = accommodations
     display: grid;
     gap: clamp(28px, 4vw, 54px);
     align-items: center;
-    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   }
 
   .d2-map__copy {
-    max-width: 470px;
+    max-width: 420px;
   }
 
   .d2-map__copy p {
     margin: 18px 0 0;
     color: rgba(0, 0, 0, 0.68);
-    line-height: 1.72;
+    line-height: 1.68;
   }
 
   .d2-map__card {
+    position: relative;
+    height: 440px;
+    min-height: 440px;
     overflow: hidden;
     border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 18px;
+    border-radius: 24px;
     background: #fbfaf5;
-    box-shadow: 0 20px 46px rgba(80, 57, 31, 0.09);
+    box-shadow: 0 24px 56px rgba(80, 57, 31, 0.1);
   }
 
   .d2-map__frame {
     position: relative;
-    min-height: 340px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    background: rgba(246, 240, 228, 0.82);
-  }
-
-  .d2-map__canvas,
-  .d2-map__overlay {
-    position: absolute;
-    inset: 0;
   }
 
   .d2-map__canvas {
-    display: block;
+    position: absolute;
+    top: -64px;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 64px);
     border: 0;
-    pointer-events: none;
-  }
-
-  .d2-map__frame.is-active .d2-map__canvas {
-    pointer-events: auto;
-  }
-
-  .d2-map__overlay {
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 0 18px 22px;
-    border: 0;
-    background: linear-gradient(180deg, transparent 44%, rgba(247, 242, 231, 0.84));
-    color: rgba(39, 32, 24, 0.82);
-    font: inherit;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    transition: opacity 0.18s ease;
-  }
-
-  .d2-map__frame.is-active .d2-map__overlay {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .d2-map__link {
-    display: inline-flex;
-    padding: 13px 18px 15px;
-    color: rgba(39, 32, 24, 0.72);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.5;
-    text-transform: uppercase;
+    height: calc(100% + 64px);
   }
 
   .d2-location__grid {
@@ -1946,8 +1885,10 @@ const relatedStays = accommodations
       padding-bottom: 58px;
     }
 
-    .d2-map__frame {
-      min-height: 300px;
+    .d2-map__card {
+      height: 380px;
+      min-height: 380px;
+      border-radius: 18px;
     }
 
     .d2-location {
