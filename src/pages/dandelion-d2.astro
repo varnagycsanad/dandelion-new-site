@@ -144,7 +144,7 @@ const d2InitialHeroImage: D2HeroImage = {
   src: d2DesktopHeroImage || d2HeroFallback.src,
   alt: d2DesktopHeroAlt || d2HeroFallback.alt
 };
-const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
+const d2GalleryPreviewImages = d2GalleryImages.slice(0, 8);
 const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
 const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
 
@@ -332,6 +332,7 @@ const relatedStays = accommodations
                 aria-label="Galériakép megnyitása"
               >
                 <img src={image.thumb || image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+                <span class="d2-gallery__hover-label" aria-hidden="true">Kép megtekintése</span>
                 {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
                   <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
                 )}
@@ -1203,7 +1204,7 @@ const relatedStays = accommodations
 
   .d2-gallery__grid {
     display: grid;
-    gap: 6px;
+    gap: 10px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
@@ -1223,7 +1224,7 @@ const relatedStays = accommodations
   .d2-gallery__item {
     margin: 0;
     overflow: hidden;
-    border-radius: 2px;
+    border-radius: 8px;
     background: rgba(0, 0, 0, 0.04);
   }
 
@@ -1235,6 +1236,17 @@ const relatedStays = accommodations
     border: 0;
     background: transparent;
     cursor: pointer;
+    overflow: hidden;
+  }
+
+  .d2-gallery__trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 12, 9, 0.02), rgba(17, 12, 9, 0.26));
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
   }
 
   .d2-gallery__item img,
@@ -1247,12 +1259,38 @@ const relatedStays = accommodations
 
   .d2-gallery__item img {
     aspect-ratio: 4 / 3;
+    transform: scale(1);
+    transition: transform 0.42s ease, filter 0.28s ease;
+  }
+
+  .d2-gallery__hover-label {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: 1px solid rgba(253, 251, 247, 0.16);
+    border-radius: 999px;
+    background: rgba(17, 12, 9, 0.44);
+    color: rgba(253, 251, 247, 0.94);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.24s ease, transform 0.24s ease, background 0.24s ease;
+    pointer-events: none;
   }
 
   .d2-gallery__more-badge {
     position: absolute;
     right: 14px;
     bottom: 14px;
+    z-index: 1;
     padding: 6px 10px;
     border-radius: 999px;
     background: rgba(17, 12, 9, 0.62);
@@ -1260,6 +1298,25 @@ const relatedStays = accommodations
     font-size: 0.74rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .d2-gallery__trigger:hover::after,
+    .d2-gallery__trigger:focus-visible::after {
+      opacity: 1;
+    }
+
+    .d2-gallery__trigger:hover img,
+    .d2-gallery__trigger:focus-visible img {
+      transform: scale(1.035);
+      filter: saturate(1.02);
+    }
+
+    .d2-gallery__trigger:hover .d2-gallery__hover-label,
+    .d2-gallery__trigger:focus-visible .d2-gallery__hover-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .d2-map {
@@ -1605,7 +1662,7 @@ const relatedStays = accommodations
 
     .d2-gallery__grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 6px;
+      gap: 8px;
     }
 
     .d2-related__grid {
@@ -1874,6 +1931,10 @@ const relatedStays = accommodations
     .d2-gallery__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
+    }
+
+    .d2-gallery__hover-label {
+      display: none;
     }
 
     .d2-gallery__hint {
