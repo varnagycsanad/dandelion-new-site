@@ -1,7 +1,6 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodations } from "../data/accommodations";
-import { apartments } from "../data/apartments";
 import { accommodationImages } from "../data/images/accommodation-images";
 import accommodationSeoTestImages from "../data/images/accommodation-images.seo-test.json";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
@@ -17,11 +16,6 @@ const d2DesktopHeroImage = d2DesktopHeroRegistryImage?.src
   : "";
 const d2DesktopHeroAlt = d2DesktopHeroRegistryImage?.alt.hu || "Dandelion D2";
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
-const apartmentKey = apartments.d2.key;
-const buildApartmentImageConfigUrl = (nextApartmentKey: string) =>
-  `/wp-json/dandelion/v1/apartment-image-config/${nextApartmentKey}`;
-const d2RuntimeGalleryEndpoint = buildApartmentImageConfigUrl(apartmentKey);
-const d2RuntimeGalleryEndpointUrl = `https://dandelionhouse.hu${d2RuntimeGalleryEndpoint}`;
 
 type D2GalleryImage = {
   id: number | string;
@@ -33,17 +27,6 @@ type D2GalleryImage = {
   sortOrder?: number;
 };
 type D2HeroImage = { src: string; alt: string };
-type D2RuntimeHeroImage = {
-  url?: string;
-  alt?: string;
-  title?: string;
-};
-type D2RuntimeImageConfig = {
-  heroImages?: {
-    desktop?: D2RuntimeHeroImage | null;
-    mobile?: D2RuntimeHeroImage | null;
-  };
-};
 
 const d2ShortDescription =
   "A Dandelion D2 világos, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Kényelmes választás 4–6 főnek, saját parkolóval, terasszal és nyugodt kertkapcsolattal.";
@@ -130,36 +113,6 @@ let d2GalleryImages: D2GalleryImage[] = d2FileGalleryImages;
 
 let d2GalleryWarning = "";
 
-const normalizeRuntimeHeroImage = (image: D2RuntimeHeroImage | null | undefined): D2HeroImage | null => {
-  if (!image?.url) {
-    return null;
-  }
-
-  return {
-    src: image.url,
-    alt: image.alt?.trim() || image.title?.trim() || "Dandelion D2"
-  };
-};
-
-const fetchRuntimeHeroImages = async (): Promise<{ desktop: D2HeroImage | null; mobile: D2HeroImage | null }> => {
-  const response = await fetch(d2RuntimeGalleryEndpointUrl, {
-    headers: {
-      Accept: "application/json"
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Runtime image config request failed with HTTP ${response.status}.`);
-  }
-
-  const payload = (await response.json()) as D2RuntimeImageConfig;
-
-  return {
-    desktop: normalizeRuntimeHeroImage(payload?.heroImages?.desktop),
-    mobile: normalizeRuntimeHeroImage(payload?.heroImages?.mobile)
-  };
-};
-
 if (!d2GalleryImages.length) {
   d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
 }
@@ -170,30 +123,10 @@ const d2LocalHeroFallback: D2HeroImage = {
   alt: "Dandelion D2"
 };
 const d2HeroFallback = d2GalleryImages[0] || d2LocalHeroFallback;
-let d2InitialHeroImages = {
-  desktop: {
-    src: d2DesktopHeroImage || d2HeroFallback.src,
-    alt: d2DesktopHeroAlt || d2HeroFallback.alt
-  },
-  mobile: d2HeroFallback
+const d2InitialHeroImage: D2HeroImage = {
+  src: d2DesktopHeroImage || d2HeroFallback.src,
+  alt: d2DesktopHeroAlt || d2HeroFallback.alt
 };
-
-try {
-  const runtimeHeroImages = await fetchRuntimeHeroImages();
-
-  d2InitialHeroImages = {
-    desktop: d2InitialHeroImages.desktop,
-    mobile: runtimeHeroImages.mobile || runtimeHeroImages.desktop || d2InitialHeroImages.mobile
-  };
-} catch (error) {
-  console.warn(
-    `[D2 hero] Failed to resolve runtime hero image for first render: ${
-      error instanceof Error ? error.message : "Unknown error"
-    }`
-  );
-}
-
-const d2InitialHeroImage = d2InitialHeroImages.desktop;
 const d2GalleryPreviewImages = d2GalleryImages.slice(0, 12);
 const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
 const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
@@ -559,7 +492,7 @@ const relatedStays = accommodations
     });
   </script>
 
-  <script define:vars={{ bookingLink, d2GalleryImages, d2RuntimeGalleryEndpoint, d2DesktopHeroImage, d2DesktopHeroAlt }}>
+  <script define:vars={{ bookingLink, d2GalleryImages, d2DesktopHeroImage, d2DesktopHeroAlt }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
@@ -567,7 +500,6 @@ const relatedStays = accommodations
     }
 
     const heroImage = document.querySelector("[data-d2-hero-image]");
-    const heroMobileSource = document.querySelector("[data-d2-hero-mobile-source]");
     const galleryJump = document.querySelector("[data-d2-gallery-jump]");
     const lightbox = document.querySelector("[data-d2-lightbox]");
     const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
@@ -602,8 +534,6 @@ const relatedStays = accommodations
     if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && d2GalleryImages.length) {
       let activeIndex = 0;
       let autoplayTimer = null;
-      let runtimeHeroImages = null;
-      const heroMediaQuery = window.matchMedia("(max-width: 767px)");
       const heroFallback = heroImage
         ? {
             src: heroImage.getAttribute("src") || "",
@@ -738,27 +668,8 @@ const relatedStays = accommodations
         }
       };
 
-      const getActiveRuntimeHeroImage = () => {
-        if (!runtimeHeroImages) {
-          return null;
-        }
-
-        if (heroMediaQuery.matches) {
-          return runtimeHeroImages.mobile || runtimeHeroImages.desktop || null;
-        }
-
-        return runtimeHeroImages.desktop || null;
-      };
-
       const renderHeroImage = () => {
         if (!heroImage || !heroFallback) {
-          return;
-        }
-
-        const nextHeroImage = getActiveRuntimeHeroImage();
-
-        if (heroMediaQuery.matches && heroMobileSource?.getAttribute("srcset")) {
-          heroImage.alt = nextHeroImage?.alt || nextHeroImage?.title || heroFallback.alt;
           return;
         }
 
@@ -826,57 +737,7 @@ const relatedStays = accommodations
         }
       });
 
-      fetch(d2RuntimeGalleryEndpoint, {
-        headers: {
-          Accept: "application/json"
-        }
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Runtime gallery order request failed.");
-          }
-
-          return response.json();
-        })
-        .then((payload) => {
-          const desktopHeroImage =
-            payload?.heroImages?.desktop && typeof payload.heroImages.desktop.url === "string"
-              ? payload.heroImages.desktop
-              : null;
-          const mobileHeroImage =
-            payload?.heroImages?.mobile && typeof payload.heroImages.mobile.url === "string"
-              ? payload.heroImages.mobile
-              : null;
-
-          runtimeHeroImages = {
-            desktop: desktopHeroImage,
-            mobile: mobileHeroImage
-          };
-
-          // [CHANGE 2026-04-27] Registry order remains authoritative for D2 gallery; runtime gallery order disabled.
-          renderHeroImage();
-        })
-        .catch((error) => {
-          // Keep the build-time gallery order when the runtime config is unavailable.
-          console.warn(
-            `[D2 hero] Runtime apartment image config unavailable: ${
-              error instanceof Error ? error.message : "Unknown error"
-            }`
-          );
-        });
-
-      const handleHeroViewportChange = () => {
-        renderHeroImage();
-      };
-
-      if (typeof heroMediaQuery.addEventListener === "function") {
-        heroMediaQuery.addEventListener("change", handleHeroViewportChange);
-      } else if (typeof heroMediaQuery.addListener === "function") {
-        heroMediaQuery.addListener(handleHeroViewportChange);
-      }
-
-      window.addEventListener("resize", handleHeroViewportChange);
-      window.addEventListener("orientationchange", handleHeroViewportChange);
+      renderHeroImage();
     }
   </script>
 </BaseLayout>
