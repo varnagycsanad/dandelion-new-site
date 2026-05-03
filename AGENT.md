@@ -1,4 +1,4 @@
-[CHANGE 2026-04-26 00:00] Projekt szintű képkezelési végrehajtási szabályok hozzáadva: WebP, image registry, file-based Astro image pipeline, SEO képadatok, fókuszpont, performance és scope korlátok.
+[CHANGE 2026-05-03 00:00] DANDELION_MASTER_RULES logikai szétbontás: AGENT csak execution szabályokat tartalmaz.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -104,35 +104,6 @@ Elvárt szerverstruktúra:
 
 NEM jó:
 - `/ujsite/dist/index.html`
-
----
-
-## PUBLIC SITE VS ADMIN SPLIT
-
-A projekt jelenleg két logikai részre válik:
-
-1. publikus honlap
-2. admin / szerveroldali tooling
-
-Az első publikus release célja:
-- csak a publikus site
-- static-only build
-- szerverre feltölthető `dist`
-
-Az admin rész jelenleg nem része a publikus static buildnek.
-
-Admin / disabled területek:
-- `image-admin` (nem használt, csak legacy)
-- `wp-media-test`
-- korábbi `src/pages/api/image-admin/*`
-
-Fontos:
-- a képkezelés NEM használ WordPress admin felületet
-- a képkezelés NEM használ REST endpointokat
-- minden kép fájlalapú pipeline-on keresztül kerül be
-
-A Codex funkcionális publikus tasknál ne próbálja ezeket visszakötni.
-Ha a feladat az adminra vonatkozik, az külön task.
 
 ---
 
@@ -279,118 +250,6 @@ KÖTELEZŐ:
 
 ---
 
-## IMAGE WORKFLOW RULE
-
-### AKTUÁLIS MŰKÖDÉSI MÓD (KÖTELEZŐ)
-
-A projekt jelenlegi képkezelése:
-
-- teljesen fájlalapú
-- nincs WordPress media használat
-- nincs image-admin használat
-- nincs runtime API
-
-Pipeline:
-
-1. source-images (JPG)
-2. script → WebP + thumbnail
-3. SEO draft generálás
-4. kézi review
-5. registry (TS/JSON)
-6. Astro build → publikus oldal
-
-A frontend kizárólag:
-- `public/images/...`
-- `src/data/images/...`
-
-forrásból dolgozik.
-
----
-
-Ez a szabály nem csak D2-re vonatkozik.
-
-Minden képes taskra érvényes:
-- főoldal
-- RegionStories
-- Experiences
-- szálláskártyák
-- lakásoldalak
-- hero képek
-- mobil hero képek
-- galériák
-- thumbnail képek
-- blog / SEO képek
-- fájlalapú pipeline-ból érkező képek
-- korábbi image-admin csak legacy, nem fejlesztési irány
-
-Képes feladatoknál a Codex nem kezelheti a képeket véletlenszerű assetként.
-
-KÖTELEZŐ:
-- a `DANDELION_RULES.md` képkezelési fejezetét be kell olvasni
-- a frontendben használt kép végső forrása optimalizált WebP legyen
-- a kép hozzárendelése apartmentKey / image registry alapú legyen, ahol lakáshoz kapcsolódik
-- nem lakásoldali képnél is központi, strukturált image registry / képadat modell szerint kell gondolkodni
-- fontos tartalmi képhez legyen alt adat
-- hero és card képeknél figyelni kell a mobil/desktop vágásra és fókuszpontra
-- képes módosításnál ellenőrizni kell a PageSpeed/LCP kockázatot
-
-Nyers képek:
-- az eredeti JPG-k pCloud archívumban maradnak
-- a nyers telefonos JPG nem frontend asset
-- HEIC feldolgozással jelenleg nem kell számolni
-- eredeti képet nem szabad törölni vagy lecserélni
-
-WordPress média:
-- JELENLEG NEM HASZNÁLT
-- nem része a pipeline-nak
-- nem használható sem forrásként, sem fallbackként
-- minden kép a file-based pipeline-ból jön
-
-Frontend képek:
-- a publikus oldalon ne használjon nyers JPG-t közvetlenül
-- ne hardcode-oljon random WordPress média URL-t komponensbe
-- ne használjon `IMG_1234` jellegű fájlnevet
-- ne hozzon létre új képlogikát oldalonként vagy lakásonként
-- ne másoljon D2-specifikus képkezelést más lakásokra
-
-Elvárt képforrás:
-- optimalizált WebP
-- `public/images/...` vagy később központi image registry által megadott útvonal
-- lakásképeknél lakáskulcs alapján rendezett struktúra
-- általános oldalképeknél szintén rendezett, szerep-alapú struktúra
-
-SEO képadatok:
-- alt szöveg nem lehet kulcsszóhalmozás
-- alt szöveg csak azt írhatja le, ami ténylegesen látható
-- magyar és angol mezők előkészítése kötelező, ha image registryt érint a task
-- caption/title mezők csak akkor módosíthatók, ha a task erre szól
-
-Performance:
-- csak az oldal fő LCP/hero képe lehet preload + eager + fetchpriority high
-- galéria képei alapból lazy
-- thumbnail és nagy galéria kép ne ugyanaz a túlméretes fájl legyen
-- nem szabad minden képet eagerre állítani
-- CSS background-image fontos SEO képnél kerülendő
-
-TILOS:
-- WordPress médiatárat végleges frontend igazságforrásként kezelni
-- image-admin / REST réteget önállóan visszakötni publikus taskban
-- WordPress vagy image-admin visszakötése
-- REST alapú képbetöltés
-- runtime képforrás használata
-- WP media URL használata bármilyen formában
-- képeket tömegesen átnevezni külön task nélkül
-- meglévő képstruktúrát refaktorálni külön engedély nélkül
-- eredeti JPG-ket törölni
-- külső Unsplash/Pexels képeket végleges megoldásként beépíteni
-- képoptimalizálási pipeline-t önállóan kitalálni
-
-Ha a képfeladat túlmutat egy fájl vagy egy konkrét kép cseréjén:
-→ STOP
-→ IMAGE WORKFLOW SCOPE TOO LARGE
-
----
-
 ## BUILD RULE
 
 Publikus site esetén a cél:
@@ -425,6 +284,9 @@ STOP ha:
 - encoding hiba
 - scope keveredik
 - redesign indul
+- publikus frontend képforrásba WordPress media / image-admin / REST / runtime útvonal kerülne vissza
+- lakásoldal D2 kézi másolással vagy page-level layout logikával készülne
+- AI SEO draftnál automatikus `approved:true` beállítás indulna
 
 ---
 
@@ -467,8 +329,9 @@ KÖTELEZŐ:
 - a benne lévő design és struktúra szabályok kötelezőek
 
 Szerepek:
-- AGENT.md → működés, scope, build, git, képkezelési végrehajtási korlátok
-- DANDELION_RULES.md → design, layout, struktúra, projekt szintű képkezelési alapelvek
+- AGENT.md → működés, scope, build, git, execution korlátok
+- DANDELION_RULES.md → design, layout, struktúra, image workflow, template rules
+- DANDELION_CHATGPT_RULES.md → ChatGPT szerep, Codex usage, SEO draft workflow
 
 Ha UI-t érint a task:
 → DANDELION_RULES az elsődleges

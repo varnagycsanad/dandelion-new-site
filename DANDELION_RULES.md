@@ -1,5 +1,6 @@
 [CHANGE 2026-05-02 00:00] File-based Astro image pipeline véglegesítése: WordPress media, image-admin, REST és runtime képforrás kivezetése.
 [CHANGE 2026-04-26 00:00] Projekt szintű képkezelési szabályrendszer hozzáadva: nyers JPG → WebP workflow, központi image registry, SEO képadatok, fókuszpont, responsive képek, cache/verziózás és lakásoldali képalapelvek frissítése.
+[CHANGE 2026-05-03 00:00] AI alapú SEO draft és lakásoldali sablonrendszer szabályok hozzáadva: képi SEO draft csak jóváhagyással élesíthető, a lakásoldalak pedig közös AccommodationPage sablonból, apartmentKey-alapú adatfájlokkal épülhetnek.
 
 # DANDELION – DESIGN & STRUCTURE RULES
 
@@ -661,6 +662,60 @@ Később bővíthető:
 
 ---
 
+### AI ALAPÚ SEO DRAFTOK
+
+Az AI használható képi SEO adatok előkészítésére, de csak draftként.
+
+Az AI nem végleges igazságforrás.
+
+Cél:
+- gyorsabb alt/title/caption előkészítés
+- magyar és angol képleírások vázlata
+- képek tartalmi rendszerezése
+- emberi review támogatása
+- SEO mezők előzetes kitöltése a kézi ellenőrzéshez
+
+Az AI által generált szöveg nem végleges frontend adat.
+
+Minden AI draftnál kötelező:
+- `approved: false`
+- emberi ellenőrzés
+- képen ténylegesen látható tartalomhoz kötött leírás
+- kulcsszóhalmozás kerülése
+- magyar és angol mezők előkészítése
+- meglévő jóváhagyott SEO adat megőrzése
+
+Elfogadott draft jelölés:
+
+```ts
+seoDraft: {
+  approved: false,
+  altHu: "...",
+  titleHu: "...",
+  captionHu: "...",
+  altEn: "...",
+  titleEn: "...",
+  captionEn: "..."
+}
+```
+
+A `seoDraft` nem azonos a végleges SEO adattal.
+
+Végleges adat külön jóváhagyási döntés alapján kerülhet éles mezőbe.
+
+Az `approved: false` draft státusz, nem hiba és nem blokkoló állapot.
+
+TILOS:
+- AI által generált alt szöveget automatikusan élesíteni
+- `approved: true` értéket automatikusan beállítani
+- képen nem látható elemet beleírni
+- túlmarketingelt vagy kulcsszóhalmozott alt szöveget használni
+- AI drafttal meglévő jóváhagyott adatot felülírni
+- AI draft miatt képstruktúrát vagy registry formátumot önállóan áttervezni
+- AI draftot emberi review nélkül publikálni
+
+---
+
 ### ALT SZÖVEG
 
 Az alt szöveg ne fájlnév legyen.
@@ -940,37 +995,605 @@ Hosszú távú cél:
 
 ---
 
+### ALAPELV
+
 A lakásoldalak fejlesztése nem történhet kézi másolgatással minden új lakásnál.
 
-Kötelező elv:
-- minden lakásoldal apartmentKey-alapú legyen
-- a közös logika újrahasznosítható legyen
-- a Hero desktop / Hero mobile kép a központi image registryből jöjjön
-- a galéria képei apartmentKey alapján jöjjenek
-- a kártyakép, hero kép, galéria és SEO képadatok egységes képrendszerből származzanak
-- a lakásoldali hero/galéria/card képek kizárólag file-based registryből jöhetnek
-- runtime REST képbetöltés tilos
-- lakásonként csak az apartmentKey, szöveg, adatok és fallback képek térhetnek el
+A lakásoldalak kötelező fejlesztési iránya:
+- közös sablon
+- adatvezérelt működés
+- apartmentKey-alapú logika
+- központi image registry
+- D2-vel azonos vizuális és strukturális működés
 
-Példa:
+A D2 oldal a vizuális prototípus.
 
-dandelion-d2.astro → apartmentKey: "d2"  
-dandelion-d1.astro → apartmentKey: "d1"  
-dandelion-figehaz.astro → apartmentKey: "figehaz"  
-dandelion-zsalya.astro → apartmentKey: "zsalya"  
-
-A frontend build végső képei és SEO adatai a file-based központi image registryből jöjjenek.
+A cél nem új design.
+A cél nem új oldalépítés.
+A cél a D2 kinézet és működés reprodukálása közös sablonból.
 
 ---
 
-## TILOS
+### KÖTELEZŐ ARCHITEKTÚRA
 
-- minden lakásoldalhoz külön hero logikát írni
-- fixen d2-re kötött logikát más oldalakra másolni
-- új REST endpointot létrehozni lakásonként
-- REST alapú képbetöltést használni lakásoldalon
-- gallery vagy hero logikát lakásonként külön szétágaztatni
-- 9 új lakásoldalt kézzel, sablonosítás nélkül lemásolni
+Közös lakásoldali sablon:
+
+```txt
+src/templates/AccommodationPage.astro
+```
+
+Lakásoldali adatfájlok:
+
+```txt
+src/data/accommodations/*.ts
+```
+
+Javasolt fájlstruktúra:
+
+```txt
+src/
+  templates/
+    AccommodationPage.astro
+
+  data/
+    accommodations/
+      index.ts
+      accommodation-types.ts
+      d2.ts
+      fugehaz.ts
+      d1.ts
+      zsalya.ts
+      szololiget.ts
+      szepvolgyi.ts
+      royal-homes.ts
+      vintage.ts
+
+    images/
+      accommodation-images.ts
+```
+
+Lakásoldali page fájlok:
+
+```txt
+src/pages/dandelion-d2.astro
+src/pages/dandelion-fugehaz.astro
+src/pages/dandelion-zsalya.astro
+src/pages/dandelion-d1.astro
+...
+```
+
+A page fájlok csak vékony wrapperként működhetnek.
+
+Feladatuk:
+- apartmentKey kiválasztása
+- megfelelő adat betöltése
+- közös `AccommodationPage.astro` sablon meghívása
+
+Nem tartalmazhatnak:
+- saját layoutot
+- saját hero implementációt
+- saját galéria implementációt
+- saját fact ikon logikát
+- saját mobil tördelést
+- saját CSS rendszert
+- D2-ből bemásolt egyedi HTML-struktúrát
+
+---
+
+### SZÉTVÁLASZTÁS: SABLON VS ADAT
+
+A lakásoldali rendszerben szigorúan el kell választani:
+
+1. sablon / layout
+2. lakásonkénti adat
+
+A sablon felel minden közös vizuális és működési logikáért.
+
+Az adatfájl felel minden lakásonként változó tartalomért.
+
+---
+
+### SABLON FELELŐSSÉGE
+
+A közös `AccommodationPage.astro` sablon felelőssége:
+
+- hero layout
+- desktop hero viselkedés
+- mobil hero viselkedés
+- fact bar / gyors adatok megjelenítése
+- fact ikonok hozzárendelése
+- intro blokk
+- galéria preview
+- lightbox működés
+- fő leírás blokk
+- terek / szobák blokk
+- felszereltség blokk
+- kinek ajánljuk blokk
+- környék blokk
+- foglalási CTA blokk
+- vissza / kapcsolódó blokk
+- mobil / desktop tördelés
+- section sorrend
+- spacing
+- tipográfiai struktúra
+
+A sablon nem lehet lakásonként eltérő.
+
+---
+
+### ADAT FELELŐSSÉGE
+
+Lakásonként kizárólag adat térhet el.
+
+Adatként kezelendő:
+- apartmentKey
+- slug
+- név
+- rövid név
+- település
+- régió
+- lokációs leírás
+- hero kicker
+- hero title
+- hero subtitle
+- CTA szövegek
+- fact értékek
+- férőhely
+- hálószobák száma
+- ágyak száma
+- fürdők száma
+- felszereltség
+- kiemelések
+- terek / szobák leírása
+- kinek ajánljuk lista
+- környék / nearby lista
+- SabeeApp tokenek vagy fallback URL
+- SEO title
+- meta description
+- canonical path
+- képek apartmentKey alapján a központi image registryből
+
+Az adatfájl nem tartalmazhat layout döntést.
+
+---
+
+### JAVASOLT ADATMODELL
+
+A lakásoldali adatmodell iránya:
+
+```ts
+type AccommodationData = {
+  key: string;
+  slug: string;
+  name: string;
+  shortName: string;
+
+  location: {
+    settlement: string;
+    region: string;
+    areaLabel: string;
+    coordinates?: {
+      lat: number;
+      lng: number;
+    };
+  };
+
+  hero: {
+    kicker?: string;
+    title: string;
+    subtitle: string;
+    primaryCtaLabel: string;
+    secondaryCtaLabel?: string;
+  };
+
+  facts: AccommodationFact[];
+
+  intro: {
+    eyebrow?: string;
+    title: string;
+    lead: string;
+    paragraphs: string[];
+  };
+
+  highlights?: {
+    title: string;
+    items: AccommodationHighlight[];
+  };
+
+  spaces?: {
+    title: string;
+    items: AccommodationSpace[];
+  };
+
+  amenities: {
+    title: string;
+    groups: AccommodationAmenityGroup[];
+  };
+
+  idealFor?: {
+    title: string;
+    items: string[];
+  };
+
+  locationBlock?: {
+    title: string;
+    text: string;
+    nearby: string[];
+  };
+
+  booking: {
+    title: string;
+    text: string;
+    ctaLabel: string;
+    sabee?: {
+      openBeA?: string;
+      openBeB?: string;
+      roomId?: string;
+    };
+    fallbackUrl?: string;
+  };
+
+  seo: {
+    title: string;
+    description: string;
+    canonicalPath: string;
+  };
+};
+```
+
+A pontos típus később módosítható, de az elv nem változhat:
+- layout nem adatfájlban van
+- adat nem page fájlban van
+- kép nem random URL-ből jön
+- képi SEO adat nem WordPressből jön
+- runtime képforrás nincs
+
+---
+
+### FIX BLOKKSORREND
+
+A lakásoldali sablon blokksorrendje D2 alapján fix.
+
+Tervezett sorrend:
+
+1. Hero
+2. Fact bar / gyors adatok
+3. Intro / hangulati bevezető
+4. Galéria preview
+5. Fő leírás / ház bemutatása
+6. Terek / szobák / használat
+7. Felszereltség
+8. Kinek ajánljuk
+9. Környék / lokáció
+10. Foglalási CTA
+11. Kapcsolódó / vissza a szállásokhoz blokk
+
+A sorrend nem változhat lakásonként.
+
+Ha egy lakásnál valamelyik blokkhoz kevesebb adat van:
+- a sablon kezelje kulturáltan
+- ne készüljön külön layout
+- ne készüljön külön oldalváltozat
+
+---
+
+### HERO SZABÁLY
+
+A hero képek forrása kizárólag a központi image registry lehet.
+
+Elvárt logika:
+
+```txt
+accommodationImages[apartmentKey].hero.desktop
+accommodationImages[apartmentKey].hero.mobile
+```
+
+Kötelező:
+- külön desktop hero kép
+- külön mobil hero kép
+- WebP forrás
+- fókuszpont figyelembevétele
+- LCP / performance figyelembevétele
+- csak az oldal fő hero képe lehet preload / eager / fetchpriority high
+- D2-vel azonos hero-struktúra és tördelés
+
+TILOS:
+- lakásonként külön hero komponens
+- lakásonként külön hero CSS
+- D2 hero logika kézi másolása
+- WordPress media URL
+- runtime API képforrás
+- fallbackként WP média használata
+
+---
+
+### GALÉRIA SZABÁLY
+
+A galéria forrása kizárólag apartmentKey-alapú image registry lehet.
+
+Elvárt logika:
+
+```txt
+accommodationImages[apartmentKey].gallery
+```
+
+Kötelező:
+- preview grid
+- lightbox
+- lazy loading
+- sortOrder használata
+- thumbnail és nagy kép külön kezelése
+- alt/title/caption mezők figyelembevétele
+- D2-vel azonos vizuális működés
+
+TILOS:
+- lakásonként külön galéria implementáció
+- D2 galéria kódjának másolása más oldalba
+- runtime REST galéria
+- WordPress media fallback
+- minden nagy galériakép eager betöltése
+
+---
+
+### FACT / IKON LOGIKA
+
+A fact elemek nem lehetnek lakásonként kézzel szerkesztett vizuális blokkok.
+
+Kötelező:
+- iconKey-alapú rendszer
+- közös ikon mapping
+- sablonon belüli ikon hozzárendelés
+
+Példák:
+
+```txt
+guests
+bedrooms
+beds
+bathrooms
+kitchen
+garden
+terrace
+airConditioning
+wifi
+parking
+family
+petFriendly
+fireplace
+pool
+balaton
+mountain
+```
+
+A lakás adatfájl csak ezt adhatja meg:
+- iconKey
+- label
+- value
+
+Példa:
+
+```ts
+{
+  iconKey: "guests",
+  label: "Vendégek",
+  value: "6 fő"
+}
+```
+
+A sablon dönti el, hogy az iconKey milyen ikont kap.
+
+TILOS:
+- ikonok kézi HTML másolása lakásonként
+- eltérő fact layout lakásonként
+- Fügeház vagy más lakás egyedi ikonrendszere
+
+---
+
+### MOBIL / DESKTOP SZABÁLY
+
+A mobil és desktop viselkedés közös sablonfelelősség.
+
+Desktop:
+- széles hero
+- D2-vel azonos vizuális ritmus
+- fact bar vízszintesen vagy D2 szerinti töréssel
+- galéria D2 szerinti rácsban
+- felszereltség többoszlopos, ha a D2 struktúra ezt használja
+- CTA jól látható, de nem agresszív
+
+Mobil:
+- magas hero
+- külön mobil kép
+- CTA ne nyomja agyon a felületet
+- következő blokk ne lógjon be túl korán
+- fact elemek kompakt, D2-vel azonos logikában
+- galéria mobilon D2-vel azonos logikában
+- nem készülhet lakásonként külön mobil layout
+
+TILOS:
+- Fügeház mobil nézetét külön javítani sablon nélkül
+- D2 mobil CSS másolása új fájlba
+- lakásonként eltérő breakpoint logika
+
+---
+
+### SABEEAPP / FOGLALÁSI CTA SZABÁLY
+
+A lakásoldali sablonban a foglalási CTA közös logikával működjön.
+
+Lakásonként adatként kezelendő:
+- CTA szöveg
+- SabeeApp azonosítók / tokenek
+- fallback URL
+- esetleges roomId
+
+A sablon felelőssége:
+- CTA blokk megjelenítése
+- gombstruktúra
+- foglalási esemény meghívása
+- fallback link kezelése
+
+TILOS:
+- lakásonként külön foglalási gomb logika
+- SabeeApp működés szétszórása több oldalba
+- D2-ből másolt inline foglalási logika
+- SabeeApp logika módosítása design task közben
+
+---
+
+### SEO SZABÁLY LAKÁSOLDALAKHOZ
+
+Minden lakás adatfájlban legyen SEO blokk.
+
+Minimum:
+
+```ts
+seo: {
+  title: "...",
+  description: "...",
+  canonicalPath: "..."
+}
+```
+
+A SEO szöveg:
+- legyen lakásspecifikus
+- legyen természetes
+- ne legyen kulcsszóhalmozott
+- ne állítson olyat, ami nem igaz
+- ne használja automatikusan az AI draftot jóváhagyás nélkül
+
+A képek SEO adatai továbbra is az image registryben kezelendők.
+
+TILOS:
+- SEO mező nélkül új lakásoldalt létrehozni
+- D2 SEO szövegét más lakásra másolni
+- AI SEO draftot automatikusan véglegesként használni
+
+---
+
+### D2 → SABLON MIGRÁCIÓS SZABÁLY
+
+A D2 sablonosítása csak kontrollált lépésekben történhet.
+
+Első lépés:
+- D2 audit
+- fájlmódosítás nélkül
+
+Vizsgálni kell:
+- jelenlegi blokkok sorrendje
+- D2-specifikus szövegek
+- D2-specifikus adatok
+- class struktúra
+- galéria működés
+- hero működés
+- mobil / desktop eltérések
+- képforrások
+- SabeeApp CTA működés
+- mit kell sablonba tenni
+- mit kell adatfájlba tenni
+
+Második lépés:
+- adatmodell véglegesítése
+
+Harmadik lépés:
+- `AccommodationPage.astro` létrehozása vagy kialakítása
+
+Negyedik lépés:
+- D2 visszakötése wrapperként
+
+Elfogadási feltétel:
+- D2 kinézete nem változik
+- desktop azonos
+- mobil azonos
+- hero működik
+- galéria működik
+- CTA működik
+- build sikeres
+
+---
+
+### FÜGEHÁZ ÉS TÖBBI LAKÁS MIGRÁCIÓS SZABÁLY
+
+Fügeház csak akkor migrálható, ha D2 már közös sablonból működik.
+
+Fügeház nem kaphat külön layoutot.
+
+Fügeház esetén csak ezek készülhetnek:
+- `src/data/accommodations/fugehaz.ts`
+- image registry kapcsolat apartmentKey alapján
+- wrapper page
+- szükséges adatfeltöltés
+
+TILOS:
+- Fügeház külön oldal javítása sablon nélkül
+- Fügeház D2-től eltérő komponensstruktúrája
+- új design döntés
+- külön galéria
+- külön hero
+- külön fact ikon rendszer
+
+A többi lakás is ugyanezen a rendszeren keresztül kerülhet be:
+- D1
+- Zsálya
+- Szőlőliget
+- Szépvölgyi
+- Royal Homes
+- Vintage
+- további későbbi lakások
+
+---
+
+### KÖTELEZŐ STOP FELTÉTELEK
+
+STOP, ha a task közben bármelyik történne:
+
+- új lakásoldal D2 másolással készülne
+- Fügeház külön design javítást kapna
+- layout kerülne page fájlba
+- hero logika kerülne page fájlba
+- galéria logika kerülne page fájlba
+- D2-specifikus kód másik lakásba másolódna
+- REST vagy runtime képforrás kerülne lakásoldalra
+- WordPress media fallback kerülne vissza
+- sablon nélküli oldalépítés indulna
+- egy taskban több lakás teljes migrációja történne
+- SEO mezők D2-ből másolódnának más lakásra
+- AI draft automatikusan éles SEO adatként kerülne be
+
+Ilyenkor:
+
+→ STOP  
+→ ACCOMMODATION TEMPLATE VIOLATION
+
+---
+
+### VÉGREHAJTÁSI ELV
+
+Lakásoldali fejlesztésnél nem új rendszert kell tervezni.
+
+A helyes irány:
+
+```txt
+1 közös sablon
+N adatfájl
+1 központi image registry
+apartmentKey alapú működés
+```
+
+A fejlesztés célja:
+- meglévő D2 struktúra kontrollált kiemelése
+- adat és layout szétválasztása
+- minimális diff
+- build ellenőrzés
+- D2 vizuális működésének megőrzése
+
+Nem cél:
+- új design
+- új UX
+- új galéria rendszer
+- új képpipeline
+- új foglalási logika
+- teljes oldalcsoport egyszerre történő refaktorálása
 
 ---
 
