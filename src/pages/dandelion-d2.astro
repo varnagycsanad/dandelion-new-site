@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodations } from "../data/accommodations";
 import { accommodationImages } from "../data/images/accommodation-images";
-import accommodationSeoTestImages from "../data/images/accommodation-images.seo-test.json";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
@@ -91,25 +90,12 @@ const d2RegistryGalleryImages: D2GalleryImage[] = (accommodationImages.d2?.galle
     caption: image.caption.hu,
     sortOrder: image.sortOrder
   }));
-// [CHANGE 2026-05-02 00:00] D2 publikus galéria átkötése a fájlalapú SEO-test WebP gallery/thumb adatokra.
-const d2FileGalleryImages: D2GalleryImage[] = (accommodationSeoTestImages.d2?.gallery || [])
-  .slice()
-  .sort((left, right) => left.sortOrder - right.sortOrder)
-  .map((image) => ({
-    id: image.id,
-    src: resolveRegistryImagePath(image.src),
-    thumb: resolveRegistryImagePath(image.thumb),
-    alt: image.seoDraft.altHu,
-    title: image.seoDraft.titleHu,
-    caption: image.seoDraft.captionHu,
-    sortOrder: image.sortOrder
-  }));
 // [CHANGE 2026-04-26 00:00] D2 location blokk aktív Pexels képének kiváltása registry/lokális galéria képre.
 const d2LocationImage = d2RegistryGalleryImages.find((image) => image.sortOrder === 9) || d2RegistryGalleryImages[0];
 
 // [CHANGE 2026-04-26 00:00] D2 galéria átkötése az image registry lokális WebP és thumb képeire.
 // [CHANGE 2026-04-26 00:00] D2 nem használt WP galéria és legacy fallback képlogika cleanup 1. kör.
-let d2GalleryImages: D2GalleryImage[] = d2FileGalleryImages;
+let d2GalleryImages: D2GalleryImage[] = d2RegistryGalleryImages;
 
 let d2GalleryWarning = "";
 
