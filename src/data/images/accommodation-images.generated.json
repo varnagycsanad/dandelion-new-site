@@ -1,0 +1,782 @@
+{
+  "d2": {
+    "apartmentKey": "d2",
+    "gallery": [
+      {
+        "id": "d2-001",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-002",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-003",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-004",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-005",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-006",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-007",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-008",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-009",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-010",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-011",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-012",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-013",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-014",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-015",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-016",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-017",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-017.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  },
+  "koveskal": {
+    "apartmentKey": "koveskal",
+    "gallery": [
+      {
+        "id": "koveskal-001",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-002",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-002.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-003",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-003.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-004",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-004.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-005",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-005.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-006",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-006.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-007",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-007.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-008",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-008.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-009",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-009.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-010",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-010.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-011",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-011.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-012",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-012.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-013",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-013.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-014",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-014.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-015",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-015.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-016",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-016.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-017",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-017.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-018",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-018.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-019",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-019.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-020",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-020.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "koveskal-021",
+        "src": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-021.webp",
+        "thumb": "/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  },
+  "fugehaz": {
+    "apartmentKey": "fugehaz",
+    "gallery": [
+      {
+        "id": "fugehaz-001",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-002",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-002.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-003",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-003.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-004",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-004.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-005",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-005.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-006",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-006.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-007",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-007.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-008",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-008.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-009",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-009.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-010",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-010.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-011",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-011.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-012",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-012.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-013",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-013.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  }
+}

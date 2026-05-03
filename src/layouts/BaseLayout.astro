@@ -29,7 +29,12 @@ const staysHref = `${homeHref}#stays`;
 const experiencesHref = `${homeHref}#elmenyek`;
 const stayLinks = accommodations.map((stay) => ({
   label: stay.name,
-  href: stay.slug === "dandelion-d2" ? `${homeHref}dandelion-d2/` : stay.url
+  href:
+    stay.slug === "dandelion-d2"
+      ? `${homeHref}dandelion-d2/`
+      : stay.slug === "fugehaz"
+        ? `${homeHref}fuge/`
+        : stay.url
 }));
 ---
 
