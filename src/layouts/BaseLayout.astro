@@ -1,6 +1,7 @@
 ﻿---
 import "../styles/global.css";
 import { accommodations } from "../data/accommodations";
+import SiteFooter from "../components/SiteFooter.astro";
 
 interface Props {
   title?: string;
@@ -152,11 +153,7 @@ const stayLinks = accommodations.map((stay) => ({
       <slot />
     </main>
 
-    {!hideFooter && <footer class="dnd-footer">
-      <div class="dnd-container">
-        <p class="dnd-footer__text">Dandelion Vendégházak • Balaton-felvidék</p>
-      </div>
-    </footer>}
+    {!hideFooter && <SiteFooter />}
 
     {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
       <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>

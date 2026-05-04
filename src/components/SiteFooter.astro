@@ -1,0 +1,192 @@
+---
+const homeHref = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const resolveLocalHref = (href: string) => {
+  if (href.startsWith("http")) {
+    return href;
+  }
+
+  if (href.startsWith("/ujsite/")) {
+    return href;
+  }
+
+  return href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : `${homeHref}${href}`;
+};
+const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+---
+
+<footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+  <div class="dnd-container dnd-site-footer__inner">
+    <div class="dnd-site-footer__brand">
+      <a href={homeHref} class="dnd-site-footer__brand-link" aria-label="Dandelion Vendégházak főoldal">
+        Dandelion Vendégházak
+      </a>
+      <p id="site-footer-title">
+        Természetközeli vendégházak a Balaton-felvidéken, családoknak, pároknak és nyugodt elvonuláshoz.
+      </p>
+    </div>
+
+    <nav class="dnd-site-footer__group" aria-label="Szállások">
+      <h2>Szállások</h2>
+      <ul>
+        <li><a href={resolveLocalHref("/ujsite/dandelion-d2/")}>Dandelion D2</a></li>
+        <li><a href={resolveLocalHref("/ujsite/fuge/")}>Fügeház</a></li>
+        <li><a href="https://dandelionhouse.hu/dandelion-d1/">Dandelion D1</a></li>
+        <li><a href="https://dandelionhouse.hu/zsalya/">Zsálya Vendégház</a></li>
+        <li><a href="https://dandelionhouse.hu/szololiget/">Szőlőliget Vendégház</a></li>
+        <li><a href="https://dandelionhouse.hu/koveskal/">Dandelion Köveskál</a></li>
+      </ul>
+    </nav>
+
+    <nav class="dnd-site-footer__group" aria-label="Hasznos linkek">
+      <h2>Hasznos linkek</h2>
+      <ul>
+        <li><a href={resolveLocalHref("/ujsite/")}>Főoldal</a></li>
+        <li><a href={resolveLocalHref("/ujsite/#stays")}>Szállások</a></li>
+        <li><a href={resolveLocalHref("/ujsite/#elmenyek")}>Élmények</a></li>
+        <li><a href="https://dandelionhouse.hu/kapcsolat/">Kapcsolat</a></li>
+        <li><a href={bookingHref}>Foglalás</a></li>
+      </ul>
+    </nav>
+
+    <nav class="dnd-site-footer__group" aria-label="Jogi információk">
+      <h2>Jogi</h2>
+      <ul>
+        <li><a href="https://dandelionhouse.hu/aszf/">ÁSZF</a></li>
+        <li><a href="https://dandelionhouse.hu/adatkezelesi-tajekoztato/">Adatkezelési tájékoztató</a></li>
+        <li><a href="https://dandelionhouse.hu/impresszum/">Impresszum</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="dnd-container dnd-site-footer__bottom">
+    <span>© Dandelion Vendégházak</span>
+  </div>
+</footer>
+
+<style>
+  .dnd-site-footer {
+    margin-top: 32px;
+    padding: 56px 0 22px;
+    background: linear-gradient(180deg, #201913 0%, #17120e 100%);
+    color: rgba(253, 251, 247, 0.88);
+    border-top: 1px solid rgba(217, 158, 43, 0.14);
+  }
+
+  .dnd-site-footer__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(0, 0.85fr));
+    gap: clamp(28px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .dnd-site-footer__brand {
+    max-width: 360px;
+  }
+
+  .dnd-site-footer__brand-link {
+    display: inline-flex;
+    margin-bottom: 14px;
+    color: #fdfbf7;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.25rem, 1.65vw, 1.55rem);
+    line-height: 1.12;
+    font-weight: 500;
+  }
+
+  .dnd-site-footer__brand p {
+    margin: 0;
+    color: rgba(253, 251, 247, 0.72);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .dnd-site-footer__group h2 {
+    margin: 0 0 14px;
+    color: rgba(217, 158, 43, 0.96);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .dnd-site-footer__group ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dnd-site-footer__group li + li {
+    margin-top: 10px;
+  }
+
+  .dnd-site-footer__group a {
+    display: inline-flex;
+    color: rgba(253, 251, 247, 0.82);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    transition: color 0.18s ease, transform 0.18s ease;
+  }
+
+  .dnd-site-footer__group a:hover,
+  .dnd-site-footer__group a:focus-visible {
+    color: #fdfbf7;
+    transform: translateX(1px);
+  }
+
+  .dnd-site-footer__bottom {
+    margin-top: 34px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(253, 251, 247, 0.08);
+    color: rgba(253, 251, 247, 0.58);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 960px) {
+    .dnd-site-footer {
+      padding: 44px 0 20px;
+    }
+
+    .dnd-site-footer__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dnd-site-footer__brand {
+      max-width: none;
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .dnd-site-footer {
+      margin-top: 24px;
+      padding: 40px 0 18px;
+    }
+
+    .dnd-site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .dnd-site-footer__group h2 {
+      margin-bottom: 10px;
+    }
+
+    .dnd-site-footer__group li + li {
+      margin-top: 8px;
+    }
+
+    .dnd-site-footer__group a {
+      font-size: 0.88rem;
+    }
+
+    .dnd-site-footer__bottom {
+      margin-top: 26px;
+      padding-top: 14px;
+    }
+  }
+</style>
