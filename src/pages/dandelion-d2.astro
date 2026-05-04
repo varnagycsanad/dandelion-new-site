@@ -155,20 +155,29 @@ const compactRelatedStays = [
   {
     name: "Dandelion D1",
     meta: "6–8 fő · nagy kert · családoknak",
-    href: `${baseHref}dandelion-d1/`,
+    href: "https://dandelionhouse.hu/dandelion-d1/",
     image: imageMapping.d1_card_image
   },
   {
     name: "Zsálya Vendégház",
     meta: "csendes, természetközeli pihenés",
-    href: `${baseHref}zsalya/`,
+    href: "https://dandelionhouse.hu/zsalya/",
     image: imageMapping.zsalya_card_image
   },
   {
     name: "Szőlőliget Vendégház",
     meta: "elvonulás a szőlők között",
-    href: `${baseHref}szololiget/`,
+    href: "https://dandelionhouse.hu/szololiget/",
     image: imageMapping.szololiget_card_image
+  },
+  {
+    name: "Dandelion Köveskál",
+    meta: "Káli-medence · nyugodt falusi hangulat",
+    href: "https://dandelionhouse.hu/koveskal/",
+    image: {
+      sourceUrl: `${baseHref}images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp`,
+      altText: "Dandelion Köveskál vendégház külső képe"
+    }
   }
 ] as const;
 ---
@@ -1324,26 +1333,26 @@ const compactRelatedStays = [
   }
 
   .d2-closer {
-    padding-top: 14px;
-    padding-bottom: 80px;
+    padding-top: 12px;
+    padding-bottom: 74px;
   }
 
   .d2-closer__head {
-    max-width: 640px;
-    margin-bottom: 18px;
+    max-width: 540px;
+    margin-bottom: 14px;
   }
 
   .d2-closer__head p {
-    margin: 10px 0 0;
-    color: rgba(0, 0, 0, 0.66);
-    font-size: 0.92rem;
-    line-height: 1.6;
+    margin: 8px 0 0;
+    color: rgba(0, 0, 0, 0.64);
+    font-size: 0.88rem;
+    line-height: 1.54;
   }
 
   .d2-closer__grid {
     display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .d2-closer__card {
@@ -1356,7 +1365,7 @@ const compactRelatedStays = [
   .d2-closer__media {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 4;
     background: rgba(0, 0, 0, 0.04);
   }
 
@@ -1570,7 +1579,7 @@ const compactRelatedStays = [
     }
 
     .d2-closer__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .d2-lightbox__dialog {
@@ -1851,34 +1860,34 @@ const compactRelatedStays = [
     }
 
     .d2-closer {
-      padding-top: 12px;
-      padding-bottom: 60px;
+      padding-top: 10px;
+      padding-bottom: 56px;
     }
 
     .d2-closer__head {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .d2-closer__head p {
-      font-size: 0.88rem;
-      line-height: 1.5;
+      font-size: 0.84rem;
+      line-height: 1.48;
     }
 
     .d2-closer__grid {
-      gap: 10px;
+      gap: 8px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .d2-closer__copy {
-      padding: 11px 12px 12px;
+      padding: 10px 11px 11px;
     }
 
     .d2-closer__copy strong {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .d2-closer__copy span {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
     }
 
     .d2-closer__overlay {
