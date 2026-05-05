@@ -22,6 +22,9 @@ export const d2PageData: AccommodationPageData = {
     title: "Vendégeink szerint",
     intro: "Valódi vendégértékelések Google és Booking.com forrásból",
     mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
@@ -114,8 +117,26 @@ export const d2PageData: AccommodationPageData = {
     kicker: "SZENT GYÖRGY-HEGY · KISAPÁTI",
     title: "D2 környéke",
     body: "A Dandelion D2 a Szent György-hegy lábánál, Kisapátiban van. Onnan könnyen elérhető a Tapolcai-medence, Badacsony és a Balaton-felvidék csendesebb része.",
+    benefitsAriaLabel: "Környék előnyei",
+    benefits: [
+      { label: "Túrák a közelben", icon: "trail" },
+      { label: "Borvidék és szőlőhegyek", icon: "grapes" },
+      { label: "Balaton rövid autózással", icon: "route" }
+    ],
     embedSrc: "https://www.google.com/maps/d/u/0/embed?mid=1YRCy3UzpGcrJ6YJ4ihdVcluhJWtisVk&ehbc=2E312F",
     embedTitle: "Dandelion D2 környéke térkép"
+  },
+  lightbox: {
+    galleryAriaLabel: "D2 galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
+  },
+  labels: {
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
     kicker: "További szállások",

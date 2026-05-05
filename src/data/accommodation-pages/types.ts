@@ -18,6 +18,11 @@ export interface AccommodationPageFeatureHighlight {
   icon: string;
 }
 
+export interface AccommodationPageLocationBenefit {
+  label: string;
+  icon: string;
+}
+
 export type AccommodationPageRelatedStayImage =
   | {
       type: "mapping";
@@ -58,6 +63,9 @@ export interface AccommodationPageData {
     title: string;
     intro: string;
     mobileSummaryLabel: string;
+    mobileHighlightedAriaLabel: string;
+    mobileMoreGoogleAriaLabel: string;
+    mobileBookingAriaLabel: string;
     items: AccommodationPageReview[];
   };
   intro: {
@@ -92,8 +100,22 @@ export interface AccommodationPageData {
     kicker: string;
     title: string;
     body: string;
+    benefitsAriaLabel: string;
+    benefits: AccommodationPageLocationBenefit[];
     embedSrc: string;
     embedTitle: string;
+  };
+  lightbox: {
+    galleryAriaLabel: string;
+    closeAriaLabel: string;
+    previousAriaLabel: string;
+    nextAriaLabel: string;
+  };
+  labels: {
+    googleLogoAlt: string;
+    bookingLogoAlt: string;
+    galleryOpenAriaLabel: string;
+    galleryHoverLabel: string;
   };
   relatedStays: {
     kicker: string;

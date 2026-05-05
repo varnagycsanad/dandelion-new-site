@@ -29,20 +29,15 @@ type D2HeroImage = { src: string; alt: string };
 const featureGroups = d2PageData.facts.groups;
 const mobileFactItems = featureGroups.flatMap((group) => group.items);
 const featureHighlights = d2PageData.features.highlights;
-
-const locationBenefits = [
-  { label: "Túrák a közelben", icon: "trail" },
-  { label: "Borvidék és szőlőhegyek", icon: "grapes" },
-  { label: "Balaton rövid autózással", icon: "route" }
-] as const;
+const locationBenefits = d2PageData.map.benefits;
 const reviewBrandAssets = {
   Google: {
     logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
-    logoAlt: "Google értékelés"
+    logoAlt: d2PageData.labels.googleLogoAlt
   },
   "Booking.com": {
     logoSrc: `${baseHref}images/brand/booking-logo.svg`,
-    logoAlt: "Booking.com értékelés"
+    logoAlt: d2PageData.labels.bookingLogoAlt
   }
 } as const;
 const d2Reviews = d2PageData.reviews.items.map((review) => ({
@@ -180,7 +175,7 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
         </div>
 
         <div class="d2-reviews__mobile">
-          <section class="d2-reviews__mobile-group" aria-label="Kiemelt Google értékelés">
+          <section class="d2-reviews__mobile-group" aria-label={d2PageData.reviews.mobileHighlightedAriaLabel}>
             <div class="d2-reviews__mobile-head">
               <img
                 src={reviewBrandAssets.Google.logoSrc}
@@ -202,7 +197,7 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
           <details class="d2-reviews__more">
             <summary>{d2PageData.reviews.mobileSummaryLabel}</summary>
 
-            <section class="d2-reviews__mobile-group" aria-label="További Google értékelések">
+            <section class="d2-reviews__mobile-group" aria-label={d2PageData.reviews.mobileMoreGoogleAriaLabel}>
               <div class="d2-reviews__mobile-head">
                 <img
                   src={reviewBrandAssets.Google.logoSrc}
@@ -225,7 +220,7 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
               </div>
             </section>
 
-            <section class="d2-reviews__mobile-group" aria-label="Booking.com értékelések">
+            <section class="d2-reviews__mobile-group" aria-label={d2PageData.reviews.mobileBookingAriaLabel}>
               <div class="d2-reviews__mobile-head">
                 <img
                   src={reviewBrandAssets["Booking.com"].logoSrc}
@@ -344,10 +339,10 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
                 data-d2-gallery-trigger
                 data-d2-gallery-index={index}
                 data-d2-gallery-id={image.id}
-                aria-label="Galériakép megnyitása"
+                aria-label={d2PageData.labels.galleryOpenAriaLabel}
               >
                 <img src={image.thumb || image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
-                <span class="d2-gallery__hover-label" aria-hidden="true">Kép megtekintése</span>
+                <span class="d2-gallery__hover-label" aria-hidden="true">{d2PageData.labels.galleryHoverLabel}</span>
                 {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
                   <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
                 )}
@@ -410,11 +405,11 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
 
   <div class="d2-lightbox" data-d2-lightbox hidden>
     <div class="d2-lightbox__backdrop" data-d2-lightbox-close></div>
-    <div class="d2-lightbox__dialog" role="dialog" aria-modal="true" aria-label="D2 galéria">
-      <button type="button" class="d2-lightbox__close" data-d2-lightbox-close aria-label="Galéria bezárása">
+    <div class="d2-lightbox__dialog" role="dialog" aria-modal="true" aria-label={d2PageData.lightbox.galleryAriaLabel}>
+      <button type="button" class="d2-lightbox__close" data-d2-lightbox-close aria-label={d2PageData.lightbox.closeAriaLabel}>
         ×
       </button>
-      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--prev" data-d2-lightbox-prev aria-label="Előző kép">
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--prev" data-d2-lightbox-prev aria-label={d2PageData.lightbox.previousAriaLabel}>
         ‹
       </button>
       <figure class="d2-lightbox__figure">
@@ -423,7 +418,7 @@ const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
           <span class="d2-lightbox__counter" data-d2-lightbox-counter></span>
         </figcaption>
       </figure>
-      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--next" data-d2-lightbox-next aria-label="Következő kép">
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--next" data-d2-lightbox-next aria-label={d2PageData.lightbox.nextAriaLabel}>
         ›
       </button>
     </div>
