@@ -134,6 +134,49 @@ function buildZsalyaGalleryEntries() {
   });
 }
 
+function buildRoyalHomesGalleryEntries() {
+  return Array.from({ length: 33 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-royal-homes-source-${sequence}.jpg`;
+
+    return {
+      id: `royal-homes-${sequence}`,
+      apartmentKey: "royal_homes",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Royal Homes gallery ${sequence}`,
+        en: `Royal Homes gallery ${sequence}`,
+      },
+      title: {
+        hu: `Royal Homes ${sequence}`,
+        en: `Royal Homes ${sequence}`,
+      },
+      caption: {
+        hu: `Royal Homes gallery image ${sequence}.`,
+        en: `Royal Homes gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/royal-homes/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-05",
+      updatedAt: "2026-05-05",
+    };
+  });
+}
+
 function buildKoveskalGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
@@ -887,7 +930,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildRoyalHomesGalleryEntries(),
     thumbnail: null,
   },
   koveskal: {
