@@ -5,6 +5,49 @@
 // [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
 import type { AccommodationImageSet } from "./image-types";
 
+function buildFugehazGalleryEntries() {
+  return Array.from({ length: 13 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-fugehaz-source-${sequence}.jpg`;
+
+    return {
+      id: `fugehaz-${sequence}`,
+      apartmentKey: "fugehaz",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Fugehaz gallery ${sequence}`,
+        en: `Fugehaz gallery ${sequence}`,
+      },
+      title: {
+        hu: `Fugehaz ${sequence}`,
+        en: `Fugehaz ${sequence}`,
+      },
+      caption: {
+        hu: `Fugehaz gallery image ${sequence}.`,
+        en: `Fugehaz gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/fugehaz/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-05",
+      updatedAt: "2026-05-05",
+    };
+  });
+}
+
 function buildKoveskalGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
@@ -718,7 +761,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildFugehazGalleryEntries(),
     thumbnail: null,
   },
   zsalya: {
