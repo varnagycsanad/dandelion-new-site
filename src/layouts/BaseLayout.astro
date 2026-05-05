@@ -37,6 +37,15 @@ const stayLinks = accommodations.map((stay) => ({
         ? `${homeHref}fuge/`
         : stay.url
 }));
+const koveskalStayLink = {
+  label: "Dandelion Köveskál",
+  href: `${homeHref}dandelion-koveskal/`
+};
+const stayLinksWithKoveskal = [
+  ...stayLinks.slice(0, 6),
+  koveskalStayLink,
+  ...stayLinks.slice(6)
+];
 ---
 
 <!DOCTYPE html>
@@ -106,7 +115,7 @@ const stayLinks = accommodations.map((stay) => ({
           <div class="dnd-nav__item dnd-nav__item--has-submenu">
             <a href={staysHref}>Szállások–Házak</a>
             <div class="dnd-nav__submenu" aria-label="Szállások almenü">
-              {stayLinks.map((stay) => (
+              {stayLinksWithKoveskal.map((stay) => (
                 <a href={stay.href}>{stay.label}</a>
               ))}
             </div>
@@ -141,7 +150,7 @@ const stayLinks = accommodations.map((stay) => ({
       <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
         <a href={homeHref}>Főoldal</a>
         <a href={staysHref}>Szállások–Házak</a>
-        {stayLinks.map((stay) => (
+        {stayLinksWithKoveskal.map((stay) => (
           <a href={stay.href} class="dnd-mobile-menu__subitem">{stay.label}</a>
         ))}
         <a href={experiencesHref}>Élmények</a>
