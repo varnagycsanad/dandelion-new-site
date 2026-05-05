@@ -9,14 +9,14 @@ function localImageAdmin() {
     name: 'dandelion-local-image-admin',
     hooks: {
       'astro:config:setup': ({ command, injectRoute }) => {
+        if (command !== 'dev') {
+          return;
+        }
+
         injectRoute({
           pattern: '/_local/image-admin',
           entrypoint: route('./src/admin-disabled/image-admin.astro'),
         });
-
-        if (command !== 'dev') {
-          return;
-        }
 
         for (const endpoint of [
           'intake-source',
