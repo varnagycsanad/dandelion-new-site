@@ -1,18 +1,18 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { d2PageData } from "../data/accommodation-pages/d2";
 import { accommodationImages } from "../data/images/accommodation-images";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
-const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
+const bookingLink = d2PageData.bookingLink;
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-// [CHANGE 2026-04-26 00:00] D2 mobil hero kép útvonalának átkötése az új strukturált WebP-re.
-const d2MobileHeroImage = `${baseHref}images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp`;
+const d2MobileHeroImage = `${baseHref}${d2PageData.hero.mobileImagePath.replace(/^\/+/, "")}`;
 // [CHANGE 2026-04-26 00:00] D2 desktop hero átkötése az image registry lokális WebP képére.
 const d2DesktopHeroRegistryImage = accommodationImages.d2?.hero.desktop;
 const d2DesktopHeroImage = d2DesktopHeroRegistryImage?.src
   ? `${baseHref}${d2DesktopHeroRegistryImage.src.replace(/^\/+/, "")}`
   : "";
-const d2DesktopHeroAlt = d2DesktopHeroRegistryImage?.alt.hu || "Dandelion D2";
+const d2DesktopHeroAlt = d2DesktopHeroRegistryImage?.alt.hu || d2PageData.hero.fallbackAlt;
 const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
 
 type D2GalleryImage = {
@@ -26,91 +26,29 @@ type D2GalleryImage = {
 };
 type D2HeroImage = { src: string; alt: string };
 
-const d2ShortDescription =
-  "A Dandelion D2 világos, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Kényelmes választás 4–6 főnek, saját parkolóval, terasszal és nyugodt kertkapcsolattal.";
-
-const d2LongDescription = [
-  "A D2 Kisapátiban, a Szent György-hegy lábánál ad nyugodt, jól használható bázist a Balaton-felvidéki napokhoz.",
-  "A lakás 4 főnek kényelmes, a kihúzható kanapéval pedig akár 6 főnek is megoldást ad. A nappali, a konyha és az étkező egy praktikus, világos élettérben kapcsolódik össze.",
-  "A terasz és a kertkapcsolat lassabb reggelekhez és esti beszélgetésekhez is jól működik, saját parkolóval, klímával és kandallóval egész évben kényelmes.",
-  "A Balaton rövid autózással elérhető, bababarát felszereltség kérésre adható, a D1 vendégházzal együtt pedig nagyobb családnak vagy baráti társaságnak is jó választás lehet."
-];
-
-const featureGroups = [
-  {
-    title: "Alapadatok",
-    items: [
-      ["Férőhely", "4–6 fő"],
-      ["Méret", "65 m²"],
-      ["Ágyak", "1 franciaágy, 2 szimpla ágy, 1 kihúzható kanapé"],
-      ["Parkolás", "ingyenes udvari parkolás"]
-    ]
-  },
-  {
-    title: "Kényelem",
-    items: [
-      ["Wifi", "Gigabites Wi-Fi"],
-      ["Konyha", "jól felszerelt"],
-      ["Fürdő", "kényelmes, családbarát"],
-      ["Jelleg", "családbarát pihenés"]
-    ]
-  }
-] as const;
-
+const featureGroups = d2PageData.facts.groups;
 const mobileFactItems = featureGroups.flatMap((group) => group.items);
-
-const featureHighlights = [
-  { label: "Gigabites Wi-Fi", icon: "wifi" },
-  { label: "Jól felszerelt konyha", icon: "utensils" },
-  { label: "Kényelmes fürdő", icon: "shower" },
-  { label: "Saját parkolás", icon: "car" },
-  { label: "Családbarát elrendezés", icon: "users" },
-  { label: "Nyugodt kertkapcsolat", icon: "leaf" }
-] as const;
+const featureHighlights = d2PageData.features.highlights;
 
 const locationBenefits = [
   { label: "Túrák a közelben", icon: "trail" },
   { label: "Borvidék és szőlőhegyek", icon: "grapes" },
   { label: "Balaton rövid autózással", icon: "route" }
 ] as const;
-
-const d2Reviews = [
-  {
-    source: "Google",
+const reviewBrandAssets = {
+  Google: {
     logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
-    logoAlt: "Google értékelés",
-    quote: "„Idilli környezet, kedves házigazdák, sok hely a gyerekeknek és nyugodt, szerethető hangulat.”",
-    meta: "Vanessa L. · Google · 5/5"
+    logoAlt: "Google értékelés"
   },
-  {
-    source: "Google",
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
-    logoAlt: "Google értékelés",
-    quote: "„A ház minden igényt kielégít, és jó szívvel ajánlom annak, aki pár napra elvonulna.”",
-    meta: "Ildikó Barna · Google · 5/5"
-  },
-  {
-    source: "Google",
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
-    logoAlt: "Google értékelés",
-    quote: "„Szép, rendezett hely, csendes környezet és gördülékeny érkezés. Kifejezetten jó pihenéshez.”",
-    meta: "Eszter K. · Google · 5/5"
-  },
-  {
-    source: "Booking.com",
+  "Booking.com": {
     logoSrc: `${baseHref}images/brand/booking-logo.svg`,
-    logoAlt: "Booking.com értékelés",
-    quote: "„Abszolút pozitív élmény, gyors válaszokkal és nagyon segítőkész házigazdákkal.”",
-    meta: "Bernadett · Booking.com · 10/10"
-  },
-  {
-    source: "Booking.com",
-    logoSrc: `${baseHref}images/brand/booking-logo.svg`,
-    logoAlt: "Booking.com értékelés",
-    quote: "„Tökéletes pihentető napokhoz: csendes hely, barátságos házigazdák és kényelmes szállás.”",
-    meta: "Angelika · Booking.com · 9,0/10"
+    logoAlt: "Booking.com értékelés"
   }
-] as const;
+} as const;
+const d2Reviews = d2PageData.reviews.items.map((review) => ({
+  ...review,
+  ...reviewBrandAssets[review.source]
+}));
 
 const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
 const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
@@ -137,64 +75,41 @@ let d2GalleryImages: D2GalleryImage[] = d2RegistryGalleryImages;
 let d2GalleryWarning = "";
 
 if (!d2GalleryImages.length) {
-  d2GalleryWarning = "A D2 galériához jelenleg nincs feloldható kép.";
+  d2GalleryWarning = d2PageData.gallery.emptyMessage;
 }
 
 // [CHANGE 2026-04-26 00:00] D2 nem használt Pexels placeholder/fallback képlogika eltávolítása.
 const d2LocalHeroFallback: D2HeroImage = {
   src: d2MobileHeroImage,
-  alt: "Dandelion D2"
+  alt: d2PageData.hero.fallbackAlt
 };
 const d2HeroFallback = d2GalleryImages[0] || d2LocalHeroFallback;
 const d2InitialHeroImage: D2HeroImage = {
   src: d2DesktopHeroImage || d2HeroFallback.src,
   alt: d2DesktopHeroAlt || d2HeroFallback.alt
 };
-const d2GalleryPreviewImages = d2GalleryImages.slice(0, 8);
+const d2GalleryPreviewImages = d2GalleryImages.slice(0, d2PageData.gallery.previewCount);
 const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
 const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
 
 const imageMapping = await readHomepageImageMapping();
-const compactRelatedStays = [
-  {
-    name: "Fügeház",
-    meta: "2–4 fő · panoráma · dézsa",
-    href: `${baseHref}fuge/`,
-    image: imageMapping.fugehaz_card_image
-  },
-  {
-    name: "Dandelion D1",
-    meta: "6–8 fő · nagy kert · családoknak",
-    href: "https://dandelionhouse.hu/dandelion-d1/",
-    image: imageMapping.d1_card_image
-  },
-  {
-    name: "Zsálya Vendégház",
-    meta: "csendes, természetközeli pihenés",
-    href: "https://dandelionhouse.hu/zsalya/",
-    image: imageMapping.zsalya_card_image
-  },
-  {
-    name: "Szőlőliget Vendégház",
-    meta: "elvonulás a szőlők között",
-    href: "https://dandelionhouse.hu/szololiget/",
-    image: imageMapping.szololiget_card_image
-  },
-  {
-    name: "Dandelion Köveskál",
-    meta: "Káli-medence · nyugodt falusi hangulat",
-    href: "https://dandelionhouse.hu/koveskal/",
-    image: {
-      sourceUrl: `${baseHref}images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp`,
-      altText: "Dandelion Köveskál vendégház külső képe"
-    }
-  }
-] as const;
+const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
+  name: stay.name,
+  meta: stay.meta,
+  href: resolveStayHref(stay.href),
+  image:
+    stay.image.type === "mapping"
+      ? imageMapping[stay.image.slot]
+      : {
+          sourceUrl: resolveRegistryImagePath(stay.image.src),
+          altText: stay.image.alt
+        }
+}));
 ---
 
 <BaseLayout
-  title="Dandelion D2 | Dandelion Vendégházak"
-  description="Dandelion D2 külön oldal a Balaton-felvidéki, családbarát pihenés hangulatára építve."
+  title={d2PageData.seo.title}
+  description={d2PageData.seo.description}
 >
   <Fragment slot="head">
     <link
@@ -224,15 +139,13 @@ const compactRelatedStays = [
     <div class="d2-hero__overlay"></div>
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
-        <span class="d2-kicker">Balaton-felvidék · Szent György-hegy</span>
-        <h1>Dandelion <span>D2</span></h1>
-        <p class="d2-hero__subtitle">KERTES HÁZ A SZENT GYÖRGY-HEGY LÁBÁNÁL</p>
-        <p class="d2-hero__lead">
-          Családbarát pihenés 4–6 főnek, a ház és a kert kizárólagos használatával.
-        </p>
+        <span class="d2-kicker">{d2PageData.hero.kicker}</span>
+        <h1>{d2PageData.hero.title} <span>{d2PageData.hero.titleAccent}</span></h1>
+        <p class="d2-hero__subtitle">{d2PageData.hero.subtitle}</p>
+        <p class="d2-hero__lead">{d2PageData.hero.lead}</p>
         <div class="d2-hero__actions">
-          <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">Árak és foglalás</button>
-          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary" data-d2-gallery-jump>Képek megtekintése</a>
+          <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{d2PageData.hero.primaryCtaLabel}</button>
+          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary" data-d2-gallery-jump>{d2PageData.hero.secondaryCtaLabel}</a>
         </div>
       </div>
     </div>
@@ -242,9 +155,9 @@ const compactRelatedStays = [
     <div class="dnd-container">
       <div class="d2-reviews__shell">
         <div class="d2-reviews__heading">
-          <span class="dnd-section-kicker">Vendégértékelések</span>
-          <h2 id="d2-reviews-title" class="d2-reviews__title">Vendégeink szerint</h2>
-          <p class="d2-reviews__intro">Valódi vendégértékelések Google és Booking.com forrásból</p>
+          <span class="dnd-section-kicker">{d2PageData.reviews.kicker}</span>
+          <h2 id="d2-reviews-title" class="d2-reviews__title">{d2PageData.reviews.title}</h2>
+          <p class="d2-reviews__intro">{d2PageData.reviews.intro}</p>
         </div>
 
         <div class="d2-reviews__grid">
@@ -270,8 +183,8 @@ const compactRelatedStays = [
           <section class="d2-reviews__mobile-group" aria-label="Kiemelt Google értékelés">
             <div class="d2-reviews__mobile-head">
               <img
-                src={`${baseHref}images/brand/google-logo-compact.png`}
-                alt="Google értékelés"
+                src={reviewBrandAssets.Google.logoSrc}
+                alt={reviewBrandAssets.Google.logoAlt}
                 class="d2-reviews__mobile-logo is-google"
                 loading="lazy"
                 decoding="async"
@@ -287,13 +200,13 @@ const compactRelatedStays = [
           </section>
 
           <details class="d2-reviews__more">
-            <summary>További vélemények</summary>
+            <summary>{d2PageData.reviews.mobileSummaryLabel}</summary>
 
             <section class="d2-reviews__mobile-group" aria-label="További Google értékelések">
               <div class="d2-reviews__mobile-head">
                 <img
-                  src={`${baseHref}images/brand/google-logo-compact.png`}
-                  alt="Google értékelés"
+                  src={reviewBrandAssets.Google.logoSrc}
+                  alt={reviewBrandAssets.Google.logoAlt}
                   class="d2-reviews__mobile-logo is-google"
                   loading="lazy"
                   decoding="async"
@@ -315,8 +228,8 @@ const compactRelatedStays = [
             <section class="d2-reviews__mobile-group" aria-label="Booking.com értékelések">
               <div class="d2-reviews__mobile-head">
                 <img
-                  src={`${baseHref}images/brand/booking-logo.svg`}
-                  alt="Booking.com értékelés"
+                  src={reviewBrandAssets["Booking.com"].logoSrc}
+                  alt={reviewBrandAssets["Booking.com"].logoAlt}
                   class="d2-reviews__mobile-logo is-booking"
                   loading="lazy"
                   decoding="async"
@@ -343,11 +256,9 @@ const compactRelatedStays = [
   <section class="d2-intro dnd-section">
     <div class="dnd-container">
       <div class="d2-intro__inner">
-        <span class="dnd-section-kicker">Nyugalom · családbarát pihenés</span>
-        <h2 class="d2-intro__title">Otthonos terek, nyugodt pihenés</h2>
-        <p class="dnd-section-intro">
-          Világos belső terek, kellemes terasz és praktikus elrendezés várja azokat, akik kényelmes, családbarát pihenést keresnek a Balaton-felvidéken.
-        </p>
+        <span class="dnd-section-kicker">{d2PageData.intro.kicker}</span>
+        <h2 class="d2-intro__title">{d2PageData.intro.title}</h2>
+        <p class="dnd-section-intro">{d2PageData.intro.lead}</p>
       </div>
     </div>
   </section>
@@ -355,19 +266,19 @@ const compactRelatedStays = [
   <section class="d2-details dnd-section">
     <div class="dnd-container d2-details__grid">
       <div class="d2-details__story">
-        <span class="dnd-section-kicker">Dandelion D2</span>
-        <h2 class="d2-section-title">Gazdag felszereltség, otthonos terek</h2>
-        <p>{d2ShortDescription}</p>
+        <span class="dnd-section-kicker">{d2PageData.details.kicker}</span>
+        <h2 class="d2-section-title">{d2PageData.details.title}</h2>
+        <p>{d2PageData.details.shortDescription}</p>
         <details class="d2-details__more">
-          <summary>Bővebben a D2-ről</summary>
+          <summary>{d2PageData.details.moreLabel}</summary>
           <div>
-            {d2LongDescription.map((paragraph) => (
+            {d2PageData.details.longDescription.map((paragraph) => (
               <p>{paragraph}</p>
             ))}
           </div>
         </details>
         <button type="button" class="dnd-btn dnd-btn--secondary d2-details__cta" onclick="OpenBE()">
-          Árak és foglalás
+          {d2PageData.details.ctaLabel}
         </button>
       </div>
 
@@ -398,7 +309,7 @@ const compactRelatedStays = [
         </div>
 
         <section class="d2-feature-icons">
-          <h3>Felszereltség</h3>
+          <h3>{d2PageData.features.title}</h3>
           <div class="d2-feature-icons__grid">
             {featureHighlights.map((item) => (
               <div class="d2-feature-icons__item">
@@ -417,10 +328,10 @@ const compactRelatedStays = [
   <section id="d2-gallery" class="d2-gallery dnd-section">
     <div class="dnd-container">
       <div class="d2-gallery__heading">
-        <span class="dnd-section-kicker">Galéria</span>
-        <h2 class="d2-section-title">Nyolc pillanat a D2 hangulatából</h2>
+        <span class="dnd-section-kicker">{d2PageData.gallery.kicker}</span>
+        <h2 class="d2-section-title">{d2PageData.gallery.title}</h2>
         <p class="d2-gallery__hint">
-          {d2GalleryHasMore ? "További képekért kattints" : "A galéria képei kattinthatók"}
+          {d2GalleryHasMore ? d2PageData.gallery.moreHint : d2PageData.gallery.defaultHint}
         </p>
       </div>
       {d2GalleryPreviewImages.length > 0 ? (
@@ -453,19 +364,17 @@ const compactRelatedStays = [
   <section class="d2-map dnd-section">
     <div class="dnd-container d2-map__inner">
       <div class="d2-map__copy">
-        <span class="dnd-section-kicker">SZENT GYÖRGY-HEGY · KISAPÁTI</span>
-        <h2 class="d2-section-title">D2 környéke</h2>
-        <p>
-          A Dandelion D2 a Szent György-hegy lábánál, Kisapátiban van. Onnan könnyen elérhető a Tapolcai-medence, Badacsony és a Balaton-felvidék csendesebb része.
-        </p>
+        <span class="dnd-section-kicker">{d2PageData.map.kicker}</span>
+        <h2 class="d2-section-title">{d2PageData.map.title}</h2>
+        <p>{d2PageData.map.body}</p>
       </div>
 
       <div class="d2-map__card">
         <div class="d2-map__frame">
           <iframe
             class="d2-map__canvas"
-            src="https://www.google.com/maps/d/u/0/embed?mid=1YRCy3UzpGcrJ6YJ4ihdVcluhJWtisVk&ehbc=2E312F"
-            title="Dandelion D2 környéke térkép"
+            src={d2PageData.map.embedSrc}
+            title={d2PageData.map.embedTitle}
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
@@ -477,9 +386,9 @@ const compactRelatedStays = [
   <section class="d2-closer dnd-section" aria-labelledby="d2-related-stays-title">
     <div class="dnd-container">
       <div class="d2-closer__head">
-        <span class="dnd-section-kicker">További szállások</span>
-        <h2 id="d2-related-stays-title" class="d2-section-title">További Dandelion szállások</h2>
-        <p>Ha más hangulatot keresel, nézd meg a többi vendégházunkat is.</p>
+        <span class="dnd-section-kicker">{d2PageData.relatedStays.kicker}</span>
+        <h2 id="d2-related-stays-title" class="d2-section-title">{d2PageData.relatedStays.title}</h2>
+        <p>{d2PageData.relatedStays.intro}</p>
       </div>
 
       <div class="d2-closer__grid">
