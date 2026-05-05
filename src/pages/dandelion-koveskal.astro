@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const baseHref = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout
+  title="Dandelion Köveskál | Előkészítés alatt"
+  description="Dandelion Köveskál oldal készülőben van."
+>
+  <section class="dnd-koveskal">
+    <div class="dnd-container dnd-koveskal__inner">
+      <p class="dnd-koveskal__eyebrow">Dandelion Köveskál</p>
+      <h1>Köveskál oldal készül</h1>
+      <p>
+        Ez a publikus route már elérhető, de a tartalom még előkészítés alatt van.
+      </p>
+      <a class="dnd-koveskal__link" href={`${baseHref}szallasok/`}>
+        Vissza a szállásokhoz
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .dnd-koveskal {
+    min-height: min(70vh, 720px);
+    display: grid;
+    place-items: center;
+    padding: 96px 0 112px;
+    background: linear-gradient(180deg, #f9f6ef 0%, #ffffff 100%);
+  }
+
+  .dnd-koveskal__inner {
+    width: 100%;
+    max-width: 720px;
+    padding: 0 20px;
+  }
+
+  .dnd-koveskal__eyebrow {
+    margin: 0 0 12px;
+    color: #b7791f;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .dnd-koveskal h1 {
+    margin: 0;
+    color: #1f2937;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 6vw, 62px);
+    line-height: 1.05;
+  }
+
+  .dnd-koveskal p {
+    max-width: 48ch;
+    margin: 18px 0 0;
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .dnd-koveskal__link {
+    display: inline-flex;
+    margin-top: 28px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #1f2937;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .dnd-koveskal__link:hover {
+    background: #111827;
+  }
+
+  @media (max-width: 640px) {
+    .dnd-koveskal {
+      padding: 72px 0 88px;
+    }
+
+    .dnd-koveskal__link {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
