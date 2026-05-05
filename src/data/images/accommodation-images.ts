@@ -48,6 +48,49 @@ function buildFugehazGalleryEntries() {
   });
 }
 
+function buildSzololigetGalleryEntries() {
+  return Array.from({ length: 21 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/szololiget/gallery/dandelion-szololiget-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-szololiget-source-${sequence}.jpg`;
+
+    return {
+      id: `szololiget-${sequence}`,
+      apartmentKey: "szololiget",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Szololiget gallery ${sequence}`,
+        en: `Szololiget gallery ${sequence}`,
+      },
+      title: {
+        hu: `Szololiget ${sequence}`,
+        en: `Szololiget ${sequence}`,
+      },
+      caption: {
+        hu: `Szololiget gallery image ${sequence}.`,
+        en: `Szololiget gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/szololiget/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-05",
+      updatedAt: "2026-05-05",
+    };
+  });
+}
+
 function buildKoveskalGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
@@ -781,7 +824,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildSzololigetGalleryEntries(),
     thumbnail: null,
   },
   szepvolgyi: {
