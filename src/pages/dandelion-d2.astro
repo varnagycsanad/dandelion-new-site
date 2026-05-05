@@ -2,104 +2,76 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { accommodationImages } from "../data/images/accommodation-images";
+import {
+  buildGalleryImages,
+  buildGalleryPreviewState,
+  buildHeroImages,
+  buildRelatedStays,
+  buildReviewDisplayData,
+  resolveBaseHref
+} from "../lib/accommodation-page-adapters";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const bookingLink = d2PageData.bookingLink;
-const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const d2MobileHeroImage = `${baseHref}${d2PageData.hero.mobileImagePath.replace(/^\/+/, "")}`;
-// [CHANGE 2026-04-26 00:00] D2 desktop hero átkötése az image registry lokális WebP képére.
-const d2DesktopHeroRegistryImage = accommodationImages.d2?.hero.desktop;
-const d2DesktopHeroImage = d2DesktopHeroRegistryImage?.src
-  ? `${baseHref}${d2DesktopHeroRegistryImage.src.replace(/^\/+/, "")}`
-  : "";
-const d2DesktopHeroAlt = d2DesktopHeroRegistryImage?.alt.hu || d2PageData.hero.fallbackAlt;
-const resolveStayHref = (href: string) => (href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href);
-
-type D2GalleryImage = {
-  id: number | string;
-  src: string;
-  thumb: string;
-  alt: string;
-  title?: string;
-  caption?: string;
-  sortOrder?: number;
-};
-type D2HeroImage = { src: string; alt: string };
+const baseHref = resolveBaseHref(import.meta.env.BASE_URL);
 
 const featureGroups = d2PageData.facts.groups;
 const mobileFactItems = featureGroups.flatMap((group) => group.items);
 const featureHighlights = d2PageData.features.highlights;
 const locationBenefits = d2PageData.map.benefits;
-const reviewBrandAssets = {
-  Google: {
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
-    logoAlt: d2PageData.labels.googleLogoAlt
-  },
-  "Booking.com": {
-    logoSrc: `${baseHref}images/brand/booking-logo.svg`,
-    logoAlt: d2PageData.labels.bookingLogoAlt
-  }
-} as const;
-const d2Reviews = d2PageData.reviews.items.map((review) => ({
-  ...review,
-  ...reviewBrandAssets[review.source]
-}));
+const {
+  reviewBrandAssets,
+  reviews: d2Reviews,
+  mobileGoogleReviews: d2MobileGoogleReviews,
+  mobileBookingReviews: d2MobileBookingReviews
+} = buildReviewDisplayData({
+  reviews: d2PageData.reviews.items,
+  baseHref,
+  googleLogoAlt: d2PageData.labels.googleLogoAlt,
+  bookingLogoAlt: d2PageData.labels.bookingLogoAlt
+});
 
-const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
-const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
-
-const resolveRegistryImagePath = (imagePath: string) =>
-  imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
-
-const d2RegistryGalleryImages: D2GalleryImage[] = (accommodationImages.d2?.gallery || [])
-  .slice()
-  .sort((left, right) => left.sortOrder - right.sortOrder)
-  .map((image) => ({
-    id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
-    src: resolveRegistryImagePath(image.src),
-    thumb: resolveRegistryImagePath(image.thumb),
-    alt: image.alt.hu,
-    title: image.title.hu,
-    caption: image.caption.hu,
-    sortOrder: image.sortOrder
-  }));
+const d2RegistryGalleryImages = buildGalleryImages({
+  gallery: accommodationImages.d2?.gallery || [],
+  baseHref
+});
 // [CHANGE 2026-04-26 00:00] D2 galéria átkötése az image registry lokális WebP és thumb képeire.
 // [CHANGE 2026-04-26 00:00] D2 nem használt WP galéria és legacy fallback képlogika cleanup 1. kör.
-let d2GalleryImages: D2GalleryImage[] = d2RegistryGalleryImages;
+const {
+  galleryImages: d2GalleryImages,
+  galleryWarning: d2GalleryWarning,
+  galleryPreviewImages: d2GalleryPreviewImages,
+  galleryHasMore: d2GalleryHasMore,
+  galleryMoreCount: d2GalleryMoreCount
+} = buildGalleryPreviewState({
+  images: d2RegistryGalleryImages,
+  previewCount: d2PageData.gallery.previewCount,
+  emptyMessage: d2PageData.gallery.emptyMessage
+});
 
-let d2GalleryWarning = "";
-
-if (!d2GalleryImages.length) {
-  d2GalleryWarning = d2PageData.gallery.emptyMessage;
-}
-
+// [CHANGE 2026-04-26 00:00] D2 desktop hero átkötése az image registry lokális WebP képére.
 // [CHANGE 2026-04-26 00:00] D2 nem használt Pexels placeholder/fallback képlogika eltávolítása.
-const d2LocalHeroFallback: D2HeroImage = {
-  src: d2MobileHeroImage,
-  alt: d2PageData.hero.fallbackAlt
-};
-const d2HeroFallback = d2GalleryImages[0] || d2LocalHeroFallback;
-const d2InitialHeroImage: D2HeroImage = {
-  src: d2DesktopHeroImage || d2HeroFallback.src,
-  alt: d2DesktopHeroAlt || d2HeroFallback.alt
-};
-const d2GalleryPreviewImages = d2GalleryImages.slice(0, d2PageData.gallery.previewCount);
-const d2GalleryHasMore = d2GalleryImages.length > d2GalleryPreviewImages.length;
-const d2GalleryMoreCount = Math.max(d2GalleryImages.length - d2GalleryPreviewImages.length, 0);
+const {
+  mobileHeroImage: d2MobileHeroImage,
+  desktopHeroImage: d2DesktopHeroImage,
+  desktopHeroAlt: d2DesktopHeroAlt,
+  localHeroFallback: d2LocalHeroFallback,
+  heroFallback: d2HeroFallback,
+  initialHeroImage: d2InitialHeroImage
+} = buildHeroImages({
+  desktopHero: accommodationImages.d2?.hero.desktop || null,
+  mobileImagePath: d2PageData.hero.mobileImagePath,
+  galleryImages: d2GalleryImages,
+  fallbackAlt: d2PageData.hero.fallbackAlt,
+  baseHref
+});
 
 const imageMapping = await readHomepageImageMapping();
-const compactRelatedStays = d2PageData.relatedStays.items.map((stay) => ({
-  name: stay.name,
-  meta: stay.meta,
-  href: resolveStayHref(stay.href),
-  image:
-    stay.image.type === "mapping"
-      ? imageMapping[stay.image.slot]
-      : {
-          sourceUrl: resolveRegistryImagePath(stay.image.src),
-          altText: stay.image.alt
-        }
-}));
+const compactRelatedStays = buildRelatedStays({
+  stays: d2PageData.relatedStays.items,
+  imageMapping,
+  baseHref
+});
 ---
 
 <BaseLayout
