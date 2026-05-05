@@ -5,6 +5,49 @@
 // [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
 import type { AccommodationImageSet } from "./image-types";
 
+function buildKoveskalGalleryEntries() {
+  return Array.from({ length: 21 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/koveskal/gallery/dandelion-koveskal-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-koveskal-source-${sequence}.jpg`;
+
+    return {
+      id: `koveskal-${sequence}`,
+      apartmentKey: "koveskal",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Dandelion Koveskal gallery ${sequence}`,
+        en: `Dandelion Koveskal gallery ${sequence}`,
+      },
+      title: {
+        hu: `Dandelion Koveskal ${sequence}`,
+        en: `Dandelion Koveskal ${sequence}`,
+      },
+      caption: {
+        hu: `Dandelion Koveskal gallery image ${sequence}.`,
+        en: `Dandelion Koveskal gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/koveskal/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-05",
+      updatedAt: "2026-05-05",
+    };
+  });
+}
+
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
@@ -716,6 +759,16 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
     },
     card: null,
     gallery: [],
+    thumbnail: null,
+  },
+  koveskal: {
+    apartmentKey: "koveskal",
+    hero: {
+      desktop: null,
+      mobile: null,
+    },
+    card: null,
+    gallery: buildKoveskalGalleryEntries(),
     thumbnail: null,
   },
   vintage: {
