@@ -5,7 +5,7 @@ export const zsalyaPageData: AccommodationPageData = {
     title: "Dandelion Zsalya | Dandelion Vendeghazak",
     description: "Dandelion Zsalya kulon oldal a csendes, termeszetkozeli pihenes es a visszafogott balatoni-felvideki jelenlet shared template bekotesekent."
   },
-  bookingLink: "https://dandelionhouse.hu/zsalya/",
+  bookingLink: "/dandelion-zsalya/",
   hero: {
     mobileImagePath: "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp",
     fallbackAlt: "Dandelion Zsalya",
