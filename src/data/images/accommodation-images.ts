@@ -91,6 +91,49 @@ function buildSzololigetGalleryEntries() {
   });
 }
 
+function buildZsalyaGalleryEntries() {
+  return Array.from({ length: 11 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/zsalya/gallery/dandelion-zsalya-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-zsalya-source-${sequence}.jpg`;
+
+    return {
+      id: `zsalya-${sequence}`,
+      apartmentKey: "zsalya",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Zsalya gallery ${sequence}`,
+        en: `Zsalya gallery ${sequence}`,
+      },
+      title: {
+        hu: `Zsalya ${sequence}`,
+        en: `Zsalya ${sequence}`,
+      },
+      caption: {
+        hu: `Zsalya gallery image ${sequence}.`,
+        en: `Zsalya gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/zsalya/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-05",
+      updatedAt: "2026-05-05",
+    };
+  });
+}
+
 function buildKoveskalGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
@@ -814,7 +857,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildZsalyaGalleryEntries(),
     thumbnail: null,
   },
   szololiget: {
