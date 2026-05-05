@@ -153,7 +153,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Royal Homes",
     slug: "royal-homes",
-    url: "https://dandelionhouse.hu/royal/",
+    url: "/dandelion-royal-homes/",
     location: "Balaton-part",
     description: "Kényelmes, igényes szálláshely páros vagy családi pihenéshez.",
     hoverText: "Luxus kivitel a Balaton mellett, pezsgőfürdős kényeztetéssel.",

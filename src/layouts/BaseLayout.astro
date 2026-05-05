@@ -37,6 +37,8 @@ const stayLinks = accommodations.map((stay) => ({
       ? `${homeHref}dandelion-d2/`
       : stay.slug === "fugehaz"
         ? `${homeHref}fuge/`
+        : stay.slug === "royal-homes"
+          ? `${homeHref}dandelion-royal-homes/`
         : resolveLocalStayHref(stay.url)
 }));
 const koveskalStayLink = {

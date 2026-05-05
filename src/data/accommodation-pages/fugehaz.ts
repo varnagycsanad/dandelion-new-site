@@ -182,7 +182,7 @@ export const fugehazPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "Balaton kozeli, kenyelmes kikapcsolodas",
-        href: "https://dandelionhouse.hu/royal/",
+        href: "/dandelion-royal-homes/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
