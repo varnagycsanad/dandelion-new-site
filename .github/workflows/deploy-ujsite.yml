@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -45,7 +47,33 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      - name: Prepare deploy payload
+      - name: Detect accommodation image changes
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        id: path_changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "images_changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BEFORE_SHA="${{ github.event.before }}"
+          CURRENT_SHA="${{ github.sha }}"
+
+          if [ -z "${BEFORE_SHA}" ] || [ "${BEFORE_SHA}" = "0000000000000000000000000000000000000000" ]; then
+            echo "images_changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/images/accommodations/**' | grep -q .; then
+            echo "images_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "images_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare site deploy payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
         run: |
@@ -61,7 +89,18 @@ jobs:
           esac
 
           mkdir -p deploy-dist
-          rsync -av --delete --exclude "_local/" dist/ deploy-dist/
+          rsync -av --delete \
+            --exclude "_local/" \
+            --exclude "images/accommodations/" \
+            dist/ deploy-dist/
+
+      - name: Prepare accommodation image payload
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-images
+          rsync -av --delete dist/images/accommodations/ deploy-images/
 
       - name: Install lftp
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
@@ -81,14 +120,25 @@ jobs:
             echo "value=21" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy dist contents to /ujsite/ over FTP
+      - name: Deploy site contents to /ujsite/ over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
         run: |
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R --delete deploy-dist/ "${UJSITE_FTP_PATH}"
+          mirror -R --delete --exclude-glob images/accommodations/** deploy-dist/ "${UJSITE_FTP_PATH}"
+          bye
+          EOF
+
+      - name: Deploy accommodation images over FTP
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          mirror -R --delete deploy-images/ "${UJSITE_FTP_PATH%/}/images/accommodations/"
           bye
           EOF
 
