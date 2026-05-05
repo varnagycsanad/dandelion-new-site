@@ -964,12 +964,15 @@ const compactRelatedStays = [
     color: rgba(0, 0, 0, 0.64);
     font-size: 0.9rem;
     line-height: 1.52;
+    opacity: 0.75;
   }
 
   .d2-reviews__grid {
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   .d2-reviews__mobile {
@@ -977,13 +980,21 @@ const compactRelatedStays = [
   }
 
   .d2-review-card {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     gap: 8px;
     min-width: 0;
     padding: 16px;
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     background: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .d2-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   }
 
   .d2-review-card__top {
@@ -1826,12 +1837,8 @@ const compactRelatedStays = [
       gap: 14px;
     }
 
-    .d2-reviews__mobile-group {
-      margin-bottom: 24px;
-    }
-
-    .d2-reviews__mobile-group:last-child {
-      margin-bottom: 0;
+    .d2-reviews__mobile-group + .d2-reviews__mobile-group {
+      margin-top: 24px;
     }
 
     .d2-details {
