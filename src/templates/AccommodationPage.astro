@@ -26,9 +26,9 @@ const featureHighlights = pageData.features.highlights;
 const locationBenefits = pageData.map.benefits;
 const {
   reviewBrandAssets,
-  reviews: d2Reviews,
-  mobileGoogleReviews: d2MobileGoogleReviews,
-  mobileBookingReviews: d2MobileBookingReviews
+  reviews: reviewItems,
+  mobileGoogleReviews: mobileGoogleReviews,
+  mobileBookingReviews: mobileBookingReviews
 } = buildReviewDisplayData({
   reviews: pageData.reviews.items,
   baseHref,
@@ -36,37 +36,35 @@ const {
   bookingLogoAlt: pageData.labels.bookingLogoAlt
 });
 
-const d2RegistryGalleryImages = buildGalleryImages({
+const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
   baseHref
 });
-// [CHANGE 2026-04-26 00:00] D2 galéria átkötése az image registry lokális WebP és thumb képeire.
-// [CHANGE 2026-04-26 00:00] D2 nem használt WP galéria és legacy fallback képlogika cleanup 1. kör.
+// Gallery adapter state from the shared file-based registry.
 const {
-  galleryImages: d2GalleryImages,
-  galleryWarning: d2GalleryWarning,
-  galleryPreviewImages: d2GalleryPreviewImages,
-  galleryHasMore: d2GalleryHasMore,
-  galleryMoreCount: d2GalleryMoreCount
+  galleryImages,
+  galleryWarning,
+  galleryPreviewImages,
+  galleryHasMore,
+  galleryMoreCount
 } = buildGalleryPreviewState({
-  images: d2RegistryGalleryImages,
+  images: galleryItems,
   previewCount: pageData.gallery.previewCount,
   emptyMessage: pageData.gallery.emptyMessage
 });
 
-// [CHANGE 2026-04-26 00:00] D2 desktop hero átkötése az image registry lokális WebP képére.
-// [CHANGE 2026-04-26 00:00] D2 nem használt Pexels placeholder/fallback képlogika eltávolítása.
+// Hero image assembly with desktop registry image and safe fallback chain.
 const {
-  mobileHeroImage: d2MobileHeroImage,
-  desktopHeroImage: d2DesktopHeroImage,
-  desktopHeroAlt: d2DesktopHeroAlt,
-  localHeroFallback: d2LocalHeroFallback,
-  heroFallback: d2HeroFallback,
-  initialHeroImage: d2InitialHeroImage
+  mobileHeroImage,
+  desktopHeroImage,
+  desktopHeroAlt,
+  localHeroFallback,
+  heroFallback,
+  initialHeroImage
 } = buildHeroImages({
   desktopHero: imageSet.hero.desktop || null,
   mobileImagePath: pageData.hero.mobileImagePath,
-  galleryImages: d2GalleryImages,
+  galleryImages,
   fallbackAlt: pageData.hero.fallbackAlt,
   baseHref
 });
@@ -87,7 +85,7 @@ const compactRelatedStays = buildRelatedStays({
     <link
       rel="preload"
       as="image"
-      href={d2MobileHeroImage}
+      href={mobileHeroImage}
       type="image/webp"
       media="(max-width: 767px)"
       fetchpriority="high"
@@ -97,15 +95,15 @@ const compactRelatedStays = buildRelatedStays({
 
   <section class="d2-hero">
     <picture class="d2-hero__picture">
-      <source media="(max-width: 767px)" srcset={d2MobileHeroImage} data-d2-hero-mobile-source />
+      <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
       <img
-        src={d2InitialHeroImage.src}
-        alt={d2InitialHeroImage.alt}
+        src={initialHeroImage.src}
+        alt={initialHeroImage.alt}
         class="d2-hero__image"
         loading="eager"
         decoding="async"
         fetchpriority="high"
-        data-d2-hero-image
+        data-accommodation-hero-image
       />
     </picture>
     <div class="d2-hero__overlay"></div>
@@ -117,23 +115,23 @@ const compactRelatedStays = buildRelatedStays({
         <p class="d2-hero__lead">{pageData.hero.lead}</p>
         <div class="d2-hero__actions">
           <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{pageData.hero.primaryCtaLabel}</button>
-          <a href="#d2-gallery" class="dnd-btn dnd-btn--secondary" data-d2-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
+          <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="d2-reviews dnd-section" aria-labelledby="d2-reviews-title">
+  <section class="d2-reviews dnd-section" aria-labelledby="accommodation-reviews-title">
     <div class="dnd-container">
       <div class="d2-reviews__shell">
         <div class="d2-reviews__heading">
           <span class="dnd-section-kicker">{pageData.reviews.kicker}</span>
-          <h2 id="d2-reviews-title" class="d2-reviews__title">{pageData.reviews.title}</h2>
+          <h2 id="accommodation-reviews-title" class="d2-reviews__title">{pageData.reviews.title}</h2>
           <p class="d2-reviews__intro">{pageData.reviews.intro}</p>
         </div>
 
         <div class="d2-reviews__grid">
-          {d2Reviews.map((review) => (
+          {reviewItems.map((review) => (
             <article class="d2-review-card">
               <div class="d2-review-card__top">
                 <img
@@ -166,8 +164,8 @@ const compactRelatedStays = buildRelatedStays({
               <div class="d2-review-card__top d2-review-card__top--mobile">
                 <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
               </div>
-              <blockquote class="d2-review-card__quote">{d2MobileGoogleReviews[0]?.quote}</blockquote>
-              <p class="d2-review-card__meta">{d2MobileGoogleReviews[0]?.meta}</p>
+              <blockquote class="d2-review-card__quote">{mobileGoogleReviews[0]?.quote}</blockquote>
+              <p class="d2-review-card__meta">{mobileGoogleReviews[0]?.meta}</p>
             </article>
           </section>
 
@@ -185,7 +183,7 @@ const compactRelatedStays = buildRelatedStays({
                 />
               </div>
               <div class="d2-reviews__mobile-list">
-                {d2MobileGoogleReviews.slice(1).map((review) => (
+                {mobileGoogleReviews.slice(1).map((review) => (
                   <article class="d2-review-card d2-review-card--mobile">
                     <div class="d2-review-card__top d2-review-card__top--mobile">
                       <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
@@ -208,7 +206,7 @@ const compactRelatedStays = buildRelatedStays({
                 />
               </div>
               <div class="d2-reviews__mobile-list">
-                {d2MobileBookingReviews.map((review) => (
+                {mobileBookingReviews.map((review) => (
                   <article class="d2-review-card d2-review-card--mobile">
                     <div class="d2-review-card__top d2-review-card__top--mobile">
                       <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
@@ -297,38 +295,38 @@ const compactRelatedStays = buildRelatedStays({
     </div>
   </section>
 
-  <section id="d2-gallery" class="d2-gallery dnd-section">
+  <section id="accommodation-gallery" class="d2-gallery dnd-section">
     <div class="dnd-container">
       <div class="d2-gallery__heading">
         <span class="dnd-section-kicker">{pageData.gallery.kicker}</span>
         <h2 class="d2-section-title">{pageData.gallery.title}</h2>
         <p class="d2-gallery__hint">
-          {d2GalleryHasMore ? pageData.gallery.moreHint : pageData.gallery.defaultHint}
+          {galleryHasMore ? pageData.gallery.moreHint : pageData.gallery.defaultHint}
         </p>
       </div>
-      {d2GalleryPreviewImages.length > 0 ? (
+      {galleryPreviewImages.length > 0 ? (
         <div class="d2-gallery__grid">
-          {d2GalleryPreviewImages.map((image, index) => (
+          {galleryPreviewImages.map((image, index) => (
             <figure class="d2-gallery__item">
               <button
                 type="button"
                 class="d2-gallery__trigger"
-                data-d2-gallery-trigger
-                data-d2-gallery-index={index}
-                data-d2-gallery-id={image.id}
+                data-accommodation-gallery-trigger
+                data-accommodation-gallery-index={index}
+                data-accommodation-gallery-id={image.id}
                 aria-label={pageData.labels.galleryOpenAriaLabel}
               >
                 <img src={image.thumb || image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
                 <span class="d2-gallery__hover-label" aria-hidden="true">{pageData.labels.galleryHoverLabel}</span>
-                {d2GalleryHasMore && index === d2GalleryPreviewImages.length - 1 && (
-                  <span class="d2-gallery__more-badge">+{d2GalleryMoreCount} kép</span>
+                {galleryHasMore && index === galleryPreviewImages.length - 1 && (
+                  <span class="d2-gallery__more-badge">+{galleryMoreCount} kép</span>
                 )}
               </button>
             </figure>
           ))}
         </div>
       ) : (
-        <div class="d2-gallery__empty" role="status">{d2GalleryWarning}</div>
+        <div class="d2-gallery__empty" role="status">{galleryWarning}</div>
       )}
     </div>
   </section>
@@ -355,11 +353,11 @@ const compactRelatedStays = buildRelatedStays({
     </div>
   </section>
 
-  <section class="d2-closer dnd-section" aria-labelledby="d2-related-stays-title">
+  <section class="d2-closer dnd-section" aria-labelledby="accommodation-related-stays-title">
     <div class="dnd-container">
       <div class="d2-closer__head">
         <span class="dnd-section-kicker">{pageData.relatedStays.kicker}</span>
-        <h2 id="d2-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
+        <h2 id="accommodation-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
         <p>{pageData.relatedStays.intro}</p>
       </div>
 
@@ -380,22 +378,22 @@ const compactRelatedStays = buildRelatedStays({
     </div>
   </section>
 
-  <div class="d2-lightbox" data-d2-lightbox hidden>
-    <div class="d2-lightbox__backdrop" data-d2-lightbox-close></div>
+  <div class="d2-lightbox" data-accommodation-lightbox hidden>
+    <div class="d2-lightbox__backdrop" data-accommodation-lightbox-close></div>
     <div class="d2-lightbox__dialog" role="dialog" aria-modal="true" aria-label={pageData.lightbox.galleryAriaLabel}>
-      <button type="button" class="d2-lightbox__close" data-d2-lightbox-close aria-label={pageData.lightbox.closeAriaLabel}>
+      <button type="button" class="d2-lightbox__close" data-accommodation-lightbox-close aria-label={pageData.lightbox.closeAriaLabel}>
         ×
       </button>
-      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--prev" data-d2-lightbox-prev aria-label={pageData.lightbox.previousAriaLabel}>
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--prev" data-accommodation-lightbox-prev aria-label={pageData.lightbox.previousAriaLabel}>
         ‹
       </button>
       <figure class="d2-lightbox__figure">
-        <img src="" alt="" class="d2-lightbox__image" data-d2-lightbox-image />
+        <img src="" alt="" class="d2-lightbox__image" data-accommodation-lightbox-image />
         <figcaption class="d2-lightbox__meta">
-          <span class="d2-lightbox__counter" data-d2-lightbox-counter></span>
+          <span class="d2-lightbox__counter" data-accommodation-lightbox-counter></span>
         </figcaption>
       </figure>
-      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--next" data-d2-lightbox-next aria-label={pageData.lightbox.nextAriaLabel}>
+      <button type="button" class="d2-lightbox__nav d2-lightbox__nav--next" data-accommodation-lightbox-next aria-label={pageData.lightbox.nextAriaLabel}>
         ›
       </button>
     </div>
@@ -466,36 +464,36 @@ const compactRelatedStays = buildRelatedStays({
     </symbol>
   </svg>
 
-  <script define:vars={{ bookingLink, d2GalleryImages, d2DesktopHeroImage, d2DesktopHeroAlt }}>
+  <script define:vars={{ bookingLink, galleryImages, desktopHeroImage, desktopHeroAlt }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
     }
 
-    const heroImage = document.querySelector("[data-d2-hero-image]");
-    const galleryJump = document.querySelector("[data-d2-gallery-jump]");
-    const lightbox = document.querySelector("[data-d2-lightbox]");
-    const lightboxImage = document.querySelector("[data-d2-lightbox-image]");
-    const lightboxCounter = document.querySelector("[data-d2-lightbox-counter]");
+    const heroImage = document.querySelector("[data-accommodation-hero-image]");
+    const galleryJump = document.querySelector("[data-accommodation-gallery-jump]");
+    const lightbox = document.querySelector("[data-accommodation-lightbox]");
+    const lightboxImage = document.querySelector("[data-accommodation-lightbox-image]");
+    const lightboxCounter = document.querySelector("[data-accommodation-lightbox-counter]");
     const galleryGrid = document.querySelector(".d2-gallery__grid");
-    const galleryTriggers = Array.from(document.querySelectorAll("[data-d2-gallery-trigger]"));
-    const closeButtons = Array.from(document.querySelectorAll("[data-d2-lightbox-close]"));
-    const prevButton = document.querySelector("[data-d2-lightbox-prev]");
-    const nextButton = document.querySelector("[data-d2-lightbox-next]");
+    const galleryTriggers = Array.from(document.querySelectorAll("[data-accommodation-gallery-trigger]"));
+    const closeButtons = Array.from(document.querySelectorAll("[data-accommodation-lightbox-close]"));
+    const prevButton = document.querySelector("[data-accommodation-lightbox-prev]");
+    const nextButton = document.querySelector("[data-accommodation-lightbox-next]");
     const navigationEntries =
       typeof performance.getEntriesByType === "function"
         ? performance.getEntriesByType("navigation")
         : [];
     const isReloadNavigation = navigationEntries[0]?.type === "reload";
 
-    if (isReloadNavigation && window.location.hash === "#d2-gallery") {
+    if (isReloadNavigation && window.location.hash === "#accommodation-gallery") {
       history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
       requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
     }
 
     galleryJump?.addEventListener("click", (event) => {
-      const gallery = document.getElementById("d2-gallery");
+      const gallery = document.getElementById("accommodation-gallery");
 
       if (!gallery) {
         return;
@@ -505,7 +503,7 @@ const compactRelatedStays = buildRelatedStays({
       gallery.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && d2GalleryImages.length) {
+    if (lightbox && lightboxImage && lightboxCounter && galleryTriggers.length && galleryImages.length) {
       let activeIndex = 0;
       let autoplayTimer = null;
       const heroFallback = heroImage
@@ -531,7 +529,7 @@ const compactRelatedStays = buildRelatedStays({
       };
 
       const renderLightbox = () => {
-        const currentImage = d2GalleryImages[activeIndex];
+        const currentImage = galleryImages[activeIndex];
 
         if (!currentImage) {
           return;
@@ -539,7 +537,7 @@ const compactRelatedStays = buildRelatedStays({
 
         lightboxImage.src = currentImage.src;
         lightboxImage.alt = currentImage.alt;
-        lightboxCounter.textContent = `${activeIndex + 1} / ${d2GalleryImages.length}`;
+        lightboxCounter.textContent = `${activeIndex + 1} / ${galleryImages.length}`;
       };
 
       const renderPreviewGrid = () => {
@@ -547,9 +545,9 @@ const compactRelatedStays = buildRelatedStays({
           return;
         }
 
-        const previewImages = d2GalleryImages.slice(0, previewItems.length);
-        const hasMore = d2GalleryImages.length > previewImages.length;
-        const moreCount = Math.max(d2GalleryImages.length - previewImages.length, 0);
+        const previewImages = galleryImages.slice(0, previewItems.length);
+        const hasMore = galleryImages.length > previewImages.length;
+        const moreCount = Math.max(galleryImages.length - previewImages.length, 0);
 
         previewItems.forEach((item, index) => {
           const nextImage = previewImages[index];
@@ -558,8 +556,8 @@ const compactRelatedStays = buildRelatedStays({
             return;
           }
 
-          item.trigger.setAttribute("data-d2-gallery-index", String(index));
-          item.trigger.setAttribute("data-d2-gallery-id", String(nextImage.id));
+          item.trigger.setAttribute("data-accommodation-gallery-index", String(index));
+          item.trigger.setAttribute("data-accommodation-gallery-id", String(nextImage.id));
           item.image.src = nextImage.thumb || nextImage.src;
           item.image.alt = nextImage.alt;
           item.image.loading = index < 2 ? "eager" : "lazy";
@@ -603,7 +601,7 @@ const compactRelatedStays = buildRelatedStays({
           return;
         }
 
-        const orderedImages = d2GalleryImages
+        const orderedImages = galleryImages
           .map((image, originalIndex) => ({
             ...image,
             originalIndex,
@@ -633,28 +631,28 @@ const compactRelatedStays = buildRelatedStays({
             sortOrder
           }));
 
-        d2GalleryImages.splice(0, d2GalleryImages.length, ...orderedImages);
-        renderPreviewGrid();
+      galleryImages.splice(0, galleryImages.length, ...orderedImages);
+      renderPreviewGrid();
 
-        if (!lightbox.hidden) {
-          activeIndex = Math.min(activeIndex, d2GalleryImages.length - 1);
-          renderLightbox();
-        }
-      };
+      if (!lightbox.hidden) {
+        activeIndex = Math.min(activeIndex, galleryImages.length - 1);
+        renderLightbox();
+      }
+    };
 
       const renderHeroImage = () => {
         if (!heroImage || !heroFallback) {
           return;
         }
 
-        heroImage.src = d2DesktopHeroImage || heroFallback.src;
-        heroImage.alt = d2DesktopHeroAlt || heroFallback.alt;
+      heroImage.src = desktopHeroImage || heroFallback.src;
+      heroImage.alt = desktopHeroAlt || heroFallback.alt;
       };
 
       const startAutoplay = () => {
         stopAutoplay();
         autoplayTimer = window.setInterval(() => {
-          activeIndex = (activeIndex + 1) % d2GalleryImages.length;
+          activeIndex = (activeIndex + 1) % galleryImages.length;
           renderLightbox();
         }, 4800);
       };
@@ -674,14 +672,14 @@ const compactRelatedStays = buildRelatedStays({
       };
 
       const stepLightbox = (direction) => {
-        activeIndex = (activeIndex + direction + d2GalleryImages.length) % d2GalleryImages.length;
+        activeIndex = (activeIndex + direction + galleryImages.length) % galleryImages.length;
         renderLightbox();
         startAutoplay();
       };
 
       galleryTriggers.forEach((trigger) => {
         trigger.addEventListener("click", () => {
-          const nextIndex = Number(trigger.getAttribute("data-d2-gallery-index"));
+          const nextIndex = Number(trigger.getAttribute("data-accommodation-gallery-index"));
           openLightbox(Number.isFinite(nextIndex) ? nextIndex : 0);
         });
       });
