@@ -267,7 +267,7 @@ const compactRelatedStays = [
         </div>
 
         <div class="d2-reviews__mobile">
-          <section class="d2-reviews__mobile-group" aria-label="Google értékelések">
+          <section class="d2-reviews__mobile-group" aria-label="Kiemelt Google értékelés">
             <div class="d2-reviews__mobile-head">
               <img
                 src={`${baseHref}images/brand/google-logo-compact.png`}
@@ -277,41 +277,64 @@ const compactRelatedStays = [
                 decoding="async"
               />
             </div>
-            <div class="d2-reviews__mobile-list">
-              {d2MobileGoogleReviews.map((review) => (
-                <article class="d2-review-card d2-review-card--mobile">
-                  <div class="d2-review-card__top d2-review-card__top--mobile">
-                    <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
-                  </div>
-                  <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
-                  <p class="d2-review-card__meta">{review.meta}</p>
-                </article>
-              ))}
-            </div>
+            <article class="d2-review-card d2-review-card--mobile">
+              <div class="d2-review-card__top d2-review-card__top--mobile">
+                <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
+              </div>
+              <blockquote class="d2-review-card__quote">{d2MobileGoogleReviews[0]?.quote}</blockquote>
+              <p class="d2-review-card__meta">{d2MobileGoogleReviews[0]?.meta}</p>
+            </article>
           </section>
 
-          <section class="d2-reviews__mobile-group" aria-label="Booking.com értékelések">
-            <div class="d2-reviews__mobile-head">
-              <img
-                src={`${baseHref}images/brand/booking-logo-compact.png`}
-                alt="Booking.com értékelés"
-                class="d2-reviews__mobile-logo is-booking"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="d2-reviews__mobile-list">
-              {d2MobileBookingReviews.map((review) => (
-                <article class="d2-review-card d2-review-card--mobile">
-                  <div class="d2-review-card__top d2-review-card__top--mobile">
-                    <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
-                  </div>
-                  <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
-                  <p class="d2-review-card__meta">{review.meta}</p>
-                </article>
-              ))}
-            </div>
-          </section>
+          <details class="d2-reviews__more">
+            <summary>További vélemények</summary>
+
+            <section class="d2-reviews__mobile-group" aria-label="További Google értékelések">
+              <div class="d2-reviews__mobile-head">
+                <img
+                  src={`${baseHref}images/brand/google-logo-compact.png`}
+                  alt="Google értékelés"
+                  class="d2-reviews__mobile-logo is-google"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="d2-reviews__mobile-list">
+                {d2MobileGoogleReviews.slice(1).map((review) => (
+                  <article class="d2-review-card d2-review-card--mobile">
+                    <div class="d2-review-card__top d2-review-card__top--mobile">
+                      <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
+                    </div>
+                    <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
+                    <p class="d2-review-card__meta">{review.meta}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section class="d2-reviews__mobile-group" aria-label="Booking.com értékelések">
+              <div class="d2-reviews__mobile-head">
+                <img
+                  src={`${baseHref}images/brand/booking-logo-compact.png`}
+                  alt="Booking.com értékelés"
+                  class="d2-reviews__mobile-logo is-booking"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="d2-reviews__mobile-list">
+                {d2MobileBookingReviews.map((review) => (
+                  <article class="d2-review-card d2-review-card--mobile">
+                    <div class="d2-review-card__top d2-review-card__top--mobile">
+                      <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
+                    </div>
+                    <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
+                    <p class="d2-review-card__meta">{review.meta}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </details>
         </div>
       </div>
     </div>
@@ -1078,6 +1101,28 @@ const compactRelatedStays = [
     gap: 8px;
   }
 
+  .d2-reviews__more {
+    display: grid;
+    gap: 10px;
+  }
+
+  .d2-reviews__more summary {
+    cursor: pointer;
+    color: #d99e2b;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    list-style: none;
+  }
+
+  .d2-reviews__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .d2-reviews__more[open] summary {
+    margin-bottom: 10px;
+  }
+
   .d2-review-card--mobile {
     gap: 5px;
     padding: 0;
@@ -1834,10 +1879,18 @@ const compactRelatedStays = [
 
     .d2-reviews__mobile {
       display: grid;
-      gap: 0;
+      gap: 12px;
     }
 
-    .d2-reviews__mobile-group + .d2-reviews__mobile-group {
+    .d2-reviews__more {
+      gap: 12px;
+    }
+
+    .d2-reviews__more[open] summary {
+      margin-bottom: 10px;
+    }
+
+    .d2-reviews__more .d2-reviews__mobile-group + .d2-reviews__mobile-group {
       margin-top: 24px;
     }
 
