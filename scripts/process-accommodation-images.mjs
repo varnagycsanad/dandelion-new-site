@@ -5,7 +5,7 @@
 // [CHANGE 2026-04-26 00:00] Korlátozott local write mód hozzáadása egyetlen mobil hero WebP feldolgozásához.
 // [CHANGE 2026-04-26 00:00] Korlátozott remote WP source write mód hozzáadása egyetlen D2 galériaképhez.
 
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { fileURLToPath } from "node:url";
@@ -43,6 +43,14 @@ const includeNeedsReview = args.includes("--include-needs-review");
 const exportPlan = args.includes("--export-plan");
 const writeMode = args.includes("--write");
 const allowRemote = args.includes("--allow-remote");
+const localDryRunSourceFolders = {
+  royal_homes: "royal-homes",
+  szepvolgyi: "szepvolgyi",
+  szololiget: "szololiget",
+  vintage: "vintage",
+  zsalya: "zsalya",
+  koveskal: "koveskal",
+};
 
 if (!apartmentKey) {
   console.error("Missing required argument: --apartment=<apartmentKey>");
@@ -55,10 +63,18 @@ if (writeMode && !sourceId) {
   process.exit(1);
 }
 
-const candidates = accommodationSourceImages[apartmentKey];
+const inventoryCandidates = accommodationSourceImages[apartmentKey];
+const candidates =
+  inventoryCandidates ??
+  (!writeMode ? await buildLocalDryRunCandidates(apartmentKey) : undefined);
 
 if (!candidates) {
-  const availableKeys = Object.keys(accommodationSourceImages);
+  const availableKeys = [
+    ...Object.keys(accommodationSourceImages),
+    ...Object.keys(localDryRunSourceFolders).filter(
+      (key) => !(key in accommodationSourceImages),
+    ),
+  ].sort();
 
   console.error(`Unknown apartmentKey: ${apartmentKey}`);
   console.error(
@@ -445,4 +461,67 @@ async function processSingleLocalWrite({ apartmentKey, candidates, sourceId, all
 function resolvePublicImagePath(publicUrlPath) {
   const relativePath = publicUrlPath.replace(/^\/images\//, "");
   return path.join(workspaceRoot, "public", "images", relativePath);
+}
+
+async function buildLocalDryRunCandidates(apartmentKey) {
+  const sourceFolder = localDryRunSourceFolders[apartmentKey];
+
+  if (!sourceFolder) {
+    return undefined;
+  }
+
+  const sourceDir = path.join(
+    workspaceRoot,
+    "source-images",
+    "accommodations",
+    sourceFolder,
+  );
+
+  if (!(await fileExists(sourceDir))) {
+    return undefined;
+  }
+
+  const files = await readdir(sourceDir, { withFileTypes: true });
+  const jpgFiles = files
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .filter((fileName) => /\.(jpg|jpeg)$/i.test(fileName))
+    .sort((a, b) => a.localeCompare(b));
+
+  return jpgFiles.map((fileName, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const outputBaseName = `${path.parse(fileName).name}.webp`;
+    const currentUrl = `/source-images/accommodations/${sourceFolder}/${fileName}`;
+
+    return {
+      id: `${apartmentKey}-source-gallery-${sequence}`,
+      apartmentKey,
+      source: {
+        type: "local",
+        originalUrl: currentUrl,
+        originalFilename: fileName,
+      },
+      currentUrl,
+      currentFilename: fileName,
+      intendedRoles: ["gallery", "thumbnail"],
+      status: "selected",
+      sortOrder: (index + 1) * 10,
+      targetPlans: [
+        {
+          role: "gallery",
+          targetPath: `/images/accommodations/${apartmentKey}/gallery/${outputBaseName}`,
+          width: 1600,
+          cropMode: "contain",
+          focusPoint: "center center",
+        },
+        {
+          role: "thumbnail",
+          targetPath: `/images/accommodations/${apartmentKey}/thumbs/${outputBaseName}`,
+          width: 500,
+          cropMode: "contain",
+          focusPoint: "center center",
+        },
+      ],
+    };
+  });
 }

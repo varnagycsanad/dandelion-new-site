@@ -13,8 +13,17 @@ const galleryWidth = 1600;
 const galleryQuality = 82;
 const thumbWidth = 500;
 const thumbQuality = 75;
+const apartmentFolderMap = {
+  "royal-homes": "royal_homes",
+  szepvolgyi: "szepvolgyi",
+  szololiget: "szololiget",
+  vintage: "vintage",
+  zsalya: "zsalya",
+  koveskal: "koveskal",
+};
 
 const apartmentDirs = await listApartmentDirs(sourceRoot);
+const processApartmentDirs = apartmentDirs.filter((apartmentKey) => apartmentKey in apartmentFolderMap);
 const summary = {
   processed: 0,
   galleryCreated: 0,
@@ -23,8 +32,9 @@ const summary = {
   errors: [],
 };
 
-for (const apartmentKey of apartmentDirs) {
+for (const apartmentKey of processApartmentDirs) {
   const sourceDir = path.join(sourceRoot, apartmentKey);
+  const outputApartmentKey = apartmentFolderMap[apartmentKey] ?? apartmentKey;
   const files = await readdir(sourceDir, { withFileTypes: true });
   const jpgFiles = files
     .filter((entry) => entry.isFile())
@@ -35,8 +45,8 @@ for (const apartmentKey of apartmentDirs) {
   for (const fileName of jpgFiles) {
     const sourcePath = path.join(sourceDir, fileName);
     const outputBaseName = `${path.parse(fileName).name}.webp`;
-    const galleryDir = path.join(outputRoot, apartmentKey, "gallery");
-    const thumbDir = path.join(outputRoot, apartmentKey, "thumbs");
+    const galleryDir = path.join(outputRoot, outputApartmentKey, "gallery");
+    const thumbDir = path.join(outputRoot, outputApartmentKey, "thumbs");
     const galleryPath = path.join(galleryDir, outputBaseName);
     const thumbPath = path.join(thumbDir, outputBaseName);
 
@@ -47,7 +57,7 @@ for (const apartmentKey of apartmentDirs) {
       const outputsExist = (await exists(galleryPath)) || (await exists(thumbPath));
       if (outputsExist) {
         summary.skippedExisting.push({
-          apartmentKey,
+          apartmentKey: outputApartmentKey,
           source: fileName,
           galleryPath,
           thumbPath,
