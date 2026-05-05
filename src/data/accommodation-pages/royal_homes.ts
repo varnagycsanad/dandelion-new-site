@@ -5,7 +5,7 @@ export const royalHomesPageData: AccommodationPageData = {
     title: "Dandelion Royal Homes | Dandelion Vendeghazak",
     description: "Dandelion Royal Homes kulon oldal a Balaton kozeli, kenyelmes es visszafogott pihenes shared template bekotesekent."
   },
-  bookingLink: "https://dandelionhouse.hu/royal/",
+  bookingLink: "/dandelion-royal-homes/",
   hero: {
     mobileImagePath: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
     fallbackAlt: "Dandelion Royal Homes",
