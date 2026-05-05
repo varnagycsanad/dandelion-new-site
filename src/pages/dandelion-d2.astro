@@ -1107,6 +1107,9 @@ const compactRelatedStays = [
   }
 
   .d2-reviews__more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     cursor: pointer;
     color: #d99e2b;
     font-size: 14px;
@@ -1119,8 +1122,18 @@ const compactRelatedStays = [
     display: none;
   }
 
+  .d2-reviews__more summary::after {
+    content: "▾";
+    font-size: 12px;
+    transition: transform 0.2s ease;
+  }
+
   .d2-reviews__more[open] summary {
     margin-bottom: 10px;
+  }
+
+  .d2-reviews__more[open] summary::after {
+    transform: rotate(180deg);
   }
 
   .d2-review-card--mobile {
