@@ -119,7 +119,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Zsálya",
     slug: "zsalya-vendeghaz",
-    url: "https://dandelionhouse.hu/zsalya/",
+    url: "/dandelion-zsalya/",
     location: "Balaton-felvidék",
     description: "Letisztult szállás azoknak, akik természetközeli, nyugodt kikapcsolódásra vágynak.",
     hoverText: "Természetközeli hangulat, hatalmas tér a kikapcsolódáshoz.",

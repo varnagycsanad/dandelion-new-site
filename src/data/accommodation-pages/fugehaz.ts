@@ -164,7 +164,7 @@ export const fugehazPageData: AccommodationPageData = {
       {
         name: "Zsalya Vendeghaz",
         meta: "csendes, termeszetkozeli pihenes",
-        href: "https://dandelionhouse.hu/zsalya/",
+        href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
           slot: "zsalya_card_image"

@@ -164,7 +164,7 @@ export const d2PageData: AccommodationPageData = {
       {
         name: "Zsálya Vendégház",
         meta: "csendes, természetközeli pihenés",
-        href: "https://dandelionhouse.hu/zsalya/",
+        href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
           slot: "zsalya_card_image"

@@ -8,6 +8,8 @@ const imageMapping = await readHomepageImageMapping();
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const d2Href = `${baseHref}dandelion-d2/`;
+const resolveStayHref = (href: string) =>
+  href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
 // [CHANGE 2026-04-26 00:00] Szállások oldal D2 card képének átkötése accommodation image registryre.
 const resolveRegistryImagePath = (imagePath: string) =>
   imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
@@ -90,7 +92,7 @@ const sections = accommodationSections.map((section) => ({
               );
 
               return stay.url ? (
-                <a class="dnd-card is-link" href={stay.slug === "dandelion-d2" ? d2Href : stay.url}>
+                <a class="dnd-card is-link" href={stay.slug === "dandelion-d2" ? d2Href : resolveStayHref(stay.url)}>
                   {cardContent}
                 </a>
               ) : (

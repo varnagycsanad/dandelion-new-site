@@ -28,6 +28,8 @@ const homeHref = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 const staysHref = `${homeHref}#stays`;
 const experiencesHref = `${homeHref}#elmenyek`;
+const resolveLocalStayHref = (href: string) =>
+  href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : href;
 const stayLinks = accommodations.map((stay) => ({
   label: stay.name,
   href:
@@ -35,7 +37,7 @@ const stayLinks = accommodations.map((stay) => ({
       ? `${homeHref}dandelion-d2/`
       : stay.slug === "fugehaz"
         ? `${homeHref}fuge/`
-        : stay.url
+        : resolveLocalStayHref(stay.url)
 }));
 const koveskalStayLink = {
   label: "Dandelion Köveskál",
