@@ -980,10 +980,10 @@ const compactRelatedStays = [
     display: grid;
     gap: 8px;
     min-width: 0;
-    padding: 12px 12px 11px;
-    border: 1px solid rgba(91, 70, 42, 0.1);
+    padding: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.74);
+    background: #ffffff;
   }
 
   .d2-review-card__top {
@@ -997,22 +997,22 @@ const compactRelatedStays = [
     display: block;
     width: auto;
     max-width: 100%;
-    height: auto;
+    height: 20px;
     object-fit: contain;
     object-position: left center;
   }
 
   .d2-review-card__logo.is-google {
-    width: clamp(40px, 3.8vw, 58px);
+    width: auto;
   }
 
   .d2-review-card__logo.is-booking {
-    width: clamp(48px, 4.4vw, 68px);
+    width: auto;
   }
 
   .d2-review-card__stars {
-    color: #d99e2b;
-    font-size: 0.76rem;
+    color: rgba(217, 158, 43, 0.85);
+    font-size: 14px;
     letter-spacing: 0.1em;
     white-space: nowrap;
   }
@@ -1020,20 +1020,21 @@ const compactRelatedStays = [
   .d2-review-card__quote {
     margin: 0;
     color: rgba(0, 0, 0, 0.78);
-    font-size: 0.84rem;
-    line-height: 1.48;
+    font-size: 15px;
+    line-height: 1.5;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    margin-bottom: 10px;
   }
 
   .d2-review-card__meta {
     margin: 0;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 0.72rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     line-height: 1.45;
   }
 
@@ -1793,25 +1794,25 @@ const compactRelatedStays = [
 
     .d2-review-card {
       gap: 8px;
-      padding: 12px 12px 11px;
+      padding: 16px;
     }
 
     .d2-review-card__quote {
-      font-size: 0.82rem;
-      line-height: 1.44;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     .d2-review-card__meta {
-      font-size: 0.7rem;
+      font-size: 13px;
       line-height: 1.4;
     }
 
     .d2-review-card__logo.is-google {
-      width: 50px;
+      width: auto;
     }
 
     .d2-review-card__logo.is-booking {
-      width: 60px;
+      width: auto;
     }
   }
 
@@ -1823,6 +1824,14 @@ const compactRelatedStays = [
     .d2-reviews__mobile {
       display: grid;
       gap: 14px;
+    }
+
+    .d2-reviews__mobile-group {
+      margin-bottom: 24px;
+    }
+
+    .d2-reviews__mobile-group:last-child {
+      margin-bottom: 0;
     }
 
     .d2-details {
