@@ -2,25 +2,26 @@ import type { AccommodationPageData } from "./types";
 
 export const zsalyaPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Zsalya | Dandelion Vendeghazak",
-    description: "Dandelion Zsalya kulon oldal a csendes, termeszetkozeli pihenes es a visszafogott balatoni-felvideki jelenlet shared template bekotesekent."
+    title: "Zsalya Vendeghaz Kisapati | Csendes szallas a Szent Gyorgy-hegyen",
+    description:
+      "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, 4 fo reszere, reszben fedett terasszal, tanuhegy panoramaval, napfelkeltevel es klimaval mindket szinten."
   },
   bookingLink: "/dandelion-zsalya/",
   hero: {
     mobileImagePath: "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp",
-    fallbackAlt: "Dandelion Zsalya",
-    kicker: "Balaton-felvidek · csendes pihenes",
+    fallbackAlt: "Zsalya Vendeghaz a Szent Gyorgy-hegy keleti oldalan",
+    kicker: "Szent Gyorgy-hegy keleti oldala",
     title: "Dandelion",
     titleAccent: "Zsalya",
-    subtitle: "TERMESZETKOZELI PIHENES NYUGODT RITMUSBAN",
-    lead: "Visszafogott, termeszetkozeli szallas azoknak, akik csendesebb napokat, lassabb jelenletet es nyugodt kornyezetet keresnek.",
-    primaryCtaLabel: "Reszletek es kapcsolat",
+    subtitle: "CSENDES VENDEGHAZ TERMESZETKOZELI PIHENESHEZ",
+    lead: "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, ket szinten 4 fo reszere. 2026-ban megujult, reszben fedett terasszal, tanuhegy panoramaval, napfelkeltevel, felszerelt teakonyhaval es klimaval mindket szinten.",
+    primaryCtaLabel: "Arak es foglalas",
     secondaryCtaLabel: "Kepek megtekintese"
   },
   reviews: {
     kicker: "Vendegertekelesek",
     title: "Vendegeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekotesehez.",
+    intro: "Valodi vendegertekelesek Google es Booking.com forrasbol.",
     mobileSummaryLabel: "Tovabbi velemenyek",
     mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
     mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
@@ -28,67 +29,72 @@ export const zsalyaPageData: AccommodationPageData = {
     items: [
       {
         source: "Google",
-        quote: "Nyugodt, atgondolt hely, jo valasztas, ha termeszetkozelben szeretnel pihenni.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Csendes, nyugodt hely, ahonnan konnyu elindulni turazni, este pedig nagyon jo visszaerni.",
+        meta: "Vendeg - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "Baratsagos hangulat, csendesebb ritmus es kellemes kornyezet a lassabb napokhoz.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "A terasz es a kornyezet hangulata kulonosen sokat ad a piheneshez, tenyleg lassabb ritmust lehet itt felvenni.",
+        meta: "Vendeg - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "A hely visszafogott nyugalma kulonosen jo, ha nem tulzsufolt nyaralos elmenyt keresel.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Kis meretu, de atgondolt es kenyelmes haz, jo valasztas, ha valaki termeszetkozelben szeretne pihenni.",
+        meta: "Vendeg - Google - 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Kellemes, csendes szallas, jo bazis kirandulasokhoz es esti piheneshez.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Baratsagos, kenyelmes szallas, nagyon jo kiindulopont a Szent Gyorgy-hegy felfedezesehez.",
+        meta: "Vendeg - Booking.com - 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Termeszetkozeli, nyugodt hely, ahol konnyu kicsit lelassulni es feltoltodni.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Nyugodt, csendes hely, ahol rosszabb idoben is kellemes a fedett teraszon ulni.",
+        meta: "Vendeg - Booking.com - 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Csend · termeszetkozeli jelenlet",
-    title: "Nyugodtabb napok, egyszerubb ritmus",
-    lead: "A Dandelion Zsalya elso korben a shared accommodation sablonra kotott oldal, visszafogott tartalommal es kesobbi finomitasra alkalmas szerkezettel."
+    kicker: "Csend - termeszetkozeli pihenes",
+    title: "Kulonallo kis haz a hegyoldal nyugalmaban",
+    lead: "A Zsalya Vendeghaz egy kulonallo, csendes kis haz a Szent Gyorgy-hegy keleti oldalan, nyugodt, termeszetkozeli kornyezetben. Ket szinten 4 fo szamara kenyelmes, idealis valasztas azoknak, akik szeretnenek kiszakadni a nyuzsgesbol, turazni, pihenni, vagy egyszeruen csak elvezni a kornyek kulonleges hangulatat."
   },
   details: {
-    kicker: "Dandelion Zsalya",
-    title: "Elso koros, shared sablonra kotott szallasoldal",
+    kicker: "Zsalya Vendeghaz",
+    title: "Napfelkelte, tanuhegy panorama es nyugodt, ket szintes pihenes",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos accommodation sablonra ulteti ra a Zsalya oldalt, semleges, kesobb pontosithato tartalommal.",
+      "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, ket szinten 4 fo reszere. 2026-ban megujult, reszben fedett terasszal, napfelkeltevel, tanuhegy panoramaval es klimaval mindket szinten.",
     longDescription: [
-      "A Zsalya hangulata a csendesebb, termeszetkozeli piheneshez kapcsolodik, ahol a lassabb ritmus es a nyugodt kornyezet fontos resze az elmenynek.",
-      "Az oldal ezen a koren meg nem vegleges marketing szoveggel fut, hanem szerkesztheto, visszafogott copyval, hogy a shared template bekotese stabil maradjon.",
-      "A kovetkezo korben a pontos felszereltseg, a valodi vendegertekelesek es a helyspecifikusabb szovegek finomithatok ugyanebben a rendszerben."
+      "A Zsalya Vendeghaz egy kulonallo, csendes kis haz a Szent Gyorgy-hegy keleti oldalan, nyugodt, termeszetkozeli kornyezetben. Ket szinten 4 fo szamara kenyelmes, idealis valasztas azoknak, akik szeretnenek kiszakadni a nyuzsgesbol, turazni, pihenni, vagy egyszeruen csak elvezni a kornyek kulonleges hangulatat.",
+      "A haz egyik legszebb elmenye a reggel: a napfelkelte es a hegyoldal fenyei kulonleges hangulatot adnak az itt toltott napoknak. A kornyezet csendes, levegos es termeszetkozeli, igy a Zsalya jo valasztas paroknak, kisebb csaladoknak es nyugodt kikapcsolodast kereso baratoknak is.",
+      "2026-ban a haz megujult: a terasz reszben beepult, igy rosszabb idoben is jobban hasznalhato. A reszben fedett teraszrol szep kilatas nyilik a Csobanc, a Gulacs es a Toti-hegy iranyaba, igy egy reggeli kave, egy esti pohar bor vagy egy csendes delutan is kulon elmenyt kap.",
+      "Az also szinten talalhato a fozosarok, a zuhanyzos furdoszoba es a kulon WC. A fozosarok jol felszerelt, hutoszekrennyel, beepitett fagyasztoval es a mindennapi etkezesekhez szukseges eszkozokkel, ezert rovidebb es hosszabb tartozkodasra is kenyelmesen hasznalhato.",
+      "A nappali vilagos, baratsagos kozossegi ter, ahol kanape, sok ablak es kozvetlen teraszkijarat teszi kellemessebbe az itt toltott idot. Ez a resz rosszabb idoben is jol hasznalhato, megis megmarad a haz nyitott, termeszetkozeli hangulata.",
+      "A felso szinten franciaagy talalhato, valamint mosdo es furdokad is a vendegek rendelkezesere all. A haz elrendezese egyszerre otthonos es praktikus, igy a Zsalya konnyen hasznalhato piheneshez, turazos hetvegehez vagy hosszabb Balaton-felvideki kikapcsolodashoz is.",
+      "Mindket szint klimaval felszerelt, igy nyaron hutheto, huvosebb idoben pedig futheto is a haz. A reszben fedett terasz es a kornyezo csend lehetoseget ad arra, hogy a vendegek valoban lelassuljanak.",
+      "A kornyek egyik nagy elonye, hogy a Szent Gyorgy-hegy turautvonala szinte a kapubol elerheto. Itt a pihenes egyszeruen mukodik: nappal kirandulas, este nyugalom, reggel fenyek."
     ],
-    moreLabel: "Bovebben a Zsalya oldalrol",
-    ctaLabel: "Reszletek es kapcsolat"
+    moreLabel: "Bovebben a Zsalyarol",
+    ctaLabel: "Arak es foglalas"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Balaton-felvidek"],
-          ["Jelleg", "csendes, termeszetkozeli pihenes"],
-          ["Hangulat", "visszafogott es nyugodt"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Ferohely", "4 fo"],
+          ["Jelleg", "kulonallo, ket szintes kis haz"],
+          ["Elhelyezkedes", "Szent Gyorgy-hegy keleti oldala"],
+          ["Megujulas", "2026-ban megujult, reszben beepult terasszal"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Kiemelt elmenyek",
         items: [
-          ["Fokusz", "lassabb napok es feltoltodes"],
-          ["Kornyek", "setakhoz es kirandulasokhoz jo bazis"],
-          ["Ritmus", "csendesebb es termeszetkozeli"],
-          ["Elmeny", "videki nyugalom"]
+          ["Panorama", "Csobanc, Gulacs es Toti-hegy a teraszrol"],
+          ["Reggel", "gyonyoru napfelkelte"],
+          ["Komfort", "klima mindket szinten"],
+          ["Programok", "turautvonal szinte a kapubol"]
         ]
       }
     ]
@@ -96,12 +102,14 @@ export const zsalyaPageData: AccommodationPageData = {
   features: {
     title: "Miert lehet jo valasztas",
     highlights: [
-      { label: "Termeszetkozeli hangulat", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Nyugodt ritmus", icon: "users" },
-      { label: "Balaton-felvideki kornyezet", icon: "route" },
-      { label: "Csendes pihenes", icon: "mountain" },
-      { label: "Attekintheto szallasoldal", icon: "wifi" }
+      { label: "Kulonallo vendeghaz", icon: "home" },
+      { label: "4 fo reszere kenyelmes", icon: "users" },
+      { label: "Ket szint", icon: "route" },
+      { label: "Reszben fedett, reszben beepult terasz", icon: "leaf" },
+      { label: "Tanuhegy panorama", icon: "mountain" },
+      { label: "Klima mindket szinten", icon: "wifi" },
+      { label: "Felszerelt teakonyha", icon: "utensils" },
+      { label: "Turautvonal a kozelben", icon: "trail" }
     ]
   },
   gallery: {
@@ -113,17 +121,17 @@ export const zsalyaPageData: AccommodationPageData = {
     previewCount: 8
   },
   map: {
-    kicker: "BALATON-FELVIDEK · CSENDES PIHENES",
+    kicker: "SZENT GYORGY-HEGY - KELETI OLDAL",
     title: "Kornyek es taj",
-    body: "A Zsalya a Balaton-felvidek nyugodtabb, termeszetkozeli hangulatahoz kapcsolodik. Jo valasztas, ha a csendesebb jelenlet, a setak es a lassabb pihenes fontosabb, mint a zsufoltabb nyaralasi ritmus.",
+    body: "A Zsalya Vendeghaz a Szent Gyorgy-hegy keleti oldalan fekszik, ahol a turautvonal szinte a kapubol elerheto. Innen konnyen megkozelithetok a hegy reszei, a tanuhegyek latvanyos pontjai es a Balaton-felvidek csendesebb, termeszetkozeli programjai.",
     benefitsAriaLabel: "Kornyek elonyei",
     benefits: [
-      { label: "Nyugodt videki hangulat", icon: "leaf" },
-      { label: "Kirandulasok a kozelben", icon: "trail" },
-      { label: "Balaton-felvideki kornyezet", icon: "route" }
+      { label: "Turautvonal a kozelben", icon: "trail" },
+      { label: "Csendes hegyoldali kornyezet", icon: "leaf" },
+      { label: "Tanuhegyek latvanya", icon: "route" }
     ],
-    embedSrc: "https://www.google.com/maps?q=Balaton-felvid%C3%A9k&z=11&output=embed",
-    embedTitle: "Dandelion Zsalya kornyeke terkep"
+    embedSrc: "https://www.google.com/maps?q=Kisap%C3%A1ti&z=13&output=embed",
+    embedTitle: "Zsalya Vendeghaz kornyeke terkep"
   },
   lightbox: {
     galleryAriaLabel: "Zsalya galeria",
@@ -140,11 +148,11 @@ export const zsalyaPageData: AccommodationPageData = {
   relatedStays: {
     kicker: "Tovabbi szallasok",
     title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendeghazunkat is.",
+    intro: "Ha mas Balaton-felvideki vagy Balaton kozeli hangulatot is felfedeznel, nezd meg a tobbi vendeghazunkat is.",
     items: [
       {
         name: "Fugehaz",
-        meta: "2-4 fo · panorama · dezsa",
+        meta: "2-4 fo - panorama - csaladi pihenes",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -153,7 +161,7 @@ export const zsalyaPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D2",
-        meta: "4-6 fo · kert · csaladbarat",
+        meta: "4-6 fo - nagy udvar - csaladbarat",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -162,7 +170,7 @@ export const zsalyaPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion Koveskal",
-        meta: "Kali-medence · nyugodt falusi hangulat",
+        meta: "Kali-medence - nyugodt falusi hangulat",
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
