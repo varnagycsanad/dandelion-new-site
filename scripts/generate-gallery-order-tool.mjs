@@ -136,21 +136,23 @@ function getGalleryEntries(registryEntry, apartmentKey, seoPreviewEntry) {
     previewByFilename.set(getFilename(item.src), item.seoDraft || null);
   }
 
-  return (registryEntry.gallery || []).map((item) => {
-    const filename = getFilename(item.src);
-    const previewSeoDraft = previewByFilename.get(filename);
-    const mergedSeoDraft = mergeSeoDraft(item.seoDraft || null, previewSeoDraft);
+    return (registryEntry.gallery || []).map((item) => {
+      const filename = getFilename(item.src);
+      const previewSeoDraft = previewByFilename.get(filename);
+      const mergedSeoDraft = mergeSeoDraft(item.seoDraft || null, previewSeoDraft);
 
-    return {
-      id: item.id || "",
-      apartmentKey,
-      src: item.src || "",
-      thumb: item.thumb || "",
-      sortOrder: item.sortOrder ?? null,
-      filename,
-      seoDraft: mergedSeoDraft
-    };
-  });
+      return {
+        id: item.id || "",
+        apartmentKey,
+        src: item.src || "",
+        thumb: item.thumb || "",
+        localSrc: relativePublicUrl(item.src || ""),
+        localThumb: relativePublicUrl(item.thumb || item.src || ""),
+        sortOrder: item.sortOrder ?? null,
+        filename,
+        seoDraft: mergedSeoDraft
+      };
+    });
 }
 
 function buildExportJson(items) {
@@ -232,16 +234,16 @@ function buildMetricsHtml(items) {
 function buildCardHtml(item, index) {
   const filename = item.filename || getFilename(item.src);
   const seoDraft = item.seoDraft || null;
-  const thumbUrl = relativePublicUrl(item.thumb || item.src);
-  const fullUrl = relativePublicUrl(item.src);
+  const thumbUrl = item.localThumb || relativePublicUrl(item.thumb || item.src);
+  const fullUrl = item.localSrc || relativePublicUrl(item.src);
 
   return (
-    '<article class="card" draggable="true" data-index="' +
+    '<article class="card" data-index="' +
     index +
     '" data-filename="' +
     escapeHtml(filename) +
     '">' +
-    '<div class="card__media">' +
+    '<div class="card__media" data-drag-handle="true">' +
     '<img src="' +
     escapeHtml(thumbUrl) +
     '" draggable="false" ondragstart="return false" alt="' +
@@ -255,6 +257,7 @@ function buildCardHtml(item, index) {
     '<span class="badge secondary">' +
     escapeHtml(String(item.sortOrder ?? "n/a")) +
     '</span>' +
+    '<span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span>' +
     '</div>' +
     '<div class="card__body">' +
     '<div class="headline">' +
@@ -542,13 +545,16 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       background: var(--panel);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      cursor: grab;
       user-select: none;
+      transition: box-shadow 120ms ease, transform 120ms ease, opacity 120ms ease;
     }
 
-    .card.is-dragging {
-      opacity: 0.5;
-      transform: scale(0.99);
+    .card.is-pointer-dragging {
+      opacity: 0.96;
+      z-index: 30;
+      pointer-events: none;
+      box-shadow: 0 24px 48px rgba(56, 40, 18, 0.24);
+      transform: translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0) scale(1.02) rotate(0.4deg);
     }
 
     .card.is-drop-target-before {
@@ -563,6 +569,8 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       position: relative;
       aspect-ratio: 4 / 3;
       background: #ded5c6;
+      cursor: grab;
+      touch-action: none;
     }
 
     .card__media img {
@@ -570,6 +578,29 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       height: 100%;
       object-fit: cover;
       display: block;
+      pointer-events: none;
+    }
+
+    .card.is-pointer-dragging .card__media {
+      cursor: grabbing;
+    }
+
+    .drag-hint {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      max-width: calc(100% - 20px);
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(47, 42, 35, 0.72);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-align: right;
+      pointer-events: none;
     }
 
     .badge {
@@ -800,9 +831,19 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       order: initialData.items.map((item) => ({ ...item })),
       notes: Object.create(null),
       imageState: Object.create(null),
-      dropTargetIndex: -1,
-      dropBefore: true,
-      draggedIndex: -1
+      drag: {
+        active: false,
+        pointerId: null,
+        draggedIndex: -1,
+        targetIndex: -1,
+        dropBefore: true,
+        startX: 0,
+        startY: 0,
+        currentX: 0,
+        currentY: 0,
+        moved: false
+      },
+      dragCard: null
     };
 
     function escapeText(value) {
@@ -840,11 +881,11 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         lines.push(JSON.stringify(noteEntries, null, 2));
       }
 
-      return lines.join("\n");
+      return lines.join("\\n");
     }
 
     function buildSimpleList() {
-      return state.order.map((item) => filenameOf(item)).join("\n");
+      return state.order.map((item) => filenameOf(item)).join("\\n");
     }
 
     function getMetrics() {
@@ -915,18 +956,18 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       const cards = galleryRoot.querySelectorAll(".card");
       cards.forEach((card) => {
         const index = Number(card.dataset.index);
-        card.classList.toggle("is-drop-target-before", index === state.dropTargetIndex && state.dropBefore);
-        card.classList.toggle("is-drop-target-after", index === state.dropTargetIndex && !state.dropBefore);
+        card.classList.toggle("is-drop-target-before", index === state.drag.targetIndex && state.drag.dropBefore);
+        card.classList.toggle("is-drop-target-after", index === state.drag.targetIndex && !state.drag.dropBefore);
       });
     }
 
     function cardHtml(item, index) {
-      const fullUrl = item.src.startsWith("/") ? item.src : item.src;
-      const thumbUrl = item.thumb || item.src;
+      const fullUrl = item.localSrc || item.src || "";
+      const thumbUrl = item.localThumb || item.thumb || item.src || "";
       const seoDraft = item.seoDraft || null;
       return (
-        '<article class="card" draggable="true" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
-          '<div class="card__media">' +
+        '<article class="card" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
+          '<div class="card__media" data-drag-handle="true">' +
             '<img' +
               ' src="' + escapeText(thumbUrl) + '"' +
               ' draggable="false"' +
@@ -937,6 +978,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
             ' />' +
             '<span class="badge">#' + (index + 1) + '</span>' +
             '<span class="badge secondary">' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span>' +
+            '<span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span>' +
           '</div>' +
           '<div class="card__body">' +
             '<div class="headline">' +
@@ -1030,11 +1072,10 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     function bindCardEvents() {
       const cards = galleryRoot.querySelectorAll(".card");
       cards.forEach((card) => {
-        card.addEventListener("dragstart", onDragStart);
-        card.addEventListener("dragend", onDragEnd);
-        card.addEventListener("dragover", onDragOverCard);
-        card.addEventListener("dragleave", onDragLeaveCard);
-        card.addEventListener("drop", onDropCard);
+        const handle = card.querySelector("[data-drag-handle='true']");
+        if (handle) {
+          handle.addEventListener("pointerdown", onPointerDownCard);
+        }
       });
 
       const notes = galleryRoot.querySelectorAll("textarea[data-note-index]");
@@ -1082,53 +1123,172 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       const item = state.order.splice(fromIndex, 1)[0];
       const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
       state.order.splice(adjustedIndex, 0, item);
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
+      state.imageState = Object.create(null);
       renderAll();
     }
 
-    function onDragStart(event) {
-      const card = event.currentTarget;
-      state.draggedIndex = Number(card.dataset.index);
-      card.classList.add("is-dragging");
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", String(state.draggedIndex));
-    }
-
-    function onDragEnd(event) {
-      event.currentTarget.classList.remove("is-dragging");
-      state.draggedIndex = -1;
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
-      syncDropIndicators();
-    }
-
-    function onDragOverCard(event) {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
-      const card = event.currentTarget;
-      const rect = card.getBoundingClientRect();
-      state.dropTargetIndex = Number(card.dataset.index);
-      state.dropBefore = event.clientY < rect.top + rect.height / 2;
-      syncDropIndicators();
-    }
-
-    function onDragLeaveCard(event) {
-      if (!event.currentTarget.contains(event.relatedTarget)) {
-        state.dropTargetIndex = -1;
-        state.dropBefore = true;
-        syncDropIndicators();
+    function clearPointerDragVisuals() {
+      if (!state.dragCard) {
+        return;
       }
+
+      state.dragCard.classList.remove("is-pointer-dragging");
+      state.dragCard.style.removeProperty("--drag-x");
+      state.dragCard.style.removeProperty("--drag-y");
     }
 
-    function onDropCard(event) {
+    function resetPointerState() {
+      clearPointerDragVisuals();
+      state.drag.active = false;
+      state.drag.pointerId = null;
+      state.drag.draggedIndex = -1;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = 0;
+      state.drag.startY = 0;
+      state.drag.currentX = 0;
+      state.drag.currentY = 0;
+      state.drag.moved = false;
+      state.dragCard = null;
+      syncDropIndicators();
+    }
+
+    function updateDraggedCardPosition() {
+      if (!state.dragCard) {
+        return;
+      }
+
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      state.dragCard.style.setProperty("--drag-x", deltaX + "px");
+      state.dragCard.style.setProperty("--drag-y", deltaY + "px");
+    }
+
+    function updatePointerTarget(clientX, clientY) {
+      const cards = Array.from(galleryRoot.querySelectorAll(".card")).filter((card) => {
+        const index = Number(card.dataset.index);
+        return !Number.isNaN(index) && index !== state.drag.draggedIndex;
+      });
+      const card =
+        cards.find((candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+        }) ||
+        cards.reduce((best, candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          const dx = clientX < rect.left ? rect.left - clientX : clientX > rect.right ? clientX - rect.right : 0;
+          const dy = clientY < rect.top ? rect.top - clientY : clientY > rect.bottom ? clientY - rect.bottom : 0;
+          const distance = dx * dx + dy * dy;
+          if (!best || distance < best.distance) {
+            return { card: candidate, distance };
+          }
+
+          return best;
+        }, null)?.card || null;
+      if (!card) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const index = Number(card.dataset.index);
+      if (Number.isNaN(index) || index === state.drag.draggedIndex) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const rect = card.getBoundingClientRect();
+      state.drag.targetIndex = index;
+      state.drag.dropBefore = clientY < rect.top + rect.height / 2;
+      syncDropIndicators();
+    }
+
+    function onPointerDownCard(event) {
+      if (event.button !== 0) {
+        return;
+      }
+
       event.preventDefault();
-      const targetIndex = Number(event.currentTarget.dataset.index);
-      if (Number.isNaN(targetIndex) || state.draggedIndex === -1) return;
-      const insertIndex = state.dropBefore ? targetIndex : targetIndex + 1;
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
-      moveItem(state.draggedIndex, insertIndex);
+      const handle = event.currentTarget;
+      const card = handle.closest(".card");
+      const index = Number(card && card.dataset.index);
+      if (!card || Number.isNaN(index)) {
+        return;
+      }
+
+      state.drag.active = true;
+      state.drag.pointerId = event.pointerId;
+      state.drag.draggedIndex = index;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = event.clientX;
+      state.drag.startY = event.clientY;
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      state.drag.moved = false;
+      state.dragCard = card;
+
+      card.classList.add("is-pointer-dragging");
+      card.style.setProperty("--drag-x", "0px");
+      card.style.setProperty("--drag-y", "0px");
+
+      if (handle.setPointerCapture) {
+        handle.setPointerCapture(event.pointerId);
+      }
+
+      window.addEventListener("pointermove", onPointerMoveCard);
+      window.addEventListener("pointerup", onPointerUpCard);
+      window.addEventListener("pointercancel", onPointerUpCard);
+    }
+
+    function onPointerMoveCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      if (!state.drag.moved && Math.abs(deltaX) + Math.abs(deltaY) > 6) {
+        state.drag.moved = true;
+      }
+
+      updateDraggedCardPosition();
+      updatePointerTarget(event.clientX, event.clientY);
+      event.preventDefault();
+    }
+
+    function onPointerUpCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      window.removeEventListener("pointermove", onPointerMoveCard);
+      window.removeEventListener("pointerup", onPointerUpCard);
+      window.removeEventListener("pointercancel", onPointerUpCard);
+
+      const fromIndex = state.drag.draggedIndex;
+      const targetIndex = state.drag.targetIndex;
+      const shouldMove =
+        state.drag.moved &&
+        fromIndex >= 0 &&
+        targetIndex >= 0 &&
+        targetIndex !== fromIndex;
+      const insertIndex = shouldMove
+        ? state.drag.dropBefore
+          ? targetIndex
+          : targetIndex + 1
+        : -1;
+
+      resetPointerState();
+
+      if (shouldMove) {
+        moveItem(fromIndex, insertIndex);
+      }
     }
 
     async function copyText(text) {
@@ -1138,17 +1298,6 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     copyJsonButton.addEventListener("click", () => copyText(jsonOutput.value));
     copyCodexButton.addEventListener("click", () => copyText(codexOutput.value));
     copyListButton.addEventListener("click", () => copyText(listOutput.value));
-
-    galleryRoot.addEventListener("dragover", (event) => {
-      event.preventDefault();
-    });
-
-    galleryRoot.addEventListener("drop", (event) => {
-      const targetCard = event.target.closest(".card");
-      if (!targetCard && typeof state.draggedIndex === "number" && state.draggedIndex >= 0) {
-        moveItem(state.draggedIndex, state.order.length);
-      }
-    });
 
     renderAll();
   </script>

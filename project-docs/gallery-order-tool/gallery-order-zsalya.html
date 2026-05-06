@@ -210,13 +210,16 @@
       background: var(--panel);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      cursor: grab;
       user-select: none;
+      transition: box-shadow 120ms ease, transform 120ms ease, opacity 120ms ease;
     }
 
-    .card.is-dragging {
-      opacity: 0.5;
-      transform: scale(0.99);
+    .card.is-pointer-dragging {
+      opacity: 0.96;
+      z-index: 30;
+      pointer-events: none;
+      box-shadow: 0 24px 48px rgba(56, 40, 18, 0.24);
+      transform: translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0) scale(1.02) rotate(0.4deg);
     }
 
     .card.is-drop-target-before {
@@ -231,6 +234,8 @@
       position: relative;
       aspect-ratio: 4 / 3;
       background: #ded5c6;
+      cursor: grab;
+      touch-action: none;
     }
 
     .card__media img {
@@ -238,6 +243,29 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      pointer-events: none;
+    }
+
+    .card.is-pointer-dragging .card__media {
+      cursor: grabbing;
+    }
+
+    .drag-hint {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      max-width: calc(100% - 20px);
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(47, 42, 35, 0.72);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-align: right;
+      pointer-events: none;
     }
 
     .badge {
@@ -478,7 +506,7 @@ dandelion-zsalya-source-011.webp</textarea>
         Első 12 kép – kiemelt galéria
         <small>Az első tizenkettő külön vizuális blokkban jelenik meg, hogy az exportnál azonnal látszódjon a fókusz.</small>
       </h2>
-      <div id="gallery-root"><div class="section__title">Első 12 kép – kiemelt galéria<small>11 kép látható ebben a blokkban.</small></div><div class="grid" id="gallery-grid" data-group="primary"><article class="card" draggable="true" data-index="0" data-filename="dandelion-zsalya-source-001.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp" /><span class="badge">#1</span><span class="badge secondary">10</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-001.webp</strong><span>zsalya-001</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-001.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>10</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendegház hálószoba</div><div class="seo__item"><strong>captionHu:</strong> A hálószobában egy franciaágy, egy kis asztal és egy tetőtéri ablak van.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz bedroom with a double bed and a skylight window</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz bedroom</div><div class="seo__item"><strong>captionEn:</strong> The bedroom has a double bed, a small table, and a skylight window.</div></div></details><div class="note"><label for="note-0">Megjegyzés</label><textarea id="note-0" data-note-index="0" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="1" data-filename="dandelion-zsalya-source-002.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp" /><span class="badge">#2</span><span class="badge secondary">20</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-002.webp</strong><span>zsalya-002</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-002.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>20</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház tetőtéri szoba</div><div class="seo__item"><strong>captionHu:</strong> A tetőtéri szobában egy ágy, egy asztal két székkel és egy ruhatartó áll.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz attic room with a bed, table, chairs and clothes rack</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz attic room</div><div class="seo__item"><strong>captionEn:</strong> The attic room has a bed, a table with chairs, and a clothes rack.</div></div></details><div class="note"><label for="note-1">Megjegyzés</label><textarea id="note-1" data-note-index="1" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="2" data-filename="dandelion-zsalya-source-003.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp" /><span class="badge">#3</span><span class="badge secondary">30</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-003.webp</strong><span>zsalya-003</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-003.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>30</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek, fotel és kanapé áll a nagy ablakok mellett.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with table, chairs and seating area</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs, an armchair and a sofa beside the large windows.</div></div></details><div class="note"><label for="note-2">Megjegyzés</label><textarea id="note-2" data-note-index="2" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="3" data-filename="dandelion-zsalya-source-004.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp" /><span class="badge">#4</span><span class="badge secondary">40</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-004.webp</strong><span>zsalya-004</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-004.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>40</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendeghaz fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek és egy kisebb ülősarok kapott helyet.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with a table, chairs and seating area</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs and a small seating area.</div></div></details><div class="note"><label for="note-3">Megjegyzés</label><textarea id="note-3" data-note-index="3" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="4" data-filename="dandelion-zsalya-source-005.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp" /><span class="badge">#5</span><span class="badge secondary">50</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-005.webp</strong><span>zsalya-005</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-005.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>50</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek és nagy ablakok mellett ülősarok is van.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with table, chairs and large windows</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs, a seating area and large windows.</div></div></details><div class="note"><label for="note-4">Megjegyzés</label><textarea id="note-4" data-note-index="4" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="5" data-filename="dandelion-zsalya-source-006.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp" /><span class="badge">#6</span><span class="badge secondary">60</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-006.webp</strong><span>zsalya-006</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-006.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>60</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon étkezőasztal, székek, egy kanapé és fotelek vannak.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with dining table, chairs and sofa</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a dining table, chairs, a sofa and armchairs.</div></div></details><div class="note"><label for="note-5">Megjegyzés</label><textarea id="note-5" data-note-index="5" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="6" data-filename="dandelion-zsalya-source-007.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp" draggable="false" ondragstart="return false" alt="Világos étkezőrész asztallal és székekkel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp" /><span class="badge">#7</span><span class="badge secondary">70</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-007.webp</strong><span>zsalya-007</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-007.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>70</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Világos étkezőrész asztallal és székekkel</div><div class="seo__item"><strong>titleHu:</strong> Étkezőrész</div><div class="seo__item"><strong>captionHu:</strong> A világos étkezőrészben asztal, székek és kényelmes fotelek várnak.</div><div class="seo__item"><strong>altEn:</strong> Bright dining area with table and chairs</div><div class="seo__item"><strong>titleEn:</strong> Dining area</div><div class="seo__item"><strong>captionEn:</strong> The bright dining area has a table, chairs, and comfortable armchairs.</div></div></details><div class="note"><label for="note-6">Megjegyzés</label><textarea id="note-6" data-note-index="6" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="7" data-filename="dandelion-zsalya-source-008.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp" /><span class="badge">#8</span><span class="badge secondary">80</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-008.webp</strong><span>zsalya-008</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-008.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>80</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon egy kerek asztal, székek és egy nagy szekrény áll.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with a round table, chairs and large windows</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a round table, chairs and a large cabinet.</div></div></details><div class="note"><label for="note-7">Megjegyzés</label><textarea id="note-7" data-note-index="7" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="8" data-filename="dandelion-zsalya-source-009.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház kertje és háza tágas füves területtel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp" /><span class="badge">#9</span><span class="badge secondary">90</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-009.webp</strong><span>zsalya-009</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-009.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>90</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház kertje és háza tágas füves területtel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház és kert</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház egy tágas füves kert szélén áll, körülötte fákkal és bokrokkal.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz house and garden with a wide grassy yard</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz and garden</div><div class="seo__item"><strong>captionEn:</strong> Zsalya Vendeghaz stands at the edge of a wide grassy garden, surrounded by trees and shrubs.</div></div></details><div class="note"><label for="note-8">Megjegyzés</label><textarea id="note-8" data-note-index="8" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="9" data-filename="dandelion-zsalya-source-010.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház teraszos háza füves kerttel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp" /><span class="badge">#10</span><span class="badge secondary">100</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-010.webp</strong><span>zsalya-010</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-010.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>100</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház teraszos háza füves kerttel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház terasszal</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház teraszos háza mellett füves kert és burkolt udvar látszik.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz house with terrace and grassy garden</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz with terrace</div><div class="seo__item"><strong>captionEn:</strong> The Zsalya Vendeghaz house has a terrace, a grassy garden, and a paved yard.</div></div></details><div class="note"><label for="note-9">Megjegyzés</label><textarea id="note-9" data-note-index="9" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" draggable="true" data-index="10" data-filename="dandelion-zsalya-source-011.webp"><div class="card__media"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp" draggable="false" ondragstart="return false" alt="A Zsalya Vendégház külső képe" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp" /><span class="badge">#11</span><span class="badge secondary">110</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-011.webp</strong><span>zsalya-011</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-011.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>110</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> A Zsalya Vendégház külső képe</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház kívülről</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház világos, barátságos ház csendes környezetben.</div><div class="seo__item"><strong>altEn:</strong> Exterior of Zsalya Vendeghaz</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz exterior</div><div class="seo__item"><strong>captionEn:</strong> Zsalya Vendeghaz is a bright, welcoming house in a quiet setting.</div></div></details><div class="note"><label for="note-10">Megjegyzés</label><textarea id="note-10" data-note-index="10" placeholder="Csak helyi exporthoz..."></textarea></div></div></article></div></div>
+      <div id="gallery-root"><div class="section__title">Első 12 kép – kiemelt galéria<small>11 kép látható ebben a blokkban.</small></div><div class="grid" id="gallery-grid" data-group="primary"><article class="card" data-index="0" data-filename="dandelion-zsalya-source-001.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp" /><span class="badge">#1</span><span class="badge secondary">10</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-001.webp</strong><span>zsalya-001</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-001.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>10</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendegház hálószoba</div><div class="seo__item"><strong>captionHu:</strong> A hálószobában egy franciaágy, egy kis asztal és egy tetőtéri ablak van.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz bedroom with a double bed and a skylight window</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz bedroom</div><div class="seo__item"><strong>captionEn:</strong> The bedroom has a double bed, a small table, and a skylight window.</div></div></details><div class="note"><label for="note-0">Megjegyzés</label><textarea id="note-0" data-note-index="0" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="1" data-filename="dandelion-zsalya-source-002.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp" /><span class="badge">#2</span><span class="badge secondary">20</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-002.webp</strong><span>zsalya-002</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-002.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>20</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház tetőtéri szoba</div><div class="seo__item"><strong>captionHu:</strong> A tetőtéri szobában egy ágy, egy asztal két székkel és egy ruhatartó áll.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz attic room with a bed, table, chairs and clothes rack</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz attic room</div><div class="seo__item"><strong>captionEn:</strong> The attic room has a bed, a table with chairs, and a clothes rack.</div></div></details><div class="note"><label for="note-1">Megjegyzés</label><textarea id="note-1" data-note-index="1" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="2" data-filename="dandelion-zsalya-source-003.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp" /><span class="badge">#3</span><span class="badge secondary">30</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-003.webp</strong><span>zsalya-003</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-003.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>30</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek, fotel és kanapé áll a nagy ablakok mellett.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with table, chairs and seating area</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs, an armchair and a sofa beside the large windows.</div></div></details><div class="note"><label for="note-2">Megjegyzés</label><textarea id="note-2" data-note-index="2" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="3" data-filename="dandelion-zsalya-source-004.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp" /><span class="badge">#4</span><span class="badge secondary">40</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-004.webp</strong><span>zsalya-004</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-004.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>40</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendeghaz fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek és egy kisebb ülősarok kapott helyet.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with a table, chairs and seating area</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs and a small seating area.</div></div></details><div class="note"><label for="note-3">Megjegyzés</label><textarea id="note-3" data-note-index="3" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="4" data-filename="dandelion-zsalya-source-005.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp" /><span class="badge">#5</span><span class="badge secondary">50</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-005.webp</strong><span>zsalya-005</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-005.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>50</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon asztal, székek és nagy ablakok mellett ülősarok is van.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with table, chairs and large windows</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a table, chairs, a seating area and large windows.</div></div></details><div class="note"><label for="note-4">Megjegyzés</label><textarea id="note-4" data-note-index="4" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="5" data-filename="dandelion-zsalya-source-006.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp" /><span class="badge">#6</span><span class="badge secondary">60</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-006.webp</strong><span>zsalya-006</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-006.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>60</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon étkezőasztal, székek, egy kanapé és fotelek vannak.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with dining table, chairs and sofa</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a dining table, chairs, a sofa and armchairs.</div></div></details><div class="note"><label for="note-5">Megjegyzés</label><textarea id="note-5" data-note-index="5" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="6" data-filename="dandelion-zsalya-source-007.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp" draggable="false" ondragstart="return false" alt="Világos étkezőrész asztallal és székekkel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp" /><span class="badge">#7</span><span class="badge secondary">70</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-007.webp</strong><span>zsalya-007</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-007.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>70</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Világos étkezőrész asztallal és székekkel</div><div class="seo__item"><strong>titleHu:</strong> Étkezőrész</div><div class="seo__item"><strong>captionHu:</strong> A világos étkezőrészben asztal, székek és kényelmes fotelek várnak.</div><div class="seo__item"><strong>altEn:</strong> Bright dining area with table and chairs</div><div class="seo__item"><strong>titleEn:</strong> Dining area</div><div class="seo__item"><strong>captionEn:</strong> The bright dining area has a table, chairs, and comfortable armchairs.</div></div></details><div class="note"><label for="note-6">Megjegyzés</label><textarea id="note-6" data-note-index="6" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="7" data-filename="dandelion-zsalya-source-008.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp" /><span class="badge">#8</span><span class="badge secondary">80</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-008.webp</strong><span>zsalya-008</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-008.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>80</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház fedett terasza</div><div class="seo__item"><strong>captionHu:</strong> A fedett teraszon egy kerek asztal, székek és egy nagy szekrény áll.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz covered terrace with a round table, chairs and large windows</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz covered terrace</div><div class="seo__item"><strong>captionEn:</strong> The covered terrace has a round table, chairs and a large cabinet.</div></div></details><div class="note"><label for="note-7">Megjegyzés</label><textarea id="note-7" data-note-index="7" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="8" data-filename="dandelion-zsalya-source-009.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház kertje és háza tágas füves területtel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp" /><span class="badge">#9</span><span class="badge secondary">90</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-009.webp</strong><span>zsalya-009</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-009.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>90</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház kertje és háza tágas füves területtel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház és kert</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház egy tágas füves kert szélén áll, körülötte fákkal és bokrokkal.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz house and garden with a wide grassy yard</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz and garden</div><div class="seo__item"><strong>captionEn:</strong> Zsalya Vendeghaz stands at the edge of a wide grassy garden, surrounded by trees and shrubs.</div></div></details><div class="note"><label for="note-8">Megjegyzés</label><textarea id="note-8" data-note-index="8" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="9" data-filename="dandelion-zsalya-source-010.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp" draggable="false" ondragstart="return false" alt="Zsalya Vendégház teraszos háza füves kerttel" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp" /><span class="badge">#10</span><span class="badge secondary">100</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-010.webp</strong><span>zsalya-010</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-010.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>100</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> Zsalya Vendégház teraszos háza füves kerttel</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház terasszal</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház teraszos háza mellett füves kert és burkolt udvar látszik.</div><div class="seo__item"><strong>altEn:</strong> Zsalya Vendeghaz house with terrace and grassy garden</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz with terrace</div><div class="seo__item"><strong>captionEn:</strong> The Zsalya Vendeghaz house has a terrace, a grassy garden, and a paved yard.</div></div></details><div class="note"><label for="note-9">Megjegyzés</label><textarea id="note-9" data-note-index="9" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="10" data-filename="dandelion-zsalya-source-011.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp" draggable="false" ondragstart="return false" alt="A Zsalya Vendégház külső képe" loading="lazy" data-full="../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp" /><span class="badge">#11</span><span class="badge secondary">110</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-zsalya-source-011.webp</strong><span>zsalya-011</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-zsalya-source-011.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>110</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> A Zsalya Vendégház külső képe</div><div class="seo__item"><strong>titleHu:</strong> Zsalya Vendégház kívülről</div><div class="seo__item"><strong>captionHu:</strong> A Zsalya Vendégház világos, barátságos ház csendes környezetben.</div><div class="seo__item"><strong>altEn:</strong> Exterior of Zsalya Vendeghaz</div><div class="seo__item"><strong>titleEn:</strong> Zsalya Vendeghaz exterior</div><div class="seo__item"><strong>captionEn:</strong> Zsalya Vendeghaz is a bright, welcoming house in a quiet setting.</div></div></details><div class="note"><label for="note-10">Megjegyzés</label><textarea id="note-10" data-note-index="10" placeholder="Csak helyi exporthoz..."></textarea></div></div></article></div></div>
     </section>
 
     <p class="footer">
@@ -487,7 +515,7 @@ dandelion-zsalya-source-011.webp</textarea>
     </p>
   </div>
 
-  <script id="tool-data" type="application/json">{"apartmentKey":"zsalya","apartmentName":"Dandelion Zsálya","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"zsalya-001","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp","sortOrder":10,"filename":"dandelion-zsalya-source-001.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal","titleHu":"Zsalya Vendegház hálószoba","captionHu":"A hálószobában egy franciaágy, egy kis asztal és egy tetőtéri ablak van.","altEn":"Zsalya Vendeghaz bedroom with a double bed and a skylight window","titleEn":"Zsalya Vendeghaz bedroom","captionEn":"The bedroom has a double bed, a small table, and a skylight window."}},{"id":"zsalya-002","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp","sortOrder":20,"filename":"dandelion-zsalya-source-002.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel","titleHu":"Zsalya Vendégház tetőtéri szoba","captionHu":"A tetőtéri szobában egy ágy, egy asztal két székkel és egy ruhatartó áll.","altEn":"Zsalya Vendeghaz attic room with a bed, table, chairs and clothes rack","titleEn":"Zsalya Vendeghaz attic room","captionEn":"The attic room has a bed, a table with chairs, and a clothes rack."}},{"id":"zsalya-003","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp","sortOrder":30,"filename":"dandelion-zsalya-source-003.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek, fotel és kanapé áll a nagy ablakok mellett.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, an armchair and a sofa beside the large windows."}},{"id":"zsalya-004","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp","sortOrder":40,"filename":"dandelion-zsalya-source-004.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal","titleHu":"Zsalya Vendeghaz fedett terasza","captionHu":"A fedett teraszon asztal, székek és egy kisebb ülősarok kapott helyet.","altEn":"Zsalya Vendeghaz covered terrace with a table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs and a small seating area."}},{"id":"zsalya-005","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp","sortOrder":50,"filename":"dandelion-zsalya-source-005.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek és nagy ablakok mellett ülősarok is van.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, a seating area and large windows."}},{"id":"zsalya-006","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp","sortOrder":60,"filename":"dandelion-zsalya-source-006.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon étkezőasztal, székek, egy kanapé és fotelek vannak.","altEn":"Zsalya Vendeghaz covered terrace with dining table, chairs and sofa","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a dining table, chairs, a sofa and armchairs."}},{"id":"zsalya-007","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp","sortOrder":70,"filename":"dandelion-zsalya-source-007.webp","seoDraft":{"approved":false,"altHu":"Világos étkezőrész asztallal és székekkel","titleHu":"Étkezőrész","captionHu":"A világos étkezőrészben asztal, székek és kényelmes fotelek várnak.","altEn":"Bright dining area with table and chairs","titleEn":"Dining area","captionEn":"The bright dining area has a table, chairs, and comfortable armchairs."}},{"id":"zsalya-008","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp","sortOrder":80,"filename":"dandelion-zsalya-source-008.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon egy kerek asztal, székek és egy nagy szekrény áll.","altEn":"Zsalya Vendeghaz covered terrace with a round table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a round table, chairs and a large cabinet."}},{"id":"zsalya-009","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp","sortOrder":90,"filename":"dandelion-zsalya-source-009.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház kertje és háza tágas füves területtel","titleHu":"Zsalya Vendégház és kert","captionHu":"A Zsalya Vendégház egy tágas füves kert szélén áll, körülötte fákkal és bokrokkal.","altEn":"Zsalya Vendeghaz house and garden with a wide grassy yard","titleEn":"Zsalya Vendeghaz and garden","captionEn":"Zsalya Vendeghaz stands at the edge of a wide grassy garden, surrounded by trees and shrubs."}},{"id":"zsalya-010","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp","sortOrder":100,"filename":"dandelion-zsalya-source-010.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház teraszos háza füves kerttel","titleHu":"Zsalya Vendégház terasszal","captionHu":"A Zsalya Vendégház teraszos háza mellett füves kert és burkolt udvar látszik.","altEn":"Zsalya Vendeghaz house with terrace and grassy garden","titleEn":"Zsalya Vendeghaz with terrace","captionEn":"The Zsalya Vendeghaz house has a terrace, a grassy garden, and a paved yard."}},{"id":"zsalya-011","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp","sortOrder":110,"filename":"dandelion-zsalya-source-011.webp","seoDraft":{"approved":false,"altHu":"A Zsalya Vendégház külső képe","titleHu":"Zsalya Vendégház kívülről","captionHu":"A Zsalya Vendégház világos, barátságos ház csendes környezetben.","altEn":"Exterior of Zsalya Vendeghaz","titleEn":"Zsalya Vendeghaz exterior","captionEn":"Zsalya Vendeghaz is a bright, welcoming house in a quiet setting."}}]}</script>
+  <script id="tool-data" type="application/json">{"apartmentKey":"zsalya","apartmentName":"Dandelion Zsálya","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"zsalya-001","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp","sortOrder":10,"filename":"dandelion-zsalya-source-001.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal","titleHu":"Zsalya Vendegház hálószoba","captionHu":"A hálószobában egy franciaágy, egy kis asztal és egy tetőtéri ablak van.","altEn":"Zsalya Vendeghaz bedroom with a double bed and a skylight window","titleEn":"Zsalya Vendeghaz bedroom","captionEn":"The bedroom has a double bed, a small table, and a skylight window."}},{"id":"zsalya-002","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp","sortOrder":20,"filename":"dandelion-zsalya-source-002.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel","titleHu":"Zsalya Vendégház tetőtéri szoba","captionHu":"A tetőtéri szobában egy ágy, egy asztal két székkel és egy ruhatartó áll.","altEn":"Zsalya Vendeghaz attic room with a bed, table, chairs and clothes rack","titleEn":"Zsalya Vendeghaz attic room","captionEn":"The attic room has a bed, a table with chairs, and a clothes rack."}},{"id":"zsalya-003","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp","sortOrder":30,"filename":"dandelion-zsalya-source-003.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek, fotel és kanapé áll a nagy ablakok mellett.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, an armchair and a sofa beside the large windows."}},{"id":"zsalya-004","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp","sortOrder":40,"filename":"dandelion-zsalya-source-004.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal","titleHu":"Zsalya Vendeghaz fedett terasza","captionHu":"A fedett teraszon asztal, székek és egy kisebb ülősarok kapott helyet.","altEn":"Zsalya Vendeghaz covered terrace with a table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs and a small seating area."}},{"id":"zsalya-005","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp","sortOrder":50,"filename":"dandelion-zsalya-source-005.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek és nagy ablakok mellett ülősarok is van.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, a seating area and large windows."}},{"id":"zsalya-006","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp","sortOrder":60,"filename":"dandelion-zsalya-source-006.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon étkezőasztal, székek, egy kanapé és fotelek vannak.","altEn":"Zsalya Vendeghaz covered terrace with dining table, chairs and sofa","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a dining table, chairs, a sofa and armchairs."}},{"id":"zsalya-007","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp","sortOrder":70,"filename":"dandelion-zsalya-source-007.webp","seoDraft":{"approved":false,"altHu":"Világos étkezőrész asztallal és székekkel","titleHu":"Étkezőrész","captionHu":"A világos étkezőrészben asztal, székek és kényelmes fotelek várnak.","altEn":"Bright dining area with table and chairs","titleEn":"Dining area","captionEn":"The bright dining area has a table, chairs, and comfortable armchairs."}},{"id":"zsalya-008","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp","sortOrder":80,"filename":"dandelion-zsalya-source-008.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon egy kerek asztal, székek és egy nagy szekrény áll.","altEn":"Zsalya Vendeghaz covered terrace with a round table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a round table, chairs and a large cabinet."}},{"id":"zsalya-009","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp","sortOrder":90,"filename":"dandelion-zsalya-source-009.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház kertje és háza tágas füves területtel","titleHu":"Zsalya Vendégház és kert","captionHu":"A Zsalya Vendégház egy tágas füves kert szélén áll, körülötte fákkal és bokrokkal.","altEn":"Zsalya Vendeghaz house and garden with a wide grassy yard","titleEn":"Zsalya Vendeghaz and garden","captionEn":"Zsalya Vendeghaz stands at the edge of a wide grassy garden, surrounded by trees and shrubs."}},{"id":"zsalya-010","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp","sortOrder":100,"filename":"dandelion-zsalya-source-010.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház teraszos háza füves kerttel","titleHu":"Zsalya Vendégház terasszal","captionHu":"A Zsalya Vendégház teraszos háza mellett füves kert és burkolt udvar látszik.","altEn":"Zsalya Vendeghaz house with terrace and grassy garden","titleEn":"Zsalya Vendeghaz with terrace","captionEn":"The Zsalya Vendeghaz house has a terrace, a grassy garden, and a paved yard."}},{"id":"zsalya-011","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp","localSrc":"../../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp","localThumb":"../../public/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp","sortOrder":110,"filename":"dandelion-zsalya-source-011.webp","seoDraft":{"approved":false,"altHu":"A Zsalya Vendégház külső képe","titleHu":"Zsalya Vendégház kívülről","captionHu":"A Zsalya Vendégház világos, barátságos ház csendes környezetben.","altEn":"Exterior of Zsalya Vendeghaz","titleEn":"Zsalya Vendeghaz exterior","captionEn":"Zsalya Vendeghaz is a bright, welcoming house in a quiet setting."}}]}</script>
   <script>
     const initialData = JSON.parse(document.getElementById("tool-data").textContent);
     const galleryRoot = document.getElementById("gallery-root");
@@ -502,9 +530,19 @@ dandelion-zsalya-source-011.webp</textarea>
       order: initialData.items.map((item) => ({ ...item })),
       notes: Object.create(null),
       imageState: Object.create(null),
-      dropTargetIndex: -1,
-      dropBefore: true,
-      draggedIndex: -1
+      drag: {
+        active: false,
+        pointerId: null,
+        draggedIndex: -1,
+        targetIndex: -1,
+        dropBefore: true,
+        startX: 0,
+        startY: 0,
+        currentX: 0,
+        currentY: 0,
+        moved: false
+      },
+      dragCard: null
     };
 
     function escapeText(value) {
@@ -542,13 +580,11 @@ dandelion-zsalya-source-011.webp</textarea>
         lines.push(JSON.stringify(noteEntries, null, 2));
       }
 
-      return lines.join("
-");
+      return lines.join("\n");
     }
 
     function buildSimpleList() {
-      return state.order.map((item) => filenameOf(item)).join("
-");
+      return state.order.map((item) => filenameOf(item)).join("\n");
     }
 
     function getMetrics() {
@@ -619,18 +655,18 @@ dandelion-zsalya-source-011.webp</textarea>
       const cards = galleryRoot.querySelectorAll(".card");
       cards.forEach((card) => {
         const index = Number(card.dataset.index);
-        card.classList.toggle("is-drop-target-before", index === state.dropTargetIndex && state.dropBefore);
-        card.classList.toggle("is-drop-target-after", index === state.dropTargetIndex && !state.dropBefore);
+        card.classList.toggle("is-drop-target-before", index === state.drag.targetIndex && state.drag.dropBefore);
+        card.classList.toggle("is-drop-target-after", index === state.drag.targetIndex && !state.drag.dropBefore);
       });
     }
 
     function cardHtml(item, index) {
-      const fullUrl = item.src.startsWith("/") ? item.src : item.src;
-      const thumbUrl = item.thumb || item.src;
+      const fullUrl = item.localSrc || item.src || "";
+      const thumbUrl = item.localThumb || item.thumb || item.src || "";
       const seoDraft = item.seoDraft || null;
       return (
-        '<article class="card" draggable="true" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
-          '<div class="card__media">' +
+        '<article class="card" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
+          '<div class="card__media" data-drag-handle="true">' +
             '<img' +
               ' src="' + escapeText(thumbUrl) + '"' +
               ' draggable="false"' +
@@ -641,6 +677,7 @@ dandelion-zsalya-source-011.webp</textarea>
             ' />' +
             '<span class="badge">#' + (index + 1) + '</span>' +
             '<span class="badge secondary">' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span>' +
+            '<span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span>' +
           '</div>' +
           '<div class="card__body">' +
             '<div class="headline">' +
@@ -734,11 +771,10 @@ dandelion-zsalya-source-011.webp</textarea>
     function bindCardEvents() {
       const cards = galleryRoot.querySelectorAll(".card");
       cards.forEach((card) => {
-        card.addEventListener("dragstart", onDragStart);
-        card.addEventListener("dragend", onDragEnd);
-        card.addEventListener("dragover", onDragOverCard);
-        card.addEventListener("dragleave", onDragLeaveCard);
-        card.addEventListener("drop", onDropCard);
+        const handle = card.querySelector("[data-drag-handle='true']");
+        if (handle) {
+          handle.addEventListener("pointerdown", onPointerDownCard);
+        }
       });
 
       const notes = galleryRoot.querySelectorAll("textarea[data-note-index]");
@@ -786,53 +822,172 @@ dandelion-zsalya-source-011.webp</textarea>
       const item = state.order.splice(fromIndex, 1)[0];
       const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
       state.order.splice(adjustedIndex, 0, item);
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
+      state.imageState = Object.create(null);
       renderAll();
     }
 
-    function onDragStart(event) {
-      const card = event.currentTarget;
-      state.draggedIndex = Number(card.dataset.index);
-      card.classList.add("is-dragging");
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", String(state.draggedIndex));
-    }
-
-    function onDragEnd(event) {
-      event.currentTarget.classList.remove("is-dragging");
-      state.draggedIndex = -1;
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
-      syncDropIndicators();
-    }
-
-    function onDragOverCard(event) {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
-      const card = event.currentTarget;
-      const rect = card.getBoundingClientRect();
-      state.dropTargetIndex = Number(card.dataset.index);
-      state.dropBefore = event.clientY < rect.top + rect.height / 2;
-      syncDropIndicators();
-    }
-
-    function onDragLeaveCard(event) {
-      if (!event.currentTarget.contains(event.relatedTarget)) {
-        state.dropTargetIndex = -1;
-        state.dropBefore = true;
-        syncDropIndicators();
+    function clearPointerDragVisuals() {
+      if (!state.dragCard) {
+        return;
       }
+
+      state.dragCard.classList.remove("is-pointer-dragging");
+      state.dragCard.style.removeProperty("--drag-x");
+      state.dragCard.style.removeProperty("--drag-y");
     }
 
-    function onDropCard(event) {
+    function resetPointerState() {
+      clearPointerDragVisuals();
+      state.drag.active = false;
+      state.drag.pointerId = null;
+      state.drag.draggedIndex = -1;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = 0;
+      state.drag.startY = 0;
+      state.drag.currentX = 0;
+      state.drag.currentY = 0;
+      state.drag.moved = false;
+      state.dragCard = null;
+      syncDropIndicators();
+    }
+
+    function updateDraggedCardPosition() {
+      if (!state.dragCard) {
+        return;
+      }
+
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      state.dragCard.style.setProperty("--drag-x", deltaX + "px");
+      state.dragCard.style.setProperty("--drag-y", deltaY + "px");
+    }
+
+    function updatePointerTarget(clientX, clientY) {
+      const cards = Array.from(galleryRoot.querySelectorAll(".card")).filter((card) => {
+        const index = Number(card.dataset.index);
+        return !Number.isNaN(index) && index !== state.drag.draggedIndex;
+      });
+      const card =
+        cards.find((candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+        }) ||
+        cards.reduce((best, candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          const dx = clientX < rect.left ? rect.left - clientX : clientX > rect.right ? clientX - rect.right : 0;
+          const dy = clientY < rect.top ? rect.top - clientY : clientY > rect.bottom ? clientY - rect.bottom : 0;
+          const distance = dx * dx + dy * dy;
+          if (!best || distance < best.distance) {
+            return { card: candidate, distance };
+          }
+
+          return best;
+        }, null)?.card || null;
+      if (!card) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const index = Number(card.dataset.index);
+      if (Number.isNaN(index) || index === state.drag.draggedIndex) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const rect = card.getBoundingClientRect();
+      state.drag.targetIndex = index;
+      state.drag.dropBefore = clientY < rect.top + rect.height / 2;
+      syncDropIndicators();
+    }
+
+    function onPointerDownCard(event) {
+      if (event.button !== 0) {
+        return;
+      }
+
       event.preventDefault();
-      const targetIndex = Number(event.currentTarget.dataset.index);
-      if (Number.isNaN(targetIndex) || state.draggedIndex === -1) return;
-      const insertIndex = state.dropBefore ? targetIndex : targetIndex + 1;
-      state.dropTargetIndex = -1;
-      state.dropBefore = true;
-      moveItem(state.draggedIndex, insertIndex);
+      const handle = event.currentTarget;
+      const card = handle.closest(".card");
+      const index = Number(card && card.dataset.index);
+      if (!card || Number.isNaN(index)) {
+        return;
+      }
+
+      state.drag.active = true;
+      state.drag.pointerId = event.pointerId;
+      state.drag.draggedIndex = index;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = event.clientX;
+      state.drag.startY = event.clientY;
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      state.drag.moved = false;
+      state.dragCard = card;
+
+      card.classList.add("is-pointer-dragging");
+      card.style.setProperty("--drag-x", "0px");
+      card.style.setProperty("--drag-y", "0px");
+
+      if (handle.setPointerCapture) {
+        handle.setPointerCapture(event.pointerId);
+      }
+
+      window.addEventListener("pointermove", onPointerMoveCard);
+      window.addEventListener("pointerup", onPointerUpCard);
+      window.addEventListener("pointercancel", onPointerUpCard);
+    }
+
+    function onPointerMoveCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      if (!state.drag.moved && Math.abs(deltaX) + Math.abs(deltaY) > 6) {
+        state.drag.moved = true;
+      }
+
+      updateDraggedCardPosition();
+      updatePointerTarget(event.clientX, event.clientY);
+      event.preventDefault();
+    }
+
+    function onPointerUpCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      window.removeEventListener("pointermove", onPointerMoveCard);
+      window.removeEventListener("pointerup", onPointerUpCard);
+      window.removeEventListener("pointercancel", onPointerUpCard);
+
+      const fromIndex = state.drag.draggedIndex;
+      const targetIndex = state.drag.targetIndex;
+      const shouldMove =
+        state.drag.moved &&
+        fromIndex >= 0 &&
+        targetIndex >= 0 &&
+        targetIndex !== fromIndex;
+      const insertIndex = shouldMove
+        ? state.drag.dropBefore
+          ? targetIndex
+          : targetIndex + 1
+        : -1;
+
+      resetPointerState();
+
+      if (shouldMove) {
+        moveItem(fromIndex, insertIndex);
+      }
     }
 
     async function copyText(text) {
@@ -842,17 +997,6 @@ dandelion-zsalya-source-011.webp</textarea>
     copyJsonButton.addEventListener("click", () => copyText(jsonOutput.value));
     copyCodexButton.addEventListener("click", () => copyText(codexOutput.value));
     copyListButton.addEventListener("click", () => copyText(listOutput.value));
-
-    galleryRoot.addEventListener("dragover", (event) => {
-      event.preventDefault();
-    });
-
-    galleryRoot.addEventListener("drop", (event) => {
-      const targetCard = event.target.closest(".card");
-      if (!targetCard && typeof state.draggedIndex === "number" && state.draggedIndex >= 0) {
-        moveItem(state.draggedIndex, state.order.length);
-      }
-    });
 
     renderAll();
   </script>
