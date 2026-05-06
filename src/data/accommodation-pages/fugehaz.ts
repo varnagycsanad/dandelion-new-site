@@ -1,151 +1,154 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] Fugehaz SEO title, meta, headings and intro copy refined for production baseline.
+// [CHANGE 2026-05-06 22:10] Fugehaz page copy refined with premium Hungarian positioning and shared panoramic pool message.
 export const fugehazPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Fugehaz | Panoramas vendeghaz a Balaton-felvideken",
-    description: "Panoramas vendeghaz a Balaton-felvideken, terasszal, nyugodt kornyezettel es termeszetkozeli pihenessel a tanuhegyek kozeleben."
+    title: "Dandelion Fügeház | Panorámás vendégház a Balaton-felvidéken",
+    description:
+      "Panorámás családi vendégház teraszokkal és 2026. június 1-től közös medencével a Balaton-felvidéken, a Szent György-hegy közelében."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
     mobileImagePath: "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
-    fallbackAlt: "Dandelion Fugehaz panoramas vendeghaz a Balaton-felvideken",
-    kicker: "Balaton-felvidek ?? panoramas nyugalom",
+    fallbackAlt: "Dandelion Fügeház panorámás vendégház a Balaton-felvidéken",
+    kicker: "Balaton-felvidék - panorámás nyugalom",
     title: "Dandelion",
-    titleAccent: "Fugehaz",
-    subtitle: "PANORAMAS PIHENES A TANUHEGYEK KOZELEBEN",
-    lead: "Panoramas vendeghaz azoknak, akik a Balaton-felvidek csendesebb oldalat, a teraszt es a lassabb, termeszetkozeli pihenest keresik.",
-    primaryCtaLabel: "Arak es foglalas",
-    secondaryCtaLabel: "Kepek megtekintese"
+    titleAccent: "Fügeház",
+    subtitle: "PANORÁMÁS PIHENÉS A TANÚHEGYEK KÖZELÉBEN",
+    lead: "Panorámás családi vendégház a Szent György-hegy közelében, teraszokkal, grillezési lehetőséggel és 2026. június 1-től közös panorámás medencével. A Fügeház 4 főnek kényelmes, pótággyal akár 6 fő számára is alkalmas.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
+    kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekoteséhez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Nyugodt, atgondolt hely azoknak, akik panoramaval es lassabb napokkal szeretnenek kikapcsolodni.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Nyugodt, átgondolt hely azoknak, akik panorámával és lassabb napokkal szeretnének kikapcsolódni.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Hangulatos terasz, visszafogott videki ritmus es kenyelmes pihenes a Balaton-felvideken.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Hangulatos terasz, visszafogott vidéki ritmus és kényelmes pihenés a Balaton-felvidéken.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Jo valasztas, ha termeszetkozelben szeretnel megszallni, tulzsufolt nyaralos hangulat nelkul.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Jó választás, ha természetközelben szeretnél megszállni, túlzsúfolt nyaralós hangulat nélkül.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Kellemes, csendes szallas, jo kiindulopont a kornyek bejarasahoz es esti piheneshez.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Kellemes, csendes szállás, jó kiindulópont a környék bejárásához és esti pihenéshez.",
+        meta: "Vendég · Booking.com · 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Baratsagos, nyugodt hangulat, kenyelmes napokhoz es lassabb balatoni-felvideki programokhoz.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Barátságos, nyugodt hangulat, kényelmes napokhoz és lassabb balatoni-felvidéki programokhoz.",
+        meta: "Vendég · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Panorama ?? nyugalom",
-    title: "Panoramas pihenes a tanuhegyek kozeleben",
-    lead: "A Dandelion Fugehaz terasszal, nyugodt ritmussal es termeszetkozeli hangulattal ad bazist a Balaton-felvideki setakhoz, borozasokhoz es lassabb napokhoz."
+    kicker: "Panoráma - nyugalom",
+    title: "Panorámás pihenés a tanúhegyek közelében",
+    lead: "A Fügeház egy csendes, panorámás vendégház a Szent György-hegy közelében, ahol a nyugodt reggelek, a hosszú teraszos esték és a hegyek látványa adják a pihenés ritmusát."
   },
   details: {
-    kicker: "Fugehaz",
-    title: "Nyugodt vendeghaz terasszal es Balaton-felvideki panoramaval",
+    kicker: "Fügeház",
+    title: "Családi pihenés teraszokkal és panorámás medencével",
     shortDescription:
-      "A Dandelion Fugehaz olyan vendeghaz, ahol a kilatas, a csendes terasz es a termeszetkozeli kornyezet ugyanolyan fontos, mint maga a pihenes.",
+      "Panorámás családi vendégház a Szent György-hegy közelében, teraszokkal, grillezési lehetőséggel és június 1-től közös panorámás medencével. A Fügeház 4 főnek kényelmes, pótággyal akár 6 fő számára is alkalmas.",
     longDescription: [
-      "A Fugehaz a Balaton-felvidek nyugodtabb, panoramas pihenesehez kapcsolodik, ahol a termeszet es a lassabb napi ritmus az elmeny szerves resze.",
-      "Jo valasztas, ha olyan vendeghazat keresel, ahonnan konnyen elerheted a tanuhegyeket, a kilatopontokat es a kornyek boraszatait, mikozben estere visszaterhetsz a csendes teraszra.",
-      "A Dandelion szallasok kozott a Fugehaz a visszafogott, termeszetre hangolt pihenes oldalat kepviseli, es jol kapcsolhato a kozeli Balaton-felvideki programokhoz is."
+      "A Fügeház egy csendes, panorámás vendégház a Szent György-hegy közelében, ahol a nyugodt reggelek, a hosszú teraszos esték és a hegyek látványa adják a pihenés ritmusát. A ház elsősorban családok számára ideális, de kisebb baráti társaságoknak is kényelmes választás.",
+      "A vendégház 4 fő részére kényelmes, pótággyal akár 6 fő elszállásolására is alkalmas. Az étkezőből nyíló panorámás teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványában gyönyörködhetünk, a ház másik oldalán pedig kerti étkező és nyugodt pihenősarok várja a vendégeket, rálátással a Szent György-hegyre.",
+      "2026. június 1-től a Fügeház, a D1 és a D2 vendégei számára közös panorámás medence is elérhető. A dombon kialakított medence és pihenőtér különleges nyári élményt ad: napközben fürdés és játék a gyerekeknek, este pedig hegyek, csend és balatoni nyárhangulat.",
+      "A kintlétet teraszok, kerti bútorok és grillezési lehetőség teszik kényelmessé. A ház melletti dombról 360 fokos panoráma nyílik a környező tanúhegyekre, így a naplementék és a csillagos esték is külön élményt jelentenek.",
+      "A ház két szinten biztosít kényelmes elhelyezést. Az alsó szinten jól felszerelt konyha, zuhanyzós fürdőszoba, nappali-hálótér és étkező található. Az emeleten egy légterű hálórész kapott helyet franciaággyal és ágyazható kanapéval."
     ],
-    moreLabel: "Bovebben a Fugehaz oldalrol",
-    ctaLabel: "Arak es foglalas"
+    moreLabel: "Bővebben a Fügeházról",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Balaton-felvidek"],
-          ["Jelleg", "panoramas, nyugodt pihenes"],
-          ["Hangulat", "termeszetkozeli es visszafogott"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Férőhely", "4 fő, pótággyal akár 6 fő"],
+          ["Elhelyezkedés", "Szent György-hegy közelében"],
+          ["Hangulat", "panorámás, csendes, családbarát"],
+          ["Kiemelés", "közös panorámás medence 2026. június 1-től"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Kikapcsolódás",
         items: [
-          ["Fokusz", "lassabb napok es feltoltodes"],
-          ["Kornyek", "kirandulasokhoz jo bazis"],
-          ["Pihenes", "teraszos, panoramas hangulat"],
-          ["Tempo", "csendesebb, nyugodt"]
+          ["Medence", "a dombon, tanúhegyes panorámával"],
+          ["Kültér", "teraszos pihenés és grillezés"],
+          ["Kilátás", "Csobánc, Tóti-hegy, Gulács, Badacsony"],
+          ["Családoknak", "nyári fürdéshez és játékhoz is ideális"]
         ]
       }
     ]
   },
   features: {
-    title: "Miért lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Panoramas hangulat", icon: "mountain" },
-      { label: "Termeszetkozeli pihenes", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Nyugodt ritmus", icon: "users" },
-      { label: "Balaton-felvideki kornyezet", icon: "route" },
-      { label: "Attekintheto szallasoldal", icon: "wifi" }
+      { label: "Közös panorámás medence", icon: "pool" },
+      { label: "Családbarát elhelyezés", icon: "users" },
+      { label: "Panorámás teraszok", icon: "mountain" },
+      { label: "Grillezési lehetőség", icon: "leaf" },
+      { label: "Tanúhegyek közeli bázis", icon: "trail" },
+      { label: "Nyugodt balatoni ritmus", icon: "route" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Fugehaz hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Fugehaz galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Nyolc pillanat a Fügeház hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Fügeház galériához jelenleg nincs feloldható kép a live registryben.",
     previewCount: 8
   },
   map: {
-    kicker: "BALATON-FELVIDEK · PANORAMAS PIHENES",
-    title: "Kornyek es taj",
-    body: "A Fugehaz a Balaton-felvidek nyugodtabb, termeszetkozeli hangulatahoz kapcsolodik. A kornyek jo valasztas lassabb piheneshez, setakhoz es kilatopontos kirandulasokhoz.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "BALATON-FELVIDÉK · PANORÁMÁS PIHENÉS",
+    title: "Környék és táj",
+    body: "A Fügeház a Balaton-felvidék nyugodtabb, természetközeli hangulatához kapcsolódik. A környék jó választás lassabb pihenéshez, sétákhoz és kilátópontos kirándulásokhoz.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Panoramas kornyezet", icon: "mountain" },
-      { label: "Kirandulasok a kozelben", icon: "trail" },
-      { label: "Nyugodt balatoni-felvideki ritmus", icon: "leaf" }
+      { label: "Panorámás környezet", icon: "mountain" },
+      { label: "Kirándulások a közelben", icon: "trail" },
+      { label: "Nyugodt balatoni-felvidéki ritmus", icon: "leaf" }
     ],
     embedSrc: "https://www.google.com/maps?q=Kisap%C3%A1ti&z=13&output=embed",
-    embedTitle: "Fugehaz kornyeke terkep"
+    embedTitle: "Fügeház környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Fugehaz galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Fügeház galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha a panoramas Balaton-felvideki pihenes mellett mas Dandelion hangulat is erdekel, nezd meg a tobbi vendeghazunkat is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha a panorámás Balaton-felvidéki pihenés mellett más Dandelion hangulat is érdekel, nézd meg a többi vendégházunkat is.",
     items: [
       {
         name: "Dandelion D2",
-        meta: "4-6 fo · kert · csaladbarat",
+        meta: "4-6 fő · kert · családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -153,18 +156,18 @@ export const fugehazPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence · nyugodt falusi hangulat",
+        name: "Dandelion Köveskál",
+        meta: "Káli-medence · nyugodt falusi hangulat",
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
           src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
+          alt: "Dandelion Köveskál külső kép"
         }
       },
       {
-        name: "Zsalya Vendeghaz",
-        meta: "csendes, termeszetkozeli pihenes",
+        name: "Zsálya Vendégház",
+        meta: "csendes, természetközeli pihenés",
         href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
@@ -172,8 +175,8 @@ export const fugehazPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Szololiget Vendeghaz",
-        meta: "elvonulas a szolok kozott",
+        name: "Szőlőliget Vendégház",
+        meta: "elvonulás a szőlők között",
         href: "/szololiget/",
         image: {
           type: "mapping",
@@ -182,12 +185,12 @@ export const fugehazPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion Royal Homes",
-        meta: "Balaton kozeli, kenyelmes kikapcsolodas",
+        meta: "Balaton közeli, kényelmes kikapcsolódás",
         href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-          alt: "Dandelion Royal Homes kulso kep"
+          alt: "Dandelion Royal Homes külső kép"
         }
       }
     ]
