@@ -1,4 +1,4 @@
-name: Deploy ujsite
+name: Deploy root
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-ujsite-${{ github.ref }}
+  group: deploy-root-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
       # Optional:
       # UJSITE_FTP_PORT: FTP port, defaults to 21 when omitted
       # UJSITE_FTP_PATH: absolute remote target folder for the built site.
-      # It should point to the /ujsite/ publish directory, not the WordPress root.
+      # It should point to the final document root, not the legacy /ujsite/ subdirectory.
       UJSITE_FTP_HOST: ${{ secrets.UJSITE_FTP_HOST }}
       UJSITE_FTP_USER: ${{ secrets.UJSITE_FTP_USER }}
       UJSITE_FTP_PASSWORD: ${{ secrets.UJSITE_FTP_PASSWORD }}
@@ -80,11 +80,11 @@ jobs:
           set -euo pipefail
 
           case "${UJSITE_FTP_PATH}" in
-            */ujsite|*/ujsite/)
+            ''|*/ujsite|*/ujsite/)
+              echo "UJSITE_FTP_PATH must point to the final root target, not the legacy /ujsite/ directory." >&2
+              exit 1
               ;;
             *)
-              echo "UJSITE_FTP_PATH must point to the /ujsite/ target directory." >&2
-              exit 1
               ;;
           esac
 
@@ -120,7 +120,7 @@ jobs:
             echo "value=21" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy site contents to /ujsite/ over FTP
+      - name: Deploy site contents to root over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
         run: |
@@ -142,6 +142,6 @@ jobs:
           bye
           EOF
 
-      - name: Check live /ujsite/ deploy
+      - name: Check live root deploy
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
-        run: npm run check:ujsite
+        run: npm run check:root

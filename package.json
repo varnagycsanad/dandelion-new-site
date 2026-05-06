@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check:root": "node scripts/check-ujsite-deploy.mjs",
     "check:ujsite": "node scripts/check-ujsite-deploy.mjs",
     "images:dry-run": "node scripts/process-accommodation-images.mjs",
     "images:intake": "node scripts/images-intake.mjs",

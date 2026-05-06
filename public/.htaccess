@@ -1,4 +1,4 @@
-# [CHANGE 2026-04-19] Serve Astro /ujsite static files before WordPress rewrites.
+# [CHANGE 2026-05-06 13:20] Serve Astro static files from the domain root.
 DirectoryIndex index.html
 Options -MultiViews
 
@@ -9,10 +9,10 @@ Options -MultiViews
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /ujsite/
+  RewriteBase /
 
-  # Astro assets should be served directly from /ujsite/_astro/.
-  RewriteRule ^_astro/ - [END]
+  # Astro build assets should be served directly from /assets/.
+  RewriteRule ^assets/ - [END]
   RewriteRule ^deploy-check\.txt$ - [END]
   RewriteRule ^favicon\.(ico|svg)$ - [END]
 
@@ -21,7 +21,7 @@ Options -MultiViews
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [END]
 
-  # Keep the /ujsite/ entry point on the static Astro index.
+  # Keep the root entry point on the static Astro index.
   RewriteRule ^$ index.html [END]
   RewriteRule ^index\.html$ - [END]
 </IfModule>
