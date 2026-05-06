@@ -3,10 +3,25 @@
     "apartmentKey": "d2",
     "gallery": [
       {
+        "id": "d2-005",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Gyerek színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal",
+          "titleHu": "Dandelion D2 kert pihenés gyerekkel",
+          "captionHu": "Egy gyerek egy színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal.",
+          "altEn": "Child sitting on colorful blanket in Dandelion D2 garden with basket and toys",
+          "titleEn": "Dandelion D2 garden rest with child",
+          "captionEn": "A child sits on a colorful blanket in the garden of Dandelion D2 with a basket and toys."
+        }
+      },
+      {
         "id": "d2-001",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp",
-        "sortOrder": 10,
+        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
           "altHu": "Dandelion D2 fedett terasz sárga székekkel és asztallal",
@@ -21,7 +36,7 @@
         "id": "d2-002",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp",
-        "sortOrder": 20,
+        "sortOrder": 30,
         "seoDraft": {
           "approved": false,
           "altHu": "Dandelion D2 kerti asztal sárga székekkel és terasz napozóágyakkal",
@@ -33,10 +48,100 @@
         }
       },
       {
+        "id": "d2-009",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és konyha Dandelion D2 apartmanban",
+          "titleHu": "Nappali és konyha Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and kitchen in Dandelion D2 apartment",
+          "titleEn": "Living room and kitchen in Dandelion D2",
+          "captionEn": "The comfortable living room has a kitchen and dining area."
+        }
+      },
+      {
+        "id": "d2-007",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 hálószoba fehér ággyal és díszpárnákkal",
+          "titleHu": "Dandelion D2 hálószoba ágyneművel",
+          "captionHu": "A hálószobában két egymás mellé tolható ágy van kék csíkos takaróval és párnákkal.",
+          "altEn": "Dandelion D2 bedroom with white bed and decorative pillows",
+          "titleEn": "Dandelion D2 bedroom with bedding",
+          "captionEn": "The bedroom has two beds pushed together with blue striped blankets and pillows."
+        }
+      },
+      {
+        "id": "d2-010",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali kandallóval és étkezősarokkal",
+          "titleHu": "Nappali a kandallóval",
+          "captionHu": "A nappali meleg hangulatú, étkezővel és kandallóval.",
+          "altEn": "Living room with fireplace and dining area",
+          "titleEn": "Living room with fireplace",
+          "captionEn": "The living room is cozy with a dining area and fireplace."
+        }
+      },
+      {
+        "id": "d2-013",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "konyha és étkező sárga székekkel",
+          "titleHu": "konyha az apartmanban",
+          "captionHu": "A konyha praktikus és világos, étkezőasztal sárga székekkel.",
+          "altEn": "kitchen with yellow chairs",
+          "titleEn": "apartment kitchen",
+          "captionEn": "The kitchen is practical and bright with a dining table and yellow chairs."
+        }
+      },
+      {
+        "id": "d2-015",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és konyha világos mennyezettel és kanapéval",
+          "titleHu": "Nappali és konyha Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and kitchen with bright ceiling and sofa",
+          "titleEn": "Living room and kitchen in Dandelion D2",
+          "captionEn": "The living room has a comfortable sofa and a fully equipped kitchen."
+        }
+      },
+      {
+        "id": "d2-011",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D2 nappali szürke kanapéval és nyitott ablakokkal",
+          "titleHu": "Dandelion D2 nappali kanapéval",
+          "captionHu": "A nappaliban egy szürke kanapé, egy dohányzóasztal és nyitott ablakok vannak.",
+          "altEn": "Dandelion D2 living room with gray sofa and open windows",
+          "titleEn": "Dandelion D2 living room sofa",
+          "captionEn": "The living room has a gray sofa, a small table, and open windows."
+        }
+      },
+      {
         "id": "d2-003",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp",
-        "sortOrder": 30,
+        "sortOrder": 100,
         "seoDraft": {
           "approved": false,
           "altHu": "Erkély étkezőasztallal és sárga székekkel",
@@ -51,7 +156,7 @@
         "id": "d2-004",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp",
-        "sortOrder": 40,
+        "sortOrder": 110,
         "seoDraft": {
           "approved": false,
           "altHu": "Dandelion D2 terasza sárga székekkel és hintaszékkel",
@@ -63,25 +168,10 @@
         }
       },
       {
-        "id": "d2-005",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
-        "sortOrder": 50,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Gyerek színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal",
-          "titleHu": "Dandelion D2 kert pihenés gyerekkel",
-          "captionHu": "Egy gyerek egy színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal.",
-          "altEn": "Child sitting on colorful blanket in Dandelion D2 garden with basket and toys",
-          "titleEn": "Dandelion D2 garden rest with child",
-          "captionEn": "A child sits on a colorful blanket in the garden of Dandelion D2 with a basket and toys."
-        }
-      },
-      {
         "id": "d2-006",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp",
-        "sortOrder": 60,
+        "sortOrder": 120,
         "seoDraft": {
           "approved": false,
           "altHu": "Kényelmes ágy és szekrény a Dandelion D2 hálószobájában",
@@ -93,25 +183,25 @@
         }
       },
       {
-        "id": "d2-007",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
-        "sortOrder": 70,
+        "id": "d2-016",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
+        "sortOrder": 130,
         "seoDraft": {
           "approved": false,
-          "altHu": "Dandelion D2 hálószoba fehér ággyal és díszpárnákkal",
-          "titleHu": "Dandelion D2 hálószoba ágyneművel",
-          "captionHu": "A hálószobában két egymás mellé tolható ágy van kék csíkos takaróval és párnákkal.",
-          "altEn": "Dandelion D2 bedroom with white bed and decorative pillows",
-          "titleEn": "Dandelion D2 bedroom with bedding",
-          "captionEn": "The bedroom has two beds pushed together with blue striped blankets and pillows."
+          "altHu": "Fürdőszoba kád, mosdó és wc",
+          "titleHu": "Fürdőszoba Dandelion D2-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with bathtub, sink and toilet",
+          "titleEn": "Bathroom in Dandelion D2",
+          "captionEn": "The bathroom has a bathtub, sink, and toilet."
         }
       },
       {
         "id": "d2-008",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp",
-        "sortOrder": 80,
+        "sortOrder": 140,
         "seoDraft": {
           "approved": false,
           "altHu": "Dandelion D2 konyha és nappali rész világos fa padlóval és szürke kanapéval",
@@ -123,55 +213,10 @@
         }
       },
       {
-        "id": "d2-009",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
-        "sortOrder": 90,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Nappali és konyha Dandelion D2 apartmanban",
-          "titleHu": "Nappali és konyha Dandelion D2-ben",
-          "captionHu": "A kep a szallas egyik reszletet mutatja.",
-          "altEn": "Living room and kitchen in Dandelion D2 apartment",
-          "titleEn": "Living room and kitchen in Dandelion D2",
-          "captionEn": "The comfortable living room has a kitchen and dining area."
-        }
-      },
-      {
-        "id": "d2-010",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
-        "sortOrder": 100,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Nappali kandallóval és étkezősarokkal",
-          "titleHu": "Nappali a kandallóval",
-          "captionHu": "A nappali meleg hangulatú, étkezővel és kandallóval.",
-          "altEn": "Living room with fireplace and dining area",
-          "titleEn": "Living room with fireplace",
-          "captionEn": "The living room is cozy with a dining area and fireplace."
-        }
-      },
-      {
-        "id": "d2-011",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
-        "sortOrder": 110,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Dandelion D2 nappali szürke kanapéval és nyitott ablakokkal",
-          "titleHu": "Dandelion D2 nappali kanapéval",
-          "captionHu": "A nappaliban egy szürke kanapé, egy dohányzóasztal és nyitott ablakok vannak.",
-          "altEn": "Dandelion D2 living room with gray sofa and open windows",
-          "titleEn": "Dandelion D2 living room sofa",
-          "captionEn": "The living room has a gray sofa, a small table, and open windows."
-        }
-      },
-      {
         "id": "d2-012",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp",
-        "sortOrder": 120,
+        "sortOrder": 150,
         "seoDraft": {
           "approved": false,
           "altHu": "Nappali kandallóval és nyitott teraszajtóval",
@@ -183,25 +228,10 @@
         }
       },
       {
-        "id": "d2-013",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
-        "sortOrder": 130,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "konyha és étkező sárga székekkel",
-          "titleHu": "konyha az apartmanban",
-          "captionHu": "A konyha praktikus és világos, étkezőasztal sárga székekkel.",
-          "altEn": "kitchen with yellow chairs",
-          "titleEn": "apartment kitchen",
-          "captionEn": "The kitchen is practical and bright with a dining table and yellow chairs."
-        }
-      },
-      {
         "id": "d2-014",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp",
-        "sortOrder": 140,
+        "sortOrder": 160,
         "seoDraft": {
           "approved": false,
           "altHu": "Nappali kandallóval és ventilátorral a Dandelion D2-ben",
@@ -210,36 +240,6 @@
           "altEn": "Living room with wood stove and ceiling fan at Dandelion D2",
           "titleEn": "Living room with stove and fan",
           "captionEn": "The living room is cozy with a wood stove and large windows."
-        }
-      },
-      {
-        "id": "d2-015",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
-        "sortOrder": 150,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Nappali és konyha világos mennyezettel és kanapéval",
-          "titleHu": "Nappali és konyha Dandelion D2-ben",
-          "captionHu": "A kep a szallas egyik reszletet mutatja.",
-          "altEn": "Living room and kitchen with bright ceiling and sofa",
-          "titleEn": "Living room and kitchen in Dandelion D2",
-          "captionEn": "The living room has a comfortable sofa and a fully equipped kitchen."
-        }
-      },
-      {
-        "id": "d2-016",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
-        "sortOrder": 160,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Fürdőszoba kád, mosdó és wc",
-          "titleHu": "Fürdőszoba Dandelion D2-ben",
-          "captionHu": "A kep a szallas egyik reszletet mutatja.",
-          "altEn": "Bathroom with bathtub, sink and toilet",
-          "titleEn": "Bathroom in Dandelion D2",
-          "captionEn": "The bathroom has a bathtub, sink, and toilet."
         }
       },
       {
