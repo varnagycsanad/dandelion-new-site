@@ -127,7 +127,13 @@ jobs:
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R --delete --exclude-glob images/accommodations/** deploy-dist/ "${UJSITE_FTP_PATH}"
+          mirror -R --delete \
+            --exclude-glob images/accommodations/** \
+            --exclude-glob dandelion-image-admin-rest \
+            --exclude-glob dandelion-image-admin-rest/** \
+            --exclude-glob dandelion-image-admin-v2 \
+            --exclude-glob dandelion-image-admin-v2/** \
+            deploy-dist/ "${UJSITE_FTP_PATH}"
           bye
           EOF
 
