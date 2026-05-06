@@ -244,7 +244,7 @@ function buildCardHtml(item, index) {
     '<div class="card__media">' +
     '<img src="' +
     escapeHtml(thumbUrl) +
-    '" alt="' +
+    '" draggable="false" ondragstart="return false" alt="' +
     escapeHtml(seoDraft && seoDraft.altHu ? seoDraft.altHu : filename) +
     '" loading="lazy" data-full="' +
     escapeHtml(fullUrl) +
@@ -551,6 +551,14 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       transform: scale(0.99);
     }
 
+    .card.is-drop-target-before {
+      box-shadow: inset 0 4px 0 var(--accent), var(--shadow);
+    }
+
+    .card.is-drop-target-after {
+      box-shadow: inset 0 -4px 0 var(--accent), var(--shadow);
+    }
+
     .card__media {
       position: relative;
       aspect-ratio: 4 / 3;
@@ -792,6 +800,8 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       order: initialData.items.map((item) => ({ ...item })),
       notes: Object.create(null),
       imageState: Object.create(null),
+      dropTargetIndex: -1,
+      dropBefore: true,
       draggedIndex: -1
     };
 
@@ -901,6 +911,15 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       );
     }
 
+    function syncDropIndicators() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        card.classList.toggle("is-drop-target-before", index === state.dropTargetIndex && state.dropBefore);
+        card.classList.toggle("is-drop-target-after", index === state.dropTargetIndex && !state.dropBefore);
+      });
+    }
+
     function cardHtml(item, index) {
       const fullUrl = item.src.startsWith("/") ? item.src : item.src;
       const thumbUrl = item.thumb || item.src;
@@ -910,6 +929,8 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
           '<div class="card__media">' +
             '<img' +
               ' src="' + escapeText(thumbUrl) + '"' +
+              ' draggable="false"' +
+              ' ondragstart="return false"' +
               ' alt="' + escapeText(seoDraft && seoDraft.altHu ? seoDraft.altHu : filenameOf(item)) + '"' +
               ' loading="lazy"' +
               ' data-full="' + escapeText(fullUrl) + '"' +
@@ -996,6 +1017,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       updateExports();
       bindCardEvents();
       refreshStatusBadges();
+      syncDropIndicators();
     }
 
     function setImageState(index, patch) {
@@ -1011,6 +1033,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         card.addEventListener("dragstart", onDragStart);
         card.addEventListener("dragend", onDragEnd);
         card.addEventListener("dragover", onDragOverCard);
+        card.addEventListener("dragleave", onDragLeaveCard);
         card.addEventListener("drop", onDropCard);
       });
 
@@ -1059,6 +1082,8 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
       const item = state.order.splice(fromIndex, 1)[0];
       const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
       state.order.splice(adjustedIndex, 0, item);
+      state.dropTargetIndex = -1;
+      state.dropBefore = true;
       renderAll();
     }
 
@@ -1073,18 +1098,37 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     function onDragEnd(event) {
       event.currentTarget.classList.remove("is-dragging");
       state.draggedIndex = -1;
+      state.dropTargetIndex = -1;
+      state.dropBefore = true;
+      syncDropIndicators();
     }
 
     function onDragOverCard(event) {
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
+      const card = event.currentTarget;
+      const rect = card.getBoundingClientRect();
+      state.dropTargetIndex = Number(card.dataset.index);
+      state.dropBefore = event.clientY < rect.top + rect.height / 2;
+      syncDropIndicators();
+    }
+
+    function onDragLeaveCard(event) {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        state.dropTargetIndex = -1;
+        state.dropBefore = true;
+        syncDropIndicators();
+      }
     }
 
     function onDropCard(event) {
       event.preventDefault();
       const targetIndex = Number(event.currentTarget.dataset.index);
       if (Number.isNaN(targetIndex) || state.draggedIndex === -1) return;
-      moveItem(state.draggedIndex, targetIndex);
+      const insertIndex = state.dropBefore ? targetIndex : targetIndex + 1;
+      state.dropTargetIndex = -1;
+      state.dropBefore = true;
+      moveItem(state.draggedIndex, insertIndex);
     }
 
     async function copyText(text) {
