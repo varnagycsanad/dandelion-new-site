@@ -1,151 +1,160 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] Koveskal SEO title, meta, headings and intro copy refined for production baseline.
+// [CHANGE 2026-05-06 20:00] Köveskál SEO title, meta, headings and intro copy refined for production baseline.
 export const koveskalPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Koveskal | Nyugodt vendeghaz a Kali-medenceben",
-    description: "Nyugodt vendeghaz Koveskalon, termeszetkozeli pihenessel, falusi hangulattal es jo kiinduloponttal a Kali-medence felfedezesehez."
+    title: "Dandelion Köveskál | Nyugodt vendégház a Káli-medencében",
+    description:
+      "Nyugodt vendégház Köveskálon, természetközeli pihenéssel, falusi hangulattal és jó kiindulóponttal a Káli-medence felfedezéséhez."
   },
   bookingLink: "https://dandelionhouse.hu/koveskal/",
   hero: {
     mobileImagePath: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-    fallbackAlt: "Dandelion Koveskal vendeghaz a Kali-medence csendes reszen",
-    kicker: "Kali-medence ?? Koveskal",
+    fallbackAlt: "Dandelion Köveskál vendégház a Káli-medence csendes részén",
+    kicker: "Káli-medence · Köveskál",
     title: "Dandelion",
-    titleAccent: "Koveskal",
-    subtitle: "CSENDES PIHENES A KALI-MEDENCEBEN",
-    lead: "Nyugodt vendeghaz azoknak, akik a Kali-medence lassabb ritmusat, a falusi hangulatot es a termeszetkozeli pihenest keresik.",
-    primaryCtaLabel: "Reszletek es kapcsolat",
-    secondaryCtaLabel: "Kepek megtekintese"
+    titleAccent: "Köveskál",
+    subtitle: "CSENDES PIHENÉS A KÁLI-MEDENCÉBEN",
+    lead:
+      "Nyugodt vendégház azoknak, akik a Káli-medence lassabb ritmusát, a falusi hangulatot és a természetközeli pihenést keresik.",
+    video: {
+      desktop: "/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4",
+      mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4"
+    },
+    primaryCtaLabel: "Részletek és kapcsolat",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
+    kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekoteséhez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Nyugodt hely, lassabb ritmus es jo kiindulopont a Kali-medence felfedezesehez.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Nyugodt hely, lassabb ritmus és jó kiindulópont a Káli-medence felfedezéséhez.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Baratsagos, termeszetkozeli hangulat, ami rovid piheneshez es hosszabb kikapcsolodashoz is jo.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Barátságos, természetközeli hangulat, ami rövid pihenéshez és hosszabb kikapcsolódáshoz is jó.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "A kornyek csendje es a visszafogott videki hangulat kulonosen szerethetove teszi.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "A környék csendje és a visszafogott vidéki hangulat különösen szerethetővé teszi.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Kellemes, rendezett szallas, jo bázis kirandulasokhoz es nyugodt estekhez.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Kellemes, rendezett szállás, jó bázis kirándulásokhoz és nyugodt estékhez.",
+        meta: "Vendég · Booking.com · 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Letisztult, kenyelmes pihenes a Kali-medenceben, tulzsufolt hangulat nelkul.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Letisztult, kényelmes pihenés a Káli-medencében, túlzsúfolt hangulat nélkül.",
+        meta: "Vendég · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Falusi nyugalom ?? Kali-medence",
-    title: "Csendes pihenes a Kali-medenceben",
-    lead: "A Dandelion Koveskal visszafogott, termeszetkozeli bazist ad Koveskalon, ahonnan konnyen elerhetok a Kali-medence falvai, turautvonalai es boros megalloi."
+    kicker: "Falusi nyugalom · Káli-medence",
+    title: "Csendes pihenés a Káli-medencében",
+    lead:
+      "A Dandelion Köveskál visszafogott, természetközeli bázist ad Köveskálon, ahonnan könnyen elérhetők a Káli-medence falvai, túraútvonalai és boros megállói."
   },
   details: {
-    kicker: "Dandelion Koveskal",
-    title: "Falusi nyugalom, termeszetkozeli ritmus es lassabb napok",
+    kicker: "Dandelion Köveskál",
+    title: "Falusi nyugalom, természetközeli ritmus és lassabb napok",
     shortDescription:
-      "A Dandelion Koveskal azoknak jo valasztas, akik a Kali-medence karakteres, csendes oldalat keresik, es a programok mellett a nyugalmat is fontosnak tartjak.",
+      "A Dandelion Köveskál azoknak jó választás, akik a Káli-medence karakteres, csendes oldalát keresik, és a programok mellett a nyugalmat is fontosnak tartják.",
     longDescription: [
-      "Koveskal a Kali-medence egyik legnyugodtabb pontja, ahol a kovek, a szolok, a kis utcakarakter es a lassabb napi ritmus adja az elmeny alapjat.",
-      "A vendeghaz jo kiindulopont setakhoz, kornyekbeli pincesorokhoz es olyan balatoni-felvideki programokhoz, ahol a csend es a taj is a pihenes resze marad.",
-      "Ha a Dandelion szallasok kozul a visszafogott, videki hangulat all hozzad kozelebb, a Koveskal oldala termeszetes folytatasa lehet ennek a keresesi szandeknak."
+      "Köveskál a Káli-medence egyik legnyugodtabb pontja, ahol a kövek, a szőlők, a kis utcakarakter és a lassabb napi ritmus adja az élmény alapját.",
+      "A vendégház jó kiindulópont sétákhoz, környékbeli pincesorokhoz és olyan balatoni-felvidéki programokhoz, ahol a csend és a táj is a pihenés része marad.",
+      "Ha a Dandelion szállások közül a visszafogott, vidéki hangulat áll hozzád közelebb, a Köveskál oldala természetes folytatása lehet ennek a keresési szándéknak."
     ],
-    moreLabel: "Bovebben a Koveskal oldalrol",
-    ctaLabel: "Kapcsolat es reszletek"
+    moreLabel: "Bővebben a Köveskál oldalról",
+    ctaLabel: "Kapcsolat és részletek"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Koveskal"],
-          ["Regio", "Kali-medence"],
-          ["Jelleg", "videki, nyugodt pihenes"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Helyszín", "Köveskál"],
+          ["Régió", "Káli-medence"],
+          ["Jelleg", "vidéki, nyugodt pihenés"],
+          ["Oldalállapot", "első körös template-bekötés"]
         ]
       },
       {
         title: "Hangulat",
         items: [
-          ["Fokusz", "lassabb kikapcsolodas"],
-          ["Kornyek", "falusi es termeszetkozeli"],
-          ["Program", "kirandulas, pihenes"],
-          ["Tempo", "csendesebb, visszafogott"]
+          ["Fókusz", "lassabb kikapcsolódás"],
+          ["Környék", "falusi és természetközeli"],
+          ["Program", "kirándulás, pihenés"],
+          ["Tempó", "csendesebb, visszafogott"]
         ]
       }
     ]
   },
   features: {
-    title: "Miért lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Termeszetkozeli hangulat", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bázis", icon: "trail" },
-      { label: "Videki nyugalom", icon: "users" },
-      { label: "Kali-medencei kornyezet", icon: "route" },
-      { label: "Borvidek a kozelben", icon: "grapes" },
-      { label: "Attekintheto kepgaleria", icon: "wifi" }
+      { label: "Természetközeli hangulat", icon: "leaf" },
+      { label: "Kirándulásokhoz jó bázis", icon: "trail" },
+      { label: "Vidéki nyugalom", icon: "users" },
+      { label: "Káli-medencei környezet", icon: "route" },
+      { label: "Borvidék a közelben", icon: "grapes" },
+      { label: "Áttekinthető képgaléria", icon: "wifi" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat Koveskal hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Koveskal galeriahoz jelenleg nincs feloldhato kep.",
+    kicker: "Galéria",
+    title: "Nyolc pillanat Köveskál hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Köveskál galériához jelenleg nincs feloldható kép.",
     previewCount: 8
   },
   map: {
-    kicker: "KOVESKAL · KALI-MEDENCE",
-    title: "Kornyek es taj",
-    body: "Koveskal a Kali-medence nyugodt, karakteres telepulesei koze tartozik. A kornyek jo valasztas lassabb napokhoz, setakhoz es tavolabbi kirandulasokhoz is.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "KÖVESKÁL · KÁLI-MEDENCE",
+    title: "Környék és táj",
+    body:
+      "Köveskál a Káli-medence nyugodt, karakteres települései közé tartozik. A környék jó választás lassabb napokhoz, sétákhoz és távolabbi kirándulásokhoz is.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Kali-medencei hangulat", icon: "grapes" },
-      { label: "Kirandulasok a kozelben", icon: "trail" },
+      { label: "Káli-medencei hangulat", icon: "grapes" },
+      { label: "Kirándulások a közelben", icon: "trail" },
       { label: "Nyugodt falusi ritmus", icon: "leaf" }
     ],
     embedSrc: "https://www.google.com/maps?q=K%C3%B6vesk%C3%A1l&z=13&output=embed",
-    embedTitle: "Dandelion Koveskal kornyeke terkep"
+    embedTitle: "Dandelion Köveskál környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Koveskal galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Köveskál galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha a Kali-medence nyugalma mellett mas Balaton-felvideki vagy Balaton kozeli vendeghazat is neznel, fedezd fel a tobbi Dandelion szallast is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro:
+      "Ha a Káli-medence nyugalma mellett más Balaton-felvidéki vagy Balaton közeli vendégházat is néznél, fedezd fel a többi Dandelion szállást is.",
     items: [
       {
-        name: "Fugehaz",
-        meta: "2-4 fo · panorama · dezsa",
+        name: "Fügeház",
+        meta: "2-4 fő · panoráma · dézsa",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -154,7 +163,7 @@ export const koveskalPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D2",
-        meta: "4-6 fo · kert · csaladbarat",
+        meta: "4-6 fő · kert · családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -162,8 +171,8 @@ export const koveskalPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Zsalya Vendeghaz",
-        meta: "csendes, termeszetkozeli pihenes",
+        name: "Zsálya Vendégház",
+        meta: "csendes, természetközeli pihenés",
         href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
@@ -171,8 +180,8 @@ export const koveskalPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Szololiget Vendeghaz",
-        meta: "elvonulas a szolok kozott",
+        name: "Szőlőliget Vendégház",
+        meta: "elvonulás a szőlők között",
         href: "/szololiget/",
         image: {
           type: "mapping",
@@ -181,12 +190,12 @@ export const koveskalPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion Royal Homes",
-        meta: "Balaton kozeli, kenyelmes kikapcsolodas",
+        meta: "Balaton közeli, kényelmes kikapcsolódás",
         href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-          alt: "Dandelion Royal Homes kulso kep"
+          alt: "Dandelion Royal Homes külső kép"
         }
       }
     ]

@@ -55,6 +55,10 @@ export interface AccommodationPageData {
     titleAccent: string;
     subtitle: string;
     lead: string;
+    video?: {
+      desktop: string;
+      mobile: string;
+    };
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
   };

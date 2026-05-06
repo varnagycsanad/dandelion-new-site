@@ -19,6 +19,7 @@ const { pageData, imageSet } = Astro.props as {
 };
 
 const bookingLink = pageData.bookingLink;
+const heroVideo = pageData.hero.video ?? null;
 const baseHref = resolveBaseHref(import.meta.env.BASE_URL);
 
 const featureGroups = pageData.facts.groups;
@@ -140,18 +141,46 @@ const accommodationStructuredData = [
   </Fragment>
 
   <section class="d2-hero">
-    <picture class="d2-hero__picture">
-      <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
-      <img
-        src={initialHeroImage.src}
-        alt={initialHeroImage.alt}
-        class="d2-hero__image"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        data-accommodation-hero-image
-      />
-    </picture>
+    {heroVideo ? (
+      <div class="d2-hero__picture">
+        <video
+          class="d2-hero__image"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={heroFallback.src}
+          aria-hidden="true"
+          data-accommodation-hero-video
+        >
+          <source media="(max-width: 767px)" src={heroVideo.mobile} type="video/mp4" />
+          <source media="(min-width: 768px)" src={heroVideo.desktop} type="video/mp4" />
+          <img
+            src={heroFallback.src}
+            alt={heroFallback.alt}
+            class="d2-hero__image"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            data-accommodation-hero-image
+          />
+        </video>
+      </div>
+    ) : (
+      <picture class="d2-hero__picture">
+        <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
+        <img
+          src={initialHeroImage.src}
+          alt={initialHeroImage.alt}
+          class="d2-hero__image"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          data-accommodation-hero-image
+        />
+      </picture>
+    )}
     <div class="d2-hero__overlay"></div>
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
