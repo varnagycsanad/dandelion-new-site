@@ -173,7 +173,7 @@ export const zsalyaPageData: AccommodationPageData = {
       {
         name: "Szololiget Vendeghaz",
         meta: "elvonulas a szolok kozott",
-        href: "/dandelion-szololiget/",
+        href: "/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image"
@@ -182,7 +182,7 @@ export const zsalyaPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "Balaton kozeli, kenyelmes kikapcsolodas",
-        href: "/dandelion-royal-homes/",
+        href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",

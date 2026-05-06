@@ -164,7 +164,7 @@ export const vintagePageData: AccommodationPageData = {
       {
         name: "Dandelion Szololiget",
         meta: "elvonulas a szolok kozott",
-        href: "/dandelion-szololiget/",
+        href: "/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image"

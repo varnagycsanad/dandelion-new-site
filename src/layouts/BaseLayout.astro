@@ -40,7 +40,7 @@ const buildStayHref = (slug: string, url: string) =>
     : slug === "fugehaz"
       ? `${homeHref}fuge/`
       : slug === "royal-homes"
-        ? `${homeHref}dandelion-royal-homes/`
+        ? `${homeHref}royal/`
         : resolveLocalStayHref(url);
 const stayLinkMap = new Map(
   accommodations.map((stay) => [

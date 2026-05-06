@@ -173,7 +173,7 @@ export const d2PageData: AccommodationPageData = {
       {
         name: "Szőlőliget Vendégház",
         meta: "elvonulás a szőlők között",
-        href: "/dandelion-szololiget/",
+        href: "/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image"

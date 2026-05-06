@@ -6,7 +6,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
     title: "Szepvolgyi Vendeghaz | Dandelion Vendeghazak",
     description: "Szepvolgyi Vendeghaz kulon oldal a Badacsonyorshoz es a Balaton kozeli, nyugodt piheneshez kotott shared template bekotesekent."
   },
-  bookingLink: "/dandelion-szepvolgyi-vendeghaz/",
+  bookingLink: "/szepvolgyi/",
   hero: {
     mobileImagePath: "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp",
     fallbackAlt: "Szepvolgyi Vendeghaz",
@@ -183,7 +183,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "Balaton kozeli, kenyelmes kikapcsolodas",
-        href: "/dandelion-royal-homes/",
+        href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",

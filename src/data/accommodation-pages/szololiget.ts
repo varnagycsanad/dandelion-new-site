@@ -5,7 +5,7 @@ export const szololigetPageData: AccommodationPageData = {
     title: "Dandelion Szololiget | Dandelion Vendeghazak",
     description: "Dandelion Szololiget kulon oldal a csendes, termeszetkozeli pihenes es a szolok kozotti elvonulas elso koros shared template bekotesekent."
   },
-  bookingLink: "/dandelion-szololiget/",
+  bookingLink: "/szololiget/",
   hero: {
     mobileImagePath: "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
     fallbackAlt: "Dandelion Szololiget",
@@ -182,7 +182,7 @@ export const szololigetPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "Balaton kozeli, kenyelmes kikapcsolodas",
-        href: "/dandelion-royal-homes/",
+        href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",

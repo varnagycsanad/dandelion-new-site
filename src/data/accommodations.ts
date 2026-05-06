@@ -101,7 +101,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Szőlőliget",
     slug: "szololiget-vendeghaz",
-    url: "/dandelion-szololiget/",
+    url: "/szololiget/",
     location: "Balaton-felvidék",
     description: "Vidéki hangulatú ház szőlők, tanúhegyek és nyári esték közé hangolva.",
     hoverText: "Szőlőlugasok ölelésében, távol a város zajától.",
@@ -153,7 +153,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Royal Homes",
     slug: "royal-homes",
-    url: "/dandelion-royal-homes/",
+    url: "/royal/",
     location: "Balaton-part",
     description: "Kényelmes, igényes szálláshely páros vagy családi pihenéshez.",
     hoverText: "Luxus kivitel a Balaton mellett, pezsgőfürdős kényeztetéssel.",
@@ -173,7 +173,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Szépvölgyi",
     slug: "szepvolgyi-vendeghaz",
-    url: "/dandelion-szepvolgyi-vendeghaz/",
+    url: "/szepvolgyi/",
     location: "Balaton-part",
     description: "Nyugodt kiindulópont a Tapolcai-medence és a Balaton-felvidék felfedezéséhez.",
     hoverText: "Nagyvonalú terek Badacsonyörsön, pár percre a strandtól.",
