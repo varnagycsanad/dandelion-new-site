@@ -28,27 +28,57 @@ const homeHref = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 const staysHref = `${homeHref}#stays`;
 const experiencesHref = `${homeHref}#elmenyek`;
+const stayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fügeház",
+  "vintage-vendeghaz": "Dandelion Vintage",
+};
 const resolveLocalStayHref = (href: string) =>
   href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : href;
-const stayLinks = accommodations.map((stay) => ({
-  label: stay.name,
-  href:
-    stay.slug === "dandelion-d2"
-      ? `${homeHref}dandelion-d2/`
-      : stay.slug === "fugehaz"
-        ? `${homeHref}fuge/`
-        : stay.slug === "royal-homes"
-          ? `${homeHref}dandelion-royal-homes/`
-        : resolveLocalStayHref(stay.url)
-}));
-const koveskalStayLink = {
-  label: "Dandelion Köveskál",
-  href: `${homeHref}dandelion-koveskal/`
-};
-const stayLinksWithKoveskal = [
-  ...stayLinks.slice(0, 6),
-  koveskalStayLink,
-  ...stayLinks.slice(6)
+const buildStayHref = (slug: string, url: string) =>
+  slug === "dandelion-d2"
+    ? `${homeHref}dandelion-d2/`
+    : slug === "fugehaz"
+      ? `${homeHref}fuge/`
+      : slug === "royal-homes"
+        ? `${homeHref}dandelion-royal-homes/`
+        : resolveLocalStayHref(url);
+const stayLinkMap = new Map(
+  accommodations.map((stay) => [
+    stay.slug,
+    {
+      label: stayLabelOverrides[stay.slug] ?? stay.name,
+      href: buildStayHref(stay.slug, stay.url)
+    }
+  ])
+);
+const groupedStayLinks = [
+  {
+    title: "Tapolcai-medence",
+    items: [
+      stayLinkMap.get("dandelion-d2"),
+      stayLinkMap.get("fugehaz"),
+      stayLinkMap.get("dandelion-d1"),
+      stayLinkMap.get("szololiget-vendeghaz"),
+      stayLinkMap.get("zsalya-vendeghaz"),
+      stayLinkMap.get("vintage-vendeghaz")
+    ].filter(Boolean)
+  },
+  {
+    title: "Balaton mellett",
+    items: [
+      stayLinkMap.get("royal-homes"),
+      stayLinkMap.get("szepvolgyi-vendeghaz")
+    ].filter(Boolean)
+  },
+  {
+    title: "Káli-medence",
+    items: [
+      {
+        label: "Dandelion Köveskál",
+        href: `${homeHref}dandelion-koveskal/`
+      }
+    ]
+  }
 ];
 ---
 
@@ -119,8 +149,15 @@ const stayLinksWithKoveskal = [
           <div class="dnd-nav__item dnd-nav__item--has-submenu">
             <a href={staysHref}>Szállások–Házak</a>
             <div class="dnd-nav__submenu" aria-label="Szállások almenü">
-              {stayLinksWithKoveskal.map((stay) => (
-                <a href={stay.href}>{stay.label}</a>
+              {groupedStayLinks.map((group) => (
+                <div class="dnd-nav__submenu-group">
+                  <span class="dnd-nav__submenu-group-title">{group.title}</span>
+                  <div class="dnd-nav__submenu-group-items">
+                    {group.items.map((stay) => (
+                      <a href={stay.href}>{stay.label}</a>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -154,9 +191,18 @@ const stayLinksWithKoveskal = [
       <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
         <a href={homeHref}>Főoldal</a>
         <a href={staysHref}>Szállások–Házak</a>
-        {stayLinksWithKoveskal.map((stay) => (
-          <a href={stay.href} class="dnd-mobile-menu__subitem">{stay.label}</a>
-        ))}
+        <div class="dnd-mobile-menu__groups" aria-label="Szálláscsoportok">
+          {groupedStayLinks.map((group) => (
+            <div class="dnd-mobile-menu__group">
+              <span class="dnd-mobile-menu__group-title">{group.title}</span>
+              <div class="dnd-mobile-menu__group-items">
+                {group.items.map((stay) => (
+                  <a href={stay.href} class="dnd-mobile-menu__subitem">{stay.label}</a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
         <a href={experiencesHref}>Élmények</a>
         <a href="/">Galéria</a>
       </nav>
@@ -211,5 +257,66 @@ const stayLinksWithKoveskal = [
         });
       })();
     </script>
+    <style>
+      .dnd-nav__submenu {
+        min-width: 280px;
+        gap: 12px;
+      }
+
+      .dnd-nav__submenu-group + .dnd-nav__submenu-group {
+        padding-top: 10px;
+        border-top: 1px solid rgba(94, 65, 39, 0.08);
+      }
+
+      .dnd-nav__submenu-group-title {
+        display: block;
+        margin: 0 10px 6px;
+        color: rgba(45, 36, 28, 0.52);
+        font-size: 0.63rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .dnd-nav__submenu-group-items {
+        display: grid;
+        gap: 4px;
+      }
+
+      .dnd-mobile-menu__groups {
+        display: grid;
+        gap: 14px;
+      }
+
+      .dnd-mobile-menu__group {
+        display: grid;
+        gap: 6px;
+      }
+
+      .dnd-mobile-menu__group + .dnd-mobile-menu__group {
+        padding-top: 10px;
+        border-top: 1px solid rgba(45, 36, 28, 0.1);
+      }
+
+      .dnd-mobile-menu__group-title {
+        display: block;
+        color: rgba(45, 36, 28, 0.52);
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .dnd-mobile-menu__group-items {
+        display: grid;
+        gap: 4px;
+      }
+
+      .dnd-mobile-menu[data-open="true"] {
+        max-height: 560px;
+      }
+    </style>
   </body>
 </html>
