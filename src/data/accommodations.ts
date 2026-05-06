@@ -173,7 +173,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Szépvölgyi",
     slug: "szepvolgyi-vendeghaz",
-    url: "https://dandelionhouse.hu/szepvolgyi/",
+    url: "/dandelion-szepvolgyi-vendeghaz/",
     location: "Balaton-part",
     description: "Nyugodt kiindulópont a Tapolcai-medence és a Balaton-felvidék felfedezéséhez.",
     hoverText: "Nagyvonalú terek Badacsonyörsön, pár percre a strandtól.",
