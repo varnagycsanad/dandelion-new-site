@@ -1,202 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
-import url from "node:url";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, "..");
-const registryPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.generated.json");
-const seoPreviewPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.seo-test.json");
-const accommodationsPath = path.join(projectRoot, "src", "data", "accommodations.ts");
-const outputDir = path.join(projectRoot, "project-docs", "gallery-order-tool");
-
-const DISPLAY_NAME_FALLBACKS = {
-  d1: "Dandelion D1",
-  d2: "Dandelion D2",
-  fugehaz: "Dandelion Fügeház",
-  zsalya: "Dandelion Zsálya",
-  szololiget: "Dandelion Szőlőliget",
-  szepvolgyi: "Dandelion Szépvölgyi",
-  vintage: "Dandelion Vintage",
-  royal_homes: "Dandelion Royal Homes",
-  koveskal: "Dandelion Köveskál"
-};
-
-function parseArgs(argv) {
-  const apartmentArg = argv.find((arg) => arg.startsWith("--apartment="));
-  return {
-    all: argv.includes("--all"),
-    apartmentKey: apartmentArg ? apartmentArg.split("=", 2)[1].trim() : ""
-  };
-}
-
-function ensureDir(dir) {
-  fs.mkdirSync(dir, { recursive: true });
-}
-
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function serializeForScript(value) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c");
-}
-
-function toPosixPath(filePath) {
-  return filePath.split(path.sep).join("/");
-}
-
-function relativePublicUrl(assetUrl) {
-  if (!assetUrl) {
-    return "";
-  }
-
-  if (/^(?:https?:)?\/\//.test(assetUrl)) {
-    return assetUrl;
-  }
-
-  if (!assetUrl.startsWith("/")) {
-    return assetUrl;
-  }
-
-  const publicRoot = path.join(projectRoot, "public");
-  const relativePrefix = toPosixPath(path.relative(outputDir, publicRoot));
-  return `${relativePrefix}/${assetUrl.replace(/^\/+/, "")}`;
-}
-
-function getFilename(assetUrl) {
-  return path.posix.basename(assetUrl || "");
-}
-
-function readAccommodationNames() {
-  const raw = fs.readFileSync(accommodationsPath, "utf8");
-  const map = new Map();
-  const pattern = /name:\s*"([^"]+)"[\s\S]*?imageSlot:\s*"([^"]+)"/g;
-
-  for (const match of raw.matchAll(pattern)) {
-    const name = match[1].trim();
-    const imageSlot = match[2].trim();
-    const apartmentKey = imageSlot.replace(/_card_image$/, "");
-    if (!map.has(apartmentKey)) {
-      map.set(apartmentKey, name);
-    }
-  }
-
-  return map;
-}
-
-function loadSeoPreview() {
-  if (!fs.existsSync(seoPreviewPath)) {
-    return {};
-  }
-
-  return readJson(seoPreviewPath);
-}
-
-function mergeSeoDraft(baseDraft, previewDraft) {
-  const baseHasValues =
-    baseDraft &&
-    Object.entries(baseDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-  const previewHasValues =
-    previewDraft &&
-    Object.entries(previewDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-
-  if (baseDraft?.approved === true) {
-    return baseDraft;
-  }
-
-  if (!baseHasValues && previewHasValues) {
-    return previewDraft;
-  }
-
-  if (baseHasValues && previewHasValues) {
-    return {
-      ...previewDraft,
-      ...baseDraft,
-      approved: baseDraft?.approved ?? previewDraft?.approved ?? false
-    };
-  }
-
-  return baseDraft || previewDraft || null;
-}
-
-function getGalleryEntries(registryEntry, apartmentKey, seoPreviewEntry) {
-  const previewByFilename = new Map();
-
-  for (const item of seoPreviewEntry?.gallery || []) {
-    previewByFilename.set(getFilename(item.src), item.seoDraft || null);
-  }
-
-  return (registryEntry.gallery || []).map((item) => {
-    const filename = getFilename(item.src);
-    const previewSeoDraft = previewByFilename.get(filename);
-    const mergedSeoDraft = mergeSeoDraft(item.seoDraft || null, previewSeoDraft);
-
-    return {
-      id: item.id || "",
-      apartmentKey,
-      src: item.src || "",
-      thumb: item.thumb || "",
-      sortOrder: item.sortOrder ?? null,
-      filename,
-      seoDraft: mergedSeoDraft
-    };
-  });
-}
-
-function buildExportJson(items) {
-  return JSON.stringify(items.map((item) => item.filename), null, 2);
-}
-
-function buildCodexBlock(apartmentKey, items, notes = {}) {
-  const lines = ["APARTMENT_KEY: " + apartmentKey, "NEW_ORDER:", "["];
-  for (let index = 0; index < items.length; index += 1) {
-    const filename = items[index].filename;
-    const note = String(notes[filename] || "").trim();
-    lines.push(`  "${filename}"${note ? `, // note: ${note}` : ""}`);
-  }
-  lines.push("]");
-
-  const noteEntries = Object.entries(notes)
-    .map(([filename, note]) => ({ filename, note: String(note).trim() }))
-    .filter((entry) => entry.note);
-
-  if (noteEntries.length) {
-    lines.push("NOTES:");
-    lines.push(JSON.stringify(noteEntries, null, 2));
-  }
-
-  return lines.join("\n");
-}
-
-function buildSimpleList(items) {
-  return items.map((item) => item.filename).join("\n");
-}
-
-function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource }) {
-  const pageData = {
-    apartmentKey,
-    apartmentName,
-    sourceRegistry: "src/data/images/accommodation-images.generated.json",
-    seoPreviewSource: seoPreviewSource ? "src/data/images/accommodation-images.seo-test.json" : "",
-    items
-  };
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="hu">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező - ${escapeHtml(apartmentName)}</title>
+  <title>Dandelion galéria rendező - Dandelion Szőlőliget</title>
   <style>
     :root {
       color-scheme: light;
@@ -588,17 +395,15 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
   <div class="shell">
     <div class="topbar">
       <section class="hero">
-        <h1>${escapeHtml(apartmentName)}</h1>
+        <h1>Dandelion Szőlőliget</h1>
         <p class="subtitle">
           Lokális galéria-rendező a képek sorrendjének kényelmes áthúzásához. Az exportok másolhatók, de a
           registryt ez az eszköz nem írja vissza automatikusan.
         </p>
         <div class="pills">
-          <span class="pill"><strong>ApartmentKey</strong> ${escapeHtml(apartmentKey)}</span>
-          <span class="pill"><strong>Forrás</strong> ${escapeHtml("src/data/images/accommodation-images.generated.json")}</span>
-          <span class="pill"><strong>SEO preview</strong> ${
-            seoPreviewSource ? escapeHtml("src/data/images/accommodation-images.seo-test.json") : "nincs"
-          }</span>
+          <span class="pill"><strong>ApartmentKey</strong> szololiget</span>
+          <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+          <span class="pill"><strong>SEO preview</strong> src/data/images/accommodation-images.seo-test.json</span>
           <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
         <div class="metrics" id="metrics"></div>
@@ -638,7 +443,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     </p>
   </div>
 
-  <script id="tool-data" type="application/json">${serializeForScript(pageData)}</script>
+  <script id="tool-data" type="application/json">{"apartmentKey":"szololiget","apartmentName":"Dandelion Szőlőliget","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"szololiget-001","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-001.webp","sortOrder":10,"filename":"dandelion-szololiget-source-001.webp","seoDraft":{"approved":false,"altHu":"Tetőtéri hálószoba franciaággyal","titleHu":"Tetőtéri hálószoba","captionHu":"A tetőtéri hálószoba világos, kényelmes franciaággyal és nagy ablakokkal.","altEn":"Attic bedroom with double bed","titleEn":"Attic bedroom","captionEn":"The attic bedroom is bright, with a comfortable double bed and large windows."}},{"id":"szololiget-002","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-002.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-002.webp","sortOrder":20,"filename":"dandelion-szololiget-source-002.webp","seoDraft":{"approved":false,"altHu":"Szololiget Vendeghaz hálószobája nagy ablakokkal és franciaággyal","titleHu":"Szololiget Vendeghaz hálószoba","captionHu":"A tetőtéri hálószobában franciaágy, fotel és nagy ablakok vannak.","altEn":"Szololiget Vendeghaz bedroom with large windows and a double bed","titleEn":"Szololiget Vendeghaz bedroom","captionEn":"The attic bedroom has a double bed, an armchair, and large windows."}},{"id":"szololiget-003","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-003.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-003.webp","sortOrder":30,"filename":"dandelion-szololiget-source-003.webp","seoDraft":{"approved":false,"altHu":"Szololiget Vendeghaz hálószoba nagy ablakokkal és franciaággyal","titleHu":"Szololiget Vendeghaz hálószoba","captionHu":"A hálószobában franciaágy, kis asztalok és nagy ablakok vannak.","altEn":"Szololiget Vendeghaz bedroom with large windows and a double bed","titleEn":"Szololiget Vendeghaz bedroom","captionEn":"The bedroom has a double bed, small tables, and large windows."}},{"id":"szololiget-004","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-004.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-004.webp","sortOrder":40,"filename":"dandelion-szololiget-source-004.webp","seoDraft":{"approved":false,"altHu":"Világos hálószoba franciaággyal","titleHu":"Hálószoba franciaággyal","captionHu":"A hálószoba világos, kényelmes franciaággyal és nagy ablakokkal.","altEn":"Bright bedroom with a double bed","titleEn":"Bedroom with double bed","captionEn":"The bedroom is bright, with a comfortable double bed and large windows."}},{"id":"szololiget-005","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-005.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-005.webp","sortOrder":50,"filename":"dandelion-szololiget-source-005.webp","seoDraft":{"approved":false,"altHu":"Fürdőszoba zuhanyzóval és mosdóval","titleHu":"Világos fürdőszoba","captionHu":"A fürdőszoba világos, zuhanyzóval, mosdóval és toalettel.","altEn":"Bathroom with shower and sink","titleEn":"Bright bathroom","captionEn":"The bathroom is bright, with a shower, sink and toilet."}},{"id":"szololiget-006","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-006.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-006.webp","sortOrder":60,"filename":"dandelion-szololiget-source-006.webp","seoDraft":{"approved":false,"altHu":"Szololiget Vendeghaz tetőtéri folyosó ablakkal és komóddal","titleHu":"Szololiget Vendeghaz tetőtéri folyosó","captionHu":"A tetőtéri folyosón egy nagy ablak, egy fehér komód és egy kosár látszik.","altEn":"Szololiget Vendeghaz attic hallway with roof window and white chest of drawers","titleEn":"Szololiget Vendeghaz attic hallway","captionEn":"The attic hallway has a large roof window, a white chest of drawers and a basket."}},{"id":"szololiget-007","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-007.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-007.webp","sortOrder":70,"filename":"dandelion-szololiget-source-007.webp","seoDraft":{"approved":false,"altHu":"Fa lépcső kőfallal","titleHu":"Belső lépcső","captionHu":"A belső lépcső fa lépcsőfokokkal és hangulatos kőfallal készült.","altEn":"Wooden staircase with stone wall","titleEn":"Interior staircase","captionEn":"The interior staircase has wooden steps and a warm stone wall."}},{"id":"szololiget-008","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-008.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-008.webp","sortOrder":80,"filename":"dandelion-szololiget-source-008.webp","seoDraft":{"approved":false,"altHu":"Nappali konyhával és étkezőasztallal","titleHu":"Nappali és konyha","captionHu":"A világos nappaliban kanapé, kis étkezőasztal és jól felszerelt konyha várja a vendégeket.","altEn":"Living area with kitchen and dining table","titleEn":"Living area and kitchen","captionEn":"The bright living area has a sofa, a small dining table, and a well-equipped kitchen."}},{"id":"szololiget-009","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-009.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-009.webp","sortOrder":90,"filename":"dandelion-szololiget-source-009.webp","seoDraft":{"approved":false,"altHu":"Nappali konyhával és kanapéval","titleHu":"Nappali és konyha","captionHu":"A nappali egyben van a konyhával, kanapéval, étkezőasztallal és kályhával.","altEn":"Living area with kitchen and sofa","titleEn":"Living area and kitchen","captionEn":"The living area is open to the kitchen, with a sofa, dining table and stove."}},{"id":"szololiget-010","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-010.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-010.webp","sortOrder":100,"filename":"dandelion-szololiget-source-010.webp","seoDraft":{"approved":false,"altHu":"Nappali konyhával és kanapéval","titleHu":"Nappali és konyha","captionHu":"A nappali világos, konyhával, étkezőasztallal és kanapéval.","altEn":"Living area with kitchen and sofa","titleEn":"Living area and kitchen","captionEn":"The living area is bright, with a kitchen, dining table and sofa."}},{"id":"szololiget-011","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-011.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-011.webp","sortOrder":110,"filename":"dandelion-szololiget-source-011.webp","seoDraft":{"approved":false,"altHu":"Szololiget Vendeghaz konyha étkezőasztallal, kanapéval és kőfalas kályhával","titleHu":"Szololiget Vendeghaz konyhája","captionHu":"A konyhában étkezőasztal, kanapé, nagy ablak és egy kőfal melletti kályha látszik.","altEn":"Szololiget Vendeghaz kitchen with dining table, sofa and stove by a stone wall","titleEn":"Szololiget Vendeghaz kitchen","captionEn":"The kitchen has a dining table, a sofa, a large window and a stove by the stone wall."}},{"id":"szololiget-012","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-012.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-012.webp","sortOrder":120,"filename":"dandelion-szololiget-source-012.webp","seoDraft":{"approved":false,"altHu":"Nappali és konyha étkezőasztallal","titleHu":"Nappali és konyha","captionHu":"A nappali és a konyha egy világos, otthonos térben kapcsolódik össze.","altEn":"Living area and kitchen with dining table","titleEn":"Living area and kitchen","captionEn":"The living area and kitchen come together in a bright, cozy space."}},{"id":"szololiget-013","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-013.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-013.webp","sortOrder":130,"filename":"dandelion-szololiget-source-013.webp","seoDraft":{"approved":false,"altHu":"Kis konyha fa bútorokkal és mosogatóval","titleHu":"Konyha","captionHu":"A konyha világos, fa bútorokkal, mosogatóval és alap gépekkel.","altEn":"Small kitchen with wooden cabinets and sink","titleEn":"Kitchen","captionEn":"The kitchen is bright, with wooden cabinets, a sink, and basic appliances."}},{"id":"szololiget-014","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-014.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-014.webp","sortOrder":140,"filename":"dandelion-szololiget-source-014.webp","seoDraft":{"approved":false,"altHu":"Étkezőasztal bögrékkel a konyhában","titleHu":"Étkezőasztal és konyha","captionHu":"A konyhában kényelmes étkezőasztal vár bögrékkel és tányérokkal.","altEn":"Dining table with mugs in the kitchen","titleEn":"Dining table and kitchen","captionEn":"The kitchen has a comfortable dining table with mugs and plates ready for a meal."}},{"id":"szololiget-015","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-015.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-015.webp","sortOrder":150,"filename":"dandelion-szololiget-source-015.webp","seoDraft":{"approved":false,"altHu":"Mosdó és WC a fürdőszobában","titleHu":"Fürdőszoba","captionHu":"A fürdőszobában mosdó, tükör és WC van.","altEn":"Sink and toilet in the bathroom","titleEn":"Bathroom","captionEn":"The bathroom has a sink, mirror and toilet."}},{"id":"szololiget-016","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-016.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-016.webp","sortOrder":160,"filename":"dandelion-szololiget-source-016.webp","seoDraft":{"approved":false,"altHu":"A Szololiget Vendégház oldalsó terasza asztallal és székekkel.","titleHu":"Oldalsó terasz","captionHu":"Az oldalsó teraszon egy kis asztal és két szék várja a pihenést.","altEn":"Side terrace of Szololiget Guesthouse with a table and chairs.","titleEn":"Side terrace","captionEn":"A small table and two chairs make the side terrace a nice place to relax."}},{"id":"szololiget-017","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-017.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-017.webp","sortOrder":170,"filename":"dandelion-szololiget-source-017.webp","seoDraft":{"approved":false,"altHu":"Szőlők és házak a környéken","titleHu":"Környék a Szololiget Vendégház körül","captionHu":"A Szololiget Vendégház környékén szőlők, fák és kis házak között lehet pihenni.","altEn":"Vineyards and houses in the area","titleEn":"Area around Szololiget Vendeghaz","captionEn":"Around Szololiget Vendeghaz, you can relax among vineyards, trees, and small houses."}},{"id":"szololiget-018","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-018.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-018.webp","sortOrder":180,"filename":"dandelion-szololiget-source-018.webp","seoDraft":{"approved":false,"altHu":"Tájkép a környék házaival és szőlőkkel","titleHu":"Környékbeli táj","captionHu":"A környéken szőlők, fák és kisebb házak teszik nyugodttá a hangulatot.","altEn":"Landscape with nearby houses and vineyards","titleEn":"Local landscape","captionEn":"The area has vineyards, trees and small houses, creating a calm atmosphere."}},{"id":"szololiget-019","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-019.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-019.webp","sortOrder":190,"filename":"dandelion-szololiget-source-019.webp","seoDraft":{"approved":false,"altHu":"Kerti ülősarok naplementében","titleHu":"Naplemente a kertben","captionHu":"A kertben egy csendes ülősarok vár naplemente idején.","altEn":"Garden seating area at sunset","titleEn":"Sunset in the garden","captionEn":"A quiet seating area in the garden is lovely at sunset."}},{"id":"szololiget-020","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-020.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-020.webp","sortOrder":200,"filename":"dandelion-szololiget-source-020.webp","seoDraft":{"approved":false,"altHu":"Szololiget Vendeghaz terasza székekkel és kis asztallal a növények között","titleHu":"Szololiget Vendeghaz terasza","captionHu":"A teraszon székek és egy kis asztal áll a növények között.","altEn":"Szololiget Vendeghaz terrace with chairs and a small table among plants","titleEn":"Szololiget Vendeghaz terrace","captionEn":"The terrace has chairs and a small table among the plants."}},{"id":"szololiget-021","apartmentKey":"szololiget","src":"/images/accommodations/szololiget/gallery/dandelion-szololiget-source-021.webp","thumb":"/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-021.webp","sortOrder":210,"filename":"dandelion-szololiget-source-021.webp","seoDraft":{"approved":false,"altHu":"Virágok naplementében a Szololiget Vendégháznál","titleHu":"Naplemente a Szololigetnél","captionHu":"Este a virágok között csendes és nyugodt a hangulat a Szololiget Vendégháznál.","altEn":"Flowers at sunset at Szololiget Vendeghaz","titleEn":"Sunset at Szololiget","captionEn":"In the evening, the flowers create a calm and peaceful mood at Szololiget Vendeghaz."}}]}</script>
   <script>
     const initialData = JSON.parse(document.getElementById("tool-data").textContent);
     const galleryRoot = document.getElementById("gallery-root");
@@ -691,11 +496,13 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         lines.push(JSON.stringify(noteEntries, null, 2));
       }
 
-      return lines.join("\n");
+      return lines.join("
+");
     }
 
     function buildSimpleList() {
-      return state.order.map((item) => filenameOf(item)).join("\n");
+      return state.order.map((item) => filenameOf(item)).join("
+");
     }
 
     function getMetrics() {
@@ -970,210 +777,4 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     renderAll();
   </script>
 </body>
-</html>`;
-}
-
-function buildIndexHtml({ entries, knownGeneratedKeys }) {
-  const rows = entries
-    .map((entry) => {
-      const fileName = `gallery-order-${entry.apartmentKey}.html`;
-      const filePath = path.join(outputDir, fileName);
-      const generated = fs.existsSync(filePath);
-      const link = generated ? fileName : "";
-      return `
-        <tr>
-          <td>${escapeHtml(entry.name)}</td>
-          <td><code>${escapeHtml(entry.apartmentKey)}</code></td>
-          <td>${escapeHtml(String(entry.count))}</td>
-          <td>${generated ? `<a href="${escapeHtml(link)}">${escapeHtml(fileName)}</a>` : "<span class=\"muted\">nincs legenerálva</span>"}</td>
-          <td>${generated ? "<span class=\"ok\">kész</span>" : "<span class=\"warn\">hiányzik</span>"}</td>
-        </tr>`;
-    })
-    .join("");
-
-  const total = entries.length;
-  const generatedCount = entries.filter((entry) => knownGeneratedKeys.has(entry.apartmentKey)).length;
-
-  return `<!doctype html>
-<html lang="hu">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f4efe6;
-      --panel: #fffaf2;
-      --text: #2f2a23;
-      --muted: #716657;
-      --border: rgba(95, 73, 47, 0.18);
-      --accent: #86643d;
-      --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
-      --ok: #2f6b3a;
-      --warn: #a84f2e;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
-        linear-gradient(180deg, var(--bg), #eee4d1 70%);
-    }
-    .shell { max-width: 1200px; margin: 0 auto; padding: 32px 20px 44px; }
-    .hero {
-      background: rgba(255, 250, 242, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
-    .subtitle { margin: 10px 0 0; color: var(--muted); max-width: 78ch; line-height: 1.55; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.82);
-    }
-    .pill strong { color: var(--accent); }
-    .tablewrap {
-      margin-top: 20px;
-      overflow: auto;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    table { width: 100%; border-collapse: collapse; min-width: 780px; }
-    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(95,73,47,0.12); vertical-align: middle; }
-    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(255,250,242,0.92); }
-    tr:last-child td { border-bottom: 0; }
-    code {
-      font-family: Consolas, "Liberation Mono", monospace;
-      font-size: 0.9rem;
-      padding: 3px 6px;
-      border-radius: 8px;
-      background: rgba(243, 235, 223, 0.9);
-    }
-    .muted { color: var(--muted); }
-    .ok { color: var(--ok); font-weight: 700; }
-    .warn { color: var(--warn); font-weight: 700; }
-    .footer { margin-top: 18px; color: var(--muted); line-height: 1.5; }
-    @media (max-width: 720px) {
-      .shell { padding: 18px 12px 32px; }
-      .hero { border-radius: 16px; padding: 18px; }
-      .tablewrap { border-radius: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <section class="hero">
-      <h1>Dandelion galéria rendező</h1>
-      <p class="subtitle">
-        Helyi, újrafuttatható galéria-rendező központ. Innen lehet egy szállást külön megnyitni vagy az összes
-        gallery-s apartman HTML-jét egyszerre előállítani. Az eszköz csak exportálja az új sorrendet, nem írja vissza
-        automatikusan a registryt.
-      </p>
-      <div class="pills">
-        <span class="pill"><strong>Összes gallery-s apartman</strong> ${escapeHtml(String(total))}</span>
-        <span class="pill"><strong>Jelenleg generálva</strong> ${escapeHtml(String(generatedCount))}</span>
-        <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
-      </div>
-      <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
-    </section>
-
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Szállás neve</th>
-            <th>apartmentKey</th>
-            <th>Képek száma</th>
-            <th>Rendező HTML</th>
-            <th>Állapot</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</body>
-</html>`;
-}
-
-function writeFile(filePath, content) {
-  ensureDir(path.dirname(filePath));
-  fs.writeFileSync(filePath, content, "utf8");
-}
-
-function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const registry = readJson(registryPath);
-  const seoPreview = loadSeoPreview();
-  const nameMap = readAccommodationNames();
-
-  const galleryKeys = Object.keys(registry).filter(
-    (key) => registry[key] && Array.isArray(registry[key].gallery) && registry[key].gallery.length > 0
-  );
-
-  const selectedKeys = args.all
-    ? galleryKeys
-    : args.apartmentKey && registry[args.apartmentKey] && Array.isArray(registry[args.apartmentKey].gallery) && registry[args.apartmentKey].gallery.length > 0
-      ? [args.apartmentKey]
-      : [];
-
-  const skippedKeys = [];
-  if (!args.all && args.apartmentKey && !selectedKeys.length) {
-    skippedKeys.push(args.apartmentKey);
-  }
-
-  const generatedKeys = new Set();
-  const indexEntries = [];
-
-  for (const key of galleryKeys) {
-    const entry = registry[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    indexEntries.push({
-      apartmentKey: key,
-      name: apartmentName,
-      count: Array.isArray(entry.gallery) ? entry.gallery.length : 0
-    });
-  }
-
-  for (const key of selectedKeys) {
-    const entry = registry[key];
-    const seoPreviewEntry = seoPreview[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    const items = getGalleryEntries(entry, key, seoPreviewEntry);
-    const filePath = path.join(outputDir, `gallery-order-${key}.html`);
-    writeFile(
-      filePath,
-      buildPageHtml({
-        apartmentKey: key,
-        apartmentName,
-        items,
-        seoPreviewSource: Boolean(seoPreviewEntry)
-      })
-    );
-    generatedKeys.add(key);
-  }
-
-  writeFile(
-    path.join(outputDir, "index.html"),
-    buildIndexHtml({ entries: indexEntries, knownGeneratedKeys: generatedKeys })
-  );
-
-  console.log(`Generated gallery tool pages: ${[...generatedKeys].join(", ") || "none"}`);
-  console.log(`Index written: ${path.join(outputDir, "index.html")}`);
-  if (skippedKeys.length) {
-    console.log(`Skipped apartmentKeys: ${skippedKeys.join(", ")}`);
-  }
-}
-
-main();
+</html>

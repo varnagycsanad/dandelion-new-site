@@ -1,65 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery order tool - d2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dandelion galéria rendező - Dandelion D2</title>
   <style>
     :root {
       color-scheme: light;
       --bg: #f4efe6;
       --panel: #fffaf2;
-      --panel-2: #f0e7d8;
+      --panel-soft: #f8f1e6;
       --text: #2f2a23;
-      --muted: #75695b;
-      --accent: #87633e;
-      --accent-strong: #664726;
+      --muted: #716657;
       --border: rgba(95, 73, 47, 0.18);
+      --accent: #86643d;
+      --accent-strong: #694929;
+      --accent-soft: #e9dcc8;
       --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
+      --ok: #2f6b3a;
+      --warn: #a84f2e;
+      --info: #5b5d98;
     }
 
     * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
     body {
-      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
       background:
         radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
         linear-gradient(180deg, var(--bg), #eee4d1 70%);
-      color: var(--text);
     }
 
     .shell {
-      max-width: 1400px;
+      max-width: 1540px;
       margin: 0 auto;
-      padding: 32px 20px 48px;
+      padding: 28px 18px 48px;
     }
 
     .topbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 18px;
-      align-items: end;
-      justify-content: space-between;
-      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .hero, .panel {
+      background: rgba(255, 250, 242, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 22px 22px 18px;
+    }
+
+    .panel {
+      padding: 18px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       line-height: 1.05;
+      letter-spacing: 0;
     }
 
     .subtitle {
-      margin: 8px 0 0;
+      margin: 10px 0 0;
       color: var(--muted);
-      max-width: 68ch;
+      max-width: 70ch;
+      line-height: 1.55;
     }
 
-    .pillrow {
+    .pills {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .pill {
@@ -67,54 +88,118 @@
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
-      border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(255,255,255,0.72);
-      box-shadow: 0 8px 22px rgba(55, 42, 18, 0.08);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.78);
       font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .pill strong {
+      color: var(--accent-strong);
+      font-weight: 700;
     }
 
     .toolbar {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      align-items: center;
-      margin: 18px 0 20px;
     }
 
-    button, textarea {
-      font: inherit;
+    .toolbar textarea {
+      width: 100%;
+      min-height: 160px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 12px;
+      font: 0.88rem/1.45 Consolas, "Liberation Mono", monospace;
+      color: #2d271f;
+    }
+
+    .copybar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .button {
       appearance: none;
       border: 0;
       border-radius: 12px;
-      padding: 12px 16px;
+      padding: 11px 14px;
       background: var(--accent);
       color: #fff;
-      box-shadow: var(--shadow);
       cursor: pointer;
+      font: inherit;
+      box-shadow: var(--shadow);
     }
 
     .button:hover { background: var(--accent-strong); }
 
     .button.secondary {
-      background: var(--panel);
+      background: var(--panel-soft);
       color: var(--accent-strong);
       border: 1px solid var(--border);
       box-shadow: none;
     }
 
-    .status {
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.8);
+    }
+
+    .metric__label {
+      display: block;
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .metric__value {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.45);
+    }
+
+    .section__title {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .section__title small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-weight: 500;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
     }
 
     .card {
@@ -129,19 +214,15 @@
       user-select: none;
     }
 
-    .card:active {
-      cursor: grabbing;
-    }
-
     .card.is-dragging {
-      opacity: 0.55;
+      opacity: 0.5;
       transform: scale(0.99);
     }
 
     .card__media {
       position: relative;
       aspect-ratio: 4 / 3;
-      background: #ddd4c4;
+      background: #ded5c6;
     }
 
     .card__media img {
@@ -151,439 +232,549 @@
       display: block;
     }
 
-    .card__order {
+    .badge {
       position: absolute;
       top: 10px;
       left: 10px;
-      min-width: 44px;
-      padding: 8px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 32px;
+      padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(47, 42, 35, 0.8);
+      background: rgba(47, 42, 35, 0.82);
       color: #fff;
+      font-size: 0.78rem;
       font-weight: 700;
-      text-align: center;
     }
 
-    .card__meta {
+    .badge.secondary {
+      top: auto;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 250, 242, 0.95);
+      color: var(--accent-strong);
+      border: 1px solid var(--border);
+    }
+
+    .card__body {
+      padding: 12px 12px 14px;
       display: grid;
-      gap: 8px;
-      padding: 14px 14px 16px;
+      gap: 10px;
+    }
+
+    .headline {
+      display: grid;
+      gap: 4px;
+    }
+
+    .headline strong {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .headline span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .meta {
+      display: grid;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: var(--text);
     }
 
     .meta-row {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      align-items: baseline;
-      font-size: 0.86rem;
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: rgba(243, 235, 223, 0.8);
     }
 
     .meta-row strong {
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 0.73rem;
-      flex: 0 0 auto;
+      color: var(--muted);
+      font-weight: 600;
     }
 
-    .meta-row span,
-    .meta-row a {
-      color: var(--text);
-      overflow-wrap: anywhere;
-      text-align: right;
+    .statusline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .export {
-      margin-top: 20px;
-      display: grid;
-      gap: 10px;
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
     }
 
-    .export__label {
+    .status[data-state="ok"] { color: var(--ok); }
+    .status[data-state="warn"] { color: var(--warn); }
+    .status[data-state="info"] { color: var(--info); }
+
+    .seo {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.66);
+      padding: 8px 10px;
+    }
+
+    .seo summary {
+      cursor: pointer;
       font-weight: 700;
       color: var(--accent-strong);
     }
 
-    textarea {
-      width: 100%;
-      min-height: 180px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      padding: 16px;
-      background: #fffdf8;
-      color: var(--text);
-      resize: vertical;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    .seo__grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.84rem;
     }
 
-    @media (max-width: 700px) {
-      .shell {
-        padding-inline: 14px;
-      }
+    .seo__item {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(243, 235, 223, 0.75);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
 
-      .grid {
-        grid-template-columns: 1fr;
-      }
+    .note {
+      display: grid;
+      gap: 6px;
+    }
 
-      .toolbar {
-        align-items: stretch;
-      }
+    .note label {
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
 
-      .button {
-        width: 100%;
-      }
+    .note textarea {
+      width: 100%;
+      min-height: 68px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 10px;
+      font: 0.88rem/1.4 system-ui, sans-serif;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .topbar { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 18px 12px 36px; }
+      .panel, .hero, .section { border-radius: 16px; }
+      .metrics { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header>
-      <div class="topbar">
-        <div>
-          <h1>Gallery order tool</h1>
-          <p class="subtitle">Helyi drag-and-drop galéria rendező a köveskálos dolgozáshoz. A lista sorrendje húzással változtatható, majd exportálható géppel feldolgozható JSON tömbként.</p>
+  <div class="shell">
+    <div class="topbar">
+      <section class="hero">
+        <h1>Dandelion D2</h1>
+        <p class="subtitle">
+          Lokális galéria-rendező a képek sorrendjének kényelmes áthúzásához. Az exportok másolhatók, de a
+          registryt ez az eszköz nem írja vissza automatikusan.
+        </p>
+        <div class="pills">
+          <span class="pill"><strong>ApartmentKey</strong> d2</span>
+          <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+          <span class="pill"><strong>SEO preview</strong> src/data/images/accommodation-images.seo-test.json</span>
+          <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
-      </div>
-      <div class="pillrow">
-        <span class="pill"><strong>apartmentKey</strong> d2</span>
-        <span class="pill"><strong>képek</strong> 17</span>
-        <span class="pill"><strong>forrás</strong> src/data/images/accommodation-images.generated.json</span>
-      </div>
-    </header>
+        <div class="metrics" id="metrics"></div>
+      </section>
 
-    <div class="toolbar">
-      <button id="copy-order" class="button" type="button">Sorrend másolása</button>
-      <button id="reset-order" class="button secondary" type="button">Eredeti sorrend</button>
-      <span id="status" class="status">Kész a rendezésre.</span>
+      <aside class="panel">
+        <div class="copybar">
+          <button class="button" id="copy-json" type="button">JSON sorrend másolása</button>
+          <button class="button secondary" id="copy-codex" type="button">Codex-ready blokk másolása</button>
+          <button class="button secondary" id="copy-list" type="button">Sima lista másolása</button>
+        </div>
+        <div class="toolbar" aria-label="Export mezők">
+          <div>
+            <textarea id="export-json" readonly></textarea>
+          </div>
+          <div>
+            <textarea id="export-codex" readonly></textarea>
+          </div>
+          <div>
+            <textarea id="export-list" readonly></textarea>
+          </div>
+        </div>
+      </aside>
     </div>
 
-    <section id="grid" class="grid" aria-label="Galéria elemek">
-      
-        <article class="card" draggable="true" data-index="0" data-id="d2-001" data-filename="dandelion-d2-source-001.webp" data-sort-order="10">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp" alt="dandelion-d2-source-001.webp" loading="lazy" />
-            <span class="card__order">1</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-001</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-001.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>10</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-001.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="1" data-id="d2-002" data-filename="dandelion-d2-source-002.webp" data-sort-order="20">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp" alt="dandelion-d2-source-002.webp" loading="lazy" />
-            <span class="card__order">2</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-002</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-002.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>20</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-002.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="2" data-id="d2-003" data-filename="dandelion-d2-source-003.webp" data-sort-order="30">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp" alt="dandelion-d2-source-003.webp" loading="lazy" />
-            <span class="card__order">3</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-003</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-003.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>30</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-003.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="3" data-id="d2-004" data-filename="dandelion-d2-source-004.webp" data-sort-order="40">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp" alt="dandelion-d2-source-004.webp" loading="lazy" />
-            <span class="card__order">4</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-004</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-004.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>40</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-004.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="4" data-id="d2-005" data-filename="dandelion-d2-source-005.webp" data-sort-order="50">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp" alt="dandelion-d2-source-005.webp" loading="lazy" />
-            <span class="card__order">5</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-005</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-005.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>50</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-005.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="5" data-id="d2-006" data-filename="dandelion-d2-source-006.webp" data-sort-order="60">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp" alt="dandelion-d2-source-006.webp" loading="lazy" />
-            <span class="card__order">6</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-006</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-006.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>60</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-006.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="6" data-id="d2-007" data-filename="dandelion-d2-source-007.webp" data-sort-order="70">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp" alt="dandelion-d2-source-007.webp" loading="lazy" />
-            <span class="card__order">7</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-007</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-007.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>70</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-007.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="7" data-id="d2-008" data-filename="dandelion-d2-source-008.webp" data-sort-order="80">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp" alt="dandelion-d2-source-008.webp" loading="lazy" />
-            <span class="card__order">8</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-008</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-008.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>80</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-008.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="8" data-id="d2-009" data-filename="dandelion-d2-source-009.webp" data-sort-order="90">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp" alt="dandelion-d2-source-009.webp" loading="lazy" />
-            <span class="card__order">9</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-009</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-009.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>90</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-009.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="9" data-id="d2-010" data-filename="dandelion-d2-source-010.webp" data-sort-order="100">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp" alt="dandelion-d2-source-010.webp" loading="lazy" />
-            <span class="card__order">10</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-010</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-010.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>100</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-010.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="10" data-id="d2-011" data-filename="dandelion-d2-source-011.webp" data-sort-order="110">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp" alt="dandelion-d2-source-011.webp" loading="lazy" />
-            <span class="card__order">11</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-011</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-011.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>110</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-011.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="11" data-id="d2-012" data-filename="dandelion-d2-source-012.webp" data-sort-order="120">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp" alt="dandelion-d2-source-012.webp" loading="lazy" />
-            <span class="card__order">12</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-012</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-012.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>120</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-012.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="12" data-id="d2-013" data-filename="dandelion-d2-source-013.webp" data-sort-order="130">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp" alt="dandelion-d2-source-013.webp" loading="lazy" />
-            <span class="card__order">13</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-013</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-013.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>130</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-013.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="13" data-id="d2-014" data-filename="dandelion-d2-source-014.webp" data-sort-order="140">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp" alt="dandelion-d2-source-014.webp" loading="lazy" />
-            <span class="card__order">14</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-014</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-014.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>140</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-014.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="14" data-id="d2-015" data-filename="dandelion-d2-source-015.webp" data-sort-order="150">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp" alt="dandelion-d2-source-015.webp" loading="lazy" />
-            <span class="card__order">15</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-015</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-015.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>150</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-015.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="15" data-id="d2-016" data-filename="dandelion-d2-source-016.webp" data-sort-order="160">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp" alt="dandelion-d2-source-016.webp" loading="lazy" />
-            <span class="card__order">16</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-016</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-016.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>160</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-016.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
-        <article class="card" draggable="true" data-index="16" data-id="d2-017" data-filename="dandelion-d2-source-017.webp" data-sort-order="170">
-          <div class="card__media">
-            <img src="../../public/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp" alt="dandelion-d2-source-017.webp" loading="lazy" />
-            <span class="card__order">17</span>
-          </div>
-          <div class="card__meta">
-            <div class="meta-row"><strong>id</strong><span>d2-017</span></div>
-            <div class="meta-row"><strong>src</strong><span>dandelion-d2-source-017.webp</span></div>
-            <div class="meta-row"><strong>sortOrder</strong><span>170</span></div>
-            <div class="meta-row"><strong>preview</strong><a href="../../public/images/accommodations/d2/gallery/dandelion-d2-source-017.webp" target="_blank" rel="noreferrer">open</a></div>
-          </div>
-        </article>
+    <section class="section">
+      <h2 class="section__title">
+        Első 12 kép – kiemelt galéria
+        <small>Az első tizenkettő külön vizuális blokkban jelenik meg, hogy az exportnál azonnal látszódjon a fókusz.</small>
+      </h2>
+      <div id="gallery-root"></div>
     </section>
 
-    <section class="export">
-      <div class="export__label">Export formátum</div>
-      <textarea id="export-output" spellcheck="false" readonly>[
-  &quot;dandelion-d2-source-001.webp&quot;,
-  &quot;dandelion-d2-source-002.webp&quot;,
-  &quot;dandelion-d2-source-003.webp&quot;,
-  &quot;dandelion-d2-source-004.webp&quot;,
-  &quot;dandelion-d2-source-005.webp&quot;,
-  &quot;dandelion-d2-source-006.webp&quot;,
-  &quot;dandelion-d2-source-007.webp&quot;,
-  &quot;dandelion-d2-source-008.webp&quot;,
-  &quot;dandelion-d2-source-009.webp&quot;,
-  &quot;dandelion-d2-source-010.webp&quot;,
-  &quot;dandelion-d2-source-011.webp&quot;,
-  &quot;dandelion-d2-source-012.webp&quot;,
-  &quot;dandelion-d2-source-013.webp&quot;,
-  &quot;dandelion-d2-source-014.webp&quot;,
-  &quot;dandelion-d2-source-015.webp&quot;,
-  &quot;dandelion-d2-source-016.webp&quot;,
-  &quot;dandelion-d2-source-017.webp&quot;
-]</textarea>
-    </section>
-  </main>
+    <p class="footer">
+      A rendezés után a JSON, a Codex-ready blokk és a sima lista automatikusan újragenerálódik. A megjegyzések
+      csak helyi használatra vannak, és nem kerülnek vissza az image registrybe.
+    </p>
+  </div>
 
+  <script id="tool-data" type="application/json">{"apartmentKey":"d2","apartmentName":"Dandelion D2","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"d2-005","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-005.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp","sortOrder":10,"filename":"dandelion-d2-source-005.webp","seoDraft":{"approved":false,"altHu":"Gyerek színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal","titleHu":"Dandelion D2 kert pihenés gyerekkel","captionHu":"Egy gyerek egy színes takarón ül a Dandelion D2 kertjében egy kosárral és játékkal.","altEn":"Child sitting on colorful blanket in Dandelion D2 garden with basket and toys","titleEn":"Dandelion D2 garden rest with child","captionEn":"A child sits on a colorful blanket in the garden of Dandelion D2 with a basket and toys."}},{"id":"d2-001","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-001.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp","sortOrder":20,"filename":"dandelion-d2-source-001.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 fedett terasz sárga székekkel és asztallal","titleHu":"Dandelion D2 terasz székekkel","captionHu":"A Dandelion D2 teraszán sárga székek és egy asztal áll, közel a házhoz.","altEn":"Dandelion D2 covered terrace with yellow chairs and table","titleEn":"Dandelion D2 terrace with chairs","captionEn":"The terrace of Dandelion D2 has yellow chairs and a table near the house."}},{"id":"d2-002","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-002.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp","sortOrder":30,"filename":"dandelion-d2-source-002.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 kerti asztal sárga székekkel és terasz napozóágyakkal","titleHu":"Dandelion D2 kerti asztal és terasz","captionHu":"A kerti asztalon tányérok és italok vannak, a teraszon napozóágyak állnak.","altEn":"Dandelion D2 garden table with yellow chairs and terrace with lounge chairs","titleEn":"Dandelion D2 garden table and terrace","captionEn":"The garden table has plates and drinks, and the terrace has lounge chairs."}},{"id":"d2-009","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-009.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp","sortOrder":40,"filename":"dandelion-d2-source-009.webp","seoDraft":{"approved":false,"altHu":"Nappali és konyha Dandelion D2 apartmanban","titleHu":"Nappali és konyha Dandelion D2-ben","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Living room and kitchen in Dandelion D2 apartment","titleEn":"Living room and kitchen in Dandelion D2","captionEn":"The comfortable living room has a kitchen and dining area."}},{"id":"d2-007","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-007.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp","sortOrder":50,"filename":"dandelion-d2-source-007.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 hálószoba fehér ággyal és díszpárnákkal","titleHu":"Dandelion D2 hálószoba ágyneművel","captionHu":"A hálószobában két egymás mellé tolható ágy van kék csíkos takaróval és párnákkal.","altEn":"Dandelion D2 bedroom with white bed and decorative pillows","titleEn":"Dandelion D2 bedroom with bedding","captionEn":"The bedroom has two beds pushed together with blue striped blankets and pillows."}},{"id":"d2-010","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-010.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp","sortOrder":60,"filename":"dandelion-d2-source-010.webp","seoDraft":{"approved":false,"altHu":"Nappali kandallóval és étkezősarokkal","titleHu":"Nappali a kandallóval","captionHu":"A nappali meleg hangulatú, étkezővel és kandallóval.","altEn":"Living room with fireplace and dining area","titleEn":"Living room with fireplace","captionEn":"The living room is cozy with a dining area and fireplace."}},{"id":"d2-013","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-013.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp","sortOrder":70,"filename":"dandelion-d2-source-013.webp","seoDraft":{"approved":false,"altHu":"konyha és étkező sárga székekkel","titleHu":"konyha az apartmanban","captionHu":"A konyha praktikus és világos, étkezőasztal sárga székekkel.","altEn":"kitchen with yellow chairs","titleEn":"apartment kitchen","captionEn":"The kitchen is practical and bright with a dining table and yellow chairs."}},{"id":"d2-015","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-015.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp","sortOrder":80,"filename":"dandelion-d2-source-015.webp","seoDraft":{"approved":false,"altHu":"Nappali és konyha világos mennyezettel és kanapéval","titleHu":"Nappali és konyha Dandelion D2-ben","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Living room and kitchen with bright ceiling and sofa","titleEn":"Living room and kitchen in Dandelion D2","captionEn":"The living room has a comfortable sofa and a fully equipped kitchen."}},{"id":"d2-011","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-011.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp","sortOrder":90,"filename":"dandelion-d2-source-011.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 nappali szürke kanapéval és nyitott ablakokkal","titleHu":"Dandelion D2 nappali kanapéval","captionHu":"A nappaliban egy szürke kanapé, egy dohányzóasztal és nyitott ablakok vannak.","altEn":"Dandelion D2 living room with gray sofa and open windows","titleEn":"Dandelion D2 living room sofa","captionEn":"The living room has a gray sofa, a small table, and open windows."}},{"id":"d2-003","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-003.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp","sortOrder":100,"filename":"dandelion-d2-source-003.webp","seoDraft":{"approved":false,"altHu":"Erkély étkezőasztallal és sárga székekkel","titleHu":"Kültéri étkező sárga székekkel","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Balcony dining table with yellow chairs","titleEn":"Outdoor dining with yellow chairs","captionEn":"The image shows one detail of the accommodation."}},{"id":"d2-004","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-004.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp","sortOrder":110,"filename":"dandelion-d2-source-004.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 terasza sárga székekkel és hintaszékkel","titleHu":"Dandelion D2 terasz sárga székekkel","captionHu":"A teraszon sárga székek és egy fehér hintaszék állnak asztal mellett.","altEn":"Dandelion D2 terrace with yellow chairs and hanging chair","titleEn":"Dandelion D2 terrace with yellow chairs","captionEn":"The terrace has yellow chairs and a hanging chair by the table."}},{"id":"d2-006","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-006.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp","sortOrder":120,"filename":"dandelion-d2-source-006.webp","seoDraft":{"approved":false,"altHu":"Kényelmes ágy és szekrény a Dandelion D2 hálószobájában","titleHu":"Dandelion D2 hálószoba","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Comfortable bed and wardrobe in the Dandelion D2 bedroom","titleEn":"Dandelion D2 Bedroom","captionEn":"The bedroom has a comfortable bed and simple furniture."}},{"id":"d2-016","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-016.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp","sortOrder":130,"filename":"dandelion-d2-source-016.webp","seoDraft":{"approved":false,"altHu":"Fürdőszoba kád, mosdó és wc","titleHu":"Fürdőszoba Dandelion D2-ben","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Bathroom with bathtub, sink and toilet","titleEn":"Bathroom in Dandelion D2","captionEn":"The bathroom has a bathtub, sink, and toilet."}},{"id":"d2-008","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-008.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp","sortOrder":140,"filename":"dandelion-d2-source-008.webp","seoDraft":{"approved":false,"altHu":"Dandelion D2 konyha és nappali rész világos fa padlóval és szürke kanapéval","titleHu":"Dandelion D2 konyha és nappali","captionHu":"A Dandelion D2 konyhája világos szekrényekkel és egy szürke kanapé van a nappaliban.","altEn":"Dandelion D2 kitchen and living area with light wood floor and gray sofa","titleEn":"Dandelion D2 kitchen and living area","captionEn":"The Dandelion D2 has a kitchen with light cabinets and a gray sofa in the living area."}},{"id":"d2-012","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-012.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp","sortOrder":150,"filename":"dandelion-d2-source-012.webp","seoDraft":{"approved":false,"altHu":"Nappali kandallóval és nyitott teraszajtóval","titleHu":"Nappali kandallóval és terasszal","captionHu":"A nappaliban kandalló és kényelmes ülőhelyek vannak, nyitott teraszajtóval.","altEn":"Living room with fireplace and open terrace door","titleEn":"Living room with fireplace and terrace","captionEn":"The living room has a fireplace and comfortable seating with an open terrace door."}},{"id":"d2-014","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-014.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp","sortOrder":160,"filename":"dandelion-d2-source-014.webp","seoDraft":{"approved":false,"altHu":"Nappali kandallóval és ventilátorral a Dandelion D2-ben","titleHu":"Nappali kandallóval és ventilátorral","captionHu":"A nappali kandallóval és nagy ablakokkal világos és kényelmes.","altEn":"Living room with wood stove and ceiling fan at Dandelion D2","titleEn":"Living room with stove and fan","captionEn":"The living room is cozy with a wood stove and large windows."}},{"id":"d2-017","apartmentKey":"d2","src":"/images/accommodations/d2/gallery/dandelion-d2-source-017.webp","thumb":"/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp","sortOrder":170,"filename":"dandelion-d2-source-017.webp","seoDraft":{"approved":false,"altHu":"Fürdőszoba kád és mosdó","titleHu":"Fürdőszoba Dandelion D2","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Bathroom with bathtub and sink","titleEn":"Bathroom Dandelion D2","captionEn":"The bathroom has a bathtub and a sink, it is bright and tidy."}}]}</script>
   <script>
-    const grid = document.getElementById("grid");
-    const exportOutput = document.getElementById("export-output");
-    const status = document.getElementById("status");
-    const copyButton = document.getElementById("copy-order");
-    const resetButton = document.getElementById("reset-order");
-    const originalHtml = grid.innerHTML;
+    const initialData = JSON.parse(document.getElementById("tool-data").textContent);
+    const galleryRoot = document.getElementById("gallery-root");
+    const metricsRoot = document.getElementById("metrics");
+    const jsonOutput = document.getElementById("export-json");
+    const codexOutput = document.getElementById("export-codex");
+    const listOutput = document.getElementById("export-list");
+    const copyJsonButton = document.getElementById("copy-json");
+    const copyCodexButton = document.getElementById("copy-codex");
+    const copyListButton = document.getElementById("copy-list");
+    const state = {
+      order: initialData.items.map((item) => ({ ...item })),
+      notes: Object.create(null),
+      imageState: Object.create(null),
+      draggedIndex: -1
+    };
 
-    function updateOrderNumbers() {
-      const cards = Array.from(grid.querySelectorAll(".card"));
-      cards.forEach((card, index) => {
-        card.dataset.index = String(index);
-        const badge = card.querySelector(".card__order");
-        if (badge) {
-          badge.textContent = String(index + 1);
+    function escapeText(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function filenameOf(item) {
+      return item.filename || item.src.split("/").pop() || "";
+    }
+
+    function buildJsonExport() {
+      return JSON.stringify(state.order.map((item) => filenameOf(item)), null, 2);
+    }
+
+    function buildCodexExport() {
+      const lines = ["APARTMENT_KEY: " + initialData.apartmentKey, "NEW_ORDER:", "["];
+      for (const item of state.order) {
+        const filename = filenameOf(item);
+        const note = String(state.notes[filename] || "").trim();
+        lines.push(note ? '  "' + filename + '", // note: ' + note : '  "' + filename + '"');
+      }
+      lines.push("]");
+
+      const noteEntries = Object.entries(state.notes)
+        .map(([filename, note]) => ({ filename, note: String(note).trim() }))
+        .filter((entry) => entry.note);
+
+      if (noteEntries.length) {
+        lines.push("NOTES:");
+        lines.push(JSON.stringify(noteEntries, null, 2));
+      }
+
+      return lines.join("
+");
+    }
+
+    function buildSimpleList() {
+      return state.order.map((item) => filenameOf(item)).join("
+");
+    }
+
+    function getMetrics() {
+      const filenames = state.order.map((item) => filenameOf(item));
+      const duplicateCount = filenames.length - new Set(filenames).size;
+      const emptySrcCount = state.order.filter((item) => !String(item.src || "").trim()).length;
+      const sortOrderCount = state.order.filter((item) => typeof item.sortOrder === "number").length;
+      const loadedCount = Object.values(state.imageState).filter((entry) => entry.state === "loaded").length;
+      const brokenCount = Object.values(state.imageState).filter((entry) => entry.state === "broken").length;
+      const allLoaded = loadedCount + brokenCount === state.order.length && brokenCount === 0;
+
+      return [
+        { label: "Képek száma", value: String(state.order.length) },
+        { label: "Duplikált filename", value: String(duplicateCount) },
+        { label: "Üres src", value: String(emptySrcCount) },
+        { label: "Minden kép betöltött", value: allLoaded ? "igen" : "nem" },
+        { label: "sortOrder mezők", value: String(sortOrderCount) + "/" + String(state.order.length) },
+        { label: "Első 12 kép", value: String(Math.min(12, state.order.length)) },
+        { label: "Törött képek", value: String(brokenCount) },
+        { label: "Betöltött képek", value: String(loadedCount) + "/" + String(state.order.length) }
+      ];
+    }
+
+    function renderMetrics() {
+      metricsRoot.innerHTML = getMetrics()
+        .map(function (metric) {
+          return (
+            '<div class="metric">' +
+            '<span class="metric__label">' + escapeText(metric.label) + '</span>' +
+            '<span class="metric__value">' + escapeText(metric.value) + '</span>' +
+            '</div>'
+          );
+        })
+        .join("");
+    }
+
+    function renderSeoDraft(seoDraft) {
+      if (!seoDraft) {
+        return "<div class='seo__item'>Nincs SEO draft adat.</div>";
+      }
+
+      return [
+        '<div class="seo__item"><strong>approved:</strong> ' + escapeText(String(Boolean(seoDraft.approved))) + '</div>',
+        '<div class="seo__item"><strong>altHu:</strong> ' + escapeText(seoDraft.altHu || '—') + '</div>',
+        '<div class="seo__item"><strong>titleHu:</strong> ' + escapeText(seoDraft.titleHu || '—') + '</div>',
+        '<div class="seo__item"><strong>captionHu:</strong> ' + escapeText(seoDraft.captionHu || '—') + '</div>',
+        '<div class="seo__item"><strong>altEn:</strong> ' + escapeText(seoDraft.altEn || '—') + '</div>',
+        '<div class="seo__item"><strong>titleEn:</strong> ' + escapeText(seoDraft.titleEn || '—') + '</div>',
+        '<div class="seo__item"><strong>captionEn:</strong> ' + escapeText(seoDraft.captionEn || '—') + '</div>'
+      ].join('');
+    }
+
+    function renderImageStatus(item, index) {
+      const entry = state.imageState[index] || { state: "loading", orientation: "" };
+      const statusLabel = entry.state === "loaded" ? "betöltve" : entry.state === "broken" ? "hiba" : "betöltés…";
+      const statusClass = entry.state === "loaded" ? "ok" : entry.state === "broken" ? "warn" : "info";
+      const orientationLabel = entry.orientation || "ismeretlen";
+
+      return (
+        '<div class="statusline">' +
+          '<span class="status" data-state="' + statusClass + '">' + escapeText(statusLabel) + '</span>' +
+          '<span class="status" data-state="info">' + escapeText(orientationLabel) + '</span>' +
+        '</div>'
+      );
+    }
+
+    function cardHtml(item, index) {
+      const fullUrl = item.src.startsWith("/") ? item.src : item.src;
+      const thumbUrl = item.thumb || item.src;
+      const seoDraft = item.seoDraft || null;
+      return (
+        '<article class="card" draggable="true" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
+          '<div class="card__media">' +
+            '<img' +
+              ' src="' + escapeText(thumbUrl) + '"' +
+              ' alt="' + escapeText(seoDraft && seoDraft.altHu ? seoDraft.altHu : filenameOf(item)) + '"' +
+              ' loading="lazy"' +
+              ' data-full="' + escapeText(fullUrl) + '"' +
+            ' />' +
+            '<span class="badge">#' + (index + 1) + '</span>' +
+            '<span class="badge secondary">' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span>' +
+          '</div>' +
+          '<div class="card__body">' +
+            '<div class="headline">' +
+              '<strong>' + escapeText(filenameOf(item)) + '</strong>' +
+              '<span>' + escapeText(item.id || 'n/a') + '</span>' +
+            '</div>' +
+            '<div class="meta">' +
+              '<div class="meta-row"><strong>src</strong><span>' + escapeText(filenameOf(item)) + '</span></div>' +
+              '<div class="meta-row"><strong>sortOrder</strong><span>' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span></div>' +
+            '</div>' +
+            renderImageStatus(item, index) +
+            '<details class="seo">' +
+              '<summary>SEO draft</summary>' +
+              '<div class="seo__grid">' + renderSeoDraft(seoDraft) + '</div>' +
+            '</details>' +
+            '<div class="note">' +
+              '<label for="note-' + index + '">Megjegyzés</label>' +
+              '<textarea id="note-' + index + '" data-note-index="' + index + '" placeholder="Csak helyi exporthoz...">' + escapeText(state.notes[filenameOf(item)] || "") + '</textarea>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
+    }
+
+    function renderGallery() {
+      const first = state.order.slice(0, 12);
+      const rest = state.order.slice(12);
+      const html = [];
+
+      html.push('<div class="section__title">Első 12 kép – kiemelt galéria<small>' + escapeText(String(first.length)) + ' kép látható ebben a blokkban.</small></div>');
+      html.push('<div class="grid" id="gallery-grid" data-group="primary">');
+      first.forEach((item, index) => {
+        html.push(cardHtml(item, index));
+      });
+      html.push("</div>");
+
+      if (rest.length) {
+        html.push('<div class="section__title" style="margin-top:18px;">További galériaképek<small>' + escapeText(String(rest.length)) + ' kép maradt a kiemelt blokk után.</small></div>');
+        html.push('<div class="grid" data-group="secondary">');
+        rest.forEach((item, offset) => {
+          const index = offset + 12;
+          html.push(cardHtml(item, index));
+        });
+        html.push("</div>");
+      }
+
+      galleryRoot.innerHTML = html.join("");
+    }
+
+    function updateExports() {
+      const jsonValue = buildJsonExport();
+      const codexValue = buildCodexExport();
+      const listValue = buildSimpleList();
+      jsonOutput.value = jsonValue;
+      codexOutput.value = codexValue;
+      listOutput.value = listValue;
+    }
+
+    function refreshStatusBadges() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        const current = state.imageState[index] || { state: "loading", orientation: "" };
+        const statusNodes = card.querySelectorAll(".statusline .status");
+        if (statusNodes[0]) {
+          statusNodes[0].textContent = current.state === "loaded" ? "betöltve" : current.state === "broken" ? "hiba" : "betöltés…";
+          statusNodes[0].dataset.state = current.state === "loaded" ? "ok" : current.state === "broken" ? "warn" : "info";
+        }
+        if (statusNodes[1]) {
+          statusNodes[1].textContent = current.orientation || "ismeretlen";
         }
       });
     }
 
-    function readExportArray() {
-      return Array.from(grid.querySelectorAll(".card")).map((card) => card.dataset.filename);
+    function renderAll() {
+      renderMetrics();
+      renderGallery();
+      updateExports();
+      bindCardEvents();
+      refreshStatusBadges();
     }
 
-    function syncExport() {
-      const order = readExportArray();
-      exportOutput.value = JSON.stringify(order, null, 2);
-      updateOrderNumbers();
+    function setImageState(index, patch) {
+      const existing = state.imageState[index] || { state: "loading", orientation: "" };
+      state.imageState[index] = { ...existing, ...patch };
+      renderMetrics();
+      refreshStatusBadges();
     }
 
-    function moveCard(sourceCard, targetCard, pointerY) {
-      if (!sourceCard || !targetCard || sourceCard === targetCard) {
-        return;
-      }
+    function bindCardEvents() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("dragstart", onDragStart);
+        card.addEventListener("dragend", onDragEnd);
+        card.addEventListener("dragover", onDragOverCard);
+        card.addEventListener("drop", onDropCard);
+      });
 
-      const rect = targetCard.getBoundingClientRect();
-      const before = (pointerY || 0) < rect.top + rect.height / 2;
-      if (before) {
-        grid.insertBefore(sourceCard, targetCard);
-      } else {
-        grid.insertBefore(sourceCard, targetCard.nextSibling);
-      }
+      const notes = galleryRoot.querySelectorAll("textarea[data-note-index]");
+      notes.forEach((textarea) => {
+        textarea.addEventListener("input", (event) => {
+          const index = Number(event.currentTarget.dataset.noteIndex);
+          const item = state.order[index];
+          if (!item) return;
+          state.notes[filenameOf(item)] = event.currentTarget.value;
+          updateExports();
+        });
+      });
+
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        const img = card.querySelector("img");
+        if (!img) return;
+
+        if (!state.imageState[index]) {
+          state.imageState[index] = { state: "loading", orientation: "" };
+        }
+
+        img.onload = () => {
+          const width = img.naturalWidth || 0;
+          const height = img.naturalHeight || 0;
+          const orientation = width > height ? "fekvő" : width < height ? "álló" : "négyzetes";
+          setImageState(index, { state: "loaded", orientation, width, height });
+        };
+
+        img.onerror = () => {
+          setImageState(index, { state: "broken", orientation: "ismeretlen" });
+        };
+
+        if (img.complete && img.naturalWidth > 0 && state.imageState[index].state !== "loaded") {
+          const width = img.naturalWidth || 0;
+          const height = img.naturalHeight || 0;
+          const orientation = width > height ? "fekvő" : width < height ? "álló" : "négyzetes";
+          state.imageState[index] = { state: "loaded", orientation, width, height };
+        }
+      });
     }
 
-    let draggedCard = null;
+    function moveItem(fromIndex, toIndex) {
+      if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0) return;
+      const item = state.order.splice(fromIndex, 1)[0];
+      const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
+      state.order.splice(adjustedIndex, 0, item);
+      renderAll();
+    }
 
-    grid.addEventListener("dragstart", (event) => {
-      const card = event.target.closest(".card");
-      if (!card) {
-        return;
-      }
-      draggedCard = card;
+    function onDragStart(event) {
+      const card = event.currentTarget;
+      state.draggedIndex = Number(card.dataset.index);
       card.classList.add("is-dragging");
       event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", card.dataset.filename || "");
-    });
+      event.dataTransfer.setData("text/plain", String(state.draggedIndex));
+    }
 
-    grid.addEventListener("dragend", () => {
-      if (draggedCard) {
-        draggedCard.classList.remove("is-dragging");
-      }
-      draggedCard = null;
-      syncExport();
-      status.textContent = "Sorrend frissítve.";
-    });
+    function onDragEnd(event) {
+      event.currentTarget.classList.remove("is-dragging");
+      state.draggedIndex = -1;
+    }
 
-    grid.addEventListener("dragover", (event) => {
+    function onDragOverCard(event) {
       event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    }
+
+    function onDropCard(event) {
+      event.preventDefault();
+      const targetIndex = Number(event.currentTarget.dataset.index);
+      if (Number.isNaN(targetIndex) || state.draggedIndex === -1) return;
+      moveItem(state.draggedIndex, targetIndex);
+    }
+
+    async function copyText(text) {
+      await navigator.clipboard.writeText(text);
+    }
+
+    copyJsonButton.addEventListener("click", () => copyText(jsonOutput.value));
+    copyCodexButton.addEventListener("click", () => copyText(codexOutput.value));
+    copyListButton.addEventListener("click", () => copyText(listOutput.value));
+
+    galleryRoot.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+
+    galleryRoot.addEventListener("drop", (event) => {
       const targetCard = event.target.closest(".card");
-      if (!draggedCard || !targetCard) {
-        return;
-      }
-      moveCard(draggedCard, targetCard, event.clientY);
-    });
-
-    copyButton.addEventListener("click", async () => {
-      syncExport();
-      const text = exportOutput.value;
-      try {
-        await navigator.clipboard.writeText(text);
-        status.textContent = "A sorrend a vágólapra másolva.";
-      } catch {
-        exportOutput.focus();
-        exportOutput.select();
-        document.execCommand("copy");
-        status.textContent = "A sorrend kijelölve, másolható.";
+      if (!targetCard && typeof state.draggedIndex === "number" && state.draggedIndex >= 0) {
+        moveItem(state.draggedIndex, state.order.length);
       }
     });
 
-    resetButton.addEventListener("click", () => {
-      grid.innerHTML = originalHtml;
-      syncExport();
-      status.textContent = "Eredeti sorrend visszaállítva.";
-    });
-
-    syncExport();
+    renderAll();
   </script>
 </body>
 </html>

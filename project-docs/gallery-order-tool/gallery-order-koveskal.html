@@ -1,202 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
-import url from "node:url";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, "..");
-const registryPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.generated.json");
-const seoPreviewPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.seo-test.json");
-const accommodationsPath = path.join(projectRoot, "src", "data", "accommodations.ts");
-const outputDir = path.join(projectRoot, "project-docs", "gallery-order-tool");
-
-const DISPLAY_NAME_FALLBACKS = {
-  d1: "Dandelion D1",
-  d2: "Dandelion D2",
-  fugehaz: "Dandelion Fügeház",
-  zsalya: "Dandelion Zsálya",
-  szololiget: "Dandelion Szőlőliget",
-  szepvolgyi: "Dandelion Szépvölgyi",
-  vintage: "Dandelion Vintage",
-  royal_homes: "Dandelion Royal Homes",
-  koveskal: "Dandelion Köveskál"
-};
-
-function parseArgs(argv) {
-  const apartmentArg = argv.find((arg) => arg.startsWith("--apartment="));
-  return {
-    all: argv.includes("--all"),
-    apartmentKey: apartmentArg ? apartmentArg.split("=", 2)[1].trim() : ""
-  };
-}
-
-function ensureDir(dir) {
-  fs.mkdirSync(dir, { recursive: true });
-}
-
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function serializeForScript(value) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c");
-}
-
-function toPosixPath(filePath) {
-  return filePath.split(path.sep).join("/");
-}
-
-function relativePublicUrl(assetUrl) {
-  if (!assetUrl) {
-    return "";
-  }
-
-  if (/^(?:https?:)?\/\//.test(assetUrl)) {
-    return assetUrl;
-  }
-
-  if (!assetUrl.startsWith("/")) {
-    return assetUrl;
-  }
-
-  const publicRoot = path.join(projectRoot, "public");
-  const relativePrefix = toPosixPath(path.relative(outputDir, publicRoot));
-  return `${relativePrefix}/${assetUrl.replace(/^\/+/, "")}`;
-}
-
-function getFilename(assetUrl) {
-  return path.posix.basename(assetUrl || "");
-}
-
-function readAccommodationNames() {
-  const raw = fs.readFileSync(accommodationsPath, "utf8");
-  const map = new Map();
-  const pattern = /name:\s*"([^"]+)"[\s\S]*?imageSlot:\s*"([^"]+)"/g;
-
-  for (const match of raw.matchAll(pattern)) {
-    const name = match[1].trim();
-    const imageSlot = match[2].trim();
-    const apartmentKey = imageSlot.replace(/_card_image$/, "");
-    if (!map.has(apartmentKey)) {
-      map.set(apartmentKey, name);
-    }
-  }
-
-  return map;
-}
-
-function loadSeoPreview() {
-  if (!fs.existsSync(seoPreviewPath)) {
-    return {};
-  }
-
-  return readJson(seoPreviewPath);
-}
-
-function mergeSeoDraft(baseDraft, previewDraft) {
-  const baseHasValues =
-    baseDraft &&
-    Object.entries(baseDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-  const previewHasValues =
-    previewDraft &&
-    Object.entries(previewDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-
-  if (baseDraft?.approved === true) {
-    return baseDraft;
-  }
-
-  if (!baseHasValues && previewHasValues) {
-    return previewDraft;
-  }
-
-  if (baseHasValues && previewHasValues) {
-    return {
-      ...previewDraft,
-      ...baseDraft,
-      approved: baseDraft?.approved ?? previewDraft?.approved ?? false
-    };
-  }
-
-  return baseDraft || previewDraft || null;
-}
-
-function getGalleryEntries(registryEntry, apartmentKey, seoPreviewEntry) {
-  const previewByFilename = new Map();
-
-  for (const item of seoPreviewEntry?.gallery || []) {
-    previewByFilename.set(getFilename(item.src), item.seoDraft || null);
-  }
-
-  return (registryEntry.gallery || []).map((item) => {
-    const filename = getFilename(item.src);
-    const previewSeoDraft = previewByFilename.get(filename);
-    const mergedSeoDraft = mergeSeoDraft(item.seoDraft || null, previewSeoDraft);
-
-    return {
-      id: item.id || "",
-      apartmentKey,
-      src: item.src || "",
-      thumb: item.thumb || "",
-      sortOrder: item.sortOrder ?? null,
-      filename,
-      seoDraft: mergedSeoDraft
-    };
-  });
-}
-
-function buildExportJson(items) {
-  return JSON.stringify(items.map((item) => item.filename), null, 2);
-}
-
-function buildCodexBlock(apartmentKey, items, notes = {}) {
-  const lines = ["APARTMENT_KEY: " + apartmentKey, "NEW_ORDER:", "["];
-  for (let index = 0; index < items.length; index += 1) {
-    const filename = items[index].filename;
-    const note = String(notes[filename] || "").trim();
-    lines.push(`  "${filename}"${note ? `, // note: ${note}` : ""}`);
-  }
-  lines.push("]");
-
-  const noteEntries = Object.entries(notes)
-    .map(([filename, note]) => ({ filename, note: String(note).trim() }))
-    .filter((entry) => entry.note);
-
-  if (noteEntries.length) {
-    lines.push("NOTES:");
-    lines.push(JSON.stringify(noteEntries, null, 2));
-  }
-
-  return lines.join("\n");
-}
-
-function buildSimpleList(items) {
-  return items.map((item) => item.filename).join("\n");
-}
-
-function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource }) {
-  const pageData = {
-    apartmentKey,
-    apartmentName,
-    sourceRegistry: "src/data/images/accommodation-images.generated.json",
-    seoPreviewSource: seoPreviewSource ? "src/data/images/accommodation-images.seo-test.json" : "",
-    items
-  };
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="hu">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező - ${escapeHtml(apartmentName)}</title>
+  <title>Dandelion galéria rendező - Dandelion Köveskál</title>
   <style>
     :root {
       color-scheme: light;
@@ -588,17 +395,15 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
   <div class="shell">
     <div class="topbar">
       <section class="hero">
-        <h1>${escapeHtml(apartmentName)}</h1>
+        <h1>Dandelion Köveskál</h1>
         <p class="subtitle">
           Lokális galéria-rendező a képek sorrendjének kényelmes áthúzásához. Az exportok másolhatók, de a
           registryt ez az eszköz nem írja vissza automatikusan.
         </p>
         <div class="pills">
-          <span class="pill"><strong>ApartmentKey</strong> ${escapeHtml(apartmentKey)}</span>
-          <span class="pill"><strong>Forrás</strong> ${escapeHtml("src/data/images/accommodation-images.generated.json")}</span>
-          <span class="pill"><strong>SEO preview</strong> ${
-            seoPreviewSource ? escapeHtml("src/data/images/accommodation-images.seo-test.json") : "nincs"
-          }</span>
+          <span class="pill"><strong>ApartmentKey</strong> koveskal</span>
+          <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+          <span class="pill"><strong>SEO preview</strong> src/data/images/accommodation-images.seo-test.json</span>
           <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
         <div class="metrics" id="metrics"></div>
@@ -638,7 +443,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     </p>
   </div>
 
-  <script id="tool-data" type="application/json">${serializeForScript(pageData)}</script>
+  <script id="tool-data" type="application/json">{"apartmentKey":"koveskal","apartmentName":"Dandelion Köveskál","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"koveskal-001","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-001.webp","sortOrder":10,"filename":"dandelion-koveskal-source-001.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál terasz székekkel és asztallal","titleHu":"Dandelion Köveskál terasz","captionHu":"A teraszon székek és egy asztal állnak a pihenéshez.","altEn":"Dandelion Köveskál terrace with chairs and table","titleEn":"Dandelion Köveskál terrace","captionEn":"The terrace has chairs and a table for relaxing outdoors."}},{"id":"koveskal-002","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-002.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-002.webp","sortOrder":20,"filename":"dandelion-koveskal-source-002.webp","seoDraft":{"approved":false,"altHu":"Étkező és bejárati ajtó a Dandelion Köveskálban","titleHu":"Étkező és bejárati ajtó","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Dining area and entrance door at Dandelion Köveskál","titleEn":"Dining area and entrance door","captionEn":"The dining area has a wooden table and chairs with strong natural light."}},{"id":"koveskal-003","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-003.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-003.webp","sortOrder":30,"filename":"dandelion-koveskal-source-003.webp","seoDraft":{"approved":false,"altHu":"konyha világos berendezéssel és sütővel","titleHu":"Konyha sütővel és mosogatóval","captionHu":"A konyha jól felszerelt, sütővel és mosogatóval.","altEn":"kitchen with bright furniture and oven","titleEn":"Kitchen with oven and sink","captionEn":"The kitchen is equipped with an oven and sink."}},{"id":"koveskal-004","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-004.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-004.webp","sortOrder":40,"filename":"dandelion-koveskal-source-004.webp","seoDraft":{"approved":false,"altHu":"Nappali és étkező fa bútorokkal","titleHu":"Stílusos nappali és étkező","captionHu":"A nappali és az étkező világos, kényelmes bútorokkal berendezve.","altEn":"Living and dining area with wooden furniture","titleEn":"Stylish living and dining area","captionEn":"The living and dining area is bright with comfortable furniture."}},{"id":"koveskal-005","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-005.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-005.webp","sortOrder":50,"filename":"dandelion-koveskal-source-005.webp","seoDraft":{"approved":false,"altHu":"Fürdőszoba zuhanyzóval és mosdóval","titleHu":"Fürdőszoba zuhanyzóval","captionHu":"A fürdőszobában zuhanyzó és mosdó van.","altEn":"Bathroom with shower and sink","titleEn":"Bathroom with shower","captionEn":"The bathroom has a shower and a sink."}},{"id":"koveskal-006","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-006.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-006.webp","sortOrder":60,"filename":"dandelion-koveskal-source-006.webp","seoDraft":{"approved":false,"altHu":"fürdőszoba sarokkáddal és mosdóval","titleHu":"Fürdő sarokkáddal és mosdóval","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"bathroom with corner bathtub and sink","titleEn":"Bathroom with corner bathtub and sink","captionEn":"The bathroom has a corner bathtub and a sink with towels."}},{"id":"koveskal-007","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-007.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-007.webp","sortOrder":70,"filename":"dandelion-koveskal-source-007.webp","seoDraft":{"approved":false,"altHu":"Fürdőszoba sarokkáddal és bidével","titleHu":"Fürdőszoba sarokkáddal","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Bathroom with corner bathtub and bidet","titleEn":"Bathroom with corner bathtub","captionEn":"The bathroom has a corner bathtub and bidet."}},{"id":"koveskal-008","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-008.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-008.webp","sortOrder":80,"filename":"dandelion-koveskal-source-008.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál hálószoba fa ággyal és nyitott ablakokkal","titleHu":"Dandelion Köveskál hálószoba","captionHu":"A hálószobában egy faágy, két éjjeliszekrény és nyitott ablakok vannak.","altEn":"Dandelion Köveskál bedroom with wooden bed and open windows","titleEn":"Dandelion Köveskál bedroom","captionEn":"The bedroom has a wooden bed, nightstands, and open windows."}},{"id":"koveskal-009","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-009.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-009.webp","sortOrder":90,"filename":"dandelion-koveskal-source-009.webp","seoDraft":{"approved":false,"altHu":"Kényelmes hálószoba ággyal és nyitott ablakokkal","titleHu":"Kényelmes hálószoba a Dandelion Köveskálnál","captionHu":"A hálószoba világos, kényelmes ággyal és friss levegővel.","altEn":"Cozy bedroom with bed and open windows","titleEn":"Cozy bedroom at Dandelion Köveskál","captionEn":"The bedroom is bright with a comfortable bed and fresh air."}},{"id":"koveskal-010","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-010.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-010.webp","sortOrder":100,"filename":"dandelion-koveskal-source-010.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál két egyszemélyes ágy és fa asztal a tetőtérben","titleHu":"Tetőtéri kétágyas szoba Dandelion Köveskál","captionHu":"A tetőtéri szobában két egyszemélyes ágy és egy fa asztal áll.","altEn":"Dandelion Köveskál attic room with two single beds and wooden table","titleEn":"Attic room with two single beds","captionEn":"The attic room has two single beds and a wooden table between them."}},{"id":"koveskal-011","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-011.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-011.webp","sortOrder":110,"filename":"dandelion-koveskal-source-011.webp","seoDraft":{"approved":false,"altHu":"Két különálló ágy egy egyszerű szobában","titleHu":"Egyszerű szoba két ággyal","captionHu":"A szoba világos, két ággyal és egy középen álló asztallal.","altEn":"Two separate beds in a simple room","titleEn":"Simple room with two beds","captionEn":"The room is bright with two beds and a table in the center."}},{"id":"koveskal-012","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-012.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-012.webp","sortOrder":120,"filename":"dandelion-koveskal-source-012.webp","seoDraft":{"approved":false,"altHu":"Szoba ággyal és asztallal","titleHu":"Egyszerű szoba ággyal és asztallal","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Room with bed and table","titleEn":"Simple room with bed and table","captionEn":"The room has a bed, a table, and a wardrobe."}},{"id":"koveskal-013","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-013.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-013.webp","sortOrder":130,"filename":"dandelion-koveskal-source-013.webp","seoDraft":{"approved":false,"altHu":"belső lépcsőház fa mennyezettel és nagy ablakkal","titleHu":"Belső tér fa mennyezettel és nagy ablakkal","captionHu":"Ez a belső tér fa mennyezettel és nagy ablakkal világos és barátságos.","altEn":"interior stairway with wooden ceiling and large window","titleEn":"Interior space with wooden ceiling and large window","captionEn":"This interior space has a wooden ceiling and a large window, creating a bright and welcoming atmosphere."}},{"id":"koveskal-014","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-014.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-014.webp","sortOrder":140,"filename":"dandelion-koveskal-source-014.webp","seoDraft":{"approved":false,"altHu":"világos nappali két kanapéval és fa gerendákkal","titleHu":"Dandelion Köveskál nappali","captionHu":"A nappali kényelmes két kanapéval és fa gerendás mennyezettel.","altEn":"bright living room with two sofas and wooden beams","titleEn":"Dandelion Köveskál living room","captionEn":"The living room has two comfortable sofas and wooden beam ceiling."}},{"id":"koveskal-015","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-015.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-015.webp","sortOrder":150,"filename":"dandelion-koveskal-source-015.webp","seoDraft":{"approved":false,"altHu":"Nappali világos sarokkanapékkal","titleHu":"Nappali sarokkanapékkal","captionHu":"A kep a szallas egyik reszletet mutatja.","altEn":"Living room with corner sofas","titleEn":"Living room with sofas","captionEn":"The living room has two corner sofas and a wooden table."}},{"id":"koveskal-016","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-016.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-016.webp","sortOrder":160,"filename":"dandelion-koveskal-source-016.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál nappali kanapékkal és nagy ablakokkal","titleHu":"Dandelion Köveskál nappali","captionHu":"A nappaliban két kanapé és egy dohányzóasztal áll a nagy íves ablakok mellett.","altEn":"Dandelion Köveskál living room with sofas and large windows","titleEn":"Dandelion Köveskál living room","captionEn":"The living room has two sofas and a coffee table next to large arched windows."}},{"id":"koveskal-017","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-017.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-017.webp","sortOrder":170,"filename":"dandelion-koveskal-source-017.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál teraszon asztal és négy szék","titleHu":"Terasz asztallal és székekkel Dandelion Köveskálnál","captionHu":"A teraszon egy asztal és négy szék áll egy íves bejárat mellett.","altEn":"Terrace with table and four chairs at Dandelion Köveskál","titleEn":"Terrace with table and chairs at Dandelion Köveskál","captionEn":"The terrace has a table and four chairs by an arched entrance."}},{"id":"koveskal-018","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-018.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-018.webp","sortOrder":180,"filename":"dandelion-koveskal-source-018.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál fehér falú nyaraló bejárattal","titleHu":"Dandelion Köveskál bejárat","captionHu":"A Dandelion Köveskál nyaraló bejárata lépcsőkkel és tornáccal.","altEn":"Dandelion Köveskál white holiday house entrance","titleEn":"Dandelion Köveskál entrance","captionEn":"The entrance of Dandelion Köveskál holiday house with stairs and porch."}},{"id":"koveskal-019","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-019.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-019.webp","sortOrder":190,"filename":"dandelion-koveskal-source-019.webp","seoDraft":{"approved":false,"altHu":"Fehér ház piros tetővel és boltívekkel","titleHu":"Dandelion Köveskál ház kívülről","captionHu":"A Dandelion Köveskál fehér háza piros tetővel és boltíves verandával.","altEn":"White house with red roof and arches","titleEn":"Dandelion Köveskál house exterior","captionEn":"The Dandelion Köveskál is a white house with a red roof and arched porch."}},{"id":"koveskal-020","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-020.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-020.webp","sortOrder":200,"filename":"dandelion-koveskal-source-020.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál fehér vendégház boltíves terasszal és kőfallal","titleHu":"Dandelion Köveskál boltíves terasz","captionHu":"A vendégháznak boltíves terasza és kőfallal körülvett bejárata van.","altEn":"Dandelion Köveskál white guesthouse with arched terrace and stone wall","titleEn":"Dandelion Köveskál arched terrace","captionEn":"The guesthouse has an arched terrace and a stone wall around the entrance."}},{"id":"koveskal-021","apartmentKey":"koveskal","src":"/images/accommodations/koveskal/gallery/dandelion-koveskal-source-021.webp","thumb":"/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-021.webp","sortOrder":210,"filename":"dandelion-koveskal-source-021.webp","seoDraft":{"approved":false,"altHu":"Dandelion Köveskál ház piros tetővel és napelemekkel","titleHu":"Dandelion Köveskál tető napelemekkel","captionHu":"A Dandelion Köveskál ház piros tetővel és napelemekkel körülvéve fákkal és udvarral.","altEn":"Dandelion Köveskál house with red roof and solar panels","titleEn":"Dandelion Köveskál roof with solar panels","captionEn":"The Dandelion Köveskál house has a red roof with solar panels and is surrounded by trees and a yard."}}]}</script>
   <script>
     const initialData = JSON.parse(document.getElementById("tool-data").textContent);
     const galleryRoot = document.getElementById("gallery-root");
@@ -691,11 +496,13 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         lines.push(JSON.stringify(noteEntries, null, 2));
       }
 
-      return lines.join("\n");
+      return lines.join("
+");
     }
 
     function buildSimpleList() {
-      return state.order.map((item) => filenameOf(item)).join("\n");
+      return state.order.map((item) => filenameOf(item)).join("
+");
     }
 
     function getMetrics() {
@@ -970,210 +777,4 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     renderAll();
   </script>
 </body>
-</html>`;
-}
-
-function buildIndexHtml({ entries, knownGeneratedKeys }) {
-  const rows = entries
-    .map((entry) => {
-      const fileName = `gallery-order-${entry.apartmentKey}.html`;
-      const filePath = path.join(outputDir, fileName);
-      const generated = fs.existsSync(filePath);
-      const link = generated ? fileName : "";
-      return `
-        <tr>
-          <td>${escapeHtml(entry.name)}</td>
-          <td><code>${escapeHtml(entry.apartmentKey)}</code></td>
-          <td>${escapeHtml(String(entry.count))}</td>
-          <td>${generated ? `<a href="${escapeHtml(link)}">${escapeHtml(fileName)}</a>` : "<span class=\"muted\">nincs legenerálva</span>"}</td>
-          <td>${generated ? "<span class=\"ok\">kész</span>" : "<span class=\"warn\">hiányzik</span>"}</td>
-        </tr>`;
-    })
-    .join("");
-
-  const total = entries.length;
-  const generatedCount = entries.filter((entry) => knownGeneratedKeys.has(entry.apartmentKey)).length;
-
-  return `<!doctype html>
-<html lang="hu">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f4efe6;
-      --panel: #fffaf2;
-      --text: #2f2a23;
-      --muted: #716657;
-      --border: rgba(95, 73, 47, 0.18);
-      --accent: #86643d;
-      --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
-      --ok: #2f6b3a;
-      --warn: #a84f2e;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
-        linear-gradient(180deg, var(--bg), #eee4d1 70%);
-    }
-    .shell { max-width: 1200px; margin: 0 auto; padding: 32px 20px 44px; }
-    .hero {
-      background: rgba(255, 250, 242, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
-    .subtitle { margin: 10px 0 0; color: var(--muted); max-width: 78ch; line-height: 1.55; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.82);
-    }
-    .pill strong { color: var(--accent); }
-    .tablewrap {
-      margin-top: 20px;
-      overflow: auto;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    table { width: 100%; border-collapse: collapse; min-width: 780px; }
-    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(95,73,47,0.12); vertical-align: middle; }
-    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(255,250,242,0.92); }
-    tr:last-child td { border-bottom: 0; }
-    code {
-      font-family: Consolas, "Liberation Mono", monospace;
-      font-size: 0.9rem;
-      padding: 3px 6px;
-      border-radius: 8px;
-      background: rgba(243, 235, 223, 0.9);
-    }
-    .muted { color: var(--muted); }
-    .ok { color: var(--ok); font-weight: 700; }
-    .warn { color: var(--warn); font-weight: 700; }
-    .footer { margin-top: 18px; color: var(--muted); line-height: 1.5; }
-    @media (max-width: 720px) {
-      .shell { padding: 18px 12px 32px; }
-      .hero { border-radius: 16px; padding: 18px; }
-      .tablewrap { border-radius: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <section class="hero">
-      <h1>Dandelion galéria rendező</h1>
-      <p class="subtitle">
-        Helyi, újrafuttatható galéria-rendező központ. Innen lehet egy szállást külön megnyitni vagy az összes
-        gallery-s apartman HTML-jét egyszerre előállítani. Az eszköz csak exportálja az új sorrendet, nem írja vissza
-        automatikusan a registryt.
-      </p>
-      <div class="pills">
-        <span class="pill"><strong>Összes gallery-s apartman</strong> ${escapeHtml(String(total))}</span>
-        <span class="pill"><strong>Jelenleg generálva</strong> ${escapeHtml(String(generatedCount))}</span>
-        <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
-      </div>
-      <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
-    </section>
-
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Szállás neve</th>
-            <th>apartmentKey</th>
-            <th>Képek száma</th>
-            <th>Rendező HTML</th>
-            <th>Állapot</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</body>
-</html>`;
-}
-
-function writeFile(filePath, content) {
-  ensureDir(path.dirname(filePath));
-  fs.writeFileSync(filePath, content, "utf8");
-}
-
-function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const registry = readJson(registryPath);
-  const seoPreview = loadSeoPreview();
-  const nameMap = readAccommodationNames();
-
-  const galleryKeys = Object.keys(registry).filter(
-    (key) => registry[key] && Array.isArray(registry[key].gallery) && registry[key].gallery.length > 0
-  );
-
-  const selectedKeys = args.all
-    ? galleryKeys
-    : args.apartmentKey && registry[args.apartmentKey] && Array.isArray(registry[args.apartmentKey].gallery) && registry[args.apartmentKey].gallery.length > 0
-      ? [args.apartmentKey]
-      : [];
-
-  const skippedKeys = [];
-  if (!args.all && args.apartmentKey && !selectedKeys.length) {
-    skippedKeys.push(args.apartmentKey);
-  }
-
-  const generatedKeys = new Set();
-  const indexEntries = [];
-
-  for (const key of galleryKeys) {
-    const entry = registry[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    indexEntries.push({
-      apartmentKey: key,
-      name: apartmentName,
-      count: Array.isArray(entry.gallery) ? entry.gallery.length : 0
-    });
-  }
-
-  for (const key of selectedKeys) {
-    const entry = registry[key];
-    const seoPreviewEntry = seoPreview[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    const items = getGalleryEntries(entry, key, seoPreviewEntry);
-    const filePath = path.join(outputDir, `gallery-order-${key}.html`);
-    writeFile(
-      filePath,
-      buildPageHtml({
-        apartmentKey: key,
-        apartmentName,
-        items,
-        seoPreviewSource: Boolean(seoPreviewEntry)
-      })
-    );
-    generatedKeys.add(key);
-  }
-
-  writeFile(
-    path.join(outputDir, "index.html"),
-    buildIndexHtml({ entries: indexEntries, knownGeneratedKeys: generatedKeys })
-  );
-
-  console.log(`Generated gallery tool pages: ${[...generatedKeys].join(", ") || "none"}`);
-  console.log(`Index written: ${path.join(outputDir, "index.html")}`);
-  if (skippedKeys.length) {
-    console.log(`Skipped apartmentKeys: ${skippedKeys.join(", ")}`);
-  }
-}
-
-main();
+</html>

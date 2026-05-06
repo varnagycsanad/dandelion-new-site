@@ -1,39 +1,53 @@
-# Gallery Order Tool
+# Dandelion galéria rendező
 
-Local helper for arranging accommodation gallery order by `apartmentKey`.
+Helyi segédeszköz a szállásoldali galériák sorrendjének rendezéséhez.
 
-## Usage
+## Mit használ?
+
+- Galéria forrás: `src/data/images/accommodation-images.generated.json`
+- SEO előnézet: `src/data/images/accommodation-images.seo-test.json` ha létezik
+- Szállásnév-forrás: `src/data/accommodations.ts`
+
+## Hogyan generálj mindent?
+
+```bash
+node scripts/generate-gallery-order-tool.mjs --all
+```
+
+Ez legenerálja az összes gallery-vel rendelkező szállás HTML-jét a
+`project-docs/gallery-order-tool/` mappába, és frissíti az `index.html`-t is.
+
+## Hogyan generálj csak egy szállást?
 
 ```bash
 node scripts/generate-gallery-order-tool.mjs --apartment=d2
 ```
 
-This generates:
+Ez csak az adott apartmentKey HTML-jét frissíti, és közben az indexet is újragenerálja.
 
-```text
-project-docs/gallery-order-tool/gallery-order-d2.html
-```
+## Hogyan nyisd meg?
 
-## Data Source
+Dupla kattintással futtasd ezt:
 
-The tool reads from:
+`project-docs/gallery-order-tool/open-gallery-order-tool.bat`
 
-- `src/data/images/accommodation-images.generated.json`
+Ez megnyitja a helyi `index.html`-t a böngészőben.
 
-It does not modify the registry automatically.
+## Hogyan működik?
 
-## What the HTML Does
+1. Nyisd meg az adott szállás `gallery-order-*.html` fájlját.
+2. Húzd a képeket a kívánt sorrendbe.
+3. A sorrend automatikusan újraszámozódik.
+4. Másold ki a JSON, a Codex-ready blokk vagy a sima lista exportot.
+5. A tool nem írja vissza automatikusan az image registryt.
 
-- shows the selected `apartmentKey`
-- renders a draggable image grid
-- shows large order numbers
-- shows image id, filename, and `sortOrder`
-- updates numbering after drag-and-drop
-- exports the current order as a JSON array of filenames
-- provides a `Sorrend másolása` button
+## Mit kell bemásolni ChatGPT-nek?
 
-## Notes
+A legbiztosabb a `Codex-ready blokk` gombbal másolt blokk.
 
-- local use only
-- not published as a route
-- images are loaded from `public/images/...` via relative paths
+## Fontos
+
+- A tool helyi használatra készült.
+- Nem publikus route.
+- Nem módosítja automatikusan a registryt.
+- A képek a `public/images` útvonalakról töltődnek be a helyi HTML-ből.

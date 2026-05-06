@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dandelion galéria rendező</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4efe6;
+      --panel: #fffaf2;
+      --text: #2f2a23;
+      --muted: #716657;
+      --border: rgba(95, 73, 47, 0.18);
+      --accent: #86643d;
+      --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
+      --ok: #2f6b3a;
+      --warn: #a84f2e;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
+        linear-gradient(180deg, var(--bg), #eee4d1 70%);
+    }
+    .shell { max-width: 1200px; margin: 0 auto; padding: 32px 20px 44px; }
+    .hero {
+      background: rgba(255, 250, 242, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+    .subtitle { margin: 10px 0 0; color: var(--muted); max-width: 78ch; line-height: 1.55; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.82);
+    }
+    .pill strong { color: var(--accent); }
+    .tablewrap {
+      margin-top: 20px;
+      overflow: auto;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(95,73,47,0.12); vertical-align: middle; }
+    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(255,250,242,0.92); }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: 0.9rem;
+      padding: 3px 6px;
+      border-radius: 8px;
+      background: rgba(243, 235, 223, 0.9);
+    }
+    .muted { color: var(--muted); }
+    .ok { color: var(--ok); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    .footer { margin-top: 18px; color: var(--muted); line-height: 1.5; }
+    @media (max-width: 720px) {
+      .shell { padding: 18px 12px 32px; }
+      .hero { border-radius: 16px; padding: 18px; }
+      .tablewrap { border-radius: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <h1>Dandelion galéria rendező</h1>
+      <p class="subtitle">
+        Helyi, újrafuttatható galéria-rendező központ. Innen lehet egy szállást külön megnyitni vagy az összes
+        gallery-s apartman HTML-jét egyszerre előállítani. Az eszköz csak exportálja az új sorrendet, nem írja vissza
+        automatikusan a registryt.
+      </p>
+      <div class="pills">
+        <span class="pill"><strong>Összes gallery-s apartman</strong> 6</span>
+        <span class="pill"><strong>Jelenleg generálva</strong> 6</span>
+        <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+      </div>
+      <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
+    </section>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Szállás neve</th>
+            <th>apartmentKey</th>
+            <th>Képek száma</th>
+            <th>Rendező HTML</th>
+            <th>Állapot</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td>Dandelion D1</td>
+          <td><code>d1</code></td>
+          <td>18</td>
+          <td><a href="gallery-order-d1.html">gallery-order-d1.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        <tr>
+          <td>Dandelion D2</td>
+          <td><code>d2</code></td>
+          <td>17</td>
+          <td><a href="gallery-order-d2.html">gallery-order-d2.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        <tr>
+          <td>Dandelion Köveskál</td>
+          <td><code>koveskal</code></td>
+          <td>21</td>
+          <td><a href="gallery-order-koveskal.html">gallery-order-koveskal.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        <tr>
+          <td>Fügeház</td>
+          <td><code>fugehaz</code></td>
+          <td>13</td>
+          <td><a href="gallery-order-fugehaz.html">gallery-order-fugehaz.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        <tr>
+          <td>Dandelion Szőlőliget</td>
+          <td><code>szololiget</code></td>
+          <td>21</td>
+          <td><a href="gallery-order-szololiget.html">gallery-order-szololiget.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        <tr>
+          <td>Dandelion Zsálya</td>
+          <td><code>zsalya</code></td>
+          <td>11</td>
+          <td><a href="gallery-order-zsalya.html">gallery-order-zsalya.html</a></td>
+          <td><span class="ok">kész</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

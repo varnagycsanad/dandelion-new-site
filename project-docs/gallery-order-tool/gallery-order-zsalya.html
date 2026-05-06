@@ -1,202 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
-import url from "node:url";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, "..");
-const registryPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.generated.json");
-const seoPreviewPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.seo-test.json");
-const accommodationsPath = path.join(projectRoot, "src", "data", "accommodations.ts");
-const outputDir = path.join(projectRoot, "project-docs", "gallery-order-tool");
-
-const DISPLAY_NAME_FALLBACKS = {
-  d1: "Dandelion D1",
-  d2: "Dandelion D2",
-  fugehaz: "Dandelion Fügeház",
-  zsalya: "Dandelion Zsálya",
-  szololiget: "Dandelion Szőlőliget",
-  szepvolgyi: "Dandelion Szépvölgyi",
-  vintage: "Dandelion Vintage",
-  royal_homes: "Dandelion Royal Homes",
-  koveskal: "Dandelion Köveskál"
-};
-
-function parseArgs(argv) {
-  const apartmentArg = argv.find((arg) => arg.startsWith("--apartment="));
-  return {
-    all: argv.includes("--all"),
-    apartmentKey: apartmentArg ? apartmentArg.split("=", 2)[1].trim() : ""
-  };
-}
-
-function ensureDir(dir) {
-  fs.mkdirSync(dir, { recursive: true });
-}
-
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function serializeForScript(value) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c");
-}
-
-function toPosixPath(filePath) {
-  return filePath.split(path.sep).join("/");
-}
-
-function relativePublicUrl(assetUrl) {
-  if (!assetUrl) {
-    return "";
-  }
-
-  if (/^(?:https?:)?\/\//.test(assetUrl)) {
-    return assetUrl;
-  }
-
-  if (!assetUrl.startsWith("/")) {
-    return assetUrl;
-  }
-
-  const publicRoot = path.join(projectRoot, "public");
-  const relativePrefix = toPosixPath(path.relative(outputDir, publicRoot));
-  return `${relativePrefix}/${assetUrl.replace(/^\/+/, "")}`;
-}
-
-function getFilename(assetUrl) {
-  return path.posix.basename(assetUrl || "");
-}
-
-function readAccommodationNames() {
-  const raw = fs.readFileSync(accommodationsPath, "utf8");
-  const map = new Map();
-  const pattern = /name:\s*"([^"]+)"[\s\S]*?imageSlot:\s*"([^"]+)"/g;
-
-  for (const match of raw.matchAll(pattern)) {
-    const name = match[1].trim();
-    const imageSlot = match[2].trim();
-    const apartmentKey = imageSlot.replace(/_card_image$/, "");
-    if (!map.has(apartmentKey)) {
-      map.set(apartmentKey, name);
-    }
-  }
-
-  return map;
-}
-
-function loadSeoPreview() {
-  if (!fs.existsSync(seoPreviewPath)) {
-    return {};
-  }
-
-  return readJson(seoPreviewPath);
-}
-
-function mergeSeoDraft(baseDraft, previewDraft) {
-  const baseHasValues =
-    baseDraft &&
-    Object.entries(baseDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-  const previewHasValues =
-    previewDraft &&
-    Object.entries(previewDraft).some(([key, value]) => key !== "approved" && String(value ?? "").trim() !== "");
-
-  if (baseDraft?.approved === true) {
-    return baseDraft;
-  }
-
-  if (!baseHasValues && previewHasValues) {
-    return previewDraft;
-  }
-
-  if (baseHasValues && previewHasValues) {
-    return {
-      ...previewDraft,
-      ...baseDraft,
-      approved: baseDraft?.approved ?? previewDraft?.approved ?? false
-    };
-  }
-
-  return baseDraft || previewDraft || null;
-}
-
-function getGalleryEntries(registryEntry, apartmentKey, seoPreviewEntry) {
-  const previewByFilename = new Map();
-
-  for (const item of seoPreviewEntry?.gallery || []) {
-    previewByFilename.set(getFilename(item.src), item.seoDraft || null);
-  }
-
-  return (registryEntry.gallery || []).map((item) => {
-    const filename = getFilename(item.src);
-    const previewSeoDraft = previewByFilename.get(filename);
-    const mergedSeoDraft = mergeSeoDraft(item.seoDraft || null, previewSeoDraft);
-
-    return {
-      id: item.id || "",
-      apartmentKey,
-      src: item.src || "",
-      thumb: item.thumb || "",
-      sortOrder: item.sortOrder ?? null,
-      filename,
-      seoDraft: mergedSeoDraft
-    };
-  });
-}
-
-function buildExportJson(items) {
-  return JSON.stringify(items.map((item) => item.filename), null, 2);
-}
-
-function buildCodexBlock(apartmentKey, items, notes = {}) {
-  const lines = ["APARTMENT_KEY: " + apartmentKey, "NEW_ORDER:", "["];
-  for (let index = 0; index < items.length; index += 1) {
-    const filename = items[index].filename;
-    const note = String(notes[filename] || "").trim();
-    lines.push(`  "${filename}"${note ? `, // note: ${note}` : ""}`);
-  }
-  lines.push("]");
-
-  const noteEntries = Object.entries(notes)
-    .map(([filename, note]) => ({ filename, note: String(note).trim() }))
-    .filter((entry) => entry.note);
-
-  if (noteEntries.length) {
-    lines.push("NOTES:");
-    lines.push(JSON.stringify(noteEntries, null, 2));
-  }
-
-  return lines.join("\n");
-}
-
-function buildSimpleList(items) {
-  return items.map((item) => item.filename).join("\n");
-}
-
-function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource }) {
-  const pageData = {
-    apartmentKey,
-    apartmentName,
-    sourceRegistry: "src/data/images/accommodation-images.generated.json",
-    seoPreviewSource: seoPreviewSource ? "src/data/images/accommodation-images.seo-test.json" : "",
-    items
-  };
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="hu">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező - ${escapeHtml(apartmentName)}</title>
+  <title>Dandelion galéria rendező - Dandelion Zsálya</title>
   <style>
     :root {
       color-scheme: light;
@@ -588,17 +395,15 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
   <div class="shell">
     <div class="topbar">
       <section class="hero">
-        <h1>${escapeHtml(apartmentName)}</h1>
+        <h1>Dandelion Zsálya</h1>
         <p class="subtitle">
           Lokális galéria-rendező a képek sorrendjének kényelmes áthúzásához. Az exportok másolhatók, de a
           registryt ez az eszköz nem írja vissza automatikusan.
         </p>
         <div class="pills">
-          <span class="pill"><strong>ApartmentKey</strong> ${escapeHtml(apartmentKey)}</span>
-          <span class="pill"><strong>Forrás</strong> ${escapeHtml("src/data/images/accommodation-images.generated.json")}</span>
-          <span class="pill"><strong>SEO preview</strong> ${
-            seoPreviewSource ? escapeHtml("src/data/images/accommodation-images.seo-test.json") : "nincs"
-          }</span>
+          <span class="pill"><strong>ApartmentKey</strong> zsalya</span>
+          <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+          <span class="pill"><strong>SEO preview</strong> src/data/images/accommodation-images.seo-test.json</span>
           <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
         <div class="metrics" id="metrics"></div>
@@ -638,7 +443,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     </p>
   </div>
 
-  <script id="tool-data" type="application/json">${serializeForScript(pageData)}</script>
+  <script id="tool-data" type="application/json">{"apartmentKey":"zsalya","apartmentName":"Dandelion Zsálya","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"src/data/images/accommodation-images.seo-test.json","items":[{"id":"zsalya-001","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp","sortOrder":10,"filename":"dandelion-zsalya-source-001.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendegház hálószobája franciaággyal és tetőtéri ablakkal","titleHu":"Zsalya Vendegház hálószoba","captionHu":"A hálószobában egy franciaágy, egy kis asztal és egy tetőtéri ablak van.","altEn":"Zsalya Vendeghaz bedroom with a double bed and a skylight window","titleEn":"Zsalya Vendeghaz bedroom","captionEn":"The bedroom has a double bed, a small table, and a skylight window."}},{"id":"zsalya-002","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp","sortOrder":20,"filename":"dandelion-zsalya-source-002.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház tetőtéri szobája ággyal, asztallal és székkel","titleHu":"Zsalya Vendégház tetőtéri szoba","captionHu":"A tetőtéri szobában egy ágy, egy asztal két székkel és egy ruhatartó áll.","altEn":"Zsalya Vendeghaz attic room with a bed, table, chairs and clothes rack","titleEn":"Zsalya Vendeghaz attic room","captionEn":"The attic room has a bed, a table with chairs, and a clothes rack."}},{"id":"zsalya-003","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp","sortOrder":30,"filename":"dandelion-zsalya-source-003.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és ülőbútorral","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek, fotel és kanapé áll a nagy ablakok mellett.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, an armchair and a sofa beside the large windows."}},{"id":"zsalya-004","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp","sortOrder":40,"filename":"dandelion-zsalya-source-004.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendeghaz fedett terasza asztallal, székekkel és ülőbútorokkal","titleHu":"Zsalya Vendeghaz fedett terasza","captionHu":"A fedett teraszon asztal, székek és egy kisebb ülősarok kapott helyet.","altEn":"Zsalya Vendeghaz covered terrace with a table, chairs and seating area","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs and a small seating area."}},{"id":"zsalya-005","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp","sortOrder":50,"filename":"dandelion-zsalya-source-005.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon asztal, székek és nagy ablakok mellett ülősarok is van.","altEn":"Zsalya Vendeghaz covered terrace with table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a table, chairs, a seating area and large windows."}},{"id":"zsalya-006","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp","sortOrder":60,"filename":"dandelion-zsalya-source-006.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza étkezőasztallal, székekkel és kanapéval","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon étkezőasztal, székek, egy kanapé és fotelek vannak.","altEn":"Zsalya Vendeghaz covered terrace with dining table, chairs and sofa","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a dining table, chairs, a sofa and armchairs."}},{"id":"zsalya-007","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp","sortOrder":70,"filename":"dandelion-zsalya-source-007.webp","seoDraft":{"approved":false,"altHu":"Világos étkezőrész asztallal és székekkel","titleHu":"Étkezőrész","captionHu":"A világos étkezőrészben asztal, székek és kényelmes fotelek várnak.","altEn":"Bright dining area with table and chairs","titleEn":"Dining area","captionEn":"The bright dining area has a table, chairs, and comfortable armchairs."}},{"id":"zsalya-008","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp","sortOrder":80,"filename":"dandelion-zsalya-source-008.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház fedett terasza asztallal, székekkel és nagy ablakokkal","titleHu":"Zsalya Vendégház fedett terasza","captionHu":"A fedett teraszon egy kerek asztal, székek és egy nagy szekrény áll.","altEn":"Zsalya Vendeghaz covered terrace with a round table, chairs and large windows","titleEn":"Zsalya Vendeghaz covered terrace","captionEn":"The covered terrace has a round table, chairs and a large cabinet."}},{"id":"zsalya-009","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp","sortOrder":90,"filename":"dandelion-zsalya-source-009.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház kertje és háza tágas füves területtel","titleHu":"Zsalya Vendégház és kert","captionHu":"A Zsalya Vendégház egy tágas füves kert szélén áll, körülötte fákkal és bokrokkal.","altEn":"Zsalya Vendeghaz house and garden with a wide grassy yard","titleEn":"Zsalya Vendeghaz and garden","captionEn":"Zsalya Vendeghaz stands at the edge of a wide grassy garden, surrounded by trees and shrubs."}},{"id":"zsalya-010","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp","sortOrder":100,"filename":"dandelion-zsalya-source-010.webp","seoDraft":{"approved":false,"altHu":"Zsalya Vendégház teraszos háza füves kerttel","titleHu":"Zsalya Vendégház terasszal","captionHu":"A Zsalya Vendégház teraszos háza mellett füves kert és burkolt udvar látszik.","altEn":"Zsalya Vendeghaz house with terrace and grassy garden","titleEn":"Zsalya Vendeghaz with terrace","captionEn":"The Zsalya Vendeghaz house has a terrace, a grassy garden, and a paved yard."}},{"id":"zsalya-011","apartmentKey":"zsalya","src":"/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp","thumb":"/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp","sortOrder":110,"filename":"dandelion-zsalya-source-011.webp","seoDraft":{"approved":false,"altHu":"A Zsalya Vendégház külső képe","titleHu":"Zsalya Vendégház kívülről","captionHu":"A Zsalya Vendégház világos, barátságos ház csendes környezetben.","altEn":"Exterior of Zsalya Vendeghaz","titleEn":"Zsalya Vendeghaz exterior","captionEn":"Zsalya Vendeghaz is a bright, welcoming house in a quiet setting."}}]}</script>
   <script>
     const initialData = JSON.parse(document.getElementById("tool-data").textContent);
     const galleryRoot = document.getElementById("gallery-root");
@@ -691,11 +496,13 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         lines.push(JSON.stringify(noteEntries, null, 2));
       }
 
-      return lines.join("\n");
+      return lines.join("
+");
     }
 
     function buildSimpleList() {
-      return state.order.map((item) => filenameOf(item)).join("\n");
+      return state.order.map((item) => filenameOf(item)).join("
+");
     }
 
     function getMetrics() {
@@ -970,210 +777,4 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
     renderAll();
   </script>
 </body>
-</html>`;
-}
-
-function buildIndexHtml({ entries, knownGeneratedKeys }) {
-  const rows = entries
-    .map((entry) => {
-      const fileName = `gallery-order-${entry.apartmentKey}.html`;
-      const filePath = path.join(outputDir, fileName);
-      const generated = fs.existsSync(filePath);
-      const link = generated ? fileName : "";
-      return `
-        <tr>
-          <td>${escapeHtml(entry.name)}</td>
-          <td><code>${escapeHtml(entry.apartmentKey)}</code></td>
-          <td>${escapeHtml(String(entry.count))}</td>
-          <td>${generated ? `<a href="${escapeHtml(link)}">${escapeHtml(fileName)}</a>` : "<span class=\"muted\">nincs legenerálva</span>"}</td>
-          <td>${generated ? "<span class=\"ok\">kész</span>" : "<span class=\"warn\">hiányzik</span>"}</td>
-        </tr>`;
-    })
-    .join("");
-
-  const total = entries.length;
-  const generatedCount = entries.filter((entry) => knownGeneratedKeys.has(entry.apartmentKey)).length;
-
-  return `<!doctype html>
-<html lang="hu">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dandelion galéria rendező</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f4efe6;
-      --panel: #fffaf2;
-      --text: #2f2a23;
-      --muted: #716657;
-      --border: rgba(95, 73, 47, 0.18);
-      --accent: #86643d;
-      --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
-      --ok: #2f6b3a;
-      --warn: #a84f2e;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
-        linear-gradient(180deg, var(--bg), #eee4d1 70%);
-    }
-    .shell { max-width: 1200px; margin: 0 auto; padding: 32px 20px 44px; }
-    .hero {
-      background: rgba(255, 250, 242, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
-    .subtitle { margin: 10px 0 0; color: var(--muted); max-width: 78ch; line-height: 1.55; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.82);
-    }
-    .pill strong { color: var(--accent); }
-    .tablewrap {
-      margin-top: 20px;
-      overflow: auto;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    table { width: 100%; border-collapse: collapse; min-width: 780px; }
-    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(95,73,47,0.12); vertical-align: middle; }
-    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(255,250,242,0.92); }
-    tr:last-child td { border-bottom: 0; }
-    code {
-      font-family: Consolas, "Liberation Mono", monospace;
-      font-size: 0.9rem;
-      padding: 3px 6px;
-      border-radius: 8px;
-      background: rgba(243, 235, 223, 0.9);
-    }
-    .muted { color: var(--muted); }
-    .ok { color: var(--ok); font-weight: 700; }
-    .warn { color: var(--warn); font-weight: 700; }
-    .footer { margin-top: 18px; color: var(--muted); line-height: 1.5; }
-    @media (max-width: 720px) {
-      .shell { padding: 18px 12px 32px; }
-      .hero { border-radius: 16px; padding: 18px; }
-      .tablewrap { border-radius: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <section class="hero">
-      <h1>Dandelion galéria rendező</h1>
-      <p class="subtitle">
-        Helyi, újrafuttatható galéria-rendező központ. Innen lehet egy szállást külön megnyitni vagy az összes
-        gallery-s apartman HTML-jét egyszerre előállítani. Az eszköz csak exportálja az új sorrendet, nem írja vissza
-        automatikusan a registryt.
-      </p>
-      <div class="pills">
-        <span class="pill"><strong>Összes gallery-s apartman</strong> ${escapeHtml(String(total))}</span>
-        <span class="pill"><strong>Jelenleg generálva</strong> ${escapeHtml(String(generatedCount))}</span>
-        <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
-      </div>
-      <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
-    </section>
-
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Szállás neve</th>
-            <th>apartmentKey</th>
-            <th>Képek száma</th>
-            <th>Rendező HTML</th>
-            <th>Állapot</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</body>
-</html>`;
-}
-
-function writeFile(filePath, content) {
-  ensureDir(path.dirname(filePath));
-  fs.writeFileSync(filePath, content, "utf8");
-}
-
-function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const registry = readJson(registryPath);
-  const seoPreview = loadSeoPreview();
-  const nameMap = readAccommodationNames();
-
-  const galleryKeys = Object.keys(registry).filter(
-    (key) => registry[key] && Array.isArray(registry[key].gallery) && registry[key].gallery.length > 0
-  );
-
-  const selectedKeys = args.all
-    ? galleryKeys
-    : args.apartmentKey && registry[args.apartmentKey] && Array.isArray(registry[args.apartmentKey].gallery) && registry[args.apartmentKey].gallery.length > 0
-      ? [args.apartmentKey]
-      : [];
-
-  const skippedKeys = [];
-  if (!args.all && args.apartmentKey && !selectedKeys.length) {
-    skippedKeys.push(args.apartmentKey);
-  }
-
-  const generatedKeys = new Set();
-  const indexEntries = [];
-
-  for (const key of galleryKeys) {
-    const entry = registry[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    indexEntries.push({
-      apartmentKey: key,
-      name: apartmentName,
-      count: Array.isArray(entry.gallery) ? entry.gallery.length : 0
-    });
-  }
-
-  for (const key of selectedKeys) {
-    const entry = registry[key];
-    const seoPreviewEntry = seoPreview[key];
-    const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
-    const items = getGalleryEntries(entry, key, seoPreviewEntry);
-    const filePath = path.join(outputDir, `gallery-order-${key}.html`);
-    writeFile(
-      filePath,
-      buildPageHtml({
-        apartmentKey: key,
-        apartmentName,
-        items,
-        seoPreviewSource: Boolean(seoPreviewEntry)
-      })
-    );
-    generatedKeys.add(key);
-  }
-
-  writeFile(
-    path.join(outputDir, "index.html"),
-    buildIndexHtml({ entries: indexEntries, knownGeneratedKeys: generatedKeys })
-  );
-
-  console.log(`Generated gallery tool pages: ${[...generatedKeys].join(", ") || "none"}`);
-  console.log(`Index written: ${path.join(outputDir, "index.html")}`);
-  if (skippedKeys.length) {
-    console.log(`Skipped apartmentKeys: ${skippedKeys.join(", ")}`);
-  }
-}
-
-main();
+</html>
