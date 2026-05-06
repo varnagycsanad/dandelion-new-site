@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dandelion galéria rendező - Dandelion Royal Homes</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4efe6;
+      --panel: #fffaf2;
+      --panel-soft: #f8f1e6;
+      --text: #2f2a23;
+      --muted: #716657;
+      --border: rgba(95, 73, 47, 0.18);
+      --accent: #86643d;
+      --accent-strong: #694929;
+      --accent-soft: #e9dcc8;
+      --shadow: 0 18px 40px rgba(56, 40, 18, 0.12);
+      --ok: #2f6b3a;
+      --warn: #a84f2e;
+      --info: #5b5d98;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 36%),
+        linear-gradient(180deg, var(--bg), #eee4d1 70%);
+    }
+
+    .shell {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .hero, .panel {
+      background: rgba(255, 250, 242, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 22px 22px 18px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.55;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.78);
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .pill strong {
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .toolbar textarea {
+      width: 100%;
+      min-height: 160px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 12px;
+      font: 0.88rem/1.45 Consolas, "Liberation Mono", monospace;
+      color: #2d271f;
+    }
+
+    .copybar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .button {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      box-shadow: var(--shadow);
+    }
+
+    .button:hover { background: var(--accent-strong); }
+
+    .button.secondary {
+      background: var(--panel-soft);
+      color: var(--accent-strong);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.8);
+    }
+
+    .metric__label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .metric__value {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.45);
+    }
+
+    .section__title {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .section__title small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      user-select: none;
+      transition: box-shadow 120ms ease, transform 120ms ease, opacity 120ms ease;
+    }
+
+    .card.is-pointer-dragging {
+      opacity: 0.96;
+      z-index: 30;
+      pointer-events: none;
+      box-shadow: 0 24px 48px rgba(56, 40, 18, 0.24);
+      transform: translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0) scale(1.02) rotate(0.4deg);
+    }
+
+    .card.is-drop-target-before {
+      box-shadow: inset 0 4px 0 var(--accent), var(--shadow);
+    }
+
+    .card.is-drop-target-after {
+      box-shadow: inset 0 -4px 0 var(--accent), var(--shadow);
+    }
+
+    .card__media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: #ded5c6;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .card.is-pointer-dragging .card__media {
+      cursor: grabbing;
+    }
+
+    .drag-hint {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      max-width: calc(100% - 20px);
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(47, 42, 35, 0.72);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-align: right;
+      pointer-events: none;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 32px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(47, 42, 35, 0.82);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge.secondary {
+      top: auto;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 250, 242, 0.95);
+      color: var(--accent-strong);
+      border: 1px solid var(--border);
+    }
+
+    .card__body {
+      padding: 12px 12px 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .headline {
+      display: grid;
+      gap: 4px;
+    }
+
+    .headline strong {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .headline span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .meta {
+      display: grid;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: var(--text);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: rgba(243, 235, 223, 0.8);
+    }
+
+    .meta-row strong {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .statusline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .status[data-state="ok"] { color: var(--ok); }
+    .status[data-state="warn"] { color: var(--warn); }
+    .status[data-state="info"] { color: var(--info); }
+
+    .seo {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.66);
+      padding: 8px 10px;
+    }
+
+    .seo summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .seo__grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.84rem;
+    }
+
+    .seo__item {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(243, 235, 223, 0.75);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .note {
+      display: grid;
+      gap: 6px;
+    }
+
+    .note label {
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .note textarea {
+      width: 100%;
+      min-height: 68px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 10px;
+      font: 0.88rem/1.4 system-ui, sans-serif;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .topbar { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 18px 12px 36px; }
+      .panel, .hero, .section { border-radius: 16px; }
+      .metrics { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <section class="hero">
+        <h1>Dandelion Royal Homes</h1>
+        <p class="subtitle">
+          Lokális galéria-rendező a képek sorrendjének kényelmes áthúzásához. Az exportok másolhatók, de a
+          registryt ez az eszköz nem írja vissza automatikusan.
+        </p>
+        <div class="pills">
+          <span class="pill"><strong>ApartmentKey</strong> royal_homes</span>
+          <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+          <span class="pill"><strong>SEO preview</strong> nincs</span>
+          <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
+        </div>
+        <div class="metrics" id="metrics"><div class="metric"><span class="metric__label">Képek száma</span><span class="metric__value">33</span></div><div class="metric"><span class="metric__label">Duplikált filename</span><span class="metric__value">0</span></div><div class="metric"><span class="metric__label">Üres src</span><span class="metric__value">0</span></div><div class="metric"><span class="metric__label">Minden kép betöltött</span><span class="metric__value">nem ellenőrzött</span></div><div class="metric"><span class="metric__label">sortOrder mezők</span><span class="metric__value">33/33</span></div><div class="metric"><span class="metric__label">Első 12 kép</span><span class="metric__value">12</span></div><div class="metric"><span class="metric__label">Törött képek</span><span class="metric__value">0</span></div><div class="metric"><span class="metric__label">Betöltött képek</span><span class="metric__value">nem ellenőrzött</span></div></div>
+      </section>
+
+      <aside class="panel">
+        <div class="copybar">
+          <button class="button" id="copy-json" type="button">JSON sorrend másolása</button>
+          <button class="button secondary" id="copy-codex" type="button">Codex-ready blokk másolása</button>
+          <button class="button secondary" id="copy-list" type="button">Sima lista másolása</button>
+        </div>
+        <div class="toolbar" aria-label="Export mezők">
+          <div>
+            <textarea id="export-json" readonly>[
+  &quot;dandelion-royal-homes-source-001.webp&quot;,
+  &quot;dandelion-royal-homes-source-002.webp&quot;,
+  &quot;dandelion-royal-homes-source-003.webp&quot;,
+  &quot;dandelion-royal-homes-source-004.webp&quot;,
+  &quot;dandelion-royal-homes-source-005.webp&quot;,
+  &quot;dandelion-royal-homes-source-006.webp&quot;,
+  &quot;dandelion-royal-homes-source-007.webp&quot;,
+  &quot;dandelion-royal-homes-source-008.webp&quot;,
+  &quot;dandelion-royal-homes-source-009.webp&quot;,
+  &quot;dandelion-royal-homes-source-010.webp&quot;,
+  &quot;dandelion-royal-homes-source-011.webp&quot;,
+  &quot;dandelion-royal-homes-source-012.webp&quot;,
+  &quot;dandelion-royal-homes-source-013.webp&quot;,
+  &quot;dandelion-royal-homes-source-014.webp&quot;,
+  &quot;dandelion-royal-homes-source-015.webp&quot;,
+  &quot;dandelion-royal-homes-source-016.webp&quot;,
+  &quot;dandelion-royal-homes-source-017.webp&quot;,
+  &quot;dandelion-royal-homes-source-018.webp&quot;,
+  &quot;dandelion-royal-homes-source-019.webp&quot;,
+  &quot;dandelion-royal-homes-source-020.webp&quot;,
+  &quot;dandelion-royal-homes-source-021.webp&quot;,
+  &quot;dandelion-royal-homes-source-022.webp&quot;,
+  &quot;dandelion-royal-homes-source-023.webp&quot;,
+  &quot;dandelion-royal-homes-source-024.webp&quot;,
+  &quot;dandelion-royal-homes-source-025.webp&quot;,
+  &quot;dandelion-royal-homes-source-026.webp&quot;,
+  &quot;dandelion-royal-homes-source-027.webp&quot;,
+  &quot;dandelion-royal-homes-source-028.webp&quot;,
+  &quot;dandelion-royal-homes-source-029.webp&quot;,
+  &quot;dandelion-royal-homes-source-030.webp&quot;,
+  &quot;dandelion-royal-homes-source-031.webp&quot;,
+  &quot;dandelion-royal-homes-source-032.webp&quot;,
+  &quot;dandelion-royal-homes-source-033.webp&quot;
+]</textarea>
+          </div>
+          <div>
+            <textarea id="export-codex" readonly>APARTMENT_KEY: royal_homes
+NEW_ORDER:
+[
+  &quot;dandelion-royal-homes-source-001.webp&quot;
+  &quot;dandelion-royal-homes-source-002.webp&quot;
+  &quot;dandelion-royal-homes-source-003.webp&quot;
+  &quot;dandelion-royal-homes-source-004.webp&quot;
+  &quot;dandelion-royal-homes-source-005.webp&quot;
+  &quot;dandelion-royal-homes-source-006.webp&quot;
+  &quot;dandelion-royal-homes-source-007.webp&quot;
+  &quot;dandelion-royal-homes-source-008.webp&quot;
+  &quot;dandelion-royal-homes-source-009.webp&quot;
+  &quot;dandelion-royal-homes-source-010.webp&quot;
+  &quot;dandelion-royal-homes-source-011.webp&quot;
+  &quot;dandelion-royal-homes-source-012.webp&quot;
+  &quot;dandelion-royal-homes-source-013.webp&quot;
+  &quot;dandelion-royal-homes-source-014.webp&quot;
+  &quot;dandelion-royal-homes-source-015.webp&quot;
+  &quot;dandelion-royal-homes-source-016.webp&quot;
+  &quot;dandelion-royal-homes-source-017.webp&quot;
+  &quot;dandelion-royal-homes-source-018.webp&quot;
+  &quot;dandelion-royal-homes-source-019.webp&quot;
+  &quot;dandelion-royal-homes-source-020.webp&quot;
+  &quot;dandelion-royal-homes-source-021.webp&quot;
+  &quot;dandelion-royal-homes-source-022.webp&quot;
+  &quot;dandelion-royal-homes-source-023.webp&quot;
+  &quot;dandelion-royal-homes-source-024.webp&quot;
+  &quot;dandelion-royal-homes-source-025.webp&quot;
+  &quot;dandelion-royal-homes-source-026.webp&quot;
+  &quot;dandelion-royal-homes-source-027.webp&quot;
+  &quot;dandelion-royal-homes-source-028.webp&quot;
+  &quot;dandelion-royal-homes-source-029.webp&quot;
+  &quot;dandelion-royal-homes-source-030.webp&quot;
+  &quot;dandelion-royal-homes-source-031.webp&quot;
+  &quot;dandelion-royal-homes-source-032.webp&quot;
+  &quot;dandelion-royal-homes-source-033.webp&quot;
+]</textarea>
+          </div>
+          <div>
+            <textarea id="export-list" readonly>dandelion-royal-homes-source-001.webp
+dandelion-royal-homes-source-002.webp
+dandelion-royal-homes-source-003.webp
+dandelion-royal-homes-source-004.webp
+dandelion-royal-homes-source-005.webp
+dandelion-royal-homes-source-006.webp
+dandelion-royal-homes-source-007.webp
+dandelion-royal-homes-source-008.webp
+dandelion-royal-homes-source-009.webp
+dandelion-royal-homes-source-010.webp
+dandelion-royal-homes-source-011.webp
+dandelion-royal-homes-source-012.webp
+dandelion-royal-homes-source-013.webp
+dandelion-royal-homes-source-014.webp
+dandelion-royal-homes-source-015.webp
+dandelion-royal-homes-source-016.webp
+dandelion-royal-homes-source-017.webp
+dandelion-royal-homes-source-018.webp
+dandelion-royal-homes-source-019.webp
+dandelion-royal-homes-source-020.webp
+dandelion-royal-homes-source-021.webp
+dandelion-royal-homes-source-022.webp
+dandelion-royal-homes-source-023.webp
+dandelion-royal-homes-source-024.webp
+dandelion-royal-homes-source-025.webp
+dandelion-royal-homes-source-026.webp
+dandelion-royal-homes-source-027.webp
+dandelion-royal-homes-source-028.webp
+dandelion-royal-homes-source-029.webp
+dandelion-royal-homes-source-030.webp
+dandelion-royal-homes-source-031.webp
+dandelion-royal-homes-source-032.webp
+dandelion-royal-homes-source-033.webp</textarea>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="section">
+      <h2 class="section__title">
+        Első 12 kép – kiemelt galéria
+        <small>Az első tizenkettő külön vizuális blokkban jelenik meg, hogy az exportnál azonnal látszódjon a fókusz.</small>
+      </h2>
+      <div id="gallery-root"><div class="section__title">Első 12 kép – kiemelt galéria<small>12 kép látható ebben a blokkban.</small></div><div class="grid" id="gallery-grid" data-group="primary"><article class="card" data-index="0" data-filename="dandelion-royal-homes-source-001.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-001.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp" /><span class="badge">#1</span><span class="badge secondary">10</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-001.webp</strong><span>royal_homes-001</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-001.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>10</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-0">Megjegyzés</label><textarea id="note-0" data-note-index="0" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="1" data-filename="dandelion-royal-homes-source-002.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-002.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp" /><span class="badge">#2</span><span class="badge secondary">20</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-002.webp</strong><span>royal_homes-002</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-002.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>20</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-1">Megjegyzés</label><textarea id="note-1" data-note-index="1" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="2" data-filename="dandelion-royal-homes-source-003.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-003.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp" /><span class="badge">#3</span><span class="badge secondary">30</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-003.webp</strong><span>royal_homes-003</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-003.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>30</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-2">Megjegyzés</label><textarea id="note-2" data-note-index="2" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="3" data-filename="dandelion-royal-homes-source-004.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-004.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp" /><span class="badge">#4</span><span class="badge secondary">40</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-004.webp</strong><span>royal_homes-004</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-004.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>40</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-3">Megjegyzés</label><textarea id="note-3" data-note-index="3" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="4" data-filename="dandelion-royal-homes-source-005.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-005.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp" /><span class="badge">#5</span><span class="badge secondary">50</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-005.webp</strong><span>royal_homes-005</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-005.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>50</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-4">Megjegyzés</label><textarea id="note-4" data-note-index="4" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="5" data-filename="dandelion-royal-homes-source-006.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-006.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp" /><span class="badge">#6</span><span class="badge secondary">60</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-006.webp</strong><span>royal_homes-006</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-006.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>60</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-5">Megjegyzés</label><textarea id="note-5" data-note-index="5" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="6" data-filename="dandelion-royal-homes-source-007.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-007.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp" /><span class="badge">#7</span><span class="badge secondary">70</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-007.webp</strong><span>royal_homes-007</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-007.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>70</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-6">Megjegyzés</label><textarea id="note-6" data-note-index="6" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="7" data-filename="dandelion-royal-homes-source-008.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-008.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp" /><span class="badge">#8</span><span class="badge secondary">80</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-008.webp</strong><span>royal_homes-008</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-008.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>80</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-7">Megjegyzés</label><textarea id="note-7" data-note-index="7" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="8" data-filename="dandelion-royal-homes-source-009.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-009.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp" /><span class="badge">#9</span><span class="badge secondary">90</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-009.webp</strong><span>royal_homes-009</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-009.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>90</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-8">Megjegyzés</label><textarea id="note-8" data-note-index="8" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="9" data-filename="dandelion-royal-homes-source-010.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-010.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp" /><span class="badge">#10</span><span class="badge secondary">100</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-010.webp</strong><span>royal_homes-010</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-010.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>100</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-9">Megjegyzés</label><textarea id="note-9" data-note-index="9" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="10" data-filename="dandelion-royal-homes-source-011.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-011.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp" /><span class="badge">#11</span><span class="badge secondary">110</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-011.webp</strong><span>royal_homes-011</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-011.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>110</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-10">Megjegyzés</label><textarea id="note-10" data-note-index="10" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="11" data-filename="dandelion-royal-homes-source-012.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-012.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp" /><span class="badge">#12</span><span class="badge secondary">120</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-012.webp</strong><span>royal_homes-012</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-012.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>120</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-11">Megjegyzés</label><textarea id="note-11" data-note-index="11" placeholder="Csak helyi exporthoz..."></textarea></div></div></article></div><div class="section__title" style="margin-top:18px;">További galériaképek<small>21 kép maradt a kiemelt blokk után.</small></div><div class="grid" data-group="secondary"><article class="card" data-index="12" data-filename="dandelion-royal-homes-source-013.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-013.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp" /><span class="badge">#13</span><span class="badge secondary">130</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-013.webp</strong><span>royal_homes-013</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-013.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>130</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-12">Megjegyzés</label><textarea id="note-12" data-note-index="12" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="13" data-filename="dandelion-royal-homes-source-014.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-014.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp" /><span class="badge">#14</span><span class="badge secondary">140</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-014.webp</strong><span>royal_homes-014</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-014.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>140</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-13">Megjegyzés</label><textarea id="note-13" data-note-index="13" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="14" data-filename="dandelion-royal-homes-source-015.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-015.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp" /><span class="badge">#15</span><span class="badge secondary">150</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-015.webp</strong><span>royal_homes-015</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-015.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>150</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-14">Megjegyzés</label><textarea id="note-14" data-note-index="14" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="15" data-filename="dandelion-royal-homes-source-016.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-016.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp" /><span class="badge">#16</span><span class="badge secondary">160</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-016.webp</strong><span>royal_homes-016</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-016.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>160</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-15">Megjegyzés</label><textarea id="note-15" data-note-index="15" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="16" data-filename="dandelion-royal-homes-source-017.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-017.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp" /><span class="badge">#17</span><span class="badge secondary">170</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-017.webp</strong><span>royal_homes-017</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-017.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>170</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-16">Megjegyzés</label><textarea id="note-16" data-note-index="16" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="17" data-filename="dandelion-royal-homes-source-018.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-018.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp" /><span class="badge">#18</span><span class="badge secondary">180</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-018.webp</strong><span>royal_homes-018</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-018.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>180</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-17">Megjegyzés</label><textarea id="note-17" data-note-index="17" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="18" data-filename="dandelion-royal-homes-source-019.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-019.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp" /><span class="badge">#19</span><span class="badge secondary">190</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-019.webp</strong><span>royal_homes-019</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-019.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>190</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-18">Megjegyzés</label><textarea id="note-18" data-note-index="18" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="19" data-filename="dandelion-royal-homes-source-020.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-020.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp" /><span class="badge">#20</span><span class="badge secondary">200</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-020.webp</strong><span>royal_homes-020</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-020.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>200</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-19">Megjegyzés</label><textarea id="note-19" data-note-index="19" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="20" data-filename="dandelion-royal-homes-source-021.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-021.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp" /><span class="badge">#21</span><span class="badge secondary">210</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-021.webp</strong><span>royal_homes-021</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-021.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>210</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-20">Megjegyzés</label><textarea id="note-20" data-note-index="20" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="21" data-filename="dandelion-royal-homes-source-022.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-022.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp" /><span class="badge">#22</span><span class="badge secondary">220</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-022.webp</strong><span>royal_homes-022</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-022.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>220</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-21">Megjegyzés</label><textarea id="note-21" data-note-index="21" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="22" data-filename="dandelion-royal-homes-source-023.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-023.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-023.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-023.webp" /><span class="badge">#23</span><span class="badge secondary">230</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-023.webp</strong><span>royal_homes-023</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-023.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>230</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-22">Megjegyzés</label><textarea id="note-22" data-note-index="22" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="23" data-filename="dandelion-royal-homes-source-024.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-024.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp" /><span class="badge">#24</span><span class="badge secondary">240</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-024.webp</strong><span>royal_homes-024</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-024.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>240</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-23">Megjegyzés</label><textarea id="note-23" data-note-index="23" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="24" data-filename="dandelion-royal-homes-source-025.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-025.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp" /><span class="badge">#25</span><span class="badge secondary">250</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-025.webp</strong><span>royal_homes-025</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-025.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>250</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-24">Megjegyzés</label><textarea id="note-24" data-note-index="24" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="25" data-filename="dandelion-royal-homes-source-026.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-026.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp" /><span class="badge">#26</span><span class="badge secondary">260</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-026.webp</strong><span>royal_homes-026</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-026.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>260</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-25">Megjegyzés</label><textarea id="note-25" data-note-index="25" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="26" data-filename="dandelion-royal-homes-source-027.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-027.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp" /><span class="badge">#27</span><span class="badge secondary">270</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-027.webp</strong><span>royal_homes-027</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-027.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>270</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-26">Megjegyzés</label><textarea id="note-26" data-note-index="26" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="27" data-filename="dandelion-royal-homes-source-028.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-028.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp" /><span class="badge">#28</span><span class="badge secondary">280</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-028.webp</strong><span>royal_homes-028</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-028.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>280</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-27">Megjegyzés</label><textarea id="note-27" data-note-index="27" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="28" data-filename="dandelion-royal-homes-source-029.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-029.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp" /><span class="badge">#29</span><span class="badge secondary">290</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-029.webp</strong><span>royal_homes-029</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-029.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>290</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-28">Megjegyzés</label><textarea id="note-28" data-note-index="28" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="29" data-filename="dandelion-royal-homes-source-030.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-030.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp" /><span class="badge">#30</span><span class="badge secondary">300</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-030.webp</strong><span>royal_homes-030</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-030.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>300</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-29">Megjegyzés</label><textarea id="note-29" data-note-index="29" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="30" data-filename="dandelion-royal-homes-source-031.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-031.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp" /><span class="badge">#31</span><span class="badge secondary">310</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-031.webp</strong><span>royal_homes-031</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-031.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>310</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-30">Megjegyzés</label><textarea id="note-30" data-note-index="30" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="31" data-filename="dandelion-royal-homes-source-032.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-032.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-032.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-032.webp" /><span class="badge">#32</span><span class="badge secondary">320</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-032.webp</strong><span>royal_homes-032</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-032.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>320</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-31">Megjegyzés</label><textarea id="note-31" data-note-index="31" placeholder="Csak helyi exporthoz..."></textarea></div></div></article><article class="card" data-index="32" data-filename="dandelion-royal-homes-source-033.webp"><div class="card__media" data-drag-handle="true"><img src="../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-033.webp" draggable="false" ondragstart="return false" alt="dandelion-royal-homes-source-033.webp" loading="lazy" data-full="../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-033.webp" /><span class="badge">#33</span><span class="badge secondary">330</span><span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span></div><div class="card__body"><div class="headline"><strong>dandelion-royal-homes-source-033.webp</strong><span>royal_homes-033</span></div><div class="meta"><div class="meta-row"><strong>src</strong><span>dandelion-royal-homes-source-033.webp</span></div><div class="meta-row"><strong>sortOrder</strong><span>330</span></div></div><div class="statusline"><span class="status" data-state="info">betöltés…</span><span class="status" data-state="info">ismeretlen</span></div><details class="seo"><summary>SEO draft</summary><div class="seo__grid"><div class="seo__item"><strong>approved:</strong> false</div><div class="seo__item"><strong>altHu:</strong> —</div><div class="seo__item"><strong>titleHu:</strong> —</div><div class="seo__item"><strong>captionHu:</strong> —</div><div class="seo__item"><strong>altEn:</strong> —</div><div class="seo__item"><strong>titleEn:</strong> —</div><div class="seo__item"><strong>captionEn:</strong> —</div></div></details><div class="note"><label for="note-32">Megjegyzés</label><textarea id="note-32" data-note-index="32" placeholder="Csak helyi exporthoz..."></textarea></div></div></article></div></div>
+    </section>
+
+    <p class="footer">
+      A rendezés után a JSON, a Codex-ready blokk és a sima lista automatikusan újragenerálódik. A megjegyzések
+      csak helyi használatra vannak, és nem kerülnek vissza az image registrybe.
+    </p>
+  </div>
+
+  <script id="tool-data" type="application/json">{"apartmentKey":"royal_homes","apartmentName":"Dandelion Royal Homes","sourceRegistry":"src/data/images/accommodation-images.generated.json","seoPreviewSource":"","items":[{"id":"royal_homes-001","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp","sortOrder":10,"filename":"dandelion-royal-homes-source-001.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-002","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp","sortOrder":20,"filename":"dandelion-royal-homes-source-002.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-003","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp","sortOrder":30,"filename":"dandelion-royal-homes-source-003.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-004","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp","sortOrder":40,"filename":"dandelion-royal-homes-source-004.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-005","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp","sortOrder":50,"filename":"dandelion-royal-homes-source-005.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-006","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp","sortOrder":60,"filename":"dandelion-royal-homes-source-006.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-007","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp","sortOrder":70,"filename":"dandelion-royal-homes-source-007.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-008","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp","sortOrder":80,"filename":"dandelion-royal-homes-source-008.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-009","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp","sortOrder":90,"filename":"dandelion-royal-homes-source-009.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-010","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp","sortOrder":100,"filename":"dandelion-royal-homes-source-010.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-011","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp","sortOrder":110,"filename":"dandelion-royal-homes-source-011.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-012","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp","sortOrder":120,"filename":"dandelion-royal-homes-source-012.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-013","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp","sortOrder":130,"filename":"dandelion-royal-homes-source-013.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-014","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp","sortOrder":140,"filename":"dandelion-royal-homes-source-014.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-015","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp","sortOrder":150,"filename":"dandelion-royal-homes-source-015.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-016","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp","sortOrder":160,"filename":"dandelion-royal-homes-source-016.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-017","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp","sortOrder":170,"filename":"dandelion-royal-homes-source-017.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-018","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp","sortOrder":180,"filename":"dandelion-royal-homes-source-018.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-019","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp","sortOrder":190,"filename":"dandelion-royal-homes-source-019.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-020","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp","sortOrder":200,"filename":"dandelion-royal-homes-source-020.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-021","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp","sortOrder":210,"filename":"dandelion-royal-homes-source-021.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-022","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp","sortOrder":220,"filename":"dandelion-royal-homes-source-022.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-023","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-023.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-023.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-023.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-023.webp","sortOrder":230,"filename":"dandelion-royal-homes-source-023.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-024","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp","sortOrder":240,"filename":"dandelion-royal-homes-source-024.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-025","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp","sortOrder":250,"filename":"dandelion-royal-homes-source-025.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-026","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp","sortOrder":260,"filename":"dandelion-royal-homes-source-026.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-027","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp","sortOrder":270,"filename":"dandelion-royal-homes-source-027.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-028","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp","sortOrder":280,"filename":"dandelion-royal-homes-source-028.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-029","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp","sortOrder":290,"filename":"dandelion-royal-homes-source-029.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-030","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp","sortOrder":300,"filename":"dandelion-royal-homes-source-030.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-031","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp","sortOrder":310,"filename":"dandelion-royal-homes-source-031.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-032","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-032.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-032.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-032.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-032.webp","sortOrder":320,"filename":"dandelion-royal-homes-source-032.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}},{"id":"royal_homes-033","apartmentKey":"royal_homes","src":"/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-033.webp","thumb":"/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-033.webp","localSrc":"../../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-033.webp","localThumb":"../../public/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-033.webp","sortOrder":330,"filename":"dandelion-royal-homes-source-033.webp","seoDraft":{"approved":false,"altHu":"","titleHu":"","captionHu":"","altEn":"","titleEn":"","captionEn":""}}]}</script>
+  <script>
+    const initialData = JSON.parse(document.getElementById("tool-data").textContent);
+    const galleryRoot = document.getElementById("gallery-root");
+    const metricsRoot = document.getElementById("metrics");
+    const jsonOutput = document.getElementById("export-json");
+    const codexOutput = document.getElementById("export-codex");
+    const listOutput = document.getElementById("export-list");
+    const copyJsonButton = document.getElementById("copy-json");
+    const copyCodexButton = document.getElementById("copy-codex");
+    const copyListButton = document.getElementById("copy-list");
+    const state = {
+      order: initialData.items.map((item) => ({ ...item })),
+      notes: Object.create(null),
+      imageState: Object.create(null),
+      drag: {
+        active: false,
+        pointerId: null,
+        draggedIndex: -1,
+        targetIndex: -1,
+        dropBefore: true,
+        startX: 0,
+        startY: 0,
+        currentX: 0,
+        currentY: 0,
+        moved: false
+      },
+      dragCard: null
+    };
+
+    function escapeText(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function filenameOf(item) {
+      return item.filename || item.src.split("/").pop() || "";
+    }
+
+    function buildJsonExport() {
+      return JSON.stringify(state.order.map((item) => filenameOf(item)), null, 2);
+    }
+
+    function buildCodexExport() {
+      const lines = ["APARTMENT_KEY: " + initialData.apartmentKey, "NEW_ORDER:", "["];
+      for (const item of state.order) {
+        const filename = filenameOf(item);
+        const note = String(state.notes[filename] || "").trim();
+        lines.push(note ? '  "' + filename + '", // note: ' + note : '  "' + filename + '"');
+      }
+      lines.push("]");
+
+      const noteEntries = Object.entries(state.notes)
+        .map(([filename, note]) => ({ filename, note: String(note).trim() }))
+        .filter((entry) => entry.note);
+
+      if (noteEntries.length) {
+        lines.push("NOTES:");
+        lines.push(JSON.stringify(noteEntries, null, 2));
+      }
+
+      return lines.join("\n");
+    }
+
+    function buildSimpleList() {
+      return state.order.map((item) => filenameOf(item)).join("\n");
+    }
+
+    function getMetrics() {
+      const filenames = state.order.map((item) => filenameOf(item));
+      const duplicateCount = filenames.length - new Set(filenames).size;
+      const emptySrcCount = state.order.filter((item) => !String(item.src || "").trim()).length;
+      const sortOrderCount = state.order.filter((item) => typeof item.sortOrder === "number").length;
+      const loadedCount = Object.values(state.imageState).filter((entry) => entry.state === "loaded").length;
+      const brokenCount = Object.values(state.imageState).filter((entry) => entry.state === "broken").length;
+      const allLoaded = loadedCount + brokenCount === state.order.length && brokenCount === 0;
+
+      return [
+        { label: "Képek száma", value: String(state.order.length) },
+        { label: "Duplikált filename", value: String(duplicateCount) },
+        { label: "Üres src", value: String(emptySrcCount) },
+        { label: "Minden kép betöltött", value: allLoaded ? "igen" : "nem" },
+        { label: "sortOrder mezők", value: String(sortOrderCount) + "/" + String(state.order.length) },
+        { label: "Első 12 kép", value: String(Math.min(12, state.order.length)) },
+        { label: "Törött képek", value: String(brokenCount) },
+        { label: "Betöltött képek", value: String(loadedCount) + "/" + String(state.order.length) }
+      ];
+    }
+
+    function renderMetrics() {
+      metricsRoot.innerHTML = getMetrics()
+        .map(function (metric) {
+          return (
+            '<div class="metric">' +
+            '<span class="metric__label">' + escapeText(metric.label) + '</span>' +
+            '<span class="metric__value">' + escapeText(metric.value) + '</span>' +
+            '</div>'
+          );
+        })
+        .join("");
+    }
+
+    function renderSeoDraft(seoDraft) {
+      if (!seoDraft) {
+        return "<div class='seo__item'>Nincs SEO draft adat.</div>";
+      }
+
+      return [
+        '<div class="seo__item"><strong>approved:</strong> ' + escapeText(String(Boolean(seoDraft.approved))) + '</div>',
+        '<div class="seo__item"><strong>altHu:</strong> ' + escapeText(seoDraft.altHu || '—') + '</div>',
+        '<div class="seo__item"><strong>titleHu:</strong> ' + escapeText(seoDraft.titleHu || '—') + '</div>',
+        '<div class="seo__item"><strong>captionHu:</strong> ' + escapeText(seoDraft.captionHu || '—') + '</div>',
+        '<div class="seo__item"><strong>altEn:</strong> ' + escapeText(seoDraft.altEn || '—') + '</div>',
+        '<div class="seo__item"><strong>titleEn:</strong> ' + escapeText(seoDraft.titleEn || '—') + '</div>',
+        '<div class="seo__item"><strong>captionEn:</strong> ' + escapeText(seoDraft.captionEn || '—') + '</div>'
+      ].join('');
+    }
+
+    function renderImageStatus(item, index) {
+      const entry = state.imageState[index] || { state: "loading", orientation: "" };
+      const statusLabel = entry.state === "loaded" ? "betöltve" : entry.state === "broken" ? "hiba" : "betöltés…";
+      const statusClass = entry.state === "loaded" ? "ok" : entry.state === "broken" ? "warn" : "info";
+      const orientationLabel = entry.orientation || "ismeretlen";
+
+      return (
+        '<div class="statusline">' +
+          '<span class="status" data-state="' + statusClass + '">' + escapeText(statusLabel) + '</span>' +
+          '<span class="status" data-state="info">' + escapeText(orientationLabel) + '</span>' +
+        '</div>'
+      );
+    }
+
+    function syncDropIndicators() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        card.classList.toggle("is-drop-target-before", index === state.drag.targetIndex && state.drag.dropBefore);
+        card.classList.toggle("is-drop-target-after", index === state.drag.targetIndex && !state.drag.dropBefore);
+      });
+    }
+
+    function cardHtml(item, index) {
+      const fullUrl = item.localSrc || item.src || "";
+      const thumbUrl = item.localThumb || item.thumb || item.src || "";
+      const seoDraft = item.seoDraft || null;
+      return (
+        '<article class="card" data-index="' + index + '" data-filename="' + escapeText(filenameOf(item)) + '">' +
+          '<div class="card__media" data-drag-handle="true">' +
+            '<img' +
+              ' src="' + escapeText(thumbUrl) + '"' +
+              ' draggable="false"' +
+              ' ondragstart="return false"' +
+              ' alt="' + escapeText(seoDraft && seoDraft.altHu ? seoDraft.altHu : filenameOf(item)) + '"' +
+              ' loading="lazy"' +
+              ' data-full="' + escapeText(fullUrl) + '"' +
+            ' />' +
+            '<span class="badge">#' + (index + 1) + '</span>' +
+            '<span class="badge secondary">' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span>' +
+            '<span class="drag-hint">Huzd a kepet a sorrend modositasahoz</span>' +
+          '</div>' +
+          '<div class="card__body">' +
+            '<div class="headline">' +
+              '<strong>' + escapeText(filenameOf(item)) + '</strong>' +
+              '<span>' + escapeText(item.id || 'n/a') + '</span>' +
+            '</div>' +
+            '<div class="meta">' +
+              '<div class="meta-row"><strong>src</strong><span>' + escapeText(filenameOf(item)) + '</span></div>' +
+              '<div class="meta-row"><strong>sortOrder</strong><span>' + escapeText(String(item.sortOrder ?? 'n/a')) + '</span></div>' +
+            '</div>' +
+            renderImageStatus(item, index) +
+            '<details class="seo">' +
+              '<summary>SEO draft</summary>' +
+              '<div class="seo__grid">' + renderSeoDraft(seoDraft) + '</div>' +
+            '</details>' +
+            '<div class="note">' +
+              '<label for="note-' + index + '">Megjegyzés</label>' +
+              '<textarea id="note-' + index + '" data-note-index="' + index + '" placeholder="Csak helyi exporthoz...">' + escapeText(state.notes[filenameOf(item)] || "") + '</textarea>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
+    }
+
+    function renderGallery() {
+      const first = state.order.slice(0, 12);
+      const rest = state.order.slice(12);
+      const html = [];
+
+      html.push('<div class="section__title">Első 12 kép – kiemelt galéria<small>' + escapeText(String(first.length)) + ' kép látható ebben a blokkban.</small></div>');
+      html.push('<div class="grid" id="gallery-grid" data-group="primary">');
+      first.forEach((item, index) => {
+        html.push(cardHtml(item, index));
+      });
+      html.push("</div>");
+
+      if (rest.length) {
+        html.push('<div class="section__title" style="margin-top:18px;">További galériaképek<small>' + escapeText(String(rest.length)) + ' kép maradt a kiemelt blokk után.</small></div>');
+        html.push('<div class="grid" data-group="secondary">');
+        rest.forEach((item, offset) => {
+          const index = offset + 12;
+          html.push(cardHtml(item, index));
+        });
+        html.push("</div>");
+      }
+
+      galleryRoot.innerHTML = html.join("");
+    }
+
+    function updateExports() {
+      const jsonValue = buildJsonExport();
+      const codexValue = buildCodexExport();
+      const listValue = buildSimpleList();
+      jsonOutput.value = jsonValue;
+      codexOutput.value = codexValue;
+      listOutput.value = listValue;
+    }
+
+    function refreshStatusBadges() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        const current = state.imageState[index] || { state: "loading", orientation: "" };
+        const statusNodes = card.querySelectorAll(".statusline .status");
+        if (statusNodes[0]) {
+          statusNodes[0].textContent = current.state === "loaded" ? "betöltve" : current.state === "broken" ? "hiba" : "betöltés…";
+          statusNodes[0].dataset.state = current.state === "loaded" ? "ok" : current.state === "broken" ? "warn" : "info";
+        }
+        if (statusNodes[1]) {
+          statusNodes[1].textContent = current.orientation || "ismeretlen";
+        }
+      });
+    }
+
+    function renderAll() {
+      renderMetrics();
+      renderGallery();
+      updateExports();
+      bindCardEvents();
+      refreshStatusBadges();
+      syncDropIndicators();
+    }
+
+    function setImageState(index, patch) {
+      const existing = state.imageState[index] || { state: "loading", orientation: "" };
+      state.imageState[index] = { ...existing, ...patch };
+      renderMetrics();
+      refreshStatusBadges();
+    }
+
+    function bindCardEvents() {
+      const cards = galleryRoot.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const handle = card.querySelector("[data-drag-handle='true']");
+        if (handle) {
+          handle.addEventListener("pointerdown", onPointerDownCard);
+        }
+      });
+
+      const notes = galleryRoot.querySelectorAll("textarea[data-note-index]");
+      notes.forEach((textarea) => {
+        textarea.addEventListener("input", (event) => {
+          const index = Number(event.currentTarget.dataset.noteIndex);
+          const item = state.order[index];
+          if (!item) return;
+          state.notes[filenameOf(item)] = event.currentTarget.value;
+          updateExports();
+        });
+      });
+
+      cards.forEach((card) => {
+        const index = Number(card.dataset.index);
+        const img = card.querySelector("img");
+        if (!img) return;
+
+        if (!state.imageState[index]) {
+          state.imageState[index] = { state: "loading", orientation: "" };
+        }
+
+        img.onload = () => {
+          const width = img.naturalWidth || 0;
+          const height = img.naturalHeight || 0;
+          const orientation = width > height ? "fekvő" : width < height ? "álló" : "négyzetes";
+          setImageState(index, { state: "loaded", orientation, width, height });
+        };
+
+        img.onerror = () => {
+          setImageState(index, { state: "broken", orientation: "ismeretlen" });
+        };
+
+        if (img.complete && img.naturalWidth > 0 && state.imageState[index].state !== "loaded") {
+          const width = img.naturalWidth || 0;
+          const height = img.naturalHeight || 0;
+          const orientation = width > height ? "fekvő" : width < height ? "álló" : "négyzetes";
+          state.imageState[index] = { state: "loaded", orientation, width, height };
+        }
+      });
+    }
+
+    function moveItem(fromIndex, toIndex) {
+      if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0) return;
+      const item = state.order.splice(fromIndex, 1)[0];
+      const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
+      state.order.splice(adjustedIndex, 0, item);
+      state.imageState = Object.create(null);
+      renderAll();
+    }
+
+    function clearPointerDragVisuals() {
+      if (!state.dragCard) {
+        return;
+      }
+
+      state.dragCard.classList.remove("is-pointer-dragging");
+      state.dragCard.style.removeProperty("--drag-x");
+      state.dragCard.style.removeProperty("--drag-y");
+    }
+
+    function resetPointerState() {
+      clearPointerDragVisuals();
+      state.drag.active = false;
+      state.drag.pointerId = null;
+      state.drag.draggedIndex = -1;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = 0;
+      state.drag.startY = 0;
+      state.drag.currentX = 0;
+      state.drag.currentY = 0;
+      state.drag.moved = false;
+      state.dragCard = null;
+      syncDropIndicators();
+    }
+
+    function updateDraggedCardPosition() {
+      if (!state.dragCard) {
+        return;
+      }
+
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      state.dragCard.style.setProperty("--drag-x", deltaX + "px");
+      state.dragCard.style.setProperty("--drag-y", deltaY + "px");
+    }
+
+    function updatePointerTarget(clientX, clientY) {
+      const cards = Array.from(galleryRoot.querySelectorAll(".card")).filter((card) => {
+        const index = Number(card.dataset.index);
+        return !Number.isNaN(index) && index !== state.drag.draggedIndex;
+      });
+      const card =
+        cards.find((candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+        }) ||
+        cards.reduce((best, candidate) => {
+          const rect = candidate.getBoundingClientRect();
+          const dx = clientX < rect.left ? rect.left - clientX : clientX > rect.right ? clientX - rect.right : 0;
+          const dy = clientY < rect.top ? rect.top - clientY : clientY > rect.bottom ? clientY - rect.bottom : 0;
+          const distance = dx * dx + dy * dy;
+          if (!best || distance < best.distance) {
+            return { card: candidate, distance };
+          }
+
+          return best;
+        }, null)?.card || null;
+      if (!card) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const index = Number(card.dataset.index);
+      if (Number.isNaN(index) || index === state.drag.draggedIndex) {
+        state.drag.targetIndex = -1;
+        state.drag.dropBefore = true;
+        syncDropIndicators();
+        return;
+      }
+
+      const rect = card.getBoundingClientRect();
+      state.drag.targetIndex = index;
+      state.drag.dropBefore = clientY < rect.top + rect.height / 2;
+      syncDropIndicators();
+    }
+
+    function onPointerDownCard(event) {
+      if (event.button !== 0) {
+        return;
+      }
+
+      event.preventDefault();
+      const handle = event.currentTarget;
+      const card = handle.closest(".card");
+      const index = Number(card && card.dataset.index);
+      if (!card || Number.isNaN(index)) {
+        return;
+      }
+
+      state.drag.active = true;
+      state.drag.pointerId = event.pointerId;
+      state.drag.draggedIndex = index;
+      state.drag.targetIndex = -1;
+      state.drag.dropBefore = true;
+      state.drag.startX = event.clientX;
+      state.drag.startY = event.clientY;
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      state.drag.moved = false;
+      state.dragCard = card;
+
+      card.classList.add("is-pointer-dragging");
+      card.style.setProperty("--drag-x", "0px");
+      card.style.setProperty("--drag-y", "0px");
+
+      if (handle.setPointerCapture) {
+        handle.setPointerCapture(event.pointerId);
+      }
+
+      window.addEventListener("pointermove", onPointerMoveCard);
+      window.addEventListener("pointerup", onPointerUpCard);
+      window.addEventListener("pointercancel", onPointerUpCard);
+    }
+
+    function onPointerMoveCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      state.drag.currentX = event.clientX;
+      state.drag.currentY = event.clientY;
+      const deltaX = state.drag.currentX - state.drag.startX;
+      const deltaY = state.drag.currentY - state.drag.startY;
+      if (!state.drag.moved && Math.abs(deltaX) + Math.abs(deltaY) > 6) {
+        state.drag.moved = true;
+      }
+
+      updateDraggedCardPosition();
+      updatePointerTarget(event.clientX, event.clientY);
+      event.preventDefault();
+    }
+
+    function onPointerUpCard(event) {
+      if (!state.drag.active || event.pointerId !== state.drag.pointerId) {
+        return;
+      }
+
+      window.removeEventListener("pointermove", onPointerMoveCard);
+      window.removeEventListener("pointerup", onPointerUpCard);
+      window.removeEventListener("pointercancel", onPointerUpCard);
+
+      const fromIndex = state.drag.draggedIndex;
+      const targetIndex = state.drag.targetIndex;
+      const shouldMove =
+        state.drag.moved &&
+        fromIndex >= 0 &&
+        targetIndex >= 0 &&
+        targetIndex !== fromIndex;
+      const insertIndex = shouldMove
+        ? state.drag.dropBefore
+          ? targetIndex
+          : targetIndex + 1
+        : -1;
+
+      resetPointerState();
+
+      if (shouldMove) {
+        moveItem(fromIndex, insertIndex);
+      }
+    }
+
+    async function copyText(text) {
+      await navigator.clipboard.writeText(text);
+    }
+
+    copyJsonButton.addEventListener("click", () => copyText(jsonOutput.value));
+    copyCodexButton.addEventListener("click", () => copyText(codexOutput.value));
+    copyListButton.addEventListener("click", () => copyText(listOutput.value));
+
+    renderAll();
+  </script>
+</body>
+</html>

@@ -33,7 +33,12 @@ const processApartmentDirs = apartmentDirs.filter((apartmentKey) => {
     return false;
   }
 
-  return apartmentArg ? apartmentKey === apartmentArg : true;
+  if (!apartmentArg) {
+    return true;
+  }
+
+  const outputApartmentKey = apartmentFolderMap[apartmentKey] ?? apartmentKey;
+  return apartmentKey === apartmentArg || outputApartmentKey === apartmentArg;
 });
 const summary = {
   processed: 0,

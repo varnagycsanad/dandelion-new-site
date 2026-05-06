@@ -278,25 +278,10 @@
     "apartmentKey": "d2",
     "gallery": [
       {
-        "id": "d2-005",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
-        "sortOrder": 10,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
         "id": "d2-001",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp",
-        "sortOrder": 20,
+        "sortOrder": 10,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -311,97 +296,7 @@
         "id": "d2-002",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp",
-        "sortOrder": 30,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-009",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
-        "sortOrder": 40,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-007",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
-        "sortOrder": 50,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-010",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
-        "sortOrder": 60,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-013",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
-        "sortOrder": 70,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-015",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
-        "sortOrder": 80,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "d2-011",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
-        "sortOrder": 90,
+        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -416,7 +311,7 @@
         "id": "d2-003",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp",
-        "sortOrder": 100,
+        "sortOrder": 30,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -431,7 +326,22 @@
         "id": "d2-004",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp",
-        "sortOrder": 110,
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-005",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
+        "sortOrder": 50,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -446,7 +356,7 @@
         "id": "d2-006",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp",
-        "sortOrder": 120,
+        "sortOrder": 60,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -458,10 +368,10 @@
         }
       },
       {
-        "id": "d2-016",
-        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
-        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
-        "sortOrder": 130,
+        "id": "d2-007",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
+        "sortOrder": 70,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -476,7 +386,52 @@
         "id": "d2-008",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp",
-        "sortOrder": 140,
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-009",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-010",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-011",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
+        "sortOrder": 110,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -491,7 +446,22 @@
         "id": "d2-012",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp",
-        "sortOrder": 150,
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-013",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
+        "sortOrder": 130,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -506,6 +476,36 @@
         "id": "d2-014",
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-015",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "d2-016",
+        "src": "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
+        "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
         "sortOrder": 160,
         "seoDraft": {
           "approved": false,
@@ -522,6 +522,206 @@
         "src": "/images/accommodations/d2/gallery/dandelion-d2-source-017.webp",
         "thumb": "/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp",
         "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  },
+  "fugehaz": {
+    "apartmentKey": "fugehaz",
+    "gallery": [
+      {
+        "id": "fugehaz-001",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-002",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-002.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-003",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-003.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-004",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-004.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-005",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-005.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-006",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-006.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-007",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-007.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-008",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-008.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-009",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-009.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-010",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-010.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-011",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-011.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-012",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-012.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "fugehaz-013",
+        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-013.webp",
+        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-013.webp",
+        "sortOrder": 130,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -854,13 +1054,13 @@
       }
     ]
   },
-  "fugehaz": {
-    "apartmentKey": "fugehaz",
+  "royal_homes": {
+    "apartmentKey": "royal_homes",
     "gallery": [
       {
-        "id": "fugehaz-001",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-001.webp",
+        "id": "royal_homes-001",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp",
         "sortOrder": 10,
         "seoDraft": {
           "approved": false,
@@ -873,9 +1073,9 @@
         }
       },
       {
-        "id": "fugehaz-002",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-002.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-002.webp",
+        "id": "royal_homes-002",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp",
         "sortOrder": 20,
         "seoDraft": {
           "approved": false,
@@ -888,9 +1088,9 @@
         }
       },
       {
-        "id": "fugehaz-003",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-003.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-003.webp",
+        "id": "royal_homes-003",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp",
         "sortOrder": 30,
         "seoDraft": {
           "approved": false,
@@ -903,9 +1103,9 @@
         }
       },
       {
-        "id": "fugehaz-004",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-004.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-004.webp",
+        "id": "royal_homes-004",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp",
         "sortOrder": 40,
         "seoDraft": {
           "approved": false,
@@ -918,9 +1118,9 @@
         }
       },
       {
-        "id": "fugehaz-005",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-005.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-005.webp",
+        "id": "royal_homes-005",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp",
         "sortOrder": 50,
         "seoDraft": {
           "approved": false,
@@ -933,9 +1133,9 @@
         }
       },
       {
-        "id": "fugehaz-006",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-006.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-006.webp",
+        "id": "royal_homes-006",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp",
         "sortOrder": 60,
         "seoDraft": {
           "approved": false,
@@ -948,9 +1148,9 @@
         }
       },
       {
-        "id": "fugehaz-007",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-007.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-007.webp",
+        "id": "royal_homes-007",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp",
         "sortOrder": 70,
         "seoDraft": {
           "approved": false,
@@ -963,9 +1163,9 @@
         }
       },
       {
-        "id": "fugehaz-008",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-008.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-008.webp",
+        "id": "royal_homes-008",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp",
         "sortOrder": 80,
         "seoDraft": {
           "approved": false,
@@ -978,9 +1178,9 @@
         }
       },
       {
-        "id": "fugehaz-009",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-009.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-009.webp",
+        "id": "royal_homes-009",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp",
         "sortOrder": 90,
         "seoDraft": {
           "approved": false,
@@ -993,9 +1193,9 @@
         }
       },
       {
-        "id": "fugehaz-010",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-010.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-010.webp",
+        "id": "royal_homes-010",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp",
         "sortOrder": 100,
         "seoDraft": {
           "approved": false,
@@ -1008,9 +1208,9 @@
         }
       },
       {
-        "id": "fugehaz-011",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-011.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-011.webp",
+        "id": "royal_homes-011",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp",
         "sortOrder": 110,
         "seoDraft": {
           "approved": false,
@@ -1023,9 +1223,9 @@
         }
       },
       {
-        "id": "fugehaz-012",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-012.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-012.webp",
+        "id": "royal_homes-012",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp",
         "sortOrder": 120,
         "seoDraft": {
           "approved": false,
@@ -1038,10 +1238,645 @@
         }
       },
       {
-        "id": "fugehaz-013",
-        "src": "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-013.webp",
-        "thumb": "/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-013.webp",
+        "id": "royal_homes-013",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp",
         "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-014",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-015",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-016",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-017",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-018",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-019",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-020",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-021",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-022",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp",
+        "sortOrder": 220,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-023",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-023.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-023.webp",
+        "sortOrder": 230,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-024",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp",
+        "sortOrder": 240,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-025",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp",
+        "sortOrder": 250,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-026",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp",
+        "sortOrder": 260,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-027",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp",
+        "sortOrder": 270,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-028",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp",
+        "sortOrder": 280,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-029",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp",
+        "sortOrder": 290,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-030",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp",
+        "sortOrder": 300,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-031",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp",
+        "sortOrder": 310,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-032",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-032.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-032.webp",
+        "sortOrder": 320,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-033",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-033.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-033.webp",
+        "sortOrder": 330,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  },
+  "szepvolgyi": {
+    "apartmentKey": "szepvolgyi",
+    "gallery": [
+      {
+        "id": "szepvolgyi-001",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-002",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-002.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-003",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-003.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-004",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-004.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-005",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-005.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-006",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-006.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-007",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-007.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-008",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-008.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-009",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-009.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-010",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-010.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-011",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-011.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-012",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-012.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-013",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-013.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-014",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-014.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-015",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-015.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-016",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-016.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-017",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-017.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-018",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-018.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-019",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-019.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-020",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-020.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-021",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-021.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szepvolgyi-022",
+        "src": "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-022.webp",
+        "thumb": "/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-022.webp",
+        "sortOrder": 220,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1362,6 +2197,281 @@
         "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-021.webp",
         "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-021.webp",
         "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
+  },
+  "vintage": {
+    "apartmentKey": "vintage",
+    "gallery": [
+      {
+        "id": "vintage-001",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-002",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-002.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-003",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-003.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-004",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-004.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-005",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-005.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-006",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-006.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-007",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-007.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-008",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-008.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-009",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-009.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-010",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-010.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-011",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-011.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-012",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-012.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-013",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-013.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-014",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-014.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-015",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-015.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-016",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-016.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-017",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-017.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-018",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-018.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-018.webp",
+        "sortOrder": 180,
         "seoDraft": {
           "approved": false,
           "altHu": "",

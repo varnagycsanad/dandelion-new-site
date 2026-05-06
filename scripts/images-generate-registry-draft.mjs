@@ -14,7 +14,20 @@ const outputPath = path.join(
   "accommodation-images.generated.json",
 );
 
-const apartmentKeys = ["d1", "d2", "koveskal", "fugehaz", "szololiget", "zsalya"];
+const apartmentKeys = [
+  "d1",
+  "d2",
+  "fugehaz",
+  "koveskal",
+  "royal_homes",
+  "szepvolgyi",
+  "szololiget",
+  "vintage",
+  "zsalya",
+];
+const sourceFilenamePrefixMap = {
+  royal_homes: "dandelion-royal-homes-source-",
+};
 const generated = {};
 const missingThumbPairs = [];
 
@@ -25,7 +38,9 @@ for (const apartmentKey of apartmentKeys) {
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
     .filter((name) => name.endsWith(".webp"))
-    .filter((name) => name.startsWith(`dandelion-${apartmentKey}-source-`))
+    .filter((name) =>
+      name.startsWith(sourceFilenamePrefixMap[apartmentKey] ?? `dandelion-${apartmentKey}-source-`),
+    )
     .sort((a, b) => a.localeCompare(b));
   const thumbFiles = new Set(
     (await readdir(thumbsDir, { withFileTypes: true }))
