@@ -1,0 +1,8 @@
+---
+// [CHANGE 2026-05-06 22:00] D1 page wrapped with shared AccommodationPage template.
+import { d1PageData } from "../data/accommodation-pages/d1";
+import { accommodationImages } from "../data/images/accommodation-images";
+import AccommodationPage from "../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage pageData={d1PageData} imageSet={accommodationImages.d1} />
