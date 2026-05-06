@@ -1112,26 +1112,26 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
 </html>`;
 }
 
-function buildIndexHtml({ entries, knownGeneratedKeys }) {
+function buildIndexHtml({ entries }) {
   const rows = entries
     .map((entry) => {
       const fileName = `gallery-order-${entry.apartmentKey}.html`;
       const filePath = path.join(outputDir, fileName);
       const generated = fs.existsSync(filePath);
-      const link = generated ? fileName : "";
+      const hasGallery = entry.count > 0;
       return `
         <tr>
           <td>${escapeHtml(entry.name)}</td>
           <td><code>${escapeHtml(entry.apartmentKey)}</code></td>
           <td>${escapeHtml(String(entry.count))}</td>
-          <td>${generated ? `<a href="${escapeHtml(link)}">${escapeHtml(fileName)}</a>` : "<span class=\"muted\">nincs legenerálva</span>"}</td>
-          <td>${generated ? "<span class=\"ok\">kész</span>" : "<span class=\"warn\">hiányzik</span>"}</td>
+          <td>${hasGallery && generated ? `<a href="${escapeHtml(fileName)}">${escapeHtml(fileName)}</a>` : "<span class=\"muted\">nincs rendező HTML</span>"}</td>
+          <td>${hasGallery ? (generated ? "<span class=\"ok\">készen van</span>" : "<span class=\"warn\">hiányzik</span>") : "<span class=\"warn\">Nincs gallery adat a registryben</span>"}</td>
         </tr>`;
     })
     .join("");
 
   const total = entries.length;
-  const generatedCount = entries.filter((entry) => knownGeneratedKeys.has(entry.apartmentKey)).length;
+  const generatedCount = entries.filter((entry) => entry.count > 0 && fs.existsSync(path.join(outputDir, `gallery-order-${entry.apartmentKey}.html`))).length;
 
   return `<!doctype html>
 <html lang="hu">
@@ -1218,8 +1218,8 @@ function buildIndexHtml({ entries, knownGeneratedKeys }) {
         automatikusan a registryt.
       </p>
       <div class="pills">
-        <span class="pill"><strong>Összes gallery-s apartman</strong> ${escapeHtml(String(total))}</span>
-        <span class="pill"><strong>Jelenleg generálva</strong> ${escapeHtml(String(generatedCount))}</span>
+        <span class="pill"><strong>Összes szállás</strong> ${escapeHtml(String(total))}</span>
+        <span class="pill"><strong>Rendező HTML-ek</strong> ${escapeHtml(String(generatedCount))}</span>
         <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
       </div>
       <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
@@ -1257,7 +1257,11 @@ function main() {
   const seoPreview = loadSeoPreview();
   const nameMap = readAccommodationNames();
 
-  const galleryKeys = Object.keys(registry).filter(
+  const accommodations = [
+    ...nameMap.keys(),
+    ...Object.keys(registry).filter((key) => !nameMap.has(key))
+  ];
+  const galleryKeys = accommodations.filter(
     (key) => registry[key] && Array.isArray(registry[key].gallery) && registry[key].gallery.length > 0
   );
 
@@ -1275,13 +1279,13 @@ function main() {
   const generatedKeys = new Set();
   const indexEntries = [];
 
-  for (const key of galleryKeys) {
+  for (const key of accommodations) {
     const entry = registry[key];
     const apartmentName = nameMap.get(key) || DISPLAY_NAME_FALLBACKS[key] || key;
     indexEntries.push({
       apartmentKey: key,
       name: apartmentName,
-      count: Array.isArray(entry.gallery) ? entry.gallery.length : 0
+      count: entry && Array.isArray(entry.gallery) ? entry.gallery.length : 0
     });
   }
 
@@ -1305,7 +1309,7 @@ function main() {
 
   writeFile(
     path.join(outputDir, "index.html"),
-    buildIndexHtml({ entries: indexEntries, knownGeneratedKeys: generatedKeys })
+    buildIndexHtml({ entries: indexEntries })
   );
 
   console.log(`Generated gallery tool pages: ${[...generatedKeys].join(", ") || "none"}`);
