@@ -1,151 +1,154 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] Szololiget SEO title, meta, headings and intro copy refined for production baseline.
+// [CHANGE 2026-05-06 22:20] Szololiget page copy rebuilt with natural Hungarian accommodation content and shared template structure preserved.
 export const szololigetPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Szololiget | Csendes vendeghaz a Balaton-felvideken",
-    description: "Csendes vendeghaz a Balaton-felvideken, szolok kozott, termeszetkozeli pihenessel, lassabb ritmussal es nyugodt kornyezettel."
+    title: "Szőlőliget Vendégház Kisapáti | Panorámás szállás a Szent György-hegyen",
+    description:
+      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, 4 fő részére, nagy terasszal, 180°-os tanúhegy panorámával és napfelkeltével az ágyból."
   },
   bookingLink: "/szololiget/",
   hero: {
     mobileImagePath: "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
-    fallbackAlt: "Dandelion Szololiget vendeghaz szolok kozott a Balaton-felvideken",
-    kicker: "Balaton-felvidek ?? szolok kozott",
-    title: "Dandelion",
-    titleAccent: "Szololiget",
-    subtitle: "ELVONULAS A SZOLOK KOZOTT",
-    lead: "Csendes vendeghaz azoknak, akik a Balaton-felvidek nyugodtabb oldalat, a szolok kozotti hangulatot es a lassabb pihenest keresik.",
-    primaryCtaLabel: "Reszletek es kapcsolat",
-    secondaryCtaLabel: "Kepek megtekintese"
+    fallbackAlt: "Szőlőliget Vendégház a Szent György-hegy keleti oldalán, panorámás környezetben",
+    kicker: "Kisapáti - Szent György-hegy keleti oldala",
+    title: "Szőlőliget",
+    titleAccent: "Vendégház",
+    subtitle: "CSENDES, KÜLÖNÁLLÓ HÁZ PANORÁMÁVAL",
+    lead: "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, ahonnan az ágyból is látható a napfelkelte. A 2022-ben felújított, kétszintes Szőlőliget Vendégház 4 főnek kényelmes, pótággyal bővíthető, nagy körbejárható terasszal és 180°-os tanúhegy panorámával.",
+    primaryCtaLabel: "Részletek és kapcsolat",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
+    kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekoteséhez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Nyugodt hely, jo valasztas, ha a termeszethez kozel, lassabb ritmusban szeretnel pihenni.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Kivételesen csendes hely, gyönyörű panorámával és olyan reggelekkel, amelyekhez tényleg jó lassan felébredni.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Visszafogott, csendes hangulat, ami rovidebb kikapcsolodashoz es hosszabb piheneshez is jol mukodik.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "A terasz és a környező hegyek látványa különösen emlékezetes, a ház hangulata pedig nyugodt és szerethető.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "A szolok kozotti kornyezet kulonosen jo hatasu, ha nem zsufolt nyaralos elmenyt keresel.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Jó választás, ha valaki elvonulna kicsit a zajtól, mégis közel maradna a Balaton-felvidék programjaihoz.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Kellemes, csendes szallas, jo kiindulopont a kornyek bejarasahoz es esti piheneshez.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Kényelmes, különálló ház, szép kilátással és jó kiindulóponttal túrákhoz, borászatokhoz és balatoni napokhoz.",
+        meta: "Vendég · Booking.com · 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Baratsagos, termeszetkozeli hely, ahol egyszeru kikapcsolni a napi temposabb ritmusbol.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "A csend, a terasz és a napfelkelte együtt nagyon erős élményt ad, különösen azoknak, akik lassabb pihenést keresnek.",
+        meta: "Vendég · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Csend ?? termeszetkozeli pihenes",
-    title: "Elvonulas a szolok kozott",
-    lead: "A Dandelion Szololiget a Balaton-felvidek csendesebb ritmusat hozza kozel, ahol a termeszet, a setak es a nyugodt estek ugyanolyan fontosak, mint maga a szallas."
+    kicker: "Napfelkelte - panoráma - csend",
+    title: "Elvonulás a hegyoldalban, távol a zajtól",
+    lead: "A Szőlőliget Vendégház egy különálló, csendes ház a Szent György-hegy keleti oldalán, azoknak, akik valóban el szeretnének húzódni a zajtól. Itt a reggel külön élmény: az ágyból nézhető a napfelkelte, a ház körül pedig a hegyek és a természet adják a pihenés ritmusát."
   },
   details: {
-    kicker: "Dandelion Szololiget",
-    title: "Csendes vendeghaz a Balaton-felvidek nyugodt oldalan",
+    kicker: "Szőlőliget Vendégház",
+    title: "Kétszintes kis ház hatalmas terasszal és 180°-os panorámával",
     shortDescription:
-      "A Dandelion Szololiget jo valasztas, ha olyan vendeghazat keresel, ahol a szolok kozotti kornyezet, a visszafogott ritmus es a termeszetkozeli pihenes egyszerre van jelen.",
+      "A Szőlőliget Vendégház 2022-ben felújított, kétszintes, különálló ház a Szent György-hegy keleti oldalán. 4 fő részére kényelmes, pótággyal bővíthető, nagy körbejárható terasszal, napfelkeltével az ágyból és csendes, természetközeli környezettel.",
     longDescription: [
-      "A Szololiget oldala a csendesebb, termeszetkozeli pihenesrol szol, ahol a taj, a szolosorok es a lassabb napi ritmus az elmeny termeszetes resze.",
-      "Jo bazis lehet, ha a Balaton-felvideken setak, kisebb kirandulasok es nyugodt estek koze szervezned a pihenest, tavolabb a zsufoltabb nyari helyektol.",
-      "A Dandelion vendeghazak kozott ez az egyik legvisszafogottabb, leginkabb elvonulasra hangolt valasztas, termeszetes kapcsolattal a tobbi kornyekbeli szallashoz."
+      "A Szőlőliget Vendégház egy különálló, csendes ház a Szent György-hegy keleti oldalán, azoknak, akik valóban el szeretnének húzódni a zajtól. Itt a reggel külön élmény: az ágyból nézhető a napfelkelte, a ház körül pedig a hegyek és a természet adják a pihenés ritmusát.",
+      "A házat 2022-ben újítottuk fel, és vadonatúj bútorokkal rendeztük be. A kétszintes, szintenként körülbelül 20 m²-es kis ház 4 fő részére kényelmes, egy pótággyal pedig tovább bővíthető. Ideális választás családoknak, kirándulóknak, bortúrára érkezőknek vagy balatoni nyaraláshoz is.",
+      "Az alsó szinthez hatalmas, körbejárható terasz kapcsolódik, ahonnan 180°-os panoráma nyílik a környező tanúhegyekre. A Csobánc, a Tóti-hegy és a Gulács innen különösen szép arcát mutatja, a kilátás pedig minden napszakban más hangulatot ad a háznak.",
+      "A Szőlőliget egyik legnagyobb értéke a csend és a tér. Nincs zsúfolt környezet, nincs városi nyüzsgés: csak a hegyoldal, a szőlők, a nagy terasz és a panoráma. Reggeli kávéhoz, lassú délutánokhoz és csillagos estékhez is erős helyszín.",
+      "A háztól a Szent György-hegy túraútvonalai könnyen elérhetők. A Bazaltorgonák felé vezető út nagyjából félórás túrával megközelíthető, a környék pedig bőven ad programot: kirándulás, borászatok, tanúhegyek, Badacsony, Szigliget és balatoni programok is rövid autóúttal elérhetők."
     ],
-    moreLabel: "Bovebben a Szololiget oldalrol",
-    ctaLabel: "Reszletek es kapcsolat"
+    moreLabel: "Bővebben a Szőlőligetről",
+    ctaLabel: "Részletek és kapcsolat"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Balaton-felvidek"],
-          ["Jelleg", "csendes, termeszetkozeli pihenes"],
-          ["Hangulat", "szolok kozotti elvonulas"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Férőhely", "4 fő + 1 pótágy"],
+          ["Jelleg", "különálló, kétszintes ház"],
+          ["Felújítás", "2022-ben megújítva, új bútorokkal"],
+          ["Elhelyezkedés", "Szent György-hegy keleti oldala"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Kiemelt élmények",
         items: [
-          ["Fokusz", "lassabb napok es feltoltodes"],
-          ["Kornyek", "setakhoz es kirandulasokhoz jo bazis"],
-          ["Ritmus", "visszafogott es nyugodt"],
-          ["Elmeny", "videki, termeszetkozeli jelenlet"]
+          ["Panoráma", "180°-os kilátás a tanúhegyekre"],
+          ["Terasz", "nagy, körbejárható terasz"],
+          ["Reggel", "napfelkelte az ágyból"],
+          ["Programok", "Bazaltorgonák, bortúrák, Balaton rövid úttal"]
         ]
       }
     ]
   },
   features: {
-    title: "Miért lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Termeszetkozeli hangulat", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Nyugodt ritmus", icon: "users" },
-      { label: "Szolok kozotti kornyezet", icon: "grapes" },
-      { label: "Balaton-felvideki elhelyezkedes", icon: "route" },
-      { label: "Attekintheto szallasoldal", icon: "wifi" }
+      { label: "Különálló vendégház", icon: "home" },
+      { label: "4 fő + pótágy", icon: "users" },
+      { label: "180°-os tanúhegy panoráma", icon: "mountain" },
+      { label: "Nagy, körbejárható terasz", icon: "leaf" },
+      { label: "Napfelkelte az ágyból", icon: "sun" },
+      { label: "Kirándulásokhoz és bortúrához ideális", icon: "trail" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Szololiget hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Szololiget galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Nyolc pillanat a Szőlőliget hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Szőlőliget galériához jelenleg nincs feloldható kép a live registryben.",
     previewCount: 8
   },
   map: {
-    kicker: "BALATON-FELVIDEK · SZOLOK KOZOTT",
-    title: "Kornyek es taj",
-    body: "A Szololiget a Balaton-felvidek csendesebb oldalahoz kapcsolodik. Jo valasztas, ha a termeszetkozeli hangulat, a setak es a lassabb jelenlet fontosabb, mint a zsufoltabb nyaralasi ritmus.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "SZENT GYÖRGY-HEGY - KISAPÁTI KÖRNYÉKE",
+    title: "Környék és táj",
+    body: "A Szőlőliget Vendégház a Szent György-hegy keleti oldalán fekszik, ahonnan könnyen elérhetők a hegy túraútvonalai, a Bazaltorgonák, a környék borászatai és a Balaton-felvidék legismertebb kirándulóhelyei.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Szolok kozotti hangulat", icon: "grapes" },
-      { label: "Kirandulasok a kozelben", icon: "trail" },
-      { label: "Nyugodt videki ritmus", icon: "leaf" }
+      { label: "Bazaltorgonák kb. félórás túrával", icon: "trail" },
+      { label: "Borászatok és tanúhegyek a közelben", icon: "grapes" },
+      { label: "Balaton-közeli pihenés", icon: "route" }
     ],
-    embedSrc: "https://www.google.com/maps?q=Balaton-felvid%C3%A9k&z=11&output=embed",
-    embedTitle: "Dandelion Szololiget kornyeke terkep"
+    embedSrc: "https://www.google.com/maps?q=Kisap%C3%A1ti&z=13&output=embed",
+    embedTitle: "Szőlőliget Vendégház környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Szololiget galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Szőlőliget galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha a szolok kozotti csend mellett mas Balaton-felvideki vagy Balaton kozeli vendeghazat is felfedeznel, nezd meg a tobbi Dandelion szallast is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha a hegyoldali csend után más Balaton-felvidéki vagy Balaton közeli hangulatot is felfedeznél, nézd meg a többi Dandelion vendégházat is.",
     items: [
       {
-        name: "Fugehaz",
-        meta: "2-4 fo · panorama · dezsa",
+        name: "Fügeház",
+        meta: "4-6 fő · panoráma · családi pihenés",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -154,7 +157,7 @@ export const szololigetPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D2",
-        meta: "4-6 fo · kert · csaladbarat",
+        meta: "4-6 fő · nagy udvar · családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -162,18 +165,18 @@ export const szololigetPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence · nyugodt falusi hangulat",
+        name: "Dandelion Köveskál",
+        meta: "Káli-medence · nyugodt falusi hangulat",
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
           src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
+          alt: "Dandelion Köveskál külső kép"
         }
       },
       {
-        name: "Zsalya Vendeghaz",
-        meta: "csendes, termeszetkozeli pihenes",
+        name: "Zsálya Vendégház",
+        meta: "csendes, természetközeli pihenés",
         href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
@@ -182,12 +185,12 @@ export const szololigetPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion Royal Homes",
-        meta: "Balaton kozeli, kenyelmes kikapcsolodas",
+        meta: "Balaton közeli, kényelmes kikapcsolódás",
         href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-          alt: "Dandelion Royal Homes kulso kep"
+          alt: "Dandelion Royal Homes külső kép"
         }
       }
     ]
