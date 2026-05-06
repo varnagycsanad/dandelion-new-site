@@ -5,6 +5,69 @@
 // [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
 import type { AccommodationImageSet } from "./image-types";
 
+const d1SourceFilenames = [
+  "2024-06-23 15-33-24.jpeg",
+  "2024-06-23 15-34-06.jpeg",
+  "2024-06-23 15-36-08.jpeg",
+  "2024-06-23 15-36-28.jpeg",
+  "2024-06-23 15-41-04.jpeg",
+  "2024-06-23 15-41-39.jpeg",
+  "2024-06-23 15-42-26.jpeg",
+  "2024-06-23 15-43-28.jpeg",
+  "2024-06-23 15-43-42.jpeg",
+  "2024-06-23 15-45-15.jpeg",
+  "2024-06-23 15-45-32.jpeg",
+  "2024-06-23 15-45-53.jpeg",
+  "2024-06-23 15-46-04.jpeg",
+  "2024-06-23 15-46-15.jpeg",
+  "2024-06-23 15-47-30.jpeg",
+  "2024-06-23 15-48-29.jpeg",
+  "2024-06-23 15-48-48.jpeg",
+  "2024-06-29 09-53-49.jpeg",
+];
+
+function buildD1GalleryEntries() {
+  return d1SourceFilenames.map((sourceFilename, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/d1/gallery/dandelion-d1-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/d1/thumbs/dandelion-d1-source-${sequence}.webp`;
+
+    return {
+      id: `d1-${sequence}`,
+      apartmentKey: "d1",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Dandelion D1 gallery ${sequence}`,
+        en: `Dandelion D1 gallery ${sequence}`,
+      },
+      title: {
+        hu: `Dandelion D1 ${sequence}`,
+        en: `Dandelion D1 ${sequence}`,
+      },
+      caption: {
+        hu: `Dandelion D1 gallery image ${sequence}.`,
+        en: `Dandelion D1 gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/d1/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-06",
+      updatedAt: "2026-05-06",
+    };
+  });
+}
+
 function buildFugehazGalleryEntries() {
   return Array.from({ length: 13 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
@@ -966,7 +1029,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildD1GalleryEntries(),
     thumbnail: null,
   },
   fugehaz: {

@@ -14,7 +14,7 @@ const outputPath = path.join(
   "accommodation-images.generated.json",
 );
 
-const apartmentKeys = ["d2", "koveskal", "fugehaz"];
+const apartmentKeys = ["d1", "d2", "koveskal", "fugehaz"];
 const generated = {};
 const missingThumbPairs = [];
 

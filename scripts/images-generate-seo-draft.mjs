@@ -5,6 +5,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
+const apartmentArg = process.argv
+  .slice(2)
+  .find((arg) => arg.startsWith("--apartment="))
+  ?.slice("--apartment=".length);
 const generatedInputPath = path.join(
   workspaceRoot,
   "src",
@@ -24,6 +28,7 @@ const openAiApiKey = process.env.OPENAI_API_KEY || (await readEnvValue("OPENAI_A
 const model = process.env.OPENAI_SEO_MODEL || "gpt-4.1-mini";
 const targetImageIds = [];
 const apartmentDisplayNames = {
+  d1: "Dandelion D1",
   d2: "Dandelion D2",
   koveskal: "Dandelion KĂ¶veskĂˇl",
   fugehaz: "FĂĽgehĂˇz",
@@ -67,6 +72,7 @@ const forbiddenPhrasePatterns = [
   /simple arrangement/i,
   /balaton/i,
   /lake view/i,
+  /\bview\b/i,
   /pool/i,
   /mountain/i,
   /hills?/i,
@@ -84,8 +90,12 @@ if (!openAiApiKey) {
   process.exit(1);
 }
 
+const generatedRegistry = JSON.parse(await readFile(generatedInputPath, "utf8"));
 const inputPath = (await fileExists(outputPath)) ? outputPath : generatedInputPath;
 const registry = JSON.parse(await readFile(inputPath, "utf8"));
+if (apartmentArg && !registry[apartmentArg] && generatedRegistry[apartmentArg]) {
+  registry[apartmentArg] = generatedRegistry[apartmentArg];
+}
 const processedImages = [];
 const bannedHits = [];
 let hardFallbackCount = 0;
@@ -96,8 +106,11 @@ const resolvedTargetImageIds =
         .flatMap((apartment) => apartment?.gallery || [])
         .map((image) => image?.id)
         .filter(Boolean);
+const filteredTargetImageIds = apartmentArg
+  ? resolvedTargetImageIds.filter((imageId) => imageId.split("-")[0] === apartmentArg)
+  : resolvedTargetImageIds;
 
-for (const imageId of resolvedTargetImageIds) {
+for (const imageId of filteredTargetImageIds) {
   const apartmentKey = imageId.split("-")[0];
   const apartment = registry[apartmentKey];
   const image = apartment?.gallery?.find((entry) => entry?.id === imageId);
@@ -105,6 +118,10 @@ for (const imageId of resolvedTargetImageIds) {
   if (!apartment || !image) {
     console.error(`STOP: missing test image for id: ${imageId}`);
     process.exit(1);
+  }
+
+  if (image.seoDraft?.approved === true) {
+    continue;
   }
 
   const imagePath = resolvePublicImagePath(image.src);

@@ -8,12 +8,17 @@ import sharp from "sharp";
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
 const sourceRoot = path.join(workspaceRoot, "source-images", "accommodations");
 const outputRoot = path.join(workspaceRoot, "public", "images", "accommodations");
+const apartmentArg = process.argv
+  .slice(2)
+  .find((arg) => arg.startsWith("--apartment="))
+  ?.slice("--apartment=".length);
 
 const galleryWidth = 1600;
 const galleryQuality = 82;
 const thumbWidth = 500;
 const thumbQuality = 75;
 const apartmentFolderMap = {
+  d1: "d1",
   "royal-homes": "royal_homes",
   szepvolgyi: "szepvolgyi",
   szololiget: "szololiget",
@@ -23,7 +28,13 @@ const apartmentFolderMap = {
 };
 
 const apartmentDirs = await listApartmentDirs(sourceRoot);
-const processApartmentDirs = apartmentDirs.filter((apartmentKey) => apartmentKey in apartmentFolderMap);
+const processApartmentDirs = apartmentDirs.filter((apartmentKey) => {
+  if (!(apartmentKey in apartmentFolderMap)) {
+    return false;
+  }
+
+  return apartmentArg ? apartmentKey === apartmentArg : true;
+});
 const summary = {
   processed: 0,
   galleryCreated: 0,
@@ -42,9 +53,13 @@ for (const apartmentKey of processApartmentDirs) {
     .filter(isJpgFile)
     .sort((a, b) => a.localeCompare(b));
 
-  for (const fileName of jpgFiles) {
+  for (const [index, fileName] of jpgFiles.entries()) {
     const sourcePath = path.join(sourceDir, fileName);
-    const outputBaseName = `${path.parse(fileName).name}.webp`;
+    const outputBaseName = buildOutputBaseName({
+      apartmentKey: outputApartmentKey,
+      fileName,
+      sequence: String(index + 1).padStart(3, "0"),
+    });
     const galleryDir = path.join(outputRoot, outputApartmentKey, "gallery");
     const thumbDir = path.join(outputRoot, outputApartmentKey, "thumbs");
     const galleryPath = path.join(galleryDir, outputBaseName);
@@ -129,4 +144,14 @@ async function exists(filePath) {
   } catch {
     return false;
   }
+}
+
+function buildOutputBaseName({ apartmentKey, fileName, sequence }) {
+  const parsed = path.parse(fileName);
+
+  if (parsed.name.startsWith("dandelion-")) {
+    return `${parsed.name}.webp`;
+  }
+
+  return `dandelion-${apartmentKey}-source-${sequence}.webp`;
 }

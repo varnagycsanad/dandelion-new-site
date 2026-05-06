@@ -778,5 +778,280 @@
         }
       }
     ]
+  },
+  "d1": {
+    "apartmentKey": "d1",
+    "gallery": [
+      {
+        "id": "d1-001",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-001.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 szürke ház fehér kerítéssel és zöld kerttel",
+          "titleHu": "Dandelion D1 szürke ház kerttel",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Dandelion D1 gray house with white fence and green garden",
+          "titleEn": "Dandelion D1 gray house with garden",
+          "captionEn": "The Dandelion D1 has a relaxing area and plants in the garden."
+        }
+      },
+      {
+        "id": "d1-002",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-002.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 fedett terasz fehér függönyökkel és kert részlete",
+          "titleHu": "Dandelion D1 terasz és kert",
+          "captionHu": "A terasz fehér függönyökkel és különféle növényekkel van kialakítva a kert mellett.",
+          "altEn": "Dandelion D1 covered terrace with white curtains and part of the garden",
+          "titleEn": "Dandelion D1 terrace and garden",
+          "captionEn": "The terrace has white curtains and plants next to the garden."
+        }
+      },
+      {
+        "id": "d1-003",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-003.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 fedett terasz padokkal és kerti növényekkel",
+          "titleHu": "Dandelion D1 terasz padokkal",
+          "captionHu": "A teraszon padok és asztal vannak, mellette kerti növény nő a kerítés mellett.",
+          "altEn": "Dandelion D1 covered terrace with benches and garden plants",
+          "titleEn": "Dandelion D1 terrace with benches",
+          "captionEn": "The terrace has benches and a table with garden plants growing along the fence."
+        }
+      },
+      {
+        "id": "d1-004",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-004.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 fedett terasza paddal, asztallal és kerti növényekkel",
+          "titleHu": "Dandelion D1 fedett terasz",
+          "captionHu": "A fedett teraszon kerti paddal és asztallal ülhetnek a vendégek.",
+          "altEn": "Dandelion D1 covered terrace with benches, table, and garden plants",
+          "titleEn": "Dandelion D1 Covered Terrace",
+          "captionEn": "The covered terrace has benches and a table with garden plants."
+        }
+      },
+      {
+        "id": "d1-005",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-005.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 kerti terasz székekkel és asztallal redőnyökkel",
+          "titleHu": "Dandelion D1 terasz székekkel és asztallal",
+          "captionHu": "A teraszon párnával ellátott székek, asztal és fehér redőnyök vannak.",
+          "altEn": "Dandelion D1 garden terrace with chairs and table with curtains",
+          "titleEn": "Dandelion D1 terrace with chairs and table",
+          "captionEn": "The terrace has cushioned chairs, a table, and white curtains."
+        }
+      },
+      {
+        "id": "d1-006",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-006.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 terasz párnával és üvegasztallal",
+          "titleHu": "Dandelion D1 terasz ülőbútorokkal",
+          "captionHu": "A teraszon párnás székek és egy üvegasztal áll, fehér függönyökkel körülvéve.",
+          "altEn": "Dandelion D1 terrace with cushioned chairs and glass table",
+          "titleEn": "Dandelion D1 terrace seating",
+          "captionEn": "The terrace has cushioned chairs and a glass table with white curtains around."
+        }
+      },
+      {
+        "id": "d1-007",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-007.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 fedett terasz két lila párnás székkel és asztallal",
+          "titleHu": "Dandelion D1 fedett terasz",
+          "captionHu": "A teraszon két lila párnás szék és egy asztal áll fehér függönyök között.",
+          "altEn": "Dandelion D1 covered terrace with two purple cushioned chairs and a table",
+          "titleEn": "Dandelion D1 covered terrace",
+          "captionEn": "The terrace has two purple cushioned chairs and a table with a decorative bowl."
+        }
+      },
+      {
+        "id": "d1-008",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-008.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "konyha és nappali fa mennyezettel",
+          "titleHu": "Konyha és nappali rész",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "kitchen and living room with wooden ceiling",
+          "titleEn": "Kitchen and living area",
+          "captionEn": "The kitchen is equipped and the living room has a chair and table."
+        }
+      },
+      {
+        "id": "d1-009",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-009.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Konyha és nappali az apartmanban",
+          "titleHu": "Konyha és nappali Dandelion D1-ben",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Kitchen and living room in the apartment",
+          "titleEn": "Kitchen and living room at Dandelion D1",
+          "captionEn": "The kitchen is bright and equipped, with a sofa and table in the living area."
+        }
+      },
+      {
+        "id": "d1-010",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-010.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "két egyszemélyes ágy egyszerű szobában",
+          "titleHu": "két ágyas szoba Dandelion D1-ben",
+          "captionHu": "A kis szoba két külön ággyal és egy kis ablakossal rendelkező.",
+          "altEn": "two single beds in a simple room",
+          "titleEn": "two-bed room at Dandelion D1",
+          "captionEn": "The small room has two separate beds and a small window."
+        }
+      },
+      {
+        "id": "d1-011",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-011.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Két egyszemélyes ágy egy egyszerű szobában",
+          "titleHu": "Egyszerű szoba két ággyal",
+          "captionHu": "Ez a szoba két egyszemélyes ággyal kényelmes pihenést biztosít.",
+          "altEn": "Two single beds in a simple room",
+          "titleEn": "Simple room with two beds",
+          "captionEn": "This room has two single beds for a comfortable rest."
+        }
+      },
+      {
+        "id": "d1-012",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-012.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Zuhanyzós fürdőszoba WC-vel",
+          "titleHu": "Fürdőszoba zuhanyzóval és WC-vel",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with shower and toilet",
+          "titleEn": "Bathroom with shower and toilet",
+          "captionEn": "The bathroom has a shower, toilet, and sink."
+        }
+      },
+      {
+        "id": "d1-013",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-013.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Zuhanyzós fürdőszoba Dandelion D1 apartmanban",
+          "titleHu": "Fürdőszoba zuhanyzóval",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with shower in Dandelion D1 apartment",
+          "titleEn": "Bathroom with shower",
+          "captionEn": "The bathroom has a shower and a towel holder."
+        }
+      },
+      {
+        "id": "d1-014",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-014.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Étkezőasztal körül fehér székek, lépcső és festmények a falon",
+          "titleHu": "Étkező és fa lépcső",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Dining table with white chairs, wooden stairs and paintings on the wall",
+          "titleEn": "Dining area and wooden staircase",
+          "captionEn": "The dining area has a round table and four chairs below the stairs."
+        }
+      },
+      {
+        "id": "d1-015",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-015.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Egyszemélyes ágy és színes fotel a szobában",
+          "titleHu": "Egyszemélyes szoba színes fotellel",
+          "captionHu": "A szoba világos, egy ágy és kényelmes színes fotel van benne.",
+          "altEn": "Single bed and colorful armchair in the room",
+          "titleEn": "Single room with colorful armchair",
+          "captionEn": "The room is bright with a bed and a comfortable colorful armchair."
+        }
+      },
+      {
+        "id": "d1-016",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-016.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion D1 szoba egyágyas ággyal és erkélyajtóval",
+          "titleHu": "Dandelion D1 egyágyas szoba erkéllyel",
+          "captionHu": "A szobában egy ágy, egy polcos tároló, egy fotel és egy szék van az erkélyajtó mellett.",
+          "altEn": "Dandelion D1 room with single bed and balcony door",
+          "titleEn": "Dandelion D1 single room with balcony",
+          "captionEn": "The room has a bed, a shelf unit, an armchair, and a chair by the balcony door."
+        }
+      },
+      {
+        "id": "d1-017",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-017.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kilátás a d1-es apartman környékére",
+          "titleHu": "Dandelion D1 apartman környéke",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "View of the area around apartment d1",
+          "titleEn": "Dandelion D1 apartment area",
+          "captionEn": "The area near apartment d1 has a tidy yard and houses."
+        }
+      },
+      {
+        "id": "d1-018",
+        "src": "/images/accommodations/d1/gallery/dandelion-d1-source-018.webp",
+        "thumb": "/images/accommodations/d1/thumbs/dandelion-d1-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és étkező rész lépcsővel és sparhelttel",
+          "titleHu": "Nappali sparhelttel és étkezővel",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and dining area with stairs and stove",
+          "titleEn": "Living room with stove and dining area",
+          "captionEn": "The living room has a dining area and stove, with stairs to the upper floor."
+        }
+      }
+    ]
   }
 }
