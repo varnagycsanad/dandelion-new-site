@@ -2,157 +2,157 @@ import type { AccommodationPageData } from "./types";
 
 export const zsalyaPageData: AccommodationPageData = {
   seo: {
-    title: "Zsalya Vendeghaz Kisapati | Csendes szallas a Szent Gyorgy-hegyen",
+    title: "Zsálya Vendégház Kisapáti | Csendes szállás a Szent György-hegyen",
     description:
-      "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, 4 fo reszere, reszben fedett terasszal, tanuhegy panoramaval, napfelkeltevel es klimaval mindket szinten."
+      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, 4 fő részére, részben fedett terasszal, tanúhegy panorámával, napfelkeltével és klímával mindkét szinten."
   },
   bookingLink: "/dandelion-zsalya/",
   hero: {
     mobileImagePath: "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp",
-    fallbackAlt: "Zsalya Vendeghaz a Szent Gyorgy-hegy keleti oldalan",
-    kicker: "Szent Gyorgy-hegy keleti oldala",
+    fallbackAlt: "Zsálya Vendégház a Szent György-hegy keleti oldalán",
+    kicker: "Szent György-hegy keleti oldala",
     title: "Dandelion",
-    titleAccent: "Zsalya",
-    subtitle: "CSENDES VENDEGHAZ TERMESZETKOZELI PIHENESHEZ",
-    lead: "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, ket szinten 4 fo reszere. 2026-ban megujult, reszben fedett terasszal, tanuhegy panoramaval, napfelkeltevel, felszerelt teakonyhaval es klimaval mindket szinten.",
-    primaryCtaLabel: "Arak es foglalas",
-    secondaryCtaLabel: "Kepek megtekintese"
+    titleAccent: "Zsálya",
+    subtitle: "CSENDES VENDÉGHÁZ TERMÉSZETKÖZELI PIHENÉSHEZ",
+    lead: "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, két szinten 4 fő részére. 2026-ban megújult, részben fedett terasszal, tanúhegy panorámával, napfelkeltével, felszerelt teakonyhával és klímával mindkét szinten.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
-    title: "Vendegeink szerint",
-    intro: "Valodi vendegertekelesek Google es Booking.com forrasbol.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    kicker: "Vendégértékelések",
+    title: "Vendégeink szerint",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Csendes, nyugodt hely, ahonnan konnyu elindulni turazni, este pedig nagyon jo visszaerni.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Csendes, nyugodt hely, ahonnan könnyű elindulni túrázni, este pedig nagyon jó visszaérni.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "A terasz es a kornyezet hangulata kulonosen sokat ad a piheneshez, tenyleg lassabb ritmust lehet itt felvenni.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "A terasz és a környezet hangulata különösen sokat ad a pihenéshez, tényleg lassabb ritmust lehet itt felvenni.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "Kis meretu, de atgondolt es kenyelmes haz, jo valasztas, ha valaki termeszetkozelben szeretne pihenni.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Kis méretű, de átgondolt és kényelmes ház, jó választás, ha valaki természetközelben szeretne pihenni.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Baratsagos, kenyelmes szallas, nagyon jo kiindulopont a Szent Gyorgy-hegy felfedezesehez.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "Barátságos, kényelmes szállás, nagyon jó kiindulópont a Szent György-hegy felfedezéséhez.",
+        meta: "Vendég - Booking.com - 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Nyugodt, csendes hely, ahol rosszabb idoben is kellemes a fedett teraszon ulni.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "Nyugodt, csendes hely, ahol rosszabb időben is kellemes a fedett teraszon ülni.",
+        meta: "Vendég - Booking.com - 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Csend - termeszetkozeli pihenes",
-    title: "Kulonallo kis haz a hegyoldal nyugalmaban",
-    lead: "A Zsalya Vendeghaz egy kulonallo, csendes kis haz a Szent Gyorgy-hegy keleti oldalan, nyugodt, termeszetkozeli kornyezetben. Ket szinten 4 fo szamara kenyelmes, idealis valasztas azoknak, akik szeretnenek kiszakadni a nyuzsgesbol, turazni, pihenni, vagy egyszeruen csak elvezni a kornyek kulonleges hangulatat."
+    kicker: "Csend - természetközeli pihenés",
+    title: "Különálló kis ház a hegyoldal nyugalmában",
+    lead: "A Zsálya Vendégház egy különálló, csendes kis ház a Szent György-hegy keleti oldalán, nyugodt, természetközeli környezetben. Két szinten 4 fő számára kényelmes, ideális választás azoknak, akik szeretnének kiszakadni a nyüzsgésből, túrázni, pihenni, vagy egyszerűen csak élvezni a környék különleges hangulatát."
   },
   details: {
-    kicker: "Zsalya Vendeghaz",
-    title: "Napfelkelte, tanuhegy panorama es nyugodt, ket szintes pihenes",
+    kicker: "Zsálya Vendégház",
+    title: "Napfelkelte, tanúhegy panoráma és nyugodt, két szintes pihenés",
     shortDescription:
-      "Kulonallo, csendes vendeghaz a Szent Gyorgy-hegy keleti oldalan, ket szinten 4 fo reszere. 2026-ban megujult, reszben fedett terasszal, napfelkeltevel, tanuhegy panoramaval es klimaval mindket szinten.",
+      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, két szinten 4 fő részére. 2026-ban megújult, részben fedett terasszal, napfelkeltével, tanúhegy panorámával és klímával mindkét szinten.",
     longDescription: [
-      "A Zsalya Vendeghaz egy kulonallo, csendes kis haz a Szent Gyorgy-hegy keleti oldalan, nyugodt, termeszetkozeli kornyezetben. Ket szinten 4 fo szamara kenyelmes, idealis valasztas azoknak, akik szeretnenek kiszakadni a nyuzsgesbol, turazni, pihenni, vagy egyszeruen csak elvezni a kornyek kulonleges hangulatat.",
-      "A haz egyik legszebb elmenye a reggel: a napfelkelte es a hegyoldal fenyei kulonleges hangulatot adnak az itt toltott napoknak. A kornyezet csendes, levegos es termeszetkozeli, igy a Zsalya jo valasztas paroknak, kisebb csaladoknak es nyugodt kikapcsolodast kereso baratoknak is.",
-      "2026-ban a haz megujult: a terasz reszben beepult, igy rosszabb idoben is jobban hasznalhato. A reszben fedett teraszrol szep kilatas nyilik a Csobanc, a Gulacs es a Toti-hegy iranyaba, igy egy reggeli kave, egy esti pohar bor vagy egy csendes delutan is kulon elmenyt kap.",
-      "Az also szinten talalhato a fozosarok, a zuhanyzos furdoszoba es a kulon WC. A fozosarok jol felszerelt, hutoszekrennyel, beepitett fagyasztoval es a mindennapi etkezesekhez szukseges eszkozokkel, ezert rovidebb es hosszabb tartozkodasra is kenyelmesen hasznalhato.",
-      "A nappali vilagos, baratsagos kozossegi ter, ahol kanape, sok ablak es kozvetlen teraszkijarat teszi kellemessebbe az itt toltott idot. Ez a resz rosszabb idoben is jol hasznalhato, megis megmarad a haz nyitott, termeszetkozeli hangulata.",
-      "A felso szinten franciaagy talalhato, valamint mosdo es furdokad is a vendegek rendelkezesere all. A haz elrendezese egyszerre otthonos es praktikus, igy a Zsalya konnyen hasznalhato piheneshez, turazos hetvegehez vagy hosszabb Balaton-felvideki kikapcsolodashoz is.",
-      "Mindket szint klimaval felszerelt, igy nyaron hutheto, huvosebb idoben pedig futheto is a haz. A reszben fedett terasz es a kornyezo csend lehetoseget ad arra, hogy a vendegek valoban lelassuljanak.",
-      "A kornyek egyik nagy elonye, hogy a Szent Gyorgy-hegy turautvonala szinte a kapubol elerheto. Itt a pihenes egyszeruen mukodik: nappal kirandulas, este nyugalom, reggel fenyek."
+      "A Zsálya Vendégház egy különálló, csendes kis ház a Szent György-hegy keleti oldalán, nyugodt, természetközeli környezetben. Két szinten 4 fő számára kényelmes, ideális választás azoknak, akik szeretnének kiszakadni a nyüzsgésből, túrázni, pihenni, vagy egyszerűen csak élvezni a környék különleges hangulatát.",
+      "A ház egyik legszebb élménye a reggel: a napfelkelte és a hegyoldal fényei különleges hangulatot adnak az itt töltött napoknak. A környezet csendes, levegős és természetközeli, így a Zsálya jó választás pároknak, kisebb családoknak és nyugodt kikapcsolódást kereső barátoknak is.",
+      "2026-ban a ház megújult: a terasz részben beépült, így rosszabb időben is jobban használható. A részben fedett teraszról szép kilátás nyílik a Csobánc, a Gulács és a Tóti-hegy irányába, így egy reggeli kávé, egy esti pohár bor vagy egy csendes délután is külön élményt kap.",
+      "Az alsó szinten található a főzősarok, a zuhanyzós fürdőszoba és a külön WC. A főzősarok jól felszerelt, hűtőszekrénnyel, beépített fagyasztóval és a mindennapi étkezésekhez szükséges eszközökkel, ezért rövidebb és hosszabb tartózkodásra is kényelmesen használható.",
+      "A nappali világos, barátságos közösségi tér, ahol kanapé, sok ablak és közvetlen teraszkijárat teszi kellemesebbé az itt töltött időt. Ez a rész rosszabb időben is jól használható, mégis megmarad a ház nyitott, természetközeli hangulata.",
+      "A felső szinten franciaágy található, valamint mosdó és fürdőkád is a vendégek rendelkezésére áll. A ház elrendezése egyszerre otthonos és praktikus, így a Zsálya könnyen használható pihenéshez, túrázós hétvégéhez vagy hosszabb Balaton-felvidéki kikapcsolódáshoz is.",
+      "Mindkét szint klímával felszerelt, így nyáron hűthető, hűvösebb időben pedig fűthető is a ház. A részben fedett terasz és a környező csend lehetőséget ad arra, hogy a vendégek valóban lelassuljanak.",
+      "A környék egyik nagy előnye, hogy a Szent György-hegy túraútvonala szinte a kapuból elérhető. Itt a pihenés egyszerűen működik: nappal kirándulás, este nyugalom, reggel fények."
     ],
-    moreLabel: "Bovebben a Zsalyarol",
-    ctaLabel: "Arak es foglalas"
+    moreLabel: "Bővebben a Zsályáról",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Ferohely", "4 fo"],
-          ["Jelleg", "kulonallo, ket szintes kis haz"],
-          ["Elhelyezkedes", "Szent Gyorgy-hegy keleti oldala"],
-          ["Megujulas", "2026-ban megujult, reszben beepult terasszal"]
+          ["Férőhely", "4 fő"],
+          ["Jelleg", "különálló, két szintes kis ház"],
+          ["Elhelyezkedés", "Szent György-hegy keleti oldala"],
+          ["Megújulás", "2026-ban megújult, részben beépült terasszal"]
         ]
       },
       {
-        title: "Kiemelt elmenyek",
+        title: "Kiemelt élmények",
         items: [
-          ["Panorama", "Csobanc, Gulacs es Toti-hegy a teraszrol"],
-          ["Reggel", "gyonyoru napfelkelte"],
-          ["Komfort", "klima mindket szinten"],
-          ["Programok", "turautvonal szinte a kapubol"]
+          ["Panoráma", "Csobánc, Gulács és Tóti-hegy a teraszról"],
+          ["Reggel", "gyönyörű napfelkelte"],
+          ["Komfort", "klíma mindkét szinten"],
+          ["Programok", "túraútvonal szinte a kapuból"]
         ]
       }
     ]
   },
   features: {
-    title: "Miert lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Kulonallo vendeghaz", icon: "home" },
-      { label: "4 fo reszere kenyelmes", icon: "users" },
-      { label: "Ket szint", icon: "route" },
-      { label: "Reszben fedett, reszben beepult terasz", icon: "leaf" },
-      { label: "Tanuhegy panorama", icon: "mountain" },
-      { label: "Klima mindket szinten", icon: "wifi" },
+      { label: "Különálló vendégház", icon: "home" },
+      { label: "4 fő részére kényelmes", icon: "users" },
+      { label: "Két szint", icon: "route" },
+      { label: "Részben fedett, részben beépült terasz", icon: "leaf" },
+      { label: "Tanúhegy panoráma", icon: "mountain" },
+      { label: "Klíma mindkét szinten", icon: "wifi" },
       { label: "Felszerelt teakonyha", icon: "utensils" },
-      { label: "Turautvonal a kozelben", icon: "trail" }
+      { label: "Túraútvonal a közelben", icon: "trail" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Zsalya hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Zsalya galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Nyolc pillanat a Zsálya hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Zsálya galériához jelenleg nincs feloldható kép a live registryben.",
     previewCount: 8
   },
   map: {
-    kicker: "SZENT GYORGY-HEGY - KELETI OLDAL",
-    title: "Kornyek es taj",
-    body: "A Zsalya Vendeghaz a Szent Gyorgy-hegy keleti oldalan fekszik, ahol a turautvonal szinte a kapubol elerheto. Innen konnyen megkozelithetok a hegy reszei, a tanuhegyek latvanyos pontjai es a Balaton-felvidek csendesebb, termeszetkozeli programjai.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "SZENT GYÖRGY-HEGY - KELETI OLDAL",
+    title: "Környék és táj",
+    body: "A Zsálya Vendégház a Szent György-hegy keleti oldalán fekszik, ahol a túraútvonal szinte a kapuból elérhető. Innen könnyen megközelíthetők a hegy részei, a tanúhegyek látványos pontjai és a Balaton-felvidék csendesebb, természetközeli programjai.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Turautvonal a kozelben", icon: "trail" },
-      { label: "Csendes hegyoldali kornyezet", icon: "leaf" },
-      { label: "Tanuhegyek latvanya", icon: "route" }
+      { label: "Túraútvonal a közelben", icon: "trail" },
+      { label: "Csendes hegyoldali környezet", icon: "leaf" },
+      { label: "Tanúhegyek látványa", icon: "route" }
     ],
     embedSrc: "https://www.google.com/maps?q=Kisap%C3%A1ti&z=13&output=embed",
-    embedTitle: "Zsalya Vendeghaz kornyeke terkep"
+    embedTitle: "Zsálya Vendégház környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Zsalya galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Zsálya galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas Balaton-felvideki vagy Balaton kozeli hangulatot is felfedeznel, nezd meg a tobbi vendeghazunkat is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha más Balaton-felvidéki vagy Balaton közeli hangulatot is felfedeznél, nézd meg a többi vendégházunkat is.",
     items: [
       {
-        name: "Fugehaz",
-        meta: "2-4 fo - panorama - csaladi pihenes",
+        name: "Fügeház",
+        meta: "2-4 fő - panoráma - családi pihenés",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -161,7 +161,7 @@ export const zsalyaPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D2",
-        meta: "4-6 fo - nagy udvar - csaladbarat",
+        meta: "4-6 fő - nagy udvar - családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -169,18 +169,18 @@ export const zsalyaPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence - nyugodt falusi hangulat",
+        name: "Dandelion Köveskál",
+        meta: "Káli-medence - nyugodt falusi hangulat",
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
           src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
+          alt: "Dandelion Köveskál külső kép"
         }
       },
       {
-        name: "Szololiget Vendeghaz",
-        meta: "elvonulas a szolok kozott",
+        name: "Szőlőliget Vendégház",
+        meta: "elvonulás a szőlők között",
         href: "/szololiget/",
         image: {
           type: "mapping",
@@ -189,12 +189,12 @@ export const zsalyaPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion Royal Homes",
-        meta: "Balaton kozeli, kenyelmes kikapcsolodas",
+        meta: "Balaton közeli, kényelmes kikapcsolódás",
         href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-          alt: "Dandelion Royal Homes kulso kep"
+          alt: "Dandelion Royal Homes külső kép"
         }
       }
     ]
