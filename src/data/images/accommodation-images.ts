@@ -220,6 +220,49 @@ function buildKoveskalGalleryEntries() {
   });
 }
 
+function buildSzepvolgyiGalleryEntries() {
+  return Array.from({ length: 22 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-szepvolgyi-source-${sequence}.jpg`;
+
+    return {
+      id: `szepvolgyi-${sequence}`,
+      apartmentKey: "szepvolgyi",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Szepvolgyi gallery ${sequence}`,
+        en: `Szepvolgyi gallery ${sequence}`,
+      },
+      title: {
+        hu: `Szepvolgyi ${sequence}`,
+        en: `Szepvolgyi ${sequence}`,
+      },
+      caption: {
+        hu: `Szepvolgyi gallery image ${sequence}.`,
+        en: `Szepvolgyi gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/szepvolgyi/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-06",
+      updatedAt: "2026-05-06",
+    };
+  });
+}
+
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
@@ -920,7 +963,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildSzepvolgyiGalleryEntries(),
     thumbnail: null,
   },
   royal_homes: {

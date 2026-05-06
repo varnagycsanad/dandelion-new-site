@@ -1,0 +1,8 @@
+---
+// [CHANGE 2026-05-06 00:00] Szepvolgyi Vendeghaz page wrapped with shared AccommodationPage template.
+import { szepvolgyiPageData } from "../data/accommodation-pages/szepvolgyi";
+import { accommodationImages } from "../data/images/accommodation-images";
+import AccommodationPage from "../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage pageData={szepvolgyiPageData} imageSet={accommodationImages.szepvolgyi} />
