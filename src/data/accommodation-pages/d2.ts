@@ -1,22 +1,23 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] D2 SEO title, meta, headings and intro copy refined for production baseline.
+// [CHANGE 2026-05-06 22:35] D2 copy updated from Airbnb content baseline with stronger family focus and cleaned Hungarian text.
 export const d2PageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D2 | Vendeghaz Kisapatiban, a Szent Gyorgy-hegy labanal",
-    description: "Csaladbarat vendeghaz Kisapatiban, a Szent Gyorgy-hegy labanal, terasszal, kerttel es nyugodt Balaton-felvideki hangulattal."
+    title: "Dandelion D2 | Családbarát apartman Kisapátiban, a Szent György-hegy lábánál",
+    description:
+      "Modern, családbarát apartman Kisapátiban nagy udvarral, székelydézsával, állatokkal és közeli kirándulóhelyekkel a Balaton-felvidéken."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
     mobileImagePath: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
-    fallbackAlt: "Dandelion D2 vendeghaz kerttel a Szent Gyorgy-hegy labanal",
-    kicker: "Balaton-felvidek ?? Szent Gyorgy-hegy",
+    fallbackAlt: "Dandelion D2 apartman kerttel a Szent György-hegy lábánál",
+    kicker: "Balaton-felvidék - Szent György-hegy",
     title: "Dandelion",
     titleAccent: "D2",
-    subtitle: "KERTES HAZ A SZENT GYORGY-HEGY LABANAL",
-    lead: "Csaladbarat vendeghaz 4-6 fonak Kisapatiban, sajat kerttel, terasszal es nyugodt Balaton-felvideki kornyezettel.",
-    primaryCtaLabel: "Arak es foglalas",
-    secondaryCtaLabel: "Kepek megtekintese"
+    subtitle: "CSALÁDBARÁT APARTMAN KISAPÁTIBAN",
+    lead: "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, székelydézsa, állatok és közeli kirándulóhelyek várnak. A Balaton és a tanúhegyek programjai pár perc alatt elérhetők.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
     kicker: "Vendégértékelések",
@@ -29,68 +30,71 @@ export const d2PageData: AccommodationPageData = {
     items: [
       {
         source: "Google",
-        quote: "„Idilli környezet, kedves házigazdák, sok hely a gyerekeknek és nyugodt, szerethető hangulat.”",
+        quote: "Idilli környezet, kedves házigazdák, sok hely a gyerekeknek és nyugodt, szerethető hangulat.",
         meta: "Vanessa L. · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "„A ház minden igényt kielégít, és jó szívvel ajánlom annak, aki pár napra elvonulna.”",
+        quote: "A ház minden igényt kielégít, és jó szívvel ajánlom annak, aki pár napra elvonulna.",
         meta: "Ildikó Barna · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "„Szép, rendezett hely, csendes környezet és gördülékeny érkezés. Kifejezetten jó pihenéshez.”",
+        quote: "Szép, rendezett hely, csendes környezet és gördülékeny érkezés. Kifejezetten jó pihenéshez.",
         meta: "Eszter K. · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "„Abszolút pozitív élmény, gyors válaszokkal és nagyon segítőkész házigazdákkal.”",
+        quote: "Abszolút pozitív élmény, gyors válaszokkal és nagyon segítőkész házigazdákkal.",
         meta: "Bernadett · Booking.com · 10/10"
       },
       {
         source: "Booking.com",
-        quote: "„Tökéletes pihentető napokhoz: csendes hely, barátságos házigazdák és kényelmes szállás.”",
+        quote: "Tökéletes pihentető napokhoz: csendes hely, barátságos házigazdák és kényelmes szállás.",
         meta: "Angelika · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Nyugalom ?? csaladbarat pihenes",
-    title: "Csaladbarat pihenes a Balaton-felvideken",
-    lead: "A Dandelion D2 vilagos, kenyelmes terekkel, sajat kerttel es terasszal ad nyugodt bazist a Szent Gyorgy-hegy, Badacsony es a Balaton-felvidek felfedezesehez."
+    kicker: "Nyugalom - családbarát pihenés",
+    title: "Családi kikapcsolódás a tanúhegyek közelében",
+    lead: "A Dandelion D2 Apartman egy modern, ízlésesen berendezett, családbarát ház Kisapátin, a Szent György-hegy lábánál. Tágas terek, nyugodt környezet, nagy udvar és praktikus elrendezés várja a vendégeket."
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Tagas vendeghaz kerttel es kenyelmes csaladi elrendezessel",
+    title: "Nagy udvar, galériás nappali és falusi pluszélmények egy helyen",
     shortDescription:
-      "A Dandelion D2 Kisapatiban, a Szent Gyorgy-hegy labanal var csaladokat es kisebb barati tarsasagokat. A sajat kert, a terasz es a praktikus belso terek lassabb, kenyelmes pihenest adnak.",
+      "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, székelydézsa, állatok és közeli kirándulóhelyek várnak. A Balaton és a tanúhegyek programjai pár perc alatt elérhetők.",
     longDescription: [
-      "A D2 Kisapatiban, a Szent Gyorgy-hegy labanal ad nyugodt, jol szervezheto bazist a Balaton-felvideki napokhoz, turakhoz es csaladi kikapcsolodashoz.",
-      "A haz 4 fonek kenyelmes, a kihuzhato kanapeval pedig akar 6 fonek is jo valasztas. A nappali, a konyha es az etkezo egy vilagos, otthonos terben kapcsolodik ossze.",
-      "A terasz es a kertkapcsolat kulonosen jo lassu reggelekhez, esti beszelgetesekhez es ahhoz a termeszetkozeli ritmushoz, ami miatt sokan a Balaton-felvideket keresik.",
-      "Badacsony, a Balaton partja es a kornyek vendeghazai is konnyen elerhetok, igy a Dandelion D2 onallo piheneshez es tobb hazat osszekoto csaladi nyaralashoz is jo bazis lehet."
+      "A Dandelion D2 Apartman egy modern, ízlésesen berendezett, családbarát ház Kisapátin, a Szent György-hegy lábánál. Tágas terek, nyugodt környezet, nagy udvar és praktikus elrendezés várja a vendégeket.",
+      "A házban jól felszerelt, 2026-ban felújított konyha, világos, nagy belmagasságú galériás nappali és kényelmes családi terek találhatók. A nappali társasozásra, beszélgetésre és pihenésre is ideális.",
+      "A nappaliból közvetlenül elérhető a székelydézsa, amely télen és nyáron is külön élmény: kirándulás után vagy egy csendes este végén tökéletes hely a lazításra.",
+      "A hatalmas udvarban bőven van hely a gyerekeknek játszani, a felnőtteknek pihenni, grillezni vagy csak élvezni a vidéki csendet. A háznál kecske, tyúkok és macskák is vannak, ami sok családnak igazi falusi pluszélményt ad.",
+      "A ház melletti dombról 360 fokos panoráma nyílik a környező tanúhegyekre, este pedig különleges élmény a csillagnézés, akár a hintaágyból is.",
+      "Nyáron a Balaton közelsége nagy előny: strandolás, vízparti programok és naplementés esték könnyen elérhetők. A környék klasszikus kirándulóhelyei - Szent György-hegy, Gulács, Csobánc, Badacsony és Szigliget - rövid autóúttal elérhetők.",
+      "A Balaton-felvidék borkultúrája is közel van: pincék, borászatok, kóstolók és szőlőhegyi hangulat teszik teljessé a pihenést."
     ],
-    moreLabel: "Bovebben a D2-rol",
-    ctaLabel: "Arak es foglalas"
+    moreLabel: "Bővebben a D2-ről",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Férőhely", "4–6 fő"],
-          ["Méret", "65 m²"],
-          ["Ágyak", "1 franciaágy, 2 szimpla ágy, 1 kihúzható kanapé"],
-          ["Parkolás", "ingyenes udvari parkolás"]
+          ["Férőhely", "4-6 fő"],
+          ["Elrendezés", "galériás nappali és családi terek"],
+          ["Környezet", "nagy udvar, nyugodt vidéki hangulat"],
+          ["Elhelyezkedés", "Kisapáti, a Szent György-hegy lábánál"]
         ]
       },
       {
-        title: "Kényelem",
+        title: "Élmények",
         items: [
-          ["Wifi", "Gigabites Wi-Fi"],
-          ["Konyha", "jól felszerelt"],
-          ["Fürdő", "kényelmes, családbarát"],
-          ["Jelleg", "családbarát pihenés"]
+          ["Wellness", "székelydézsa közvetlen kijárattal"],
+          ["Gyerekeknek", "állatok és bőven használható udvar"],
+          ["Panoráma", "360 fokos kilátás a dombról"],
+          ["Programok", "Balaton, túrák, borászatok rövid úttal"]
         ]
       }
     ]
@@ -98,12 +102,12 @@ export const d2PageData: AccommodationPageData = {
   features: {
     title: "Felszereltség",
     highlights: [
-      { label: "Gigabites Wi-Fi", icon: "wifi" },
-      { label: "Jól felszerelt konyha", icon: "utensils" },
-      { label: "Kényelmes fürdő", icon: "shower" },
-      { label: "Saját parkolás", icon: "car" },
-      { label: "Családbarát elrendezés", icon: "users" },
-      { label: "Nyugodt kertkapcsolat", icon: "leaf" }
+      { label: "2026-ban felújított konyha", icon: "utensils" },
+      { label: "Galériás nappali", icon: "home" },
+      { label: "Székelydézsa", icon: "pool" },
+      { label: "Nagy udvar és grillezés", icon: "leaf" },
+      { label: "Állatok a háznál", icon: "users" },
+      { label: "Kirándulós bázis a tanúhegyekhez", icon: "trail" }
     ]
   },
   gallery: {
@@ -117,7 +121,7 @@ export const d2PageData: AccommodationPageData = {
   map: {
     kicker: "SZENT GYÖRGY-HEGY · KISAPÁTI",
     title: "D2 környéke",
-    body: "A Dandelion D2 a Szent György-hegy lábánál, Kisapátiban van. Onnan könnyen elérhető a Tapolcai-medence, Badacsony és a Balaton-felvidék csendesebb része.",
+    body: "A Dandelion D2 a Szent György-hegy lábánál, Kisapátiban található. Innen könnyen elérhető a Tapolcai-medence, a Balaton partja és a Balaton-felvidék kedvelt kiránduló- és borvidéki helyszínei.",
     benefitsAriaLabel: "Környék előnyei",
     benefits: [
       { label: "Túrák a közelben", icon: "trail" },
@@ -142,11 +146,11 @@ export const d2PageData: AccommodationPageData = {
   relatedStays: {
     kicker: "További szállások",
     title: "További Dandelion szállások",
-    intro: "Ha a Szent Gyorgy-hegy kornyeke utan mas Balaton-felvideki hangulatot is felfedeznel, nezd meg a tobbi Dandelion vendeghazat is.",
+    intro: "Ha a Szent György-hegy környéke után más Balaton-felvidéki hangulatot is felfedeznél, nézd meg a többi Dandelion vendégházat is.",
     items: [
       {
         name: "Fügeház",
-        meta: "2–4 fő · panoráma · dézsa",
+        meta: "2-4 fő · panoráma · dézsa",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -155,7 +159,7 @@ export const d2PageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D1",
-        meta: "6–8 fő · nagy kert · családoknak",
+        meta: "6-8 fő · nagy kert · családoknak",
         href: "https://dandelionhouse.hu/dandelion-d1/",
         image: {
           type: "mapping",
