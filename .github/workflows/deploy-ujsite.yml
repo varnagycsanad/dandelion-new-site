@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      force_image_upload:
+        description: Force full accommodation image upload
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: deploy-root-${{ github.ref }}
@@ -54,7 +60,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_image_upload }}" = "true" ]; then
             echo "images_changed=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -62,12 +68,7 @@ jobs:
           BEFORE_SHA="${{ github.event.before }}"
           CURRENT_SHA="${{ github.sha }}"
 
-          if [ -z "${BEFORE_SHA}" ] || [ "${BEFORE_SHA}" = "0000000000000000000000000000000000000000" ]; then
-            echo "images_changed=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          if git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/images/accommodations/**' | grep -q .; then
+          if [ -n "${BEFORE_SHA}" ] && [ "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ] && git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/images/accommodations/**' | grep -q .; then
             echo "images_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "images_changed=false" >> "$GITHUB_OUTPUT"
@@ -95,7 +96,7 @@ jobs:
             dist/ deploy-dist/
 
       - name: Prepare accommodation image payload
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -138,7 +139,7 @@ jobs:
           EOF
 
       - name: Deploy accommodation images over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
