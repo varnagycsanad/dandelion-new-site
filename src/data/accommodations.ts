@@ -81,7 +81,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion D1",
     slug: "dandelion-d1",
-    url: "https://dandelionhouse.hu/dandelion-d1/",
+    url: "/dandelion-d1/",
     location: "Kisapáti / Balaton-felvidék",
     description: "Tágas vendégház közös pihenéshez, balatoni hétvégékhez és nyugodt estékhez.",
     hoverText: "A nagy társaságok kedvence: hatalmas terek, kandalló, közös főzések.",

@@ -160,7 +160,7 @@ export const d2PageData: AccommodationPageData = {
       {
         name: "Dandelion D1",
         meta: "6-8 fő · nagy kert · családoknak",
-        href: "https://dandelionhouse.hu/dandelion-d1/",
+        href: "/dandelion-d1/",
         image: {
           type: "mapping",
           slot: "d1_card_image"
