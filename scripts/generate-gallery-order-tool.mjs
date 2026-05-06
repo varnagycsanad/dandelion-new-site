@@ -182,6 +182,145 @@ function buildSimpleList(items) {
   return items.map((item) => item.filename).join("\n");
 }
 
+function renderSeoDraftMarkup(seoDraft) {
+  if (!seoDraft) {
+    return "<div class='seo__item'>Nincs SEO draft adat.</div>";
+  }
+
+  return [
+    '<div class="seo__item"><strong>approved:</strong> ' + escapeHtml(String(Boolean(seoDraft.approved))) + '</div>',
+    '<div class="seo__item"><strong>altHu:</strong> ' + escapeHtml(seoDraft.altHu || "—") + '</div>',
+    '<div class="seo__item"><strong>titleHu:</strong> ' + escapeHtml(seoDraft.titleHu || "—") + '</div>',
+    '<div class="seo__item"><strong>captionHu:</strong> ' + escapeHtml(seoDraft.captionHu || "—") + '</div>',
+    '<div class="seo__item"><strong>altEn:</strong> ' + escapeHtml(seoDraft.altEn || "—") + '</div>',
+    '<div class="seo__item"><strong>titleEn:</strong> ' + escapeHtml(seoDraft.titleEn || "—") + '</div>',
+    '<div class="seo__item"><strong>captionEn:</strong> ' + escapeHtml(seoDraft.captionEn || "—") + '</div>'
+  ].join("");
+}
+
+function buildMetricsData(items) {
+  const filenames = items.map((item) => item.filename);
+  const duplicateCount = filenames.length - new Set(filenames).size;
+  const emptySrcCount = items.filter((item) => !String(item.src || "").trim()).length;
+  const sortOrderCount = items.filter((item) => typeof item.sortOrder === "number").length;
+
+  return [
+    { label: "Képek száma", value: String(items.length) },
+    { label: "Duplikált filename", value: String(duplicateCount) },
+    { label: "Üres src", value: String(emptySrcCount) },
+    { label: "Minden kép betöltött", value: "nem ellenőrzött" },
+    { label: "sortOrder mezők", value: String(sortOrderCount) + "/" + String(items.length) },
+    { label: "Első 12 kép", value: String(Math.min(12, items.length)) },
+    { label: "Törött képek", value: "0" },
+    { label: "Betöltött képek", value: "nem ellenőrzött" }
+  ];
+}
+
+function buildMetricsHtml(items) {
+  return buildMetricsData(items)
+    .map(
+      (metric) =>
+        '<div class="metric"><span class="metric__label">' +
+        escapeHtml(metric.label) +
+        '</span><span class="metric__value">' +
+        escapeHtml(metric.value) +
+        '</span></div>'
+    )
+    .join("");
+}
+
+function buildCardHtml(item, index) {
+  const filename = item.filename || getFilename(item.src);
+  const seoDraft = item.seoDraft || null;
+  const thumbUrl = relativePublicUrl(item.thumb || item.src);
+  const fullUrl = relativePublicUrl(item.src);
+
+  return (
+    '<article class="card" draggable="true" data-index="' +
+    index +
+    '" data-filename="' +
+    escapeHtml(filename) +
+    '">' +
+    '<div class="card__media">' +
+    '<img src="' +
+    escapeHtml(thumbUrl) +
+    '" alt="' +
+    escapeHtml(seoDraft && seoDraft.altHu ? seoDraft.altHu : filename) +
+    '" loading="lazy" data-full="' +
+    escapeHtml(fullUrl) +
+    '" />' +
+    '<span class="badge">#' +
+    (index + 1) +
+    '</span>' +
+    '<span class="badge secondary">' +
+    escapeHtml(String(item.sortOrder ?? "n/a")) +
+    '</span>' +
+    '</div>' +
+    '<div class="card__body">' +
+    '<div class="headline">' +
+    '<strong>' +
+    escapeHtml(filename) +
+    '</strong>' +
+    '<span>' +
+    escapeHtml(item.id || "n/a") +
+    '</span>' +
+    '</div>' +
+    '<div class="meta">' +
+    '<div class="meta-row"><strong>src</strong><span>' +
+    escapeHtml(filename) +
+    '</span></div>' +
+    '<div class="meta-row"><strong>sortOrder</strong><span>' +
+    escapeHtml(String(item.sortOrder ?? "n/a")) +
+    '</span></div>' +
+    '</div>' +
+    '<div class="statusline">' +
+    '<span class="status" data-state="info">betöltés…</span>' +
+    '<span class="status" data-state="info">ismeretlen</span>' +
+    '</div>' +
+    '<details class="seo">' +
+    '<summary>SEO draft</summary>' +
+    '<div class="seo__grid">' +
+    renderSeoDraftMarkup(seoDraft) +
+    '</div>' +
+    '</details>' +
+    '<div class="note">' +
+    '<label for="note-' +
+    index +
+    '">Megjegyzés</label>' +
+    '<textarea id="note-' +
+    index +
+    '" data-note-index="' +
+    index +
+    '" placeholder="Csak helyi exporthoz..."></textarea>' +
+    '</div>' +
+    '</div>' +
+    '</article>'
+  );
+}
+
+function buildGalleryMarkup(items) {
+  const first = items.slice(0, 12);
+  const rest = items.slice(12);
+  const firstCards = first.map((item, index) => buildCardHtml(item, index)).join("");
+  const restCards = rest.map((item, index) => buildCardHtml(item, index + 12)).join("");
+
+  return (
+    '<div class="section__title">Első 12 kép – kiemelt galéria<small>' +
+    escapeHtml(String(first.length)) +
+    ' kép látható ebben a blokkban.</small></div>' +
+    '<div class="grid" id="gallery-grid" data-group="primary">' +
+    firstCards +
+    '</div>' +
+    (rest.length
+      ? '<div class="section__title" style="margin-top:18px;">További galériaképek<small>' +
+        escapeHtml(String(rest.length)) +
+        ' kép maradt a kiemelt blokk után.</small></div><div class="grid" data-group="secondary">' +
+        restCards +
+        '</div>'
+      : "")
+  );
+}
+
 function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource }) {
   const pageData = {
     apartmentKey,
@@ -601,7 +740,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
           }</span>
           <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
-        <div class="metrics" id="metrics"></div>
+        <div class="metrics" id="metrics">${buildMetricsHtml(items)}</div>
       </section>
 
       <aside class="panel">
@@ -612,13 +751,13 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         </div>
         <div class="toolbar" aria-label="Export mezők">
           <div>
-            <textarea id="export-json" readonly></textarea>
+            <textarea id="export-json" readonly>${escapeHtml(buildExportJson(items))}</textarea>
           </div>
           <div>
-            <textarea id="export-codex" readonly></textarea>
+            <textarea id="export-codex" readonly>${escapeHtml(buildCodexBlock(apartmentKey, items))}</textarea>
           </div>
           <div>
-            <textarea id="export-list" readonly></textarea>
+            <textarea id="export-list" readonly>${escapeHtml(buildSimpleList(items))}</textarea>
           </div>
         </div>
       </aside>
@@ -629,7 +768,7 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         Első 12 kép – kiemelt galéria
         <small>Az első tizenkettő külön vizuális blokkban jelenik meg, hogy az exportnál azonnal látszódjon a fókusz.</small>
       </h2>
-      <div id="gallery-root"></div>
+      <div id="gallery-root">${buildGalleryMarkup(items)}</div>
     </section>
 
     <p class="footer">
