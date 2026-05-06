@@ -47,6 +47,7 @@ export default defineConfig({
   // [CHANGE 2026-04-17 20:47] Convert project to static-only Astro build
   // [CHANGE 2026-05-06 13:20] Switch static site base path from /ujsite/ to domain root.
   base: '/',
+  site: 'https://dandelionhouse.hu',
   output: 'static',
   integrations: [localImageAdmin()],
   // [CHANGE 2026-04-19] Avoid @ characters in generated asset filenames for hosting safety.

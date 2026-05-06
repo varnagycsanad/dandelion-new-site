@@ -10,6 +10,7 @@ import {
   buildReviewDisplayData,
   resolveBaseHref
 } from "../lib/accommodation-page-adapters";
+import { getCanonicalPath, toAbsoluteUrl } from "../data/site-seo";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const { pageData, imageSet } = Astro.props as {
@@ -75,11 +76,55 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
+const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
+const canonicalPath = getCanonicalPath(Astro.url.pathname);
+const canonicalUrl = toAbsoluteUrl(canonicalPath);
+const heroSchemaImage = desktopHeroImage || initialHeroImage.src || mobileHeroImage;
+const fallbackOgImage =
+  imageSet.card?.src ||
+  imageSet.hero.desktop?.src ||
+  imageSet.hero.mobile?.src ||
+  imageSet.gallery[0]?.src ||
+  pageData.hero.mobileImagePath;
+const accommodationStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "@id": `${canonicalUrl}#lodging`,
+    name: accommodationName,
+    url: canonicalUrl,
+    description: pageData.seo.description,
+    image: toAbsoluteUrl(heroSchemaImage),
+    telephone: "+36207730807",
+    email: "hello@dandelionhouse.hu"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: toAbsoluteUrl("/")
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: accommodationName,
+        item: canonicalUrl
+      }
+    ]
+  }
+];
 ---
 
 <BaseLayout
   title={pageData.seo.title}
   description={pageData.seo.description}
+  ogImage={fallbackOgImage}
+  ogImageAlt={initialHeroImage.alt}
+  structuredData={accommodationStructuredData}
 >
   <Fragment slot="head">
     <link

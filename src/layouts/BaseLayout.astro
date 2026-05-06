@@ -2,20 +2,72 @@
 import "../styles/global.css";
 import { accommodations } from "../data/accommodations";
 import SiteFooter from "../components/SiteFooter.astro";
+import {
+  SITE_DEFAULT_DESCRIPTION,
+  SITE_DEFAULT_OG_IMAGE,
+  SITE_DEFAULT_TITLE,
+  SITE_NAME,
+  getCanonicalPath,
+  isCanonicalAliasPath,
+  normalizePathname,
+  toAbsoluteUrl
+} from "../data/site-seo";
 
 interface Props {
   title?: string;
   description?: string;
   hideHeader?: boolean;
   hideFooter?: boolean;
+  canonicalPath?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
-  title = "Dandelion Vendégházak",
-  description = "Természetközeli szállások a Balaton-felvidéken."
+  title = SITE_DEFAULT_TITLE,
+  description = SITE_DEFAULT_DESCRIPTION,
+  canonicalPath,
+  ogImage = SITE_DEFAULT_OG_IMAGE,
+  ogImageAlt = title,
+  noindex = false,
+  structuredData = []
 } = Astro.props;
 
 const { hideHeader = false, hideFooter = false } = Astro.props;
+const normalizedCurrentPath = normalizePathname(Astro.url.pathname);
+const resolvedCanonicalPath = canonicalPath ? normalizePathname(canonicalPath) : getCanonicalPath(normalizedCurrentPath);
+const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
+const resolvedOgImage = toAbsoluteUrl(ogImage);
+const shouldNoindex = noindex || isCanonicalAliasPath(normalizedCurrentPath);
+const robotsContent = shouldNoindex ? "noindex,follow" : "index,follow";
+const structuredDataItems = Array.isArray(structuredData) ? structuredData : [structuredData];
+const schemaScripts = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${toAbsoluteUrl("/")}#organization`,
+    name: SITE_NAME,
+    url: toAbsoluteUrl("/"),
+    logo: toAbsoluteUrl("/favicon.svg"),
+    email: "hello@dandelionhouse.hu",
+    telephone: "+36207730807"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${toAbsoluteUrl("/")}#website`,
+    name: SITE_NAME,
+    url: toAbsoluteUrl("/"),
+    inLanguage: "hu-HU",
+    description: SITE_DEFAULT_DESCRIPTION,
+    publisher: {
+      "@id": `${toAbsoluteUrl("/")}#organization`
+    }
+  },
+  ...structuredDataItems
+];
 
 const quickContacts = [
   { label: "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
@@ -89,6 +141,20 @@ const groupedStayLinks = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:locale" content="hu_HU" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
     <link rel="icon" href="https://dandelionhouse.hu/wp-content/uploads/2025/02/cropped-Reklam-anyagok-a-hazakhoz.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -103,6 +169,9 @@ const groupedStayLinks = [
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-P75FHKLJ');
     </script>
+    {schemaScripts.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
     <slot name="head" />
   </head>
   <body>
