@@ -1373,5 +1373,175 @@
         }
       }
     ]
+  },
+  "zsalya": {
+    "apartmentKey": "zsalya",
+    "gallery": [
+      {
+        "id": "zsalya-001",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-002",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-002.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-003",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-003.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-004",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-004.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-005",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-005.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-006",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-006.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-007",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-007.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-008",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-008.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-009",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-009.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-010",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "zsalya-011",
+        "src": "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-011.webp",
+        "thumb": "/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
   }
 }
