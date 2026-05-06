@@ -1053,5 +1053,325 @@
         }
       }
     ]
+  },
+  "szololiget": {
+    "apartmentKey": "szololiget",
+    "gallery": [
+      {
+        "id": "szololiget-001",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-002",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-002.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-003",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-003.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-004",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-004.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-005",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-005.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-006",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-006.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-007",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-007.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-008",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-008.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-009",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-009.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-010",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-010.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-011",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-011.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-012",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-012.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-013",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-013.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-014",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-014.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-015",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-015.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-016",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-016.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-017",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-017.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-018",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-018.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-019",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-019.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-020",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-020.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "szololiget-021",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-021.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      }
+    ]
   }
 }

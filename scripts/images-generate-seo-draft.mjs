@@ -32,6 +32,7 @@ const apartmentDisplayNames = {
   d2: "Dandelion D2",
   koveskal: "Dandelion KĂ¶veskĂˇl",
   fugehaz: "FĂĽgehĂˇz",
+  szololiget: "Szololiget Vendeghaz",
 };
 const requiredDraftKeys = ["altHu", "titleHu", "captionHu", "altEn", "titleEn", "captionEn"];
 const forbiddenPhrasePatterns = [
@@ -93,16 +94,20 @@ if (!openAiApiKey) {
 const generatedRegistry = JSON.parse(await readFile(generatedInputPath, "utf8"));
 const inputPath = (await fileExists(outputPath)) ? outputPath : generatedInputPath;
 const registry = JSON.parse(await readFile(inputPath, "utf8"));
-if (apartmentArg && !registry[apartmentArg] && generatedRegistry[apartmentArg]) {
-  registry[apartmentArg] = generatedRegistry[apartmentArg];
-}
+const runtimeRegistry =
+  apartmentArg && generatedRegistry[apartmentArg]
+    ? {
+        ...registry,
+        [apartmentArg]: registry[apartmentArg] ?? generatedRegistry[apartmentArg],
+      }
+    : registry;
 const processedImages = [];
 const bannedHits = [];
 let hardFallbackCount = 0;
 const resolvedTargetImageIds =
   targetImageIds.length > 0
     ? targetImageIds
-    : Object.values(registry)
+    : Object.values(runtimeRegistry)
         .flatMap((apartment) => apartment?.gallery || [])
         .map((image) => image?.id)
         .filter(Boolean);
@@ -112,7 +117,7 @@ const filteredTargetImageIds = apartmentArg
 
 for (const imageId of filteredTargetImageIds) {
   const apartmentKey = imageId.split("-")[0];
-  const apartment = registry[apartmentKey];
+  const apartment = runtimeRegistry[apartmentKey];
   const image = apartment?.gallery?.find((entry) => entry?.id === imageId);
 
   if (!apartment || !image) {
@@ -162,7 +167,7 @@ for (const imageId of filteredTargetImageIds) {
   }
 }
 
-await writeFile(outputPath, `${JSON.stringify(registry, null, 2)}\n`, "utf8");
+await writeFile(outputPath, `${JSON.stringify(runtimeRegistry, null, 2)}\n`, "utf8");
 
 console.log("Status: OK");
 console.log(`LĂ©trehozott script: ${path.relative(workspaceRoot, fileURLToPath(import.meta.url))}`);

@@ -1053,5 +1053,325 @@
         }
       }
     ]
+  },
+  "szololiget": {
+    "apartmentKey": "szololiget",
+    "gallery": [
+      {
+        "id": "szololiget-001",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-001.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Tetőtéri hálószoba franciaággyal",
+          "titleHu": "Tetőtéri hálószoba",
+          "captionHu": "A tetőtéri hálószoba világos, kényelmes franciaággyal és nagy ablakokkal.",
+          "altEn": "Attic bedroom with double bed",
+          "titleEn": "Attic bedroom",
+          "captionEn": "The attic bedroom is bright, with a comfortable double bed and large windows."
+        }
+      },
+      {
+        "id": "szololiget-002",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-002.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-002.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szololiget Vendeghaz hálószobája nagy ablakokkal és franciaággyal",
+          "titleHu": "Szololiget Vendeghaz hálószoba",
+          "captionHu": "A tetőtéri hálószobában franciaágy, fotel és nagy ablakok vannak.",
+          "altEn": "Szololiget Vendeghaz bedroom with large windows and a double bed",
+          "titleEn": "Szololiget Vendeghaz bedroom",
+          "captionEn": "The attic bedroom has a double bed, an armchair, and large windows."
+        }
+      },
+      {
+        "id": "szololiget-003",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-003.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-003.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szololiget Vendeghaz hálószoba nagy ablakokkal és franciaággyal",
+          "titleHu": "Szololiget Vendeghaz hálószoba",
+          "captionHu": "A hálószobában franciaágy, kis asztalok és nagy ablakok vannak.",
+          "altEn": "Szololiget Vendeghaz bedroom with large windows and a double bed",
+          "titleEn": "Szololiget Vendeghaz bedroom",
+          "captionEn": "The bedroom has a double bed, small tables, and large windows."
+        }
+      },
+      {
+        "id": "szololiget-004",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-004.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-004.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Világos hálószoba franciaággyal",
+          "titleHu": "Hálószoba franciaággyal",
+          "captionHu": "A hálószoba világos, kényelmes franciaággyal és nagy ablakokkal.",
+          "altEn": "Bright bedroom with a double bed",
+          "titleEn": "Bedroom with double bed",
+          "captionEn": "The bedroom is bright, with a comfortable double bed and large windows."
+        }
+      },
+      {
+        "id": "szololiget-005",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-005.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-005.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba zuhanyzóval és mosdóval",
+          "titleHu": "Világos fürdőszoba",
+          "captionHu": "A fürdőszoba világos, zuhanyzóval, mosdóval és toalettel.",
+          "altEn": "Bathroom with shower and sink",
+          "titleEn": "Bright bathroom",
+          "captionEn": "The bathroom is bright, with a shower, sink and toilet."
+        }
+      },
+      {
+        "id": "szololiget-006",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-006.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-006.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szololiget Vendeghaz tetőtéri folyosó ablakkal és komóddal",
+          "titleHu": "Szololiget Vendeghaz tetőtéri folyosó",
+          "captionHu": "A tetőtéri folyosón egy nagy ablak, egy fehér komód és egy kosár látszik.",
+          "altEn": "Szololiget Vendeghaz attic hallway with roof window and white chest of drawers",
+          "titleEn": "Szololiget Vendeghaz attic hallway",
+          "captionEn": "The attic hallway has a large roof window, a white chest of drawers and a basket."
+        }
+      },
+      {
+        "id": "szololiget-007",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-007.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-007.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fa lépcső kőfallal",
+          "titleHu": "Belső lépcső",
+          "captionHu": "A belső lépcső fa lépcsőfokokkal és hangulatos kőfallal készült.",
+          "altEn": "Wooden staircase with stone wall",
+          "titleEn": "Interior staircase",
+          "captionEn": "The interior staircase has wooden steps and a warm stone wall."
+        }
+      },
+      {
+        "id": "szololiget-008",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-008.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-008.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali konyhával és étkezőasztallal",
+          "titleHu": "Nappali és konyha",
+          "captionHu": "A világos nappaliban kanapé, kis étkezőasztal és jól felszerelt konyha várja a vendégeket.",
+          "altEn": "Living area with kitchen and dining table",
+          "titleEn": "Living area and kitchen",
+          "captionEn": "The bright living area has a sofa, a small dining table, and a well-equipped kitchen."
+        }
+      },
+      {
+        "id": "szololiget-009",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-009.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-009.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali konyhával és kanapéval",
+          "titleHu": "Nappali és konyha",
+          "captionHu": "A nappali egyben van a konyhával, kanapéval, étkezőasztallal és kályhával.",
+          "altEn": "Living area with kitchen and sofa",
+          "titleEn": "Living area and kitchen",
+          "captionEn": "The living area is open to the kitchen, with a sofa, dining table and stove."
+        }
+      },
+      {
+        "id": "szololiget-010",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-010.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-010.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali konyhával és kanapéval",
+          "titleHu": "Nappali és konyha",
+          "captionHu": "A nappali világos, konyhával, étkezőasztallal és kanapéval.",
+          "altEn": "Living area with kitchen and sofa",
+          "titleEn": "Living area and kitchen",
+          "captionEn": "The living area is bright, with a kitchen, dining table and sofa."
+        }
+      },
+      {
+        "id": "szololiget-011",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-011.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-011.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szololiget Vendeghaz konyha étkezőasztallal, kanapéval és kőfalas kályhával",
+          "titleHu": "Szololiget Vendeghaz konyhája",
+          "captionHu": "A konyhában étkezőasztal, kanapé, nagy ablak és egy kőfal melletti kályha látszik.",
+          "altEn": "Szololiget Vendeghaz kitchen with dining table, sofa and stove by a stone wall",
+          "titleEn": "Szololiget Vendeghaz kitchen",
+          "captionEn": "The kitchen has a dining table, a sofa, a large window and a stove by the stone wall."
+        }
+      },
+      {
+        "id": "szololiget-012",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-012.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-012.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és konyha étkezőasztallal",
+          "titleHu": "Nappali és konyha",
+          "captionHu": "A nappali és a konyha egy világos, otthonos térben kapcsolódik össze.",
+          "altEn": "Living area and kitchen with dining table",
+          "titleEn": "Living area and kitchen",
+          "captionEn": "The living area and kitchen come together in a bright, cozy space."
+        }
+      },
+      {
+        "id": "szololiget-013",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-013.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-013.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kis konyha fa bútorokkal és mosogatóval",
+          "titleHu": "Konyha",
+          "captionHu": "A konyha világos, fa bútorokkal, mosogatóval és alap gépekkel.",
+          "altEn": "Small kitchen with wooden cabinets and sink",
+          "titleEn": "Kitchen",
+          "captionEn": "The kitchen is bright, with wooden cabinets, a sink, and basic appliances."
+        }
+      },
+      {
+        "id": "szololiget-014",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-014.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-014.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Étkezőasztal bögrékkel a konyhában",
+          "titleHu": "Étkezőasztal és konyha",
+          "captionHu": "A konyhában kényelmes étkezőasztal vár bögrékkel és tányérokkal.",
+          "altEn": "Dining table with mugs in the kitchen",
+          "titleEn": "Dining table and kitchen",
+          "captionEn": "The kitchen has a comfortable dining table with mugs and plates ready for a meal."
+        }
+      },
+      {
+        "id": "szololiget-015",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-015.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-015.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Mosdó és WC a fürdőszobában",
+          "titleHu": "Fürdőszoba",
+          "captionHu": "A fürdőszobában mosdó, tükör és WC van.",
+          "altEn": "Sink and toilet in the bathroom",
+          "titleEn": "Bathroom",
+          "captionEn": "The bathroom has a sink, mirror and toilet."
+        }
+      },
+      {
+        "id": "szololiget-016",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-016.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-016.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "A Szololiget Vendégház oldalsó terasza asztallal és székekkel.",
+          "titleHu": "Oldalsó terasz",
+          "captionHu": "Az oldalsó teraszon egy kis asztal és két szék várja a pihenést.",
+          "altEn": "Side terrace of Szololiget Guesthouse with a table and chairs.",
+          "titleEn": "Side terrace",
+          "captionEn": "A small table and two chairs make the side terrace a nice place to relax."
+        }
+      },
+      {
+        "id": "szololiget-017",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-017.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-017.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szőlők és házak a környéken",
+          "titleHu": "Környék a Szololiget Vendégház körül",
+          "captionHu": "A Szololiget Vendégház környékén szőlők, fák és kis házak között lehet pihenni.",
+          "altEn": "Vineyards and houses in the area",
+          "titleEn": "Area around Szololiget Vendeghaz",
+          "captionEn": "Around Szololiget Vendeghaz, you can relax among vineyards, trees, and small houses."
+        }
+      },
+      {
+        "id": "szololiget-018",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-018.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-018.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Tájkép a környék házaival és szőlőkkel",
+          "titleHu": "Környékbeli táj",
+          "captionHu": "A környéken szőlők, fák és kisebb házak teszik nyugodttá a hangulatot.",
+          "altEn": "Landscape with nearby houses and vineyards",
+          "titleEn": "Local landscape",
+          "captionEn": "The area has vineyards, trees and small houses, creating a calm atmosphere."
+        }
+      },
+      {
+        "id": "szololiget-019",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-019.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-019.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kerti ülősarok naplementében",
+          "titleHu": "Naplemente a kertben",
+          "captionHu": "A kertben egy csendes ülősarok vár naplemente idején.",
+          "altEn": "Garden seating area at sunset",
+          "titleEn": "Sunset in the garden",
+          "captionEn": "A quiet seating area in the garden is lovely at sunset."
+        }
+      },
+      {
+        "id": "szololiget-020",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-020.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-020.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szololiget Vendeghaz terasza székekkel és kis asztallal a növények között",
+          "titleHu": "Szololiget Vendeghaz terasza",
+          "captionHu": "A teraszon székek és egy kis asztal áll a növények között.",
+          "altEn": "Szololiget Vendeghaz terrace with chairs and a small table among plants",
+          "titleEn": "Szololiget Vendeghaz terrace",
+          "captionEn": "The terrace has chairs and a small table among the plants."
+        }
+      },
+      {
+        "id": "szololiget-021",
+        "src": "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-021.webp",
+        "thumb": "/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-021.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Virágok naplementében a Szololiget Vendégháznál",
+          "titleHu": "Naplemente a Szololigetnél",
+          "captionHu": "Este a virágok között csendes és nyugodt a hangulat a Szololiget Vendégháznál.",
+          "altEn": "Flowers at sunset at Szololiget Vendeghaz",
+          "titleEn": "Sunset at Szololiget",
+          "captionEn": "In the evening, the flowers create a calm and peaceful mood at Szololiget Vendeghaz."
+        }
+      }
+    ]
   }
 }
