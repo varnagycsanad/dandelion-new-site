@@ -53,6 +53,34 @@ export function resolveRegistryImagePath(baseHref: string, imagePath: string): s
   return imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
 }
 
+function normalizeAccommodationGalleryPath(
+  image: Pick<ImageAsset, "apartmentKey" | "source">,
+  imagePath: string | undefined,
+  folder: "gallery" | "thumbs",
+  baseHref: string
+): string {
+  if (!imagePath) {
+    return "";
+  }
+
+  if (/^(?:https?:)?\/\//.test(imagePath)) {
+    return imagePath;
+  }
+
+  if (imagePath.startsWith("/")) {
+    return resolveRegistryImagePath(baseHref, imagePath);
+  }
+
+  if (!image.apartmentKey) {
+    return imagePath;
+  }
+
+  return resolveRegistryImagePath(
+    baseHref,
+    `/images/accommodations/${image.apartmentKey}/${folder}/${imagePath}`
+  );
+}
+
 export function resolveStayHref(baseHref: string, href: string): string {
   return href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
 }
@@ -101,8 +129,8 @@ export function buildGalleryImages(input: {
     .sort((left, right) => left.sortOrder - right.sortOrder)
     .map((image) => ({
       id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
-      src: resolveRegistryImagePath(input.baseHref, image.src),
-      thumb: resolveRegistryImagePath(input.baseHref, image.thumb),
+      src: normalizeAccommodationGalleryPath(image, image.src, "gallery", input.baseHref),
+      thumb: normalizeAccommodationGalleryPath(image, image.thumb, "thumbs", input.baseHref),
       alt: image.alt.hu,
       title: image.title.hu,
       caption: image.caption.hu,
