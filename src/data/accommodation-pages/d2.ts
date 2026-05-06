@@ -1,11 +1,11 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 22:35] D2 copy updated from Airbnb content baseline with stronger family focus and cleaned Hungarian text.
+// [CHANGE 2026-05-06 22:55] D2 copy updated with panoramic pool focus, family-friendly tone and clean Hungarian text.
 export const d2PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 | Családbarát apartman Kisapátiban, a Szent György-hegy lábánál",
     description:
-      "Modern, családbarát apartman Kisapátiban nagy udvarral, székelydézsával, állatokkal és közeli kirándulóhelyekkel a Balaton-felvidéken."
+      "Modern, családbarát apartman Kisapátiban nagy udvarral, állatokkal, kirándulóhelyekkel és 2026. június 1-től közös panorámás medencével."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
@@ -15,7 +15,7 @@ export const d2PageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "D2",
     subtitle: "CSALÁDBARÁT APARTMAN KISAPÁTIBAN",
-    lead: "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, székelydézsa, állatok és közeli kirándulóhelyek várnak. A Balaton és a tanúhegyek programjai pár perc alatt elérhetők.",
+    lead: "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, állatok és közeli kirándulóhelyek várnak. 2026. június 1-től a D2 vendégei a D1 és a Fügeház vendégeivel közös panorámás medencét is használhatják.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -64,11 +64,11 @@ export const d2PageData: AccommodationPageData = {
     kicker: "Dandelion D2",
     title: "Nagy udvar, galériás nappali és falusi pluszélmények egy helyen",
     shortDescription:
-      "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, székelydézsa, állatok és közeli kirándulóhelyek várnak. A Balaton és a tanúhegyek programjai pár perc alatt elérhetők.",
+      "Modern, családbarát apartman Kisapátin, a Szent György-hegy lábánál. Tágas udvar, galériás nappali, jól felszerelt konyha, állatok és közeli kirándulóhelyek várnak. 2026. június 1-től a D2 vendégei a D1 és a Fügeház vendégeivel közös panorámás medencét is használhatják.",
     longDescription: [
-      "A Dandelion D2 Apartman egy modern, ízlésesen berendezett, családbarát ház Kisapátin, a Szent György-hegy lábánál. Tágas terek, nyugodt környezet, nagy udvar és praktikus elrendezés várja a vendégeket.",
-      "A házban jól felszerelt, 2026-ban felújított konyha, világos, nagy belmagasságú galériás nappali és kényelmes családi terek találhatók. A nappali társasozásra, beszélgetésre és pihenésre is ideális.",
-      "A nappaliból közvetlenül elérhető a székelydézsa, amely télen és nyáron is külön élmény: kirándulás után vagy egy csendes este végén tökéletes hely a lazításra.",
+      "A Dandelion D2 Apartman egy modern, ízlésesen berendezett, családbarát ház Kisapátin, a Szent György-hegy lábánál. Tágas terek, nyugodt környezet, nagy udvar és praktikus elrendezés várja a vendégeket, ideális választás családoknak, akik természetközeli, mégis kényelmes balatoni pihenést keresnek.",
+      "A házban jól felszerelt, 2026-ban felújított konyha, világos, nagy belmagasságú galériás nappali és kényelmes családi terek találhatók. A nappali társasozásra, beszélgetésre és pihenésre is ideális, a ház elrendezése pedig jól működik gyerekekkel érkező vendégeknek is.",
+      "2026. június 1-től a Dandelion D2 vendégei számára közös panorámás medence is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér különleges nyári élményt ad: napközben fürdés és játék a gyerekeknek, este pedig hegyek, csend és balatoni nyárhangulat.",
       "A hatalmas udvarban bőven van hely a gyerekeknek játszani, a felnőtteknek pihenni, grillezni vagy csak élvezni a vidéki csendet. A háznál kecske, tyúkok és macskák is vannak, ami sok családnak igazi falusi pluszélményt ad.",
       "A ház melletti dombról 360 fokos panoráma nyílik a környező tanúhegyekre, este pedig különleges élmény a csillagnézés, akár a hintaágyból is.",
       "Nyáron a Balaton közelsége nagy előny: strandolás, vízparti programok és naplementés esték könnyen elérhetők. A környék klasszikus kirándulóhelyei - Szent György-hegy, Gulács, Csobánc, Badacsony és Szigliget - rövid autóúttal elérhetők.",
@@ -91,7 +91,7 @@ export const d2PageData: AccommodationPageData = {
       {
         title: "Élmények",
         items: [
-          ["Wellness", "székelydézsa közvetlen kijárattal"],
+          ["Medence", "2026. június 1-től közös panorámás medence"],
           ["Gyerekeknek", "állatok és bőven használható udvar"],
           ["Panoráma", "360 fokos kilátás a dombról"],
           ["Programok", "Balaton, túrák, borászatok rövid úttal"]
@@ -104,7 +104,7 @@ export const d2PageData: AccommodationPageData = {
     highlights: [
       { label: "2026-ban felújított konyha", icon: "utensils" },
       { label: "Galériás nappali", icon: "home" },
-      { label: "Székelydézsa", icon: "pool" },
+      { label: "Közös panorámás medence", icon: "pool" },
       { label: "Nagy udvar és grillezés", icon: "leaf" },
       { label: "Állatok a háznál", icon: "users" },
       { label: "Kirándulós bázis a tanúhegyekhez", icon: "trail" }
@@ -150,7 +150,7 @@ export const d2PageData: AccommodationPageData = {
     items: [
       {
         name: "Fügeház",
-        meta: "2-4 fő · panoráma · dézsa",
+        meta: "2-4 fő · panoráma · családi pihenés",
         href: "/fuge/",
         image: {
           type: "mapping",
