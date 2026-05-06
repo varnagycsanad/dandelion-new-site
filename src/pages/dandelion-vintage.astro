@@ -1,0 +1,8 @@
+---
+// [CHANGE 2026-05-06 00:00] Dandelion Vintage page wrapped with shared AccommodationPage template.
+import { vintagePageData } from "../data/accommodation-pages/vintage";
+import { accommodationImages } from "../data/images/accommodation-images";
+import AccommodationPage from "../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage pageData={vintagePageData} imageSet={accommodationImages.vintage} />

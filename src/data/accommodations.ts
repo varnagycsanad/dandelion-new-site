@@ -135,9 +135,9 @@ export const accommodations: Accommodation[] = [
     ]
   },
   {
-    name: "Vintage Vendégház",
+    name: "Dandelion Vintage",
     slug: "vintage-vendeghaz",
-    url: "https://dandelionhouse.hu/",
+    url: "/dandelion-vintage/",
     location: "Balaton-felvidék",
     description: "Otthonos vendégház klasszikus vidéki hangulattal és kényelmes elrendezéssel.",
     hoverText: "Otthonos, vintage hangulatú pihenés a Balaton-felvidék csendesebb oldalán.",

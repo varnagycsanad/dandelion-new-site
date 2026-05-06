@@ -263,6 +263,49 @@ function buildSzepvolgyiGalleryEntries() {
   });
 }
 
+function buildVintageGalleryEntries() {
+  return Array.from({ length: 18 }, (_, index) => {
+    const sequence = String(index + 1).padStart(3, "0");
+    const sortOrder = (index + 1) * 10;
+    const src = `/images/accommodations/vintage/gallery/dandelion-vintage-source-${sequence}.webp`;
+    const thumb = `/images/accommodations/vintage/thumbs/dandelion-vintage-source-${sequence}.webp`;
+    const sourceFilename = `dandelion-vintage-source-${sequence}.jpg`;
+
+    return {
+      id: `vintage-${sequence}`,
+      apartmentKey: "vintage",
+      role: "gallery",
+      src,
+      thumb,
+      width: 1600,
+      height: 1200,
+      aspectRatio: "4:3",
+      alt: {
+        hu: `Vintage gallery ${sequence}`,
+        en: `Vintage gallery ${sequence}`,
+      },
+      title: {
+        hu: `Vintage ${sequence}`,
+        en: `Vintage ${sequence}`,
+      },
+      caption: {
+        hu: `Vintage gallery image ${sequence}.`,
+        en: `Vintage gallery image ${sequence}.`,
+      },
+      focusPoint: "center center",
+      sortOrder,
+      status: "active",
+      source: {
+        type: "local",
+        originalUrl: `/source-images/accommodations/vintage/${sourceFilename}`,
+        originalFilename: sourceFilename,
+      },
+      createdAt: "2026-05-06",
+      updatedAt: "2026-05-06",
+    };
+  });
+}
+
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
@@ -993,7 +1036,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: [],
+    gallery: buildVintageGalleryEntries(),
     thumbnail: null,
   },
 };
