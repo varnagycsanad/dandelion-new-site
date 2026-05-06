@@ -154,7 +154,7 @@ const groupedStayLinks = [
                   <span class="dnd-nav__submenu-group-title">{group.title}</span>
                   <div class="dnd-nav__submenu-group-items">
                     {group.items.map((stay) => (
-                      <a href={stay.href}>{stay.label}</a>
+                      <a href={stay.href} class="dnd-nav__submenu-stay-link">{stay.label}</a>
                     ))}
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const groupedStayLinks = [
               <span class="dnd-mobile-menu__group-title">{group.title}</span>
               <div class="dnd-mobile-menu__group-items">
                 {group.items.map((stay) => (
-                  <a href={stay.href} class="dnd-mobile-menu__subitem">{stay.label}</a>
+                  <a href={stay.href} class="dnd-mobile-menu__subitem dnd-mobile-menu__stay-link">{stay.label}</a>
                 ))}
               </div>
             </div>
@@ -260,17 +260,17 @@ const groupedStayLinks = [
     <style>
       .dnd-nav__submenu {
         min-width: 280px;
-        gap: 12px;
+        gap: 16px;
       }
 
       .dnd-nav__submenu-group + .dnd-nav__submenu-group {
-        padding-top: 10px;
+        padding-top: 14px;
         border-top: 1px solid rgba(94, 65, 39, 0.08);
       }
 
       .dnd-nav__submenu-group-title {
         display: block;
-        margin: 0 10px 6px;
+        margin: 0 10px 8px 18px;
         color: rgba(45, 36, 28, 0.52);
         font-size: 0.63rem;
         font-weight: 600;
@@ -281,26 +281,46 @@ const groupedStayLinks = [
 
       .dnd-nav__submenu-group-items {
         display: grid;
-        gap: 4px;
+        gap: 6px;
+      }
+
+      .dnd-nav__submenu-stay-link,
+      .dnd-mobile-menu__stay-link {
+        position: relative;
+        padding-left: 16px;
+      }
+
+      .dnd-nav__submenu-stay-link::before,
+      .dnd-mobile-menu__stay-link::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 50%;
+        width: 4px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(94, 65, 39, 0.34);
+        transform: translateY(-50%);
       }
 
       .dnd-mobile-menu__groups {
         display: grid;
-        gap: 14px;
+        gap: 18px;
       }
 
       .dnd-mobile-menu__group {
         display: grid;
-        gap: 6px;
+        gap: 8px;
       }
 
       .dnd-mobile-menu__group + .dnd-mobile-menu__group {
-        padding-top: 10px;
+        padding-top: 14px;
         border-top: 1px solid rgba(45, 36, 28, 0.1);
       }
 
       .dnd-mobile-menu__group-title {
         display: block;
+        margin-left: 18px;
         color: rgba(45, 36, 28, 0.52);
         font-size: 0.58rem;
         font-weight: 600;
@@ -311,7 +331,7 @@ const groupedStayLinks = [
 
       .dnd-mobile-menu__group-items {
         display: grid;
-        gap: 4px;
+        gap: 6px;
       }
 
       .dnd-mobile-menu[data-open="true"] {
