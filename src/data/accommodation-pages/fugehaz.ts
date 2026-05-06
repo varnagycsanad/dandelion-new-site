@@ -1,19 +1,20 @@
 import type { AccommodationPageData } from "./types";
 
+// [CHANGE 2026-05-06 20:00] Fugehaz SEO title, meta, headings and intro copy refined for production baseline.
 export const fugehazPageData: AccommodationPageData = {
   seo: {
-    title: "Fugehaz | Dandelion Vendeghazak",
-    description: "Fugehaz kulon oldal a Balaton-felvideki, panoramas es nyugodt pihenes elso koros shared template bekotesekent."
+    title: "Dandelion Fugehaz | Panoramas vendeghaz a Balaton-felvideken",
+    description: "Panoramas vendeghaz a Balaton-felvideken, terasszal, nyugodt kornyezettel es termeszetkozeli pihenessel a tanuhegyek kozeleben."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
     mobileImagePath: "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
-    fallbackAlt: "Fugehaz",
-    kicker: "Balaton-felvidek · panoramas nyugalom",
-    title: "Fugehaz",
-    titleAccent: "",
+    fallbackAlt: "Dandelion Fugehaz panoramas vendeghaz a Balaton-felvideken",
+    kicker: "Balaton-felvidek ?? panoramas nyugalom",
+    title: "Dandelion",
+    titleAccent: "Fugehaz",
     subtitle: "PANORAMAS PIHENES A TANUHEGYEK KOZELEBEN",
-    lead: "Otthonos, nyugodt vendeghaz azoknak, akik a lassabb ritmust, a teraszt es a termeszetkozeli hangulatot keresik.",
+    lead: "Panoramas vendeghaz azoknak, akik a Balaton-felvidek csendesebb oldalat, a teraszt es a lassabb, termeszetkozeli pihenest keresik.",
     primaryCtaLabel: "Arak es foglalas",
     secondaryCtaLabel: "Kepek megtekintese"
   },
@@ -54,19 +55,19 @@ export const fugehazPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Panorama · nyugalom",
-    title: "Otthonos ritmus, szellosebb napok",
-    lead: "A Fugehaz shared template-re kotott elso koros oldala a termeszetkozeli hangulatot, a lassabb pihenest es a panoramas elhelyezkedest emeli ki."
+    kicker: "Panorama ?? nyugalom",
+    title: "Panoramas pihenes a tanuhegyek kozeleben",
+    lead: "A Dandelion Fugehaz terasszal, nyugodt ritmussal es termeszetkozeli hangulattal ad bazist a Balaton-felvideki setakhoz, borozasokhoz es lassabb napokhoz."
   },
   details: {
     kicker: "Fugehaz",
-    title: "Elso koros, shared sablonra kotott szallasoldal",
+    title: "Nyugodt vendeghaz terasszal es Balaton-felvideki panoramaval",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos accommodation sablonra ulteti ra a Fugehaz oldalt, visszafogott, kesobb finomithato tartalommal.",
+      "A Dandelion Fugehaz olyan vendeghaz, ahol a kilatas, a csendes terasz es a termeszetkozeli kornyezet ugyanolyan fontos, mint maga a pihenes.",
     longDescription: [
-      "A Fugehaz a Balaton-felvidek nyugodtabb, panoramas pihenesehez kapcsolodik, ahol a termeszet es a lassabb napi ritmus fontos resze az elmenynek.",
-      "Az oldal ezen a koren meg nem a vegleges marketing szoveggel fut, hanem szerkesztheto, semleges copyval, hogy a shared template bekotese stabil legyen.",
-      "A kovetkezo korben a pontos felszereltseg, a valodi review-k es a helyspecifikusabb szovegek finomithatok tovabb ugyanebben a rendszerben."
+      "A Fugehaz a Balaton-felvidek nyugodtabb, panoramas pihenesehez kapcsolodik, ahol a termeszet es a lassabb napi ritmus az elmeny szerves resze.",
+      "Jo valasztas, ha olyan vendeghazat keresel, ahonnan konnyen elerheted a tanuhegyeket, a kilatopontokat es a kornyek boraszatait, mikozben estere visszaterhetsz a csendes teraszra.",
+      "A Dandelion szallasok kozott a Fugehaz a visszafogott, termeszetre hangolt pihenes oldalat kepviseli, es jol kapcsolhato a kozeli Balaton-felvideki programokhoz is."
     ],
     moreLabel: "Bovebben a Fugehaz oldalrol",
     ctaLabel: "Arak es foglalas"
@@ -140,7 +141,7 @@ export const fugehazPageData: AccommodationPageData = {
   relatedStays: {
     kicker: "Tovabbi szallasok",
     title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendeghazunkat is.",
+    intro: "Ha a panoramas Balaton-felvideki pihenes mellett mas Dandelion hangulat is erdekel, nezd meg a tobbi vendeghazunkat is.",
     items: [
       {
         name: "Dandelion D2",

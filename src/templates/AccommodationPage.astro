@@ -76,6 +76,7 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
+const accommodationListingHref = `${baseHref}szallasok/`;
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const canonicalPath = getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(canonicalPath);
@@ -400,11 +401,11 @@ const accommodationStructuredData = [
 
   <section class="d2-closer dnd-section" aria-labelledby="accommodation-related-stays-title">
     <div class="dnd-container">
-      <div class="d2-closer__head">
-        <span class="dnd-section-kicker">{pageData.relatedStays.kicker}</span>
-        <h2 id="accommodation-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
-        <p>{pageData.relatedStays.intro}</p>
-      </div>
+        <div class="d2-closer__head">
+          <span class="dnd-section-kicker">{pageData.relatedStays.kicker}</span>
+          <h2 id="accommodation-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
+          <p>{pageData.relatedStays.intro} <a href={accommodationListingHref}>A teljes szallas kinalat itt is elerheto.</a></p>
+        </div>
 
       <div class="d2-closer__grid">
         {compactRelatedStays.map((stay) => (

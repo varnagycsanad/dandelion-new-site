@@ -1,19 +1,20 @@
 import type { AccommodationPageData } from "./types";
 
+// [CHANGE 2026-05-06 20:00] Royal Homes SEO title, meta, headings and intro copy refined for production baseline.
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes | Dandelion Vendeghazak",
-    description: "Dandelion Royal Homes kulon oldal a Balaton kozeli, kenyelmes es visszafogott pihenes shared template bekotesekent."
+    title: "Dandelion Royal Homes | Kenyelmes szallas Keszthelyen, a Balaton kozeleben",
+    description: "Kenyelmes szallas Keszthelyen, a Balaton kozeleben, modern terekkel, nyugodt pihenessel es konnyu eleressel a part es a programok fele."
   },
   bookingLink: "/royal/",
   hero: {
     mobileImagePath: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-    fallbackAlt: "Dandelion Royal Homes",
-    kicker: "Keszthely · Balaton-part",
+    fallbackAlt: "Dandelion Royal Homes kenyelmes szallas Keszthelyen, a Balaton kozeleben",
+    kicker: "Keszthely ?? Balaton-part",
     title: "Dandelion",
     titleAccent: "Royal Homes",
     subtitle: "KENYELMES KIKAPCSOLODAS A BALATON KOZELEBEN",
-    lead: "Letisztult, kenyelmes szallas azoknak, akik a Balaton-part kozelseget, nyugodt pihenest es atgondolt, modern kornyezetet keresnek.",
+    lead: "Kenyelmes, modern szallas azoknak, akik a Balaton kozeleben szeretnenek pihenni, es fontos nekik a letisztult, nyugodt kornyezet.",
     primaryCtaLabel: "Reszletek es kapcsolat",
     secondaryCtaLabel: "Kepek megtekintese"
   },
@@ -54,19 +55,19 @@ export const royalHomesPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Balaton kozeli jelenlet · kenyelmes pihenes",
-    title: "Lazabb napok, letisztultabb ritmus",
-    lead: "A Dandelion Royal Homes elso korben a shared accommodation sablonra kotott oldal, visszafogott tartalommal es kesobbi finomitasra alkalmas szerkezettel."
+    kicker: "Balaton kozeli jelenlet ?? kenyelmes pihenes",
+    title: "Balaton kozeli pihenes Keszthelyen",
+    lead: "A Dandelion Royal Homes letisztult, kenyelmes bazist ad Keszthelyen, ha a part kozelseget, a nyugodt esteket es a konnyen szervezheto balatoni programokat keresed."
   },
   details: {
     kicker: "Dandelion Royal Homes",
-    title: "Elso koros, shared sablonra kotott szallasoldal",
+    title: "Modern, kenyelmes szallas a Balaton-part kozeleben",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos accommodation sablonra ulteti ra a Royal Homes oldalt, semleges, kesobb pontosithato tartalommal.",
+      "A Royal Homes jo valasztas, ha Keszthelyen keresel rendezett, kenyelmes szallast, ahonnan a Balaton-part, a setanyok es a kornyek programjai is konnyen elerhetok.",
     longDescription: [
-      "A Royal Homes a Balaton kozeli, kenyelmesebb kikapcsolodashoz kapcsolodik, ahol a rendezett terek es a vizparti kornyezet kozelsege egyszerre fontos.",
-      "Az oldal ezen a koren meg nem vegleges marketing szoveggel fut, hanem szerkesztheto, visszafogott copyval, hogy a shared template bekotese stabil maradjon.",
-      "A kovetkezo korben a pontos felszereltseg, a valodi vendegertekelesek es a helyspecifikusabb szovegek finomithatok ugyanebben a rendszerben."
+      "A Royal Homes a Balaton kozeli, kenyelmesebb kikapcsolodashoz kapcsolodik, ahol a vizparti programok es a nyugodt pihenes egyensulyban maradnak.",
+      "Keszthely jo kiindulopont strandhoz, setahoz, vacsorahoz vagy nyari kiruccanasokhoz, mikozben este egy csendesebb, atgondolt szallasra erhetsz vissza.",
+      "A Dandelion vendeghazak kozott ez az oldal a Balaton melletti, modernebb hangulatot kepviseli, termeszetes kapcsolattal a tobbi balatoni-felvideki szallashoz."
     ],
     moreLabel: "Bovebben a Royal Homes oldalrol",
     ctaLabel: "Reszletek es kapcsolat"
@@ -140,7 +141,7 @@ export const royalHomesPageData: AccommodationPageData = {
   relatedStays: {
     kicker: "Tovabbi szallasok",
     title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendeghazunkat is.",
+    intro: "Ha a Balaton melletti pihenes utan a Balaton-felvidek csendesebb vendeghazai is erdekelnek, nezd meg a tobbi Dandelion szallast is.",
     items: [
       {
         name: "Fugehaz",

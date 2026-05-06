@@ -1,19 +1,20 @@
 import type { AccommodationPageData } from "./types";
 
+// [CHANGE 2026-05-06 20:00] Szololiget SEO title, meta, headings and intro copy refined for production baseline.
 export const szololigetPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Szololiget | Dandelion Vendeghazak",
-    description: "Dandelion Szololiget kulon oldal a csendes, termeszetkozeli pihenes es a szolok kozotti elvonulas elso koros shared template bekotesekent."
+    title: "Dandelion Szololiget | Csendes vendeghaz a Balaton-felvideken",
+    description: "Csendes vendeghaz a Balaton-felvideken, szolok kozott, termeszetkozeli pihenessel, lassabb ritmussal es nyugodt kornyezettel."
   },
   bookingLink: "/szololiget/",
   hero: {
     mobileImagePath: "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
-    fallbackAlt: "Dandelion Szololiget",
-    kicker: "Balaton-felvidek · szolok kozott",
+    fallbackAlt: "Dandelion Szololiget vendeghaz szolok kozott a Balaton-felvideken",
+    kicker: "Balaton-felvidek ?? szolok kozott",
     title: "Dandelion",
     titleAccent: "Szololiget",
-    subtitle: "ELVONULAS A SZOLŐK KOZOTT",
-    lead: "Nyugodt, termeszetkozeli szallas azoknak, akik csendesebb ritmust, visszafogott kornyezetet es lassabb napokat keresnek.",
+    subtitle: "ELVONULAS A SZOLOK KOZOTT",
+    lead: "Csendes vendeghaz azoknak, akik a Balaton-felvidek nyugodtabb oldalat, a szolok kozotti hangulatot es a lassabb pihenest keresik.",
     primaryCtaLabel: "Reszletek es kapcsolat",
     secondaryCtaLabel: "Kepek megtekintese"
   },
@@ -54,19 +55,19 @@ export const szololigetPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Csend · termeszetkozeli pihenes",
-    title: "Szellosebb napok a szolok kozeleben",
-    lead: "A Dandelion Szololiget elso korben a shared accommodation sablonra kotott oldal, visszafogott tartalommal es kesobbi finomitasra alkalmas szerkezettel."
+    kicker: "Csend ?? termeszetkozeli pihenes",
+    title: "Elvonulas a szolok kozott",
+    lead: "A Dandelion Szololiget a Balaton-felvidek csendesebb ritmusat hozza kozel, ahol a termeszet, a setak es a nyugodt estek ugyanolyan fontosak, mint maga a szallas."
   },
   details: {
     kicker: "Dandelion Szololiget",
-    title: "Elso koros, shared sablonra kotott szallasoldal",
+    title: "Csendes vendeghaz a Balaton-felvidek nyugodt oldalan",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos accommodation sablonra ulteti ra a Szololiget oldalt, semleges, kesobb pontosithato tartalommal.",
+      "A Dandelion Szololiget jo valasztas, ha olyan vendeghazat keresel, ahol a szolok kozotti kornyezet, a visszafogott ritmus es a termeszetkozeli pihenes egyszerre van jelen.",
     longDescription: [
-      "A Szololiget hangulata a csendesebb, termeszetkozeli piheneshez kapcsolodik, ahol a kornyezet es a lassabb napi ritmus legalabb olyan fontos, mint maga a szallas.",
-      "Az oldal ezen a koren meg nem vegleges marketing szoveggel fut, hanem szerkesztheto, visszafogott copyval, hogy a shared template bekotese stabil maradjon.",
-      "A kovetkezo korben a pontos felszereltseg, a valodi vendegertekelesek es a helyspecifikusabb szovegek finomithatok ugyanebben a rendszerben."
+      "A Szololiget oldala a csendesebb, termeszetkozeli pihenesrol szol, ahol a taj, a szolosorok es a lassabb napi ritmus az elmeny termeszetes resze.",
+      "Jo bazis lehet, ha a Balaton-felvideken setak, kisebb kirandulasok es nyugodt estek koze szervezned a pihenest, tavolabb a zsufoltabb nyari helyektol.",
+      "A Dandelion vendeghazak kozott ez az egyik legvisszafogottabb, leginkabb elvonulasra hangolt valasztas, termeszetes kapcsolattal a tobbi kornyekbeli szallashoz."
     ],
     moreLabel: "Bovebben a Szololiget oldalrol",
     ctaLabel: "Reszletek es kapcsolat"
@@ -140,7 +141,7 @@ export const szololigetPageData: AccommodationPageData = {
   relatedStays: {
     kicker: "Tovabbi szallasok",
     title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendeghazunkat is.",
+    intro: "Ha a szolok kozotti csend mellett mas Balaton-felvideki vagy Balaton kozeli vendeghazat is felfedeznel, nezd meg a tobbi Dandelion szallast is.",
     items: [
       {
         name: "Fugehaz",

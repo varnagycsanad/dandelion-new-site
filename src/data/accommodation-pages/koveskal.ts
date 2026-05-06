@@ -1,19 +1,20 @@
 import type { AccommodationPageData } from "./types";
 
+// [CHANGE 2026-05-06 20:00] Koveskal SEO title, meta, headings and intro copy refined for production baseline.
 export const koveskalPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Koveskal | Dandelion Vendeghazak",
-    description: "Dandelion Koveskal kulon oldal a Kali-medence nyugodt, termeszetkozeli pihenesehez."
+    title: "Dandelion Koveskal | Nyugodt vendeghaz a Kali-medenceben",
+    description: "Nyugodt vendeghaz Koveskalon, termeszetkozeli pihenessel, falusi hangulattal es jo kiinduloponttal a Kali-medence felfedezesehez."
   },
   bookingLink: "https://dandelionhouse.hu/koveskal/",
   hero: {
     mobileImagePath: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-    fallbackAlt: "Dandelion Koveskal",
-    kicker: "Kali-medence · Koveskal",
+    fallbackAlt: "Dandelion Koveskal vendeghaz a Kali-medence csendes reszen",
+    kicker: "Kali-medence ?? Koveskal",
     title: "Dandelion",
     titleAccent: "Koveskal",
     subtitle: "CSENDES PIHENES A KALI-MEDENCEBEN",
-    lead: "Nyugodt, termeszetkozeli szallas azoknak, akik lassabb napokat es tiszta, falusi hangulatot keresnek.",
+    lead: "Nyugodt vendeghaz azoknak, akik a Kali-medence lassabb ritmusat, a falusi hangulatot es a termeszetkozeli pihenest keresik.",
     primaryCtaLabel: "Reszletek es kapcsolat",
     secondaryCtaLabel: "Kepek megtekintese"
   },
@@ -54,19 +55,19 @@ export const koveskalPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Falusi nyugalom · Kali-medence",
-    title: "Koveskal lassabb oldala",
-    lead: "A Dandelion Koveskal elso korben a shared accommodation sablonra kotott oldal, visszafogott tartalommal es a hely hangulatahoz illeszkedo kepanyaggal."
+    kicker: "Falusi nyugalom ?? Kali-medence",
+    title: "Csendes pihenes a Kali-medenceben",
+    lead: "A Dandelion Koveskal visszafogott, termeszetkozeli bazist ad Koveskalon, ahonnan konnyen elerhetok a Kali-medence falvai, turautvonalai es boros megalloi."
   },
   details: {
     kicker: "Dandelion Koveskal",
-    title: "Termeszetkozeli pihenes egyszeru, attekintheto oldalon",
+    title: "Falusi nyugalom, termeszetkozeli ritmus es lassabb napok",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos sablonra ulteti ra a Koveskal kepkeszletet es az alapveto tartalmi blokkokat.",
+      "A Dandelion Koveskal azoknak jo valasztas, akik a Kali-medence karakteres, csendes oldalat keresik, es a programok mellett a nyugalmat is fontosnak tartjak.",
     longDescription: [
-      "Koveskal a Kali-medence egyik csendesebb pontja, ahol a pihenes ritmusa lassabb, a taj pedig onmagaban is eros elmeny.",
-      "Az oldal ezen a koren meg nem vegleges marketing copyval dolgozik, hanem biztonsagosan szerkesztheto, semleges szovegekkel.",
-      "A hangsuly most azon van, hogy a shared accommodation template valodi masodik oldallal is mukodjon, a kesobbi finomitashoz jo alapot adva."
+      "Koveskal a Kali-medence egyik legnyugodtabb pontja, ahol a kovek, a szolok, a kis utcakarakter es a lassabb napi ritmus adja az elmeny alapjat.",
+      "A vendeghaz jo kiindulopont setakhoz, kornyekbeli pincesorokhoz es olyan balatoni-felvideki programokhoz, ahol a csend es a taj is a pihenes resze marad.",
+      "Ha a Dandelion szallasok kozul a visszafogott, videki hangulat all hozzad kozelebb, a Koveskal oldala termeszetes folytatasa lehet ennek a keresesi szandeknak."
     ],
     moreLabel: "Bovebben a Koveskal oldalrol",
     ctaLabel: "Kapcsolat es reszletek"
@@ -140,7 +141,7 @@ export const koveskalPageData: AccommodationPageData = {
   relatedStays: {
     kicker: "Tovabbi szallasok",
     title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendéghazunkat is.",
+    intro: "Ha a Kali-medence nyugalma mellett mas Balaton-felvideki vagy Balaton kozeli vendeghazat is neznel, fedezd fel a tobbi Dandelion szallast is.",
     items: [
       {
         name: "Fugehaz",
