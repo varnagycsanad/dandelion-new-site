@@ -172,7 +172,7 @@ export const koveskalPageData: AccommodationPageData = {
       {
         name: "Szololiget Vendeghaz",
         meta: "elvonulas a szolok kozott",
-        href: "https://dandelionhouse.hu/szololiget/",
+        href: "/dandelion-szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image"

@@ -5,7 +5,7 @@ export const szololigetPageData: AccommodationPageData = {
     title: "Dandelion Szololiget | Dandelion Vendeghazak",
     description: "Dandelion Szololiget kulon oldal a csendes, termeszetkozeli pihenes es a szolok kozotti elvonulas elso koros shared template bekotesekent."
   },
-  bookingLink: "https://dandelionhouse.hu/szololiget/",
+  bookingLink: "/dandelion-szololiget/",
   hero: {
     mobileImagePath: "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
     fallbackAlt: "Dandelion Szololiget",

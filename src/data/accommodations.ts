@@ -101,7 +101,7 @@ export const accommodations: Accommodation[] = [
   {
     name: "Dandelion Szőlőliget",
     slug: "szololiget-vendeghaz",
-    url: "https://dandelionhouse.hu/szololiget/",
+    url: "/dandelion-szololiget/",
     location: "Balaton-felvidék",
     description: "Vidéki hangulatú ház szőlők, tanúhegyek és nyári esték közé hangolva.",
     hoverText: "Szőlőlugasok ölelésében, távol a város zajától.",
