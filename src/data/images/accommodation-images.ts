@@ -197,9 +197,44 @@ function buildZsalyaGalleryEntries() {
   });
 }
 
+const royalHomesGalleryOrder = [
+  "022",
+  "007",
+  "029",
+  "010",
+  "015",
+  "001",
+  "031",
+  "004",
+  "005",
+  "006",
+  "008",
+  "019",
+  "011",
+  "009",
+  "017",
+  "012",
+  "013",
+  "002",
+  "014",
+  "003",
+  "016",
+  "018",
+  "023",
+  "026",
+  "020",
+  "021",
+  "024",
+  "025",
+  "027",
+  "028",
+  "030",
+  "032",
+  "033",
+];
+
 function buildRoyalHomesGalleryEntries() {
-  return Array.from({ length: 33 }, (_, index) => {
-    const sequence = String(index + 1).padStart(3, "0");
+  return royalHomesGalleryOrder.map((sequence, index) => {
     const sortOrder = (index + 1) * 10;
     const src = `/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-${sequence}.webp`;
     const thumb = `/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-${sequence}.webp`;

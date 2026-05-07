@@ -1058,85 +1058,10 @@
     "apartmentKey": "royal_homes",
     "gallery": [
       {
-        "id": "royal_homes-001",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp",
+        "id": "royal_homes-022",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp",
         "sortOrder": 10,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-002",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp",
-        "sortOrder": 20,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-003",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp",
-        "sortOrder": 30,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-004",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp",
-        "sortOrder": 40,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-005",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp",
-        "sortOrder": 50,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-006",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp",
-        "sortOrder": 60,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1151,7 +1076,7 @@
         "id": "royal_homes-007",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp",
-        "sortOrder": 70,
+        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1163,25 +1088,10 @@
         }
       },
       {
-        "id": "royal_homes-008",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp",
-        "sortOrder": 80,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-009",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp",
-        "sortOrder": 90,
+        "id": "royal_homes-029",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp",
+        "sortOrder": 30,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1196,67 +1106,7 @@
         "id": "royal_homes-010",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp",
-        "sortOrder": 100,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-011",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp",
-        "sortOrder": 110,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-012",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp",
-        "sortOrder": 120,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-013",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp",
-        "sortOrder": 130,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-014",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp",
-        "sortOrder": 140,
+        "sortOrder": 40,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1271,7 +1121,7 @@
         "id": "royal_homes-015",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp",
-        "sortOrder": 150,
+        "sortOrder": 50,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1283,10 +1133,10 @@
         }
       },
       {
-        "id": "royal_homes-016",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp",
-        "sortOrder": 160,
+        "id": "royal_homes-001",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp",
+        "sortOrder": 60,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1298,10 +1148,10 @@
         }
       },
       {
-        "id": "royal_homes-017",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp",
-        "sortOrder": 170,
+        "id": "royal_homes-031",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp",
+        "sortOrder": 70,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1313,10 +1163,55 @@
         }
       },
       {
-        "id": "royal_homes-018",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp",
-        "sortOrder": 180,
+        "id": "royal_homes-004",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-005",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-006",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-008",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp",
+        "sortOrder": 110,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1331,6 +1226,111 @@
         "id": "royal_homes-019",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-011",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-009",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-017",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-012",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-013",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-002",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-014",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp",
         "sortOrder": 190,
         "seoDraft": {
           "approved": false,
@@ -1343,9 +1343,9 @@
         }
       },
       {
-        "id": "royal_homes-020",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp",
+        "id": "royal_homes-003",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp",
         "sortOrder": 200,
         "seoDraft": {
           "approved": false,
@@ -1358,9 +1358,9 @@
         }
       },
       {
-        "id": "royal_homes-021",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp",
+        "id": "royal_homes-016",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp",
         "sortOrder": 210,
         "seoDraft": {
           "approved": false,
@@ -1373,9 +1373,9 @@
         }
       },
       {
-        "id": "royal_homes-022",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp",
+        "id": "royal_homes-018",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp",
         "sortOrder": 220,
         "seoDraft": {
           "approved": false,
@@ -1403,10 +1403,55 @@
         }
       },
       {
+        "id": "royal_homes-026",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp",
+        "sortOrder": 240,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-020",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp",
+        "sortOrder": 250,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "royal_homes-021",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp",
+        "sortOrder": 260,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
         "id": "royal_homes-024",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp",
-        "sortOrder": 240,
+        "sortOrder": 270,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1421,22 +1466,7 @@
         "id": "royal_homes-025",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp",
-        "sortOrder": 250,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-026",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp",
-        "sortOrder": 260,
+        "sortOrder": 280,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1451,7 +1481,7 @@
         "id": "royal_homes-027",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp",
-        "sortOrder": 270,
+        "sortOrder": 290,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1466,22 +1496,7 @@
         "id": "royal_homes-028",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp",
-        "sortOrder": 280,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-029",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp",
-        "sortOrder": 290,
+        "sortOrder": 300,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -1496,21 +1511,6 @@
         "id": "royal_homes-030",
         "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp",
         "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp",
-        "sortOrder": 300,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "royal_homes-031",
-        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp",
-        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp",
         "sortOrder": 310,
         "seoDraft": {
           "approved": false,
