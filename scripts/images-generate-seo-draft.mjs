@@ -34,6 +34,7 @@ const apartmentDisplayNames = {
   fugehaz: "FĂĽgehĂˇz",
   szololiget: "Szololiget Vendeghaz",
   zsalya: "Zsalya Vendeghaz",
+  royal_homes: "Dandelion Royal Homes",
 };
 const requiredDraftKeys = ["altHu", "titleHu", "captionHu", "altEn", "titleEn", "captionEn"];
 const forbiddenPhrasePatterns = [

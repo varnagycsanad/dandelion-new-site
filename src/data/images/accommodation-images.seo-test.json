@@ -1543,5 +1543,505 @@
         }
       }
     ]
+  },
+  "royal_homes": {
+    "apartmentKey": "royal_homes",
+    "gallery": [
+      {
+        "id": "royal_homes-022",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-022.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-022.webp",
+        "sortOrder": 10,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Jacuzzi Dandelion Royal Homes szálláson",
+          "titleHu": "Jacuzzi a Dandelion Royal Homes-ban",
+          "captionHu": "A Jacuzzi kényelmes hely a pihenésre a Dandelion Royal Homes területén.",
+          "altEn": "Jacuzzi at Dandelion Royal Homes",
+          "titleEn": "Jacuzzi at Dandelion Royal Homes",
+          "captionEn": "The Jacuzzi is a comfortable spot to relax at Dandelion Royal Homes."
+        }
+      },
+      {
+        "id": "royal_homes-007",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-007.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-007.webp",
+        "sortOrder": 20,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali és étkező a Dandelion Royal Homes lakásban",
+          "titleHu": "Nappali és étkező",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Living room and dining area in Dandelion Royal Homes",
+          "titleEn": "Living room and dining area",
+          "captionEn": "The living room has a table, chairs, and a sofa."
+        }
+      },
+      {
+        "id": "royal_homes-029",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-029.webp",
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kör alakú modern épület a Dandelion Royal Homes lakóparkban",
+          "titleHu": "Dandelion Royal Homes új épület",
+          "captionHu": "A Dandelion Royal Homes udvara és épülete modern kialakítással.",
+          "altEn": "Round modern building at Dandelion Royal Homes",
+          "titleEn": "Dandelion Royal Homes new building",
+          "captionEn": "The courtyard and building of Dandelion Royal Homes have a modern design."
+        }
+      },
+      {
+        "id": "royal_homes-010",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-010.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-010.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes terasza nyugággyal és üvegkorláttal",
+          "titleHu": "Dandelion Royal Homes terasz nyugággyal",
+          "captionHu": "A teraszon egy nő pihen egy nyugágyon olvasással.",
+          "altEn": "Dandelion Royal Homes terrace with lounge chair and glass railing",
+          "titleEn": "Dandelion Royal Homes terrace lounge",
+          "captionEn": "A woman is relaxing on a lounge chair on the terrace reading a book."
+        }
+      },
+      {
+        "id": "royal_homes-015",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-015.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-015.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes modern konyha étkezőasztallal és székekkel",
+          "titleHu": "Dandelion Royal Homes étkező és konyha",
+          "captionHu": "Az étkezőasztalon székek, étkészlet és növény, a konyhában fa és sötét színű konyhaszekrények vannak.",
+          "altEn": "Dandelion Royal Homes modern kitchen with dining table and chairs",
+          "titleEn": "Dandelion Royal Homes dining area and kitchen",
+          "captionEn": "The dining table has chairs, tableware, and a plant, and the kitchen features wood and dark cabinets."
+        }
+      },
+      {
+        "id": "royal_homes-001",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-001.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes hálószoba ágy fehér törölközőkkel és laptop",
+          "titleHu": "Dandelion Royal Homes hálószoba ágy",
+          "captionHu": "A hálószobában látszik egy ágy narancssárga takaróval, fehér törölközőkkel és egy laptopon.",
+          "altEn": "Dandelion Royal Homes bedroom bed with white towels and laptop",
+          "titleEn": "Dandelion Royal Homes bedroom bed",
+          "captionEn": "The bedroom has a bed with an orange cover, white towels, and a laptop on it."
+        }
+      },
+      {
+        "id": "royal_homes-031",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-031.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-031.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes fémszerkezetes bejárat és móló a víz mellett",
+          "titleHu": "Dandelion Royal Homes bejárat és móló",
+          "captionHu": "A Dandelion Royal Homes bejáratánál egy fahíd vezet a vízhez, mellette nádas és padok vannak.",
+          "altEn": "Dandelion Royal Homes metal entrance and wooden jetty by the water",
+          "titleEn": "Dandelion Royal Homes entrance and jetty",
+          "captionEn": "The entrance of Dandelion Royal Homes leads to a wooden jetty by the water with reeds and benches nearby."
+        }
+      },
+      {
+        "id": "royal_homes-004",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-004.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-004.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes hálószoba ágy, narancssárga takaróval és tévével",
+          "titleHu": "Dandelion Royal Homes hálószoba",
+          "captionHu": "A hálószobában kényelmes ágy van narancssárga takaróval és tv a falon.",
+          "altEn": "Dandelion Royal Homes bedroom with bed, orange blanket and TV",
+          "titleEn": "Dandelion Royal Homes bedroom",
+          "captionEn": "The bedroom has a bed with an orange blanket and a TV on the wall."
+        }
+      },
+      {
+        "id": "royal_homes-005",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-005.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-005.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "ágy színes párnákkal és reggeli az asztalon",
+          "titleHu": "kényelmes ágy és reggeli",
+          "captionHu": "A szoba kényelmes ággyal és reggelivel várja vendégeit.",
+          "altEn": "bed with colorful pillows and breakfast on table",
+          "titleEn": "comfortable bed and breakfast",
+          "captionEn": "The room offers a comfortable bed and breakfast for guests."
+        }
+      },
+      {
+        "id": "royal_homes-006",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-006.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-006.webp",
+        "sortOrder": 100,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Tágas nappali és étkező modern bútorokkal",
+          "titleHu": "Nappali és étkező",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Spacious living room and dining area with modern furniture",
+          "titleEn": "Living and dining area",
+          "captionEn": "The dining table has comfortable chairs, and the living room has a TV and sofa."
+        }
+      },
+      {
+        "id": "royal_homes-008",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-008.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-008.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes teraszán székek és műfű borítás",
+          "titleHu": "Dandelion Royal Homes terasz",
+          "captionHu": "A Dandelion Royal Homes teraszán műfű borítás és székek vannak.",
+          "altEn": "Terrace of Dandelion Royal Homes with chairs and artificial grass",
+          "titleEn": "Dandelion Royal Homes terrace",
+          "captionEn": "The terrace of Dandelion Royal Homes has chairs and artificial grass."
+        }
+      },
+      {
+        "id": "royal_homes-019",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-019.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-019.webp",
+        "sortOrder": 120,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes nappali szürke kanapéval és teraszajtóval",
+          "titleHu": "Dandelion Royal Homes nappali",
+          "captionHu": "A nappaliban egy szürke kanapé és egy nagy teraszajtó van.",
+          "altEn": "Dandelion Royal Homes living room with gray sofa and terrace door",
+          "titleEn": "Dandelion Royal Homes living room",
+          "captionEn": "The living room has a gray sofa and a large terrace door."
+        }
+      },
+      {
+        "id": "royal_homes-011",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-011.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-011.webp",
+        "sortOrder": 130,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern fürdőszoba káddal és WC-vel",
+          "titleHu": "Fürdőszoba Dandelion Royal Homes-ban",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Modern bathroom with bathtub and toilet",
+          "titleEn": "Bathroom at Dandelion Royal Homes",
+          "captionEn": "The bathroom has a bathtub and toilet with wood-style flooring."
+        }
+      },
+      {
+        "id": "royal_homes-009",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-009.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-009.webp",
+        "sortOrder": 140,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Két kék szék a balkonon egy asztal mellett",
+          "titleHu": "Balkon kényelmes székekkel",
+          "captionHu": "A balkon kényelmes székekkel és asztallal várja a vendégeket.",
+          "altEn": "Two blue chairs on the balcony with a table",
+          "titleEn": "Balcony with comfortable chairs",
+          "captionEn": "The balcony has comfortable chairs and a table for guests."
+        }
+      },
+      {
+        "id": "royal_homes-017",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-017.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-017.webp",
+        "sortOrder": 150,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern konyha hűtővel és sütővel",
+          "titleHu": "Kényelmes konyha a lakásban",
+          "captionHu": "A konyha minden alapfelszereltséggel megvan a főzéshez.",
+          "altEn": "Modern kitchen with fridge and oven",
+          "titleEn": "Comfortable kitchen in the apartment",
+          "captionEn": "The kitchen has all the essentials for cooking."
+        }
+      },
+      {
+        "id": "royal_homes-012",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-012.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-012.webp",
+        "sortOrder": 160,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Fürdőszoba kád zuhanyzószárral és mosdóval",
+          "titleHu": "A fürdőszoba a Dandelion Royal Homesban",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Bathroom with tub, shower head and sink",
+          "titleEn": "Bathroom at Dandelion Royal Homes",
+          "captionEn": "The bathroom has a tub, a sink, and a washing machine."
+        }
+      },
+      {
+        "id": "royal_homes-013",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-013.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-013.webp",
+        "sortOrder": 170,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali modern kanapéval és konyhával",
+          "titleHu": "Nappali és konyha",
+          "captionHu": "A nappali rész kényelmes kanapéval és étkezővel rendelkezik.",
+          "altEn": "Living room with modern sofa and kitchen",
+          "titleEn": "Living room and kitchen",
+          "captionEn": "The living area has a comfortable sofa and dining table."
+        }
+      },
+      {
+        "id": "royal_homes-002",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-002.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-002.webp",
+        "sortOrder": 180,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes kétszemélyes ágy narancssárga ágytakaróval",
+          "titleHu": "Dandelion Royal Homes hálószoba",
+          "captionHu": "A hálószobában kétszemélyes ágy narancssárga ágytakaróval és ablak a teraszhoz.",
+          "altEn": "Dandelion Royal Homes double bed with orange bedspread",
+          "titleEn": "Dandelion Royal Homes bedroom",
+          "captionEn": "The bedroom has a double bed with an orange bedspread and a door leading to the terrace."
+        }
+      },
+      {
+        "id": "royal_homes-014",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-014.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-014.webp",
+        "sortOrder": 190,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern nappali és konyha",
+          "titleHu": "Kényelmes nappali konyhával",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Modern living room and kitchen",
+          "titleEn": "Cozy living room with kitchen",
+          "captionEn": "The living area has a comfortable sofa and a dining table."
+        }
+      },
+      {
+        "id": "royal_homes-003",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-003.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-003.webp",
+        "sortOrder": 200,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kényelmes hálószoba kétszemélyes ággyal és televízióval",
+          "titleHu": "Hálószoba Dandelion Royal Homes",
+          "captionHu": "A hálószoba kényelmes ággyal és televízióval várja vendégeit.",
+          "altEn": "Cozy bedroom with double bed and TV",
+          "titleEn": "Bedroom at Dandelion Royal Homes",
+          "captionEn": "The bedroom offers a comfortable bed and a TV for guests."
+        }
+      },
+      {
+        "id": "royal_homes-016",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-016.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-016.webp",
+        "sortOrder": 210,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Étkező és konyha modern székekkel",
+          "titleHu": "Konyha és étkező az apartmanban",
+          "captionHu": "A konyha modern, az étkező hat személynek van megterítve.",
+          "altEn": "Dining area and kitchen with modern chairs",
+          "titleEn": "Kitchen and dining area in the apartment",
+          "captionEn": "The kitchen is modern, the dining table is set for six people."
+        }
+      },
+      {
+        "id": "royal_homes-018",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-018.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-018.webp",
+        "sortOrder": 220,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern konyha beépített gépekkel és növénnyel",
+          "titleHu": "Konyha a Dandelion Royal Homes-ban",
+          "captionHu": "A konyha felszerelt beépített hűtővel, sütővel és mikróval.",
+          "altEn": "Modern kitchen with built-in appliances and plant",
+          "titleEn": "Kitchen at Dandelion Royal Homes",
+          "captionEn": "The kitchen is equipped with built-in fridge, oven, and microwave."
+        }
+      },
+      {
+        "id": "royal_homes-023",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-023.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-023.webp",
+        "sortOrder": 230,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Jakuzzi a Dandelion Royal Homes társasház tetején",
+          "titleHu": "Jakuzzi a tetőn a Dandelion Royal Homesnál",
+          "captionHu": "A jakuzzi a tetőn friss vizet tartalmaz egy tiszta napon.",
+          "altEn": "Hot tub on the roof of Dandelion Royal Homes",
+          "titleEn": "Roof hot tub at Dandelion Royal Homes",
+          "captionEn": "The hot tub on the roof has fresh water on a clear day."
+        }
+      },
+      {
+        "id": "royal_homes-026",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-026.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-026.webp",
+        "sortOrder": 240,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes modern üvegkorlátos terasza és liftaknás udvara",
+          "titleHu": "Dandelion Royal Homes terasz és liftakna",
+          "captionHu": "A Dandelion Royal Homes teraszán üvegkorlátok és kényelmes ülőhelyek vannak.",
+          "altEn": "Dandelion Royal Homes terrace with glass railings and elevator shaft courtyard",
+          "titleEn": "Dandelion Royal Homes terrace and elevator",
+          "captionEn": "The terrace at Dandelion Royal Homes has glass railings and seating areas."
+        }
+      },
+      {
+        "id": "royal_homes-020",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-020.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-020.webp",
+        "sortOrder": 250,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Nappali szoba szürke kanapéval és falra szerelt televízióval",
+          "titleHu": "Nappali szoba kanapéval és televízióval",
+          "captionHu": "A nappaliban kényelmes kanapé és televízió várja a vendégeket.",
+          "altEn": "Living room with gray sofa and wall-mounted TV",
+          "titleEn": "Living room with sofa and TV",
+          "captionEn": "The living room has a comfortable sofa and a TV for guests."
+        }
+      },
+      {
+        "id": "royal_homes-021",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-021.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-021.webp",
+        "sortOrder": 260,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Szürke kanapé és falra szerelt TV a nappaliban",
+          "titleHu": "Nappali kanapéval és TV-vel",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Gray sofa and wall-mounted TV in the living room",
+          "titleEn": "Living room with sofa and TV",
+          "captionEn": "The living room has a comfortable sofa and a wall-mounted TV."
+        }
+      },
+      {
+        "id": "royal_homes-024",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-024.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-024.webp",
+        "sortOrder": 270,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Jacuzzi a tetőkert mellett a Dandelion Royal Homesban",
+          "titleHu": "Jacuzzi a tetőkertben",
+          "captionHu": "Ez a jacuzzi a tetőkerten pihenésre vár.",
+          "altEn": "Jacuzzi by the rooftop garden at Dandelion Royal Homes",
+          "titleEn": "Jacuzzi on the rooftop garden",
+          "captionEn": "This jacuzzi is ready for relaxing on the rooftop garden."
+        }
+      },
+      {
+        "id": "royal_homes-025",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-025.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-025.webp",
+        "sortOrder": 280,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes tetőkerti jakuzzi és napozópadok zöld műfűvel",
+          "titleHu": "Dandelion Royal Homes tetőkert jakuzzival",
+          "captionHu": "A tetőkertben jakuzzi és napozópadok állnak zöld műfű borítással.",
+          "altEn": "Dandelion Royal Homes rooftop garden with jacuzzi and sun benches on green turf",
+          "titleEn": "Dandelion Royal Homes rooftop jacuzzi",
+          "captionEn": "The rooftop garden has a jacuzzi and sun benches on green artificial turf."
+        }
+      },
+      {
+        "id": "royal_homes-027",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-027.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-027.webp",
+        "sortOrder": 290,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern épület belső udvar és lift",
+          "titleHu": "Dandelion Royal Homes udvar és lift",
+          "captionHu": "Az épület belső udvara és a lift a Dandelion Royal Homes-ban.",
+          "altEn": "Modern building courtyard and elevator",
+          "titleEn": "Dandelion Royal Homes courtyard and elevator",
+          "captionEn": "The courtyard and elevator in the Dandelion Royal Homes building."
+        }
+      },
+      {
+        "id": "royal_homes-028",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-028.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-028.webp",
+        "sortOrder": 300,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Modern apartmanépület belső udvarral és vörös lombú fával",
+          "titleHu": "Dandelion Royal Homes belső udvar",
+          "captionHu": "Az apartmanépület belső udvara egyszerű és rendezett.",
+          "altEn": "Modern apartment building inner courtyard with red-leaved tree",
+          "titleEn": "Dandelion Royal Homes courtyard",
+          "captionEn": "The apartment building courtyard is clean and simple."
+        }
+      },
+      {
+        "id": "royal_homes-030",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-030.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-030.webp",
+        "sortOrder": 310,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Két modern épület zöld udvarral",
+          "titleHu": "Dandelion Royal Homes épületek",
+          "captionHu": "A Dandelion Royal Homes épületei nagy kerttel és üres terek körül.",
+          "altEn": "Two modern buildings with green yard",
+          "titleEn": "Dandelion Royal Homes buildings",
+          "captionEn": "The Dandelion Royal Homes buildings have a large garden and open spaces around."
+        }
+      },
+      {
+        "id": "royal_homes-032",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-032.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-032.webp",
+        "sortOrder": 320,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Royal Homes fahíd korláttal és padokkal a tóparton",
+          "titleHu": "Dandelion Royal Homes fahíd és tópart",
+          "captionHu": "A fahídon padok sorakoznak a Dandelion Royal Homes mellett a vízpartnál.",
+          "altEn": "Dandelion Royal Homes wooden bridge with railing and benches by the pond",
+          "titleEn": "Dandelion Royal Homes wooden bridge",
+          "captionEn": "The wooden bridge by the pond has benches next to Dandelion Royal Homes."
+        }
+      },
+      {
+        "id": "royal_homes-033",
+        "src": "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-033.webp",
+        "thumb": "/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-033.webp",
+        "sortOrder": 330,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Kikötő móló padokkal a Dandelion Royal Homes épületei előtt",
+          "titleHu": "Móló padokkal a Dandelion Royal Homes-nál",
+          "captionHu": "A móló pihenőhely padokkal a Dandelion Royal Homes közelében.",
+          "altEn": "Pier with benches in front of Dandelion Royal Homes buildings",
+          "titleEn": "Pier with benches at Dandelion Royal Homes",
+          "captionEn": "The pier offers a resting spot with benches near Dandelion Royal Homes."
+        }
+      }
+    ]
   }
 }
