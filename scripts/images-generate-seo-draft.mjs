@@ -35,6 +35,7 @@ const apartmentDisplayNames = {
   szololiget: "Szololiget Vendeghaz",
   zsalya: "Zsalya Vendeghaz",
   royal_homes: "Dandelion Royal Homes",
+  vintage: "Dandelion Vintage Vendégház",
 };
 const requiredDraftKeys = ["altHu", "titleHu", "captionHu", "altEn", "titleEn", "captionEn"];
 const forbiddenPhrasePatterns = [
@@ -454,10 +455,47 @@ function parseJsonObject(rawText, imageId) {
   try {
     return JSON.parse(normalized);
   } catch {
+    const recovered = extractLastJsonObject(normalized);
+
+    if (recovered) {
+      try {
+        return JSON.parse(recovered);
+      } catch {
+        // fall through to the existing hard stop below
+      }
+    }
+
     console.error(`STOP: OpenAI response for ${imageId} was not valid JSON.`);
     console.error(normalized);
     process.exit(1);
   }
+}
+
+function extractLastJsonObject(rawText) {
+  const fencedMatches = [...rawText.matchAll(/```json\s*([\s\S]*?)```/gi)];
+
+  if (fencedMatches.length > 0) {
+    return fencedMatches.at(-1)?.[1]?.trim() || "";
+  }
+
+  const startIndexes = [];
+  for (let index = 0; index < rawText.length; index += 1) {
+    if (rawText[index] === "{") {
+      startIndexes.push(index);
+    }
+  }
+
+  for (let i = startIndexes.length - 1; i >= 0; i -= 1) {
+    const candidate = rawText.slice(startIndexes[i]).trim();
+    try {
+      JSON.parse(candidate);
+      return candidate;
+    } catch {
+      // continue scanning backward for a valid trailing object
+    }
+  }
+
+  return "";
 }
 
 function validateSeoDraft(draft, imageId) {
