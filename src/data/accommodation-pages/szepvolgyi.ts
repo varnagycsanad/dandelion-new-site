@@ -1,180 +1,162 @@
-// [CHANGE 2026-05-06 00:00] Szepvolgyi Vendeghaz shared accommodation page data added.
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] Szepvolgyi SEO title, meta, headings and intro copy refined for production baseline.
 export const szepvolgyiPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Szepvolgyi | Tagas vendeghaz Badacsonyorson",
-    description: "Tagas vendeghaz Badacsonyorson, a Balaton kozeleben, nyugodt pihenessel, nagyobb terekkel es konnyu eleressel Badacsony fele."
+    title: "Szépvölgyi Vendégház Badacsonyörs | Balatoni panorámás családi nyaraló",
+    description:
+      "Balatoni panorámás, tágas családi nyaraló Badacsonyörsön, 4 hálószobával, 2 fürdőszobával, zárt kerttel, grillezési lehetőséggel és akár 8 fő részére."
   },
   bookingLink: "/szepvolgyi/",
   hero: {
     mobileImagePath: "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp",
-    fallbackAlt: "Dandelion Szepvolgyi vendeghaz Badacsonyorson, a Balaton kozeleben",
-    kicker: "Badacsonyors - Balaton kozeleben",
-    title: "Dandelion",
-    titleAccent: "Szepvolgyi",
-    subtitle: "NYUGODT PIHENES BADACSONYORS KOZELEBEN",
-    lead: "Tagas vendeghaz azoknak, akik Badacsonyorson, a Balaton kozeleben keresnek nyugodt bazist csaladi vagy barati piheneshez.",
-    primaryCtaLabel: "Arak es foglalas",
-    secondaryCtaLabel: "Kepek megtekintese"
+    fallbackAlt: "Szépvölgyi Vendégház Badacsonyörsön, balatoni panorámás terasszal",
+    kicker: "Badacsonyörs - Szépvölgyi út",
+    title: "Szépvölgyi",
+    titleAccent: "Vendégház",
+    subtitle: "BALATONI PANORÁMÁS, TÁGAS CSALÁDI NYARALÓ",
+    lead: "Balatoni panorámás, tágas családi nyaraló Badacsonyörsön, a Szépvölgyi úton. A Szépvölgyi Vendégház 4 hálószobával, 2 fürdőszobával, zárt kerttel, teraszbútorokkal és grillezési lehetőséggel várja a vendégeket, akár 8 fő részére.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
-    title: "Vendegeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekotesehez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    kicker: "Vendégértékelések",
+    title: "Vendégeink szerint",
+    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Nyugodt, tagas hely, jo valasztas balatoni piheneshez es kirandulos napokhoz.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Tágas, kényelmes ház, nagyon szép balatoni kilátással és kellemes, nyugodt környezettel.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "Kellemes balatoni-felvideki hangulat, ahol egyszeru lelassulni es feltoltodni.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Családi nyaraláshoz remek választás, a terasz és a kert különösen sokat adott az itt töltött napokhoz.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Google",
-        quote: "A nagyobb terek es a csendesebb kornyezet jol mukodnek csaladi vagy barati piheneshez.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Jó elhelyezkedés, közel a strandhoz és a környék programjaihoz, estére pedig nagyon jó visszaérni ide.",
+        meta: "Vendég - Google - 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Jo kiindulopont a Balaton es Badacsony kornyeken, nyugodt esti pihenessel.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "Kényelmes, nagyobb társaságnak is jól használható ház, szép panorámával és nyugodt hangulattal.",
+        meta: "Vendég - Booking.com - 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Baratsagos, kenyelmes szallas, ahol a balatoni programok utan jo visszaterni.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "A környék programjai és a balatoni közelség mellett a zárt kert és a terasz tette igazán szerethetővé a szállást.",
+        meta: "Vendég - Booking.com - 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Balaton kozel - nagyobb terek",
-    title: "Tagas pihenes Badacsonyorson",
-    lead: "A Dandelion Szepvolgyi kenyelmes, nagyobb terekkel varja azokat, akik a Balaton kozelseget, Badacsony programjait es a nyugodt esti visszaerkezest egyszerre keresik."
+    kicker: "Panoráma - tér - balatoni nyaralás",
+    title: "Nagyobb családi ház a Balaton közelében",
+    lead: "A Szépvölgyi Vendégház Badacsonyörsön, a Szépvölgyi úton található, balatoni panorámás, tágas családi nyaraló. A ház egyik legnagyobb értéke a teraszról nyíló kilátás: a Balaton minden napszakban más arcát mutatja, reggel nyugodt és tiszta, estére pedig különösen hangulatos hátteret ad a pihenéshez."
   },
   details: {
-    kicker: "Szepvolgyi Vendeghaz",
-    title: "Balaton kozeli vendeghaz csaladi es barati napokhoz",
+    kicker: "Szépvölgyi Vendégház",
+    title: "4 hálószobás, panorámás nyaraló 8 fő részére Badacsonyörsön",
     shortDescription:
-      "A Dandelion Szepvolgyi jo valasztas, ha Badacsonyorson keresel tagas vendeghazat, ahonnan a Balaton-part, Badacsony es a Tapolcai-medence is konnyen elerheto.",
+      "A Szépvölgyi Vendégház 4 hálószobával és 2 fürdőszobával rendelkező, tágas családi nyaraló Badacsonyörsön. Balatoni panorámás terasszal, zárt kerttel, két autó számára parkolással és grillezési lehetőséggel várja a vendégeket, akár 8 fő részére.",
     longDescription: [
-      "A Szepvolgyi Badacsonyorshoz es a Balaton kozeli piheneshez kapcsolodik, ahol a nagyobb terek es a nyugodtabb ritmus egyutt adnak kenyelmes alapot.",
-      "Jo bazis lehet strandhoz, badacsonyi kiruccanashoz vagy ahhoz is, hogy napkozben a Tapolcai-medence programjait jarjatok vegig, estere pedig visszaterjetek egy csendes vendeghazba.",
-      "A Dandelion szallasok kozott ez a haz a tagasabb, csaladi vagy barati jelenletre hangolt valasztas, termeszetes kapcsolattal a tobbi Balaton-felvideki helyszinhez."
+      "A Szépvölgyi Vendégház Badacsonyörsön, a Szépvölgyi úton található, balatoni panorámás, tágas családi nyaraló. A ház egyik legnagyobb értéke a teraszról nyíló kilátás: a Balaton minden napszakban más arcát mutatja, reggel nyugodt és tiszta, estére pedig különösen hangulatos hátteret ad a pihenéshez.",
+      "A vendégház 4 hálószobával és 2 fürdőszobával rendelkezik, így akár 8 fő számára is kényelmes elhelyezést biztosít. Jó választás családoknak és baráti társaságoknak, akik tágas, jól felszerelt házat keresnek a Balaton közelében, nyugodtabb környezetben.",
+      "A ház mindennel felszerelt, ami egy kényelmes balatoni nyaraláshoz szükséges. A zárt kertben két autó számára van parkolási lehetőség, a kinti pihenést pedig teraszbútorok és grillező teszik kényelmessé. Itt könnyű belassulni: reggeli a teraszon, napközben strand vagy kirándulás, este grillezés és balatoni panoráma.",
+      "A környék tavasztól őszig rengeteg programot ad. A kerékpárút, a kikötő és a strand könnyen elérhető, a Folly Arborétum, a Szigligeti vár, a badacsonyi bortúrák, gasztroprogramok és fesztiválok pedig mind jó választások egy tartalmas balatoni pihenéshez.",
+      "A Szépvölgyi Vendégház azoknak ideális, akik szeretik a Balaton közelségét, de nem egy zsúfolt apartmanban, hanem saját kerttel, nagyobb terekkel és panorámás terasszal rendelkező nyaralóban szeretnének megszállni."
     ],
-    moreLabel: "Bovebben a Szepvolgyi oldalrol",
-    ctaLabel: "Arak es foglalas"
+    moreLabel: "Bővebben a Szépvölgyi Vendégházról",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Badacsonyors"],
-          ["Jelleg", "Balaton kozeli vendeghaz"],
-          ["Hangulat", "tagas es nyugodt"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Helyszín", "Badacsonyörs, Szépvölgyi út"],
+          ["Férőhely", "akár 8 fő"],
+          ["Elrendezés", "4 hálószoba, 2 fürdőszoba"],
+          ["Jelleg", "tágas, balatoni panorámás családi nyaraló"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Kiemelt élmények",
         items: [
-          ["Fokusz", "csaladi es barati pihenes"],
-          ["Kornyek", "Balaton es Badacsony kozeleben"],
-          ["Ritmus", "nyugodt, kenyelmes bazis"],
-          ["Elmeny", "nagyobb terek es kertkozeli hangulat"]
+          ["Panoráma", "balatoni panoráma a teraszról"],
+          ["Kert", "zárt kert, parkolás két autónak"],
+          ["Kintlét", "teraszbútorok és grillező"],
+          ["Programok", "strand, kikötő, kerékpárút és bortúrák a közelben"]
         ]
       }
     ]
   },
   features: {
-    title: "Miert lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Balaton kozeli elhelyezkedes", icon: "route" },
-      { label: "Badacsonyors kornyeke", icon: "mountain" },
-      { label: "Nagyobb terek", icon: "users" },
-      { label: "Nyugodt pihenes", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Attekintheto szallasoldal", icon: "wifi" }
+      { label: "Badacsonyörs, Szépvölgyi út", icon: "route" },
+      { label: "Balatoni panorámás terasz", icon: "mountain" },
+      { label: "4 hálószoba, 2 fürdőszoba", icon: "users" },
+      { label: "Akár 8 fő részére", icon: "home" },
+      { label: "Zárt kert és grillezés", icon: "leaf" },
+      { label: "Kerékpárút, kikötő és strand a közelben", icon: "trail" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Szepvolgyi hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Szepvolgyi galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Nyolc pillanat a Szépvölgyi Vendégház hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Szépvölgyi galériához jelenleg nincs feloldható kép a live registryben.",
     previewCount: 8
   },
   map: {
-    kicker: "BADACSONYORS - BALATON KOZELEBEN",
-    title: "Kornyek es taj",
-    body: "A Szepvolgyi Vendeghaz Badacsonyorshoz es a Balaton kozeli piheneshez kapcsolodik. Jo valasztas, ha a strand, Badacsony es a Tapolcai-medence programjai is fontosak.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "BADACSONYÖRS - SZÉPVÖLGYI ÚT",
+    title: "Környék és programok",
+    body: "A Szépvölgyi Vendégház Badacsonyörsön található, ahonnan könnyen elérhető a strand, a kikötő, a kerékpárút és a környék számos balatoni programja. A Folly Arborétum, a Szigligeti vár, a bortúrák, a gasztroprogramok és a fesztiválok tavasztól őszig változatos lehetőségeket adnak a pihenés mellé.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Balaton kozeli hangulat", icon: "route" },
-      { label: "Badacsony es kirandulasok", icon: "trail" },
-      { label: "Nyugodtabb videki bazis", icon: "leaf" }
+      { label: "Strand, kikötő és kerékpárút a közelben", icon: "route" },
+      { label: "Folly Arborétum és Szigligeti vár", icon: "trail" },
+      { label: "Bortúrák, gasztroprogramok és fesztiválok", icon: "grapes" }
     ],
-    embedSrc: "https://www.google.com/maps?q=Badacsony%C3%B6rs&z=13&output=embed",
-    embedTitle: "Szepvolgyi Vendeghaz kornyeke terkep"
+    embedSrc: "https://www.google.com/maps?q=Badacsony%C3%B6rs%20Sz%C3%A9pv%C3%B6lgyi%20%C3%BAt&z=14&output=embed",
+    embedTitle: "Szépvölgyi Vendégház környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Szepvolgyi galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Szépvölgyi galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha Badacsonyors utan a Balaton-felvidek mas vendeghazait is felfedezned, nezd meg a tobbi Dandelion szallast is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha Badacsonyörs után a Balaton-felvidék más hangulatait is felfedeznéd, nézd meg a többi szállásunkat is.",
     items: [
       {
-        name: "Dandelion D2",
-        meta: "4-6 fo - kert - csaladbarat",
-        href: "/dandelion-d2/",
+        name: "Szőlőliget Vendégház",
+        meta: "4 fő + pótágy - panoráma - csendes elvonulás",
+        href: "/szololiget/",
         image: {
           type: "mapping",
-          slot: "d2_card_image"
+          slot: "szololiget_card_image"
         }
       },
       {
-        name: "Fugehaz",
-        meta: "2-4 fo - panorama - dezsa",
-        href: "/fuge/",
-        image: {
-          type: "mapping",
-          slot: "fugehaz_card_image"
-        }
-      },
-      {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence - nyugodt falusi hangulat",
-        href: "/dandelion-koveskal/",
-        image: {
-          type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
-        }
-      },
-      {
-        name: "Zsalya Vendeghaz",
-        meta: "csendes, termeszetkozeli pihenes",
+        name: "Zsálya Vendégház",
+        meta: "4 fő - természetközeli pihenés - terasz",
         href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
@@ -182,13 +164,22 @@ export const szepvolgyiPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Royal Homes",
-        meta: "Balaton kozeli, kenyelmes kikapcsolodas",
-        href: "/royal/",
+        name: "Fügeház",
+        meta: "4-6 fő - panorámás terasz - családi pihenés",
+        href: "/fuge/",
+        image: {
+          type: "mapping",
+          slot: "fugehaz_card_image"
+        }
+      },
+      {
+        name: "Dandelion Royal Homes Apartman",
+        meta: "Keszthely - prémium apartman - nagy terasz",
+        href: "/dandelion-royal-homes/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-          alt: "Dandelion Royal Homes kulso kep"
+          alt: "Dandelion Royal Homes Apartman külső kép"
         }
       }
     ]
