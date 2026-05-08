@@ -14,6 +14,11 @@ const canonicalAliasMap: Record<string, string> = {
 
 export const SITEMAP_PATHS = [
   "/",
+  "/kapcsolat/",
+  "/elmenyek/",
+  "/aszf/",
+  "/adatkezelesi-tajekoztato/",
+  "/impresszum/",
   "/szallasok/",
   "/fuge/",
   "/dandelion-d2/",

@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="English Version Coming Soon | Dandelion Vendégházak"
+  description="The English version of the Dandelion Vendégházak website is under preparation."
+  canonicalPath="/"
+  noindex={true}
+>
+  <section class="locale-page">
+    <div class="dnd-container locale-page__inner">
+      <span class="locale-page__eyebrow">EN</span>
+      <h1>English version coming soon.</h1>
+      <p>
+        The full English version of the Dandelion Vendégházak website is currently under preparation.
+        In the meantime, you can browse the main Hungarian pages or contact us directly.
+      </p>
+      <a class="locale-page__cta" href="/kapcsolat/">Contact</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .locale-page {
+    padding: 132px 0 88px;
+    background: #fcfbf8;
+  }
+
+  .locale-page__inner {
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
+  }
+
+  .locale-page__eyebrow {
+    color: #b67b20;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .locale-page h1 {
+    margin: 0;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 3.6vw, 3.3rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .locale-page p {
+    color: rgba(38, 29, 22, 0.78);
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
+  .locale-page__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: #d99e2b;
+    color: #1b140f;
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

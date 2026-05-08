@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Impresszum | Dandelion Vendégházak"
+  description="A Dandelion Vendégházak kapcsolati és üzemeltetési alapinformációi."
+  canonicalPath="/impresszum/"
+>
+  <section class="legal-page">
+    <div class="dnd-container legal-page__inner">
+      <span class="legal-page__eyebrow">Jogi információ</span>
+      <h1>Impresszum</h1>
+      <p>
+        A Dandelion Vendégházak weboldalával és foglalási felületével kapcsolatos általános
+        megkeresésekhez az alábbi elérhetőségeken érhetsz el minket.
+      </p>
+
+      <div class="legal-page__card">
+        <h2>Kapcsolati adatok</h2>
+        <ul>
+          <li>Weboldal: dandelionhouse.hu</li>
+          <li>E-mail: hello@dandelionhouse.hu</li>
+          <li>Telefon: +36 20 773 0807</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: 132px 0 88px;
+    background: #fcfbf8;
+  }
+
+  .legal-page__inner {
+    display: grid;
+    gap: 22px;
+    max-width: 780px;
+  }
+
+  .legal-page__eyebrow {
+    color: #b67b20;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .legal-page h1,
+  .legal-page h2 {
+    margin: 0;
+    color: #261d16;
+  }
+
+  .legal-page h1 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 3.6vw, 3.3rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .legal-page p,
+  .legal-page li {
+    color: rgba(38, 29, 22, 0.78);
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
+  .legal-page__card {
+    padding: 24px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 18px;
+    background: #fff;
+  }
+
+  .legal-page__card ul {
+    margin: 14px 0 0;
+    padding-left: 20px;
+  }
+
+  @media (max-width: 767px) {
+    .legal-page {
+      padding: 110px 0 64px;
+    }
+  }
+</style>

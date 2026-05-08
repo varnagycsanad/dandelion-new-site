@@ -6,6 +6,8 @@ const criticalPages = [
   `${BASE_URL}/szallasok`,
   `${BASE_URL}/dandelion-d2`,
 ];
+const royalAliasUrl = `${BASE_URL}/dandelion-royal-homes`;
+const royalCanonicalUrl = `${BASE_URL}/royal/`;
 
 const adminUrl = `${BASE_URL}/_local/image-admin`;
 const fetchHeaders = {
@@ -156,6 +158,49 @@ async function checkAdminRoute() {
   }
 }
 
+async function checkRoyalAliasRedirect() {
+  try {
+    const { response, text } = await fetchText(royalAliasUrl);
+
+    if (response.status !== 200) {
+      fail(`/dandelion-royal-homes did not return 200 redirect page: ${response.status}`);
+      return;
+    }
+
+    const canonicalPattern = /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i;
+    const refreshPattern = /<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=([^"';]+)[^"']*["']/i;
+    const canonicalMatch = text.match(canonicalPattern);
+    const refreshMatch = text.match(refreshPattern);
+
+    if (!canonicalMatch) {
+      fail('/dandelion-royal-homes redirect page is missing canonical link');
+      return;
+    }
+
+    if (!refreshMatch) {
+      fail('/dandelion-royal-homes redirect page is missing meta refresh');
+      return;
+    }
+
+    const resolvedCanonical = new URL(canonicalMatch[1], BASE_URL).href;
+    const resolvedRefresh = new URL(refreshMatch[1], BASE_URL).href;
+
+    if (resolvedCanonical !== royalCanonicalUrl) {
+      fail(`/dandelion-royal-homes canonical target is unexpected: ${resolvedCanonical}`);
+      return;
+    }
+
+    if (resolvedRefresh !== royalCanonicalUrl) {
+      fail(`/dandelion-royal-homes meta refresh target is unexpected: ${resolvedRefresh}`);
+      return;
+    }
+
+    ok('/dandelion-royal-homes Astro redirect page points to /royal/');
+  } catch (error) {
+    fail(`/dandelion-royal-homes redirect check failed: ${error.message}`);
+  }
+}
+
 function checkBookingCta() {
   const htmlToCheck = [
     htmlByUrl.get(HOME_URL),
@@ -172,6 +217,7 @@ function checkBookingCta() {
 await checkCriticalPages();
 await checkAssets();
 await checkAdminRoute();
+await checkRoyalAliasRedirect();
 checkBookingCta();
 
 if (hasFailure) {

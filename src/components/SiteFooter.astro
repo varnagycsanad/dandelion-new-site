@@ -10,6 +10,7 @@ const resolveLocalHref = (href: string) => {
 
   return href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : `${homeHref}${href}`;
 };
+
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 ---
 
@@ -42,7 +43,7 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b
         <li><a href={resolveLocalHref("/")}>Főoldal</a></li>
         <li><a href={resolveLocalHref("/#stays")}>Szállások</a></li>
         <li><a href={resolveLocalHref("/#elmenyek")}>Élmények</a></li>
-        <li><a href="https://dandelionhouse.hu/kapcsolat/">Kapcsolat</a></li>
+        <li><a href={resolveLocalHref("/kapcsolat/")}>Kapcsolat</a></li>
         <li><a href={bookingHref}>Foglalás</a></li>
       </ul>
     </nav>
@@ -50,9 +51,9 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b
     <nav class="dnd-site-footer__group" aria-label="Jogi információk">
       <h2>Jogi</h2>
       <ul>
-        <li><a href="https://dandelionhouse.hu/aszf/">ÁSZF</a></li>
-        <li><a href="https://dandelionhouse.hu/adatkezelesi-tajekoztato/">Adatkezelési tájékoztató</a></li>
-        <li><a href="https://dandelionhouse.hu/impresszum/">Impresszum</a></li>
+        <li><a href={resolveLocalHref("/aszf/")}>ÁSZF</a></li>
+        <li><a href={resolveLocalHref("/adatkezelesi-tajekoztato/")}>Adatkezelési tájékoztató</a></li>
+        <li><a href={resolveLocalHref("/impresszum/")}>Impresszum</a></li>
       </ul>
     </nav>
   </div>
