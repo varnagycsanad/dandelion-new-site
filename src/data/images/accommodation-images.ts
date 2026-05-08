@@ -644,7 +644,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Living room and kitchen in Dandelion D2",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The comfortable living room has a kitchen and dining area.",
         },
         focusPoint: "center center",
@@ -772,7 +772,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Living room and kitchen in Dandelion D2",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The living room has a comfortable sofa and a fully equipped kitchen.",
         },
         focusPoint: "center center",
@@ -836,7 +836,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Outdoor dining with yellow chairs",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The image shows one detail of the accommodation.",
         },
         focusPoint: "center center",
@@ -900,7 +900,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Dandelion D2 Bedroom",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The bedroom has a comfortable bed and simple furniture.",
         },
         focusPoint: "center center",
@@ -932,7 +932,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Bathroom in Dandelion D2",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The bathroom has a bathtub, sink, and toilet.",
         },
         focusPoint: "center center",
@@ -1060,7 +1060,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
           en: "Bathroom Dandelion D2",
         },
         caption: {
-          hu: "A kep a szallas egyik reszletet mutatja.",
+          hu: "A kép a szállás egyik részletét mutatja.",
           en: "The bathroom has a bathtub and a sink, it is bright and tidy.",
         },
         focusPoint: "center center",
