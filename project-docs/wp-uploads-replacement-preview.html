@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WP Uploads Replacement Preview</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f4ee;
+        --panel: #fffdf8;
+        --line: #dfd8ca;
+        --text: #211d18;
+        --muted: #6b6258;
+        --accent: #9b6b2f;
+        --good: #2f6a3f;
+        --warn: #8b5a1e;
+        --need: #7b3030;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      main {
+        width: min(1400px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      a { color: var(--accent); }
+
+      .intro,
+      .item {
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+
+      .intro {
+        padding: 20px 22px;
+        margin-bottom: 18px;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .meta div {
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .items {
+        display: grid;
+        gap: 18px;
+      }
+
+      .item {
+        padding: 18px;
+      }
+
+      .item-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: start;
+        margin-bottom: 12px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .badge-biztos { color: var(--good); }
+      .badge-valoszinu { color: var(--warn); }
+      .badge-kezi { color: var(--need); }
+
+      .details {
+        display: grid;
+        grid-template-columns: 1.1fr 1.4fr;
+        gap: 18px;
+      }
+
+      .facts,
+      .candidates {
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 14px;
+      }
+
+      .facts dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 8px 12px;
+      }
+
+      .facts dt {
+        font-weight: 700;
+      }
+
+      .facts dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .candidate-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .candidate {
+        border: 1px solid var(--line);
+        padding: 10px;
+        background: #fffdf9;
+      }
+
+      .candidate img,
+      .candidate video,
+      .candidate .placeholder {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        background: #eee7da;
+        border: 1px solid var(--line);
+      }
+
+      .placeholder {
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+        padding: 16px;
+      }
+
+      .candidate h3 {
+        margin: 10px 0 6px;
+        font-size: 14px;
+      }
+
+      .candidate p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .recommendation {
+        margin-top: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: #fcf8ef;
+      }
+
+      code {
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 12px;
+      }
+
+      @media (max-width: 1100px) {
+        .details { grid-template-columns: 1fr; }
+        .meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 760px) {
+        main { width: min(100% - 20px, 1400px); }
+        .meta,
+        .candidate-grid,
+        .facts dl { grid-template-columns: 1fr; }
+        .facts dl { gap: 4px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="intro">
+        <h1>WordPress uploads replacement preview</h1>
+        <p>Ez a preview csak dontesi anyag. Nem tortent automatikus csere, forraskod-modositas vagy asset-atnevezes.</p>
+        <div class="meta">
+          <div><strong>Forrasszintu publikus/renderelt elofordulas</strong><br>22</div>
+          <div><strong>Egyedi WP URL</strong><br>14</div>
+          <div><strong>Helyi video jeloltek</strong><br>2 darab, de csak koveskali</div>
+          <div><strong>Homepage card jeloltek</strong><br>mind a 7 slothoz van helyi kepjelolt</div>
+        </div>
+      </section>
+
+      <section class="items">
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>Header logo</h2>
+              <p>Desktop es mobile header ugyanazt a WP kepet hasznalja.</p>
+            </div>
+            <span class="badge badge-kezi">kezi dontes kell</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/layouts/BaseLayout.astro</code> desktop header + mobile header</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>DND-Vendeghaz-logo-fejslec-2.png</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd>Nincs helyi wordmark/header-logo megfelelo.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/favicon.svg" alt="favicon svg">
+                  <h3>Jelolt 1</h3>
+                  <p><code>/favicon.svg</code><br>Csak ikon/emblema, nem header-wordmark.</p>
+                </div>
+                <div class="candidate">
+                  <div class="placeholder">ICO elo nezet helyett csak fajl-jelolt</div>
+                  <h3>Jelolt 2</h3>
+                  <p><code>/favicon.ico</code><br>Technikailag helyi asset, de nem megfelelo vizualis csere.</p>
+                </div>
+                <div class="candidate">
+                  <div class="placeholder">Nincs helyi brand logo fajl</div>
+                  <h3>Jelolt 3</h3>
+                  <p>Erdemes kulon header-logo assetet exportalni.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> ne legyen automatikus csere. Elobb kell egy helyi logo/wordmark asset.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>Homepage hero video</h2>
+              <p>A fohero jelenleg egyetlen WP videora mutat.</p>
+            </div>
+            <span class="badge badge-kezi">kezi dontes kell</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2025/08/202507-V1.mp4</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/sections/Hero.astro</code></dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>202507-V1.mp4</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd>Nincs site-szintu helyi hero video.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <video src="../public/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4" controls muted playsinline></video>
+                  <h3>Jelolt 1</h3>
+                  <p><code>/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4</code></p>
+                </div>
+                <div class="candidate">
+                  <video src="../public/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4" controls muted playsinline></video>
+                  <h3>Jelolt 2</h3>
+                  <p><code>/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4</code></p>
+                </div>
+                <div class="candidate">
+                  <div class="placeholder">Nincs tovabbi helyi mp4</div>
+                  <h3>Jelolt 3</h3>
+                  <p>Uj site-szintu hero video nelkul nem ajanlott csere.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> ne legyen automatikus csere. A ket helyi video csak a Köveskál oldalszintu tartalmat kepviseli.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>RegionStories 1 - Tanúhegyek ölelésében</h2>
+              <p>Tapolcai-medence / Kisapati jellegu blokk.</p>
+            </div>
+            <span class="badge badge-valoszinu">valoszinu</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/04/DJI_20260407175709_0028_D.jpg.webp</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/sections/RegionStories.astro</code> story #1</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>DJI_20260407175709_0028_D.jpg.webp</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd><code>/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp</code></dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp" alt="D2 hero desktop">
+                  <h3>Jelolt 1</h3>
+                  <p>Szeles, kulso, eros hero-jellegu kep Kisapati kontextussal.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d1/gallery/dandelion-d1-source-002.webp" alt="D1 source 002">
+                  <h3>Jelolt 2</h3>
+                  <p>D1 kulso kep, hatterben hegyhangulattal.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp" alt="Fugehaz source 001">
+                  <h3>Jelolt 3</h3>
+                  <p>Kulso kep eros sajat karakterrel, de szukebb framing.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> D2 hero desktop a legkozelebb all a regio-szintu, szeles hero jelleghez.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>RegionStories sticky background</h2>
+              <p>A teljes szekcio mogotti nagy, rogzitett hatterkep.</p>
+            </div>
+            <span class="badge badge-kezi">kezi dontes kell</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/04/dandelion_szololiget_202508-5.jpg.webp</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/sections/RegionStories.astro</code> sticky band background</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>dandelion_szololiget_202508-5.jpg.webp</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd>Nincs eros, egyertelmu helyi panorama-jelolt.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp" alt="Szololiget source 001">
+                  <h3>Jelolt 1</h3>
+                  <p>Kulso wellness hangulat, de nem igazi panorama-hatter.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szololiget/gallery/dandelion-szololiget-source-002.webp" alt="Szololiget source 002">
+                  <h3>Jelolt 2</h3>
+                  <p>Belso kep kilatassal, de sticky hatternek tul konkret interior.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szololiget/gallery/dandelion-szololiget-source-003.webp" alt="Szololiget source 003">
+                  <h3>Jelolt 3</h3>
+                  <p>Belso kep termeszetes fennyel, de nem helyettesiti biztosan a regi szeles hatterkepet.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> itt editorialis dontes kell; jelenleg egyik helyi jelolt sem teljesen meggyozo sticky backgroundnak.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>RegionStories 3 - A Káli-medence csendjében</h2>
+              <p>Káli-medence / Köveskál hangulatu blokk.</p>
+            </div>
+            <span class="badge badge-valoszinu">valoszinu</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/04/2026-04-17-11-49-24.jpeg.webp</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/sections/RegionStories.astro</code> story #3</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>2026-04-17-11-49-24.jpeg.webp</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd><code>/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp</code></dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp" alt="Koveskal source 001">
+                  <h3>Jelolt 1</h3>
+                  <p>Külső udvar, visszafogott vidéki hangulat, jo Káli-medence proxy.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/vintage/gallery/dandelion-vintage-source-003.webp" alt="Vintage source 003">
+                  <h3>Jelolt 2</h3>
+                  <p>Rustikus udvarhangulat, de nem Káli-medence specifikus.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/vintage/gallery/dandelion-vintage-source-006.webp" alt="Vintage source 006">
+                  <h3>Jelolt 3</h3>
+                  <p>Belső, ko-falas hangulat, jó karakterrel, de nem tajkep.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> a Köveskál source-001 a legkozelebb allo helyi megfelelo.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>Experiences - HEGYEK</h2>
+              <p>Elmeny-kartya, nem accommodation card.</p>
+            </div>
+            <span class="badge badge-kezi">kezi dontes kell</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/01/variant-1.jpg.webp</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/sections/Experiences.astro</code> HEGYEK kartya</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>variant-1.jpg.webp</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd>Nincs egyertelmu tajkep-only helyi kep.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp" alt="Zsalya source 010">
+                  <h3>Jelolt 1</h3>
+                  <p>Hegyhatteres kulso kep, de tovabbra is accommodation-fokuszu.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d1/gallery/dandelion-d1-source-002.webp" alt="D1 source 002">
+                  <h3>Jelolt 2</h3>
+                  <p>Hegyhangulat erzodik, de a haz a fo tema.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szololiget/gallery/dandelion-szololiget-source-002.webp" alt="Szololiget source 002">
+                  <h3>Jelolt 3</h3>
+                  <p>Jol latszik a taj a hatterben, de interior framing miatt kompromisszumos.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> csak kezi valasztassal cserelni; a helyi kepkeszletben nincs tiszta "hegyek" lifestyle frame.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>Szallasok listing hero</h2>
+              <p>Osszes szallast osszefogo landing hero-hatter.</p>
+            </div>
+            <span class="badge badge-kezi">kezi dontes kell</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Regi WP URL</dt>
+                <dd><code>https://dandelionhouse.hu/wp-content/uploads/2026/03/2026-02-28-12-59-35.jpeg.webp</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/pages/szallasok.astro</code> hero background</dd>
+                <dt>Jelenlegi fajlnev</dt>
+                <dd><code>2026-02-28-12-59-35.jpeg.webp</code></dd>
+                <dt>Ajanlott valasztas</dt>
+                <dd>Nincs biztos, tobb szallast kepviselo helyi hero.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp" alt="D2 hero desktop">
+                  <h3>Jelolt 1</h3>
+                  <p>Jo minosegu szeles hero, de egyetlen accommodationre szukul.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d1/gallery/dandelion-d1-source-002.webp" alt="D1 source 002">
+                  <h3>Jelolt 2</h3>
+                  <p>Szep kulso framing, de ugyancsak egyetlen hazra fokuszal.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp" alt="Royal Homes source 029">
+                  <h3>Jelolt 3</h3>
+                  <p>Modern, tiszta kulso kep, de nem fogja ossze a teljes portfolio karakteret.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> csak kezi szerkesztoi dontes utan cserelni.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <h2>Homepage card slots</h2>
+              <p>A maradek 7 mapping slot helyi gallery assetekkel valthatonak latszik.</p>
+            </div>
+            <span class="badge badge-valoszinu">valoszinu</span>
+          </div>
+          <div class="details">
+            <div class="facts">
+              <dl>
+                <dt>Erintett slotok</dt>
+                <dd><code>d1</code>, <code>fugehaz</code>, <code>zsalya</code>, <code>szololiget</code>, <code>szepvolgyi</code>, <code>royal_homes</code>, <code>vintage</code></dd>
+                <dt>Hol hasznalja</dt>
+                <dd><code>src/data/homepage-image-mapping.json</code> -> listing cards</dd>
+                <dt>Ajanlott minta</dt>
+                <dd>azonos accommodation helyi gallery kepebol valasztani</dd>
+                <dt>Megjegyzes</dt>
+                <dd>A `d2` mar atallt a kulon card assetre; a tobbinel most meg csak gallery van.</dd>
+              </dl>
+            </div>
+            <div class="candidates">
+              <div class="candidate-grid">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/d1/gallery/dandelion-d1-source-001.webp" alt="D1 source 001">
+                  <h3>d1 -> source-001</h3>
+                  <p>Erős kulso kep, jo default card jelolt.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp" alt="Fugehaz source 001">
+                  <h3>fugehaz -> source-001</h3>
+                  <p>Karakteres kulso kep, eros helyettesito.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/zsalya/gallery/dandelion-zsalya-source-010.webp" alt="Zsalya source 010">
+                  <h3>zsalya -> source-010</h3>
+                  <p>A keszlet legjobb kulso framingje.</p>
+                </div>
+              </div>
+              <div class="candidate-grid" style="margin-top:12px;">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp" alt="Szololiget source 001">
+                  <h3>szololiget -> source-001</h3>
+                  <p>Gyors cserehez vallalhato, de editorialisan nem tokeletes.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp" alt="Szepvolgyi source 001">
+                  <h3>szepvolgyi -> source-001</h3>
+                  <p>Teraszos kulso kep, jo card-jelolt.</p>
+                </div>
+                <div class="candidate">
+                  <img src="../public/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-029.webp" alt="Royal Homes source 029">
+                  <h3>royal_homes -> source-029</h3>
+                  <p>A legtisztabb kulso epulettomeg a keszletbol.</p>
+                </div>
+              </div>
+              <div class="candidate-grid" style="margin-top:12px;">
+                <div class="candidate">
+                  <img src="../public/images/accommodations/vintage/gallery/dandelion-vintage-source-008.webp" alt="Vintage source 008">
+                  <h3>vintage -> source-008</h3>
+                  <p>Jo kulso kep, klasszikus listing card jelleggel.</p>
+                </div>
+                <div class="candidate">
+                  <div class="placeholder">A tobbi slot preview a markdown auditban reszletezve</div>
+                  <h3>Megjegyzes</h3>
+                  <p>A 7 slotbol 6 eros jeloltet ad, a Szőlőliget marad a legbizonytalanabb.</p>
+                </div>
+                <div class="candidate">
+                  <div class="placeholder">Mojibake a JSON altText mezokben latheto, de nincs modositva</div>
+                  <h3>Audit note</h3>
+                  <p>A jelen korben ez csak dokumentalt megfigyeles.</p>
+                </div>
+              </div>
+              <div class="recommendation"><strong>Javaslat:</strong> a homepage card slotok kozul a d1, fugehaz, zsalya, szepvolgyi, royal_homes es vintage jo esellyel mar a kovetkezo korben is cserelhetok. A Szőlőligethez erdemes kulon editorialis ranezes.</div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

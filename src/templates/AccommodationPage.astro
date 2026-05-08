@@ -65,6 +65,7 @@ const {
   initialHeroImage
 } = buildHeroImages({
   desktopHero: imageSet.hero.desktop || null,
+  mobileHero: imageSet.hero.mobile || null,
   mobileImagePath: pageData.hero.mobileImagePath,
   galleryImages,
   fallbackAlt: pageData.hero.fallbackAlt,
@@ -159,6 +160,8 @@ const accommodationStructuredData = [
           <img
             src={heroFallback.src}
             alt={heroFallback.alt}
+            width={heroFallback.width}
+            height={heroFallback.height}
             class="d2-hero__image"
             loading="eager"
             decoding="async"
@@ -173,6 +176,8 @@ const accommodationStructuredData = [
         <img
           src={initialHeroImage.src}
           alt={initialHeroImage.alt}
+          width={initialHeroImage.width}
+          height={initialHeroImage.height}
           class="d2-hero__image"
           loading="eager"
           decoding="async"
@@ -212,6 +217,8 @@ const accommodationStructuredData = [
                 <img
                   src={review.logoSrc}
                   alt={review.logoAlt}
+                  width={review.source === "Google" ? 82 : 96}
+                  height={24}
                   class:list={["d2-review-card__logo", review.source === "Google" ? "is-google" : "is-booking"]}
                   loading="lazy"
                   decoding="async"
@@ -230,6 +237,8 @@ const accommodationStructuredData = [
               <img
                 src={reviewBrandAssets.Google.logoSrc}
                 alt={reviewBrandAssets.Google.logoAlt}
+                width={82}
+                height={24}
                 class="d2-reviews__mobile-logo is-google"
                 loading="lazy"
                 decoding="async"
@@ -252,6 +261,8 @@ const accommodationStructuredData = [
                 <img
                   src={reviewBrandAssets.Google.logoSrc}
                   alt={reviewBrandAssets.Google.logoAlt}
+                  width={82}
+                  height={24}
                   class="d2-reviews__mobile-logo is-google"
                   loading="lazy"
                   decoding="async"
@@ -275,6 +286,8 @@ const accommodationStructuredData = [
                 <img
                   src={reviewBrandAssets["Booking.com"].logoSrc}
                   alt={reviewBrandAssets["Booking.com"].logoAlt}
+                  width={96}
+                  height={24}
                   class="d2-reviews__mobile-logo is-booking"
                   loading="lazy"
                   decoding="async"
@@ -391,7 +404,13 @@ const accommodationStructuredData = [
                 data-accommodation-gallery-id={image.id}
                 aria-label={pageData.labels.galleryOpenAriaLabel}
               >
-                <img src={image.thumb || image.src} alt={image.alt} loading={index < 2 ? "eager" : "lazy"} />
+                <img
+                  src={image.thumb || image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading={index < 2 ? "eager" : "lazy"}
+                />
                 <span class="d2-gallery__hover-label" aria-hidden="true">{pageData.labels.galleryHoverLabel}</span>
                 {galleryHasMore && index === galleryPreviewImages.length - 1 && (
                   <span class="d2-gallery__more-badge">+{galleryMoreCount} kép</span>
@@ -440,7 +459,13 @@ const accommodationStructuredData = [
         {compactRelatedStays.map((stay) => (
           <a href={stay.href} class="d2-closer__card">
             <div class="d2-closer__media">
-              <img src={stay.image?.sourceUrl} alt={stay.image?.altText || stay.name} loading="lazy" />
+              <img
+                src={stay.image?.sourceUrl}
+                alt={stay.image?.altText || stay.name}
+                width={stay.image?.width || 1600}
+                height={stay.image?.height || 1067}
+                loading="lazy"
+              />
               <div class="d2-closer__overlay"></div>
             </div>
             <div class="d2-closer__copy">
@@ -463,7 +488,14 @@ const accommodationStructuredData = [
         ‹
       </button>
       <figure class="d2-lightbox__figure">
-        <img src="" alt="" class="d2-lightbox__image" data-accommodation-lightbox-image />
+        <img
+          src=""
+          alt=""
+          width="1600"
+          height="1067"
+          class="d2-lightbox__image"
+          data-accommodation-lightbox-image
+        />
         <figcaption class="d2-lightbox__meta">
           <span class="d2-lightbox__counter" data-accommodation-lightbox-counter></span>
         </figcaption>

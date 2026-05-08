@@ -207,14 +207,19 @@ const groupedStayLinks = [
           </div>
 
           <a href={homeHref} class="dnd-logo" aria-label="Dandelion Vendégházak">
-            <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
+            <img
+              src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png"
+              alt="Dandelion Vendégházak"
+              width="420"
+              height="126"
+            />
           </a>
 
           <div class="dnd-header__actions">
             <nav class="dnd-language" aria-label="Nyelvváltó">
               <a href="/" aria-current="page">HU</a>
-              <a href="/en">EN</a>
-              <a href="/de">DE</a>
+              <span class="dnd-language__pending" aria-label="English oldal hamarosan">EN</span>
+              <span class="dnd-language__pending" aria-label="Deutsch oldal hamarosan">DE</span>
             </nav>
             <a
               href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
@@ -252,7 +257,12 @@ const groupedStayLinks = [
 
       <div class="dnd-container dnd-header__mobile">
         <a href={homeHref} class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
-          <img src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png" alt="Dandelion Vendégházak" />
+          <img
+            src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png"
+            alt="Dandelion Vendégházak"
+            width="420"
+            height="126"
+          />
         </a>
 
         <div class="dnd-header__mobile-actions">
@@ -416,6 +426,13 @@ const groupedStayLinks = [
       .dnd-mobile-menu__group-items {
         display: grid;
         gap: 6px;
+      }
+
+      .dnd-language__pending {
+        display: inline-flex;
+        align-items: center;
+        opacity: 0.55;
+        cursor: default;
       }
 
       .dnd-mobile-menu[data-open="true"] {

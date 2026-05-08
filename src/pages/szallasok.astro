@@ -20,7 +20,9 @@ const d2RegistryCardImage = d2RegistryCard
       title: d2RegistryCard.title.hu || "Dandelion D2",
       altText: d2RegistryCard.alt.hu || "Dandelion D2",
       sourceUrl: resolveRegistryImagePath(d2RegistryCard.src),
-      thumbnailUrl: resolveRegistryImagePath(d2RegistryCard.src)
+      thumbnailUrl: resolveRegistryImagePath(d2RegistryCard.src),
+      width: d2RegistryCard.width,
+      height: d2RegistryCard.height
     }
   : null;
 
@@ -67,7 +69,13 @@ const sections = accommodationSections.map((section) => ({
                 <>
                   <div class="dnd-media">
                     {stay.image ? (
-                      <img src={stay.image.sourceUrl} alt={stay.image.altText || stay.name} loading="lazy" />
+                      <img
+                        src={stay.image.sourceUrl}
+                        alt={stay.image.altText || stay.name}
+                        width={stay.image.width || 1600}
+                        height={stay.image.height || 1067}
+                        loading="lazy"
+                      />
                     ) : (
                       <div class="dnd-media-placeholder" aria-label={`${stay.name} kép hamarosan`}>
                         <span>{stay.name}</span>

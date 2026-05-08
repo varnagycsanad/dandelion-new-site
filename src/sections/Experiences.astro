@@ -7,6 +7,8 @@ const experiences = [
     image:
       "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Kerékpár vidéki környezetben",
+    width: 1200,
+    height: 1200
   },
   {
     title: "BORTÚRA",
@@ -15,6 +17,8 @@ const experiences = [
     image:
       "https://images.unsplash.com/photo-1659904825585-2fdf22b3aa73?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Borospohár, palack és szőlő",
+    width: 1200,
+    height: 1200
   },
   {
     title: "BALATON",
@@ -23,6 +27,8 @@ const experiences = [
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Naplementés vízparti hangulat",
+    width: 1200,
+    height: 1200
   },
   {
     title: "HEGYEK",
@@ -31,6 +37,8 @@ const experiences = [
     image:
       "https://dandelionhouse.hu/wp-content/uploads/2026/01/variant-1.jpg.webp",
     imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
+    width: 1200,
+    height: 1200
   },
 ];
 ---
@@ -44,7 +52,7 @@ const experiences = [
         környék legszebb útvonalait, kóstold meg a helyi borokat, csobbanj a
         a Balatonban, vagy túrázz a tanúhegyek között.
       </p>
-      <a href="/elmenyek" class="dnd-experiences__cta">RÉSZLETEK</a>
+      <a href="/elmenyek/" class="dnd-experiences__cta">RÉSZLETEK</a>
     </div>
 
     <div class="dnd-experiences__grid">
@@ -53,12 +61,18 @@ const experiences = [
           <article
             class={`dnd-experience-card ${index > 0 ? "dnd-experience-card--desktop" : ""}`}
           >
-            <img src={experience.image} alt={experience.imageAlt} loading="lazy" />
+            <img
+              src={experience.image}
+              alt={experience.imageAlt}
+              width={experience.width}
+              height={experience.height}
+              loading="lazy"
+            />
             <div class="dnd-experience-card__body">
               <h3>{experience.title}</h3>
               <p>{experience.description}</p>
               {index === 0 && (
-                <a href="/elmenyek" class="dnd-experience-card__mobile-cta">
+                <a href="/elmenyek/" class="dnd-experience-card__mobile-cta">
                   RÉSZLETEK
                 </a>
               )}

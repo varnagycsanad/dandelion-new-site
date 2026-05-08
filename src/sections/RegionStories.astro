@@ -10,7 +10,9 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://dandelionhouse.hu/wp-content/uploads/2026/04/DJI_20260407175709_0028_D.jpg.webp",
-    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel"
+    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel",
+    width: 1600,
+    height: 900
   },
   {
     kicker: "Keszthely · Badacsonyörs",
@@ -22,7 +24,9 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Balaton-parti hangulatkép"
+    imageAlt: "Balaton-parti hangulatkép",
+    width: 1800,
+    height: 1013
   },
   {
     kicker: "Köveskál · Káli-medence",
@@ -34,7 +38,9 @@ const regionStories = [
     ctaHref: "/szallasok",
     image:
       "https://dandelionhouse.hu/wp-content/uploads/2026/04/2026-04-17-11-49-24.jpeg.webp",
-    imageAlt: "Káli-medence tájképe"
+    imageAlt: "Káli-medence tájképe",
+    width: 1600,
+    height: 900
   }
 ];
 ---
@@ -60,7 +66,13 @@ const regionStories = [
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
-            <img src={story.image} alt={story.imageAlt} loading="lazy" />
+            <img
+              src={story.image}
+              alt={story.imageAlt}
+              width={story.width}
+              height={story.height}
+              loading="lazy"
+            />
           </div>
 
           <div class="dnd-region-story__panel">

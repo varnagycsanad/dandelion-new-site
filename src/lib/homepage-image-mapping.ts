@@ -13,6 +13,8 @@ export interface HomepageImageSelection {
   altText: string;
   sourceUrl: string;
   thumbnailUrl: string;
+  width?: number;
+  height?: number;
 }
 
 export type HomepageImageMapping = Record<
@@ -50,7 +52,9 @@ function sanitizeSelection(value: unknown): HomepageImageSelection | null {
     title: candidate.title,
     altText: candidate.altText,
     sourceUrl: candidate.sourceUrl,
-    thumbnailUrl: candidate.thumbnailUrl
+    thumbnailUrl: candidate.thumbnailUrl,
+    width: typeof candidate.width === "number" ? candidate.width : undefined,
+    height: typeof candidate.height === "number" ? candidate.height : undefined
   };
 }
 

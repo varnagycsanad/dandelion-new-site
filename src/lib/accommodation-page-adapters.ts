@@ -5,6 +5,8 @@ import type { HomepageImageMapping } from "./homepage-image-mapping";
 export interface AccommodationHeroImage {
   src: string;
   alt: string;
+  width: number;
+  height: number;
 }
 
 export interface AccommodationDisplayGalleryImage {
@@ -12,6 +14,8 @@ export interface AccommodationDisplayGalleryImage {
   src: string;
   thumb: string;
   alt: string;
+  width: number;
+  height: number;
   title?: string;
   caption?: string;
   sortOrder?: number;
@@ -41,6 +45,8 @@ export interface AccommodationRelatedStayDisplayItem {
     | {
         sourceUrl: string;
         altText: string;
+        width?: number;
+        height?: number;
       }
     | null;
 }
@@ -132,6 +138,8 @@ export function buildGalleryImages(input: {
       src: normalizeAccommodationGalleryPath(image, image.src, "gallery", input.baseHref),
       thumb: normalizeAccommodationGalleryPath(image, image.thumb, "thumbs", input.baseHref),
       alt: image.alt.hu,
+      width: image.width,
+      height: image.height,
       title: image.title.hu,
       caption: image.caption.hu,
       sortOrder: image.sortOrder
@@ -164,6 +172,7 @@ export function buildGalleryPreviewState(input: {
 
 export function buildHeroImages(input: {
   desktopHero: ImageAsset | null;
+  mobileHero: ImageAsset | null;
   mobileImagePath: string;
   galleryImages: AccommodationDisplayGalleryImage[];
   fallbackAlt: string;
@@ -181,9 +190,13 @@ export function buildHeroImages(input: {
     ? resolveRegistryImagePath(input.baseHref, input.desktopHero.src)
     : "";
   const desktopHeroAlt = input.desktopHero?.alt.hu || input.fallbackAlt;
+  const mobileHeroWidth = input.mobileHero?.width || 1200;
+  const mobileHeroHeight = input.mobileHero?.height || 1600;
   const localHeroFallback = {
     src: mobileHeroImage,
-    alt: input.fallbackAlt
+    alt: input.fallbackAlt,
+    width: mobileHeroWidth,
+    height: mobileHeroHeight
   };
   const heroFallback = input.galleryImages[0] || localHeroFallback;
 
@@ -195,7 +208,9 @@ export function buildHeroImages(input: {
     heroFallback,
     initialHeroImage: {
       src: desktopHeroImage || heroFallback.src,
-      alt: desktopHeroAlt || heroFallback.alt
+      alt: desktopHeroAlt || heroFallback.alt,
+      width: input.desktopHero?.width || heroFallback.width,
+      height: input.desktopHero?.height || heroFallback.height
     }
   };
 }
