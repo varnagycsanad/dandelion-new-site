@@ -50,8 +50,8 @@ const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "B
 ---
 
 <BaseLayout
-  title="Dandelion Vendégházak | Természetközeli szállások a Balaton-felvidéken"
-  description="Természetközeli vendégházak a Balaton-felvidéken és a Balaton mellett, közvetlen foglalással, nyugodt környezettel és inspiráló kikapcsolódással."
+  title="Dandelion Vendégházak | Szállás a Balaton-felvidéken"
+  description="Természetközeli vendégházak a Balaton-felvidéken és a Balaton közelében, közvetlen foglalással, nyugodt környezetben és egyedi pihenési élménnyel."
 >
   <Hero />
   <section class="d2-reviews dnd-section" aria-labelledby="homepage-reviews-title">
@@ -70,6 +70,8 @@ const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "B
                 <img
                   src={review.logoSrc}
                   alt={review.logoAlt}
+                  width={review.source === "Google" ? 82 : 96}
+                  height={24}
                   class:list={["d2-review-card__logo", review.source === "Google" ? "is-google" : "is-booking"]}
                   loading="lazy"
                   decoding="async"
@@ -88,6 +90,8 @@ const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "B
               <img
                 src={`${baseHref}images/brand/google-logo-compact.png`}
                 alt="Google értékelés"
+                width={82}
+                height={24}
                 class="d2-reviews__mobile-logo is-google"
                 loading="lazy"
                 decoding="async"
@@ -110,6 +114,8 @@ const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "B
                 <img
                   src={`${baseHref}images/brand/google-logo-compact.png`}
                   alt="Google értékelés"
+                  width={82}
+                  height={24}
                   class="d2-reviews__mobile-logo is-google"
                   loading="lazy"
                   decoding="async"
@@ -131,8 +137,10 @@ const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "B
             <section class="d2-reviews__mobile-group" aria-label="Booking.com értékelések">
               <div class="d2-reviews__mobile-head">
                 <img
-                src={`${baseHref}images/brand/booking-logo.svg`}
+                  src={`${baseHref}images/brand/booking-logo.svg`}
                   alt="Booking.com értékelés"
+                  width={96}
+                  height={24}
                   class="d2-reviews__mobile-logo is-booking"
                   loading="lazy"
                   decoding="async"

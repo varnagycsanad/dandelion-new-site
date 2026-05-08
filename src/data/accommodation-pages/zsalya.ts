@@ -2,9 +2,9 @@ import type { AccommodationPageData } from "./types";
 
 export const zsalyaPageData: AccommodationPageData = {
   seo: {
-    title: "Zsálya Vendégház Kisapáti | Csendes szállás a Szent György-hegyen",
+    title: "Zsálya Vendégház Kisapáti | Csendes pihenés panorámával",
     description:
-      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, 4 fő részére, részben fedett terasszal, tanúhegy panorámával, napfelkeltével és klímával mindkét szinten."
+      "Csendes, különálló vendégház Kisapátiban 4 főre, fedett terasszal, tanúhegy panorámával, napfelkeltével és klímával mindkét szinten, a hegyoldalban."
   },
   bookingLink: "/dandelion-zsalya/",
   hero: {

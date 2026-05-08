@@ -3,9 +3,9 @@ import type { AccommodationPageData } from "./types";
 // [CHANGE 2026-05-06 22:20] Szololiget page copy rebuilt with natural Hungarian accommodation content and shared template structure preserved.
 export const szololigetPageData: AccommodationPageData = {
   seo: {
-    title: "Szőlőliget Vendégház Kisapáti | Panorámás szállás a Szent György-hegyen",
+    title: "Szőlőliget Vendégház Kisapáti | Panorámás pihenés",
     description:
-      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, 4 fő részére, nagy terasszal, 180°-os tanúhegy panorámával és napfelkeltével az ágyból."
+      "Csendes, különálló vendégház Kisapátiban 4 főre, nagy terasszal, 180 fokos tanúhegy panorámával és napfelkeltével, csendes hegyoldali környezetben."
   },
   bookingLink: "/szololiget/",
   hero: {

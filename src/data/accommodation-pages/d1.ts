@@ -3,9 +3,9 @@ import type { AccommodationPageData } from "./types";
 // [CHANGE 2026-05-06 22:00] D1 accommodation data added for shared AccommodationPage template with panoramic pool messaging.
 export const d1PageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D1 Vendégház Kisapáti | Panorámás szállás medencével",
+    title: "Dandelion D1 Kisapáti | Panorámás vendégház medencével",
     description:
-      "Tágas, családbarát vendégház Kisapátin akár 8 főnek, három hálószobával, panorámás terasszal, grillezési lehetőséggel és 2026. június 1-től közös panorámás medencével."
+      "Tágas, családbarát vendégház Kisapátiban akár 8 főre, panorámás terasszal, grillezési lehetőséggel és 2026-tól közös panorámás medencével családoknak."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {

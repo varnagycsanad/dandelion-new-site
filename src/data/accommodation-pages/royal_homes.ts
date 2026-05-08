@@ -2,9 +2,9 @@ import type { AccommodationPageData } from "./types";
 
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes Keszthely | Prémium apartman a Balaton közelében",
+    title: "Dandelion Royal Homes Keszthely | Prémium apartman",
     description:
-      "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal, tetőteraszos jakuzzival és nagy terasszal."
+      "Prémium apartman Keszthelyen, a Balaton közelében, saját parti mólóval, nagy terasszal, tetőteraszos jakuzzival és 2 hálószobás elrendezéssel."
   },
   bookingLink: "/royal/",
   hero: {

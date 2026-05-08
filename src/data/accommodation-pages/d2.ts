@@ -3,9 +3,9 @@ import type { AccommodationPageData } from "./types";
 // [CHANGE 2026-05-06 22:55] D2 copy updated with panoramic pool focus, family-friendly tone and clean Hungarian text.
 export const d2PageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D2 | Családbarát apartman Kisapátiban, a Szent György-hegy lábánál",
+    title: "Dandelion D2 Kisapáti | Családbarát apartman kerttel",
     description:
-      "Modern, családbarát apartman Kisapátiban nagy udvarral, állatokkal, kirándulóhelyekkel és 2026. június 1-től közös panorámás medencével."
+      "Modern, családbarát apartman Kisapátiban nagy udvarral, állatokkal, közeli túrahelyekkel és 2026-tól közös panorámás medencehasználattal családoknak."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {

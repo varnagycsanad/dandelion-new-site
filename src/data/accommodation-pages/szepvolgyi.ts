@@ -2,9 +2,9 @@ import type { AccommodationPageData } from "./types";
 
 export const szepvolgyiPageData: AccommodationPageData = {
   seo: {
-    title: "Szépvölgyi Vendégház Badacsonyörs | Balatoni panorámás családi nyaraló",
+    title: "Szépvölgyi Vendégház Badacsonyörs | Panorámás nyaraló",
     description:
-      "Balatoni panorámás, tágas családi nyaraló Badacsonyörsön, 4 hálószobával, 2 fürdőszobával, zárt kerttel, grillezési lehetőséggel és akár 8 fő részére."
+      "Tágas, balatoni panorámás nyaraló Badacsonyörsön 4 hálószobával, 2 fürdőszobával, zárt kerttel és kényelmes pihenéssel akár 8 főre, a Balaton közelében."
   },
   bookingLink: "/szepvolgyi/",
   hero: {
@@ -175,7 +175,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes Apartman",
         meta: "Keszthely - prémium apartman - nagy terasz",
-        href: "/dandelion-royal-homes/",
+        href: "/royal/",
         image: {
           type: "direct",
           src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",

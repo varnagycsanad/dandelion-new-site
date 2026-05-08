@@ -2,9 +2,9 @@ import type { AccommodationPageData } from "./types";
 
 export const vintagePageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Vintage Vendégház Nemesgulács | Vidéki szállás a Balaton közelében",
+    title: "Dandelion Vintage Nemesgulács | Vendégház a Balatonnál",
     description:
-      "Kényelmes, vintage hangulatú vendégház Nemesgulácson saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Balaton mindössze 7 km."
+      "Kényelmes, vintage hangulatú vendégház Nemesgulácson saját udvarral, grillezéssel, klímával és gyors internettel, 7 km-re a Balatontól, nyugodt pihenéshez."
   },
   bookingLink: "/dandelion-vintage/",
   hero: {
