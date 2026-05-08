@@ -2213,25 +2213,10 @@
     "apartmentKey": "vintage",
     "gallery": [
       {
-        "id": "vintage-001",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-001.webp",
+        "id": "vintage-006",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-006.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-006.webp",
         "sortOrder": 10,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "vintage-002",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-002.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-002.webp",
-        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -2246,67 +2231,7 @@
         "id": "vintage-003",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-003.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-003.webp",
-        "sortOrder": 30,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "vintage-004",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-004.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-004.webp",
-        "sortOrder": 40,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "vintage-005",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-005.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-005.webp",
-        "sortOrder": 50,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "vintage-006",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-006.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-006.webp",
-        "sortOrder": 60,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "",
-          "titleHu": "",
-          "captionHu": "",
-          "altEn": "",
-          "titleEn": "",
-          "captionEn": ""
-        }
-      },
-      {
-        "id": "vintage-007",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-007.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-007.webp",
-        "sortOrder": 70,
+        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -2321,7 +2246,67 @@
         "id": "vintage-008",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-008.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-008.webp",
-        "sortOrder": 80,
+        "sortOrder": 30,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-002",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-002.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-002.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-007",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-007.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-007.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-012",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-012.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-012.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-004",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-004.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-004.webp",
+        "sortOrder": 70,
         "seoDraft": {
           "approved": false,
           "altHu": "",
@@ -2336,6 +2321,21 @@
         "id": "vintage-009",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-009.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-009.webp",
+        "sortOrder": 80,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "",
+          "titleHu": "",
+          "captionHu": "",
+          "altEn": "",
+          "titleEn": "",
+          "captionEn": ""
+        }
+      },
+      {
+        "id": "vintage-001",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-001.webp",
         "sortOrder": 90,
         "seoDraft": {
           "approved": false,
@@ -2363,9 +2363,9 @@
         }
       },
       {
-        "id": "vintage-011",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-011.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-011.webp",
+        "id": "vintage-005",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-005.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-005.webp",
         "sortOrder": 110,
         "seoDraft": {
           "approved": false,
@@ -2378,9 +2378,9 @@
         }
       },
       {
-        "id": "vintage-012",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-012.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-012.webp",
+        "id": "vintage-011",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-011.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-011.webp",
         "sortOrder": 120,
         "seoDraft": {
           "approved": false,

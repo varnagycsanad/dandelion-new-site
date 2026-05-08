@@ -362,8 +362,28 @@ function buildSzepvolgyiGalleryEntries() {
 }
 
 function buildVintageGalleryEntries() {
-  return Array.from({ length: 18 }, (_, index) => {
-    const sequence = String(index + 1).padStart(3, "0");
+  const orderedSequences = [
+    "006",
+    "003",
+    "008",
+    "002",
+    "007",
+    "012",
+    "004",
+    "009",
+    "001",
+    "010",
+    "005",
+    "011",
+    "013",
+    "014",
+    "015",
+    "016",
+    "017",
+    "018",
+  ];
+
+  return orderedSequences.map((sequence, index) => {
     const sortOrder = (index + 1) * 10;
     const src = `/images/accommodations/vintage/gallery/dandelion-vintage-source-${sequence}.webp`;
     const thumb = `/images/accommodations/vintage/thumbs/dandelion-vintage-source-${sequence}.webp`;

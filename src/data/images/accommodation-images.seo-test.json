@@ -2048,85 +2048,10 @@
     "apartmentKey": "vintage",
     "gallery": [
       {
-        "id": "vintage-001",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-001.webp",
-        "sortOrder": 10,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Dandelion Vintage Vendégház udvara, kerítéssel és padokkal",
-          "titleHu": "Dandelion Vintage Vendégház udvar",
-          "captionHu": "A Dandelion Vintage Vendégház kerítéssel körülvett udvara padokkal és növényekkel.",
-          "altEn": "Dandelion Vintage Vendégház courtyard with fence and benches",
-          "titleEn": "Dandelion Vintage Vendégház courtyard",
-          "captionEn": "The courtyard of Dandelion Vintage Vendégház has a fence, benches, and plants."
-        }
-      },
-      {
-        "id": "vintage-002",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-002.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-002.webp",
-        "sortOrder": 20,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Dandelion Vintage Vendégház régi stílusú épülete és udvara",
-          "titleHu": "Dandelion Vintage Vendégház udvarral",
-          "captionHu": "A kep a szallas egyik reszletet mutatja.",
-          "altEn": "Dandelion Vintage guesthouse old style building and yard",
-          "titleEn": "Dandelion Vintage guesthouse with yard",
-          "captionEn": "The image shows one detail of the accommodation."
-        }
-      },
-      {
-        "id": "vintage-003",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-003.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-003.webp",
-        "sortOrder": 30,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Dandelion Vintage Vendégház udvara",
-          "titleHu": "Dandelion Vintage Vendégház udvar",
-          "captionHu": "Az udvarban fa pad és ülőbútorok állnak a pihenéshez.",
-          "altEn": "Dandelion Vintage Vendégház courtyard",
-          "titleEn": "Dandelion Vintage Vendégház yard",
-          "captionEn": "The yard has a wooden table and seating for relaxation."
-        }
-      },
-      {
-        "id": "vintage-004",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-004.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-004.webp",
-        "sortOrder": 40,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Vintage ház ablaka virágcseréppel",
-          "titleHu": "Dandelion Vintage Vendégház ablaka",
-          "captionHu": "A vintage ház egyszerű ablaka virággal a párkányán.",
-          "altEn": "Vintage house window with flower pot",
-          "titleEn": "Dandelion Vintage Guesthouse window",
-          "captionEn": "The vintage house has a simple window with flowers on the sill."
-        }
-      },
-      {
-        "id": "vintage-005",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-005.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-005.webp",
-        "sortOrder": 50,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "Dandelion Vintage Vendégház kerti pihenő és tornác egy bokrokkal",
-          "titleHu": "Dandelion Vintage Vendégház tornác és kerti rész",
-          "captionHu": "A Dandelion Vintage Vendégház tornác mellett két pad és egy kerti elem áll a fűben.",
-          "altEn": "Dandelion Vintage Vendégház garden seating area with benches and a small charcoal grill",
-          "titleEn": "Dandelion Vintage Vendégház garden seating",
-          "captionEn": "The garden area of Dandelion Vintage Vendégház has two benches and a small charcoal grill on the grass."
-        }
-      },
-      {
         "id": "vintage-006",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-006.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-006.webp",
-        "sortOrder": 60,
+        "sortOrder": 10,
         "seoDraft": {
           "approved": false,
           "altHu": "Hálószoba fa gerendás mennyezettel és kőfalakkal",
@@ -2138,25 +2063,25 @@
         }
       },
       {
-        "id": "vintage-007",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-007.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-007.webp",
-        "sortOrder": 70,
+        "id": "vintage-003",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-003.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-003.webp",
+        "sortOrder": 20,
         "seoDraft": {
           "approved": false,
-          "altHu": "konyha és étkező vintage stílusban",
-          "titleHu": "Dandelion Vintage Vendégház konyha",
-          "captionHu": "A konyha egyszerű berendezésű, étkezőasztallal és székekkel.",
-          "altEn": "vintage style kitchen and dining area",
-          "titleEn": "Dandelion Vintage Guesthouse kitchen",
-          "captionEn": "The kitchen has a simple setup with a dining table and chairs."
+          "altHu": "Dandelion Vintage Vendégház udvara",
+          "titleHu": "Dandelion Vintage Vendégház udvar",
+          "captionHu": "Az udvarban fa pad és ülőbútorok állnak a pihenéshez.",
+          "altEn": "Dandelion Vintage Vendégház courtyard",
+          "titleEn": "Dandelion Vintage Vendégház yard",
+          "captionEn": "The yard has a wooden table and seating for relaxation."
         }
       },
       {
         "id": "vintage-008",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-008.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-008.webp",
-        "sortOrder": 80,
+        "sortOrder": 30,
         "seoDraft": {
           "approved": false,
           "altHu": "Nappali és étkező étkezőasztallal és fehér székekkel",
@@ -2168,10 +2093,70 @@
         }
       },
       {
+        "id": "vintage-002",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-002.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-002.webp",
+        "sortOrder": 40,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Vintage Vendégház régi stílusú épülete és udvara",
+          "titleHu": "Dandelion Vintage Vendégház udvarral",
+          "captionHu": "A kep a szallas egyik reszletet mutatja.",
+          "altEn": "Dandelion Vintage guesthouse old style building and yard",
+          "titleEn": "Dandelion Vintage guesthouse with yard",
+          "captionEn": "The image shows one detail of the accommodation."
+        }
+      },
+      {
+        "id": "vintage-007",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-007.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-007.webp",
+        "sortOrder": 50,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "konyha és étkező vintage stílusban",
+          "titleHu": "Dandelion Vintage Vendégház konyha",
+          "captionHu": "A konyha egyszerű berendezésű, étkezőasztallal és székekkel.",
+          "altEn": "vintage style kitchen and dining area",
+          "titleEn": "Dandelion Vintage Guesthouse kitchen",
+          "captionEn": "The kitchen has a simple setup with a dining table and chairs."
+        }
+      },
+      {
+        "id": "vintage-012",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-012.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-012.webp",
+        "sortOrder": 60,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "nappali kanapékkal és fotellel",
+          "titleHu": "Dandelion Vintage nappali",
+          "captionHu": "A nappaliban kényelmes kanapé és fotel várja a vendégeket.",
+          "altEn": "living room with sofa and armchair",
+          "titleEn": "Dandelion Vintage living room",
+          "captionEn": "The living room has a comfortable sofa and armchair for guests."
+        }
+      },
+      {
+        "id": "vintage-004",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-004.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-004.webp",
+        "sortOrder": 70,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Vintage ház ablaka virágcseréppel",
+          "titleHu": "Dandelion Vintage Vendégház ablaka",
+          "captionHu": "A vintage ház egyszerű ablaka virággal a párkányán.",
+          "altEn": "Vintage house window with flower pot",
+          "titleEn": "Dandelion Vintage Guesthouse window",
+          "captionEn": "The vintage house has a simple window with flowers on the sill."
+        }
+      },
+      {
         "id": "vintage-009",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-009.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-009.webp",
-        "sortOrder": 90,
+        "sortOrder": 80,
         "seoDraft": {
           "approved": false,
           "altHu": "Dandelion Vintage Vendégház konyha fehér szekrényekkel és gépekkel",
@@ -2180,6 +2165,21 @@
           "altEn": "Dandelion Vintage Vendégház kitchen with white cabinets and appliances",
           "titleEn": "Dandelion Vintage Vendégház kitchen",
           "captionEn": "The kitchen has white cabinets, appliances, and a patterned rug on the floor."
+        }
+      },
+      {
+        "id": "vintage-001",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-001.webp",
+        "sortOrder": 90,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Vintage Vendégház udvara, kerítéssel és padokkal",
+          "titleHu": "Dandelion Vintage Vendégház udvar",
+          "captionHu": "A Dandelion Vintage Vendégház kerítéssel körülvett udvara padokkal és növényekkel.",
+          "altEn": "Dandelion Vintage Vendégház courtyard with fence and benches",
+          "titleEn": "Dandelion Vintage Vendégház courtyard",
+          "captionEn": "The courtyard of Dandelion Vintage Vendégház has a fence, benches, and plants."
         }
       },
       {
@@ -2198,10 +2198,25 @@
         }
       },
       {
+        "id": "vintage-005",
+        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-005.webp",
+        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-005.webp",
+        "sortOrder": 110,
+        "seoDraft": {
+          "approved": false,
+          "altHu": "Dandelion Vintage Vendégház kerti pihenő és tornác egy bokrokkal",
+          "titleHu": "Dandelion Vintage Vendégház tornác és kerti rész",
+          "captionHu": "A Dandelion Vintage Vendégház tornác mellett két pad és egy kerti elem áll a fűben.",
+          "altEn": "Dandelion Vintage Vendégház garden seating area with benches and a small charcoal grill",
+          "titleEn": "Dandelion Vintage Vendégház garden seating",
+          "captionEn": "The garden area of Dandelion Vintage Vendégház has two benches and a small charcoal grill on the grass."
+        }
+      },
+      {
         "id": "vintage-011",
         "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-011.webp",
         "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-011.webp",
-        "sortOrder": 110,
+        "sortOrder": 120,
         "seoDraft": {
           "approved": false,
           "altHu": "Fürdőszoba mosdóval és törölközőtartóval",
@@ -2210,21 +2225,6 @@
           "altEn": "Bathroom with sink and towel rack",
           "titleEn": "Bathroom with sink",
           "captionEn": "The bathroom has a sink and a towel rack."
-        }
-      },
-      {
-        "id": "vintage-012",
-        "src": "/images/accommodations/vintage/gallery/dandelion-vintage-source-012.webp",
-        "thumb": "/images/accommodations/vintage/thumbs/dandelion-vintage-source-012.webp",
-        "sortOrder": 120,
-        "seoDraft": {
-          "approved": false,
-          "altHu": "nappali kanapékkal és fotellel",
-          "titleHu": "Dandelion Vintage nappali",
-          "captionHu": "A nappaliban kényelmes kanapé és fotel várja a vendégeket.",
-          "altEn": "living room with sofa and armchair",
-          "titleEn": "Dandelion Vintage living room",
-          "captionEn": "The living room has a comfortable sofa and armchair for guests."
         }
       },
       {
