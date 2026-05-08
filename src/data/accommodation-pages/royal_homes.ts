@@ -1,151 +1,157 @@
 import type { AccommodationPageData } from "./types";
 
-// [CHANGE 2026-05-06 20:00] Royal Homes SEO title, meta, headings and intro copy refined for production baseline.
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes | Kenyelmes szallas Keszthelyen, a Balaton kozeleben",
-    description: "Kenyelmes szallas Keszthelyen, a Balaton kozeleben, modern terekkel, nyugodt pihenessel es konnyu eleressel a part es a programok fele."
+    title: "Dandelion Royal Homes Keszthely | Prémium apartman a Balaton közelében",
+    description:
+      "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal, tetőteraszos jakuzzival és nagy terasszal."
   },
   bookingLink: "/royal/",
   hero: {
     mobileImagePath: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
-    fallbackAlt: "Dandelion Royal Homes kenyelmes szallas Keszthelyen, a Balaton kozeleben",
-    kicker: "Keszthely ?? Balaton-part",
+    fallbackAlt: "Dandelion Royal Homes Apartman Keszthelyen, prémium balatoni környezetben",
+    kicker: "Keszthely · Balaton-parti üdülőövezet",
     title: "Dandelion",
     titleAccent: "Royal Homes",
-    subtitle: "KENYELMES KIKAPCSOLODAS A BALATON KOZELEBEN",
-    lead: "Kenyelmes, modern szallas azoknak, akik a Balaton kozeleben szeretnenek pihenni, es fontos nekik a letisztult, nyugodt kornyezet.",
-    primaryCtaLabel: "Reszletek es kapcsolat",
-    secondaryCtaLabel: "Kepek megtekintese"
+    subtitle: "PRÉMIUM APARTMAN A BALATON KÖZELÉBEN",
+    lead: "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal és tetőteraszos jakuzzival. A Dandelion Royal Homes tágas amerikai konyhás nappalival, 2 hálószobával, nagy terasszal, padlófűtéssel és szobánként szabályozható hűtő-fűtő klímával várja a vendégeket.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
-    title: "Vendegeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekotesehez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    kicker: "Vendégértékelések",
+    title: "Vendégeink szerint",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Kenyelmes, rendezett hely, jo valasztas balatoni piheneshez es lassabb feltoltodeshez.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Nagyon szerethető apartman, igényes belső terekkel és kényelmes, nyugodt balatoni hangulattal.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Modern, tiszta kornyezet, ami rovidebb kikapcsolodashoz es hosszabb piheneshez is jol mukodik.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "A lakópark elhelyezkedése különösen jó, mert a part, a sétány és a városi programok is könnyen elérhetők.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "A Balaton kozelsege es a kenyelmes terek egyutt nagyon jo alapot adnak a piheneshez.",
-        meta: "Vendeg · Google · 5/5"
+        quote: "Prémium érzetű, átgondolt apartman, ahol a nagy terasz és a minőségi berendezés sokat hozzáad a pihenéshez.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Kellemes, igenyes szallas, jo bazis a kornyek felfedezesehez es esti piheneshez.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Modern, kényelmes szállás, jó kiindulópont Keszthelyhez és a Balaton közeli kikapcsolódáshoz.",
+        meta: "Vendég · Booking.com · 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Nyugodt, atgondolt hely, ahol egyszeru kicsit kiszakadni a napi ritmusbol.",
-        meta: "Vendeg · Booking.com · 9,0/10"
+        quote: "Tiszta, magas színvonalú apartman, ahol rövidebb és hosszabb tartózkodás alatt is könnyű otthonosan érezni magunkat.",
+        meta: "Vendég · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Balaton kozeli jelenlet ?? kenyelmes pihenes",
-    title: "Balaton kozeli pihenes Keszthelyen",
-    lead: "A Dandelion Royal Homes letisztult, kenyelmes bazist ad Keszthelyen, ha a part kozelseget, a nyugodt esteket es a konnyen szervezheto balatoni programokat keresed."
+    kicker: "Prémium apartmanhangulat · balatoni közelség · városi kényelem",
+    title: "Új építésű, magas minőségű apartman Keszthelyen",
+    lead: "A Dandelion Royal Homes Apartman Keszthely Balaton-parti üdülőövezetében, egy új építésű lakóparkban található. Prémium választás azoknak, akik a Balaton közelségét, a városi kényelmet és az igényesen kialakított apartmanhangulatot egyszerre keresik."
   },
   details: {
-    kicker: "Dandelion Royal Homes",
-    title: "Modern, kenyelmes szallas a Balaton-part kozeleben",
+    kicker: "Dandelion Royal Homes Apartman",
+    title: "Saját parti móló, nagy terasz és prémium belső terek egy helyen",
     shortDescription:
-      "A Royal Homes jo valasztas, ha Keszthelyen keresel rendezett, kenyelmes szallast, ahonnan a Balaton-part, a setanyok es a kornyek programjai is konnyen elerhetok.",
+      "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal, tetőteraszos jakuzzival és 2 hálószobás + nappalis elrendezéssel.",
     longDescription: [
-      "A Royal Homes a Balaton kozeli, kenyelmesebb kikapcsolodashoz kapcsolodik, ahol a vizparti programok es a nyugodt pihenes egyensulyban maradnak.",
-      "Keszthely jo kiindulopont strandhoz, setahoz, vacsorahoz vagy nyari kiruccanasokhoz, mikozben este egy csendesebb, atgondolt szallasra erhetsz vissza.",
-      "A Dandelion vendeghazak kozott ez az oldal a Balaton melletti, modernebb hangulatot kepviseli, termeszetes kapcsolattal a tobbi balatoni-felvideki szallashoz."
+      "A Dandelion Royal Homes Apartman Keszthely Balaton-parti üdülőövezetében, egy új építésű lakóparkban található. Prémium választás azoknak, akik a Balaton közelségét, a városi kényelmet és az igényesen kialakított apartmanhangulatot egyszerre keresik.",
+      "A társasház saját parti mólóval, napozóterasszal és tetőteraszon található jakuzzival rendelkezik. A kerékpárút, a vitorlás kikötő és a parti sétány közvetlenül a lakópark mellett található, a városközpont és Keszthely főbb látnivalói pedig körülbelül 10 perces sétával elérhetők.",
+      "Az apartman üvegfalú lifttel közelíthető meg. Belépve az előszobából egy tágas, világos, amerikai konyhás nappaliba érkezünk, ahonnan közvetlenül a hatalmas teraszra lehet kilépni. A lakás külső felületén végig széles erkély fut, így a kinti tér az apartman egyik legerősebb része.",
+      "A Dandelion Royal Homes minden helyiségében egyedi tervezésű, magas minőségű, díszfényekkel megvilágított bútorok kerültek beépítésre. Az épület vitorla formát idéző alaprajza, az ívelt külső és belső falak, valamint a gondosan összehangolt anyagok, színek és formák elegáns, modern összhatást adnak.",
+      "A fűtést hőszivattyús rendszer, padlófűtés és szobánként elhelyezett, külön szabályozható hűtő-fűtő klímák biztosítják. A berendezés és felszereltség magas színvonalú, tudatos tervezés eredménye, amely első osztályú kényelmet nyújt rövidebb és hosszabb tartózkodáshoz is.",
+      "Az apartman 2 hálószobás + nappalis elrendezésű. Az egyik hálóban 180 cm-es franciaágy található, a másik hálóban kihúzható kanapé kapott helyet. A lakásban fürdőszoba található káddal és WC-vel, emellett különálló WC is rendelkezésre áll. A teraszon kényelmes teraszbútorok teszik teljessé a pihenést.",
+      "A Royal Homes azoknak ideális, akik prémium, modern apartmant keresnek Keszthelyen, közel a Balatonhoz, a parti sétányhoz, a kikötőhöz és a városi programokhoz, mégis kényelmes, nyugodt, magas minőségű környezetben szeretnének megszállni."
     ],
-    moreLabel: "Bovebben a Royal Homes oldalrol",
-    ctaLabel: "Reszletek es kapcsolat"
+    moreLabel: "Bővebben a Royal Homes Apartmanról",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Helyszin", "Keszthely"],
-          ["Jelleg", "kenyelmes, Balaton kozeli pihenes"],
-          ["Hangulat", "letisztult es nyugodt"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Helyszín", "Keszthely"],
+          ["Környezet", "Balaton-parti üdülőövezet"],
+          ["Elrendezés", "2 hálószoba + nappali"],
+          ["Épület", "új építésű lakópark üvegfalú lifttel"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Prémium kényelmi elemek",
         items: [
-          ["Fokusz", "lazabb napok es feltoltodes"],
-          ["Kornyek", "Balaton-part kozeli bazis"],
-          ["Ritmus", "kenyelmesebb es visszafogott"],
-          ["Elmeny", "modern, rendezett jelenlet"]
+          ["Kültér", "saját parti móló, napozóterasz, nagy terasz és széles erkély"],
+          ["Tetőszint", "tetőteraszos jakuzzi"],
+          ["Komfort", "padlófűtés és szobánként szabályozható hűtő-fűtő klíma"],
+          ["Berendezés", "egyedi bútorok, díszfények és magas színvonalú felszereltség"]
         ]
       }
     ]
   },
   features: {
-    title: "Miert lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Balaton kozeli elhelyezkedes", icon: "route" },
-      { label: "Kenyelmes pihenes", icon: "users" },
-      { label: "Atgondolt, rendezett terek", icon: "wifi" },
-      { label: "Lazabb nyaralasi ritmus", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Balaton-parti hangulat", icon: "mountain" }
+      { label: "Keszthely", icon: "route" },
+      { label: "Balaton-parti üdülőövezet", icon: "mountain" },
+      { label: "Saját parti móló", icon: "leaf" },
+      { label: "Tetőteraszos jakuzzi", icon: "home" },
+      { label: "2 hálószoba + nappali", icon: "users" },
+      { label: "Nagy terasz és széles erkély", icon: "trail" },
+      { label: "Padlófűtés", icon: "utensils" },
+      { label: "Hűtő-fűtő klíma", icon: "wifi" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Royal Homes hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Royal Homes galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Pillanatok a Royal Homes hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Royal Homes galériához jelenleg nincs feloldható kép.",
     previewCount: 8
   },
   map: {
-    kicker: "KESZTHELY · BALATON-KOZELI PIHENES",
-    title: "Kornyek es taj",
-    body: "A Royal Homes Keszthelyhez es a Balaton-part kozeli, kenyelmesebb kikapcsolodashoz kapcsolodik. Jo valasztas, ha a viz kozelsege es a nyugodtabb pihenes egyszerre fontos.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "KESZTHELY · BALATON KÖZELI PRÉMIUM PIHENÉS",
+    title: "Környék és elhelyezkedés",
+    body: "A Dandelion Royal Homes Apartman Keszthely Balaton-parti üdülőövezetében található, ahol a parti sétány, a vitorlás kikötő, a kerékpárút és a városi programok is könnyen elérhetők. Ez a környezet egyszerre ad balatoni jelenlétet és kényelmes városi közelséget.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Balaton-part kozeli hangulat", icon: "route" },
-      { label: "Varosi es kirandulos programok", icon: "trail" },
-      { label: "Kenyelmesebb, lazabb ritmus", icon: "leaf" }
+      { label: "Parti sétány és kikötő a közelben", icon: "route" },
+      { label: "Kerékpárút közvetlenül a lakópark mellett", icon: "trail" },
+      { label: "Városközpont kb. 10 perc sétára", icon: "leaf" }
     ],
     embedSrc: "https://www.google.com/maps?q=Keszthely&z=13&output=embed",
-    embedTitle: "Dandelion Royal Homes kornyeke terkep"
+    embedTitle: "Dandelion Royal Homes környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Royal Homes galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Royal Homes galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha a Balaton melletti pihenes utan a Balaton-felvidek csendesebb vendeghazai is erdekelnek, nezd meg a tobbi Dandelion szallast is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha a keszthelyi prémium apartman után más Dandelion hangulatokat is felfedeznél, nézd meg a többi szállásunkat is a Balaton közelében és a Balaton-felvidéken.",
     items: [
       {
-        name: "Fugehaz",
-        meta: "2-4 fo · panorama · dezsa",
+        name: "Fügeház",
+        meta: "2-4 fő · panorámás terasz · nyugodt pihenés",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -154,7 +160,7 @@ export const royalHomesPageData: AccommodationPageData = {
       },
       {
         name: "Dandelion D2",
-        meta: "4-6 fo · kert · csaladbarat",
+        meta: "4-6 fő · nagy udvar · családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -162,18 +168,18 @@ export const royalHomesPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence · nyugodt falusi hangulat",
+        name: "Dandelion Köveskál",
+        meta: "falusi hangulat · nyugodt kikapcsolódás",
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
           src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
+          alt: "Dandelion Köveskál külső kép"
         }
       },
       {
-        name: "Szololiget Vendeghaz",
-        meta: "elvonulas a szolok kozott",
+        name: "Szőlőliget Vendégház",
+        meta: "csendes ház · nagy terasz · panoráma",
         href: "/szololiget/",
         image: {
           type: "mapping",
@@ -181,8 +187,8 @@ export const royalHomesPageData: AccommodationPageData = {
         }
       },
       {
-        name: "Zsalya Vendeghaz",
-        meta: "csendes, termeszetkozeli pihenes",
+        name: "Zsálya Vendégház",
+        meta: "csendes kis ház · természetközeli pihenés",
         href: "/dandelion-zsalya/",
         image: {
           type: "mapping",
