@@ -30,6 +30,7 @@ const targetImageIds = [];
 const apartmentDisplayNames = {
   d1: "Dandelion D1",
   d2: "Dandelion D2",
+  szepvolgyi: "Szépvölgyi Vendégház",
   koveskal: "Dandelion KĂ¶veskĂˇl",
   fugehaz: "FĂĽgehĂˇz",
   szololiget: "Szololiget Vendeghaz",
