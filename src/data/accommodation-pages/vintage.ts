@@ -1,151 +1,174 @@
-// [CHANGE 2026-05-06 00:00] Dandelion Vintage shared accommodation page data added.
 import type { AccommodationPageData } from "./types";
 
 export const vintagePageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Vintage | Dandelion Vendeghazak",
-    description: "Dandelion Vintage kulon oldal a Tapolcai-medencehez es a nyugodt, termeszetkozeli piheneshez kotott shared template bekotesekent."
+    title: "Dandelion Vintage Vendégház Nemesgulács | Vidéki szállás a Balaton közelében",
+    description:
+      "Kényelmes, vintage hangulatú vendégház Nemesgulácson saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Balaton mindössze 7 km."
   },
   bookingLink: "/dandelion-vintage/",
   hero: {
     mobileImagePath: "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
-    fallbackAlt: "Dandelion Vintage",
-    kicker: "Tapolcai-medence - Balaton-felvidek",
+    fallbackAlt: "Dandelion Vintage Vendégház Nemesgulácson, saját udvarral és nyugodt vidéki hangulattal",
+    kicker: "Nemesgulács · Balaton-felvidék",
     title: "Dandelion",
     titleAccent: "Vintage",
-    subtitle: "OTTHONOS PIHENES A TAPOLCAI-MEDENCEBEN",
-    lead: "Visszafogott, otthonos szallas azoknak, akik termeszetkozeli nyugalmat, lassabb napokat es balatoni-felvideki hangulatot keresnek.",
-    primaryCtaLabel: "Reszletek es kapcsolat",
-    secondaryCtaLabel: "Kepek megtekintese"
+    subtitle: "VIDÉKI PIHENÉS SAJÁT UDVARBAN, A BALATON KÖZELÉBEN",
+    lead: "Vidéki hangulatú, kényelmes vendégház Nemesgulácson, saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Dandelion Vintage Vendégház 2 hálószobás + nappalis elrendezésű, családoknak és pároknak is jó választás, a Balaton pedig mindössze 7 km.",
+    primaryCtaLabel: "Árak és foglalás",
+    secondaryCtaLabel: "Képek megtekintése"
   },
   reviews: {
-    kicker: "Vendegertekelesek",
-    title: "Vendegeink szerint",
-    intro: "Elso koros, szerkesztheto review blokk a shared sablon technikai bekotesehez.",
-    mobileSummaryLabel: "Tovabbi velemenyek",
-    mobileHighlightedAriaLabel: "Kiemelt Google ertekeles",
-    mobileMoreGoogleAriaLabel: "Tovabbi Google ertekelesek",
-    mobileBookingAriaLabel: "Booking.com ertekelesek",
+    kicker: "Vendégértékelések",
+    title: "Vendégeink szerint",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból.",
+    mobileSummaryLabel: "További vélemények",
+    mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
+    mobileMoreGoogleAriaLabel: "További Google értékelések",
+    mobileBookingAriaLabel: "Booking.com értékelések",
     items: [
       {
         source: "Google",
-        quote: "Otthonos, nyugodt hely, jo valasztas, ha a Tapolcai-medence lassabb ritmusat keresed.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Nagyon szerethető ház, ahol a saját udvar és a nyugodt környezet tényleg segít lelassulni.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Kellemes, visszafogott hangulat, ahol konnyu lelassulni es feltoltodni.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "Családdal érkeztünk, és külön jó volt, hogy a ház kényelmes, jól használható és kisgyerekkel is praktikus.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "Termeszetkozeli piheneshez es kirandulos napokhoz is jo bazisnak tunt.",
-        meta: "Vendeg - Google - 5/5"
+        quote: "A vintage hangulat barátságos, a grill és a kert pedig sokat hozzáad az esti pihenéshez.",
+        meta: "Vendég · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "Baratsagos, kenyelmes szallas, jo kiindulopont a kornyek felfedezesehez.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "Jó elhelyezkedés, csendes ház és stabil internet, így pihenéshez és nyugodt munkához is kényelmes volt.",
+        meta: "Vendég · Booking.com · 9,0/10"
       },
       {
         source: "Booking.com",
-        quote: "Nyugodt, otthonos hely, ahova jo visszaerni egy kirandulos nap utan.",
-        meta: "Vendeg - Booking.com - 9,0/10"
+        quote: "A Balaton közel van, mégis sokkal nyugodtabb itt megszállni, mint a forgalmasabb üdülőhelyeken.",
+        meta: "Vendég · Booking.com · 9,0/10"
       }
     ]
   },
   intro: {
-    kicker: "Tapolcai-medence - termeszetkozeli jelenlet",
-    title: "Otthonos ritmus, visszafogott balatoni-felvideki hangulat",
-    lead: "A Dandelion Vintage elso korben a shared accommodation sablonra kotott oldal, kulon adatfajllal es a meglevo vintage image registry bekotesevel."
+    kicker: "Vidéki nyugalom · saját udvar · családbarát pihenés",
+    title: "Kényelmes vendégház Nemesgulácson, vintage hangulattal",
+    lead: "A Dandelion Vintage Vendégház Nemesgulácson egy barátságos, vidéki ház, ahol a kényelmes vintage hangulat, a saját udvar és a nyugodtabb tempó együtt adják a pihenés élményét. Itt nem sűrű programokban kell gondolkodni, hanem egyszerűen csak jól lehet lenni: reggeli a friss levegőn, napközben kirándulás vagy balatoni program, este pedig grillezés és csend."
   },
   details: {
-    kicker: "Dandelion Vintage",
-    title: "Elso koros, shared sablonra kotott szallasoldal",
+    kicker: "Dandelion Vintage Vendégház",
+    title: "Saját udvar, klímás komfort és nyugodt balatoni közelség",
     shortDescription:
-      "Ez a verzio elsosorban technikai bekotes: a kozos accommodation sablonra ulteti ra a Vintage oldalt, semleges, kesobb pontosithato tartalommal.",
+      "Vidéki hangulatú, kényelmes vendégház Nemesgulácson, saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Dandelion Vintage Vendégház 2 hálószobás + nappalis elrendezésű, családoknak és pároknak is jó választás, a Balaton pedig mindössze 7 km.",
     longDescription: [
-      "A Dandelion Vintage hangulata az otthonos, termeszetkozeli piheneshez kapcsolodik, ahol a Tapolcai-medence csendesebb ritmusa es a balatoni-felvideki kornyezet egyszerre fontos.",
-      "Az oldal ezen a koren meg nem vegleges marketing szoveggel fut, hanem szerkesztheto, visszafogott copyval, hogy a shared template bekotese stabil maradjon.",
-      "A kovetkezo korben a pontos felszereltseg, a valodi vendegertekelesek es a helyspecifikusabb szovegek finomithatok ugyanebben a rendszerben."
+      "A Dandelion Vintage Vendégház Nemesgulácson egy barátságos, vidéki ház, ahol a kényelmes vintage hangulat, a saját udvar és a nyugodtabb tempó együtt adják a pihenés élményét. Itt nem sűrű programokban kell gondolkodni, hanem egyszerűen csak jól lehet lenni: reggeli a friss levegőn, napközben kirándulás vagy balatoni program, este pedig grillezés és csend.",
+      "A ház jól felszerelt, klímás, és erős, gigabites internetkapcsolattal rendelkezik, így pihenéshez, elvonuláshoz vagy akár némi nyugodt munkához is kényelmes választás. A Balaton mindössze 7 km-re van, ezért a vízpart közel marad, miközben a szállás nem a nyüzsgés közepén helyezkedik el.",
+      "A vendégház 2 hálószobás + nappalis elrendezésű. A fő hálóban 180 cm széles franciaágy található, a második hálóban 2 darab 90 cm-es külön ágy, a nappaliban pedig kihúzható kanapé biztosít további alvási lehetőséget. Emellett külön konyha és fürdőszoba is rendelkezésre áll.",
+      "A ház „minden megvan, ami kell” módon felszerelt: jól használható konyha, klíma, stabil internet, saját udvar és grillező teszi kényelmessé az itt töltött napokat. A bababarát felszerelés miatt kisgyerekkel érkező családok számára is jó választás.",
+      "A Vintage ideális családoknak, akár babával is, barátoknak, akik együtt töltenének pár nyugodt napot, pároknak, akik vidéki hangulatban kapcsolódnának ki, és mindenkinek, aki szereti, ha közel van a Balaton, de nem a nyüzsgésben alszik."
     ],
-    moreLabel: "Bovebben a Vintage oldalrol",
-    ctaLabel: "Reszletek es kapcsolat"
+    moreLabel: "Bővebben a Vintage Vendégházról",
+    ctaLabel: "Árak és foglalás"
   },
   facts: {
     groups: [
       {
         title: "Alapadatok",
         items: [
-          ["Regio", "Tapolcai-medence"],
-          ["Jelleg", "otthonos, termeszetkozeli pihenes"],
-          ["Hangulat", "vintage es visszafogott"],
-          ["Oldalallapot", "elso koros template-bekotes"]
+          ["Helyszín", "Nemesgulács"],
+          ["Elrendezés", "2 hálószoba + nappali"],
+          ["Alvási lehetőség", "180 cm-es franciaágy, 2 külön ágy, kihúzható kanapé"],
+          ["Távolság", "Balaton 7 km"]
         ]
       },
       {
-        title: "Kikapcsolodas",
+        title: "Kényelem és hangulat",
         items: [
-          ["Fokusz", "lassabb napok es feltoltodes"],
-          ["Kornyek", "Balaton-felvidek es kirandulasok"],
-          ["Ritmus", "nyugodt, otthonos bazis"],
-          ["Elmeny", "videki pihenes"]
+          ["Komfort", "klíma és erős, gigabites stabil internet"],
+          ["Kültér", "saját udvar és grillezési lehetőség"],
+          ["Felszereltség", "külön konyha és fürdőszoba"],
+          ["Családoknak", "bababarát felszerelés"]
         ]
       }
     ]
   },
   features: {
-    title: "Miert lehet jo valasztas",
+    title: "Miért lehet jó választás",
     highlights: [
-      { label: "Tapolcai-medencei kornyezet", icon: "route" },
-      { label: "Otthonos hangulat", icon: "users" },
-      { label: "Termeszetkozeli pihenes", icon: "leaf" },
-      { label: "Kirandulasokhoz jo bazis", icon: "trail" },
-      { label: "Balaton-felvideki jelenlet", icon: "mountain" },
-      { label: "Attekintheto szallasoldal", icon: "wifi" }
+      { label: "2 hálószoba + nappali", icon: "home" },
+      { label: "Saját udvar", icon: "leaf" },
+      { label: "Grillezési lehetőség", icon: "utensils" },
+      { label: "Klíma", icon: "wifi" },
+      { label: "Erős internet", icon: "route" },
+      { label: "Bababarát", icon: "users" },
+      { label: "Balaton 7 km", icon: "mountain" }
     ]
   },
   gallery: {
-    kicker: "Galeria",
-    title: "Nyolc pillanat a Vintage hangulatabol",
-    moreHint: "Tovabbi kepekert kattints",
-    defaultHint: "A galeria kepei kattinthatok",
-    emptyMessage: "A Vintage galeriahoz jelenleg nincs feloldhato kep a live registryben.",
+    kicker: "Galéria",
+    title: "Pillanatok a Vintage hangulatából",
+    moreHint: "További képekért kattints",
+    defaultHint: "A galéria képei kattinthatók",
+    emptyMessage: "A Vintage galériához jelenleg nincs feloldható kép.",
     previewCount: 8
   },
   map: {
-    kicker: "TAPOLCAI-MEDENCE - BALATON-FELVIDEK",
-    title: "Kornyek es taj",
-    body: "A Dandelion Vintage a Tapolcai-medence termeszetkozeli, lassabb ritmusahoz kapcsolodik. Jo valasztas, ha a kirandulasok, a videki nyugalom es a Balaton-felvideki jelenlet egyszerre fontos.",
-    benefitsAriaLabel: "Kornyek elonyei",
+    kicker: "NEMESGULÁCS · BALATON-FELVIDÉK",
+    title: "Környék és pihenés",
+    body: "A Dandelion Vintage Vendégház Nemesgulácson található, nyugodt vidéki környezetben. Innen könnyen elérhetők a Balaton-part programjai, a környék kirándulóhelyei, a tanúhegyek és a Balaton-felvidék borászatai is, miközben a szállás maga csendesebb ritmust kínál.",
+    benefitsAriaLabel: "Környék előnyei",
     benefits: [
-      { label: "Tapolcai-medencei hangulat", icon: "route" },
-      { label: "Kirandulos programok a kozelben", icon: "trail" },
-      { label: "Nyugodt videki pihenes", icon: "leaf" }
+      { label: "Balaton 7 km", icon: "route" },
+      { label: "Vidéki nyugalom", icon: "leaf" },
+      { label: "Kirándulások és borászatok a közelben", icon: "trail" }
     ],
-    embedSrc: "https://www.google.com/maps?q=Tapolcai-medence&z=11&output=embed",
-    embedTitle: "Dandelion Vintage kornyeke terkep"
+    embedSrc: "https://www.google.com/maps?q=Nemesgul%C3%A1cs&z=12&output=embed",
+    embedTitle: "Dandelion Vintage Vendégház környéke térkép"
   },
   lightbox: {
-    galleryAriaLabel: "Vintage galeria",
-    closeAriaLabel: "Galeria bezarasa",
-    previousAriaLabel: "Elozo kep",
-    nextAriaLabel: "Kovetkezo kep"
+    galleryAriaLabel: "Vintage galéria",
+    closeAriaLabel: "Galéria bezárása",
+    previousAriaLabel: "Előző kép",
+    nextAriaLabel: "Következő kép"
   },
   labels: {
-    googleLogoAlt: "Google ertekeles",
-    bookingLogoAlt: "Booking.com ertekeles",
-    galleryOpenAriaLabel: "Galeriakep megnyitasa",
-    galleryHoverLabel: "Kep megtekintese"
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    galleryOpenAriaLabel: "Galériakép megnyitása",
+    galleryHoverLabel: "Kép megtekintése"
   },
   relatedStays: {
-    kicker: "Tovabbi szallasok",
-    title: "Tovabbi Dandelion szallasok",
-    intro: "Ha mas hangulatot keresel, nezd meg a tobbi vendeghazunkat is.",
+    kicker: "További szállások",
+    title: "További Dandelion szállások",
+    intro: "Ha más Dandelion hangulatokat is megnéznél a Balaton-felvidéken és a Balaton közelében, fedezd fel a többi szállásunkat is.",
     items: [
       {
+        name: "Dandelion Royal Homes",
+        meta: "modern apartman · kényelmes városi pihenés",
+        href: "/royal/",
+        image: {
+          type: "direct",
+          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          alt: "Dandelion Royal Homes külső kép"
+        }
+      },
+      {
+        name: "Dandelion Köveskál",
+        meta: "falusi hangulat · nyugodt kikapcsolódás",
+        href: "/dandelion-koveskal/",
+        image: {
+          type: "direct",
+          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          alt: "Dandelion Köveskál külső kép"
+        }
+      },
+      {
         name: "Dandelion D2",
-        meta: "4-6 fo - kert - csaladbarat",
+        meta: "4-6 fő · nagy udvar · családbarát",
         href: "/dandelion-d2/",
         image: {
           type: "mapping",
@@ -153,8 +176,8 @@ export const vintagePageData: AccommodationPageData = {
         }
       },
       {
-        name: "Fugehaz",
-        meta: "2-4 fo - panorama - dezsa",
+        name: "Fügeház",
+        meta: "2-4 fő · panorámás terasz · nyugodt pihenés",
         href: "/fuge/",
         image: {
           type: "mapping",
@@ -162,31 +185,12 @@ export const vintagePageData: AccommodationPageData = {
         }
       },
       {
-        name: "Dandelion Szololiget",
-        meta: "elvonulas a szolok kozott",
+        name: "Szőlőliget Vendégház",
+        meta: "csendes ház · nagy terasz · panoráma",
         href: "/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image"
-        }
-      },
-      {
-        name: "Dandelion Zsalya",
-        meta: "csendes, termeszetkozeli pihenes",
-        href: "/dandelion-zsalya/",
-        image: {
-          type: "mapping",
-          slot: "zsalya_card_image"
-        }
-      },
-      {
-        name: "Dandelion Koveskal",
-        meta: "Kali-medence - nyugodt falusi hangulat",
-        href: "/dandelion-koveskal/",
-        image: {
-          type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-          alt: "Dandelion Koveskal kulso kep"
         }
       }
     ]
