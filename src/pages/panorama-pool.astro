@@ -242,9 +242,58 @@ const stays = [
       });
     })();
   </script>
+
+  <script>
+    (() => {
+      const applyPoolHeaderState = () => {
+        const header = document.querySelector("[data-dnd-header]");
+        if (header) {
+          header.classList.add("is-pool-visible");
+        }
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", applyPoolHeaderState, { once: true });
+      } else {
+        applyPoolHeaderState();
+      }
+    })();
+  </script>
 </BaseLayout>
 
 <style>
+  :global(.dnd-header.is-pool-visible) {
+    background: rgba(239, 228, 211, 0.94);
+    border-bottom: 1px solid rgba(111, 87, 59, 0.1);
+    box-shadow: 0 14px 34px rgba(79, 52, 29, 0.08);
+    color: #2d241c;
+    backdrop-filter: blur(12px);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-logo img) {
+    filter: none;
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a) {
+    border-color: rgba(94, 65, 39, 0.18);
+    background: rgba(255, 252, 246, 0.22);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a:hover),
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a:focus-visible) {
+    border-color: rgba(94, 65, 39, 0.36);
+    background: rgba(255, 252, 246, 0.56);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-nav) {
+    border-top-color: rgba(94, 65, 39, 0.12);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header-cta) {
+    border-color: rgba(94, 65, 39, 0.16);
+    background: rgba(255, 252, 246, 0.46);
+  }
+
   .pool-page {
     background: #fdfbf7;
     color: #2e241b;
