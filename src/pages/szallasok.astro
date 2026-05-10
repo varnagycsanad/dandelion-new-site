@@ -1,7 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodationSections, accommodations } from "../data/accommodations";
-import { accommodationImages } from "../data/images/accommodation-images";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const imageMapping = await readHomepageImageMapping();
@@ -11,31 +11,13 @@ const d2Href = `${baseHref}dandelion-d2/`;
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
 // [CHANGE 2026-04-26 00:00] Szállások oldal D2 card képének átkötése accommodation image registryre.
-const resolveRegistryImagePath = (imagePath: string) =>
-  imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
-const d2RegistryCard = accommodationImages.d2?.card;
-const d2RegistryCardImage = d2RegistryCard
-  ? {
-      id: d2RegistryCard.source.wpId ?? 0,
-      title: d2RegistryCard.title.hu || "Dandelion D2",
-      altText: d2RegistryCard.alt.hu || "Dandelion D2",
-      sourceUrl: resolveRegistryImagePath(d2RegistryCard.src),
-      thumbnailUrl: resolveRegistryImagePath(d2RegistryCard.src),
-      width: d2RegistryCard.width,
-      height: d2RegistryCard.height
-    }
-  : null;
-
 const sections = accommodationSections.map((section) => ({
   ...section,
   stays: accommodations
     .filter((stay) => stay.section === section.key)
     .map((stay) => ({
       ...stay,
-      image:
-        stay.slug === "dandelion-d2"
-          ? d2RegistryCardImage || imageMapping[stay.imageSlot]
-          : imageMapping[stay.imageSlot]
+      image: imageMapping[stay.imageSlot]
     }))
 }));
 ---
@@ -69,13 +51,21 @@ const sections = accommodationSections.map((section) => ({
                 <>
                   <div class="dnd-media">
                     {stay.image ? (
-                      <img
-                        src={stay.image.sourceUrl}
-                        alt={stay.image.altText || stay.name}
-                        width={stay.image.width || 1600}
-                        height={stay.image.height || 1067}
-                        loading="lazy"
-                      />
+                      stay.image.astroSrc ? (
+                        <Image
+                          src={stay.image.astroSrc}
+                          alt={stay.image.altText || stay.name}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <img
+                          src={stay.image.sourceUrl}
+                          alt={stay.image.altText || stay.name}
+                          width={stay.image.width || 1600}
+                          height={stay.image.height || 1067}
+                          loading="lazy"
+                        />
+                      )
                     ) : (
                       <div class="dnd-media-placeholder" aria-label={`${stay.name} kép hamarosan`}>
                         <span>{stay.name}</span>
@@ -148,7 +138,7 @@ const sections = accommodationSections.map((section) => ({
     padding-top: 48px;
     overflow: hidden;
     align-items: start;
-    background-image: url("https://dandelionhouse.hu/wp-content/uploads/2026/03/2026-02-28-12-59-35.jpeg.webp");
+    background-image: url("/images/pages/szallasok-hero-bg.webp");
     background-position: center 28%;
     background-size: cover;
     color: #fff;

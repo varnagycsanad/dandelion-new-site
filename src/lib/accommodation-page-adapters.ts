@@ -1,10 +1,13 @@
+import type { ImageMetadata } from "astro";
 import type { AccommodationPageRelatedStay, AccommodationPageReview } from "../data/accommodation-pages/types";
+import { getAccommodationLocalAssetFromPublicPath } from "../data/images/astro-local-assets";
 import type { ImageAsset, GalleryImage } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
 
 export interface AccommodationHeroImage {
   src: string;
   alt: string;
+  astroSrc?: ImageMetadata;
   width: number;
   height: number;
 }
@@ -14,6 +17,8 @@ export interface AccommodationDisplayGalleryImage {
   src: string;
   thumb: string;
   alt: string;
+  astroSrc?: ImageMetadata;
+  thumbAstroSrc?: ImageMetadata;
   width: number;
   height: number;
   title?: string;
@@ -45,6 +50,7 @@ export interface AccommodationRelatedStayDisplayItem {
     | {
         sourceUrl: string;
         altText: string;
+        astroSrc?: ImageMetadata;
         width?: number;
         height?: number;
       }
@@ -135,9 +141,11 @@ export function buildGalleryImages(input: {
     .sort((left, right) => left.sortOrder - right.sortOrder)
     .map((image) => ({
       id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
-      src: normalizeAccommodationGalleryPath(image, image.src, "gallery", input.baseHref),
+      src: image.astroSrc?.src || normalizeAccommodationGalleryPath(image, image.src, "gallery", input.baseHref),
       thumb: normalizeAccommodationGalleryPath(image, image.thumb, "thumbs", input.baseHref),
       alt: image.alt.hu,
+      astroSrc: image.astroSrc,
+      thumbAstroSrc: image.thumbAstroSrc,
       width: image.width,
       height: image.height,
       title: image.title.hu,
@@ -185,16 +193,19 @@ export function buildHeroImages(input: {
   heroFallback: AccommodationHeroImage;
   initialHeroImage: AccommodationHeroImage;
 } {
-  const mobileHeroImage = resolveRegistryImagePath(input.baseHref, input.mobileImagePath);
-  const desktopHeroImage = input.desktopHero?.src
-    ? resolveRegistryImagePath(input.baseHref, input.desktopHero.src)
-    : "";
+  const mobileHeroImage = input.mobileHero?.astroSrc?.src || resolveRegistryImagePath(input.baseHref, input.mobileImagePath);
+  const desktopHeroImage = input.desktopHero?.astroSrc?.src
+    ? input.desktopHero.astroSrc.src
+    : input.desktopHero?.src
+      ? resolveRegistryImagePath(input.baseHref, input.desktopHero.src)
+      : "";
   const desktopHeroAlt = input.desktopHero?.alt.hu || input.fallbackAlt;
   const mobileHeroWidth = input.mobileHero?.width || 1200;
   const mobileHeroHeight = input.mobileHero?.height || 1600;
   const localHeroFallback = {
     src: mobileHeroImage,
     alt: input.fallbackAlt,
+    astroSrc: input.mobileHero?.astroSrc,
     width: mobileHeroWidth,
     height: mobileHeroHeight
   };
@@ -209,6 +220,7 @@ export function buildHeroImages(input: {
     initialHeroImage: {
       src: desktopHeroImage || heroFallback.src,
       alt: desktopHeroAlt || heroFallback.alt,
+      astroSrc: input.desktopHero?.astroSrc || heroFallback.astroSrc,
       width: input.desktopHero?.width || heroFallback.width,
       height: input.desktopHero?.height || heroFallback.height
     }
@@ -224,12 +236,20 @@ export function buildRelatedStays(input: {
     name: stay.name,
     meta: stay.meta,
     href: resolveStayHref(input.baseHref, stay.href),
-    image:
-      stay.image.type === "mapping"
-        ? input.imageMapping[stay.image.slot]
-        : {
-            sourceUrl: resolveRegistryImagePath(input.baseHref, stay.image.src),
-            altText: stay.image.alt
-          }
+    image: (() => {
+      if (stay.image.type === "mapping") {
+        return input.imageMapping[stay.image.slot];
+      }
+
+      const astroSrc = getAccommodationLocalAssetFromPublicPath(stay.image.src);
+
+      return {
+        sourceUrl: astroSrc?.src || resolveRegistryImagePath(input.baseHref, stay.image.src),
+        altText: stay.image.alt,
+        astroSrc,
+        width: astroSrc?.width || 1600,
+        height: astroSrc?.height || 1200
+      };
+    })()
   }));
 }

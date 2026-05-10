@@ -187,7 +187,7 @@ export const d2PageData: AccommodationPageData = {
       {
         name: "Dandelion Köveskál",
         meta: "Káli-medence · nyugodt falusi hangulat",
-        href: "https://dandelionhouse.hu/koveskal/",
+        href: "/dandelion-koveskal/",
         image: {
           type: "direct",
           src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",

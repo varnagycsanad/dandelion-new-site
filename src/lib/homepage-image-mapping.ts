@@ -1,3 +1,4 @@
+import type { ImageMetadata } from "astro";
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
@@ -5,6 +6,7 @@ import {
   homepageImageSlots,
   type HomepageImageSlotKey
 } from "../data/homepage-image-slots";
+import { accommodationImages } from "../data/images/accommodation-images";
 import homepageImageMappingData from "../data/homepage-image-mapping.json";
 
 export interface HomepageImageSelection {
@@ -13,6 +15,7 @@ export interface HomepageImageSelection {
   altText: string;
   sourceUrl: string;
   thumbnailUrl: string;
+  astroSrc?: ImageMetadata;
   width?: number;
   height?: number;
 }
@@ -23,6 +26,17 @@ export type HomepageImageMapping = Record<
 >;
 
 const mappingFileUrl = new URL("../data/homepage-image-mapping.json", import.meta.url);
+
+const slotAccommodationKeyMap: Partial<Record<HomepageImageSlotKey, string>> = {
+  d1_card_image: "d1",
+  d2_card_image: "d2",
+  fugehaz_card_image: "fugehaz",
+  zsalya_card_image: "zsalya",
+  szololiget_card_image: "szololiget",
+  szepvolgyi_card_image: "szepvolgyi",
+  royal_homes_card_image: "royal_homes",
+  vintage_card_image: "vintage"
+};
 
 function createEmptyMapping(): HomepageImageMapping {
   return Object.fromEntries(
@@ -58,12 +72,49 @@ function sanitizeSelection(value: unknown): HomepageImageSelection | null {
   };
 }
 
+function attachLocalAccommodationSelection(
+  slotKey: HomepageImageSlotKey,
+  selection: HomepageImageSelection | null
+): HomepageImageSelection | null {
+  const accommodationKey = slotAccommodationKeyMap[slotKey];
+
+  if (!accommodationKey) {
+    return selection;
+  }
+
+  const localImageSet = accommodationImages[accommodationKey];
+  const localImage =
+    localImageSet?.card ||
+    localImageSet?.gallery[0] ||
+    localImageSet?.hero.desktop ||
+    localImageSet?.hero.mobile ||
+    null;
+
+  if (!localImage?.astroSrc) {
+    return selection;
+  }
+
+  return {
+    id: selection?.id ?? localImage.source.wpId ?? 0,
+    title: selection?.title || localImage.title.hu || localImage.alt.hu,
+    altText: selection?.altText || localImage.alt.hu,
+    sourceUrl: selection?.sourceUrl || localImage.src,
+    thumbnailUrl: selection?.thumbnailUrl || localImage.thumb || localImage.src,
+    astroSrc: localImage.astroSrc,
+    width: localImage.width,
+    height: localImage.height
+  };
+}
+
 export async function readHomepageImageMapping(): Promise<HomepageImageMapping> {
   const parsed = homepageImageMappingData as Record<string, unknown>;
   const fallback = createEmptyMapping();
 
   for (const slot of homepageImageSlots) {
-    fallback[slot.key] = sanitizeSelection(parsed[slot.key]);
+    fallback[slot.key] = attachLocalAccommodationSelection(
+      slot.key,
+      sanitizeSelection(parsed[slot.key])
+    );
   }
 
   return fallback;
@@ -87,7 +138,10 @@ export function parseHomepageImageMapping(raw: string): HomepageImageMapping {
   const mapping = createEmptyMapping();
 
   for (const slot of homepageImageSlots) {
-    mapping[slot.key] = sanitizeSelection(parsed[slot.key]);
+    mapping[slot.key] = attachLocalAccommodationSelection(
+      slot.key,
+      sanitizeSelection(parsed[slot.key])
+    );
   }
 
   return mapping;

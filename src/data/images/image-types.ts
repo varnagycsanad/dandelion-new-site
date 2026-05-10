@@ -1,5 +1,7 @@
 // [CHANGE 2026-04-26 00:00] Projekt szintű image registry típusok létrehozása.
 // [CHANGE 2026-04-26 00:00] Source/import image inventory típusok hozzáadása a feldolgozás előtti képekhez.
+import type { ImageMetadata } from "astro";
+
 export type LocalizedText = {
   hu: string;
   en: string;
@@ -94,7 +96,9 @@ export interface ImageAsset {
   room?: string;
   theme?: string;
   src: string;
+  astroSrc?: ImageMetadata;
   thumb?: string;
+  thumbAstroSrc?: ImageMetadata;
   width: number;
   height: number;
   aspectRatio: string;

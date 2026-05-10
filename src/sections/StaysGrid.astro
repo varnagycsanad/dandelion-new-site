@@ -1,35 +1,32 @@
 ---
+import { Image } from "astro:assets";
+
+import featuredStayImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
+import fugehazImage from "../assets/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp";
+import d1Image from "../assets/accommodations/d1/gallery/dandelion-d1-source-001.webp";
+
 const bookingLink =
   "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 
 const featuredStay = {
   name: "Dandelion D2",
   description: "Családbarát pihenés a hegy lábánál, nyugodt kerttel és esti dézsával.",
-  image:
-    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80&sat=-10",
-  width: 1400,
-  height: 1050,
-  tags: ["4–6 fő", "Dézsa"]
+  image: featuredStayImage,
+  tags: ["4-6 fő", "Dézsa"]
 };
 
 const secondaryStays = [
   {
     name: "Fügeház",
     description: "Hangulatos kuckó pároknak, panorámával és csendes reggelekkel.",
-    image:
-      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1200&q=80",
-    width: 1200,
-    height: 900,
-    tags: ["2–4 fő", "Panoráma"]
+    image: fugehazImage,
+    tags: ["2-4 fő", "Panoráma"]
   },
   {
     name: "Dandelion D1",
     description: "Tágas vendégház közös főzésekhez és nyugodt balatoni hétvégékhez.",
-    image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
-    width: 1200,
-    height: 900,
-    tags: ["6–8 fő", "Kandalló"]
+    image: d1Image,
+    tags: ["6-8 fő", "Kandalló"]
   }
 ];
 ---
@@ -44,14 +41,7 @@ const secondaryStays = [
 
     <div class="dnd-stays__layout">
       <article class="dnd-stay-card dnd-stay-card--featured">
-        <img
-          class="dnd-stay-card__image"
-          src={featuredStay.image}
-          alt={featuredStay.name}
-          width={featuredStay.width}
-          height={featuredStay.height}
-          loading="lazy"
-        />
+        <Image class="dnd-stay-card__image" src={featuredStay.image} alt={featuredStay.name} loading="lazy" />
 
         <div class="dnd-stay-card__content">
           <h3>{featuredStay.name}</h3>
@@ -74,14 +64,7 @@ const secondaryStays = [
       <div class="dnd-stays__stack">
         {secondaryStays.map((stay) => (
           <article class="dnd-stay-card dnd-stay-card--compact">
-            <img
-              class="dnd-stay-card__image"
-              src={stay.image}
-              alt={stay.name}
-              width={stay.width}
-              height={stay.height}
-              loading="lazy"
-            />
+            <Image class="dnd-stay-card__image" src={stay.image} alt={stay.name} loading="lazy" />
 
             <div class="dnd-stay-card__content">
               <h3>{stay.name}</h3>

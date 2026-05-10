@@ -1,4 +1,5 @@
 ﻿---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { AccommodationPageData } from "../data/accommodation-pages/types";
 import type { AccommodationImageSet } from "../data/images/image-types";
@@ -157,33 +158,57 @@ const accommodationStructuredData = [
         >
           <source media="(max-width: 767px)" src={heroVideo.mobile} type="video/mp4" />
           <source media="(min-width: 768px)" src={heroVideo.desktop} type="video/mp4" />
-          <img
-            src={heroFallback.src}
-            alt={heroFallback.alt}
-            width={heroFallback.width}
-            height={heroFallback.height}
+          {heroFallback.astroSrc ? (
+            <Image
+              src={heroFallback.astroSrc}
+              alt={heroFallback.alt}
+              class="d2-hero__image"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              data-accommodation-hero-image
+            />
+          ) : (
+            <img
+              src={heroFallback.src}
+              alt={heroFallback.alt}
+              width={heroFallback.width}
+              height={heroFallback.height}
+              class="d2-hero__image"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              data-accommodation-hero-image
+            />
+          )}
+        </video>
+      </div>
+    ) : (
+      <picture class="d2-hero__picture">
+        <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
+        {initialHeroImage.astroSrc ? (
+          <Image
+            src={initialHeroImage.astroSrc}
+            alt={initialHeroImage.alt}
             class="d2-hero__image"
             loading="eager"
             decoding="async"
             fetchpriority="high"
             data-accommodation-hero-image
           />
-        </video>
-      </div>
-    ) : (
-      <picture class="d2-hero__picture">
-        <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
-        <img
-          src={initialHeroImage.src}
-          alt={initialHeroImage.alt}
-          width={initialHeroImage.width}
-          height={initialHeroImage.height}
-          class="d2-hero__image"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-          data-accommodation-hero-image
-        />
+        ) : (
+          <img
+            src={initialHeroImage.src}
+            alt={initialHeroImage.alt}
+            width={initialHeroImage.width}
+            height={initialHeroImage.height}
+            class="d2-hero__image"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            data-accommodation-hero-image
+          />
+        )}
       </picture>
     )}
     <div class="d2-hero__overlay"></div>
@@ -404,13 +429,21 @@ const accommodationStructuredData = [
                 data-accommodation-gallery-id={image.id}
                 aria-label={pageData.labels.galleryOpenAriaLabel}
               >
-                <img
-                  src={image.thumb || image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  loading={index < 2 ? "eager" : "lazy"}
-                />
+                {image.thumbAstroSrc ? (
+                  <Image
+                    src={image.thumbAstroSrc}
+                    alt={image.alt}
+                    loading={index < 2 ? "eager" : "lazy"}
+                  />
+                ) : (
+                  <img
+                    src={image.thumb || image.src}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    loading={index < 2 ? "eager" : "lazy"}
+                  />
+                )}
                 <span class="d2-gallery__hover-label" aria-hidden="true">{pageData.labels.galleryHoverLabel}</span>
                 {galleryHasMore && index === galleryPreviewImages.length - 1 && (
                   <span class="d2-gallery__more-badge">+{galleryMoreCount} kép</span>
@@ -459,13 +492,21 @@ const accommodationStructuredData = [
         {compactRelatedStays.map((stay) => (
           <a href={stay.href} class="d2-closer__card">
             <div class="d2-closer__media">
-              <img
-                src={stay.image?.sourceUrl}
-                alt={stay.image?.altText || stay.name}
-                width={stay.image?.width || 1600}
-                height={stay.image?.height || 1067}
-                loading="lazy"
-              />
+              {stay.image?.astroSrc ? (
+                <Image
+                  src={stay.image.astroSrc}
+                  alt={stay.image.altText || stay.name}
+                  loading="lazy"
+                />
+              ) : (
+                <img
+                  src={stay.image?.sourceUrl}
+                  alt={stay.image?.altText || stay.name}
+                  width={stay.image?.width || 1600}
+                  height={stay.image?.height || 1067}
+                  loading="lazy"
+                />
+              )}
               <div class="d2-closer__overlay"></div>
             </div>
             <div class="d2-closer__copy">

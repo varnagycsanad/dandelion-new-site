@@ -159,6 +159,9 @@ jobs:
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
           mirror -R \
+            --delete \
+            --transfer-all \
+            --overwrite \
             --exclude-glob images/accommodations/** \
             --exclude-glob videos/accommodations/** \
             --exclude-glob dandelion-image-admin-rest \

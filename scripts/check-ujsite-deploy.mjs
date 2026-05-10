@@ -38,6 +38,23 @@ function ok(message) {
   console.log(`[OK] ${message}`);
 }
 
+function isSelfRedirectHtml(url, html) {
+  const canonicalPattern = /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i;
+  const refreshPattern = /<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=([^"';]+)[^"']*["']/i;
+  const canonicalMatch = html.match(canonicalPattern);
+  const refreshMatch = html.match(refreshPattern);
+
+  if (!canonicalMatch || !refreshMatch) {
+    return false;
+  }
+
+  const resolvedUrl = new URL(url).href;
+  const resolvedCanonical = new URL(canonicalMatch[1], BASE_URL).href;
+  const resolvedRefresh = new URL(refreshMatch[1], BASE_URL).href;
+
+  return resolvedCanonical === resolvedUrl && resolvedRefresh === resolvedUrl;
+}
+
 async function fetchText(url) {
   const response = await fetch(url, {
     headers: fetchHeaders,
@@ -78,7 +95,11 @@ async function checkCriticalPages() {
       const { response, text } = await fetchText(url);
 
       if (response.status === 200) {
-        ok(`${pathLabel(url)} 200`);
+        if (isSelfRedirectHtml(url, text)) {
+          fail(`${pathLabel(url)} is serving a self-redirect HTML shell instead of page content`);
+        } else {
+          ok(`${pathLabel(url)} 200`);
+        }
         htmlByUrl.set(url, text);
       } else {
         fail(`${pathLabel(url)} did not return 200: ${response.status}`);

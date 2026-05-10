@@ -1,4 +1,10 @@
 ---
+import { Image } from "astro:assets";
+import kisapatiStoryImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
+import balatonStoryImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
+import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
+import stickyBackgroundImage from "../assets/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp";
+
 const regionStories = [
   {
     kicker: "Kisapáti · Szent György-hegy · Tapolcai-medence",
@@ -8,11 +14,8 @@ const regionStories = [
     meta: "Természetközeli nyugalom, panoráma és esti borozások hangulata.",
     ctaLabel: "Szent György-hegy és környéke",
     ctaHref: "/szallasok",
-    image:
-      "https://dandelionhouse.hu/wp-content/uploads/2026/04/DJI_20260407175709_0028_D.jpg.webp",
-    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel",
-    width: 1600,
-    height: 900
+    image: kisapatiStoryImage,
+    imageAlt: "Tapolcai-medence látképe a tanúhegyekkel"
   },
   {
     kicker: "Keszthely · Badacsonyörs",
@@ -22,11 +25,8 @@ const regionStories = [
     meta: "Balatoni hangulat, könnyed kikapcsolódás és természetes nyári ritmus.",
     ctaLabel: "Balaton közeli pihenés",
     ctaHref: "/szallasok",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Balaton-parti hangulatkép",
-    width: 1800,
-    height: 1013
+    image: balatonStoryImage,
+    imageAlt: "Balaton-parti hangulatkép"
   },
   {
     kicker: "Köveskál · Káli-medence",
@@ -36,43 +36,38 @@ const regionStories = [
     meta: "Elvonuláshoz, feltöltődéshez és tiszta, csendes jelenléthez való.",
     ctaLabel: "Káli-medencei menedékek",
     ctaHref: "/szallasok",
-    image:
-      "https://dandelionhouse.hu/wp-content/uploads/2026/04/2026-04-17-11-49-24.jpeg.webp",
-    imageAlt: "Káli-medence tájképe",
-    width: 1600,
-    height: 900
+    image: kaliStoryImage,
+    imageAlt: "Káli-medence tájképe"
   }
 ];
 ---
 
-<!-- [CHANGE 2026-04-18 13:01] Restore stable RegionStories overlay layout -->
 <section id="stays" class="dnd-section dnd-region-stories">
   <div class="dnd-region-stories__inner dnd-region-stories__content">
     <div class="dnd-region-stories__intro">
       <span class="dnd-section-kicker">Szállások</span>
-      <h2 class="dnd-region-stories__heading">Nem egy helyszín — három külön világ</h2>
+      <h2 class="dnd-region-stories__heading">Nem egy helyszín, három külön világ</h2>
       <p class="dnd-region-stories__lead">
-        Vendégházaink a Balaton-felvidék több karakteres térségében találhatók. Van, ahol a tanúhegyek adják a hátteret, van, ahol a Balaton közelsége, és van, ahol a csendes Káli-medence hangulata viszi a prímet.
+        Vendégházaink a Balaton-felvidék több karakteres térségében találhatók. Van, ahol a tanúhegyek
+        adják a hátteret, van, ahol a Balaton közelsége, és van, ahol a csendes Káli-medence hangulata
+        viszi a prímet.
       </p>
     </div>
 
     <div class="dnd-region-stories__list">
       <div class="dnd-region-stories__sticky-layer" aria-hidden="true">
         <div class="dnd-region-stories__sticky-band">
-          <div class="dnd-region-stories__sticky-band-image"></div>
+          <div
+            class="dnd-region-stories__sticky-band-image"
+            style={`background-image: url('${stickyBackgroundImage.src}');`}
+          ></div>
         </div>
       </div>
 
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
-            <img
-              src={story.image}
-              alt={story.imageAlt}
-              width={story.width}
-              height={story.height}
-              loading="lazy"
-            />
+            <Image src={story.image} alt={story.imageAlt} loading="lazy" />
           </div>
 
           <div class="dnd-region-story__panel">
@@ -116,7 +111,6 @@ const regionStories = [
   .dnd-region-stories__sticky-band-image {
     width: 100%;
     height: 100%;
-    background-image: url("https://dandelionhouse.hu/wp-content/uploads/2026/04/dandelion_szololiget_202508-5.jpg.webp");
     background-size: cover;
     background-position: center 35%;
     background-repeat: no-repeat;
@@ -182,7 +176,7 @@ const regionStories = [
     background: #ddd5c8;
   }
 
-  .dnd-region-story__media img {
+  .dnd-region-story__media :is(img, picture) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -202,7 +196,7 @@ const regionStories = [
   .dnd-region-story__kicker {
     margin: 0 0 14px;
     font-size: 10px;
-    letter-spacing: 0.10em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #8a8a8a;
   }
@@ -229,189 +223,101 @@ const regionStories = [
   }
 
   .dnd-region-story__meta {
-    margin: 12px 0 0;
+    margin: 14px 0 0;
+    color: rgba(0, 0, 0, 0.62);
   }
 
   .dnd-region-story__cta {
     display: inline-flex;
     align-items: center;
-    margin-top: 26px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: rgba(0, 0, 0, 0.8);
-    transition: border-color 0.2s ease, color 0.2s ease;
+    justify-content: center;
+    min-height: 42px;
+    margin-top: 22px;
+    padding: 0 18px;
+    border: 1px solid rgba(0, 0, 0, 0.44);
+    color: rgba(0, 0, 0, 0.82);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
 
   .dnd-region-story__cta:hover,
   .dnd-region-story__cta:focus-visible {
-    color: rgba(0, 0, 0, 0.94);
-    border-color: rgba(0, 0, 0, 0.46);
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.75);
   }
 
-  .dnd-region-story--1 .dnd-region-story__media,
-  .dnd-region-story--3 .dnd-region-story__media {
-    margin-right: auto;
-  }
-
-  .dnd-region-story--2 .dnd-region-story__media {
-    margin-left: auto;
-  }
-
-  .dnd-region-story--3 .dnd-region-story__media img {
-    object-position: center 30%;
+  .dnd-region-story--1 {
+    justify-items: start;
   }
 
   .dnd-region-story--1 .dnd-region-story__panel {
-    right: -40px;
-    bottom: 48px;
+    right: 0;
+    bottom: -28px;
+  }
+
+  .dnd-region-story--2 {
+    justify-items: end;
   }
 
   .dnd-region-story--2 .dnd-region-story__panel {
-    left: -48px;
-    top: 56px;
+    left: 0;
+    bottom: -30px;
+  }
+
+  .dnd-region-story--3 {
+    justify-items: start;
   }
 
   .dnd-region-story--3 .dnd-region-story__panel {
-    right: -56px;
-    top: 72px;
+    right: 0;
+    bottom: -24px;
   }
 
-  @media (min-width: 1280px) {
-    .dnd-region-stories__list {
-      --dnd-story-offset: clamp(110px, 9vw, 190px);
-    }
-
-    .dnd-region-story--1,
-    .dnd-region-story--3 {
-      transform: translateX(calc(var(--dnd-story-offset) * -1));
-    }
-
-    .dnd-region-story--2 {
-      transform: translateX(var(--dnd-story-offset));
-    }
-  }
-
-  @media (max-width: 1199px) {
-    .dnd-region-story__media {
-      width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .dnd-region-story--1 .dnd-region-story__panel,
-    .dnd-region-story--3 .dnd-region-story__panel {
-      right: 20px;
-    }
-
-    .dnd-region-story--2 .dnd-region-story__panel {
-      left: 20px;
-    }
-  }
-
-  @media (max-width: 960px) {
-    .dnd-region-stories__list {
-      gap: 56px;
-    }
-
-    .dnd-region-story {
-      margin-bottom: 0;
-    }
-
+  @media (max-width: 1100px) {
     .dnd-region-story__panel {
       position: relative;
-      left: auto !important;
-      right: auto !important;
-      top: auto !important;
-      bottom: auto !important;
-      transform: none !important;
-      margin: -60px 16px 0 16px;
-      width: auto;
+      inset: auto;
       max-width: none;
+      margin: 18px 0 0;
     }
-  }
 
-  @media (max-width: 768px) {
-    .dnd-region-stories__sticky-layer {
-      display: none;
+    .dnd-region-story__title {
+      max-width: none;
     }
   }
 
   @media (max-width: 767px) {
     .dnd-region-stories {
-      padding: 40px 0 0;
+      padding: 36px 0 64px;
     }
 
     .dnd-region-stories__inner {
-      width: min(100% - 24px, 1200px);
-    }
-
-    .dnd-region-stories__intro {
-      margin-bottom: 44px;
+      width: min(100% - 24px, 420px);
     }
 
     .dnd-region-stories__heading {
-      max-width: 24ch;
-      font-size: 1.3rem;
+      font-size: 1rem;
       white-space: normal;
     }
 
-    .dnd-region-stories__lead {
-      margin-top: 16px;
-      line-height: 1.68;
+    .dnd-region-stories__list {
+      gap: 36px;
+    }
+
+    .dnd-region-stories__sticky-layer {
+      display: none;
     }
 
     .dnd-region-story__media {
-      min-height: 300px;
-      border-radius: 22px;
+      width: 100%;
+      border-radius: 18px;
     }
 
     .dnd-region-story__panel {
-      padding: 24px 22px 22px;
-    }
-
-    .dnd-region-story__kicker {
-      margin-bottom: 12px;
-      font-size: 11.5px;
-      line-height: 1.45;
-      letter-spacing: 0.08em;
-      color: rgba(0, 0, 0, 0.62);
-    }
-
-    .dnd-region-story__title {
-      font-size: 22px;
-    }
-
-    .dnd-region-story__text {
-      font-size: 13.2px;
-      line-height: 1.5;
-      color: rgba(0, 0, 0, 0.62);
-    }
-
-    .dnd-region-story__description {
-      margin-top: 14px;
-    }
-
-    .dnd-region-story__meta {
-      margin-top: 10px;
-    }
-
-    .dnd-region-story__cta {
-      margin-top: 20px;
-      padding: 10px 14px;
-      border: 1px solid rgba(55, 40, 28, 0.18);
-      border-radius: 999px;
-      background: rgba(73, 52, 34, 0.08);
-      font-size: 0.78rem;
-      letter-spacing: 0.03em;
-    }
-
-    .dnd-region-story__cta::after {
-      content: "→";
-      margin-left: 10px;
-      font-size: 0.9em;
+      padding: 22px 18px;
     }
   }
 </style>

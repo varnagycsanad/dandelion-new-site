@@ -1,45 +1,39 @@
 ---
+import { Image } from "astro:assets";
+import bikingImage from "../assets/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp";
+import wineTourImage from "../assets/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp";
+import balatonImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
+import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
+
 const experiences = [
   {
     title: "BICIKLI",
     description:
       "Fedezd fel a vidéket két keréken. Kijelölt túraútvonalak, csendes mellékutak és lélegzetelállító kilátások várnak.",
-    image:
-      "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Kerékpár vidéki környezetben",
-    width: 1200,
-    height: 1200
+    image: bikingImage,
+    imageAlt: "Kerékpár vidéki környezetben"
   },
   {
     title: "BORTÚRA",
     description:
       "Helyi borászatok, autentikus pincék és kiváló borok. Ismerd meg a Balaton-felvidék boros hagyományait.",
-    image:
-      "https://images.unsplash.com/photo-1659904825585-2fdf22b3aa73?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Borospohár, palack és szőlő",
-    width: 1200,
-    height: 1200
+    image: wineTourImage,
+    imageAlt: "Borospohár, palack és szőlő"
   },
   {
     title: "BALATON",
     description:
       "Strandok, naplementék és frissítő fürdőzések. A magyar tenger mindig különleges élményt ad.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Naplementés vízparti hangulat",
-    width: 1200,
-    height: 1200
+    image: balatonImage,
+    imageAlt: "Naplementés vízparti hangulat"
   },
   {
     title: "HEGYEK",
     description:
       "Tanúhegyek, kilátók és erdei ösvények. Túrázz, kapcsolódj ki, és élvezd a természet nyugalmát.",
-    image:
-      "https://dandelionhouse.hu/wp-content/uploads/2026/01/variant-1.jpg.webp",
-    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
-    width: 1200,
-    height: 1200
-  },
+    image: mountainsImage,
+    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken"
+  }
 ];
 ---
 
@@ -48,9 +42,8 @@ const experiences = [
     <div class="dnd-experiences__intro">
       <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
       <p class="dnd-experiences__lead">
-        A Dandelion napok lassan indulnak, és élményekkel telnek. Fedezd fel a
-        környék legszebb útvonalait, kóstold meg a helyi borokat, csobbanj a
-        a Balatonban, vagy túrázz a tanúhegyek között.
+        A Dandelion napok lassan indulnak, és élményekkel telnek. Fedezd fel a környék legszebb
+        útvonalait, kóstold meg a helyi borokat, csobbanj a Balatonban, vagy túrázz a tanúhegyek között.
       </p>
       <a href="/elmenyek/" class="dnd-experiences__cta">RÉSZLETEK</a>
     </div>
@@ -61,13 +54,7 @@ const experiences = [
           <article
             class={`dnd-experience-card ${index > 0 ? "dnd-experience-card--desktop" : ""}`}
           >
-            <img
-              src={experience.image}
-              alt={experience.imageAlt}
-              width={experience.width}
-              height={experience.height}
-              loading="lazy"
-            />
+            <Image src={experience.image} alt={experience.imageAlt} loading="lazy" />
             <div class="dnd-experience-card__body">
               <h3>{experience.title}</h3>
               <p>{experience.description}</p>
@@ -162,7 +149,7 @@ const experiences = [
     min-width: 0;
   }
 
-  .dnd-experience-card img {
+  .dnd-experience-card :is(img, picture) {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -226,31 +213,50 @@ const experiences = [
     }
 
     .dnd-experiences__lead,
-    .dnd-experiences__cta,
-    .dnd-experience-card--desktop {
-      display: none;
+    .dnd-experience-card p {
+      max-width: none;
     }
 
     .dnd-experiences__grid {
-      display: block;
-      margin-top: 26px;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 28px;
     }
 
-    .dnd-experience-card img {
-      aspect-ratio: 4 / 3;
+    .dnd-experience-card--desktop {
+      display: none;
     }
 
     .dnd-experience-card__body {
       padding: 20px 0 0;
     }
 
-    .dnd-experience-card p {
-      max-width: 28ch;
-    }
-
     .dnd-experience-card__mobile-cta {
       display: inline-flex;
-      margin-top: 22px;
+      min-width: 164px;
+      margin-top: 24px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1180px) {
+    .dnd-experiences__inner {
+      grid-template-columns: 1fr;
+      width: min(100% - 48px, 1100px);
+    }
+
+    .dnd-experiences__intro {
+      padding-top: 0;
+      text-align: left;
+      max-width: 640px;
+    }
+
+    .dnd-experiences__lead {
+      max-width: 48ch;
+      margin-left: 0;
+    }
+
+    .dnd-experiences__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

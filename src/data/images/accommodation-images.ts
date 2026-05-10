@@ -3,6 +3,7 @@
 // [CHANGE 2026-04-26 00:00] D2 gallery ImageAsset registry kitöltése lokális WebP és thumb képekkel.
 // [CHANGE 2026-04-26 00:00] D2 hero ImageAsset registry kitöltése lokális desktop és mobil WebP képekkel.
 // [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
+import { d2LocalAstroAssets, getAccommodationLocalAsset } from "./astro-local-assets";
 import type { AccommodationImageSet } from "./image-types";
 
 const d1SourceFilenames = [
@@ -424,6 +425,26 @@ function buildVintageGalleryEntries() {
   });
 }
 
+function attachLocalGalleryAstroAssets<T extends { src: string; thumb?: string }>(
+  apartmentKey: string,
+  images: T[]
+): T[] {
+  return images.map((image) => {
+    const srcFilename = image.src.split("/").pop();
+    const thumbFilename = image.thumb.split("/").pop();
+
+    return {
+      ...image,
+      astroSrc: srcFilename
+        ? getAccommodationLocalAsset(apartmentKey, "gallery", srcFilename)
+        : undefined,
+      thumbAstroSrc: thumbFilename
+        ? getAccommodationLocalAsset(apartmentKey, "thumbs", thumbFilename)
+        : undefined
+    };
+  });
+}
+
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
@@ -435,6 +456,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         room: "külső",
         theme: "vendégház / terasz",
         src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp",
+        astroSrc: d2LocalAstroAssets.heroDesktop,
         width: 1920,
         height: 1440,
         aspectRatio: "4:3",
@@ -469,6 +491,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         room: "külső",
         theme: "fedett terasz / kert",
         src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
+        astroSrc: d2LocalAstroAssets.heroMobile,
         width: 1080,
         height: 810,
         aspectRatio: "4:3",
@@ -503,6 +526,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       room: "külső",
       theme: "vendégház / kert",
       src: "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp",
+      astroSrc: d2LocalAstroAssets.card,
       width: 900,
       height: 675,
       aspectRatio: "4:3",
@@ -529,7 +553,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       createdAt: "2026-04-26",
       updatedAt: "2026-04-26",
     },
-    gallery: [
+    gallery: attachLocalGalleryAstroAssets("d2", [
 {
         id: "d2-gallery-05",
         apartmentKey: "d2",
@@ -1074,8 +1098,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         createdAt: "2026-04-26",
         updatedAt: "2026-05-03",
       }
-
-    ],
+    ]),
     thumbnail: null,
   },
   d1: {
@@ -1085,7 +1108,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildD1GalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("d1", buildD1GalleryEntries()),
     thumbnail: null,
   },
   fugehaz: {
@@ -1095,7 +1118,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildFugehazGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("fugehaz", buildFugehazGalleryEntries()),
     thumbnail: null,
   },
   zsalya: {
@@ -1105,7 +1128,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildZsalyaGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("zsalya", buildZsalyaGalleryEntries()),
     thumbnail: null,
   },
   szololiget: {
@@ -1115,7 +1138,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildSzololigetGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("szololiget", buildSzololigetGalleryEntries()),
     thumbnail: null,
   },
   szepvolgyi: {
@@ -1125,7 +1148,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildSzepvolgyiGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("szepvolgyi", buildSzepvolgyiGalleryEntries()),
     thumbnail: null,
   },
   royal_homes: {
@@ -1135,7 +1158,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildRoyalHomesGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("royal_homes", buildRoyalHomesGalleryEntries()),
     thumbnail: null,
   },
   koveskal: {
@@ -1145,7 +1168,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildKoveskalGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("koveskal", buildKoveskalGalleryEntries()),
     thumbnail: null,
   },
   vintage: {
@@ -1155,7 +1178,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       mobile: null,
     },
     card: null,
-    gallery: buildVintageGalleryEntries(),
+    gallery: attachLocalGalleryAstroAssets("vintage", buildVintageGalleryEntries()),
     thumbnail: null,
   },
 };
