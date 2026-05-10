@@ -15,17 +15,17 @@ const stays = [
   {
     title: "Dandelion D1",
     href: resolveHref("/dandelion-d1/"),
-    description: "Kényelmes pihenés a Panorama Pool használatával, domboldali nyári hangulattal."
+    description: "Ha egy nyugodt, panorámás nyári pihenést keresel, innen a medence is a nap része lesz."
   },
   {
     title: "Dandelion D2",
     href: resolveHref("/dandelion-d2/"),
-    description: "Kisapáti szállás közvetlen medenceélménnyel, panorámás környezetben."
+    description: "Kisapáti hangulata és a domboldali medence együtt adják meg ennek a háznak a nyári ritmusát."
   },
   {
     title: "Fügeház",
     href: resolveHref("/fuge/"),
-    description: "Természetközeli elvonulás, ahol a panorámás medence a nyári pihenés része."
+    description: "Lassabb napokhoz, csendes estékhez és balatoni-felvidéki nyárhoz a Panorama Pool is hozzátartozik majd."
   }
 ];
 ---
@@ -43,8 +43,10 @@ const stays = [
         <div class="pool-hero__content">
           <span class="pool-eyebrow">Panorama Pool</span>
           <h1>Dandelion Panorama Pool</h1>
-          <p class="pool-hero__lead">Új panorámás domboldali medence a Balaton-felvidéken.</p>
-          <p class="pool-hero__text">Június 1-től a D1, D2 és Fügeház vendégei használhatják.</p>
+          <p class="pool-hero__lead">Új panorámás medence a Balaton-felvidék tanúhegyei között.</p>
+          <p class="pool-hero__text">
+            Június 1-től a D1, D2 és Fügeház vendégei használhatják új domboldali medencénket Kisapátiban.
+          </p>
           <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
         </div>
 
@@ -67,32 +69,35 @@ const stays = [
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Bemutató</span>
-          <h2>Panorámás medence természetközeli környezetben.</h2>
+          <h2>Medence a tanúhegyek között.</h2>
         </div>
 
         <div class="pool-intro">
           <div class="pool-intro__copy">
             <p>
-              A Dandelion Panorama Pool egy új, domboldali elhelyezkedésű medencetér Kisapátiban, a
-              Balaton-felvidék tanúhegyeinek látványával. A nyári használatot a fedhető kialakítás és a
-              sóbontós vízkezelés teszi kényelmessé.
+              A Dandelion Panorama Pool egy új, domboldali medence Kisapátiban, a Balaton-felvidék szívében.
             </p>
             <p>
-              A tér egyszerre marad levegős és visszafogott: a hangsúly a 8×4 méteres medencén, a
-              környező hegyeken és azon a természetközeli hangulaton van, amiért ezt a vidéket szeretni lehet.
+              Napközben a tanúhegyek látványa, este pedig a csendes nyári hangulat teszi különlegessé ezt a helyet.
+            </p>
+            <p>
+              A medence sóbontós vízkezeléssel működik, fedhető kialakítású, és a D1, D2 valamint a Fügeház
+              vendégei számára lesz elérhető 2026 nyarától.
             </p>
           </div>
 
-          <ul class="pool-feature-list" aria-label="Panorama Pool jellemzők">
-            <li>8×4 méteres medence</li>
-            <li>Kisapáti, Balaton-felvidék</li>
-            <li>Panoráma a tanúhegyekre</li>
-            <li>Domboldali elhelyezkedés</li>
-            <li>Sóbontós vízkezelés</li>
-            <li>Fedhető kialakítás</li>
-            <li>Természetközeli hangulat</li>
-            <li>Nyári vendégházas használat</li>
-          </ul>
+          <div class="pool-feature-panel">
+            <p class="pool-feature-panel__title">Amit szeretni fogsz benne</p>
+            <ul class="pool-feature-list" aria-label="Panorama Pool jellemzők">
+              <li>panorámás domboldali elhelyezkedés</li>
+              <li>tanúhegyek látványa</li>
+              <li>sóbontós vízkezelés</li>
+              <li>fedhető kialakítás</li>
+              <li>nyugodt, természetközeli környezet</li>
+              <li>esti hangulatvilágítás</li>
+              <li>nyári pihenés a Balaton-felvidéken</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -119,11 +124,11 @@ const stays = [
     <section class="pool-section">
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
-          <span class="pool-eyebrow">Galéria / teaser</span>
-          <h2>Első képek a készülő Panorama Pool környezetéről.</h2>
+          <span class="pool-eyebrow">Galéria</span>
+          <h2>Így készül a Dandelion Panorama Pool.</h2>
           <p>
-            A galéria a valódi Panorama Pool képadatokat használja. A képek teaser hangulatban mutatják meg a
-            medencét, a fedhető kialakítást és a panorámás, még részben készülő környezetet.
+            A medence környezete még készül, de már most látszik az a panorámás, nyugodt hangulat, amit nyártól a
+            vendégeink is átélhetnek majd.
           </p>
         </div>
 
@@ -143,7 +148,6 @@ const stays = [
               data-default-title={heroImage.titleHu}
             />
             <figcaption>
-              <strong id={mainImageTitleId}>{heroImage.titleHu}</strong>
               <span id={mainImageCaptionId}>{heroImage.captionHu}</span>
             </figcaption>
           </figure>
@@ -170,10 +174,6 @@ const stays = [
                   loading={index < 4 ? "eager" : "lazy"}
                   decoding="async"
                 />
-                <span class="pool-thumb__meta">
-                  <strong>{image.titleHu}</strong>
-                  <small>{image.usageHint === "hero" ? "Hero javaslat" : image.usageHint === "teaser" ? "Teaser" : "Galéria"}</small>
-                </span>
               </button>
             ))}
           </div>
@@ -185,13 +185,12 @@ const stays = [
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-soon-card">
           <span class="pool-eyebrow">Coming soon</span>
-          <h2>A környezet még készül, a nyitás viszont már látható közelségben van.</h2>
+          <h2>Még készül körülötte minden, de már most jó ránézni.</h2>
           <p>
-            A Panorama Pool körüli tér még finomhangolás alatt áll, ezért a mostani galéria teaser jelleggel mutatja
-            be az érkező élményt.
+            A környezet még készül, ezért most inkább egy első betekintést látsz abba, milyen lesz itt a nyári hangulat.
           </p>
           <p>
-            További fotók és videók hamarosan érkeznek. Nyitás: <strong>2026. június 1.</strong>
+            A nyitás dátuma <strong>2026. június 1.</strong>, további fotók és videók pedig hamarosan érkeznek.
           </p>
         </div>
       </div>
@@ -217,7 +216,7 @@ const stays = [
       const captionNode = document.getElementById(mainImageCaptionId);
       const thumbs = Array.from(gallery.querySelectorAll("[data-gallery-thumb]"));
 
-      if (!mainImage || !titleNode || !captionNode || thumbs.length === 0) return;
+      if (!mainImage || !captionNode || thumbs.length === 0) return;
 
       thumbs.forEach((thumb) => {
         thumb.addEventListener("click", () => {
@@ -229,7 +228,7 @@ const stays = [
           mainImage.setAttribute("src", src);
           mainImage.setAttribute("alt", alt);
           mainImage.setAttribute("title", title);
-          titleNode.textContent = title;
+          if (titleNode) titleNode.textContent = title;
           captionNode.textContent = caption;
 
           thumbs.forEach((item) => {
@@ -404,25 +403,10 @@ const stays = [
 
   .pool-hero__media figcaption,
   .pool-gallery__main figcaption {
-    display: grid;
-    gap: 6px;
-    padding: 16px 18px 18px;
-    color: rgba(46, 36, 27, 0.78);
-    line-height: 1.6;
-  }
-
-  .pool-hero__media figcaption {
-    font-size: 0.95rem;
-  }
-
-  .pool-gallery__main figcaption strong {
-    color: #241b14;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .pool-gallery__main figcaption span {
-    font-size: 0.94rem;
+    padding: 14px 16px 16px;
+    color: rgba(46, 36, 27, 0.68);
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .pool-intro {
@@ -437,14 +421,28 @@ const stays = [
     gap: 16px;
   }
 
-  .pool-feature-list {
+  .pool-feature-panel {
     display: grid;
-    gap: 12px;
-    margin: 0;
+    gap: 14px;
     padding: 22px 22px 24px;
     border: 1px solid rgba(90, 67, 41, 0.12);
     border-radius: 8px;
     background: #fffaf0;
+  }
+
+  .pool-feature-panel__title {
+    margin: 0;
+    color: #2a2017;
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .pool-feature-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
     list-style: none;
   }
 
@@ -498,33 +496,34 @@ const stays = [
 
   .pool-gallery {
     display: grid;
-    gap: 18px;
+    gap: 16px;
+  }
+
+  .pool-gallery__main {
+    background: #fbf7ef;
   }
 
   .pool-gallery__thumbs {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
   }
 
   .pool-thumb {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid rgba(90, 67, 41, 0.14);
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid rgba(90, 67, 41, 0.12);
     border-radius: 8px;
-    align-items: start;
     background: #fff;
+    box-shadow: 0 12px 28px rgba(64, 45, 27, 0.04);
     cursor: pointer;
-    text-align: left;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .pool-thumb:hover,
   .pool-thumb.is-active {
-    border-color: rgba(217, 158, 43, 0.5);
-    background: #fffaf0;
+    border-color: rgba(217, 158, 43, 0.45);
+    box-shadow: 0 18px 34px rgba(64, 45, 27, 0.08);
     transform: translateY(-1px);
   }
 
@@ -532,28 +531,11 @@ const stays = [
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
-    border-radius: 5px;
     object-fit: cover;
   }
 
   .pool-thumb__meta {
-    display: grid;
-    gap: 4px;
-  }
-
-  .pool-thumb__meta strong {
-    color: #271d15;
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-
-  .pool-thumb__meta small {
-    color: rgba(46, 36, 27, 0.58);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    display: none;
   }
 
   .pool-soon-card {
@@ -657,16 +639,10 @@ const stays = [
       gap: 10px;
     }
 
-    .pool-thumb,
     .pool-stay-card,
     .pool-soon-card,
     .pool-closing {
       padding: 20px;
-    }
-
-    .pool-thumb {
-      gap: 8px;
-      padding: 8px;
     }
   }
 </style>
