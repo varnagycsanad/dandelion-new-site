@@ -50,7 +50,7 @@ const schemaScripts = [
     "@id": `${toAbsoluteUrl("/")}#organization`,
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
-    logo: toAbsoluteUrl("/favicon.svg"),
+    logo: toAbsoluteUrl("/images/LOGO/dandelion-vendeghazak-header-logo.png"),
     email: "hello@dandelionhouse.hu",
     telephone: "+36207730807"
   },
@@ -155,7 +155,8 @@ const groupedStayLinks = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedOgImage} />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -208,10 +209,10 @@ const groupedStayLinks = [
 
           <a href={homeHref} class="dnd-logo" aria-label="Dandelion Vendégházak">
             <img
-              src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png"
+              src="/images/LOGO/dandelion-vendeghazak-header-logo.png"
               alt="Dandelion Vendégházak"
-              width="420"
-              height="126"
+              width="2226"
+              height="586"
             />
           </a>
 
@@ -258,10 +259,10 @@ const groupedStayLinks = [
       <div class="dnd-container dnd-header__mobile">
         <a href={homeHref} class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
           <img
-            src="https://dandelionhouse.hu/wp-content/uploads/2026/02/DND-Vendeghaz-logo-fejslec-2.png"
+            src="/images/LOGO/dandelion-vendeghazak-header-logo.png"
             alt="Dandelion Vendégházak"
-            width="420"
-            height="126"
+            width="2226"
+            height="586"
           />
         </a>
 
