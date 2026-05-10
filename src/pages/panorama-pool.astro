@@ -1,0 +1,595 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { panoramaPoolImages } from "../data/images/panorama-pool-images";
+
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
+
+const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
+const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
+const galleryImages = sortedImages;
+const mainImageTitleId = "panorama-pool-main-image-title";
+const mainImageCaptionId = "panorama-pool-main-image-caption";
+
+const stays = [
+  {
+    title: "Dandelion D1",
+    href: resolveHref("/dandelion-d1/"),
+    description: "Kényelmes pihenés a Panorama Pool használatával, domboldali nyári hangulattal."
+  },
+  {
+    title: "Dandelion D2",
+    href: resolveHref("/dandelion-d2/"),
+    description: "Kisapáti szállás közvetlen medenceélménnyel, panorámás környezetben."
+  },
+  {
+    title: "Fügeház",
+    href: resolveHref("/fuge/"),
+    description: "Természetközeli elvonulás, ahol a panorámás medence a nyári pihenés része."
+  }
+];
+---
+
+<BaseLayout
+  title="Dandelion Panorama Pool – panorámás medence a Balaton-felvidéken"
+  description="Június 1-től új panorámás domboldali medence várja a Dandelion D1, D2 és Fügeház vendégeit Kisapátiban, a Balaton-felvidéken."
+  canonicalPath="/panorama-pool/"
+  ogImage={heroImage.src}
+  ogImageAlt={heroImage.altHu}
+>
+  <section class="pool-page">
+    <section class="pool-hero">
+      <div class="dnd-container pool-hero__grid">
+        <div class="pool-hero__content">
+          <span class="pool-eyebrow">Panorama Pool</span>
+          <h1>Dandelion Panorama Pool</h1>
+          <p class="pool-hero__lead">Új panorámás domboldali medence a Balaton-felvidéken.</p>
+          <p class="pool-hero__text">Június 1-től a D1, D2 és Fügeház vendégei használhatják.</p>
+          <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
+        </div>
+
+        <figure class="pool-hero__media">
+          <img
+            src={heroImage.src}
+            alt={heroImage.altHu}
+            title={heroImage.titleHu}
+            width="1800"
+            height="1350"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption>{heroImage.captionHu}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pool-intro">
+      <div class="dnd-container pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Bemutató</span>
+          <h2>Panorámás medence természetközeli környezetben.</h2>
+        </div>
+
+        <div class="pool-intro__grid">
+          <div class="pool-intro__copy">
+            <p>
+              A Dandelion Panorama Pool egy új, domboldali elhelyezkedésű medencetér Kisapátiban, a
+              Balaton-felvidék tanúhegyeinek látványával. A nyári használatot a fedhető kialakítás és a
+              sóbontós vízkezelés teszi kényelmessé.
+            </p>
+            <p>
+              A tér egyszerre marad levegős és visszafogott: a hangsúly a 8×4 méteres medencén, a
+              környező hegyeken és azon a természetközeli hangulaton van, amiért ezt a vidéket szeretni lehet.
+            </p>
+          </div>
+
+          <ul class="pool-feature-list" aria-label="Panorama Pool jellemzők">
+            <li>8×4 méteres medence</li>
+            <li>Kisapáti, Balaton-felvidék</li>
+            <li>Panoráma a tanúhegyekre</li>
+            <li>Domboldali elhelyezkedés</li>
+            <li>Sóbontós vízkezelés</li>
+            <li>Fedhető kialakítás</li>
+            <li>Természetközeli hangulat</li>
+            <li>Nyári vendégházas használat</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pool-stays" class="pool-stays">
+      <div class="dnd-container pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Elérhető szállások</span>
+          <h2>A Panorama Pool ezekhez a házakhoz érhető el.</h2>
+        </div>
+
+        <div class="pool-stays__grid">
+          {stays.map((stay) => (
+            <article class="pool-stay-card">
+              <h3>{stay.title}</h3>
+              <p>{stay.description}</p>
+              <a href={stay.href}>Oldal megnyitása</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-gallery">
+      <div class="dnd-container pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Galéria / teaser</span>
+          <h2>Első képek a készülő Panorama Pool környezetéről.</h2>
+          <p>
+            A galéria a valódi Panorama Pool képadatokat használja. A képek teaser hangulatban mutatják meg a
+            medencét, a fedhető kialakítást és a panorámás, még részben készülő környezetet.
+          </p>
+        </div>
+
+        <div class="pool-gallery__layout" data-pool-gallery>
+          <figure class="pool-gallery__main">
+            <img
+              id="pool-gallery-main-image"
+              src={heroImage.src}
+              alt={heroImage.altHu}
+              title={heroImage.titleHu}
+              width="1800"
+              height="1350"
+              loading="eager"
+              decoding="async"
+              data-default-src={heroImage.src}
+              data-default-alt={heroImage.altHu}
+              data-default-title={heroImage.titleHu}
+            />
+            <figcaption>
+              <strong id={mainImageTitleId}>{heroImage.titleHu}</strong>
+              <span id={mainImageCaptionId}>{heroImage.captionHu}</span>
+            </figcaption>
+          </figure>
+
+          <div class="pool-gallery__thumbs" role="list" aria-label="Panorama Pool képek">
+            {galleryImages.map((image, index) => (
+              <button
+                type="button"
+                class={`pool-thumb${image.id === heroImage.id ? " is-active" : ""}`}
+                aria-pressed={image.id === heroImage.id ? "true" : "false"}
+                aria-label={image.titleHu}
+                data-gallery-thumb
+                data-src={image.src}
+                data-alt={image.altHu}
+                data-title={image.titleHu}
+                data-caption={image.captionHu}
+              >
+                <img
+                  src={image.thumb}
+                  alt={image.altHu}
+                  title={image.titleHu}
+                  width="600"
+                  height="450"
+                  loading={index < 4 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+                <span class="pool-thumb__meta">
+                  <strong>{image.titleHu}</strong>
+                  <small>{image.usageHint === "hero" ? "Hero javaslat" : image.usageHint === "teaser" ? "Teaser" : "Galéria"}</small>
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-soon">
+      <div class="dnd-container pool-section-shell">
+        <div class="pool-soon__card">
+          <span class="pool-eyebrow">Coming soon</span>
+          <h2>A környezet még készül, a nyitás viszont már látható közelben van.</h2>
+          <p>
+            A Panorama Pool körüli tér még finomhangolás alatt áll, ezért a mostani galéria teaser jelleggel mutatja
+            be az érkező élményt.
+          </p>
+          <p>
+            További fotók és videók hamarosan érkeznek. Nyitás: <strong>2026. június 1.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-closing">
+      <div class="dnd-container pool-closing__inner">
+        <h2>Foglalj nyári pihenést medencehasználattal</h2>
+        <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
+      </div>
+    </section>
+  </section>
+
+  <script define:vars={{ mainImageTitleId, mainImageCaptionId }}>
+    (() => {
+      const gallery = document.querySelector("[data-pool-gallery]");
+      if (!gallery) return;
+
+      const mainImage = gallery.querySelector("#pool-gallery-main-image");
+      const titleNode = document.getElementById(mainImageTitleId);
+      const captionNode = document.getElementById(mainImageCaptionId);
+      const thumbs = Array.from(gallery.querySelectorAll("[data-gallery-thumb]"));
+
+      if (!mainImage || !titleNode || !captionNode || thumbs.length === 0) return;
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          const src = thumb.getAttribute("data-src") || mainImage.getAttribute("data-default-src") || "";
+          const alt = thumb.getAttribute("data-alt") || mainImage.getAttribute("data-default-alt") || "";
+          const title = thumb.getAttribute("data-title") || "";
+          const caption = thumb.getAttribute("data-caption") || "";
+
+          mainImage.setAttribute("src", src);
+          mainImage.setAttribute("alt", alt);
+          mainImage.setAttribute("title", title);
+          titleNode.textContent = title;
+          captionNode.textContent = caption;
+
+          thumbs.forEach((item) => {
+            item.classList.remove("is-active");
+            item.setAttribute("aria-pressed", "false");
+          });
+
+          thumb.classList.add("is-active");
+          thumb.setAttribute("aria-pressed", "true");
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .pool-page {
+    background: #fdfbf7;
+    color: #2e241b;
+  }
+
+  .pool-section-shell {
+    display: grid;
+    gap: 28px;
+  }
+
+  .pool-section-heading {
+    max-width: 760px;
+  }
+
+  .pool-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #d99e2b;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .pool-section-heading h2,
+  .pool-soon__card h2,
+  .pool-closing h2 {
+    margin: 0;
+    color: #2a2017;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(1.9rem, 3vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .pool-section-heading p,
+  .pool-intro__copy p,
+  .pool-stay-card p,
+  .pool-soon__card p {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.76);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .pool-hero {
+    padding: 128px 0 64px;
+  }
+
+  .pool-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 36px;
+    align-items: center;
+  }
+
+  .pool-hero__content {
+    max-width: 520px;
+  }
+
+  .pool-hero h1 {
+    margin: 0;
+    color: #241b14;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4.8rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .pool-hero__lead {
+    margin: 18px 0 0;
+    color: #4e4030;
+    font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+    line-height: 1.65;
+  }
+
+  .pool-hero__text {
+    margin: 10px 0 0;
+    color: rgba(46, 36, 27, 0.76);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .pool-button {
+    display: inline-flex;
+    min-height: 48px;
+    margin-top: 26px;
+    padding: 0 22px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    background: #d99e2b;
+    color: #1f170f;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .pool-button:hover {
+    background: #cb901f;
+    transform: translateY(-1px);
+  }
+
+  .pool-hero__media,
+  .pool-gallery__main,
+  .pool-soon__card,
+  .pool-stay-card {
+    overflow: hidden;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.06);
+  }
+
+  .pool-hero__media img,
+  .pool-gallery__main img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .pool-hero__media figcaption,
+  .pool-gallery__main figcaption {
+    display: grid;
+    gap: 6px;
+    padding: 16px 18px 18px;
+    color: rgba(46, 36, 27, 0.78);
+    line-height: 1.6;
+  }
+
+  .pool-hero__media figcaption {
+    font-size: 0.95rem;
+  }
+
+  .pool-gallery__main figcaption strong {
+    color: #241b14;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .pool-gallery__main figcaption span {
+    font-size: 0.94rem;
+  }
+
+  .pool-intro,
+  .pool-stays,
+  .pool-gallery,
+  .pool-soon {
+    padding: 18px 0 0;
+  }
+
+  .pool-closing {
+    padding: 36px 0 96px;
+  }
+
+  .pool-intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+    gap: 26px;
+    align-items: start;
+  }
+
+  .pool-intro__copy {
+    display: grid;
+    gap: 16px;
+  }
+
+  .pool-feature-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 22px;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: #fffaf0;
+    list-style: none;
+  }
+
+  .pool-feature-list li {
+    position: relative;
+    padding-left: 18px;
+    color: #443527;
+    line-height: 1.55;
+  }
+
+  .pool-feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #d99e2b;
+    transform: translateY(-50%);
+  }
+
+  .pool-stays__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .pool-stay-card {
+    display: grid;
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .pool-stay-card h3 {
+    margin: 0;
+    color: #241b14;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .pool-stay-card a {
+    color: #9b6d12;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .pool-gallery__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .pool-gallery__thumbs {
+    display: grid;
+    gap: 12px;
+  }
+
+  .pool-thumb {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 14px;
+    padding: 10px;
+    border: 1px solid rgba(90, 67, 41, 0.14);
+    border-radius: 8px;
+    align-items: center;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+
+  .pool-thumb:hover,
+  .pool-thumb.is-active {
+    border-color: rgba(217, 158, 43, 0.5);
+    background: #fffaf0;
+    transform: translateY(-1px);
+  }
+
+  .pool-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+
+  .pool-thumb__meta {
+    display: grid;
+    gap: 4px;
+  }
+
+  .pool-thumb__meta strong {
+    color: #271d15;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .pool-thumb__meta small {
+    color: rgba(46, 36, 27, 0.58);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .pool-soon__card {
+    max-width: 820px;
+    padding: 28px;
+  }
+
+  .pool-soon__card {
+    display: grid;
+    gap: 14px;
+  }
+
+  .pool-closing__inner {
+    display: grid;
+    gap: 18px;
+    justify-items: center;
+    padding: 34px 24px;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: #fff7e8;
+    text-align: center;
+  }
+
+  @media (max-width: 1080px) {
+    .pool-hero__grid,
+    .pool-gallery__layout,
+    .pool-intro__grid,
+    .pool-stays__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-hero__content {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pool-hero {
+      padding: 108px 0 46px;
+    }
+
+    .pool-section-shell {
+      gap: 22px;
+    }
+
+    .pool-thumb {
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 10px;
+      padding: 8px;
+    }
+
+    .pool-stay-card,
+    .pool-soon__card,
+    .pool-closing__inner {
+      padding: 20px;
+    }
+
+    .pool-closing {
+      padding-bottom: 72px;
+    }
+  }
+</style>
