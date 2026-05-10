@@ -38,8 +38,8 @@ const stays = [
   ogImageAlt={heroImage.altHu}
 >
   <section class="pool-page">
-    <section class="pool-hero">
-      <div class="dnd-container pool-hero__grid">
+    <section class="pool-section pool-section--hero">
+      <div class="dnd-container pool-shell pool-hero">
         <div class="pool-hero__content">
           <span class="pool-eyebrow">Panorama Pool</span>
           <h1>Dandelion Panorama Pool</h1>
@@ -63,14 +63,14 @@ const stays = [
       </div>
     </section>
 
-    <section class="pool-intro">
-      <div class="dnd-container pool-section-shell">
+    <section class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Bemutató</span>
           <h2>Panorámás medence természetközeli környezetben.</h2>
         </div>
 
-        <div class="pool-intro__grid">
+        <div class="pool-intro">
           <div class="pool-intro__copy">
             <p>
               A Dandelion Panorama Pool egy új, domboldali elhelyezkedésű medencetér Kisapátiban, a
@@ -97,14 +97,14 @@ const stays = [
       </div>
     </section>
 
-    <section id="pool-stays" class="pool-stays">
-      <div class="dnd-container pool-section-shell">
+    <section id="pool-stays" class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Elérhető szállások</span>
-          <h2>A Panorama Pool ezekhez a házakhoz érhető el.</h2>
+          <h2>A medence ezekhez a házakhoz érhető el.</h2>
         </div>
 
-        <div class="pool-stays__grid">
+        <div class="pool-stays">
           {stays.map((stay) => (
             <article class="pool-stay-card">
               <h3>{stay.title}</h3>
@@ -116,8 +116,8 @@ const stays = [
       </div>
     </section>
 
-    <section class="pool-gallery">
-      <div class="dnd-container pool-section-shell">
+    <section class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Galéria / teaser</span>
           <h2>Első képek a készülő Panorama Pool környezetéről.</h2>
@@ -127,7 +127,7 @@ const stays = [
           </p>
         </div>
 
-        <div class="pool-gallery__layout" data-pool-gallery>
+        <div class="pool-gallery" data-pool-gallery>
           <figure class="pool-gallery__main">
             <img
               id="pool-gallery-main-image"
@@ -181,11 +181,11 @@ const stays = [
       </div>
     </section>
 
-    <section class="pool-soon">
-      <div class="dnd-container pool-section-shell">
-        <div class="pool-soon__card">
+    <section class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
+        <div class="pool-soon-card">
           <span class="pool-eyebrow">Coming soon</span>
-          <h2>A környezet még készül, a nyitás viszont már látható közelben van.</h2>
+          <h2>A környezet még készül, a nyitás viszont már látható közelségben van.</h2>
           <p>
             A Panorama Pool körüli tér még finomhangolás alatt áll, ezért a mostani galéria teaser jelleggel mutatja
             be az érkező élményt.
@@ -197,10 +197,12 @@ const stays = [
       </div>
     </section>
 
-    <section class="pool-closing">
-      <div class="dnd-container pool-closing__inner">
-        <h2>Foglalj nyári pihenést medencehasználattal</h2>
-        <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
+    <section class="pool-section pool-section--closing">
+      <div class="dnd-container pool-shell">
+        <div class="pool-closing">
+          <h2>Foglalj nyári pihenést medencehasználattal</h2>
+          <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
+        </div>
       </div>
     </section>
   </section>
@@ -249,13 +251,26 @@ const stays = [
     color: #2e241b;
   }
 
-  .pool-section-shell {
-    display: grid;
-    gap: 28px;
+  .pool-shell {
+    max-width: 1224px;
   }
 
-  .pool-section-heading {
-    max-width: 760px;
+  .pool-section {
+    padding: 84px 0;
+  }
+
+  .pool-section--hero {
+    padding: 120px 0 78px;
+  }
+
+  .pool-section--closing {
+    padding-top: 28px;
+    padding-bottom: 88px;
+  }
+
+  .pool-section-shell {
+    display: grid;
+    gap: 24px;
   }
 
   .pool-eyebrow {
@@ -268,71 +283,76 @@ const stays = [
     text-transform: uppercase;
   }
 
+  .pool-section-heading {
+    max-width: 720px;
+  }
+
   .pool-section-heading h2,
-  .pool-soon__card h2,
+  .pool-soon-card h2,
   .pool-closing h2 {
     margin: 0;
     color: #2a2017;
     font-family: "Poppins", sans-serif;
-    font-size: clamp(1.9rem, 3vw, 3rem);
+    font-size: clamp(2.1rem, 3.5vw, 4rem);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.08;
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   .pool-section-heading p,
   .pool-intro__copy p,
   .pool-stay-card p,
-  .pool-soon__card p {
+  .pool-soon-card p {
     margin: 0;
     color: rgba(46, 36, 27, 0.76);
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.72;
   }
 
   .pool-hero {
-    padding: 128px 0 64px;
-  }
-
-  .pool-hero__grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 36px;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(460px, 1.1fr);
+    min-height: min(74vh, 720px);
+    gap: 40px;
     align-items: center;
   }
 
   .pool-hero__content {
-    max-width: 520px;
+    max-width: 500px;
+    padding: 12px 0;
   }
 
   .pool-hero h1 {
     margin: 0;
     color: #241b14;
     font-family: "Poppins", sans-serif;
-    font-size: clamp(2.6rem, 5vw, 4.8rem);
+    font-size: clamp(3.2rem, 5vw, 5.6rem);
     font-weight: 600;
-    line-height: 0.98;
+    line-height: 0.94;
     letter-spacing: -0.04em;
+    text-wrap: balance;
   }
 
   .pool-hero__lead {
-    margin: 18px 0 0;
+    margin: 20px 0 0;
     color: #4e4030;
-    font-size: clamp(1.05rem, 1.6vw, 1.28rem);
-    line-height: 1.65;
+    font-size: clamp(1.02rem, 1.35vw, 1.22rem);
+    line-height: 1.6;
   }
 
   .pool-hero__text {
-    margin: 10px 0 0;
+    max-width: 38ch;
+    margin: 12px 0 0;
     color: rgba(46, 36, 27, 0.76);
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.68;
   }
 
   .pool-button {
     display: inline-flex;
     min-height: 48px;
-    margin-top: 26px;
+    margin-top: 24px;
     padding: 0 22px;
     border-radius: 8px;
     align-items: center;
@@ -352,8 +372,9 @@ const stays = [
 
   .pool-hero__media,
   .pool-gallery__main,
-  .pool-soon__card,
-  .pool-stay-card {
+  .pool-soon-card,
+  .pool-stay-card,
+  .pool-closing {
     overflow: hidden;
     border: 1px solid rgba(90, 67, 41, 0.12);
     border-radius: 8px;
@@ -361,12 +382,24 @@ const stays = [
     box-shadow: 0 18px 44px rgba(64, 45, 27, 0.06);
   }
 
+  .pool-hero__media {
+    align-self: stretch;
+  }
+
   .pool-hero__media img,
   .pool-gallery__main img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
     object-fit: cover;
+  }
+
+  .pool-hero__media img {
+    height: 100%;
+    min-height: 560px;
+  }
+
+  .pool-gallery__main img {
+    aspect-ratio: 16 / 10;
   }
 
   .pool-hero__media figcaption,
@@ -392,21 +425,10 @@ const stays = [
     font-size: 0.94rem;
   }
 
-  .pool-intro,
-  .pool-stays,
-  .pool-gallery,
-  .pool-soon {
-    padding: 18px 0 0;
-  }
-
-  .pool-closing {
-    padding: 36px 0 96px;
-  }
-
-  .pool-intro__grid {
+  .pool-intro {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-    gap: 26px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 28px;
     align-items: start;
   }
 
@@ -419,7 +441,7 @@ const stays = [
     display: grid;
     gap: 12px;
     margin: 0;
-    padding: 22px;
+    padding: 22px 22px 24px;
     border: 1px solid rgba(90, 67, 41, 0.12);
     border-radius: 8px;
     background: #fffaf0;
@@ -445,7 +467,7 @@ const stays = [
     transform: translateY(-50%);
   }
 
-  .pool-stays__grid {
+  .pool-stays {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
@@ -453,8 +475,10 @@ const stays = [
 
   .pool-stay-card {
     display: grid;
-    gap: 14px;
-    padding: 24px;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    min-height: 212px;
+    padding: 22px 20px;
   }
 
   .pool-stay-card h3 {
@@ -472,26 +496,25 @@ const stays = [
     text-decoration: none;
   }
 
-  .pool-gallery__layout {
+  .pool-gallery {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-    gap: 20px;
-    align-items: start;
+    gap: 18px;
   }
 
   .pool-gallery__thumbs {
     display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
   }
 
   .pool-thumb {
     display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     padding: 10px;
     border: 1px solid rgba(90, 67, 41, 0.14);
     border-radius: 8px;
-    align-items: center;
+    align-items: start;
     background: #fff;
     cursor: pointer;
     text-align: left;
@@ -520,9 +543,9 @@ const stays = [
 
   .pool-thumb__meta strong {
     color: #271d15;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.3;
   }
 
   .pool-thumb__meta small {
@@ -533,63 +556,117 @@ const stays = [
     text-transform: uppercase;
   }
 
-  .pool-soon__card {
-    max-width: 820px;
-    padding: 28px;
-  }
-
-  .pool-soon__card {
+  .pool-soon-card {
     display: grid;
     gap: 14px;
+    max-width: 820px;
+    padding: 24px 24px 26px;
   }
 
-  .pool-closing__inner {
+  .pool-closing {
     display: grid;
-    gap: 18px;
+    gap: 16px;
     justify-items: center;
-    padding: 34px 24px;
-    border: 1px solid rgba(90, 67, 41, 0.12);
-    border-radius: 8px;
-    background: #fff7e8;
+    padding: 26px 24px 30px;
     text-align: center;
   }
 
   @media (max-width: 1080px) {
-    .pool-hero__grid,
-    .pool-gallery__layout,
-    .pool-intro__grid,
-    .pool-stays__grid {
+    .pool-section {
+      padding: 72px 0;
+    }
+
+    .pool-section--hero {
+      padding: 112px 0 70px;
+    }
+
+    .pool-hero,
+    .pool-intro {
       grid-template-columns: 1fr;
+    }
+
+    .pool-hero {
+      min-height: auto;
+      gap: 28px;
     }
 
     .pool-hero__content {
       max-width: 100%;
     }
+
+    .pool-hero__media img {
+      min-height: 0;
+      max-height: 620px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .pool-stays {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-gallery__thumbs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 767px) {
-    .pool-hero {
-      padding: 108px 0 46px;
+    .pool-section {
+      padding: 56px 0;
+    }
+
+    .pool-section--hero {
+      padding: 104px 0 54px;
+    }
+
+    .pool-section--closing {
+      padding-top: 16px;
+      padding-bottom: 72px;
     }
 
     .pool-section-shell {
-      gap: 22px;
+      gap: 18px;
     }
 
-    .pool-thumb {
-      grid-template-columns: 92px minmax(0, 1fr);
+    .pool-section-heading h2,
+    .pool-soon-card h2,
+    .pool-closing h2 {
+      font-size: clamp(1.9rem, 8vw, 2.6rem);
+    }
+
+    .pool-hero {
+      gap: 24px;
+    }
+
+    .pool-hero h1 {
+      font-size: clamp(2.6rem, 12vw, 3.7rem);
+      line-height: 0.98;
+    }
+
+    .pool-hero__lead {
+      font-size: 1rem;
+    }
+
+    .pool-hero__media img {
+      aspect-ratio: 4 / 4.4;
+      max-height: none;
+    }
+
+    .pool-gallery__thumbs {
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      padding: 8px;
     }
 
+    .pool-thumb,
     .pool-stay-card,
-    .pool-soon__card,
-    .pool-closing__inner {
+    .pool-soon-card,
+    .pool-closing {
       padding: 20px;
     }
 
-    .pool-closing {
-      padding-bottom: 72px;
+    .pool-thumb {
+      gap: 8px;
+      padding: 8px;
     }
   }
 </style>
