@@ -7,6 +7,14 @@ export interface AccommodationChip {
   type?: AccommodationChipType;
 }
 
+export interface AccommodationSection {
+  key: "upland" | "shore" | "kali";
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  gridClass: "dnd-grid--3" | "dnd-grid--2" | "dnd-grid--1";
+}
+
 export interface Accommodation {
   name: string;
   slug: string;
@@ -17,10 +25,10 @@ export interface Accommodation {
   imageSlot: HomepageImageSlotKey;
   chips: AccommodationChip[];
   badge?: string;
-  section: "upland" | "shore";
+  section: AccommodationSection["key"];
 }
 
-export const accommodationSections = [
+export const accommodationSections: AccommodationSection[] = [
   {
     key: "upland",
     eyebrow: "Kisapáti · Szent György-hegy · Tapolcai-medence",
@@ -36,8 +44,16 @@ export const accommodationSections = [
     subtitle:
       "Itt a Balaton közelsége adja a ritmust: strandolás, naplementék, könnyebb nyári napok és kényelmes, jól megközelíthető szállások. A vízparti élmény itt modernebb, lazább és közvetlenebb formában érkezik.",
     gridClass: "dnd-grid--2"
+  },
+  {
+    key: "kali",
+    eyebrow: "Köveskál · Káli-medence · elvonulós pihenés",
+    title: "A Káli-medence csendjében",
+    subtitle:
+      "Nyitott terek, kőfalak, különös fények és visszafogott vidéki hangulat teszik ezt a térséget igazán sajátossá. Nem harsány, nem sietős, inkább lassan és mélyen hat.",
+    gridClass: "dnd-grid--1"
   }
-] as const;
+];
 
 export const accommodations: Accommodation[] = [
   {
@@ -187,6 +203,24 @@ export const accommodations: Accommodation[] = [
       { label: "2 fürdő" },
       { label: "Nagy udvar", type: "green" },
       { label: "Badacsonyörs" }
+    ]
+  },
+  {
+    name: "Dandelion Köveskál",
+    slug: "dandelion-koveskal",
+    url: "/dandelion-koveskal/",
+    location: "Köveskál / Káli-medence",
+    description: "Elvonulós vendégház a Káli-medence csendesebb, lassabb ritmusára hangolva.",
+    hoverText: "Kőfalak, nyitott terek és igazi káli-medencei nyugalom egy helyen.",
+    imageSlot: "koveskal_card_image",
+    section: "kali",
+    chips: [
+      { label: "Vendégház", type: "accent" },
+      { label: "Káli-medence", type: "green" },
+      { label: "Csendes", type: "purple" },
+      { label: "Természetközeli", type: "green" },
+      { label: "Elvonuláshoz ideális", type: "purple" },
+      { label: "Köveskál" }
     ]
   }
 ];

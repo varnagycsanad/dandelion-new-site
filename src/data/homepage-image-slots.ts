@@ -4,6 +4,7 @@ export type HomepageImageSlotKey =
   | "d1_card_image"
   | "d2_card_image"
   | "fugehaz_card_image"
+  | "koveskal_card_image"
   | "zsalya_card_image"
   | "szololiget_card_image"
   | "szepvolgyi_card_image"
@@ -30,17 +31,22 @@ export const homepageImageSlots: HomepageImageSlotDefinition[] = [
   {
     key: "d1_card_image",
     label: "Dandelion D1 kártya",
-    description: "A Dandelion D1 főoldali kártyakép."
+    description: "A Dandelion D1 főoldali kártyaképe."
   },
   {
     key: "d2_card_image",
     label: "Dandelion D2 kártya",
-    description: "A Dandelion D2 főoldali kártyakép."
+    description: "A Dandelion D2 főoldali kártyaképe."
   },
   {
     key: "fugehaz_card_image",
     label: "Fügeház kártya",
     description: "A Dandelion Fügeház főoldali kártyaképe."
+  },
+  {
+    key: "koveskal_card_image",
+    label: "Köveskál kártya",
+    description: "A Dandelion Köveskál főoldali kártyaképe."
   },
   {
     key: "zsalya_card_image",

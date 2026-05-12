@@ -31,6 +31,7 @@ const slotAccommodationKeyMap: Partial<Record<HomepageImageSlotKey, string>> = {
   d1_card_image: "d1",
   d2_card_image: "d2",
   fugehaz_card_image: "fugehaz",
+  koveskal_card_image: "koveskal",
   zsalya_card_image: "zsalya",
   szololiget_card_image: "szololiget",
   szepvolgyi_card_image: "szepvolgyi",
