@@ -66,6 +66,5 @@
     sendConsentState(analyticsGranted, marketingGranted);
   };
 
-  // Must run before GTM script init.
-  window.dndSetConsentDefaults();
+  // Defaults are sent inline in BaseLayout before GTM loads.
 })();

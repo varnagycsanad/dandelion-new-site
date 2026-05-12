@@ -4,9 +4,9 @@ window.klaroConfig = {
   cookieName: "dnd-klaro-consent",
   cookieExpiresAfterDays: 365,
   mustConsent: true,
+  default: false,
   acceptAll: true,
   hideDeclineAll: false,
-  default: false,
   lang: "hu",
   translations: {
     hu: {
@@ -23,8 +23,9 @@ window.klaroConfig = {
       decline: "Elutasítom",
       acceptAll: "Elfogadom",
       acceptSelected: "Kiválasztottak elfogadása",
-      close: "Mentés",
       save: "Mentés",
+      close: "Mentés",
+      settings: "Beállítások",
       purposes: {
         necessary: "Szükséges",
         analytics: "Analitika",
@@ -36,10 +37,6 @@ window.klaroConfig = {
           description: "Kapcsold ki az összes opcionális szolgáltatást."
         }
       },
-      contextualConsent: {
-        acceptAlways: "Mindig engedélyezem"
-      },
-      settings: "Beállítások",
       googleAnalytics: {
         title: "Google Analytics (GA4)"
       },
@@ -62,9 +59,12 @@ window.klaroConfig = {
       purposes: ["analytics"],
       required: false,
       default: false,
-      onInit: "window.dndApplyConsentFromKlaro(opts.consents);",
-      onAccept: "window.dndApplyConsentFromKlaro(opts.consents);",
-      onDecline: "window.dndApplyConsentFromKlaro(opts.consents);"
+      onlyOnce: true,
+      callback: function (_consent, _service) {
+        if (typeof window.dndApplyConsentFromKlaro === "function" && window.klaro?.getManager) {
+          window.dndApplyConsentFromKlaro(window.klaro.getManager().consents);
+        }
+      }
     },
     {
       name: "metaPixel",
@@ -72,14 +72,17 @@ window.klaroConfig = {
       purposes: ["marketing"],
       required: false,
       default: false,
-      onInit: "window.dndApplyConsentFromKlaro(opts.consents);",
-      onAccept: "window.dndApplyConsentFromKlaro(opts.consents);",
-      onDecline: "window.dndApplyConsentFromKlaro(opts.consents);"
+      onlyOnce: true,
+      callback: function (_consent, _service) {
+        if (typeof window.dndApplyConsentFromKlaro === "function" && window.klaro?.getManager) {
+          window.dndApplyConsentFromKlaro(window.klaro.getManager().consents);
+        }
+      }
     }
   ],
-  callback: function (consent, service) {
-    if (service) {
-      window.dndApplyConsentFromKlaro(klaro.getManager().consents);
+  callback: function (_consent, _service) {
+    if (typeof window.dndApplyConsentFromKlaro === "function" && window.klaro?.getManager) {
+      window.dndApplyConsentFromKlaro(window.klaro.getManager().consents);
     }
   }
 };
