@@ -58,6 +58,25 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Snapshot current dist
+        run: |
+          set -euo pipefail
+          rm -rf dist-current
+          mkdir -p dist-current
+          rsync -a dist/ dist-current/
+
+      - name: Build previous dist snapshot
+        if: github.event_name == 'push' && github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf ../_prev_build
+          git worktree add --detach ../_prev_build "${{ github.event.before }}"
+          pushd ../_prev_build >/dev/null
+          npm ci
+          npm run build
+          popd >/dev/null
+
       - name: Detect accommodation image changes
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         id: path_changes
@@ -111,11 +130,44 @@ jobs:
           esac
 
           mkdir -p deploy-dist
-          rsync -av --delete \
-            --exclude "_local/" \
-            --exclude "images/accommodations/" \
-            --exclude "videos/accommodations/" \
-            dist/ deploy-dist/
+          : > deploy-files.txt
+          : > deploy-delete.txt
+
+          if [ -d ../_prev_build/dist ] && [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            rsync -rcn --delete --itemize-changes --out-format='%i|%n' \
+              --exclude "_local/" \
+              --exclude "images/accommodations/" \
+              --exclude "videos/accommodations/" \
+              dist-current/ ../_prev_build/dist/ > dist-delta.txt
+
+            while IFS='|' read -r change path; do
+              [ -z "${change:-}" ] && continue
+
+              if [[ "$change" == \*deleting* ]]; then
+                echo "$path" >> deploy-delete.txt
+                continue
+              fi
+
+              if [[ "$change" == '>'* ]] && [ -f "dist-current/$path" ]; then
+                mkdir -p "deploy-dist/$(dirname "$path")"
+                cp -a "dist-current/$path" "deploy-dist/$path"
+                echo "$path" >> deploy-files.txt
+              fi
+            done < dist-delta.txt
+          else
+            rsync -av \
+              --exclude "_local/" \
+              --exclude "images/accommodations/" \
+              --exclude "videos/accommodations/" \
+              dist-current/ deploy-dist/
+
+            find deploy-dist -type f -printf '%P\n' > deploy-files.txt
+          fi
+
+          sort -u deploy-files.txt -o deploy-files.txt
+          sort -u deploy-delete.txt -o deploy-delete.txt
+          echo "Upload candidates: $(wc -l < deploy-files.txt)"
+          echo "Delete candidates: $(wc -l < deploy-delete.txt)"
 
       - name: Prepare accommodation image payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
@@ -156,20 +208,39 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          if [ ! -s deploy-files.txt ] && [ ! -s deploy-delete.txt ]; then
+            echo "No root deploy changes detected."
+            exit 0
+          fi
+
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R \
-            --only-newer \
-            --overwrite \
-            --exclude-glob images/accommodations/** \
-            --exclude-glob videos/accommodations/** \
-            --exclude-glob dandelion-image-admin-rest \
-            --exclude-glob dandelion-image-admin-rest/** \
-            --exclude-glob dandelion-image-admin-v2 \
-            --exclude-glob dandelion-image-admin-v2/** \
-            deploy-dist/ "${UJSITE_FTP_PATH}"
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            remote_dir="${UJSITE_FTP_PATH%/}/$(dirname "$rel")"
+            if [ "$(dirname "$rel")" = "." ]; then
+              remote_dir="${UJSITE_FTP_PATH%/}"
+            fi
+            printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
+          done < deploy-files.txt)
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            printf 'rm -f "%s/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
+          done < deploy-delete.txt)
           bye
           EOF
+
+      - name: Cleanup previous worktree
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d ../_prev_build ]; then
+            git worktree remove --force ../_prev_build || true
+            rm -rf ../_prev_build || true
+          fi
 
       - name: Deploy accommodation images over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
