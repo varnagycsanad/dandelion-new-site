@@ -324,57 +324,19 @@ const groupedStayLinks = [
     {!hideFooter && <SiteFooter />}
 
     <div class="dnd-consent" data-dnd-consent hidden>
-      <div class="dnd-consent__backdrop" data-dnd-consent-close></div>
       <section class="dnd-consent__panel" aria-label="Süti beállítások">
-        <div class="dnd-consent__summary" data-dnd-consent-summary>
-          <h2>Süti beállítások</h2>
+        <div class="dnd-consent__summary">
+          <h2>Kérem, válasszon az alábbi „süti” lehetőségek közül:</h2>
           <p>
-            A szükséges sütiken felül analitikai és marketing sütiket is használhatunk.
-            <button type="button" class="dnd-consent__text-link" data-dnd-consent-open-settings>Bővebben</button>
+            Más weboldalakhoz hasonlóan a dandelionhouse.hu is úgynevezett „sütiket” használ ahhoz, hogy hosszú távon is megfelelően tudja biztosítani a működését. Ezekről részletes tájékoztatást
+            <a href="/adatkezelesi-tajekoztato/" class="dnd-consent__text-link">Bővebben</a>
           </p>
           <div class="dnd-consent__actions">
-            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-reject>
-              Csak a szükségeseket engedélyezem
-            </button>
             <button type="button" class="dnd-consent__button dnd-consent__button--primary" data-dnd-consent-accept-all>
               Összes elfogadása
             </button>
-          </div>
-        </div>
-
-        <div class="dnd-consent__details" data-dnd-consent-details hidden>
-          <div class="dnd-consent__detail-grid">
-            <article class="dnd-consent__option">
-              <div>
-                <h3>Szükséges</h3>
-                <p>A weboldal alapműködéséhez kellenek.</p>
-              </div>
-              <span class="dnd-consent__badge">Mindig aktív</span>
-            </article>
-
-            <label class="dnd-consent__option" for="dnd-consent-analytics">
-              <div>
-                <h3>Analitika</h3>
-                <p>Segít megérteni az oldalhasználatot.</p>
-              </div>
-              <input id="dnd-consent-analytics" type="checkbox" data-dnd-consent-analytics />
-            </label>
-
-            <label class="dnd-consent__option" for="dnd-consent-marketing">
-              <div>
-                <h3>Marketing</h3>
-                <p>Remarketing és hirdetési mérés.</p>
-              </div>
-              <input id="dnd-consent-marketing" type="checkbox" data-dnd-consent-marketing />
-            </label>
-          </div>
-
-          <div class="dnd-consent__actions">
-            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-back>
-              Vissza
-            </button>
-            <button type="button" class="dnd-consent__button dnd-consent__button--primary" data-dnd-consent-save>
-              Beállítások mentése
+            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-reject>
+              Csak a szükségesek elfogadása
             </button>
           </div>
         </div>
@@ -424,44 +386,19 @@ const groupedStayLinks = [
         });
 
         const consentRoot = document.querySelector("[data-dnd-consent]");
-        const consentSummary = document.querySelector("[data-dnd-consent-summary]");
-        const consentDetails = document.querySelector("[data-dnd-consent-details]");
-        const analyticsInput = document.querySelector("[data-dnd-consent-analytics]");
-        const marketingInput = document.querySelector("[data-dnd-consent-marketing]");
-        const openSettingsButton = document.querySelector("[data-dnd-consent-open-settings]");
         const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
         const rejectButton = document.querySelector("[data-dnd-consent-reject]");
-        const saveButton = document.querySelector("[data-dnd-consent-save]");
-        const backButton = document.querySelector("[data-dnd-consent-back]");
-        const closeElements = document.querySelectorAll("[data-dnd-consent-close]");
 
-        if (!consentRoot || !analyticsInput || !marketingInput) {
+        if (!consentRoot) {
           return;
         }
 
         const showConsent = () => {
           consentRoot.hidden = false;
-          document.body.classList.add("has-consent-open");
         };
 
         const hideConsent = () => {
           consentRoot.hidden = true;
-          document.body.classList.remove("has-consent-open");
-        };
-
-        const showSummary = () => {
-          consentSummary?.removeAttribute("hidden");
-          consentDetails?.setAttribute("hidden", "true");
-        };
-
-        const showDetails = () => {
-          consentSummary?.setAttribute("hidden", "true");
-          consentDetails?.removeAttribute("hidden");
-        };
-
-        const syncInputs = (consent) => {
-          analyticsInput.checked = Boolean(consent?.analytics);
-          marketingInput.checked = Boolean(consent?.marketing);
         };
 
         const persistConsent = (consent) => {
@@ -473,42 +410,20 @@ const groupedStayLinks = [
         const storedConsent = window.dndGetStoredConsent?.();
 
         if (storedConsent) {
-          syncInputs(storedConsent);
           window.dndApplyStoredConsent?.();
         } else {
-          syncInputs({ analytics: false, marketing: false });
-          showSummary();
           showConsent();
         }
 
-        openSettingsButton?.addEventListener("click", showDetails);
-        backButton?.addEventListener("click", showSummary);
         acceptAllButton?.addEventListener("click", () => {
           persistConsent({ analytics: true, marketing: true });
         });
         rejectButton?.addEventListener("click", () => {
           persistConsent({ analytics: false, marketing: false });
         });
-        saveButton?.addEventListener("click", () => {
-          persistConsent({
-            analytics: analyticsInput.checked,
-            marketing: marketingInput.checked
-          });
-        });
-        closeElements.forEach((element) => {
-          element.addEventListener("click", () => {
-            if (window.dndGetStoredConsent?.()) {
-              hideConsent();
-            }
-          });
-        });
       })();
     </script>
     <style>
-      body.has-consent-open {
-        overflow: hidden;
-      }
-
       .dnd-nav__submenu {
         min-width: 280px;
         gap: 16px;
@@ -598,30 +513,25 @@ const groupedStayLinks = [
 
       .dnd-consent {
         position: fixed;
-        inset: 0;
+        top: 20px;
+        left: 24px;
+        right: 24px;
         z-index: 1200;
-      }
-
-      .dnd-consent__backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(45, 36, 28, 0.36);
-        backdrop-filter: blur(3px);
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
       }
 
       .dnd-consent__panel {
-        position: absolute;
-        left: 50%;
-        top: 18px;
-        width: min(calc(100% - 32px), 960px);
-        padding: 18px 24px;
+        width: min(100%, 980px);
+        padding: 24px 28px;
         border: 1px solid rgba(94, 65, 39, 0.16);
         border-radius: 16px;
         background: rgba(45, 36, 28, 0.94);
         box-shadow: 0 16px 38px rgba(45, 36, 28, 0.22);
         font-family: "Poppins", Arial, sans-serif;
         color: #fdfbf7;
-        transform: translateX(-50%);
+        pointer-events: auto;
       }
 
       .dnd-consent__panel h2,
@@ -641,62 +551,14 @@ const groupedStayLinks = [
         margin: 0;
         color: rgba(253, 251, 247, 0.82);
         line-height: 1.45;
-        max-width: 64ch;
+        max-width: 72ch;
         font-size: 0.88rem;
         text-align: center;
       }
 
-      .dnd-consent__summary,
-      .dnd-consent__details {
+      .dnd-consent__summary {
         display: grid;
         gap: 10px;
-      }
-
-      .dnd-consent__detail-grid {
-        display: grid;
-        gap: 8px;
-      }
-
-      .dnd-consent__option {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px 14px;
-        border: 1px solid rgba(253, 251, 247, 0.12);
-        border-radius: 14px;
-        background: rgba(253, 251, 247, 0.06);
-      }
-
-      .dnd-consent__option h3 {
-        font-size: 1rem;
-        color: #fdfbf7;
-      }
-
-      .dnd-consent__option p {
-        margin-top: 4px;
-        font-size: 0.84rem;
-        line-height: 1.4;
-        color: rgba(253, 251, 247, 0.72);
-      }
-
-      .dnd-consent__option input {
-        width: 18px;
-        height: 18px;
-        accent-color: #d99e2b;
-        flex-shrink: 0;
-      }
-
-      .dnd-consent__badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: rgba(217, 158, 43, 0.18);
-        color: #fdfbf7;
-        font-size: 0.76rem;
-        font-weight: 600;
-        white-space: nowrap;
       }
 
       .dnd-consent__actions {
@@ -741,19 +603,20 @@ const groupedStayLinks = [
         color: #d99e2b;
         font: inherit;
         font-weight: 700;
-        cursor: pointer;
+        text-decoration: none;
       }
 
       @media (max-width: 640px) {
-        .dnd-consent__panel {
+        .dnd-consent {
+          top: auto;
           left: 12px;
           right: 12px;
-          top: auto;
           bottom: 12px;
-          width: auto;
+        }
+
+        .dnd-consent__panel {
           padding: 14px;
           border-radius: 16px;
-          transform: none;
         }
 
         .dnd-consent__actions {
