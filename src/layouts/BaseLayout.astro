@@ -163,6 +163,10 @@ const groupedStayLinks = [
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/vendor/klaro/klaro.min.css" />
+    <script defer src="/scripts/consent-init.js"></script>
+    <script defer src="/scripts/klaro-config.js"></script>
+    <script defer data-config="klaroConfig" src="/vendor/klaro/klaro-no-css.js"></script>
     <script is:inline>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -438,6 +442,36 @@ const groupedStayLinks = [
 
       .dnd-mobile-menu[data-open="true"] {
         max-height: 560px;
+      }
+
+      /* Klaro banner - lightweight Dandelion look */
+      #dnd-klaro .cookie-notice,
+      #dnd-klaro .cookie-modal {
+        font-family: "Poppins", Arial, sans-serif;
+        background: #fdfbf7;
+        color: #000;
+      }
+
+      #dnd-klaro .cn-buttons button,
+      #dnd-klaro .cm-btn {
+        border-radius: 8px;
+        border: 1px solid rgba(217, 158, 43, 0.55);
+        background: #fff;
+        color: #000;
+        font-weight: 600;
+      }
+
+      #dnd-klaro .cn-buttons .cm-btn-success,
+      #dnd-klaro .cm-btn.cm-btn-success {
+        background: #d99e2b;
+        border-color: #d99e2b;
+        color: #000;
+      }
+
+      #dnd-klaro .cm-list-title,
+      #dnd-klaro .cm-app-title,
+      #dnd-klaro .cm-title {
+        color: #000;
       }
     </style>
   </body>
