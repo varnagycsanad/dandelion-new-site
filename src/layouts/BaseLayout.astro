@@ -186,16 +186,7 @@ const groupedStayLinks = [
     </script>
     <script defer src="/scripts/consent-init.js"></script>
     <script defer src="/scripts/klaro-config.js"></script>
-    <script defer is:inline data-config="klaroConfig" data-no-auto-load="true" src="/vendor/klaro/klaro-no-css.js"></script>
-    <script defer is:inline>
-      window.addEventListener("DOMContentLoaded", function () {
-        if (!window.klaro || !window.klaroConfig) {
-          return;
-        }
-
-        window.klaro.initialize(window.klaroConfig);
-      });
-    </script>
+    <script defer is:inline data-config="klaroConfig" src="/vendor/klaro/klaro-no-css.js"></script>
     {schemaScripts.map((item) => (
       <script type="application/ld+json" set:html={JSON.stringify(item)} />
     ))}
