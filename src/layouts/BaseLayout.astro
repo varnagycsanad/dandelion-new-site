@@ -476,9 +476,19 @@ const groupedStayLinks = [
           };
 
           const persistConsent = (consent) => {
-            window.dndSaveConsent?.(consent);
-            window.dndApplyConsent?.(consent);
             hideConsent();
+
+            try {
+              window.dndSaveConsent?.(consent);
+            } catch (_error) {
+              // The banner should still close even if persistence fails.
+            }
+
+            try {
+              window.dndApplyConsent?.(consent);
+            } catch (_error) {
+              // Consent update failures should not block the UI.
+            }
           };
 
           const storedConsent = window.dndGetStoredConsent();
