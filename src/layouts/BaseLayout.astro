@@ -362,72 +362,83 @@ const groupedStayLinks = [
 
     <script>
       (() => {
-        const header = document.querySelector("[data-dnd-header]");
-        const toggle = document.querySelector("[data-dnd-menu-toggle]");
-        const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
-        const quickContact = document.querySelector("[data-dnd-quick-contact]");
-        const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
+        const initHeader = () => {
+          const header = document.querySelector("[data-dnd-header]");
+          const toggle = document.querySelector("[data-dnd-menu-toggle]");
+          const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
+          const quickContact = document.querySelector("[data-dnd-quick-contact]");
+          const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
 
-        if (!header) return;
+          if (!header) {
+            return;
+          }
 
-        const updateHeader = () => {
-          header.classList.toggle("is-scrolled", window.scrollY > 24);
+          const updateHeader = () => {
+            header.classList.toggle("is-scrolled", window.scrollY > 24);
+          };
+
+          updateHeader();
+          window.addEventListener("scroll", updateHeader, { passive: true });
+
+          toggle?.addEventListener("click", () => {
+            const isOpen = header.classList.toggle("is-menu-open");
+            toggle.setAttribute("aria-expanded", String(isOpen));
+            mobileMenu?.setAttribute("data-open", String(isOpen));
+          });
+
+          quickContactToggle?.addEventListener("click", () => {
+            const isOpen = quickContact?.classList.toggle("is-open") ?? false;
+            quickContactToggle.setAttribute("aria-expanded", String(isOpen));
+          });
         };
 
-        updateHeader();
-        window.addEventListener("scroll", updateHeader, { passive: true });
+        const initConsent = () => {
+          const consentRoot = document.querySelector("[data-dnd-consent]");
+          const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
+          const rejectButton = document.querySelector("[data-dnd-consent-reject]");
+          const closeButton = document.querySelector("[data-dnd-consent-close]");
 
-        toggle?.addEventListener("click", () => {
-          const isOpen = header.classList.toggle("is-menu-open");
-          toggle.setAttribute("aria-expanded", String(isOpen));
-          mobileMenu?.setAttribute("data-open", String(isOpen));
-        });
+          if (!consentRoot || typeof window.dndGetStoredConsent !== "function") {
+            return;
+          }
 
-        quickContactToggle?.addEventListener("click", () => {
-          const isOpen = quickContact?.classList.toggle("is-open") ?? false;
-          quickContactToggle.setAttribute("aria-expanded", String(isOpen));
-        });
+          const showConsent = () => {
+            consentRoot.hidden = false;
+          };
 
-        const consentRoot = document.querySelector("[data-dnd-consent]");
-        const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
-        const rejectButton = document.querySelector("[data-dnd-consent-reject]");
-        const closeButton = document.querySelector("[data-dnd-consent-close]");
+          const hideConsent = () => {
+            consentRoot.hidden = true;
+          };
 
-        if (!consentRoot) {
-          return;
-        }
+          const persistConsent = (consent) => {
+            window.dndSaveConsent?.(consent);
+            window.dndApplyConsent?.(consent);
+            hideConsent();
+          };
 
-        const showConsent = () => {
-          consentRoot.hidden = false;
+          const storedConsent = window.dndGetStoredConsent();
+
+          if (storedConsent) {
+            window.dndApplyStoredConsent?.();
+          } else {
+            showConsent();
+          }
+
+          acceptAllButton?.addEventListener("click", () => {
+            persistConsent({ analytics: true, marketing: true });
+          });
+          rejectButton?.addEventListener("click", () => {
+            persistConsent({ analytics: false, marketing: false });
+          });
+          closeButton?.addEventListener("click", () => {
+            persistConsent({ analytics: false, marketing: false });
+          });
         };
 
-        const hideConsent = () => {
-          consentRoot.hidden = true;
-        };
-
-        const persistConsent = (consent) => {
-          window.dndSaveConsent?.(consent);
-          window.dndApplyConsent?.(consent);
-          hideConsent();
-        };
-
-        const storedConsent = window.dndGetStoredConsent?.();
-
-        if (storedConsent) {
-          window.dndApplyStoredConsent?.();
-        } else {
-          showConsent();
-        }
-
-        acceptAllButton?.addEventListener("click", () => {
-          persistConsent({ analytics: true, marketing: true });
-        });
-        rejectButton?.addEventListener("click", () => {
-          persistConsent({ analytics: false, marketing: false });
-        });
-        closeButton?.addEventListener("click", () => {
-          persistConsent({ analytics: false, marketing: false });
-        });
+        window.addEventListener("DOMContentLoaded", () => {
+          initHeader();
+          initConsent();
+        }, { once: true });
       })();
     </script>
     <style>
@@ -520,39 +531,37 @@ const groupedStayLinks = [
 
       .dnd-consent {
         position: fixed;
-        top: 20px;
-        left: 24px;
-        right: 24px;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
         z-index: 1200;
         display: flex;
         justify-content: center;
-        pointer-events: none;
       }
 
       .dnd-consent__panel {
         position: relative;
-        width: min(100%, 980px);
-        padding: 24px 28px;
+        width: min(100%, 920px);
+        padding: 16px 18px;
         border: 1px solid rgba(94, 65, 39, 0.16);
-        border-radius: 16px;
+        border-radius: 14px;
         background: rgba(45, 36, 28, 0.94);
-        box-shadow: 0 16px 38px rgba(45, 36, 28, 0.22);
+        box-shadow: 0 12px 28px rgba(45, 36, 28, 0.18);
         font-family: "Poppins", Arial, sans-serif;
         color: #fdfbf7;
-        pointer-events: auto;
       }
 
       .dnd-consent__close {
         position: absolute;
-        top: 12px;
-        right: 14px;
-        width: 32px;
-        height: 32px;
+        top: 8px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
         border: 0;
         border-radius: 999px;
         background: transparent;
-        color: rgba(253, 251, 247, 0.92);
-        font-size: 1.7rem;
+        color: rgba(253, 251, 247, 0.84);
+        font-size: 1.35rem;
         line-height: 1;
         cursor: pointer;
       }
@@ -564,43 +573,44 @@ const groupedStayLinks = [
       }
 
       .dnd-consent__panel h2 {
-        font-size: clamp(1rem, 1.3vw, 1.25rem);
-        line-height: 1.2;
-        font-weight: 700;
+        font-size: clamp(0.88rem, 1vw, 1rem);
+        line-height: 1.35;
+        font-weight: 500;
         text-align: center;
       }
 
       .dnd-consent__panel p {
         margin: 0;
         color: rgba(253, 251, 247, 0.82);
-        line-height: 1.45;
-        max-width: 72ch;
-        font-size: 0.88rem;
+        line-height: 1.5;
+        max-width: 78ch;
+        font-size: 0.78rem;
+        font-weight: 400;
         text-align: center;
       }
 
       .dnd-consent__summary {
         display: grid;
-        gap: 10px;
+        gap: 8px;
       }
 
       .dnd-consent__actions {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
         align-items: center;
       }
 
       .dnd-consent__button {
-        min-height: 38px;
-        padding: 0 20px;
+        min-height: 34px;
+        padding: 0 16px;
         border-radius: 999px;
         border: 1px solid rgba(253, 251, 247, 0.8);
         background: transparent;
         color: #fdfbf7;
-        font-weight: 600;
-        font-size: 0.9rem;
+        font-weight: 400;
+        font-size: 0.82rem;
         cursor: pointer;
         transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
       }
@@ -625,21 +635,20 @@ const groupedStayLinks = [
         background: none;
         color: #d99e2b;
         font: inherit;
-        font-weight: 700;
+        font-weight: 500;
         text-decoration: none;
       }
 
       @media (max-width: 640px) {
         .dnd-consent {
-          top: auto;
           left: 12px;
           right: 12px;
           bottom: 12px;
         }
 
         .dnd-consent__panel {
-          padding: 14px;
-          border-radius: 16px;
+          padding: 14px 14px 12px;
+          border-radius: 14px;
         }
 
         .dnd-consent__actions {
