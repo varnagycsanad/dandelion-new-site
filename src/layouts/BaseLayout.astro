@@ -397,6 +397,71 @@ const groupedStayLinks = [
           const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
           const rejectButton = document.querySelector("[data-dnd-consent-reject]");
           const closeButton = document.querySelector("[data-dnd-consent-close]");
+          const storageKey = "dnd-consent-settings";
+
+          if (typeof window.dndGetStoredConsent !== "function") {
+            window.dndGetStoredConsent = () => {
+              try {
+                const rawValue = window.localStorage.getItem(storageKey);
+                return rawValue ? JSON.parse(rawValue) : null;
+              } catch (_error) {
+                return null;
+              }
+            };
+          }
+
+          if (typeof window.dndSaveConsent !== "function") {
+            window.dndSaveConsent = (consent) => {
+              const payload = {
+                analytics: Boolean(consent?.analytics),
+                marketing: Boolean(consent?.marketing),
+                savedAt: new Date().toISOString()
+              };
+              window.localStorage.setItem(storageKey, JSON.stringify(payload));
+              return payload;
+            };
+          }
+
+          if (typeof window.dndApplyConsent !== "function") {
+            window.dndApplyConsent = (consent) => {
+              const analyticsGranted = Boolean(consent?.analytics);
+              const marketingGranted = Boolean(consent?.marketing);
+
+              window.gtag?.("consent", "update", {
+                analytics_storage: analyticsGranted ? "granted" : "denied",
+                ad_storage: marketingGranted ? "granted" : "denied",
+                ad_user_data: marketingGranted ? "granted" : "denied",
+                ad_personalization: marketingGranted ? "granted" : "denied"
+              });
+
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: "dnd_consent_update",
+                dnd_analytics_granted: analyticsGranted,
+                dnd_marketing_granted: marketingGranted
+              });
+
+              if (analyticsGranted) {
+                window.dataLayer.push({ event: "dnd_analytics_granted" });
+              }
+
+              if (marketingGranted) {
+                window.dataLayer.push({ event: "dnd_marketing_granted" });
+              }
+
+              return {
+                analytics: analyticsGranted,
+                marketing: marketingGranted
+              };
+            };
+          }
+
+          if (typeof window.dndApplyStoredConsent !== "function") {
+            window.dndApplyStoredConsent = () => {
+              const storedConsent = window.dndGetStoredConsent();
+              return storedConsent ? window.dndApplyConsent(storedConsent) : null;
+            };
+          }
 
           if (!consentRoot || typeof window.dndGetStoredConsent !== "function") {
             return;
@@ -435,10 +500,16 @@ const groupedStayLinks = [
           });
         };
 
-        window.addEventListener("DOMContentLoaded", () => {
+        const boot = () => {
           initHeader();
           initConsent();
-        }, { once: true });
+        };
+
+        if (document.readyState === "loading") {
+          window.addEventListener("DOMContentLoaded", boot, { once: true });
+        } else {
+          boot();
+        }
       })();
     </script>
     <style>
