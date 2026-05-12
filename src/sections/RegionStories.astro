@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import kisapatiStoryImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
 import balatonStoryImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
 import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
-import stickyBackgroundImage from "../assets/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp";
+import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
 
 const regionStories = [
   {
@@ -57,10 +57,12 @@ const regionStories = [
     <div class="dnd-region-stories__list">
       <div class="dnd-region-stories__sticky-layer" aria-hidden="true">
         <div class="dnd-region-stories__sticky-band">
-          <div
+          <Image
             class="dnd-region-stories__sticky-band-image"
-            style={`background-image: url('${stickyBackgroundImage.src}');`}
-          ></div>
+            src={stickyBackgroundImage}
+            alt="Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve"
+            loading="lazy"
+          />
         </div>
       </div>
 
@@ -111,9 +113,9 @@ const regionStories = [
   .dnd-region-stories__sticky-band-image {
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center 35%;
-    background-repeat: no-repeat;
+    object-fit: cover;
+    object-position: center 42%;
+    display: block;
   }
 
   .dnd-region-stories__inner {

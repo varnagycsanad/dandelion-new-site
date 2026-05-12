@@ -4,6 +4,8 @@ import Hero from "../sections/Hero.astro";
 import RegionStories from "../sections/RegionStories.astro";
 import Experiences from "../sections/Experiences.astro";
 import GoogleRegionMap from "../sections/GoogleRegionMap.astro";
+import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
+import { toAbsoluteUrl } from "../data/site-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 
@@ -47,11 +49,28 @@ const d2Reviews = [
 
 const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
 const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
+const homepageOgImageAlt = "Napfelkelte a Szent Gyorgy-hegyrol a Tapolcai-medencere nezve";
+const homepageStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "@id": `${toAbsoluteUrl("/")}#homepage-region-image`,
+    contentUrl: toAbsoluteUrl(homeRegionOgImage.src),
+    url: toAbsoluteUrl(homeRegionOgImage.src),
+    name: "Szent Gyorgy-hegy napfelkelte panorama",
+    description: homepageOgImageAlt,
+    caption: homepageOgImageAlt,
+    inLanguage: "hu-HU"
+  }
+];
 ---
 
 <BaseLayout
   title="Dandelion Vendégházak | Szállás a Balaton-felvidéken"
   description="Természetközeli vendégházak a Balaton-felvidéken és a Balaton közelében, közvetlen foglalással, nyugodt környezetben és egyedi pihenési élménnyel."
+  ogImage={homeRegionOgImage.src}
+  ogImageAlt={homepageOgImageAlt}
+  structuredData={homepageStructuredData}
 >
   <Hero />
   <section class="d2-reviews dnd-section" aria-labelledby="homepage-reviews-title">
