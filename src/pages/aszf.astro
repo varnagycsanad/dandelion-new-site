@@ -1,29 +1,247 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// [CHANGE 2026-05-12 00:00] A rövid ÁSZF placeholder teljes, tagolt ÁSZF tartalomra cserélve a meglévő legal-page stílushoz igazítva.
+
+const sections = [
+  {
+    number: "1",
+    title: "Foglalás módja",
+    paragraphs: [
+      "Foglalás lehetséges honlapunkon az online foglalómotoron keresztül, e-mailben, telefonon, illetve értékesítési csatornákon (OTA) keresztül.",
+      "OTA foglalás esetén az adott csatorna saját fizetési és lemondási feltételei az irányadók."
+    ]
+  },
+  {
+    number: "2",
+    title: "Árak, kötelező tételek",
+    paragraphs: [
+      "A legkedvezőbb szállásdíjak jellemzően a honlapunkon érhetők el."
+    ],
+    bullets: [
+      "Idegenforgalmi adó (IFA): a mindenkori helyi rendelet szerint fizetendő. Az IFA önkormányzatonként eltér, ezért szálláshelyenként és házanként változhat; a foglalás során feltüntetett összeg az irányadó. Tájékoztató jelleggel több szálláshelyünkön 750 Ft / fő / éj.",
+      "Végtakarítás: a foglalás során feltüntetett összeg, amely szállásonként eltérhet; jellemzően 20.000 Ft vagy 30.000 Ft / foglalás."
+    ]
+  },
+  {
+    number: "3",
+    title: "Székely Dézsa használat, ahol elérhető",
+    paragraphs: [
+      "A Székely Dézsa használata külön díjas, és csak azoknál a szálláshelyeknél érhető el, ahol a dézsa rendelkezésre áll.",
+      "A dézsát jellemzően nem érdemes egy napra felfűteni, mert a felfűtés idő- és energiaigényes, ezért a minimális használati idő 2 nap.",
+      "A dézsa szolgáltatás igényét kérjük előre jelezni a foglaláskor vagy érkezés előtt, hogy biztosan elő tudjuk készíteni."
+    ],
+    bullets: [
+      "Felfűtési díj (egyszeri): 15.000 Ft",
+      "Napi használati díj: 7.500 Ft / nap",
+      "Példa 2 éj esetén: 15.000 Ft + 2 × 7.500 Ft = 30.000 Ft",
+      "Hosszabb dézsa használat esetén az árak egyedi egyeztetés alapján alakulhatnak."
+    ]
+  },
+  {
+    number: "4",
+    title: "Fizetési feltételek",
+    paragraphs: [
+      "A foglalás véglegesítéséhez a szállásdíj 30%-át kérjük banki átutalással megfizetni a foglalást követő 5 munkanapon belül. A foglalás az előleg beérkezésével válik garantálttá.",
+      "A fennmaradó szállásdíj beköltözéskor fizetendő készpénzben vagy banki átutalással.",
+      "A közleményben kérjük feltüntetni a foglaló nevét és az érkezés dátumát. Ha a foglaló nem az érkező vendég, akkor az érkező vendég neve is szerepeljen."
+    ]
+  },
+  {
+    number: "5",
+    title: "Utalási adatok",
+    paragraphs: [
+      "Az előleg utalásához kérjük a foglalt szálláshelyhez tartozó számlaadatokat használd. Magyarországi foglalás esetén javasolt HUF-ban utalni, külföldről történő utalásnál EUR utalás is lehetséges. A pontos fizetendő összeg és a választott pénznem minden esetben a foglalás visszaigazolásában szerepel."
+    ],
+    groups: [
+      {
+        title: "Dandelion D1 / D2 / Fügeház",
+        lines: [
+          "Kedvezményezett: Várnagy Ilona",
+          "Revolut",
+          "OTP HUF",
+          "Számlaszám / IBAN",
+          "OTP EUR",
+          "Számlaszám / IBAN",
+          "BIC / SWIFT"
+        ]
+      },
+      {
+        title: "Dandelion Zsálya / Szőlőliget / Royal Homes / Szépvölgyi",
+        lines: [
+          "Kedvezményezett: Dandelion Vendégházak Kft.",
+          "OTP HUF",
+          "Számlaszám / IBAN",
+          "OTP EUR",
+          "Számlaszám / IBAN",
+          "BIC / SWIFT"
+        ]
+      }
+    ],
+    note: "Tipp: mobilon a mezők hosszan érintve egyszerűen másolhatók."
+  },
+  {
+    number: "6",
+    title: "Lemondási feltételek",
+    bullets: [
+      "Díjmentes lemondás: érkezés előtt 30 nappal vagy korábban lemondva az előleg visszajár.",
+      "30 napon belüli lemondás: az előleg nem visszatérítendő, a lemondási díj a foglalás 30%-a.",
+      "No-show vagy érkezés napján történő lemondás esetén a szállásdíj 100%-a fizetendő."
+    ],
+    paragraphs: [
+      "A lemondás akkor érvényes, ha azt a vendég írásban, e-mailben megküldi, vagy a foglalási rendszeren, illetve az értékesítési csatornán keresztül hivatalosan lemondja. A lemondás időpontjának a beérkezés időpontja számít.",
+      "Ha a lemondás alapján az előleg visszajár, azt legkésőbb 5 munkanapon belül visszautaljuk arra a bankszámlára, ahonnan az előleg érkezett, vagy amelyet a vendég írásban megad."
+    ]
+  },
+  {
+    number: "7",
+    title: "Be- és kijelentkezés / self check-in",
+    paragraphs: [
+      "A beköltözés jellemzően self check-in rendszerben történik, kulcsdoboz használatával. A részletes érkezési információkat e-mailben küldjük.",
+      "A szállás elfoglalásának feltétele az online bejelentkezés elvégzése, a vendégadatok és okmányok rögzítésével. Enélkül a rendszer nem küldi ki a belépési vagy kulcsdobozkódot."
+    ]
+  },
+  {
+    number: "8",
+    title: "Érkezés–távozás",
+    bullets: [
+      "Check-in: 15:00–19:00",
+      "Check-out: 10:00-ig",
+      "Késői érkezés lehetséges, de előzetes jelzés szükséges.",
+      "Korai check-in vagy késői check-out kapacitástól függően, maximum ±2 órában kérhető, díja 4.000 Ft / alkalom."
+    ]
+  },
+  {
+    number: "9",
+    title: "Kaució",
+    paragraphs: [
+      "Kauciót alapesetben nem kérünk. Kivételes esetekben azonban kaució kérhető, erről a vendéget minden esetben előre tájékoztatjuk.",
+      "Károkozás hiányában a kauciót a távozás utáni ellenőrzést követően visszafizetjük. Károkozás esetén a kár értéke levonható."
+    ]
+  },
+  {
+    number: "10",
+    title: "Házirend, dohányzás, kisállatok",
+    bullets: [
+      "A berendezést rendeltetésszerűen kell használni, a tűz- és balesetvédelmi szabályok betartása kötelező.",
+      "Dohányzás: minden szálláshely nemdohányzó. Beltéri dohányzás esetén 30.000 Ft extra takarítási díjat számítunk fel.",
+      "Kisállatot nem tudunk fogadni."
+    ]
+  },
+  {
+    number: "11",
+    title: "Vendégek száma",
+    paragraphs: [
+      "Csak az előzetesen bejelentett vendégek tartózkodhatnak a szálláshelyen."
+    ]
+  },
+  {
+    number: "12",
+    title: "Takarítás",
+    paragraphs: [
+      "A foglalás végösszegében külön végtakarítási díj szerepelhet, amelyet a foglalási folyamat minden esetben külön feltüntet.",
+      "Rendkívüli szennyeződés vagy a házirend megsértése esetén extra takarítási díj számítható fel."
+    ]
+  },
+  {
+    number: "13",
+    title: "Károkozás / felelősség",
+    paragraphs: [
+      "Károkozás esetén a vendég köteles a keletkezett kárt megtéríteni.",
+      "A szálláshely berendezéseit, eszközeit és felszereléseit kérjük rendeltetésszerűen használni. Szükség esetén a kár összege a kaucióból levonható, vagy külön kerül rendezésre."
+    ]
+  },
+  {
+    number: "14",
+    title: "Kapcsolat",
+    paragraphs: [
+      "Kérdés esetén örömmel segítünk a foglalással, fizetéssel, érkezéssel vagy a szálláshelyekkel kapcsolatban."
+    ],
+    contacts: [
+      { label: "E-mail", value: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+      { label: "Telefon", value: "+36 20 773 0807", href: "tel:+36207730807" }
+    ]
+  }
+];
 ---
 
 <BaseLayout
   title="ÁSZF | Dandelion Vendégházak"
-  description="Foglalási és szolgáltatási alapinformációk a Dandelion Vendégházak vendégei számára."
+  description="A Dandelion Vendégházak általános szerződési és foglalási feltételei: fizetés, előleg, lemondás, check-in, házirend és kapcsolati adatok."
   canonicalPath="/aszf/"
 >
   <section class="legal-page">
     <div class="dnd-container legal-page__inner">
       <span class="legal-page__eyebrow">Jogi információ</span>
-      <h1>Általános szerződési és foglalási tudnivalók</h1>
-      <p>
-        A Dandelion Vendégházak foglalásai a hivatalos online foglalási felületen keresztül történnek.
-        A végleges árak, fizetési feltételek, lemondási szabályok és vendégadatok minden esetben a
-        foglalási folyamatban és a visszaigazoló üzenetben kerülnek rögzítésre.
+      <h1>ÁSZF – Általános Szerződési Feltételek</h1>
+      <p class="legal-page__lead">
+        A Dandelion Vendégházak foglalási és tartózkodási feltételei az alábbiak szerint érvényesek.
+        A foglalás elküldésével és visszaigazolásával a vendég jelen feltételeket elfogadja.
       </p>
 
-      <div class="legal-page__card">
-        <h2>Mit érdemes tudni foglalás előtt?</h2>
-        <ul>
-          <li>A szabad időpontok és az árak az online foglalási felületen ellenőrizhetők.</li>
-          <li>A foglalás végleges feltételeit a visszaigazolás tartalmazza.</li>
-          <li>Kérdés esetén közvetlenül a hello@dandelionhouse.hu címen vagy a +36 20 773 0807 számon segítünk.</li>
-        </ul>
+      <div class="legal-page__intro-card">
+        <div>
+          <span class="legal-page__meta-label">Érvényesség</span>
+          <strong>Érvényes: 2026. február 01-től</strong>
+        </div>
+        <div>
+          <span class="legal-page__meta-label">Kapcsolat</span>
+          <a href="mailto:hello@dandelionhouse.hu">hello@dandelionhouse.hu</a>
+          <a href="tel:+36207730807">+36 20 773 0807</a>
+        </div>
+      </div>
+
+      <div class="legal-page__notice">
+        <p>
+          A legjobb áraink jellemzően a saját foglalómotorunkban érhetők el.
+          OTA foglalásnál, például Booking vagy Airbnb esetén, mindig az adott csatorna saját
+          fizetési és lemondási feltételei érvényesek.
+        </p>
+      </div>
+
+      <div class="legal-page__sections">
+        {sections.map((section) => (
+          <article class="legal-page__card">
+            <header class="legal-page__card-header">
+              <span class="legal-page__index">{section.number}</span>
+              <h2>{section.title}</h2>
+            </header>
+
+            {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            )}
+
+            {section.groups && (
+              <div class="legal-page__groups">
+                {section.groups.map((group) => (
+                  <section class="legal-page__group">
+                    <h3>{group.title}</h3>
+                    <ul class="legal-page__group-list">
+                      {group.lines.map((line) => <li>{line}</li>)}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {section.note && <p class="legal-page__note">{section.note}</p>}
+
+            {section.contacts && (
+              <div class="legal-page__contacts">
+                {section.contacts.map((contact) => (
+                  <a href={contact.href} class="legal-page__contact-item">
+                    <span>{contact.label}</span>
+                    <strong>{contact.value}</strong>
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -32,17 +250,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <style>
   .legal-page {
     padding: 132px 0 88px;
-    background: #fcfbf8;
+    background: #fdfbf7;
   }
 
   .legal-page__inner {
     display: grid;
-    gap: 22px;
-    max-width: 780px;
+    gap: 24px;
+    max-width: 920px;
   }
 
   .legal-page__eyebrow {
-    color: #b67b20;
+    color: #d99e2b;
     font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -50,7 +268,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 
   .legal-page h1,
-  .legal-page h2 {
+  .legal-page h2,
+  .legal-page h3 {
     margin: 0;
     color: #261d16;
   }
@@ -62,28 +281,198 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     line-height: 1.08;
   }
 
+  .legal-page h2 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .legal-page h3 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .legal-page p,
+  .legal-page li,
+  .legal-page a,
+  .legal-page strong,
+  .legal-page span {
+    font-family: "Poppins", Arial, sans-serif;
+  }
+
   .legal-page p,
   .legal-page li {
+    margin: 0;
     color: rgba(38, 29, 22, 0.78);
     font-size: 1rem;
     line-height: 1.72;
   }
 
-  .legal-page__card {
-    padding: 24px;
-    border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 18px;
-    background: #fff;
+  .legal-page a {
+    color: #8f6217;
+    text-decoration: none;
   }
 
-  .legal-page__card ul {
-    margin: 14px 0 0;
-    padding-left: 20px;
+  .legal-page a:hover {
+    color: #d99e2b;
+  }
+
+  .legal-page__lead {
+    max-width: 780px;
+    font-size: 1.04rem;
+  }
+
+  .legal-page__intro-card,
+  .legal-page__notice,
+  .legal-page__card {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .legal-page__intro-card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 22px 24px;
+  }
+
+  .legal-page__intro-card strong,
+  .legal-page__intro-card a {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .legal-page__meta-label {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(38, 29, 22, 0.54);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .legal-page__notice {
+    padding: 18px 24px;
+    background: rgba(217, 158, 43, 0.08);
+  }
+
+  .legal-page__sections {
+    display: grid;
+    gap: 18px;
+  }
+
+  .legal-page__card {
+    display: grid;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .legal-page__card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .legal-page__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.14);
+    color: #a46f17;
+    font-size: 0.92rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .legal-page__card ul,
+  .legal-page__group-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .legal-page__groups {
+    display: grid;
+    gap: 14px;
+  }
+
+  .legal-page__group {
+    display: grid;
+    gap: 10px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #fffaf0;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+  }
+
+  .legal-page__group-list {
+    padding-left: 1rem;
+  }
+
+  .legal-page__note {
+    color: rgba(38, 29, 22, 0.6);
+    font-size: 0.94rem;
+  }
+
+  .legal-page__contacts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .legal-page__contact-item {
+    display: grid;
+    gap: 4px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #fffaf0;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+  }
+
+  .legal-page__contact-item span {
+    color: rgba(38, 29, 22, 0.54);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .legal-page__contact-item strong {
+    color: #261d16;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   @media (max-width: 767px) {
     .legal-page {
       padding: 110px 0 64px;
+    }
+
+    .legal-page__inner {
+      gap: 20px;
+    }
+
+    .legal-page__intro-card,
+    .legal-page__contacts {
+      grid-template-columns: 1fr;
+    }
+
+    .legal-page__card {
+      padding: 20px;
+    }
+
+    .legal-page__card-header {
+      align-items: flex-start;
     }
   }
 </style>
