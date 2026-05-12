@@ -163,7 +163,6 @@ const groupedStayLinks = [
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/vendor/klaro/klaro.min.css" />
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       window.gtag = window.gtag || function () {
@@ -185,21 +184,6 @@ const groupedStayLinks = [
       })(window,document,'script','dataLayer','GTM-P75FHKLJ');
     </script>
     <script defer src="/scripts/consent-init.js"></script>
-    <script defer src="/scripts/klaro-config.js"></script>
-    <script defer is:inline data-config="klaroConfig" src="/vendor/klaro/klaro-no-css.js"></script>
-    <script defer is:inline>
-      window.addEventListener("load", function () {
-        if (!window.klaro || !window.klaroConfig) {
-          return;
-        }
-
-        if (document.cookie.includes("dnd-klaro-consent=")) {
-          return;
-        }
-
-        window.klaro.show(window.klaroConfig, true);
-      });
-    </script>
     {schemaScripts.map((item) => (
       <script type="application/ld+json" set:html={JSON.stringify(item)} />
     ))}
@@ -339,6 +323,68 @@ const groupedStayLinks = [
 
     {!hideFooter && <SiteFooter />}
 
+    <div class="dnd-consent" data-dnd-consent hidden>
+      <div class="dnd-consent__backdrop" data-dnd-consent-close></div>
+      <section class="dnd-consent__panel" aria-label="Süti beállítások">
+        <div class="dnd-consent__summary" data-dnd-consent-summary>
+          <p class="dnd-consent__eyebrow">Süti beállítások</p>
+          <h2>Szeretnénk tisztán kezelni a hozzájárulásokat.</h2>
+          <p>
+            A szükséges működésen felül külön engedélyezheted az analitikai és marketing célú mérést.
+            A beállításokat később is módosíthatod.
+          </p>
+          <div class="dnd-consent__actions">
+            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-open-settings>
+              Beállítások
+            </button>
+            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-reject>
+              Elutasítom
+            </button>
+            <button type="button" class="dnd-consent__button dnd-consent__button--primary" data-dnd-consent-accept-all>
+              Elfogadom
+            </button>
+          </div>
+        </div>
+
+        <div class="dnd-consent__details" data-dnd-consent-details hidden>
+          <div class="dnd-consent__detail-grid">
+            <article class="dnd-consent__option">
+              <div>
+                <h3>Szükséges</h3>
+                <p>Ezek biztosítják a weboldal alapvető működését, ezért mindig aktívak maradnak.</p>
+              </div>
+              <span class="dnd-consent__badge">Mindig aktív</span>
+            </article>
+
+            <label class="dnd-consent__option" for="dnd-consent-analytics">
+              <div>
+                <h3>Analitika</h3>
+                <p>Segít megérteni, hogyan használják a látogatók az oldalt.</p>
+              </div>
+              <input id="dnd-consent-analytics" type="checkbox" data-dnd-consent-analytics />
+            </label>
+
+            <label class="dnd-consent__option" for="dnd-consent-marketing">
+              <div>
+                <h3>Marketing</h3>
+                <p>Lehetővé teszi a remarketing és közösségi hirdetési méréseket.</p>
+              </div>
+              <input id="dnd-consent-marketing" type="checkbox" data-dnd-consent-marketing />
+            </label>
+          </div>
+
+          <div class="dnd-consent__actions">
+            <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-back>
+              Vissza
+            </button>
+            <button type="button" class="dnd-consent__button dnd-consent__button--primary" data-dnd-consent-save>
+              Beállítások mentése
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
     {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
       <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>
         {quickContacts.map((item) => (
@@ -380,9 +426,93 @@ const groupedStayLinks = [
           const isOpen = quickContact?.classList.toggle("is-open") ?? false;
           quickContactToggle.setAttribute("aria-expanded", String(isOpen));
         });
+
+        const consentRoot = document.querySelector("[data-dnd-consent]");
+        const consentSummary = document.querySelector("[data-dnd-consent-summary]");
+        const consentDetails = document.querySelector("[data-dnd-consent-details]");
+        const analyticsInput = document.querySelector("[data-dnd-consent-analytics]");
+        const marketingInput = document.querySelector("[data-dnd-consent-marketing]");
+        const openSettingsButton = document.querySelector("[data-dnd-consent-open-settings]");
+        const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
+        const rejectButton = document.querySelector("[data-dnd-consent-reject]");
+        const saveButton = document.querySelector("[data-dnd-consent-save]");
+        const backButton = document.querySelector("[data-dnd-consent-back]");
+        const closeElements = document.querySelectorAll("[data-dnd-consent-close]");
+
+        if (!consentRoot || !analyticsInput || !marketingInput) {
+          return;
+        }
+
+        const showConsent = () => {
+          consentRoot.hidden = false;
+          document.body.classList.add("has-consent-open");
+        };
+
+        const hideConsent = () => {
+          consentRoot.hidden = true;
+          document.body.classList.remove("has-consent-open");
+        };
+
+        const showSummary = () => {
+          consentSummary?.removeAttribute("hidden");
+          consentDetails?.setAttribute("hidden", "true");
+        };
+
+        const showDetails = () => {
+          consentSummary?.setAttribute("hidden", "true");
+          consentDetails?.removeAttribute("hidden");
+        };
+
+        const syncInputs = (consent) => {
+          analyticsInput.checked = Boolean(consent?.analytics);
+          marketingInput.checked = Boolean(consent?.marketing);
+        };
+
+        const persistConsent = (consent) => {
+          window.dndSaveConsent?.(consent);
+          window.dndApplyConsent?.(consent);
+          hideConsent();
+        };
+
+        const storedConsent = window.dndGetStoredConsent?.();
+
+        if (storedConsent) {
+          syncInputs(storedConsent);
+          window.dndApplyStoredConsent?.();
+        } else {
+          syncInputs({ analytics: false, marketing: false });
+          showSummary();
+          showConsent();
+        }
+
+        openSettingsButton?.addEventListener("click", showDetails);
+        backButton?.addEventListener("click", showSummary);
+        acceptAllButton?.addEventListener("click", () => {
+          persistConsent({ analytics: true, marketing: true });
+        });
+        rejectButton?.addEventListener("click", () => {
+          persistConsent({ analytics: false, marketing: false });
+        });
+        saveButton?.addEventListener("click", () => {
+          persistConsent({
+            analytics: analyticsInput.checked,
+            marketing: marketingInput.checked
+          });
+        });
+        closeElements.forEach((element) => {
+          element.addEventListener("click", () => {
+            if (window.dndGetStoredConsent?.()) {
+              hideConsent();
+            }
+          });
+        });
       })();
     </script>
     <style>
+      body.has-consent-open {
+        overflow: hidden;
+      }
+
       .dnd-nav__submenu {
         min-width: 280px;
         gap: 16px;
@@ -470,34 +600,157 @@ const groupedStayLinks = [
         max-height: 560px;
       }
 
-      /* Klaro banner - lightweight Dandelion look */
-      #dnd-klaro .cookie-notice,
-      #dnd-klaro .cookie-modal {
-        font-family: "Poppins", Arial, sans-serif;
-        background: #fdfbf7;
-        color: #000;
+      .dnd-consent {
+        position: fixed;
+        inset: 0;
+        z-index: 1200;
       }
 
-      #dnd-klaro .cn-buttons button,
-      #dnd-klaro .cm-btn {
-        border-radius: 8px;
+      .dnd-consent__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(45, 36, 28, 0.36);
+        backdrop-filter: blur(3px);
+      }
+
+      .dnd-consent__panel {
+        position: absolute;
+        right: 24px;
+        bottom: 24px;
+        width: min(100%, 460px);
+        padding: 24px;
+        border: 1px solid rgba(94, 65, 39, 0.16);
+        border-radius: 24px;
+        background: #fdfbf7;
+        box-shadow: 0 20px 60px rgba(45, 36, 28, 0.16);
+        font-family: "Poppins", Arial, sans-serif;
+        color: #000000;
+      }
+
+      .dnd-consent__eyebrow {
+        margin: 0 0 10px;
+        color: #d99e2b;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .dnd-consent__panel h2,
+      .dnd-consent__panel h3 {
+        margin: 0;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+
+      .dnd-consent__panel h2 {
+        font-size: 1.55rem;
+        line-height: 1.2;
+      }
+
+      .dnd-consent__panel p {
+        margin: 0;
+        color: rgba(0, 0, 0, 0.74);
+        line-height: 1.65;
+      }
+
+      .dnd-consent__summary,
+      .dnd-consent__details {
+        display: grid;
+        gap: 18px;
+      }
+
+      .dnd-consent__detail-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .dnd-consent__option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 16px 18px;
+        border: 1px solid rgba(94, 65, 39, 0.12);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .dnd-consent__option p {
+        margin-top: 6px;
+        font-size: 0.93rem;
+      }
+
+      .dnd-consent__option input {
+        width: 20px;
+        height: 20px;
+        accent-color: #d99e2b;
+        flex-shrink: 0;
+      }
+
+      .dnd-consent__badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(217, 158, 43, 0.14);
+        color: rgba(45, 36, 28, 0.82);
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .dnd-consent__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .dnd-consent__button {
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 999px;
         border: 1px solid rgba(217, 158, 43, 0.55);
         background: #fff;
         color: #000;
         font-weight: 600;
+        cursor: pointer;
+        transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
       }
 
-      #dnd-klaro .cn-buttons .cm-btn-success,
-      #dnd-klaro .cm-btn.cm-btn-success {
+      .dnd-consent__button:hover {
+        transform: translateY(-1px);
+      }
+
+      .dnd-consent__button--primary {
         background: #d99e2b;
         border-color: #d99e2b;
-        color: #000;
       }
 
-      #dnd-klaro .cm-list-title,
-      #dnd-klaro .cm-app-title,
-      #dnd-klaro .cm-title {
-        color: #000;
+      .dnd-consent__button--ghost {
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      @media (max-width: 640px) {
+        .dnd-consent__panel {
+          right: 12px;
+          left: 12px;
+          bottom: 12px;
+          width: auto;
+          padding: 20px;
+          border-radius: 20px;
+        }
+
+        .dnd-consent__actions {
+          flex-direction: column;
+        }
+
+        .dnd-consent__button {
+          width: 100%;
+        }
+
+        .dnd-consent__option {
+          align-items: flex-start;
+        }
       }
     </style>
   </body>
