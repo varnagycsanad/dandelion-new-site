@@ -328,10 +328,10 @@ const groupedStayLinks = [
       <section class="dnd-consent__panel" aria-label="Süti beállítások">
         <div class="dnd-consent__summary" data-dnd-consent-summary>
           <p class="dnd-consent__eyebrow">Süti beállítások</p>
-          <h2>Szeretnénk tisztán kezelni a hozzájárulásokat.</h2>
+          <h2>Kérjük, válassz a süti beállítások közül.</h2>
           <p>
-            A szükséges működésen felül külön engedélyezheted az analitikai és marketing célú mérést.
-            A beállításokat később is módosíthatod.
+            A szükséges működésen felül analitikai és marketing sütiket is használhatunk.
+            A részleteket a beállításoknál bármikor módosíthatod.
           </p>
           <div class="dnd-consent__actions">
             <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-open-settings>
@@ -615,16 +615,17 @@ const groupedStayLinks = [
 
       .dnd-consent__panel {
         position: absolute;
-        right: 24px;
+        left: 50%;
         bottom: 24px;
-        width: min(100%, 460px);
-        padding: 24px;
+        width: min(calc(100% - 32px), 760px);
+        padding: 22px 26px;
         border: 1px solid rgba(94, 65, 39, 0.16);
-        border-radius: 24px;
+        border-radius: 20px;
         background: #fdfbf7;
         box-shadow: 0 20px 60px rgba(45, 36, 28, 0.16);
         font-family: "Poppins", Arial, sans-serif;
         color: #000000;
+        transform: translateX(-50%);
       }
 
       .dnd-consent__eyebrow {
@@ -643,25 +644,28 @@ const groupedStayLinks = [
       }
 
       .dnd-consent__panel h2 {
-        font-size: 1.55rem;
-        line-height: 1.2;
+        font-size: clamp(1.15rem, 2vw, 1.6rem);
+        line-height: 1.15;
+        max-width: 24ch;
       }
 
       .dnd-consent__panel p {
         margin: 0;
         color: rgba(0, 0, 0, 0.74);
-        line-height: 1.65;
+        line-height: 1.55;
+        max-width: 62ch;
+        font-size: 0.98rem;
       }
 
       .dnd-consent__summary,
       .dnd-consent__details {
         display: grid;
-        gap: 18px;
+        gap: 14px;
       }
 
       .dnd-consent__detail-grid {
         display: grid;
-        gap: 12px;
+        gap: 10px;
       }
 
       .dnd-consent__option {
@@ -669,15 +673,15 @@ const groupedStayLinks = [
         align-items: center;
         justify-content: space-between;
         gap: 14px;
-        padding: 16px 18px;
+        padding: 14px 16px;
         border: 1px solid rgba(94, 65, 39, 0.12);
-        border-radius: 18px;
+        border-radius: 16px;
         background: rgba(255, 255, 255, 0.72);
       }
 
       .dnd-consent__option p {
-        margin-top: 6px;
-        font-size: 0.93rem;
+        margin-top: 4px;
+        font-size: 0.9rem;
       }
 
       .dnd-consent__option input {
@@ -703,16 +707,18 @@ const groupedStayLinks = [
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        align-items: center;
       }
 
       .dnd-consent__button {
-        min-height: 46px;
-        padding: 0 18px;
+        min-height: 42px;
+        padding: 0 16px;
         border-radius: 999px;
         border: 1px solid rgba(217, 158, 43, 0.55);
         background: #fff;
         color: #000;
         font-weight: 600;
+        font-size: 0.95rem;
         cursor: pointer;
         transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
       }
@@ -732,12 +738,12 @@ const groupedStayLinks = [
 
       @media (max-width: 640px) {
         .dnd-consent__panel {
-          right: 12px;
           left: 12px;
           bottom: 12px;
           width: auto;
-          padding: 20px;
+          padding: 18px;
           border-radius: 20px;
+          transform: none;
         }
 
         .dnd-consent__actions {
