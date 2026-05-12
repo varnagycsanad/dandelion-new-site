@@ -4,6 +4,7 @@ window.klaroConfig = {
   cookieName: "dnd-klaro-consent",
   cookieExpiresAfterDays: 365,
   mustConsent: true,
+  testing: false,
   default: false,
   acceptAll: true,
   hideDeclineAll: false,
