@@ -159,7 +159,6 @@ jobs:
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
           mirror -R \
-            --delete \
             --transfer-all \
             --overwrite \
             --exclude-glob images/accommodations/** \
@@ -179,7 +178,7 @@ jobs:
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R --delete deploy-images/ "${UJSITE_FTP_PATH%/}/images/accommodations/"
+          mirror -R deploy-images/ "${UJSITE_FTP_PATH%/}/images/accommodations/"
           bye
           EOF
 
@@ -190,7 +189,7 @@ jobs:
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R --delete deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/accommodations/"
+          mirror -R deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/accommodations/"
           bye
           EOF
 
