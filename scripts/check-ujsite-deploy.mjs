@@ -4,7 +4,7 @@ const HOME_URL = `${BASE_URL}/`;
 const criticalPages = [
   `${BASE_URL}/`,
   `${BASE_URL}/szallasok`,
-  `${BASE_URL}/dandelion-d2`,
+  `${BASE_URL}/dandelion-d2/`,
 ];
 const royalAliasUrl = `${BASE_URL}/dandelion-royal-homes`;
 const royalCanonicalUrl = `${BASE_URL}/royal/`;
@@ -225,7 +225,7 @@ async function checkRoyalAliasRedirect() {
 function checkBookingCta() {
   const htmlToCheck = [
     htmlByUrl.get(HOME_URL),
-    htmlByUrl.get(`${BASE_URL}/dandelion-d2`),
+    htmlByUrl.get(`${BASE_URL}/dandelion-d2/`),
   ].filter(Boolean).join('\n');
 
   if (/(Foglalas|Foglalás|Sabee|IBE|OpenBE)/i.test(htmlToCheck)) {
