@@ -331,7 +331,7 @@ const groupedStayLinks = [
           <h2>Kérjük, válassz a süti beállítások közül.</h2>
           <p>
             A szükséges működésen felül analitikai és marketing sütiket is használhatunk.
-            A részleteket a beállításoknál bármikor módosíthatod.
+            A részleteket bármikor módosíthatod.
           </p>
           <div class="dnd-consent__actions">
             <button type="button" class="dnd-consent__button dnd-consent__button--ghost" data-dnd-consent-open-settings>
@@ -351,7 +351,7 @@ const groupedStayLinks = [
             <article class="dnd-consent__option">
               <div>
                 <h3>Szükséges</h3>
-                <p>Ezek biztosítják a weboldal alapvető működését, ezért mindig aktívak maradnak.</p>
+                <p>A weboldal alapműködéséhez kellenek.</p>
               </div>
               <span class="dnd-consent__badge">Mindig aktív</span>
             </article>
@@ -359,7 +359,7 @@ const groupedStayLinks = [
             <label class="dnd-consent__option" for="dnd-consent-analytics">
               <div>
                 <h3>Analitika</h3>
-                <p>Segít megérteni, hogyan használják a látogatók az oldalt.</p>
+                <p>Segít megérteni az oldalhasználatot.</p>
               </div>
               <input id="dnd-consent-analytics" type="checkbox" data-dnd-consent-analytics />
             </label>
@@ -367,7 +367,7 @@ const groupedStayLinks = [
             <label class="dnd-consent__option" for="dnd-consent-marketing">
               <div>
                 <h3>Marketing</h3>
-                <p>Lehetővé teszi a remarketing és közösségi hirdetési méréseket.</p>
+                <p>Remarketing és hirdetési mérés.</p>
               </div>
               <input id="dnd-consent-marketing" type="checkbox" data-dnd-consent-marketing />
             </label>
@@ -617,8 +617,8 @@ const groupedStayLinks = [
         position: absolute;
         left: 50%;
         bottom: 24px;
-        width: min(calc(100% - 32px), 760px);
-        padding: 22px 26px;
+        width: min(calc(100% - 32px), 620px);
+        padding: 20px 24px;
         border: 1px solid rgba(94, 65, 39, 0.16);
         border-radius: 20px;
         background: #fdfbf7;
@@ -646,47 +646,52 @@ const groupedStayLinks = [
       .dnd-consent__panel h2 {
         font-size: clamp(1.15rem, 2vw, 1.6rem);
         line-height: 1.15;
-        max-width: 24ch;
+        max-width: 20ch;
       }
 
       .dnd-consent__panel p {
         margin: 0;
         color: rgba(0, 0, 0, 0.74);
-        line-height: 1.55;
-        max-width: 62ch;
-        font-size: 0.98rem;
+        line-height: 1.45;
+        max-width: 52ch;
+        font-size: 0.94rem;
       }
 
       .dnd-consent__summary,
       .dnd-consent__details {
         display: grid;
-        gap: 14px;
+        gap: 12px;
       }
 
       .dnd-consent__detail-grid {
         display: grid;
-        gap: 10px;
+        gap: 8px;
       }
 
       .dnd-consent__option {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 14px;
-        padding: 14px 16px;
+        gap: 12px;
+        padding: 12px 14px;
         border: 1px solid rgba(94, 65, 39, 0.12);
-        border-radius: 16px;
+        border-radius: 14px;
         background: rgba(255, 255, 255, 0.72);
+      }
+
+      .dnd-consent__option h3 {
+        font-size: 1rem;
       }
 
       .dnd-consent__option p {
         margin-top: 4px;
-        font-size: 0.9rem;
+        font-size: 0.84rem;
+        line-height: 1.4;
       }
 
       .dnd-consent__option input {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         accent-color: #d99e2b;
         flex-shrink: 0;
       }
@@ -698,7 +703,7 @@ const groupedStayLinks = [
         border-radius: 999px;
         background: rgba(217, 158, 43, 0.14);
         color: rgba(45, 36, 28, 0.82);
-        font-size: 0.8rem;
+        font-size: 0.76rem;
         font-weight: 600;
         white-space: nowrap;
       }
@@ -711,14 +716,14 @@ const groupedStayLinks = [
       }
 
       .dnd-consent__button {
-        min-height: 42px;
-        padding: 0 16px;
+        min-height: 40px;
+        padding: 0 15px;
         border-radius: 999px;
         border: 1px solid rgba(217, 158, 43, 0.55);
         background: #fff;
         color: #000;
         font-weight: 600;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         cursor: pointer;
         transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
       }
@@ -741,8 +746,8 @@ const groupedStayLinks = [
           left: 12px;
           bottom: 12px;
           width: auto;
-          padding: 18px;
-          border-radius: 20px;
+          padding: 16px;
+          border-radius: 18px;
           transform: none;
         }
 
