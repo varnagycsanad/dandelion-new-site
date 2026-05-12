@@ -93,6 +93,8 @@ const sections = accommodationSections.map((section) => ({
 
             <div class={`dnd-grid ${section.gridClass}`}>
               {section.stays.map((stay) => {
+                const primaryChips = stay.chips.slice(0, 3);
+                const secondaryChips = stay.chips.slice(3);
                 const cardContent = (
                   <>
                     <div class="dnd-media">
@@ -127,11 +129,20 @@ const sections = accommodationSections.map((section) => ({
                         <h3 class="dnd-title">{stay.name}</h3>
                         <span class="dnd-location">{stay.location}</span>
                       </div>
-                      <p class="dnd-description">{stay.description}</p>
-                      <div class="dnd-chips">
-                        {stay.chips.map((chip, index) => (
+                      <div class="dnd-card-highlights" aria-label={`${stay.name} fő jellemzői`}>
+                        {primaryChips.map((chip) => (
                           <span
-                            class={`dnd-chip${chip.type && chip.type !== "default" ? ` dnd-chip--${chip.type}` : ""}${index > 2 ? " dnd-chip--secondary" : ""}`}
+                            class={`dnd-chip${chip.type && chip.type !== "default" ? ` dnd-chip--${chip.type}` : ""}`}
+                          >
+                            {chip.label}
+                          </span>
+                        ))}
+                      </div>
+                      <p class="dnd-description">{stay.description}</p>
+                      <div class="dnd-chips" aria-label={`${stay.name} további jellemzői`}>
+                        {secondaryChips.map((chip) => (
+                          <span
+                            class={`dnd-chip${chip.type && chip.type !== "default" ? ` dnd-chip--${chip.type}` : ""} dnd-chip--secondary`}
                           >
                             {chip.label}
                           </span>
@@ -564,6 +575,14 @@ const sections = accommodationSections.map((section) => ({
     line-height: 1.6;
   }
 
+  .dnd-card-highlights {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+
   #dnd-apts-final .dnd-chips {
     display: flex;
     flex-wrap: wrap;
@@ -759,6 +778,26 @@ const sections = accommodationSections.map((section) => ({
       margin-top: -18px;
     }
 
+    .dnd-accommodations-picker__intro {
+      margin-bottom: 18px;
+    }
+
+    .dnd-region-picker-card {
+      min-height: auto;
+      gap: 8px;
+      padding: 18px 16px;
+      border-radius: 18px;
+    }
+
+    .dnd-region-picker-card__title {
+      font-size: 1.05rem;
+    }
+
+    .dnd-region-picker-card__text {
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
     .dnd-apts-anchor {
       scroll-margin-top: 82px;
     }
@@ -780,6 +819,11 @@ const sections = accommodationSections.map((section) => ({
       border-radius: 16px;
     }
 
+    #dnd-apts-final .dnd-section {
+      margin-bottom: 36px;
+      scroll-margin-top: 96px;
+    }
+
     #dnd-apts-final .dnd-hover-text,
     #dnd-apts-final .dnd-overlay {
       display: none !important;
@@ -794,21 +838,49 @@ const sections = accommodationSections.map((section) => ({
       font-size: 1.05rem;
     }
 
+    .dnd-location {
+      font-size: 0.82rem;
+    }
+
+    .dnd-card-highlights {
+      display: flex;
+    }
+
     .dnd-description {
-      font-size: 0.95rem;
-      line-height: 1.55;
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     #dnd-apts-final .dnd-chips {
-      gap: 6px;
+      gap: 5px;
     }
 
     #dnd-apts-final .dnd-chip {
       font-size: 10px;
+      padding: 5px 8px;
     }
 
     #dnd-apts-final .dnd-chip--secondary {
+      display: inline-flex;
+      font-size: 9px;
+      opacity: 0.78;
+    }
+
+    #dnd-apts-final .dnd-chips {
+      padding-top: 2px;
+      border-top: 1px solid rgba(217, 158, 43, 0.16);
+    }
+
+    #dnd-apts-final .dnd-chips:empty {
       display: none;
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .dnd-card-cta {
+      margin-top: 4px;
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
     }
 
     #dnd-apts-final .dnd-h2 {
@@ -821,7 +893,8 @@ const sections = accommodationSections.map((section) => ({
 
     #dnd-apts-final .dnd-sub,
     .dnd-region-block__audience {
-      font-size: 14px;
+      font-size: 0.95rem;
+      line-height: 1.55;
     }
 
     #dnd-apts-final .dnd-badge {

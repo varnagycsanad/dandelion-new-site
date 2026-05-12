@@ -1,4 +1,6 @@
 ---
+import { accommodations } from "../data/accommodations";
+
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -10,6 +12,25 @@ const resolveLocalHref = (href: string) => {
 
   return href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : `${homeHref}${href}`;
 };
+
+const buildStayHref = (slug: string, url: string) =>
+  slug === "dandelion-d2"
+    ? `${homeHref}dandelion-d2/`
+    : slug === "fugehaz"
+      ? `${homeHref}fuge/`
+      : slug === "royal-homes"
+        ? `${homeHref}royal/`
+        : resolveLocalHref(url);
+
+const footerStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fügeház",
+  "vintage-vendeghaz": "Dandelion Vintage"
+};
+
+const footerStayLinks = accommodations.map((stay) => ({
+  label: footerStayLabelOverrides[stay.slug] ?? stay.name,
+  href: buildStayHref(stay.slug, stay.url)
+}));
 
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 ---
@@ -28,12 +49,10 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b
     <nav class="dnd-site-footer__group" aria-label="Szállások">
       <h2>Szállások</h2>
       <ul>
-        <li><a href={resolveLocalHref("/dandelion-d2/")}>Dandelion D2</a></li>
-        <li><a href={resolveLocalHref("/fuge/")}>Fügeház</a></li>
-        <li><a href={resolveLocalHref("/dandelion-d1/")}>Dandelion D1</a></li>
-        <li><a href={resolveLocalHref("/dandelion-zsalya/")}>Zsálya Vendégház</a></li>
-        <li><a href={resolveLocalHref("/szololiget/")}>Szőlőliget Vendégház</a></li>
-        <li><a href={resolveLocalHref("/dandelion-koveskal/")}>Dandelion Köveskál</a></li>
+        <li><a href={resolveLocalHref("/szallasok/")}>Összes szállás</a></li>
+        {footerStayLinks.map((stay) => (
+          <li><a href={stay.href}>{stay.label}</a></li>
+        ))}
       </ul>
     </nav>
 
@@ -41,7 +60,7 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b
       <h2>Hasznos linkek</h2>
       <ul>
         <li><a href={resolveLocalHref("/")}>Főoldal</a></li>
-        <li><a href={resolveLocalHref("/#stays")}>Szállások</a></li>
+        <li><a href={resolveLocalHref("/szallasok/")}>Szállások</a></li>
         <li><a href={resolveLocalHref("/#elmenyek")}>Élmények</a></li>
         <li><a href={resolveLocalHref("/kapcsolat/")}>Kapcsolat</a></li>
         <li><a href={bookingHref}>Foglalás</a></li>
