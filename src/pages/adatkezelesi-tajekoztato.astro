@@ -1,35 +1,219 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// [CHANGE 2026-05-12 00:00] A rövid adatkezelési placeholder teljes, 14 pontos adatkezelési tájékoztatóra cserélve, MailerLite blokk hozzáadásával.
+
+const sections = [
+  {
+    number: "1",
+    title: "Az adatkezelő adatai",
+    bullets: [
+      "Adatkezelő: Dandelion Vendégházak Kft.",
+      "Képviselő: Várnagy Ilona",
+      "E-mail: hello@dandelionhouse.hu",
+      "Telefon: +36 20 773 0807",
+      "Weboldal: dandelionhouse.hu",
+      "Székhely / levelezési cím: 8284 Kisapáti, Kossuth utca 78/5."
+    ]
+  },
+  {
+    number: "2",
+    title: "A tájékoztató célja",
+    paragraphs: [
+      "Az adatkezelési tájékoztató célja, hogy a vendégek, érdeklődők és weboldal-látogatók átlátható információt kapjanak arról, hogy milyen személyes adatokat kezelünk, milyen célból, milyen jogalapon, mennyi ideig, és milyen jogok illetik meg őket.",
+      "A személyes adatokat kizárólag a szálláshely-szolgáltatás nyújtásához, a foglalások kezeléséhez, a kapcsolattartáshoz, a jogszabályi kötelezettségek teljesítéséhez és a weboldal működtetéséhez szükséges mértékben kezeljük."
+    ]
+  },
+  {
+    number: "3",
+    title: "Kapcsolatfelvétel és ajánlatkérés",
+    bullets: [
+      "Kezelt adatok: név, e-mail cím, telefonszám, üzenet tartalma, érkezési és távozási igény, vendégek száma, önként megadott egyéb információ.",
+      "Adatkezelés célja: válaszadás, ajánlatadás, foglalási egyeztetés, vendégkommunikáció.",
+      "Jogalap: szerződéskötést megelőző lépések, illetve az érintett önkéntes megkeresése alapján jogos érdek.",
+      "Megőrzési idő: az érdeklődés lezárásától számított legfeljebb 2 év, kivéve, ha a kommunikációból foglalás vagy jogi/számviteli kötelezettséggel érintett ügy keletkezik."
+    ]
+  },
+  {
+    number: "4",
+    title: "Foglalás kezelése",
+    paragraphs: [
+      "Foglalás történhet közvetlenül a weboldalon keresztül, e-mailben, telefonon, illetve külső értékesítési csatornákon keresztül."
+    ],
+    bullets: [
+      "Kezelt adatok: név, elérhetőségek, foglalási adatok, érkezés és távozás ideje, vendégek száma, választott szálláshely, fizetési információk, számlázási adatok, megjegyzések.",
+      "Adatkezelés célja: foglalás rögzítése, visszaigazolása, teljesítése, módosítása vagy lemondása.",
+      "Jogalap: szerződés teljesítése, illetve szerződéskötést megelőző lépések.",
+      "Megőrzési idő: a foglalás teljesítéséhez szükséges ideig, illetve a jogszabályi megőrzési kötelezettségek szerint."
+    ]
+  },
+  {
+    number: "5",
+    title: "Online foglalómotor és vendégkezelő rendszer",
+    paragraphs: [
+      "A Dandelion Vendégházak foglalási és vendégkezelési folyamataiban a SabeeApp szálláshelykezelő és foglalási rendszer működhet közre."
+    ],
+    bullets: [
+      "Szolgáltató: thePass Kft. / SabeeApp",
+      "Adatkezelés célja: foglalás kezelése, vendégadatok rögzítése, visszaigazolások és vendégkommunikáció támogatása.",
+      "Kezelt adatok: a foglaláshoz, kapcsolattartáshoz, online bejelentkezéshez és szálláshely-szolgáltatáshoz szükséges adatok."
+    ],
+    note: "A SabeeApp saját adatvédelmi tájékoztatóval rendelkezik, amely a SabeeApp felületén érhető el."
+  },
+  {
+    number: "6",
+    title: "Online bejelentkezés, okmányadatok, NTAK / VIZA",
+    paragraphs: [
+      "A szálláshely elfoglalásának feltétele lehet az online bejelentkezés elvégzése, amely során a jogszabály által előírt vendégadatokat és okmányadatokat rögzíteni kell."
+    ],
+    bullets: [
+      "Kezelt adatok: név, születési adatok, állampolgárság, lakcím, okmányadatok, érkezési és távozási adatok, jogszabály által előírt egyéb vendégadatok.",
+      "Adatkezelés célja: jogszabályi vendégnyilvántartás, szálláshely-szolgáltatás teljesítése, hatósági adatszolgáltatás.",
+      "Jogalap: jogi kötelezettség teljesítése."
+    ],
+    note: "Az online bejelentkezés elmaradása esetén a belépési vagy kulcsdobozkód kiküldése meghiúsulhat, mert a szállás elfoglalásához szükséges jogszabályi feltételek nem teljesülnek."
+  },
+  {
+    number: "7",
+    title: "Számlázás és fizetés",
+    bullets: [
+      "Kezelt adatok: számlázási név, számlázási cím, fizetési adatok, foglalási azonosító, fizetett összegek, számla tartalma.",
+      "Adatkezelés célja: számla kiállítása, könyvelés, adózási és számviteli kötelezettségek teljesítése.",
+      "Jogalap: jogi kötelezettség teljesítése.",
+      "Megőrzési idő: a számviteli bizonylatokat a vonatkozó jogszabályok alapján legalább 8 évig kell megőrizni."
+    ]
+  },
+  {
+    number: "8",
+    title: "Weboldal-látogatás, technikai adatok és sütik",
+    paragraphs: [
+      "A weboldal működése során technikai adatok keletkezhetnek, például IP-cím, böngésző típusa, eszközadatok, látogatás ideje, megtekintett oldalak és hibainformációk."
+    ],
+    bullets: [
+      "Adatkezelés célja: a weboldal biztonságos működtetése, hibakeresés, teljesítménymérés, látogatottsági statisztika.",
+      "Jogalap: jogos érdek, illetve ahol szükséges, hozzájárulás."
+    ],
+    note: "A weboldal használhat működéshez szükséges sütiket, valamint statisztikai vagy mérési célú technológiákat. A weboldalon Google Tag Manager működik, amelyen keresztül analitikai szolgáltatások is betöltődhetnek."
+  },
+  {
+    number: "9",
+    title: "Hírlevél és marketingkommunikáció — MailerLite",
+    bullets: [
+      "A Dandelion Vendégházak hírlevélküldéshez és marketingkommunikációhoz a MailerLite szolgáltatást használhatja.",
+      "Kezelt adatok: név, e-mail cím, feliratkozás ideje, hozzájárulás ténye, hírlevél-megnyitási és kattintási adatok, leiratkozási adatok, valamint a hírlevél-feliratkozás során önként megadott egyéb adatok.",
+      "Adatkezelés célja: hírlevelek, ajánlatok, szezonális értesítések, akciók, vendégházakkal kapcsolatos hírek és marketingtartalmak küldése.",
+      "Jogalap: az érintett önkéntes hozzájárulása.",
+      "Adatfeldolgozó: MailerLite",
+      "Adatkezelés időtartama: a hozzájárulás visszavonásáig, vagyis a hírlevélről történő leiratkozásig.",
+      "Leiratkozás: a hírlevelek alján található linken vagy a hello@dandelionhouse.hu címen kérhető."
+    ],
+    note: "A leiratkozás nem érinti a leiratkozás előtti adatkezelés jogszerűségét."
+  },
+  {
+    number: "10",
+    title: "Külső szolgáltatók és adatfeldolgozók",
+    paragraphs: [
+      "A szolgáltatás nyújtásához és a weboldal működtetéséhez külső szolgáltatók működhetnek közre."
+    ],
+    bullets: [
+      "tárhelyszolgáltató és weboldal-üzemeltetési szolgáltatók,",
+      "SabeeApp / thePass Kft. mint foglalási és vendégkezelési rendszer,",
+      "Google-szolgáltatások, például Google Tag Manager és Google Analytics,",
+      "MailerLite mint hírlevélküldő és marketingautomatizációs szolgáltató,",
+      "banki és fizetési szolgáltatók,",
+      "könyvelési és számlázási szolgáltatók,",
+      "jogszabály alapján eljáró hatóságok és hivatalos rendszerek."
+    ],
+    note: "A külső szolgáltatók csak a szükséges mértékben férhetnek hozzá személyes adatokhoz, és azokat saját szerződéses, jogszabályi vagy adatfeldolgozói kötelezettségeik szerint kezelik."
+  },
+  {
+    number: "11",
+    title: "Adattovábbítás",
+    paragraphs: [
+      "Személyes adatot harmadik félnek kizárólag akkor továbbítunk, ha az a foglalás teljesítéséhez, jogszabályi kötelezettség teljesítéséhez, hatósági adatszolgáltatáshoz, fizetéshez, számlázáshoz vagy jogos igény érvényesítéséhez szükséges.",
+      "Külső értékesítési csatornán keresztül történt foglalás esetén az adott csatorna saját adatkezelési tájékoztatója is irányadó lehet."
+    ]
+  },
+  {
+    number: "12",
+    title: "Adatbiztonság",
+    paragraphs: [
+      "Az adatkezelő megfelelő technikai és szervezési intézkedésekkel védi a személyes adatokat a jogosulatlan hozzáférés, módosítás, továbbítás, nyilvánosságra hozatal, törlés, sérülés vagy megsemmisülés ellen.",
+      "A hozzáférések korlátozottak, az adatokat csak azok kezelhetik, akiknek az adott feladat ellátásához erre szükségük van."
+    ]
+  },
+  {
+    number: "13",
+    title: "Az érintettek jogai",
+    paragraphs: [
+      "Az érintettek az adatkezeléssel kapcsolatban az alábbi jogokkal élhetnek:"
+    ],
+    bullets: [
+      "tájékoztatás kérése az adatkezelésről,",
+      "hozzáférés a kezelt személyes adatokhoz,",
+      "helyesbítés kérése,",
+      "törlés kérése, ha annak jogszabályi feltételei fennállnak,",
+      "adatkezelés korlátozásának kérése,",
+      "tiltakozás jogos érdeken alapuló adatkezelés ellen,",
+      "adathordozhatóság, ha annak feltételei fennállnak,",
+      "hozzájárulás visszavonása, ha az adatkezelés hozzájáruláson alapul."
+    ],
+    note: "A kérelmeket a hello@dandelionhouse.hu címre lehet elküldeni. A kérelmeket indokolatlan késedelem nélkül, legfeljebb 1 hónapon belül megválaszoljuk."
+  },
+  {
+    number: "14",
+    title: "Panasz és jogorvoslat, a tájékoztató módosítása",
+    paragraphs: [
+      "Adatkezelési panasz esetén elsőként kérjük, írj nekünk a hello@dandelionhouse.hu címre, hogy a problémát közvetlenül rendezni tudjuk.",
+      "Az érintett panasszal fordulhat a Nemzeti Adatvédelmi és Információszabadság Hatósághoz is."
+    ],
+    bullets: [
+      "Nemzeti Adatvédelmi és Információszabadság Hatóság — NAIH",
+      "Cím: 1055 Budapest, Falk Miksa utca 9-11.",
+      "Levelezési cím: 1363 Budapest, Pf. 9.",
+      "E-mail: ugyfelszolgalat@naih.hu",
+      "Telefon: +36 1 391 1400",
+      "Web: naih.hu"
+    ],
+    note: "Az adatkezelő fenntartja a jogot a jelen tájékoztató módosítására. A módosítás a weboldalon történő közzététellel lép hatályba."
+  }
+];
 ---
 
 <BaseLayout
   title="Adatkezelési Tájékoztató | Dandelion Vendégházak"
-  description="Alapvető adatkezelési tájékoztató a Dandelion Vendégházak kapcsolatfelvételéhez és foglalási folyamataihoz."
+  description="A Dandelion Vendégházak adatkezelési tájékoztatója: foglalási adatok, vendégkezelés, számlázás, sütik, MailerLite hírlevél és érintetti jogok."
   canonicalPath="/adatkezelesi-tajekoztato/"
 >
   <section class="legal-page">
     <div class="dnd-container legal-page__inner">
       <span class="legal-page__eyebrow">Jogi információ</span>
       <h1>Adatkezelési tájékoztató</h1>
-      <p>
-        A kapcsolatfelvétel és a foglalási egyeztetés során csak azokat az adatokat kérjük be,
-        amelyek a válaszadáshoz, az ajánlatadáshoz vagy a foglalás lebonyolításához szükségesek.
+      <p class="legal-page__lead">
+        Hatályos: 2026. május 12-től visszavonásig. Jelen adatkezelési tájékoztató a Dandelion
+        Vendégházak weboldalán, foglalási és vendégkezelési folyamataiban megvalósuló
+        adatkezeléseket foglalja össze.
       </p>
 
-      <div class="legal-page__card">
-        <h2>Milyen adatokat használhatunk?</h2>
-        <ul>
-          <li>Név és elérhetőség a kapcsolatfelvételhez.</li>
-          <li>Érkezési, távozási és vendégszám adatok a foglalás előkészítéséhez.</li>
-          <li>Üzenetben megadott további információk kizárólag az egyeztetés céljára.</li>
-        </ul>
-      </div>
+      <div class="legal-page__sections">
+        {sections.map((section) => (
+          <article class="legal-page__card">
+            <header class="legal-page__card-header">
+              <span class="legal-page__index">{section.number}</span>
+              <h2>{section.title}</h2>
+            </header>
 
-      <div class="legal-page__card">
-        <h2>Kapcsolat adatkezelési kérdésben</h2>
-        <p>
-          Ha adatkezeléssel kapcsolatos kérdésed van, írj a hello@dandelionhouse.hu címre.
-        </p>
+            {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            )}
+
+            {section.note && <p class="legal-page__note">{section.note}</p>}
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -38,17 +222,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <style>
   .legal-page {
     padding: 132px 0 88px;
-    background: #fcfbf8;
+    background: #fdfbf7;
   }
 
   .legal-page__inner {
     display: grid;
-    gap: 22px;
-    max-width: 780px;
+    gap: 24px;
+    max-width: 920px;
   }
 
   .legal-page__eyebrow {
-    color: #b67b20;
+    color: #d99e2b;
     font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -68,28 +252,93 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     line-height: 1.08;
   }
 
+  .legal-page h2 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .legal-page p,
+  .legal-page li,
+  .legal-page span {
+    font-family: "Poppins", Arial, sans-serif;
+  }
+
   .legal-page p,
   .legal-page li {
+    margin: 0;
     color: rgba(38, 29, 22, 0.78);
     font-size: 1rem;
     line-height: 1.72;
   }
 
+  .legal-page__lead {
+    max-width: 860px;
+    font-size: 1.04rem;
+  }
+
+  .legal-page__sections {
+    display: grid;
+    gap: 18px;
+  }
+
   .legal-page__card {
+    display: grid;
+    gap: 16px;
     padding: 24px;
     border: 1px solid rgba(88, 63, 38, 0.12);
     border-radius: 18px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .legal-page__card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .legal-page__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.14);
+    color: #a46f17;
+    font-size: 0.92rem;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 
   .legal-page__card ul {
-    margin: 14px 0 0;
-    padding-left: 20px;
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .legal-page__note {
+    color: rgba(38, 29, 22, 0.62);
+    font-size: 0.95rem;
   }
 
   @media (max-width: 767px) {
     .legal-page {
       padding: 110px 0 64px;
+    }
+
+    .legal-page__inner {
+      gap: 20px;
+    }
+
+    .legal-page__card {
+      padding: 20px;
+    }
+
+    .legal-page__card-header {
+      align-items: flex-start;
     }
   }
 </style>
