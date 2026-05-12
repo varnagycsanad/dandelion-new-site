@@ -325,6 +325,9 @@ const groupedStayLinks = [
 
     <div class="dnd-consent" data-dnd-consent hidden>
       <section class="dnd-consent__panel" aria-label="Süti beállítások">
+        <button type="button" class="dnd-consent__close" aria-label="Süti sáv bezárása" data-dnd-consent-close>
+          ×
+        </button>
         <div class="dnd-consent__summary">
           <h2>Kérem, válasszon az alábbi „süti” lehetőségek közül:</h2>
           <p>
@@ -388,6 +391,7 @@ const groupedStayLinks = [
         const consentRoot = document.querySelector("[data-dnd-consent]");
         const acceptAllButton = document.querySelector("[data-dnd-consent-accept-all]");
         const rejectButton = document.querySelector("[data-dnd-consent-reject]");
+        const closeButton = document.querySelector("[data-dnd-consent-close]");
 
         if (!consentRoot) {
           return;
@@ -419,6 +423,9 @@ const groupedStayLinks = [
           persistConsent({ analytics: true, marketing: true });
         });
         rejectButton?.addEventListener("click", () => {
+          persistConsent({ analytics: false, marketing: false });
+        });
+        closeButton?.addEventListener("click", () => {
           persistConsent({ analytics: false, marketing: false });
         });
       })();
@@ -523,6 +530,7 @@ const groupedStayLinks = [
       }
 
       .dnd-consent__panel {
+        position: relative;
         width: min(100%, 980px);
         padding: 24px 28px;
         border: 1px solid rgba(94, 65, 39, 0.16);
@@ -532,6 +540,21 @@ const groupedStayLinks = [
         font-family: "Poppins", Arial, sans-serif;
         color: #fdfbf7;
         pointer-events: auto;
+      }
+
+      .dnd-consent__close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        width: 32px;
+        height: 32px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: rgba(253, 251, 247, 0.92);
+        font-size: 1.7rem;
+        line-height: 1;
+        cursor: pointer;
       }
 
       .dnd-consent__panel h2,
