@@ -65,6 +65,16 @@ jobs:
           mkdir -p dist-current
           rsync -a dist/ dist-current/
 
+      - name: Ensure previous commit is available
+        if: github.event_name == 'push' && github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000'
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE_SHA="${{ github.event.before }}"
+          if ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            git fetch --no-tags --depth=1 origin "${BEFORE_SHA}"
+          fi
+
       - name: Build previous dist snapshot
         if: github.event_name == 'push' && github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000'
         shell: bash
