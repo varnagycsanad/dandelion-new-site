@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
     inputs:
+      force_assets_upload:
+        description: Force full hashed assets upload
+        required: false
+        default: false
+        type: boolean
       force_image_upload:
         description: Force full accommodation image upload
         required: false
@@ -109,6 +114,12 @@ jobs:
             fi
           fi
 
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_assets_upload }}" = "true" ]; then
+            echo "assets_force_upload=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "assets_force_upload=false" >> "$GITHUB_OUTPUT"
+          fi
+
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_video_upload }}" = "true" ]; then
             echo "videos_changed=true" >> "$GITHUB_OUTPUT"
           elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -195,6 +206,14 @@ jobs:
           mkdir -p deploy-videos
           rsync -av --delete dist/videos/accommodations/ deploy-videos/
 
+      - name: Prepare full assets payload
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-assets
+          rsync -av --delete dist/assets/ deploy-assets/
+
       - name: Install lftp
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
@@ -242,6 +261,131 @@ jobs:
           bye
           EOF
 
+      - name: Validate critical hashed assets
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        id: asset_health
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'EOF'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const pages = [
+            "dandelion-d1","dandelion-d2","dandelion-koveskal","dandelion-royal-homes",
+            "dandelion-szepvolgyi-vendeghaz","dandelion-szololiget","dandelion-vintage",
+            "dandelion-zsalya","fuge","royal","szepvolgyi","szololiget"
+          ];
+          const distRoot = path.join(process.cwd(), "dist");
+          const base = "https://dandelionhouse.hu";
+          const urls = new Set();
+
+          for (const page of pages) {
+            const htmlPath = path.join(distRoot, page, "index.html");
+            if (!fs.existsSync(htmlPath)) continue;
+            const html = fs.readFileSync(htmlPath, "utf8");
+            const rx = /(?:src|href|poster|srcset)=\"([^\"]+)\"/g;
+            let m;
+            while ((m = rx.exec(html)) !== null) {
+              const value = m[1];
+              if (value.startsWith("/assets/") && value.match(/\.(webp|jpg|jpeg|png|svg)$/i)) {
+                urls.add(base + value);
+              }
+            }
+          }
+
+          async function checkUrl(url) {
+            try {
+              const res = await fetch(url, { method: "GET", redirect: "follow" });
+              return { url, status: res.status };
+            } catch {
+              return { url, status: 0 };
+            }
+          }
+
+          (async () => {
+            const all = Array.from(urls);
+            const results = await Promise.all(all.map(checkUrl));
+            const bad = results.filter((r) => r.status !== 200);
+            if (bad.length > 0) {
+              console.log(`Broken hashed assets detected: ${bad.length}`);
+              for (const item of bad.slice(0, 30)) {
+                console.log(`${item.status}\t${item.url}`);
+              }
+              fs.writeFileSync("asset-health-failed.txt", bad.map((x) => `${x.status}\t${x.url}`).join("\n"));
+              process.exit(2);
+            }
+            console.log(`Hashed assets check passed (${results.length} URLs).`);
+          })();
+          EOF
+
+      - name: Repair hashed assets over FTP when health-check fails
+        if: failure() && steps.asset_health.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-assets
+          rsync -av --delete dist/assets/ deploy-assets/
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          mirror -R deploy-assets/ "${UJSITE_FTP_PATH%/}/assets/"
+          bye
+          EOF
+
+      - name: Re-validate critical hashed assets after repair
+        if: always() && steps.asset_health.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'EOF'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const pages = [
+            "dandelion-d1","dandelion-d2","dandelion-koveskal","dandelion-royal-homes",
+            "dandelion-szepvolgyi-vendeghaz","dandelion-szololiget","dandelion-vintage",
+            "dandelion-zsalya","fuge","royal","szepvolgyi","szololiget"
+          ];
+          const distRoot = path.join(process.cwd(), "dist");
+          const base = "https://dandelionhouse.hu";
+          const urls = new Set();
+
+          for (const page of pages) {
+            const htmlPath = path.join(distRoot, page, "index.html");
+            if (!fs.existsSync(htmlPath)) continue;
+            const html = fs.readFileSync(htmlPath, "utf8");
+            const rx = /(?:src|href|poster|srcset)=\"([^\"]+)\"/g;
+            let m;
+            while ((m = rx.exec(html)) !== null) {
+              const value = m[1];
+              if (value.startsWith("/assets/") && value.match(/\.(webp|jpg|jpeg|png|svg)$/i)) {
+                urls.add(base + value);
+              }
+            }
+          }
+
+          async function checkUrl(url) {
+            try {
+              const res = await fetch(url, { method: "GET", redirect: "follow" });
+              return { url, status: res.status };
+            } catch {
+              return { url, status: 0 };
+            }
+          }
+
+          (async () => {
+            const results = await Promise.all(Array.from(urls).map(checkUrl));
+            const bad = results.filter((r) => r.status !== 200);
+            if (bad.length > 0) {
+              console.log(`Assets still broken after repair: ${bad.length}`);
+              for (const item of bad.slice(0, 30)) {
+                console.log(`${item.status}\t${item.url}`);
+              }
+              process.exit(3);
+            }
+            console.log(`Assets re-check passed (${results.length} URLs).`);
+          })();
+          EOF
+
       - name: Cleanup previous worktree
         if: always()
         shell: bash
@@ -260,6 +404,17 @@ jobs:
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
           mirror -R deploy-images/ "${UJSITE_FTP_PATH%/}/images/accommodations/"
+          bye
+          EOF
+
+      - name: Deploy full hashed assets over FTP
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          mirror -R deploy-assets/ "${UJSITE_FTP_PATH%/}/assets/"
           bye
           EOF
 
