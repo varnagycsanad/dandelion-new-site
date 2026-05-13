@@ -11,6 +11,7 @@ const experiences = [
     title: "Bicikli",
     description:
       "Kijelölt túraútvonalak, csendes mellékutak és balatoni panorámák várnak a Tapolcai-medence és a Káli-medence környékén.",
+    details: "Fél napos és egész napos körök, tavasztól őszig ideális.",
     image: bikingImage,
     imageAlt: "Kerékpáros túra a Balaton-felvidéken"
   },
@@ -18,6 +19,7 @@ const experiences = [
     title: "Bortúra",
     description:
       "Helyi pincészetek, kóstolók és lassú esték segítenek ráhangolódni a környék boros világára.",
+    details: "Kis pincészetek és panorámás teraszok, pároknak különösen jó program.",
     image: wineTourImage,
     imageAlt: "Borospohár és palack helyi kóstoló hangulatban"
   },
@@ -25,15 +27,49 @@ const experiences = [
     title: "Balaton",
     description:
       "Strand, naplemente, vízparti séták és könnyű nyári programok néhány perces autóútra a szállásoktól.",
+    details: "Reggeli mólóséta, napközben strand, este naplemente.",
     image: balatonImage,
-    imageAlt: "Balatoni vízpart naplementében"
+    imageAlt: "Balatoni vízpart nyári fényekkel"
   },
   {
     title: "Tanúhegyek",
     description:
       "Túraútvonalak, kilátók és csendes erdei ösvények teszik teljessé a természetközeli kikapcsolódást.",
+    details: "Rövidebb családi utak és komolyabb emelkedők is elérhetők.",
     image: mountainsImage,
     imageAlt: "Tanúhegyek a Balaton-felvidéken"
+  }
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: "https://dandelionhouse.hu/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Élmények",
+        item: "https://dandelionhouse.hu/elmenyek/"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Élmények a Balaton-felvidéken",
+    itemListElement: experiences.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      description: item.description
+    }))
   }
 ];
 ---
@@ -42,6 +78,7 @@ const experiences = [
   title="Élmények | Dandelion Vendégházak"
   description="Kerékpározás, bortúrák, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
   canonicalPath="/elmenyek/"
+  structuredData={structuredData}
 >
   <section class="experiences-page">
     <div class="dnd-container experiences-page__inner">
@@ -61,9 +98,28 @@ const experiences = [
             <div class="experience-card__body">
               <h2>{item.title}</h2>
               <p>{item.description}</p>
+              <p class="experience-card__details">{item.details}</p>
             </div>
           </article>
         ))}
+      </div>
+
+      <div class="experiences-page__cta-panel">
+        <h2>Megvan a program, jöhet a szállás?</h2>
+        <p>
+          Nézd meg a Dandelion házakat régiónként, és válaszd azt a helyszínt, ami a te pihenési ritmusodhoz illik.
+        </p>
+        <div class="experiences-page__cta-actions">
+          <a href="/szallasok/" class="experiences-page__cta-primary">Szállások megtekintése</a>
+          <a
+            href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f"
+            class="experiences-page__cta-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Foglalás / Árak
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -145,6 +201,79 @@ const experiences = [
     line-height: 1.2;
   }
 
+  .experience-card__details {
+    margin-top: 8px !important;
+    font-size: 0.94rem !important;
+    color: rgba(38, 29, 22, 0.66) !important;
+  }
+
+  .experiences-page__cta-panel {
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    border-radius: 20px;
+    background: linear-gradient(120deg, #f8f2e7 0%, #fdfbf7 100%);
+    padding: 28px;
+    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.05);
+  }
+
+  .experiences-page__cta-panel h2 {
+    margin: 0;
+    color: #261d16;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .experiences-page__cta-panel p {
+    margin: 12px 0 0;
+    color: rgba(38, 29, 22, 0.78);
+    max-width: 64ch;
+    line-height: 1.65;
+  }
+
+  .experiences-page__cta-actions {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .experiences-page__cta-primary,
+  .experiences-page__cta-secondary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .experiences-page__cta-primary {
+    background: #fff;
+    color: #2b2016;
+  }
+
+  .experiences-page__cta-secondary {
+    background: #2b2016;
+    color: #fff;
+    border-color: #2b2016;
+  }
+
+  .experiences-page__cta-primary:hover,
+  .experiences-page__cta-primary:focus-visible {
+    background: #f7efe2;
+  }
+
+  .experiences-page__cta-secondary:hover,
+  .experiences-page__cta-secondary:focus-visible {
+    background: #3a2a1d;
+  }
+
   @media (max-width: 900px) {
     .experiences-page__grid {
       grid-template-columns: 1fr;
@@ -162,6 +291,11 @@ const experiences = [
 
     .experience-card__body {
       padding: 18px;
+    }
+
+    .experiences-page__cta-panel {
+      padding: 20px;
+      border-radius: 16px;
     }
   }
 </style>
