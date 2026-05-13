@@ -320,7 +320,7 @@ jobs:
           EOF
 
       - name: Repair hashed assets over FTP when health-check fails
-        if: failure() && steps.asset_health.outcome == 'failure'
+        if: steps.asset_health.outcome == 'failure'
         shell: bash
         run: |
           set -euo pipefail
