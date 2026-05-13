@@ -66,6 +66,8 @@ const regionStories = [
         </div>
       </div>
 
+      <div class="dnd-region-stories__scroll-stage" aria-hidden="true"></div>
+
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
@@ -159,6 +161,10 @@ const regionStories = [
     gap: 84px;
     position: relative;
     z-index: 1;
+  }
+
+  .dnd-region-stories__scroll-stage {
+    min-height: clamp(240px, 52vw, 620px);
   }
 
   .dnd-region-story {
@@ -310,6 +316,10 @@ const regionStories = [
     }
 
     .dnd-region-stories__sticky-layer {
+      display: none;
+    }
+
+    .dnd-region-stories__scroll-stage {
       display: none;
     }
 
