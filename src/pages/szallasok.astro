@@ -85,13 +85,16 @@ const accommodationsStructuredData = {
   structuredData={accommodationsStructuredData}
 >
   <section class="dnd-accommodations-hero">
-    <div class="dnd-container dnd-accommodations-hero__content">
-      <p class="dnd-accommodations-hero__eyebrow">Szállások</p>
+  </section>
+
+  <section class="dnd-accommodations-intro">
+    <div class="dnd-container dnd-accommodations-intro__content">
+      <p class="dnd-accommodations-intro__eyebrow">Szállások</p>
       <h1>
         <span>Először a hangulatot,</span>
         <span>utána a konkrét házat válaszd ki.</span>
       </h1>
-      <p class="dnd-accommodations-hero__lead">
+      <p class="dnd-accommodations-intro__lead">
         Három külön világ, többféle pihenési ritmus és régiónként másféle Dandelion-élmény vár.
         Először válassz térséget, aztán nézd meg, melyik konkrét vendégház illik legjobban hozzád.
       </p>
@@ -247,37 +250,37 @@ const accommodationsStructuredData = {
 <style>
   .dnd-accommodations-hero {
     position: relative;
-    display: grid;
-    min-height: calc(64vh + 81px);
-    padding-top: 48px;
+    min-height: clamp(320px, 48vw, 520px);
+    margin-top: 81px;
     overflow: hidden;
-    align-items: start;
     background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
       url("/images/pages/szallasok-hero-bg.webp");
     background-position: center 28%;
     background-size: cover;
-    color: #fff;
   }
 
-  .dnd-accommodations-hero__content {
-    position: relative;
-    z-index: 1;
-    padding-top: 118px;
-    padding-bottom: 72px;
+  .dnd-accommodations-intro {
+    padding: 42px 0 0;
+    background: #fdfbf7;
   }
 
-  .dnd-accommodations-hero__eyebrow {
+  .dnd-accommodations-intro__content {
+    max-width: 760px;
+  }
+
+  .dnd-accommodations-intro__eyebrow {
     margin: 0 0 12px;
-    color: rgba(255, 255, 255, 0.88);
+    color: #b06200;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
-  .dnd-accommodations-hero h1 {
+  .dnd-accommodations-intro h1 {
     max-width: 760px;
     margin: 0;
+    color: #1f2937;
     font-size: clamp(36px, 5vw, 64px);
     line-height: 1.04;
     font-family: Georgia, "Times New Roman", serif;
@@ -285,20 +288,20 @@ const accommodationsStructuredData = {
     letter-spacing: -0.02em;
   }
 
-  .dnd-accommodations-hero h1 span {
+  .dnd-accommodations-intro h1 span {
     display: block;
   }
 
-  .dnd-accommodations-hero__lead {
+  .dnd-accommodations-intro__lead {
     max-width: 640px;
     margin: 22px 0 0;
-    color: rgba(255, 255, 255, 0.84);
+    color: #5d554b;
     font-size: clamp(1rem, 1.6vw, 1.16rem);
     line-height: 1.72;
   }
 
   .dnd-accommodations-picker {
-    margin-top: -32px;
+    margin-top: 24px;
     position: relative;
     z-index: 2;
   }
@@ -835,28 +838,26 @@ const accommodationsStructuredData = {
 
   @media (max-width: 640px) {
     .dnd-accommodations-hero {
-      min-height: min(560px, 90vh);
-      padding-top: 40px;
+      min-height: 240px;
       background-position: center 20%;
     }
 
-    .dnd-accommodations-hero__content {
-      padding-top: 92px;
-      padding-bottom: 54px;
+    .dnd-accommodations-intro {
+      padding-top: 28px;
     }
 
-    .dnd-accommodations-hero h1 {
+    .dnd-accommodations-intro h1 {
       max-width: 360px;
       font-size: clamp(32px, 10vw, 42px);
     }
 
-    .dnd-accommodations-hero__lead {
+    .dnd-accommodations-intro__lead {
       max-width: 340px;
       font-size: 0.98rem;
     }
 
     .dnd-accommodations-picker {
-      margin-top: -18px;
+      margin-top: 18px;
     }
 
     .dnd-accommodations-picker__intro {
