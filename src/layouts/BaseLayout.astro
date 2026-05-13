@@ -23,6 +23,7 @@ interface Props {
   ogImageAlt?: string;
   noindex?: boolean;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  headerMode?: "auto" | "transparent" | "solid";
 }
 
 const {
@@ -32,7 +33,8 @@ const {
   ogImage = SITE_DEFAULT_OG_IMAGE,
   ogImageAlt = title,
   noindex = false,
-  structuredData = []
+  structuredData = [],
+  headerMode = "auto"
 } = Astro.props;
 
 const { hideHeader = false, hideFooter = false } = Astro.props;
@@ -132,6 +134,31 @@ const groupedStayLinks = [
     ]
   }
 ];
+
+const transparentHeaderPaths = new Set([
+  "/",
+  "/szallasok/",
+  "/panorama-pool/",
+  "/dandelion-d1/",
+  "/dandelion-d2/",
+  "/dandelion-koveskal/",
+  "/dandelion-royal-homes/",
+  "/dandelion-szepvolgyi-vendeghaz/",
+  "/dandelion-szololiget/",
+  "/dandelion-vintage/",
+  "/dandelion-zsalya/",
+  "/royal/",
+  "/fuge/",
+  "/szepvolgyi/",
+  "/szololiget/"
+]);
+
+const isTransparentHeaderStart =
+  headerMode === "transparent"
+    ? true
+    : headerMode === "solid"
+      ? false
+      : transparentHeaderPaths.has(normalizedCurrentPath);
 ---
 
 <!DOCTYPE html>
@@ -198,7 +225,7 @@ const groupedStayLinks = [
         style="display:none;visibility:hidden"
       ></iframe>
     </noscript>
-    {!hideHeader && <header class="dnd-header" data-dnd-header>
+    {!hideHeader && <header class={`dnd-header ${isTransparentHeaderStart ? "dnd-header--transparent-start" : "dnd-header--solid-start"}`} data-dnd-header>
       <div class="dnd-container dnd-header__desktop">
         <div class="dnd-header__top">
           <div class="dnd-header__contact" aria-label="Kapcsolat">

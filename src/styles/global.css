@@ -72,6 +72,14 @@ main {
   backdrop-filter: blur(12px);
 }
 
+.dnd-header.dnd-header--solid-start {
+  background: rgba(239, 228, 211, 0.94);
+  border-bottom: 1px solid rgba(111, 87, 59, 0.1);
+  box-shadow: 0 14px 34px rgba(79, 52, 29, 0.08);
+  color: #2d241c;
+  backdrop-filter: blur(12px);
+}
+
 .dnd-header__desktop {
   display: block;
   width: min(100% - 56px, 1500px);
@@ -108,6 +116,10 @@ main {
 
 .dnd-header.is-scrolled .dnd-logo img,
 .dnd-header.is-menu-open .dnd-logo img {
+  filter: none;
+}
+
+.dnd-header.dnd-header--solid-start .dnd-logo img {
   filter: none;
 }
 
@@ -169,10 +181,21 @@ main {
   background: rgba(255, 252, 246, 0.22);
 }
 
+.dnd-header.dnd-header--solid-start .dnd-header__contact a {
+  border-color: rgba(94, 65, 39, 0.18);
+  background: rgba(255, 252, 246, 0.22);
+}
+
 .dnd-header.is-scrolled .dnd-header__contact a:hover,
 .dnd-header.is-scrolled .dnd-header__contact a:focus-visible,
 .dnd-header.is-menu-open .dnd-header__contact a:hover,
 .dnd-header.is-menu-open .dnd-header__contact a:focus-visible {
+  border-color: rgba(94, 65, 39, 0.36);
+  background: rgba(255, 252, 246, 0.46);
+}
+
+.dnd-header.dnd-header--solid-start .dnd-header__contact a:hover,
+.dnd-header.dnd-header--solid-start .dnd-header__contact a:focus-visible {
   border-color: rgba(94, 65, 39, 0.36);
   background: rgba(255, 252, 246, 0.46);
 }
@@ -263,6 +286,10 @@ main {
   border-top-color: rgba(94, 65, 39, 0.12);
 }
 
+.dnd-header.dnd-header--solid-start .dnd-nav {
+  border-top-color: rgba(94, 65, 39, 0.12);
+}
+
 .dnd-header-cta {
   display: inline-flex;
   flex-direction: column;
@@ -280,6 +307,11 @@ main {
 
 .dnd-header.is-scrolled .dnd-header-cta,
 .dnd-header.is-menu-open .dnd-header-cta {
+  border-color: rgba(94, 65, 39, 0.16);
+  background: rgba(255, 252, 246, 0.46);
+}
+
+.dnd-header.dnd-header--solid-start .dnd-header-cta {
   border-color: rgba(94, 65, 39, 0.16);
   background: rgba(255, 252, 246, 0.46);
 }
