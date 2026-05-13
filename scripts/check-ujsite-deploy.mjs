@@ -13,6 +13,7 @@ const adminUrl = `${BASE_URL}/_local/image-admin`;
 const fetchHeaders = {
   'user-agent': 'dandelion-root-deploy-check/1.0',
 };
+const RETRY_DELAYS_MS = [0, 2500, 5000];
 
 let hasFailure = false;
 let hasWarning = false;
@@ -38,6 +39,30 @@ function ok(message) {
   console.log(`[OK] ${message}`);
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function withRetry(action) {
+  let lastError;
+
+  for (let attempt = 0; attempt < RETRY_DELAYS_MS.length; attempt += 1) {
+    const delay = RETRY_DELAYS_MS[attempt];
+
+    if (delay > 0) {
+      await sleep(delay);
+    }
+
+    try {
+      return await action();
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError;
+}
+
 function isSelfRedirectHtml(url, html) {
   const canonicalPattern = /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i;
   const refreshPattern = /<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=([^"';]+)[^"']*["']/i;
@@ -56,21 +81,35 @@ function isSelfRedirectHtml(url, html) {
 }
 
 async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: fetchHeaders,
-    redirect: 'follow',
+  return withRetry(async () => {
+    const response = await fetch(url, {
+      headers: fetchHeaders,
+      redirect: 'follow',
+    });
+
+    if (response.status >= 500) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const text = await response.text();
+    return { response, text };
   });
-  const text = await response.text();
-  return { response, text };
 }
 
 async function fetchStatus(url) {
-  const response = await fetch(url, {
-    headers: fetchHeaders,
-    redirect: 'follow',
+  return withRetry(async () => {
+    const response = await fetch(url, {
+      headers: fetchHeaders,
+      redirect: 'follow',
+    });
+
+    if (response.status >= 500) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    await response.arrayBuffer();
+    return response;
   });
-  await response.arrayBuffer();
-  return response;
 }
 
 function findAssetUrls(html, attribute, extension) {
