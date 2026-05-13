@@ -2,12 +2,15 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { accommodationSections, accommodations } from "../data/accommodations";
+import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
 const imageMapping = await readHomepageImageMapping();
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const d2Href = `${baseHref}dandelion-d2/`;
+const contactHref = `${baseHref}kapcsolat/`;
+const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
+const accommodationsOgImageAlt = "Dandelion Vendégházak szállásválasztó oldal a Balaton-felvidéken";
 
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
@@ -33,14 +36,53 @@ const sections = accommodationSections.map((section) => ({
     .map((stay) => ({
       ...stay,
       image: imageMapping[stay.imageSlot],
-      href: stay.slug === "dandelion-d2" ? d2Href : resolveStayHref(stay.url)
+      href: resolveStayHref(stay.url)
     }))
 }));
+
+const accommodationsStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${toAbsoluteUrl("/szallasok/")}#collection`,
+  name: "Szállások a Dandelion Vendégházaknál",
+  url: toAbsoluteUrl("/szallasok/"),
+  inLanguage: "hu-HU",
+  description: "Régiók szerint rendezett szállásválasztó oldal a Dandelion Vendégházak teljes kínálatához.",
+  isPartOf: {
+    "@id": `${toAbsoluteUrl("/")}#website`
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: sections.flatMap((section, sectionIndex) =>
+      section.stays.map((stay, stayIndex) => ({
+        "@type": "ListItem",
+        position: sectionIndex * 10 + stayIndex + 1,
+        url: toAbsoluteUrl(stay.url),
+        name: stay.name
+      }))
+    )
+  },
+  about: [
+    "Balaton-felvidék",
+    "Tanúhegyek",
+    "Balaton mellett",
+    "Káli-medence"
+  ],
+  provider: {
+    "@type": "LodgingBusiness",
+    name: SITE_NAME,
+    url: toAbsoluteUrl("/")
+  }
+};
 ---
 
 <BaseLayout
-  title="Szállások | Dandelion Vendégházak"
-  description="Válaszd ki a hozzád illő régiót és konkrét szállást a Dandelion Vendégházak kínálatából a Balaton-felvidéken."
+  title="Szállások a Balaton-felvidéken | Dandelion Vendégházak"
+  description="Válassz régiót és találd meg a hozzád illő vendégházat a Tanúhegyeknél, a Balaton mellett vagy a Káli-medencében a Dandelion Vendégházaknál."
+  canonicalPath="/szallasok/"
+  ogImage={accommodationsOgImage}
+  ogImageAlt={accommodationsOgImageAlt}
+  structuredData={accommodationsStructuredData}
 >
   <section class="dnd-accommodations-hero">
     <div class="dnd-container dnd-accommodations-hero__content">
@@ -50,8 +92,8 @@ const sections = accommodationSections.map((section) => ({
         <span>utána a konkrét házat válaszd ki.</span>
       </h1>
       <p class="dnd-accommodations-hero__lead">
-        Három külön világ, többféle pihenési ritmus és minden régióban másféle Dandelion-élmény vár.
-        Válassz először térséget, utána nézd meg a hozzád illő konkrét szállást.
+        Három külön világ, többféle pihenési ritmus és régiónként másféle Dandelion-élmény vár.
+        Először válassz térséget, aztán nézd meg, melyik konkrét vendégház illik legjobban hozzád.
       </p>
     </div>
   </section>
@@ -62,8 +104,8 @@ const sections = accommodationSections.map((section) => ({
         <p class="dnd-accommodations-picker__eyebrow">Gyors választó</p>
         <h2 id="szallasok-regiok-cim">Melyik térség áll hozzád közelebb?</h2>
         <p>
-          Ha már tudod, milyen hangulatot keresel, ugorj rögtön a megfelelő régióhoz. Ha még nem, nézd végig
-          a három különböző világot.
+          Ha már tudod, milyen hangulatot keresel, ugorj rögtön a megfelelő régióhoz. Ha még bizonytalan vagy,
+          nézd végig a három különböző világot, és hasonlítsd össze a szállásokat régiónként.
         </p>
       </div>
 
@@ -178,9 +220,17 @@ const sections = accommodationSections.map((section) => ({
           Segítünk megtalálni a hozzád illő vendégházat, akár családi pihenéshez, akár csendes elvonuláshoz,
           akár vízközeli balatoni napokhoz keresel helyet.
         </p>
-        <button class="dnd-accommodations-closing__cta" type="button" onclick="OpenBE()">
-          Szabad időpontok megtekintése
-        </button>
+        <div class="dnd-accommodations-closing__actions">
+          <button class="dnd-accommodations-closing__cta" type="button" onclick="OpenBE()">
+            Szabad időpontok megtekintése
+          </button>
+          <a class="dnd-accommodations-closing__cta dnd-accommodations-closing__cta--secondary" href={contactHref}>
+            Segítséget kérek a választáshoz
+          </a>
+        </div>
+        <p class="dnd-accommodations-closing__note">
+          Ha inkább gyorsan egyeztetnél velünk, a kapcsolat oldalon üzenetben is tudsz kérdezni.
+        </p>
       </div>
     </div>
   </section>
@@ -689,7 +739,17 @@ const sections = accommodationSections.map((section) => ({
     line-height: 1.7;
   }
 
+  .dnd-accommodations-closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
   .dnd-accommodations-closing__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 54px;
     padding: 0 28px;
     border: 0;
@@ -700,12 +760,33 @@ const sections = accommodationSections.map((section) => ({
     cursor: pointer;
     font: inherit;
     font-weight: 700;
+    text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .dnd-accommodations-closing__cta:hover {
     box-shadow: 0 20px 42px rgba(217, 158, 43, 0.32);
     transform: translateY(-2px);
+  }
+
+  .dnd-accommodations-closing__cta--secondary {
+    border: 1px solid rgba(217, 158, 43, 0.34);
+    background: rgba(255, 255, 255, 0.72);
+    color: #5f430e;
+    box-shadow: none;
+  }
+
+  .dnd-accommodations-closing__cta--secondary:hover {
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .dnd-accommodations-closing__note {
+    max-width: 520px;
+    margin: 16px auto 0;
+    color: #766a5c;
+    font-size: 0.92rem;
+    line-height: 1.65;
   }
 
   @media (hover: hover) {
@@ -915,6 +996,18 @@ const sections = accommodationSections.map((section) => ({
 
     .dnd-accommodations-closing p {
       font-size: 0.98rem;
+    }
+
+    .dnd-accommodations-closing__actions {
+      gap: 10px;
+    }
+
+    .dnd-accommodations-closing__cta {
+      width: 100%;
+    }
+
+    .dnd-accommodations-closing__note {
+      font-size: 0.9rem;
     }
   }
 </style>
