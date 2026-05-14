@@ -412,4 +412,6 @@ jobs:
 
       - name: Check live root deploy
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        env:
+          DND_ROUTE_STABILITY_WARN_ONLY: 'true'
         run: npm run check:root

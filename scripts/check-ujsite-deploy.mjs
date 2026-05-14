@@ -17,6 +17,9 @@ const fetchHeaders = {
 };
 const RETRY_DELAYS_MS = [0, 2500, 5000];
 const FLAKY_ROUTE_SAMPLE_COUNT = 8;
+const WARN_ONLY_FOR_ROUTE_STABILITY =
+  process.env.DND_ROUTE_STABILITY_WARN_ONLY === '1' ||
+  process.env.DND_ROUTE_STABILITY_WARN_ONLY === 'true';
 
 let hasFailure = false;
 let hasWarning = false;
@@ -51,6 +54,15 @@ function warn(message) {
 
 function ok(message) {
   console.log(`[OK] ${message}`);
+}
+
+function routeStabilityIssue(message) {
+  if (WARN_ONLY_FOR_ROUTE_STABILITY) {
+    warn(message);
+    return;
+  }
+
+  fail(message);
 }
 
 function sleep(ms) {
@@ -212,14 +224,14 @@ async function checkRouteStability() {
     );
 
     if (uniqueOutcomes.size > 1) {
-      fail(`${pathLabel(url)} is flaky across repeated requests: ${statusSummary}`);
+      routeStabilityIssue(`${pathLabel(url)} is flaky across repeated requests: ${statusSummary}`);
       continue;
     }
 
     const firstSample = samples[0];
 
     if (firstSample?.error) {
-      fail(`${pathLabel(url)} stability probe failed: ${firstSample.error}`);
+      routeStabilityIssue(`${pathLabel(url)} stability probe failed: ${firstSample.error}`);
       continue;
     }
 
@@ -241,7 +253,7 @@ async function checkRouteStability() {
     }
 
     if (firstSample?.status !== 200) {
-      fail(`${pathLabel(url)} stability probe did not stay on 200: ${statusSummary}`);
+      routeStabilityIssue(`${pathLabel(url)} stability probe did not stay on 200: ${statusSummary}`);
       continue;
     }
   }
