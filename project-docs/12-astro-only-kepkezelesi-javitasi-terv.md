@@ -176,7 +176,7 @@ Kapcsolódó fájlok:
 
 - `src/data/images/accommodation-images.ts`
 - `src/data/images/astro-local-assets.ts`
-- `src/data/images/accommodation-source-images.ts`
+- `src/admin-disabled/data/images/accommodation-source-images.ts`
 
 ### Adapterek és template-ek
 

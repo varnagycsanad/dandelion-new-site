@@ -908,7 +908,7 @@ src/data/images/...
 Átmeneti draft/test JSON is használható, például:
 
 ```txt
-src/data/images/accommodation-images.seo-test.json
+src/admin-disabled/data/images/accommodation-images.seo-test.json
 ```
 
 A végleges adatforrás később TS vagy JSON lehet, de továbbra is az Astro projektben marad.

@@ -29,7 +29,7 @@ A cél ezzel egy ismételhető, kontrollált folyamat kialakítása volt a több
 ## 4. Új igazságforrások
 
 - `src/data/images/accommodation-images.ts`
-- `src/data/images/accommodation-source-images.ts`
+- `src/admin-disabled/data/images/accommodation-source-images.ts`
 - `public/images/accommodations/d2/...`
 - `scripts/process-accommodation-images.mjs`
 - review dokumentumok:
@@ -77,4 +77,3 @@ A cél ezzel egy ismételhető, kontrollált folyamat kialakítása volt a több
 5. ImageAsset registry kitöltés.
 6. Frontend átkötés kis scope-ban.
 7. Záró audit és dokumentáció.
-

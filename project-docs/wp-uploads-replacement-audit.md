@@ -32,7 +32,7 @@ Az audit a kovetkezoket hasonlitotta ossze:
 
 - aktualis publikus/renderelt WP URL-ek a `src/` fajlokban
 - helyi assetek a `public/images/` es `public/videos/` alatt
-- a mar meglevo accommodation registry mintak a `src/data/images/accommodation-images.ts` es `src/data/images/accommodation-images.generated.json` fajlokban
+- a mar meglevo accommodation registry mintak a `src/data/images/accommodation-images.ts` es `src/admin-disabled/data/images/accommodation-images.generated.json` fajlokban
 
 Szabaly:
 

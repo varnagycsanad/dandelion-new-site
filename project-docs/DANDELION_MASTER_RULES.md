@@ -1837,7 +1837,7 @@ src/data/images/...
 Átmeneti draft/test JSON is használható, például:
 
 ```txt
-src/data/images/accommodation-images.seo-test.json
+src/admin-disabled/data/images/accommodation-images.seo-test.json
 ```
 
 A végleges adatforrás később TS vagy JSON lehet, de továbbra is az Astro projektben marad.
@@ -2987,7 +2987,7 @@ A SEO AI rendszer nem végleges SEO-adat generátor, hanem SEO draft réteg.
 A konkrét megtalált SEO draft fájl:
 
 ```text
-src/data/images/accommodation-images.seo-test.json
+src/admin-disabled/data/images/accommodation-images.seo-test.json
 ```
 
 Ebben D2 és Köveskál képekhez vannak SEO draft adatok.
@@ -3709,7 +3709,7 @@ Ha a repó gyökerében is benne van, akkor Codex is látja, de Codex elsődlege
 5. A SEO draft konkrét fájlja jelenleg:
 
 ```text
-src/data/images/accommodation-images.seo-test.json
+src/admin-disabled/data/images/accommodation-images.seo-test.json
 ```
 
 6. A képrendszer file-based.

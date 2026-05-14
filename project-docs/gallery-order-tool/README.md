@@ -4,8 +4,8 @@ Helyi segédeszköz a szállásoldali galériák sorrendjének rendezéséhez.
 
 ## Mit használ?
 
-- Galéria forrás: `src/data/images/accommodation-images.generated.json`
-- SEO előnézet: `src/data/images/accommodation-images.seo-test.json` ha létezik
+- Galéria forrás: `src/admin-disabled/data/images/accommodation-images.generated.json`
+- SEO előnézet: `src/admin-disabled/data/images/accommodation-images.seo-test.json` ha létezik
 - Szállásnév-forrás: `src/data/accommodations.ts`
 
 ## Hogyan generálj mindent?

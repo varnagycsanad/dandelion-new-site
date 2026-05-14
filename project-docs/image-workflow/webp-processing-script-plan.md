@@ -6,7 +6,7 @@
 
 - A `package.json` jelenlegi dependency listája csak az `astro` csomagot tartalmazza.
 - Sharp jelenleg nincs telepítve, és nincs képfeldolgozó dependency bevezetve.
-- Az image source inventory létezik: `src/data/images/accommodation-source-images.ts`.
+- Az image source inventory archivált helyen maradt meg: `src/admin-disabled/data/images/accommodation-source-images.ts`.
 - A D2 source inventoryban már vannak `selected` és `needs_review` státuszú képek.
 - A végleges `ImageAsset` registry még nincs kitöltve konkrét képekkel.
 - A jelenlegi D2 source inventory forrásréteg, nem frontend adatforrás.
