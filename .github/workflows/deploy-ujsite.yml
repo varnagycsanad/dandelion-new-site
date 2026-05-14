@@ -96,8 +96,16 @@ jobs:
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_assets_upload }}" = "true" ]; then
             echo "assets_force_upload=true" >> "$GITHUB_OUTPUT"
-          else
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "assets_force_upload=false" >> "$GITHUB_OUTPUT"
+          elif [ -d ../_prev_build/dist/assets ]; then
+            if ! diff -qr dist-current/assets ../_prev_build/dist/assets >/dev/null 2>&1; then
+              echo "assets_force_upload=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "assets_force_upload=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "assets_force_upload=true" >> "$GITHUB_OUTPUT"
           fi
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_video_upload }}" = "true" ]; then
