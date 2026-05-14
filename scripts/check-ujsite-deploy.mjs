@@ -12,8 +12,11 @@ const royalCanonicalUrl = `${BASE_URL}/royal/`;
 const adminUrl = `${BASE_URL}/_local/image-admin`;
 const fetchHeaders = {
   'user-agent': 'dandelion-root-deploy-check/1.0',
+  'cache-control': 'no-cache',
+  pragma: 'no-cache',
 };
 const RETRY_DELAYS_MS = [0, 2500, 5000];
+const FLAKY_ROUTE_SAMPLE_COUNT = 8;
 
 let hasFailure = false;
 let hasWarning = false;
@@ -112,6 +115,16 @@ async function fetchStatus(url) {
   });
 }
 
+async function fetchStatusNoRetry(url) {
+  const response = await fetch(url, {
+    headers: fetchHeaders,
+    redirect: 'manual',
+  });
+
+  await response.arrayBuffer();
+  return response;
+}
+
 function findAssetUrls(html, attribute, extension) {
   const pattern = new RegExp(`${attribute}=["']([^"']+\\.${extension}(?:\\?[^"']*)?)["']`, 'gi');
   const urls = new Set();
@@ -146,6 +159,65 @@ async function checkCriticalPages() {
     } catch (error) {
       fail(`${pathLabel(url)} is not reachable: ${error.message}`);
     }
+  }
+}
+
+async function checkRouteStability() {
+  for (const url of criticalPages) {
+    const samples = [];
+
+    for (let attempt = 0; attempt < FLAKY_ROUTE_SAMPLE_COUNT; attempt += 1) {
+      try {
+        const response = await fetchStatusNoRetry(url);
+        samples.push({
+          status: response.status,
+          location: response.headers.get('location'),
+          server: response.headers.get('server'),
+        });
+      } catch (error) {
+        samples.push({
+          error: error.message,
+        });
+      }
+    }
+
+    const statusSummary = samples
+      .map((sample, index) => {
+        if (sample.error) {
+          return `${index + 1}:ERR(${sample.error})`;
+        }
+
+        const locationSuffix = sample.location ? `->${sample.location}` : '';
+        return `${index + 1}:${sample.status}${locationSuffix}`;
+      })
+      .join(', ');
+
+    const uniqueOutcomes = new Set(
+      samples.map((sample) =>
+        sample.error
+          ? `ERR:${sample.error}`
+          : `${sample.status}:${sample.location ?? '-'}`
+      )
+    );
+
+    if (uniqueOutcomes.size > 1) {
+      fail(`${pathLabel(url)} is flaky across repeated requests: ${statusSummary}`);
+      continue;
+    }
+
+    const firstSample = samples[0];
+
+    if (firstSample?.error) {
+      fail(`${pathLabel(url)} stability probe failed: ${firstSample.error}`);
+      continue;
+    }
+
+    if (firstSample?.status !== 200) {
+      fail(`${pathLabel(url)} stability probe did not stay on 200: ${statusSummary}`);
+      continue;
+    }
+
+    ok(`${pathLabel(url)} is stable across ${FLAKY_ROUTE_SAMPLE_COUNT} repeated requests`);
   }
 }
 
@@ -275,6 +347,7 @@ function checkBookingCta() {
 }
 
 await checkCriticalPages();
+await checkRouteStability();
 await checkAssets();
 await checkAdminRoute();
 await checkRoyalAliasRedirect();
