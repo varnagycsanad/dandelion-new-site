@@ -243,17 +243,27 @@ jobs:
           node <<'EOF'
           const fs = require("node:fs");
           const path = require("node:path");
-          const pages = [
-            "dandelion-d1","dandelion-d2","dandelion-koveskal","dandelion-royal-homes",
-            "dandelion-szepvolgyi-vendeghaz","dandelion-szololiget","dandelion-vintage",
-            "dandelion-zsalya","fuge","royal","szepvolgyi","szololiget"
+          const htmlRelativePaths = [
+            "index.html",
+            "dandelion-d1/index.html",
+            "dandelion-d2/index.html",
+            "dandelion-koveskal/index.html",
+            "dandelion-royal-homes/index.html",
+            "dandelion-szepvolgyi-vendeghaz/index.html",
+            "dandelion-szololiget/index.html",
+            "dandelion-vintage/index.html",
+            "dandelion-zsalya/index.html",
+            "fuge/index.html",
+            "royal/index.html",
+            "szepvolgyi/index.html",
+            "szololiget/index.html"
           ];
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
           const urls = new Set();
 
-          for (const page of pages) {
-            const htmlPath = path.join(distRoot, page, "index.html");
+          for (const relPath of htmlRelativePaths) {
+            const htmlPath = path.join(distRoot, relPath);
             if (!fs.existsSync(htmlPath)) continue;
             const html = fs.readFileSync(htmlPath, "utf8");
             const rx = /(?:src|href|poster|srcset)=\"([^\"]+)\"/g;
@@ -312,17 +322,27 @@ jobs:
           node <<'EOF'
           const fs = require("node:fs");
           const path = require("node:path");
-          const pages = [
-            "dandelion-d1","dandelion-d2","dandelion-koveskal","dandelion-royal-homes",
-            "dandelion-szepvolgyi-vendeghaz","dandelion-szololiget","dandelion-vintage",
-            "dandelion-zsalya","fuge","royal","szepvolgyi","szololiget"
+          const htmlRelativePaths = [
+            "index.html",
+            "dandelion-d1/index.html",
+            "dandelion-d2/index.html",
+            "dandelion-koveskal/index.html",
+            "dandelion-royal-homes/index.html",
+            "dandelion-szepvolgyi-vendeghaz/index.html",
+            "dandelion-szololiget/index.html",
+            "dandelion-vintage/index.html",
+            "dandelion-zsalya/index.html",
+            "fuge/index.html",
+            "royal/index.html",
+            "szepvolgyi/index.html",
+            "szololiget/index.html"
           ];
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
           const urls = new Set();
 
-          for (const page of pages) {
-            const htmlPath = path.join(distRoot, page, "index.html");
+          for (const relPath of htmlRelativePaths) {
+            const htmlPath = path.join(distRoot, relPath);
             if (!fs.existsSync(htmlPath)) continue;
             const html = fs.readFileSync(htmlPath, "utf8");
             const rx = /(?:src|href|poster|srcset)=\"([^\"]+)\"/g;
