@@ -285,6 +285,8 @@ STOP ha:
 - scope keveredik
 - redesign indul
 - publikus frontend képforrásba WordPress media / image-admin / REST / runtime útvonal kerülne vissza
+- publikus frontend képforrásba `public/images/accommodations/...` alapú régi képlogika kerülne vissza
+- új képes task nem Astro-only `src/assets` + registry irányba menne
 - lakásoldal D2 kézi másolással vagy page-level layout logikával készülne
 - AI SEO draftnál automatikus `approved:true` beállítás indulna
 

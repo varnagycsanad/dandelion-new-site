@@ -1,10 +1,11 @@
 // [CHANGE 2026-05-06 17:40] Root production SEO baseline helper added for canonical, sitemap and schema defaults.
+import d2DefaultOgImage from "../assets/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp";
 export const SITE_URL = "https://dandelionhouse.hu";
 export const SITE_NAME = "Dandelion Vendégházak";
 export const SITE_DEFAULT_TITLE = "Dandelion Vendégházak | Természetközeli szállások a Balaton-felvidéken";
 export const SITE_DEFAULT_DESCRIPTION =
   "Természetközeli vendégházak a Balaton-felvidéken és a Balaton mellett, közvetlen foglalással, inspiráló környezettel és nyugodt pihenéssel.";
-export const SITE_DEFAULT_OG_IMAGE = "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp";
+export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 const canonicalAliasMap: Record<string, string> = {
   "/dandelion-royal-homes/": "/royal/",

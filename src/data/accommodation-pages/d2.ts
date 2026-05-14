@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:55] D2 copy updated with panoramic pool focus, family-friendly tone and clean Hungarian text.
 export const d2PageData: AccommodationPageData = {
@@ -9,7 +10,12 @@ export const d2PageData: AccommodationPageData = {
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
-    mobileImagePath: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "d2",
+      "hero",
+      "dandelion-d2-kisapati-hero-mobile-01.webp",
+      "d2 mobile hero"
+    ),
     fallbackAlt: "Dandelion D2 apartman kerttel a Szent György-hegy lábánál",
     kicker: "Balaton-felvidék - Szent György-hegy",
     title: "Dandelion",
@@ -190,7 +196,12 @@ export const d2PageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "d2 related koveskal"
+          ),
           alt: "Dandelion Köveskál vendégház külső képe"
         }
       }

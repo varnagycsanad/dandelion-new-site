@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 export const vintagePageData: AccommodationPageData = {
   seo: {
@@ -8,7 +9,12 @@ export const vintagePageData: AccommodationPageData = {
   },
   bookingLink: "/dandelion-vintage/",
   hero: {
-    mobileImagePath: "/images/accommodations/vintage/gallery/dandelion-vintage-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "vintage",
+      "gallery",
+      "dandelion-vintage-source-001.webp",
+      "vintage mobile hero"
+    ),
     fallbackAlt: "Dandelion Vintage Vendégház Nemesgulácson, saját udvarral és nyugodt vidéki hangulattal",
     kicker: "Nemesgulács · Balaton-felvidék",
     title: "Dandelion",
@@ -152,7 +158,12 @@ export const vintagePageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "vintage related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       },
@@ -162,7 +173,12 @@ export const vintagePageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "vintage related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },

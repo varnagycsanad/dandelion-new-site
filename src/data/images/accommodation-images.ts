@@ -1,10 +1,36 @@
-// [CHANGE 2026-04-26 00:00] Üres accommodation image registry váz létrehozása.
-// [CHANGE 2026-04-26 00:00] Lakáskulcs-alapú üres accommodation image registry inicializálása.
-// [CHANGE 2026-04-26 00:00] D2 gallery ImageAsset registry kitöltése lokális WebP és thumb képekkel.
-// [CHANGE 2026-04-26 00:00] D2 hero ImageAsset registry kitöltése lokális desktop és mobil WebP képekkel.
-// [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitöltése lokális WebP képpel.
-import { d2LocalAstroAssets, getAccommodationLocalAsset } from "./astro-local-assets";
+﻿// [CHANGE 2026-04-26 00:00] Ăśres accommodation image registry vĂˇz lĂ©trehozĂˇsa.
+// [CHANGE 2026-04-26 00:00] LakĂˇskulcs-alapĂş ĂĽres accommodation image registry inicializĂˇlĂˇsa.
+// [CHANGE 2026-04-26 00:00] D2 gallery ImageAsset registry kitĂ¶ltĂ©se lokĂˇlis WebP Ă©s thumb kĂ©pekkel.
+// [CHANGE 2026-04-26 00:00] D2 hero ImageAsset registry kitĂ¶ltĂ©se lokĂˇlis desktop Ă©s mobil WebP kĂ©pekkel.
+// [CHANGE 2026-04-26 00:00] D2 card ImageAsset registry kitĂ¶ltĂ©se lokĂˇlis WebP kĂ©ppel.
+import {
+  d2LocalAstroAssets,
+  requireAccommodationLocalAssetByKey
+} from "./astro-local-assets";
 import type { AccommodationImageSet } from "./image-types";
+
+function buildAstroGalleryRefs(apartmentKey: string, filename: string) {
+  const astroSrc = requireAccommodationLocalAssetByKey(
+    apartmentKey,
+    "gallery",
+    filename,
+    `${apartmentKey} gallery`
+  );
+  const thumbAstroSrc = requireAccommodationLocalAssetByKey(
+    apartmentKey,
+    "thumbs",
+    filename,
+    `${apartmentKey} thumbnail`
+  );
+
+  return {
+    src: astroSrc.src,
+    thumb: thumbAstroSrc.src,
+    astroSrc,
+    thumbAstroSrc,
+    sourceOriginalUrl: `/src/assets/accommodations/${apartmentKey}/gallery/${filename}`
+  };
+}
 
 const d1SourceFilenames = [
   "2024-06-23 15-33-24.jpeg",
@@ -31,8 +57,8 @@ function buildD1GalleryEntries() {
   return d1SourceFilenames.map((sourceFilename, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/d1/gallery/dandelion-d1-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/d1/thumbs/dandelion-d1-source-${sequence}.webp`;
+    const filename = `dandelion-d1-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("d1", filename);
 
     return {
       id: `d1-${sequence}`,
@@ -40,6 +66,8 @@ function buildD1GalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -60,8 +88,8 @@ function buildD1GalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/d1/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-06",
       updatedAt: "2026-05-06",
@@ -73,9 +101,8 @@ function buildFugehazGalleryEntries() {
   return Array.from({ length: 13 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/fugehaz/thumbs/dandelion-fugehaz-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-fugehaz-source-${sequence}.jpg`;
+    const filename = `dandelion-fugehaz-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("fugehaz", filename);
 
     return {
       id: `fugehaz-${sequence}`,
@@ -83,6 +110,8 @@ function buildFugehazGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -103,8 +132,8 @@ function buildFugehazGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/fugehaz/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-05",
       updatedAt: "2026-05-05",
@@ -116,9 +145,8 @@ function buildSzololigetGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/szololiget/gallery/dandelion-szololiget-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/szololiget/thumbs/dandelion-szololiget-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-szololiget-source-${sequence}.jpg`;
+    const filename = `dandelion-szololiget-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("szololiget", filename);
 
     return {
       id: `szololiget-${sequence}`,
@@ -126,6 +154,8 @@ function buildSzololigetGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -146,8 +176,8 @@ function buildSzololigetGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/szololiget/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-05",
       updatedAt: "2026-05-05",
@@ -159,9 +189,8 @@ function buildZsalyaGalleryEntries() {
   return Array.from({ length: 11 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/zsalya/gallery/dandelion-zsalya-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/zsalya/thumbs/dandelion-zsalya-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-zsalya-source-${sequence}.jpg`;
+    const filename = `dandelion-zsalya-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("zsalya", filename);
 
     return {
       id: `zsalya-${sequence}`,
@@ -169,6 +198,8 @@ function buildZsalyaGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -189,8 +220,8 @@ function buildZsalyaGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/zsalya/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-05",
       updatedAt: "2026-05-05",
@@ -237,9 +268,8 @@ const royalHomesGalleryOrder = [
 function buildRoyalHomesGalleryEntries() {
   return royalHomesGalleryOrder.map((sequence, index) => {
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/royal_homes/thumbs/dandelion-royal-homes-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-royal-homes-source-${sequence}.jpg`;
+    const filename = `dandelion-royal-homes-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("royal_homes", filename);
 
     return {
       id: `royal-homes-${sequence}`,
@@ -247,6 +277,8 @@ function buildRoyalHomesGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -267,8 +299,8 @@ function buildRoyalHomesGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/royal-homes/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-05",
       updatedAt: "2026-05-05",
@@ -280,9 +312,8 @@ function buildKoveskalGalleryEntries() {
   return Array.from({ length: 21 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/koveskal/gallery/dandelion-koveskal-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/koveskal/thumbs/dandelion-koveskal-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-koveskal-source-${sequence}.jpg`;
+    const filename = `dandelion-koveskal-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("koveskal", filename);
 
     return {
       id: `koveskal-${sequence}`,
@@ -290,6 +321,8 @@ function buildKoveskalGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -310,8 +343,8 @@ function buildKoveskalGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/koveskal/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-05",
       updatedAt: "2026-05-05",
@@ -323,9 +356,8 @@ function buildSzepvolgyiGalleryEntries() {
   return Array.from({ length: 22 }, (_, index) => {
     const sequence = String(index + 1).padStart(3, "0");
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/szepvolgyi/thumbs/dandelion-szepvolgyi-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-szepvolgyi-source-${sequence}.jpg`;
+    const filename = `dandelion-szepvolgyi-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("szepvolgyi", filename);
 
     return {
       id: `szepvolgyi-${sequence}`,
@@ -333,6 +365,8 @@ function buildSzepvolgyiGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -353,8 +387,8 @@ function buildSzepvolgyiGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/szepvolgyi/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-06",
       updatedAt: "2026-05-06",
@@ -386,9 +420,8 @@ function buildVintageGalleryEntries() {
 
   return orderedSequences.map((sequence, index) => {
     const sortOrder = (index + 1) * 10;
-    const src = `/images/accommodations/vintage/gallery/dandelion-vintage-source-${sequence}.webp`;
-    const thumb = `/images/accommodations/vintage/thumbs/dandelion-vintage-source-${sequence}.webp`;
-    const sourceFilename = `dandelion-vintage-source-${sequence}.jpg`;
+    const filename = `dandelion-vintage-source-${sequence}.webp`;
+    const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("vintage", filename);
 
     return {
       id: `vintage-${sequence}`,
@@ -396,6 +429,8 @@ function buildVintageGalleryEntries() {
       role: "gallery",
       src,
       thumb,
+      astroSrc,
+      thumbAstroSrc,
       width: 1600,
       height: 1200,
       aspectRatio: "4:3",
@@ -416,8 +451,8 @@ function buildVintageGalleryEntries() {
       status: "active",
       source: {
         type: "local",
-        originalUrl: `/source-images/accommodations/vintage/${sourceFilename}`,
-        originalFilename: sourceFilename,
+        originalUrl: sourceOriginalUrl,
+        originalFilename: filename,
       },
       createdAt: "2026-05-06",
       updatedAt: "2026-05-06",
@@ -425,22 +460,39 @@ function buildVintageGalleryEntries() {
   });
 }
 
-function attachLocalGalleryAstroAssets<T extends { src: string; thumb?: string }>(
+function attachLocalGalleryAstroAssets<
+  T extends {
+    src: string;
+    thumb?: string;
+    astroSrc?: { src: string };
+    thumbAstroSrc?: { src: string };
+    source?: { originalFilename?: string };
+  }
+>(
   apartmentKey: string,
   images: T[]
 ): T[] {
   return images.map((image) => {
-    const srcFilename = image.src.split("/").pop();
-    const thumbFilename = image.thumb.split("/").pop();
+    if (image.astroSrc?.src && image.thumbAstroSrc?.src) {
+      return image;
+    }
+
+    const originalFilename = image.source?.originalFilename;
+    const srcFilename = originalFilename || image.src.split("/").pop();
+    const thumbFilename = originalFilename || image.thumb.split("/").pop();
+    const astroSrc = srcFilename
+      ? requireAccommodationLocalAssetByKey(apartmentKey, "gallery", srcFilename, `${apartmentKey} gallery`)
+      : undefined;
+    const thumbAstroSrc = thumbFilename
+      ? requireAccommodationLocalAssetByKey(apartmentKey, "thumbs", thumbFilename, `${apartmentKey} thumbnail`)
+      : undefined;
 
     return {
       ...image,
-      astroSrc: srcFilename
-        ? getAccommodationLocalAsset(apartmentKey, "gallery", srcFilename)
-        : undefined,
-      thumbAstroSrc: thumbFilename
-        ? getAccommodationLocalAsset(apartmentKey, "thumbs", thumbFilename)
-        : undefined
+      src: astroSrc?.src || image.src,
+      thumb: thumbAstroSrc?.src || image.thumb,
+      astroSrc,
+      thumbAstroSrc
     };
   });
 }
@@ -455,7 +507,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         role: "hero_desktop",
         room: "külső",
         theme: "vendégház / terasz",
-        src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp",
+        src: d2LocalAstroAssets.heroDesktop.src,
         astroSrc: d2LocalAstroAssets.heroDesktop,
         width: 1920,
         height: 1440,
@@ -476,10 +528,9 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         sortOrder: 1,
         status: "active",
         source: {
-          type: "wordpress",
-          wpId: 7870,
-          originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2025/09/2025-09-29-10-27-39.webp",
-          originalFilename: "2025-09-29-10-27-39.webp",
+          type: "local",
+          originalUrl: "/src/assets/accommodations/d2/hero/dandelion-d2-kisapati-hero-desktop-01.webp",
+          originalFilename: "dandelion-d2-kisapati-hero-desktop-01.webp",
         },
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26",
@@ -490,7 +541,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         role: "hero_mobile",
         room: "külső",
         theme: "fedett terasz / kert",
-        src: "/images/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
+        src: d2LocalAstroAssets.heroMobile.src,
         astroSrc: d2LocalAstroAssets.heroMobile,
         width: 1080,
         height: 810,
@@ -512,8 +563,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/d2-hero-mobile.webp",
-          originalFilename: "d2-hero-mobile.webp",
+          originalUrl: "/src/assets/accommodations/d2/hero/dandelion-d2-kisapati-hero-mobile-01.webp",
+          originalFilename: "dandelion-d2-kisapati-hero-mobile-01.webp",
         },
         createdAt: "2026-04-26",
         updatedAt: "2026-04-26",
@@ -525,7 +576,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       role: "card",
       room: "külső",
       theme: "vendégház / kert",
-      src: "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp",
+      src: d2LocalAstroAssets.card.src,
       astroSrc: d2LocalAstroAssets.card,
       width: 900,
       height: 675,
@@ -546,9 +597,9 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       sortOrder: 1,
       status: "active",
       source: {
-        type: "wordpress",
-        originalUrl: "https://dandelionhouse.hu/wp-content/uploads/2024/11/2024-06-14-15-27-24-scaled.jpeg.webp",
-        originalFilename: "2024-06-14-15-27-24-scaled.jpeg.webp",
+        type: "local",
+        originalUrl: "/src/assets/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp",
+        originalFilename: "dandelion-d2-kisapati-card-01.webp",
       },
       createdAt: "2026-04-26",
       updatedAt: "2026-04-26",
@@ -558,8 +609,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-05",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-005.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-005.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-005.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -580,7 +631,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-005.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-005.webp",
           originalFilename: "dandelion-d2-source-005.webp",
         },
         createdAt: "2026-04-26",
@@ -590,8 +641,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-01",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-001.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-001.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-001.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -612,7 +663,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-001.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-001.webp",
           originalFilename: "dandelion-d2-source-001.webp",
         },
         createdAt: "2026-04-26",
@@ -622,8 +673,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-02",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-002.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-002.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-002.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -644,7 +695,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-002.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-002.webp",
           originalFilename: "dandelion-d2-source-002.webp",
         },
         createdAt: "2026-04-26",
@@ -654,8 +705,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-09",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-009.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-009.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-009.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -676,7 +727,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-009.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-009.webp",
           originalFilename: "dandelion-d2-source-009.webp",
         },
         createdAt: "2026-04-26",
@@ -686,8 +737,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-07",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-007.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-007.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-007.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -708,7 +759,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-007.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-007.webp",
           originalFilename: "dandelion-d2-source-007.webp",
         },
         createdAt: "2026-04-26",
@@ -718,8 +769,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-10",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-010.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-010.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-010.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -740,7 +791,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-010.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-010.webp",
           originalFilename: "dandelion-d2-source-010.webp",
         },
         createdAt: "2026-04-26",
@@ -750,8 +801,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-13",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-013.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-013.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-013.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -772,7 +823,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-013.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-013.webp",
           originalFilename: "dandelion-d2-source-013.webp",
         },
         createdAt: "2026-04-26",
@@ -782,8 +833,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-15",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-015.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-015.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-015.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -804,7 +855,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-015.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-015.webp",
           originalFilename: "dandelion-d2-source-015.webp",
         },
         createdAt: "2026-04-26",
@@ -814,8 +865,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-11",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-011.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-011.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-011.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -836,7 +887,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-011.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-011.webp",
           originalFilename: "dandelion-d2-source-011.webp",
         },
         createdAt: "2026-04-26",
@@ -846,8 +897,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-03",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-003.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-003.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-003.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -868,7 +919,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-003.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-003.webp",
           originalFilename: "dandelion-d2-source-003.webp",
         },
         createdAt: "2026-04-26",
@@ -878,8 +929,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-04",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-004.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-004.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-004.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -900,7 +951,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-004.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-004.webp",
           originalFilename: "dandelion-d2-source-004.webp",
         },
         createdAt: "2026-04-26",
@@ -910,8 +961,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-06",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-006.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-006.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-006.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -932,7 +983,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-006.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-006.webp",
           originalFilename: "dandelion-d2-source-006.webp",
         },
         createdAt: "2026-04-26",
@@ -942,8 +993,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-16",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-016.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-016.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-016.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -964,7 +1015,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-016.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-016.webp",
           originalFilename: "dandelion-d2-source-016.webp",
         },
         createdAt: "2026-04-26",
@@ -974,8 +1025,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-08",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-008.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-008.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-008.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -996,7 +1047,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-008.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-008.webp",
           originalFilename: "dandelion-d2-source-008.webp",
         },
         createdAt: "2026-04-26",
@@ -1006,8 +1057,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-12",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-012.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-012.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-012.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -1028,7 +1079,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-012.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-012.webp",
           originalFilename: "dandelion-d2-source-012.webp",
         },
         createdAt: "2026-04-26",
@@ -1038,8 +1089,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-14",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-014.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-014.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-014.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -1060,7 +1111,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-014.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-014.webp",
           originalFilename: "dandelion-d2-source-014.webp",
         },
         createdAt: "2026-04-26",
@@ -1070,8 +1121,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         id: "d2-gallery-17",
         apartmentKey: "d2",
         role: "gallery",
-        src: "/images/accommodations/d2/gallery/dandelion-d2-source-017.webp",
-        thumb: "/images/accommodations/d2/thumbs/dandelion-d2-source-017.webp",
+        src: requireAccommodationLocalAssetByKey("d2", "gallery", "dandelion-d2-source-017.webp", "d2 gallery").src,
+        thumb: requireAccommodationLocalAssetByKey("d2", "thumbs", "dandelion-d2-source-017.webp", "d2 thumbnail").src,
         width: 1600,
         height: 1200,
         aspectRatio: "4:3",
@@ -1092,7 +1143,7 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         status: "active",
         source: {
           type: "local",
-          originalUrl: "/images/accommodations/d2/gallery/dandelion-d2-source-017.webp",
+          originalUrl: "/src/assets/accommodations/d2/gallery/dandelion-d2-source-017.webp",
           originalFilename: "dandelion-d2-source-017.webp",
         },
         createdAt: "2026-04-26",
@@ -1182,3 +1233,4 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
     thumbnail: null,
   },
 };
+

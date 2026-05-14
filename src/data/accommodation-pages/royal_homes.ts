@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
@@ -8,7 +9,12 @@ export const royalHomesPageData: AccommodationPageData = {
   },
   bookingLink: "/royal/",
   hero: {
-    mobileImagePath: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "royal_homes",
+      "gallery",
+      "dandelion-royal-homes-source-001.webp",
+      "royal homes mobile hero"
+    ),
     fallbackAlt: "Dandelion Royal Homes Apartman Keszthelyen, prémium balatoni környezetben",
     kicker: "Keszthely · Balaton-parti üdülőövezet",
     title: "Dandelion",
@@ -173,7 +179,12 @@ export const royalHomesPageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "royal homes related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },

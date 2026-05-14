@@ -11,11 +11,6 @@ on:
         required: false
         default: false
         type: boolean
-      force_image_upload:
-        description: Force full accommodation image upload
-        required: false
-        default: false
-        type: boolean
       force_video_upload:
         description: Force full accommodation video upload
         required: false
@@ -99,21 +94,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_image_upload }}" = "true" ]; then
-            echo "images_changed=true" >> "$GITHUB_OUTPUT"
-          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "images_changed=false" >> "$GITHUB_OUTPUT"
-          else
-            BEFORE_SHA="${{ github.event.before }}"
-            CURRENT_SHA="${{ github.sha }}"
-
-            if [ -n "${BEFORE_SHA}" ] && [ "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ] && git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/images/accommodations/**' | grep -q .; then
-              echo "images_changed=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "images_changed=false" >> "$GITHUB_OUTPUT"
-            fi
-          fi
-
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_assets_upload }}" = "true" ]; then
             echo "assets_force_upload=true" >> "$GITHUB_OUTPUT"
           else
@@ -189,14 +169,6 @@ jobs:
           sort -u deploy-delete.txt -o deploy-delete.txt
           echo "Upload candidates: $(wc -l < deploy-files.txt)"
           echo "Delete candidates: $(wc -l < deploy-delete.txt)"
-
-      - name: Prepare accommodation image payload
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p deploy-images
-          rsync -av --delete dist/images/accommodations/ deploy-images/
 
       - name: Prepare accommodation video payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
@@ -395,17 +367,6 @@ jobs:
             git worktree remove --force ../_prev_build || true
             rm -rf ../_prev_build || true
           fi
-
-      - name: Deploy accommodation images over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.images_changed == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
-          set ssl:verify-certificate no
-          mirror -R deploy-images/ "${UJSITE_FTP_PATH%/}/images/accommodations/"
-          bye
-          EOF
 
       - name: Deploy full hashed assets over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'

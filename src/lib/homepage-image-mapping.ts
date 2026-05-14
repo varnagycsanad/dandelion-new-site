@@ -99,8 +99,8 @@ function attachLocalAccommodationSelection(
     id: selection?.id ?? localImage.source.wpId ?? 0,
     title: selection?.title || localImage.title.hu || localImage.alt.hu,
     altText: selection?.altText || localImage.alt.hu,
-    sourceUrl: selection?.sourceUrl || localImage.src,
-    thumbnailUrl: selection?.thumbnailUrl || localImage.thumb || localImage.src,
+    sourceUrl: localImage.astroSrc.src,
+    thumbnailUrl: localImage.thumbAstroSrc?.src || localImage.astroSrc.src,
     astroSrc: localImage.astroSrc,
     width: localImage.width,
     height: localImage.height

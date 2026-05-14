@@ -1,6 +1,6 @@
 import type { ImageMetadata } from "astro";
 import type { AccommodationPageRelatedStay, AccommodationPageReview } from "../data/accommodation-pages/types";
-import { getAccommodationLocalAssetFromPublicPath } from "../data/images/astro-local-assets";
+import { requireAccommodationLocalAssetFromPublicPath } from "../data/images/astro-local-assets";
 import type { ImageAsset, GalleryImage } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
 
@@ -61,36 +61,15 @@ export function resolveBaseHref(baseUrl: string): string {
   return baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
-export function resolveRegistryImagePath(baseHref: string, imagePath: string): string {
-  return imagePath.startsWith("/") ? `${baseHref}${imagePath.replace(/^\/+/, "")}` : imagePath;
-}
-
-function normalizeAccommodationGalleryPath(
-  image: Pick<ImageAsset, "apartmentKey" | "source">,
+function requireAccommodationDisplayAsset(
   imagePath: string | undefined,
-  folder: "gallery" | "thumbs",
-  baseHref: string
-): string {
+  contextLabel: string
+): ImageMetadata {
   if (!imagePath) {
-    return "";
+    throw new Error(`Missing accommodation image path for ${contextLabel}`);
   }
 
-  if (/^(?:https?:)?\/\//.test(imagePath)) {
-    return imagePath;
-  }
-
-  if (imagePath.startsWith("/")) {
-    return resolveRegistryImagePath(baseHref, imagePath);
-  }
-
-  if (!image.apartmentKey) {
-    return imagePath;
-  }
-
-  return resolveRegistryImagePath(
-    baseHref,
-    `/images/accommodations/${image.apartmentKey}/${folder}/${imagePath}`
-  );
+  return requireAccommodationLocalAssetFromPublicPath(imagePath, contextLabel);
 }
 
 export function resolveStayHref(baseHref: string, href: string): string {
@@ -139,19 +118,28 @@ export function buildGalleryImages(input: {
   return input.gallery
     .slice()
     .sort((left, right) => left.sortOrder - right.sortOrder)
-    .map((image) => ({
-      id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
-      src: image.astroSrc?.src || normalizeAccommodationGalleryPath(image, image.src, "gallery", input.baseHref),
-      thumb: normalizeAccommodationGalleryPath(image, image.thumb, "thumbs", input.baseHref),
-      alt: image.alt.hu,
-      astroSrc: image.astroSrc,
-      thumbAstroSrc: image.thumbAstroSrc,
-      width: image.width,
-      height: image.height,
-      title: image.title.hu,
-      caption: image.caption.hu,
-      sortOrder: image.sortOrder
-    }));
+    .map((image) => {
+      const astroSrc =
+        image.astroSrc ||
+        requireAccommodationDisplayAsset(image.src, `${image.apartmentKey ?? "unknown"} gallery`);
+      const thumbAstroSrc =
+        image.thumbAstroSrc ||
+        requireAccommodationDisplayAsset(image.thumb, `${image.apartmentKey ?? "unknown"} thumbnail`);
+
+      return {
+        id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
+        src: astroSrc.src,
+        thumb: thumbAstroSrc.src,
+        alt: image.alt.hu,
+        astroSrc,
+        thumbAstroSrc,
+        width: image.width,
+        height: image.height,
+        title: image.title.hu,
+        caption: image.caption.hu,
+        sortOrder: image.sortOrder
+      };
+    });
 }
 
 export function buildGalleryPreviewState(input: {
@@ -184,7 +172,6 @@ export function buildHeroImages(input: {
   mobileImagePath: string;
   galleryImages: AccommodationDisplayGalleryImage[];
   fallbackAlt: string;
-  baseHref: string;
 }): {
   mobileHeroImage: string;
   desktopHeroImage: string;
@@ -193,19 +180,29 @@ export function buildHeroImages(input: {
   heroFallback: AccommodationHeroImage;
   initialHeroImage: AccommodationHeroImage;
 } {
-  const mobileHeroImage = input.mobileHero?.astroSrc?.src || resolveRegistryImagePath(input.baseHref, input.mobileImagePath);
-  const desktopHeroImage = input.desktopHero?.astroSrc?.src
-    ? input.desktopHero.astroSrc.src
-    : input.desktopHero?.src
-      ? resolveRegistryImagePath(input.baseHref, input.desktopHero.src)
-      : "";
+  const mobileHeroAstroSrc =
+    input.mobileHero?.astroSrc ||
+    requireAccommodationDisplayAsset(
+      input.mobileImagePath,
+      `${input.mobileHero?.apartmentKey ?? "unknown"} mobile hero`
+    );
+  const mobileHeroImage = mobileHeroAstroSrc.src;
+  const desktopHeroAstroSrc =
+    input.desktopHero?.astroSrc ||
+    (input.desktopHero?.src
+      ? requireAccommodationDisplayAsset(
+          input.desktopHero.src,
+          `${input.desktopHero.apartmentKey ?? "unknown"} desktop hero`
+        )
+      : undefined);
+  const desktopHeroImage = desktopHeroAstroSrc?.src || "";
   const desktopHeroAlt = input.desktopHero?.alt.hu || input.fallbackAlt;
   const mobileHeroWidth = input.mobileHero?.width || 1200;
   const mobileHeroHeight = input.mobileHero?.height || 1600;
   const localHeroFallback = {
     src: mobileHeroImage,
     alt: input.fallbackAlt,
-    astroSrc: input.mobileHero?.astroSrc,
+    astroSrc: mobileHeroAstroSrc,
     width: mobileHeroWidth,
     height: mobileHeroHeight
   };
@@ -220,7 +217,7 @@ export function buildHeroImages(input: {
     initialHeroImage: {
       src: desktopHeroImage || heroFallback.src,
       alt: desktopHeroAlt || heroFallback.alt,
-      astroSrc: input.desktopHero?.astroSrc || heroFallback.astroSrc,
+      astroSrc: desktopHeroAstroSrc || heroFallback.astroSrc,
       width: input.desktopHero?.width || heroFallback.width,
       height: input.desktopHero?.height || heroFallback.height
     }
@@ -241,14 +238,14 @@ export function buildRelatedStays(input: {
         return input.imageMapping[stay.image.slot];
       }
 
-      const astroSrc = getAccommodationLocalAssetFromPublicPath(stay.image.src);
+      const astroSrc = requireAccommodationDisplayAsset(stay.image.src, `related stay ${stay.href}`);
 
       return {
-        sourceUrl: astroSrc?.src || resolveRegistryImagePath(input.baseHref, stay.image.src),
+        sourceUrl: astroSrc.src,
         altText: stay.image.alt,
         astroSrc,
-        width: astroSrc?.width || 1600,
-        height: astroSrc?.height || 1200
+        width: astroSrc.width,
+        height: astroSrc.height
       };
     })()
   }));

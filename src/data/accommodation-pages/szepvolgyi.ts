@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 export const szepvolgyiPageData: AccommodationPageData = {
   seo: {
@@ -8,7 +9,12 @@ export const szepvolgyiPageData: AccommodationPageData = {
   },
   bookingLink: "/szepvolgyi/",
   hero: {
-    mobileImagePath: "/images/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "szepvolgyi",
+      "gallery",
+      "dandelion-szepvolgyi-source-001.webp",
+      "szepvolgyi mobile hero"
+    ),
     fallbackAlt: "Szépvölgyi Vendégház Badacsonyörsön, balatoni panorámás terasszal",
     kicker: "Badacsonyörs - Szépvölgyi út",
     title: "Szépvölgyi",
@@ -178,7 +184,12 @@ export const szepvolgyiPageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "szepvolgyi related royal homes"
+          ),
           alt: "Dandelion Royal Homes Apartman külső kép"
         }
       }

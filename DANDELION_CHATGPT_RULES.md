@@ -112,6 +112,7 @@ A projekt jelenlegi képkezelése:
 - nincs WordPress media használat
 - nincs image-admin használat
 - nincs runtime API
+- nincs `public/images/accommodations/...` alapú végleges frontend képrendszer
 
 Pipeline:
 1. source-images (JPG)
@@ -122,10 +123,18 @@ Pipeline:
 6. Astro build → publikus oldal
 
 A frontend kizárólag:
-- `public/images/...`
+- `src/assets/...`
 - `src/data/images/...`
 
 forrásból dolgozik.
+
+A publikus oldalon megjelenő végső URL-ek Astro buildelt `/assets/...` útvonalak.
+
+Képi SEO szabály:
+- AI készíthet alt/title/caption draftot
+- a draft nem végleges SEO adat
+- a leírás csak a képen ténylegesen látható tartalomra épülhet
+- kulcsszóhalmozás nem megengedett
 
 ---
 

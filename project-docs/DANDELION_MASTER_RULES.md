@@ -1557,16 +1557,21 @@ A webes képfájl neve legyen:
 Ajánlott minta:
 
 ```txt
-dandelion-{apartmentKey}-{telepules}-{tema}-{role}-{sorszam}.webp
+dandelion-<slug>-hero-desktop-01.webp
+dandelion-<slug>-hero-mobile-01.webp
+dandelion-<slug>-gallery-001.webp
+dandelion-<slug>-thumb-001.webp
+dandelion-<slug>-card-01.webp
 ```
 
 Példák:
 
 ```txt
-dandelion-d2-kisapati-kert-terasz-gallery-01.webp
-dandelion-d2-kisapati-emeleti-haloszoba-gallery-02.webp
-dandelion-zsalya-szent-gyorgy-hegy-panoramas-terasz-hero-desktop.webp
-dandelion-fugehaz-kisapati-kert-card.webp
+dandelion-d2-hero-desktop-01.webp
+dandelion-d2-hero-mobile-01.webp
+dandelion-d2-gallery-001.webp
+dandelion-d2-thumb-001.webp
+dandelion-d2-card-01.webp
 ```
 
 TILOS:

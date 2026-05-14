@@ -405,6 +405,7 @@ Jelenleg nem használunk:
 - image-admin felületet
 - REST endpointot
 - runtime képforrást
+- `public/images/accommodations/...` alapú végleges frontend képrendszert
 
 ---
 
@@ -449,11 +450,13 @@ A végleges SEO képadat az Astro projekt image registryjében készül és ott 
 A végleges frontend képek forrása:
 
 - optimalizált WebP fájl
-- `public/images/...`
+- `src/assets/...`
 - `src/data/images/...`
 - lakáskulcs / apartmentKey alapú hozzárendelés
 
-A frontend végső igazságforrása kizárólag `public/images/...` és `src/data/images/...`.
+A frontend végső igazságforrása kizárólag `src/assets/...` és `src/data/images/...`.
+
+A publikus oldalon a runtime képek Astro által generált `/assets/...` útvonalon jelennek meg.
 
 ---
 
@@ -484,6 +487,13 @@ Kötelező elv:
 7. jóváhagyott registry használata Astro oldalon
 8. build után a `dist` feltöltése
 
+Kötelező kimenetek:
+
+- minden publikált tartalmi kép `webp`
+- külön `gallery` és külön `thumb`
+- hero esetén külön `desktop` és külön `mobile`
+- a nyers JPG nem lehet közvetlen frontend forrás
+
 ---
 
 ### KÉPVERZIÓK
@@ -503,6 +513,21 @@ dandelion-d2-kisapati-kert-terasz-card.webp
 dandelion-d2-kisapati-kert-terasz-gallery.webp
 dandelion-d2-kisapati-kert-terasz-thumb.webp
 ```
+
+Az Astro-only egységes végcél névkonvenció:
+
+```txt
+dandelion-<slug>-hero-desktop-01.webp
+dandelion-<slug>-hero-mobile-01.webp
+dandelion-<slug>-gallery-001.webp
+dandelion-<slug>-thumb-001.webp
+dandelion-<slug>-card-01.webp
+```
+
+Vegyes régi minták nem maradhatnak végleges szabályként:
+
+- `source-001`
+- egyedi, lakásonként eltérő manuális nevek
 
 ---
 
@@ -603,16 +628,21 @@ A webes képfájl neve legyen:
 Ajánlott minta:
 
 ```txt
-dandelion-{apartmentKey}-{telepules}-{tema}-{role}-{sorszam}.webp
+dandelion-<slug>-hero-desktop-01.webp
+dandelion-<slug>-hero-mobile-01.webp
+dandelion-<slug>-gallery-001.webp
+dandelion-<slug>-thumb-001.webp
+dandelion-<slug>-card-01.webp
 ```
 
 Példák:
 
 ```txt
-dandelion-d2-kisapati-kert-terasz-gallery-01.webp
-dandelion-d2-kisapati-emeleti-haloszoba-gallery-02.webp
-dandelion-zsalya-szent-gyorgy-hegy-panoramas-terasz-hero-desktop.webp
-dandelion-fugehaz-kisapati-kert-card.webp
+dandelion-d2-hero-desktop-01.webp
+dandelion-d2-hero-mobile-01.webp
+dandelion-d2-gallery-001.webp
+dandelion-d2-thumb-001.webp
+dandelion-d2-card-01.webp
 ```
 
 TILOS:

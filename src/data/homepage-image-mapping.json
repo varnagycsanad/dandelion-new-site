@@ -5,63 +5,63 @@
     "id": 1,
     "title": "Dandelion D1",
     "altText": "Dandelion D1 vendégház külső képe",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/01/2025-09-30-07-15-39.jpeg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/01/2025-09-30-07-15-39.jpeg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "d2_card_image": {
     "id": 2,
     "title": "Dandelion D2",
     "altText": "Dandelion D2 vendégház terasz és kert",
-    "sourceUrl": "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp",
-    "thumbnailUrl": "/images/accommodations/d2/card/dandelion-d2-kisapati-card-01.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "fugehaz_card_image": {
     "id": 3,
     "title": "Fügeház",
     "altText": "Fügeház terasz panorámával",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_8525-scaled.jpg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/09/IMG_8525-scaled.jpg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "koveskal_card_image": {
     "id": 9,
     "title": "Dandelion Köveskál",
     "altText": "Dandelion Köveskál vendégház külső képe",
-    "sourceUrl": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
-    "thumbnailUrl": "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "zsalya_card_image": {
     "id": 4,
     "title": "Dandelion Zsálya",
     "altText": "Dandelion Zsálya vendégház külső képe",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/01/ZSalya-e1737915101923.jpg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/01/ZSalya-e1737915101923.jpg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "szololiget_card_image": {
     "id": 5,
     "title": "Dandelion Szőlőliget",
     "altText": "Dandelion Szőlőliget vendégház szőlőlugasok között",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/08/202507_dandelion-16-scaled.jpg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2025/08/202507_dandelion-16-scaled.jpg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "szepvolgyi_card_image": {
     "id": 6,
     "title": "Dandelion Szépvölgyi",
     "altText": "Dandelion Szépvölgyi vendégház kerttel",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2023/04/2023-04-27-12-17-16-scaled.jpeg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2023/04/2023-04-27-12-17-16-scaled.jpeg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "royal_homes_card_image": {
     "id": 7,
     "title": "Dandelion Royal Homes",
     "altText": "Dandelion Royal Homes apartman Keszthelyen",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/01/2023-10-17-17-10-02.jpeg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/01/2023-10-17-17-10-02.jpeg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   },
   "vintage_card_image": {
     "id": 8,
     "title": "Dandelion Vintage",
     "altText": "Dandelion Vintage vendégház külső képe",
-    "sourceUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/03/IMG_3520-Copy.jpg.webp",
-    "thumbnailUrl": "https://dandelionhouse.hu/wp-content/uploads/2026/03/IMG_3520-Copy.jpg.webp"
+    "sourceUrl": "",
+    "thumbnailUrl": ""
   }
 }

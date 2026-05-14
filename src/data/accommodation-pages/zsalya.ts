@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 export const zsalyaPageData: AccommodationPageData = {
   seo: {
@@ -8,7 +9,12 @@ export const zsalyaPageData: AccommodationPageData = {
   },
   bookingLink: "/dandelion-zsalya/",
   hero: {
-    mobileImagePath: "/images/accommodations/zsalya/gallery/dandelion-zsalya-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "zsalya",
+      "gallery",
+      "dandelion-zsalya-source-001.webp",
+      "zsalya mobile hero"
+    ),
     fallbackAlt: "Zsálya Vendégház a Szent György-hegy keleti oldalán",
     kicker: "Szent György-hegy keleti oldala",
     title: "Dandelion",
@@ -174,7 +180,12 @@ export const zsalyaPageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "zsalya related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },
@@ -193,7 +204,12 @@ export const zsalyaPageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "zsalya related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       }

@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:00] D1 accommodation data added for shared AccommodationPage template with panoramic pool messaging.
 export const d1PageData: AccommodationPageData = {
@@ -9,7 +10,12 @@ export const d1PageData: AccommodationPageData = {
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
-    mobileImagePath: "/images/accommodations/d1/gallery/dandelion-d1-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "d1",
+      "gallery",
+      "dandelion-d1-source-001.webp",
+      "d1 mobile hero"
+    ),
     fallbackAlt: "Dandelion D1 tágas vendégház Kisapátin, panorámás terasszal és családi pihenéshez",
     kicker: "Kisapáti - Szent György-hegy",
     title: "Dandelion",
@@ -171,7 +177,12 @@ export const d1PageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "d1 related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },
@@ -181,7 +192,12 @@ export const d1PageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "d1 related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       },

@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:10] Fugehaz page copy refined with premium Hungarian positioning and shared panoramic pool message.
 export const fugehazPageData: AccommodationPageData = {
@@ -9,7 +10,12 @@ export const fugehazPageData: AccommodationPageData = {
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
   hero: {
-    mobileImagePath: "/images/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "fugehaz",
+      "gallery",
+      "dandelion-fugehaz-source-001.webp",
+      "fugehaz mobile hero"
+    ),
     fallbackAlt: "Dandelion Fügeház panorámás vendégház a Balaton-felvidéken",
     kicker: "Balaton-felvidék - panorámás nyugalom",
     title: "Dandelion",
@@ -161,7 +167,12 @@ export const fugehazPageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "fugehaz related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },
@@ -189,7 +200,12 @@ export const fugehazPageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "fugehaz related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       }

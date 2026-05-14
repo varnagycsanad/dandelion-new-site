@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:20] Szololiget page copy rebuilt with natural Hungarian accommodation content and shared template structure preserved.
 export const szololigetPageData: AccommodationPageData = {
@@ -9,7 +10,12 @@ export const szololigetPageData: AccommodationPageData = {
   },
   bookingLink: "/szololiget/",
   hero: {
-    mobileImagePath: "/images/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "szololiget",
+      "gallery",
+      "dandelion-szololiget-source-001.webp",
+      "szololiget mobile hero"
+    ),
     fallbackAlt: "Szőlőliget Vendégház a Szent György-hegy keleti oldalán, panorámás környezetben",
     kicker: "Kisapáti - Szent György-hegy keleti oldala",
     title: "Szőlőliget",
@@ -170,7 +176,12 @@ export const szololigetPageData: AccommodationPageData = {
         href: "/dandelion-koveskal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "koveskal",
+            "gallery",
+            "dandelion-koveskal-source-001.webp",
+            "szololiget related koveskal"
+          ),
           alt: "Dandelion Köveskál külső kép"
         }
       },
@@ -189,7 +200,12 @@ export const szololigetPageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "szololiget related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       }

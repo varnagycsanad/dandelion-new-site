@@ -69,8 +69,7 @@ const {
   mobileHero: imageSet.hero.mobile || null,
   mobileImagePath: pageData.hero.mobileImagePath,
   galleryImages,
-  fallbackAlt: pageData.hero.fallbackAlt,
-  baseHref
+  fallbackAlt: pageData.hero.fallbackAlt
 });
 
 const imageMapping = await readHomepageImageMapping();
@@ -85,11 +84,11 @@ const canonicalPath = getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(canonicalPath);
 const heroSchemaImage = desktopHeroImage || initialHeroImage.src || mobileHeroImage;
 const fallbackOgImage =
-  imageSet.card?.src ||
-  imageSet.hero.desktop?.src ||
-  imageSet.hero.mobile?.src ||
-  imageSet.gallery[0]?.src ||
-  pageData.hero.mobileImagePath;
+  imageSet.card?.astroSrc?.src ||
+  imageSet.hero.desktop?.astroSrc?.src ||
+  imageSet.hero.mobile?.astroSrc?.src ||
+  imageSet.gallery[0]?.astroSrc?.src ||
+  heroSchemaImage;
 const accommodationStructuredData = [
   {
     "@context": "https://schema.org",

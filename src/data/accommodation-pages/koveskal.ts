@@ -1,4 +1,5 @@
 import type { AccommodationPageData } from "./types";
+import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 20:00] Köveskál SEO title, meta, headings and intro copy refined for production baseline.
 export const koveskalPageData: AccommodationPageData = {
@@ -9,7 +10,12 @@ export const koveskalPageData: AccommodationPageData = {
   },
   bookingLink: "https://dandelionhouse.hu/koveskal/",
   hero: {
-    mobileImagePath: "/images/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp",
+    mobileImagePath: requireAccommodationLocalAssetPath(
+      "koveskal",
+      "gallery",
+      "dandelion-koveskal-source-001.webp",
+      "koveskal mobile hero"
+    ),
     fallbackAlt: "Dandelion Köveskál vendégház a Káli-medence csendes részén",
     kicker: "Káli-medence · Köveskál",
     title: "Dandelion",
@@ -194,7 +200,12 @@ export const koveskalPageData: AccommodationPageData = {
         href: "/royal/",
         image: {
           type: "direct",
-          src: "/images/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp",
+          src: requireAccommodationLocalAssetPath(
+            "royal_homes",
+            "gallery",
+            "dandelion-royal-homes-source-001.webp",
+            "koveskal related royal homes"
+          ),
           alt: "Dandelion Royal Homes külső kép"
         }
       }
