@@ -27,6 +27,17 @@ function pathLabel(url) {
   return new URL(url).pathname;
 }
 
+function canonicalDirectoryUrl(url) {
+  const parsed = new URL(url);
+
+  if (parsed.pathname.endsWith('/')) {
+    return parsed.href;
+  }
+
+  parsed.pathname = `${parsed.pathname}/`;
+  return parsed.href;
+}
+
 function fail(message) {
   hasFailure = true;
   failureCount += 1;
@@ -212,12 +223,27 @@ async function checkRouteStability() {
       continue;
     }
 
+    if (firstSample?.status === 200) {
+      ok(`${pathLabel(url)} is stable across ${FLAKY_ROUTE_SAMPLE_COUNT} repeated requests`);
+      continue;
+    }
+
+    const expectedRedirectUrl = canonicalDirectoryUrl(url);
+    const isAcceptedRedirect =
+      (firstSample?.status === 301 || firstSample?.status === 308) &&
+      firstSample?.location === expectedRedirectUrl;
+
+    if (isAcceptedRedirect) {
+      ok(
+        `${pathLabel(url)} is stable across ${FLAKY_ROUTE_SAMPLE_COUNT} repeated requests via canonical redirect`
+      );
+      continue;
+    }
+
     if (firstSample?.status !== 200) {
       fail(`${pathLabel(url)} stability probe did not stay on 200: ${statusSummary}`);
       continue;
     }
-
-    ok(`${pathLabel(url)} is stable across ${FLAKY_ROUTE_SAMPLE_COUNT} repeated requests`);
   }
 }
 
