@@ -1,0 +1,269 @@
+<section class="dnd-section dnd-newsletter-signup" aria-labelledby="newsletter-signup-title">
+  <div class="dnd-container">
+    <div id="mlb2-35065463" class="dnd-newsletter-signup__shell ml-subscribe-form ml-subscribe-form-35065463">
+      <div class="dnd-newsletter-signup__copy row-form">
+        <span class="dnd-newsletter-signup__kicker">Dandelion hírlevél</span>
+        <h2 id="newsletter-signup-title">Értesítünk a szabad időpontokról és szezonális ajánlatokról.</h2>
+        <p class="dnd-newsletter-signup__lead">
+          Ha szeretnél elsőként hallani a felszabaduló dátumokról, különleges időszakokról és nyugodt
+          balatoni pihenésekhez kapcsolódó ajánlatokról, itt tudsz feliratkozni.
+        </p>
+
+        <form
+          class="ml-block-form dnd-newsletter-signup__form"
+          action="https://assets.mailerlite.com/jsonp/2003610/forms/174939941150655974/subscribe"
+          method="post"
+          target="_blank"
+        >
+          <div class="dnd-newsletter-signup__field ml-field-group ml-field-email ml-validate-email ml-validate-required">
+            <label class="dnd-newsletter-signup__label" for="newsletter-email">E-mail cím</label>
+            <input
+              id="newsletter-email"
+              aria-label="email"
+              aria-required="true"
+              type="email"
+              name="fields[email]"
+              placeholder="pelda@email.hu"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="dnd-newsletter-signup__consent ml-form-checkboxRow ml-validate-required">
+            <label class="dnd-newsletter-signup__checkbox">
+              <input type="checkbox" required />
+              <span>
+                Hozzájárulok, hogy e-mailben értesítést kapjak a Dandelion ajánlatairól és szabad időpontjairól.
+              </span>
+            </label>
+          </div>
+
+          <input type="hidden" name="ml-submit" value="1" />
+          <input type="hidden" name="anticsrf" value="true" />
+
+          <div class="dnd-newsletter-signup__actions ml-form-embedSubmit">
+            <button type="submit" class="dnd-btn dnd-btn--primary">Feliratkozás</button>
+            <button disabled="disabled" type="button" class="loading dnd-newsletter-signup__loading">
+              Folyamatban...
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="dnd-newsletter-signup__success row-success" style="display: none;">
+        <span class="dnd-newsletter-signup__kicker">Sikeres feliratkozás</span>
+        <h2>Köszönjük!</h2>
+        <p>
+          Sikeresen csatlakoztál a listánkhoz. Ha felszabadul egy különösen jó dátum vagy érkezik egy
+          szezonális ajánlat, időben szólunk.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function ml_webform_success_35065463() {
+    const root = document.querySelector(".ml-subscribe-form-35065463");
+    if (!root) {
+      return;
+    }
+
+    const formRow = root.querySelector(".row-form");
+    const successRow = root.querySelector(".row-success");
+
+    formRow?.setAttribute("style", "display: none;");
+    successRow?.setAttribute("style", "display: grid;");
+  }
+</script>
+<script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024"></script>
+<script is:inline>
+  fetch("https://assets.mailerlite.com/jsonp/2003610/forms/174939941150655974/takel");
+</script>
+
+<style>
+  .dnd-newsletter-signup {
+    padding: 0 0 120px;
+    background:
+      radial-gradient(circle at top right, rgba(255, 207, 95, 0.18), transparent 30%),
+      linear-gradient(180deg, #f7f2e7 0%, #fbf8f1 100%);
+  }
+
+  .dnd-newsletter-signup__shell {
+    display: grid;
+    gap: 18px;
+    padding: 34px 36px 32px;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 245, 0.92);
+    box-shadow: 0 26px 54px rgba(80, 57, 31, 0.08);
+  }
+
+  .dnd-newsletter-signup__copy,
+  .dnd-newsletter-signup__success {
+    display: grid;
+    gap: 18px;
+  }
+
+  .dnd-newsletter-signup__kicker {
+    display: inline-block;
+    color: rgba(121, 93, 48, 0.82);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .dnd-newsletter-signup h2 {
+    margin: 0;
+    max-width: 12ch;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1.02;
+    color: rgba(39, 32, 24, 0.94);
+  }
+
+  .dnd-newsletter-signup__lead,
+  .dnd-newsletter-signup__success p {
+    margin: 0;
+    max-width: 62ch;
+    color: rgba(39, 32, 24, 0.72);
+    font-size: 0.98rem;
+    line-height: 1.8;
+  }
+
+  .dnd-newsletter-signup__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) auto;
+    gap: 16px 18px;
+    align-items: end;
+    max-width: 920px;
+  }
+
+  .dnd-newsletter-signup__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .dnd-newsletter-signup__label {
+    color: rgba(39, 32, 24, 0.7);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .dnd-newsletter-signup__field input {
+    width: 100%;
+    min-height: 56px;
+    padding: 0 18px;
+    border: 1px solid rgba(91, 70, 42, 0.18);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.96);
+    color: rgba(39, 32, 24, 0.92);
+    font: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  }
+
+  .dnd-newsletter-signup__field input:focus {
+    outline: none;
+    border-color: rgba(121, 93, 48, 0.4);
+    box-shadow: 0 0 0 4px rgba(255, 187, 32, 0.14);
+    background: #fff;
+  }
+
+  .dnd-newsletter-signup__field input::placeholder {
+    color: rgba(39, 32, 24, 0.4);
+  }
+
+  .dnd-newsletter-signup__consent {
+    grid-column: 1 / -1;
+  }
+
+  .dnd-newsletter-signup__checkbox {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+    color: rgba(39, 32, 24, 0.74);
+    font-size: 0.86rem;
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .dnd-newsletter-signup__checkbox input {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    accent-color: #5b462a;
+  }
+
+  .dnd-newsletter-signup__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .dnd-newsletter-signup__actions .dnd-btn {
+    min-width: 190px;
+    min-height: 56px;
+    border-radius: 14px;
+    justify-content: center;
+  }
+
+  .dnd-newsletter-signup__loading {
+    display: none;
+    min-width: 190px;
+    min-height: 56px;
+    border: 0;
+    border-radius: 14px;
+    background: rgba(39, 32, 24, 0.1);
+    color: rgba(39, 32, 24, 0.62);
+    font: inherit;
+  }
+
+  .dnd-newsletter-signup__success {
+    min-height: 240px;
+    align-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .dnd-newsletter-signup {
+      padding-bottom: 88px;
+    }
+
+    .dnd-newsletter-signup__shell {
+      padding: 28px 22px 24px;
+      border-radius: 20px;
+    }
+
+    .dnd-newsletter-signup__form {
+      grid-template-columns: 1fr;
+    }
+
+    .dnd-newsletter-signup__actions .dnd-btn,
+    .dnd-newsletter-signup__loading {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .dnd-newsletter-signup {
+      padding-bottom: 72px;
+    }
+
+    .dnd-newsletter-signup h2 {
+      max-width: none;
+      font-size: clamp(1.8rem, 9vw, 2.35rem);
+      line-height: 1.08;
+    }
+
+    .dnd-newsletter-signup__lead,
+    .dnd-newsletter-signup__success p {
+      font-size: 0.92rem;
+      line-height: 1.72;
+    }
+  }
+</style>
