@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-import { accommodationSourceImages } from "../../../data/images/accommodation-source-images.ts";
+import { accommodationSourceImages } from "../../data/images/accommodation-source-images.ts";
 import { accommodationImages } from "../../../data/images/accommodation-images.ts";
 
 export const prerender = false;

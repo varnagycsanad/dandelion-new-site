@@ -9,6 +9,7 @@ const publicRoot = path.join(workspaceRoot, "public", "images", "accommodations"
 const outputPath = path.join(
   workspaceRoot,
   "src",
+  "admin-disabled",
   "data",
   "images",
   "accommodation-images.generated.json",

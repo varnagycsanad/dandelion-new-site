@@ -9,7 +9,7 @@ import { access, mkdir, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { fileURLToPath } from "node:url";
-import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
+import { accommodationSourceImages } from "../src/admin-disabled/data/images/accommodation-source-images.ts";
 
 const args = process.argv.slice(2);
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));

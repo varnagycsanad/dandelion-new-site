@@ -4,7 +4,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-const SOURCE_FILE_URL = new URL("../src/data/images/accommodation-source-images.ts", import.meta.url);
+const SOURCE_FILE_URL = new URL("../src/admin-disabled/data/images/accommodation-source-images.ts", import.meta.url);
 const SOURCE_FILE_PATH = fileURLToPath(SOURCE_FILE_URL);
 
 const args = process.argv.slice(2);

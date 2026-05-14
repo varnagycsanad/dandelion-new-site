@@ -4,10 +4,10 @@
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
+import { accommodationSourceImages } from "../src/admin-disabled/data/images/accommodation-source-images.ts";
 import { accommodationImages } from "../src/data/images/accommodation-images.ts";
 
-const SOURCE_FILE_URL = new URL("../src/data/images/accommodation-source-images.ts", import.meta.url);
+const SOURCE_FILE_URL = new URL("../src/admin-disabled/data/images/accommodation-source-images.ts", import.meta.url);
 const SOURCE_FILE_PATH = fileURLToPath(SOURCE_FILE_URL);
 const PUBLIC_ACCOMMODATIONS_ROOT_URL = new URL("../public/images/accommodations/", import.meta.url);
 

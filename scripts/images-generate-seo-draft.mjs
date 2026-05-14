@@ -12,6 +12,7 @@ const apartmentArg = process.argv
 const generatedInputPath = path.join(
   workspaceRoot,
   "src",
+  "admin-disabled",
   "data",
   "images",
   "accommodation-images.generated.json",
@@ -19,6 +20,7 @@ const generatedInputPath = path.join(
 const outputPath = path.join(
   workspaceRoot,
   "src",
+  "admin-disabled",
   "data",
   "images",
   "accommodation-images.seo-test.json",

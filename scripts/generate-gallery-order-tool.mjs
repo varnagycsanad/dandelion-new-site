@@ -5,8 +5,8 @@ import url from "node:url";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
-const registryPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.generated.json");
-const seoPreviewPath = path.join(projectRoot, "src", "data", "images", "accommodation-images.seo-test.json");
+const registryPath = path.join(projectRoot, "src", "admin-disabled", "data", "images", "accommodation-images.generated.json");
+const seoPreviewPath = path.join(projectRoot, "src", "admin-disabled", "data", "images", "accommodation-images.seo-test.json");
 const accommodationsPath = path.join(projectRoot, "src", "data", "accommodations.ts");
 const outputDir = path.join(projectRoot, "project-docs", "gallery-order-tool");
 
@@ -328,8 +328,8 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
   const pageData = {
     apartmentKey,
     apartmentName,
-    sourceRegistry: "src/data/images/accommodation-images.generated.json",
-    seoPreviewSource: seoPreviewSource ? "src/data/images/accommodation-images.seo-test.json" : "",
+    sourceRegistry: "src/admin-disabled/data/images/accommodation-images.generated.json",
+    seoPreviewSource: seoPreviewSource ? "src/admin-disabled/data/images/accommodation-images.seo-test.json" : "",
     items
   };
 
@@ -773,9 +773,9 @@ function buildPageHtml({ apartmentKey, apartmentName, items, seoPreviewSource })
         </p>
         <div class="pills">
           <span class="pill"><strong>ApartmentKey</strong> ${escapeHtml(apartmentKey)}</span>
-          <span class="pill"><strong>Forrás</strong> ${escapeHtml("src/data/images/accommodation-images.generated.json")}</span>
+          <span class="pill"><strong>Forrás</strong> ${escapeHtml("src/admin-disabled/data/images/accommodation-images.generated.json")}</span>
           <span class="pill"><strong>SEO preview</strong> ${
-            seoPreviewSource ? escapeHtml("src/data/images/accommodation-images.seo-test.json") : "nincs"
+            seoPreviewSource ? escapeHtml("src/admin-disabled/data/images/accommodation-images.seo-test.json") : "nincs"
           }</span>
           <span class="pill"><strong>Megnyitás</strong> dupla kattintással a .bat fájlról</span>
         </div>
@@ -1413,7 +1413,7 @@ function buildIndexHtml({ entries }) {
       <div class="pills">
         <span class="pill"><strong>Összes szállás</strong> ${escapeHtml(String(total))}</span>
         <span class="pill"><strong>Rendező HTML-ek</strong> ${escapeHtml(String(generatedCount))}</span>
-        <span class="pill"><strong>Forrás</strong> src/data/images/accommodation-images.generated.json</span>
+        <span class="pill"><strong>Forrás</strong> src/admin-disabled/data/images/accommodation-images.generated.json</span>
       </div>
       <p class="footer">A megnyitáshoz használd az <code>open-gallery-order-tool.bat</code> fájlt.</p>
     </section>

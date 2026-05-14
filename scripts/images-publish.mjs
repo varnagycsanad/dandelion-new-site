@@ -4,7 +4,7 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { accommodationSourceImages } from "../src/data/images/accommodation-source-images.ts";
+import { accommodationSourceImages } from "../src/admin-disabled/data/images/accommodation-source-images.ts";
 import { accommodationImages } from "../src/data/images/accommodation-images.ts";
 
 const REGISTRY_FILE_URL = new URL("../src/data/images/accommodation-images.ts", import.meta.url);
