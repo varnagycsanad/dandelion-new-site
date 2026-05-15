@@ -1,0 +1,503 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import supportImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: "https://dandelionhouse.hu/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Élmények",
+        item: "https://dandelionhouse.hu/elmenyek/"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Tanúhegyek",
+        item: "https://dandelionhouse.hu/elmenyek/tanuhegyek/"
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Tanúhegyek, kilátások és csendes kirándulások | Dandelion Vendégházak"
+  description="Szent György-hegy, Badacsony, Gulács, Csobánc és Szigliget környéki túra- és kirándulásötletek, könnyebb séták és hangulatos természetközeli programok a Balaton-felvidéken."
+  canonicalPath="/elmenyek/tanuhegyek/"
+  structuredData={structuredData}
+>
+  <section class="hills-page">
+    <div class="dnd-container hills-page__inner">
+      <section class="hills-page__hero">
+        <div class="hills-page__hero-copy">
+          <span class="hills-page__eyebrow">Természetközeli program</span>
+          <h1>Tanúhegyek, kilátások és csendes kirándulások</h1>
+          <p>
+            A Balaton-felvidék egyik legnagyobb ajándéka, hogy pár perc alatt a szállástól már
+            hegyek, szőlők, rétek, erdei utak és kilátópontok között lehettek. Itt nem kell nagy
+            túrákra gondolni: sokszor egy rövidebb séta, egy naplementés kilátópont vagy egy
+            csendes hegyi út is elég ahhoz, hogy teljesen más ritmusba kerüljetek.
+          </p>
+          <p>
+            A Szent György-hegy, Badacsony, Gulács, Csobánc és Szigliget környéke tele van olyan
+            helyekkel, ahol a természet, a panoráma és a balatoni-felvidéki hangulat egyszerre van
+            jelen.
+          </p>
+
+          <ul class="hills-page__hero-highlights">
+            <li>tanúhegyek és panorámás kilátópontok</li>
+            <li>rövidebb séták és hosszabb túrák is elérhetők</li>
+            <li>családos, páros és baráti programnak is jó</li>
+            <li>naplementéhez különösen hangulatos</li>
+          </ul>
+
+          <div class="hills-page__hero-actions">
+            <a href="/szallasok/" class="hills-page__cta-primary">Szállások megtekintése</a>
+            <a href="/elmenyek/" class="hills-page__cta-secondary">Vissza az élményekhez</a>
+          </div>
+        </div>
+
+        <div class="hills-page__hero-media">
+          <Image
+            src={heroImage}
+            alt="Panoráma a Tapolcai-medencére és a tanúhegyekre"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section class="hills-page__support">
+        <article class="hills-page__support-card">
+          <span class="hills-page__eyebrow">Hangulat</span>
+          <h2>Nem száraz programlista, hanem ritmus és táj</h2>
+          <p>
+            Ez a blokk jól lezárja a bicikli, bor és Balaton témákat is: ugyanúgy élményből indul,
+            és csak utána bontja ki, merre érdemes elindulni.
+          </p>
+        </article>
+
+        <article class="hills-page__support-card">
+          <Image
+            src={supportImage}
+            alt="Szent György-hegyi szőlők és balatoni-felvidéki túrahangulat"
+            loading="lazy"
+          />
+        </article>
+      </section>
+
+      <section class="hills-page__accordions" aria-label="Tanúhegyes részletek">
+        <details class="hills-accordion" open>
+          <summary>Túra- és kirándulásötletek a környéken</summary>
+          <div class="hills-accordion__content">
+            <div class="hills-stop">
+              <h3>Szent György-hegy</h3>
+              <p>
+                A Dandelion hangulatához talán ez áll a legközelebb: szőlők, bazaltorgonák,
+                csendes utak, kilátás és igazi Balaton-felvidéki táj. Rövidebb sétához és
+                tartalmasabb kiránduláshoz is jó választás.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Badacsony</h3>
+              <p>
+                Klasszikus balatoni tanúhegy, ahol a túrát könnyen össze lehet kötni borozással,
+                vacsorával vagy vízparti programmal. A kilátás több pontról is nagyon szép, de
+                nyáron számoljatok nagyobb forgalommal.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Szigliget és a vár környéke</h3>
+              <p>
+                Könnyen szerethető program: vár, panoráma, Balaton, kis utcák, fagyi, séta.
+                Családoknak is jó, mert nem csak túra, hanem élményprogram is.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Csobánc</h3>
+              <p>
+                Vadregényesebb, nyugodtabb irány. A várrom és a kilátás miatt nagyon megéri, de
+                inkább azoknak ajánlanám, akik szeretnek kicsit többet sétálni.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Gulács</h3>
+              <p>
+                Kevésbé nyüzsgő, természetközelibb túracélpont. Akkor jó választás, ha csendesebb
+                hegyi programot kerestek.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="hills-accordion">
+          <summary>Könnyebb programok, ha nem nagy túrát szeretnétek</summary>
+          <div class="hills-accordion__content">
+            <p>
+              Nem minden nap kell hosszú túrát tervezni. A környékben az a jó, hogy kisebb
+              programokból is összeállhat egy nagyon szép nap.
+            </p>
+
+            <div class="hills-stop">
+              <h3>Rövid séta a szőlők között</h3>
+              <p>
+                Egy lassú délutáni séta a hegyoldalban, egy kilátópont vagy egy csendes dűlőút
+                sokszor többet ad, mint egy túlzsúfolt program.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Naplementenézés</h3>
+              <p>
+                A tanúhegyek környékén a naplementék különösen szépek. Egy könnyű séta, egy pléd,
+                egy pohár bor vagy csak a kilátás, ennyi bőven elég.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Piknik a természetben</h3>
+              <p>
+                Tavasszal és ősszel különösen jó ötlet. Nem kell nagy szervezés: egy kis
+                harapnivaló, víz, kényelmes cipő, és irány a hegy.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Fotós séta</h3>
+              <p>
+                A táj nagyon hálás: szőlősorok, régi pincék, hegyek, Balaton-részletek, fények.
+                Akár telefonnal is jó képeket lehet készíteni.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="hills-accordion">
+          <summary>Melyik programot válasszátok?</summary>
+          <div class="hills-accordion__content">
+            <div class="hills-stop">
+              <h3>Családos programhoz</h3>
+              <p>
+                Szigliget és a vár környéke jó választás. Van benne séta, kilátás, felfedezés, de
+                nem csak menni kell az erdőben.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Romantikus programhoz</h3>
+              <p>
+                Szent György-hegy vagy Badacsony naplemente környékén. Szép fények, panoráma,
+                boros megállók, lassú este.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Csendesebb természetközeli naphoz</h3>
+              <p>
+                Gulács vagy Csobánc jobb irány, főleg ha elkerülnétek a nyüzsgősebb balatoni
+                helyeket.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Aktívabb túrához</h3>
+              <p>
+                Badacsony, Csobánc vagy a Szent György-hegy hosszabb útvonalai működhetnek jól.
+              </p>
+            </div>
+
+            <div class="hills-stop">
+              <h3>Könnyű, nem túrázós naphoz</h3>
+              <p>
+                Szigliget, vízparti séta, várnézés, kávé, fagyi, kilátás. Egyszerű, de működik.
+              </p>
+            </div>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hills-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(182, 170, 112, 0.16), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #f4efe5 100%);
+  }
+
+  .hills-page__inner {
+    display: grid;
+    gap: 30px;
+  }
+
+  .hills-page__eyebrow {
+    display: inline-block;
+    color: #8a6b25;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hills-page__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .hills-page__hero-copy,
+  .hills-page__support-card {
+    display: grid;
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .hills-page h1,
+  .hills-page__support-card h2 {
+    margin: 0;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .hills-page h1 {
+    font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+    max-width: 12ch;
+  }
+
+  .hills-page__hero-copy p,
+  .hills-page__support-card p,
+  .hills-accordion__content p,
+  .hills-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .hills-page__hero-highlights {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .hills-page__hero-media,
+  .hills-page__support-card :global(img) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hills-page__hero-media,
+  .hills-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .hills-page__hero-media :global(picture),
+  .hills-page__hero-media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hills-page__hero-media :global(img),
+  .hills-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .hills-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .hills-page__cta-primary,
+  .hills-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .hills-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .hills-page__cta-primary:hover,
+  .hills-page__cta-primary:focus-visible,
+  .hills-page__cta-secondary:hover,
+  .hills-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .hills-page__support {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .hills-page__accordions {
+    display: grid;
+    gap: 18px;
+  }
+
+  .hills-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .hills-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .hills-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .hills-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hills-accordion[open] summary::after {
+    content: "−";
+  }
+
+  .hills-accordion__content {
+    display: grid;
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .hills-stop {
+    display: grid;
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .hills-stop h3 {
+    margin: 0;
+    color: #261d16;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 960px) {
+    .hills-page__hero,
+    .hills-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hills-page {
+      padding: 108px 0 72px;
+    }
+
+    .hills-page__inner {
+      gap: 24px;
+    }
+
+    .hills-page__hero-copy,
+    .hills-page__support-card {
+      padding: 24px;
+    }
+
+    .hills-page__hero-media,
+    .hills-page__support-card,
+    .hills-accordion {
+      border-radius: 18px;
+    }
+
+    .hills-accordion summary,
+    .hills-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hills-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .hills-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .hills-stop {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>
