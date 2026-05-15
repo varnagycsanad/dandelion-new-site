@@ -1,43 +1,81 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import bikingImage from "../assets/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp";
-import wineTourImage from "../assets/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp";
-import balatonImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
-import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
+import heroImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import bikingImage from "../assets/experiences/stock-bike.jpg";
+import wineImage from "../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import balatonImage from "../assets/experiences/balaton-shore.jpg";
+import mountainsImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+
+const quickFacts = [
+  "bringás körök és mellékutak",
+  "Szent György-hegyi pincék",
+  "balatoni strandok rövid úttal",
+  "tanúhegyes naplementék"
+];
 
 const experiences = [
   {
+    eyebrow: "Aktív kikapcsolódás",
     title: "Bicikli",
     description:
-      "Kijelölt túraútvonalak, csendes mellékutak és balatoni panorámák várnak a Tapolcai-medence és a Káli-medence környékén.",
-    details: "Fél napos és egész napos körök, tavasztól őszig ideális.",
+      "A Tapolcai-medence és a Balaton-felvidék környéke ideális terep kényelmes tekeréshez, panorámás kerülőkhöz és hosszabb egész napos körökhöz is.",
+    details:
+      "Csendes mellékutak, szőlősorok, falvak közötti átvezetők és balatoni kitérők adják a bringás napok ritmusát.",
+    highlights: ["fél napos és egész napos körök", "országúti vagy kényelmesebb tempóhoz is jó", "tavasztól őszig erős program"],
     image: bikingImage,
-    imageAlt: "Kerékpáros túra a Balaton-felvidéken"
+    imageAlt: "Kerékpár természetes, letisztult környezetben"
   },
   {
-    title: "Bortúra",
+    eyebrow: "Bor és panoráma",
+    title: "Szent György-hegyi szőlők",
     description:
-      "Helyi pincészetek, kóstolók és lassú esték segítenek ráhangolódni a környék boros világára.",
-    details: "Kis pincészetek és panorámás teraszok, pároknak különösen jó program.",
-    image: wineTourImage,
-    imageAlt: "Borospohár és palack helyi kóstoló hangulatban"
+      "A hegy környékén a szőlősorok, a teraszok és a kisebb pincészetek együtt adják azt a balatoni-felvidéki hangulatot, amiért sokan visszajárnak ide.",
+    details:
+      "Ez nem rohanós borkóstoló: inkább lassú délután, kilátással, helyi történetekkel és egy-egy hosszabbra nyúló estével.",
+    highlights: ["helyi borászatok és kóstolók", "szőlőhegyi naplemente", "pároknak és baráti társaságoknak is jó"],
+    image: wineImage,
+    imageAlt: "Szőlősorok a Szent György-hegy környékén"
   },
   {
+    eyebrow: "Vízparti könnyedség",
     title: "Balaton",
     description:
-      "Strand, naplemente, vízparti séták és könnyű nyári programok néhány perces autóútra a szállásoktól.",
-    details: "Reggeli mólóséta, napközben strand, este naplemente.",
+      "Ha vízparti napra vágytok, a környék strandjai, mólói és esti sétái gyorsan elérhetők, így a nyugodt szállás és a balatoni program jól megfér egymás mellett.",
+    details:
+      "Lehet belőle egy könnyű délelőtti csobbanás, egy teljes strandnap, vagy egy naplementés vacsora utáni parti séta.",
+    highlights: ["strand és móló rövid autóúttal", "családos programnak is kényelmes", "nyári estékhez különösen jó"],
     image: balatonImage,
-    imageAlt: "Balatoni vízpart nyári fényekkel"
+    imageAlt: "Köves balatoni partszakasz tiszta vízzel és nyári fénnyel"
   },
   {
+    eyebrow: "Természetközeli program",
     title: "Tanúhegyek",
     description:
-      "Túraútvonalak, kilátók és csendes erdei ösvények teszik teljessé a természetközeli kikapcsolódást.",
-    details: "Rövidebb családi utak és komolyabb emelkedők is elérhetők.",
+      "A környék legismertebb túrái, kilátópontjai és bazaltos hegyoldalai akkor a legerősebbek, ha nem csak átrohantok rajtuk, hanem hagytok időt a megérkezésre is.",
+    details:
+      "Rövidebb családi séták, fotós megállók és komolyabb emelkedők is beleférnek ugyanabba a régióba.",
+    highlights: ["Szent György-hegy, Csobánc, Gulács", "napkelte vagy naplemente túrához is jó", "erős vizuális élmény minden évszakban"],
     image: mountainsImage,
-    imageAlt: "Tanúhegyek a Balaton-felvidéken"
+    imageAlt: "Drónkép a tanúhegyekről és a Tapolcai-medencéről"
+  }
+];
+
+const bikeGuide = [
+  {
+    title: "Laza indulás",
+    text:
+      "Reggel érdemes a kisebb forgalmú falusi szakaszokkal kezdeni, amikor még a táj is csendesebb és a fények is szebbek."
+  },
+  {
+    title: "Panorámás kitérők",
+    text:
+      "A legjobb körök nem feltétlenül a legrövidebbek: egy szőlőhegyi kerülő vagy balatoni lejáró sokat emel az egész napon."
+  },
+  {
+    title: "Lezárás borral vagy vízparttal",
+    text:
+      "A bringás program itt jól kombinálható egy délutáni borozással vagy egy rövidebb balatoni megállóval, ezért az oldalnak ezt is érdemes kimondania."
   }
 ];
 
@@ -76,38 +114,87 @@ const structuredData = [
 
 <BaseLayout
   title="Élmények | Dandelion Vendégházak"
-  description="Kerékpározás, bortúrák, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
+  description="Kerékpározás, Szent György-hegyi borélmények, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
   canonicalPath="/elmenyek/"
   structuredData={structuredData}
 >
   <section class="experiences-page">
     <div class="dnd-container experiences-page__inner">
-      <div class="experiences-page__hero">
-        <span class="experiences-page__eyebrow">Környék és programok</span>
-        <h1>Élmények a Balaton-felvidék ritmusára hangolva.</h1>
-        <p>
-          A Dandelion szállások környéke nem egyetlen programról szól, hanem arról, hogy minden nap
-          másféle tempót választhatsz: túra, bor, vízpart vagy egyszerűen egy hosszú, csendes séta.
-        </p>
-      </div>
+      <section class="experiences-hero">
+        <div class="experiences-hero__media">
+          <Image
+            src={heroImage}
+            alt="Panoráma a Tapolcai-medencére és a tanúhegyekre naplementében"
+            loading="eager"
+          />
+        </div>
 
-      <div class="experiences-page__grid">
+        <div class="experiences-hero__content">
+          <span class="experiences-page__eyebrow">Környék és programok</span>
+          <h1>Élmények a Balaton-felvidék ritmusára hangolva.</h1>
+          <p class="experiences-hero__lead">
+            A Dandelion környékén nem egyetlen kötelező program vár, hanem többféle jó ritmus:
+            bringás napok, szőlőhegyi délutánok, balatoni kitérők és tanúhegyes túrák. Ez az oldal
+            akkor működik igazán jól, ha nem csak felsorol, hanem segít választani is.
+          </p>
+
+          <div class="experiences-hero__facts" aria-label="Élmény gyorsáttekintő">
+            {quickFacts.map((fact) => (
+              <span>{fact}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="experiences-page__grid" aria-label="Kiemelt élmények">
         {experiences.map((item) => (
           <article class="experience-card">
-            <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+            <div class="experience-card__media">
+              <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+            </div>
+
             <div class="experience-card__body">
+              <span class="experience-card__eyebrow">{item.eyebrow}</span>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
               <p class="experience-card__details">{item.details}</p>
+
+              <ul class="experience-card__highlights">
+                {item.highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
             </div>
           </article>
         ))}
-      </div>
+      </section>
 
-      <div class="experiences-page__cta-panel">
-        <h2>Megvan a program, jöhet a szállás?</h2>
+      <section class="bike-focus" aria-labelledby="bike-focus-title">
+        <div class="bike-focus__intro">
+          <span class="experiences-page__eyebrow">Tartalmi bővítés</span>
+          <h2 id="bike-focus-title">Bringás programhoz külön tartalom kellett, ezért ezt megemeltem.</h2>
+          <p>
+            A korábbi oldal csak megemlítette a biciklit, de nem adott kapaszkodót. Itt már külön
+            blokkban jelenik meg, hogy miért jó ez a környék bringásoknak, milyen hangulatú napra
+            számíthatnak a vendégek, és hogyan kapcsolható össze a tekerés más helyi élményekkel.
+          </p>
+        </div>
+
+        <div class="bike-focus__grid">
+          {bikeGuide.map((item) => (
+            <article class="bike-step">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="experiences-page__cta-panel">
+        <h2>Megvan a hangulat, jöhet a szállás?</h2>
         <p>
-          Nézd meg a Dandelion házakat régiónként, és válaszd azt a helyszínt, ami a te pihenési ritmusodhoz illik.
+          Nézd meg a Dandelion házakat régiónként, és válaszd azt a helyet, ahonnan a saját pihenési
+          ritmusod indul a legtermészetesebben.
         </p>
         <div class="experiences-page__cta-actions">
           <a href="/szallasok/" class="experiences-page__cta-primary">Szállások megtekintése</a>
@@ -117,118 +204,218 @@ const structuredData = [
             target="_blank"
             rel="noopener noreferrer"
           >
-            Foglalás / Árak
+            Foglalás / Ár
           </a>
         </div>
-      </div>
+      </section>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .experiences-page {
-    padding: 132px 0 88px;
-    background: #fbfaf7;
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(215, 188, 127, 0.16), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #f6f0e7 100%);
   }
 
   .experiences-page__inner {
     display: grid;
-    gap: 32px;
+    gap: 36px;
   }
 
-  .experiences-page__hero {
-    max-width: 780px;
-  }
-
-  .experiences-page__eyebrow {
+  .experiences-page__eyebrow,
+  .experience-card__eyebrow {
     display: inline-block;
-    margin-bottom: 10px;
-    color: #b67b20;
-    font-size: 0.74rem;
+    color: #a56d1f;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
-  .experiences-page h1 {
+  .experiences-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .experiences-hero__media,
+  .experience-card__media {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .experiences-hero__media :global(picture),
+  .experiences-hero__media :global(img),
+  .experience-card__media :global(picture),
+  .experience-card__media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .experiences-hero__media :global(img) {
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  .experiences-hero__content {
+    display: grid;
+    align-content: center;
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .experiences-page h1,
+  .bike-focus h2,
+  .experiences-page__cta-panel h2,
+  .experience-card h2,
+  .bike-step h3 {
     margin: 0;
     color: #261d16;
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
     font-weight: 500;
-    line-height: 1.05;
+    line-height: 1.08;
   }
 
-  .experiences-page__hero p,
-  .experience-card p {
-    margin: 14px 0 0;
+  .experiences-page h1 {
+    font-size: clamp(2.5rem, 4.4vw, 4.4rem);
+    max-width: 11ch;
+  }
+
+  .experiences-hero__lead,
+  .experience-card p,
+  .bike-focus p,
+  .bike-step p,
+  .experiences-page__cta-panel p {
+    margin: 0;
     color: rgba(38, 29, 22, 0.76);
     font-size: 1rem;
     line-height: 1.72;
   }
 
+  .experiences-hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .experiences-hero__facts span {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    color: rgba(38, 29, 22, 0.86);
+    font-size: 0.9rem;
+  }
+
   .experiences-page__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
+    gap: 24px;
   }
 
   .experience-card {
-    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
     border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 20px;
-    background: #fff;
-    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
   }
 
-  .experience-card :is(img, picture) {
-    display: block;
-    width: 100%;
+  .experience-card__media {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .experience-card__media :global(img) {
     aspect-ratio: 16 / 10;
     object-fit: cover;
   }
 
   .experience-card__body {
-    padding: 22px;
+    display: grid;
+    gap: 12px;
+    padding: 24px;
   }
 
   .experience-card h2 {
-    margin: 0;
-    color: #261d16;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1.2;
+    font-size: clamp(1.55rem, 2vw, 2rem);
   }
 
   .experience-card__details {
-    margin-top: 8px !important;
-    font-size: 0.94rem !important;
-    color: rgba(38, 29, 22, 0.66) !important;
+    color: rgba(38, 29, 22, 0.64) !important;
   }
 
+  .experience-card__highlights {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: rgba(38, 29, 22, 0.82);
+    display: grid;
+    gap: 8px;
+    line-height: 1.55;
+  }
+
+  .bike-focus,
   .experiences-page__cta-panel {
     border: 1px solid rgba(88, 63, 38, 0.14);
-    border-radius: 20px;
-    background: linear-gradient(120deg, #f8f2e7 0%, #fdfbf7 100%);
-    padding: 28px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(248, 242, 231, 0.92), rgba(255, 252, 246, 0.96));
     box-shadow: 0 18px 48px rgba(48, 34, 20, 0.05);
   }
 
-  .experiences-page__cta-panel h2 {
-    margin: 0;
-    color: #261d16;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
-    line-height: 1.2;
-    font-weight: 400;
+  .bike-focus {
+    display: grid;
+    gap: 26px;
+    padding: 30px;
   }
 
-  .experiences-page__cta-panel p {
-    margin: 12px 0 0;
-    color: rgba(38, 29, 22, 0.78);
-    max-width: 64ch;
-    line-height: 1.65;
+  .bike-focus__intro {
+    max-width: 74ch;
+    display: grid;
+    gap: 12px;
+  }
+
+  .bike-focus h2 {
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+    max-width: 18ch;
+  }
+
+  .bike-focus__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .bike-step {
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .bike-step h3 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .experiences-page__cta-panel {
+    padding: 28px;
+  }
+
+  .experiences-page__cta-panel h2 {
+    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
   }
 
   .experiences-page__cta-actions {
@@ -240,7 +427,7 @@ const structuredData = [
 
   .experiences-page__cta-primary,
   .experiences-page__cta-secondary {
-    min-height: 44px;
+    min-height: 46px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -274,28 +461,52 @@ const structuredData = [
     background: #3a2a1d;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1100px) {
+    .experiences-hero,
+    .bike-focus__grid {
+      grid-template-columns: 1fr;
+    }
+
     .experiences-page__grid {
       grid-template-columns: 1fr;
+    }
+
+    .experiences-page h1 {
+      max-width: 13ch;
     }
   }
 
   @media (max-width: 767px) {
     .experiences-page {
-      padding: 110px 0 64px;
+      padding: 106px 0 64px;
     }
 
-    .experience-card {
-      border-radius: 16px;
+    .experiences-page__inner {
+      gap: 24px;
     }
 
-    .experience-card__body {
-      padding: 18px;
-    }
-
+    .experiences-hero__content,
+    .experience-card__body,
+    .bike-focus,
+    .bike-step,
     .experiences-page__cta-panel {
       padding: 20px;
-      border-radius: 16px;
+    }
+
+    .experiences-hero__media,
+    .experience-card,
+    .bike-focus,
+    .experiences-page__cta-panel {
+      border-radius: 18px;
+    }
+
+    .experiences-page h1 {
+      max-width: none;
+      font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    .bike-focus h2 {
+      max-width: none;
     }
   }
 </style>
