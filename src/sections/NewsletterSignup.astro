@@ -3,10 +3,9 @@
     <div id="mlb2-35065463" class="dnd-newsletter-signup__shell ml-subscribe-form ml-subscribe-form-35065463">
       <div class="dnd-newsletter-signup__copy row-form">
         <span class="dnd-newsletter-signup__kicker">Dandelion hírlevél</span>
-        <h2 id="newsletter-signup-title">Értesítünk a szabad időpontokról és szezonális ajánlatokról.</h2>
+        <h2 id="newsletter-signup-title">Szabad időpontok és szezonális ajánlatok e-mailben.</h2>
         <p class="dnd-newsletter-signup__lead">
-          Ha szeretnél elsőként hallani a felszabaduló dátumokról, különleges időszakokról és nyugodt
-          balatoni pihenésekhez kapcsolódó ajánlatokról, itt tudsz feliratkozni.
+          Elsőként szólunk, ha felszabadul egy jó dátum vagy érkezik egy különleges ajánlat.
         </p>
 
         <form
@@ -83,82 +82,82 @@
 
 <style>
   .dnd-newsletter-signup {
-    padding: 0 0 120px;
-    background:
-      radial-gradient(circle at top right, rgba(255, 207, 95, 0.18), transparent 30%),
-      linear-gradient(180deg, #f7f2e7 0%, #fbf8f1 100%);
+    padding: 16px 0 20px;
+    background: #fbf8f1;
   }
 
   .dnd-newsletter-signup__shell {
     display: grid;
-    gap: 18px;
-    padding: 34px 36px 32px;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+    gap: 22px;
+    align-items: center;
+    padding: 16px 20px;
     border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 24px;
+    border-radius: 18px;
     background: rgba(255, 252, 245, 0.92);
-    box-shadow: 0 26px 54px rgba(80, 57, 31, 0.08);
+    box-shadow: 0 14px 28px rgba(80, 57, 31, 0.07);
   }
 
   .dnd-newsletter-signup__copy,
   .dnd-newsletter-signup__success {
     display: grid;
-    gap: 18px;
+    gap: 6px;
   }
 
   .dnd-newsletter-signup__kicker {
     display: inline-block;
     color: rgba(121, 93, 48, 0.82);
-    font-size: 0.74rem;
+    font-size: 0.68rem;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   .dnd-newsletter-signup h2 {
     margin: 0;
-    max-width: 12ch;
+    max-width: 16ch;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2rem, 3vw, 3rem);
+    font-size: clamp(1.2rem, 1.6vw, 1.55rem);
     font-weight: 400;
-    line-height: 1.02;
+    line-height: 1.04;
     color: rgba(39, 32, 24, 0.94);
   }
 
   .dnd-newsletter-signup__lead,
   .dnd-newsletter-signup__success p {
     margin: 0;
-    max-width: 62ch;
+    max-width: 42ch;
     color: rgba(39, 32, 24, 0.72);
-    font-size: 0.98rem;
-    line-height: 1.8;
+    font-size: 0.82rem;
+    line-height: 1.4;
   }
 
   .dnd-newsletter-signup__form {
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) auto;
-    gap: 16px 18px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 12px;
     align-items: end;
-    max-width: 920px;
+    max-width: 100%;
   }
 
   .dnd-newsletter-signup__field {
     display: grid;
-    gap: 8px;
+    gap: 4px;
   }
 
   .dnd-newsletter-signup__label {
     color: rgba(39, 32, 24, 0.7);
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.04em;
   }
 
   .dnd-newsletter-signup__field input {
     width: 100%;
-    min-height: 56px;
-    padding: 0 18px;
+    min-height: 40px;
+    padding: 0 12px;
     border: 1px solid rgba(91, 70, 42, 0.18);
-    border-radius: 14px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.96);
     color: rgba(39, 32, 24, 0.92);
     font: inherit;
@@ -184,62 +183,68 @@
   .dnd-newsletter-signup__checkbox {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 12px;
+    gap: 8px;
     align-items: start;
     color: rgba(39, 32, 24, 0.74);
-    font-size: 0.86rem;
-    line-height: 1.6;
+    font-size: 0.72rem;
+    line-height: 1.28;
     cursor: pointer;
   }
 
   .dnd-newsletter-signup__checkbox input {
-    width: 18px;
-    height: 18px;
-    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
     accent-color: #5b462a;
   }
 
   .dnd-newsletter-signup__actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
   }
 
   .dnd-newsletter-signup__actions .dnd-btn {
-    min-width: 190px;
-    min-height: 56px;
-    border-radius: 14px;
+    width: auto;
+    min-width: 164px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
     justify-content: center;
   }
 
   .dnd-newsletter-signup__loading {
     display: none;
-    min-width: 190px;
-    min-height: 56px;
+    width: auto;
+    min-width: 164px;
+    min-height: 40px;
     border: 0;
-    border-radius: 14px;
+    border-radius: 10px;
     background: rgba(39, 32, 24, 0.1);
     color: rgba(39, 32, 24, 0.62);
     font: inherit;
   }
 
   .dnd-newsletter-signup__success {
-    min-height: 240px;
+    min-height: 0;
     align-content: center;
   }
 
   @media (max-width: 900px) {
     .dnd-newsletter-signup {
-      padding-bottom: 88px;
+      padding: 16px 0 22px;
     }
 
     .dnd-newsletter-signup__shell {
-      padding: 28px 22px 24px;
-      border-radius: 20px;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 18px 16px;
+      border-radius: 16px;
     }
 
     .dnd-newsletter-signup__form {
       grid-template-columns: 1fr;
+      gap: 10px;
     }
 
     .dnd-newsletter-signup__actions .dnd-btn,
@@ -251,19 +256,19 @@
 
   @media (max-width: 640px) {
     .dnd-newsletter-signup {
-      padding-bottom: 72px;
+      padding: 12px 0 18px;
     }
 
     .dnd-newsletter-signup h2 {
       max-width: none;
-      font-size: clamp(1.8rem, 9vw, 2.35rem);
+      font-size: clamp(1.15rem, 6vw, 1.45rem);
       line-height: 1.08;
     }
 
     .dnd-newsletter-signup__lead,
     .dnd-newsletter-signup__success p {
-      font-size: 0.92rem;
-      line-height: 1.72;
+      font-size: 0.8rem;
+      line-height: 1.38;
     }
   }
 </style>
