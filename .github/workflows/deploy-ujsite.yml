@@ -82,8 +82,17 @@ jobs:
           set -euo pipefail
           rm -rf ../_prev_build
           git worktree add --detach ../_prev_build "${{ github.event.before }}"
+          BEFORE_SHA="${{ github.event.before }}"
+          CURRENT_SHA="${{ github.sha }}"
           pushd ../_prev_build >/dev/null
-          npm ci
+
+          if git -C "${GITHUB_WORKSPACE}" diff --quiet "${BEFORE_SHA}" "${CURRENT_SHA}" -- package.json package-lock.json; then
+            ln -s "${GITHUB_WORKSPACE}/node_modules" node_modules
+            echo "Reusing current node_modules for previous build snapshot."
+          else
+            npm ci
+          fi
+
           npm run build
           popd >/dev/null
 
