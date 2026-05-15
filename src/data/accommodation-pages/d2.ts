@@ -8,7 +8,7 @@ export const d2PageData: AccommodationPageData = {
     description:
       "Modern, családbarát apartman Kisapátiban nagy udvarral, állatokkal, közeli túrahelyekkel és 2026-tól közös panorámás medencehasználattal családoknak."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",

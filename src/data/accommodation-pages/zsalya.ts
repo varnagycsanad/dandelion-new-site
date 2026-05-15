@@ -7,7 +7,7 @@ export const zsalyaPageData: AccommodationPageData = {
     description:
       "Csendes, különálló vendégház Kisapátiban 4 főre, fedett terasszal, tanúhegy panorámával, napfelkeltével és klímával mindkét szinten, a hegyoldalban."
   },
-  bookingLink: "/dandelion-zsalya/",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=cf20da88f046211e",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "zsalya",

@@ -7,7 +7,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
     description:
       "Tágas, balatoni panorámás nyaraló Badacsonyörsön 4 hálószobával, 2 fürdőszobával, zárt kerttel és kényelmes pihenéssel akár 8 főre, a Balaton közelében."
   },
-  bookingLink: "/szepvolgyi/",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=7d46f283f2f5792f",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "szepvolgyi",

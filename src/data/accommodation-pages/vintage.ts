@@ -7,7 +7,7 @@ export const vintagePageData: AccommodationPageData = {
     description:
       "Kényelmes, vintage hangulatú vendégház Nemesgulácson saját udvarral, grillezéssel, klímával és gyors internettel, 7 km-re a Balatontól, nyugodt pihenéshez."
   },
-  bookingLink: "/dandelion-vintage/",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=0c9e5eaae0545ee3",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "vintage",

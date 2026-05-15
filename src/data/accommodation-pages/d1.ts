@@ -8,7 +8,7 @@ export const d1PageData: AccommodationPageData = {
     description:
       "Tágas, családbarát vendégház Kisapátiban akár 8 főre, panorámás terasszal, grillezési lehetőséggel és 2026-tól közös panorámás medencével családoknak."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d1",
