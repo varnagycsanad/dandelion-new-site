@@ -1,0 +1,532 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+
+const wineries = [
+  "Szászi Birtok",
+  "Gilvesy Pincészet",
+  "Nyári Pince",
+  "PAP Wines",
+  "Laposa Borterasz",
+  "Hableány Badacsony",
+  "Borbély Családi Pincészet",
+  "Válibor Vinotéka",
+  "Folly Arborétum és Borászat"
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: "https://dandelionhouse.hu/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Élmények",
+        item: "https://dandelionhouse.hu/elmenyek/"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Bor és panoráma",
+        item: "https://dandelionhouse.hu/elmenyek/bor-es-panorama/"
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Bor és panoráma a Balaton-felvidéken | Dandelion Vendégházak"
+  description="Szent György-hegyi szőlők, badacsonyi borhangulat, borászatok, borteraszok és hasznos borkóstolós tippek a Dandelion Vendégházak környékén."
+  canonicalPath="/elmenyek/bor-es-panorama/"
+  structuredData={structuredData}
+>
+  <section class="wine-page">
+    <div class="dnd-container wine-page__inner">
+      <section class="wine-page__hero">
+        <div class="wine-page__hero-copy">
+          <span class="wine-page__eyebrow">Bor és panoráma</span>
+          <h1>Szent György-hegyi szőlők és badacsonyi borhangulat</h1>
+          <p>
+            A Dandelion vendégházak környéke nem rohanós borkóstolós hely. Itt a borhoz
+            hozzátartozik a hegy, a kilátás, a szőlősorok, a naplemente és az a lassú
+            balatoni-felvidéki hangulat, ami miatt az ember nem csak inni akar egy pohár bort,
+            hanem ott is maradna még egy kicsit.
+          </p>
+          <p>
+            A Szent György-hegy, Badacsony és a környező tanúhegyek igazi boros kirándulóhelyek:
+            kisebb pincék, panorámás teraszok, családi borászatok és hangulatos megállók várják
+            azokat, akik szeretik a jó bort és a szép tájat.
+          </p>
+
+          <ul class="wine-page__hero-highlights">
+            <li>Szent György-hegyi pincék és szőlősorok</li>
+            <li>badacsonyi borteraszok és balatoni panoráma</li>
+            <li>naplementés borozás, lassú délutánok</li>
+            <li>pároknak, baráti társaságoknak és nyugodt esti programnak is jó</li>
+          </ul>
+
+          <p class="wine-page__hero-note">
+            A Szent György-hegy a Badacsonyi borvidék egyik fontos területe, a környék pedig
+            kifejezetten vulkanikus, karakteres borairól ismert.
+          </p>
+
+          <div class="wine-page__hero-actions">
+            <a href="/szallasok/" class="wine-page__cta-primary">Szállások megtekintése</a>
+            <a href="/elmenyek/" class="wine-page__cta-secondary">Vissza az élményekhez</a>
+          </div>
+        </div>
+
+        <div class="wine-page__hero-media">
+          <Image
+            src={heroImage}
+            alt="Szent György-hegyi szőlősorok és boros hangulat a Balaton-felvidéken"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section class="wine-page__support">
+        <article class="wine-page__support-card">
+          <span class="wine-page__eyebrow">Hangulat</span>
+          <h2>Előbb az élmény, utána a konkrét helyek</h2>
+          <p>
+            Ez a felépítés jól illik a biciklis oldal logikájához is: a vendég először megérzi,
+            milyen programra számíthat, és csak azután nyílik ki előtte a részletesebb lista meg a
+            gyakorlati tudnivaló.
+          </p>
+        </article>
+
+        <article class="wine-page__support-card">
+          <Image
+            src={supportImage}
+            alt="Tanúhegyek panorámája a boros kirándulóprogram hangulatához"
+            loading="lazy"
+          />
+        </article>
+      </section>
+
+      <section class="wine-page__accordions" aria-label="Boros részletek">
+        <details class="wine-accordion" open>
+          <summary>Borászatok és borteraszok a környéken</summary>
+          <div class="wine-accordion__content">
+            <p>
+              A környéken több jó irány is van, attól függően, hogy inkább csendesebb hegyi pincét,
+              panorámás borteraszt vagy badacsonyi nyüzsgést kerestek.
+            </p>
+
+            <div class="wine-stop">
+              <h3>Szent György-hegy környéke</h3>
+              <p>
+                Ez a leginkább Dandelion-hangulatú boros irány: szőlősorok, tanúhegyek, kisebb
+                utak, panoráma és nyugodtabb tempó.
+              </p>
+              <ul>
+                <li>Szászi Birtok</li>
+                <li>Gilvesy Pincészet</li>
+                <li>Nyári Pince</li>
+                <li>PAP Wines</li>
+              </ul>
+              <p>
+                A Gilvesy Pincészet a Szent György-hegy vulkanikus dűlőihez kötődik, a Nyári Pince
+                pedig szintén családi, hegyhez kapcsolódó irányként illik ebbe a lassabb tempóba.
+              </p>
+            </div>
+
+            <div class="wine-stop">
+              <h3>Badacsony irány</h3>
+              <p>
+                Badacsony már kicsit erősebb balatoni feeling: több vendéglátóhely, borterasz,
+                panoráma, nyári nyüzsgés és esti programlehetőség.
+              </p>
+              <ul>
+                <li>Laposa Borterasz</li>
+                <li>Hableány Badacsony</li>
+                <li>Borbély Családi Pincészet</li>
+                <li>Válibor Vinotéka</li>
+                <li>Folly Arborétum és Borászat</li>
+              </ul>
+              <p>
+                A Laposa Borterasz és a Hableány Badacsony kifejezetten erős badacsonyi élményt
+                adhat: bor, étel, panoráma és vendéglátás egy helyen.
+              </p>
+            </div>
+
+            <article class="wine-info-card">
+              <h3>Példák egy helyen</h3>
+              <ul>
+                {wineries.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+
+            <p>
+              A nyitvatartás, a borkóstolók és az asztalfoglalás lehetősége szezononként változhat,
+              ezért indulás előtt mindig érdemes ránézni az aktuális információkra.
+            </p>
+          </div>
+        </details>
+
+        <details class="wine-accordion">
+          <summary>Boros programötletek</summary>
+          <div class="wine-accordion__content">
+            <div class="wine-stop">
+              <h3>Lassú délután a Szent György-hegyen</h3>
+              <p>
+                Rövid séta, egy pohár bor, kilátás, naplemente. Ez nem egész napos túra, inkább egy
+                nyugodt délutáni vagy kora esti program.
+              </p>
+            </div>
+
+            <div class="wine-stop">
+              <h3>Badacsonyi borteraszos este</h3>
+              <p>
+                Ha több életet, balatoni hangulatot és vacsorával összeköthető borozást kerestek,
+                Badacsony jó választás. Itt könnyebb olyan helyet találni, ahol bor, étel és
+                panoráma együtt van.
+              </p>
+            </div>
+
+            <div class="wine-stop">
+              <h3>Pincéről pincére, de okosan</h3>
+              <p>
+                A környéken sok jó pince van, de nem kell mindent egy napba belesűríteni. Két-három
+                jól kiválasztott hely sokkal jobb élmény, mint végigrohanni egy hosszú listát.
+              </p>
+            </div>
+
+            <div class="wine-stop">
+              <h3>Páros programnak</h3>
+              <p>
+                Naplemente, egy pohár olaszrizling vagy kéknyelű, csendesebb hegyi terasz. Ez
+                romantikus programként is jól működik, nem kell túlbonyolítani.
+              </p>
+            </div>
+
+            <div class="wine-stop">
+              <h3>Baráti társaságoknak</h3>
+              <p>
+                Badacsony vagy egy előre egyeztetett borkóstoló gyakran jobb választás, főleg ha
+                étellel is összekötnétek.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="wine-accordion">
+          <summary>Hasznos tudnivalók borkóstoláshoz</summary>
+          <div class="wine-accordion__content">
+            <article class="wine-info-card wine-info-card--notes">
+              <h3>Indulás előtt</h3>
+              <ul>
+                <li>
+                  A legtöbb borászatnál érdemes előre érdeklődni, főleg szezonban, hétvégén vagy
+                  nagyobb társasággal.
+                </li>
+                <li>
+                  Borkóstoló után ne autóval induljatok tovább, érdemes előre sofőrrel, taxival
+                  vagy vezetés nélküli programmal tervezni.
+                </li>
+                <li>
+                  Nyáron a népszerű badacsonyi helyek gyorsan megtelhetnek, ezért vacsorás vagy
+                  naplementés programhoz különösen javasolt az előzetes foglalás.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .wine-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(215, 188, 127, 0.14), transparent 32%),
+      linear-gradient(180deg, #fcfbf7 0%, #f6efe5 100%);
+  }
+
+  .wine-page__inner {
+    display: grid;
+    gap: 30px;
+  }
+
+  .wine-page__eyebrow {
+    display: inline-block;
+    color: #a56d1f;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .wine-page__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .wine-page__hero-copy,
+  .wine-page__support-card {
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .wine-page__hero-copy {
+    display: grid;
+    gap: 16px;
+    align-content: center;
+  }
+
+  .wine-page__hero-copy h1,
+  .wine-page__support-card h2,
+  .wine-accordion__content h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .wine-page__hero-copy h1 {
+    font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+    max-width: 11ch;
+  }
+
+  .wine-page__hero-copy p,
+  .wine-page__support-card p,
+  .wine-accordion__content p,
+  .wine-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .wine-page__hero-highlights,
+  .wine-accordion__content ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .wine-page__hero-note {
+    color: rgba(43, 32, 22, 0.76);
+  }
+
+  .wine-page__hero-media,
+  .wine-page__support-card :global(img) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .wine-page__hero-media,
+  .wine-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .wine-page__hero-media :global(picture),
+  .wine-page__hero-media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wine-page__hero-media :global(img),
+  .wine-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .wine-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .wine-page__cta-primary,
+  .wine-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .wine-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .wine-page__cta-primary:hover,
+  .wine-page__cta-primary:focus-visible,
+  .wine-page__cta-secondary:hover,
+  .wine-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .wine-page__support {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .wine-page__support-card {
+    display: grid;
+    gap: 14px;
+  }
+
+  .wine-page__accordions {
+    display: grid;
+    gap: 18px;
+  }
+
+  .wine-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .wine-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .wine-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .wine-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .wine-accordion[open] summary::after {
+    content: "−";
+  }
+
+  .wine-accordion__content {
+    display: grid;
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .wine-stop,
+  .wine-info-card {
+    display: grid;
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .wine-info-card--notes {
+    background: rgba(251, 247, 239, 0.92);
+  }
+
+  @media (max-width: 960px) {
+    .wine-page__hero,
+    .wine-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .wine-page {
+      padding: 108px 0 72px;
+    }
+
+    .wine-page__inner {
+      gap: 24px;
+    }
+
+    .wine-page__hero-copy,
+    .wine-page__support-card {
+      padding: 24px;
+    }
+
+    .wine-page__hero-media,
+    .wine-page__support-card,
+    .wine-accordion {
+      border-radius: 18px;
+    }
+
+    .wine-accordion summary,
+    .wine-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .wine-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .wine-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .wine-stop,
+    .wine-info-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>
