@@ -192,7 +192,36 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p deploy-assets
-          rsync -av --delete dist/assets/ deploy-assets/
+          : > asset-upload.txt
+          : > asset-delete.txt
+
+          if [ -d ../_prev_build/dist/assets ] && [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            rsync -rcn --delete --itemize-changes --out-format='%i|%n' \
+              dist-current/assets/ ../_prev_build/dist/assets/ > asset-delta.txt
+
+            while IFS='|' read -r change path; do
+              [ -z "${change:-}" ] && continue
+
+              if [[ "$change" == \*deleting* ]]; then
+                echo "$path" >> asset-delete.txt
+                continue
+              fi
+
+              if [[ "$change" == '>'* ]] && [ -f "dist-current/assets/$path" ]; then
+                mkdir -p "deploy-assets/$(dirname "$path")"
+                cp -a "dist-current/assets/$path" "deploy-assets/$path"
+                echo "$path" >> asset-upload.txt
+              fi
+            done < asset-delta.txt
+          else
+            rsync -av dist-current/assets/ deploy-assets/
+            find deploy-assets -type f -printf '%P\n' > asset-upload.txt
+          fi
+
+          sort -u asset-upload.txt -o asset-upload.txt
+          sort -u asset-delete.txt -o asset-delete.txt
+          echo "Asset upload candidates: $(wc -l < asset-upload.txt)"
+          echo "Asset delete candidates: $(wc -l < asset-delete.txt)"
 
       - name: Install lftp
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
@@ -396,14 +425,32 @@ jobs:
             rm -rf ../_prev_build || true
           fi
 
-      - name: Deploy full hashed assets over FTP
+      - name: Deploy changed hashed assets over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
         shell: bash
         run: |
           set -euo pipefail
+
+          if [ ! -s asset-upload.txt ] && [ ! -s asset-delete.txt ]; then
+            echo "No hashed asset changes detected."
+            exit 0
+          fi
+
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
-          mirror -R deploy-assets/ "${UJSITE_FTP_PATH%/}/assets/"
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
+            if [ "$(dirname "$rel")" = "." ]; then
+              remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            fi
+            printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
+          done < asset-upload.txt)
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            printf 'rm -f "%s/assets/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
+          done < asset-delete.txt)
           bye
           EOF
 
