@@ -960,6 +960,7 @@ const accommodationStructuredData = [
   .d2-hero__content {
     position: relative;
     z-index: 1;
+    isolation: isolate;
     display: flex;
     min-height: 88vh;
     align-items: flex-end;
@@ -967,8 +968,29 @@ const accommodationStructuredData = [
     padding-bottom: 76px;
   }
 
+  .d2-hero__content::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 -24px;
+    z-index: 0;
+    width: min(760px, 58vw);
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.68) 0%,
+      rgba(0, 0, 0, 0.56) 28%,
+      rgba(0, 0, 0, 0.36) 52%,
+      rgba(0, 0, 0, 0.14) 76%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
   .d2-hero__copy {
-    max-width: 620px;
+    position: relative;
+    z-index: 2;
+    width: min(100%, clamp(560px, 44vw, 760px));
+    max-width: clamp(560px, 44vw, 760px);
+    padding: 18px 0 22px;
   }
 
   .d2-kicker,
@@ -985,6 +1007,7 @@ const accommodationStructuredData = [
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(253, 251, 247, 0.86);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
 
   .d2-hero h1 {
@@ -997,6 +1020,7 @@ const accommodationStructuredData = [
     font-variant-numeric: lining-nums;
     font-feature-settings: "lnum" 1;
     white-space: nowrap;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
 
   /* [CHANGE 2026-05-16 15:05] A D2 hero címe desktopon külön finomítva lett, hogy kevésbé nyomja el a képet és a hero copy-t. */
@@ -1018,6 +1042,7 @@ const accommodationStructuredData = [
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(253, 251, 247, 0.84);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
 
   .d2-hero__lead {
@@ -1026,6 +1051,7 @@ const accommodationStructuredData = [
     font-size: 0.98rem;
     line-height: 1.66;
     color: rgba(253, 251, 247, 0.92);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
 
   .dnd-pool-seal {
@@ -1092,6 +1118,7 @@ const accommodationStructuredData = [
     font-size: 0.82rem;
     line-height: 1.5;
     color: rgba(253, 251, 247, 0.92);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
 
   .d2-hero__supporting-link a,
@@ -1922,11 +1949,21 @@ const accommodationStructuredData = [
       min-height: 100svh;
     }
 
+    .d2-hero__content::before {
+      content: none;
+    }
+
     .d2-hero__content {
       flex-direction: column;
       align-items: flex-start;
       padding-top: calc(108px + env(safe-area-inset-top, 0px));
       padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .d2-hero__copy {
+      width: min(100%, 24rem);
+      max-width: 24rem;
+      padding: 0;
     }
 
     .d2-hero__image {
