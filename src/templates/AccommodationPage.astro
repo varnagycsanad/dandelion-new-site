@@ -210,7 +210,6 @@ const accommodationStructuredData = [
         )}
       </picture>
     )}
-    <div class="d2-hero__overlay"></div>
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
         <span class="d2-kicker">{pageData.hero.kicker}</span>
@@ -581,7 +580,6 @@ const accommodationStructuredData = [
                   loading="lazy"
                 />
               )}
-              <div class="d2-closer__overlay"></div>
             </div>
             <div class="d2-closer__copy">
               <strong>{stay.name}</strong>
@@ -943,8 +941,7 @@ const accommodationStructuredData = [
     color: #fff;
   }
 
-  .d2-hero__picture,
-  .d2-hero__overlay {
+  .d2-hero__picture {
     position: absolute;
     inset: 0;
   }
@@ -958,10 +955,6 @@ const accommodationStructuredData = [
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-
-  .d2-hero__overlay {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.52));
   }
 
   .d2-hero__content {
@@ -1566,16 +1559,6 @@ const accommodationStructuredData = [
     overflow: hidden;
   }
 
-  .d2-gallery__trigger::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(17, 12, 9, 0.02), rgba(17, 12, 9, 0.26));
-    opacity: 0;
-    transition: opacity 0.28s ease;
-    pointer-events: none;
-  }
-
   .d2-gallery__item img,
   .d2-location__media img,
   .d2-related__card img {
@@ -1628,11 +1611,6 @@ const accommodationStructuredData = [
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .d2-gallery__trigger:hover::after,
-    .d2-gallery__trigger:focus-visible::after {
-      opacity: 1;
-    }
-
     .d2-gallery__trigger:hover img,
     .d2-gallery__trigger:focus-visible img {
       transform: scale(1.035);
@@ -1742,14 +1720,6 @@ const accommodationStructuredData = [
     transition: transform 0.36s ease, filter 0.24s ease;
   }
 
-  .d2-closer__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(17, 12, 9, 0.02), rgba(17, 12, 9, 0.24));
-    opacity: 0;
-    transition: opacity 0.24s ease;
-  }
-
   .d2-closer__copy {
     display: grid;
     gap: 4px;
@@ -1774,10 +1744,6 @@ const accommodationStructuredData = [
       filter: saturate(1.02);
     }
 
-    .d2-closer__card:hover .d2-closer__overlay,
-    .d2-closer__card:focus-visible .d2-closer__overlay {
-      opacity: 1;
-    }
   }
 
   .d2-lightbox {
