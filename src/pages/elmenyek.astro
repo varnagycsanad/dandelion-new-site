@@ -6,7 +6,7 @@ import wineImage from "../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
 import balatonImage from "../assets/experiences/balaton-shore.jpg";
 import mountainsImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
 
-const heroVideo = "/videos/elmenyek/hero/elmenyek-hero.mp4";
+const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-fullhd.mp4";
 
 const quickFacts = [
   "bringás körök és mellékutak",
@@ -97,6 +97,7 @@ const structuredData = [
   description="Kerékpározás, boros megállók, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
   canonicalPath="/elmenyek/"
   structuredData={structuredData}
+  headerMode="transparent"
 >
   <section class="experiences-page">
     <section class="experiences-hero">
@@ -111,13 +112,11 @@ const structuredData = [
         A böngésződ nem támogatja a háttérvideó lejátszását.
       </video>
 
-      <div class="experiences-hero__overlay"></div>
-
       <div class="experiences-hero__content">
         <div class="dnd-container experiences-hero__inner">
           <div class="experiences-hero__headline">
             <span class="experiences-page__eyebrow">Környék és programok</span>
-            <h1>Élmények a Balaton-felvidék ritmusára hangolva.</h1>
+            <h1>Válassz élménytípust, és menj tovább a részletes oldalára.</h1>
           </div>
         </div>
       </div>
@@ -126,8 +125,9 @@ const structuredData = [
     <div class="dnd-container experiences-page__inner">
       <section class="experiences-page__intro">
         <p class="experiences-page__lead">
-          Bringás napok, boros megállók, balatoni kitérők és tanúhegyes séták: válassz témát, és
-          nézd meg a részleteket a saját aloldalán.
+          Ez az oldal nem részletes programleírás, hanem egy gyors választófelület. Itt azt tudod
+          eldönteni, hogy bringás, boros, balatoni vagy tanúhegyes irány érdekel, és onnan egy
+          külön oldal visz tovább a konkrét információkhoz.
         </p>
 
         <div class="experiences-page__facts" aria-label="Élmény gyorsáttekintő">
@@ -199,14 +199,13 @@ const structuredData = [
 
   .experiences-hero {
     position: relative;
-    min-height: 600px;
-    height: 78vh;
+    min-height: 640px;
+    height: 84vh;
     overflow: hidden;
     background: #171717;
   }
 
-  .experiences-hero__video,
-  .experiences-hero__overlay {
+  .experiences-hero__video {
     position: absolute;
     inset: 0;
   }
@@ -215,12 +214,6 @@ const structuredData = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  .experiences-hero__overlay {
-    background:
-      linear-gradient(90deg, rgba(16, 14, 12, 0.46) 0%, rgba(16, 14, 12, 0.18) 46%, rgba(16, 14, 12, 0.28) 100%),
-      rgba(8, 7, 6, 0.12);
   }
 
   .experiences-hero__content {
@@ -233,17 +226,17 @@ const structuredData = [
   .experiences-hero__inner {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     min-height: 100%;
     max-width: none;
-    padding: clamp(280px, 40vh, 420px) clamp(48px, 7vw, 96px) 96px;
+    padding: 148px clamp(48px, 7vw, 96px) 96px;
   }
 
   .experiences-hero__headline {
     display: grid;
     justify-items: center;
-    gap: 14px;
+    gap: 16px;
     width: min(100%, 1040px);
     text-align: center;
   }
@@ -259,7 +252,8 @@ const structuredData = [
   }
 
   .experiences-hero .experiences-page__eyebrow {
-    color: rgba(255, 244, 223, 0.88);
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.18);
   }
 
   .experiences-page h1,
@@ -273,14 +267,15 @@ const structuredData = [
   }
 
   .experiences-hero h1 {
-    max-width: none;
-    font-size: clamp(30px, 2.35vw, 42px);
-    line-height: 1.08;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    color: rgba(255, 255, 255, 0.92);
+    max-width: 17ch;
+    font-size: clamp(2.6rem, 4.8vw, 4.8rem);
+    line-height: 1.04;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    white-space: normal;
+    color: #ffffff;
+    text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
   }
 
   .experiences-page__intro,
@@ -303,10 +298,20 @@ const structuredData = [
     line-height: 1.68;
   }
 
+  .experiences-page__intro {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .experiences-page__lead {
+    max-width: 72ch;
+  }
+
   .experiences-page__facts {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
   }
 
   .experiences-page__facts span,
@@ -471,36 +476,33 @@ const structuredData = [
     }
 
     .experiences-hero {
-      min-height: 500px;
+      min-height: 520px;
       height: auto;
     }
 
     .experiences-hero__content {
-      min-height: 500px;
+      min-height: 520px;
     }
 
     .experiences-hero__inner {
-      justify-content: flex-start;
-      min-height: 500px;
+      justify-content: center;
+      min-height: 520px;
       padding: 0;
     }
 
     .experiences-hero__headline {
-      justify-items: start;
-      margin-top: 280px;
-      margin-bottom: 40px;
+      justify-items: center;
       width: 100%;
-      max-width: 360px;
-      text-align: left;
+      max-width: 340px;
+      text-align: center;
       gap: 12px;
     }
 
     .experiences-hero h1 {
-      white-space: normal;
-      font-size: clamp(1.5rem, 6.8vw, 2rem);
-      line-height: 1.02;
-      letter-spacing: 0.02em;
-      text-transform: none;
+      max-width: 12ch;
+      font-size: clamp(2rem, 9vw, 2.8rem);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
     }
 
     .experiences-page__intro,
