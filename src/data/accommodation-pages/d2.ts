@@ -5,6 +5,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-16 12:45] D2 hero, intro, fact és gallery copy rövidítve; Panorama Pool kommunikáció és finom belső linkelés hozzáadva.
 // [CHANGE 2026-05-16 15:05] D2 hero lead a kért új szövegre cserélve, változatlan hero szerkezettel.
 // [CHANGE 2026-05-16 15:40] D2 panoráma medence kiemelés átemelve adatvezérelt hero poolHighlight blokkba.
+// [CHANGE 2026-05-16 15:58] D2 hero fallback alt az új fedett teraszos fotó SEO szövegéhez igazítva.
 export const d2PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 Kisapáti | Családbarát apartman kerttel",
@@ -19,7 +20,7 @@ export const d2PageData: AccommodationPageData = {
       "dandelion-d2-kisapati-hero-mobile-01.webp",
       "d2 mobile hero"
     ),
-    fallbackAlt: "Dandelion D2 apartman kerttel a Szent György-hegy lábánál",
+    fallbackAlt: "Dandelion D2 fedett terasza sárga székekkel és nagy kerttel Kisapátiban",
     kicker: "Balaton-felvidék - Szent György-hegy",
     title: "Dandelion",
     titleAccent: "D2",
