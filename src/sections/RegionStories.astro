@@ -5,6 +5,12 @@ import balatonStoryImage from "../assets/home/region-stories/dandelion-home-bala
 import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
 
+const regionStoryWidths = [480, 768, 1040, 1600];
+const regionStorySizes =
+  "(max-width: 767px) min(100vw - 24px, 420px), (max-width: 1100px) calc(100vw - 48px), 1040px";
+const stickyImageWidths = [768, 1280, 1920, 2400];
+const stickyImageSizes = "100vw";
+
 const regionStories = [
   {
     kicker: "Kisapáti · Szent György-hegy · Tapolcai-medence",
@@ -62,6 +68,8 @@ const regionStories = [
             src={stickyBackgroundImage}
             alt="Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve"
             loading="lazy"
+            widths={stickyImageWidths}
+            sizes={stickyImageSizes}
           />
         </div>
       </div>
@@ -71,7 +79,13 @@ const regionStories = [
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
-            <Image src={story.image} alt={story.imageAlt} loading="lazy" />
+            <Image
+              src={story.image}
+              alt={story.imageAlt}
+              loading="lazy"
+              widths={regionStoryWidths}
+              sizes={regionStorySizes}
+            />
           </div>
 
           <div class="dnd-region-story__panel">
