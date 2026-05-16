@@ -83,7 +83,7 @@ export const koveskalPageData: AccommodationPageData = {
       "A vendégház jó kiindulópont sétákhoz, környékbeli pincesorokhoz és olyan balatoni-felvidéki programokhoz, ahol a csend és a táj is a pihenés része marad.",
       "Ha a Dandelion szállások közül a visszafogott, vidéki hangulat áll hozzád közelebb, a Köveskál oldala természetes folytatása lehet ennek a keresési szándéknak."
     ],
-    moreLabel: "Bővebben a Köveskál oldalról",
+    moreLabel: "Bővebben a Köveskálról",
     ctaLabel: "Kapcsolat és részletek"
   },
   facts: {

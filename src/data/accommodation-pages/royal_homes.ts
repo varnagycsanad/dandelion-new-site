@@ -21,7 +21,7 @@ export const royalHomesPageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "Royal Homes",
     subtitle: "PRÉMIUM APARTMAN A BALATON KÖZELÉBEN",
-    lead: "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal és tetőteraszos jakuzzival. A Dandelion Royal Homes tágas amerikai konyhás nappalival, 2 hálószobával, nagy terasszal, padlófűtéssel és szobánként szabályozható hűtő-fűtő klímával várja a vendégeket.",
+    lead: "Prémium apartman Keszthelyen, ahol a balatoni közelség és a városi kényelem magas minőségű, nyugodt környezetben találkozik.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -64,15 +64,15 @@ export const royalHomesPageData: AccommodationPageData = {
   intro: {
     kicker: "Prémium apartmanhangulat · balatoni közelség · városi kényelem",
     title: "Új építésű, magas minőségű apartman Keszthelyen",
-    lead: "A Dandelion Royal Homes Apartman Keszthely Balaton-parti üdülőövezetében, egy új építésű lakóparkban található. Prémium választás azoknak, akik a Balaton közelségét, a városi kényelmet és az igényesen kialakított apartmanhangulatot egyszerre keresik."
+    lead: "A Royal Homes akkor jó választás, ha modern, igényes apartmanban pihennél, közel a parthoz és a városi programokhoz, mégis nyugodt közegben."
   },
   details: {
     kicker: "Dandelion Royal Homes Apartman",
     title: "Saját parti móló, nagy terasz és prémium belső terek egy helyen",
     shortDescription:
-      "Prémium apartman Keszthely Balaton-parti üdülőövezetében, új építésű lakóparkban, saját parti mólóval, napozóterasszal, tetőteraszos jakuzzival és 2 hálószobás + nappalis elrendezéssel.",
+      "2 hálószobás, nagy teraszos prémium apartman saját parti mólóval és a lakópark tetőteraszán elérhető jakuzzival.",
     longDescription: [
-      "A Dandelion Royal Homes Apartman Keszthely Balaton-parti üdülőövezetében, egy új építésű lakóparkban található. Prémium választás azoknak, akik a Balaton közelségét, a városi kényelmet és az igényesen kialakított apartmanhangulatot egyszerre keresik.",
+      "A lakópark saját parti mólója, napozóterasza és közös tetőteraszos jacuzzija már érkezéskor megadja azt a prémium balatoni környezetet, amire ez a szállás épül.",
       "A társasház saját parti mólóval, napozóterasszal és tetőteraszon található jakuzzival rendelkezik. A kerékpárút, a vitorlás kikötő és a parti sétány közvetlenül a lakópark mellett található, a városközpont és Keszthely főbb látnivalói pedig körülbelül 10 perces sétával elérhetők.",
       "Az apartman üvegfalú lifttel közelíthető meg. Belépve az előszobából egy tágas, világos, amerikai konyhás nappaliba érkezünk, ahonnan közvetlenül a hatalmas teraszra lehet kilépni. A lakás külső felületén végig széles erkély fut, így a kinti tér az apartman egyik legerősebb része.",
       "A Dandelion Royal Homes minden helyiségében egyedi tervezésű, magas minőségű, díszfényekkel megvilágított bútorok kerültek beépítésre. Az épület vitorla formát idéző alaprajza, az ívelt külső és belső falak, valamint a gondosan összehangolt anyagok, színek és formák elegáns, modern összhatást adnak.",

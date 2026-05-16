@@ -21,7 +21,7 @@ export const vintagePageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "Vintage",
     subtitle: "VIDÉKI PIHENÉS SAJÁT UDVARBAN, A BALATON KÖZELÉBEN",
-    lead: "Vidéki hangulatú, kényelmes vendégház Nemesgulácson, saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Dandelion Vintage Vendégház 2 hálószobás + nappalis elrendezésű, családoknak és pároknak is jó választás, a Balaton pedig mindössze 7 km.",
+    lead: "Barátságos, vidéki vendégház Nemesgulácson saját udvarral és nyugodt, balatoni közeli pihenéshez.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -64,15 +64,15 @@ export const vintagePageData: AccommodationPageData = {
   intro: {
     kicker: "Vidéki nyugalom · saját udvar · családbarát pihenés",
     title: "Kényelmes vendégház Nemesgulácson, vintage hangulattal",
-    lead: "A Dandelion Vintage Vendégház Nemesgulácson egy barátságos, vidéki ház, ahol a kényelmes vintage hangulat, a saját udvar és a nyugodtabb tempó együtt adják a pihenés élményét. Itt nem sűrű programokban kell gondolkodni, hanem egyszerűen csak jól lehet lenni: reggeli a friss levegőn, napközben kirándulás vagy balatoni program, este pedig grillezés és csend."
+    lead: "A Vintage azoknak működik jól, akik szeretik, ha a Balaton közel marad, de a nap végén egy nyugodtabb, saját udvaros házba érkezhetnek vissza."
   },
   details: {
     kicker: "Dandelion Vintage Vendégház",
     title: "Saját udvar, klímás komfort és nyugodt balatoni közelség",
     shortDescription:
-      "Vidéki hangulatú, kényelmes vendégház Nemesgulácson, saját udvarral, grillezési lehetőséggel, klímával és erős internettel. A Dandelion Vintage Vendégház 2 hálószobás + nappalis elrendezésű, családoknak és pároknak is jó választás, a Balaton pedig mindössze 7 km.",
+      "2 hálószobás + nappalis ház saját udvarral, klímával és erős internettel, családoknak és pároknak is kényelmes választás.",
     longDescription: [
-      "A Dandelion Vintage Vendégház Nemesgulácson egy barátságos, vidéki ház, ahol a kényelmes vintage hangulat, a saját udvar és a nyugodtabb tempó együtt adják a pihenés élményét. Itt nem sűrű programokban kell gondolkodni, hanem egyszerűen csak jól lehet lenni: reggeli a friss levegőn, napközben kirándulás vagy balatoni program, este pedig grillezés és csend.",
+      "A Vintage egyik legjobb része a saját udvar és a nyugodt napi ritmus: reggeli a szabadban, napközben balatoni vagy környékbeli program, este pedig grillezés és csend.",
       "A ház jól felszerelt, klímás, és erős, gigabites internetkapcsolattal rendelkezik, így pihenéshez, elvonuláshoz vagy akár némi nyugodt munkához is kényelmes választás. A Balaton mindössze 7 km-re van, ezért a vízpart közel marad, miközben a szállás nem a nyüzsgés közepén helyezkedik el.",
       "A vendégház 2 hálószobás + nappalis elrendezésű. A fő hálóban 180 cm széles franciaágy található, a második hálóban 2 darab 90 cm-es külön ágy, a nappaliban pedig kihúzható kanapé biztosít további alvási lehetőséget. Emellett külön konyha és fürdőszoba is rendelkezésre áll.",
       "A ház „minden megvan, ami kell” módon felszerelt: jól használható konyha, klíma, stabil internet, saját udvar és grillező teszi kényelmessé az itt töltött napokat. A bababarát felszerelés miatt kisgyerekkel érkező családok számára is jó választás.",

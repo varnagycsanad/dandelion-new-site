@@ -22,7 +22,7 @@ export const szololigetPageData: AccommodationPageData = {
     title: "Szőlőliget",
     titleAccent: "Vendégház",
     subtitle: "CSENDES, KÜLÖNÁLLÓ HÁZ PANORÁMÁVAL",
-    lead: "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, ahonnan az ágyból is látható a napfelkelte. A 2022-ben felújított, kétszintes Szőlőliget Vendégház 4 főnek kényelmes, pótággyal bővíthető, nagy körbejárható terasszal és 180°-os tanúhegy panorámával.",
+    lead: "Különálló, csendes ház a Szent György-hegy keleti oldalán, nagy terasszal és erős panorámával a teljes elvonuláshoz.",
     primaryCtaLabel: "Részletek és kapcsolat",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -65,15 +65,15 @@ export const szololigetPageData: AccommodationPageData = {
   intro: {
     kicker: "Napfelkelte - panoráma - csend",
     title: "Elvonulás a hegyoldalban, távol a zajtól",
-    lead: "A Szőlőliget Vendégház egy különálló, csendes ház a Szent György-hegy keleti oldalán, azoknak, akik valóban el szeretnének húzódni a zajtól. Itt a reggel külön élmény: az ágyból nézhető a napfelkelte, a ház körül pedig a hegyek és a természet adják a pihenés ritmusát."
+    lead: "A Szőlőliget azoknak jó választás, akik nem csak megszállni szeretnének, hanem tényleg kiszakadni a zajból néhány napra."
   },
   details: {
     kicker: "Szőlőliget Vendégház",
     title: "Kétszintes kis ház hatalmas terasszal és 180°-os panorámával",
     shortDescription:
-      "A Szőlőliget Vendégház 2022-ben felújított, kétszintes, különálló ház a Szent György-hegy keleti oldalán. 4 fő részére kényelmes, pótággyal bővíthető, nagy körbejárható terasszal, napfelkeltével az ágyból és csendes, természetközeli környezettel.",
+      "2022-ben felújított, kétszintes ház 4 főre, nagy körbejárható terasszal és 180°-os tanúhegy panorámával.",
     longDescription: [
-      "A Szőlőliget Vendégház egy különálló, csendes ház a Szent György-hegy keleti oldalán, azoknak, akik valóban el szeretnének húzódni a zajtól. Itt a reggel külön élmény: az ágyból nézhető a napfelkelte, a ház körül pedig a hegyek és a természet adják a pihenés ritmusát.",
+      "A Szőlőliget egyik legerősebb élménye a reggel: az ágyból látható napfelkelte és a ház körüli csend rögtön belassítja az itt töltött napokat.",
       "A házat 2022-ben újítottuk fel, és vadonatúj bútorokkal rendeztük be. A kétszintes, szintenként körülbelül 20 m²-es kis ház 4 fő részére kényelmes, egy pótággyal pedig tovább bővíthető. Ideális választás családoknak, kirándulóknak, bortúrára érkezőknek vagy balatoni nyaraláshoz is.",
       "Az alsó szinthez hatalmas, körbejárható terasz kapcsolódik, ahonnan 180°-os panoráma nyílik a környező tanúhegyekre. A Csobánc, a Tóti-hegy és a Gulács innen különösen szép arcát mutatja, a kilátás pedig minden napszakban más hangulatot ad a háznak.",
       "A Szőlőliget egyik legnagyobb értéke a csend és a tér. Nincs zsúfolt környezet, nincs városi nyüzsgés: csak a hegyoldal, a szőlők, a nagy terasz és a panoráma. Reggeli kávéhoz, lassú délutánokhoz és csillagos estékhez is erős helyszín.",

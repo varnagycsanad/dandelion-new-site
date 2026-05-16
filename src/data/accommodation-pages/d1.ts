@@ -26,7 +26,7 @@ export const d1PageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "D1",
     subtitle: "PANORÁMÁS, TÁGAS VENDÉGHÁZ NAGYOBB CSALÁDOKNAK",
-    lead: "A Dandelion D1 az egyik legtágasabb vendégházunk Kisapátin, akár 8 fő részére. Három kétfős hálószoba, nappali kihúzható kanapéval, panorámás terasz, grillezési lehetőség és 2026. június 1-től közös panorámás medence várja a vendégeket.",
+    lead: "Tágas vendégház Kisapátin nagyobb családoknak és baráti társaságoknak, panorámás pihenéshez a Szent György-hegy közelében.",
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
@@ -77,15 +77,15 @@ export const d1PageData: AccommodationPageData = {
   intro: {
     kicker: "Tágas terek - panoráma - családi pihenés",
     title: "Az egyik legtágasabb Dandelion vendégház Kisapátin",
-    lead: "A Dandelion D1 az egyik legtágasabb és legkényelmesebb vendégházunk Kisapátin, ideális választás nagyobb családoknak vagy baráti társaságoknak. A ház akár 8 fő számára is kényelmes elhelyezést biztosít: három kétfős hálószoba, nappali kihúzható kanapéval, tágas közösségi terek és panorámás terasz várja a vendégeket."
+    lead: "A D1 akkor működik igazán jól, ha fontos, hogy együtt lehessetek, de közben mindenkinek jusson saját tér és kényelmes közös idő is."
   },
   details: {
     kicker: "Dandelion D1",
     title: "Panorámás terasz, nagy közösségi terek és közös medence egy helyen",
     shortDescription:
-      "A Dandelion D1 az egyik legtágasabb vendégházunk Kisapátin, akár 8 fő részére. Három kétfős hálószoba, nappali kihúzható kanapéval, panorámás terasz, grillezési lehetőség és 2026. június 1-től közös panorámás medence várja a vendégeket.",
+      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 1-től közös panorámás medencével.",
     longDescription: [
-      "A Dandelion D1 az egyik legtágasabb és legkényelmesebb vendégházunk Kisapátin, ideális választás nagyobb családoknak vagy baráti társaságoknak. A ház akár 8 fő számára is kényelmes elhelyezést biztosít: három kétfős hálószoba, nappali kihúzható kanapéval, tágas közösségi terek és panorámás terasz várja a vendégeket.",
+      "A D1 egyik legnagyobb előnye a tágas elrendezés: több hálószoba, jól használható közös terek és olyan terasz, ahol a társas együttlétnek is kényelmes kerete van.",
       "A nappaliból nyíló hangulatos teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványa tárul a vendégek elé. A panoráma minden napszakban más arcát mutatja: reggel nyugodt és tiszta, este pedig különösen hangulatos. A kültéri étkezőszett és a grillezési lehetőség kényelmessé teszi a kinti együttléteket.",
       "2026. június 1-től a D1 vendégei számára közös panorámás medence is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
       "A ház alsó szintjén jól felszerelt nappali-konyha-étkező található hűtőszekrénnyel és fagyasztóval. A közösségi térben hatszemélyes kör alakú étkezőasztal és kinyitható kanapé kapott helyet, amelyen két fő kényelmesen alhat. Az alsó szinten két hálószoba és két zuhanyzós fürdőszoba is segíti a kényelmes elhelyezést.",

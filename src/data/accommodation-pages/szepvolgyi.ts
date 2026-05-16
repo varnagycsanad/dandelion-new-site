@@ -21,7 +21,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
     title: "Szépvölgyi",
     titleAccent: "Vendégház",
     subtitle: "BALATONI PANORÁMÁS, TÁGAS CSALÁDI NYARALÓ",
-    lead: "Balatoni panorámás, tágas családi nyaraló Badacsonyörsön, a Szépvölgyi úton. A Szépvölgyi Vendégház 4 hálószobával, 2 fürdőszobával, zárt kerttel, teraszbútorokkal és grillezési lehetőséggel várja a vendégeket, akár 8 fő részére.",
+    lead: "Tágas, balatoni panorámás családi nyaraló Badacsonyörsön, nyugodtabb balatoni pihenéshez.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -64,15 +64,15 @@ export const szepvolgyiPageData: AccommodationPageData = {
   intro: {
     kicker: "Panoráma - tér - balatoni nyaralás",
     title: "Nagyobb családi ház a Balaton közelében",
-    lead: "A Szépvölgyi Vendégház Badacsonyörsön, a Szépvölgyi úton található, balatoni panorámás, tágas családi nyaraló. A ház egyik legnagyobb értéke a teraszról nyíló kilátás: a Balaton minden napszakban más arcát mutatja, reggel nyugodt és tiszta, estére pedig különösen hangulatos hátteret ad a pihenéshez."
+    lead: "A Szépvölgyi akkor jó választás, ha nagyobb társasággal pihennétek a Balaton közelében, de nem apartmanos, hanem tágas, saját kertes házas hangulatban."
   },
   details: {
     kicker: "Szépvölgyi Vendégház",
     title: "4 hálószobás, panorámás nyaraló 8 fő részére Badacsonyörsön",
     shortDescription:
-      "A Szépvölgyi Vendégház 4 hálószobával és 2 fürdőszobával rendelkező, tágas családi nyaraló Badacsonyörsön. Balatoni panorámás terasszal, zárt kerttel, két autó számára parkolással és grillezési lehetőséggel várja a vendégeket, akár 8 fő részére.",
+      "4 hálószobás, 2 fürdőszobás nyaraló 8 főre, panorámás terasszal, zárt kerttel és grillezési lehetőséggel.",
     longDescription: [
-      "A Szépvölgyi Vendégház Badacsonyörsön, a Szépvölgyi úton található, balatoni panorámás, tágas családi nyaraló. A ház egyik legnagyobb értéke a teraszról nyíló kilátás: a Balaton minden napszakban más arcát mutatja, reggel nyugodt és tiszta, estére pedig különösen hangulatos hátteret ad a pihenéshez.",
+      "A teraszról nyíló balatoni kilátás a Szépvölgyi egyik legerősebb része: reggel világos és nyugodt, estére pedig kifejezetten hangulatos hátteret ad a közös időhöz.",
       "A vendégház 4 hálószobával és 2 fürdőszobával rendelkezik, így akár 8 fő számára is kényelmes elhelyezést biztosít. Jó választás családoknak és baráti társaságoknak, akik tágas, jól felszerelt házat keresnek a Balaton közelében, nyugodtabb környezetben.",
       "A ház mindennel felszerelt, ami egy kényelmes balatoni nyaraláshoz szükséges. A zárt kertben két autó számára van parkolási lehetőség, a kinti pihenést pedig teraszbútorok és grillező teszik kényelmessé. Itt könnyű belassulni: reggeli a teraszon, napközben strand vagy kirándulás, este grillezés és balatoni panoráma.",
       "A környék tavasztól őszig rengeteg programot ad. A kerékpárút, a kikötő és a strand könnyen elérhető, a Folly Arborétum, a Szigligeti vár, a badacsonyi bortúrák, gasztroprogramok és fesztiválok pedig mind jó választások egy tartalmas balatoni pihenéshez.",

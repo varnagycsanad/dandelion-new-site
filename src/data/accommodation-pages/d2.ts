@@ -29,7 +29,7 @@ export const d2PageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "D2",
     subtitle: "GALÉRIÁS APARTMAN NAGY UDVARRAL ÉS FEDETT TERASSZAL",
-    lead: "Világos, kényelmes vendégház nagy kerttel és fedett terasszal, ahol könnyű megérkezni a nyugalomba. Jó kiindulópont balatoni napokhoz és Szent György-hegyi kirándulásokhoz, este pedig ott marad a kert, a terasz és a grill.",
+    lead: "Világos, kényelmes vendégház nagy kerttel és fedett terasszal, nyugodt balatoni-felvidéki napokhoz.",
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",

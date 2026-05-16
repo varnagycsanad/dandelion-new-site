@@ -21,7 +21,7 @@ export const zsalyaPageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "Zsálya",
     subtitle: "CSENDES VENDÉGHÁZ TERMÉSZETKÖZELI PIHENÉSHEZ",
-    lead: "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, két szinten 4 fő részére. 2026-ban megújult, részben fedett terasszal, tanúhegy panorámával, napfelkeltével, felszerelt teakonyhával és klímával mindkét szinten.",
+    lead: "Csendes, különálló kis ház a hegyoldalban, napfelkeltével és tanúhegy panorámával a lassabb pihenéshez.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -64,15 +64,15 @@ export const zsalyaPageData: AccommodationPageData = {
   intro: {
     kicker: "Csend - természetközeli pihenés",
     title: "Különálló kis ház a hegyoldal nyugalmában",
-    lead: "A Zsálya Vendégház egy különálló, csendes kis ház a Szent György-hegy keleti oldalán, nyugodt, természetközeli környezetben. Két szinten 4 fő számára kényelmes, ideális választás azoknak, akik szeretnének kiszakadni a nyüzsgésből, túrázni, pihenni, vagy egyszerűen csak élvezni a környék különleges hangulatát."
+    lead: "A Zsálya azoknak való, akik kis léptékű, nyugodt házat keresnek, ahol a terasz, a reggeli fények és a környék csendje együtt adják a hangulatot."
   },
   details: {
     kicker: "Zsálya Vendégház",
     title: "Napfelkelte, tanúhegy panoráma és nyugodt, két szintes pihenés",
     shortDescription:
-      "Különálló, csendes vendégház a Szent György-hegy keleti oldalán, két szinten 4 fő részére. 2026-ban megújult, részben fedett terasszal, napfelkeltével, tanúhegy panorámával és klímával mindkét szinten.",
+      "Kétszintes, 4 fős vendégház részben fedett terasszal, megújult belsővel és nyugodt, természetközeli hangulattal.",
     longDescription: [
-      "A Zsálya Vendégház egy különálló, csendes kis ház a Szent György-hegy keleti oldalán, nyugodt, természetközeli környezetben. Két szinten 4 fő számára kényelmes, ideális választás azoknak, akik szeretnének kiszakadni a nyüzsgésből, túrázni, pihenni, vagy egyszerűen csak élvezni a környék különleges hangulatát.",
+      "A Zsályán a reggel külön élmény: a napfelkelte, a hegyoldal fényei és a teraszról nyíló kilátás már önmagukban megadják a lassabb pihenés ritmusát.",
       "A ház egyik legszebb élménye a reggel: a napfelkelte és a hegyoldal fényei különleges hangulatot adnak az itt töltött napoknak. A környezet csendes, levegős és természetközeli, így a Zsálya jó választás pároknak, kisebb családoknak és nyugodt kikapcsolódást kereső barátoknak is.",
       "2026-ban a ház megújult: a terasz részben beépült, így rosszabb időben is jobban használható. A részben fedett teraszról szép kilátás nyílik a Csobánc, a Gulács és a Tóti-hegy irányába, így egy reggeli kávé, egy esti pohár bor vagy egy csendes délután is külön élményt kap.",
       "Az alsó szinten található a főzősarok, a zuhanyzós fürdőszoba és a külön WC. A főzősarok jól felszerelt, hűtőszekrénnyel, beépített fagyasztóval és a mindennapi étkezésekhez szükséges eszközökkel, ezért rövidebb és hosszabb tartózkodásra is kényelmesen használható.",

@@ -26,7 +26,7 @@ export const fugehazPageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "Fügeház",
     subtitle: "PANORÁMÁS PIHENÉS A TANÚHEGYEK KÖZELÉBEN",
-    lead: "Panorámás családi vendégház a Szent György-hegy közelében, teraszokkal, grillezési lehetőséggel és 2026. június 1-től közös panorámás medencével. A Fügeház 4 főnek kényelmes, pótággyal akár 6 fő számára is alkalmas.",
+    lead: "Csendes, panorámás vendégház a Szent György-hegy közelében, hosszú teraszos estékhez és nyugodt balatoni-felvidéki napokhoz.",
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
@@ -77,15 +77,15 @@ export const fugehazPageData: AccommodationPageData = {
   intro: {
     kicker: "Panoráma - nyugalom",
     title: "Panorámás pihenés a tanúhegyek közelében",
-    lead: "A Fügeház egy csendes, panorámás vendégház a Szent György-hegy közelében, ahol a nyugodt reggelek, a hosszú teraszos esték és a hegyek látványa adják a pihenés ritmusát."
+    lead: "A Fügeház azoknak jó választás, akik családias, nyugodt helyet keresnek, ahol a kinti terek és a panoráma ugyanannyit adnak hozzá a pihenéshez, mint maga a ház."
   },
   details: {
     kicker: "Fügeház",
     title: "Családi pihenés teraszokkal és panorámás medencével",
     shortDescription:
-      "Panorámás családi vendégház a Szent György-hegy közelében, teraszokkal, grillezési lehetőséggel és június 1-től közös panorámás medencével. A Fügeház 4 főnek kényelmes, pótággyal akár 6 fő számára is alkalmas.",
+      "4 főre kényelmes, pótággyal bővíthető ház panorámás teraszokkal, grillezési lehetőséggel és 2026. június 1-től közös panorámás medencével.",
     longDescription: [
-      "A Fügeház egy csendes, panorámás vendégház a Szent György-hegy közelében, ahol a nyugodt reggelek, a hosszú teraszos esték és a hegyek látványa adják a pihenés ritmusát. A ház elsősorban családok számára ideális, de kisebb baráti társaságoknak is kényelmes választás.",
+      "A Fügeház elsősorban a teraszairól és a kinti hangulatáról marad emlékezetes: reggel a panoráma, este a hosszabb beszélgetések és a csend adják a pihenés ritmusát.",
       "A vendégház 4 fő részére kényelmes, pótággyal akár 6 fő elszállásolására is alkalmas. Az étkezőből nyíló panorámás teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványában gyönyörködhetünk, a ház másik oldalán pedig kerti étkező és nyugodt pihenősarok várja a vendégeket, rálátással a Szent György-hegyre.",
       "2026. június 1-től a Fügeház, a D1 és a D2 vendégei számára közös panorámás medence is elérhető. A dombon kialakított medence és pihenőtér különleges nyári élményt ad: napközben fürdés és játék a gyerekeknek, este pedig hegyek, csend és balatoni nyárhangulat.",
       "A kintlétet teraszok, kerti bútorok és grillezési lehetőség teszik kényelmessé. A ház melletti dombról 360 fokos panoráma nyílik a környező tanúhegyekre, így a naplementék és a csillagos esték is külön élményt jelentenek.",
