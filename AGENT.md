@@ -1,4 +1,5 @@
 [CHANGE 2026-05-03 00:00] DANDELION_MASTER_RULES logikai szétbontás: AGENT csak execution szabályokat tartalmaz.
+[CHANGE 2026-05-16 13:25] WordPress media utalás semlegesítve legacy media tiltássá.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -284,7 +285,7 @@ STOP ha:
 - encoding hiba
 - scope keveredik
 - redesign indul
-- publikus frontend képforrásba WordPress media / image-admin / REST / runtime útvonal kerülne vissza
+- publikus frontend képforrásba legacy media / admin / REST / runtime útvonal kerülne vissza
 - publikus frontend képforrásba `public/images/accommodations/...` alapú régi képlogika kerülne vissza
 - új képes task nem Astro-only `src/assets` + registry irányba menne
 - lakásoldal D2 kézi másolással vagy page-level layout logikával készülne
