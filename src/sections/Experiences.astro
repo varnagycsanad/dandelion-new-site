@@ -1,38 +1,39 @@
 ---
 import { Image } from "astro:assets";
-import bikingImage from "../assets/accommodations/szepvolgyi/gallery/dandelion-szepvolgyi-source-001.webp";
-import wineTourImage from "../assets/accommodations/szololiget/gallery/dandelion-szololiget-source-001.webp";
-import balatonImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
-import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
+import bikingImage from "../assets/home/experiences/dandelion-home-experience-bike-01.webp";
+import wineTourImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01.webp";
+import balatonImage from "../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
+import mountainsImage from "../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
 
+// [CHANGE 2026-05-16 21:30] Homepage experiences kártyaképek saját home assetekre frissítve.
 // [CHANGE 2026-05-16 11:45] Homepage experiences copy rövidítve és természetesebbre véve.
 const experiences = [
   {
     title: "BICIKLI",
     description: "Bringás körök falvak, szőlősorok és panorámák között.",
     image: bikingImage,
-    imageAlt: "Kerékpár vidéki környezetben",
+    imageAlt: "Kerékpározás a Balaton-felvidék lankái között",
     href: "/elmenyek/kerekpar/"
   },
   {
     title: "BOR ÉS GASZTRONÓMIA",
     description: "Pincék, borteraszok és jó megállók a környéken.",
     image: wineTourImage,
-    imageAlt: "Borospohár, palack és szőlő",
+    imageAlt: "Bor és gasztronómia hangulata szabadtéri terítéssel",
     href: "/elmenyek/bor-es-panorama/"
   },
   {
     title: "BALATON",
     description: "Fürdés, balatoni hajózás és könnyű nyári programok.",
     image: balatonImage,
-    imageAlt: "Naplementés vízparti hangulat",
+    imageAlt: "Badacsony és a Balaton panorámája tiszta időben",
     href: "/elmenyek/balaton/"
   },
   {
     title: "TANÚHEGYEK",
     description: "Kilátók, rövid és hosszabb túrák a csendesebb ösvényeken.",
     image: mountainsImage,
-    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
+    imageAlt: "Tanúhegyek panorámája a Balaton-felvidéken",
     href: "/elmenyek/tanuhegyek/"
   }
 ];
@@ -70,7 +71,7 @@ const experiences = [
 <style>
   .dnd-experiences {
     background: #fbfaf7;
-    padding: 118px 0 132px;
+    padding: 118px 0 72px;
     scroll-margin-top: 150px;
   }
 
@@ -86,10 +87,8 @@ const experiences = [
   .dnd-experiences__intro {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding-top: 86px;
-    padding: 86px 28px 28px;
-    min-height: 100%;
+    align-self: start;
+    padding: 64px 28px 28px;
     border: 1px solid rgba(121, 93, 48, 0.14);
     border-radius: 18px;
     background: linear-gradient(180deg, rgba(250, 245, 235, 0.96), rgba(245, 237, 224, 0.92));
