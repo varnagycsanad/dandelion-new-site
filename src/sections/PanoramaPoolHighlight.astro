@@ -48,11 +48,6 @@ const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint ==
           <span class="pool-highlight__visual-kicker">Panorama Pool</span>
           <p>{poolHighlightImage.titleHu}</p>
         </div>
-        <div class="pool-highlight__card">
-          <span class="pool-highlight__card-label">Elérhető</span>
-          <strong>D1, D2 és Fügeház</strong>
-          <p>2026. június 1-től használható panoráma medence csendes, napos környezetben.</p>
-        </div>
       </figure>
     </div>
   </div>
@@ -234,43 +229,6 @@ const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint ==
     line-height: 1.42;
   }
 
-  .pool-highlight__card {
-    position: relative;
-    z-index: 4;
-    margin-left: auto;
-    max-width: 280px;
-    padding: 18px 18px 16px;
-    border-radius: 20px;
-    background: rgba(255, 252, 246, 0.94);
-    border: 1px solid rgba(120, 91, 50, 0.12);
-    box-shadow: 0 16px 32px rgba(45, 31, 15, 0.14);
-    backdrop-filter: blur(10px);
-  }
-
-  .pool-highlight__card-label {
-    display: inline-block;
-    margin-bottom: 8px;
-    color: var(--dnd-accent);
-    font-size: 0.74rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .pool-highlight__card strong {
-    display: block;
-    font-size: 0.98rem;
-    color: #2f2418;
-    line-height: 1.28;
-  }
-
-  .pool-highlight__card p {
-    margin: 8px 0 0;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: rgba(47, 36, 24, 0.72);
-  }
-
   @media (min-width: 960px) {
     .pool-highlight__shell {
       grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
@@ -336,20 +294,6 @@ const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint ==
 
     .pool-highlight__visual-badge p {
       font-size: 0.88rem;
-    }
-
-    .pool-highlight__card {
-      max-width: 228px;
-      padding: 15px 15px 14px;
-      border-radius: 16px;
-    }
-
-    .pool-highlight__card strong {
-      font-size: 0.94rem;
-    }
-
-    .pool-highlight__card p {
-      font-size: 0.86rem;
     }
   }
 </style>
