@@ -420,9 +420,18 @@ jobs:
             if [ "$rel" = "$url" ]; then
               continue
             fi
-            if [ -f "dist/assets/$rel" ]; then
+            source_path="dist/assets/$rel"
+            if [ ! -f "$source_path" ]; then
+              base_name="$(basename "$rel")"
+              fallback_path="$(find dist/assets -type f -name "$base_name" -print -quit)"
+              if [ -n "${fallback_path:-}" ]; then
+                source_path="$fallback_path"
+                rel="${source_path#dist/assets/}"
+              fi
+            fi
+            if [ -f "$source_path" ]; then
               mkdir -p "deploy-assets/$(dirname "$rel")"
-              cp -a "dist/assets/$rel" "deploy-assets/$rel"
+              cp -a "$source_path" "deploy-assets/$rel"
               echo "$rel" >> repair-assets.txt
             fi
           done < asset-health-failed.txt
