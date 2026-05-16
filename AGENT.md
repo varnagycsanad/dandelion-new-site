@@ -1,5 +1,6 @@
 [CHANGE 2026-05-03 00:00] DANDELION_MASTER_RULES logikai szétbontás: AGENT csak execution szabályokat tartalmaz.
 [CHANGE 2026-05-16 13:25] WordPress media utalás semlegesítve legacy media tiltássá.
+[CHANGE 2026-05-16 14:30] Deploy concurrency szabály rögzítve: futó deploy nem szakítható meg új push miatt.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -105,6 +106,30 @@ Elvárt szerverstruktúra:
 
 NEM jó:
 - `/ujsite/dist/index.html`
+
+---
+
+## DEPLOY CONCURRENCY RULE
+
+A deploy workflow nem szakíthatja meg a már futó deployt újabb push miatt.
+
+Kötelező GitHub Actions beállítás:
+
+```yaml
+concurrency:
+  group: deploy-root-${{ github.ref }}
+  cancel-in-progress: false
+```
+
+Cél:
+- az aktuális deploy fusson végig
+- a következő frissítés várjon mögötte
+- ne legyen félbemaradt FTP feltöltés
+- ne legyen két párhuzamos deploy ugyanarra a célra
+
+Tilos:
+- `cancel-in-progress: true` visszaállítása külön döntés nélkül
+- párhuzamos root deploy ugyanarra a branchre
 
 ---
 
