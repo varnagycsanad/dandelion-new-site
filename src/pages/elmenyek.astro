@@ -9,8 +9,8 @@ import mountainsImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.
 
 const quickFacts = [
   "bringás körök és mellékutak",
-  "Szent György-hegyi pincék",
-  "balatoni strandok rövid úttal",
+  "Szent György-hegyi borhangulat",
+  "közeli balatoni strandok",
   "tanúhegyes naplementék"
 ];
 
@@ -19,147 +19,45 @@ const experiences = [
     eyebrow: "Aktív kikapcsolódás",
     title: "Bicikli",
     description:
-      "A Balaton-felvidék biciklivel lassabb, szabadabb és sokkal közelebbi élmény: falvak, szőlőhegyek, balatoni kitérők és panorámás szakaszok kapcsolódnak össze benne.",
-    details:
-      "Külön oldalon mutatjuk meg a bringás hangulatot, az útvonalötleteket és a bérlési feltételeket is.",
-    highlights: [
-      "rövid délutáni tekerés vagy egész napos program",
-      "normál és elektromos biciklihez is jó régió",
-      "bérlési részletek egy helyen"
-    ],
+      "Laza falukörök, panorámás emelkedők és balatoni kitérők egy bringás napba sűrítve.",
+    highlights: ["rövid vagy egész napos program", "normál és e-bike opció"],
     image: bikingImage,
-    imageAlt: "Kerékpár természetes, letisztult környezetben",
+    imageAlt: "Kerékpár természetközeli környezetben",
     href: "/elmenyek/kerekpar/",
-    ctaLabel: "Bringás oldal megnyitása"
+    ctaLabel: "Bringás részletek"
   },
   {
     eyebrow: "Bor és panoráma",
-    title: "Szent György-hegyi szőlők és badacsonyi borhangulat",
+    title: "Szent György-hegy és Badacsony",
     description:
-      "A Dandelion vendégházak környéke nem rohanós borkóstolós hely: itt a borhoz hozzátartozik a hegy, a kilátás, a szőlősorok és az a lassú balatoni-felvidéki hangulat, ami miatt szívesen maradna még az ember.",
-    details:
-      "A Szent György-hegy, Badacsony és a környező tanúhegyek kisebb pincéket, borteraszokat, családi borászatokat és szép megállókat adnak egy nyugodtabb boros programhoz.",
-    highlights: [
-      "Szent György-hegyi pincék és szőlősorok",
-      "badacsonyi borteraszok és balatoni panoráma",
-      "naplementés borozás, pároknak és baráti programnak is jó"
-    ],
+      "Pincék, borteraszok és lassú délutánok, ahol a borhoz a táj és a kilátás is hozzátartozik.",
+    highlights: ["hegyi pincék", "naplementés borozás"],
     image: wineImage,
     imageAlt: "Szőlősorok a Szent György-hegy környékén",
     href: "/elmenyek/bor-es-panorama/",
-    ctaLabel: "Boros oldal megnyitása"
+    ctaLabel: "Boros részletek"
   },
   {
-    eyebrow: "Vízparti könnyedség",
-    title: "Balaton, strandok és vízi programok",
+    eyebrow: "Vízparti napok",
+    title: "Balaton",
     description:
-      "Ha vízparti napra vágytok, a Balaton könnyen elérhető: strandok, mólók, balatoni séták, naplementés vacsorák és vízi programok is jól beilleszthetők egy nyugodt, hegyvidéki pihenésbe.",
-    details:
-      "Délelőtt strandolás, délután egy pohár bor a hegyen, este séta Badacsonyban vagy Szigligeten - pont ez a környék nagy előnye: nem kell választani a Balaton és a Balaton-felvidék között.",
-    highlights: [
-      "közeli strandok rövid autóúttal",
-      "Badacsony, Szigliget és Ábrahámhegy könnyen elérhető",
-      "kajak, kenu, SUP és vízi programok szezonban",
-      "családos naphoz, páros programhoz és esti sétához is jó"
-    ],
+      "Strandok, vízi programok és balatoni esti séták, könnyen beilleszthetően egy nyugodt pihenésbe.",
+    highlights: ["közeli strandok", "kajak, kenu, SUP"],
     image: balatonImage,
-    imageAlt: "Köves balatoni partszakasz tiszta vízzel és nyári fénnyel",
-    accordions: [
-      {
-        title: "Közeli strandok és balatoni megállók",
-        intro:
-          "A környéken több jó strand is van, attól függően, hogy nyugodtabb családi strandot, klasszikus balatoni hangulatot vagy esti vízparti sétát kerestek.",
-        sections: [
-          {
-            title: "Szigligeti strand",
-            body:
-              "Jó választás családos strandnaphoz, balatoni fürdéshez és klasszikus nyári programhoz. A nagyobb zöldfelület, a kényelmesebb kialakítás és a strandközeli egyszerű balatoni vendéglátás miatt is szerethető megálló."
-          },
-          {
-            title: "Ábrahámhegyi strand",
-            body:
-              "Nyugodtabb, családbarát balatoni strandhangulat. A homokosabb, gyerekbarátabb részek és a kényelmesebb kialakítás miatt főleg családos naphoz jó irány."
-          },
-          {
-            title: "Badacsony és Badacsonytomaj strandjai",
-            body:
-              "Aki a strandolást borozással, vacsorával vagy esti sétával kötné össze, annak Badacsony jó irány. Itt erősebb a klasszikus balatoni feeling: móló, hajóállomás, borteraszok, éttermek és esti nyüzsgés."
-          },
-          {
-            title: "Badacsonylábdihegyi Herczeg Ferenc strand",
-            body:
-              "Kifejezetten jó kiindulópont lehet akkor is, ha a strandolást vízi programmal kötnétek össze. A helyi ajánlók alapján innen kajakos, kenus vagy SUP-os irányok is adhatják magukat."
-          }
-        ]
-      },
-      {
-        title: "Kajak, kenu, SUP és csónakázás",
-        intro:
-          "A Balaton nem csak strandolásra jó. Ha aktívabb programot szeretnétek, a környéken szezonban kajak, kenu, SUP és egyes helyeken csónakos vízi programok is elérhetők.",
-        sections: [
-          {
-            title: "Kajak és kenu Badacsonylábdihegyen",
-            body:
-              "A Badacsony környéki vízi programok egyik jó iránya Badacsonylábdihegy. A vízről Badacsony, Szigliget, a Szent György-hegy és a tanúhegyek látványa külön élmény, ezért ez több mint egyszerű eszközbérlés."
-          },
-          {
-            title: "SUP és könnyed vízi élmény",
-            body:
-              "Nyugodt időben a SUP jó választás lehet azoknak, akik nem komoly túrára mennének, csak szeretnének kicsit kint lenni a vízen. Ezt inkább szélcsendes, biztonságos időben érdemes tervezni."
-          },
-          {
-            title: "Csónakos program Badacsony környékén",
-            body:
-              "A motoros csónakos lehetőségeket nem érdemes fix szolgáltatásként ígérni. Inkább előzetes egyeztetéssel elérhető vízi programként kezeljük, mert szezonhoz, szolgáltatóhoz és feltételekhez kötött."
-          }
-        ],
-        note:
-          "A vízi programok szezon-, időjárás- és szolgáltatófüggők. Indulás előtt mindig érdemes ellenőrizni az aktuális nyitvatartást, árakat és bérlési feltételeket."
-      },
-      {
-        title: "Melyik balatoni programot válasszátok?",
-        sections: [
-          {
-            title: "Családos strandnaphoz",
-            body:
-              "Szigliget vagy Ábrahámhegy jó választás. Mindkettő kényelmesebb, családbarátabb irány."
-          },
-          {
-            title: "Nyugodtabb, homokosabb gyerekes strandhoz",
-            body:
-              "Ábrahámhegyet emelnénk ki, főleg a gyerekbarátabb partszakasz és a kényelmesebb strandhangulat miatt."
-          },
-          {
-            title: "Esti sétához, vacsorához, borozáshoz",
-            body:
-              "Badacsony a legerősebb. Itt nem csak strandolni lehet, hanem mólózni, vacsorázni, borteraszra ülni és csak nézelődni is."
-          },
-          {
-            title: "Kajakhoz, kenuhoz, SUP-hoz",
-            body:
-              "Badacsonylábdihegy legyen a fő ajánlás. Itt jobban kapcsolódik össze a strandolás és a vízi program."
-          }
-        ]
-      }
-    ]
+    imageAlt: "Köves balatoni partszakasz nyári fényben",
+    href: "/elmenyek/balaton/",
+    ctaLabel: "Balatoni részletek"
   },
   {
     eyebrow: "Természetközeli program",
-    title: "Tanúhegyek, kilátások és csendes kirándulások",
+    title: "Tanúhegyek",
     description:
-      "A Balaton-felvidék egyik legnagyobb ajándéka, hogy pár perc alatt a szállástól már hegyek, szőlők, rétek, erdei utak és kilátópontok között lehettek.",
-    details:
-      "A Szent György-hegy, Badacsony, Gulács, Csobánc és Szigliget környéke tele van olyan helyekkel, ahol a természet, a panoráma és a balatoni-felvidéki hangulat egyszerre van jelen.",
-    highlights: [
-      "tanúhegyek és panorámás kilátópontok",
-      "rövidebb séták és hosszabb túrák is elérhetők",
-      "családos, páros és baráti programnak is jó",
-      "naplementéhez különösen hangulatos"
-    ],
+      "Rövid séták, kilátópontok és csendes túrák a Balaton-felvidék legszebb hegyvidéki ritmusában.",
+    highlights: ["panorámás kilátók", "naplementés útvonalak"],
     image: mountainsImage,
     imageAlt: "Drónkép a tanúhegyekről és a Tapolcai-medencéről",
     href: "/elmenyek/tanuhegyek/",
-    ctaLabel: "Tanúhegyes oldal megnyitása"
+    ctaLabel: "Túraötletek"
   }
 ];
 
@@ -190,7 +88,8 @@ const structuredData = [
       "@type": "ListItem",
       position: index + 1,
       name: item.title,
-      description: item.description
+      description: item.description,
+      url: `https://dandelionhouse.hu${item.href}`
     }))
   }
 ];
@@ -198,7 +97,7 @@ const structuredData = [
 
 <BaseLayout
   title="Élmények | Dandelion Vendégházak"
-  description="Kerékpározás, Szent György-hegyi borélmények, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
+  description="Kerékpározás, boros megállók, balatoni programok és tanúhegyes kirándulások a Dandelion Vendégházak környékén."
   canonicalPath="/elmenyek/"
   structuredData={structuredData}
 >
@@ -215,11 +114,10 @@ const structuredData = [
 
         <div class="experiences-hero__content">
           <span class="experiences-page__eyebrow">Környék és programok</span>
-          <h1>Élmények a Balaton-felvidék ritmusára hangolva.</h1>
+          <h1>Válassz hangulatot a Balaton-felvidéki napjaidhoz.</h1>
           <p class="experiences-hero__lead">
-            A Dandelion környékén nem egyetlen kötelező program vár, hanem többféle jó ritmus:
-            bringás napok, szőlőhegyi délutánok, balatoni kitérők és tanúhegyes túrák. Ez az oldal
-            áttekintést ad, a részletesebb témák pedig külön aloldalakat kaphatnak.
+            Az élmények főoldal most már gyors választófelület: válassz témát, és a részleteket a
+            külön aloldalon nézd meg.
           </p>
 
           <div class="experiences-hero__facts" aria-label="Élmény gyorsáttekintő">
@@ -230,12 +128,18 @@ const structuredData = [
         </div>
       </section>
 
+      <section class="experiences-page__intro">
+        <span class="experiences-page__eyebrow">Tematikus belépőpontok</span>
+        <h2>Négy erős irány, egységes teaser-rendszerben.</h2>
+        <p>
+          Mobilon két oszlopos, desktopon bővíthető rácsban jelennek meg a témák, így az oldal
+          rövidebb, átláthatóbb és később is könnyen bővíthető marad.
+        </p>
+      </section>
+
       <section class="experiences-page__grid" aria-label="Kiemelt élmények">
         {experiences.map((item) => (
-          <article
-            class="experience-card"
-            data-experience-card={item.href ? "with-link" : "static"}
-          >
+          <a class="experience-card" href={item.href}>
             <div class="experience-card__media">
               <Image src={item.image} alt={item.imageAlt} loading="lazy" />
             </div>
@@ -244,49 +148,24 @@ const structuredData = [
               <span class="experience-card__eyebrow">{item.eyebrow}</span>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
-              <p class="experience-card__details">{item.details}</p>
 
-              <ul class="experience-card__highlights">
+              <ul class="experience-card__highlights" aria-label={`${item.title} fő pontjai`}>
                 {item.highlights.map((highlight) => (
                   <li>{highlight}</li>
                 ))}
               </ul>
 
-              {item.accordions && (
-                <div class="experience-card__accordions">
-                  {item.accordions.map((accordion, index) => (
-                    <details class="experience-card__accordion" open={index === 0}>
-                      <summary>{accordion.title}</summary>
-                      <div class="experience-card__accordion-content">
-                        {accordion.intro && <p>{accordion.intro}</p>}
-
-                        {accordion.sections.map((section) => (
-                          <div class="experience-card__accordion-section">
-                            <h3>{section.title}</h3>
-                            <p>{section.body}</p>
-                          </div>
-                        ))}
-
-                        {accordion.note && (
-                          <p class="experience-card__accordion-note">{accordion.note}</p>
-                        )}
-                      </div>
-                    </details>
-                  ))}
-                </div>
-              )}
-
-              {item.href && <a class="experience-card__cta" href={item.href}>{item.ctaLabel}</a>}
+              <span class="experience-card__cta">{item.ctaLabel}</span>
             </div>
-          </article>
+          </a>
         ))}
       </section>
 
       <section class="experiences-page__cta-panel">
         <h2>Megvan a hangulat, jöhet a szállás?</h2>
         <p>
-          Nézd meg a Dandelion házakat régiónként, és válaszd azt a helyet, ahonnan a saját pihenési
-          ritmusod indul a legtermészetesebben.
+          Nézd meg a Dandelion házakat régiónként, és válaszd azt a helyet, ahonnan a saját
+          pihenési ritmusod indul a legtermészetesebben.
         </p>
         <div class="experiences-page__cta-actions">
           <a href="/szallasok/" class="experiences-page__cta-primary">Szállások megtekintése</a>
@@ -314,7 +193,7 @@ const structuredData = [
 
   .experiences-page__inner {
     display: grid;
-    gap: 36px;
+    gap: 32px;
   }
 
   .experiences-page__eyebrow,
@@ -329,7 +208,7 @@ const structuredData = [
 
   .experiences-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
     gap: 28px;
     align-items: stretch;
   }
@@ -355,18 +234,25 @@ const structuredData = [
     object-fit: cover;
   }
 
-  .experiences-hero__content {
-    display: grid;
-    align-content: center;
-    gap: 14px;
-    padding: 34px;
+  .experiences-hero__content,
+  .experiences-page__intro,
+  .experiences-page__cta-panel {
     border: 1px solid rgba(88, 63, 38, 0.12);
     border-radius: 24px;
-    background: rgba(255, 252, 246, 0.82);
-    backdrop-filter: blur(6px);
+    background: rgba(255, 252, 246, 0.84);
+    box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
+  }
+
+  .experiences-hero__content,
+  .experiences-page__intro,
+  .experiences-page__cta-panel {
+    display: grid;
+    gap: 14px;
+    padding: 30px;
   }
 
   .experiences-page h1,
+  .experiences-page__intro h2,
   .experiences-page__cta-panel h2,
   .experience-card h2 {
     margin: 0;
@@ -377,17 +263,23 @@ const structuredData = [
   }
 
   .experiences-page h1 {
-    font-size: clamp(2.5rem, 4.4vw, 4.4rem);
+    font-size: clamp(2.5rem, 4.4vw, 4.3rem);
     max-width: 11ch;
   }
 
+  .experiences-page__intro h2,
+  .experiences-page__cta-panel h2 {
+    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+  }
+
   .experiences-hero__lead,
+  .experiences-page__intro p,
   .experience-card p,
   .experiences-page__cta-panel p {
     margin: 0;
     color: rgba(38, 29, 22, 0.76);
     font-size: 1rem;
-    line-height: 1.72;
+    line-height: 1.7;
   }
 
   .experiences-hero__facts {
@@ -397,19 +289,20 @@ const structuredData = [
     margin-top: 8px;
   }
 
-  .experiences-hero__facts span {
-    padding: 10px 14px;
+  .experiences-hero__facts span,
+  .experience-card__highlights li {
+    padding: 9px 12px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(88, 63, 38, 0.12);
     color: rgba(38, 29, 22, 0.86);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .experiences-page__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
   }
 
   .experience-card {
@@ -417,9 +310,27 @@ const structuredData = [
     grid-template-rows: auto 1fr;
     border: 1px solid rgba(88, 63, 38, 0.12);
     border-radius: 24px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     overflow: hidden;
     box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .experience-card:hover,
+  .experience-card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 28px 64px rgba(43, 28, 14, 0.12);
+    border-color: rgba(88, 63, 38, 0.22);
+  }
+
+  .experience-card:focus-visible {
+    outline: 2px solid rgba(165, 109, 31, 0.26);
+    outline-offset: 3px;
   }
 
   .experience-card__media {
@@ -428,103 +339,28 @@ const structuredData = [
   }
 
   .experience-card__media :global(img) {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
   }
 
   .experience-card__body {
     display: grid;
+    align-content: start;
     gap: 12px;
-    padding: 24px;
+    padding: 20px;
   }
 
   .experience-card h2 {
-    font-size: clamp(1.55rem, 2vw, 2rem);
-  }
-
-  .experience-card__details {
-    color: rgba(38, 29, 22, 0.64) !important;
+    font-size: clamp(1.2rem, 1.9vw, 1.7rem);
   }
 
   .experience-card__highlights {
-    margin: 4px 0 0;
-    padding-left: 18px;
-    color: rgba(38, 29, 22, 0.82);
-    display: grid;
-    gap: 8px;
-    line-height: 1.55;
-  }
-
-  .experience-card__accordions {
-    display: grid;
-    gap: 12px;
-    margin-top: 4px;
-  }
-
-  .experience-card__accordion {
-    border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 18px;
-    background: rgba(252, 248, 241, 0.82);
-    overflow: hidden;
-  }
-
-  .experience-card__accordion summary {
-    cursor: pointer;
+    margin: 2px 0 0;
+    padding: 0;
     list-style: none;
-    padding: 16px 18px;
-    color: #261d16;
-    font-size: 0.98rem;
-    font-weight: 600;
-    line-height: 1.45;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .experience-card__accordion summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .experience-card__accordion summary::after {
-    content: "+";
-    flex-shrink: 0;
-    color: #a56d1f;
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-
-  .experience-card__accordion[open] summary::after {
-    content: "-";
-  }
-
-  .experience-card__accordion-content {
-    display: grid;
-    gap: 16px;
-    padding: 0 18px 18px;
-  }
-
-  .experience-card__accordion-content p {
-    margin: 0;
-  }
-
-  .experience-card__accordion-section {
-    display: grid;
-    gap: 6px;
-  }
-
-  .experience-card__accordion-section h3 {
-    margin: 0;
-    color: #261d16;
-    font-size: 1.02rem;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .experience-card__accordion-note {
-    padding-top: 2px;
-    color: rgba(38, 29, 22, 0.66) !important;
-    font-size: 0.95rem;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .experience-card__cta,
@@ -544,34 +380,15 @@ const structuredData = [
   }
 
   .experience-card__cta {
-    margin-top: 10px;
+    margin-top: 8px;
     justify-self: start;
     background: #2b2016;
     color: #fff;
     border-color: #2b2016;
   }
 
-  .experience-card__cta:hover,
-  .experience-card__cta:focus-visible,
-  .experiences-page__cta-secondary:hover,
-  .experiences-page__cta-secondary:focus-visible {
-    background: #3a2a1d;
-  }
-
-  .experiences-page__cta-panel {
-    border: 1px solid rgba(88, 63, 38, 0.14);
-    border-radius: 24px;
-    background: linear-gradient(135deg, rgba(248, 242, 231, 0.92), rgba(255, 252, 246, 0.96));
-    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.05);
-    padding: 28px;
-  }
-
-  .experiences-page__cta-panel h2 {
-    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
-  }
-
   .experiences-page__cta-actions {
-    margin-top: 18px;
+    margin-top: 4px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -593,10 +410,20 @@ const structuredData = [
     background: #f7efe2;
   }
 
+  .experiences-page__cta-secondary:hover,
+  .experiences-page__cta-secondary:focus-visible,
+  .experience-card:hover .experience-card__cta,
+  .experience-card:focus-visible .experience-card__cta {
+    background: #3a2a1d;
+  }
+
   @media (max-width: 1100px) {
-    .experiences-hero,
-    .experiences-page__grid {
+    .experiences-hero {
       grid-template-columns: 1fr;
+    }
+
+    .experiences-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .experiences-page h1 {
@@ -610,16 +437,19 @@ const structuredData = [
     }
 
     .experiences-page__inner {
-      gap: 24px;
+      gap: 22px;
     }
 
     .experiences-hero__content,
-    .experience-card__body,
-    .experiences-page__cta-panel {
-      padding: 20px;
+    .experiences-page__intro,
+    .experiences-page__cta-panel,
+    .experience-card__body {
+      padding: 18px;
     }
 
     .experiences-hero__media,
+    .experiences-hero__content,
+    .experiences-page__intro,
     .experience-card,
     .experiences-page__cta-panel {
       border-radius: 18px;
@@ -627,7 +457,37 @@ const structuredData = [
 
     .experiences-page h1 {
       max-width: none;
-      font-size: clamp(2.2rem, 10vw, 3.2rem);
+      font-size: clamp(2.15rem, 10vw, 3.1rem);
+    }
+
+    .experiences-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .experience-card__media :global(img) {
+      aspect-ratio: 0.92 / 1;
+    }
+
+    .experience-card__body {
+      gap: 10px;
+    }
+
+    .experience-card p {
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .experience-card__highlights {
+      display: none;
+    }
+
+    .experience-card__cta {
+      width: 100%;
+      justify-self: stretch;
+      padding-inline: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
     }
   }
 </style>

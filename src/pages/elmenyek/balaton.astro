@@ -1,0 +1,483 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/balaton-shore.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: "https://dandelionhouse.hu/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Élmények",
+        item: "https://dandelionhouse.hu/elmenyek/"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Balaton",
+        item: "https://dandelionhouse.hu/elmenyek/balaton/"
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Balaton, strandok és vízi programok | Dandelion Vendégházak"
+  description="Közeli strandok, balatoni séták, kajak, kenu és SUP ötletek a Dandelion Vendégházak környékén."
+  canonicalPath="/elmenyek/balaton/"
+  structuredData={structuredData}
+>
+  <section class="balaton-page">
+    <div class="dnd-container balaton-page__inner">
+      <section class="balaton-page__hero">
+        <div class="balaton-page__hero-copy">
+          <span class="balaton-page__eyebrow">Vízparti könnyedség</span>
+          <h1>Balaton, strandok és vízi programok</h1>
+          <p>
+            Ha vízparti napra vágytok, a Balaton könnyen elérhető: strandok, mólók, balatoni séták,
+            naplementés vacsorák és vízi programok is jól beilleszthetők egy nyugodt, hegyvidéki
+            pihenésbe.
+          </p>
+          <p>
+            Délelőtt strandolás, délután egy pohár bor a hegyen, este séta Badacsonyban vagy
+            Szigligeten. Pont ez a környék nagy előnye: nem kell választani a Balaton és a
+            Balaton-felvidék között.
+          </p>
+
+          <ul class="balaton-page__hero-highlights">
+            <li>közeli strandok rövid autóúttal</li>
+            <li>Badacsony, Szigliget és Ábrahámhegy könnyen elérhető</li>
+            <li>kajak, kenu és SUP szezonban</li>
+            <li>családos, páros és esti programnak is jól működik</li>
+          </ul>
+
+          <div class="balaton-page__hero-actions">
+            <a href="/szallasok/" class="balaton-page__cta-primary">Szállások megtekintése</a>
+            <a href="/elmenyek/" class="balaton-page__cta-secondary">Vissza az élményekhez</a>
+          </div>
+        </div>
+
+        <div class="balaton-page__hero-media">
+          <Image
+            src={heroImage}
+            alt="Balatoni partszakasz tiszta vízzel és nyári fénnyel"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section class="balaton-page__support">
+        <article class="balaton-page__support-card">
+          <span class="balaton-page__eyebrow">Hangulat</span>
+          <h2>Előbb a vízparti ritmus, utána a konkrét megállók</h2>
+          <p>
+            A Balaton-téma most már ugyanabba a rendszerbe illeszkedik, mint a többi élményoldal:
+            a főoldal csak beléptet, a részletek pedig itt, külön oldalon kapnak helyet.
+          </p>
+        </article>
+
+        <article class="balaton-page__support-card">
+          <Image
+            src={supportImage}
+            alt="Tanúhegyes panoráma a balatoni programok hangulatához"
+            loading="lazy"
+          />
+        </article>
+      </section>
+
+      <section class="balaton-page__accordions" aria-label="Balatoni részletek">
+        <details class="balaton-accordion" open>
+          <summary>Közeli strandok és balatoni megállók</summary>
+          <div class="balaton-accordion__content">
+            <p>
+              A környéken több jó strand is van, attól függően, hogy nyugodtabb családi strandot,
+              klasszikus balatoni hangulatot vagy esti vízparti sétát kerestek.
+            </p>
+
+            <div class="balaton-stop">
+              <h3>Szigligeti strand</h3>
+              <p>
+                Jó választás családos strandnaphoz, balatoni fürdéshez és klasszikus nyári
+                programhoz. A nagyobb zöldfelület és a kényelmesebb kialakítás miatt is szerethető.
+              </p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Ábrahámhegyi strand</h3>
+              <p>
+                Nyugodtabb, családbarát balatoni strandhangulat. A gyerekbarátabb partszakaszok és a
+                kényelmesebb kialakítás miatt főleg családos naphoz jó irány.
+              </p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Badacsony és Badacsonytomaj strandjai</h3>
+              <p>
+                Ha a strandolást borozással, vacsorával vagy esti sétával kötnétek össze, Badacsony
+                erős választás. Móló, hajóállomás, borteraszok és nagyobb nyári pezsgés vár.
+              </p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Badacsonylábdihegyi Herczeg Ferenc strand</h3>
+              <p>
+                Jó kiindulópont lehet akkor is, ha a strandolást vízi programmal kapcsolnátok össze.
+                Kajakos, kenus vagy SUP-os irányok is adhatják magukat.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="balaton-accordion">
+          <summary>Kajak, kenu, SUP és könnyed vízi programok</summary>
+          <div class="balaton-accordion__content">
+            <p>
+              A Balaton nem csak strandolásra jó. Ha aktívabb programot szeretnétek, a környéken
+              szezonban kajak, kenu, SUP és egyes helyeken csónakos programok is elérhetők.
+            </p>
+
+            <div class="balaton-stop">
+              <h3>Kajak és kenu Badacsonylábdihegyen</h3>
+              <p>
+                A vízről Badacsony, Szigliget, a Szent György-hegy és a tanúhegyek látványa külön
+                élmény, ezért ez több mint egyszerű eszközbérlés.
+              </p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>SUP nyugodt időben</h3>
+              <p>
+                Szélcsendes, biztonságos időben könnyed vízi élmény lehet azoknak, akik nem komoly
+                túrát terveznek, csak szeretnének egy kicsit kint lenni a vízen.
+              </p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Csónakos programok</h3>
+              <p>
+                Ezeket inkább előzetes egyeztetéssel elérhető lehetőségként érdemes kezelni, mert
+                szezonhoz, szolgáltatóhoz és feltételekhez kötöttek.
+              </p>
+            </div>
+
+            <p class="balaton-accordion__note">
+              A vízi programok szezon-, időjárás- és szolgáltatófüggők, indulás előtt mindig érdemes
+              ellenőrizni az aktuális nyitvatartást, árakat és bérlési feltételeket.
+            </p>
+          </div>
+        </details>
+
+        <details class="balaton-accordion">
+          <summary>Melyik balatoni programot válasszátok?</summary>
+          <div class="balaton-accordion__content">
+            <div class="balaton-stop">
+              <h3>Családos strandnaphoz</h3>
+              <p>Szigliget vagy Ábrahámhegy kényelmes, családbarát választás.</p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Gyerekbarát, nyugodtabb strandhoz</h3>
+              <p>Ábrahámhegyet emelnénk ki a kényelmesebb és barátságosabb partszakasz miatt.</p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Esti sétához, vacsorához vagy borozáshoz</h3>
+              <p>Badacsony a legerősebb irány, ha a vízpart mellé esti életet is szeretnétek.</p>
+            </div>
+
+            <div class="balaton-stop">
+              <h3>Kajakhoz, kenuhoz vagy SUP-hoz</h3>
+              <p>
+                Badacsonylábdihegy a legjobb kiindulópont, ahol a strandolás és a vízi program jól
+                összekapcsolható.
+              </p>
+            </div>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .balaton-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(109, 152, 177, 0.18), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #eff4f5 100%);
+  }
+
+  .balaton-page__inner {
+    display: grid;
+    gap: 30px;
+  }
+
+  .balaton-page__eyebrow {
+    display: inline-block;
+    color: #7a5b22;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .balaton-page__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .balaton-page__hero-copy,
+  .balaton-page__support-card {
+    display: grid;
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.84);
+    backdrop-filter: blur(6px);
+  }
+
+  .balaton-page h1,
+  .balaton-page__support-card h2 {
+    margin: 0;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .balaton-page h1 {
+    font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+    max-width: 11ch;
+  }
+
+  .balaton-page__hero-copy p,
+  .balaton-page__support-card p,
+  .balaton-accordion__content p,
+  .balaton-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .balaton-page__hero-highlights {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .balaton-page__hero-media,
+  .balaton-page__support-card :global(img) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .balaton-page__hero-media,
+  .balaton-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .balaton-page__hero-media :global(picture),
+  .balaton-page__hero-media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .balaton-page__hero-media :global(img),
+  .balaton-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .balaton-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .balaton-page__cta-primary,
+  .balaton-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .balaton-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .balaton-page__cta-primary:hover,
+  .balaton-page__cta-primary:focus-visible,
+  .balaton-page__cta-secondary:hover,
+  .balaton-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .balaton-page__support {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .balaton-page__accordions {
+    display: grid;
+    gap: 18px;
+  }
+
+  .balaton-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .balaton-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .balaton-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .balaton-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .balaton-accordion[open] summary::after {
+    content: "-";
+  }
+
+  .balaton-accordion__content {
+    display: grid;
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .balaton-stop {
+    display: grid;
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .balaton-stop h3 {
+    margin: 0;
+    color: #261d16;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .balaton-accordion__note {
+    color: rgba(43, 32, 22, 0.7) !important;
+  }
+
+  @media (max-width: 960px) {
+    .balaton-page__hero,
+    .balaton-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .balaton-page {
+      padding: 108px 0 72px;
+    }
+
+    .balaton-page__inner {
+      gap: 24px;
+    }
+
+    .balaton-page__hero-copy,
+    .balaton-page__support-card {
+      padding: 24px;
+    }
+
+    .balaton-page__hero-media,
+    .balaton-page__support-card,
+    .balaton-accordion {
+      border-radius: 18px;
+    }
+
+    .balaton-accordion summary,
+    .balaton-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .balaton-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .balaton-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .balaton-stop {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>

@@ -8,31 +8,31 @@ import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-sou
 const experiences = [
   {
     title: "BICIKLI",
-    description:
-      "Fedezd fel a vidéket két keréken. Kijelölt túraútvonalak, csendes mellékutak és lélegzetelállító kilátások várnak.",
+    description: "Falvak, panorámás szakaszok és laza bringás kitérők a Balaton-felvidéken.",
     image: bikingImage,
-    imageAlt: "Kerékpár vidéki környezetben"
+    imageAlt: "Kerékpár vidéki környezetben",
+    href: "/elmenyek/kerekpar/"
   },
   {
-    title: "BORTÚRA",
-    description:
-      "Helyi borászatok, autentikus pincék és kiváló borok. Ismerd meg a Balaton-felvidék boros hagyományait.",
+    title: "BOR ÉS PANORÁMA",
+    description: "Szent György-hegyi pincék, borteraszok és naplementés megállók.",
     image: wineTourImage,
-    imageAlt: "Borospohár, palack és szőlő"
+    imageAlt: "Borospohár, palack és szőlő",
+    href: "/elmenyek/bor-es-panorama/"
   },
   {
     title: "BALATON",
-    description:
-      "Strandok, naplementék és frissítő fürdőzések. A magyar tenger mindig különleges élményt ad.",
+    description: "Közeli strandok, esti séták és szezonális vízi programok egy helyen.",
     image: balatonImage,
-    imageAlt: "Naplementés vízparti hangulat"
+    imageAlt: "Naplementés vízparti hangulat",
+    href: "/elmenyek/balaton/"
   },
   {
-    title: "HEGYEK",
-    description:
-      "Tanúhegyek, kilátók és erdei ösvények. Túrázz, kapcsolódj ki, és élvezd a természet nyugalmát.",
+    title: "TANÚHEGYEK",
+    description: "Kilátók, rövid séták és csendes túrák a környék legszebb hegyei között.",
     image: mountainsImage,
-    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken"
+    imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
+    href: "/elmenyek/tanuhegyek/"
   }
 ];
 ---
@@ -42,31 +42,25 @@ const experiences = [
     <div class="dnd-experiences__intro">
       <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
       <p class="dnd-experiences__lead">
-        A Dandelion napok lassan indulnak, és élményekkel telnek. Fedezd fel a környék legszebb
-        útvonalait, kóstold meg a helyi borokat, csobbanj a Balatonban, vagy túrázz a tanúhegyek között.
+        Négy gyors belépőpont, külön aloldalakkal: bringás napok, boros megállók, balatoni
+        kitérők és tanúhegyes kirándulások.
       </p>
-      <a href="/elmenyek/" class="dnd-experiences__cta">RÉSZLETEK</a>
+      <a href="/elmenyek/" class="dnd-experiences__cta">ÖSSZES ÉLMÉNY</a>
     </div>
 
     <div class="dnd-experiences__grid">
       {
-        experiences.map((experience, index) => (
-          <article
-            class={`dnd-experience-card ${index > 0 ? "dnd-experience-card--desktop" : ""}`}
-          >
+        experiences.map((experience) => (
+          <a class="dnd-experience-card" href={experience.href}>
             <div class="dnd-experience-card__media">
               <Image src={experience.image} alt={experience.imageAlt} loading="lazy" />
             </div>
             <div class="dnd-experience-card__body">
               <h3>{experience.title}</h3>
               <p>{experience.description}</p>
-              {index === 0 && (
-                <a href="/elmenyek/" class="dnd-experience-card__mobile-cta">
-                  RÉSZLETEK
-                </a>
-              )}
+              <span class="dnd-experience-card__mobile-cta">RÉSZLETEK</span>
             </div>
-          </article>
+          </a>
         ))
       }
     </div>
@@ -113,8 +107,7 @@ const experiences = [
     color: rgba(0, 0, 0, 0.6);
   }
 
-  .dnd-experiences__cta,
-  .dnd-experience-card__mobile-cta {
+  .dnd-experiences__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -132,9 +125,7 @@ const experiences = [
   }
 
   .dnd-experiences__cta:hover,
-  .dnd-experiences__cta:focus-visible,
-  .dnd-experience-card__mobile-cta:hover,
-  .dnd-experience-card__mobile-cta:focus-visible {
+  .dnd-experiences__cta:focus-visible {
     border-color: rgba(0, 0, 0, 0.82);
     background: rgba(0, 0, 0, 0.04);
     color: rgba(0, 0, 0, 0.92);
@@ -149,6 +140,14 @@ const experiences = [
 
   .dnd-experience-card {
     min-width: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .dnd-experience-card:hover,
+  .dnd-experience-card:focus-visible {
+    transform: translateY(-3px);
   }
 
   .dnd-experience-card__media {
@@ -202,7 +201,14 @@ const experiences = [
   }
 
   .dnd-experience-card__mobile-cta {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 18px;
+    color: rgba(0, 0, 0, 0.76);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   @media (max-width: 767px) {
@@ -231,32 +237,39 @@ const experiences = [
     }
 
     .dnd-experiences__grid {
-      grid-template-columns: 1fr;
-      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
       margin-top: 28px;
     }
 
-    .dnd-experience-card--desktop {
-      display: none;
-    }
-
     .dnd-experience-card__body {
-      padding: 20px 0 0;
+      padding: 14px 0 0;
     }
 
     .dnd-experience-card__media {
       height: auto;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 0.92 / 1;
     }
 
     .dnd-experience-card__media :global(picture) {
       height: 100%;
     }
 
+    .dnd-experience-card h3 {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+    }
+
+    .dnd-experience-card p {
+      margin-top: 12px;
+      font-size: 0.84rem;
+      line-height: 1.52;
+    }
+
     .dnd-experience-card__mobile-cta {
-      display: inline-flex;
-      min-width: 164px;
-      margin-top: 24px;
+      margin-top: 14px;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
     }
   }
 
