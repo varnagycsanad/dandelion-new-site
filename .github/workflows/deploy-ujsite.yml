@@ -363,7 +363,7 @@ jobs:
           ];
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
-          const urls = new Set();
+          const assetEntries = new Map();
 
           for (const relPath of htmlRelativePaths) {
             const htmlPath = path.join(distRoot, relPath);
@@ -374,26 +374,26 @@ jobs:
             while ((m = rx.exec(html)) !== null) {
               const value = m[1];
               if (value.startsWith("/assets/") && value.match(/\.(webp|jpg|jpeg|png|svg)$/i)) {
-                urls.add(base + value);
+                assetEntries.set(base + value, value.replace(/^\/assets\//, ""));
               }
             }
           }
 
-          async function checkUrl(url) {
+          async function checkUrl(url, relPath) {
             try {
               let res = await fetch(url, { method: "HEAD", redirect: "follow" });
               if (res.status === 405 || res.status === 501) {
                 res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
               }
-              return { url, status: res.status };
+              return { url, relPath, status: res.status };
             } catch {
-              return { url, status: 0 };
+              return { url, relPath, status: 0 };
             }
           }
 
           (async () => {
-            const all = Array.from(urls);
-            const results = await Promise.all(all.map(checkUrl));
+            const all = Array.from(assetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+            const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
             const bad = results.filter((r) => r.status !== 200);
             if (bad.length > 0) {
               console.log(`Broken hashed assets detected: ${bad.length}`);
@@ -401,6 +401,7 @@ jobs:
                 console.log(`${item.status}\t${item.url}`);
               }
               fs.writeFileSync("asset-health-failed.txt", bad.map((x) => `${x.status}\t${x.url}`).join("\n"));
+              fs.writeFileSync("asset-health-failed-paths.txt", bad.map((x) => x.relPath).join("\n"));
               process.exit(2);
             }
             console.log(`Hashed assets check passed (${results.length} URLs).`);
@@ -414,12 +415,8 @@ jobs:
           set -euo pipefail
           mkdir -p deploy-assets
           : > repair-assets.txt
-          while IFS=$'\t' read -r status url; do
-            [ -z "${url:-}" ] && continue
-            rel="${url#https://dandelionhouse.hu/assets/}"
-            if [ "$rel" = "$url" ]; then
-              continue
-            fi
+          while IFS= read -r rel; do
+            [ -z "${rel:-}" ] && continue
             source_path="dist/assets/$rel"
             if [ ! -f "$source_path" ]; then
               base_name="$(basename "$rel")"
@@ -434,7 +431,7 @@ jobs:
               cp -a "$source_path" "deploy-assets/$rel"
               echo "$rel" >> repair-assets.txt
             fi
-          done < asset-health-failed.txt
+          done < asset-health-failed-paths.txt
 
           sort -u repair-assets.txt -o repair-assets.txt
 
@@ -491,7 +488,7 @@ jobs:
           ];
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
-          const urls = new Set();
+          const assetEntries = new Map();
 
           for (const relPath of htmlRelativePaths) {
             const htmlPath = path.join(distRoot, relPath);
@@ -502,25 +499,26 @@ jobs:
             while ((m = rx.exec(html)) !== null) {
               const value = m[1];
               if (value.startsWith("/assets/") && value.match(/\.(webp|jpg|jpeg|png|svg)$/i)) {
-                urls.add(base + value);
+                assetEntries.set(base + value, value.replace(/^\/assets\//, ""));
               }
             }
           }
 
-          async function checkUrl(url) {
+          async function checkUrl(url, relPath) {
             try {
               let res = await fetch(url, { method: "HEAD", redirect: "follow" });
               if (res.status === 405 || res.status === 501) {
                 res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
               }
-              return { url, status: res.status };
+              return { url, relPath, status: res.status };
             } catch {
-              return { url, status: 0 };
+              return { url, relPath, status: 0 };
             }
           }
 
           (async () => {
-            const results = await Promise.all(Array.from(urls).map(checkUrl));
+            const all = Array.from(assetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+            const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
             const bad = results.filter((r) => r.status !== 200);
             if (bad.length > 0) {
               console.log(`Assets still broken after repair: ${bad.length}`);
