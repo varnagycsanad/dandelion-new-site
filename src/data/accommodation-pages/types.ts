@@ -18,6 +18,21 @@ export interface AccommodationPageFeatureHighlight {
   icon: string;
 }
 
+export interface AccommodationPageIconCard {
+  iconKey: string;
+  title: string;
+  text?: string;
+}
+
+export interface AccommodationPageFeaturedExperience {
+  title: string;
+  label?: string;
+  text?: string;
+  note?: string;
+  iconKey?: string;
+  imageKey?: string;
+}
+
 export interface AccommodationPageLocationBenefit {
   label: string;
   icon: string;
@@ -111,6 +126,14 @@ export interface AccommodationPageData {
     title: string;
     highlights: AccommodationPageFeatureHighlight[];
   };
+  decisionPanel?: {
+    overviewTitle?: string;
+    overviewFacts?: AccommodationPageIconCard[];
+    featuredExperience?: AccommodationPageFeaturedExperience;
+    reasonsTitle?: string;
+    reasons?: AccommodationPageIconCard[];
+  };
+  amenities?: AccommodationPageIconCard[];
   gallery: {
     kicker: string;
     title: string;

@@ -131,6 +131,89 @@ export const d2PageData: AccommodationPageData = {
       { label: "Kirándulós bázis a tanúhegyekhez", icon: "trail" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "4-6 fő" },
+      { iconKey: "terrace", title: "Fedett terasz" },
+      { iconKey: "garden", title: "Nagy udvar" },
+      { iconKey: "kitchen", title: "Felújított konyha" },
+      { iconKey: "grill", title: "Kültéri grillezés" },
+      { iconKey: "animals", title: "Állatok a háznál" }
+    ],
+    featuredExperience: {
+      label: "Kiemelt élmény",
+      title: "Panorama Pool",
+      text: "a ház melletti dombon",
+      note: "2026. június 1-től elérhető",
+      iconKey: "pool"
+    },
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "grill",
+        title: "Kültéri sütés",
+        text: "Laza vacsorákhoz és hosszú esti beszélgetésekhez."
+      },
+      {
+        iconKey: "animals",
+        title: "Állatok a háznál",
+        text: "A gyerekeknek külön élmény, a kertnek pedig falusias hangulatot ad."
+      },
+      {
+        iconKey: "balaton",
+        title: "Balaton és strandok",
+        text: "Könnyű elindulni egy fürdős vagy naplementés balatoni napra."
+      },
+      {
+        iconKey: "trail",
+        title: "Túrák és borászatok",
+        text: "A Szent György-hegy és a környék programjai rövid úttal elérhetők."
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "kitchen",
+      title: "Felújított konyha",
+      text: "Átgondolt, könnyen használható tér hosszabb itt tartózkodáshoz is."
+    },
+    {
+      iconKey: "home",
+      title: "Galériás nappali",
+      text: "Világos közös tér, ahol jó együtt lenni napközben és este is."
+    },
+    {
+      iconKey: "pool",
+      title: "Panorama Pool hozzáférés",
+      text: "A közeli dombon kialakított medence 2026. június 1-től használható."
+    },
+    {
+      iconKey: "terrace",
+      title: "Fedett terasz",
+      text: "Reggelihez, lassú kávéhoz és esti pihenéshez is kényelmes."
+    },
+    {
+      iconKey: "grill",
+      title: "Kültéri grillezés",
+      text: "A kert esti ritmusához jól illő, egyszerű közös program."
+    },
+    {
+      iconKey: "garden",
+      title: "Nagy udvar",
+      text: "Van hely játszani, üldögélni vagy csak élvezni a csendet."
+    },
+    {
+      iconKey: "animals",
+      title: "Állatok a háznál",
+      text: "Barátságos, vendégközeli falusias plusz a családi napokhoz."
+    },
+    {
+      iconKey: "trail",
+      title: "Túrázós bázis",
+      text: "Jó kiindulópont tanúhegyes kirándulásokhoz és balatoni kanyarokhoz."
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nézz körbe a Dandelion D2-ben",
