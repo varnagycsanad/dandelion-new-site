@@ -454,8 +454,12 @@ jobs:
           sort -u repair-assets.txt -o repair-assets.txt
 
           if [ ! -s repair-assets.txt ]; then
-            echo "No repairable hashed assets were collected."
-            exit 1
+            echo "No repairable hashed assets were collected from targeted matching."
+            echo "Falling back to full assets repair payload."
+            rm -rf deploy-assets
+            mkdir -p deploy-assets
+            rsync -av --delete dist/assets/ deploy-assets/
+            find deploy-assets -type f -printf '%P\n' | sort -u > repair-assets.txt
           fi
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
