@@ -2,6 +2,7 @@ import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:20] Szololiget page copy rebuilt with natural Hungarian accommodation content and shared template structure preserved.
+// [CHANGE 2026-05-16 18:35] Szőlőliget megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const szololigetPageData: AccommodationPageData = {
   seo: {
     title: "Szőlőliget Vendégház Kisapáti | Panorámás pihenés",
@@ -104,7 +105,7 @@ export const szololigetPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Különálló vendégház", icon: "home" },
       { label: "4 fő + pótágy", icon: "users" },
@@ -114,6 +115,70 @@ export const szololigetPageData: AccommodationPageData = {
       { label: "Kirándulásokhoz és bortúrához ideális", icon: "trail" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "4 fő + 1 pótágy", text: "Férőhely" },
+      { iconKey: "home", title: "Kétszintes ház", text: "Elrendezés" },
+      { iconKey: "sun", title: "2022-ben felújítva", text: "Állapot" },
+      { iconKey: "terrace", title: "Körbejárható terasz", text: "Kültér" },
+      { iconKey: "mountain", title: "180°-os panoráma", text: "Kilátás" },
+      { iconKey: "balaton", title: "Szent György-hegy keleti oldala", text: "Elhelyezkedés" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "leaf",
+        title: "Csendes elvonulás",
+        text: "Hegyoldali nyugalom"
+      },
+      {
+        iconKey: "sun",
+        title: "Különleges reggelek",
+        text: "Napfelkelte az ágyból"
+      },
+      {
+        iconKey: "terrace",
+        title: "Teraszos pihenés",
+        text: "Panoráma és levegő"
+      },
+      {
+        iconKey: "trail",
+        title: "Jó bázis programokhoz",
+        text: "Bor, Balaton, túrák"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "terrace",
+      title: "Körbejárható terasz"
+    },
+    {
+      iconKey: "mountain",
+      title: "180°-os panoráma"
+    },
+    {
+      iconKey: "sun",
+      title: "2022-ben felújított ház"
+    },
+    {
+      iconKey: "home",
+      title: "Kétszintes elrendezés"
+    },
+    {
+      iconKey: "home",
+      title: "Új bútorok"
+    },
+    {
+      iconKey: "home",
+      title: "Különálló ház"
+    },
+    {
+      iconKey: "guests",
+      title: "Pótágy lehetőség"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat a Szőlőliget hangulatából",

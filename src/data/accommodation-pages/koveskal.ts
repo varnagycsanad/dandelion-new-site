@@ -2,6 +2,7 @@ import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 20:00] Köveskál SEO title, meta, headings and intro copy refined for production baseline.
+// [CHANGE 2026-05-16 18:35] Köveskál megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const koveskalPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Köveskál | Nyugodt vendégház a Káli-medencében",
@@ -108,7 +109,7 @@ export const koveskalPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Természetközeli hangulat", icon: "leaf" },
       { label: "Kirándulásokhoz jó bázis", icon: "trail" },
@@ -118,6 +119,62 @@ export const koveskalPageData: AccommodationPageData = {
       { label: "Áttekinthető képgaléria", icon: "wifi" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "balaton", title: "Köveskál", text: "Helyszín" },
+      { iconKey: "route", title: "Káli-medence", text: "Régió" },
+      { iconKey: "leaf", title: "Falusi nyugalom", text: "Jelleg" },
+      { iconKey: "spark", title: "Lassabb kikapcsolódás", text: "Hangulat" },
+      { iconKey: "trail", title: "Túrák és borászatok", text: "Programok" },
+      { iconKey: "leaf", title: "Csendes ritmus", text: "Pihenés" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "leaf",
+        title: "Lassan telő napok",
+        text: "Nyugodt falusi közeg"
+      },
+      {
+        iconKey: "trail",
+        title: "Jó bázis felfedezéshez",
+        text: "Káli-medence a közelben"
+      },
+      {
+        iconKey: "spark",
+        title: "Visszafogott hangulat",
+        text: "Nem zsúfolt, természetes"
+      },
+      {
+        iconKey: "grill",
+        title: "Borvidéki környezet",
+        text: "Pincék és megállók"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "leaf",
+      title: "Természetközeli hangulat"
+    },
+    {
+      iconKey: "trail",
+      title: "Kirándulásokhoz jó bázis"
+    },
+    {
+      iconKey: "family",
+      title: "Vidékies nyugalom"
+    },
+    {
+      iconKey: "route",
+      title: "Káli-medencei környezet"
+    },
+    {
+      iconKey: "grill",
+      title: "Borvidék a közelben"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat Köveskál hangulatából",

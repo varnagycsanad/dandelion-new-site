@@ -1,8 +1,12 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
+import { panoramaPoolImages } from "../images/panorama-pool-images";
 
 // [CHANGE 2026-05-06 22:10] Fugehaz page copy refined with premium Hungarian positioning and shared panoramic pool message.
 // [CHANGE 2026-05-16 15:40] Fügeház hero kapott adatvezérelt panoráma medence kiemelést a shared template-hez.
+// [CHANGE 2026-05-16 18:10] Fügeház megkapta a D2-szintű decisionPanel és amenities adatmodellt a medencés házak egységesítéséhez.
+const fugehazPanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHint === "hero");
+
 export const fugehazPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Fügeház | Panorámás vendégház a Balaton-felvidéken",
@@ -113,7 +117,7 @@ export const fugehazPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Közös panorámás medence", icon: "pool" },
       { label: "Családbarát elhelyezés", icon: "users" },
@@ -123,6 +127,89 @@ export const fugehazPageData: AccommodationPageData = {
       { label: "Nyugodt balatoni ritmus", icon: "route" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "4 fő, pótággyal akár 6 fő", text: "Férőhely" },
+      { iconKey: "mountain", title: "Szent György-hegy közelében", text: "Elhelyezkedés" },
+      { iconKey: "mountain", title: "Panorámás, csendes", text: "Hangulat" },
+      { iconKey: "terrace", title: "Teraszos pihenés", text: "Kültér" },
+      { iconKey: "grill", title: "Grillezési lehetőség", text: "Kültéri étkezés" },
+      { iconKey: "family", title: "Családbarát ház", text: "Pihenés" }
+    ],
+    featuredExperience: {
+      label: "KIEMELT ÉLMÉNY",
+      title: "Panorama Pool",
+      text: "közös panorámás medence a ház melletti dombon",
+      note: "2026. június 1-től elérhető",
+      iconKey: "pool",
+      image: fugehazPanoramaPoolHeroImage
+        ? {
+            src: fugehazPanoramaPoolHeroImage.src,
+            alt: fugehazPanoramaPoolHeroImage.altHu,
+            width: 1800,
+            height: 1350
+          }
+        : undefined
+    },
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "terrace",
+        title: "Panorámás teraszok",
+        text: "Hegyek közeli reggelek"
+      },
+      {
+        iconKey: "family",
+        title: "Gyerekekkel is kényelmes",
+        text: "Családbarát elrendezés"
+      },
+      {
+        iconKey: "leaf",
+        title: "Nyugodt balatoni ritmus",
+        text: "Csendes, pihenős ház"
+      },
+      {
+        iconKey: "balaton",
+        title: "Tanúhegyek közeli bázis",
+        text: "Túrák, borok, strandok"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "terrace",
+      title: "Panorámás teraszok"
+    },
+    {
+      iconKey: "grill",
+      title: "Grillezési lehetőség"
+    },
+    {
+      iconKey: "utensils",
+      title: "Jól felszerelt konyha"
+    },
+    {
+      iconKey: "garden",
+      title: "Kerti étkező"
+    },
+    {
+      iconKey: "garden",
+      title: "Pihenősarok"
+    },
+    {
+      iconKey: "home",
+      title: "Két szint"
+    },
+    {
+      iconKey: "bathroom",
+      title: "Zuhanyzós fürdőszoba"
+    },
+    {
+      iconKey: "home",
+      title: "Ágyazható kanapé"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat a Fügeház hangulatából",

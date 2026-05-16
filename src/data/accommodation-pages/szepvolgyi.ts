@@ -1,6 +1,7 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
+// [CHANGE 2026-05-16 18:35] Szépvölgyi megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const szepvolgyiPageData: AccommodationPageData = {
   seo: {
     title: "Szépvölgyi Vendégház Badacsonyörs | Panorámás nyaraló",
@@ -103,7 +104,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Badacsonyörs, Szépvölgyi út", icon: "route" },
       { label: "Balatoni panorámás terasz", icon: "mountain" },
@@ -113,6 +114,66 @@ export const szepvolgyiPageData: AccommodationPageData = {
       { label: "Kerékpárút, kikötő és strand a közelben", icon: "trail" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "8 fő", text: "Férőhely" },
+      { iconKey: "home", title: "4 hálószoba", text: "Elrendezés" },
+      { iconKey: "bathroom", title: "2 fürdőszoba", text: "Komfort" },
+      { iconKey: "garden", title: "Zárt kert", text: "Kültér" },
+      { iconKey: "mountain", title: "Balatoni panoráma", text: "Kilátás" },
+      { iconKey: "balaton", title: "Badacsonyörs", text: "Elhelyezkedés" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "family",
+        title: "Nagyobb társaságnak is kényelmes",
+        text: "4 háló és 2 fürdő"
+      },
+      {
+        iconKey: "terrace",
+        title: "Balatoni teraszos reggelek",
+        text: "Kilátás a vízre"
+      },
+      {
+        iconKey: "grill",
+        title: "Kerti együttlétek",
+        text: "Grill és pihenés"
+      },
+      {
+        iconKey: "trail",
+        title: "Balaton közeli bázis",
+        text: "Strand, kikötő, bor"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "home",
+      title: "4 hálószoba"
+    },
+    {
+      iconKey: "bathroom",
+      title: "2 fürdőszoba"
+    },
+    {
+      iconKey: "garden",
+      title: "Zárt kert"
+    },
+    {
+      iconKey: "terrace",
+      title: "Teraszbútorok"
+    },
+    {
+      iconKey: "grill",
+      title: "Grillező"
+    },
+    {
+      iconKey: "parking",
+      title: "Két autós parkolás"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat a Szépvölgyi Vendégház hangulatából",

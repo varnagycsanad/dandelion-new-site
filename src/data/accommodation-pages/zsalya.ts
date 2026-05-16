@@ -1,6 +1,7 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
+// [CHANGE 2026-05-16 18:35] Zsálya megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const zsalyaPageData: AccommodationPageData = {
   seo: {
     title: "Zsálya Vendégház Kisapáti | Csendes pihenés panorámával",
@@ -106,7 +107,7 @@ export const zsalyaPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Különálló vendégház", icon: "home" },
       { label: "4 fő részére kényelmes", icon: "users" },
@@ -118,6 +119,74 @@ export const zsalyaPageData: AccommodationPageData = {
       { label: "Túraútvonal a közelben", icon: "trail" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "4 fő", text: "Férőhely" },
+      { iconKey: "home", title: "Két szint", text: "Elrendezés" },
+      { iconKey: "terrace", title: "Részben fedett terasz", text: "Kültér" },
+      { iconKey: "mountain", title: "Tanúhegy panoráma", text: "Kilátás" },
+      { iconKey: "sun", title: "Klíma mindkét szinten", text: "Komfort" },
+      { iconKey: "balaton", title: "Szent György-hegy keleti oldala", text: "Elhelyezkedés" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "leaf",
+        title: "Csendes hegyoldali pihenés",
+        text: "Nyugodt, lassabb ritmus"
+      },
+      {
+        iconKey: "sun",
+        title: "Szép reggeli fények",
+        text: "Napfelkelte a háznál"
+      },
+      {
+        iconKey: "terrace",
+        title: "Otthonos kis ház",
+        text: "Két szint és terasz"
+      },
+      {
+        iconKey: "trail",
+        title: "Jó túrás bázis",
+        text: "Útvonalak a közelben"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "terrace",
+      title: "Részben fedett terasz"
+    },
+    {
+      iconKey: "sun",
+      title: "Klíma mindkét szinten"
+    },
+    {
+      iconKey: "utensils",
+      title: "Felszerelt teakonyha"
+    },
+    {
+      iconKey: "bathroom",
+      title: "Zuhanyzós fürdőszoba"
+    },
+    {
+      iconKey: "bathroom",
+      title: "Fürdőkád"
+    },
+    {
+      iconKey: "home",
+      title: "Külön WC"
+    },
+    {
+      iconKey: "home",
+      title: "Nappali teraszkijárattal"
+    },
+    {
+      iconKey: "home",
+      title: "Franciaágy"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat a Zsálya hangulatából",

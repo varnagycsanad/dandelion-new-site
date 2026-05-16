@@ -1,6 +1,7 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
+// [CHANGE 2026-05-16 18:35] Vintage megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const vintagePageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Vintage Nemesgulács | Vendégház a Balatonnál",
@@ -103,7 +104,7 @@ export const vintagePageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "2 hálószoba + nappali", icon: "home" },
       { label: "Saját udvar", icon: "leaf" },
@@ -114,6 +115,74 @@ export const vintagePageData: AccommodationPageData = {
       { label: "Balaton 7 km", icon: "mountain" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "balaton", title: "Nemesgulács", text: "Elhelyezkedés" },
+      { iconKey: "home", title: "2 hálószoba + nappali", text: "Elrendezés" },
+      { iconKey: "garden", title: "Saját udvar", text: "Kültér" },
+      { iconKey: "route", title: "Balaton 7 km", text: "Távolság" },
+      { iconKey: "sun", title: "Klímás komfort", text: "Komfort" },
+      { iconKey: "family", title: "Családbarát", text: "Pihenés" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "leaf",
+        title: "Nyugodt vidéki ritmus",
+        text: "Csendes ház, lassabb napok"
+      },
+      {
+        iconKey: "grill",
+        title: "Kerti estékhez ideális",
+        text: "Udvar és grillezés"
+      },
+      {
+        iconKey: "balaton",
+        title: "Balaton közel, nyüzsgés nélkül",
+        text: "Kényelmes távolság"
+      },
+      {
+        iconKey: "family",
+        title: "Családoknak is jó választás",
+        text: "Otthonos, praktikus ház"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "home",
+      title: "2 hálószoba + nappali"
+    },
+    {
+      iconKey: "garden",
+      title: "Saját udvar"
+    },
+    {
+      iconKey: "grill",
+      title: "Grillezési lehetőség"
+    },
+    {
+      iconKey: "sun",
+      title: "Klíma"
+    },
+    {
+      iconKey: "wifi",
+      title: "Erős internet"
+    },
+    {
+      iconKey: "utensils",
+      title: "Külön konyha"
+    },
+    {
+      iconKey: "bathroom",
+      title: "Fürdőszoba"
+    },
+    {
+      iconKey: "family",
+      title: "Bababarát felszerelés"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Pillanatok a Vintage hangulatából",

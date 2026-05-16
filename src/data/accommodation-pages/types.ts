@@ -31,6 +31,13 @@ export interface AccommodationPageFeaturedExperience {
   note?: string;
   iconKey?: string;
   imageKey?: string;
+  // [CHANGE 2026-05-16 17:05] Opcionális direkt képmező a shared featuredExperience blokkhoz, ha a kiemelt élmény nem az apartman imageSetből jön.
+  image?: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  };
 }
 
 export interface AccommodationPageLocationBenefit {

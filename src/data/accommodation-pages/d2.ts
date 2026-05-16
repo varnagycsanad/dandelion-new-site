@@ -1,11 +1,15 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
+import { panoramaPoolImages } from "../images/panorama-pool-images";
 
 // [CHANGE 2026-05-06 22:55] D2 copy updated with panoramic pool focus, family-friendly tone and clean Hungarian text.
 // [CHANGE 2026-05-16 12:45] D2 hero, intro, fact és gallery copy rövidítve; Panorama Pool kommunikáció és finom belső linkelés hozzáadva.
 // [CHANGE 2026-05-16 15:05] D2 hero lead a kért új szövegre cserélve, változatlan hero szerkezettel.
 // [CHANGE 2026-05-16 15:40] D2 panoráma medence kiemelés átemelve adatvezérelt hero poolHighlight blokkba.
 // [CHANGE 2026-05-16 15:58] D2 hero fallback alt az új fedett teraszos fotó SEO szövegéhez igazítva.
+// [CHANGE 2026-05-16 17:05] D2 decision panel újrahierarchizálva: tiszta overview, opcionális pool card és külön amenity lista.
+const d2PanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHint === "hero");
+
 export const d2PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 Kisapáti | Családbarát apartman kerttel",
@@ -75,14 +79,14 @@ export const d2PageData: AccommodationPageData = {
   },
   intro: {
     kicker: "Nyugodt ritmus - nagy udvar - fedett terasz",
-    title: "Kényelmes napok a kert és a hegyek között",
-    lead: "A D2-ben a galériás nappali, a fedett terasz és a tágas udvar adja a pihenés ritmusát. A ház egyszerűen használható családi bázis, ahonnan könnyű elindulni kirándulni, este pedig jó visszaérni a csendes kertbe."
+    title: "Fedett terasz, nagy kert, családi terek",
+    lead: "Pihentető családi idő a Balaton-felvidék szívében. Fedett terasz, nagy kert és felújított konyha vár, közben a legjobb programok karnyújtásnyira."
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Fedett terasz, nagy udvar és könnyen használható családi terek",
+    title: "Fedett terasz, nagy kert, családi terek",
     shortDescription:
-      "A D2 azoknak jó választás, akik szeretnek nappal kint lenni, este pedig kényelmes, átgondolt terekbe visszaérni. Fedett terasz, nagy udvar, felújított konyha és közeli programlehetőségek adják a ház erősségét.",
+      "Tágas terek, állatok a háznál, közel strandokhoz, túrákhoz és hangulatos borászatokhoz.",
     supportingLink: {
       label: "Programötletek és balatoni tippek az Élmények oldalon.",
       href: "/elmenyek/"
@@ -134,11 +138,11 @@ export const d2PageData: AccommodationPageData = {
   decisionPanel: {
     overviewTitle: "Gyors áttekintés",
     overviewFacts: [
-      { iconKey: "guests", title: "4-6 fő" },
-      { iconKey: "terrace", title: "Fedett terasz" },
-      { iconKey: "garden", title: "Nagy udvar" },
+      { iconKey: "guests", title: "4-6 fő", text: "Férőhely" },
+      { iconKey: "terrace", title: "Fedett terasz", text: "és kerti ülőhelyek" },
+      { iconKey: "garden", title: "Nagy udvar", text: "és kert" },
       { iconKey: "kitchen", title: "Felújított konyha" },
-      { iconKey: "grill", title: "Kültéri grillezés" },
+      { iconKey: "home", title: "Galériás nappali" },
       { iconKey: "animals", title: "Állatok a háznál" }
     ],
     featuredExperience: {
@@ -146,72 +150,72 @@ export const d2PageData: AccommodationPageData = {
       title: "Panorama Pool",
       text: "a ház melletti dombon",
       note: "2026. június 1-től elérhető",
-      iconKey: "pool"
+      iconKey: "pool",
+      image: d2PanoramaPoolHeroImage
+        ? {
+            src: d2PanoramaPoolHeroImage.src,
+            alt: d2PanoramaPoolHeroImage.altHu,
+            width: 1800,
+            height: 1350
+          }
+        : undefined
     },
     reasonsTitle: "Amiért szeretni fogod",
     reasons: [
       {
-        iconKey: "grill",
-        title: "Kültéri sütés",
-        text: "Laza vacsorákhoz és hosszú esti beszélgetésekhez."
+        iconKey: "terrace",
+        title: "Kinti reggelek",
+        text: "Terasz, nagy udvar"
       },
       {
-        iconKey: "animals",
-        title: "Állatok a háznál",
-        text: "A gyerekeknek külön élmény, a kertnek pedig falusias hangulatot ad."
+        iconKey: "users",
+        title: "Gyerekekkel kényelmes",
+        text: "Kert, állatok"
       },
       {
         iconKey: "balaton",
-        title: "Balaton és strandok",
-        text: "Könnyű elindulni egy fürdős vagy naplementés balatoni napra."
+        title: "Balaton és hegyek",
+        text: "Strand, túra, bor"
       },
       {
-        iconKey: "trail",
-        title: "Túrák és borászatok",
-        text: "A Szent György-hegy és a környék programjai rövid úttal elérhetők."
+        iconKey: "home",
+        title: "Családi bázis",
+        text: "Átgondolt terek"
       }
     ]
   },
   amenities: [
     {
-      iconKey: "kitchen",
-      title: "Felújított konyha",
-      text: "Átgondolt, könnyen használható tér hosszabb itt tartózkodáshoz is."
+      iconKey: "wifi",
+      title: "Gigabites internet"
+    },
+    {
+      iconKey: "utensils",
+      title: "Mosogatógép"
+    },
+    {
+      iconKey: "sun",
+      title: "Klíma"
     },
     {
       iconKey: "home",
-      title: "Galériás nappali",
-      text: "Világos közös tér, ahol jó együtt lenni napközben és este is."
+      title: "Fűtés"
     },
     {
-      iconKey: "pool",
-      title: "Panorama Pool hozzáférés",
-      text: "A közeli dombon kialakított medence 2026. június 1-től használható."
+      iconKey: "home",
+      title: "Kandalló"
     },
     {
-      iconKey: "terrace",
-      title: "Fedett terasz",
-      text: "Reggelihez, lassú kávéhoz és esti pihenéshez is kényelmes."
+      iconKey: "bathroom",
+      title: "Kád"
     },
     {
-      iconKey: "grill",
-      title: "Kültéri grillezés",
-      text: "A kert esti ritmusához jól illő, egyszerű közös program."
+      iconKey: "sun",
+      title: "Ventilátor"
     },
     {
-      iconKey: "garden",
-      title: "Nagy udvar",
-      text: "Van hely játszani, üldögélni vagy csak élvezni a csendet."
-    },
-    {
-      iconKey: "animals",
-      title: "Állatok a háznál",
-      text: "Barátságos, vendégközeli falusias plusz a családi napokhoz."
-    },
-    {
-      iconKey: "trail",
-      title: "Túrázós bázis",
-      text: "Jó kiindulópont tanúhegyes kirándulásokhoz és balatoni kanyarokhoz."
+      iconKey: "leaf",
+      title: "Kerti ülőhelyek"
     }
   ],
   gallery: {

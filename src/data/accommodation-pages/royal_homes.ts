@@ -1,6 +1,7 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
+// [CHANGE 2026-05-16 18:35] Royal Homes megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Royal Homes Keszthely | Prémium apartman",
@@ -105,7 +106,7 @@ export const royalHomesPageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Keszthely", icon: "route" },
       { label: "Balaton-parti üdülőövezet", icon: "mountain" },
@@ -117,6 +118,74 @@ export const royalHomesPageData: AccommodationPageData = {
       { label: "Hűtő-fűtő klíma", icon: "wifi" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "balaton", title: "Keszthely", text: "Elhelyezkedés" },
+      { iconKey: "home", title: "2 hálószoba + nappali", text: "Elrendezés" },
+      { iconKey: "route", title: "Balaton-parti lakópark", text: "Környezet" },
+      { iconKey: "terrace", title: "Nagy terasz", text: "Kültér" },
+      { iconKey: "spark", title: "Tetőteraszos jakuzzi", text: "Kiemelés" },
+      { iconKey: "sun", title: "Padlófűtés és klíma", text: "Komfort" }
+    ],
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "balaton",
+        title: "Part és város együtt",
+        text: "Kikötő, sétány, központ"
+      },
+      {
+        iconKey: "spark",
+        title: "Prémium apartmanhangulat",
+        text: "Igényes belső terek"
+      },
+      {
+        iconKey: "terrace",
+        title: "Kinti pihenésre is erős",
+        text: "Terasz és napozótér"
+      },
+      {
+        iconKey: "home",
+        title: "Kényelmes hosszabb időre is",
+        text: "Átgondolt elrendezés"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "leaf",
+      title: "Saját parti móló"
+    },
+    {
+      iconKey: "sun",
+      title: "Napozóterasz"
+    },
+    {
+      iconKey: "spark",
+      title: "Tetőteraszos jakuzzi"
+    },
+    {
+      iconKey: "terrace",
+      title: "Nagy terasz"
+    },
+    {
+      iconKey: "utensils",
+      title: "Padlófűtés"
+    },
+    {
+      iconKey: "wifi",
+      title: "Hűtő-fűtő klíma"
+    },
+    {
+      iconKey: "home",
+      title: "Külön WC"
+    },
+    {
+      iconKey: "home",
+      title: "Üvegfalú lift"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Pillanatok a Royal Homes hangulatából",

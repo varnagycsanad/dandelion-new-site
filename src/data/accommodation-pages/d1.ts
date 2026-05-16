@@ -1,8 +1,12 @@
 import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
+import { panoramaPoolImages } from "../images/panorama-pool-images";
 
 // [CHANGE 2026-05-06 22:00] D1 accommodation data added for shared AccommodationPage template with panoramic pool messaging.
 // [CHANGE 2026-05-16 15:40] D1 hero kapott adatvezérelt panoráma medence kiemelést a shared template-hez.
+// [CHANGE 2026-05-16 18:10] D1 megkapta a D2-szintű decisionPanel és amenities adatmodellt a medencés házak egységesítéséhez.
+const d1PanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHint === "hero");
+
 export const d1PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D1 Kisapáti | Panorámás vendégház medencével",
@@ -114,7 +118,7 @@ export const d1PageData: AccommodationPageData = {
     ]
   },
   features: {
-    title: "Miért lehet jó választás",
+    title: "Felszereltség",
     highlights: [
       { label: "Akár 8 fő részére", icon: "users" },
       { label: "3 kétfős hálószoba", icon: "home" },
@@ -124,6 +128,85 @@ export const d1PageData: AccommodationPageData = {
       { label: "Kirándulásokhoz jó bázis", icon: "trail" }
     ]
   },
+  decisionPanel: {
+    overviewTitle: "Gyors áttekintés",
+    overviewFacts: [
+      { iconKey: "guests", title: "8 fő", text: "Férőhely" },
+      { iconKey: "home", title: "3 hálószoba + nappali", text: "Elrendezés" },
+      { iconKey: "family", title: "Nagy családi ház", text: "Tér" },
+      { iconKey: "terrace", title: "Kert és terasz", text: "Kültér" },
+      { iconKey: "kitchen", title: "Felújított konyha", text: "Konyha" },
+      { iconKey: "family", title: "Családbarát", text: "Pihenés" }
+    ],
+    featuredExperience: {
+      label: "KIEMELT ÉLMÉNY",
+      title: "Panorama Pool",
+      text: "közös panorámás medence a ház melletti dombon",
+      note: "2026. június 1-től elérhető",
+      iconKey: "pool",
+      image: d1PanoramaPoolHeroImage
+        ? {
+            src: d1PanoramaPoolHeroImage.src,
+            alt: d1PanoramaPoolHeroImage.altHu,
+            width: 1800,
+            height: 1350
+          }
+        : undefined
+    },
+    reasonsTitle: "Amiért szeretni fogod",
+    reasons: [
+      {
+        iconKey: "family",
+        title: "Nagyobb családoknak is kényelmes",
+        text: "Több háló és közös terek"
+      },
+      {
+        iconKey: "garden",
+        title: "Kinti napok a kertben",
+        text: "Terasz, udvar, pihenés"
+      },
+      {
+        iconKey: "sun",
+        title: "Nyári napokhoz ideális",
+        text: "Kert, terasz, pihenés"
+      },
+      {
+        iconKey: "balaton",
+        title: "Szent György-hegyi bázis",
+        text: "Túrák, strandok, borászatok"
+      }
+    ]
+  },
+  amenities: [
+    {
+      iconKey: "home",
+      title: "3 hálószoba"
+    },
+    {
+      iconKey: "home",
+      title: "Kényelmes nappali"
+    },
+    {
+      iconKey: "utensils",
+      title: "Jól felszerelt konyha"
+    },
+    {
+      iconKey: "terrace",
+      title: "Panorámás terasz"
+    },
+    {
+      iconKey: "grill",
+      title: "Grillezési lehetőség"
+    },
+    {
+      iconKey: "bathroom",
+      title: "Több fürdőszoba"
+    },
+    {
+      iconKey: "garden",
+      title: "Kerti ülőhelyek"
+    }
+  ],
   gallery: {
     kicker: "Galéria",
     title: "Nyolc pillanat a D1 hangulatából",

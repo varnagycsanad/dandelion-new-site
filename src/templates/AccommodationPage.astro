@@ -65,10 +65,25 @@ function inferFactIconKey(term: string, value: string) {
   return "spark";
 }
 
-function resolveDecisionPanelImage(imageKey?: string) {
-  if (!imageKey) {
-    return null;
+function resolveDecisionPanelImage(
+  experience?: AccommodationPageData["decisionPanel"] extends infer T
+    ? T extends { featuredExperience?: infer U }
+      ? U
+      : never
+    : never
+) {
+  if (experience?.image) {
+    return {
+      astroSrc: null,
+      src: experience.image.src,
+      alt: experience.image.alt,
+      width: experience.image.width ?? 1600,
+      height: experience.image.height ?? 1200
+    };
   }
+
+  const imageKey = experience?.imageKey;
+  if (!imageKey) return null;
 
   if (imageKey === "card") return imageSet.card;
   if (imageKey === "hero-desktop") return imageSet.hero.desktop;
@@ -100,7 +115,7 @@ const overviewFacts =
         }))
       );
 const featuredExperience = decisionPanel?.featuredExperience ?? null;
-const featuredExperienceImage = resolveDecisionPanelImage(featuredExperience?.imageKey);
+const featuredExperienceImage = resolveDecisionPanelImage(featuredExperience);
 const decisionReasons = decisionPanel?.reasons ?? [];
 const amenityItems =
   pageData.amenities && pageData.amenities.length > 0
@@ -493,7 +508,7 @@ const accommodationStructuredData = [
       <div class="d2-details__layout">
         <div class="d2-details__story">
           <span class="dnd-section-kicker">{pageData.details.kicker}</span>
-          <h2 class="d2-section-title">{pageData.intro.title}</h2>
+          <h2 class="d2-section-title">{pageData.details.title}</h2>
           <p class="d2-details__lead">{pageData.intro.lead}</p>
           <p class="d2-details__summary">{pageData.details.shortDescription}</p>
           {pageData.details.supportingLink && (
@@ -524,104 +539,108 @@ const accommodationStructuredData = [
           {bookingTrustLabel && <p class="d2-details__trust">{bookingTrustLabel}</p>}
         </div>
 
-        <aside class="d2-details__panel" aria-label={decisionPanel?.overviewTitle ?? "Gyors áttekintés"}>
-          <section class="d2-overview">
+        <aside class="d2-details__panel" aria-label="Szállás döntési áttekintés">
+          <section class="d2-overview" aria-label={decisionPanel?.overviewTitle ?? "Gyors áttekintés"}>
             <div class="d2-details__section-head">
               <span class="dnd-section-kicker">{decisionPanel?.overviewTitle ?? "Gyors áttekintés"}</span>
             </div>
-            <div class="d2-overview__grid">
-              {overviewFacts.map((item) => (
-                <article class="d2-overview__card">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
-                  </svg>
-                  <strong>{item.title}</strong>
-                  {item.text && <p>{item.text}</p>}
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {featuredExperience && (
-            <section class="d2-featured-experience">
-              <div class="d2-featured-experience__copy">
-                {featuredExperience.label && <span class="d2-featured-experience__label">{featuredExperience.label}</span>}
-                <div class="d2-featured-experience__title-row">
-                  <h3>{featuredExperience.title}</h3>
-                  {featuredExperience.iconKey && (
+              <div class="d2-overview__grid">
+                {overviewFacts.map((item) => (
+                  <article class="d2-overview__card">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <use href={`#d2-icon-${toSpriteIconKey(featuredExperience.iconKey)}`}></use>
+                      <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
                     </svg>
-                  )}
-                </div>
-                {featuredExperience.text && <p>{featuredExperience.text}</p>}
-                {featuredExperience.note && <div class="d2-featured-experience__note">{featuredExperience.note}</div>}
+                    <div>
+                      <strong>{item.title}</strong>
+                      {item.text && <p>{item.text}</p>}
+                    </div>
+                  </article>
+                ))}
               </div>
-              {featuredExperienceImage && (
-                <div class="d2-featured-experience__media">
-                  {featuredExperienceImage.astroSrc ? (
-                    <Image
-                      src={featuredExperienceImage.astroSrc}
-                      alt={featuredExperienceImage.alt.hu}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <img
-                      src={featuredExperienceImage.src}
-                      alt={featuredExperienceImage.alt.hu}
-                      width={featuredExperienceImage.width}
-                      height={featuredExperienceImage.height}
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-              )}
+            </section>
+
+          {decisionReasons.length > 0 && (
+            <section class="d2-reasons d2-detail-block" aria-label={decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}>
+              <div class="d2-details__section-head">
+                <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}</span>
+              </div>
+              <div class="d2-reasons__grid">
+                {decisionReasons.map((item) => (
+                  <article class="d2-reasons__card">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
+                    </svg>
+                    <div>
+                      <strong>{item.title}</strong>
+                      {item.text && <p>{item.text}</p>}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {amenityItems.length > 0 && (
+            <section class="d2-amenities d2-detail-block" aria-label={pageData.features.title}>
+              <div class="d2-details__section-head">
+                <span class="dnd-section-kicker">{pageData.features.title}</span>
+              </div>
+              <div class="d2-amenities__grid">
+                {amenityItems.map((item) => (
+                  <article class="d2-amenities__card">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
+                    </svg>
+                    <div>
+                      <strong>{item.title}</strong>
+                      {item.text && <p>{item.text}</p>}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </section>
           )}
         </aside>
+
+        {featuredExperience && (
+          <section
+            class:list={[
+              "d2-featured-section",
+              "d2-featured-experience",
+              !featuredExperienceImage && "d2-featured-experience--no-media"
+            ]}
+            aria-label={featuredExperience.label ?? featuredExperience.title}
+          >
+            {featuredExperienceImage && (
+              <div class="d2-featured-experience__media">
+                {featuredExperienceImage.astroSrc ? (
+                  <Image
+                    src={featuredExperienceImage.astroSrc}
+                    alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    src={featuredExperienceImage.src}
+                    alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
+                    width={featuredExperienceImage.width}
+                    height={featuredExperienceImage.height}
+                    loading="lazy"
+                  />
+                )}
+              </div>
+            )}
+            <div class="d2-featured-experience__copy">
+              {featuredExperience.label && <span class="d2-featured-experience__label">{featuredExperience.label}</span>}
+              <div class="d2-featured-experience__title-row">
+                <h3>{featuredExperience.title}</h3>
+              </div>
+              {featuredExperience.text && <p>{featuredExperience.text}</p>}
+              {featuredExperience.note && <div class="d2-featured-experience__note">{featuredExperience.note}</div>}
+            </div>
+          </section>
+        )}
       </div>
-
-      {decisionReasons.length > 0 && (
-        <section class="d2-reasons" aria-labelledby="accommodation-reasons-title">
-          <div class="d2-details__section-head">
-            <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}</span>
-            <h3 id="accommodation-reasons-title">{decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}</h3>
-          </div>
-          <div class="d2-reasons__grid">
-            {decisionReasons.map((item) => (
-              <article class="d2-reasons__card">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
-                </svg>
-                <strong>{item.title}</strong>
-                {item.text && <p>{item.text}</p>}
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {amenityItems.length > 0 && (
-        <section class="d2-amenities" aria-labelledby="accommodation-amenities-title">
-          <div class="d2-details__section-head">
-            <span class="dnd-section-kicker">{pageData.features.title}</span>
-            <h3 id="accommodation-amenities-title">{pageData.features.title}</h3>
-          </div>
-          <div class="d2-amenities__grid">
-            {amenityItems.map((item) => (
-              <article class="d2-amenities__card">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
-                </svg>
-                <div>
-                  <strong>{item.title}</strong>
-                  {item.text && <p>{item.text}</p>}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   </section>
 
@@ -1537,41 +1556,45 @@ const accommodationStructuredData = [
   }
 
   .d2-details {
-    padding-top: 22px;
-    padding-bottom: 48px;
+    padding-top: 16px;
+    padding-bottom: 40px;
     background: #fdfbf7;
   }
 
   .d2-details__layout {
     display: grid;
-    gap: 34px;
+    gap: 16px 22px;
     align-items: start;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+    grid-template-areas:
+      "story panel"
+      "featured panel";
   }
 
   .d2-details__story p,
   .d2-location__copy p,
   .d2-booking__panel p {
-    margin: 14px 0 0;
+    margin: 10px 0 0;
     color: rgba(0, 0, 0, 0.72);
-    line-height: 1.68;
+    line-height: 1.58;
   }
 
   .d2-details__lead {
-    max-width: 39rem;
-    font-size: 1rem;
+    max-width: 31rem;
+    font-size: 0.95rem;
   }
 
   .d2-details__summary {
-    max-width: 36rem;
+    max-width: 30rem;
+    font-size: 0.9rem;
   }
 
   .d2-details__inline-link {
     display: inline-flex;
-    margin-top: 16px;
+    margin-top: 12px;
     color: rgba(45, 36, 28, 0.76);
-    font-size: 0.92rem;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    line-height: 1.46;
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 0.18em;
@@ -1580,8 +1603,21 @@ const accommodationStructuredData = [
   .d2-details__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .d2-details__actions .dnd-btn--primary {
+    border-color: #d99e2b;
+    background: linear-gradient(180deg, #e6ab35, #d99e2b);
+    color: #170f08;
+    box-shadow: 0 8px 18px rgba(91, 70, 42, 0.12);
+  }
+
+  .d2-details__actions .dnd-btn--secondary {
+    border-color: rgba(91, 70, 42, 0.18);
+    background: rgba(255, 255, 255, 0.74);
+    color: rgba(28, 22, 16, 0.86);
   }
 
   .d2-details__secondary {
@@ -1589,27 +1625,26 @@ const accommodationStructuredData = [
   }
 
   .d2-details__trust {
-    margin: 14px 0 0;
-    color: rgba(45, 36, 28, 0.64);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    margin: 8px 0 0;
+    color: rgba(45, 36, 28, 0.72);
+    font-size: 0.77rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
 
   .d2-details__more {
-    margin-top: 18px;
+    margin-top: 12px;
   }
 
   .d2-details__more summary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     color: rgba(121, 93, 48, 0.92);
-    font-size: 0.84rem;
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    line-height: 1.5;
+    line-height: 1.4;
     text-transform: uppercase;
     cursor: pointer;
     list-style: none;
@@ -1634,44 +1669,53 @@ const accommodationStructuredData = [
   }
 
   .d2-details__more div {
-    margin-top: 12px;
+    margin-top: 10px;
   }
 
-  .d2-details__panel,
-  .d2-reasons,
-  .d2-amenities {
-    border: 1px solid rgba(91, 70, 42, 0.1);
-    border-radius: 8px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(249, 244, 236, 0.96));
+  .d2-details__story {
+    grid-area: story;
   }
 
   .d2-details__panel {
+    grid-area: panel;
     display: grid;
-    gap: 22px;
-    padding: 28px;
+    gap: 10px;
+    padding: 13px 13px 12px;
+    border: 1px solid rgba(217, 158, 43, 0.22);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(251, 243, 228, 0.95)),
+      #fdfbf7;
+    box-shadow:
+      0 14px 30px rgba(88, 61, 23, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
   }
 
-  .d2-reasons,
-  .d2-amenities {
-    margin-top: 22px;
-    padding: 24px 26px 26px;
+  .d2-details__panel > section + section {
+    margin-top: 0;
+    padding-top: 10px;
+    border-top: 1px solid rgba(217, 158, 43, 0.12);
   }
 
   .d2-details__section-head {
-    margin-bottom: 16px;
+    margin-bottom: 7px;
+    text-align: center;
   }
 
-  .d2-details__section-head h3 {
-    margin: 8px 0 0;
-    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
-    line-height: 1.12;
-    font-weight: 500;
+  .d2-detail-block {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
   }
 
   .d2-overview__grid {
     display: grid;
-    gap: 12px;
+    gap: 1px;
+    padding: 1px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(217, 158, 43, 0.09);
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -1679,90 +1723,152 @@ const accommodationStructuredData = [
   .d2-reasons__card,
   .d2-amenities__card {
     min-width: 0;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.84);
   }
 
   .d2-overview__card {
-    display: grid;
+    display: flex;
     gap: 8px;
-    min-height: 126px;
-    padding: 16px 15px 14px;
-    align-content: start;
+    column-gap: 8px;
+    min-height: 0;
+    min-block-size: 58px;
+    padding: 9px 10px;
+    align-items: center;
+    background:
+      linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(250, 242, 229, 0.96));
+  }
+
+  .d2-overview__card > svg {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .d2-overview__card > div,
+  .d2-reasons__card > div,
+  .d2-amenities__card > div {
+    min-width: 0;
+  }
+
+  .d2-overview__card > div {
+    display: grid;
+    gap: 2px;
+    align-content: center;
   }
 
   .d2-overview__card strong,
   .d2-reasons__card strong,
   .d2-amenities__card strong {
-    font-size: 0.98rem;
-    line-height: 1.36;
+    font-size: 0.89rem;
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgba(28, 22, 16, 0.9);
   }
 
   .d2-overview__card p,
   .d2-reasons__card p,
   .d2-amenities__card p {
     margin: 0;
-    color: rgba(45, 36, 28, 0.66);
-    font-size: 0.86rem;
-    line-height: 1.58;
+    color: rgba(45, 36, 28, 0.58);
+    font-size: 0.76rem;
+    line-height: 1.28;
+    font-weight: 400;
+  }
+
+  .d2-overview__card svg {
+    align-self: center;
   }
 
   .d2-featured-experience {
+    grid-area: featured;
     display: grid;
-    gap: 18px;
-    grid-template-columns: minmax(0, 1fr);
-    padding: 18px;
-    border: 1px solid rgba(217, 158, 43, 0.26);
+    gap: 10px;
+    grid-template-columns: minmax(138px, 0.39fr) minmax(0, 0.61fr);
+    align-items: stretch;
+    padding: 10px 11px;
+    border: 1px solid rgba(217, 158, 43, 0.36);
+    border-left-width: 2px;
     border-radius: 8px;
     background:
-      linear-gradient(135deg, rgba(217, 158, 43, 0.08), rgba(217, 158, 43, 0.02)),
-      rgba(255, 252, 245, 0.92);
+      linear-gradient(135deg, rgba(255, 248, 236, 0.98), rgba(246, 229, 192, 0.95));
+    box-shadow: 0 10px 22px rgba(134, 95, 28, 0.08);
+    min-height: 0;
+  }
+
+  .d2-featured-experience--no-media {
+    grid-template-columns: minmax(0, 1fr);
+    padding-right: 14px;
   }
 
   .d2-featured-experience__label {
     display: inline-flex;
     width: fit-content;
-    padding: 5px 9px;
+    padding: 3px 8px;
+    border: 1px solid rgba(217, 158, 43, 0.2);
     border-radius: 999px;
-    background: rgba(217, 158, 43, 0.14);
-    color: rgba(121, 93, 48, 0.92);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    background: rgba(255, 242, 214, 0.96);
+    color: rgba(103, 69, 20, 0.92);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+
+  .d2-featured-experience__copy {
+    min-width: 0;
+    align-self: center;
+    min-height: 100%;
+    padding-right: 0;
+    display: grid;
+    align-content: center;
+    justify-items: end;
+    text-align: right;
   }
 
   .d2-featured-experience__title-row {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: flex-end;
+    margin-top: 5px;
   }
 
   .d2-featured-experience__title-row h3 {
     margin: 0;
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-size: clamp(1.55rem, 2.4vw, 2.15rem);
-    line-height: 1.08;
-    font-weight: 500;
+    font-size: clamp(1.34rem, 1.45vw, 1.54rem);
+    line-height: 1.04;
+    font-weight: 600;
+  }
+
+  .d2-featured-experience__copy > p {
+    margin-top: 4px;
+    max-width: 31rem;
+    font-size: 0.84rem;
+    line-height: 1.3;
   }
 
   .d2-featured-experience__note {
-    margin-top: 14px;
-    color: rgba(45, 36, 28, 0.76);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 7px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.16);
+    color: rgba(94, 67, 24, 0.88);
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
   .d2-featured-experience__media {
     overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 5 / 3;
-    background: rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    aspect-ratio: 1.28 / 1;
+    min-height: 120px;
+    max-height: 134px;
+    border: 1px solid rgba(217, 158, 43, 0.22);
+    background: linear-gradient(180deg, rgba(217, 158, 43, 0.18), rgba(91, 70, 42, 0.08));
   }
 
   .d2-featured-experience__media img {
@@ -1773,22 +1879,67 @@ const accommodationStructuredData = [
 
   .d2-reasons__grid {
     display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .d2-reasons__card,
   .d2-amenities__card {
     display: flex;
     gap: 10px;
-    align-items: flex-start;
-    padding: 16px 15px 14px;
+    align-items: center;
+    padding: 8px 9px;
+    border: 1px solid rgba(91, 70, 42, 0.07);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.52);
+  }
+
+  .d2-reasons__card strong,
+  .d2-reasons__card p,
+  .d2-amenities__card > div {
+    grid-column: auto;
+  }
+
+  .d2-reasons__card {
+    min-height: 60px;
+    padding: 9px 10px;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+    background:
+      linear-gradient(180deg, rgba(255, 248, 236, 0.94), rgba(255, 255, 255, 0.8));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.52),
+      0 4px 12px rgba(138, 98, 35, 0.03);
+  }
+
+  .d2-reasons__card > svg {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.18);
+  }
+
+  .d2-reasons__card > div {
+    display: grid;
+    gap: 2px;
+    align-content: center;
   }
 
   .d2-amenities__grid {
     display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 14px;
+    row-gap: 4px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-amenities {
+    padding: 10px 10px 6px 12px;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+    border-left-width: 2px;
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 248, 235, 0.84), rgba(252, 244, 229, 0.72));
   }
 
   .d2-overview__card svg,
@@ -1797,14 +1948,87 @@ const accommodationStructuredData = [
   .d2-amenities__card svg,
   .d2-location__benefit svg {
     flex: 0 0 auto;
-    width: 21px;
-    height: 21px;
+    width: 19px;
+    height: 19px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.55;
     stroke-linecap: round;
     stroke-linejoin: round;
-    color: rgba(39, 32, 24, 0.78);
+    color: #c58a17;
+  }
+
+  .d2-details__section-head .dnd-section-kicker {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    color: rgba(197, 138, 23, 0.96);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.09);
+  }
+
+  .d2-featured-experience__title-row svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: rgba(156, 102, 20, 0.86);
+  }
+
+  .d2-reasons__card svg,
+  .d2-amenities__card svg {
+    align-self: center;
+  }
+
+  .d2-reasons__card p,
+  .d2-amenities__card p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .d2-amenities__card {
+    align-items: center;
+    min-height: 35px;
+    padding: 6px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(217, 158, 43, 0.14);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .d2-amenities__card strong {
+    font-size: 0.82rem;
+    line-height: 1.18;
+    font-weight: 550;
+    color: rgba(28, 22, 16, 0.92);
+  }
+
+  .d2-amenities__card > div {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .d2-amenities__card p {
+    display: none;
+  }
+
+  .d2-amenities__card svg {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    color: rgba(197, 138, 23, 0.9);
+  }
+
+  .d2-amenities__card:last-child,
+  .d2-amenities__card:nth-last-child(2):nth-child(odd) {
+    border-bottom-color: transparent;
   }
 
   .d2-gallery {
@@ -2191,6 +2415,18 @@ const accommodationStructuredData = [
       grid-template-columns: 1fr;
     }
 
+    .d2-details__layout {
+      gap: 12px;
+      grid-template-areas:
+        "story"
+        "panel"
+        "featured";
+    }
+
+    .d2-featured-experience {
+      grid-template-columns: 1fr;
+    }
+
     .d2-overview__grid,
     .d2-amenities__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2493,11 +2729,11 @@ const accommodationStructuredData = [
 
     .d2-details {
       padding-top: 0;
-      padding-bottom: 54px;
+      padding-bottom: 42px;
     }
 
     .d2-details__layout {
-      gap: 22px;
+      gap: 18px;
     }
 
     .d2-details__story .dnd-section-kicker {
@@ -2510,21 +2746,22 @@ const accommodationStructuredData = [
     }
 
     .d2-details__story p {
-      margin-top: 9px;
-      font-size: 0.89rem;
-      line-height: 1.54;
+      margin-top: 8px;
+      font-size: 0.86rem;
+      line-height: 1.48;
     }
 
     .d2-details__inline-link {
-      margin-top: 10px;
-      font-size: 0.84rem;
-      line-height: 1.46;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      line-height: 1.4;
     }
 
     .d2-details__actions {
       flex-direction: column;
       align-items: flex-start;
-      margin-top: 22px;
+      gap: 8px;
+      margin-top: 14px;
     }
 
     .d2-details__actions .dnd-btn {
@@ -2532,40 +2769,35 @@ const accommodationStructuredData = [
     }
 
     .d2-details__trust {
-      font-size: 0.7rem;
-      line-height: 1.45;
+      font-size: 0.68rem;
+      line-height: 1.38;
     }
 
     .d2-details__more {
-      margin-top: 14px;
+      margin-top: 10px;
     }
 
     .d2-details__more summary {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 0.075em;
     }
 
     .d2-details__more div {
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .d2-details__more p {
-      font-size: 0.88rem;
-      line-height: 1.58;
+      font-size: 0.84rem;
+      line-height: 1.48;
     }
 
-    .d2-details__panel,
-    .d2-reasons,
-    .d2-amenities {
-      padding: 18px 16px;
+    .d2-details__panel {
+      padding: 12px;
     }
 
-    .d2-details__section-head {
-      margin-bottom: 12px;
-    }
-
-    .d2-details__section-head h3 {
-      font-size: clamp(1.3rem, 7vw, 1.7rem);
+    .d2-details__panel > section + section {
+      margin-top: 12px;
+      padding-top: 12px;
     }
 
     .d2-overview__grid,
@@ -2579,32 +2811,46 @@ const accommodationStructuredData = [
     .d2-overview__card,
     .d2-reasons__card,
     .d2-amenities__card {
-      display: grid;
-      gap: 6px;
       min-height: 0;
-      padding: 10px 10px 9px;
-      border: 1px solid rgba(217, 158, 43, 0.22);
+      padding: 9px;
       border-radius: 7px;
-      background: linear-gradient(180deg, rgba(253, 251, 247, 0.82), rgba(246, 240, 228, 0.56));
+      background: rgba(255, 252, 247, 0.82);
     }
 
-    .d2-reasons__card,
+    .d2-reasons__card {
+      min-height: 0;
+      padding: 9px;
+    }
+
+    .d2-amenities__grid {
+      column-gap: 10px;
+      row-gap: 4px;
+    }
+
+    .d2-amenities {
+      padding: 10px 8px 6px;
+      border-left-width: 1px;
+    }
+
     .d2-amenities__card {
-      display: flex;
+      min-height: 32px;
+      padding: 4px 0;
+      border-radius: 0;
+      background: transparent;
     }
 
     .d2-overview__card strong,
     .d2-reasons__card strong,
     .d2-amenities__card strong {
-      font-size: 0.84rem;
-      line-height: 1.3;
+      font-size: 0.79rem;
+      line-height: 1.22;
     }
 
     .d2-overview__card p,
     .d2-reasons__card p,
     .d2-amenities__card p {
-      font-size: 0.76rem;
-      line-height: 1.45;
+      font-size: 0.72rem;
+      line-height: 1.28;
     }
 
     .d2-overview__card svg,
@@ -2612,18 +2858,42 @@ const accommodationStructuredData = [
     .d2-reasons__card svg,
     .d2-amenities__card svg,
     .d2-location__benefit svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       color: rgba(121, 93, 48, 0.88);
     }
 
     .d2-featured-experience {
-      gap: 14px;
-      padding: 14px;
+      gap: 10px;
+      padding: 10px;
+      grid-template-columns: 1fr;
+    }
+
+    .d2-featured-experience__copy {
+      justify-items: center;
+      text-align: center;
+    }
+
+    .d2-featured-experience__title-row {
+      justify-content: center;
     }
 
     .d2-featured-experience__title-row h3 {
-      font-size: 1.4rem;
+      font-size: 1.26rem;
+    }
+
+    .d2-featured-experience__media {
+      aspect-ratio: 16 / 8.6;
+      min-height: 0;
+      max-height: 150px;
+    }
+
+    .d2-amenities {
+      padding: 10px;
+    }
+
+    .d2-overview__grid {
+      grid-template-columns: 1fr;
     }
 
     .d2-gallery__grid {
