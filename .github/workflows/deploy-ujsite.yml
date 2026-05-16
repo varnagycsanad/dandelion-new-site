@@ -154,6 +154,7 @@ jobs:
           if [ -d ../_prev_build/dist ] && [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
             rsync -rcn --delete --itemize-changes --out-format='%i|%n' \
               --exclude "_local/" \
+              --exclude "assets/" \
               --exclude "images/accommodations/" \
               --exclude "videos/accommodations/" \
               dist-current/ ../_prev_build/dist/ > dist-delta.txt
@@ -175,6 +176,7 @@ jobs:
           else
             rsync -av \
               --exclude "_local/" \
+              --exclude "assets/" \
               --exclude "images/accommodations/" \
               --exclude "videos/accommodations/" \
               dist-current/ deploy-dist/
@@ -263,17 +265,25 @@ jobs:
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
             remote_dir="${UJSITE_FTP_PATH%/}/$(dirname "$rel")"
             if [ "$(dirname "$rel")" = "." ]; then
               remote_dir="${UJSITE_FTP_PATH%/}"
             fi
+            printf 'echo "UPLOAD %s"\n' "$rel"
             printf 'mkdir -p "%s"\n' "$remote_dir"
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
           done < deploy-files.txt)
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
+            printf 'echo "DELETE %s"\n' "$rel"
             printf 'rm -f "%s/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
           done < deploy-delete.txt)
           bye
@@ -356,6 +366,12 @@ jobs:
           rsync -av --delete dist/assets/ deploy-assets/
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
           mirror -R deploy-assets/ "${UJSITE_FTP_PATH%/}/assets/"
           bye
           EOF
@@ -447,17 +463,25 @@ jobs:
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
             remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
             if [ "$(dirname "$rel")" = "." ]; then
               remote_dir="${UJSITE_FTP_PATH%/}/assets"
             fi
+            printf 'echo "ASSET UPLOAD %s"\n' "$rel"
             printf 'mkdir -p "%s"\n' "$remote_dir"
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
           done < asset-upload.txt)
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
+            printf 'echo "ASSET DELETE %s"\n' "$rel"
             printf 'rm -f "%s/assets/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
           done < asset-delete.txt)
           bye
@@ -470,6 +494,12 @@ jobs:
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
           mirror -R deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/accommodations/"
           bye
           EOF
