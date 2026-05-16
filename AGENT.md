@@ -2,6 +2,7 @@
 [CHANGE 2026-05-16 13:25] WordPress media utalás semlegesítve legacy media tiltássá.
 [CHANGE 2026-05-16 14:30] Deploy concurrency szabály rögzítve: futó deploy nem szakítható meg új push miatt.
 [CHANGE 2026-05-16 14:45] Régi /ujsite teszt deploy szöveg root deploy szabályra frissítve.
+[CHANGE 2026-05-16 20:56] Git push alapértelmezés rögzítve: mindig a main a cél, ha nincs kifejezetten más branch meghatározva.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -306,6 +307,9 @@ Publikus site esetén a cél:
 - csak target fájl stage-elhető
 - ellenőrzés: `git diff --cached --name-only`
 - ha más is benne van → STOP
+- ha commit/push kérést kapsz, alapértelmezett célbranch mindig a `main`
+- csak akkor szabad nem a `main` branchre pusholni, ha a user ezt kifejezetten és egyértelműen más branchre kérte
+- ha nincs explicit branch megadva, a feltöltés célja a `main`
 
 ---
 
