@@ -287,6 +287,55 @@ jobs:
           bye
           EOF
 
+      - name: Cleanup previous worktree
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d ../_prev_build ]; then
+            git worktree remove --force ../_prev_build || true
+            rm -rf ../_prev_build || true
+          fi
+
+      - name: Deploy changed hashed assets over FTP
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s asset-upload.txt ] && [ ! -s asset-delete.txt ]; then
+            echo "No hashed asset changes detected."
+            exit 0
+          fi
+
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
+            if [ "$(dirname "$rel")" = "." ]; then
+              remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            fi
+            printf 'echo "ASSET UPLOAD %s"\n' "$rel"
+            printf 'set cmd:fail-exit no\n'
+            printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'set cmd:fail-exit yes\n'
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
+          done < asset-upload.txt)
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            printf 'echo "ASSET DELETE %s"\n' "$rel"
+            printf 'rm -f "%s/assets/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
+          done < asset-delete.txt)
+          bye
+          EOF
+
       - name: Validate critical hashed assets
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         id: asset_health
@@ -436,55 +485,6 @@ jobs:
             }
             console.log(`Assets re-check passed (${results.length} URLs).`);
           })();
-          EOF
-
-      - name: Cleanup previous worktree
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ -d ../_prev_build ]; then
-            git worktree remove --force ../_prev_build || true
-            rm -rf ../_prev_build || true
-          fi
-
-      - name: Deploy changed hashed assets over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if [ ! -s asset-upload.txt ] && [ ! -s asset-delete.txt ]; then
-            echo "No hashed asset changes detected."
-            exit 0
-          fi
-
-          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
-          set ssl:verify-certificate no
-          set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
-          set xfer:clobber on
-          $(while IFS= read -r rel; do
-            [ -z "$rel" ] && continue
-            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
-            if [ "$(dirname "$rel")" = "." ]; then
-              remote_dir="${UJSITE_FTP_PATH%/}/assets"
-            fi
-            printf 'echo "ASSET UPLOAD %s"\n' "$rel"
-            printf 'set cmd:fail-exit no\n'
-            printf 'mkdir -p "%s"\n' "$remote_dir"
-            printf 'set cmd:fail-exit yes\n'
-            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
-          done < asset-upload.txt)
-          $(while IFS= read -r rel; do
-            [ -z "$rel" ] && continue
-            printf 'echo "ASSET DELETE %s"\n' "$rel"
-            printf 'rm -f "%s/assets/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
-          done < asset-delete.txt)
-          bye
           EOF
 
       - name: Deploy accommodation videos over FTP
