@@ -311,10 +311,12 @@ const isTransparentHeaderStart =
           <a
             href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"
             class="dnd-header-cta dnd-header-cta--mobile"
+            aria-label="Foglalás és árak"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Foglalás / Árak
+            <span class="dnd-header-cta__label-full">Foglalás / Árak</span>
+            <span class="dnd-header-cta__label-short">Foglalás</span>
           </a>
           <button class="dnd-menu-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false" data-dnd-menu-toggle>
             <span></span>
@@ -325,6 +327,14 @@ const isTransparentHeaderStart =
       </div>
 
       <nav class="dnd-mobile-menu" aria-label="Mobil navigáció" data-dnd-mobile-menu>
+        <a
+          href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"
+          class="dnd-mobile-menu__booking"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Foglalás / Árak
+        </a>
         <a href={homeHref}>Főoldal</a>
         <a href={staysHref}>Szállások–Házak</a>
         <div class="dnd-mobile-menu__groups" aria-label="Szálláscsoportok">
@@ -491,11 +501,30 @@ const isTransparentHeaderStart =
         cursor: default;
       }
 
+      .dnd-header-cta__label-short {
+        display: none;
+      }
+
       .dnd-mobile-menu[data-open="true"] {
         max-height: 560px;
       }
 
       @media (max-width: 640px) {
+        .dnd-header-cta--mobile {
+          padding-left: 11px;
+          padding-right: 11px;
+          font-size: 0.54rem;
+          letter-spacing: 0.06em;
+          white-space: nowrap;
+        }
+
+        .dnd-header-cta__label-full {
+          display: none;
+        }
+
+        .dnd-header-cta__label-short {
+          display: inline;
+        }
       }
     </style>
   </body>

@@ -212,27 +212,25 @@ const heroPoster = "";
 
   @media (max-width: 767px) {
     .dnd-hero {
-      min-height: 500px;
+      min-height: max(560px, 88svh);
       height: auto;
     }
 
     .dnd-hero__content {
-      min-height: 500px;
+      min-height: max(560px, 88svh);
     }
 
     .dnd-hero__inner {
       align-items: flex-start;
-      justify-content: flex-start;
+      justify-content: flex-end;
       max-width: none;
-      min-height: 500px;
-      padding: 0;
+      min-height: max(560px, 88svh);
+      padding: 0 16px 34px;
     }
 
     .dnd-hero__text {
-      margin-top: 280px;
-      margin-bottom: 40px;
       width: 100%;
-      max-width: 360px;
+      max-width: 332px;
     }
 
     .dnd-hero__title {
@@ -301,19 +299,21 @@ const heroPoster = "";
     }
 
     .dnd-hero__desc {
-      margin-top: 26px;
-      max-width: 30ch;
+      margin-top: 22px;
+      max-width: 28ch;
       font-size: 0.82rem;
       line-height: 1.4;
     }
 
     .dnd-hero__cta {
-      margin-top: 24px;
+      margin-top: 22px;
       gap: 10px;
     }
 
     .dnd-hero__cta .dnd-btn {
-      min-height: 38px;
+      min-height: 42px;
+      width: min(100%, 320px);
+      justify-content: center;
       padding: 0 18px;
       font-size: 0.82rem;
     }
