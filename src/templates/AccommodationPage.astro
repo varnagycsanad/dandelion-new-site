@@ -217,6 +217,12 @@ const accommodationStructuredData = [
         <h1>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
         <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
         <p class="d2-hero__lead">{pageData.hero.lead}</p>
+        {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
+        {pageData.hero.supportingLink && (
+          <p class="d2-hero__supporting-link">
+            <a href={pageData.hero.supportingLink.href}>{pageData.hero.supportingLink.label}</a>
+          </p>
+        )}
         <div class="d2-hero__actions">
           <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{pageData.hero.primaryCtaLabel}</button>
           <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
@@ -351,6 +357,11 @@ const accommodationStructuredData = [
         <span class="dnd-section-kicker">{pageData.details.kicker}</span>
         <h2 class="d2-section-title">{pageData.details.title}</h2>
         <p>{pageData.details.shortDescription}</p>
+        {pageData.details.supportingLink && (
+          <p class="d2-details__supporting-link">
+            <a href={pageData.details.supportingLink.href}>{pageData.details.supportingLink.label}</a>
+          </p>
+        )}
         <details class="d2-details__more">
           <summary>{pageData.details.moreLabel}</summary>
           <div>
@@ -484,7 +495,7 @@ const accommodationStructuredData = [
         <div class="d2-closer__head">
           <span class="dnd-section-kicker">{pageData.relatedStays.kicker}</span>
           <h2 id="accommodation-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
-          <p>{pageData.relatedStays.intro} <a href={accommodationListingHref}>A teljes szálláskínálat itt is elérhető.</a></p>
+          <p>{pageData.relatedStays.intro} <a href={accommodationListingHref}>Nézd meg a többi Dandelion szállást is.</a></p>
         </div>
 
       <div class="d2-closer__grid">
@@ -921,7 +932,7 @@ const accommodationStructuredData = [
 
   .d2-hero h1 {
     margin: 0;
-    font-size: clamp(2.9rem, 6.4vw, 5.4rem);
+    font-size: clamp(2.7rem, 5.8vw, 4.9rem);
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -939,7 +950,7 @@ const accommodationStructuredData = [
 
   .d2-hero__subtitle {
     margin: 20px 0 0;
-    font-size: 1.12rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(253, 251, 247, 0.84);
@@ -947,17 +958,32 @@ const accommodationStructuredData = [
 
   .d2-hero__lead {
     max-width: 560px;
-    margin: 18px 0 0;
-    font-size: 1.02rem;
-    line-height: 1.72;
+    margin: 16px 0 0;
+    font-size: 0.98rem;
+    line-height: 1.66;
     color: rgba(253, 251, 247, 0.92);
+  }
+
+  .d2-hero__supporting-link {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgba(253, 251, 247, 0.92);
+  }
+
+  .d2-hero__supporting-link a,
+  .d2-details__supporting-link a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.18em;
   }
 
   .d2-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 28px;
+    margin-top: 22px;
   }
 
   /* [CHANGE 2026-05-03 21:40] D2 hero másodlagos CTA kontrasztjának finom erősítése desktop és mobil nézetre. */
@@ -1180,8 +1206,9 @@ const accommodationStructuredData = [
   .d2-intro__title,
   .d2-section-title {
     margin: 0;
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
-    line-height: 1.04;
+    /* [CHANGE 2026-05-16 12:45] Shared hero és section title méret finom csökkentése a jobb ritmus és videós hero kompatibilitás miatt. */
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    line-height: 1.06;
     font-weight: 500;
   }
 
@@ -1207,6 +1234,13 @@ const accommodationStructuredData = [
     margin: 14px 0 0;
     color: rgba(0, 0, 0, 0.72);
     line-height: 1.68;
+  }
+
+  .d2-details__supporting-link {
+    margin: 12px 0 0;
+    color: rgba(45, 36, 28, 0.76);
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .d2-details__cta {
@@ -1538,8 +1572,9 @@ const accommodationStructuredData = [
   }
 
   .d2-closer__head {
-    max-width: 540px;
-    margin-bottom: 14px;
+    max-width: 620px;
+    margin: 0 auto 14px;
+    text-align: center;
   }
 
   .d2-closer__head p {
@@ -1807,23 +1842,29 @@ const accommodationStructuredData = [
     }
 
     .d2-hero h1 {
-      font-size: clamp(2.36rem, 13vw, 3.45rem);
+      font-size: clamp(2.16rem, 11vw, 3.05rem);
       letter-spacing: -0.015em;
     }
 
     .d2-hero__subtitle {
-      margin-top: 14px;
+      margin-top: 12px;
       max-width: 18.5rem;
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       line-height: 1.38;
       letter-spacing: 0.06em;
     }
 
     .d2-hero__lead {
       max-width: 24rem;
+      margin-top: 9px;
+      font-size: 0.84rem;
+      line-height: 1.44;
+    }
+
+    .d2-hero__supporting-link {
       margin-top: 10px;
-      font-size: 0.88rem;
-      line-height: 1.48;
+      font-size: 0.76rem;
+      line-height: 1.4;
     }
 
     .d2-hero__actions {
@@ -2026,14 +2067,20 @@ const accommodationStructuredData = [
     }
 
     .d2-details__story .d2-section-title {
-      font-size: clamp(1.72rem, 10vw, 2.26rem);
-      line-height: 1.08;
+      font-size: clamp(1.58rem, 8.8vw, 2.05rem);
+      line-height: 1.1;
     }
 
     .d2-details__story p {
+      margin-top: 9px;
+      font-size: 0.89rem;
+      line-height: 1.54;
+    }
+
+    .d2-details__supporting-link {
       margin-top: 10px;
-      font-size: 0.93rem;
-      line-height: 1.58;
+      font-size: 0.84rem;
+      line-height: 1.46;
     }
 
     .d2-details__more {

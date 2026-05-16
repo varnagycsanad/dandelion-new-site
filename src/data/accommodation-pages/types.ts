@@ -47,6 +47,7 @@ export interface AccommodationPageData {
     description: string;
   };
   bookingLink: string;
+  // [CHANGE 2026-05-16 12:45] Opcionális supporting link mezők a shared szállásoldali hero és details blokkokhoz.
   hero: {
     mobileImagePath: string;
     fallbackAlt: string;
@@ -55,6 +56,10 @@ export interface AccommodationPageData {
     titleAccent: string;
     subtitle: string;
     lead: string;
+    supportingLink?: {
+      label: string;
+      href: string;
+    };
     video?: {
       desktop: string;
       mobile: string;
@@ -81,6 +86,10 @@ export interface AccommodationPageData {
     kicker: string;
     title: string;
     shortDescription: string;
+    supportingLink?: {
+      label: string;
+      href: string;
+    };
     longDescription: string[];
     moreLabel: string;
     ctaLabel: string;
