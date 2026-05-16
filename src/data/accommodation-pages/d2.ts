@@ -3,6 +3,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 
 // [CHANGE 2026-05-06 22:55] D2 copy updated with panoramic pool focus, family-friendly tone and clean Hungarian text.
 // [CHANGE 2026-05-16 12:45] D2 hero, intro, fact és gallery copy rövidítve; Panorama Pool kommunikáció és finom belső linkelés hozzáadva.
+// [CHANGE 2026-05-16 15:05] D2 hero lead a kért új szövegre cserélve, változatlan hero szerkezettel.
 export const d2PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 Kisapáti | Családbarát apartman kerttel",
@@ -22,7 +23,7 @@ export const d2PageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "D2",
     subtitle: "GALÉRIÁS APARTMAN NAGY UDVARRAL ÉS FEDETT TERASSZAL",
-    lead: "Világos, könnyen használható vendégház nyugodt kerti környezettel, fedett terasszal és jól felszerelt konyhával. Jó kiindulópont balatoni napokhoz, túrákhoz és lassabb estékhez.",
+    lead: "Világos, kényelmes vendégház nagy kerttel és fedett terasszal, ahol könnyű megérkezni a nyugalomba. Jó kiindulópont balatoni napokhoz és Szent György-hegyi kirándulásokhoz, este pedig ott marad a kert, a terasz és a grill.",
     supportingLink: {
       label: "Panorama Pool is elérhető a ház melletti dombon. Nézd meg a medence külön oldalát.",
       href: "/panorama-pool/"

@@ -214,7 +214,7 @@ const accommodationStructuredData = [
     <div class="dnd-container d2-hero__content">
       <div class="d2-hero__copy">
         <span class="d2-kicker">{pageData.hero.kicker}</span>
-        <h1>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
+        <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
         <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
         <p class="d2-hero__lead">{pageData.hero.lead}</p>
         {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
@@ -940,6 +940,11 @@ const accommodationStructuredData = [
     font-variant-numeric: lining-nums;
     font-feature-settings: "lnum" 1;
     white-space: nowrap;
+  }
+
+  /* [CHANGE 2026-05-16 15:05] A D2 hero címe desktopon külön finomítva lett, hogy kevésbé nyomja el a képet és a hero copy-t. */
+  .d2-hero h1.d2-hero__title--d2 {
+    font-size: clamp(1.95rem, 4.05vw, 3.45rem);
   }
 
   .d2-hero h1 span {
