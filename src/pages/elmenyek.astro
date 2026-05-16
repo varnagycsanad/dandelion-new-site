@@ -232,7 +232,10 @@ const structuredData = [
 
       <section class="experiences-page__grid" aria-label="Kiemelt élmények">
         {experiences.map((item) => (
-          <article class="experience-card">
+          <article
+            class="experience-card"
+            data-experience-card={item.href ? "with-link" : "static"}
+          >
             <div class="experience-card__media">
               <Image src={item.image} alt={item.imageAlt} loading="lazy" />
             </div>
