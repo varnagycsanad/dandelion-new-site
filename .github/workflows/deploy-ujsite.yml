@@ -163,7 +163,8 @@ jobs:
               [ -z "${change:-}" ] && continue
 
               if [[ "$change" == \*deleting* ]]; then
-                echo "$path" >> deploy-delete.txt
+                # Root deploy should not hard-fail on remote deletions.
+                # We prefer leaving stale files over blocking fresh uploads.
                 continue
               fi
 
@@ -187,7 +188,7 @@ jobs:
           sort -u deploy-files.txt -o deploy-files.txt
           sort -u deploy-delete.txt -o deploy-delete.txt
           echo "Upload candidates: $(wc -l < deploy-files.txt)"
-          echo "Delete candidates: $(wc -l < deploy-delete.txt)"
+          echo "Delete candidates intentionally disabled for root deploy."
 
       - name: Prepare accommodation video payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
@@ -258,7 +259,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ ! -s deploy-files.txt ] && [ ! -s deploy-delete.txt ]; then
+          if [ ! -s deploy-files.txt ]; then
             echo "No root deploy changes detected."
             exit 0
           fi
@@ -281,11 +282,6 @@ jobs:
             printf 'mkdir -p "%s"\n' "$remote_dir"
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
           done < deploy-files.txt)
-          $(while IFS= read -r rel; do
-            [ -z "$rel" ] && continue
-            printf 'echo "DELETE %s"\n' "$rel"
-            printf 'rm -f "%s/%s"\n' "${UJSITE_FTP_PATH%/}" "$rel"
-          done < deploy-delete.txt)
           bye
           EOF
 
