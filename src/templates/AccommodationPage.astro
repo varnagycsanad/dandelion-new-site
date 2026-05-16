@@ -142,6 +142,7 @@ function resolveDecisionPanelImage(
 
 const bookingLink = pageData.bookingLink;
 const heroVideo = pageData.hero.video ?? null;
+const hasPoolHighlight = Boolean(pageData.hero.poolHighlight?.enabled);
 const baseHref = resolveBaseHref(import.meta.env.BASE_URL);
 
 const featureGroups = pageData.facts.groups;
@@ -365,7 +366,13 @@ const accommodationStructuredData = [
         )}
       </picture>
     )}
-    <div class="dnd-container d2-hero__content">
+    <div
+      class:list={[
+        "dnd-container",
+        "d2-hero__content",
+        !hasPoolHighlight && "d2-hero__content--no-pool-seal"
+      ]}
+    >
       <div class="d2-hero__copy">
         <span class="d2-kicker">{pageData.hero.kicker}</span>
         <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
@@ -1251,6 +1258,15 @@ const accommodationStructuredData = [
     width: min(100%, clamp(560px, 44vw, 760px));
     max-width: clamp(560px, 44vw, 760px);
     padding: 18px 0 22px;
+  }
+
+  .d2-hero__content--no-pool-seal {
+    align-items: center;
+    padding-bottom: 108px;
+  }
+
+  .d2-hero__content--no-pool-seal .d2-hero__copy {
+    padding-bottom: 0;
   }
 
   .d2-kicker,
@@ -2537,6 +2553,11 @@ const accommodationStructuredData = [
       align-items: flex-start;
       padding-top: calc(108px + env(safe-area-inset-top, 0px));
       padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .d2-hero__content--no-pool-seal {
+      justify-content: center;
+      padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
     }
 
     .d2-hero__copy {
