@@ -184,6 +184,7 @@ const regionStories = [
     position: relative;
     z-index: 1;
     display: grid;
+    width: min(100%, 1040px);
     margin-bottom: 0;
   }
 
@@ -272,29 +273,33 @@ const regionStories = [
 
   .dnd-region-story--1 {
     justify-items: start;
+    width: min(calc(100% - 132px), 1000px);
   }
 
   .dnd-region-story--1 .dnd-region-story__panel {
-    right: 0;
-    bottom: -28px;
+    right: -34px;
+    bottom: -34px;
   }
 
   .dnd-region-story--2 {
     justify-items: end;
+    width: min(calc(100% - 176px), 1080px);
+    margin-left: auto;
   }
 
   .dnd-region-story--2 .dnd-region-story__panel {
-    left: 0;
-    bottom: -30px;
+    left: -40px;
+    bottom: -34px;
   }
 
   .dnd-region-story--3 {
     justify-items: start;
+    width: min(calc(100% - 148px), 980px);
   }
 
   .dnd-region-story--3 .dnd-region-story__panel {
-    right: 0;
-    bottom: -24px;
+    right: -36px;
+    bottom: -30px;
   }
 
   @media (max-width: 1100px) {
