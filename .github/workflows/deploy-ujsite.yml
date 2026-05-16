@@ -381,7 +381,10 @@ jobs:
 
           async function checkUrl(url) {
             try {
-              const res = await fetch(url, { method: "GET", redirect: "follow" });
+              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
+              if (res.status === 405 || res.status === 501) {
+                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              }
               return { url, status: res.status };
             } catch {
               return { url, status: 0 };
@@ -410,7 +413,27 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p deploy-assets
-          rsync -av --delete dist/assets/ deploy-assets/
+          : > repair-assets.txt
+          while IFS=$'\t' read -r status url; do
+            [ -z "${url:-}" ] && continue
+            rel="${url#https://dandelionhouse.hu/assets/}"
+            if [ "$rel" = "$url" ]; then
+              continue
+            fi
+            if [ -f "dist/assets/$rel" ]; then
+              mkdir -p "deploy-assets/$(dirname "$rel")"
+              cp -a "dist/assets/$rel" "deploy-assets/$rel"
+              echo "$rel" >> repair-assets.txt
+            fi
+          done < asset-health-failed.txt
+
+          sort -u repair-assets.txt -o repair-assets.txt
+
+          if [ ! -s repair-assets.txt ]; then
+            echo "No repairable hashed assets were collected."
+            exit 1
+          fi
+
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
           set cmd:fail-exit yes
@@ -419,7 +442,18 @@ jobs:
           set net:reconnect-interval-base 5
           set net:reconnect-interval-max 15
           set xfer:clobber on
-          mirror -R deploy-assets/ "${UJSITE_FTP_PATH%/}/assets/"
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
+            if [ "$(dirname "$rel")" = "." ]; then
+              remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            fi
+            printf 'echo "ASSET REPAIR %s"\n' "$rel"
+            printf 'set cmd:fail-exit no\n'
+            printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'set cmd:fail-exit yes\n'
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
+          done < repair-assets.txt)
           bye
           EOF
 
@@ -466,7 +500,10 @@ jobs:
 
           async function checkUrl(url) {
             try {
-              const res = await fetch(url, { method: "GET", redirect: "follow" });
+              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
+              if (res.status === 405 || res.status === 501) {
+                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              }
               return { url, status: res.status };
             } catch {
               return { url, status: 0 };
