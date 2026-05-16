@@ -73,8 +73,6 @@ const regionStories = [
         </div>
       </div>
 
-      <div class="dnd-region-stories__scroll-stage" aria-hidden="true"></div>
-
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
@@ -105,22 +103,22 @@ const regionStories = [
     position: relative;
     overflow: visible;
     isolation: isolate;
-    padding: 48px 0 150px;
+    padding: 48px 0 92px;
     scroll-margin-top: 150px;
   }
 
   .dnd-region-stories__sticky-layer {
     position: absolute;
-    inset: -14px 0 -100px;
+    inset: 196px 0 36px;
     z-index: 0;
     pointer-events: none;
   }
 
   .dnd-region-stories__sticky-band {
     position: sticky;
-    top: 96px;
+    top: 118px;
     width: 100vw;
-    height: 680px;
+    height: clamp(420px, 46vw, 620px);
     margin-left: calc(50% - 50vw);
     overflow: hidden;
     isolation: isolate;
@@ -146,7 +144,7 @@ const regionStories = [
 
   .dnd-region-stories__intro {
     max-width: 760px;
-    margin: 0 auto 64px;
+    margin: 0 auto 42px;
     text-align: center;
   }
 
@@ -172,13 +170,9 @@ const regionStories = [
 
   .dnd-region-stories__list {
     display: grid;
-    gap: 84px;
+    gap: 64px;
     position: relative;
     z-index: 1;
-  }
-
-  .dnd-region-stories__scroll-stage {
-    min-height: clamp(240px, 52vw, 620px);
   }
 
   .dnd-region-story {
@@ -335,10 +329,6 @@ const regionStories = [
     }
 
     .dnd-region-stories__sticky-layer {
-      display: none;
-    }
-
-    .dnd-region-stories__scroll-stage {
       display: none;
     }
 
