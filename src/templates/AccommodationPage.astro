@@ -217,23 +217,6 @@ const accommodationStructuredData = [
         <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
         <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
         <p class="d2-hero__lead">{pageData.hero.lead}</p>
-        {/* [CHANGE 2026-05-16 15:40] Opcionális, adatvezérelt panoráma medence kiemelés a shared hero-ban slug-hardcode és külön hero layout nélkül. */}
-        {pageData.hero.poolHighlight?.enabled && (
-          <div
-            class:list={[
-              "d2-hero__pool-highlight",
-              pageData.hero.poolHighlight.variant === "strong" && "d2-hero__pool-highlight--strong"
-            ]}
-          >
-            <p class="d2-hero__pool-label">{pageData.hero.poolHighlight.label}</p>
-            {pageData.hero.poolHighlight.text && (
-              <p class="d2-hero__pool-text">{pageData.hero.poolHighlight.text}</p>
-            )}
-            <a class="d2-hero__pool-link" href={pageData.hero.poolHighlight.href}>
-              {pageData.hero.poolHighlight.ctaLabel || pageData.hero.poolHighlight.href}
-            </a>
-          </div>
-        )}
         {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
         {pageData.hero.supportingLink && (
           <p class="d2-hero__supporting-link">
@@ -245,6 +228,36 @@ const accommodationStructuredData = [
           <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
         </div>
       </div>
+      {/* [CHANGE 2026-05-16 16:00] A shared poolHighlight vizuálisan rövid, kattintható pecsétként jelenik meg a hero sarkában, külön layout és slug-hardcode nélkül. */}
+      {pageData.hero.poolHighlight?.enabled && (
+        <a
+          href={pageData.hero.poolHighlight.href}
+          class:list={[
+            "d2-hero__pool-badge",
+            pageData.hero.poolHighlight.variant === "strong" && "d2-hero__pool-badge--strong"
+          ]}
+          aria-label={`${pageData.hero.poolHighlight.label}${pageData.hero.poolHighlight.text ? `. ${pageData.hero.poolHighlight.text}` : ""}${pageData.hero.poolHighlight.ctaLabel ? ` ${pageData.hero.poolHighlight.ctaLabel}.` : ""}`}
+          title={pageData.hero.poolHighlight.ctaLabel || pageData.hero.poolHighlight.label}
+        >
+          <span class="d2-hero__pool-badge-ring" aria-hidden="true"></span>
+          <span class="d2-hero__pool-badge-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M4 12c1.5 1.2 3 1.2 4.5 0s3-1.2 4.5 0 3 1.2 4.5 0 3-1.2 4.5 0"></path>
+              <path d="M6 8.2c0-3.3 2.7-6 6-6"></path>
+              <path d="M12 2.2c3.3 0 6 2.7 6 6"></path>
+              <path d="M12 16.5l5.2 5.2"></path>
+              <path d="M12 16.5h4.4"></path>
+              <path d="M12 16.5v4.4"></path>
+            </svg>
+          </span>
+          <span class="d2-hero__pool-badge-text">
+            <span>PANORÁMA</span>
+            <span>MEDENCE</span>
+          </span>
+          <span class="d2-hero__pool-badge-date">2026. JÚNIUS 1-TŐL</span>
+          <span class="d2-hero__pool-badge-arrow" aria-hidden="true">↗</span>
+        </a>
+      )}
     </div>
   </section>
 
@@ -923,6 +936,8 @@ const accommodationStructuredData = [
     display: flex;
     min-height: 88vh;
     align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
     padding-top: 150px;
     padding-bottom: 76px;
   }
@@ -988,58 +1003,108 @@ const accommodationStructuredData = [
     color: rgba(253, 251, 247, 0.92);
   }
 
-  .d2-hero__pool-highlight {
+  .d2-hero__pool-badge {
+    position: absolute;
+    right: clamp(18px, 4vw, 56px);
+    bottom: clamp(28px, 6vh, 62px);
+    z-index: 2;
     display: grid;
-    gap: 8px;
-    max-width: 34rem;
-    margin-top: 14px;
-    padding: 14px 16px;
-    border: 1px solid rgba(217, 158, 43, 0.72);
-    border-radius: 8px;
-    background: rgba(24, 18, 13, 0.34);
-    box-shadow: 0 14px 30px rgba(17, 12, 9, 0.12);
-    backdrop-filter: blur(6px);
+    justify-items: center;
+    align-content: center;
+    gap: 10px;
+    width: clamp(170px, 17vw, 232px);
+    aspect-ratio: 1;
+    padding: 28px 22px 24px;
+    border: 1.5px solid rgba(253, 251, 247, 0.82);
+    border-radius: 46% 54% 49% 51% / 48% 44% 56% 52%;
+    background:
+      radial-gradient(circle at 32% 24%, rgba(255, 236, 188, 0.22), transparent 34%),
+      linear-gradient(160deg, rgba(225, 171, 64, 0.96), rgba(177, 114, 22, 0.96));
+    box-shadow: 0 18px 40px rgba(17, 12, 9, 0.24);
+    color: #fffdf8;
+    text-align: center;
+    text-decoration: none;
+    transform: rotate(-6deg);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    overflow: hidden;
   }
 
-  .d2-hero__pool-highlight--strong {
-    border-color: rgba(217, 158, 43, 0.92);
-    background: linear-gradient(180deg, rgba(42, 30, 16, 0.72), rgba(24, 18, 13, 0.52));
+  .d2-hero__pool-badge::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(255, 247, 226, 0.58);
+    border-radius: 48% 52% 51% 49% / 44% 50% 50% 56%;
+    pointer-events: none;
   }
 
-  .d2-hero__pool-label,
-  .d2-hero__pool-text {
-    margin: 0;
+  .d2-hero__pool-badge--strong {
+    box-shadow: 0 22px 44px rgba(17, 12, 9, 0.28);
+    filter: saturate(1.03);
   }
 
-  .d2-hero__pool-label {
-    color: #f6d488;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1.35;
+  .d2-hero__pool-badge-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 248, 232, 0.26);
+    border-radius: inherit;
+    transform: rotate(4deg);
+    pointer-events: none;
+  }
+
+  .d2-hero__pool-badge-mark,
+  .d2-hero__pool-badge-text,
+  .d2-hero__pool-badge-date,
+  .d2-hero__pool-badge-arrow {
+    position: relative;
+    z-index: 1;
+  }
+
+  .d2-hero__pool-badge-mark svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: rgba(255, 248, 232, 0.9);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .d2-hero__pool-badge-text {
+    display: grid;
+    gap: 2px;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.05rem, 1.55vw, 1.55rem);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    line-height: 1.04;
     text-transform: uppercase;
   }
 
-  .d2-hero__pool-text {
-    color: rgba(253, 251, 247, 0.92);
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-
-  .d2-hero__pool-link {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    color: #fdfbf7;
-    font-size: 0.8rem;
+  .d2-hero__pool-badge-date {
+    font-size: clamp(0.62rem, 0.85vw, 0.82rem);
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     line-height: 1.25;
-    text-decoration: underline;
-    text-decoration-color: rgba(217, 158, 43, 0.9);
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.22em;
     text-transform: uppercase;
+  }
+
+  .d2-hero__pool-badge-arrow {
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    font-size: 1.9rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .d2-hero__pool-badge:hover,
+    .d2-hero__pool-badge:focus-visible {
+      box-shadow: 0 24px 50px rgba(17, 12, 9, 0.32);
+      filter: saturate(1.06) brightness(1.02);
+      transform: rotate(-4deg) translateY(-2px);
+    }
   }
 
   .d2-hero__supporting-link {
@@ -1939,26 +2004,42 @@ const accommodationStructuredData = [
       line-height: 1.44;
     }
 
-    .d2-hero__pool-highlight {
-      gap: 7px;
-      max-width: min(100%, 24rem);
-      margin-top: 10px;
-      padding: 11px 12px;
+    .d2-hero__pool-badge {
+      right: 14px;
+      bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+      gap: 6px;
+      width: min(34vw, 138px);
+      padding: 18px 14px 18px;
+      border-width: 1.2px;
+      box-shadow: 0 14px 28px rgba(17, 12, 9, 0.2);
+      transform: rotate(-5deg);
     }
 
-    .d2-hero__pool-label {
-      font-size: 0.7rem;
-      line-height: 1.3;
+    .d2-hero__pool-badge::before {
+      inset: 6px;
     }
 
-    .d2-hero__pool-text {
-      font-size: 0.8rem;
-      line-height: 1.42;
+    .d2-hero__pool-badge-mark svg {
+      width: 21px;
+      height: 21px;
     }
 
-    .d2-hero__pool-link {
-      font-size: 0.7rem;
-      line-height: 1.22;
+    .d2-hero__pool-badge-text {
+      gap: 1px;
+      font-size: 0.86rem;
+      line-height: 1.02;
+    }
+
+    .d2-hero__pool-badge-date {
+      font-size: 0.52rem;
+      letter-spacing: 0.1em;
+      line-height: 1.18;
+    }
+
+    .d2-hero__pool-badge-arrow {
+      right: 16px;
+      bottom: 14px;
+      font-size: 1.2rem;
     }
 
     .d2-hero__supporting-link {
