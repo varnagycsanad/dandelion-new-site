@@ -279,7 +279,9 @@ jobs:
               remote_dir="${UJSITE_FTP_PATH%/}"
             fi
             printf 'echo "UPLOAD %s"\n' "$rel"
+            printf 'set cmd:fail-exit no\n'
             printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'set cmd:fail-exit yes\n'
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
           done < deploy-files.txt)
           bye
@@ -472,7 +474,9 @@ jobs:
               remote_dir="${UJSITE_FTP_PATH%/}/assets"
             fi
             printf 'echo "ASSET UPLOAD %s"\n' "$rel"
+            printf 'set cmd:fail-exit no\n'
             printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'set cmd:fail-exit yes\n'
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
           done < asset-upload.txt)
           $(while IFS= read -r rel; do
