@@ -85,19 +85,20 @@ const accommodationsStructuredData = {
   structuredData={accommodationsStructuredData}
 >
   <section class="dnd-accommodations-hero">
-  </section>
-
-  <section class="dnd-accommodations-intro">
-    <div class="dnd-container dnd-accommodations-intro__content">
-      <p class="dnd-accommodations-intro__eyebrow">Szállások</p>
-      <h1>
-        <span>Először válassz térséget,</span>
-        <span>utána nézz házat.</span>
-      </h1>
-      <p class="dnd-accommodations-intro__lead">
-        A Dandelion szállásai három térségben vannak. Először döntsd el, melyik környék áll hozzád közelebb,
-        utána hasonlítsd össze a konkrét házakat.
-      </p>
+    <div class="dnd-accommodations-hero__content">
+      <div class="dnd-container dnd-accommodations-hero__inner">
+        <div class="dnd-accommodations-hero__text">
+          <p class="dnd-accommodations-hero__eyebrow">Szállások</p>
+          <h1 class="dnd-accommodations-hero__title">
+            <span>Először válassz térséget,</span>
+            <span>utána nézz házat.</span>
+          </h1>
+          <p class="dnd-accommodations-hero__lead">
+            A Dandelion szállásai három térségben vannak. Először döntsd el, melyik környék áll hozzád közelebb,
+            utána hasonlítsd össze a konkrét házakat.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -250,7 +251,8 @@ const accommodationsStructuredData = {
 <style>
   .dnd-accommodations-hero {
     position: relative;
-    min-height: clamp(260px, 40vw, 420px);
+    min-height: 600px;
+    height: 84vh;
     margin-top: 81px;
     overflow: hidden;
     background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
@@ -259,49 +261,66 @@ const accommodationsStructuredData = {
     background-size: cover;
   }
 
-  .dnd-accommodations-intro {
-    padding: 30px 0 0;
-    background: #fdfbf7;
+  .dnd-accommodations-hero__content {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    color: #fff;
   }
 
-  .dnd-accommodations-intro__content {
-    max-width: 680px;
+  .dnd-accommodations-hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100%;
+    max-width: none;
+    padding: clamp(280px, 40vh, 420px) clamp(48px, 7vw, 96px) 96px;
   }
 
-  .dnd-accommodations-intro__eyebrow {
+  .dnd-accommodations-hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, 1040px);
+    text-align: center;
+  }
+
+  .dnd-accommodations-hero__eyebrow {
     margin: 0 0 12px;
-    color: #b06200;
+    color: rgba(255, 250, 241, 0.88);
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
-  .dnd-accommodations-intro h1 {
-    max-width: 700px;
+  .dnd-accommodations-hero__title {
     margin: 0;
-    color: #1f2937;
-    font-size: clamp(32px, 4.5vw, 52px);
+    color: rgba(255, 255, 255, 0.94);
+    font-size: clamp(30px, 2.35vw, 42px);
     line-height: 1.08;
     font-family: Georgia, "Times New Roman", serif;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
-  .dnd-accommodations-intro h1 span {
-    display: block;
+  .dnd-accommodations-hero__title span {
+    display: inline;
   }
 
-  .dnd-accommodations-intro__lead {
-    max-width: 560px;
-    margin: 16px 0 0;
-    color: #5d554b;
-    font-size: clamp(0.98rem, 1.3vw, 1.06rem);
-    line-height: 1.62;
+  .dnd-accommodations-hero__lead {
+    max-width: 40ch;
+    margin: 18px auto 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 1.05rem;
+    line-height: 1.55;
   }
 
   .dnd-accommodations-picker {
-    margin-top: 18px;
+    margin-top: 26px;
     position: relative;
     z-index: 2;
   }
@@ -840,27 +859,64 @@ const accommodationsStructuredData = {
 
   @media (max-width: 640px) {
     .dnd-accommodations-hero {
-      min-height: 180px;
+      min-height: 500px;
+      height: auto;
       background-position: center 24%;
     }
 
-    .dnd-accommodations-intro {
-      padding-top: 22px;
+    .dnd-accommodations-hero__content {
+      min-height: 500px;
     }
 
-    .dnd-accommodations-intro h1 {
-      max-width: 320px;
-      font-size: clamp(27px, 9vw, 38px);
+    .dnd-accommodations-hero__inner {
+      align-items: flex-start;
+      justify-content: flex-start;
+      max-width: none;
+      min-height: 500px;
+      padding: 0 0 36px;
     }
 
-    .dnd-accommodations-intro__lead {
-      max-width: 100%;
+    .dnd-accommodations-hero__text {
+      margin-top: 284px;
+      margin-bottom: 0;
+      width: 100%;
+      max-width: 340px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .dnd-accommodations-hero__eyebrow {
+      margin-bottom: 10px;
+      color: rgba(255, 250, 241, 0.9);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+    }
+
+    .dnd-accommodations-hero__title {
+      display: grid;
+      gap: 6px;
+      max-width: 9ch;
+      font-size: clamp(1.95rem, 10vw, 2.5rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-transform: none;
+      white-space: normal;
+    }
+
+    .dnd-accommodations-hero__title span {
+      display: block;
+    }
+
+    .dnd-accommodations-hero__lead {
+      max-width: 18ch;
+      margin-top: 18px;
       font-size: 0.95rem;
-      line-height: 1.55;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.82);
     }
 
     .dnd-accommodations-picker {
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
     .dnd-accommodations-picker__intro {
