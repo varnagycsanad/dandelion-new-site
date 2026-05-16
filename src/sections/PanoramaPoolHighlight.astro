@@ -1,3 +1,9 @@
+---
+import { panoramaPoolImages } from "../data/images/panorama-pool-images";
+
+const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
+---
+
 <section class="pool-highlight dnd-section" aria-labelledby="pool-highlight-title">
   <div class="dnd-container">
     <div class="pool-highlight__shell">
@@ -27,13 +33,24 @@
         </a>
       </div>
 
-      <div class="pool-highlight__visual" aria-hidden="true">
+      <figure class="pool-highlight__visual">
+        <img
+          src={poolHighlightImage.src}
+          alt={poolHighlightImage.altHu}
+          title={poolHighlightImage.titleHu}
+          width="1800"
+          height="1350"
+          class="pool-highlight__image"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="pool-highlight__caption">{poolHighlightImage.captionHu}</figcaption>
         <div class="pool-highlight__card">
           <span class="pool-highlight__card-label">Elérhető</span>
           <strong>D1, D2 és Fügeház</strong>
           <p>2026. június 1-től használható panoráma medence csendes, napos környezetben.</p>
         </div>
-      </div>
+      </figure>
     </div>
   </div>
 </section>
@@ -143,49 +160,71 @@
 
   .pool-highlight__visual {
     position: relative;
-    min-height: 180px;
-    border-radius: 10px;
-    background:
-      radial-gradient(circle at 24% 26%, rgba(217, 158, 43, 0.26), transparent 18%),
-      radial-gradient(circle at 76% 30%, rgba(255, 255, 255, 0.72), transparent 18%),
-      linear-gradient(160deg, rgba(195, 168, 121, 0.24), rgba(241, 232, 215, 0.78));
+    min-height: 320px;
+    margin: 0;
+    border-radius: 24px;
     border: 1px solid rgba(120, 91, 50, 0.12);
     display: grid;
     align-items: end;
-    padding: 18px;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 42px rgba(58, 40, 18, 0.14);
   }
 
   .pool-highlight__visual::before {
     content: "";
     position: absolute;
-    inset: 16px;
-    border-radius: 999px 999px 18px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    opacity: 0.7;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(14, 18, 21, 0.08) 0%, rgba(14, 18, 21, 0.02) 30%, rgba(14, 18, 21, 0.36) 100%),
+      linear-gradient(135deg, rgba(255, 244, 219, 0.14) 0%, rgba(255, 244, 219, 0) 36%);
+    z-index: 1;
   }
 
   .pool-highlight__visual::after {
     content: "";
     position: absolute;
-    left: 18px;
-    right: 18px;
+    inset: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .pool-highlight__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 64%;
+  }
+
+  .pool-highlight__caption {
+    position: absolute;
+    left: 20px;
+    right: 20px;
     bottom: 18px;
-    height: 56px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(147, 188, 205, 0.42), rgba(96, 147, 171, 0.62));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+    z-index: 3;
+    max-width: 52%;
+    margin: 0;
+    color: rgba(255, 250, 243, 0.92);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-shadow: 0 4px 18px rgba(14, 18, 21, 0.24);
   }
 
   .pool-highlight__card {
     position: relative;
-    z-index: 1;
+    z-index: 4;
     margin-left: auto;
-    max-width: 280px;
-    padding: 18px 18px 16px;
-    border-radius: 10px;
-    background: rgba(255, 252, 246, 0.9);
-    border: 1px solid rgba(120, 91, 50, 0.12);
-    box-shadow: 0 14px 30px rgba(85, 61, 33, 0.1);
+    max-width: 310px;
+    padding: 20px 20px 18px;
+    border-radius: 20px;
+    background: rgba(255, 252, 246, 0.92);
+    border: 1px solid rgba(120, 91, 50, 0.16);
+    box-shadow: 0 18px 38px rgba(45, 31, 15, 0.18);
+    backdrop-filter: blur(10px);
   }
 
   .pool-highlight__card-label {
@@ -254,20 +293,24 @@
     }
 
     .pool-highlight__visual {
-      min-height: 148px;
+      min-height: 260px;
       padding: 14px;
+      border-radius: 20px;
     }
 
-    .pool-highlight__visual::after {
+    .pool-highlight__caption {
       left: 14px;
       right: 14px;
       bottom: 14px;
-      height: 44px;
+      max-width: calc(100% - 28px);
+      font-size: 0.82rem;
+      padding-right: 88px;
     }
 
     .pool-highlight__card {
       max-width: none;
       padding: 16px 16px 14px;
+      border-radius: 16px;
     }
   }
 </style>
