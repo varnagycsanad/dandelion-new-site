@@ -417,6 +417,9 @@ jobs:
           : > repair-assets.txt
           while IFS= read -r rel; do
             [ -z "${rel:-}" ] && continue
+            rel="$(printf '%s' "$rel" | tr -d '\r')"
+            rel="${rel#./}"
+            [ -z "${rel:-}" ] && continue
             source_path="dist/assets/$rel"
             if [ ! -f "$source_path" ]; then
               base_name="$(basename "$rel")"
@@ -432,6 +435,21 @@ jobs:
               echo "$rel" >> repair-assets.txt
             fi
           done < asset-health-failed-paths.txt
+
+          if [ ! -s repair-assets.txt ] && [ -f asset-health-failed.txt ]; then
+            while IFS=$'\t' read -r status url; do
+              [ -z "${url:-}" ] && continue
+              base_name="$(basename "$(printf '%s' "$url" | tr -d '\r')")"
+              [ -z "${base_name:-}" ] && continue
+              fallback_path="$(find dist/assets -type f -name "$base_name" -print -quit)"
+              if [ -n "${fallback_path:-}" ]; then
+                rel="${fallback_path#dist/assets/}"
+                mkdir -p "deploy-assets/$(dirname "$rel")"
+                cp -a "$fallback_path" "deploy-assets/$rel"
+                echo "$rel" >> repair-assets.txt
+              fi
+            done < asset-health-failed.txt
+          fi
 
           sort -u repair-assets.txt -o repair-assets.txt
 
