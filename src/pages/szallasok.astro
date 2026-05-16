@@ -22,9 +22,9 @@ const sectionAnchorMap = {
 } as const;
 
 const sectionAudienceMap = {
-  upland: "Családoknak, baráti pihenésekhez és természetközeli balatoni napokhoz.",
-  shore: "Azoknak, akik a vízközeli könnyedséget és a kényelmes nyári ritmust keresik.",
-  kali: "Elvonuláshoz, feltöltődéshez és csendesebb, lassabb pihenéshez."
+  upland: "Túrákhoz, panorámához és többféle háztípushoz.",
+  shore: "Strandokhoz, balatoni programokhoz és könnyű megközelítéshez.",
+  kali: "Nyugodtabb, visszafogott pihenéshez."
 } as const;
 
 const sections = accommodationSections.map((section) => ({
@@ -91,12 +91,12 @@ const accommodationsStructuredData = {
     <div class="dnd-container dnd-accommodations-intro__content">
       <p class="dnd-accommodations-intro__eyebrow">Szállások</p>
       <h1>
-        <span>Először a hangulatot,</span>
-        <span>utána a konkrét házat válaszd ki.</span>
+        <span>Először válassz térséget,</span>
+        <span>utána nézz házat.</span>
       </h1>
       <p class="dnd-accommodations-intro__lead">
-        Három külön világ, többféle pihenési ritmus és régiónként másféle Dandelion-élmény vár.
-        Először válassz térséget, aztán nézd meg, melyik konkrét vendégház illik legjobban hozzád.
+        A Dandelion szállásai három térségben vannak. Először döntsd el, melyik környék áll hozzád közelebb,
+        utána hasonlítsd össze a konkrét házakat.
       </p>
     </div>
   </section>
@@ -107,8 +107,8 @@ const accommodationsStructuredData = {
         <p class="dnd-accommodations-picker__eyebrow">Gyors választó</p>
         <h2 id="szallasok-regiok-cim">Melyik térség áll hozzád közelebb?</h2>
         <p>
-          Ha már tudod, milyen hangulatot keresel, ugorj rögtön a megfelelő régióhoz. Ha még bizonytalan vagy,
-          nézd végig a három különböző világot, és hasonlítsd össze a szállásokat régiónként.
+          Válassz régiót aszerint, hogy inkább a tanúhegyek, a Balaton közelsége vagy a Káli-medence nyugodtabb oldala
+          fontos neked.
         </p>
       </div>
 
@@ -139,7 +139,7 @@ const accommodationsStructuredData = {
             <div class={`dnd-grid ${section.gridClass}`}>
               {section.stays.map((stay) => {
                 const primaryChips = stay.chips.slice(0, 3);
-                const secondaryChips = stay.chips.slice(3);
+                const secondaryChips = stay.chips.slice(3, 6);
                 const cardContent = (
                   <>
                     <div class="dnd-media">
@@ -220,8 +220,8 @@ const accommodationsStructuredData = {
       <div class="dnd-accommodations-closing__inner">
         <h2 id="szallasok-zaro-cim">Nem tudod még, melyik szállást válaszd?</h2>
         <p>
-          Segítünk megtalálni a hozzád illő vendégházat, akár családi pihenéshez, akár csendes elvonuláshoz,
-          akár vízközeli balatoni napokhoz keresel helyet.
+          Ha szűkítenéd a kört, segítünk kiválasztani azt a házat, ami a létszámhoz, a környékhez és a pihenés
+          stílusához is jobban passzol.
         </p>
         <div class="dnd-accommodations-closing__actions">
           <button class="dnd-accommodations-closing__cta" type="button" onclick="OpenBE()">
@@ -232,7 +232,7 @@ const accommodationsStructuredData = {
           </a>
         </div>
         <p class="dnd-accommodations-closing__note">
-          Ha inkább gyorsan egyeztetnél velünk, a kapcsolat oldalon üzenetben is tudsz kérdezni.
+          A kapcsolat oldalon üzenetben is tudsz kérdezni, ha gyors egyeztetésre van szükséged.
         </p>
       </div>
     </div>
@@ -250,7 +250,7 @@ const accommodationsStructuredData = {
 <style>
   .dnd-accommodations-hero {
     position: relative;
-    min-height: clamp(320px, 48vw, 520px);
+    min-height: clamp(260px, 40vw, 420px);
     margin-top: 81px;
     overflow: hidden;
     background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
@@ -260,12 +260,12 @@ const accommodationsStructuredData = {
   }
 
   .dnd-accommodations-intro {
-    padding: 42px 0 0;
+    padding: 30px 0 0;
     background: #fdfbf7;
   }
 
   .dnd-accommodations-intro__content {
-    max-width: 760px;
+    max-width: 680px;
   }
 
   .dnd-accommodations-intro__eyebrow {
@@ -278,11 +278,11 @@ const accommodationsStructuredData = {
   }
 
   .dnd-accommodations-intro h1 {
-    max-width: 760px;
+    max-width: 700px;
     margin: 0;
     color: #1f2937;
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.04;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.08;
     font-family: Georgia, "Times New Roman", serif;
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -293,22 +293,22 @@ const accommodationsStructuredData = {
   }
 
   .dnd-accommodations-intro__lead {
-    max-width: 640px;
-    margin: 22px 0 0;
+    max-width: 560px;
+    margin: 16px 0 0;
     color: #5d554b;
-    font-size: clamp(1rem, 1.6vw, 1.16rem);
-    line-height: 1.72;
+    font-size: clamp(0.98rem, 1.3vw, 1.06rem);
+    line-height: 1.62;
   }
 
   .dnd-accommodations-picker {
-    margin-top: 24px;
+    margin-top: 18px;
     position: relative;
     z-index: 2;
   }
 
   .dnd-accommodations-picker__intro {
-    max-width: 760px;
-    margin-bottom: 24px;
+    max-width: 700px;
+    margin-bottom: 18px;
   }
 
   .dnd-accommodations-picker__eyebrow {
@@ -324,41 +324,41 @@ const accommodationsStructuredData = {
     margin: 0;
     color: #1f2937;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-size: clamp(1.55rem, 2.5vw, 2.2rem);
     font-weight: 400;
-    line-height: 1.08;
+    line-height: 1.12;
   }
 
   .dnd-accommodations-picker__intro p:last-child {
-    max-width: 62ch;
-    margin: 14px 0 0;
+    max-width: 58ch;
+    margin: 12px 0 0;
     color: #5d554b;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   .dnd-accommodations-picker__grid {
     display: grid;
-    gap: 18px;
+    gap: 14px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .dnd-region-picker-card {
     display: grid;
-    gap: 10px;
-    min-height: 192px;
-    padding: 22px 20px;
+    gap: 8px;
+    min-height: 168px;
+    padding: 18px;
     border: 1px solid rgba(217, 158, 43, 0.18);
-    border-radius: 22px;
+    border-radius: 18px;
     background: rgba(255, 251, 245, 0.96);
-    box-shadow: 0 18px 38px rgba(42, 31, 17, 0.08);
+    box-shadow: 0 10px 26px rgba(42, 31, 17, 0.06);
     transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   }
 
   .dnd-region-picker-card:hover,
   .dnd-region-picker-card:focus-visible {
     border-color: rgba(217, 158, 43, 0.4);
-    box-shadow: 0 24px 48px rgba(42, 31, 17, 0.12);
-    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(42, 31, 17, 0.09);
+    transform: translateY(-2px);
   }
 
   .dnd-region-picker-card__eyebrow {
@@ -372,13 +372,14 @@ const accommodationsStructuredData = {
 
   .dnd-region-picker-card__title {
     color: #1f2937;
-    font-size: 1.18rem;
+    font-size: 1.08rem;
     line-height: 1.25;
   }
 
   .dnd-region-picker-card__text {
     color: #5b5348;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
   .dnd-apts-anchor {
@@ -400,23 +401,23 @@ const accommodationsStructuredData = {
     --c-green-txt: #15803d;
     --c-purple-bg: #f3e8ff;
     --c-purple-txt: #6b21a8;
-    --radius: 20px;
-    --shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-    --shadow2: 0 25px 60px rgba(0, 0, 0, 0.12);
+    --radius: 16px;
+    --shadow: 0 8px 24px rgba(23, 18, 12, 0.06);
+    --shadow2: 0 14px 34px rgba(23, 18, 12, 0.1);
     --max: 1320px;
     --pad: 16px;
-    --gap: 22px;
+    --gap: 18px;
     --card-h: 100%;
-    --img-h: 330px;
-    --title: 21px;
+    --img-h: 300px;
+    --title: 20px;
     --chipfs: 11px;
     display: block !important;
     width: 100% !important;
     clear: both !important;
-    padding: 40px 0 62px;
+    padding: 32px 0 48px;
     color: var(--text);
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
 
   #dnd-apts-final * {
@@ -439,7 +440,7 @@ const accommodationsStructuredData = {
   #dnd-apts-final .dnd-section {
     display: block !important;
     width: 100% !important;
-    margin: 0 0 44px;
+    margin: 0 0 34px;
     scroll-margin-top: 120px;
   }
 
@@ -454,31 +455,31 @@ const accommodationsStructuredData = {
   }
 
   #dnd-apts-final .dnd-h2 {
-    margin: 0 0 8px;
-    font-size: 32px;
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    margin: 0 0 6px;
+    font-size: 29px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   #dnd-apts-final .dnd-sub {
     max-width: 900px;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     color: var(--muted);
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.55;
   }
 
   .dnd-region-block__header {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   .dnd-region-block__audience {
     margin: 0;
     color: #5b5348;
-    font-size: 0.98rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
   #dnd-apts-final .dnd-grid {
@@ -596,8 +597,8 @@ const accommodationsStructuredData = {
 
   #dnd-apts-final .dnd-info {
     display: grid;
-    gap: 12px;
-    padding: 16px 16px 18px;
+    gap: 10px;
+    padding: 15px 15px 16px;
     background: #fff;
   }
 
@@ -625,11 +626,12 @@ const accommodationsStructuredData = {
   .dnd-description {
     margin: 0;
     color: #4b5563;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.55;
   }
 
   .dnd-card-highlights {
-    display: none;
+    display: flex;
     flex-wrap: wrap;
     gap: 6px;
     align-content: flex-start;
@@ -684,7 +686,7 @@ const accommodationsStructuredData = {
     gap: 8px;
     margin-top: 2px;
     color: #b06200;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -711,16 +713,16 @@ const accommodationsStructuredData = {
   }
 
   .dnd-accommodations-closing {
-    margin: 100px 0 96px;
+    margin: 72px 0 80px;
   }
 
   .dnd-accommodations-closing__inner {
-    max-width: 700px;
+    max-width: 640px;
     margin: 0 auto;
-    padding: 52px 44px;
+    padding: 36px 30px;
     border: 1px solid rgba(217, 158, 43, 0.18);
-    border-radius: 24px;
-    background: #fff8ec;
+    border-radius: 18px;
+    background: #fdf8ef;
     text-align: center;
   }
 
@@ -728,18 +730,18 @@ const accommodationsStructuredData = {
     margin: 0;
     color: #1f2937;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2rem, 3vw, 3rem);
+    font-size: clamp(1.65rem, 2.4vw, 2.2rem);
     font-weight: 400;
-    line-height: 1.12;
+    line-height: 1.15;
     letter-spacing: -0.02em;
   }
 
   .dnd-accommodations-closing p {
-    max-width: 590px;
-    margin: 18px auto 28px;
+    max-width: 520px;
+    margin: 14px auto 22px;
     color: #5d554b;
-    font-size: 1.04rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.62;
   }
 
   .dnd-accommodations-closing__actions {
@@ -753,13 +755,13 @@ const accommodationsStructuredData = {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 54px;
-    padding: 0 28px;
+    min-height: 50px;
+    padding: 0 24px;
     border: 0;
     border-radius: 999px;
     background: #d99e2b;
     color: #111;
-    box-shadow: 0 16px 34px rgba(217, 158, 43, 0.24);
+    box-shadow: 0 10px 22px rgba(217, 158, 43, 0.18);
     cursor: pointer;
     font: inherit;
     font-weight: 700;
@@ -768,8 +770,8 @@ const accommodationsStructuredData = {
   }
 
   .dnd-accommodations-closing__cta:hover {
-    box-shadow: 0 20px 42px rgba(217, 158, 43, 0.32);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(217, 158, 43, 0.22);
+    transform: translateY(-1px);
   }
 
   .dnd-accommodations-closing__cta--secondary {
@@ -786,10 +788,10 @@ const accommodationsStructuredData = {
 
   .dnd-accommodations-closing__note {
     max-width: 520px;
-    margin: 16px auto 0;
+    margin: 12px auto 0;
     color: #766a5c;
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
 
   @media (hover: hover) {
@@ -838,46 +840,57 @@ const accommodationsStructuredData = {
 
   @media (max-width: 640px) {
     .dnd-accommodations-hero {
-      min-height: 240px;
-      background-position: center 20%;
+      min-height: 180px;
+      background-position: center 24%;
     }
 
     .dnd-accommodations-intro {
-      padding-top: 28px;
+      padding-top: 22px;
     }
 
     .dnd-accommodations-intro h1 {
-      max-width: 360px;
-      font-size: clamp(32px, 10vw, 42px);
+      max-width: 320px;
+      font-size: clamp(27px, 9vw, 38px);
     }
 
     .dnd-accommodations-intro__lead {
-      max-width: 340px;
-      font-size: 0.98rem;
+      max-width: 100%;
+      font-size: 0.95rem;
+      line-height: 1.55;
     }
 
     .dnd-accommodations-picker {
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .dnd-accommodations-picker__intro {
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+    }
+
+    .dnd-accommodations-picker__intro p:last-child {
+      font-size: 0.93rem;
+      line-height: 1.5;
     }
 
     .dnd-region-picker-card {
       min-height: auto;
-      gap: 8px;
-      padding: 18px 16px;
-      border-radius: 18px;
+      gap: 6px;
+      padding: 14px;
+      border-radius: 16px;
+    }
+
+    .dnd-region-picker-card__eyebrow {
+      font-size: 0.66rem;
+      line-height: 1.4;
     }
 
     .dnd-region-picker-card__title {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .dnd-region-picker-card__text {
-      font-size: 0.93rem;
-      line-height: 1.5;
+      font-size: 0.88rem;
+      line-height: 1.45;
     }
 
     .dnd-apts-anchor {
@@ -886,9 +899,9 @@ const accommodationsStructuredData = {
 
     #dnd-apts-final {
       --pad: 12px;
-      --gap: 14px;
-      --img-h: 220px;
-      padding-top: 34px;
+      --gap: 12px;
+      --img-h: 208px;
+      padding-top: 28px;
     }
 
     #dnd-apts-final .dnd-grid--3,
@@ -902,7 +915,7 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-section {
-      margin-bottom: 36px;
+      margin-bottom: 28px;
       scroll-margin-top: 96px;
     }
 
@@ -912,12 +925,12 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-info {
-      gap: 10px;
-      padding: 14px 14px 16px;
+      gap: 8px;
+      padding: 12px 12px 14px;
     }
 
     #dnd-apts-final .dnd-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .dnd-location {
@@ -929,7 +942,7 @@ const accommodationsStructuredData = {
     }
 
     .dnd-description {
-      font-size: 0.92rem;
+      font-size: 0.89rem;
       line-height: 1.5;
     }
 
@@ -938,7 +951,7 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-chip {
-      font-size: 10px;
+      font-size: 9.5px;
       padding: 5px 8px;
     }
 
@@ -966,7 +979,7 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-h2 {
-      font-size: 24px;
+      font-size: 22px;
     }
 
     #dnd-apts-final .dnd-eyebrow {
@@ -975,8 +988,8 @@ const accommodationsStructuredData = {
 
     #dnd-apts-final .dnd-sub,
     .dnd-region-block__audience {
-      font-size: 0.95rem;
-      line-height: 1.55;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
     #dnd-apts-final .dnd-badge {
@@ -987,16 +1000,16 @@ const accommodationsStructuredData = {
     }
 
     .dnd-accommodations-closing {
-      margin: 72px 0 72px;
+      margin: 56px 0 64px;
     }
 
     .dnd-accommodations-closing__inner {
-      padding: 40px 22px;
-      border-radius: 18px;
+      padding: 28px 18px;
+      border-radius: 16px;
     }
 
     .dnd-accommodations-closing p {
-      font-size: 0.98rem;
+      font-size: 0.94rem;
     }
 
     .dnd-accommodations-closing__actions {

@@ -31,10 +31,10 @@ export interface Accommodation {
 export const accommodationSections: AccommodationSection[] = [
   {
     key: "upland",
-    eyebrow: "Kisapáti · Szent György-hegy · Tapolcai-medence",
+    eyebrow: "Szent György-hegy · Tapolcai-medence · Kisapáti · Nemesgulács",
     title: "Tanúhegyek ölelésében",
     subtitle:
-      "Szőlősorok, tanúhegyek, csendes utcák és lassú reggelek adják ennek a tájnak a ritmusát. Itt a pihenés nem elszakadás, hanem megérkezés: panoráma, természetközeli nyugalom és a Balaton közelsége egy helyen.",
+      "Túraútvonalak, borászatok és többféle háztípus ugyanabban a térségben. Akkor jó választás, ha a Balaton-felvidék klasszikus oldalát keresed.",
     gridClass: "dnd-grid--3"
   },
   {
@@ -42,7 +42,7 @@ export const accommodationSections: AccommodationSection[] = [
     eyebrow: "Keszthely · Badacsonyörs · vízparti kikapcsolódás",
     title: "Balaton-parti könnyedség",
     subtitle:
-      "Itt a Balaton közelsége adja a ritmust: strandolás, naplementék, könnyebb nyári napok és kényelmes, jól megközelíthető szállások. A vízparti élmény itt modernebb, lazább és közvetlenebb formában érkezik.",
+      "Közelebb a strandokhoz, a kikötőkhöz és a balatoni programokhoz. Akkor jó választás, ha a vízpart és a kényelmes elérés is fontos.",
     gridClass: "dnd-grid--2"
   },
   {
@@ -50,7 +50,7 @@ export const accommodationSections: AccommodationSection[] = [
     eyebrow: "Köveskál · Káli-medence · elvonulós pihenés",
     title: "A Káli-medence csendjében",
     subtitle:
-      "Nyitott terek, kőfalak, különös fények és visszafogott vidéki hangulat teszik ezt a térséget igazán sajátossá. Nem harsány, nem sietős, inkább lassan és mélyen hat.",
+      "Köveskál és a Káli-medence nyugodtabb, falusias oldala. Akkor jó választás, ha kevésbé programközpontú, visszafogott pihenést keresel.",
     gridClass: "dnd-grid--1"
   }
 ];
@@ -61,17 +61,17 @@ export const accommodations: Accommodation[] = [
     slug: "dandelion-d2",
     url: "/dandelion-d2/",
     location: "Kisapáti / Balaton-felvidék",
-    description: "Családbarát pihenés a hegyek közelében, kerttel és nyugodt vidéki hangulattal.",
-    hoverText: "Családbarát pihenés a hegy lábánál, állatsimogatóval és dézsával.",
+    description: "Modern, családbarát apartman 4-6 főre nagy udvarral, dézsával és közeli kirándulóhelyekkel.",
+    hoverText: "4-6 főre, dézsával és állatsimogatóval.",
     imageSlot: "d2_card_image",
     section: "upland",
     chips: [
       { label: "4-6 fő", type: "accent" },
-      { label: "Klíma", type: "blue" },
-      { label: "Dézsa", type: "blue" },
-      { label: "Állatsimogató (kecskék)", type: "purple" },
-      { label: "Kandalló" },
       { label: "2 háló + nappali" },
+      { label: "Dézsa", type: "blue" },
+      { label: "Klíma", type: "blue" },
+      { label: "Állatsimogató", type: "purple" },
+      { label: "Kandalló" },
       { label: "Családbarát", type: "purple" }
     ]
   },
@@ -79,19 +79,19 @@ export const accommodations: Accommodation[] = [
     name: "Fügeház",
     slug: "fugehaz",
     url: "/fuge/",
-    location: "Balaton-felvidék",
-    description: "Meghitt, könnyen belakható vendégház csendes napokhoz és lassú reggelekhez.",
-    hoverText: "Hangulatos kuckó pároknak, panorámával és állatsimogatóval.",
+    location: "Szent György-hegy közelében",
+    description: "Panorámás vendégház 4-6 főre teraszokkal, dézsával és családi pihenéshez jó elrendezéssel.",
+    hoverText: "4-6 főre, panorámával és dézsával.",
     imageSlot: "fugehaz_card_image",
     section: "upland",
     chips: [
-      { label: "2-4 fő", type: "accent" },
+      { label: "4-6 fő", type: "accent" },
+      { label: "2 szint / 2 szoba" },
+      { label: "Panoráma", type: "green" },
       { label: "Klíma", type: "blue" },
       { label: "Dézsa", type: "blue" },
-      { label: "Állatsimogató (kecskék)", type: "purple" },
       { label: "Kandalló" },
-      { label: "2 szint / 2 szoba" },
-      { label: "Panoráma", type: "green" }
+      { label: "Állatsimogató", type: "purple" }
     ]
   },
   {
@@ -99,36 +99,36 @@ export const accommodations: Accommodation[] = [
     slug: "dandelion-d1",
     url: "/dandelion-d1/",
     location: "Kisapáti / Balaton-felvidék",
-    description: "Tágas vendégház közös pihenéshez, balatoni hétvégékhez és nyugodt estékhez.",
-    hoverText: "A nagy társaságok kedvence: hatalmas terek, kandalló, közös főzések.",
+    description: "Tágas vendégház 6-8 főre, három hálóval, panorámás terasszal és nagyobb társaságoknak is kényelmes elrendezéssel.",
+    hoverText: "6-8 főre, 3 hálóval és panorámás terasszal.",
     imageSlot: "d1_card_image",
     section: "upland",
     chips: [
       { label: "6-8 fő", type: "accent" },
-      { label: "Klíma", type: "blue" },
       { label: "3 szoba + nappali" },
+      { label: "Panorámás terasz", type: "green" },
+      { label: "Klíma", type: "blue" },
       { label: "2 fürdő" },
       { label: "Zárt parkoló" },
       { label: "Kandalló" },
-      { label: "Nagycsaládosoknak", type: "purple" },
-      { label: "Nagy telek", type: "green" }
+      { label: "Nagycsaládosoknak", type: "purple" }
     ]
   },
   {
     name: "Dandelion Szőlőliget",
     slug: "szololiget-vendeghaz",
     url: "/szololiget/",
-    location: "Balaton-felvidék",
-    description: "Vidéki hangulatú ház szőlők, tanúhegyek és nyári esték közé hangolva.",
-    hoverText: "Szőlőlugasok ölelésében, távol a város zajától.",
+    location: "Kisapáti / Szent György-hegy keleti oldala",
+    description: "Különálló ház 4 főre nagy terasszal és tanúhegy panorámával, ha nyugodtabb hegyoldali bázist keresel.",
+    hoverText: "4 főre, nagy terasszal és panorámával.",
     imageSlot: "szololiget_card_image",
     section: "upland",
     chips: [
       { label: "2-4 fő", type: "accent" },
-      { label: "Klíma", type: "blue" },
       { label: "1 háló + nappali" },
+      { label: "Panoráma", type: "green" },
+      { label: "Klíma", type: "blue" },
       { label: "Csendes", type: "purple" },
-      { label: "Természetközeli", type: "green" },
       { label: "Kilátás a Csobáncra", type: "green" }
     ]
   },
@@ -136,17 +136,17 @@ export const accommodations: Accommodation[] = [
     name: "Dandelion Zsálya",
     slug: "zsalya-vendeghaz",
     url: "/dandelion-zsalya/",
-    location: "Balaton-felvidék",
-    description: "Letisztult szállás azoknak, akik természetközeli, nyugodt kikapcsolódásra vágynak.",
-    hoverText: "Természetközeli hangulat, hatalmas tér a kikapcsolódáshoz.",
+    location: "Szent György-hegy keleti oldala / Kisapáti",
+    description: "Különálló vendégház 4 főre fedett terasszal, panorámával és nyugodt hegyoldali környezettel.",
+    hoverText: "4 főre, fedett terasszal és tanúhegy panorámával.",
     imageSlot: "zsalya_card_image",
     section: "upland",
     chips: [
       { label: "2-4 fő", type: "accent" },
-      { label: "Klíma", type: "blue" },
       { label: "2 háló + nappali" },
-      { label: "Hatalmas telek", type: "green" },
-      { label: "Nyugalom", type: "purple" },
+      { label: "Panoráma", type: "green" },
+      { label: "Klíma", type: "blue" },
+      { label: "Fedett terasz", type: "green" },
       { label: "Családbarát", type: "purple" }
     ]
   },
@@ -154,15 +154,17 @@ export const accommodations: Accommodation[] = [
     name: "Dandelion Vintage",
     slug: "vintage-vendeghaz",
     url: "/dandelion-vintage/",
-    location: "Balaton-felvidék",
-    description: "Otthonos vendégház klasszikus vidéki hangulattal és kényelmes elrendezéssel.",
-    hoverText: "Otthonos, vintage hangulatú pihenés a Balaton-felvidék csendesebb oldalán.",
+    location: "Nemesgulács / Balaton-felvidék",
+    description: "Kényelmes vendégház Nemesgulácson 2 hálóval, saját udvarral és balatoni programokhoz is jó kiindulóponttal.",
+    hoverText: "Nemesgulácson, 2 hálóval és saját udvarral.",
     imageSlot: "vintage_card_image",
     section: "upland",
     chips: [
       { label: "Vendégház", type: "accent" },
-      { label: "Csendes", type: "purple" },
-      { label: "Természetközeli", type: "green" },
+      { label: "2 háló + nappali" },
+      { label: "Saját udvar", type: "green" },
+      { label: "Klíma", type: "blue" },
+      { label: "Nemesgulács" },
       { label: "Vintage hangulat" }
     ]
   },
@@ -170,19 +172,19 @@ export const accommodations: Accommodation[] = [
     name: "Dandelion Royal Homes",
     slug: "royal-homes",
     url: "/royal/",
-    location: "Balaton-part",
-    description: "Kényelmes, igényes szálláshely páros vagy családi pihenéshez.",
-    hoverText: "Luxus kivitel a Balaton mellett, pezsgőfürdős kényeztetéssel.",
+    location: "Keszthely / Balaton-part",
+    description: "Prémium apartman 4-6 főre saját parti mólóval, nagy terasszal és tetőteraszos jakuzzival.",
+    hoverText: "4-6 főre, saját mólóval és tetőteraszos jakuzzival.",
     imageSlot: "royal_homes_card_image",
     section: "shore",
     chips: [
       { label: "4-6 fő", type: "accent" },
       { label: "Közvetlen vízpart", type: "blue" },
+      { label: "2 háló + nappali" },
       { label: "Jakuzzi a tetőteraszon", type: "blue" },
-      { label: "Hatalmas erkély", type: "green" },
       { label: "Klíma", type: "blue" },
+      { label: "Nagy terasz", type: "green" },
       { label: "Padlófűtés" },
-      { label: "Ultramodern", type: "purple" },
       { label: "Keszthely" }
     ]
   },
@@ -190,16 +192,17 @@ export const accommodations: Accommodation[] = [
     name: "Dandelion Szépvölgyi",
     slug: "szepvolgyi-vendeghaz",
     url: "/szepvolgyi/",
-    location: "Balaton-part",
-    description: "Nyugodt kiindulópont a Tapolcai-medence és a Balaton-felvidék felfedezéséhez.",
-    hoverText: "Nagyvonalú terek Badacsonyörsön, pár percre a strandtól.",
+    location: "Badacsonyörs / Szépvölgyi út",
+    description: "Tágas nyaraló 8 főre, 4 hálóval, balatoni panorámával és strandközeli elhelyezkedéssel.",
+    hoverText: "8 főre, 4 hálóval és balatoni panorámával.",
     imageSlot: "szepvolgyi_card_image",
     section: "shore",
     chips: [
       { label: "8 fő", type: "accent" },
+      { label: "4 háló + nappali" },
+      { label: "Balatoni panoráma", type: "green" },
       { label: "Klíma", type: "blue" },
       { label: "Strand 5p autó", type: "blue" },
-      { label: "4 háló + nappali" },
       { label: "2 fürdő" },
       { label: "Nagy udvar", type: "green" },
       { label: "Badacsonyörs" }
@@ -210,17 +213,17 @@ export const accommodations: Accommodation[] = [
     slug: "dandelion-koveskal",
     url: "/dandelion-koveskal/",
     location: "Köveskál / Káli-medence",
-    description: "Elvonulós vendégház a Káli-medence csendesebb, lassabb ritmusára hangolva.",
-    hoverText: "Kőfalak, nyitott terek és igazi káli-medencei nyugalom egy helyen.",
+    description: "Nyugodt vendégház Köveskálon, jó kiindulóponttal a Káli-medence falvaihoz, túráihoz és boros megállóihoz.",
+    hoverText: "Köveskálon, visszafogott pihenéshez.",
     imageSlot: "koveskal_card_image",
     section: "kali",
     chips: [
       { label: "Vendégház", type: "accent" },
+      { label: "Köveskál" },
       { label: "Káli-medence", type: "green" },
-      { label: "Csendes", type: "purple" },
       { label: "Természetközeli", type: "green" },
       { label: "Elvonuláshoz ideális", type: "purple" },
-      { label: "Köveskál" }
+      { label: "Nyugodt falu", type: "purple" }
     ]
   }
 ];
