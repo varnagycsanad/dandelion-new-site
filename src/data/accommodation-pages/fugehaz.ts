@@ -2,6 +2,7 @@ import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:10] Fugehaz page copy refined with premium Hungarian positioning and shared panoramic pool message.
+// [CHANGE 2026-05-16 15:40] Fügeház hero kapott adatvezérelt panoráma medence kiemelést a shared template-hez.
 export const fugehazPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Fügeház | Panorámás vendégház a Balaton-felvidéken",
@@ -22,6 +23,14 @@ export const fugehazPageData: AccommodationPageData = {
     titleAccent: "Fügeház",
     subtitle: "PANORÁMÁS PIHENÉS A TANÚHEGYEK KÖZELÉBEN",
     lead: "Panorámás családi vendégház a Szent György-hegy közelében, teraszokkal, grillezési lehetőséggel és 2026. június 1-től közös panorámás medencével. A Fügeház 4 főnek kényelmes, pótággyal akár 6 fő számára is alkalmas.",
+    poolHighlight: {
+      enabled: true,
+      label: "Panoráma medence a ház melletti dombon",
+      text: "2026. június 1-től a Fügeház vendégei is használhatják a közeli panoráma medencét.",
+      href: "/panorama-pool/",
+      ctaLabel: "Medence oldal megnyitása",
+      variant: "strong"
+    },
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },

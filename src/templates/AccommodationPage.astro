@@ -217,6 +217,23 @@ const accommodationStructuredData = [
         <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
         <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
         <p class="d2-hero__lead">{pageData.hero.lead}</p>
+        {/* [CHANGE 2026-05-16 15:40] Opcionális, adatvezérelt panoráma medence kiemelés a shared hero-ban slug-hardcode és külön hero layout nélkül. */}
+        {pageData.hero.poolHighlight?.enabled && (
+          <div
+            class:list={[
+              "d2-hero__pool-highlight",
+              pageData.hero.poolHighlight.variant === "strong" && "d2-hero__pool-highlight--strong"
+            ]}
+          >
+            <p class="d2-hero__pool-label">{pageData.hero.poolHighlight.label}</p>
+            {pageData.hero.poolHighlight.text && (
+              <p class="d2-hero__pool-text">{pageData.hero.poolHighlight.text}</p>
+            )}
+            <a class="d2-hero__pool-link" href={pageData.hero.poolHighlight.href}>
+              {pageData.hero.poolHighlight.ctaLabel || pageData.hero.poolHighlight.href}
+            </a>
+          </div>
+        )}
         {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
         {pageData.hero.supportingLink && (
           <p class="d2-hero__supporting-link">
@@ -969,6 +986,60 @@ const accommodationStructuredData = [
     font-size: 0.98rem;
     line-height: 1.66;
     color: rgba(253, 251, 247, 0.92);
+  }
+
+  .d2-hero__pool-highlight {
+    display: grid;
+    gap: 8px;
+    max-width: 34rem;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(217, 158, 43, 0.72);
+    border-radius: 8px;
+    background: rgba(24, 18, 13, 0.34);
+    box-shadow: 0 14px 30px rgba(17, 12, 9, 0.12);
+    backdrop-filter: blur(6px);
+  }
+
+  .d2-hero__pool-highlight--strong {
+    border-color: rgba(217, 158, 43, 0.92);
+    background: linear-gradient(180deg, rgba(42, 30, 16, 0.72), rgba(24, 18, 13, 0.52));
+  }
+
+  .d2-hero__pool-label,
+  .d2-hero__pool-text {
+    margin: 0;
+  }
+
+  .d2-hero__pool-label {
+    color: #f6d488;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .d2-hero__pool-text {
+    color: rgba(253, 251, 247, 0.92);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .d2-hero__pool-link {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    color: #fdfbf7;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    text-decoration: underline;
+    text-decoration-color: rgba(217, 158, 43, 0.9);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+    text-transform: uppercase;
   }
 
   .d2-hero__supporting-link {
@@ -1866,6 +1937,28 @@ const accommodationStructuredData = [
       margin-top: 9px;
       font-size: 0.84rem;
       line-height: 1.44;
+    }
+
+    .d2-hero__pool-highlight {
+      gap: 7px;
+      max-width: min(100%, 24rem);
+      margin-top: 10px;
+      padding: 11px 12px;
+    }
+
+    .d2-hero__pool-label {
+      font-size: 0.7rem;
+      line-height: 1.3;
+    }
+
+    .d2-hero__pool-text {
+      font-size: 0.8rem;
+      line-height: 1.42;
+    }
+
+    .d2-hero__pool-link {
+      font-size: 0.7rem;
+      line-height: 1.22;
     }
 
     .d2-hero__supporting-link {

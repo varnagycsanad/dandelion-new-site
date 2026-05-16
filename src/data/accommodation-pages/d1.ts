@@ -2,6 +2,7 @@ import type { AccommodationPageData } from "./types";
 import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets";
 
 // [CHANGE 2026-05-06 22:00] D1 accommodation data added for shared AccommodationPage template with panoramic pool messaging.
+// [CHANGE 2026-05-16 15:40] D1 hero kapott adatvezérelt panoráma medence kiemelést a shared template-hez.
 export const d1PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D1 Kisapáti | Panorámás vendégház medencével",
@@ -22,6 +23,14 @@ export const d1PageData: AccommodationPageData = {
     titleAccent: "D1",
     subtitle: "PANORÁMÁS, TÁGAS VENDÉGHÁZ NAGYOBB CSALÁDOKNAK",
     lead: "A Dandelion D1 az egyik legtágasabb vendégházunk Kisapátin, akár 8 fő részére. Három kétfős hálószoba, nappali kihúzható kanapéval, panorámás terasz, grillezési lehetőség és 2026. június 1-től közös panorámás medence várja a vendégeket.",
+    poolHighlight: {
+      enabled: true,
+      label: "Panoráma medence a ház melletti dombon",
+      text: "2026. június 1-től a D1 vendégei is használhatják a közeli panoráma medencét.",
+      href: "/panorama-pool/",
+      ctaLabel: "Medence oldal megnyitása",
+      variant: "strong"
+    },
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },

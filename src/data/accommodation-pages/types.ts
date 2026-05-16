@@ -23,6 +23,15 @@ export interface AccommodationPageLocationBenefit {
   icon: string;
 }
 
+export interface AccommodationPagePoolHighlight {
+  enabled: boolean;
+  label: string;
+  text?: string;
+  href: string;
+  ctaLabel?: string;
+  variant?: "default" | "strong";
+}
+
 export type AccommodationPageRelatedStayImage =
   | {
       type: "mapping";
@@ -60,6 +69,7 @@ export interface AccommodationPageData {
       label: string;
       href: string;
     };
+    poolHighlight?: AccommodationPagePoolHighlight;
     video?: {
       desktop: string;
       mobile: string;
