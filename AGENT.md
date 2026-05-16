@@ -1,6 +1,7 @@
 [CHANGE 2026-05-03 00:00] DANDELION_MASTER_RULES logikai szétbontás: AGENT csak execution szabályokat tartalmaz.
 [CHANGE 2026-05-16 13:25] WordPress media utalás semlegesítve legacy media tiltássá.
 [CHANGE 2026-05-16 14:30] Deploy concurrency szabály rögzítve: futó deploy nem szakítható meg új push miatt.
+[CHANGE 2026-05-16 14:45] Régi /ujsite teszt deploy szöveg root deploy szabályra frissítve.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -81,15 +82,16 @@ TILOS:
 
 A projekt publikus része static buildként készül.
 
+Jelenlegi publish cél:
+- szerveren: éles dokumentumgyökér / root target
+- publikus URL: `https://dandelionhouse.hu/`
+- a régi `/ujsite/` csak legacy tesztútvonal, nem aktuális deploy cél
+
 Workflow:
 1. Codex a helyi projektmappában dolgozik
 2. helyi build fut
-3. a kész `dist/` tartalma kerül feltöltésre a szerverre
-4. böngészős ellenőrzés az almappás teszt URL-en
-
-Jelenlegi teszt publish cél:
-- szerveren: `/ujsite/`
-- publikus teszt URL: `https://dandelionhouse.hu/ujsite/`
+3. a kész `dist/` tartalma kerül feltöltésre az éles root célra
+4. böngészős ellenőrzés az éles root URL-en
 
 FONTOS:
 - a szerverre nem a teljes projekt kerül fel
@@ -99,13 +101,15 @@ FONTOS:
 - kizárólag a `dist` BELSEJE
 
 Elvárt szerverstruktúra:
-- `/ujsite/index.html`
-- `/ujsite/_astro/...`
-- `/ujsite/favicon.ico`
-- `/ujsite/favicon.svg`
+- `/index.html`
+- `/_astro/...` vagy aktuális buildelt asset útvonal
+- `/favicon.ico`
+- `/favicon.svg`
 
 NEM jó:
+- `/dist/index.html`
 - `/ujsite/dist/index.html`
+- root deploy helyett legacy `/ujsite/` célra feltöltés
 
 ---
 
@@ -238,18 +242,21 @@ Ha a task adminra szól:
 
 ## STATIC DEPLOY RULE
 
-Publikus tasknál a Codexnek mindig figyelembe kell vennie, hogy a site jelenleg almappába deployolódik:
+Publikus tasknál a Codexnek mindig figyelembe kell vennie, hogy a site jelenleg root célra deployolódik.
 
 Base deploy target:
-`/ujsite/`
+`/`
+
+Legacy tesztútvonal:
+`/ujsite/` csak régi kontextus, nem aktuális publish cél.
 
 Ennek következménye:
-- asset útvonalaknak működniük kell almappában
+- asset útvonalaknak működniük kell root alatt
 - static buildnek `dist` kimenetet kell adnia
 - a publikus site nem támaszkodhat SSR-re
 - a publikus site nem támaszkodhat Astro API route-ra runtime-ban
 
-Ha a publikus build azért törik el, mert root pathra épül almappa helyett:
+Ha a publikus build azért törik el, mert legacy almappás célra épül root helyett:
 - ezt config szinten, minimális diff-fel kell javítani
 
 ---
@@ -323,7 +330,7 @@ STOP ha:
 - nincs encoding hiba
 - diff kicsi
 - build ok
-- almappa működik
+- root URL működik
 
 ---
 
