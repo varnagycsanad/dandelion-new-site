@@ -1,4 +1,4 @@
-# 01 – OLDALTÉRKÉP
+# 00 - PROJEKT ALAP
 
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12

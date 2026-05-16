@@ -348,7 +348,8 @@ RESULT
 ## MANUAL PUBLISH CONTEXT
 
 - user tölti fel
-- Codex nem deployol
+- Codex nem manual FTP deployol
+- Codex kezelheti a git push utani CI deploy workflow szabalyait
 - dist-nek önmagában működnie kell
 
 ---

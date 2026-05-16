@@ -200,7 +200,7 @@ Második verzióban készíthet `ImageAsset` registry draftot, de:
 - Rossz crop/focusPoint: hero/card/thumb képnél könnyen levághat fontos részletet.
 - SEO még nem approved: képek nem kerülhetnek végleges frontend registrybe jóváhagyott SEO adatok nélkül.
 - Windows útvonalak: a scriptnek kezelnie kell a `\` és `/` különbségét.
-- Almappás `/ujsite/` deploy: public path és build/deploy URL viszonyát külön ellenőrizni kell.
+- Root deploy: a public path és a build/deploy URL viszonyát külön ellenőrizni kell.
 - Public path vs local filesystem path: `/images/...` webes path, míg íráskor `public/images/...` lokális path kell.
 - Local preview path nem frontend path: project-docs HTML segédanyagok relatív útjai nem használhatók frontend logikának.
 - Batch feldolgozás túl korán: a D2 pilot előtt nem szabad minden selected képet egyszerre konvertálni.
