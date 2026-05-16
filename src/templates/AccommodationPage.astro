@@ -65,6 +65,49 @@ function inferFactIconKey(term: string, value: string) {
   return "spark";
 }
 
+function normalizeDescriptionText(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function tokenizeDescriptionText(value: string) {
+  return normalizeDescriptionText(value)
+    .split(" ")
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 3);
+}
+
+function areDescriptionsSimilar(first?: string, second?: string) {
+  if (!first || !second) return false;
+
+  const normalizedFirst = normalizeDescriptionText(first);
+  const normalizedSecond = normalizeDescriptionText(second);
+
+  if (!normalizedFirst || !normalizedSecond) return false;
+  if (normalizedFirst === normalizedSecond) return true;
+  if (normalizedFirst.includes(normalizedSecond) || normalizedSecond.includes(normalizedFirst)) return true;
+
+  const firstTokens = new Set(tokenizeDescriptionText(first));
+  const secondTokens = new Set(tokenizeDescriptionText(second));
+
+  if (firstTokens.size === 0 || secondTokens.size === 0) return false;
+
+  let sharedTokens = 0;
+  for (const token of firstTokens) {
+    if (secondTokens.has(token)) {
+      sharedTokens += 1;
+    }
+  }
+
+  const overlapRatio = sharedTokens / Math.min(firstTokens.size, secondTokens.size);
+  return overlapRatio >= 0.72;
+}
+
 function resolveDecisionPanelImage(
   experience?: AccommodationPageData["decisionPanel"] extends infer T
     ? T extends { featuredExperience?: infer U }
@@ -177,6 +220,19 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
+const introLead = pageData.intro.lead?.trim() || "";
+const shortDescription = pageData.details.shortDescription?.trim() || "";
+const visibleDetailsSummary = shortDescription || introLead;
+const detailsLongDescription = (pageData.details.longDescription || [])
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean)
+  .filter((paragraph, index) => {
+    if (index === 0 && areDescriptionsSimilar(paragraph, introLead)) {
+      return false;
+    }
+
+    return !areDescriptionsSimilar(paragraph, visibleDetailsSummary);
+  });
 const accommodationListingHref = `${baseHref}szallasok/`;
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const canonicalPath = getCanonicalPath(Astro.url.pathname);
@@ -509,18 +565,17 @@ const accommodationStructuredData = [
         <div class="d2-details__story">
           <span class="dnd-section-kicker">{pageData.details.kicker}</span>
           <h2 class="d2-section-title">{pageData.details.title}</h2>
-          <p class="d2-details__lead">{pageData.intro.lead}</p>
-          <p class="d2-details__summary">{pageData.details.shortDescription}</p>
+          {visibleDetailsSummary && <p class="d2-details__summary">{visibleDetailsSummary}</p>}
           {pageData.details.supportingLink && (
             <a class="d2-details__inline-link" href={pageData.details.supportingLink.href}>
               {pageData.details.supportingLink.label}
             </a>
           )}
-          {pageData.details.longDescription.length > 0 && (
+          {detailsLongDescription.length > 0 && (
             <details class="d2-details__more">
               <summary>{pageData.details.moreLabel}</summary>
               <div>
-                {pageData.details.longDescription.map((paragraph) => (
+                {detailsLongDescription.map((paragraph) => (
                   <p>{paragraph}</p>
                 ))}
               </div>
