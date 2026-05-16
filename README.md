@@ -1,43 +1,122 @@
-# Astro Starter Kit: Minimal
+[CHANGE 2026-05-16 13:40] Gyári Astro README lecserélve Dandelion projekt README-re.
 
-```sh
-npm create astro@latest -- --template minimal
-```
+# Dandelion új honlap
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Ez a repo a Dandelion Vendégházak új, Astro-alapú weboldalának forrása.
 
-## 🚀 Project Structure
+## Projekt célja
 
-Inside of your Astro project, you'll see the following folders and files:
+Gyors, modern, keresőoptimalizált, statikus weboldal a Dandelion Vendégházak számára.
+
+Fő irány:
+- Astro static build
+- fájlalapú képkezelés
+- központi image registry
+- lakásoldalak közös sablonból
+- kontrollált, kis lépésekben végzett fejlesztés
+
+## Source of truth
+
+A forrás mindig a projektmappa tartalma:
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+public/
+project-docs/
+config fájlok
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+A `dist/` nem forráskód.
+A `dist/` csak build output, kézzel nem szerkeszthető.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Lokális workspace
 
-Any static assets, like images, can be placed in the `public/` directory.
+```text
+C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site
+```
 
-## 🧞 Commands
+Codex / fejlesztési task esetén ez a kötelező workspace lock.
 
-All commands are run from the root of the project, from a terminal:
+## Fontos szabályfájlok
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+A projekt működését ezek a fájlok szabályozzák:
 
-## 👀 Want to learn more?
+```text
+AGENT.md
+DANDELION_RULES.md
+DANDELION_CHATGPT_RULES.md
+project-docs/DANDELION_MASTER_RULES.md
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Szerepük röviden:
+
+- `AGENT.md` → végrehajtás, scope, build, git, STOP szabályok
+- `DANDELION_RULES.md` → design, layout, képkezelés, lakásoldali struktúra
+- `DANDELION_CHATGPT_RULES.md` → ChatGPT/Codex munkamód, SEO draft értelmezés
+- `project-docs/DANDELION_MASTER_RULES.md` → történeti / projekt-szabály összefoglaló, külön auditálandó
+
+## Alap parancsok
+
+```sh
+npm install
+npm run dev
+npm run build
+npm run preview
+```
+
+Publikus frontend módosítás után általában kötelező:
+
+```sh
+npm run build
+```
+
+## Deploy elv
+
+A weboldal statikus buildként készül.
+
+Alapelv:
+
+1. forrás módosítása a repo/projektmappában
+2. `npm run build`
+3. a `dist/` tartalma kerül publikálásra
+4. `dist/` fájlt nem javítunk kézzel
+
+## Képkezelési irány
+
+A frontend képkezelés file-based rendszerben működik.
+
+Elvárt irány:
+- optimalizált WebP képek
+- központi image registry
+- apartmentKey-alapú lakásoldali képek
+- külön hero / mobile hero / gallery / thumbnail logika
+- AI SEO draft csak draftként, `approved: false` állapotban
+
+Tilos visszahozni régi legacy media / admin / REST / runtime képforrás logikát a publikus frontendbe.
+
+## Lakásoldalak
+
+A lakásoldalak nem készülhetnek kézi másolással.
+
+Irány:
+
+```text
+src/templates/AccommodationPage.astro
+src/data/accommodations/*.ts
+src/data/images/...
+```
+
+A page fájlok csak vékony wrapperként működhetnek.
+
+## Fejlesztési elv
+
+1 task = 1 logikai módosítás.
+
+Kerülendő:
+- nagy refaktor
+- design újragondolás
+- mellékes javítás
+- teljes fájl újraformázás
+- több terület összekeverése
+
+Ha a task túl nagy vagy scope-ot váltana: STOP.
