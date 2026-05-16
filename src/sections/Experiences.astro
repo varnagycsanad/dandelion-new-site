@@ -5,31 +5,32 @@ import wineTourImage from "../assets/accommodations/szololiget/gallery/dandelion
 import balatonImage from "../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
 import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
 
+// [CHANGE 2026-05-16 11:45] Homepage experiences copy rövidítve és természetesebbre véve.
 const experiences = [
   {
     title: "BICIKLI",
-    description: "Falvak és panorámás bringás kitérők.",
+    description: "Bringás körök falvak, szőlősorok és panorámák között.",
     image: bikingImage,
     imageAlt: "Kerékpár vidéki környezetben",
     href: "/elmenyek/kerekpar/"
   },
   {
-    title: "BOR ÉS PANORÁMA",
-    description: "Pincék, borteraszok és naplementés megállók.",
+    title: "BOR ÉS GASZTRONÓMIA",
+    description: "Pincék, borteraszok és jó megállók a környéken.",
     image: wineTourImage,
     imageAlt: "Borospohár, palack és szőlő",
     href: "/elmenyek/bor-es-panorama/"
   },
   {
     title: "BALATON",
-    description: "Strandok, esti séták és vízi programok.",
+    description: "Fürdés, esti séták és könnyű nyári programok.",
     image: balatonImage,
     imageAlt: "Naplementés vízparti hangulat",
     href: "/elmenyek/balaton/"
   },
   {
     title: "TANÚHEGYEK",
-    description: "Kilátók, rövid séták és csendes túrák.",
+    description: "Kilátók, rövid túrák és csendes ösvények.",
     image: mountainsImage,
     imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
     href: "/elmenyek/tanuhegyek/"
@@ -42,7 +43,7 @@ const experiences = [
     <div class="dnd-experiences__intro">
       <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
       <p class="dnd-experiences__lead">
-        Négy gyors belépőpont, külön aloldalakkal: bringa, bor, Balaton és tanúhegyek.
+        Bringa, bor, Balaton és tanúhegyek a környék legjobb ritmusában.
       </p>
       <a href="/elmenyek/" class="dnd-experiences__cta">ÖSSZES ÉLMÉNY</a>
     </div>
@@ -99,10 +100,10 @@ const experiences = [
   }
 
   .dnd-experiences__lead {
-    margin: 32px auto 0;
-    max-width: 28ch;
-    font-size: 1rem;
-    line-height: 1.72;
+    margin: 24px auto 0;
+    max-width: 30ch;
+    font-size: 0.96rem;
+    line-height: 1.6;
     color: rgba(0, 0, 0, 0.6);
   }
 
@@ -192,10 +193,10 @@ const experiences = [
   }
 
   .dnd-experience-card p {
-    margin: 12px 0 0;
-    max-width: 22ch;
+    margin: 10px 0 0;
+    max-width: 20ch;
     font-size: 0.88rem;
-    line-height: 1.5;
+    line-height: 1.42;
     color: rgba(0, 0, 0, 0.58);
   }
 
@@ -238,7 +239,7 @@ const experiences = [
     .dnd-experiences__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 28px;
+      margin-top: 24px;
     }
 
     .dnd-experience-card__body {
@@ -260,9 +261,9 @@ const experiences = [
     }
 
     .dnd-experience-card p {
-      margin-top: 10px;
-      font-size: 0.75rem;
-      line-height: 1.35;
+      margin-top: 8px;
+      font-size: 0.74rem;
+      line-height: 1.3;
     }
 
     .dnd-experience-card__mobile-cta {

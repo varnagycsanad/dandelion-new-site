@@ -5,14 +5,21 @@ import balatonStoryImage from "../assets/home/region-stories/dandelion-home-bala
 import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
 
+const regionStoryWidths = [480, 768, 1040, 1600];
+const regionStorySizes =
+  "(max-width: 767px) min(100vw - 24px, 420px), (max-width: 1100px) calc(100vw - 48px), 1040px";
+const stickyImageWidths = [768, 1280, 1920, 2400];
+const stickyImageSizes = "100vw";
+
+// [CHANGE 2026-05-16 11:45] Homepage region copy rövidítve és konkrétabbá téve.
 const regionStories = [
   {
     kicker: "Kisapáti · Szent György-hegy · Tapolcai-medence",
     title: "Tanúhegyek ölelésében",
     description:
-      "Szőlősorok, tanúhegyek, keskeny utak és lassú reggelek adják ennek a térségnek a ritmusát. Olyan hely ez, ahol a megérkezés legalább annyira fontos, mint maga a pihenés.",
-    meta: "Természetközeli nyugalom, panoráma és esti borozások hangulata.",
-    ctaLabel: "Szent György-hegy és környéke",
+      "Szőlősorok, hegyek és lassabb reggelek. Itt a csend, a panoráma és a kis falvak adják a pihenés alapját.",
+    meta: "Kisapáti és a Tapolcai-medence nyugodt oldala.",
+    ctaLabel: "Szállások a tanúhegyeknél",
     ctaHref: "/szallasok#tanuhegyek",
     image: kisapatiStoryImage,
     imageAlt: "Kisapáti és a tanúhegyek drónfelvételen a Tapolcai-medencében"
@@ -21,9 +28,9 @@ const regionStories = [
     kicker: "Keszthely · Badacsonyörs",
     title: "A Balaton közelében",
     description:
-      "Itt a víz közelsége, a könnyű programok és a balatoni fények adják a pihenés alapját. Kicsit nyitottabb, lazább világ, amelyben mégis megmarad a Dandelion-féle csend és kényelem.",
-    meta: "Balatoni hangulat, könnyed kikapcsolódás és természetes nyári ritmus.",
-    ctaLabel: "Balaton közeli pihenés",
+      "A víz közelsége, könnyű programok és balatoni esték adják a ritmust. Lazább, nyitottabb világ, mégis nyugodt Dandelion-hangulattal.",
+    meta: "Keszthely és Badacsonyörs környéke könnyű nyári napokhoz.",
+    ctaLabel: "Szállások a Balaton közelében",
     ctaHref: "/szallasok#balaton-mellett",
     image: balatonStoryImage,
     imageAlt: "Royal Homes vízparti apartmanok saját mólóval a Balaton közelében"
@@ -32,9 +39,9 @@ const regionStories = [
     kicker: "Köveskál · Káli-medence",
     title: "A Káli-medence csendjében",
     description:
-      "Nyitott terek, kőfalak, különös fények és visszafogott vidéki hangulat teszik ezt a térséget igazán sajátossá. Nem harsány, nem sietős, inkább lassan és mélyen hat.",
-    meta: "Elvonuláshoz, feltöltődéshez és tiszta, csendes jelenléthez való.",
-    ctaLabel: "Káli-medencei menedékek",
+      "Kőfalak, csendes utcák és tágas táj. A Káli-medence inkább elvonulós, lassabb tempójú pihenést ad.",
+    meta: "Köveskál környéke csendhez és lelassuláshoz.",
+    ctaLabel: "Szállások a Káli-medencében",
     ctaHref: "/szallasok#kali-medence",
     image: kaliStoryImage,
     imageAlt: "Káli-medence tájképe"
@@ -48,9 +55,7 @@ const regionStories = [
       <span class="dnd-section-kicker">Szállások</span>
       <h2 class="dnd-region-stories__heading">Nem egy helyszín, három külön világ</h2>
       <p class="dnd-region-stories__lead">
-        Vendégházaink a Balaton-felvidék több karakteres térségében találhatók. Van, ahol a tanúhegyek
-        adják a hátteret, van, ahol a Balaton közelsége, és van, ahol a csendes Káli-medence hangulata
-        viszi a prímet.
+        Három térség, háromféle pihenés: tanúhegyek, Balaton közeli házak és csendes káli falvak.
       </p>
     </div>
 
@@ -62,6 +67,8 @@ const regionStories = [
             src={stickyBackgroundImage}
             alt="Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve"
             loading="lazy"
+            widths={stickyImageWidths}
+            sizes={stickyImageSizes}
           />
         </div>
       </div>
@@ -71,7 +78,13 @@ const regionStories = [
       {regionStories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
-            <Image src={story.image} alt={story.imageAlt} loading="lazy" />
+            <Image
+              src={story.image}
+              alt={story.imageAlt}
+              loading="lazy"
+              widths={regionStoryWidths}
+              sizes={regionStorySizes}
+            />
           </div>
 
           <div class="dnd-region-story__panel">
@@ -150,9 +163,9 @@ const regionStories = [
   }
 
   .dnd-region-stories__lead {
-    max-width: 62ch;
-    margin: 22px auto 0;
-    line-height: 1.72;
+    max-width: 48ch;
+    margin: 18px auto 0;
+    line-height: 1.6;
     color: rgba(0, 0, 0, 0.7);
   }
 
@@ -227,11 +240,11 @@ const regionStories = [
   }
 
   .dnd-region-story__description {
-    margin: 18px 0 0;
+    margin: 16px 0 0;
   }
 
   .dnd-region-story__meta {
-    margin: 14px 0 0;
+    margin: 10px 0 0;
     color: rgba(0, 0, 0, 0.62);
   }
 
