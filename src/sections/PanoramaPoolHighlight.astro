@@ -1,0 +1,198 @@
+<section class="pool-highlight dnd-section" aria-labelledby="pool-highlight-title">
+  <div class="dnd-container">
+    <div class="pool-highlight__shell">
+      <div class="pool-highlight__content">
+        <span class="dnd-section-kicker pool-highlight__kicker">ÚJ 2026-TÓL</span>
+        <h2 id="pool-highlight-title" class="pool-highlight__title">
+          Panoráma medence a Szent György-hegy oldalában
+        </h2>
+        <p class="pool-highlight__text">
+          A D1, D2 és Fügeház vendégei 2026. június 1-től a házak melletti dombon található panoráma
+          medencét is használhatják. Egy nyugodt hely napozáshoz, fürdéshez és a tanúhegyek látványához.
+        </p>
+        <a href="/panorama-pool/" class="dnd-btn dnd-btn--primary pool-highlight__cta">
+          Megnézem a medencét
+        </a>
+      </div>
+
+      <div class="pool-highlight__visual" aria-hidden="true">
+        <div class="pool-highlight__card">
+          <span class="pool-highlight__card-label">Elérhető</span>
+          <strong>D1, D2 és Fügeház</strong>
+          <p>2026. június 1-től használható panoráma medence csendes, napos környezetben.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pool-highlight {
+    padding-top: 32px;
+    padding-bottom: 34px;
+  }
+
+  .pool-highlight__shell {
+    display: grid;
+    gap: 22px;
+    align-items: center;
+    padding: 28px;
+    border: 1px solid rgba(120, 91, 50, 0.14);
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at top left, rgba(217, 158, 43, 0.14), transparent 30%),
+      linear-gradient(135deg, rgba(255, 252, 246, 0.98), rgba(245, 237, 223, 0.94));
+    box-shadow: 0 18px 40px rgba(85, 61, 33, 0.08);
+    overflow: hidden;
+  }
+
+  .pool-highlight__content {
+    max-width: 680px;
+  }
+
+  .pool-highlight__kicker {
+    margin-bottom: 14px;
+  }
+
+  .pool-highlight__title {
+    margin: 0;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.9rem, 3vw, 2.65rem);
+    line-height: 1.08;
+    font-weight: 500;
+    color: #2f2418;
+  }
+
+  .pool-highlight__text {
+    margin: 14px 0 0;
+    max-width: 58ch;
+    font-size: 1rem;
+    line-height: 1.72;
+    color: rgba(47, 36, 24, 0.78);
+  }
+
+  .pool-highlight__cta {
+    margin-top: 22px;
+    min-width: 220px;
+  }
+
+  .pool-highlight__visual {
+    position: relative;
+    min-height: 180px;
+    border-radius: 10px;
+    background:
+      radial-gradient(circle at 24% 26%, rgba(217, 158, 43, 0.26), transparent 18%),
+      radial-gradient(circle at 76% 30%, rgba(255, 255, 255, 0.72), transparent 18%),
+      linear-gradient(160deg, rgba(195, 168, 121, 0.24), rgba(241, 232, 215, 0.78));
+    border: 1px solid rgba(120, 91, 50, 0.12);
+    display: grid;
+    align-items: end;
+    padding: 18px;
+  }
+
+  .pool-highlight__visual::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 999px 999px 18px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    opacity: 0.7;
+  }
+
+  .pool-highlight__visual::after {
+    content: "";
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(147, 188, 205, 0.42), rgba(96, 147, 171, 0.62));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  }
+
+  .pool-highlight__card {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    max-width: 280px;
+    padding: 18px 18px 16px;
+    border-radius: 10px;
+    background: rgba(255, 252, 246, 0.9);
+    border: 1px solid rgba(120, 91, 50, 0.12);
+    box-shadow: 0 14px 30px rgba(85, 61, 33, 0.1);
+  }
+
+  .pool-highlight__card-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--dnd-accent);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .pool-highlight__card strong {
+    display: block;
+    font-size: 1.06rem;
+    color: #2f2418;
+  }
+
+  .pool-highlight__card p {
+    margin: 8px 0 0;
+    font-size: 0.92rem;
+    line-height: 1.58;
+    color: rgba(47, 36, 24, 0.72);
+  }
+
+  @media (min-width: 960px) {
+    .pool-highlight__shell {
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      padding: 30px 34px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pool-highlight {
+      padding-top: 20px;
+      padding-bottom: 22px;
+    }
+
+    .pool-highlight__shell {
+      gap: 16px;
+      padding: 22px 18px;
+    }
+
+    .pool-highlight__title {
+      font-size: clamp(1.55rem, 7vw, 2rem);
+    }
+
+    .pool-highlight__text {
+      font-size: 0.95rem;
+      line-height: 1.62;
+    }
+
+    .pool-highlight__cta {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .pool-highlight__visual {
+      min-height: 148px;
+      padding: 14px;
+    }
+
+    .pool-highlight__visual::after {
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      height: 44px;
+    }
+
+    .pool-highlight__card {
+      max-width: none;
+      padding: 16px 16px 14px;
+    }
+  }
+</style>
