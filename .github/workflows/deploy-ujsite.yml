@@ -396,6 +396,21 @@ jobs:
             const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
             const bad = results.filter((r) => r.status !== 200);
             if (bad.length > 0) {
+              const deployAssetsRoot = path.join(process.cwd(), "deploy-assets");
+              const repairListPath = path.join(process.cwd(), "repair-assets.txt");
+              fs.rmSync(deployAssetsRoot, { recursive: true, force: true });
+              fs.mkdirSync(deployAssetsRoot, { recursive: true });
+              fs.writeFileSync(repairListPath, "");
+
+              for (const item of bad) {
+                const sourcePath = path.join(distRoot, "assets", item.relPath);
+                if (!fs.existsSync(sourcePath)) continue;
+                const targetPath = path.join(deployAssetsRoot, item.relPath);
+                fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+                fs.copyFileSync(sourcePath, targetPath);
+                fs.appendFileSync(repairListPath, `${item.relPath}\n`);
+              }
+
               console.log(`Broken hashed assets detected: ${bad.length}`);
               for (const item of bad.slice(0, 30)) {
                 console.log(`${item.status}\t${item.url}`);
@@ -413,48 +428,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p deploy-assets
-          : > repair-assets.txt
-          while IFS= read -r rel; do
-            [ -z "${rel:-}" ] && continue
-            rel="$(printf '%s' "$rel" | tr -d '\r')"
-            rel="${rel#./}"
-            [ -z "${rel:-}" ] && continue
-            source_path="dist/assets/$rel"
-            if [ ! -f "$source_path" ]; then
-              base_name="$(basename "$rel")"
-              fallback_path="$(find dist/assets -type f -name "$base_name" -print -quit)"
-              if [ -n "${fallback_path:-}" ]; then
-                source_path="$fallback_path"
-                rel="${source_path#dist/assets/}"
-              fi
-            fi
-            if [ -f "$source_path" ]; then
-              mkdir -p "deploy-assets/$(dirname "$rel")"
-              cp -a "$source_path" "deploy-assets/$rel"
-              echo "$rel" >> repair-assets.txt
-            fi
-          done < asset-health-failed-paths.txt
-
-          if [ ! -s repair-assets.txt ] && [ -f asset-health-failed.txt ]; then
-            while IFS=$'\t' read -r status url; do
-              [ -z "${url:-}" ] && continue
-              base_name="$(basename "$(printf '%s' "$url" | tr -d '\r')")"
-              [ -z "${base_name:-}" ] && continue
-              fallback_path="$(find dist/assets -type f -name "$base_name" -print -quit)"
-              if [ -n "${fallback_path:-}" ]; then
-                rel="${fallback_path#dist/assets/}"
-                mkdir -p "deploy-assets/$(dirname "$rel")"
-                cp -a "$fallback_path" "deploy-assets/$rel"
-                echo "$rel" >> repair-assets.txt
-              fi
-            done < asset-health-failed.txt
+          if [ -f repair-assets.txt ]; then
+            tr -d '\r' < repair-assets.txt | sed '/^$/d' | sort -u > repair-assets.normalized.txt
+            mv repair-assets.normalized.txt repair-assets.txt
           fi
 
-          sort -u repair-assets.txt -o repair-assets.txt
-
           if [ ! -s repair-assets.txt ]; then
-            echo "No repairable hashed assets were collected from targeted matching."
+            echo "No repairable hashed assets were pre-collected."
             echo "Falling back to full assets repair payload."
             rm -rf deploy-assets
             mkdir -p deploy-assets
