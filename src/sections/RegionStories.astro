@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import kisapatiStoryImage from "../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
 import balatonStoryImage from "../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
-import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
+import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-mountains-cutout.webp";
 
 const regionStoryWidths = [480, 768, 1040, 1600];
 const regionStorySizes =
@@ -126,21 +126,11 @@ const regionStories = [
     isolation: isolate;
   }
 
-  .dnd-region-stories__sticky-band::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 148px;
-    background: linear-gradient(180deg, #efe4d3 0%, rgba(239, 228, 211, 0.88) 24%, rgba(239, 228, 211, 0) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
   .dnd-region-stories__sticky-band-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 48%;
+    object-position: center 34%;
     display: block;
   }
 
