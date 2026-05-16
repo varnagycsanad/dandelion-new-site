@@ -19,7 +19,7 @@ const experiences = [
     eyebrow: "Aktív kikapcsolódás",
     title: "Bicikli",
     description:
-      "Laza falukörök, panorámás emelkedők és balatoni kitérők egy bringás napba sűrítve.",
+      "Laza falukörök és panorámás bringás kitérők.",
     highlights: ["rövid vagy egész napos program", "normál és e-bike opció"],
     image: bikingImage,
     imageAlt: "Kerékpár természetközeli környezetben",
@@ -30,7 +30,7 @@ const experiences = [
     eyebrow: "Bor és panoráma",
     title: "Szent György-hegy és Badacsony",
     description:
-      "Pincék, borteraszok és lassú délutánok, ahol a borhoz a táj és a kilátás is hozzátartozik.",
+      "Pincék, borteraszok és lassú délutánok kilátással.",
     highlights: ["hegyi pincék", "naplementés borozás"],
     image: wineImage,
     imageAlt: "Szőlősorok a Szent György-hegy környékén",
@@ -41,7 +41,7 @@ const experiences = [
     eyebrow: "Vízparti napok",
     title: "Balaton",
     description:
-      "Strandok, vízi programok és balatoni esti séták, könnyen beilleszthetően egy nyugodt pihenésbe.",
+      "Strandok, vízi programok és balatoni esti séták.",
     highlights: ["közeli strandok", "kajak, kenu, SUP"],
     image: balatonImage,
     imageAlt: "Köves balatoni partszakasz nyári fényben",
@@ -52,7 +52,7 @@ const experiences = [
     eyebrow: "Természetközeli program",
     title: "Tanúhegyek",
     description:
-      "Rövid séták, kilátópontok és csendes túrák a Balaton-felvidék legszebb hegyvidéki ritmusában.",
+      "Rövid séták, kilátópontok és csendes túrák.",
     highlights: ["panorámás kilátók", "naplementés útvonalak"],
     image: mountainsImage,
     imageAlt: "Drónkép a tanúhegyekről és a Tapolcai-medencéről",
@@ -130,16 +130,15 @@ const structuredData = [
 
       <section class="experiences-page__intro">
         <span class="experiences-page__eyebrow">Tematikus belépőpontok</span>
-        <h2>Négy erős irány, egységes teaser-rendszerben.</h2>
+        <h2>Négy gyors belépőpont, tiszta teaser-logikával.</h2>
         <p>
-          Mobilon két oszlopos, desktopon bővíthető rácsban jelennek meg a témák, így az oldal
-          rövidebb, átláthatóbb és később is könnyen bővíthető marad.
+          A részletek mindenhol külön aloldalra kerülnek, itt csak a gyors választás marad.
         </p>
       </section>
 
       <section class="experiences-page__grid" aria-label="Kiemelt élmények">
         {experiences.map((item) => (
-          <a class="experience-card" href={item.href}>
+          <article class="experience-card">
             <div class="experience-card__media">
               <Image src={item.image} alt={item.imageAlt} loading="lazy" />
             </div>
@@ -155,9 +154,9 @@ const structuredData = [
                 ))}
               </ul>
 
-              <span class="experience-card__cta">{item.ctaLabel}</span>
+              <a class="experience-card__cta" href={item.href}>{item.ctaLabel}</a>
             </div>
-          </a>
+          </article>
         ))}
       </section>
 
@@ -193,7 +192,7 @@ const structuredData = [
 
   .experiences-page__inner {
     display: grid;
-    gap: 32px;
+    gap: 26px;
   }
 
   .experiences-page__eyebrow,
@@ -209,7 +208,7 @@ const structuredData = [
   .experiences-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-    gap: 28px;
+    gap: 24px;
     align-items: stretch;
   }
 
@@ -247,8 +246,8 @@ const structuredData = [
   .experiences-page__intro,
   .experiences-page__cta-panel {
     display: grid;
-    gap: 14px;
-    padding: 30px;
+    gap: 12px;
+    padding: 24px;
   }
 
   .experiences-page h1,
@@ -269,7 +268,7 @@ const structuredData = [
 
   .experiences-page__intro h2,
   .experiences-page__cta-panel h2 {
-    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
   }
 
   .experiences-hero__lead,
@@ -291,7 +290,7 @@ const structuredData = [
 
   .experiences-hero__facts span,
   .experience-card__highlights li {
-    padding: 9px 12px;
+    padding: 8px 11px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(88, 63, 38, 0.12);
@@ -301,8 +300,8 @@ const structuredData = [
 
   .experiences-page__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
   }
 
   .experience-card {
@@ -322,15 +321,10 @@ const structuredData = [
   }
 
   .experience-card:hover,
-  .experience-card:focus-visible {
+  .experience-card:focus-within {
     transform: translateY(-3px);
     box-shadow: 0 28px 64px rgba(43, 28, 14, 0.12);
     border-color: rgba(88, 63, 38, 0.22);
-  }
-
-  .experience-card:focus-visible {
-    outline: 2px solid rgba(165, 109, 31, 0.26);
-    outline-offset: 3px;
   }
 
   .experience-card__media {
@@ -339,19 +333,19 @@ const structuredData = [
   }
 
   .experience-card__media :global(img) {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.9;
     object-fit: cover;
   }
 
   .experience-card__body {
     display: grid;
     align-content: start;
-    gap: 12px;
-    padding: 20px;
+    gap: 10px;
+    padding: 16px;
   }
 
   .experience-card h2 {
-    font-size: clamp(1.2rem, 1.9vw, 1.7rem);
+    font-size: clamp(1.05rem, 1.45vw, 1.35rem);
   }
 
   .experience-card__highlights {
@@ -361,6 +355,11 @@ const structuredData = [
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+  }
+
+  .experience-card p {
+    font-size: 0.94rem;
+    line-height: 1.55;
   }
 
   .experience-card__cta,
@@ -380,11 +379,17 @@ const structuredData = [
   }
 
   .experience-card__cta {
-    margin-top: 8px;
-    justify-self: start;
+    margin-top: 2px;
+    width: 100%;
+    justify-self: stretch;
     background: #2b2016;
     color: #fff;
     border-color: #2b2016;
+  }
+
+  .experience-card__cta:focus-visible {
+    outline: 2px solid rgba(165, 109, 31, 0.3);
+    outline-offset: 2px;
   }
 
   .experiences-page__cta-actions {
@@ -413,7 +418,7 @@ const structuredData = [
   .experiences-page__cta-secondary:hover,
   .experiences-page__cta-secondary:focus-visible,
   .experience-card:hover .experience-card__cta,
-  .experience-card:focus-visible .experience-card__cta {
+  .experience-card:focus-within .experience-card__cta {
     background: #3a2a1d;
   }
 
@@ -431,6 +436,12 @@ const structuredData = [
     }
   }
 
+  @media (max-width: 900px) {
+    .experiences-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width: 767px) {
     .experiences-page {
       padding: 106px 0 64px;
@@ -444,7 +455,7 @@ const structuredData = [
     .experiences-page__intro,
     .experiences-page__cta-panel,
     .experience-card__body {
-      padding: 18px;
+      padding: 16px;
     }
 
     .experiences-hero__media,
@@ -462,11 +473,11 @@ const structuredData = [
 
     .experiences-page__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 12px;
     }
 
     .experience-card__media :global(img) {
-      aspect-ratio: 0.92 / 1;
+      aspect-ratio: 1 / 1;
     }
 
     .experience-card__body {
@@ -474,8 +485,8 @@ const structuredData = [
     }
 
     .experience-card p {
-      font-size: 0.94rem;
-      line-height: 1.55;
+      font-size: 0.82rem;
+      line-height: 1.42;
     }
 
     .experience-card__highlights {
@@ -483,11 +494,10 @@ const structuredData = [
     }
 
     .experience-card__cta {
-      width: 100%;
-      justify-self: stretch;
       padding-inline: 12px;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      min-height: 40px;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
     }
   }
 </style>

@@ -8,28 +8,28 @@ import mountainsImage from "../assets/accommodations/d2/gallery/dandelion-d2-sou
 const experiences = [
   {
     title: "BICIKLI",
-    description: "Falvak, panorámás szakaszok és laza bringás kitérők a Balaton-felvidéken.",
+    description: "Falvak és panorámás bringás kitérők.",
     image: bikingImage,
     imageAlt: "Kerékpár vidéki környezetben",
     href: "/elmenyek/kerekpar/"
   },
   {
     title: "BOR ÉS PANORÁMA",
-    description: "Szent György-hegyi pincék, borteraszok és naplementés megállók.",
+    description: "Pincék, borteraszok és naplementés megállók.",
     image: wineTourImage,
     imageAlt: "Borospohár, palack és szőlő",
     href: "/elmenyek/bor-es-panorama/"
   },
   {
     title: "BALATON",
-    description: "Közeli strandok, esti séták és szezonális vízi programok egy helyen.",
+    description: "Strandok, esti séták és vízi programok.",
     image: balatonImage,
     imageAlt: "Naplementés vízparti hangulat",
     href: "/elmenyek/balaton/"
   },
   {
     title: "TANÚHEGYEK",
-    description: "Kilátók, rövid séták és csendes túrák a környék legszebb hegyei között.",
+    description: "Kilátók, rövid séták és csendes túrák.",
     image: mountainsImage,
     imageAlt: "Tanúhegyek és természet a Balaton-felvidéken",
     href: "/elmenyek/tanuhegyek/"
@@ -42,8 +42,7 @@ const experiences = [
     <div class="dnd-experiences__intro">
       <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
       <p class="dnd-experiences__lead">
-        Négy gyors belépőpont, külön aloldalakkal: bringás napok, boros megállók, balatoni
-        kitérők és tanúhegyes kirándulások.
+        Négy gyors belépőpont, külön aloldalakkal: bringa, bor, Balaton és tanúhegyek.
       </p>
       <a href="/elmenyek/" class="dnd-experiences__cta">ÖSSZES ÉLMÉNY</a>
     </div>
@@ -134,7 +133,7 @@ const experiences = [
   .dnd-experiences__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
+    gap: 18px;
     align-items: start;
   }
 
@@ -151,7 +150,7 @@ const experiences = [
   }
 
   .dnd-experience-card__media {
-    height: clamp(220px, 18vw, 300px);
+    height: clamp(180px, 15vw, 240px);
     overflow: hidden;
     border-radius: 12px;
   }
@@ -170,13 +169,13 @@ const experiences = [
   }
 
   .dnd-experience-card__body {
-    padding: 26px 0 0;
+    padding: 16px 0 0;
   }
 
   .dnd-experience-card h3 {
     margin: 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0.15em;
@@ -188,22 +187,22 @@ const experiences = [
     display: block;
     width: 42px;
     height: 1px;
-    margin-top: 14px;
+    margin-top: 10px;
     background: rgba(217, 158, 43, 0.72);
   }
 
   .dnd-experience-card p {
-    margin: 18px 0 0;
-    max-width: 27ch;
-    font-size: 0.94rem;
-    line-height: 1.68;
+    margin: 12px 0 0;
+    max-width: 22ch;
+    font-size: 0.88rem;
+    line-height: 1.5;
     color: rgba(0, 0, 0, 0.58);
   }
 
   .dnd-experience-card__mobile-cta {
     display: inline-flex;
     align-items: center;
-    margin-top: 18px;
+    margin-top: 12px;
     color: rgba(0, 0, 0, 0.76);
     font-size: 0.7rem;
     font-weight: 600;
@@ -238,12 +237,12 @@ const experiences = [
 
     .dnd-experiences__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 10px;
       margin-top: 28px;
     }
 
     .dnd-experience-card__body {
-      padding: 14px 0 0;
+      padding: 12px 0 0;
     }
 
     .dnd-experience-card__media {
@@ -256,20 +255,20 @@ const experiences = [
     }
 
     .dnd-experience-card h3 {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
     }
 
     .dnd-experience-card p {
-      margin-top: 12px;
-      font-size: 0.84rem;
-      line-height: 1.52;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      line-height: 1.35;
     }
 
     .dnd-experience-card__mobile-cta {
-      margin-top: 14px;
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
+      margin-top: 10px;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
     }
   }
 
