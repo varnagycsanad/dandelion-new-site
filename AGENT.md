@@ -337,3 +337,14 @@ Szerepek:
 
 Ha UI-t érint a task:
 → DANDELION_RULES az elsődleges
+[CHANGE 2026-05-16 13:10] FTP deploy gyorsitasi guardrails: kizart assets a root payloadbol, changed-only asset upload, duplikalt feltoltes tilos.
+
+## FTP DEPLOY GYORSITASI SZABALYOK (KOTELEZO)
+
+Cel: a leggyorsabb biztonsagos feltoltes, minimalis fajlmuvelettel.
+
+- Root deploy payloadbol az `assets/` mappa kizarando, ha kulon hashed-asset deploy lepes van.
+- Tilos duplikalt feltoltes: ugyanaz az asset nem mehet fel root es asset lepesben is.
+- Asset frissitesnel csak valtozott es torolt fajlokra szabad FTP muveletet futtatni.
+- Egyetlen kep modositasa eseten kizarolag az erintett hash-elt kep(ek) cserelheto(k), teljes assets ujratoltes nelkul.
+- Teljes assets ujratoltes csak explicit force esetben vagy bizonyitott serules-helyreallitasnal engedett.
