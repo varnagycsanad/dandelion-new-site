@@ -951,6 +951,7 @@ main {
     gap: 14px;
     max-height: 0;
     overflow: hidden;
+    overflow-x: clip;
     padding: 0 24px;
     background: rgba(239, 228, 211, 0.98);
     color: #2d241c;
@@ -981,9 +982,11 @@ main {
   }
 
   .dnd-mobile-menu[data-open="true"] {
-    max-height: 260px;
+    max-height: calc(100vh - 66px);
+    overflow-y: auto;
     padding-top: 14px;
     padding-bottom: 22px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .dnd-section {
