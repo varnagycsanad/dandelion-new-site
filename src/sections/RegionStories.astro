@@ -298,6 +298,16 @@ const regionStories = [
   }
 
   @media (max-width: 1100px) {
+    .dnd-region-story,
+    .dnd-region-story--1,
+    .dnd-region-story--2,
+    .dnd-region-story--3 {
+      width: 100%;
+      max-width: 1040px;
+      margin-left: 0;
+      justify-items: stretch;
+    }
+
     .dnd-region-story__panel {
       position: relative;
       inset: auto;
@@ -338,6 +348,7 @@ const regionStories = [
     }
 
     .dnd-region-story__panel {
+      width: 100%;
       padding: 22px 18px;
     }
   }
