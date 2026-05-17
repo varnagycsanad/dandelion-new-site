@@ -221,7 +221,10 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
+const introKicker = pageData.intro.kicker?.trim() || "";
+const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
+const hasIntroBlock = Boolean(introKicker || introTitle || introLead);
 const shortDescription = pageData.details.shortDescription?.trim() || "";
 const visibleDetailsSummary = shortDescription || introLead;
 const detailsLongDescription = (pageData.details.longDescription || [])
@@ -566,6 +569,18 @@ const accommodationStructuredData = [
     </div>
   </section>
 
+  {hasIntroBlock && (
+    <section class="d2-intro dnd-section" aria-labelledby="accommodation-intro-title">
+      <div class="dnd-container">
+        <div class="d2-intro__inner">
+          {introKicker && <span class="dnd-section-kicker">{introKicker}</span>}
+          {introTitle && <h2 id="accommodation-intro-title" class="d2-section-title">{introTitle}</h2>}
+          {introLead && <p class="d2-intro__lead">{introLead}</p>}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="d2-details dnd-section">
     <div class="dnd-container">
       <div class="d2-details__layout">
@@ -762,6 +777,18 @@ const accommodationStructuredData = [
         <span class="dnd-section-kicker">{pageData.map.kicker}</span>
         <h2 class="d2-section-title">{pageData.map.title}</h2>
         <p>{pageData.map.body}</p>
+        {locationBenefits.length > 0 && (
+          <div class="d2-location-benefits" aria-label={pageData.map.benefitsAriaLabel}>
+            {locationBenefits.map((benefit) => (
+              <article class="d2-location-benefit">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <use href={`#d2-icon-${toSpriteIconKey(benefit.icon)}`}></use>
+                </svg>
+                <span>{benefit.label}</span>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
 
       <div class="d2-map__card">
@@ -1632,6 +1659,29 @@ const accommodationStructuredData = [
     background: #fdfbf7;
   }
 
+  .d2-intro {
+    padding-top: 24px;
+    padding-bottom: 34px;
+  }
+
+  .d2-intro__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .d2-intro__inner .dnd-section-kicker {
+    margin-bottom: 12px;
+  }
+
+  .d2-intro__lead {
+    max-width: 640px;
+    margin: 16px auto 0;
+    color: rgba(0, 0, 0, 0.68);
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
   .d2-details__layout {
     display: grid;
     gap: 16px 22px;
@@ -2249,6 +2299,36 @@ const accommodationStructuredData = [
     line-height: 1.7;
   }
 
+  .d2-location-benefits {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .d2-location-benefit {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 12px 14px;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .d2-location-benefit svg {
+    width: 22px;
+    height: 22px;
+    color: rgba(121, 93, 48, 0.88);
+    flex: 0 0 auto;
+  }
+
+  .d2-location-benefit span {
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
   .d2-map__card {
     height: 500px;
     min-height: 500px;
@@ -2509,6 +2589,10 @@ const accommodationStructuredData = [
 
     .d2-map__copy {
       max-width: none;
+    }
+
+    .d2-location-benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .d2-map__card {
@@ -2826,6 +2910,17 @@ const accommodationStructuredData = [
       padding-bottom: 42px;
     }
 
+    .d2-intro {
+      padding-top: 18px;
+      padding-bottom: 20px;
+    }
+
+    .d2-intro__lead {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      line-height: 1.52;
+    }
+
     .d2-details__layout {
       gap: 18px;
     }
@@ -3006,6 +3101,23 @@ const accommodationStructuredData = [
     .d2-map {
       padding-top: 24px;
       padding-bottom: 44px;
+    }
+
+    .d2-location-benefits {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .d2-location-benefit {
+      gap: 9px;
+      padding: 10px 11px;
+      border-radius: 10px;
+    }
+
+    .d2-location-benefit span {
+      font-size: 0.8rem;
+      line-height: 1.42;
     }
 
     .d2-closer {
