@@ -376,86 +376,88 @@ const accommodationStructuredData = [
         !hasPoolHighlight && "d2-hero__content--no-pool-seal"
       ]}
     >
-      <div class="d2-hero__copy">
-        <span class="d2-kicker">{pageData.hero.kicker}</span>
-        <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
-        <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
-        <p class="d2-hero__lead">{pageData.hero.lead}</p>
-        {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
-        {pageData.hero.supportingLink && (
-          <p class="d2-hero__supporting-link">
-            <a href={pageData.hero.supportingLink.href}>{pageData.hero.supportingLink.label}</a>
-          </p>
+      <div class="d2-hero__stack">
+        {/* [CHANGE 2026-05-17 02:52] A pecsétes mobil hero közös alsó stackre váltott: a pecsét a copy fölött jelenik meg, a teljes blokk pedig leül a hero aljára. */}
+        {pageData.hero.poolHighlight?.enabled && (
+          <a
+            href={pageData.hero.poolHighlight.href}
+            class:list={[
+              "dnd-pool-seal",
+              pageData.hero.poolHighlight.variant === "strong" && "dnd-pool-seal--strong"
+            ]}
+            aria-label={`${pageData.hero.poolHighlight.label}${pageData.hero.poolHighlight.text ? `. ${pageData.hero.poolHighlight.text}` : ""}${pageData.hero.poolHighlight.ctaLabel ? ` ${pageData.hero.poolHighlight.ctaLabel}.` : ""}`}
+            title={pageData.hero.poolHighlight.ctaLabel || pageData.hero.poolHighlight.label}
+          >
+            <svg viewBox="0 0 260 260" aria-hidden="true" class="dnd-pool-seal__svg">
+              <defs>
+                <radialGradient id="dndPoolSealGold" cx="34%" cy="22%" r="82%">
+                  <stop offset="0%" stop-color="#F3C966"></stop>
+                  <stop offset="48%" stop-color="#D99E2B"></stop>
+                  <stop offset="100%" stop-color="#9C6614"></stop>
+                </radialGradient>
+                <filter id="dndPoolSealShadow" x="-25%" y="-25%" width="150%" height="150%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="7" flood-color="#000000" flood-opacity="0.32"></feDropShadow>
+                </filter>
+              </defs>
+
+              <circle cx="130" cy="130" r="112" fill="url(#dndPoolSealGold)" filter="url(#dndPoolSealShadow)"></circle>
+              <circle cx="130" cy="130" r="101" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"></circle>
+
+              <path
+                d="M47 52 C82 18 142 13 184 34 C224 55 246 104 239 151"
+                fill="none"
+                stroke="rgba(255,255,255,0.70)"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+              <path
+                d="M213 213 C174 246 103 249 58 208"
+                fill="none"
+                stroke="rgba(255,255,255,0.84)"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+
+              <g class="dnd-pool-seal__icon" transform="translate(130 70)" stroke="rgba(255,255,255,0.9)" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M-18 9 C-10 2 -4 2 4 9 C11 15 17 15 24 9"></path>
+                <path d="M-13 20 C-6 15 0 15 7 20 C14 25 20 25 27 20"></path>
+                <path d="M-10 -2 A15 15 0 0 1 20 -2"></path>
+                <path d="M5 -25 V-17"></path>
+                <path d="M-18 -16 L-12 -10"></path>
+                <path d="M28 -16 L22 -10"></path>
+              </g>
+
+              <text x="130" y="118" text-anchor="middle" class="dnd-pool-seal__title">
+                <tspan x="130" dy="0">PANORÁMA</tspan>
+                <tspan x="130" dy="33">MEDENCE</tspan>
+              </text>
+
+              <text x="130" y="188" text-anchor="middle" class="dnd-pool-seal__date">
+                2026. JÚNIUS 1-TŐL
+              </text>
+
+              <path d="M202 213 C219 201 229 186 231 168" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="3" stroke-linecap="round"></path>
+              <path d="M219 169 L232 167 L232 181" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
         )}
-        <div class="d2-hero__actions">
-          <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{pageData.hero.primaryCtaLabel}</button>
-          <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
+        <div class="d2-hero__copy">
+          <span class="d2-kicker">{pageData.hero.kicker}</span>
+          <h1 class:list={{ "d2-hero__title--d2": pageData.hero.titleAccent === "D2" }}>{pageData.hero.title} <span>{pageData.hero.titleAccent}</span></h1>
+          <p class="d2-hero__subtitle">{pageData.hero.subtitle}</p>
+          <p class="d2-hero__lead">{pageData.hero.lead}</p>
+          {/* [CHANGE 2026-05-16 12:45] Opcionális supporting link a hero-ban a kiemelt medence vagy más felső szintű belső link kezelésére. */}
+          {pageData.hero.supportingLink && (
+            <p class="d2-hero__supporting-link">
+              <a href={pageData.hero.supportingLink.href}>{pageData.hero.supportingLink.label}</a>
+            </p>
+          )}
+          <div class="d2-hero__actions">
+            <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{pageData.hero.primaryCtaLabel}</button>
+            <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
+          </div>
         </div>
       </div>
-      {/* [CHANGE 2026-05-16 16:10] A shared poolHighlight nagyobb, kerek arany hero-pecsétként jelenik meg a jóváhagyott minta irányában, külön layout és slug-hardcode nélkül. */}
-      {pageData.hero.poolHighlight?.enabled && (
-        <a
-          href={pageData.hero.poolHighlight.href}
-          class:list={[
-            "dnd-pool-seal",
-            pageData.hero.poolHighlight.variant === "strong" && "dnd-pool-seal--strong"
-          ]}
-          aria-label={`${pageData.hero.poolHighlight.label}${pageData.hero.poolHighlight.text ? `. ${pageData.hero.poolHighlight.text}` : ""}${pageData.hero.poolHighlight.ctaLabel ? ` ${pageData.hero.poolHighlight.ctaLabel}.` : ""}`}
-          title={pageData.hero.poolHighlight.ctaLabel || pageData.hero.poolHighlight.label}
-        >
-          <svg viewBox="0 0 260 260" aria-hidden="true" class="dnd-pool-seal__svg">
-            <defs>
-              <radialGradient id="dndPoolSealGold" cx="34%" cy="22%" r="82%">
-                <stop offset="0%" stop-color="#F3C966"></stop>
-                <stop offset="48%" stop-color="#D99E2B"></stop>
-                <stop offset="100%" stop-color="#9C6614"></stop>
-              </radialGradient>
-              <filter id="dndPoolSealShadow" x="-25%" y="-25%" width="150%" height="150%">
-                <feDropShadow dx="0" dy="10" stdDeviation="7" flood-color="#000000" flood-opacity="0.32"></feDropShadow>
-              </filter>
-            </defs>
-
-            <circle cx="130" cy="130" r="112" fill="url(#dndPoolSealGold)" filter="url(#dndPoolSealShadow)"></circle>
-            <circle cx="130" cy="130" r="101" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"></circle>
-
-            <path
-              d="M47 52 C82 18 142 13 184 34 C224 55 246 104 239 151"
-              fill="none"
-              stroke="rgba(255,255,255,0.70)"
-              stroke-width="2"
-              stroke-linecap="round"
-            ></path>
-            <path
-              d="M213 213 C174 246 103 249 58 208"
-              fill="none"
-              stroke="rgba(255,255,255,0.84)"
-              stroke-width="2"
-              stroke-linecap="round"
-            ></path>
-
-            <g class="dnd-pool-seal__icon" transform="translate(130 70)" stroke="rgba(255,255,255,0.9)" fill="none" stroke-width="2" stroke-linecap="round">
-              <path d="M-18 9 C-10 2 -4 2 4 9 C11 15 17 15 24 9"></path>
-              <path d="M-13 20 C-6 15 0 15 7 20 C14 25 20 25 27 20"></path>
-              <path d="M-10 -2 A15 15 0 0 1 20 -2"></path>
-              <path d="M5 -25 V-17"></path>
-              <path d="M-18 -16 L-12 -10"></path>
-              <path d="M28 -16 L22 -10"></path>
-            </g>
-
-            <text x="130" y="118" text-anchor="middle" class="dnd-pool-seal__title">
-              <tspan x="130" dy="0">PANORÁMA</tspan>
-              <tspan x="130" dy="33">MEDENCE</tspan>
-            </text>
-
-            <text x="130" y="188" text-anchor="middle" class="dnd-pool-seal__date">
-              2026. JÚNIUS 1-TŐL
-            </text>
-
-            <path d="M202 213 C219 201 229 186 231 168" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="3" stroke-linecap="round"></path>
-            <path d="M219 169 L232 167 L232 181" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
-      )}
     </div>
   </section>
 
@@ -1277,6 +1279,11 @@ const accommodationStructuredData = [
     align-items: flex-end;
     padding-top: 150px;
     padding-bottom: 76px;
+  }
+
+  .d2-hero__stack {
+    position: relative;
+    width: 100%;
   }
 
   .d2-hero__copy {
@@ -2643,18 +2650,27 @@ const accommodationStructuredData = [
     .d2-hero__content {
       flex-direction: column;
       align-items: flex-start;
+      justify-content: flex-end;
       padding-top: calc(108px + env(safe-area-inset-top, 0px));
       padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
     }
 
     .d2-hero__content--no-pool-seal {
-      justify-content: center;
+      justify-content: flex-end;
       padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
     }
 
-    .d2-hero__copy {
+    .d2-hero__stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       width: min(100%, 24rem);
       max-width: 24rem;
+    }
+
+    .d2-hero__copy {
+      width: 100%;
+      max-width: none;
       padding: 0;
     }
 
@@ -2690,9 +2706,9 @@ const accommodationStructuredData = [
 
     .dnd-pool-seal {
       position: static;
-      align-self: flex-end;
-      width: min(190px, 58vw);
-      margin-top: 14px;
+      align-self: flex-start;
+      width: min(176px, 52vw);
+      margin: 0;
       transform: rotate(-3deg);
     }
 
