@@ -27,10 +27,24 @@ const footerStayLabelOverrides: Record<string, string> = {
   "vintage-vendeghaz": "Dandelion Vintage"
 };
 
-const footerStayLinks = accommodations.map((stay) => ({
-  label: footerStayLabelOverrides[stay.slug] ?? stay.name,
-  href: buildStayHref(stay.slug, stay.url)
-}));
+const footerStayBySlug = new Map(
+  accommodations.map((stay) => [
+    stay.slug,
+    {
+      label: footerStayLabelOverrides[stay.slug] ?? stay.name,
+      href: buildStayHref(stay.slug, stay.url)
+    }
+  ])
+);
+
+const footerStayColumns = [
+  ["dandelion-d1", "dandelion-d2", "fugehaz", "szololiget-vendeghaz"],
+  ["zsalya-vendeghaz", "vintage-vendeghaz", "royal-homes", "szepvolgyi-vendeghaz", "dandelion-koveskal"]
+].map((column) =>
+  column
+    .map((slug) => footerStayBySlug.get(slug))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
+);
 
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
 ---
@@ -46,14 +60,17 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
       </p>
     </div>
 
-    <nav class="dnd-site-footer__group" aria-label="Szállások">
+    <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Szállások">
       <h2>Szállások</h2>
-      <ul>
-        <li><a href={resolveLocalHref("/szallasok/")}>Összes szállás</a></li>
-        {footerStayLinks.map((stay) => (
-          <li><a href={stay.href}>{stay.label}</a></li>
+      <div class="dnd-site-footer__stay-columns">
+        {footerStayColumns.map((column) => (
+          <ul>
+            {column.map((stay) => (
+              <li><a href={stay.href}>{stay.label}</a></li>
+            ))}
+          </ul>
         ))}
-      </ul>
+      </div>
     </nav>
 
     <nav class="dnd-site-footer__group" aria-label="Hasznos linkek">
@@ -135,6 +152,12 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
     list-style: none;
   }
 
+  .dnd-site-footer__stay-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+  }
+
   .dnd-site-footer__group li + li {
     margin-top: 10px;
   }
@@ -175,6 +198,10 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
       max-width: none;
       grid-column: 1 / -1;
     }
+
+    .dnd-site-footer__group--stays {
+      grid-column: 1 / -1;
+    }
   }
 
   @media (max-width: 720px) {
@@ -190,10 +217,16 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
 
     .dnd-site-footer__brand {
       grid-column: 1 / -1;
+      text-align: center;
+      justify-self: center;
     }
 
     .dnd-site-footer__group h2 {
       margin-bottom: 10px;
+    }
+
+    .dnd-site-footer__stay-columns {
+      gap: 12px 18px;
     }
 
     .dnd-site-footer__group li + li {
