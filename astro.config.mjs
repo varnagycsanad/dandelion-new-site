@@ -52,6 +52,9 @@ export default defineConfig({
   redirects: {
     '/dandelion-royal-homes': '/royal/',
   },
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [localImageAdmin()],
   // [CHANGE 2026-04-19] Avoid @ characters in generated asset filenames for hosting safety.
   vite: {
