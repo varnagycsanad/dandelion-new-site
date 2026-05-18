@@ -7,7 +7,7 @@ import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-he
 
 const regionStoryWidths = [480, 768, 1040, 1600];
 const regionStorySizes =
-  "(max-width: 767px) min(100vw - 24px, 420px), (max-width: 1100px) calc(100vw - 48px), 1040px";
+  "(max-width: 767px) 100vw, (max-width: 1100px) calc(100vw - 48px), 1040px";
 const stickyImageWidths = [768, 1280, 1920, 2400];
 const stickyImageSizes = "100vw";
 
@@ -20,6 +20,7 @@ const regionStories = [
       "Szőlősorok, hegyek és lassabb reggelek. Itt a csend, a panoráma és a kis falvak adják a pihenés alapját.",
     meta: "Kisapáti és a Tapolcai-medence nyugodt oldala.",
     ctaLabel: "Szállások a tanúhegyeknél",
+    mobileCtaLabel: "Tapolcai-medence · Szent György-hegy · Kisapáti",
     ctaHref: "/szallasok#tanuhegyek",
     image: kisapatiStoryImage,
     imageAlt: "Kisapáti és a tanúhegyek drónfelvételen a Tapolcai-medencében"
@@ -31,6 +32,7 @@ const regionStories = [
       "A víz közelsége, könnyű programok és balatoni esték adják a ritmust. Lazább, nyitottabb világ, mégis nyugodt Dandelion-hangulattal.",
     meta: "Keszthely és Badacsonyörs környéke könnyű nyári napokhoz.",
     ctaLabel: "Szállások a Balaton közelében",
+    mobileCtaLabel: "Szállások a Balaton közelében",
     ctaHref: "/szallasok#balaton-mellett",
     image: balatonStoryImage,
     imageAlt: "Royal Homes vízparti apartmanok saját mólóval a Balaton közelében"
@@ -42,6 +44,7 @@ const regionStories = [
       "Kőfalak, csendes utcák és tágas táj. A Káli-medence inkább elvonulós, lassabb tempójú pihenést ad.",
     meta: "Köveskál környéke csendhez és lelassuláshoz.",
     ctaLabel: "Szállások a Káli-medencében",
+    mobileCtaLabel: "Szállások a Káli-medencében",
     ctaHref: "/szallasok#kali-medence",
     image: kaliStoryImage,
     imageAlt: "Káli-medence tájképe"
@@ -86,7 +89,7 @@ const regionStories = [
             <div class="dnd-region-story__mobile-overlay">
               <p class="dnd-region-story__kicker dnd-region-story__kicker--mobile">{story.kicker}</p>
               <a href={story.ctaHref} class="dnd-region-story__cta dnd-region-story__cta--mobile">
-                {story.ctaLabel}
+                {story.mobileCtaLabel}
               </a>
             </div>
           </div>
@@ -336,7 +339,7 @@ const regionStories = [
     }
 
     .dnd-region-stories__inner {
-      width: min(100% - 24px, 420px);
+      width: 100%;
     }
 
     .dnd-region-stories__intro {
@@ -366,17 +369,7 @@ const regionStories = [
     .dnd-region-story__media {
       width: 100%;
       aspect-ratio: 4 / 3;
-      border-radius: 22px;
-    }
-
-    .dnd-region-story:nth-child(odd) .dnd-region-story__media {
-      width: calc(100% - 18px);
-      margin-right: auto;
-    }
-
-    .dnd-region-story:nth-child(even) .dnd-region-story__media {
-      width: calc(100% - 18px);
-      margin-left: auto;
+      border-radius: 0;
     }
 
     .dnd-region-story__mobile-overlay {
@@ -407,13 +400,17 @@ const regionStories = [
 
     .dnd-region-story__cta--mobile {
       width: fit-content;
-      min-width: min(100%, 240px);
-      max-width: 100%;
+      min-width: 0;
+      max-width: calc(100% - 8px);
       margin: 0 auto;
-      padding: 0 18px;
+      padding: 0 14px;
       border-color: rgba(255, 249, 240, 0.92);
       background: rgba(255, 251, 245, 0.18);
       color: #fff9f0;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      white-space: nowrap;
       backdrop-filter: blur(4px);
       pointer-events: auto;
     }
