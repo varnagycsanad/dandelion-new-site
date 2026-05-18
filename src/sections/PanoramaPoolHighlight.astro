@@ -14,16 +14,16 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
   <div class="dnd-container">
     <div class="pool-highlight__shell">
       <div class="pool-highlight__content">
-        <span class="dnd-section-kicker pool-highlight__kicker">ÚJ 2026-TÓL</span>
+        <span class="dnd-section-kicker pool-highlight__kicker">ĂšJ 2026-TĂ“L</span>
         <h2 id="pool-highlight-title" class="pool-highlight__title">
-          Panoráma medence a Szent György-hegy oldalában
+          PanorĂˇma medence a Szent GyĂ¶rgy-hegy oldalĂˇban
         </h2>
         <p class="pool-highlight__text">
-          A D1, D2 és Fügeház vendégei 2026. június 1-től a házak melletti dombon található panoráma
-          medencét is használhatják. Egy nyugodt hely napozáshoz, fürdéshez és a tanúhegyek látványához.
+          A D1, D2 Ă©s FĂĽgehĂˇz vendĂ©gei 2026. jĂşnius 1-tĹ‘l a hĂˇzak melletti dombon talĂˇlhatĂł panorĂˇma
+          medencĂ©t is hasznĂˇlhatjĂˇk. Egy nyugodt hely napozĂˇshoz, fĂĽrdĂ©shez Ă©s a tanĂşhegyek lĂˇtvĂˇnyĂˇhoz.
         </p>
         <a href="/panorama-pool/" class="dnd-btn dnd-btn--primary pool-highlight__cta">
-          <span>Megnézem a medencét</span>
+          <span>MegnĂ©zem a medencĂ©t</span>
           <span class="pool-highlight__cta-icon" aria-hidden="true">
             <svg viewBox="0 0 20 20" focusable="false">
               <path
@@ -101,7 +101,7 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
   .pool-highlight__text {
     margin: 14px 0 0;
     max-width: 58ch;
-    font-size: 1rem;
+    font-size: var(--dnd-text-body);
     line-height: 1.72;
     color: rgba(47, 36, 24, 0.78);
   }
@@ -127,9 +127,9 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
   }
 
   .pool-highlight__cta span:first-child {
-    font-size: 0.98rem;
+    font-size: var(--dnd-text-body);
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   .pool-highlight__cta:hover,
@@ -224,16 +224,16 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
   .pool-highlight__visual-kicker {
     display: inline-block;
     margin-bottom: 8px;
-    font-size: 0.72rem;
+    font-size: var(--dnd-text-2xs);
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--dnd-tracking-label);
     text-transform: uppercase;
     color: rgba(255, 220, 162, 0.94);
   }
 
   .pool-highlight__visual-badge p {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: var(--dnd-text-md);
     line-height: 1.42;
   }
 
@@ -261,7 +261,7 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
     }
 
     .pool-highlight__text {
-      font-size: 0.95rem;
+      font-size: var(--dnd-text-body);
       line-height: 1.62;
     }
 
@@ -272,7 +272,7 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
     }
 
     .pool-highlight__cta span:first-child {
-      font-size: 0.95rem;
+      font-size: var(--dnd-text-body);
     }
 
     .pool-highlight__cta-icon {
@@ -301,7 +301,7 @@ const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
     }
 
     .pool-highlight__visual-badge p {
-      font-size: 0.88rem;
+      font-size: var(--dnd-text-md);
     }
   }
 </style>

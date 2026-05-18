@@ -34,6 +34,25 @@ Nem “szép oldal” a cél.
 - Menü → 600
 - Szöveg → 400
 
+### Betűméret skála
+- Body: 1rem
+- Lead: 1rem-1.08rem
+- Kártyaszöveg: 0.88rem-0.98rem, tokennel legalább 14px
+- Menü / CTA: minimum 0.82rem, tokennel legalább 14px
+- Label / meta: 0.72rem-0.78rem, tokennel legalább 12px-13px
+- Mobil tartalmi minimum: 0.82rem
+- Mobil label / meta minimum: 12px számolt CSS-ben is
+- Mobil H1: 1.9rem-2.8rem
+- Mobil H2: 1.45rem-2.1rem
+- Desktop H1: 3rem-4.8rem
+- Desktop H2: 1.65rem-3.2rem
+
+### Mobil tipográfia
+- 10px és 11px nem használható új tartalmi vagy navigációs elemre.
+- 12px alatti szöveg csak dekoratív, nem információhordozó elem lehet.
+- Új viewport-alapú `vw` font-size külön döntés nélkül nem vezethető be.
+- Negatív letter-spacing csak display headline esetén, kizárólag `--dnd-tracking-display-*` tokennel használható.
+
 ---
 
 ## 3. Színek

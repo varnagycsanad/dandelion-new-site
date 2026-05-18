@@ -1,5 +1,6 @@
 [CHANGE 2026-05-16 14:05] DANDELION_RULES karcsúsítva és legacy media/admin/runtime nyelvezetre egységesítve.
 [CHANGE 2026-05-18 13:20] Tipográfiai source of truth pontosítva: Poppins globális sans, Playfair Display csak display/headline szerepre.
+[CHANGE 2026-05-18 15:05] Betűméret-rendszer és mobil olvashatósági guardrail rögzítve.
 
 # DANDELION – DESIGN & STRUCTURE RULES
 
@@ -70,6 +71,26 @@ Font:
 - heading:
   - Poppins heading: 600-700
   - Playfair heading: 400-600
+
+Betűméret:
+- body alapszöveg: `1rem`
+- hosszabb folyószöveg: `1rem`, line-height `1.6-1.75`
+- lead / bevezető szöveg: `1rem-1.08rem`
+- kártyaszöveg és rövid leírás: `0.88rem-0.98rem`, tokennel legalább `14px`
+- CTA / gomb / menü: minimum `0.82rem`, tokennel legalább `14px`
+- label / kicker / meta: `0.72rem-0.78rem`, tokennel legalább `12px-13px`
+- mobilon olvasható szöveg minimum: `0.82rem`
+- mobilon label / meta minimum: `12px`
+- 12px alatti szöveg csak dekoratív, nem információhordozó elemnél engedett
+- 10px és 11px mobilon nem használható új tartalmi vagy navigációs elemre
+- mobil H1: `1.9rem-2.8rem`
+- mobil H2 / section heading: `1.45rem-2.1rem`
+- desktop H1: `3rem-4.8rem`, csak valódi hero/display helyzetben lehet nagyobb
+- desktop H2 / section heading: `1.65rem-3.2rem`
+- kompakt panelen, kártyán, listában tilos hero-méretű headline-t használni
+- új font-size értéket csak akkor szabad bevezetni, ha a fenti skálába illeszkedik
+- viewport-alapú `vw` betűméret új komponensben nem vezethető be külön döntés nélkül
+- negatív `letter-spacing` csak display headline esetén, kizárólag `--dnd-tracking-display-*` tokennel használható; új ad hoc negatív érték nem vezethető be
 
 Színek:
 - kiemelő: `#D99E2B`

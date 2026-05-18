@@ -5,6 +5,26 @@
   --dnd-line: #eeeeee;
   --dnd-font-body: "Poppins", sans-serif;
   --dnd-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --dnd-text-2xs: max(0.72rem, 12px);
+  --dnd-text-xs: max(0.78rem, 13px);
+  --dnd-text-sm: max(0.82rem, 14px);
+  --dnd-text-md: max(0.88rem, 14px);
+  --dnd-text-body: 1rem;
+  --dnd-text-lead: 1.05rem;
+  --dnd-heading-xs: 1.45rem;
+  --dnd-heading-sm: 1.65rem;
+  --dnd-heading-md: 2rem;
+  --dnd-heading-lg: 2.6rem;
+  --dnd-heading-xl: 3.4rem;
+  --dnd-heading-card: 1.18rem;
+  --dnd-display-lg: 4.8rem;
+  --dnd-display-xl: 5.8rem;
+  --dnd-tracking-label: 0.12em;
+  --dnd-tracking-wide: 0.16em;
+  --dnd-tracking-ui: 0.08em;
+  --dnd-tracking-display-tight: -0.02em;
+  --dnd-tracking-display-compact: -0.03em;
+  --dnd-tracking-display-dense: -0.04em;
   --dnd-radius-sm: 5px;
   --dnd-radius-md: 8px;
   --dnd-container: 1200px;
@@ -133,9 +153,9 @@ main {
 .dnd-language,
 .dnd-nav {
   font-family: var(--dnd-font-body);
-  font-size: 0.64rem;
+  font-size: var(--dnd-text-2xs);
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: var(--dnd-tracking-wide);
   text-transform: uppercase;
 }
 
@@ -324,17 +344,17 @@ main {
 }
 
 .dnd-header-cta span {
-  font-size: 0.68rem;
+  font-size: var(--dnd-text-2xs);
   font-weight: 600;
-  letter-spacing: 0.13em;
+  letter-spacing: var(--dnd-tracking-label);
   text-transform: uppercase;
 }
 
 .dnd-header-cta small {
   margin-top: 3px;
-  font-size: 0.56rem;
+  font-size: var(--dnd-text-2xs);
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--dnd-tracking-ui);
 }
 
 .dnd-header__mobile,
@@ -400,7 +420,7 @@ main {
 
 .dnd-section-title {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-size: clamp(var(--dnd-heading-md), 4vw, var(--dnd-heading-xl));
   line-height: 1.05;
   font-weight: 700;
 }
@@ -412,9 +432,9 @@ main {
 .dnd-section-kicker {
   display: inline-block;
   margin-bottom: 18px;
-  font-size: 0.8rem;
+  font-size: var(--dnd-text-xs);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--dnd-tracking-label);
   text-transform: uppercase;
   color: var(--dnd-accent);
 }
@@ -426,7 +446,7 @@ main {
 .dnd-section-intro {
   max-width: 700px;
   margin: 16px 0 0;
-  font-size: 1.02rem;
+  font-size: var(--dnd-text-body);
   line-height: 1.75;
   color: rgba(0, 0, 0, 0.74);
 }
@@ -434,16 +454,16 @@ main {
 .dnd-eyebrow {
   display: inline-block;
   margin-bottom: 20px;
-  font-size: 0.82rem;
+  font-size: var(--dnd-text-sm);
   font-weight: 600;
   color: var(--dnd-accent);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--dnd-tracking-label);
   text-transform: uppercase;
 }
 
 .dnd-title {
   margin: 0;
-  font-size: clamp(3rem, 6vw, 5.8rem);
+  font-size: clamp(var(--dnd-heading-xl), 6vw, var(--dnd-display-xl));
   line-height: 0.96;
   font-weight: 700;
 }
@@ -451,7 +471,7 @@ main {
 .dnd-lead {
   margin: 22px 0 0;
   max-width: 640px;
-  font-size: 1.08rem;
+  font-size: var(--dnd-text-lead);
   line-height: 1.8;
   color: rgba(0, 0, 0, 0.78);
 }
@@ -494,7 +514,7 @@ main {
 
 .dnd-hero__metric strong {
   margin-bottom: 6px;
-  font-size: 1.05rem;
+  font-size: var(--dnd-text-lead);
 }
 
 .dnd-hero__metric span {
@@ -546,9 +566,9 @@ main {
 .dnd-hero__floating-label {
   display: inline-block;
   margin-bottom: 10px;
-  font-size: 0.75rem;
+  font-size: var(--dnd-text-xs);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--dnd-tracking-label);
   text-transform: uppercase;
   color: var(--dnd-accent);
 }
@@ -574,7 +594,7 @@ main {
 .dnd-usp__index {
   display: block;
   margin-bottom: 12px;
-  font-size: 1.18rem;
+  font-size: var(--dnd-heading-card);
   font-weight: 700;
 }
 
@@ -618,7 +638,7 @@ main {
 .dnd-direct-booking__card h3,
 .dnd-location__highlight strong {
   margin: 0 0 10px;
-  font-size: 1.18rem;
+  font-size: var(--dnd-heading-card);
   font-weight: 700;
 }
 
@@ -663,7 +683,7 @@ main {
 .dnd-location__map-card strong {
   display: block;
   margin-bottom: 10px;
-  font-size: 1.18rem;
+  font-size: var(--dnd-heading-card);
 }
 
 .dnd-location__map-card p {
@@ -676,9 +696,9 @@ main {
   display: inline-block;
   margin-bottom: 12px;
   color: var(--dnd-accent);
-  font-size: 0.76rem;
+  font-size: var(--dnd-text-xs);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--dnd-tracking-label);
   text-transform: uppercase;
 }
 
@@ -688,7 +708,7 @@ main {
   border-radius: 999px;
   background: #000;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: var(--dnd-text-md);
   font-weight: 600;
   box-shadow: var(--dnd-shadow-card);
 }
@@ -796,7 +816,7 @@ main {
 
 .dnd-footer__text {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: var(--dnd-text-body);
 }
 
 @media (min-width: 768px) {
@@ -906,7 +926,7 @@ main {
     background: rgba(239, 228, 211, 0.96);
     color: #2d241c;
     box-shadow: 0 10px 24px rgba(49, 36, 22, 0.14);
-    font-size: 0.6rem;
+    font-size: var(--dnd-text-2xs);
     font-weight: 600;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -938,12 +958,12 @@ main {
     background: rgba(253, 251, 247, 0.96);
     color: #2d241c;
     box-shadow: 0 10px 26px rgba(49, 36, 22, 0.12);
-    font-size: 0.66rem;
+    font-size: var(--dnd-text-2xs);
     font-weight: 600;
   }
 
   .dnd-quick-contact__item span {
-    font-size: 0.58rem;
+    font-size: var(--dnd-text-2xs);
     letter-spacing: 0.08em;
     opacity: 0.62;
   }
@@ -958,8 +978,8 @@ main {
     background: rgba(239, 228, 211, 0.98);
     color: #2d241c;
     font-family: var(--dnd-font-body);
-    font-size: 0.74rem;
-    letter-spacing: 0.14em;
+    font-size: var(--dnd-text-2xs);
+    letter-spacing: var(--dnd-tracking-wide);
     text-transform: uppercase;
     transition: max-height 0.24s ease, padding 0.24s ease;
   }
@@ -1028,7 +1048,7 @@ main {
   }
 
   .dnd-location__pin {
-    font-size: 0.76rem;
+    font-size: var(--dnd-text-xs);
   }
 
   .dnd-direct-booking__wrap {

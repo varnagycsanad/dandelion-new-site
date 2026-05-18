@@ -4,6 +4,7 @@
 [CHANGE 2026-05-16 14:45] Régi /ujsite teszt deploy szöveg root deploy szabályra frissítve.
 [CHANGE 2026-05-16 20:56] Git push alapértelmezés rögzítve: mindig a main a cél, ha nincs kifejezetten más branch meghatározva.
 [CHANGE 2026-05-18 13:22] Tipográfiai guardrail rögzítve: Poppins globális, Playfair csak display/headline, Georgia nem használható önálló UI fontként.
+[CHANGE 2026-05-18 15:06] Betűméret guardrail rögzítve: mobil olvashatóság, skála, 12px alatti tartalmi szöveg tiltása.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -398,6 +399,16 @@ Tilos:
 - random új font
 - komponensenként eltérő ad hoc font stack
 - Georgia-alapú új tipográfiai döntés bevezetése
+
+Betűméret guardrail:
+- új UI / frontend tasknál ellenőrizni kell a `font-size`, `line-height`, `letter-spacing` értékeket is
+- a méret source of truth: `DANDELION_RULES.md`
+- mobilon tartalmi szöveg nem lehet `0.82rem` alatt
+- mobilon label / meta nem lehet `12px` alatt számolt CSS-ben sem
+- 12px alatti méret csak dekoratív, nem információhordozó elemnél maradhat
+- új `vw`-alapú font-size csak külön design döntéssel vezethető be
+- negatív `letter-spacing` csak display headline esetén, kizárólag `--dnd-tracking-display-*` tokennel használható; ad hoc negatív tracking tilos
+- ha egy task mobil nézetet érint, külön ellenőrizni kell a 360-390px szélességi tartományt
 [CHANGE 2026-05-16 13:10] FTP deploy gyorsitasi guardrails: kizart assets a root payloadbol, changed-only asset upload, duplikalt feltoltes tilos.
 
 ## FTP DEPLOY GYORSITASI SZABALYOK (KOTELEZO)
