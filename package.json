@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/postbuild-copy-static-files.mjs",
     "check:root": "node scripts/check-ujsite-deploy.mjs",
     "check:ujsite": "node scripts/check-ujsite-deploy.mjs",
     "images:dry-run": "node scripts/process-accommodation-images.mjs",
