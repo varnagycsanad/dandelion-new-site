@@ -288,9 +288,14 @@ async function checkAssets() {
   }
 
   const cssAssetUrls = findAssetUrls(homeHtml, 'href', 'css');
+  const hasInlineStyles = /<style(?:\s|>)/i.test(homeHtml);
 
   if (cssAssetUrls.length === 0) {
-    fail('No Astro CSS asset found in root HTML');
+    if (hasInlineStyles) {
+      ok('Inline CSS detected in root HTML');
+    } else {
+      fail('No Astro CSS asset or inline styles found in root HTML');
+    }
   } else {
     const failureCountBeforeCss = failureCount;
     await checkAssetStatuses(cssAssetUrls, 'CSS');
