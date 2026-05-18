@@ -257,8 +257,7 @@ const accommodationStructuredData = [
     url: canonicalUrl,
     description: pageData.seo.description,
     image: toAbsoluteUrl(heroSchemaImage),
-    telephone: "+36207730807",
-    email: "hello@dandelionhouse.hu"
+    telephone: "+36207730807"
   },
   {
     "@context": "https://schema.org",
@@ -1065,6 +1064,7 @@ const accommodationStructuredData = [
         const previewImages = galleryImages.slice(0, previewItems.length);
         const hasMore = galleryImages.length > previewImages.length;
         const moreCount = Math.max(galleryImages.length - previewImages.length, 0);
+        const nextFigures = [];
 
         previewItems.forEach((item, index) => {
           const nextImage = previewImages[index];
@@ -1089,9 +1089,12 @@ const accommodationStructuredData = [
             nextBadge.textContent = `+${moreCount} kép`;
             item.trigger.appendChild(nextBadge);
           }
-
-          galleryGrid.appendChild(item.figure);
+          nextFigures.push(item.figure);
         });
+
+        if (nextFigures.length) {
+          galleryGrid.replaceChildren(...nextFigures);
+        }
       };
 
       const applyRuntimeGalleryOrder = (galleryAssignments) => {

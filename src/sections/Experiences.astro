@@ -1,12 +1,8 @@
 ---
-import { Image } from "astro:assets";
 import bikingImage from "../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
 import wineTourImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
 import mountainsImage from "../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
-
-const experienceCardWidths = [240, 360, 480, 640, 960];
-const experienceCardSizes = "(max-width: 1180px) 50vw, 266px";
 
 // [CHANGE 2026-05-16 21:30] Homepage experiences kártyaképek saját home assetekre frissítve.
 // [CHANGE 2026-05-16 11:45] Homepage experiences copy rövidítve és természetesebbre véve.
@@ -57,12 +53,13 @@ const experiences = [
         experiences.map((experience) => (
           <a class="dnd-experience-card" href={experience.href}>
             <div class="dnd-experience-card__media">
-              <Image
-                src={experience.image}
+              <img
+                src={experience.image.src}
                 alt={experience.imageAlt}
                 loading="lazy"
-                widths={experienceCardWidths}
-                sizes={experienceCardSizes}
+                decoding="async"
+                width={experience.image.width}
+                height={experience.image.height}
               />
             </div>
             <div class="dnd-experience-card__body">

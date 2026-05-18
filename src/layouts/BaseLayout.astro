@@ -45,6 +45,12 @@ const resolvedOgImage = toAbsoluteUrl(ogImage);
 const shouldNoindex = noindex || isCanonicalAliasPath(normalizedCurrentPath);
 const robotsContent = shouldNoindex ? "noindex,follow" : "index,follow";
 const structuredDataItems = Array.isArray(structuredData) ? structuredData : [structuredData];
+const homeHref = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const emailLocalPart = "hello";
+const emailDomain = "dandelionhouse.hu";
+const contactPageHref = `${homeHref}kapcsolat/`;
 const schemaScripts = [
   {
     "@context": "https://schema.org",
@@ -53,7 +59,6 @@ const schemaScripts = [
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
     logo: toAbsoluteUrl("/images/LOGO/dandelion-vendeghazak-header-logo-optimized-v2.png"),
-    email: "hello@dandelionhouse.hu",
     telephone: "+36207730807"
   },
   {
@@ -73,13 +78,16 @@ const schemaScripts = [
 
 const quickContacts = [
   { label: "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
-  { label: "E-mail", href: "mailto:hello@dandelionhouse.hu", shortLabel: "MAIL" },
+  {
+    label: "E-mail",
+    href: contactPageHref,
+    shortLabel: "MAIL",
+    emailLocalPart,
+    emailDomain
+  },
   { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
 
-const homeHref = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
 const staysHref = `${homeHref}szallasok/`;
 const experiencesHref = `${homeHref}elmenyek/`;
 const stayLabelOverrides: Record<string, string> = {
@@ -247,7 +255,12 @@ const isTransparentHeaderStart =
                 <path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.3 2.2Z" />
               </svg>
             </a>
-            <a href="mailto:hello@dandelionhouse.hu" aria-label="E-mail">
+            <a
+              href={contactPageHref}
+              aria-label="E-mail"
+              data-mailto-local={emailLocalPart}
+              data-mailto-domain={emailDomain}
+            >
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4.5 6.5h15c.8 0 1.5.7 1.5 1.5v8.5c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5V8c0-.8.7-1.5 1.5-1.5Z" />
                 <path d="m4 8 8 5.4L20 8" />
@@ -376,7 +389,12 @@ const isTransparentHeaderStart =
     {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
       <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>
         {quickContacts.map((item) => (
-          <a href={item.href} class="dnd-quick-contact__item">
+          <a
+            href={item.href}
+            class="dnd-quick-contact__item"
+            data-mailto-local={item.emailLocalPart}
+            data-mailto-domain={item.emailDomain}
+          >
             <span>{item.shortLabel}</span>
             {item.label}
           </a>
@@ -389,6 +407,31 @@ const isTransparentHeaderStart =
 
     <script>
       (() => {
+        const buildMailtoHref = (localPart, domain) => `mailto:${localPart}@${domain}`;
+
+        const initMailtoLinks = () => {
+          const mailtoLinks = document.querySelectorAll("[data-mailto-local][data-mailto-domain]");
+
+          mailtoLinks.forEach((link) => {
+            if (!(link instanceof HTMLAnchorElement)) {
+              return;
+            }
+
+            const localPart = link.dataset.mailtoLocal;
+            const domain = link.dataset.mailtoDomain;
+
+            if (!localPart || !domain) {
+              return;
+            }
+
+            const mailtoHref = buildMailtoHref(localPart, domain);
+            link.addEventListener("click", (event) => {
+              event.preventDefault();
+              window.location.href = mailtoHref;
+            });
+          });
+        };
+
         const initHeader = () => {
           const header = document.querySelector("[data-dnd-header]");
           const toggle = document.querySelector("[data-dnd-menu-toggle]");
@@ -400,12 +443,31 @@ const isTransparentHeaderStart =
             return;
           }
 
-          const updateHeader = () => {
-            header.classList.toggle("is-scrolled", window.scrollY > 24);
+          let headerScrollFrame = 0;
+          let isHeaderScrolled = false;
+
+          const applyHeaderScrollState = () => {
+            headerScrollFrame = 0;
+            const nextScrolled = window.scrollY > 24;
+
+            if (nextScrolled === isHeaderScrolled) {
+              return;
+            }
+
+            isHeaderScrolled = nextScrolled;
+            header.classList.toggle("is-scrolled", nextScrolled);
           };
 
-          updateHeader();
-          window.addEventListener("scroll", updateHeader, { passive: true });
+          const queueHeaderScrollState = () => {
+            if (headerScrollFrame) {
+              return;
+            }
+
+            headerScrollFrame = window.requestAnimationFrame(applyHeaderScrollState);
+          };
+
+          applyHeaderScrollState();
+          window.addEventListener("scroll", queueHeaderScrollState, { passive: true });
 
           toggle?.addEventListener("click", () => {
             const isOpen = header.classList.toggle("is-menu-open");
@@ -420,6 +482,7 @@ const isTransparentHeaderStart =
         };
 
         const boot = () => {
+          initMailtoLinks();
           initHeader();
         };
 
