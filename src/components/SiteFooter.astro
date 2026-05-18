@@ -184,8 +184,12 @@ const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
     }
 
     .dnd-site-footer__inner {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 22px;
+    }
+
+    .dnd-site-footer__brand {
+      grid-column: 1 / -1;
     }
 
     .dnd-site-footer__group h2 {
