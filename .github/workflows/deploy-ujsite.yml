@@ -519,24 +519,46 @@ jobs:
             }
           }
 
+          async function requestUrl(url) {
+            let res = await fetch(url, {
+              method: "HEAD",
+              redirect: "follow",
+              headers: { "Cache-Control": "no-cache" }
+            });
+            if (res.status === 405 || res.status === 501) {
+              res = await fetch(url, {
+                method: "GET",
+                redirect: "follow",
+                headers: { "Cache-Control": "no-cache", Range: "bytes=0-0" }
+              });
+            }
+            return res;
+          }
+
           async function checkUrl(url, relPath) {
             let lastStatus = 0;
+            let attempt = 0;
 
             for (const delay of RETRY_DELAYS_MS) {
+              attempt += 1;
               if (delay > 0) {
                 await sleep(delay);
               }
 
               try {
-                let res = await fetch(url, { method: "HEAD", redirect: "follow" });
-                if (res.status === 405 || res.status === 501) {
-                  res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
-                }
-
+                const res = await requestUrl(url);
                 lastStatus = res.status;
                 if (res.status === 200) {
                   return { url, relPath, status: res.status };
                 }
+
+                const cacheBustUrl = `${url}?deploy_check=${Date.now()}-${attempt}`;
+                const cacheBustRes = await requestUrl(cacheBustUrl);
+                if (cacheBustRes.status === 200) {
+                  console.log(`Asset exists at origin but cached status is ${res.status}: ${url}`);
+                  return { url, relPath, status: 200, cacheBypassed: true };
+                }
+                lastStatus = cacheBustRes.status;
               } catch {
                 lastStatus = 0;
               }
