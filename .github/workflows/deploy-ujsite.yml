@@ -318,14 +318,17 @@ jobs:
           set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
-            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
-            if [ "$(dirname "$rel")" = "." ]; then
-              remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            rel_dir="$(dirname "$rel")"
+            remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            if [ "$rel_dir" != "." ]; then
+              remote_dir="${remote_dir}/${rel_dir}"
             fi
             printf 'echo "ASSET UPLOAD %s"\n' "$rel"
-            printf 'set cmd:fail-exit no\n'
-            printf 'mkdir -p "%s"\n' "$remote_dir"
-            printf 'set cmd:fail-exit yes\n'
+            if [ "$rel_dir" != "." ]; then
+              printf 'set cmd:fail-exit no\n'
+              printf 'mkdir -p "%s"\n' "$remote_dir"
+              printf 'set cmd:fail-exit yes\n'
+            fi
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
           done < asset-upload.txt)
           $(while IFS= read -r rel; do
@@ -452,14 +455,17 @@ jobs:
           set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
-            remote_dir="${UJSITE_FTP_PATH%/}/assets/$(dirname "$rel")"
-            if [ "$(dirname "$rel")" = "." ]; then
-              remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            rel_dir="$(dirname "$rel")"
+            remote_dir="${UJSITE_FTP_PATH%/}/assets"
+            if [ "$rel_dir" != "." ]; then
+              remote_dir="${remote_dir}/${rel_dir}"
             fi
             printf 'echo "ASSET REPAIR %s"\n' "$rel"
-            printf 'set cmd:fail-exit no\n'
-            printf 'mkdir -p "%s"\n' "$remote_dir"
-            printf 'set cmd:fail-exit yes\n'
+            if [ "$rel_dir" != "." ]; then
+              printf 'set cmd:fail-exit no\n'
+              printf 'mkdir -p "%s"\n' "$remote_dir"
+              printf 'set cmd:fail-exit yes\n'
+            fi
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-assets/$rel"
           done < repair-assets.txt)
           bye
@@ -470,7 +476,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sleep 10
+          sleep 20
           node <<'EOF'
           const fs = require("node:fs");
           const path = require("node:path");
@@ -492,7 +498,8 @@ jobs:
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
           const assetEntries = new Map();
-          const RETRY_DELAYS_MS = [0, 5000, 10000, 20000];
+          const RETRY_DELAYS_MS = [0, 10000, 20000, 30000, 60000, 90000];
+          const repairListPath = path.join(process.cwd(), "repair-assets.txt");
 
           function sleep(ms) {
             return new Promise((resolve) => setTimeout(resolve, ms));
@@ -539,7 +546,14 @@ jobs:
           }
 
           (async () => {
-            const all = Array.from(assetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+            const repairedPaths = fs.existsSync(repairListPath)
+              ? fs.readFileSync(repairListPath, "utf8").split(/\r?\n/).map((line) => line.trim()).filter(Boolean)
+              : [];
+            const all = repairedPaths.length > 0
+              ? repairedPaths.map((relPath) => ({ url: `${base}/assets/${relPath}`, relPath }))
+              : Array.from(assetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+
+            console.log(`Re-checking ${all.length} repaired hashed asset URL(s).`);
             const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
             const bad = results.filter((r) => r.status !== 200);
             if (bad.length > 0) {
