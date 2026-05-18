@@ -89,7 +89,7 @@ export function buildReviewDisplayData(input: {
 } {
   const reviewBrandAssets = {
     Google: {
-      logoSrc: `${input.baseHref}images/brand/google-logo-compact-optimized.png`,
+      logoSrc: `${input.baseHref}images/brand/google-logo-compact-optimized-v2.png`,
       logoAlt: input.googleLogoAlt
     },
     "Booking.com": {
