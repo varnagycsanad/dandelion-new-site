@@ -3,6 +3,8 @@
   --dnd-text: #000000;
   --dnd-accent: #d99e2b;
   --dnd-line: #eeeeee;
+  --dnd-font-body: "Poppins", sans-serif;
+  --dnd-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --dnd-radius-sm: 5px;
   --dnd-radius-md: 8px;
   --dnd-container: 1200px;
@@ -22,7 +24,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--dnd-font-body);
   font-weight: 400;
   color: var(--dnd-text);
   background:
@@ -130,9 +132,9 @@ main {
 .dnd-header__contact,
 .dnd-language,
 .dnd-nav {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--dnd-font-body);
   font-size: 0.64rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -955,7 +957,7 @@ main {
     padding: 0 24px;
     background: rgba(239, 228, 211, 0.98);
     color: #2d241c;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--dnd-font-body);
     font-size: 0.74rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;

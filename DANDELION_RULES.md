@@ -1,4 +1,5 @@
 [CHANGE 2026-05-16 14:05] DANDELION_RULES karcsúsítva és legacy media/admin/runtime nyelvezetre egységesítve.
+[CHANGE 2026-05-18 13:20] Tipográfiai source of truth pontosítva: Poppins globális sans, Playfair Display csak display/headline szerepre.
 
 # DANDELION – DESIGN & STRUCTURE RULES
 
@@ -58,11 +59,17 @@ Stílus:
 - nem ultramodern
 
 Font:
-- Hero: Playfair Display, ha a komponens ezt használja
-- Minden más: Poppins
+- Elsődleges globális font: Poppins
+- Display / editorial headline font: Playfair Display
+- Hero és fő headline kaphat Playfair Display-t
+- body, menü, CTA, label, meta, űrlap, jogi szöveg: mindig Poppins
+- Georgia / Times New Roman nem design decision, csak fallback lehet Playfair mögött
+- új komponens nem vezethet be új fontot vagy új fallback-stratégiát
 - body: 400
 - menü: 600
-- heading: 700
+- heading:
+  - Poppins heading: 600-700
+  - Playfair heading: 400-600
 
 Színek:
 - kiemelő: `#D99E2B`

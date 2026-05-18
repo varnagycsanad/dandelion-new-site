@@ -1,7 +1,7 @@
 # 07 – DESIGN RENDSZER
 
 # Státusz: VÉGLEGES
-# Utolsó módosítás: 2026-04-12
+# Utolsó módosítás: 2026-05-18
 
 ## Cél
 Egységes vizuális és UI szabályrendszer rögzítése.
@@ -25,9 +25,12 @@ Nem “szép oldal” a cél.
 
 ### Betűtípus
 - Poppins (globálisan)
+- Playfair Display csak display / hero / editorial headline szerepre
+- Georgia / Times New Roman csak fallback lehet a Playfair mögött
 
 ### Súlyok
-- H1, H2 → 700
+- H1, H2 → 700 Poppins esetén
+- Playfair headline → 400-600
 - Menü → 600
 - Szöveg → 400
 

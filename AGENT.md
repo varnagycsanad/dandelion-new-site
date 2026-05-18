@@ -3,6 +3,7 @@
 [CHANGE 2026-05-16 14:30] Deploy concurrency szabály rögzítve: futó deploy nem szakítható meg új push miatt.
 [CHANGE 2026-05-16 14:45] Régi /ujsite teszt deploy szöveg root deploy szabályra frissítve.
 [CHANGE 2026-05-16 20:56] Git push alapértelmezés rögzítve: mindig a main a cél, ha nincs kifejezetten más branch meghatározva.
+[CHANGE 2026-05-18 13:22] Tipográfiai guardrail rögzítve: Poppins globális, Playfair csak display/headline, Georgia nem használható önálló UI fontként.
 
 # DANDELION – AGENT RULES (LEAN)
 
@@ -375,6 +376,28 @@ Szerepek:
 
 Ha UI-t érint a task:
 → DANDELION_RULES az elsődleges
+
+---
+
+## TYPOGRAPHY GUARDRAIL
+
+UI tasknál a tipográfiai source of truth:
+- `DANDELION_RULES.md`
+
+Kötelező:
+- globális UI / body / menü / CTA / label / meta / form / jogi szöveg: `Poppins`
+- display / hero / editorial headline: `Playfair Display`
+- `Georgia` és `Times New Roman` nem használható önálló választott UI fontként
+- serif fallback csak `Playfair Display` mögött maradhat
+
+Ha egy komponens `Playfair Display`-t deklarál:
+- ellenőrizni kell, hogy a font ténylegesen be van-e töltve
+- ha nincs betöltve, ezt audit findingként jelezni kell
+
+Tilos:
+- random új font
+- komponensenként eltérő ad hoc font stack
+- Georgia-alapú új tipográfiai döntés bevezetése
 [CHANGE 2026-05-16 13:10] FTP deploy gyorsitasi guardrails: kizart assets a root payloadbol, changed-only asset upload, duplikalt feltoltes tilos.
 
 ## FTP DEPLOY GYORSITASI SZABALYOK (KOTELEZO)
