@@ -10,25 +10,26 @@ import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-s
 import { toAbsoluteUrl } from "../data/site-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const googleLogoSrc = `${baseHref}images/brand/google-logo-compact-optimized.png`;
 
 const d2Reviews = [
   {
     source: "Google",
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
+    logoSrc: googleLogoSrc,
     logoAlt: "Google értékelés",
     quote: "„Idilli környezet, kedves házigazdák, sok hely a gyerekeknek és nyugodt, szerethető hangulat.”",
     meta: "Vanessa L. · Google · 5/5"
   },
   {
     source: "Google",
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
+    logoSrc: googleLogoSrc,
     logoAlt: "Google értékelés",
     quote: "„A ház minden igényt kielégít, és jó szívvel ajánlom annak, aki pár napra elvonulna.”",
     meta: "Ildikó Barna · Google · 5/5"
   },
   {
     source: "Google",
-    logoSrc: `${baseHref}images/brand/google-logo-compact.png`,
+    logoSrc: googleLogoSrc,
     logoAlt: "Google értékelés",
     quote: "„Szép, rendezett hely, csendes környezet és gördülékeny érkezés. Kifejezetten jó pihenéshez.”",
     meta: "Eszter K. · Google · 5/5"
@@ -159,7 +160,7 @@ const homepageStructuredData = [
           <section class="d2-reviews__mobile-group" aria-label="Kiemelt Google értékelés">
             <div class="d2-reviews__mobile-head">
               <img
-                src={`${baseHref}images/brand/google-logo-compact.png`}
+                src={googleLogoSrc}
                 alt="Google értékelés"
                 width={82}
                 height={24}
@@ -183,7 +184,7 @@ const homepageStructuredData = [
             <section class="d2-reviews__mobile-group" aria-label="További Google értékelések">
               <div class="d2-reviews__mobile-head">
                 <img
-                  src={`${baseHref}images/brand/google-logo-compact.png`}
+                  src={googleLogoSrc}
                   alt="Google értékelés"
                   width={82}
                   height={24}

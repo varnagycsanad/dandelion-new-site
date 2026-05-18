@@ -2,6 +2,12 @@
 import { panoramaPoolImages } from "../data/images/panorama-pool-images";
 
 const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
+const poolHighlightSrcSet = [
+  "/images/panorama-pool/responsive/dandelion-panorama-pool-001-640.webp 640w",
+  "/images/panorama-pool/responsive/dandelion-panorama-pool-001-960.webp 960w",
+  "/images/panorama-pool/responsive/dandelion-panorama-pool-001-1280.webp 1280w"
+].join(", ");
+const poolHighlightSizes = "(max-width: 959px) 100vw, 46vw";
 ---
 
 <section class="pool-highlight dnd-section" aria-labelledby="pool-highlight-title">
@@ -35,11 +41,13 @@ const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint ==
 
       <figure class="pool-highlight__visual">
         <img
-          src={poolHighlightImage.src}
+          src="/images/panorama-pool/responsive/dandelion-panorama-pool-001-960.webp"
+          srcset={poolHighlightSrcSet}
+          sizes={poolHighlightSizes}
           alt={poolHighlightImage.altHu}
           title={poolHighlightImage.titleHu}
-          width="1800"
-          height="1350"
+          width="960"
+          height="720"
           class="pool-highlight__image"
           loading="lazy"
           decoding="async"
