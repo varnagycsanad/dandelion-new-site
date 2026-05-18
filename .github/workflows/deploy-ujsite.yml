@@ -470,6 +470,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sleep 10
           node <<'EOF'
           const fs = require("node:fs");
           const path = require("node:path");
@@ -491,6 +492,11 @@ jobs:
           const distRoot = path.join(process.cwd(), "dist");
           const base = "https://dandelionhouse.hu";
           const assetEntries = new Map();
+          const RETRY_DELAYS_MS = [0, 5000, 10000, 20000];
+
+          function sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+          }
 
           for (const relPath of htmlRelativePaths) {
             const htmlPath = path.join(distRoot, relPath);
@@ -507,15 +513,29 @@ jobs:
           }
 
           async function checkUrl(url, relPath) {
-            try {
-              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
-              if (res.status === 405 || res.status === 501) {
-                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+            let lastStatus = 0;
+
+            for (const delay of RETRY_DELAYS_MS) {
+              if (delay > 0) {
+                await sleep(delay);
               }
-              return { url, relPath, status: res.status };
-            } catch {
-              return { url, relPath, status: 0 };
+
+              try {
+                let res = await fetch(url, { method: "HEAD", redirect: "follow" });
+                if (res.status === 405 || res.status === 501) {
+                  res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+                }
+
+                lastStatus = res.status;
+                if (res.status === 200) {
+                  return { url, relPath, status: res.status };
+                }
+              } catch {
+                lastStatus = 0;
+              }
             }
+
+            return { url, relPath, status: lastStatus };
           }
 
           (async () => {
@@ -530,6 +550,253 @@ jobs:
               process.exit(3);
             }
             console.log(`Assets re-check passed (${results.length} URLs).`);
+          })();
+          EOF
+
+      - name: Validate critical root public assets
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        id: root_public_health
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'EOF'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const htmlRelativePaths = [
+            "index.html",
+            "panorama-pool/index.html",
+            "dandelion-d1/index.html",
+            "dandelion-d2/index.html",
+            "dandelion-koveskal/index.html",
+            "dandelion-royal-homes/index.html",
+            "dandelion-szepvolgyi-vendeghaz/index.html",
+            "dandelion-szololiget/index.html",
+            "dandelion-vintage/index.html",
+            "dandelion-zsalya/index.html",
+            "fuge/index.html",
+            "royal/index.html",
+            "szepvolgyi/index.html",
+            "szololiget/index.html"
+          ];
+          const distRoot = path.join(process.cwd(), "dist");
+          const base = "https://dandelionhouse.hu";
+          const rootAssetEntries = new Map();
+          const rootPathPattern =
+            /^(?:\/images\/|\/scripts\/|\/favicon\.(?:ico|png)|\/robots\.txt|\/deploy-check\.txt)/i;
+
+          function collectCandidate(value) {
+            if (!value || value.startsWith("data:") || value.startsWith("mailto:") || value.startsWith("tel:")) {
+              return;
+            }
+
+            if (value.includes(",")) {
+              for (const part of value.split(",")) {
+                const candidate = part.trim().split(/\s+/)[0];
+                collectCandidate(candidate);
+              }
+              return;
+            }
+
+            let resolvedPath = value;
+
+            try {
+              resolvedPath = new URL(value, base).pathname;
+            } catch {
+              return;
+            }
+
+            if (!rootPathPattern.test(resolvedPath) || resolvedPath.startsWith("/assets/")) {
+              return;
+            }
+
+            rootAssetEntries.set(base + resolvedPath, resolvedPath.replace(/^\//, ""));
+          }
+
+          for (const relPath of htmlRelativePaths) {
+            const htmlPath = path.join(distRoot, relPath);
+            if (!fs.existsSync(htmlPath)) continue;
+            const html = fs.readFileSync(htmlPath, "utf8");
+            const rx = /(?:src|href|poster|srcset)="([^"]+)"/g;
+            let m;
+            while ((m = rx.exec(html)) !== null) {
+              collectCandidate(m[1]);
+            }
+          }
+
+          async function checkUrl(url, relPath) {
+            try {
+              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
+              if (res.status === 405 || res.status === 501) {
+                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              }
+              return { url, relPath, status: res.status };
+            } catch {
+              return { url, relPath, status: 0 };
+            }
+          }
+
+          (async () => {
+            const all = Array.from(rootAssetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+            const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
+            const bad = results.filter((r) => r.status !== 200);
+            if (bad.length > 0) {
+              const deployDistRoot = path.join(process.cwd(), "deploy-dist");
+              const repairListPath = path.join(process.cwd(), "repair-root-files.txt");
+              fs.mkdirSync(deployDistRoot, { recursive: true });
+              fs.writeFileSync(repairListPath, "");
+
+              for (const item of bad) {
+                const sourcePath = path.join(distRoot, item.relPath);
+                if (!fs.existsSync(sourcePath)) continue;
+                const targetPath = path.join(deployDistRoot, item.relPath);
+                fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+                fs.copyFileSync(sourcePath, targetPath);
+                fs.appendFileSync(repairListPath, `${item.relPath}\n`);
+              }
+
+              console.log(`Broken root public assets detected: ${bad.length}`);
+              for (const item of bad.slice(0, 30)) {
+                console.log(`${item.status}\t${item.url}`);
+              }
+              fs.writeFileSync("root-public-health-failed.txt", bad.map((x) => `${x.status}\t${x.url}`).join("\n"));
+              process.exit(2);
+            }
+            console.log(`Root public asset check passed (${results.length} URLs).`);
+          })();
+          EOF
+
+      - name: Repair root public assets over FTP when health-check fails
+        if: steps.root_public_health.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f repair-root-files.txt ]; then
+            tr -d '\r' < repair-root-files.txt | sed '/^$/d' | sort -u > repair-root-files.normalized.txt
+            mv repair-root-files.normalized.txt repair-root-files.txt
+          fi
+
+          if [ ! -s repair-root-files.txt ]; then
+            echo "No repairable root public assets were collected."
+            exit 1
+          fi
+
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          set cmd:fail-exit yes
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 15
+          set xfer:clobber on
+          $(while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            remote_dir="${UJSITE_FTP_PATH%/}/$(dirname "$rel")"
+            if [ "$(dirname "$rel")" = "." ]; then
+              remote_dir="${UJSITE_FTP_PATH%/}"
+            fi
+            printf 'echo "ROOT REPAIR %s"\n' "$rel"
+            printf 'set cmd:fail-exit no\n'
+            printf 'mkdir -p "%s"\n' "$remote_dir"
+            printf 'set cmd:fail-exit yes\n'
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
+          done < repair-root-files.txt)
+          bye
+          EOF
+
+      - name: Re-validate critical root public assets after repair
+        if: always() && steps.root_public_health.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'EOF'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const htmlRelativePaths = [
+            "index.html",
+            "panorama-pool/index.html",
+            "dandelion-d1/index.html",
+            "dandelion-d2/index.html",
+            "dandelion-koveskal/index.html",
+            "dandelion-royal-homes/index.html",
+            "dandelion-szepvolgyi-vendeghaz/index.html",
+            "dandelion-szololiget/index.html",
+            "dandelion-vintage/index.html",
+            "dandelion-zsalya/index.html",
+            "fuge/index.html",
+            "royal/index.html",
+            "szepvolgyi/index.html",
+            "szololiget/index.html"
+          ];
+          const distRoot = path.join(process.cwd(), "dist");
+          const base = "https://dandelionhouse.hu";
+          const rootAssetEntries = new Map();
+          const rootPathPattern =
+            /^(?:\/images\/|\/scripts\/|\/favicon\.(?:ico|png)|\/robots\.txt|\/deploy-check\.txt)/i;
+
+          function collectCandidate(value) {
+            if (!value || value.startsWith("data:") || value.startsWith("mailto:") || value.startsWith("tel:")) {
+              return;
+            }
+
+            if (value.includes(",")) {
+              for (const part of value.split(",")) {
+                const candidate = part.trim().split(/\s+/)[0];
+                collectCandidate(candidate);
+              }
+              return;
+            }
+
+            let resolvedPath = value;
+
+            try {
+              resolvedPath = new URL(value, base).pathname;
+            } catch {
+              return;
+            }
+
+            if (!rootPathPattern.test(resolvedPath) || resolvedPath.startsWith("/assets/")) {
+              return;
+            }
+
+            rootAssetEntries.set(base + resolvedPath, resolvedPath.replace(/^\//, ""));
+          }
+
+          for (const relPath of htmlRelativePaths) {
+            const htmlPath = path.join(distRoot, relPath);
+            if (!fs.existsSync(htmlPath)) continue;
+            const html = fs.readFileSync(htmlPath, "utf8");
+            const rx = /(?:src|href|poster|srcset)="([^"]+)"/g;
+            let m;
+            while ((m = rx.exec(html)) !== null) {
+              collectCandidate(m[1]);
+            }
+          }
+
+          async function checkUrl(url, relPath) {
+            try {
+              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
+              if (res.status === 405 || res.status === 501) {
+                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              }
+              return { url, relPath, status: res.status };
+            } catch {
+              return { url, relPath, status: 0 };
+            }
+          }
+
+          (async () => {
+            const all = Array.from(rootAssetEntries.entries()).map(([url, relPath]) => ({ url, relPath }));
+            const results = await Promise.all(all.map((entry) => checkUrl(entry.url, entry.relPath)));
+            const bad = results.filter((r) => r.status !== 200);
+            if (bad.length > 0) {
+              console.log(`Root public assets still broken after repair: ${bad.length}`);
+              for (const item of bad.slice(0, 30)) {
+                console.log(`${item.status}\t${item.url}`);
+              }
+              process.exit(3);
+            }
+            console.log(`Root public asset re-check passed (${results.length} URLs).`);
           })();
           EOF
 
