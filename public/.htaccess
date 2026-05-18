@@ -48,6 +48,10 @@ Options -MultiViews
   RewriteEngine On
   RewriteBase /
 
+  # Canonicalize the public host to the apex domain to avoid split cache/docroot behavior.
+  RewriteCond %{HTTP_HOST} ^www\.dandelionhouse\.hu$ [NC]
+  RewriteRule ^ https://dandelionhouse.hu%{REQUEST_URI} [L,R=301]
+
   # Force HTTPS for all non-secure requests.
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
