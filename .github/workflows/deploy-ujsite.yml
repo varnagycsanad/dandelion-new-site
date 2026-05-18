@@ -382,13 +382,37 @@ jobs:
             }
           }
 
+          async function requestUrl(url) {
+            let res = await fetch(url, {
+              method: "HEAD",
+              redirect: "follow",
+              headers: { "Cache-Control": "no-cache" }
+            });
+            if (res.status === 405 || res.status === 501) {
+              res = await fetch(url, {
+                method: "GET",
+                redirect: "follow",
+                headers: { "Cache-Control": "no-cache", Range: "bytes=0-0" }
+              });
+            }
+            return res;
+          }
+
           async function checkUrl(url, relPath) {
             try {
-              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
-              if (res.status === 405 || res.status === 501) {
-                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              const res = await requestUrl(url);
+              if (res.status === 200) {
+                return { url, relPath, status: res.status };
               }
-              return { url, relPath, status: res.status };
+
+              const cacheBustUrl = `${url}?deploy_check=${Date.now()}`;
+              const cacheBustRes = await requestUrl(cacheBustUrl);
+              if (cacheBustRes.status === 200) {
+                console.log(`Asset exists at origin but cached status is ${res.status}: ${url}`);
+                return { url, relPath, status: 200, cacheBypassed: true };
+              }
+
+              return { url, relPath, status: cacheBustRes.status };
             } catch {
               return { url, relPath, status: 0 };
             }
@@ -660,13 +684,37 @@ jobs:
             }
           }
 
+          async function requestUrl(url) {
+            let res = await fetch(url, {
+              method: "HEAD",
+              redirect: "follow",
+              headers: { "Cache-Control": "no-cache" }
+            });
+            if (res.status === 405 || res.status === 501) {
+              res = await fetch(url, {
+                method: "GET",
+                redirect: "follow",
+                headers: { "Cache-Control": "no-cache", Range: "bytes=0-0" }
+              });
+            }
+            return res;
+          }
+
           async function checkUrl(url, relPath) {
             try {
-              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
-              if (res.status === 405 || res.status === 501) {
-                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              const res = await requestUrl(url);
+              if (res.status === 200) {
+                return { url, relPath, status: res.status };
               }
-              return { url, relPath, status: res.status };
+
+              const cacheBustUrl = `${url}?deploy_check=${Date.now()}`;
+              const cacheBustRes = await requestUrl(cacheBustUrl);
+              if (cacheBustRes.status === 200) {
+                console.log(`Root asset exists at origin but cached status is ${res.status}: ${url}`);
+                return { url, relPath, status: 200, cacheBypassed: true };
+              }
+
+              return { url, relPath, status: cacheBustRes.status };
             } catch {
               return { url, relPath, status: 0 };
             }
@@ -809,13 +857,37 @@ jobs:
             }
           }
 
+          async function requestUrl(url) {
+            let res = await fetch(url, {
+              method: "HEAD",
+              redirect: "follow",
+              headers: { "Cache-Control": "no-cache" }
+            });
+            if (res.status === 405 || res.status === 501) {
+              res = await fetch(url, {
+                method: "GET",
+                redirect: "follow",
+                headers: { "Cache-Control": "no-cache", Range: "bytes=0-0" }
+              });
+            }
+            return res;
+          }
+
           async function checkUrl(url, relPath) {
             try {
-              let res = await fetch(url, { method: "HEAD", redirect: "follow" });
-              if (res.status === 405 || res.status === 501) {
-                res = await fetch(url, { method: "GET", redirect: "follow", headers: { Range: "bytes=0-0" } });
+              const res = await requestUrl(url);
+              if (res.status === 200) {
+                return { url, relPath, status: res.status };
               }
-              return { url, relPath, status: res.status };
+
+              const cacheBustUrl = `${url}?deploy_check=${Date.now()}`;
+              const cacheBustRes = await requestUrl(cacheBustUrl);
+              if (cacheBustRes.status === 200) {
+                console.log(`Root asset exists at origin but cached status is ${res.status}: ${url}`);
+                return { url, relPath, status: 200, cacheBypassed: true };
+              }
+
+              return { url, relPath, status: cacheBustRes.status };
             } catch {
               return { url, relPath, status: 0 };
             }
