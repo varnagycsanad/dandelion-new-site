@@ -234,6 +234,15 @@ const homepageStructuredData = [
       </div>
     </div>
   </section>
+  <section class="d2-region-guide dnd-section" aria-labelledby="homepage-region-guide-title">
+    <div class="dnd-container d2-region-guide__container">
+      <span class="d2-region-guide__kicker">SZÁLLÁSOK TÉRSÉGEK SZERINT</span>
+      <p id="homepage-region-guide-title" class="d2-region-guide__text">
+        A szállásokat terület szerint rendeztük. Lent külön blokkban találod a Tapolcai-medence, a
+        Balaton melletti és a Káli-medencei házakat.
+      </p>
+    </div>
+  </section>
   <RegionStories />
   <Experiences />
   <NewsletterSignup />
@@ -244,6 +253,44 @@ const homepageStructuredData = [
   .d2-reviews {
     padding-top: 18px;
     padding-bottom: 20px;
+  }
+
+  .d2-region-guide {
+    padding: 10px 0 18px;
+  }
+
+  .d2-region-guide__container {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .d2-region-guide__kicker {
+    color: #9c7a34;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .d2-region-guide__kicker::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: rgba(156, 122, 52, 0.32);
+  }
+
+  .d2-region-guide__text {
+    margin: 0;
+    max-width: 520px;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
   }
 
   .d2-reviews__shell {
@@ -535,6 +582,30 @@ const homepageStructuredData = [
 
     .d2-reviews__shell {
       padding: 22px 18px 18px;
+    }
+
+    .d2-region-guide {
+      padding: 6px 0 14px;
+    }
+
+    .d2-region-guide__container {
+      gap: 6px;
+    }
+
+    .d2-region-guide__kicker {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+    }
+
+    .d2-region-guide__kicker::after {
+      width: 56px;
+      margin-top: 8px;
+    }
+
+    .d2-region-guide__text {
+      max-width: 320px;
+      font-size: 12px;
+      line-height: 1.4;
     }
 
     .d2-reviews__heading {
