@@ -1,0 +1,17 @@
+---
+import { d2EnglishPageData } from "../../data/accommodation-pages/d2.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-19 00:00] First English Dandelion D2 route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={d2EnglishPageData}
+  imageSet={accommodationImages.d2}
+  lang="en"
+  canonicalPath="/en/dandelion-d2/"
+  accommodationListingHref="/en/szallasok/"
+  hideHeader={true}
+  hideFooter={true}
+/>

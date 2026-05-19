@@ -58,6 +58,8 @@ export type AccommodationPageRelatedStayImage =
   | {
       type: "mapping";
       slot: HomepageImageSlotKey;
+      // [CHANGE 2026-05-19 00:00] Optional per-page alt override supports localized related-stay cards without editing the image registry.
+      alt?: string;
     }
   | {
       type: "direct";

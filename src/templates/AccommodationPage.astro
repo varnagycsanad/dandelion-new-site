@@ -9,15 +9,63 @@ import {
   buildHeroImages,
   buildRelatedStays,
   buildReviewDisplayData,
+  type AccommodationPageLocale,
   resolveBaseHref
 } from "../lib/accommodation-page-adapters";
 import { getCanonicalPath, toAbsoluteUrl } from "../data/site-seo";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
-const { pageData, imageSet } = Astro.props as {
+const {
+  pageData,
+  imageSet,
+  lang = "hu",
+  canonicalPath,
+  accommodationListingHref: accommodationListingHrefOverride,
+  hideHeader = false,
+  hideFooter = false
+} = Astro.props as {
   pageData: AccommodationPageData;
   imageSet: AccommodationImageSet;
+  lang?: AccommodationPageLocale;
+  canonicalPath?: string;
+  accommodationListingHref?: string;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 };
+
+// [CHANGE 2026-05-19 00:00] Accommodation template gained minimal locale props for the first English D2 route, with Hungarian defaults preserved.
+const localizedTemplateText = {
+  hu: {
+    bookingTrustLabel: "Közvetlen foglalás · SabeeApp rendszerben",
+    homeBreadcrumbLabel: "Főoldal",
+    homeBreadcrumbHref: "/",
+    secondaryDetailsLabel: "Tudnivalók és programok",
+    decisionPanelAriaLabel: "Szállás döntési áttekintés",
+    overviewTitle: "Gyors áttekintés",
+    reasonsTitle: "Amiért szeretni fogod",
+    relatedListingCta: "Nézd meg a többi Dandelion szállást is.",
+    galleryMoreSuffix: "kép",
+    poolSealTitleLine1: "PANORÁMA",
+    poolSealTitleLine2: "MEDENCE",
+    poolSealDate: "2026. JÚNIUS 1-TŐL"
+  },
+  en: {
+    bookingTrustLabel: "Direct booking · SabeeApp system",
+    homeBreadcrumbLabel: "English home",
+    homeBreadcrumbHref: "/en/",
+    secondaryDetailsLabel: "Local tips and things to know",
+    decisionPanelAriaLabel: "Accommodation decision overview",
+    overviewTitle: "Quick overview",
+    reasonsTitle: "Why you will love it",
+    relatedListingCta: "Back to accommodations.",
+    galleryMoreSuffix: "images",
+    poolSealTitleLine1: "PANORAMA",
+    poolSealTitleLine2: "POOL",
+    poolSealDate: "FROM JUNE 1, 2026"
+  }
+} satisfies Record<AccommodationPageLocale, Record<string, string>>;
+
+const templateText = localizedTemplateText[lang];
 
 const iconKeyAliases: Record<string, string> = {
   guests: "users",
@@ -168,7 +216,7 @@ const amenityItems =
         iconKey: item.icon,
         title: item.label
       }));
-const bookingTrustLabel = bookingLink ? "Közvetlen foglalás · SabeeApp rendszerben" : null;
+const bookingTrustLabel = bookingLink ? templateText.bookingTrustLabel : null;
 const locationBenefits = pageData.map.benefits;
 const {
   reviewBrandAssets,
@@ -184,7 +232,8 @@ const {
 
 const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
-  baseHref
+  baseHref,
+  locale: lang
 });
 // Gallery adapter state from the shared file-based registry.
 const {
@@ -212,7 +261,8 @@ const {
   mobileHero: imageSet.hero.mobile || null,
   mobileImagePath: pageData.hero.mobileImagePath,
   galleryImages,
-  fallbackAlt: pageData.hero.fallbackAlt
+  fallbackAlt: pageData.hero.fallbackAlt,
+  locale: lang
 });
 
 const imageMapping = await readHomepageImageMapping();
@@ -237,10 +287,12 @@ const detailsLongDescription = (pageData.details.longDescription || [])
 
     return !areDescriptionsSimilar(paragraph, visibleDetailsSummary);
   });
-const accommodationListingHref = `${baseHref}szallasok/`;
+const accommodationListingHref =
+  accommodationListingHrefOverride ||
+  `${baseHref}${lang === "en" ? "en/szallasok/" : "szallasok/"}`;
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
-const canonicalPath = getCanonicalPath(Astro.url.pathname);
-const canonicalUrl = toAbsoluteUrl(canonicalPath);
+const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
+const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
 const heroSchemaImage = desktopHeroImage || initialHeroImage.src || mobileHeroImage;
 const fallbackOgImage =
   imageSet.card?.astroSrc?.src ||
@@ -266,8 +318,8 @@ const accommodationStructuredData = [
       {
         "@type": "ListItem",
         position: 1,
-        name: "Főoldal",
-        item: toAbsoluteUrl("/")
+        name: templateText.homeBreadcrumbLabel,
+        item: toAbsoluteUrl(templateText.homeBreadcrumbHref)
       },
       {
         "@type": "ListItem",
@@ -283,9 +335,14 @@ const accommodationStructuredData = [
 <BaseLayout
   title={pageData.seo.title}
   description={pageData.seo.description}
+  canonicalPath={resolvedCanonicalPath}
+  lang={lang}
+  ogLocale={lang === "en" ? "en_US" : "hu_HU"}
   ogImage={fallbackOgImage}
   ogImageAlt={initialHeroImage.alt}
   structuredData={accommodationStructuredData}
+  hideHeader={hideHeader}
+  hideFooter={hideFooter}
 >
   <Fragment slot="head">
     <link
@@ -427,12 +484,12 @@ const accommodationStructuredData = [
               </g>
 
               <text x="130" y="118" text-anchor="middle" class="dnd-pool-seal__title">
-                <tspan x="130" dy="0">PANORÁMA</tspan>
-                <tspan x="130" dy="33">MEDENCE</tspan>
+                <tspan x="130" dy="0">{templateText.poolSealTitleLine1}</tspan>
+                <tspan x="130" dy="33">{templateText.poolSealTitleLine2}</tspan>
               </text>
 
               <text x="130" y="188" text-anchor="middle" class="dnd-pool-seal__date">
-                2026. JÚNIUS 1-TŐL
+                {templateText.poolSealDate}
               </text>
 
               <path d="M202 213 C219 201 229 186 231 168" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="3" stroke-linecap="round"></path>
@@ -610,17 +667,17 @@ const accommodationStructuredData = [
             </button>
             {pageData.details.supportingLink && (
               <a class="dnd-btn dnd-btn--secondary d2-details__secondary" href={pageData.details.supportingLink.href}>
-                Tudnivalók és programok
+                {templateText.secondaryDetailsLabel}
               </a>
             )}
           </div>
           {bookingTrustLabel && <p class="d2-details__trust">{bookingTrustLabel}</p>}
         </div>
 
-        <aside class="d2-details__panel" aria-label="Szállás döntési áttekintés">
-          <section class="d2-overview" aria-label={decisionPanel?.overviewTitle ?? "Gyors áttekintés"}>
+        <aside class="d2-details__panel" aria-label={templateText.decisionPanelAriaLabel}>
+          <section class="d2-overview" aria-label={decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
             <div class="d2-details__section-head">
-              <span class="dnd-section-kicker">{decisionPanel?.overviewTitle ?? "Gyors áttekintés"}</span>
+              <span class="dnd-section-kicker">{decisionPanel?.overviewTitle ?? templateText.overviewTitle}</span>
             </div>
               <div class="d2-overview__grid">
                 {overviewFacts.map((item) => (
@@ -638,9 +695,9 @@ const accommodationStructuredData = [
             </section>
 
           {decisionReasons.length > 0 && (
-            <section class="d2-reasons d2-detail-block" aria-label={decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}>
+            <section class="d2-reasons d2-detail-block" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}>
               <div class="d2-details__section-head">
-                <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? "Amiért szeretni fogod"}</span>
+                <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}</span>
               </div>
               <div class="d2-reasons__grid">
                 {decisionReasons.map((item) => (
@@ -760,7 +817,7 @@ const accommodationStructuredData = [
                 )}
                 <span class="d2-gallery__hover-label" aria-hidden="true">{pageData.labels.galleryHoverLabel}</span>
                 {galleryHasMore && index === galleryPreviewImages.length - 1 && (
-                  <span class="d2-gallery__more-badge">+{galleryMoreCount} kép</span>
+                  <span class="d2-gallery__more-badge">+{galleryMoreCount} {templateText.galleryMoreSuffix}</span>
                 )}
               </button>
             </figure>
@@ -811,7 +868,7 @@ const accommodationStructuredData = [
         <div class="d2-closer__head">
           <span class="dnd-section-kicker">{pageData.relatedStays.kicker}</span>
           <h2 id="accommodation-related-stays-title" class="d2-section-title">{pageData.relatedStays.title}</h2>
-          <p>{pageData.relatedStays.intro} <a href={accommodationListingHref}>Nézd meg a többi Dandelion szállást is.</a></p>
+          <p>{pageData.relatedStays.intro} <a href={accommodationListingHref}>{templateText.relatedListingCta}</a></p>
         </div>
 
       <div class="d2-closer__grid">

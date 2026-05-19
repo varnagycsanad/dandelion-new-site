@@ -1,8 +1,10 @@
 import type { ImageMetadata } from "astro";
 import type { AccommodationPageRelatedStay, AccommodationPageReview } from "../data/accommodation-pages/types";
 import { requireAccommodationLocalAssetFromPublicPath } from "../data/images/astro-local-assets";
-import type { ImageAsset, GalleryImage } from "../data/images/image-types";
+import type { ImageAsset, GalleryImage, LocalizedText } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
+
+export type AccommodationPageLocale = "hu" | "en";
 
 export interface AccommodationHeroImage {
   src: string;
@@ -61,6 +63,10 @@ export function resolveBaseHref(baseUrl: string): string {
   return baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
+function resolveLocalizedText(value: LocalizedText, locale: AccommodationPageLocale): string {
+  return value[locale] || value.hu || value.en || "";
+}
+
 function requireAccommodationDisplayAsset(
   imagePath: string | undefined,
   contextLabel: string
@@ -114,7 +120,10 @@ export function buildReviewDisplayData(input: {
 export function buildGalleryImages(input: {
   gallery: GalleryImage[];
   baseHref: string;
+  locale?: AccommodationPageLocale;
 }): AccommodationDisplayGalleryImage[] {
+  const locale = input.locale ?? "hu";
+
   return input.gallery
     .slice()
     .sort((left, right) => left.sortOrder - right.sortOrder)
@@ -130,13 +139,13 @@ export function buildGalleryImages(input: {
         id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
         src: astroSrc.src,
         thumb: thumbAstroSrc.src,
-        alt: image.alt.hu,
+        alt: resolveLocalizedText(image.alt, locale),
         astroSrc,
         thumbAstroSrc,
         width: image.width,
         height: image.height,
-        title: image.title.hu,
-        caption: image.caption.hu,
+        title: resolveLocalizedText(image.title, locale),
+        caption: resolveLocalizedText(image.caption, locale),
         sortOrder: image.sortOrder
       };
     });
@@ -172,6 +181,7 @@ export function buildHeroImages(input: {
   mobileImagePath: string;
   galleryImages: AccommodationDisplayGalleryImage[];
   fallbackAlt: string;
+  locale?: AccommodationPageLocale;
 }): {
   mobileHeroImage: string;
   desktopHeroImage: string;
@@ -196,7 +206,8 @@ export function buildHeroImages(input: {
         )
       : undefined);
   const desktopHeroImage = desktopHeroAstroSrc?.src || "";
-  const desktopHeroAlt = input.desktopHero?.alt.hu || input.fallbackAlt;
+  const locale = input.locale ?? "hu";
+  const desktopHeroAlt = input.desktopHero ? resolveLocalizedText(input.desktopHero.alt, locale) : input.fallbackAlt;
   const mobileHeroWidth = input.mobileHero?.width || 1200;
   const mobileHeroHeight = input.mobileHero?.height || 1600;
   const localHeroFallback = {
@@ -235,7 +246,14 @@ export function buildRelatedStays(input: {
     href: resolveStayHref(input.baseHref, stay.href),
     image: (() => {
       if (stay.image.type === "mapping") {
-        return input.imageMapping[stay.image.slot];
+        const mappedImage = input.imageMapping[stay.image.slot];
+
+        return mappedImage && stay.image.alt
+          ? {
+              ...mappedImage,
+              altText: stay.image.alt
+            }
+          : mappedImage;
       }
 
       const astroSrc = requireAccommodationDisplayAsset(stay.image.src, `related stay ${stay.href}`);
