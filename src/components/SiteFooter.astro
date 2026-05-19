@@ -1,6 +1,14 @@
 ---
 import { accommodations } from "../data/accommodations";
 
+// [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
+interface Props {
+  lang?: "hu" | "en";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const isEnglishFooter = lang === "en";
+
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -47,55 +55,98 @@ const footerStayColumns = [
 );
 
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const englishFooterNav = [
+  { label: "Home", href: `${homeHref}en/` },
+  { label: "Accommodations", href: `${homeHref}en/szallasok/` },
+  { label: "Dandelion D2", href: `${homeHref}en/dandelion-d2/` }
+];
+const englishLanguageLinks = [
+  { label: "HU", href: homeHref },
+  { label: "EN", href: `${homeHref}en/` }
+];
 ---
 
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">
-      <a href={homeHref} class="dnd-site-footer__brand-link" aria-label="Dandelion Vendégházak főoldal">
-        Dandelion Vendégházak
+      <a href={isEnglishFooter ? `${homeHref}en/` : homeHref} class="dnd-site-footer__brand-link" aria-label={isEnglishFooter ? "Dandelion Guesthouses home" : "Dandelion Vendégházak főoldal"}>
+        {isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"}
       </a>
       <p id="site-footer-title">
-        Természetközeli vendégházak a Balaton-felvidéken, családoknak, pároknak és nyugodt elvonuláshoz.
+        {isEnglishFooter
+          ? "Peaceful countryside guesthouses and apartments in the Balaton Uplands."
+          : "Természetközeli vendégházak a Balaton-felvidéken, családoknak, pároknak és nyugodt elvonuláshoz."}
       </p>
     </div>
 
-    <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Szállások">
-      <h2>Szállások</h2>
-      <div class="dnd-site-footer__stay-columns">
-        {footerStayColumns.map((column) => (
-          <ul>
-            {column.map((stay) => (
-              <li><a href={stay.href}>{stay.label}</a></li>
-            ))}
-          </ul>
-        ))}
-      </div>
-    </nav>
+    {isEnglishFooter ? (
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="English footer navigation">
+        <h2>Navigation</h2>
+        <ul>
+          {englishFooterNav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    ) : (
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Szállások">
+        <h2>Szállások</h2>
+        <div class="dnd-site-footer__stay-columns">
+          {footerStayColumns.map((column) => (
+            <ul>
+              {column.map((stay) => (
+                <li><a href={stay.href}>{stay.label}</a></li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </nav>
+    )}
 
-    <nav class="dnd-site-footer__group" aria-label="Hasznos linkek">
-      <h2>Hasznos linkek</h2>
-      <ul>
-        <li><a href={resolveLocalHref("/")}>Főoldal</a></li>
-        <li><a href={resolveLocalHref("/szallasok/")}>Szállások</a></li>
-        <li><a href={resolveLocalHref("/#elmenyek")}>Élmények</a></li>
-        <li><a href={resolveLocalHref("/kapcsolat/")}>Kapcsolat</a></li>
-        <li><a href={bookingHref}>Foglalás</a></li>
-      </ul>
-    </nav>
+    {isEnglishFooter ? (
+      <nav class="dnd-site-footer__group" aria-label="Booking">
+        <h2>Booking</h2>
+        <ul>
+          <li><a href={bookingHref}>Check availability</a></li>
+          <li><a href={bookingHref}>Book now</a></li>
+        </ul>
+      </nav>
+    ) : (
+      <nav class="dnd-site-footer__group" aria-label="Hasznos linkek">
+        <h2>Hasznos linkek</h2>
+        <ul>
+          <li><a href={resolveLocalHref("/")}>Főoldal</a></li>
+          <li><a href={resolveLocalHref("/szallasok/")}>Szállások</a></li>
+          <li><a href={resolveLocalHref("/#elmenyek")}>Élmények</a></li>
+          <li><a href={resolveLocalHref("/kapcsolat/")}>Kapcsolat</a></li>
+          <li><a href={bookingHref}>Foglalás</a></li>
+        </ul>
+      </nav>
+    )}
 
-    <nav class="dnd-site-footer__group" aria-label="Jogi információk">
-      <h2>Jogi</h2>
-      <ul>
-        <li><a href={resolveLocalHref("/aszf/")}>ÁSZF</a></li>
-        <li><a href={resolveLocalHref("/adatkezelesi-tajekoztato/")}>Adatkezelési tájékoztató</a></li>
-        <li><a href={resolveLocalHref("/impresszum/")}>Impresszum</a></li>
-      </ul>
-    </nav>
+    {isEnglishFooter ? (
+      <nav class="dnd-site-footer__group" aria-label="Languages">
+        <h2>Languages</h2>
+        <ul>
+          {englishLanguageLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    ) : (
+      <nav class="dnd-site-footer__group" aria-label="Jogi információk">
+        <h2>Jogi</h2>
+        <ul>
+          <li><a href={resolveLocalHref("/aszf/")}>ÁSZF</a></li>
+          <li><a href={resolveLocalHref("/adatkezelesi-tajekoztato/")}>Adatkezelési tájékoztató</a></li>
+          <li><a href={resolveLocalHref("/impresszum/")}>Impresszum</a></li>
+        </ul>
+      </nav>
+    )}
   </div>
 
   <div class="dnd-container dnd-site-footer__bottom">
-    <span>© Dandelion Vendégházak</span>
+    <span>© {isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"}</span>
   </div>
 </footer>
 
