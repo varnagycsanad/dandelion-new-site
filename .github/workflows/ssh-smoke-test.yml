@@ -144,6 +144,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          ssh_key_path="$HOME/.ssh/ujsite_smoke_test_key"
+          known_hosts_path="$HOME/.ssh/known_hosts"
           remote_path_quoted=$(printf '%q' "$REMOTE_PATH")
           auth_log="$RUNNER_TEMP/ssh-auth-debug.log"
 
@@ -151,10 +153,12 @@ jobs:
 
           set +e
           ssh -vvv \
+            -i "$ssh_key_path" \
             -p "$SELECTED_SSH_PORT" \
             -o BatchMode=yes \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$known_hosts_path" \
             -o PreferredAuthentications=publickey,gssapi-keyex,gssapi-with-mic \
             -o LogLevel=DEBUG3 \
             "$SSH_USER@$SELECTED_SSH_HOST" \
@@ -164,7 +168,7 @@ jobs:
           set -e
 
           echo "auth diagnostic excerpt:"
-          grep -E 'Offering public key|Server accepts key|Authentications that can continue|Next authentication method|Permission denied|sign_and_send_pubkey|identity file' "$auth_log" || true
+          grep -E 'ujsite_smoke_test_key|Offering public key|Server accepts key|Authentications that can continue|Next authentication method|Permission denied|sign_and_send_pubkey|identity file' "$auth_log" || true
 
           if [ "$auth_status" -ne 0 ]; then
             echo "::error::SSH auth diagnostic failed before smoke test"
@@ -172,10 +176,12 @@ jobs:
           fi
 
           ssh \
+            -i "$ssh_key_path" \
             -p "$SELECTED_SSH_PORT" \
             -o BatchMode=yes \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$known_hosts_path" \
             -o LogLevel=ERROR \
             "$SSH_USER@$SELECTED_SSH_HOST" \
             "REMOTE_PATH=$remote_path_quoted bash -lc 'set -e; whoami; pwd; hostname; test -d \"\$REMOTE_PATH\"; ls -la \"\$REMOTE_PATH\" | head; command -v rsync || true; rsync --version | head -1 || true'"
