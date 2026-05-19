@@ -1,8 +1,16 @@
 ---
-import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/experiences/stock-bike.jpg";
-import vineyardImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+
+const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4";
+const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
+const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
+const bikeOgImage = desktopImage;
+
+const rideHighlights = [
+  "szőlőhegyek és csendes mellékutak",
+  "tanúhegyek közötti panorámás szakaszok",
+  "borászatok és balatoni megállók útközben"
+];
 
 const availableBikes = [
   "4 db normál felnőtt kerékpár",
@@ -20,6 +28,29 @@ const rentalNotes = [
   "A kerékpárok Royal Homes, Köveskál és Szépvölgyi Vendégház vendégei számára nem érhetők el.",
   "A Szőlőliget, Zsálya és Vintage Vendégház vendégei a bicikliket központi címünkön tudják átvenni, és használat után ugyanott tudják leadni.",
   "A kerékpárok átvétele és leadása előzetes egyeztetés szerint történik."
+];
+
+const routeIdeas = [
+  {
+    title: "Könnyed kör a közelben",
+    body:
+      "Rövid programhoz jó választás a közeli falvak, szőlőhegyek és kilátópontok felfedezése. Ez inkább hangulati tekerés: nem a teljesítményről szól, hanem a tájról, a megállókról és a nyugodt tempóról."
+  },
+  {
+    title: "Szent György-hegy és tanúhegyek",
+    body:
+      "A Szent György-hegy környéke látványos, de helyenként emelkedős terep. Itt az elektromos bicikli különösen kényelmes választás lehet, ha a felfedezés a fő cél."
+  },
+  {
+    title: "Badacsony és balatoni irány",
+    body:
+      "A Balaton felé indulva strandok, borászatok és panorámás szakaszok is útba eshetnek. Ez jó ritmus azoknak, akik a bringázást egy balatoni nappal kötik össze."
+  },
+  {
+    title: "Káli-medence kirándulás",
+    body:
+      "A Káli-medence apró falvai, különleges hangulata és sok megállási pontja miatt hosszabb, előre tervezett bringás programhoz ideális."
+  }
 ];
 
 const structuredData = [
@@ -51,139 +82,127 @@ const structuredData = [
 ---
 
 <BaseLayout
-  title="Bringás élmény a Balaton-felvidéken | Dandelion Vendégházak"
-  description="Kerékpáros élmények, útvonalötletek, bérlési árak és feltételek a Balaton-felvidéken a Dandelion Vendégházak vendégeinek."
+  title="Balaton-felvidéki bicikli túra | Dandelion Vendégházak"
+  description="Balaton-felvidéki bicikli túra szőlőhegyek, tanúhegyek és panorámás mellékutak között. Kerékpárbérlési árak és tudnivalók a Dandelion Vendégházak vendégeinek."
   canonicalPath="/elmenyek/kerekpar/"
+  ogImage={bikeOgImage}
+  ogImageAlt="Biciklik a Balaton-felvidéki szőlősorok mellett, panorámával a háttérben"
   structuredData={structuredData}
+  headerMode="transparent"
 >
   <section class="bike-page">
-    <div class="dnd-container bike-page__inner">
-      <section class="bike-page__hero">
-        <div class="bike-page__hero-copy">
-          <span class="bike-page__eyebrow">Bringás élmény</span>
-          <h1>Fedezd fel a Balaton-felvidéket két keréken</h1>
-          <p>
-            A Balaton-felvidék biciklivel egészen más élmény: lassabb, szabadabb, közelebb visz a
-            tájhoz. Csendes falvak, szőlőhegyek, tanúhegyek, kilátópontok, borászatok és balatoni
-            panorámák várnak útközben.
-          </p>
-          <p>
-            Akár egy rövid délutáni tekerésre indulnál, akár egy hosszabb balatoni bringatúrát
-            tervezel, a környék rengeteg lehetőséget ad. A dombosabb részekhez az elektromos bicikli
-            különösen kényelmes választás, de egy könnyed falunéző vagy balatoni körhöz a normál
-            kerékpárok is jók lehetnek.
-          </p>
-          <p>
-            Vendégeink számára korlátozott számban kerékpárok is elérhetők, így nem feltétlenül kell
-            saját biciklit hozni az utazáshoz.
-          </p>
-          <div class="bike-page__hero-actions">
-            <a href="/szallasok/" class="bike-page__cta-primary">Szállások megtekintése</a>
-            <a
-              href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"
-              class="bike-page__cta-secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Foglalás / Ár
-            </a>
+    <section class="bike-hero">
+      <video
+        class="bike-hero__video"
+        src={heroVideo}
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        A böngésződ nem támogatja a háttérvideó lejátszását.
+      </video>
+
+      <div class="bike-hero__overlay"></div>
+
+      <div class="bike-hero__content">
+        <div class="dnd-container bike-hero__inner">
+          <div class="bike-hero__copy">
+            <span class="bike-page__eyebrow">Bringás élmény</span>
+            <h1>Balaton-felvidéki bicikli túra</h1>
+            <p class="bike-hero__lead">
+              Szőlőhegyek, csendes utak, tanúhegyek és balatoni panorámák között gurulhatsz végig
+              egy lassabb, élményközpontú napon.
+            </p>
+
+            <div class="bike-hero__facts" aria-label="Bringás kiemelések">
+              {rideHighlights.map((item) => (
+                <span>{item}</span>
+              ))}
+            </div>
+
+            <div class="bike-hero__actions">
+              <a href="/szallasok/" class="bike-page__cta-primary">Szállások megtekintése</a>
+              <a
+                href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"
+                class="bike-page__cta-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Foglalás / Ár
+              </a>
+            </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="bike-page__hero-media">
-          <Image
-            src={heroImage}
-            alt="Hangulati bringás kép a Balaton-felvidéki kerékpáros élményhez"
-            loading="eager"
+    <div class="dnd-container bike-page__inner">
+      <section class="bike-intro">
+        <article class="bike-intro__copy">
+          <span class="bike-page__eyebrow">Balaton-felvidék két keréken</span>
+          <h2>Nem csak egy bringás kör, hanem egy külön ritmus</h2>
+          <p>
+            A Balaton-felvidék biciklivel egészen más élmény: lassabb, szabadabb, közelebb visz a
+            tájhoz. A szállástól indulva könnyen elérhetők a csendes falvak, a szőlőhegyek, a
+            kilátópontok és azok a megállók, ahol nem kell sietni tovább.
+          </p>
+          <p>
+            Akár egy rövid délutáni tekerést tervezel, akár egész napos kirándulást, a környék
+            sokféle tempót elbír. A dombosabb részekhez az elektromos bicikli különösen kényelmes,
+            de egy nyugodt falunéző vagy balatoni körhöz a normál kerékpárok is jó választások.
+          </p>
+        </article>
+
+        <div class="bike-intro__media">
+          <img
+            class="bike-intro__image bike-intro__image--desktop"
+            src={desktopImage}
+            alt="Biciklik a Balaton-felvidéki szőlősorok mellett, panorámával a háttérben"
+            loading="lazy"
+            width="1800"
+            height="1350"
+          />
+          <img
+            class="bike-intro__image bike-intro__image--mobile"
+            src={mobileImage}
+            alt="Álló formátumú biciklis hangulatkép a Balaton-felvidék szőlőhegyei között"
+            loading="lazy"
+            width="1200"
+            height="1600"
           />
         </div>
       </section>
 
-      <section class="bike-page__support">
-        <article class="bike-page__support-card">
-          <span class="bike-page__eyebrow">Hangulat</span>
-          <h2>Ne árlista legyen az első benyomás</h2>
+      <section class="bike-routes" aria-label="Bringás hangulat és útvonalak">
+        <div class="bike-routes__intro">
+          <span class="bike-page__eyebrow">Útvonal-hangulat</span>
+          <h2>Innen már csak azt kell eldönteni, milyen napot szeretnél</h2>
           <p>
-            Ezen az oldalon először kedvet kap a vendég a bringás naphoz, és csak utána jönnek a
-            gyakorlati részletek. Ez sokkal természetesebb, mint egy száraz bérlési blokk.
+            Van, amikor egy rövid panorámás kör esik jól, máskor egy hosszabb, megállókkal teli
+            balatoni vagy borvidéki út. Az oldal logikája most már innen visz tovább a gyakorlati
+            részletekhez.
           </p>
-        </article>
+        </div>
 
-        <article class="bike-page__support-card">
-          <Image
-            src={vineyardImage}
-            alt="Szent György-hegyi szőlősorok és panoráma"
-            loading="lazy"
-          />
-        </article>
+        <div class="bike-routes__grid">
+          {routeIdeas.map((item) => (
+            <article class="bike-route-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section class="bike-page__accordions" aria-label="Kerékpáros részletek">
         <details class="bike-accordion" open>
-          <summary>Kerékpáros útvonalötletek a környéken</summary>
-          <div class="bike-accordion__content">
-            <p>
-              A pontos útvonalat mindig érdemes az aktuális időjáráshoz, erőnléthez és
-              kerékpártípushoz igazítani, de a környéken több jó bringás irány is adja magát.
-            </p>
-
-            <div class="bike-route">
-              <h3>Könnyed környékbeli tekerés</h3>
-              <p>
-                Rövidebb programhoz jó választás lehet a közeli falvak, szőlőhegyek és kilátópontok
-                felfedezése. Ez inkább hangulati tekerés: nem a teljesítményről szól, hanem a tájról,
-                a megállókról és a nyugodt tempóról.
-              </p>
-            </div>
-
-            <div class="bike-route">
-              <h3>Szent György-hegy és tanúhegyek környéke</h3>
-              <p>
-                A Szent György-hegy környéke látványos, de helyenként emelkedős terep. Itt az
-                elektromos bicikli nagy előny lehet, főleg ha nem sporttúrát, hanem kényelmes
-                felfedezést szeretnétek.
-              </p>
-            </div>
-
-            <div class="bike-route">
-              <h3>Badacsony és balatoni irány</h3>
-              <p>
-                A Balaton felé indulva hangulatos megállók, borászatok, strandok és panorámás részek
-                is útba eshetnek. Ez jó választás lehet azoknak, akik a bringázást összekötnék egy
-                balatoni programmal.
-              </p>
-            </div>
-
-            <div class="bike-route">
-              <h3>Káli-medence irány</h3>
-              <p>
-                A Káli-medence a Balaton-felvidék egyik legszebb része, apró falvakkal, különleges
-                hangulattal és sok megállási lehetőséggel. Ez már inkább hosszabb kirándulás, ezért
-                előzetes tervezést igényel.
-              </p>
-            </div>
-
-            <div class="bike-route">
-              <h3>Hosszabb balatoni túrák</h3>
-              <p>
-                Akik komolyabb útvonalat keresnek, azoknak érdemes a
-                <a href="https://www.balatonbike365.hu/" target="_blank" rel="noopener noreferrer">
-                  BalatonBike365 ajánlásai
-                </a>
-                között is körülnézni, mert ott több kijelölt balatoni és Balaton-felvidéki kerékpáros
-                útvonal is található.
-              </p>
-            </div>
-          </div>
-        </details>
-
-        <details class="bike-accordion">
           <summary>Kerékpárbérlés részletei, árak és feltételek</summary>
           <div class="bike-accordion__content">
             <p>
-              Vendégeink számára előzetes egyeztetés alapján kerékpárbérlési lehetőséget biztosítunk.
-              A biciklik korlátozott számban állnak rendelkezésre, ezért kérjük, időben jelezzétek,
-              ha szeretnétek használni őket.
+              Vendégeink számára előzetes egyeztetés alapján kerékpárbérlési lehetőséget
+              biztosítunk. A biciklik korlátozott számban állnak rendelkezésre, ezért kérjük,
+              időben jelezzétek, ha szeretnétek használni őket.
             </p>
 
             <div class="bike-grid">
@@ -216,13 +235,27 @@ const structuredData = [
             </article>
           </div>
         </details>
+
+        <details class="bike-accordion">
+          <summary>Hosszabb bringás naphoz további ötletek</summary>
+          <div class="bike-accordion__content">
+            <p>
+              Ha kijelölt, hosszabb útvonalat kerestek, érdemes a
+              <a href="https://www.balatonbike365.hu/" target="_blank" rel="noopener noreferrer">
+                BalatonBike365 ajánlásai
+              </a>
+              között is körülnézni, mert ott több balatoni és Balaton-felvidéki kerékpáros kör is
+              található.
+            </p>
+          </div>
+        </details>
       </section>
 
       <section class="bike-page__cta">
         <h2>Megvan a bringás terv, jöhet a szállás?</h2>
         <p>
-          Nézd meg, melyik Dandelion ház illik legjobban a tervezett bringás naphoz, és onnan indítsd
-          a környék felfedezését.
+          Nézd meg, melyik Dandelion ház illik legjobban a tervezett bringás naphoz, és onnan
+          indítsd a környék felfedezését.
         </p>
         <div class="bike-page__cta-actions">
           <a href="/szallasok/" class="bike-page__cta-primary">Szállások megtekintése</a>
@@ -235,120 +268,210 @@ const structuredData = [
 
 <style>
   .bike-page {
-    padding: 124px 0 88px;
+    padding-bottom: 88px;
     background:
-      radial-gradient(circle at top left, rgba(215, 188, 127, 0.14), transparent 32%),
-      linear-gradient(180deg, #fcfbf7 0%, #f6efe5 100%);
+      radial-gradient(circle at top left, rgba(215, 188, 127, 0.16), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #f6f0e7 100%);
   }
 
   .bike-page__inner {
     display: grid;
-    gap: 30px;
+    gap: 28px;
+    margin-top: 28px;
   }
 
   .bike-page__eyebrow {
     display: inline-block;
-    color: #a56d1f;
+    color: #d99e2b;
     font-size: var(--dnd-text-2xs);
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
-  .bike-page__hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
-    gap: 28px;
-    align-items: stretch;
+  .bike-hero {
+    position: relative;
+    min-height: 720px;
+    height: 92vh;
+    overflow: hidden;
+    background: #161616;
   }
 
-  .bike-page__hero-copy,
-  .bike-page__support-card,
+  .bike-hero__video,
+  .bike-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bike-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bike-hero__overlay {
+    background:
+      linear-gradient(180deg, rgba(22, 16, 10, 0.18) 0%, rgba(22, 16, 10, 0.5) 55%, rgba(22, 16, 10, 0.72) 100%),
+      linear-gradient(90deg, rgba(14, 12, 10, 0.5) 0%, rgba(14, 12, 10, 0.12) 60%, rgba(14, 12, 10, 0.38) 100%);
+  }
+
+  .bike-hero__content {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    color: #fff;
+  }
+
+  .bike-hero__inner {
+    display: flex;
+    align-items: flex-end;
+    min-height: 100%;
+    padding: 152px clamp(24px, 5vw, 72px) 72px;
+    max-width: none;
+  }
+
+  .bike-hero__copy,
+  .bike-intro__copy,
+  .bike-routes__intro,
   .bike-page__cta {
     border: 1px solid rgba(88, 63, 38, 0.12);
     border-radius: 24px;
-    background: rgba(255, 252, 246, 0.88);
+    background: rgba(255, 252, 246, 0.9);
     box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
   }
 
-  .bike-page__hero-copy {
+  .bike-hero__copy {
+    width: min(100%, 760px);
     display: grid;
-    gap: 14px;
+    gap: 18px;
     padding: 34px;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(27, 20, 14, 0.42);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 24px 60px rgba(12, 8, 4, 0.2);
   }
 
-  .bike-page__hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 4px;
-  }
-
-  .bike-page__hero-copy h1,
-  .bike-page__support-card h2,
+  .bike-hero__copy h1,
+  .bike-intro__copy h2,
+  .bike-routes__intro h2,
+  .bike-route-card h3,
   .bike-accordion__content h3,
   .bike-page__cta h2,
   .bike-info-card h3 {
     margin: 0;
-    color: #261d16;
     font-family: var(--dnd-font-display);
     line-height: 1.08;
     font-weight: 500;
+    color: #261d16;
   }
 
-  .bike-page__hero-copy h1 {
-    font-size: clamp(2.4rem, 4vw, 4.2rem);
-    max-width: 11ch;
+  .bike-hero__copy h1 {
+    color: #fff;
+    font-size: clamp(2.8rem, 5.4vw, 5rem);
+    max-width: 10ch;
   }
 
-  .bike-page p,
+  .bike-hero__lead {
+    margin: 0;
+    max-width: 42rem;
+    color: rgba(255, 247, 239, 0.92);
+    font-size: clamp(1.02rem, 1.8vw, 1.14rem);
+    line-height: 1.72;
+  }
+
+  .bike-hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .bike-hero__facts span {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 247, 239, 0.92);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.4;
+  }
+
+  .bike-hero__actions,
+  .bike-page__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .bike-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .bike-intro__copy,
+  .bike-routes__intro,
+  .bike-page__cta {
+    padding: 28px;
+  }
+
+  .bike-intro__copy,
+  .bike-routes__intro {
+    display: grid;
+    gap: 14px;
+  }
+
+  .bike-intro__copy p,
+  .bike-routes__intro p,
+  .bike-route-card p,
   .bike-accordion__content p,
-  .bike-accordion__content li {
+  .bike-accordion__content li,
+  .bike-page__cta p {
     margin: 0;
     color: rgba(38, 29, 22, 0.76);
     font-size: var(--dnd-text-body);
     line-height: 1.72;
   }
 
-  .bike-page__hero-media,
-  .bike-page__support-card :global(picture) {
+  .bike-intro__media {
+    position: relative;
     overflow: hidden;
     border-radius: 24px;
-  }
-
-  .bike-page__hero-media {
+    min-height: 100%;
     box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
   }
 
-  .bike-page__hero-media :global(picture),
-  .bike-page__hero-media :global(img),
-  .bike-page__support-card :global(picture),
-  .bike-page__support-card :global(img) {
+  .bike-intro__image {
     display: block;
     width: 100%;
     height: 100%;
-  }
-
-  .bike-page__hero-media :global(img),
-  .bike-page__support-card :global(img) {
     object-fit: cover;
   }
 
-  .bike-page__support {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
-    gap: 24px;
+  .bike-intro__image--mobile {
+    display: none;
   }
 
-  .bike-page__support-card {
-    padding: 28px;
+  .bike-routes {
     display: grid;
-    gap: 12px;
+    gap: 18px;
   }
 
-  .bike-page__support-card:last-child {
-    padding: 0;
-    overflow: hidden;
+  .bike-routes__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .bike-route-card,
+  .bike-info-card {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 18px;
+    background: #faf6ef;
+    border: 1px solid rgba(88, 63, 38, 0.08);
   }
 
   .bike-page__accordions {
@@ -400,16 +523,6 @@ const structuredData = [
     padding: 0 28px 28px;
   }
 
-  .bike-route,
-  .bike-info-card {
-    display: grid;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 18px;
-    background: #faf6ef;
-    border: 1px solid rgba(88, 63, 38, 0.08);
-  }
-
   .bike-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -433,19 +546,9 @@ const structuredData = [
     text-underline-offset: 2px;
   }
 
-  .bike-page__cta {
-    padding: 28px;
-  }
-
   .bike-page__cta h2 {
     font-size: clamp(1.5rem, 2.3vw, 2.2rem);
-  }
-
-  .bike-page__cta-actions {
-    margin-top: 18px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    margin: 0 0 8px;
   }
 
   .bike-page__cta-primary,
@@ -485,38 +588,74 @@ const structuredData = [
   }
 
   @media (max-width: 1100px) {
-    .bike-page__hero,
-    .bike-page__support,
+    .bike-intro,
+    .bike-routes__grid,
     .bike-grid {
       grid-template-columns: 1fr;
     }
 
-    .bike-page__hero-copy h1 {
-      max-width: 13ch;
+    .bike-hero {
+      min-height: 660px;
     }
   }
 
   @media (max-width: 767px) {
     .bike-page {
-      padding: 106px 0 64px;
+      padding-bottom: 64px;
     }
 
     .bike-page__inner {
       gap: 22px;
+      margin-top: 22px;
     }
 
-    .bike-page__hero-copy,
-    .bike-page__support-card,
+    .bike-hero {
+      min-height: 640px;
+      height: auto;
+    }
+
+    .bike-hero__inner {
+      align-items: flex-end;
+      padding: 128px 20px 28px;
+    }
+
+    .bike-hero__copy,
+    .bike-intro__copy,
+    .bike-routes__intro,
     .bike-page__cta {
       padding: 20px;
     }
 
-    .bike-page__hero-copy,
-    .bike-page__hero-media,
-    .bike-page__support-card,
+    .bike-hero__copy,
+    .bike-intro__copy,
+    .bike-intro__media,
+    .bike-routes__intro,
+    .bike-route-card,
     .bike-accordion,
     .bike-page__cta {
       border-radius: 18px;
+    }
+
+    .bike-hero__copy h1 {
+      max-width: none;
+      font-size: clamp(2.4rem, 10vw, 3.5rem);
+    }
+
+    .bike-hero__facts {
+      display: grid;
+      gap: 8px;
+    }
+
+    .bike-intro__media {
+      min-height: 520px;
+    }
+
+    .bike-intro__image--desktop {
+      display: none;
+    }
+
+    .bike-intro__image--mobile {
+      display: block;
     }
 
     .bike-accordion summary,
@@ -531,11 +670,6 @@ const structuredData = [
 
     .bike-accordion summary::after {
       right: 20px;
-    }
-
-    .bike-page__hero-copy h1 {
-      max-width: none;
-      font-size: clamp(2.2rem, 10vw, 3.2rem);
     }
   }
 </style>
