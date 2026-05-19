@@ -1,6 +1,29 @@
 ---
-const heroVideo =
-  "/videos/fooldal/hero/dandelion_%20hero_video.mp4";
+// [CHANGE 2026-05-20 00:00] Hero copy and CTAs can now be localized while preserving the original video layout.
+interface HeroCta {
+  label: string;
+  href: string;
+  target?: string;
+  rel?: string;
+}
+
+interface Props {
+  titleTopLines?: string[];
+  titleBottomLines?: string[];
+  description?: string;
+  ctas?: HeroCta[];
+  videoFallbackText?: string;
+}
+
+const {
+  titleTopLines = ["Reggel", "hegyekkel."],
+  titleBottomLines = ["Este", "csillagokkal."],
+  description = "Vendégházak a Balaton-felvidéken, távol a nyüzsgéstől.",
+  ctas = [{ label: "Szállásaink", href: "#stays" }],
+  videoFallbackText = "A böngésződ nem támogatja a háttérvideó lejátszását."
+} = Astro.props;
+
+const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4";
 const heroPoster = "";
 ---
 
@@ -15,7 +38,7 @@ const heroPoster = "";
     loop
     playsinline
   >
-    A böngésződ nem támogatja a háttérvideó lejátszását.
+    {videoFallbackText}
   </video>
 
   <div class="dnd-hero__content">
@@ -23,8 +46,9 @@ const heroPoster = "";
       <div class="dnd-hero__text">
         <h1 class="dnd-hero__title">
           <span class="dnd-hero__title-block dnd-hero__title-block--top">
-            <span class="dnd-hero__title-line">Reggel</span>
-            <span class="dnd-hero__title-line">hegyekkel.</span>
+            {titleTopLines.map((line, index) => (
+              <span class="dnd-hero__title-line">{line}{index < titleTopLines.length - 1 ? " " : ""}</span>
+            ))}
           </span>
           <span class="dnd-hero__divider" aria-hidden="true">
             <span class="dnd-hero__divider-line"></span>
@@ -32,14 +56,17 @@ const heroPoster = "";
             <span class="dnd-hero__divider-line"></span>
           </span>
           <span class="dnd-hero__title-block dnd-hero__title-block--bottom">
-            <span class="dnd-hero__title-line">Este</span>
-            <span class="dnd-hero__title-line">csillagokkal.</span>
+            {titleBottomLines.map((line, index) => (
+              <span class="dnd-hero__title-line">{line}{index < titleBottomLines.length - 1 ? " " : ""}</span>
+            ))}
           </span>
         </h1>
-        <p class="dnd-hero__desc">Vendégházak a Balaton-felvidéken, távol a nyüzsgéstől.</p>
+        <p class="dnd-hero__desc">{description}</p>
 
         <div class="dnd-hero__cta">
-          <a href="#stays" class="dnd-btn dnd-btn--primary">Szállásaink</a>
+          {ctas.map((cta) => (
+            <a href={cta.href} class="dnd-btn dnd-btn--primary" target={cta.target} rel={cta.rel}>{cta.label}</a>
+          ))}
         </div>
       </div>
     </div>

@@ -85,6 +85,8 @@ const emailDomain = "dandelionhouse.hu";
 const contactPageHref = `${homeHref}kapcsolat/`;
 const headerHomeHref = isEnglishPage ? `${homeHref}en/` : homeHref;
 const headerStaysHref = isEnglishPage ? `${homeHref}en/szallasok/` : `${homeHref}szallasok/`;
+const headerExperiencesHref = isEnglishPage ? `${homeHref}en/#experiences` : `${homeHref}elmenyek/`;
+const headerGalleryHref = isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
 const headerText = isEnglishPage
   ? {
       contactAria: "Contact",
@@ -97,6 +99,8 @@ const headerText = isEnglishPage
       mainNavAria: "Main navigation",
       homeLabel: "Home",
       staysLabel: "Accommodations",
+      experiencesLabel: "Experiences",
+      galleryLabel: "Gallery",
       staysSubmenuAria: "Accommodations submenu",
       mobileNavAria: "Mobile navigation",
       mobileStayGroupsAria: "Accommodation groups",
@@ -115,6 +119,8 @@ const headerText = isEnglishPage
       mainNavAria: "Fő navigáció",
       homeLabel: "Főoldal",
       staysLabel: "Szállások–Házak",
+      experiencesLabel: "Élmények",
+      galleryLabel: "Galéria",
       staysSubmenuAria: "Szállások almenü",
       mobileNavAria: "Mobil navigáció",
       mobileStayGroupsAria: "Szálláscsoportok",
@@ -160,7 +166,6 @@ const quickContacts = [
 ];
 
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
-const experiencesHref = `${homeHref}elmenyek/`;
 const stayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage",
@@ -215,11 +220,53 @@ const groupedStayLinks = [
 ];
 const englishGroupedStayLinks = [
   {
-    title: "Available in English",
+    title: "Tapolca Basin",
     items: [
       {
         label: "Dandelion D2",
         href: `${homeHref}en/dandelion-d2/`
+      },
+      {
+        label: "Dandelion Fügeház",
+        href: `${homeHref}en/szallasok/`
+      },
+      {
+        label: "Dandelion D1",
+        href: `${homeHref}en/szallasok/`
+      },
+      {
+        label: "Dandelion Szőlőliget",
+        href: `${homeHref}en/szallasok/`
+      },
+      {
+        label: "Dandelion Zsálya",
+        href: `${homeHref}en/szallasok/`
+      },
+      {
+        label: "Dandelion Vintage",
+        href: `${homeHref}en/szallasok/`
+      }
+    ]
+  },
+  {
+    title: "Near Lake Balaton",
+    items: [
+      {
+        label: "Dandelion Royal Homes",
+        href: `${homeHref}en/szallasok/`
+      },
+      {
+        label: "Dandelion Szépvölgyi",
+        href: `${homeHref}en/szallasok/`
+      }
+    ]
+  },
+  {
+    title: "Káli Basin",
+    items: [
+      {
+        label: "Dandelion Köveskál",
+        href: `${homeHref}en/szallasok/`
       }
     ]
   }
@@ -442,8 +489,8 @@ const headerLanguageLinks = [
               ))}
             </div>
           </div>
-          {!isEnglishPage && <a href={experiencesHref}>Élmények</a>}
-          {!isEnglishPage && <a href="/">Galéria</a>}
+          <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
+          <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
           <a href={bookingHref} target="_blank" rel="noopener noreferrer">{headerText.bookingLabel}</a>
         </nav>
       </div>
@@ -500,8 +547,8 @@ const headerLanguageLinks = [
             </div>
           ))}
         </div>
-        {!isEnglishPage && <a href={experiencesHref}>Élmények</a>}
-        {!isEnglishPage && <a href="/">Galéria</a>}
+        <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
+        <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
         <a href={bookingHref} target="_blank" rel="noopener noreferrer">{headerText.bookingSmallLabel}</a>
       </nav>
     </header>}

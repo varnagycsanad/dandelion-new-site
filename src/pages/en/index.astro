@@ -1,41 +1,112 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../sections/Hero.astro";
+import RegionStories from "../../sections/RegionStories.astro";
+import Experiences from "../../sections/Experiences.astro";
+import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
+import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
+import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
+import mountainsImage from "../../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
+import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
+import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
+import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
+import galleryD2Image from "../../assets/accommodations/d2/gallery/dandelion-d2-source-002.webp";
+import galleryFugehazImage from "../../assets/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp";
+import galleryRoyalImage from "../../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
 
-// [CHANGE 2026-05-20 00:00] English homepage expanded with safe content blocks and existing booking/accommodation links.
-const enTitle = "Dandelion Guesthouses | Peaceful stays in the Balaton Uplands";
+// [CHANGE 2026-05-20 00:00] English homepage now follows the Hungarian homepage video and section system.
+const enTitle = "Dandelion Guesthouses | Countryside stays near Lake Balaton";
 const enDescription =
-  "Peaceful countryside guesthouses in the Balaton Uplands near Szent György Hill, with gardens, terraces, family-friendly stays and direct booking.";
+  "Peaceful countryside guesthouses around the Balaton Uplands, Szent György Hill and Badacsony, with gardens, terraces and direct booking.";
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
 
-const featuredStays = [
+const englishRegionStories = [
   {
-    name: "Dandelion D2",
-    text: "A bright family-friendly countryside stay near Szent György Hill, with a large garden and covered terrace.",
-    href: "/en/dandelion-d2/",
-    cta: "View Dandelion D2"
+    kicker: "Kisapáti · Szent György Hill · Tapolca Basin",
+    title: "Among the witness hills",
+    description:
+      "Vine rows, quiet roads and slow mornings shape this side of the Balaton Uplands.",
+    meta: "A calm countryside base near Szent György Hill.",
+    ctaLabel: "View stays near the hills",
+    mobileCtaLabel: "Stays near Szent György Hill",
+    ctaHref: "/en/szallasok/#balaton-uplands",
+    image: kisapatiStoryImage,
+    imageAlt: "Kisapáti and the witness hills in the Balaton Uplands"
   },
   {
-    name: "Fügeház",
-    text: "A calm guesthouse choice around the witness hills, suited to relaxed family days and terrace time.",
-    href: "/en/dandelion-fugehaz/",
-    cta: "View Fügeház"
+    kicker: "Keszthely · Badacsonyörs · Lake Balaton",
+    title: "Close to the lake",
+    description:
+      "Easy lake days, harbours and summer evenings, still with the slower Dandelion rhythm.",
+    meta: "For guests who want Lake Balaton nearby without giving up calm surroundings.",
+    ctaLabel: "View stays near Lake Balaton",
+    mobileCtaLabel: "Stays near Lake Balaton",
+    ctaHref: "/en/szallasok/#near-lake-balaton",
+    image: balatonStoryImage,
+    imageAlt: "Dandelion stay near Lake Balaton with waterside atmosphere"
   },
   {
-    name: "Dandelion D1",
-    text: "A spacious Dandelion stay for larger families or friends looking for a quiet base in the Balaton Uplands.",
-    href: "/en/dandelion-d1/",
-    cta: "View Dandelion D1"
+    kicker: "Köveskál · Káli-medence",
+    title: "The quieter Káli side",
+    description:
+      "Stone walls, village streets and a softer pace for guests looking for a more withdrawn stay.",
+    meta: "A good fit for slow days, wine roads and village walks.",
+    ctaLabel: "View stays in Káli-medence",
+    mobileCtaLabel: "Stays in Káli-medence",
+    ctaHref: "/en/szallasok/#kali-medence",
+    image: kaliStoryImage,
+    imageAlt: "Káli-medence countryside landscape near Köveskál"
   }
 ];
 
-const directBookingPoints = [
-  "Direct communication before arrival",
-  "Clear information before booking",
-  "Countryside locations with a calmer rhythm",
-  "A personal guesthouse experience"
+const englishExperiences = [
+  {
+    title: "CYCLING",
+    description: "Village roads, vineyards and soft hills for easy rides.",
+    image: bikingImage,
+    imageAlt: "Cycling route in the Balaton Uplands countryside",
+    href: "/en/#experiences"
+  },
+  {
+    title: "WINE AND FOOD",
+    description: "Cellars, terraces and small local stops around the hills.",
+    image: wineTourImage,
+    imageAlt: "Outdoor wine and gastronomy setting near the Balaton Uplands",
+    href: "/en/#experiences"
+  },
+  {
+    title: "LAKE BALATON",
+    description: "Beaches, boats and simple summer programmes nearby.",
+    image: balatonImage,
+    imageAlt: "Badacsony and Lake Balaton panorama",
+    href: "/en/#experiences"
+  },
+  {
+    title: "WITNESS HILLS",
+    description: "Lookouts and walking routes around Szent György Hill and Badacsony.",
+    image: mountainsImage,
+    imageAlt: "Witness hills in the Balaton Uplands",
+    href: "/en/#experiences"
+  }
 ];
 
-const regionPoints = ["Balaton Uplands", "Badacsony", "Kisapáti", "Szent György Hill", "Lake Balaton nearby"];
+const galleryItems = [
+  {
+    image: galleryD2Image,
+    alt: "Dandelion D2 terrace with outdoor seating",
+    label: "Dandelion D2"
+  },
+  {
+    image: galleryFugehazImage,
+    alt: "Fügeház terrace and countryside setting",
+    label: "Fügeház"
+  },
+  {
+    image: galleryRoyalImage,
+    alt: "Dandelion Royal Homes apartment near Lake Balaton",
+    label: "Dandelion Royal Homes"
+  }
+];
 ---
 
 <BaseLayout
@@ -44,337 +115,237 @@ const regionPoints = ["Balaton Uplands", "Badacsony", "Kisapáti", "Szent Györg
   canonicalPath="/en/"
   lang="en"
   ogLocale="en_US"
-  headerMode="solid"
 >
-  <section class="en-home-hero">
-    <div class="dnd-container en-home-hero__inner">
-      <div class="en-home-hero__copy">
-        <span class="en-home__eyebrow">Balaton Uplands · Szent György Hill</span>
-        <h1>Countryside guesthouses for slower days near Lake Balaton.</h1>
-        <p>
-          Dandelion brings together peaceful guesthouses around the Balaton Uplands: garden mornings,
-          quiet terraces, family-friendly spaces and the relaxed village rhythm of Szent György Hill.
-        </p>
-        <div class="en-home__actions">
-          <a class="en-home__cta" href="/en/szallasok/">View accommodations</a>
-          <a class="en-home__cta en-home__cta--secondary" href={bookingHref} target="_blank" rel="noopener noreferrer">
-            Check availability
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Hero
+    titleTopLines={["Countryside", "guesthouses"]}
+    titleBottomLines={["near", "Lake Balaton"]}
+    description="Peaceful stays around the Balaton Uplands, Szent György Hill and Badacsony."
+    ctas={[
+      { label: "View accommodations", href: "/en/szallasok/" },
+      { label: "Check availability", href: bookingHref, target: "_blank", rel: "noopener noreferrer" }
+    ]}
+    videoFallbackText="Your browser does not support background video playback."
+  />
 
-  <section class="en-home-section en-home-intro" aria-labelledby="english-home-intro-title">
-    <div class="dnd-container en-home-intro__grid">
-      <div>
-        <span class="en-home__eyebrow">Dandelion Guesthouses</span>
-        <h2 id="english-home-intro-title">Peaceful stays with gardens, terraces and room to breathe.</h2>
-      </div>
+  <section class="en-home-intro dnd-section" aria-labelledby="english-home-intro-title">
+    <div class="dnd-container en-home-intro__inner">
+      <span class="dnd-section-kicker">Dandelion Guesthouses</span>
+      <h2 id="english-home-intro-title">Quiet countryside places with gardens, terraces and room to breathe.</h2>
       <p>
-        Our houses are made for guests who want the Balaton Uplands without rush: countryside locations,
-        comfortable family stays, outdoor spaces for long breakfasts and direct booking with personal
-        communication before arrival.
+        Dandelion is for guests who want Lake Balaton close, but not the rush: family-friendly houses,
+        apartments with outdoor spaces and a calm rural rhythm around the Balaton Uplands.
       </p>
     </div>
   </section>
 
-  <section class="en-home-section" aria-labelledby="english-featured-stays-title">
+  <RegionStories
+    kickerLabel="Accommodations"
+    heading="One Dandelion mood, three landscapes"
+    lead="Choose between witness hills, Lake Balaton days and the quieter Káli-medence villages."
+    stories={englishRegionStories}
+  />
+
+  <Experiences
+    sectionId="experiences"
+    title="EXPERIENCES"
+    lead="Cycling, wine, Lake Balaton and hill walks in the easy rhythm of the region."
+    ctaLabel="PLAN FROM YOUR STAY"
+    ctaHref="/en/#experiences"
+    mobileCtaLabel="MORE"
+    experiences={englishExperiences}
+  />
+
+  <section id="gallery" class="en-home-gallery dnd-section" aria-labelledby="english-gallery-title">
     <div class="dnd-container">
-      <div class="en-home-section__head">
-        <span class="en-home__eyebrow">Featured stays</span>
-        <h2 id="english-featured-stays-title">Start with a house that fits your rhythm.</h2>
+      <div class="en-home-gallery__head">
+        <span class="dnd-section-kicker">Gallery</span>
+        <h2 id="english-gallery-title">A first look at the Dandelion atmosphere.</h2>
+        <p>Terraces, gardens and calm interiors from the first English accommodation selection.</p>
       </div>
-      <div class="en-home-stays">
-        {featuredStays.map((stay) => (
-          <article class="en-home-stay-card">
-            <h3>{stay.name}</h3>
-            <p>{stay.text}</p>
-            <a href={stay.href}>{stay.cta}</a>
-          </article>
+      <div class="en-home-gallery__grid">
+        {galleryItems.map((item) => (
+          <figure class="en-home-gallery__item">
+            <img
+              src={item.image.src}
+              alt={item.alt}
+              width={item.image.width}
+              height={item.image.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{item.label}</figcaption>
+          </figure>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="en-home-section en-home-direct" aria-labelledby="english-direct-booking-title">
-    <div class="dnd-container en-home-direct__inner">
+  <section class="en-home-booking dnd-section" aria-labelledby="english-booking-title">
+    <div class="dnd-container en-home-booking__inner">
       <div>
-        <span class="en-home__eyebrow">Direct booking</span>
-        <h2 id="english-direct-booking-title">Why book directly with Dandelion?</h2>
+        <span class="dnd-section-kicker">Direct booking</span>
+        <h2 id="english-booking-title">Ask directly, choose calmly.</h2>
         <p>
-          Direct booking keeps the conversation simple. You can ask about the house, the location,
-          arrival details or which guesthouse might suit your group before you decide.
+          Direct booking keeps the conversation simple: you can ask about the house, arrival details,
+          location or which Dandelion stay fits your group before you decide.
         </p>
       </div>
-      <ul>
-        {directBookingPoints.map((point) => (
-          <li>{point}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <section class="en-home-section en-home-region" aria-labelledby="english-region-title">
-    <div class="dnd-container en-home-region__inner">
-      <div>
-        <span class="en-home__eyebrow">The region</span>
-        <h2 id="english-region-title">A quiet base between hills, wine roads and Lake Balaton.</h2>
-        <p>
-          Stay close to Badacsony, Kisapáti and Szent György Hill, with Lake Balaton nearby for beaches,
-          harbours and easy day trips.
-        </p>
-      </div>
-      <div class="en-home-region__tags" aria-label="Places around Dandelion guesthouses">
-        {regionPoints.map((point) => (
-          <span>{point}</span>
-        ))}
-      </div>
+      <a class="en-home-booking__cta" href={bookingHref} target="_blank" rel="noopener noreferrer">
+        Check availability
+      </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .en-home-hero {
-    min-height: 78vh;
-    display: grid;
-    align-items: end;
-    padding: 150px 0 86px;
-    background-image: linear-gradient(180deg, rgba(17, 13, 9, 0.12), rgba(17, 13, 9, 0.54)),
-      url("/images/pages/szallasok-hero-bg.webp");
-    background-position: center 30%;
-    background-size: cover;
-  }
-
-  .en-home-hero__inner {
-    display: grid;
-  }
-
-  .en-home-hero__copy {
-    max-width: 720px;
-    color: #fff;
-  }
-
-  .en-home__eyebrow {
-    display: inline-flex;
-    margin-bottom: 14px;
-    color: #d99e2b;
-    font-size: var(--dnd-text-xs);
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    line-height: 1.4;
-    text-transform: uppercase;
-  }
-
-  .en-home-hero h1,
-  .en-home-section h2 {
-    margin: 0;
-    font-family: var(--dnd-font-display);
-    font-weight: 500;
-    letter-spacing: var(--dnd-tracking-display-tight);
-    line-height: 1.04;
-  }
-
-  .en-home-hero h1 {
-    max-width: 760px;
-    color: rgba(255, 255, 255, 0.96);
-    font-size: clamp(2.5rem, 5.8vw, 4.8rem);
-  }
-
-  .en-home-hero p {
-    max-width: 58ch;
-    margin: 22px 0 0;
-    color: rgba(255, 255, 255, 0.86);
-    font-size: var(--dnd-text-lead);
-    line-height: 1.62;
-  }
-
-  .en-home__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .en-home__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 22px;
-    border: 1px solid rgba(253, 251, 247, 0.34);
-    border-radius: 999px;
-    background: #d99e2b;
-    color: #1f170f;
-    font-size: var(--dnd-text-sm);
-    font-weight: 700;
-    line-height: 1.2;
-    text-decoration: none;
-  }
-
-  .en-home__cta--secondary {
-    background: rgba(253, 251, 247, 0.9);
-    color: #3c2b1a;
-  }
-
-  .en-home-section {
-    padding: 74px 0;
+  .en-home-intro {
+    padding: 64px 0 34px;
     background: #fdfbf7;
   }
 
-  .en-home-section + .en-home-section {
-    border-top: 1px solid rgba(91, 70, 42, 0.1);
+  .en-home-intro__inner {
+    max-width: 760px;
+    text-align: center;
   }
 
-  .en-home-section h2 {
-    max-width: 720px;
-    color: #241b13;
-    font-size: clamp(1.75rem, 3vw, 2.65rem);
+  .en-home-intro h2,
+  .en-home-gallery h2,
+  .en-home-booking h2 {
+    margin: 10px 0 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.65rem, 2.7vw, 2.45rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: rgba(0, 0, 0, 0.86);
   }
 
-  .en-home-section p {
-    margin: 16px 0 0;
-    color: rgba(36, 27, 19, 0.72);
+  .en-home-intro p,
+  .en-home-gallery p,
+  .en-home-booking p {
+    margin: 16px auto 0;
+    max-width: 58ch;
+    color: rgba(0, 0, 0, 0.66);
     font-size: var(--dnd-text-body);
     line-height: 1.68;
   }
 
-  .en-home-intro__grid,
-  .en-home-direct__inner,
-  .en-home-region__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: clamp(28px, 5vw, 68px);
-    align-items: start;
+  .en-home-gallery {
+    padding: 86px 0 76px;
+    background: #fdfbf7;
+    scroll-margin-top: 150px;
   }
 
-  .en-home-intro__grid > p,
-  .en-home-direct__inner > div p,
-  .en-home-region__inner > div p {
-    max-width: 58ch;
+  .en-home-gallery__head {
+    max-width: 720px;
+    margin-bottom: 26px;
   }
 
-  .en-home-section__head {
-    max-width: 740px;
-    margin-bottom: 24px;
-  }
-
-  .en-home-stays {
+  .en-home-gallery__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 18px;
   }
 
-  .en-home-stay-card {
-    display: grid;
-    gap: 12px;
-    min-height: 240px;
-    padding: 22px;
-    border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 8px;
-    background: #fff;
-  }
-
-  .en-home-stay-card h3 {
+  .en-home-gallery__item {
+    position: relative;
+    min-height: 340px;
     margin: 0;
-    color: #241b13;
-    font-size: var(--dnd-heading-card);
-    line-height: 1.2;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #ddd5c8;
   }
 
-  .en-home-stay-card p {
-    margin: 0;
-    font-size: var(--dnd-text-md);
-    line-height: 1.58;
+  .en-home-gallery__item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .en-home-stay-card a {
-    align-self: end;
-    color: #9c6b1c;
-    font-size: var(--dnd-text-xs);
+  .en-home-gallery__item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 42%, rgba(17, 13, 9, 0.56));
+  }
+
+  .en-home-gallery__item figcaption {
+    position: absolute;
+    left: 18px;
+    bottom: 16px;
+    z-index: 1;
+    color: #fff;
+    font-size: var(--dnd-text-sm);
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    text-transform: uppercase;
+    line-height: 1.35;
   }
 
-  .en-home-direct {
+  .en-home-booking {
+    padding: 74px 0 84px;
     background: #f7f2e7;
   }
 
-  .en-home-direct ul {
-    display: grid;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .en-home-direct li {
-    padding: 14px 16px;
-    border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.72);
-    color: rgba(36, 27, 19, 0.78);
-    font-size: var(--dnd-text-body);
-    line-height: 1.5;
-  }
-
-  .en-home-region__tags {
+  .en-home-booking__inner {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 32px;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 18px;
+    background: #fffdfa;
   }
 
-  .en-home-region__tags span {
+  .en-home-booking h2 {
+    margin-top: 8px;
+  }
+
+  .en-home-booking p {
+    margin-left: 0;
+  }
+
+  .en-home-booking__cta {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
-    min-height: 40px;
-    padding: 0 14px;
-    border: 1px solid rgba(217, 158, 43, 0.26);
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 24px;
     border-radius: 999px;
-    background: #fff;
-    color: #5b4327;
+    background: #d99e2b;
+    color: #17120e;
     font-size: var(--dnd-text-sm);
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.2;
+    text-decoration: none;
   }
 
   @media (max-width: 820px) {
-    .en-home-hero {
-      min-height: 680px;
-      padding: 132px 0 56px;
-      background-position: center 26%;
+    .en-home-intro {
+      padding: 52px 0 28px;
     }
 
-    .en-home-hero h1 {
-      font-size: clamp(2.1rem, 11vw, 3.25rem);
+    .en-home-gallery {
+      padding: 64px 0 58px;
     }
 
-    .en-home-hero p {
-      font-size: var(--dnd-text-body);
-      line-height: 1.58;
-    }
-
-    .en-home__actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .en-home-section {
-      padding: 54px 0;
-    }
-
-    .en-home-intro__grid,
-    .en-home-direct__inner,
-    .en-home-region__inner,
-    .en-home-stays {
+    .en-home-gallery__grid {
       grid-template-columns: 1fr;
     }
 
-    .en-home-stay-card {
-      min-height: auto;
-      padding: 18px;
+    .en-home-gallery__item {
+      min-height: 300px;
+      border-radius: 14px;
+    }
+
+    .en-home-booking__inner {
+      display: grid;
+      padding: 24px 18px;
+    }
+
+    .en-home-booking__cta {
+      width: 100%;
     }
   }
 </style>

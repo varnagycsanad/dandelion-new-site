@@ -6,7 +6,26 @@ import mountainsImage from "../assets/home/experiences/dandelion-home-experience
 
 // [CHANGE 2026-05-16 21:30] Homepage experiences kártyaképek saját home assetekre frissítve.
 // [CHANGE 2026-05-16 11:45] Homepage experiences copy rövidítve és természetesebbre véve.
-const experiences = [
+// [CHANGE 2026-05-20 00:00] Experiences can receive localized copy and safe localized hrefs.
+interface ExperienceCard {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  href: string;
+}
+
+interface Props {
+  sectionId?: string;
+  title?: string;
+  lead?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  mobileCtaLabel?: string;
+  experiences?: ExperienceCard[];
+}
+
+const defaultExperiences = [
   {
     title: "BICIKLI",
     description: "Bringás körök falvak, szőlősorok és panorámák között.",
@@ -36,16 +55,24 @@ const experiences = [
     href: "/elmenyek/tanuhegyek/"
   }
 ];
+
+const {
+  sectionId = "elmenyek",
+  title = "ÉLMÉNYEK",
+  lead = "Bringa, bor, Balaton és tanúhegyek a környék legjobb ritmusában.",
+  ctaLabel = "ÖSSZES ÉLMÉNY",
+  ctaHref = "/elmenyek/",
+  mobileCtaLabel = "RÉSZLETEK",
+  experiences = defaultExperiences
+} = Astro.props;
 ---
 
-<section class="dnd-section dnd-experiences" id="elmenyek">
+<section class="dnd-section dnd-experiences" id={sectionId}>
   <div class="dnd-experiences__inner">
     <div class="dnd-experiences__intro">
-      <h2 class="dnd-experiences__title">ÉLMÉNYEK</h2>
-      <p class="dnd-experiences__lead">
-        Bringa, bor, Balaton és tanúhegyek a környék legjobb ritmusában.
-      </p>
-      <a href="/elmenyek/" class="dnd-experiences__cta">ÖSSZES ÉLMÉNY</a>
+      <h2 class="dnd-experiences__title">{title}</h2>
+      <p class="dnd-experiences__lead">{lead}</p>
+      <a href={ctaHref} class="dnd-experiences__cta">{ctaLabel}</a>
     </div>
 
     <div class="dnd-experiences__grid">
@@ -65,7 +92,7 @@ const experiences = [
             <div class="dnd-experience-card__body">
               <h3>{experience.title}</h3>
               <p>{experience.description}</p>
-              <span class="dnd-experience-card__mobile-cta">RÉSZLETEK</span>
+              <span class="dnd-experience-card__mobile-cta">{mobileCtaLabel}</span>
             </div>
           </a>
         ))

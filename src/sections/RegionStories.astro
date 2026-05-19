@@ -12,7 +12,28 @@ const stickyImageWidths = [768, 1280, 1920, 2400];
 const stickyImageSizes = "100vw";
 
 // [CHANGE 2026-05-16 11:45] Homepage region copy rövidítve és konkrétabbá téve.
-const regionStories = [
+// [CHANGE 2026-05-20 00:00] Region stories accept localized copy while preserving the homepage visual structure.
+interface RegionStory {
+  kicker: string;
+  title: string;
+  description: string;
+  meta: string;
+  ctaLabel: string;
+  mobileCtaLabel: string;
+  ctaHref: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+interface Props {
+  sectionId?: string;
+  kickerLabel?: string;
+  heading?: string;
+  lead?: string;
+  stories?: RegionStory[];
+}
+
+const defaultRegionStories = [
   {
     kicker: "Kisapáti · Szent György-hegy · Tapolcai-medence",
     title: "Tanúhegyek ölelésében",
@@ -50,16 +71,22 @@ const regionStories = [
     imageAlt: "Káli-medence tájképe"
   }
 ];
+
+const {
+  sectionId = "stays",
+  kickerLabel = "Szállások",
+  heading = "Nem egy helyszín, három külön világ",
+  lead = "Három térség, háromféle pihenés: tanúhegyek, Balaton közeli házak és csendes káli falvak.",
+  stories = defaultRegionStories
+} = Astro.props;
 ---
 
-<section id="stays" class="dnd-section dnd-region-stories">
+<section id={sectionId} class="dnd-section dnd-region-stories">
   <div class="dnd-region-stories__inner dnd-region-stories__content">
     <div class="dnd-region-stories__intro">
-      <span class="dnd-section-kicker">Szállások</span>
-      <h2 class="dnd-region-stories__heading">Nem egy helyszín, három külön világ</h2>
-      <p class="dnd-region-stories__lead">
-        Három térség, háromféle pihenés: tanúhegyek, Balaton közeli házak és csendes káli falvak.
-      </p>
+      <span class="dnd-section-kicker">{kickerLabel}</span>
+      <h2 class="dnd-region-stories__heading">{heading}</h2>
+      <p class="dnd-region-stories__lead">{lead}</p>
     </div>
 
     <div class="dnd-region-stories__list">
@@ -76,7 +103,7 @@ const regionStories = [
         </div>
       </div>
 
-      {regionStories.map((story, index) => (
+      {stories.map((story, index) => (
         <article class={`dnd-region-story dnd-region-story--${index + 1}`}>
           <div class="dnd-region-story__media">
             <Image
