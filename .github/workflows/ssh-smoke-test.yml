@@ -2,6 +2,11 @@ name: SSH Smoke Test
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/ssh-smoke-test.yml
 
 permissions:
   contents: read
@@ -25,10 +30,8 @@ jobs:
 
           required_vars=(
             SSH_HOST
-            SSH_PORT
             SSH_USER
             SSH_PRIVATE_KEY
-            SSH_PASSPHRASE
             REMOTE_PATH
           )
 
@@ -36,6 +39,16 @@ jobs:
             if [ -z "${!var_name:-}" ]; then
               echo "::error::Missing required secret: ${var_name}"
               exit 1
+            fi
+          done
+
+          for mask_value in \
+            "$SSH_HOST" \
+            "${SSH_PORT:-}" \
+            "$SSH_USER" \
+            "$REMOTE_PATH"; do
+            if [ -n "$mask_value" ]; then
+              echo "::add-mask::$mask_value"
             fi
           done
 
@@ -48,30 +61,83 @@ jobs:
           printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/ujsite_smoke_test_key"
           chmod 600 "$HOME/.ssh/ujsite_smoke_test_key"
 
-          cat > "$RUNNER_TEMP/ssh-askpass.sh" <<'EOF'
-          #!/usr/bin/env bash
-          printf '%s\n' "$SSH_PASSPHRASE"
-          EOF
-          chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
-
           eval "$(ssh-agent -s)"
           {
             echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
             echo "SSH_AGENT_PID=$SSH_AGENT_PID"
           } >> "$GITHUB_ENV"
 
-          export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
-          export SSH_ASKPASS_REQUIRE=force
-          export DISPLAY=:0
+          if [ -n "${SSH_PASSPHRASE:-}" ]; then
+            cat > "$RUNNER_TEMP/ssh-askpass.sh" <<'EOF'
+            #!/usr/bin/env bash
+            printf '%s\n' "$SSH_PASSPHRASE"
+            EOF
+            chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
 
-          ssh-add "$HOME/.ssh/ujsite_smoke_test_key" < /dev/null
+            export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
+            export SSH_ASKPASS_REQUIRE=force
+            export DISPLAY=:0
 
-      - name: Add SSH host key
+            ssh-add "$HOME/.ssh/ujsite_smoke_test_key" < /dev/null
+          else
+            ssh-add "$HOME/.ssh/ujsite_smoke_test_key"
+          fi
+
+      - name: Discover SSH host key candidate
         shell: bash
         run: |
           set -euo pipefail
 
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> "$HOME/.ssh/known_hosts"
+          secret_host="$SSH_HOST"
+          shared_ip_host="185.33.55.51"
+          secret_port="${SSH_PORT:-}"
+          default_port="22"
+
+          try_candidate() {
+            local host="$1"
+            local port="$2"
+            local label="$3"
+            local scan_output
+
+            echo "candidate: $label"
+
+            if [ -z "$host" ] || [ -z "$port" ]; then
+              return 1
+            fi
+
+            if scan_output=$(timeout 10s ssh-keyscan -T 5 -p "$port" -H "$host" 2>/dev/null); then
+              if [ -n "$scan_output" ]; then
+                printf '%s\n' "$scan_output" >> "$HOME/.ssh/known_hosts"
+                {
+                  echo "SELECTED_SSH_HOST=$host"
+                  echo "SELECTED_SSH_PORT=$port"
+                  echo "SELECTED_SSH_LABEL=$label"
+                } >> "$GITHUB_ENV"
+                return 0
+              fi
+            fi
+
+            return 1
+          }
+
+          if try_candidate "$secret_host" "$secret_port" "secret-host:secret-port"; then
+            exit 0
+          fi
+
+          if try_candidate "$secret_host" "$default_port" "secret-host:22"; then
+            exit 0
+          fi
+
+          if try_candidate "$shared_ip_host" "$secret_port" "shared-ip:secret-port"; then
+            exit 0
+          fi
+
+          if try_candidate "$shared_ip_host" "$default_port" "shared-ip:22"; then
+            exit 0
+          fi
+
+          echo "::error::No SSH host/port candidate returned a host key"
+          exit 1
 
       - name: Run remote smoke test
         shell: bash
@@ -80,18 +146,20 @@ jobs:
 
           remote_path_quoted=$(printf '%q' "$REMOTE_PATH")
 
+          echo "selected candidate: $SELECTED_SSH_LABEL"
+
           ssh \
-            -p "$SSH_PORT" \
+            -p "$SELECTED_SSH_PORT" \
             -o BatchMode=yes \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
-            "$SSH_USER@$SSH_HOST" \
+            -o LogLevel=ERROR \
+            "$SSH_USER@$SELECTED_SSH_HOST" \
             "REMOTE_PATH=$remote_path_quoted bash -se" <<'EOF'
           set -e
           whoami
           pwd
           hostname
-          echo "REMOTE_PATH check"
           test -d "$REMOTE_PATH"
           ls -la "$REMOTE_PATH" | head
           command -v rsync || true
