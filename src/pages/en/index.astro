@@ -1,10 +1,41 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-// [CHANGE 2026-05-19 00:00] First safe English homepage entry point added without full homepage i18n refactor.
+// [CHANGE 2026-05-20 00:00] English homepage expanded with safe content blocks and existing booking/accommodation links.
 const enTitle = "Dandelion Guesthouses | Peaceful stays in the Balaton Uplands";
 const enDescription =
-  "Nature-close Dandelion guesthouses around the Balaton Uplands, with calm rural atmosphere, personal hospitality and direct booking options.";
+  "Peaceful countryside guesthouses in the Balaton Uplands near Szent György Hill, with gardens, terraces, family-friendly stays and direct booking.";
+const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+
+const featuredStays = [
+  {
+    name: "Dandelion D2",
+    text: "A bright family-friendly countryside stay near Szent György Hill, with a large garden and covered terrace.",
+    href: "/en/dandelion-d2/",
+    cta: "View Dandelion D2"
+  },
+  {
+    name: "Fügeház",
+    text: "A calm guesthouse choice around the witness hills, suited to relaxed family days and terrace time.",
+    href: "/en/szallasok/",
+    cta: "View accommodations"
+  },
+  {
+    name: "Dandelion D1",
+    text: "A spacious Dandelion stay for larger families or friends looking for a quiet base in the Balaton Uplands.",
+    href: "/en/szallasok/",
+    cta: "View accommodations"
+  }
+];
+
+const directBookingPoints = [
+  "Direct communication before arrival",
+  "Clear information before booking",
+  "Countryside locations with a calmer rhythm",
+  "A personal guesthouse experience"
+];
+
+const regionPoints = ["Balaton Uplands", "Badacsony", "Kisapáti", "Szent György Hill", "Lake Balaton nearby"];
 ---
 
 <BaseLayout
@@ -16,81 +47,147 @@ const enDescription =
   hideFooter={true}
   headerMode="solid"
 >
-  <section class="en-home">
-    <div class="dnd-container en-home__inner">
-      <div class="en-home__copy">
-        <span class="en-home__eyebrow">Dandelion Guesthouses</span>
-        <h1>Quiet rural stays near Lake Balaton.</h1>
+  <section class="en-home-hero">
+    <div class="dnd-container en-home-hero__inner">
+      <div class="en-home-hero__copy">
+        <span class="en-home__eyebrow">Balaton Uplands · Szent György Hill</span>
+        <h1>Countryside guesthouses for slower days near Lake Balaton.</h1>
         <p>
-          The English version is starting here with a small, safe first step. Dandelion brings together
-          nature-close guesthouses around the Balaton Uplands, with calm gardens, warm details and an easy pace.
+          Dandelion brings together peaceful guesthouses around the Balaton Uplands: garden mornings,
+          quiet terraces, family-friendly spaces and the relaxed village rhythm of Szent György Hill.
         </p>
         <div class="en-home__actions">
           <a class="en-home__cta" href="/en/szallasok/">View accommodations</a>
-          <a class="en-home__cta en-home__cta--secondary" href="/kapcsolat/">Contact us</a>
+          <a class="en-home__cta en-home__cta--secondary" href={bookingHref} target="_blank" rel="noopener noreferrer">
+            Check availability
+          </a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="en-home__note" aria-label="English version note">
-        <span>First English page</span>
+  <section class="en-home-section en-home-intro" aria-labelledby="english-home-intro-title">
+    <div class="dnd-container en-home-intro__grid">
+      <div>
+        <span class="en-home__eyebrow">Dandelion Guesthouses</span>
+        <h2 id="english-home-intro-title">Peaceful stays with gardens, terraces and room to breathe.</h2>
+      </div>
+      <p>
+        Our houses are made for guests who want the Balaton Uplands without rush: countryside locations,
+        comfortable family stays, outdoor spaces for long breakfasts and direct booking with personal
+        communication before arrival.
+      </p>
+    </div>
+  </section>
+
+  <section class="en-home-section" aria-labelledby="english-featured-stays-title">
+    <div class="dnd-container">
+      <div class="en-home-section__head">
+        <span class="en-home__eyebrow">Featured stays</span>
+        <h2 id="english-featured-stays-title">Start with a house that fits your rhythm.</h2>
+      </div>
+      <div class="en-home-stays">
+        {featuredStays.map((stay) => (
+          <article class="en-home-stay-card">
+            <h3>{stay.name}</h3>
+            <p>{stay.text}</p>
+            <a href={stay.href}>{stay.cta}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="en-home-section en-home-direct" aria-labelledby="english-direct-booking-title">
+    <div class="dnd-container en-home-direct__inner">
+      <div>
+        <span class="en-home__eyebrow">Direct booking</span>
+        <h2 id="english-direct-booking-title">Why book directly with Dandelion?</h2>
         <p>
-          More English pages will follow gradually. House names such as Dandelion D2, Fügeház,
-          Zsálya Vendégház and Dandelion Vintage Vendégház remain unchanged.
+          Direct booking keeps the conversation simple. You can ask about the house, the location,
+          arrival details or which guesthouse might suit your group before you decide.
         </p>
+      </div>
+      <ul>
+        {directBookingPoints.map((point) => (
+          <li>{point}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="en-home-section en-home-region" aria-labelledby="english-region-title">
+    <div class="dnd-container en-home-region__inner">
+      <div>
+        <span class="en-home__eyebrow">The region</span>
+        <h2 id="english-region-title">A quiet base between hills, wine roads and Lake Balaton.</h2>
+        <p>
+          Stay close to Badacsony, Kisapáti and Szent György Hill, with Lake Balaton nearby for beaches,
+          harbours and easy day trips.
+        </p>
+      </div>
+      <div class="en-home-region__tags" aria-label="Places around Dandelion guesthouses">
+        {regionPoints.map((point) => (
+          <span>{point}</span>
+        ))}
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .en-home {
-    min-height: 100vh;
+  .en-home-hero {
+    min-height: 78vh;
     display: grid;
-    align-items: center;
-    padding: 96px 0;
-    background:
-      radial-gradient(circle at 16% 18%, rgba(217, 158, 43, 0.16), transparent 32%),
-      linear-gradient(135deg, #fdfbf7 0%, #f4ead9 100%);
-  }
-
-  .en-home__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.55fr);
-    gap: clamp(28px, 5vw, 64px);
     align-items: end;
+    padding: 150px 0 86px;
+    background-image: linear-gradient(180deg, rgba(17, 13, 9, 0.12), rgba(17, 13, 9, 0.54)),
+      url("/images/pages/szallasok-hero-bg.webp");
+    background-position: center 30%;
+    background-size: cover;
   }
 
-  .en-home__copy {
-    max-width: 760px;
+  .en-home-hero__inner {
+    display: grid;
+  }
+
+  .en-home-hero__copy {
+    max-width: 720px;
+    color: #fff;
   }
 
   .en-home__eyebrow {
     display: inline-flex;
-    margin-bottom: 16px;
-    color: #9c6b1c;
+    margin-bottom: 14px;
+    color: #d99e2b;
     font-size: var(--dnd-text-xs);
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     line-height: 1.4;
     text-transform: uppercase;
   }
 
-  .en-home h1 {
+  .en-home-hero h1,
+  .en-home-section h2 {
     margin: 0;
-    color: #241b13;
     font-family: var(--dnd-font-display);
-    font-size: clamp(2.45rem, 6vw, 5.2rem);
     font-weight: 500;
     letter-spacing: var(--dnd-tracking-display-tight);
-    line-height: 0.98;
+    line-height: 1.04;
   }
 
-  .en-home__copy p {
+  .en-home-hero h1 {
+    max-width: 760px;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: clamp(2.5rem, 5.8vw, 4.8rem);
+  }
+
+  .en-home-hero p {
     max-width: 58ch;
-    margin: 24px 0 0;
-    color: rgba(36, 27, 19, 0.74);
+    margin: 22px 0 0;
+    color: rgba(255, 255, 255, 0.86);
     font-size: var(--dnd-text-lead);
-    line-height: 1.68;
+    line-height: 1.62;
   }
 
   .en-home__actions {
@@ -106,67 +203,179 @@ const enDescription =
     justify-content: center;
     min-height: 48px;
     padding: 0 22px;
-    border: 1px solid rgba(48, 36, 24, 0.16);
+    border: 1px solid rgba(253, 251, 247, 0.34);
     border-radius: 999px;
     background: #d99e2b;
     color: #1f170f;
+    font-size: var(--dnd-text-sm);
     font-weight: 700;
+    line-height: 1.2;
     text-decoration: none;
   }
 
   .en-home__cta--secondary {
-    background: rgba(255, 255, 255, 0.54);
-    color: #4f3820;
+    background: rgba(253, 251, 247, 0.9);
+    color: #3c2b1a;
   }
 
-  .en-home__note {
+  .en-home-section {
+    padding: 74px 0;
+    background: #fdfbf7;
+  }
+
+  .en-home-section + .en-home-section {
+    border-top: 1px solid rgba(91, 70, 42, 0.1);
+  }
+
+  .en-home-section h2 {
+    max-width: 720px;
+    color: #241b13;
+    font-size: clamp(1.75rem, 3vw, 2.65rem);
+  }
+
+  .en-home-section p {
+    margin: 16px 0 0;
+    color: rgba(36, 27, 19, 0.72);
+    font-size: var(--dnd-text-body);
+    line-height: 1.68;
+  }
+
+  .en-home-intro__grid,
+  .en-home-direct__inner,
+  .en-home-region__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(28px, 5vw, 68px);
+    align-items: start;
+  }
+
+  .en-home-intro__grid > p,
+  .en-home-direct__inner > div p,
+  .en-home-region__inner > div p {
+    max-width: 58ch;
+  }
+
+  .en-home-section__head {
+    max-width: 740px;
+    margin-bottom: 24px;
+  }
+
+  .en-home-stays {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .en-home-stay-card {
+    display: grid;
+    gap: 12px;
+    min-height: 240px;
     padding: 22px;
-    border: 1px solid rgba(87, 64, 38, 0.12);
-    border-radius: 18px;
-    background: rgba(255, 252, 246, 0.76);
-    box-shadow: 0 18px 42px rgba(73, 52, 27, 0.08);
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 8px;
+    background: #fff;
   }
 
-  .en-home__note span {
-    display: inline-flex;
-    margin-bottom: 10px;
+  .en-home-stay-card h3 {
+    margin: 0;
+    color: #241b13;
+    font-size: var(--dnd-heading-card);
+    line-height: 1.2;
+  }
+
+  .en-home-stay-card p {
+    margin: 0;
+    font-size: var(--dnd-text-md);
+    line-height: 1.58;
+  }
+
+  .en-home-stay-card a {
+    align-self: end;
     color: #9c6b1c;
-    font-size: var(--dnd-text-2xs);
+    font-size: var(--dnd-text-xs);
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
+    text-decoration: none;
     text-transform: uppercase;
   }
 
-  .en-home__note p {
-    margin: 0;
-    color: rgba(36, 27, 19, 0.72);
-    font-size: var(--dnd-text-md);
-    line-height: 1.62;
+  .en-home-direct {
+    background: #f7f2e7;
   }
 
-  @media (max-width: 760px) {
-    .en-home {
-      min-height: 100svh;
-      padding: 72px 0;
+  .en-home-direct ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .en-home-direct li {
+    padding: 14px 16px;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+    color: rgba(36, 27, 19, 0.78);
+    font-size: var(--dnd-text-body);
+    line-height: 1.5;
+  }
+
+  .en-home-region__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .en-home-region__tags span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid rgba(217, 158, 43, 0.26);
+    border-radius: 999px;
+    background: #fff;
+    color: #5b4327;
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 820px) {
+    .en-home-hero {
+      min-height: 680px;
+      padding: 132px 0 56px;
+      background-position: center 26%;
     }
 
-    .en-home__inner {
-      grid-template-columns: 1fr;
-      align-items: start;
+    .en-home-hero h1 {
+      font-size: clamp(2.1rem, 11vw, 3.25rem);
     }
 
-    .en-home h1 {
-      font-size: clamp(2.1rem, 12vw, 3.35rem);
-    }
-
-    .en-home__copy p {
+    .en-home-hero p {
       font-size: var(--dnd-text-body);
-      line-height: 1.62;
+      line-height: 1.58;
     }
 
     .en-home__actions {
       flex-direction: column;
       align-items: stretch;
+    }
+
+    .en-home-section {
+      padding: 54px 0;
+    }
+
+    .en-home-intro__grid,
+    .en-home-direct__inner,
+    .en-home-region__inner,
+    .en-home-stays {
+      grid-template-columns: 1fr;
+    }
+
+    .en-home-stay-card {
+      min-height: auto;
+      padding: 18px;
     }
   }
 </style>
