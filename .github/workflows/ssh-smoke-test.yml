@@ -1,0 +1,111 @@
+name: SSH Smoke Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ssh-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SSH_HOST: ${{ secrets.UJSITE_SSH_HOST }}
+      SSH_PORT: ${{ secrets.UJSITE_SSH_PORT }}
+      SSH_USER: ${{ secrets.UJSITE_SSH_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.UJSITE_SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.UJSITE_SSH_PASSPHRASE }}
+      REMOTE_PATH: ${{ secrets.UJSITE_SSH_REMOTE_PATH }}
+    steps:
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_vars=(
+            SSH_HOST
+            SSH_PORT
+            SSH_USER
+            SSH_PRIVATE_KEY
+            SSH_PASSPHRASE
+            REMOTE_PATH
+          )
+
+          for var_name in "${required_vars[@]}"; do
+            if [ -z "${!var_name:-}" ]; then
+              echo "::error::Missing required secret: ${var_name}"
+              exit 1
+            fi
+          done
+
+      - name: Start ssh-agent and load passphrase protected key
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/ujsite_smoke_test_key"
+          chmod 600 "$HOME/.ssh/ujsite_smoke_test_key"
+
+          cat > "$RUNNER_TEMP/ssh-askpass.sh" <<'EOF'
+          #!/usr/bin/env bash
+          printf '%s\n' "$SSH_PASSPHRASE"
+          EOF
+          chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
+
+          eval "$(ssh-agent -s)"
+          {
+            echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+            echo "SSH_AGENT_PID=$SSH_AGENT_PID"
+          } >> "$GITHUB_ENV"
+
+          export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
+          export SSH_ASKPASS_REQUIRE=force
+          export DISPLAY=:0
+
+          ssh-add "$HOME/.ssh/ujsite_smoke_test_key" < /dev/null
+
+      - name: Add SSH host key
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> "$HOME/.ssh/known_hosts"
+
+      - name: Run remote smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          remote_path_quoted=$(printf '%q' "$REMOTE_PATH")
+
+          ssh \
+            -p "$SSH_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            "$SSH_USER@$SSH_HOST" \
+            "REMOTE_PATH=$remote_path_quoted bash -se" <<'EOF'
+          set -e
+          whoami
+          pwd
+          hostname
+          echo "REMOTE_PATH check"
+          test -d "$REMOTE_PATH"
+          ls -la "$REMOTE_PATH" | head
+          command -v rsync || true
+          rsync --version | head -1 || true
+          EOF
+
+      - name: Cleanup local SSH material
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -n "${SSH_AGENT_PID:-}" ]; then
+            ssh-agent -k >/dev/null
+          fi
+
+          rm -f "$HOME/.ssh/ujsite_smoke_test_key" "$RUNNER_TEMP/ssh-askpass.sh"
