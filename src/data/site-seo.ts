@@ -20,7 +20,8 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/szololiget/", en: "/en/szololiget/" },
   { hu: "/szepvolgyi/", en: "/en/szepvolgyi/" },
   { hu: "/royal/", en: "/en/royal/" },
-  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" }
+  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
+  { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" }
 ] as const;
 
 const canonicalAliasMap: Record<string, string> = {
@@ -57,6 +58,7 @@ export const SITEMAP_PATHS = [
   "/en/szepvolgyi/",
   "/en/royal/",
   "/en/dandelion-vintage/",
+  "/en/dandelion-koveskal/",
   "/dandelion-koveskal/",
   "/dandelion-zsalya/",
   "/dandelion-vintage/",

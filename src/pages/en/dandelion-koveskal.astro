@@ -1,0 +1,15 @@
+---
+import { koveskalEnglishPageData } from "../../data/accommodation-pages/koveskal.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Dandelion Koveskal route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={koveskalEnglishPageData}
+  imageSet={accommodationImages.koveskal}
+  lang="en"
+  canonicalPath="/en/dandelion-koveskal/"
+  accommodationListingHref="/en/szallasok/"
+/>

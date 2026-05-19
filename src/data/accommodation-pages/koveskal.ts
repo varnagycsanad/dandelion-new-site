@@ -34,7 +34,7 @@ export const koveskalPageData: AccommodationPageData = {
   reviews: {
     kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    intro: "Nyugodt, kényelmes vendégház Köveskál csendes részén, tágas terekkel és igazi Káli-medence hangulattal.",
     mobileSummaryLabel: "További vélemények",
     mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
     mobileMoreGoogleAriaLabel: "További Google értékelések",
@@ -94,7 +94,7 @@ export const koveskalPageData: AccommodationPageData = {
           ["Helyszín", "Köveskál"],
           ["Régió", "Káli-medence"],
           ["Jelleg", "vidéki, nyugodt pihenés"],
-          ["Oldalállapot", "első körös template-bekötés"]
+          ["Kinek ajánljuk?", "csendes pihenést kereső pároknak, családoknak és baráti társaságoknak"]
         ]
       },
       {

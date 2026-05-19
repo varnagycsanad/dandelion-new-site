@@ -47,6 +47,8 @@ const resolveEnglishStayHref = (slug: string, href: string) =>
                 ? `${baseHref}en/royal/`
                 : slug === "vintage-vendeghaz"
                   ? `${baseHref}en/dandelion-vintage/`
+                  : slug === "dandelion-koveskal"
+                    ? `${baseHref}en/dandelion-koveskal/`
                   : resolveStayHref(href);
 
 const sectionCopy: Record<
@@ -174,7 +176,7 @@ const sections = accommodationSections.map((section) => ({
   key: section.key,
   gridClass: section.gridClass,
   stays: accommodations
-    .filter((stay) => stay.section === section.key && stay.slug !== "dandelion-koveskal" && stayCopy[stay.slug])
+    .filter((stay) => stay.section === section.key && stayCopy[stay.slug])
     .map((stay) => ({
       ...stay,
       ...stayCopy[stay.slug],

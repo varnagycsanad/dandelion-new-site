@@ -253,6 +253,10 @@ const englishGroupedStayLinks = [
       {
         label: "Dandelion Vintage Vendégház",
         href: `${homeHref}en/dandelion-vintage/`
+      },
+      {
+        label: "Dandelion Köveskál",
+        href: `${homeHref}en/dandelion-koveskal/`
       }
     ]
   }
@@ -279,6 +283,7 @@ const transparentHeaderPaths = new Set([
   "/en/szepvolgyi/",
   "/en/royal/",
   "/en/dandelion-vintage/",
+  "/en/dandelion-koveskal/",
   "/dandelion-koveskal/",
   "/dandelion-royal-homes/",
   "/dandelion-szepvolgyi-vendeghaz/",
@@ -324,6 +329,8 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/en/royal/": { hu: "/royal/", en: "/en/royal/" },
   "/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
   "/en/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
+  "/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" },
+  "/en/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" },
   "/de/": { hu: "/" }
 };
 const localizedHref = (path: string) =>
