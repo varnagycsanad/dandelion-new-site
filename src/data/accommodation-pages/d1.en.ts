@@ -39,7 +39,7 @@ export const d1EnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A short review-style overview for the shared Dandelion accommodation template.",
+    intro: "A spacious countryside stay that gives families and friends room to slow down together.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",

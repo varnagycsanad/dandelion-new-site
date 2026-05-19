@@ -28,7 +28,7 @@ export const szololigetEnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A short review-style overview for the shared Dandelion accommodation template.",
+    intro: "A peaceful hillside stay with a large terrace, vineyard-area quiet and witness-hill views.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",

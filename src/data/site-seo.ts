@@ -5,6 +5,8 @@ export const SITE_NAME = "Dandelion Vendégházak";
 export const SITE_DEFAULT_TITLE = "Dandelion Vendégházak | Természetközeli szállások a Balaton-felvidéken";
 export const SITE_DEFAULT_DESCRIPTION =
   "Természetközeli vendégházak a Balaton-felvidéken és a Balaton mellett, közvetlen foglalással, inspiráló környezettel és nyugodt pihenéssel.";
+export const SITE_DEFAULT_DESCRIPTION_EN =
+  "Nature-focused guesthouses in the Balaton Uplands, close to Szent György Hill, Badacsony, Lake Balaton and the Káli Basin.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.

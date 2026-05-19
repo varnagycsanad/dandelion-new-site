@@ -4,6 +4,7 @@ import { accommodations } from "../data/accommodations";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
   SITE_DEFAULT_DESCRIPTION,
+  SITE_DEFAULT_DESCRIPTION_EN,
   SITE_DEFAULT_OG_IMAGE,
   SITE_DEFAULT_TITLE,
   SITE_NAME,
@@ -145,7 +146,7 @@ const schemaScripts = [
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
     inLanguage: schemaLanguage,
-    description: SITE_DEFAULT_DESCRIPTION,
+    description: isEnglishPage ? SITE_DEFAULT_DESCRIPTION_EN : SITE_DEFAULT_DESCRIPTION,
     publisher: {
       "@id": `${toAbsoluteUrl("/")}#organization`
     }

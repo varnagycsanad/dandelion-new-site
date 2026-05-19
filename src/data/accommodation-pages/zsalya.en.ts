@@ -28,7 +28,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A short review-style overview for the shared Dandelion accommodation template.",
+    intro: "A quiet nature-close base for slower days around Szent György Hill.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",

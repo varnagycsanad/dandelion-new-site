@@ -28,7 +28,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A short review-style overview for the shared Dandelion accommodation template.",
+    intro: "A relaxed Lake Balaton base for families and friends who want space, views and a garden.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",

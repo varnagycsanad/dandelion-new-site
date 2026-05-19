@@ -39,7 +39,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A short review-style overview for the shared Dandelion accommodation template.",
+    intro: "A calm guesthouse for terrace mornings, quiet evenings and easy Balaton Uplands days.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",
