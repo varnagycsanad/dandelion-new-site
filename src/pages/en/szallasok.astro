@@ -1,0 +1,1045 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { accommodationSections, accommodations } from "../../data/accommodations";
+import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
+import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
+
+// [CHANGE 2026-05-19 00:00] First safe English accommodations list page, without registry or SabeeApp changes.
+type SectionKey = (typeof accommodationSections)[number]["key"];
+
+interface EnglishStayCopy {
+  name: string;
+  location: string;
+  description: string;
+  hoverText: string;
+  facts: string[];
+  imageAlt: string;
+}
+
+const title = "Accommodations in the Balaton Uplands | Dandelion Guesthouses";
+const description =
+  "Discover peaceful countryside guesthouses and apartments near Szent György Hill, Badacsony, Kisapáti, Keszthely and the Balaton Uplands.";
+const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
+const accommodationsOgImageAlt =
+  "Dandelion guesthouse selection page for countryside stays in the Balaton Uplands";
+
+const imageMapping = await readHomepageImageMapping();
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const contactHref = `${baseHref}kapcsolat/`;
+
+const resolveStayHref = (href: string) =>
+  href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
+
+const sectionCopy: Record<
+  SectionKey,
+  {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    audienceText: string;
+    anchorId: string;
+  }
+> = {
+  upland: {
+    eyebrow: "Szent György Hill · Tapolcai Basin · Kisapáti · Nemesgulács",
+    title: "Around the witness hills",
+    subtitle:
+      "Hiking trails, wineries and quiet village roads meet here. Choose this area if you are looking for the classic Balaton Uplands feeling.",
+    audienceText: "Good for hill walks, wide views and nature-close countryside stays.",
+    anchorId: "balaton-uplands"
+  },
+  shore: {
+    eyebrow: "Keszthely · Badacsonyörs · Lake Balaton",
+    title: "Easy days near the lake",
+    subtitle:
+      "Stay closer to beaches, harbours and lakeside programmes while keeping the calm Dandelion atmosphere.",
+    audienceText: "Good for beach days, lake programmes and easy access.",
+    anchorId: "near-lake-balaton"
+  },
+  kali: {
+    eyebrow: "Köveskál · Káli-medence · quiet village stay",
+    title: "The quieter side of Káli-medence",
+    subtitle:
+      "A slower village rhythm in one of the most atmospheric parts of the Balaton Uplands.",
+    audienceText: "Good for a softer, more withdrawn countryside break.",
+    anchorId: "kali-medence"
+  }
+};
+
+const stayCopy: Record<string, EnglishStayCopy> = {
+  "dandelion-d2": {
+    name: "Dandelion D2",
+    location: "Kisapáti / Balaton Uplands",
+    description:
+      "A modern, family-friendly apartment for 4-6 guests with a large garden, hot tub and easy access to Szent György Hill.",
+    hoverText: "For 4-6 guests, with a garden, hot tub and calm rural atmosphere.",
+    facts: ["4-6 guests", "2 bedrooms + living room", "Hot tub", "Air conditioning", "Family-friendly"],
+    imageAlt: "Dandelion D2 countryside accommodation near Szent György Hill"
+  },
+  fugehaz: {
+    name: "Fügeház",
+    location: "Near Szent György Hill",
+    description:
+      "A panoramic guesthouse for 4-6 guests with terraces, a hot tub and a relaxed layout for family stays.",
+    hoverText: "For 4-6 guests, with terraces, views and a hot tub.",
+    facts: ["4-6 guests", "2 levels / 2 rooms", "Panorama", "Hot tub", "Air conditioning"],
+    imageAlt: "Fügeház guesthouse with countryside setting near Szent György Hill"
+  },
+  "dandelion-d1": {
+    name: "Dandelion D1",
+    location: "Kisapáti / Balaton Uplands",
+    description:
+      "A spacious guesthouse for 6-8 guests with three bedrooms, a panoramic terrace and room for larger families or friends.",
+    hoverText: "For 6-8 guests, with three bedrooms and a panoramic terrace.",
+    facts: ["6-8 guests", "3 bedrooms + living room", "Panoramic terrace", "2 bathrooms", "Air conditioning"],
+    imageAlt: "Dandelion D1 spacious countryside guesthouse in Kisapáti"
+  },
+  "szololiget-vendeghaz": {
+    name: "Szőlőliget Vendégház",
+    location: "Kisapáti / eastern side of Szent György Hill",
+    description:
+      "A separate house for up to 4 guests with a generous terrace and witness-hill views for a quieter hillside base.",
+    hoverText: "For 2-4 guests, with a large terrace and open views.",
+    facts: ["2-4 guests", "1 bedroom + living room", "Panorama", "Quiet hillside setting", "Air conditioning"],
+    imageAlt: "Szőlőliget Vendégház countryside stay near Szent György Hill"
+  },
+  "zsalya-vendeghaz": {
+    name: "Zsálya Vendégház",
+    location: "Eastern side of Szent György Hill / Kisapáti",
+    description:
+      "A separate guesthouse for up to 4 guests with a covered terrace, hill views and a peaceful countryside setting.",
+    hoverText: "For 2-4 guests, with a covered terrace and witness-hill panorama.",
+    facts: ["2-4 guests", "2 bedrooms + living room", "Covered terrace", "Panorama", "Air conditioning"],
+    imageAlt: "Zsálya Vendégház with covered terrace near Szent György Hill"
+  },
+  "vintage-vendeghaz": {
+    name: "Dandelion Vintage Vendégház",
+    location: "Nemesgulács / Balaton Uplands",
+    description:
+      "A comfortable guesthouse in Nemesgulács with two bedrooms, a private garden and an easy starting point for Balaton programmes.",
+    hoverText: "In Nemesgulács, with two bedrooms and a private garden.",
+    facts: ["Guesthouse", "2 bedrooms + living room", "Private garden", "Air conditioning", "Vintage atmosphere"],
+    imageAlt: "Dandelion Vintage Vendégház countryside guesthouse in Nemesgulács"
+  },
+  "royal-homes": {
+    name: "Dandelion Royal Homes",
+    location: "Keszthely / Lake Balaton",
+    description:
+      "A premium apartment for 4-6 guests with direct lakeside atmosphere, a large terrace and a rooftop jacuzzi.",
+    hoverText: "For 4-6 guests, with a large terrace and rooftop jacuzzi.",
+    facts: ["4-6 guests", "2 bedrooms + living room", "Lake Balaton", "Rooftop jacuzzi", "Large terrace"],
+    imageAlt: "Dandelion Royal Homes apartment near Lake Balaton in Keszthely"
+  },
+  "szepvolgyi-vendeghaz": {
+    name: "Szépvölgyi Vendégház",
+    location: "Badacsonyörs / Szépvölgyi út",
+    description:
+      "A spacious holiday home for 8 guests with four bedrooms, Balaton views and a location close to Badacsonyörs.",
+    hoverText: "For 8 guests, with four bedrooms and Balaton views.",
+    facts: ["8 guests", "4 bedrooms + living room", "Balaton panorama", "2 bathrooms", "Large garden"],
+    imageAlt: "Szépvölgyi Vendégház spacious holiday home in Badacsonyörs"
+  },
+  "dandelion-koveskal": {
+    name: "Dandelion Köveskál",
+    location: "Köveskál / Káli-medence",
+    description:
+      "A quiet guesthouse in Köveskál, well placed for village walks, wine stops and slower days in Káli-medence.",
+    hoverText: "In Köveskál, for a calm and understated countryside break.",
+    facts: ["Guesthouse", "Köveskál", "Káli-medence", "Nature-close", "Quiet village"],
+    imageAlt: "Dandelion Köveskál quiet countryside guesthouse in Káli-medence"
+  }
+};
+
+const sections = accommodationSections.map((section) => ({
+  ...sectionCopy[section.key],
+  key: section.key,
+  gridClass: section.gridClass,
+  stays: accommodations
+    .filter((stay) => stay.section === section.key && stayCopy[stay.slug])
+    .map((stay) => ({
+      ...stay,
+      ...stayCopy[stay.slug],
+      image: imageMapping[stay.imageSlot],
+      href: resolveStayHref(stay.url)
+    }))
+}));
+
+const accommodationsStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${toAbsoluteUrl("/en/szallasok/")}#collection`,
+  name: title,
+  url: toAbsoluteUrl("/en/szallasok/"),
+  inLanguage: "en-US",
+  description,
+  isPartOf: {
+    "@id": `${toAbsoluteUrl("/en/")}#website`
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: sections.flatMap((section, sectionIndex) =>
+      section.stays.map((stay, stayIndex) => ({
+        "@type": "ListItem",
+        position: sectionIndex * 10 + stayIndex + 1,
+        url: toAbsoluteUrl(stay.url),
+        name: stay.name
+      }))
+    )
+  },
+  about: ["Balaton Uplands", "Szent György Hill", "Lake Balaton", "Káli-medence"],
+  provider: {
+    "@type": "LodgingBusiness",
+    name: SITE_NAME,
+    url: toAbsoluteUrl("/")
+  }
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/en/szallasok/"
+  lang="en"
+  ogLocale="en_US"
+  ogImage={accommodationsOgImage}
+  ogImageAlt={accommodationsOgImageAlt}
+  structuredData={accommodationsStructuredData}
+  hideHeader={true}
+  hideFooter={true}
+  headerMode="solid"
+>
+  <section class="dnd-accommodations-hero">
+    <div class="dnd-accommodations-hero__content">
+      <div class="dnd-container dnd-accommodations-hero__inner">
+        <div class="dnd-accommodations-hero__text">
+          <p class="dnd-accommodations-hero__eyebrow">Accommodations</p>
+          <h1 class="dnd-accommodations-hero__title">
+            <span>Choose the region first,</span>
+            <span>then find your house.</span>
+          </h1>
+          <p class="dnd-accommodations-hero__lead">
+            Dandelion guesthouses are spread across the Balaton Uplands, near Szent György Hill,
+            Badacsony, Kisapáti, Keszthely and Káli-medence.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dnd-accommodations-picker" aria-labelledby="accommodation-regions-title">
+    <div class="dnd-container">
+      <div class="dnd-accommodations-picker__intro">
+        <p class="dnd-accommodations-picker__eyebrow">Quick chooser</p>
+        <h2 id="accommodation-regions-title">Which part of the Balaton Uplands feels right?</h2>
+        <p>
+          Start with the landscape: witness hills and wine roads, the easier rhythm of Lake Balaton,
+          or a quieter village stay in Káli-medence.
+        </p>
+      </div>
+
+      <div class="dnd-accommodations-picker__grid">
+        {sections.map((section) => (
+          <a class="dnd-region-picker-card" href={`#${section.anchorId}`}>
+            <span class="dnd-region-picker-card__eyebrow">{section.eyebrow}</span>
+            <strong class="dnd-region-picker-card__title">{section.title}</strong>
+            <span class="dnd-region-picker-card__text">{section.audienceText}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div id="accommodations-list" class="dnd-apts-anchor">
+    <div id="dnd-apts-final" lang="en">
+      <div class="dnd-wrap">
+        {sections.map((section) => (
+          <section id={section.anchorId} class="dnd-section dnd-region-block">
+            <div class="dnd-region-block__header">
+              <p class="dnd-eyebrow">{section.eyebrow}</p>
+              <h2 class="dnd-h2">{section.title}</h2>
+              <p class="dnd-sub">{section.subtitle}</p>
+              <p class="dnd-region-block__audience">{section.audienceText}</p>
+            </div>
+
+            <div class={`dnd-grid ${section.gridClass}`}>
+              {section.stays.map((stay) => {
+                const primaryFacts = stay.facts.slice(0, 3);
+                const secondaryFacts = stay.facts.slice(3, 6);
+                const imageAlt = stay.imageAlt || `${stay.name} countryside accommodation near ${stay.location}`;
+
+                const cardContent = (
+                  <>
+                    <div class="dnd-media">
+                      {stay.image ? (
+                        stay.image.astroSrc ? (
+                          <Image
+                            src={stay.image.astroSrc}
+                            alt={imageAlt}
+                            loading="lazy"
+                          />
+                        ) : (
+                          <img
+                            src={stay.image.sourceUrl}
+                            alt={imageAlt}
+                            width={stay.image.width || 1600}
+                            height={stay.image.height || 1067}
+                            loading="lazy"
+                          />
+                        )
+                      ) : (
+                        <div class="dnd-media-placeholder" aria-label={`${stay.name} image coming soon`}>
+                          <span>{stay.name}</span>
+                          <small>Image coming soon</small>
+                        </div>
+                      )}
+                      <div class="dnd-overlay"></div>
+                      <p class="dnd-hover-text">{stay.hoverText}</p>
+                    </div>
+                    <div class="dnd-info">
+                      <div class="dnd-title-row">
+                        <h3 class="dnd-title">{stay.name}</h3>
+                        <span class="dnd-location">{stay.location}</span>
+                      </div>
+                      <div class="dnd-card-highlights" aria-label={`${stay.name} key details`}>
+                        {primaryFacts.map((fact) => (
+                          <span class="dnd-chip dnd-chip--accent">{fact}</span>
+                        ))}
+                      </div>
+                      <p class="dnd-description">{stay.description}</p>
+                      <div class="dnd-chips" aria-label={`${stay.name} more details`}>
+                        {secondaryFacts.map((fact) => (
+                          <span class="dnd-chip dnd-chip--secondary">{fact}</span>
+                        ))}
+                      </div>
+                      <span class="dnd-card-cta">View details</span>
+                    </div>
+                  </>
+                );
+
+                return (
+                  <a class="dnd-card is-link" href={stay.href}>
+                    {cardContent}
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <section class="dnd-accommodations-closing" aria-labelledby="accommodation-closing-title">
+    <div class="dnd-container">
+      <div class="dnd-accommodations-closing__inner">
+        <h2 id="accommodation-closing-title">Not sure which stay fits best?</h2>
+        <p>
+          Tell us how many guests are coming and what kind of rhythm you prefer.
+          We can help you narrow the choice without changing the booking setup.
+        </p>
+        <div class="dnd-accommodations-closing__actions">
+          <a class="dnd-accommodations-closing__cta" href={contactHref}>Send inquiry</a>
+          <a class="dnd-accommodations-closing__cta dnd-accommodations-closing__cta--secondary" href="/en/">
+            Back to English home
+          </a>
+        </div>
+        <p class="dnd-accommodations-closing__note">
+          Direct English detail pages will be added gradually. Until then, accommodation cards open the existing detail pages.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .dnd-accommodations-hero {
+    position: relative;
+    box-sizing: border-box;
+    min-height: calc(600px + 118px);
+    height: calc(84vh + 118px);
+    padding-top: 118px;
+    overflow: hidden;
+    background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
+      url("/images/pages/szallasok-hero-bg.webp");
+    background-position: center 28%;
+    background-size: cover;
+  }
+
+  .dnd-accommodations-hero__content {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    color: #fff;
+  }
+
+  .dnd-accommodations-hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100%;
+    max-width: none;
+    padding: clamp(168px, 24vh, 236px) clamp(48px, 7vw, 96px) 88px;
+  }
+
+  .dnd-accommodations-hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, 1040px);
+    text-align: center;
+  }
+
+  .dnd-accommodations-hero__eyebrow {
+    margin: 0 0 12px;
+    color: rgba(255, 250, 241, 0.88);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .dnd-accommodations-hero__title {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: clamp(30px, 2.35vw, 42px);
+    line-height: 1.08;
+    font-family: var(--dnd-font-display);
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .dnd-accommodations-hero__title span {
+    display: inline;
+  }
+
+  .dnd-accommodations-hero__lead {
+    max-width: 48ch;
+    margin: 18px auto 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.55;
+  }
+
+  .dnd-accommodations-picker {
+    margin-top: 26px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .dnd-accommodations-picker__intro {
+    max-width: 700px;
+    margin-bottom: 18px;
+  }
+
+  .dnd-accommodations-picker__eyebrow {
+    margin: 0 0 10px;
+    color: #b06200;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .dnd-accommodations-picker__intro h2 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.12;
+  }
+
+  .dnd-accommodations-picker__intro p:last-child {
+    max-width: 58ch;
+    margin: 12px 0 0;
+    color: #5d554b;
+    line-height: 1.6;
+  }
+
+  .dnd-accommodations-picker__grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dnd-region-picker-card {
+    display: grid;
+    gap: 8px;
+    min-height: 168px;
+    padding: 18px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 18px;
+    background: rgba(255, 251, 245, 0.96);
+    box-shadow: 0 10px 26px rgba(42, 31, 17, 0.06);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .dnd-region-picker-card:hover,
+  .dnd-region-picker-card:focus-visible {
+    border-color: rgba(217, 158, 43, 0.4);
+    box-shadow: 0 14px 30px rgba(42, 31, 17, 0.09);
+    transform: translateY(-2px);
+  }
+
+  .dnd-region-picker-card__eyebrow {
+    color: #8b6a33;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .dnd-region-picker-card__title {
+    color: #1f2937;
+    font-size: var(--dnd-text-lead);
+    line-height: 1.25;
+  }
+
+  .dnd-region-picker-card__text {
+    color: #5b5348;
+    font-size: var(--dnd-text-body);
+    line-height: 1.5;
+  }
+
+  .dnd-apts-anchor {
+    scroll-margin-top: 116px;
+  }
+
+  #dnd-apts-final {
+    --accent: #f7941d;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --c-gray-bg: #f3f4f6;
+    --c-gray-txt: #374151;
+    --c-accent-bg: rgba(247, 148, 29, 0.12);
+    --c-accent-txt: #b06200;
+    --radius: 16px;
+    --shadow: 0 8px 24px rgba(23, 18, 12, 0.06);
+    --shadow2: 0 14px 34px rgba(23, 18, 12, 0.1);
+    --max: 1320px;
+    --pad: 16px;
+    --gap: 18px;
+    --img-h: 300px;
+    --title: 20px;
+    --chipfs: 11px;
+    display: block !important;
+    width: 100% !important;
+    clear: both !important;
+    padding: 32px 0 48px;
+    color: var(--text);
+    box-sizing: border-box;
+    font-family: var(--dnd-font-body);
+  }
+
+  #dnd-apts-final * {
+    box-sizing: border-box;
+  }
+
+  #dnd-apts-final a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #dnd-apts-final .dnd-wrap {
+    display: block !important;
+    width: 100% !important;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  #dnd-apts-final .dnd-section {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 34px;
+    scroll-margin-top: 120px;
+  }
+
+  #dnd-apts-final .dnd-eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 650;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  #dnd-apts-final .dnd-h2 {
+    margin: 0 0 6px;
+    font-size: 29px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: var(--dnd-tracking-display-tight);
+  }
+
+  #dnd-apts-final .dnd-sub {
+    max-width: 900px;
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: var(--dnd-text-body);
+    line-height: 1.55;
+  }
+
+  .dnd-region-block__header {
+    margin-bottom: 14px;
+  }
+
+  .dnd-region-block__audience {
+    margin: 0;
+    color: #5b5348;
+    font-size: var(--dnd-text-md);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  #dnd-apts-final .dnd-grid {
+    display: grid !important;
+    width: 100% !important;
+    gap: var(--gap);
+    align-items: stretch;
+  }
+
+  #dnd-apts-final .dnd-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #dnd-apts-final .dnd-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #dnd-apts-final .dnd-grid--1 {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 520px;
+  }
+
+  #dnd-apts-final .dnd-card {
+    position: relative;
+    display: flex;
+    min-height: 100%;
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #dnd-apts-final .dnd-card.is-link {
+    cursor: pointer;
+  }
+
+  #dnd-apts-final .dnd-media {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: var(--img-h);
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    text-align: center;
+  }
+
+  #dnd-apts-final .dnd-media img {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #dnd-apts-final .dnd-media-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-content: center;
+    gap: 8px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f3f4f6, #fff8ec);
+    color: rgba(31, 41, 55, 0.72);
+  }
+
+  #dnd-apts-final .dnd-media-placeholder span {
+    font-weight: 800;
+  }
+
+  #dnd-apts-final .dnd-media-placeholder small {
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #dnd-apts-final .dnd-overlay {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(247, 148, 29, 0.18), rgba(40, 26, 7, 0.72));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  #dnd-apts-final .dnd-hover-text {
+    position: relative;
+    z-index: 3;
+    margin: auto 0 26px;
+    padding: 0 24px;
+    color: #fff;
+    font-size: var(--dnd-heading-card);
+    font-weight: 600;
+    line-height: 1.4;
+    opacity: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(10px);
+    transition: all 0.3s ease 0.05s;
+  }
+
+  #dnd-apts-final .dnd-info {
+    display: grid;
+    gap: 10px;
+    padding: 15px 15px 16px;
+    background: #fff;
+  }
+
+  .dnd-title-row {
+    display: grid;
+    gap: 6px;
+  }
+
+  #dnd-apts-final .dnd-title {
+    margin: 0;
+    color: var(--text);
+    font-size: var(--title);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .dnd-location {
+    color: #7b6f63;
+    font-size: var(--dnd-text-md);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .dnd-description {
+    margin: 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-body);
+    line-height: 1.55;
+  }
+
+  .dnd-card-highlights,
+  #dnd-apts-final .dnd-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+
+  #dnd-apts-final .dnd-chip {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--c-gray-bg);
+    color: var(--c-gray-txt);
+    font-size: var(--chipfs);
+    font-weight: 650;
+    line-height: 1.2;
+  }
+
+  #dnd-apts-final .dnd-chip--accent {
+    background: var(--c-accent-bg);
+    color: var(--c-accent-txt);
+  }
+
+  #dnd-apts-final .dnd-chip--secondary {
+    opacity: 0.9;
+  }
+
+  .dnd-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+    color: #b06200;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dnd-card-cta::after {
+    content: "→";
+    font-size: var(--dnd-text-body);
+    line-height: 1;
+  }
+
+  .dnd-accommodations-closing {
+    margin: 72px 0 80px;
+  }
+
+  .dnd-accommodations-closing__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 36px 30px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 18px;
+    background: #fdf8ef;
+    text-align: center;
+  }
+
+  .dnd-accommodations-closing h2 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.65rem, 2.4vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: var(--dnd-tracking-display-tight);
+  }
+
+  .dnd-accommodations-closing p {
+    max-width: 520px;
+    margin: 14px auto 22px;
+    color: #5d554b;
+    font-size: var(--dnd-text-body);
+    line-height: 1.62;
+  }
+
+  .dnd-accommodations-closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  .dnd-accommodations-closing__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 999px;
+    background: #d99e2b;
+    color: #111;
+    box-shadow: 0 10px 22px rgba(217, 158, 43, 0.18);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .dnd-accommodations-closing__cta:hover {
+    box-shadow: 0 12px 28px rgba(217, 158, 43, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .dnd-accommodations-closing__cta--secondary {
+    border: 1px solid rgba(217, 158, 43, 0.34);
+    background: rgba(255, 255, 255, 0.72);
+    color: #5f430e;
+    box-shadow: none;
+  }
+
+  .dnd-accommodations-closing__note {
+    max-width: 520px;
+    margin: 12px auto 0;
+    color: #766a5c;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  @media (hover: hover) {
+    #dnd-apts-final .dnd-card.is-link:hover {
+      box-shadow: var(--shadow2);
+      transform: translateY(-6px);
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-media img {
+      transform: scale(1.08);
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-overlay {
+      opacity: 1;
+    }
+
+    #dnd-apts-final .dnd-card.is-link:hover .dnd-hover-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .dnd-accommodations-picker__grid {
+      grid-template-columns: 1fr;
+    }
+
+    #dnd-apts-final .dnd-grid--3,
+    #dnd-apts-final .dnd-grid--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #dnd-apts-final .dnd-grid--1 {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .dnd-accommodations-hero {
+      min-height: calc(500px + 66px);
+      height: auto;
+      padding-top: 66px;
+      background-position: center 24%;
+    }
+
+    .dnd-accommodations-hero__content {
+      min-height: 500px;
+    }
+
+    .dnd-accommodations-hero__inner {
+      align-items: flex-start;
+      justify-content: flex-start;
+      max-width: none;
+      min-height: 500px;
+      padding: 0 0 36px;
+    }
+
+    .dnd-accommodations-hero__text {
+      margin-top: 212px;
+      margin-bottom: 0;
+      width: 100%;
+      max-width: 340px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .dnd-accommodations-hero__eyebrow {
+      margin-bottom: 10px;
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.16em;
+    }
+
+    .dnd-accommodations-hero__title {
+      display: grid;
+      gap: 6px;
+      max-width: 9ch;
+      font-size: clamp(1.95rem, 10vw, 2.5rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-transform: none;
+      white-space: normal;
+    }
+
+    .dnd-accommodations-hero__title span {
+      display: block;
+    }
+
+    .dnd-accommodations-hero__lead {
+      max-width: 20ch;
+      margin-top: 18px;
+      font-size: var(--dnd-text-body);
+      line-height: 1.45;
+    }
+
+    .dnd-accommodations-picker {
+      margin-top: 18px;
+    }
+
+    .dnd-region-picker-card {
+      min-height: auto;
+      gap: 6px;
+      padding: 14px;
+      border-radius: 16px;
+    }
+
+    .dnd-apts-anchor {
+      scroll-margin-top: 82px;
+    }
+
+    #dnd-apts-final {
+      --pad: 12px;
+      --gap: 12px;
+      --img-h: 208px;
+      padding-top: 28px;
+    }
+
+    #dnd-apts-final .dnd-grid--3,
+    #dnd-apts-final .dnd-grid--2,
+    #dnd-apts-final .dnd-grid--1 {
+      grid-template-columns: 1fr;
+    }
+
+    #dnd-apts-final .dnd-section {
+      margin-bottom: 28px;
+      scroll-margin-top: 96px;
+    }
+
+    #dnd-apts-final .dnd-hover-text,
+    #dnd-apts-final .dnd-overlay {
+      display: none !important;
+    }
+
+    #dnd-apts-final .dnd-info {
+      gap: 8px;
+      padding: 12px 12px 14px;
+    }
+
+    #dnd-apts-final .dnd-title {
+      font-size: var(--dnd-text-body);
+    }
+
+    .dnd-location,
+    .dnd-description,
+    #dnd-apts-final .dnd-sub,
+    .dnd-region-block__audience {
+      font-size: var(--dnd-text-md);
+      line-height: 1.5;
+    }
+
+    #dnd-apts-final .dnd-chips {
+      padding-top: 2px;
+      border-top: 1px solid rgba(217, 158, 43, 0.16);
+    }
+
+    #dnd-apts-final .dnd-chip {
+      font-size: var(--dnd-text-2xs);
+      padding: 5px 8px;
+    }
+
+    #dnd-apts-final .dnd-h2 {
+      font-size: 22px;
+    }
+
+    .dnd-accommodations-closing {
+      margin: 56px 0 64px;
+    }
+
+    .dnd-accommodations-closing__inner {
+      padding: 28px 18px;
+      border-radius: 16px;
+    }
+
+    .dnd-accommodations-closing__actions {
+      gap: 10px;
+    }
+
+    .dnd-accommodations-closing__cta {
+      width: 100%;
+    }
+  }
+</style>
