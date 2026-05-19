@@ -6,12 +6,6 @@ const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 const bikeOgImage = desktopImage;
 
-const rideHighlights = [
-  "szőlőhegyek és csendes mellékutak",
-  "tanúhegyek közötti panorámás szakaszok",
-  "borászatok és balatoni megállók útközben"
-];
-
 const availableBikes = [
   "4 db normál felnőtt kerékpár",
   "2 db elektromos kerékpár",
@@ -107,20 +101,7 @@ const structuredData = [
 
       <div class="bike-hero__content">
         <div class="dnd-container bike-hero__inner">
-          <div class="bike-hero__copy">
-            <span class="bike-page__eyebrow">Bringás élmény</span>
-            <h1>Balaton-felvidéki bicikli túra</h1>
-            <p class="bike-hero__lead">
-              Szőlőhegyek, csendes utak, tanúhegyek és balatoni panorámák között gurulhatsz végig
-              egy lassabb, élményközpontú napon.
-            </p>
-
-            <div class="bike-hero__facts" aria-label="Bringás kiemelések">
-              {rideHighlights.map((item) => (
-                <span>{item}</span>
-              ))}
-            </div>
-          </div>
+          <p class="bike-hero__line">Balaton-felvidéken biciklizni: nagyszerű!</p>
         </div>
       </div>
     </section>
@@ -299,8 +280,8 @@ const structuredData = [
 
   .bike-hero__overlay {
     background:
-      linear-gradient(180deg, rgba(18, 14, 10, 0.08) 0%, rgba(18, 14, 10, 0.16) 38%, rgba(18, 14, 10, 0.48) 100%),
-      linear-gradient(90deg, rgba(18, 14, 10, 0.08) 0%, rgba(18, 14, 10, 0.02) 42%, rgba(18, 14, 10, 0.18) 100%);
+      linear-gradient(180deg, rgba(18, 14, 10, 0.02) 0%, rgba(18, 14, 10, 0.06) 55%, rgba(18, 14, 10, 0.22) 100%),
+      linear-gradient(90deg, rgba(18, 14, 10, 0.03) 0%, rgba(18, 14, 10, 0.01) 100%);
   }
 
   .bike-hero__content {
@@ -313,13 +294,23 @@ const structuredData = [
   .bike-hero__inner {
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: center;
     min-height: 100%;
-    padding: 160px clamp(24px, 5vw, 72px) 56px;
+    padding: 140px clamp(20px, 4vw, 48px) 22px;
     max-width: none;
   }
 
-  .bike-hero__copy,
+  .bike-hero__line {
+    margin: 0;
+    color: #fff;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.8rem, 3vw, 3.1rem);
+    line-height: 1.05;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+  }
+
   .bike-intro__copy,
   .bike-routes__intro,
   .bike-page__cta {
@@ -327,72 +318,6 @@ const structuredData = [
     border-radius: 24px;
     background: rgba(255, 252, 246, 0.9);
     box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
-  }
-
-  .bike-hero__copy {
-    width: min(100%, 620px);
-    display: grid;
-    gap: 16px;
-    padding: 0;
-    color: #fff;
-    border: 0;
-    background: none;
-    box-shadow: none;
-    justify-items: start;
-  }
-
-  .bike-hero__copy h1,
-  .bike-intro__copy h2,
-  .bike-routes__intro h2,
-  .bike-route-card h3,
-  .bike-accordion__content h3,
-  .bike-page__cta h2,
-  .bike-info-card h3 {
-    margin: 0;
-    font-family: var(--dnd-font-display);
-    line-height: 1.08;
-    font-weight: 500;
-    color: #261d16;
-  }
-
-  .bike-hero__copy h1 {
-    color: #fff;
-    font-size: clamp(2.9rem, 5vw, 4.7rem);
-    max-width: 9ch;
-    text-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
-  }
-
-  .bike-hero__lead {
-    margin: 0;
-    max-width: 32rem;
-    color: rgba(255, 247, 239, 0.98);
-    font-size: clamp(1.02rem, 1.8vw, 1.14rem);
-    line-height: 1.72;
-    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
-  }
-
-  .bike-hero__facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 36rem;
-  }
-
-  .bike-hero__facts span {
-    padding: 9px 13px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(34, 26, 18, 0.28);
-    backdrop-filter: blur(4px);
-    color: rgba(255, 247, 239, 0.96);
-    font-size: var(--dnd-text-xs);
-    line-height: 1.4;
-  }
-
-  .bike-page__cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
   }
 
   .bike-intro {
@@ -412,6 +337,19 @@ const structuredData = [
   .bike-routes__intro {
     display: grid;
     gap: 14px;
+  }
+
+  .bike-intro__copy h2,
+  .bike-routes__intro h2,
+  .bike-route-card h3,
+  .bike-accordion__content h3,
+  .bike-page__cta h2,
+  .bike-info-card h3 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    line-height: 1.08;
+    font-weight: 500;
+    color: #261d16;
   }
 
   .bike-intro__copy p,
@@ -543,6 +481,12 @@ const structuredData = [
     margin: 0 0 8px;
   }
 
+  .bike-page__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   .bike-page__cta-primary,
   .bike-page__cta-secondary {
     min-height: 46px;
@@ -602,24 +546,27 @@ const structuredData = [
     }
 
     .bike-hero {
-      min-height: 640px;
+      min-height: 520px;
       height: auto;
     }
 
     .bike-hero__inner {
       align-items: flex-end;
-      justify-content: flex-start;
-      padding: 128px 20px 24px;
+      justify-content: center;
+      padding: 122px 16px 16px;
     }
 
-    .bike-hero__copy,
+    .bike-hero__line {
+      font-size: clamp(1.25rem, 6vw, 1.8rem);
+      line-height: 1.08;
+    }
+
     .bike-intro__copy,
     .bike-routes__intro,
     .bike-page__cta {
       padding: 20px;
     }
 
-    .bike-hero__copy,
     .bike-intro__copy,
     .bike-intro__media,
     .bike-routes__intro,
@@ -627,17 +574,6 @@ const structuredData = [
     .bike-accordion,
     .bike-page__cta {
       border-radius: 18px;
-    }
-
-    .bike-hero__copy h1 {
-      max-width: none;
-      font-size: clamp(2.4rem, 10vw, 3.3rem);
-    }
-
-    .bike-hero__facts {
-      display: grid;
-      gap: 8px;
-      max-width: none;
     }
 
     .bike-intro__media {
