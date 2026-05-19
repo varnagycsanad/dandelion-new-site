@@ -1,0 +1,15 @@
+---
+import { fugehazEnglishPageData } from "../../data/accommodation-pages/fugehaz.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Fügeház route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={fugehazEnglishPageData}
+  imageSet={accommodationImages.fugehaz}
+  lang="en"
+  canonicalPath="/en/dandelion-fugehaz/"
+  accommodationListingHref="/en/szallasok/"
+/>

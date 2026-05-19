@@ -11,7 +11,9 @@ export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/", en: "/en/" },
   { hu: "/szallasok/", en: "/en/szallasok/" },
-  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" }
+  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
+  { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
+  { hu: "/dandelion-d1/", en: "/en/dandelion-d1/" }
 ] as const;
 
 const canonicalAliasMap: Record<string, string> = {
@@ -39,6 +41,8 @@ export const SITEMAP_PATHS = [
   "/en/",
   "/en/szallasok/",
   "/en/dandelion-d2/",
+  "/en/dandelion-fugehaz/",
+  "/en/dandelion-d1/",
   "/dandelion-koveskal/",
   "/dandelion-zsalya/",
   "/dandelion-vintage/",
