@@ -166,7 +166,8 @@ const quickContacts = [
   { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
 
-const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const bookingLanguage = isEnglishPage ? "En" : "Hu";
+const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const stayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage",

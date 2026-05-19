@@ -11,7 +11,7 @@ export const d1EnglishPageData: AccommodationPageData = {
     description:
       "Dandelion D1 is a spacious countryside accommodation near Szent György Hill and Lake Balaton, ideal for families and groups, with access to the shared panoramic pool."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d1",

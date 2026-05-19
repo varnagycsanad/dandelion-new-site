@@ -8,7 +8,7 @@ export const royalHomesEnglishPageData: AccommodationPageData = {
     description:
       "Dandelion Royal Homes offers comfortable apartments in Keszthely, close to Lake Balaton, ideal for a convenient stay near the lake and the town centre."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "royal_homes",

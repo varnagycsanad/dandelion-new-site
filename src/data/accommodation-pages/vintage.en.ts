@@ -8,7 +8,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
     description:
       "Dandelion Vintage Vendégház is a peaceful countryside guesthouse with a warm, characterful atmosphere, ideal for a relaxed stay near Lake Balaton and the Balaton Uplands."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=0c9e5eaae0545ee3",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=0c9e5eaae0545ee3&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "vintage",

@@ -8,7 +8,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
     description:
       "Zsálya Vendégház is a quiet countryside guesthouse near Szent György Hill in the Balaton Uplands, ideal for a peaceful stay close to nature."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=cf20da88f046211e",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=cf20da88f046211e&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "zsalya",

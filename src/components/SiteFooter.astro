@@ -54,7 +54,8 @@ const footerStayColumns = [
     .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const bookingLanguage = isEnglishFooter ? "En" : "Hu";
+const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const englishFooterNav = [
   { label: "Home", href: `${homeHref}en/` },
   { label: "Accommodations", href: `${homeHref}en/szallasok/` },

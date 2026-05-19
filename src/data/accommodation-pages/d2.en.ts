@@ -11,7 +11,7 @@ export const d2EnglishPageData: AccommodationPageData = {
     description:
       "Dandelion D2 is a peaceful family-friendly accommodation near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the shared panoramic pool."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",

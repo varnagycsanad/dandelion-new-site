@@ -8,7 +8,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
     description:
       "Szépvölgyi Vendégház is a peaceful guesthouse in Badacsonyörs, close to Lake Balaton and the Badacsony area, ideal for a relaxed countryside stay."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=7d46f283f2f5792f",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=7d46f283f2f5792f&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "szepvolgyi",

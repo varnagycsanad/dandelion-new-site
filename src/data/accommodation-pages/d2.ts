@@ -16,7 +16,7 @@ export const d2PageData: AccommodationPageData = {
     description:
       "Galériás apartman nagy udvarral, fedett terasszal és 2026. június 1-től elérhető Panorama Pool használattal a Balaton-felvidéken."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=Hu",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",

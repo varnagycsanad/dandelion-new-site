@@ -11,7 +11,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     description:
       "Fügeház is a peaceful countryside guesthouse near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the shared panoramic pool."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "fugehaz",

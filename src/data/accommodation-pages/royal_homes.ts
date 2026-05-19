@@ -8,7 +8,7 @@ export const royalHomesPageData: AccommodationPageData = {
     description:
       "Prémium apartman Keszthelyen, a Balaton közelében, saját parti mólóval, nagy terasszal, tetőteraszos jakuzzival és 2 hálószobás elrendezéssel."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=Hu",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "royal_homes",

@@ -8,7 +8,7 @@ export const szololigetEnglishPageData: AccommodationPageData = {
     description:
       "Szőlőliget Vendégház is a peaceful countryside guesthouse in the Balaton Uplands, with a vineyard atmosphere, quiet surroundings and easy access to Szent György Hill."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=e30c4b62d7324b3f",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=e30c4b62d7324b3f&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "szololiget",
