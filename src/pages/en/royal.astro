@@ -1,0 +1,15 @@
+---
+import { royalHomesEnglishPageData } from "../../data/accommodation-pages/royal_homes.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Royal Homes route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={royalHomesEnglishPageData}
+  imageSet={accommodationImages.royal_homes}
+  lang="en"
+  canonicalPath="/en/royal/"
+  accommodationListingHref="/en/szallasok/"
+/>

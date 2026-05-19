@@ -1,0 +1,15 @@
+---
+import { szepvolgyiEnglishPageData } from "../../data/accommodation-pages/szepvolgyi.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Szepvolgyi route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={szepvolgyiEnglishPageData}
+  imageSet={accommodationImages.szepvolgyi}
+  lang="en"
+  canonicalPath="/en/szepvolgyi/"
+  accommodationListingHref="/en/szallasok/"
+/>
