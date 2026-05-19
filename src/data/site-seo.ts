@@ -11,6 +11,8 @@ export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/", en: "/en/" },
   { hu: "/szallasok/", en: "/en/szallasok/" },
+  { hu: "/elmenyek/", en: "/en/experiences/" },
+  { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
   { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
   { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
   { hu: "/dandelion-d1/", en: "/en/dandelion-d1/" },
@@ -45,6 +47,8 @@ export const SITEMAP_PATHS = [
   "/dandelion-d2/",
   "/en/",
   "/en/szallasok/",
+  "/en/experiences/",
+  "/en/bike-rental/",
   "/en/dandelion-d2/",
   "/en/dandelion-fugehaz/",
   "/en/dandelion-d1/",

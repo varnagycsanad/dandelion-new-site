@@ -1,0 +1,609 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { toAbsoluteUrl } from "../../data/site-seo";
+
+// [CHANGE 2026-05-20 00:00] First English bike rental page added from the existing Hungarian bike content.
+const title = "Bike Rental in the Balaton Uplands | Dandelion Guesthouses";
+const description =
+  "Bike rental details, prices and easy cycling ideas for Dandelion guests exploring Szent György Hill, Badacsony and the Balaton Uplands.";
+const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4";
+const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
+const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
+const bikeOgImage = desktopImage;
+
+const availableBikes = [
+  "4 standard adult bikes",
+  "2 electric bikes",
+  "1 children's bike"
+];
+
+const pricing = [
+  "Standard adult bike: 9 000 HUF / day",
+  "Electric bike: 12 000 HUF / day",
+  "Children's bike: by prior arrangement"
+];
+
+const rentalNotes = [
+  "The bikes are not available for guests staying at Royal Homes, Dandelion Köveskál or Szépvölgyi Vendégház.",
+  "Guests staying at Szőlőliget, Zsálya or Dandelion Vintage Vendégház can pick up the bikes at our central address and return them there after use.",
+  "Bike pick-up and return are arranged in advance."
+];
+
+const routeIdeas = [
+  {
+    title: "An easy loop nearby",
+    body:
+      "For a shorter ride, the nearby villages, vineyards and lookout points are a good start. It is more about the landscape, the stops and the slower pace than about performance."
+  },
+  {
+    title: "Szent György Hill and the witness hills",
+    body:
+      "The area around Szent György Hill is beautiful, with some uphill sections. An electric bike can make this route more comfortable if the goal is to explore without rushing."
+  },
+  {
+    title: "Badacsony and the Lake Balaton direction",
+    body:
+      "Riding toward Lake Balaton can combine beaches, wineries and panoramic stretches. It works well when cycling is part of a wider lake day."
+  },
+  {
+    title: "Káli-medence by bike",
+    body:
+      "The small villages and distinctive atmosphere of Káli-medence suit a longer, planned cycling day with several stops along the way."
+  }
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: toAbsoluteUrl("/en/")
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Experiences",
+        item: toAbsoluteUrl("/en/experiences/")
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Bike rental",
+        item: toAbsoluteUrl("/en/bike-rental/")
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/en/bike-rental/"
+  lang="en"
+  ogLocale="en_US"
+  ogImage={bikeOgImage}
+  ogImageAlt="Bikes beside vineyards in the Balaton Uplands with a panoramic background"
+  structuredData={structuredData}
+  headerMode="transparent"
+>
+  <section class="bike-page">
+    <section class="bike-hero">
+      <video
+        class="bike-hero__video"
+        src={heroVideo}
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        Your browser does not support background video playback.
+      </video>
+
+      <div class="bike-hero__overlay"></div>
+
+      <div class="bike-hero__content">
+        <div class="dnd-container bike-hero__inner">
+          <p class="bike-hero__line">Cycling through the Balaton Uplands feels different.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="dnd-container bike-page__inner">
+      <section class="bike-intro">
+        <article class="bike-intro__copy">
+          <span class="bike-page__eyebrow">Balaton Uplands on two wheels</span>
+          <h2>A slower, freer way to feel the landscape</h2>
+          <p>
+            Cycling around the Balaton Uplands brings the area closer: quiet villages, vineyard
+            roads, lookout points and small stops where there is no need to hurry on.
+          </p>
+          <p>
+            You can plan a short afternoon ride or a fuller day out. Standard bikes work well for
+            easier village and lake routes, while an electric bike can be a comfortable choice for
+            hillier sections around Szent György Hill.
+          </p>
+        </article>
+
+        <div class="bike-intro__media">
+          <img
+            class="bike-intro__image bike-intro__image--desktop"
+            src={desktopImage}
+            alt="Bikes beside vineyards in the Balaton Uplands with a panoramic background"
+            loading="lazy"
+            width="1800"
+            height="1350"
+          />
+          <img
+            class="bike-intro__image bike-intro__image--mobile"
+            src={mobileImage}
+            alt="Portrait bike scene among vineyards in the Balaton Uplands"
+            loading="lazy"
+            width="1200"
+            height="1600"
+          />
+        </div>
+      </section>
+
+      <section class="bike-routes" aria-label="Cycling mood and route ideas">
+        <div class="bike-routes__intro">
+          <span class="bike-page__eyebrow">Route mood</span>
+          <h2>Choose the kind of day first</h2>
+          <p>
+            Some rides are short and panoramic. Others turn into a longer day with Lake Balaton,
+            wineries or quiet village roads along the way. These ideas are starting points for
+            planning around your stay.
+          </p>
+        </div>
+
+        <div class="bike-routes__grid">
+          {routeIdeas.map((item) => (
+            <article class="bike-route-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bike-page__accordions" aria-label="Bike rental details">
+        <details class="bike-accordion" open>
+          <summary>Bike rental details, prices and conditions</summary>
+          <div class="bike-accordion__content">
+            <p>
+              Bike rental is available for Dandelion guests by prior arrangement. The number of
+              bikes is limited, so please let us know in advance if you would like to use them.
+            </p>
+
+            <div class="bike-grid">
+              <article class="bike-info-card">
+                <h3>Available bikes</h3>
+                <ul>
+                  {availableBikes.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+
+              <article class="bike-info-card">
+                <h3>Rental prices</h3>
+                <ul>
+                  {pricing.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+
+            <article class="bike-info-card bike-info-card--notes">
+              <h3>Good to know</h3>
+              <ul>
+                {rentalNotes.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </details>
+
+        <details class="bike-accordion">
+          <summary>More ideas for a longer cycling day</summary>
+          <div class="bike-accordion__content">
+            <p>
+              For marked longer routes, it is also worth checking
+              <a href="https://www.balatonbike365.hu/" target="_blank" rel="noopener noreferrer">
+                BalatonBike365
+              </a>
+              for cycling loops around Lake Balaton and the Balaton Uplands.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <section class="bike-page__cta">
+        <h2>Have a cycling day in mind?</h2>
+        <p>
+          Choose the Dandelion house that fits your route best, then start exploring the area at
+          your own pace.
+        </p>
+        <div class="bike-page__cta-actions">
+          <a href="/en/szallasok/" class="bike-page__cta-primary">View accommodations</a>
+          <a href="/en/experiences/" class="bike-page__cta-secondary">Back to experiences</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bike-page {
+    padding-bottom: 88px;
+    background:
+      radial-gradient(circle at top left, rgba(215, 188, 127, 0.16), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #f6f0e7 100%);
+  }
+
+  .bike-page__inner {
+    display: grid;
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .bike-page__eyebrow {
+    display: inline-block;
+    color: #d99e2b;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .bike-hero {
+    position: relative;
+    min-height: 720px;
+    height: 92vh;
+    overflow: hidden;
+    background: #161616;
+  }
+
+  .bike-hero__video,
+  .bike-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bike-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bike-hero__overlay {
+    background:
+      linear-gradient(180deg, rgba(18, 14, 10, 0.02) 0%, rgba(18, 14, 10, 0.06) 55%, rgba(18, 14, 10, 0.22) 100%),
+      linear-gradient(90deg, rgba(18, 14, 10, 0.03) 0%, rgba(18, 14, 10, 0.01) 100%);
+  }
+
+  .bike-hero__content {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    color: #fff;
+  }
+
+  .bike-hero__inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 100%;
+    padding: 140px clamp(20px, 4vw, 48px) 22px;
+    max-width: none;
+  }
+
+  .bike-hero__line {
+    margin: 0;
+    color: #fff;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.8rem, 3vw, 3.1rem);
+    line-height: 1.05;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+  }
+
+  .bike-intro__copy,
+  .bike-routes__intro,
+  .bike-page__cta {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.9);
+    box-shadow: 0 20px 56px rgba(43, 28, 14, 0.07);
+  }
+
+  .bike-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .bike-intro__copy,
+  .bike-routes__intro,
+  .bike-page__cta {
+    padding: 28px;
+  }
+
+  .bike-intro__copy,
+  .bike-routes__intro {
+    display: grid;
+    gap: 14px;
+  }
+
+  .bike-intro__copy h2,
+  .bike-routes__intro h2,
+  .bike-route-card h3,
+  .bike-accordion__content h3,
+  .bike-page__cta h2,
+  .bike-info-card h3 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    line-height: 1.08;
+    font-weight: 500;
+    color: #261d16;
+  }
+
+  .bike-intro__copy p,
+  .bike-routes__intro p,
+  .bike-route-card p,
+  .bike-accordion__content p,
+  .bike-accordion__content li,
+  .bike-page__cta p {
+    margin: 0;
+    color: rgba(38, 29, 22, 0.76);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .bike-intro__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    min-height: 100%;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .bike-intro__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bike-intro__image--mobile {
+    display: none;
+  }
+
+  .bike-routes {
+    display: grid;
+    gap: 18px;
+  }
+
+  .bike-routes__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .bike-route-card,
+  .bike-info-card {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 18px;
+    background: #faf6ef;
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .bike-page__accordions {
+    display: grid;
+    gap: 16px;
+  }
+
+  .bike-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.05);
+    overflow: hidden;
+  }
+
+  .bike-accordion summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 28px;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    line-height: 1.15;
+    position: relative;
+  }
+
+  .bike-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .bike-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(38, 29, 22, 0.7);
+    font-size: 1.6rem;
+    transition: transform 0.2s ease;
+  }
+
+  .bike-accordion[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .bike-accordion__content {
+    display: grid;
+    gap: 18px;
+    padding: 0 28px 28px;
+  }
+
+  .bike-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .bike-info-card ul {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .bike-info-card--notes {
+    background: rgba(255, 252, 246, 0.92);
+  }
+
+  .bike-accordion a {
+    color: #7b4f12;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .bike-page__cta h2 {
+    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+    margin: 0 0 8px;
+  }
+
+  .bike-page__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .bike-page__cta-primary,
+  .bike-page__cta-secondary {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    text-decoration: none;
+    font-size: var(--dnd-text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .bike-page__cta-primary {
+    background: #2b2016;
+    color: #fff;
+    border-color: #2b2016;
+  }
+
+  .bike-page__cta-secondary {
+    background: #fff;
+    color: #2b2016;
+  }
+
+  .bike-page__cta-primary:hover,
+  .bike-page__cta-primary:focus-visible {
+    background: #3a2a1d;
+  }
+
+  .bike-page__cta-secondary:hover,
+  .bike-page__cta-secondary:focus-visible {
+    background: #f7efe2;
+  }
+
+  @media (max-width: 1100px) {
+    .bike-intro,
+    .bike-routes__grid,
+    .bike-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bike-hero {
+      min-height: 660px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bike-page {
+      padding-bottom: 64px;
+    }
+
+    .bike-page__inner {
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .bike-hero {
+      min-height: 520px;
+      height: auto;
+    }
+
+    .bike-hero__inner {
+      align-items: flex-end;
+      justify-content: center;
+      padding: 122px 16px 16px;
+    }
+
+    .bike-hero__line {
+      font-size: clamp(1.25rem, 6vw, 1.8rem);
+      line-height: 1.08;
+    }
+
+    .bike-intro__copy,
+    .bike-routes__intro,
+    .bike-page__cta {
+      padding: 20px;
+    }
+
+    .bike-intro__copy,
+    .bike-intro__media,
+    .bike-routes__intro,
+    .bike-route-card,
+    .bike-accordion,
+    .bike-page__cta {
+      border-radius: 18px;
+    }
+
+    .bike-intro__media {
+      min-height: 520px;
+    }
+
+    .bike-intro__image--desktop {
+      display: none;
+    }
+
+    .bike-intro__image--mobile {
+      display: block;
+    }
+
+    .bike-accordion summary,
+    .bike-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .bike-accordion__content {
+      padding-bottom: 20px;
+    }
+
+    .bike-accordion summary::after {
+      right: 20px;
+    }
+  }
+</style>

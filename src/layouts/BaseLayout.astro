@@ -85,7 +85,7 @@ const emailDomain = "dandelionhouse.hu";
 const contactPageHref = `${homeHref}kapcsolat/`;
 const headerHomeHref = isEnglishPage ? `${homeHref}en/` : homeHref;
 const headerStaysHref = isEnglishPage ? `${homeHref}en/szallasok/` : `${homeHref}szallasok/`;
-const headerExperiencesHref = isEnglishPage ? `${homeHref}en/#experiences` : `${homeHref}elmenyek/`;
+const headerExperiencesHref = isEnglishPage ? `${homeHref}en/experiences/` : `${homeHref}elmenyek/`;
 const headerGalleryHref = isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
 const headerText = isEnglishPage
   ? {
@@ -264,6 +264,10 @@ const transparentHeaderPaths = new Set([
   "/en/",
   "/szallasok/",
   "/en/szallasok/",
+  "/elmenyek/",
+  "/en/experiences/",
+  "/elmenyek/kerekpar/",
+  "/en/bike-rental/",
   "/panorama-pool/",
   "/dandelion-d1/",
   "/dandelion-d2/",
@@ -300,6 +304,10 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/en/": { hu: "/", en: "/en/" },
   "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
+  "/elmenyek/": { hu: "/elmenyek/", en: "/en/experiences/" },
+  "/en/experiences/": { hu: "/elmenyek/", en: "/en/experiences/" },
+  "/elmenyek/kerekpar/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
+  "/en/bike-rental/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
   "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
   "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
   "/fuge/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
