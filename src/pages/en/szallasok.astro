@@ -174,14 +174,14 @@ const sections = accommodationSections.map((section) => ({
   key: section.key,
   gridClass: section.gridClass,
   stays: accommodations
-    .filter((stay) => stay.section === section.key && stayCopy[stay.slug])
+    .filter((stay) => stay.section === section.key && stay.slug !== "dandelion-koveskal" && stayCopy[stay.slug])
     .map((stay) => ({
       ...stay,
       ...stayCopy[stay.slug],
       image: imageMapping[stay.imageSlot],
       href: resolveEnglishStayHref(stay.slug, stay.url)
     }))
-}));
+})).filter((section) => section.stays.length > 0);
 
 const accommodationsStructuredData = {
   "@context": "https://schema.org",

@@ -201,7 +201,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
       {
         name: "Szőlőliget Vendégház",
         meta: "quiet stay · large terrace · panorama",
-        href: "/en/szallasok/",
+        href: "/en/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image",
@@ -211,7 +211,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
       {
         name: "Zsálya Vendégház",
         meta: "quiet, nature-close countryside rest",
-        href: "/en/szallasok/",
+        href: "/en/dandelion-zsalya/",
         image: {
           type: "mapping",
           slot: "zsalya_card_image",

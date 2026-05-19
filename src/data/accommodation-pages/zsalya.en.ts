@@ -230,7 +230,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "comfortable days near Lake Balaton",
-        href: "/en/szallasok/",
+        href: "/en/royal/",
         image: {
           type: "direct",
           src: requireAccommodationLocalAssetPath(

@@ -234,7 +234,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
       {
         name: "Dandelion Royal Homes",
         meta: "comfortable days near Lake Balaton",
-        href: "/en/szallasok/",
+        href: "/en/royal/",
         image: {
           type: "direct",
           src: requireAccommodationLocalAssetPath(
@@ -249,7 +249,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
       {
         name: "Szőlőliget Vendégház",
         meta: "a slower stay among the vineyards",
-        href: "/en/szallasok/",
+        href: "/en/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image",
