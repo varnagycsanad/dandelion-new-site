@@ -37,7 +37,11 @@ const resolveEnglishStayHref = (slug: string, href: string) =>
       ? `${baseHref}en/dandelion-fugehaz/`
       : slug === "dandelion-d1"
         ? `${baseHref}en/dandelion-d1/`
-        : resolveStayHref(href);
+        : slug === "zsalya-vendeghaz"
+          ? `${baseHref}en/dandelion-zsalya/`
+          : slug === "szololiget-vendeghaz"
+            ? `${baseHref}en/szololiget/`
+            : resolveStayHref(href);
 
 const sectionCopy: Record<
   SectionKey,
@@ -351,7 +355,7 @@ const accommodationsStructuredData = {
           </a>
         </div>
         <p class="dnd-accommodations-closing__note">
-          English detail pages are available for Dandelion D2, Fügeház and Dandelion D1. Other cards may still open the existing detail pages.
+          English detail pages are available for Dandelion D2, Fügeház, Dandelion D1, Zsálya Vendégház and Szőlőliget Vendégház. Other cards may still open the existing detail pages.
         </p>
       </div>
     </div>

@@ -1,0 +1,15 @@
+---
+import { zsalyaEnglishPageData } from "../../data/accommodation-pages/zsalya.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Zsálya Vendégház route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={zsalyaEnglishPageData}
+  imageSet={accommodationImages.zsalya}
+  lang="en"
+  canonicalPath="/en/dandelion-zsalya/"
+  accommodationListingHref="/en/szallasok/"
+/>

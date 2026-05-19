@@ -1,0 +1,15 @@
+---
+import { szololigetEnglishPageData } from "../../data/accommodation-pages/szololiget.en";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+
+// [CHANGE 2026-05-20 00:00] English Szőlőliget Vendégház route added as a thin wrapper around the shared accommodation template.
+---
+
+<AccommodationPage
+  pageData={szololigetEnglishPageData}
+  imageSet={accommodationImages.szololiget}
+  lang="en"
+  canonicalPath="/en/szololiget/"
+  accommodationListingHref="/en/szallasok/"
+/>

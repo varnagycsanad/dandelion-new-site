@@ -220,53 +220,27 @@ const groupedStayLinks = [
 ];
 const englishGroupedStayLinks = [
   {
-    title: "Tapolca Basin",
+    title: "Available in English",
     items: [
       {
         label: "Dandelion D2",
         href: `${homeHref}en/dandelion-d2/`
       },
       {
-        label: "Dandelion Fügeház",
-        href: `${homeHref}en/szallasok/`
+        label: "Fügeház",
+        href: `${homeHref}en/dandelion-fugehaz/`
       },
       {
         label: "Dandelion D1",
-        href: `${homeHref}en/szallasok/`
+        href: `${homeHref}en/dandelion-d1/`
       },
       {
-        label: "Dandelion Szőlőliget",
-        href: `${homeHref}en/szallasok/`
+        label: "Zsálya Vendégház",
+        href: `${homeHref}en/dandelion-zsalya/`
       },
       {
-        label: "Dandelion Zsálya",
-        href: `${homeHref}en/szallasok/`
-      },
-      {
-        label: "Dandelion Vintage",
-        href: `${homeHref}en/szallasok/`
-      }
-    ]
-  },
-  {
-    title: "Near Lake Balaton",
-    items: [
-      {
-        label: "Dandelion Royal Homes",
-        href: `${homeHref}en/szallasok/`
-      },
-      {
-        label: "Dandelion Szépvölgyi",
-        href: `${homeHref}en/szallasok/`
-      }
-    ]
-  },
-  {
-    title: "Káli Basin",
-    items: [
-      {
-        label: "Dandelion Köveskál",
-        href: `${homeHref}en/szallasok/`
+        label: "Szőlőliget Vendégház",
+        href: `${homeHref}en/szololiget/`
       }
     ]
   }
@@ -309,6 +283,14 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
   "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
+  "/fuge/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
+  "/en/dandelion-fugehaz/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
+  "/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/" },
+  "/en/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/" },
+  "/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/" },
+  "/en/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/" },
+  "/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/" },
+  "/en/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/" },
   "/de/": { hu: "/" }
 };
 const localizedHref = (path: string) =>
