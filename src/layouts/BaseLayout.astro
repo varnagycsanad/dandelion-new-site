@@ -241,6 +241,18 @@ const englishGroupedStayLinks = [
       {
         label: "Szőlőliget Vendégház",
         href: `${homeHref}en/szololiget/`
+      },
+      {
+        label: "Szépvölgyi Vendégház",
+        href: `${homeHref}en/szepvolgyi/`
+      },
+      {
+        label: "Dandelion Royal Homes",
+        href: `${homeHref}en/royal/`
+      },
+      {
+        label: "Dandelion Vintage Vendégház",
+        href: `${homeHref}en/dandelion-vintage/`
       }
     ]
   }
@@ -256,6 +268,13 @@ const transparentHeaderPaths = new Set([
   "/dandelion-d1/",
   "/dandelion-d2/",
   "/en/dandelion-d2/",
+  "/en/dandelion-fugehaz/",
+  "/en/dandelion-d1/",
+  "/en/dandelion-zsalya/",
+  "/en/szololiget/",
+  "/en/szepvolgyi/",
+  "/en/royal/",
+  "/en/dandelion-vintage/",
   "/dandelion-koveskal/",
   "/dandelion-royal-homes/",
   "/dandelion-szepvolgyi-vendeghaz/",
@@ -291,6 +310,12 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/en/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/" },
   "/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/" },
   "/en/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/" },
+  "/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/" },
+  "/en/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/" },
+  "/royal/": { hu: "/royal/", en: "/en/royal/" },
+  "/en/royal/": { hu: "/royal/", en: "/en/royal/" },
+  "/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
+  "/en/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
   "/de/": { hu: "/" }
 };
 const localizedHref = (path: string) =>

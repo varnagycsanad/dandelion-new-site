@@ -41,7 +41,13 @@ const resolveEnglishStayHref = (slug: string, href: string) =>
           ? `${baseHref}en/dandelion-zsalya/`
           : slug === "szololiget-vendeghaz"
             ? `${baseHref}en/szololiget/`
-            : resolveStayHref(href);
+            : slug === "szepvolgyi-vendeghaz"
+              ? `${baseHref}en/szepvolgyi/`
+              : slug === "royal-homes"
+                ? `${baseHref}en/royal/`
+                : slug === "vintage-vendeghaz"
+                  ? `${baseHref}en/dandelion-vintage/`
+                  : resolveStayHref(href);
 
 const sectionCopy: Record<
   SectionKey,
