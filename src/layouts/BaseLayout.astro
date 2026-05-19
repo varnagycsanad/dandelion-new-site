@@ -198,7 +198,8 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/en/": { hu: "/", en: "/en/" },
   "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
-  "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/szallasok/" }
+  "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
+  "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" }
 };
 const localizedHref = (path: string) =>
   path === "/" ? homeHref : `${homeHref}${path.replace(/^\/+/, "")}`;
