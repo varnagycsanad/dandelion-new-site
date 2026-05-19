@@ -191,6 +191,32 @@ const isTransparentHeaderStart =
     : headerMode === "solid"
       ? false
       : transparentHeaderPaths.has(normalizedCurrentPath);
+
+// [CHANGE 2026-05-19 00:00] Header language links now point only to existing Hungarian and English routes.
+const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
+  "/": { hu: "/", en: "/en/" },
+  "/en/": { hu: "/", en: "/en/" },
+  "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
+  "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
+  "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/szallasok/" }
+};
+const localizedHref = (path: string) =>
+  path === "/" ? homeHref : `${homeHref}${path.replace(/^\/+/, "")}`;
+const currentLanguageRoutes = languageRoutesByPath[normalizedCurrentPath] ?? {
+  hu: lang === "en" ? "/" : normalizedCurrentPath
+};
+const headerLanguageLinks = [
+  {
+    label: "HU",
+    href: localizedHref(currentLanguageRoutes.hu),
+    active: lang === "hu"
+  },
+  {
+    label: "EN",
+    href: currentLanguageRoutes.en ? localizedHref(currentLanguageRoutes.en) : undefined,
+    active: lang === "en"
+  }
+];
 ---
 
 <!DOCTYPE html>
@@ -311,9 +337,14 @@ const isTransparentHeaderStart =
 
           <div class="dnd-header__actions">
             <nav class="dnd-language" aria-label="Nyelvváltó">
-              <a href="/" aria-current="page">HU</a>
-              <span class="dnd-language__pending" aria-label="English oldal hamarosan">EN</span>
-              <span class="dnd-language__pending" aria-label="Deutsch oldal hamarosan">DE</span>
+              {headerLanguageLinks.map((languageLink) => languageLink.href ? (
+                <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
+                  {languageLink.label}
+                </a>
+              ) : (
+                <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
+              ))}
+              <span class="dnd-language__pending" aria-disabled="true">DE</span>
             </nav>
             <a
               href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"

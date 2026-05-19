@@ -30,6 +30,8 @@ const contactHref = `${baseHref}kapcsolat/`;
 
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
+const resolveEnglishStayHref = (slug: string, href: string) =>
+  slug === "dandelion-d2" ? `${baseHref}en/dandelion-d2/` : resolveStayHref(href);
 
 const sectionCopy: Record<
   SectionKey,
@@ -161,7 +163,7 @@ const sections = accommodationSections.map((section) => ({
       ...stay,
       ...stayCopy[stay.slug],
       image: imageMapping[stay.imageSlot],
-      href: resolveStayHref(stay.url)
+      href: resolveEnglishStayHref(stay.slug, stay.url)
     }))
 }));
 
@@ -182,7 +184,7 @@ const accommodationsStructuredData = {
       section.stays.map((stay, stayIndex) => ({
         "@type": "ListItem",
         position: sectionIndex * 10 + stayIndex + 1,
-        url: toAbsoluteUrl(stay.url),
+        url: toAbsoluteUrl(stay.href),
         name: stay.name
       }))
     )
@@ -205,7 +207,6 @@ const accommodationsStructuredData = {
   ogImage={accommodationsOgImage}
   ogImageAlt={accommodationsOgImageAlt}
   structuredData={accommodationsStructuredData}
-  hideHeader={true}
   hideFooter={true}
   headerMode="solid"
 >
