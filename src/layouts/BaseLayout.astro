@@ -8,6 +8,7 @@ import {
   SITE_DEFAULT_TITLE,
   SITE_NAME,
   getCanonicalPath,
+  getLocalizedRouteAlternates,
   isCanonicalAliasPath,
   normalizePathname,
   toAbsoluteUrl
@@ -50,6 +51,12 @@ const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
 const resolvedOgImage = toAbsoluteUrl(ogImage);
 const shouldNoindex = noindex || isCanonicalAliasPath(normalizedCurrentPath);
 const robotsContent = shouldNoindex ? "noindex,follow" : "index,follow";
+const alternateLinks = shouldNoindex
+  ? []
+  : getLocalizedRouteAlternates(resolvedCanonicalPath).map((alternate) => ({
+      hreflang: alternate.hreflang,
+      href: toAbsoluteUrl(alternate.path)
+    }));
 const structuredDataItems = Array.isArray(structuredData) ? structuredData : [structuredData];
 const defaultOgLocaleByLang: Record<NonNullable<Props["lang"]>, string> = {
   hu: "hu_HU",
@@ -199,7 +206,8 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
-  "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" }
+  "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
+  "/de/": { hu: "/" }
 };
 const localizedHref = (path: string) =>
   path === "/" ? homeHref : `${homeHref}${path.replace(/^\/+/, "")}`;
@@ -229,6 +237,9 @@ const headerLanguageLinks = [
     <meta name="description" content={description} />
     <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalUrl} />
+    {alternateLinks.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+    ))}
     <meta property="og:locale" content={resolvedOgLocale} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content="website" />

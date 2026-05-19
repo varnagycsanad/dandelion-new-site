@@ -7,6 +7,13 @@ export const SITE_DEFAULT_DESCRIPTION =
   "Természetközeli vendégházak a Balaton-felvidéken és a Balaton mellett, közvetlen foglalással, inspiráló környezettel és nyugodt pihenéssel.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
+// [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
+export const LOCALIZED_ROUTE_PAIRS = [
+  { hu: "/", en: "/en/" },
+  { hu: "/szallasok/", en: "/en/szallasok/" },
+  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" }
+] as const;
+
 const canonicalAliasMap: Record<string, string> = {
   "/dandelion-royal-homes/": "/royal/",
   "/dandelion-szololiget/": "/szololiget/",
@@ -29,6 +36,9 @@ export const SITEMAP_PATHS = [
   "/fuge/",
   "/dandelion-d1/",
   "/dandelion-d2/",
+  "/en/",
+  "/en/szallasok/",
+  "/en/dandelion-d2/",
   "/dandelion-koveskal/",
   "/dandelion-zsalya/",
   "/dandelion-vintage/",
@@ -49,6 +59,21 @@ export function normalizePathname(pathname: string): string {
 export function getCanonicalPath(pathname: string): string {
   const normalizedPath = normalizePathname(pathname);
   return canonicalAliasMap[normalizedPath] ?? normalizedPath;
+}
+
+export function getLocalizedRouteAlternates(pathname: string) {
+  const normalizedPath = normalizePathname(pathname);
+  const routePair = LOCALIZED_ROUTE_PAIRS.find((pair) => pair.hu === normalizedPath || pair.en === normalizedPath);
+
+  if (!routePair) {
+    return [];
+  }
+
+  return [
+    { hreflang: "hu", path: routePair.hu },
+    { hreflang: "en", path: routePair.en },
+    { hreflang: "x-default", path: routePair.hu }
+  ];
 }
 
 export function isCanonicalAliasPath(pathname: string): boolean {
