@@ -68,10 +68,10 @@ jobs:
           } >> "$GITHUB_ENV"
 
           if [ -n "${SSH_PASSPHRASE:-}" ]; then
-            cat > "$RUNNER_TEMP/ssh-askpass.sh" <<'EOF'
-            #!/usr/bin/env bash
-            printf '%s\n' "$SSH_PASSPHRASE"
-            EOF
+            printf '%s\n' \
+              '#!/usr/bin/env bash' \
+              'printf "%s\n" "$SSH_PASSPHRASE"' \
+              > "$RUNNER_TEMP/ssh-askpass.sh"
             chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
 
             export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
@@ -155,16 +155,7 @@ jobs:
             -o StrictHostKeyChecking=yes \
             -o LogLevel=ERROR \
             "$SSH_USER@$SELECTED_SSH_HOST" \
-            "REMOTE_PATH=$remote_path_quoted bash -se" <<'EOF'
-          set -e
-          whoami
-          pwd
-          hostname
-          test -d "$REMOTE_PATH"
-          ls -la "$REMOTE_PATH" | head
-          command -v rsync || true
-          rsync --version | head -1 || true
-          EOF
+            "REMOTE_PATH=$remote_path_quoted bash -lc 'set -e; whoami; pwd; hostname; test -d \"\$REMOTE_PATH\"; ls -la \"\$REMOTE_PATH\" | head; command -v rsync || true; rsync --version | head -1 || true'"
 
       - name: Cleanup local SSH material
         if: always()
