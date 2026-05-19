@@ -10,6 +10,7 @@ export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
 export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/", en: "/en/" },
+  { hu: "/kapcsolat/", en: "/en/contact/" },
   { hu: "/szallasok/", en: "/en/szallasok/" },
   { hu: "/elmenyek/", en: "/en/experiences/" },
   { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
@@ -36,6 +37,7 @@ const canonicalAliasMap: Record<string, string> = {
 export const SITEMAP_PATHS = [
   "/",
   "/kapcsolat/",
+  "/en/contact/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",

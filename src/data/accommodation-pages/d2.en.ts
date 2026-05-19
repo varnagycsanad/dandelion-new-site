@@ -254,7 +254,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         name: "Fügeház",
         meta: "4-6 guests · panorama · family stay",
-        href: "/fuge/",
+        href: "/en/dandelion-fugehaz/",
         image: {
           type: "mapping",
           slot: "fugehaz_card_image",
@@ -264,7 +264,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         name: "Dandelion D1",
         meta: "6-8 guests · large garden · for families",
-        href: "/dandelion-d1/",
+        href: "/en/dandelion-d1/",
         image: {
           type: "mapping",
           slot: "d1_card_image",
@@ -274,7 +274,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         name: "Zsálya Vendégház",
         meta: "quiet, nature-close countryside rest",
-        href: "/dandelion-zsalya/",
+        href: "/en/dandelion-zsalya/",
         image: {
           type: "mapping",
           slot: "zsalya_card_image",
@@ -284,7 +284,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         name: "Szőlőliget Vendégház",
         meta: "a slower stay among the vineyards",
-        href: "/szololiget/",
+        href: "/en/szololiget/",
         image: {
           type: "mapping",
           slot: "szololiget_card_image",
@@ -294,7 +294,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         name: "Dandelion Köveskál",
         meta: "Káli-medence · quiet village atmosphere",
-        href: "/dandelion-koveskal/",
+        href: "/en/dandelion-koveskal/",
         image: {
           type: "direct",
           src: requireAccommodationLocalAssetPath(

@@ -82,7 +82,7 @@ const homeHref = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 const emailLocalPart = "hello";
 const emailDomain = "dandelionhouse.hu";
-const contactPageHref = `${homeHref}kapcsolat/`;
+const contactPageHref = isEnglishPage ? `${homeHref}en/contact/` : `${homeHref}kapcsolat/`;
 const headerHomeHref = isEnglishPage ? `${homeHref}en/` : homeHref;
 const headerStaysHref = isEnglishPage ? `${homeHref}en/szallasok/` : `${homeHref}szallasok/`;
 const headerExperiencesHref = isEnglishPage ? `${homeHref}en/experiences/` : `${homeHref}elmenyek/`;
@@ -313,6 +313,8 @@ const isTransparentHeaderStart =
 const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/": { hu: "/", en: "/en/" },
   "/en/": { hu: "/", en: "/en/" },
+  "/kapcsolat/": { hu: "/kapcsolat/", en: "/en/contact/" },
+  "/en/contact/": { hu: "/kapcsolat/", en: "/en/contact/" },
   "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/elmenyek/": { hu: "/elmenyek/", en: "/en/experiences/" },
