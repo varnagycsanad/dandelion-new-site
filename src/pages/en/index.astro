@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// [CHANGE 2026-05-19 00:00] First safe English homepage entry point added without full homepage i18n refactor.
+const enTitle = "Dandelion Guesthouses | Peaceful stays in the Balaton Uplands";
+const enDescription =
+  "Nature-close Dandelion guesthouses around the Balaton Uplands, with calm rural atmosphere, personal hospitality and direct booking options.";
+---
+
+<BaseLayout
+  title={enTitle}
+  description={enDescription}
+  canonicalPath="/en/"
+  lang="en"
+  ogLocale="en_US"
+  hideHeader={true}
+  hideFooter={true}
+  headerMode="solid"
+>
+  <section class="en-home">
+    <div class="dnd-container en-home__inner">
+      <div class="en-home__copy">
+        <span class="en-home__eyebrow">Dandelion Guesthouses</span>
+        <h1>Quiet rural stays near Lake Balaton.</h1>
+        <p>
+          The English version is starting here with a small, safe first step. Dandelion brings together
+          nature-close guesthouses around the Balaton Uplands, with calm gardens, warm details and an easy pace.
+        </p>
+        <div class="en-home__actions">
+          <a class="en-home__cta" href="/szallasok/">View accommodations</a>
+          <a class="en-home__cta en-home__cta--secondary" href="/kapcsolat/">Contact us</a>
+        </div>
+      </div>
+
+      <div class="en-home__note" aria-label="English version note">
+        <span>First English page</span>
+        <p>
+          More English pages will follow gradually. House names such as Dandelion D2, Fügeház,
+          Zsálya Vendégház and Dandelion Vintage Vendégház remain unchanged.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .en-home {
+    min-height: 100vh;
+    display: grid;
+    align-items: center;
+    padding: 96px 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(217, 158, 43, 0.16), transparent 32%),
+      linear-gradient(135deg, #fdfbf7 0%, #f4ead9 100%);
+  }
+
+  .en-home__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.55fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: end;
+  }
+
+  .en-home__copy {
+    max-width: 760px;
+  }
+
+  .en-home__eyebrow {
+    display: inline-flex;
+    margin-bottom: 16px;
+    color: #9c6b1c;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .en-home h1 {
+    margin: 0;
+    color: #241b13;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.45rem, 6vw, 5.2rem);
+    font-weight: 500;
+    letter-spacing: var(--dnd-tracking-display-tight);
+    line-height: 0.98;
+  }
+
+  .en-home__copy p {
+    max-width: 58ch;
+    margin: 24px 0 0;
+    color: rgba(36, 27, 19, 0.74);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.68;
+  }
+
+  .en-home__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .en-home__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 1px solid rgba(48, 36, 24, 0.16);
+    border-radius: 999px;
+    background: #d99e2b;
+    color: #1f170f;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .en-home__cta--secondary {
+    background: rgba(255, 255, 255, 0.54);
+    color: #4f3820;
+  }
+
+  .en-home__note {
+    padding: 22px;
+    border: 1px solid rgba(87, 64, 38, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 252, 246, 0.76);
+    box-shadow: 0 18px 42px rgba(73, 52, 27, 0.08);
+  }
+
+  .en-home__note span {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: #9c6b1c;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .en-home__note p {
+    margin: 0;
+    color: rgba(36, 27, 19, 0.72);
+    font-size: var(--dnd-text-md);
+    line-height: 1.62;
+  }
+
+  @media (max-width: 760px) {
+    .en-home {
+      min-height: 100svh;
+      padding: 72px 0;
+    }
+
+    .en-home__inner {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .en-home h1 {
+      font-size: clamp(2.1rem, 12vw, 3.35rem);
+    }
+
+    .en-home__copy p {
+      font-size: var(--dnd-text-body);
+      line-height: 1.62;
+    }
+
+    .en-home__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

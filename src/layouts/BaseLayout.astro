@@ -13,6 +13,8 @@ import {
   toAbsoluteUrl
 } from "../data/site-seo";
 
+// [CHANGE 2026-05-19 00:00] Minimal locale props added for the first English entry point without changing Hungarian defaults.
+
 interface Props {
   title?: string;
   description?: string;
@@ -22,6 +24,8 @@ interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   noindex?: boolean;
+  lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
+  ogLocale?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   headerMode?: "auto" | "transparent" | "solid";
 }
@@ -33,6 +37,8 @@ const {
   ogImage = SITE_DEFAULT_OG_IMAGE,
   ogImageAlt = title,
   noindex = false,
+  lang = "hu",
+  ogLocale,
   structuredData = [],
   headerMode = "auto"
 } = Astro.props;
@@ -45,6 +51,24 @@ const resolvedOgImage = toAbsoluteUrl(ogImage);
 const shouldNoindex = noindex || isCanonicalAliasPath(normalizedCurrentPath);
 const robotsContent = shouldNoindex ? "noindex,follow" : "index,follow";
 const structuredDataItems = Array.isArray(structuredData) ? structuredData : [structuredData];
+const defaultOgLocaleByLang: Record<NonNullable<Props["lang"]>, string> = {
+  hu: "hu_HU",
+  en: "en_US",
+  de: "de_DE",
+  sk: "sk_SK",
+  pl: "pl_PL",
+  cs: "cs_CZ"
+};
+const schemaLanguageByLang: Record<NonNullable<Props["lang"]>, string> = {
+  hu: "hu-HU",
+  en: "en-US",
+  de: "de-DE",
+  sk: "sk-SK",
+  pl: "pl-PL",
+  cs: "cs-CZ"
+};
+const resolvedOgLocale = ogLocale ?? defaultOgLocaleByLang[lang];
+const schemaLanguage = schemaLanguageByLang[lang];
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -67,7 +91,7 @@ const schemaScripts = [
     "@id": `${toAbsoluteUrl("/")}#website`,
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
-    inLanguage: "hu-HU",
+    inLanguage: schemaLanguage,
     description: SITE_DEFAULT_DESCRIPTION,
     publisher: {
       "@id": `${toAbsoluteUrl("/")}#organization`
@@ -170,7 +194,7 @@ const isTransparentHeaderStart =
 ---
 
 <!DOCTYPE html>
-<html lang="hu">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -178,7 +202,7 @@ const isTransparentHeaderStart =
     <meta name="description" content={description} />
     <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta property="og:locale" content="hu_HU" />
+    <meta property="og:locale" content={resolvedOgLocale} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
