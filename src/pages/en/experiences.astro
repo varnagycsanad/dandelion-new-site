@@ -7,7 +7,6 @@ import balatonImage from "../../assets/experiences/balaton-shore.jpg";
 import mountainsImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
 import { toAbsoluteUrl } from "../../data/site-seo";
 
-// [CHANGE 2026-05-20 00:00] First English experiences collection page added with only the bike page linked.
 const title = "Experiences near Lake Balaton | Dandelion Guesthouses";
 const description =
   "Cycling, wineries, Lake Balaton beaches and witness hill walks around the Dandelion guesthouses in the Balaton Uplands.";
@@ -40,8 +39,8 @@ const experiences = [
     highlights: ["hill cellars", "sunset wine stops"],
     image: wineImage,
     imageAlt: "Vineyards around Szent György Hill in the Balaton Uplands",
-    href: undefined,
-    ctaLabel: "English page coming soon"
+    href: "/en/wineries/",
+    ctaLabel: "Wineries"
   },
   {
     eyebrow: "Lake days",
@@ -51,8 +50,8 @@ const experiences = [
     highlights: ["nearby beaches", "kayak, canoe and SUP ideas"],
     image: balatonImage,
     imageAlt: "Stony Lake Balaton shoreline in summer light",
-    href: undefined,
-    ctaLabel: "English page coming soon"
+    href: "/en/lake-balaton/",
+    ctaLabel: "Lake details"
   },
   {
     eyebrow: "Nature-close programmes",
@@ -62,8 +61,8 @@ const experiences = [
     highlights: ["panoramic lookout points", "sunset routes"],
     image: mountainsImage,
     imageAlt: "Drone view of the witness hills and the Tapolca Basin",
-    href: undefined,
-    ctaLabel: "English page coming soon"
+    href: "/en/witness-hills/",
+    ctaLabel: "Hill walks"
   }
 ];
 
@@ -95,7 +94,7 @@ const structuredData = [
       position: index + 1,
       name: item.title,
       description: item.description,
-      url: item.href ? toAbsoluteUrl(item.href) : toAbsoluteUrl("/en/experiences/")
+      url: toAbsoluteUrl(item.href)
     }))
   }
 ];

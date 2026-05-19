@@ -1,0 +1,441 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/balaton-shore.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import { toAbsoluteUrl } from "../../data/site-seo";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: toAbsoluteUrl("/en/") },
+      { "@type": "ListItem", position: 2, name: "Experiences", item: toAbsoluteUrl("/en/experiences/") },
+      { "@type": "ListItem", position: 3, name: "Lake Balaton", item: toAbsoluteUrl("/en/lake-balaton/") }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Lake Balaton Beaches and Water Programs | Dandelion Guesthouses"
+  description="Explore nearby Lake Balaton beaches, Badacsony, Szigliget and easy summer water programs from the Dandelion guesthouses."
+  canonicalPath="/en/lake-balaton/"
+  lang="en"
+  ogLocale="en_US"
+  structuredData={structuredData}
+>
+  <section class="balaton-page">
+    <div class="dnd-container balaton-page__inner">
+      <section class="balaton-page__hero">
+        <div class="balaton-page__hero-copy">
+          <span class="balaton-page__eyebrow">Easy lake days</span>
+          <h1>Lake Balaton beaches and waterside programs</h1>
+          <p>
+            When you want a day by the water, Lake Balaton is an easy part of a Dandelion stay:
+            beaches, piers, summer walks, sunset dinners and light water programs can all fit into
+            a calm countryside holiday.
+          </p>
+          <p>
+            A morning at the beach, a wine stop on the hill in the afternoon and an evening walk in
+            Badacsony or Szigliget can belong to the same day. That is the charm of this area: you
+            do not have to choose between the lake and the Balaton Uplands.
+          </p>
+          <ul class="balaton-page__hero-highlights">
+            <li>nearby beaches by car</li>
+            <li>Badacsony, Szigliget and Ábrahámhegy as easy lake directions</li>
+            <li>kayak, canoe and SUP options in season</li>
+            <li>simple programs for families, couples and summer evenings</li>
+          </ul>
+          <div class="balaton-page__hero-actions">
+            <a href="/en/szallasok/" class="balaton-page__cta-primary">View accommodations</a>
+            <a href="/en/experiences/" class="balaton-page__cta-secondary">Back to experiences</a>
+          </div>
+        </div>
+
+        <div class="balaton-page__hero-media">
+          <Image src={heroImage} alt="Clear Lake Balaton shoreline in summer light" loading="eager" />
+        </div>
+      </section>
+
+      <section class="balaton-page__support">
+        <article class="balaton-page__support-card">
+          <span class="balaton-page__eyebrow">Rhythm</span>
+          <h2>Start with the lake mood, then pick the stop</h2>
+          <p>
+            Some days call for a relaxed family beach. Others are better with a waterside walk,
+            dinner in Badacsony or a quieter afternoon around Szigliget and Ábrahámhegy.
+          </p>
+        </article>
+        <article class="balaton-page__support-card">
+          <Image src={supportImage} alt="Witness hill panorama near Lake Balaton programs" loading="lazy" />
+        </article>
+      </section>
+
+      <section class="balaton-page__accordions" aria-label="Lake Balaton details">
+        <details class="balaton-accordion" open>
+          <summary>Nearby beaches and Lake Balaton stops</summary>
+          <div class="balaton-accordion__content">
+            <p>
+              The area gives you several good lake directions, depending on whether you want a
+              family beach day, a classic Balaton atmosphere or an evening walk by the water.
+            </p>
+            <div class="balaton-stop">
+              <h3>Szigliget beach</h3>
+              <p>
+                A good choice for a family beach day, swimming and a classic summer program. Its
+                greener, comfortable setup makes it easy to like.
+              </p>
+            </div>
+            <div class="balaton-stop">
+              <h3>Ábrahámhegy beach</h3>
+              <p>
+                A calmer, family-friendly Lake Balaton beach mood. It works especially well for a
+                simple day by the water with children.
+              </p>
+            </div>
+            <div class="balaton-stop">
+              <h3>Badacsony and Badacsonytomaj beaches</h3>
+              <p>
+                Choose this direction if you want to combine swimming with wine terraces, dinner or
+                an evening walk. Badacsony brings piers, restaurants and a livelier summer feel.
+              </p>
+            </div>
+            <div class="balaton-stop">
+              <h3>Badacsonylábdihegy and the Herczeg Ferenc beach</h3>
+              <p>
+                This can be a useful starting point when you want to connect beach time with an easy
+                water program such as kayaking, canoeing or SUP in season.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="balaton-accordion">
+          <summary>Kayak, canoe, SUP and light water programs</summary>
+          <div class="balaton-accordion__content">
+            <p>
+              Lake Balaton is not only for swimming. In season, kayak, canoe, SUP and some boat
+              programs may be available around the area, depending on weather and local providers.
+            </p>
+            <div class="balaton-stop">
+              <h3>Kayak and canoe around Badacsonylábdihegy</h3>
+              <p>
+                From the water, the view of Badacsony, Szigliget, Szent György Hill and the witness
+                hills becomes part of the experience.
+              </p>
+            </div>
+            <div class="balaton-stop">
+              <h3>SUP in calm weather</h3>
+              <p>
+                On still, safe days, SUP can be a light way to spend time on the water without
+                turning the day into a serious sports program.
+              </p>
+            </div>
+            <div class="balaton-stop">
+              <h3>Boat programs</h3>
+              <p>
+                Treat these as seasonal, provider-dependent options that are worth checking in
+                advance.
+              </p>
+            </div>
+            <p class="balaton-accordion__note">
+              Water programs depend on season, weather and provider conditions. Always check
+              current availability, prices and rental rules before setting off.
+            </p>
+          </div>
+        </details>
+
+        <details class="balaton-accordion">
+          <summary>Which lake program should you choose?</summary>
+          <div class="balaton-accordion__content">
+            <div class="balaton-stop">
+              <h3>For a family beach day</h3>
+              <p>Szigliget or Ábrahámhegy are comfortable, family-friendly directions.</p>
+            </div>
+            <div class="balaton-stop">
+              <h3>For dinner, wine or an evening walk</h3>
+              <p>Badacsony is the strongest choice when you want more life by the lake.</p>
+            </div>
+            <div class="balaton-stop">
+              <h3>For kayak, canoe or SUP</h3>
+              <p>
+                Badacsonylábdihegy is a practical starting point where beach time and water programs
+                can connect well.
+              </p>
+            </div>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .balaton-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(109, 152, 177, 0.18), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #eff4f5 100%);
+  }
+
+  .balaton-page__inner,
+  .balaton-page__hero-copy,
+  .balaton-page__support-card,
+  .balaton-page__accordions,
+  .balaton-accordion__content,
+  .balaton-stop {
+    display: grid;
+  }
+
+  .balaton-page__inner {
+    gap: 30px;
+  }
+
+  .balaton-page__eyebrow {
+    display: inline-block;
+    color: #7a5b22;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .balaton-page__hero,
+  .balaton-page__support {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .balaton-page__support {
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  }
+
+  .balaton-page__hero-copy,
+  .balaton-page__support-card {
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.84);
+    backdrop-filter: blur(6px);
+  }
+
+  .balaton-page h1,
+  .balaton-page__support-card h2,
+  .balaton-stop h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .balaton-page h1 {
+    font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+    max-width: 11ch;
+  }
+
+  .balaton-page__hero-copy p,
+  .balaton-page__support-card p,
+  .balaton-accordion__content p,
+  .balaton-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: var(--dnd-text-body);
+    line-height: 1.75;
+  }
+
+  .balaton-page__hero-highlights {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .balaton-page__hero-media,
+  .balaton-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .balaton-page__hero-media :global(picture),
+  .balaton-page__hero-media :global(img),
+  .balaton-page__support-card :global(picture),
+  .balaton-page__support-card :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .balaton-page__hero-media :global(img),
+  .balaton-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .balaton-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .balaton-page__cta-primary,
+  .balaton-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .balaton-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .balaton-page__cta-primary:hover,
+  .balaton-page__cta-primary:focus-visible,
+  .balaton-page__cta-secondary:hover,
+  .balaton-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .balaton-page__accordions {
+    gap: 18px;
+  }
+
+  .balaton-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .balaton-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .balaton-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .balaton-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .balaton-accordion[open] summary::after {
+    content: "-";
+  }
+
+  .balaton-accordion__content {
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .balaton-stop {
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .balaton-stop h3 {
+    font-size: var(--dnd-text-body);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .balaton-accordion__note {
+    color: rgba(43, 32, 22, 0.7) !important;
+  }
+
+  @media (max-width: 960px) {
+    .balaton-page__hero,
+    .balaton-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .balaton-page {
+      padding: 108px 0 72px;
+    }
+
+    .balaton-page__inner {
+      gap: 24px;
+    }
+
+    .balaton-page__hero-copy,
+    .balaton-page__support-card {
+      padding: 24px;
+    }
+
+    .balaton-page__hero-media,
+    .balaton-page__support-card,
+    .balaton-accordion {
+      border-radius: 18px;
+    }
+
+    .balaton-accordion summary,
+    .balaton-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .balaton-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .balaton-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .balaton-stop {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>

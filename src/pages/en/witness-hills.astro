@@ -1,0 +1,453 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import supportImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import { toAbsoluteUrl } from "../../data/site-seo";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: toAbsoluteUrl("/en/") },
+      { "@type": "ListItem", position: 2, name: "Experiences", item: toAbsoluteUrl("/en/experiences/") },
+      { "@type": "ListItem", position: 3, name: "Witness hills", item: toAbsoluteUrl("/en/witness-hills/") }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Witness Hills and Hiking in the Balaton Uplands | Dandelion Guesthouses"
+  description="Easy hiking ideas around Szent György Hill, Badacsony and the volcanic witness hills near the Dandelion guesthouses."
+  canonicalPath="/en/witness-hills/"
+  lang="en"
+  ogLocale="en_US"
+  structuredData={structuredData}
+>
+  <section class="hills-page" data-experience-page="witness-hills">
+    <div class="dnd-container hills-page__inner">
+      <section class="hills-page__hero">
+        <div class="hills-page__hero-copy">
+          <span class="hills-page__eyebrow">Nature-close programs</span>
+          <h1>Witness hills, lookouts and easy walks</h1>
+          <p>
+            One of the gifts of the Balaton Uplands is how quickly the landscape changes around you.
+            From a Dandelion stay, vineyards, meadows, forest paths and lookout points can become
+            part of the day without turning it into a demanding hiking project.
+          </p>
+          <p>
+            Szent György Hill, Badacsony, Tóti Hill, Csobánc, Gulács and the Szigliget area all offer
+            different versions of the same feeling: volcanic hills, open views and a slower rhythm
+            close to nature.
+          </p>
+          <ul class="hills-page__hero-highlights">
+            <li>volcanic witness hills and panoramic lookout points</li>
+            <li>shorter walks and fuller hiking routes nearby</li>
+            <li>good for couples, families and friends</li>
+            <li>especially atmospheric around sunset</li>
+          </ul>
+          <div class="hills-page__hero-actions">
+            <a href="/en/szallasok/" class="hills-page__cta-primary">View accommodations</a>
+            <a href="/en/experiences/" class="hills-page__cta-secondary">Back to experiences</a>
+          </div>
+        </div>
+
+        <div class="hills-page__hero-media">
+          <Image src={heroImage} alt="Panorama over the Tapolca Basin and the volcanic witness hills" loading="eager" />
+        </div>
+      </section>
+
+      <section class="hills-page__support">
+        <article class="hills-page__support-card">
+          <span class="hills-page__eyebrow">Landscape</span>
+          <h2>Not a hiking manual, more a way into the day</h2>
+          <p>
+            The best route is often the one that fits your pace: a short vineyard walk, a lookout,
+            a castle visit, a sunset view or a quiet hill path before returning to the garden.
+          </p>
+        </article>
+        <article class="hills-page__support-card">
+          <Image src={supportImage} alt="Szent György Hill vineyards and Balaton Uplands walking mood" loading="lazy" />
+        </article>
+      </section>
+
+      <section class="hills-page__accordions" aria-label="Witness hill details">
+        <details class="hills-accordion" open>
+          <summary>Walking and excursion ideas nearby</summary>
+          <div class="hills-accordion__content">
+            <div class="hills-stop">
+              <h3>Szent György Hill</h3>
+              <p>
+                Probably the closest match to the Dandelion mood: vineyards, basalt columns, quiet
+                roads, open views and a true Balaton Uplands landscape. It works for both shorter
+                walks and more substantial excursions.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Badacsony</h3>
+              <p>
+                A classic Lake Balaton witness hill where a walk can easily connect with wine,
+                dinner or a waterside program. The views are beautiful from several points, but
+                summer can be busier.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Tóti Hill</h3>
+              <p>
+                A compact, scenic hill choice when you want the witness-hill feeling without making
+                the whole day too heavy.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Szigliget and the castle area</h3>
+              <p>
+                An easy-to-love program with a castle, views, Lake Balaton, small streets and a
+                gentle village atmosphere. It works well for families too.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Csobánc</h3>
+              <p>
+                A wilder, quieter direction. The castle ruins and the view are worth it, especially
+                if you enjoy a little more walking.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Gulács</h3>
+              <p>
+                A more nature-close, less busy hiking goal. Choose it when you want a quieter hill
+                program away from the livelier lake stops.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="hills-accordion">
+          <summary>Lighter ideas when you do not want a big hike</summary>
+          <div class="hills-accordion__content">
+            <p>
+              Not every day needs a long route. Around the witness hills, smaller programs can still
+              make a beautiful day.
+            </p>
+            <div class="hills-stop">
+              <h3>A short walk among the vineyards</h3>
+              <p>
+                A slow afternoon walk on the hillside, a lookout point or a quiet vineyard road can
+                be enough to shift the whole rhythm of the day.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>Sunset watching</h3>
+              <p>
+                Sunsets around the witness hills are especially atmospheric. A light walk, a blanket
+                or simply the view can be plenty.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>A simple picnic</h3>
+              <p>
+                In spring and autumn especially, a small picnic, water and comfortable shoes are
+                often all you need.
+              </p>
+            </div>
+            <div class="hills-stop">
+              <h3>A photo walk</h3>
+              <p>
+                Vineyard rows, old cellars, hill silhouettes, lake details and changing light make
+                the area rewarding even with a phone camera.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="hills-accordion">
+          <summary>Which direction should you choose?</summary>
+          <div class="hills-accordion__content">
+            <div class="hills-stop">
+              <h3>For families</h3>
+              <p>Szigliget and the castle area are a good fit because the day is more than walking.</p>
+            </div>
+            <div class="hills-stop">
+              <h3>For a romantic evening</h3>
+              <p>Szent György Hill or Badacsony around sunset brings views, wine stops and softer light.</p>
+            </div>
+            <div class="hills-stop">
+              <h3>For a quieter nature-close day</h3>
+              <p>Gulács or Csobánc are better directions when you want to avoid busier lake places.</p>
+            </div>
+            <div class="hills-stop">
+              <h3>For an easy, non-hiker day</h3>
+              <p>Szigliget, a waterside walk, the castle, coffee, ice cream and a view keep it simple.</p>
+            </div>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hills-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(182, 170, 112, 0.16), transparent 34%),
+      linear-gradient(180deg, #fcfbf7 0%, #f4efe5 100%);
+  }
+
+  .hills-page__inner,
+  .hills-page__hero-copy,
+  .hills-page__support-card,
+  .hills-page__accordions,
+  .hills-accordion__content,
+  .hills-stop {
+    display: grid;
+  }
+
+  .hills-page__inner {
+    gap: 30px;
+  }
+
+  .hills-page__eyebrow {
+    display: inline-block;
+    color: #8a6b25;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hills-page__hero,
+  .hills-page__support {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .hills-page__support {
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  }
+
+  .hills-page__hero-copy,
+  .hills-page__support-card {
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .hills-page h1,
+  .hills-page__support-card h2,
+  .hills-stop h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .hills-page h1 {
+    font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+    max-width: 12ch;
+  }
+
+  .hills-page__hero-copy p,
+  .hills-page__support-card p,
+  .hills-accordion__content p,
+  .hills-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: var(--dnd-text-body);
+    line-height: 1.75;
+  }
+
+  .hills-page__hero-highlights {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .hills-page__hero-media,
+  .hills-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .hills-page__hero-media :global(picture),
+  .hills-page__hero-media :global(img),
+  .hills-page__support-card :global(picture),
+  .hills-page__support-card :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hills-page__hero-media :global(img),
+  .hills-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .hills-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .hills-page__cta-primary,
+  .hills-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .hills-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .hills-page__cta-primary:hover,
+  .hills-page__cta-primary:focus-visible,
+  .hills-page__cta-secondary:hover,
+  .hills-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .hills-page__accordions {
+    gap: 18px;
+  }
+
+  .hills-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .hills-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .hills-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .hills-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hills-accordion[open] summary::after {
+    content: "-";
+  }
+
+  .hills-accordion__content {
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .hills-stop {
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .hills-stop h3 {
+    font-size: var(--dnd-text-body);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 960px) {
+    .hills-page__hero,
+    .hills-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hills-page {
+      padding: 108px 0 72px;
+    }
+
+    .hills-page__inner {
+      gap: 24px;
+    }
+
+    .hills-page__hero-copy,
+    .hills-page__support-card {
+      padding: 24px;
+    }
+
+    .hills-page__hero-media,
+    .hills-page__support-card,
+    .hills-accordion {
+      border-radius: 18px;
+    }
+
+    .hills-accordion summary,
+    .hills-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hills-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .hills-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .hills-stop {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>

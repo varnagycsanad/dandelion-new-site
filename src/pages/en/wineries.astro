@@ -1,0 +1,457 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import { toAbsoluteUrl } from "../../data/site-seo";
+
+const wineries = [
+  "Szászi Birtok",
+  "Gilvesy Winery",
+  "Nyári Pince",
+  "PAP Wines",
+  "Laposa Wine Terrace",
+  "Hableány Badacsony",
+  "Borbély Family Winery",
+  "Válibor Vinotéka",
+  "Folly Arboretum and Winery"
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: toAbsoluteUrl("/en/") },
+      { "@type": "ListItem", position: 2, name: "Experiences", item: toAbsoluteUrl("/en/experiences/") },
+      { "@type": "ListItem", position: 3, name: "Wineries", item: toAbsoluteUrl("/en/wineries/") }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Wineries and Wine Tasting near Badacsony | Dandelion Guesthouses"
+  description="Discover wineries, wine terraces and relaxed evening programs around Badacsony, Szent György Hill and the Dandelion guesthouses."
+  canonicalPath="/en/wineries/"
+  lang="en"
+  ogLocale="en_US"
+  structuredData={structuredData}
+>
+  <section class="wine-page">
+    <div class="dnd-container wine-page__inner">
+      <section class="wine-page__hero">
+        <div class="wine-page__hero-copy">
+          <span class="wine-page__eyebrow">Wine and panorama</span>
+          <h1>Vineyards, terraces and slow evenings near Badacsony</h1>
+          <p>
+            Around the Dandelion guesthouses, wine is part of the landscape. Szent György Hill,
+            Badacsony and the surrounding volcanic hills bring together vineyards, quiet cellar
+            roads, panoramic terraces and the kind of golden-hour atmosphere that makes one glass
+            easily turn into a whole evening.
+          </p>
+          <p>
+            This is not a rushed wine-tour destination. It works best when you leave space for a
+            short walk, a view over the hills, a terrace dinner or a relaxed tasting arranged
+            directly with the winery.
+          </p>
+          <ul class="wine-page__hero-highlights">
+            <li>Szent György Hill cellars and vineyard roads</li>
+            <li>Badacsony wine terraces and Lake Balaton views</li>
+            <li>sunset drinks, slow afternoons and easy evenings</li>
+            <li>a good fit for couples, friends and calm countryside stays</li>
+          </ul>
+          <p class="wine-page__hero-note">
+            Szent György Hill belongs to the Badacsony wine region, an area known for volcanic
+            soils and characterful local wines.
+          </p>
+          <div class="wine-page__hero-actions">
+            <a href="/en/szallasok/" class="wine-page__cta-primary">View accommodations</a>
+            <a href="/en/experiences/" class="wine-page__cta-secondary">Back to experiences</a>
+          </div>
+        </div>
+
+        <div class="wine-page__hero-media">
+          <Image src={heroImage} alt="Vineyards on Szent György Hill in the Balaton Uplands" loading="eager" />
+        </div>
+      </section>
+
+      <section class="wine-page__support">
+        <article class="wine-page__support-card">
+          <span class="wine-page__eyebrow">Mood</span>
+          <h2>Start with the view, then choose the stop</h2>
+          <p>
+            Some guests look for a quiet hill cellar. Others prefer a livelier Badacsony terrace
+            with dinner and a lake view. Both directions fit the region well, as long as the plan
+            stays flexible and unhurried.
+          </p>
+        </article>
+        <article class="wine-page__support-card">
+          <Image src={supportImage} alt="Volcanic witness hills near the wine country around Badacsony" loading="lazy" />
+        </article>
+      </section>
+
+      <section class="wine-page__accordions" aria-label="Wine region details">
+        <details class="wine-accordion" open>
+          <summary>Wineries and wine terraces nearby</summary>
+          <div class="wine-accordion__content">
+            <p>
+              The best direction depends on the kind of evening you want: a quieter hill stop, a
+              panoramic terrace or a more animated Badacsony atmosphere.
+            </p>
+            <div class="wine-stop">
+              <h3>Szent György Hill area</h3>
+              <p>
+                This is the most Dandelion-like wine direction: vineyard rows, witness hills, small
+                roads, open views and a gentler pace.
+              </p>
+              <ul>
+                <li>Szászi Birtok</li>
+                <li>Gilvesy Winery</li>
+                <li>Nyári Pince</li>
+                <li>PAP Wines</li>
+              </ul>
+            </div>
+            <div class="wine-stop">
+              <h3>Badacsony direction</h3>
+              <p>
+                Badacsony has a stronger Lake Balaton feeling, with more restaurants, terraces,
+                summer movement and evening program options.
+              </p>
+              <ul>
+                <li>Laposa Wine Terrace</li>
+                <li>Hableány Badacsony</li>
+                <li>Borbély Family Winery</li>
+                <li>Válibor Vinotéka</li>
+                <li>Folly Arboretum and Winery</li>
+              </ul>
+            </div>
+            <article class="wine-info-card">
+              <h3>Examples in one list</h3>
+              <ul>
+                {wineries.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+            <p>
+              Opening times, tasting formats and table availability can change by season, so it is
+              worth checking the current details before you set off.
+            </p>
+          </div>
+        </details>
+
+        <details class="wine-accordion">
+          <summary>Wine program ideas</summary>
+          <div class="wine-accordion__content">
+            <div class="wine-stop">
+              <h3>A slow afternoon on Szent György Hill</h3>
+              <p>
+                A short walk, one glass of wine, a view and sunset light. It does not need to become
+                a full-day tour to feel memorable.
+              </p>
+            </div>
+            <div class="wine-stop">
+              <h3>A Badacsony wine-terrace evening</h3>
+              <p>
+                Choose Badacsony if you want more movement, dinner possibilities and a classic Lake
+                Balaton summer atmosphere with the wine.
+              </p>
+            </div>
+            <div class="wine-stop">
+              <h3>Two or three good stops</h3>
+              <p>
+                There are many good cellars in the area, but the better experience is usually a
+                small, well-chosen route instead of trying to cover a long list in one day.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details class="wine-accordion">
+          <summary>Good to know before wine tasting</summary>
+          <div class="wine-accordion__content">
+            <article class="wine-info-card wine-info-card--notes">
+              <h3>Before you go</h3>
+              <ul>
+                <li>Ask the winery directly about current opening times and tasting options.</li>
+                <li>Plan transport responsibly after tasting, especially for evening programs.</li>
+                <li>Popular Badacsony terraces can fill up quickly in summer.</li>
+              </ul>
+            </article>
+          </div>
+        </details>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .wine-page {
+    padding: 124px 0 88px;
+    background:
+      radial-gradient(circle at top left, rgba(215, 188, 127, 0.14), transparent 32%),
+      linear-gradient(180deg, #fcfbf7 0%, #f6efe5 100%);
+  }
+
+  .wine-page__inner,
+  .wine-page__hero-copy,
+  .wine-page__support-card,
+  .wine-page__accordions,
+  .wine-accordion__content,
+  .wine-stop,
+  .wine-info-card {
+    display: grid;
+  }
+
+  .wine-page__inner {
+    gap: 30px;
+  }
+
+  .wine-page__eyebrow {
+    display: inline-block;
+    color: #a56d1f;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .wine-page__hero,
+  .wine-page__support {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .wine-page__support {
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  }
+
+  .wine-page__hero-copy,
+  .wine-page__support-card {
+    gap: 14px;
+    padding: 34px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 252, 246, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .wine-page__hero-copy {
+    align-content: center;
+  }
+
+  .wine-page__hero-copy h1,
+  .wine-page__support-card h2,
+  .wine-accordion__content h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .wine-page__hero-copy h1 {
+    font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+    max-width: 11ch;
+  }
+
+  .wine-page__hero-copy p,
+  .wine-page__support-card p,
+  .wine-accordion__content p,
+  .wine-accordion__content li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.84);
+    font-size: var(--dnd-text-body);
+    line-height: 1.75;
+  }
+
+  .wine-page__hero-highlights,
+  .wine-accordion__content ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .wine-page__hero-media,
+  .wine-page__support-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(43, 28, 14, 0.12);
+  }
+
+  .wine-page__hero-media :global(picture),
+  .wine-page__hero-media :global(img),
+  .wine-page__support-card :global(picture),
+  .wine-page__support-card :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wine-page__hero-media :global(img),
+  .wine-page__support-card :global(img) {
+    object-fit: cover;
+  }
+
+  .wine-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .wine-page__cta-primary,
+  .wine-page__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(65, 47, 30, 0.4);
+    color: #2b2016;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .wine-page__cta-primary {
+    background: #2b2016;
+    border-color: #2b2016;
+    color: #fdfbf7;
+  }
+
+  .wine-page__cta-primary:hover,
+  .wine-page__cta-primary:focus-visible,
+  .wine-page__cta-secondary:hover,
+  .wine-page__cta-secondary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(43, 32, 22, 0.14);
+  }
+
+  .wine-page__accordions {
+    gap: 18px;
+  }
+
+  .wine-accordion {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 22px;
+    background: rgba(255, 252, 246, 0.9);
+    overflow: hidden;
+  }
+
+  .wine-accordion summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 68px 22px 26px;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  .wine-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .wine-accordion summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(88, 63, 38, 0.14);
+    color: #6a4b2d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .wine-accordion[open] summary::after {
+    content: "-";
+  }
+
+  .wine-accordion__content {
+    gap: 18px;
+    padding: 0 26px 26px;
+  }
+
+  .wine-stop,
+  .wine-info-card {
+    gap: 10px;
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(88, 63, 38, 0.08);
+  }
+
+  .wine-info-card--notes {
+    background: rgba(251, 247, 239, 0.92);
+  }
+
+  @media (max-width: 960px) {
+    .wine-page__hero,
+    .wine-page__support {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .wine-page {
+      padding: 108px 0 72px;
+    }
+
+    .wine-page__inner {
+      gap: 24px;
+    }
+
+    .wine-page__hero-copy,
+    .wine-page__support-card {
+      padding: 24px;
+    }
+
+    .wine-page__hero-media,
+    .wine-page__support-card,
+    .wine-accordion {
+      border-radius: 18px;
+    }
+
+    .wine-accordion summary,
+    .wine-accordion__content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .wine-accordion summary {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      padding-right: 58px;
+    }
+
+    .wine-accordion summary::after {
+      right: 18px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .wine-stop,
+    .wine-info-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+</style>
