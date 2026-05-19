@@ -145,8 +145,31 @@ jobs:
           set -euo pipefail
 
           remote_path_quoted=$(printf '%q' "$REMOTE_PATH")
+          auth_log="$RUNNER_TEMP/ssh-auth-debug.log"
 
           echo "selected candidate: $SELECTED_SSH_LABEL"
+
+          set +e
+          ssh -vvv \
+            -p "$SELECTED_SSH_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o PreferredAuthentications=publickey,gssapi-keyex,gssapi-with-mic \
+            -o LogLevel=DEBUG3 \
+            "$SSH_USER@$SELECTED_SSH_HOST" \
+            "exit 0" \
+            > /dev/null 2> "$auth_log"
+          auth_status=$?
+          set -e
+
+          echo "auth diagnostic excerpt:"
+          grep -E 'Offering public key|Server accepts key|Authentications that can continue|Next authentication method|Permission denied|sign_and_send_pubkey|identity file' "$auth_log" || true
+
+          if [ "$auth_status" -ne 0 ]; then
+            echo "::error::SSH auth diagnostic failed before smoke test"
+            exit "$auth_status"
+          fi
 
           ssh \
             -p "$SELECTED_SSH_PORT" \
