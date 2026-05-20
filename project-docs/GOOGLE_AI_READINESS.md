@@ -22,6 +22,7 @@
 [CHANGE 2026-05-20 00:00] LodgingBusiness ReserveAction schema QA DONE: buildelt JSON-LD parse es HU/EN booking target ellenorzes rendben.
 [CHANGE 2026-05-20 00:00] Kep SEO hianylista szallasonkenti javitasi prioritassa pontositva; image registry modositas nelkul.
 [CHANGE 2026-05-20 00:00] Kep SEO Batch 1 review munkalap elkeszult; image registry es hero registry javitas jovahagyas utani TODO.
+[CHANGE 2026-05-20 00:00] Kep SEO forrasaudit elkeszult; image SEO implementacio blokkolva, amig a korabbi fo forras nincs tisztazva.
 
 # Google AI Readiness terv
 
@@ -46,6 +47,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md` - szallasoldali JSON-LD audit es biztonsagos schema bovitesi terv.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md` - elso kep SEO review munkalap, jovahagyas elotti draftokkal.
+- `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md` - meglevo kep SEO forrasok auditja; kijeloli, hogy a Batch 1 csak review, nem final implementacios forras.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
@@ -252,11 +254,11 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 10. Kep SEO javitas
 
 - Cel: a galeria kepek alt/title/caption adatai legyenek konkretak es kephez kotottek.
-- Statusz: CHECK - Batch 1 review munkalap DONE, implementacio nelkul.
-- Teendok: kepenkenti vizualis atnezes; Batch 1 draftok jovahagyasa; jovahagyott mezok keszitese kesobbi kulon image registry taskban.
-- Blokkolo adatok: kepek vizualis atnezese; draftok ellenorzese; jovahagyott kep SEO szovegek.
+- Statusz: BLOKKOLVA - korabbi kep SEO fo forras tisztazasa szukseges.
+- Teendok: `GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md` alapjan forrasdontes; utana mapping ellenorzes a korabbi `seo-test.json`, gallery-order export es live registry kozott.
+- Blokkolo adatok: korabbi kep SEO anyag fo forrasa; gallery-order / seo-test / registry mapping; emberi jovahagyas.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md`.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md`.
 
 ### Kep SEO allapot
 
@@ -269,6 +271,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - ELLENORIZENDO: caption mezok nem jelennek meg tartalmi kepalairaskent a preview/lightbox feluleten.
 - ELLENORIZENDO: `project-docs/gallery-order-tool/*.html` alatt minden szallashoz van `seoDraft` export `approved:false` allapottal; kiindulasnak hasznalhato, de nem johet at automatikusan final SEO adatkent.
 - DONE: Kep SEO Batch 1 review munkalap elkeszult Royal Homes, Szepvolgyi, Szololiget, Koveskal, D1 es Vintage hero-jelolt + elso 6 gallery kep korre.
+- BLOKKOLVA: kep SEO implementacio nem indulhat, amig a korabbi kep SEO anyag fo forrasa nincs tisztazva.
+- MEGJEGYZES: Batch 1 review csak uj review munkalap, nem final implementacios forras.
+- KOVETKEZO LEPES: `GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md` alapjan dontes a fo forrasrol es a mapping ellenorzesrol.
 - TODO / jovahagyas utan: image registry alt/title/caption mezok modositasa.
 - TODO / jovahagyas utan: nem-D2 `hero.desktop` es `hero.mobile` registry javitas.
 
@@ -315,9 +320,11 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 3. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: nem-Koveskal SabeeApp URL-ek ujra jovahagyasa es Koveskal CTA dontes.
 4. Elso implementacios kodtask csak jovahagyott pozicionalasi matrix, Package 1 es booking/erdeklodesi URL-ek utan.
 5. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott, lathato adatokkal, es csak utana implementacio.
-6. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: DONE/CHECK - szallasonkenti kep SEO hianyok es prioritasi sorrend dokumentalva; kovetkezo lepes a vizualis ellenorzesre epulo image registry implementacios task.
+6. `GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md`: BLOKKOLVA - kep SEO implementacio csak a korabbi fo forras es a gallery-order / seo-test / registry mapping tisztazasa utan indulhat.
 7. GBP es SabeeApp / Google Free Booking tisztazas.
 
 ## Implementacio elotti kapu
 
 Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha Csanad jovahagyta a pozicionalasi matrixot es az elso implementacios csomag tervet, valamint a booking linkek es CTA-k tisztazva vannak, kulonosen a Dandelion Koveskal SabeeApp link nelkuli foglalasi utja.
+
+Kep SEO implementacio kulon blokkolt: a `GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md` alapjan elobb donteni kell, hogy a korabbi `src/admin-disabled/data/images/accommodation-images.seo-test.json` + `project-docs/gallery-order-tool/*.html` forraspar legyen-e a tovabbi munka fo forrasa. A Batch 1 review csak uj review munkalap, nem final implementacios forras.
