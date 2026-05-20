@@ -7,6 +7,7 @@
 [CHANGE 2026-05-20 00:00] Kinek ajanljuk / kinek nem idealis ajanlasi szoveg DRAFT munkalap letrehozva.
 [CHANGE 2026-05-20 00:00] Elso implementacios csomag elokeszito dokumentuma letrehozva.
 [CHANGE 2026-05-20 00:00] Recommendation copy ujrafinomitva vendegbaratabb, kevesbe technikai szovegiranyra.
+[CHANGE 2026-05-20 00:00] Recommendation copy levaltva rovid pozicionalasi matrixra.
 
 # Google AI Readiness terv
 
@@ -26,7 +27,8 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - hazankenti `kinek ajanljuk / kinek nem idealis` ujrafinomitott, tulajdonosi vegso jovahagyasra varo munkalap.
+- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTALHATO: hosszunak bizonyult, pozicionalasi matrix valtja.
+- `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - uj, rovid, tablazatos forras a Package 1 szoveges reszehez.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
@@ -152,18 +154,18 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: ÚJRAFINOMÍTVA / TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR
-- Teendok: tulajdonosi végső szovegellenorzes a `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` alapjan.
-- Blokkolo adatok: tulajdonosi jovahagyas; eros negativ marketing megfogalmazas tilos.
+- Statusz: POSITIONING MATRIX DRAFT / TULAJDONOSI JOVAHAGYASRA VAR
+- Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` alapjan.
+- Blokkolo adatok: pozicionalasi matrix jovahagyasa; eros negativ marketing megfogalmazas tilos.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`.
 
 ### Allapot
 
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
-- ÚJRAFINOMÍTVA: minden szallashoz rovidebb, vendegbaratabb ajanlasi szoveg keszult.
-- TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR: a `Nem ez a legjobb valasztas, ha...` pontokat Csanadnak meg ellenoriznie kell.
-- Szovegirany: a `közös medence / privát medence` tulhangsulyozasa kikerult; a recommendation copy inkabb medencehasznalatot es enyhe, objektiv valasztasi szempontokat hasznal.
+- NEM IMPLEMENTALHATO: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
+- UJ FORRAS: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
+- Package 1 szoveges resze csak a pozicionalasi matrix tulajdonosi jovahagyasa utan indulhat.
 
 ## 6. CTA linkesites
 
@@ -262,14 +264,14 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 ## Javasolt kovetkezo vegrehajtasi sorrend
 
-1. `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`: tulajdonosi szovegellenorzes es jovahagyas.
-2. `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`: tulajdonosi jovahagyas az elso implementacios csomagra.
+1. `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`: tulajdonosi jovahagyas.
+2. `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`: frissitesi dontes, hogy a Package 1 a matrixbol dolgozzon.
 3. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: nem-Koveskal SabeeApp URL-ek ujra jovahagyasa es Koveskal CTA dontes.
-4. Elso implementacios kodtask csak jovahagyott Package 1 es booking/erdeklodesi URL-ek utan.
+4. Elso implementacios kodtask csak jovahagyott pozicionalasi matrix, Package 1 es booking/erdeklodesi URL-ek utan.
 5. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott, lathato adatokkal, es csak utana implementacio.
 6. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
 7. GBP es SabeeApp / Google Free Booking tisztazas.
 
 ## Implementacio elotti kapu
 
-Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha Csanad jovahagyta a recommendation copy-t es az elso implementacios csomag tervet, valamint a booking linkek es CTA-k tisztazva vannak, kulonosen a Dandelion Koveskal SabeeApp link nelkuli foglalasi utja.
+Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha Csanad jovahagyta a pozicionalasi matrixot es az elso implementacios csomag tervet, valamint a booking linkek es CTA-k tisztazva vannak, kulonosen a Dandelion Koveskal SabeeApp link nelkuli foglalasi utja.
