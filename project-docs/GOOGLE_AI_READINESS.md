@@ -13,6 +13,7 @@
 [CHANGE 2026-05-20 00:00] Pozicionalasi blokk HU QA DONE: build, HTML es vizualis ellenorzes rendben.
 [CHANGE 2026-05-20 00:00] Pozicionalasi blokk HU UX-suritese DONE: kompaktabb, kevesbe adatlap-szeru megjelenes.
 [CHANGE 2026-05-20 00:00] Positioning lathato megjelenites mikro ajanlo sorra cserelve.
+[CHANGE 2026-05-20 00:00] Positioning lathato megjelenites UX okbol kikapcsolva, adatmodell megtartva.
 
 # Google AI Readiness terv
 
@@ -159,7 +160,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: DONE - Positioning matrix HU beepites, QA es mikro ajanlo sor
+- Statusz: DONE - Positioning adatmodell megtartva, lathato megjelenites kikapcsolva
 - Teendok: EN paritas kulon kovetkezo taskban.
 - Blokkolo adatok: EN positioning szovegek jovahagyasa.
 - Utolso frissites: 2026-05-20
@@ -170,11 +171,13 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
 - NEM IMPLEMENTÁLHATÓ: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
 - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
-- DONE: a HU szallasoldalak `positioning` mezot kaptak, es a kozos `AccommodationPage.astro` lathato HTML dontesi blokkban rendereli.
+- DONE: a HU szallasoldalak `positioning` mezot kaptak; az adatmodell MEGMARAD.
 - DONE: Pozicionalasi blokk HU QA; `npm run build`, buildelt HTML, tiltott szovegek es kijelolt desktop/mobil viewportok ellenorizve.
-- DONE: Positioning lathato megjelenites: MIKRO AJANLO SORRA CSERELVE.
+- KIKAPCSOLVA UX okbol: kulon lathato positioning blokk / mikro sor nem jelenik meg a szallasoldalakon.
+- DONTES: kulon positioning megjelenites nem kerul a szallasoldalakra.
 - MEGJEGYZES: a `keyFacts` adatok az adatmodellben megmaradtak, de vizualisan nem jelennek meg.
 - MEGJEGYZES: a `betterAlternativeNote` adatok az adatmodellben megmaradtak, de vizualisan nem jelennek meg.
+- JOVOBELI IRANY: csak meglevo blokkokba olvasztva, kulon lathato uj blokk nelkul.
 - EN paritas: TODO.
 
 ## 6. CTA linkesites

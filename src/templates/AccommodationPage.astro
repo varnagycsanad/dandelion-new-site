@@ -41,8 +41,6 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/",
     secondaryDetailsLabel: "Tudnivalók és programok",
     decisionPanelAriaLabel: "Szállás döntési áttekintés",
-    positioningNoteAriaLabel: "Kinek ajánljuk ezt a szállást?",
-    positioningNoteLabel: "Kinek ajánljuk?",
     overviewTitle: "Gyors áttekintés",
     reasonsTitle: "Amiért szeretni fogod",
     relatedListingCta: "Nézd meg a többi Dandelion szállást is.",
@@ -57,8 +55,6 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/en/",
     secondaryDetailsLabel: "Local tips and things to know",
     decisionPanelAriaLabel: "Accommodation decision overview",
-    positioningNoteAriaLabel: "Who is this stay recommended for?",
-    positioningNoteLabel: "Recommended for",
     overviewTitle: "Quick overview",
     reasonsTitle: "Why you will love it",
     relatedListingCta: "Back to accommodations.",
@@ -158,25 +154,6 @@ function areDescriptionsSimilar(first?: string, second?: string) {
 
   const overlapRatio = sharedTokens / Math.min(firstTokens.size, secondTokens.size);
   return overlapRatio >= 0.72;
-}
-
-function capitalizeFirstLetter(value: string) {
-  if (!value) return "";
-  return value.charAt(0).toLocaleUpperCase("hu-HU") + value.slice(1);
-}
-
-function formatPositioningList(items: string[]) {
-  const cleanItems = items.map((item) => item.trim()).filter(Boolean);
-  if (cleanItems.length === 0) return "";
-
-  const [firstItem, ...restItems] = cleanItems;
-  const capitalizedItems = [capitalizeFirstLetter(firstItem), ...restItems];
-  const sentence =
-    capitalizedItems.length === 1
-      ? capitalizedItems[0]
-      : `${capitalizedItems.slice(0, -1).join(", ")} és ${capitalizedItems.at(-1)}`;
-
-  return sentence.endsWith(".") ? sentence : `${sentence}.`;
 }
 
 function resolveDecisionPanelImage(
@@ -294,11 +271,6 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
-const positioning = pageData.positioning;
-const positioningGoodFor = positioning?.goodFor.slice(0, 3) || [];
-const positioningStrengths = positioning?.strengths.slice(0, 3) || [];
-const positioningNoteText = formatPositioningList(positioningGoodFor);
-const positioningNoteMeta = positioningStrengths.map((item) => item.trim()).filter(Boolean).join(" · ");
 const introKicker = pageData.intro.kicker?.trim() || "";
 const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
@@ -665,25 +637,6 @@ const accommodationStructuredData = [
           {introKicker && <span class="dnd-section-kicker">{introKicker}</span>}
           {introTitle && <h2 id="accommodation-intro-title" class="d2-section-title">{introTitle}</h2>}
           {introLead && <p class="d2-intro__lead">{introLead}</p>}
-        </div>
-      </div>
-    </section>
-  )}
-
-  {positioningNoteText && (
-    <section class="dnd-positioning-note" aria-label={templateText.positioningNoteAriaLabel}>
-      <div class="dnd-positioning-note__inner">
-        <div class="dnd-positioning-note__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M12 3.5c1.8 3.4 3.1 4.7 6.5 6.5-3.4 1.8-4.7 3.1-6.5 6.5-1.8-3.4-3.1-4.7-6.5-6.5 3.4-1.8 4.7-3.1 6.5-6.5Z"></path>
-            <path d="M18.5 14.5c.7 1.3 1.2 1.8 2.5 2.5-1.3.7-1.8 1.2-2.5 2.5-.7-1.3-1.2-1.8-2.5-2.5 1.3-.7 1.8-1.2 2.5-2.5Z"></path>
-          </svg>
-        </div>
-
-        <div class="dnd-positioning-note__content">
-          <div class="dnd-positioning-note__label">{templateText.positioningNoteLabel}</div>
-          <p class="dnd-positioning-note__text">{positioningNoteText}</p>
-          {positioningNoteMeta && <p class="dnd-positioning-note__meta">{positioningNoteMeta}</p>}
         </div>
       </div>
     </section>
@@ -1796,68 +1749,6 @@ const accommodationStructuredData = [
     color: rgba(0, 0, 0, 0.68);
     font-size: var(--dnd-text-body);
     line-height: 1.72;
-  }
-
-  .dnd-positioning-note {
-    max-width: 1060px;
-    margin: 28px auto 0;
-    padding: 18px 0;
-    border-top: 1px solid rgba(217, 158, 43, 0.24);
-    border-bottom: 1px solid rgba(217, 158, 43, 0.14);
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .dnd-positioning-note__inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .dnd-positioning-note__icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    color: #d99e2b;
-  }
-
-  .dnd-positioning-note__icon svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-  }
-
-  .dnd-positioning-note__content {
-    min-width: 0;
-    text-align: left;
-  }
-
-  .dnd-positioning-note__label {
-    margin-bottom: 4px;
-    color: #d99e2b;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    line-height: 1.25;
-    text-transform: uppercase;
-  }
-
-  .dnd-positioning-note__text {
-    margin: 0;
-    color: #1f1a14;
-    font-size: 16px;
-    line-height: 1.55;
-    font-weight: 400;
-  }
-
-  .dnd-positioning-note__meta {
-    margin: 6px 0 0;
-    color: rgba(31, 26, 20, 0.68);
-    font-size: 14px;
-    line-height: 1.45;
   }
 
   .d2-details__layout {
@@ -3106,25 +2997,6 @@ const accommodationStructuredData = [
       margin-top: 12px;
       font-size: var(--dnd-text-md);
       line-height: 1.52;
-    }
-
-    .dnd-positioning-note {
-      margin-top: 22px;
-      padding: 16px 0;
-    }
-
-    .dnd-positioning-note__inner {
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 12px;
-    }
-
-    .dnd-positioning-note__text {
-      font-size: 15px;
-    }
-
-    .dnd-positioning-note__meta {
-      font-size: 13px;
     }
 
     .d2-details__layout {
