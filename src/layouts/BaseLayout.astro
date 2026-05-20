@@ -543,6 +543,18 @@ const headerLanguageLinks = [
           />
         </a>
 
+        <!-- [CHANGE 2026-05-20 08:00] Mobile header keeps the language switcher visible outside the hamburger menu. -->
+        <nav class="dnd-mobile-language" aria-label={headerText.languageAria}>
+          {headerLanguageLinks.map((languageLink) => languageLink.href ? (
+            <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
+              {languageLink.label}
+            </a>
+          ) : (
+            <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
+          ))}
+          <span class="dnd-language__pending" aria-disabled="true">DE</span>
+        </nav>
+
         <div class="dnd-header__mobile-actions">
           <a
             href={bookingHref}
@@ -571,17 +583,6 @@ const headerLanguageLinks = [
         >
           {headerText.bookingLabel}
         </a>
-        <!-- [CHANGE 2026-05-20 02:00] Mobile menu now exposes the same language switcher as desktop. -->
-        <nav class="dnd-mobile-language" aria-label={headerText.languageAria}>
-          {headerLanguageLinks.map((languageLink) => languageLink.href ? (
-            <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
-              {languageLink.label}
-            </a>
-          ) : (
-            <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
-          ))}
-          <span class="dnd-language__pending" aria-disabled="true">DE</span>
-        </nav>
         <a href={headerHomeHref}>{headerText.homeLabel}</a>
         <a href={headerStaysHref}>{headerText.staysLabel}</a>
         <div class="dnd-mobile-menu__groups" aria-label={headerText.mobileStayGroupsAria}>
@@ -826,6 +827,54 @@ const headerLanguageLinks = [
 
       .dnd-header-cta__label-short {
         display: none;
+      }
+
+      @media (max-width: 767px) {
+        .dnd-header__mobile {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          grid-template-areas:
+            "logo language"
+            "booking menu";
+          align-items: center;
+          min-height: 104px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          column-gap: 10px;
+          row-gap: 8px;
+        }
+
+        .dnd-logo--mobile {
+          grid-area: logo;
+          min-width: 0;
+        }
+
+        .dnd-mobile-language {
+          grid-area: language;
+          justify-self: end;
+          min-height: 34px;
+          padding: 0 10px;
+          gap: 10px;
+        }
+
+        .dnd-header__mobile-actions {
+          display: contents;
+        }
+
+        .dnd-header-cta--mobile {
+          grid-area: booking;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .dnd-menu-toggle {
+          grid-area: menu;
+          justify-self: end;
+        }
+
+        .dnd-mobile-menu[data-open="true"] {
+          max-height: calc(100vh - 104px);
+        }
       }
 
       @media (max-width: 640px) {
