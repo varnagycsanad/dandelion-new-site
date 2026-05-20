@@ -1,5 +1,6 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness tulajdonosi adatbekero letrehozva.
 [CHANGE 2026-05-20 00:00] Tulajdonos altal megerositett szallasadatok atvezetve.
+[CHANGE 2026-05-20 00:00] Maradek tulajdonosi adatok es kinek nem idealis iranyelvek rogzitve.
 
 # Google AI Readiness tulajdonosi adatbekero
 
@@ -19,6 +20,10 @@ Jeloles:
 - Medence: D1, D2 es Fugehaz eseteben kozos medence; minden mas haznal nincs medence.
 - Royal Homes: jakuzzi van, medence nincs.
 - Koveskal: vegleges nev Dandelion Koveskal; telepules Koveskal; SabeeApp booking link nincs.
+- Fugehaz telepules: Kisapati.
+- Royal Homes csaladbarat: igen.
+- Koveskal: kert van, nagy kert van, nagy terasz van.
+- Kinek nem idealis irany: nem eros negativ pozicionalas; ha nincs hazspecifikus kizaro ok, enyhe objektiv korlattal kesobb megfogalmazando.
 
 ## Azonnali dontest igenylo kerdesek
 
@@ -26,6 +31,9 @@ Jeloles:
 - [x] Kisallat-szabaly minden hazra megadva.
 - [x] Medence statusz minden hazra megadva.
 - [x] Royal Homes: jakuzzi van, medence nincs.
+- [x] Fugehaz telepules tisztazva: Kisapati.
+- [x] Royal Homes csaladbarat statusz tisztazva: igen.
+- [x] Koveskal kert / nagy kert / nagy terasz tisztazva: van.
 - [ ] Koveskal foglalasi CTA vegleges megoldasa, mert SabeeApp booking link nincs.
 - [ ] Szallasoldali CTA linkesiteshez minden nem-Koveskal HU/EN booking URL ujra jovahagyva.
 
@@ -46,7 +54,7 @@ Megerositett adatok:
 Meg nyitott mezok:
 
 - [ ] Haloszobak pontos publikus bontasa, ha kell.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strandok konkret listaja.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=2be20f0b68a1114a&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=2be20f0b68a1114a&lang=En`
@@ -67,7 +75,7 @@ Megerositett adatok:
 Meg nyitott mezok:
 
 - [ ] Haloszobak pontos publikus bontasa, ha kell.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strandok konkret listaja.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=c64244f6153c3ca1&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=c64244f6153c3ca1&lang=En`
@@ -84,12 +92,12 @@ Megerositett adatok:
 - Wifi: van.
 - Legkondi: van.
 - Medence: kozos medence.
+- Telepules: Kisapati.
 
 Meg nyitott mezok:
 
-- [ ] Pontos telepules.
 - [ ] Haloszobak / szobastruktura publikus bontasa, ha kell.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strandok konkret listaja.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=af2fdb8ed2ebb145&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=af2fdb8ed2ebb145&lang=En`
@@ -110,7 +118,7 @@ Megerositett adatok:
 Meg nyitott mezok:
 
 - [ ] Haloszobak / szobastruktura publikus bontasa, ha kell.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strandok.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=cf20da88f046211e&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=cf20da88f046211e&lang=En`
@@ -131,7 +139,7 @@ Megerositett adatok:
 Meg nyitott mezok:
 
 - [ ] Haloszobak / szobastruktura publikus bontasa, ha kell.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strandok konkret listaja.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=e30c4b62d7324b3f&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=e30c4b62d7324b3f&lang=En`
@@ -151,7 +159,7 @@ Megerositett adatok:
 
 Meg nyitott mezok:
 
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strand pontos neve, ha kell.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=7d46f283f2f5792f&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=7d46f283f2f5792f&lang=En`
@@ -169,11 +177,11 @@ Megerositett adatok:
 - Legkondi: van.
 - Medence: nincs.
 - Jakuzzi: van.
+- Csaladbarat: igen.
 
 Meg nyitott mezok:
 
-- [ ] Csaladbarat statusz.
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=c4b8753ec9ad4dc9&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=c4b8753ec9ad4dc9&lang=En`
 
@@ -192,7 +200,7 @@ Megerositett adatok:
 
 Meg nyitott mezok:
 
-- [ ] Kinek nem ajanlott.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Kozeli strand pontos neve, ha kell.
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=0c9e5eaae0545ee3&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=0c9e5eaae0545ee3&lang=En`
@@ -212,13 +220,16 @@ Megerositett adatok:
 - Legkondi: van.
 - Medence: nincs.
 - SabeeApp booking link: nincs.
+- Kert / terasz: van.
+- Nagy kert: van.
+- Nagy terasz: van.
+- Kozeli strandok: Revfulop / pontos nev ellenorizendo; Zanka; Balatonakali; Abrahamhegy.
 
 Meg nyitott mezok:
 
 - [ ] Haloszobak szama.
-- [ ] Kert / terasz.
-- [ ] Kinek nem ajanlott.
-- [ ] Kozeli strandok / Balaton kapcsolat.
+- [ ] Revfulop strand pontos neve.
+- [ ] Kinek nem idealis szoveg: nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando.
 - [ ] Koveskal foglalasi CTA megoldasa SabeeApp link nelkul.
 
 ## SabeeApp supportnak felteendo kerdesek
@@ -237,7 +248,7 @@ Gyors dontesi blokk csak akkor indulhat, ha:
 
 - [x] kisallat, wifi, parkolas, legkondi, medence statuszok tisztazva
 - [x] furdok szama es agyelrendezes tisztazva
-- [ ] kinek ajanlott / kinek nem ajanlott mezok megvannak
+- [ ] kinek nem idealis szovegek enyhe, objektiv korlattal megfogalmazva
 
 CTA linkesites csak akkor indulhat, ha:
 

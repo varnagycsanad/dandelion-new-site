@@ -1,5 +1,6 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness szallasadat-hiany munkalap letrehozva.
 [CHANGE 2026-05-20 00:00] Tulajdonos altal megerositett alap szallasadatok atvezetve.
+[CHANGE 2026-05-20 00:00] Maradek tulajdonosi adatok es kinek nem idealis szovegirany rogzitve.
 
 # Google AI Readiness property data gaps
 
@@ -34,7 +35,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | Balaton, Badacsony, Szigliget, Csobanc, boraszatok | nincs |
 | kozeli strandok | ELLENORIZENDO | Balaton rovid autouttal, konkret strandlista nincs | strandok listaja |
 | kinek ajanlott | MEGVAN | nagyobb csaladok, barati tarsasagok | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=2be20f0b68a1114a, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=2be20f0b68a1114a, lang=En | nincs |
 
@@ -58,7 +59,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | Balaton, turak, boraszatok | nincs |
 | kozeli strandok | ELLENORIZENDO | strandok kozelben, konkret strandlista nincs | strandok listaja |
 | kinek ajanlott | MEGVAN | csaladi pihenes | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=c64244f6153c3ca1, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=c64244f6153c3ca1, lang=En | nincs |
 
@@ -77,12 +78,12 @@ Statuszok:
 | kisallat | MEGVAN | Tulajdonos: engedelyezett | nincs |
 | csaladbarat | MEGVAN | repo: csaladbarat haz | nincs |
 | kert / terasz | MEGVAN | repo: panoramas teraszok, kerti etkezo | nincs |
-| telepules | ELLENORIZENDO | Szent Gyorgy-hegy kozeleben, pontos telepules nem explicit | pontos telepules |
+| telepules | MEGVAN | Tulajdonos: Kisapati | nincs |
 | regio | MEGVAN | Balaton-felvidek / Szent Gyorgy-hegy kornyeke | nincs |
 | kozeli latnivalok | MEGVAN | tanuhagyek, turak, borok, strandok | nincs |
 | kozeli strandok | ELLENORIZENDO | strandok altalanosan | konkret strandok |
 | kinek ajanlott | MEGVAN | csaladias, nyugodt, teraszos pihenes | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=af2fdb8ed2ebb145, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=af2fdb8ed2ebb145, lang=En | nincs |
 
@@ -106,7 +107,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | turautvonal, tanuhagyek, Csobanc, Gulacs, Toti-hegy | nincs |
 | kozeli strandok | HIANYZIK | nem talaltam biztos szoveges adatot | strandok listaja |
 | kinek ajanlott | MEGVAN | nyugodt pihenest kereso parok, kisebb csaladok, baratok | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=cf20da88f046211e, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=cf20da88f046211e, lang=En | nincs |
 
@@ -130,7 +131,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | Bazaltorgona, boraszatok, tanuhagyek, Badacsony, Szigliget, Balaton | nincs |
 | kozeli strandok | ELLENORIZENDO | Balaton rovid uttal | konkret strandok |
 | kinek ajanlott | MEGVAN | elvonulas, csaladok, kirandulok, bortura, balatoni nyaralas | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=e30c4b62d7324b3f, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=e30c4b62d7324b3f, lang=En | nincs |
 
@@ -154,7 +155,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | Folly Arboretum, Szigligeti var, borturak, gasztroprogramok, fesztivalok | nincs |
 | kozeli strandok | MEGVAN | strand kozelben | konkret strand neve opcionalisan pontosithato |
 | kinek ajanlott | MEGVAN | nagyobb csalad / tarsasag Balaton kozeleben | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=7d46f283f2f5792f, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=7d46f283f2f5792f, lang=En | nincs |
 
@@ -171,14 +172,14 @@ Statuszok:
 | legkondi | MEGVAN | Tulajdonos: van | nincs |
 | wifi | MEGVAN | Tulajdonos: van | nincs |
 | kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
-| csaladbarat | ELLENORIZENDO | tulajdonos nem adott kulon csaladbarat valaszt | csaladbarat statusz |
+| csaladbarat | MEGVAN | Tulajdonos: igen | nincs |
 | kert / terasz | MEGVAN | repo: nagy terasz, szeles erkely, napozoterasz | nincs |
 | telepules | MEGVAN | Keszthely | nincs |
 | regio | MEGVAN | Balaton-parti uduloovezet | nincs |
 | kozeli latnivalok | MEGVAN | kikoto, setany, varoskozpont kb. 10 perc, kerekparut | nincs |
 | kozeli strandok | MEGVAN | Balaton-part / sajat parti molo | nincs |
 | kinek ajanlott | MEGVAN | premium, modern apartmant kereso vendegek | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=c4b8753ec9ad4dc9, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=c4b8753ec9ad4dc9, lang=En | nincs |
 
@@ -202,7 +203,7 @@ Statuszok:
 | kozeli latnivalok | MEGVAN | kirandulohelyek, tanuhagyek, boraszatok | nincs |
 | kozeli strandok | MEGVAN | Balaton 7 km | konkret strandok opcionalisan pontosithatok |
 | kinek ajanlott | MEGVAN | csaladok, babaval erkezok, baratok, parok | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=0c9e5eaae0545ee3, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=0c9e5eaae0545ee3, lang=En | nincs |
 
@@ -220,21 +221,20 @@ Statuszok:
 | wifi | MEGVAN | Tulajdonos: van | nincs |
 | kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
 | csaladbarat | MEGVAN | repo: paroknak, csaladoknak, barati tarsasagoknak | nincs |
-| kert / terasz | ELLENORIZENDO | kert/terasz nincs explicit | kinti terek megadasa |
+| kert / terasz | MEGVAN | Tulajdonos: kert van, nagy kert van, nagy terasz van | nincs |
 | telepules | MEGVAN | Tulajdonos: Koveskal | nincs |
 | regio | MEGVAN | Kali-medence | nincs |
 | kozeli latnivalok | MEGVAN | Kali-medence falvai, turak, boros megallok, pincesorok | nincs |
-| kozeli strandok | HIANYZIK | nem talaltam biztos szoveges adatot | strand/Balaton kapcsolat |
+| kozeli strandok | ELLENORIZENDO | Revfulop / pontos nev meg ellenorizendo; Zanka; Balatonakali; Abrahamhegy | Revfulop pontos strandnev |
 | kinek ajanlott | MEGVAN | csendes pihenest keresok | nincs |
-| kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
+| kinek nem ajanlott | ELLENORIZENDO | nincs kulon hazspecifikus kizaro ok; kesobb enyhe objektiv korlattal megfogalmazando | szovegiras |
 | HU booking link | BLOKKOLT | Tulajdonos: nincs SabeeApp booking link | kesobbi booking/CTA dontes |
 | EN booking link | BLOKKOLT | Tulajdonos: nincs SabeeApp booking link | kesobbi booking/CTA dontes |
 
 ## Tovabbra is hianyzo / ellenorizendo adatok
 
-1. Minden szallas: `kinek nem idealis` blokk hianyzik.
+1. Minden szallas: `kinek nem idealis` blokk mar nem adat-hiany, hanem enyhe, objektiv szovegirasi feladat.
 2. D1, D2, Fugehaz, Zsalya, Szololiget: haloszoba bontas csak reszben tiszta.
-3. Fugehaz: pontos telepules tovabbra is ellenorizendo.
-4. Royal Homes: csaladbarat statusz tovabbra is ellenorizendo.
-5. Koveskal: haloszobak szama, kert/terasz, kozeli strandok, booking/CTA dontes tovabbra is nyitott.
-6. Konkret kozeli strandlistak tobb szallasnal meg pontosithatok.
+3. Koveskal: haloszobak szama es booking/CTA dontes tovabbra is nyitott.
+4. Koveskal: Revfulop pontos strandnev tovabbra is ELLENORIZENDO.
+5. Konkret kozeli strandlistak tobb szallasnal meg pontosithatok.

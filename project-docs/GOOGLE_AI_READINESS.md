@@ -3,6 +3,7 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness munkadokumentumok letrehozva es a statuszhoz kapcsolva.
 [CHANGE 2026-05-20 00:00] Tulajdonosi adatbekero munkalap letrehozva, implementacio elotti kotelezo kitolteskent.
 [CHANGE 2026-05-20 00:00] Tulajdonos altal megerositett alap szallasadatok atvezetve a statuszba.
+[CHANGE 2026-05-20 00:00] Maradek tulajdonosi adatok rogzitve; kinek nem idealis blokk szovegirasi feladatta minositve.
 
 # Google AI Readiness terv
 
@@ -58,19 +59,19 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 - Nincs teljes, ellenorzott szallasadat-mester tabla.
 - A gyors dontesi adatok nem minden szallasnal azonos melyseguek, de a kapacitas, furdok, agyelrendezes, kisallat, wifi, parkolas, legkondi es medence alapadatok nagy resze tulajdonosi megerositest kapott.
-- Tovabbra is hianyzik tobb dontest segito negativ allitas, peldaul `kinek nem idealis`.
+- A maradek alap tulajdonosi adatok jelentos resze megerkezett; a `kinek nem idealis` blokk mar nem adat-hiany, hanem ovatos szovegirasi feladat.
 - A szallasoldali fo CTA-k `button onclick="OpenBE()"` alapuak, nem crawlolhato `<a href>` linkek.
 - Dandelion Koveskal eseteben nincs SabeeApp booking link, ez kesobbi booking/CTA dontes.
 - A LodgingBusiness schema minimalis, nem tartalmaz reszletes szallasadatokat.
 - A legtobb nem-D2 galeriakep alt/title/caption mezoi generikusak.
-- A `kinek nem idealis` blokk minden szallasnal hianyzik.
+- A `kinek nem idealis` blokk minden szallasnal enyhe, objektiv korlatokra epulo megfogalmazast igenyel.
 
 ## 1. Szallasadat-mester tabla
 
 - Cel: egyetlen attekintheto tabla minden szallas AI-szempontbol fontos adatarol.
 - Statusz: IN_PROGRESS
 - Teendok: megerositett tulajdonosi adatok alapjan vegleges mester tabla keszitese; HU/EN paritas kesobb.
-- Blokkolo adatok: Koveskal CTA dontes, `kinek nem idealis` tartalmak, nehany haloszoba bontas es strandlista.
+- Blokkolo adatok: Koveskal CTA dontes, `kinek nem idealis` szovegek, nehany haloszoba bontas es strandlista.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`.
 
@@ -78,15 +79,15 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 | Szallas | Ferohely | Haloszobak | Furdok | Agyelrendezes | Medence statusz | Parkolas | Legkondi | Wifi | Kisallat | Csaladbarat | Kert / terasz | Telepules | Regio | Kozeli latnivalok | Kozeli strandok | Kinek ajanlott | Kinek nem ajanlott | HU booking link | EN booking link |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Dandelion D1 | MEGVAN: 8 fo | ELLENORIZENDO: 3 haloszoba + nappali repo alapjan | MEGVAN: 2 furdoszoba | MEGVAN: 6 szimpla agy + 1 kihuzhato kanape; franciaagy nincs | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: nagy csaladi haz / csaladbarat | MEGVAN: kert es panoramas terasz | MEGVAN: Kisapati | MEGVAN: Szent Gyorgy-hegy / Tapolcai-medence / Balaton-felvidek | MEGVAN: Balaton, Badacsony, Szigliget, Csobanc, boraszatok | ELLENORIZENDO: konkret strandlista | MEGVAN: nagyobb csaladok, barati tarsasagok | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=2be20f0b68a1114a&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=2be20f0b68a1114a&lang=En` |
-| Dandelion D2 | MEGVAN: 6 fo | ELLENORIZENDO: 2 halo + nappali repo alapjan | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 szimpla agy + 1 kihuzhato kanape | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: csaladi bazis / gyerekekkel kenyelmes | MEGVAN: nagy udvar, kert, fedett terasz | MEGVAN: Kisapati | MEGVAN: Szent Gyorgy-hegy / Balaton-felvidek | MEGVAN: Balaton, turak, boraszatok | ELLENORIZENDO: konkret strandlista | MEGVAN: csaladi pihenes | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=c64244f6153c3ca1&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=c64244f6153c3ca1&lang=En` |
-| Fugehaz | MEGVAN: 4 fo | ELLENORIZENDO: ket szint, pontos szobastruktura | MEGVAN: 1 furdoszoba | MEGVAN: 2 franciaagy | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: csaladbarat haz | MEGVAN: panoramas teraszok, kerti etkezo | ELLENORIZENDO: pontos telepules | MEGVAN: Balaton-felvidek / Szent Gyorgy-hegy kornyeke | MEGVAN: tanuhagyek, turak, borok, strandok | ELLENORIZENDO: konkret strandlista | MEGVAN: csaladias, nyugodt, teraszos pihenes | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=af2fdb8ed2ebb145&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=af2fdb8ed2ebb145&lang=En` |
-| Zsalya Vendeghaz | MEGVAN: 4 fo | ELLENORIZENDO: ket szint, pontos szobastruktura | MEGVAN: 2 furdoszoba | MEGVAN: 2 franciaagy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: parok, kisebb csaladok, baratok | MEGVAN: reszben fedett terasz | MEGVAN: Kisapati / Szent Gyorgy-hegy keleti oldala | MEGVAN: Balaton-felvidek / Szent Gyorgy-hegy | MEGVAN: turautvonal, tanuhagyek, Csobanc, Gulacs, Toti-hegy | HIANYZIK | MEGVAN: nyugodt pihenest kereso parok, kisebb csaladok, baratok | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=cf20da88f046211e&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=cf20da88f046211e&lang=En` |
-| Szololiget Vendeghaz | MEGVAN: 4 fo | ELLENORIZENDO: ketszintes haz, pontos szobastruktura | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 1 kihuzhato kanape | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladoknak is idealis | MEGVAN: nagy, korbejarhato terasz | MEGVAN: Kisapati / Szent Gyorgy-hegy keleti oldala | MEGVAN: Balaton-felvidek | MEGVAN: Bazaltorgona, boraszatok, tanuhagyek, Badacsony, Szigliget, Balaton | ELLENORIZENDO: konkret strandlista | MEGVAN: elvonulas, csaladok, kirandulok, bortura, balatoni nyaralas | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=e30c4b62d7324b3f&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=e30c4b62d7324b3f&lang=En` |
-| Szepvolgyi Vendeghaz | MEGVAN: 8 fo | MEGVAN: 4 haloszoba | MEGVAN: 2 furdoszoba | MEGVAN: 1 franciaagy + 6 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladi nyaralashoz / nagyobb tarsasagnak | MEGVAN: zart kert, teraszbuborok | MEGVAN: Badacsonyors | MEGVAN: Balaton kozeli / Badacsonyors | MEGVAN: Folly Arboretum, Szigligeti var, borturak, gasztroprogramok, fesztivalok | MEGVAN: strand kozelben | MEGVAN: nagyobb csalad / tarsasag Balaton kozeleben | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=7d46f283f2f5792f&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=7d46f283f2f5792f&lang=En` |
-| Dandelion Royal Homes | MEGVAN: 6 fo | MEGVAN: 2 haloszoba + nappali | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 kihuzhato kanape | MEGVAN: nincs medence; jakuzzi van | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | ELLENORIZENDO | MEGVAN: nagy terasz, szeles erkely, napozoterasz | MEGVAN: Keszthely | MEGVAN: Balaton-parti uduloovezet | MEGVAN: kikoto, setany, varoskozpont kb. 10 perc, kerekparut | MEGVAN: Balaton-part / sajat parti molo | MEGVAN: premium, modern apartmant kereso vendegek | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=c4b8753ec9ad4dc9&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=c4b8753ec9ad4dc9&lang=En` |
-| Dandelion Vintage / Cottage | MEGVAN: 4 fo | MEGVAN: 2 haloszoba + nappali | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladbarat, bababarat | MEGVAN: sajat udvar, grillezes | MEGVAN: Nemesgulacs | MEGVAN: Balaton-felvidek | MEGVAN: kirandulohelyek, tanuhagyek, boraszatok | MEGVAN: Balaton 7 km | MEGVAN: csaladok, babaval erkezok, baratok, parok | HIANYZIK | MEGVAN: SabeeApp `selectedRooms=0c9e5eaae0545ee3&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=0c9e5eaae0545ee3&lang=En` |
-| Dandelion Koveskal | MEGVAN: 6 fo | HIANYZIK | MEGVAN: 2 furdoszoba | MEGVAN: 2 franciaagy + 2 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: paroknak, csaladoknak, barati tarsasagoknak | ELLENORIZENDO: kert/terasz nincs explicit | MEGVAN: Koveskal | MEGVAN: Kali-medence | MEGVAN: Kali-medence falvai, turak, boros megallok, pincesorok | HIANYZIK | MEGVAN: csendes pihenest keresok | HIANYZIK | BLOKKOLT: nincs SabeeApp booking link | BLOKKOLT: nincs SabeeApp booking link |
+| Dandelion D1 | MEGVAN: 8 fo | ELLENORIZENDO: 3 haloszoba + nappali repo alapjan | MEGVAN: 2 furdoszoba | MEGVAN: 6 szimpla agy + 1 kihuzhato kanape; franciaagy nincs | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: nagy csaladi haz / csaladbarat | MEGVAN: kert es panoramas terasz | MEGVAN: Kisapati | MEGVAN: Szent Gyorgy-hegy / Tapolcai-medence / Balaton-felvidek | MEGVAN: Balaton, Badacsony, Szigliget, Csobanc, boraszatok | ELLENORIZENDO: konkret strandlista | MEGVAN: nagyobb csaladok, barati tarsasagok | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=2be20f0b68a1114a&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=2be20f0b68a1114a&lang=En` |
+| Dandelion D2 | MEGVAN: 6 fo | ELLENORIZENDO: 2 halo + nappali repo alapjan | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 szimpla agy + 1 kihuzhato kanape | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: csaladi bazis / gyerekekkel kenyelmes | MEGVAN: nagy udvar, kert, fedett terasz | MEGVAN: Kisapati | MEGVAN: Szent Gyorgy-hegy / Balaton-felvidek | MEGVAN: Balaton, turak, boraszatok | ELLENORIZENDO: konkret strandlista | MEGVAN: csaladi pihenes | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=c64244f6153c3ca1&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=c64244f6153c3ca1&lang=En` |
+| Fugehaz | MEGVAN: 4 fo | ELLENORIZENDO: ket szint, pontos szobastruktura | MEGVAN: 1 furdoszoba | MEGVAN: 2 franciaagy | MEGVAN: kozos medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: engedelyezett | MEGVAN: csaladbarat haz | MEGVAN: panoramas teraszok, kerti etkezo | MEGVAN: Kisapati | MEGVAN: Balaton-felvidek / Szent Gyorgy-hegy kornyeke | MEGVAN: tanuhagyek, turak, borok, strandok | ELLENORIZENDO: konkret strandlista | MEGVAN: csaladias, nyugodt, teraszos pihenes | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=af2fdb8ed2ebb145&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=af2fdb8ed2ebb145&lang=En` |
+| Zsalya Vendeghaz | MEGVAN: 4 fo | ELLENORIZENDO: ket szint, pontos szobastruktura | MEGVAN: 2 furdoszoba | MEGVAN: 2 franciaagy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: parok, kisebb csaladok, baratok | MEGVAN: reszben fedett terasz | MEGVAN: Kisapati / Szent Gyorgy-hegy keleti oldala | MEGVAN: Balaton-felvidek / Szent Gyorgy-hegy | MEGVAN: turautvonal, tanuhagyek, Csobanc, Gulacs, Toti-hegy | HIANYZIK | MEGVAN: nyugodt pihenest kereso parok, kisebb csaladok, baratok | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=cf20da88f046211e&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=cf20da88f046211e&lang=En` |
+| Szololiget Vendeghaz | MEGVAN: 4 fo | ELLENORIZENDO: ketszintes haz, pontos szobastruktura | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 1 kihuzhato kanape | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladoknak is idealis | MEGVAN: nagy, korbejarhato terasz | MEGVAN: Kisapati / Szent Gyorgy-hegy keleti oldala | MEGVAN: Balaton-felvidek | MEGVAN: Bazaltorgona, boraszatok, tanuhagyek, Badacsony, Szigliget, Balaton | ELLENORIZENDO: konkret strandlista | MEGVAN: elvonulas, csaladok, kirandulok, bortura, balatoni nyaralas | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=e30c4b62d7324b3f&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=e30c4b62d7324b3f&lang=En` |
+| Szepvolgyi Vendeghaz | MEGVAN: 8 fo | MEGVAN: 4 haloszoba | MEGVAN: 2 furdoszoba | MEGVAN: 1 franciaagy + 6 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladi nyaralashoz / nagyobb tarsasagnak | MEGVAN: zart kert, teraszbuborok | MEGVAN: Badacsonyors | MEGVAN: Balaton kozeli / Badacsonyors | MEGVAN: Folly Arboretum, Szigligeti var, borturak, gasztroprogramok, fesztivalok | MEGVAN: strand kozelben | MEGVAN: nagyobb csalad / tarsasag Balaton kozeleben | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=7d46f283f2f5792f&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=7d46f283f2f5792f&lang=En` |
+| Dandelion Royal Homes | MEGVAN: 6 fo | MEGVAN: 2 haloszoba + nappali | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 kihuzhato kanape | MEGVAN: nincs medence; jakuzzi van | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: igen | MEGVAN: nagy terasz, szeles erkely, napozoterasz | MEGVAN: Keszthely | MEGVAN: Balaton-parti uduloovezet | MEGVAN: kikoto, setany, varoskozpont kb. 10 perc, kerekparut | MEGVAN: Balaton-part / sajat parti molo | MEGVAN: premium, modern apartmant kereso vendegek | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=c4b8753ec9ad4dc9&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=c4b8753ec9ad4dc9&lang=En` |
+| Dandelion Vintage / Cottage | MEGVAN: 4 fo | MEGVAN: 2 haloszoba + nappali | MEGVAN: 1 furdoszoba | MEGVAN: 1 franciaagy + 2 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: csaladbarat, bababarat | MEGVAN: sajat udvar, grillezes | MEGVAN: Nemesgulacs | MEGVAN: Balaton-felvidek | MEGVAN: kirandulohelyek, tanuhagyek, boraszatok | MEGVAN: Balaton 7 km | MEGVAN: csaladok, babaval erkezok, baratok, parok | ELLENORIZENDO: enyhe objektiv szovegiras | MEGVAN: SabeeApp `selectedRooms=0c9e5eaae0545ee3&lang=Hu` | MEGVAN: SabeeApp `selectedRooms=0c9e5eaae0545ee3&lang=En` |
+| Dandelion Koveskal | MEGVAN: 6 fo | HIANYZIK | MEGVAN: 2 furdoszoba | MEGVAN: 2 franciaagy + 2 szimpla agy | MEGVAN: nincs medence | MEGVAN: ingyenes parkolas | MEGVAN: van | MEGVAN: van | MEGVAN: nem engedelyezett | MEGVAN: paroknak, csaladoknak, barati tarsasagoknak | MEGVAN: kert, nagy kert, nagy terasz | MEGVAN: Koveskal | MEGVAN: Kali-medence | MEGVAN: Kali-medence falvai, turak, boros megallok, pincesorok | ELLENORIZENDO: Revfulop pontos nev; Zanka; Balatonakali; Abrahamhegy | MEGVAN: csendes pihenest keresok | ELLENORIZENDO: enyhe objektiv szovegiras | BLOKKOLT: nincs SabeeApp booking link | BLOKKOLT: nincs SabeeApp booking link |
 
 ## 2. Hianylista
 
@@ -99,11 +100,10 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 ### Legfontosabb hianyzo / ellenorizendo adatok
 
-- Minden szallas: `kinek nem idealis` blokk HIANYZIK.
+- Minden szallas: `kinek nem idealis` blokk szovegirasi feladat, nem adat-hiany; eros negativ pozicionalas nelkul.
 - D1, D2, Fugehaz, Zsalya, Szololiget: haloszoba bontas tovabbra is ELLENORIZENDO, ha kulon publikalando.
-- Fugehaz: pontos telepules tovabbra is ELLENORIZENDO.
-- Royal Homes: csaladbarat statusz tovabbra is ELLENORIZENDO.
-- Koveskal: haloszobak szama, kert/terasz es kozeli strandok tovabbra is HIANYZIK/ELLENORIZENDO.
+- Koveskal: haloszobak szama tovabbra is HIANYZIK.
+- Koveskal: Revfulop pontos strandnev tovabbra is ELLENORIZENDO.
 - Booking/CTA: Koveskal SabeeApp booking link nincs; kesobbi CTA dontes kell.
 
 ## 3. Foglalasi link terkep
@@ -148,15 +148,15 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
 - Statusz: TODO
-- Teendok: szallasonkenti ajanlott/nem idealis pontok tulajdonosi egyeztetese.
-- Blokkolo adatok: tulajdonosi dontes a kizart vagy nem ajanlott esetek kommunikaciojarol.
+- Teendok: szallasonkenti `kinek nem idealis` szovegek enyhe, objektiv korlatokkal valo megfogalmazasa.
+- Blokkolo adatok: vegleges szovegirasi dontes; eros negativ marketing megfogalmazas tilos.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md`.
 
 ### Allapot
 
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
-- HIANYZIK: strukturalt `Nem ez a legjobb valasztas, ha...` blokk minden oldalon.
+- ELLENORIZENDO: strukturalt `Nem ez a legjobb valasztas, ha...` blokk minden oldalon szovegirasi feladatkent.
 
 ## 6. CTA linkesites
 
