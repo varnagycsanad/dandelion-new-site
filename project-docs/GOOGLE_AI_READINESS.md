@@ -16,6 +16,7 @@
 [CHANGE 2026-05-20 00:00] Positioning lathato megjelenites UX okbol kikapcsolva, adatmodell megtartva.
 [CHANGE 2026-05-20 00:00] HU szallasoldali SabeeApp booking CTA-k href linkesitese elkeszult; Koveskal tovabbra is blokkolt.
 [CHANGE 2026-05-20 00:00] Dandelion Koveskal HU erdeklodes CTA meglevo kapcsolat URL-re beallitva.
+[CHANGE 2026-05-20 00:00] EN szallasoldali CTA paritas ellenorizve; Koveskal EN erdeklodes CTA `/en/contact/` URL-re beallitva.
 
 # Google AI Readiness terv
 
@@ -185,9 +186,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 6. CTA linkesites
 
 - Cel: a szallasoldali foglalasi CTA-k crawler szamara is rendes linkek legyenek.
-- Statusz: PARTIAL - HU SabeeApp CTA href linkesites DONE; Koveskal HU erdeklodes CTA DONE; EN CTA paritas TODO.
-- Teendok: EN CTA paritas kulon ellenorzes; header/listing/szallasoldali CTA kommunikacio osszehangolasa.
-- Blokkolo adatok: EN Koveskal erdeklodesi utvonal dontes; szobaspecifikus URL-ek ujrajovahagyasa.
+- Statusz: DONE - HU/EN SabeeApp CTA href linkesites DONE; Koveskal HU/EN erdeklodes CTA DONE.
+- Teendok: header/listing/szallasoldali CTA kommunikacio osszehangolasa; kesobbi schema booking URL terv.
+- Blokkolo adatok: szobaspecifikus URL-ek ujrajovahagyasa; schema booking URL dontes.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`.
 
@@ -197,7 +198,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - DONE: az OpenBE mukodes progressziven megmaradt `onclick="OpenBE(); return false;"` formaban, JS nelkul pedig a href mukodik.
 - DONE: HU SabeeApp linkek `lang=Hu` parametere megmaradt, selectedRooms ertek nem valtozott.
 - DONE: Dandelion Koveskal HU CTA `Erdeklodes` szoveggel a meglevo `/kapcsolat/` URL-re mutat; OpenBE es SabeeApp nelkul.
-- TODO: EN CTA paritas kulon ellenorzes.
+- DONE: EN SabeeApp linkek `lang=En` parametere megmaradt, selectedRooms ertek nem valtozott.
+- DONE: Dandelion Koveskal EN CTA `Send inquiry` szoveggel a meglevo `/en/contact/` URL-re mutat; OpenBE es SabeeApp nelkul.
 - TODO: schema bovites.
 - TODO: kep SEO.
 

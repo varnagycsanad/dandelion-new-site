@@ -8,7 +8,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
     description:
       "Dandelion Köveskál is a peaceful countryside accommodation in Köveskál, in the Káli Basin and the Balaton Uplands, ideal for a relaxed stay near Lake Balaton."
   },
-  bookingLink: "https://dandelionhouse.hu/koveskal/",
+  bookingLink: "/en/contact/",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "koveskal",
@@ -27,7 +27,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
       desktop: "/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4?v=20260520-faststart",
       mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4?v=20260520-faststart"
     },
-    primaryCtaLabel: "Book now",
+    primaryCtaLabel: "Send inquiry",
     secondaryCtaLabel: "View photos"
   },
   reviews: {
@@ -83,7 +83,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
       "If you are drawn to the more understated countryside side of the Dandelion stays, Köveskál is a natural continuation of that mood."
     ],
     moreLabel: "More about Dandelion Köveskál",
-    ctaLabel: "Check availability"
+    ctaLabel: "Send inquiry"
   },
   facts: {
     groups: [
