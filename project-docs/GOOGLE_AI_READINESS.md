@@ -5,6 +5,7 @@
 [CHANGE 2026-05-20 00:00] Tulajdonos altal megerositett alap szallasadatok atvezetve a statuszba.
 [CHANGE 2026-05-20 00:00] Maradek tulajdonosi adatok rogzitve; kinek nem idealis blokk szovegirasi feladatta minositve.
 [CHANGE 2026-05-20 00:00] Kinek ajanljuk / kinek nem idealis ajanlasi szoveg DRAFT munkalap letrehozva.
+[CHANGE 2026-05-20 00:00] Elso implementacios csomag elokeszito dokumentuma letrehozva.
 
 # Google AI Readiness terv
 
@@ -25,6 +26,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
 - `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - hazankenti `kinek ajanljuk / kinek nem idealis` jovahagyasi DRAFT.
+- `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
@@ -164,11 +166,11 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 6. CTA linkesites
 
 - Cel: a szallasoldali foglalasi CTA-k crawler szamara is rendes linkek legyenek.
-- Statusz: TODO
-- Teendok: a szallasoldali `button onclick="OpenBE()"` elemeket kesobbi kodtaskban `<a href={bookingLink}>` kompatibilis mintara vinni.
-- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal.
+- Statusz: ELOKESZITVE / JOVAHAGYASRA VAR
+- Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` tervre; utana kulon kodtask.
+- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal; recommendation copy jovahagyasa.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`.
 
 ## 7. Schema bovites
 
@@ -258,15 +260,14 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 ## Javasolt kovetkezo vegrehajtasi sorrend
 
-1. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: nem-Koveskal SabeeApp URL-ek ujra jovahagyasa es Koveskal CTA dontes.
-2. CTA linkesites kodtask elokeszitese csak jovahagyott booking/erdeklodesi URL-ekkel.
-3. Vegleges szallasadat-mester tabla letrehozasa a megerositett alapadatokbol.
-4. Gyors dontesi blokk adatainak egysegesitese HU/EN oldalon.
-5. `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`: tulajdonosi szovegellenorzes es jovahagyas.
-6. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott adatokkal, es csak utana implementacio.
-7. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
-8. GBP es SabeeApp / Google Free Booking tisztazas.
+1. `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`: tulajdonosi szovegellenorzes es jovahagyas.
+2. `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`: tulajdonosi jovahagyas az elso implementacios csomagra.
+3. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: nem-Koveskal SabeeApp URL-ek ujra jovahagyasa es Koveskal CTA dontes.
+4. Elso implementacios kodtask csak jovahagyott Package 1 es booking/erdeklodesi URL-ek utan.
+5. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott, lathato adatokkal, es csak utana implementacio.
+6. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
+7. GBP es SabeeApp / Google Free Booking tisztazas.
 
 ## Implementacio elotti kapu
 
-Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha a booking linkek es CTA-k tisztazva vannak, kulonosen a Dandelion Koveskal SabeeApp link nelkuli foglalasi utja.
+Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha Csanad jovahagyta a recommendation copy-t es az elso implementacios csomag tervet, valamint a booking linkek es CTA-k tisztazva vannak, kulonosen a Dandelion Koveskal SabeeApp link nelkuli foglalasi utja.
