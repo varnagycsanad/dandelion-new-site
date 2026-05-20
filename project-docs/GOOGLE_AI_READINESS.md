@@ -15,6 +15,7 @@
 [CHANGE 2026-05-20 00:00] Positioning lathato megjelenites mikro ajanlo sorra cserelve.
 [CHANGE 2026-05-20 00:00] Positioning lathato megjelenites UX okbol kikapcsolva, adatmodell megtartva.
 [CHANGE 2026-05-20 00:00] HU szallasoldali SabeeApp booking CTA-k href linkesitese elkeszult; Koveskal tovabbra is blokkolt.
+[CHANGE 2026-05-20 00:00] Dandelion Koveskal HU erdeklodes CTA meglevo kapcsolat URL-re beallitva.
 
 # Google AI Readiness terv
 
@@ -184,9 +185,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 6. CTA linkesites
 
 - Cel: a szallasoldali foglalasi CTA-k crawler szamara is rendes linkek legyenek.
-- Statusz: PARTIAL - HU SabeeApp CTA href linkesites DONE; Koveskal BLOCKED.
-- Teendok: Koveskal foglalasi/erdeklodesi cel URL dontes; EN CTA paritas kulon ellenorzes; header/listing/szallasoldali CTA kommunikacio osszehangolasa.
-- Blokkolo adatok: Koveskal foglalasi/erdeklodesi CTA dontes; szobaspecifikus URL-ek ujrajovahagyasa.
+- Statusz: PARTIAL - HU SabeeApp CTA href linkesites DONE; Koveskal HU erdeklodes CTA DONE; EN CTA paritas TODO.
+- Teendok: EN CTA paritas kulon ellenorzes; header/listing/szallasoldali CTA kommunikacio osszehangolasa.
+- Blokkolo adatok: EN Koveskal erdeklodesi utvonal dontes; szobaspecifikus URL-ek ujrajovahagyasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`.
 
@@ -195,7 +196,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - DONE: a SabeeApp `bookingLink`-kel rendelkezo szallasoldali fo CTA-k valodi `<a href>` elemkent renderelodnek, crawler szamara lathato szobaspecifikus URL-lel.
 - DONE: az OpenBE mukodes progressziven megmaradt `onclick="OpenBE(); return false;"` formaban, JS nelkul pedig a href mukodik.
 - DONE: HU SabeeApp linkek `lang=Hu` parametere megmaradt, selectedRooms ertek nem valtozott.
-- BLOCKED: Dandelion Koveskal booking CTA, mert nincs SabeeApp booking link; kamu SabeeApp link nem kerult be.
+- DONE: Dandelion Koveskal HU CTA `Erdeklodes` szoveggel a meglevo `/kapcsolat/` URL-re mutat; OpenBE es SabeeApp nelkul.
 - TODO: EN CTA paritas kulon ellenorzes.
 - TODO: schema bovites.
 - TODO: kep SEO.

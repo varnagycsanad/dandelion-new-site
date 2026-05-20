@@ -190,6 +190,8 @@ function resolveDecisionPanelImage(
 
 const bookingLink = pageData.bookingLink;
 const hasSabeeBookingLink = bookingLink.includes("ibe.sabeeapp.com");
+const hasInternalBookingLink = bookingLink.startsWith("/") && !bookingLink.startsWith("//");
+const canRenderBookingCta = hasSabeeBookingLink || hasInternalBookingLink;
 const heroVideo = pageData.hero.video ?? null;
 const hasPoolHighlight = Boolean(pageData.hero.poolHighlight?.enabled);
 const baseHref = resolveBaseHref(import.meta.env.BASE_URL);
@@ -513,13 +515,13 @@ const accommodationStructuredData = [
             </p>
           )}
           <div class="d2-hero__actions">
-            {hasSabeeBookingLink && (
+            {canRenderBookingCta && (
               <a
                 href={bookingLink}
                 class="dnd-btn dnd-btn--primary d2-hero__booking"
-                target="_blank"
-                rel="noopener noreferrer"
-                onclick="OpenBE(); return false;"
+                target={hasSabeeBookingLink ? "_blank" : undefined}
+                rel={hasSabeeBookingLink ? "noopener noreferrer" : undefined}
+                onclick={hasSabeeBookingLink ? "OpenBE(); return false;" : undefined}
               >
                 {pageData.hero.primaryCtaLabel}
               </a>
@@ -675,15 +677,15 @@ const accommodationStructuredData = [
               </div>
             </details>
           )}
-          {(hasSabeeBookingLink || pageData.details.supportingLink) && (
+          {(canRenderBookingCta || pageData.details.supportingLink) && (
             <div class="d2-details__actions">
-              {hasSabeeBookingLink && (
+              {canRenderBookingCta && (
                 <a
                   href={bookingLink}
                   class="dnd-btn dnd-btn--primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onclick="OpenBE(); return false;"
+                  target={hasSabeeBookingLink ? "_blank" : undefined}
+                  rel={hasSabeeBookingLink ? "noopener noreferrer" : undefined}
+                  onclick={hasSabeeBookingLink ? "OpenBE(); return false;" : undefined}
                 >
                   {pageData.details.ctaLabel}
                 </a>
@@ -1060,8 +1062,8 @@ const accommodationStructuredData = [
     </symbol>
   </svg>
 
-  <script define:vars={{ bookingLink, galleryImages, desktopHeroImage, desktopHeroAlt }}>
-    if (typeof window.OpenBE !== "function") {
+  <script define:vars={{ bookingLink, hasSabeeBookingLink, galleryImages, desktopHeroImage, desktopHeroAlt }}>
+    if (hasSabeeBookingLink && typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
