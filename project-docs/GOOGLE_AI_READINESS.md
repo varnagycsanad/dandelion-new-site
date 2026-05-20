@@ -1,5 +1,6 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness projektkoveto letrehozva.
 [CHANGE 2026-05-20 00:00] Elso repo-alapu allapotfelmeres rogzitve a Google AI Readiness tervhez.
+[CHANGE 2026-05-20 00:00] Google AI Readiness munkadokumentumok letrehozva es a statuszhoz kapcsolva.
 
 # Google AI Readiness terv
 
@@ -11,6 +12,15 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Statusz: DONE
 - Commit: `aa1c233`
 - Megjegyzes: ez a dokumentum statuszt kovet; a vegrehajtasi terv nem itt el.
+
+Kapcsolodo munkadokumentumok:
+
+- `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md` - szallasonkenti, emberileg kitoltheto adathianylista.
+- `project-docs/GOOGLE_AI_READINESS_BOOKING_LINKS.md` - HU/EN booking link terkep es CTA kockazatok.
+- `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
+- `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
+
+Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
 ## Statusz jelolesek
 
@@ -59,7 +69,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: a lentebbi elso repo-alapu tablazat tulajdonosi ellenorzese; hianyzo mezok potlasa; HU/EN paritas kesobb.
 - Blokkolo adatok: pontos agyelrendezes, kisallat-szabaly, parkolasi reszletek, medence statusz hazankent.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`.
 
 ### Szallasonkenti adatallapot
 
@@ -82,7 +92,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: tulajdonosi ellenorzes; biztos adatok potlasa kesobbi adatfajl-taskban.
 - Blokkolo adatok: tulajdonosi megerosites a nem publikus komfortadatokra.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`.
 
 ### Legfontosabb hianyzo / ellenorizendo adatok
 
@@ -105,7 +115,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: Koveskal booking cel tisztazasa; header/listing/szallasoldali CTA osszehangolasa; szallasoldali CTA-k linkesitese kesobbi kodtaskban.
 - Blokkolo adatok: Koveskal foglalasi cel URL; SabeeApp aktualis szobakodok megerositese.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_BOOKING_LINKS.md`.
 
 ### Foglalasi link allapot
 
@@ -129,7 +139,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: a meglevo `overviewFacts` mezoket a mester tabla kotelezo mezoivel ossze kell igazítani.
 - Blokkolo adatok: szallasadat-mester tabla ellenorzott hianyainak potlasa.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_BOOKING_LINKS.md`.
 
 ### Allapot
 
@@ -143,7 +153,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: szallasonkenti ajanlott/nem idealis pontok tulajdonosi egyeztetese.
 - Blokkolo adatok: tulajdonosi dontes a kizart vagy nem ajanlott esetek kommunikaciojarol.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md`.
 
 ### Allapot
 
@@ -157,7 +167,7 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 - Teendok: a szallasoldali `button onclick="OpenBE()"` elemeket kesobbi kodtaskban `<a href={bookingLink}>` kompatibilis mintara vinni.
 - Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`.
 
 ## 7. Schema bovites
 
@@ -247,13 +257,12 @@ Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:
 
 ## Javasolt kovetkezo vegrehajtasi sorrend
 
-1. Koveskal bookingLink tisztazasa.
-2. Szallasonkenti hianyzo/ellenorizendo adatok tulajdonosi ellenorzese.
-3. Vegleges szallasadat-mester tabla letrehozasa.
-4. Foglalasi link terkep veglegesitese.
-5. Gyors dontesi blokk adatainak egységesitese HU/EN oldalon.
-6. `Kinek ajanljuk / kinek nem` blokk tartalmi tervezese.
-7. CTA linkesites kodtask.
-8. Schema bovitesi terv es csak utana implementacio.
-9. Kep SEO konkretizalas.
-10. GBP es SabeeApp / Google Free Booking tisztazas.
+1. `GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`: Csanad ellenorizze es toltse ki a hianyzo szallasadatokat.
+2. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: Koveskal / Kovagoors booking cel es SabeeApp selectedRooms kodok tisztazasa.
+3. Vegleges szallasadat-mester tabla letrehozasa az ellenorzott hianylista alapjan.
+4. Gyors dontesi blokk adatainak egysegesitese HU/EN oldalon.
+5. `Kinek ajanljuk / kinek nem` blokk tartalmi tervezese.
+6. CTA linkesites kodtask a booking link terkep alapjan.
+7. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott adatokkal, es csak utana implementacio.
+8. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
+9. GBP es SabeeApp / Google Free Booking tisztazas.
