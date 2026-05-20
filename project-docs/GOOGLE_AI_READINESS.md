@@ -6,6 +6,7 @@
 [CHANGE 2026-05-20 00:00] Maradek tulajdonosi adatok rogzitve; kinek nem idealis blokk szovegirasi feladatta minositve.
 [CHANGE 2026-05-20 00:00] Kinek ajanljuk / kinek nem idealis ajanlasi szoveg DRAFT munkalap letrehozva.
 [CHANGE 2026-05-20 00:00] Elso implementacios csomag elokeszito dokumentuma letrehozva.
+[CHANGE 2026-05-20 00:00] Recommendation copy ujrafinomitva vendegbaratabb, kevesbe technikai szovegiranyra.
 
 # Google AI Readiness terv
 
@@ -25,7 +26,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - hazankenti `kinek ajanljuk / kinek nem idealis` jovahagyasi DRAFT.
+- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - hazankenti `kinek ajanljuk / kinek nem idealis` ujrafinomitott, tulajdonosi vegso jovahagyasra varo munkalap.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
@@ -151,8 +152,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: DRAFT / JOVAHAGYASRA VAR
-- Teendok: tulajdonosi szovegellenorzes a `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` alapjan.
+- Statusz: ÚJRAFINOMÍTVA / TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR
+- Teendok: tulajdonosi végső szovegellenorzes a `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` alapjan.
 - Blokkolo adatok: tulajdonosi jovahagyas; eros negativ marketing megfogalmazas tilos.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`.
@@ -160,8 +161,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ### Allapot
 
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
-- DRAFT: minden szallashoz elkeszult a jovahagyasi munkalap.
-- JOVAHAGYASRA VAR: a `Nem ez a legjobb valasztas, ha...` pontokat Csanadnak meg ellenoriznie kell.
+- ÚJRAFINOMÍTVA: minden szallashoz rovidebb, vendegbaratabb ajanlasi szoveg keszult.
+- TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR: a `Nem ez a legjobb valasztas, ha...` pontokat Csanadnak meg ellenoriznie kell.
+- Szovegirany: a `közös medence / privát medence` tulhangsulyozasa kikerult; a recommendation copy inkabb medencehasznalatot es enyhe, objektiv valasztasi szempontokat hasznal.
 
 ## 6. CTA linkesites
 

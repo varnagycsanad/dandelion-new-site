@@ -1,203 +1,187 @@
-[CHANGE 2026-05-20 00:00] Kinek ajanljuk / kinek nem idealis ajanlasi szoveg DRAFT letrehozva.
+[CHANGE 2026-05-20 00:00] Kinek ajánljuk / kinek nem ideális ajánlási szöveg DRAFT létrehozva.
+[CHANGE 2026-05-20 00:00] Ajánlási szövegek vendégbarátabb irányban újrafinomítva.
 
 # Google AI Readiness recommendation copy
 
-Cel: jovahagyasi munkalap a szallasonkenti `kinek ajanljuk / kinek nem idealis` blokkokhoz.
+Cél: jóváhagyási munkalap a szállásonkénti `kinek ajánljuk / kinek nem ideális` blokkokhoz.
 
-Statusz: DRAFT / JOVAHAGYASRA VAR
+Státusz: ÚJRAFINOMÍTVA / TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR
 
-Fontos szabalyok:
+Fontos szabályok:
 
-- Ez meg nem kerul az oldalra.
-- Csak megerositett vagy repo-alapu adatokbol dolgozik.
-- A `Nem ez a legjobb valasztas, ha...` resz enyhe, objektiv korlatokat hasznal.
-- Ahol egy allitas tovabbi pontositast igenyel, ott `ELLENORIZENDO` jeloles marad.
-- A vegleges publikacio elott tulajdonosi szovegellenorzes kell.
+- Ez még nem kerül az oldalra.
+- Csak megerősített vagy repo-alapú adatokból dolgozik.
+- A szöveg vendégbarát, rövid és döntést segítő legyen.
+- A medence ne legyen túlmagyarázva; ajánlási szövegben elég a medencehasználat vagy nyári plusz kényelmi elem említése.
+- A medencét ne negatív összehasonlításként kezeld.
+- A végleges publikáció előtt tulajdonosi szövegellenőrzés kell.
 
 ## Dandelion D1
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Dandelion D1 nagyobb csaladoknak es barati tarsasagoknak valo kisapati szallas, 8 fo kapacitassal, 2 furdoszobaval es kozos medencehasznalattal. Kulonosen jo valasztas azoknak, akik kisallattal erkeznenek, es fontos nekik a kert, a terasz, a wifi, a legkondi es az ingyenes parkolas.
+Dandelion D1 tágas, kisapáti vendégház legfeljebb 8 fős családi vagy baráti pihenéshez. Akkor jó választás, ha több fürdőre, kertre, teraszra és nyáron medencehasználatra is szükségetek van.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 8 fos vagy nagyobb letszamu csaladi / barati piheneshez keresel hazat.
-- Fontos a 2 furdoszoba.
-- Kisallattal erkeznel.
-- Kellemes plusz a kozos medencehasznalat.
-- A Szent Gyorgy-hegy es a Balaton-felvidek kornyeke a cel.
+- családdal vagy barátokkal érkeznétek, legfeljebb 8 fővel.
+- fontos a 2 fürdőszoba és a kényelmesebb közös tér.
+- kutyával érkeznétek, mert ez a ház kisállatbarát.
+- szeretnétek közel lenni a Szent György-hegy és a Balaton-felvidék hangulatához.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- sajat privat medencet keresel.
-- franciaagyas elrendezesre van szukseged.
-- kozvetlen vizparti szallast keresel.
+- franciaágyas elrendezésre van szükségetek.
+- közvetlen vízparti szállást kerestek.
 
 ## Dandelion D2
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Dandelion D2 6 fos, csaladi pihenesre alkalmas kisapati szallas, kozos medencehasznalattal es kisallatbarat mukodessel. Jo valasztas, ha kompaktabb hazat keresel a Szent Gyorgy-hegy kornyeken, de fontos a kert, a wifi, a legkondi es az ingyenes parkolas.
+Dandelion D2 családias, 6 fős kisapáti szállás kerttel, terasszal és nyári medencehasználattal. Jó választás, ha barátságos, könnyen áttekinthető házat kerestek a Szent György-hegy közelében.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- legfeljebb 6 fore keresel csaladias szallast.
-- fontos a kozos medencehasznalat.
-- kisallattal erkeznel.
-- megfelel az 1 furdoszobas kialakitas.
-- a Szent Gyorgy-hegy es a Balaton-felvidek programjai erdekelnek.
+- legfeljebb 6 fővel érkeznétek családi vagy baráti pihenésre.
+- fontos a kert, a terasz és a nyugodtabb környezet.
+- kutyával utaznátok, mert ez a ház kisállatbarát.
+- nyáron jól jön a medencehasználat.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- sajat privat medencet keresel.
-- 2 vagy tobb furdoszobara van szukseged.
-- kozvetlen vizparti szallast keresel.
+- 2 vagy több fürdőszobára van szükségetek.
+- szállodai jellegű szolgáltatásokat kerestek.
 
-## Fugehaz
+## Fügeház
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Fugehaz 4 fos, kisapati szallas paroknak vagy kisebb csaladoknak, 2 franciaaggyal es kozos medencehasznalattal. Jo valasztas azoknak, akik nyugodt, teraszos pihenest keresnek, es kisallattal is erkeznenek.
+Fügeház 4 fős, teraszos kisapáti szállás pároknak vagy kisebb családoknak. Akkor illik hozzátok, ha nyugodt, hegyközeli pihenést kerestek, és nyáron jól jön a medencehasználat is.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 4 fore keresel nyugodt, csaladias szallast.
-- 2 franciaagyas elrendezes az idealis.
-- kisallattal erkeznel.
-- fontos a kozos medencehasznalat.
-- Kisapati es a Szent Gyorgy-hegy kornyeke a cel.
+- 4 főre kerestek barátságos, nyugodt szállást.
+- a 2 franciaágyas elrendezés kényelmes nektek.
+- kutyával érkeznétek, mert ez a ház kisállatbarát.
+- fontos a terasz és a Szent György-hegy közelsége.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- sajat privat medencet keresel.
-- 2 furdoszobara van szukseged.
-- kozvetlen vizparti szallast keresel.
+- 2 fürdőszobára van szükségetek.
+- közvetlen vízparti szállást kerestek.
 
-## Zsalya Vendeghaz
+## Zsálya Vendégház
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Zsalya Vendeghaz 4 fos, nyugodt kisapati szallas paroknak, kisebb csaladoknak vagy baratoknak, 2 furdoszobaval es 2 franciaaggyal. Fo elonye a kenyelmesebb furdoszoba-kiosztas es a Szent Gyorgy-hegy kozeli, csendes pihenes.
+Zsálya Vendégház 4 fős, csendesebb kisapáti szállás pároknak, kisebb családoknak vagy barátoknak. Külön előnye a 2 fürdőszoba és a nyugodt, Szent György-hegy közeli hangulat.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 4 fore keresel nyugodt vendeghazat.
-- fontos a 2 furdoszoba.
-- 2 franciaagyas elrendezes megfelel.
-- medence nelkuli, csendesebb szallast keresel.
-- turakhoz es Balaton-felvideki programokhoz keresel bazist.
+- 4 főre kerestek visszafogott, nyugodt vendégházat.
+- fontos a 2 fürdőszoba.
+- páros vagy kisebb családi pihenést terveztek.
+- túrákhoz és Balaton-felvidéki programokhoz keresnétek bázist.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- kozvetlen vizparti szallast keresel.
+- kisállattal érkeznétek.
+- minden nap gyalog szeretnétek éttermekhez és programokhoz eljutni.
 
-## Szololiget Vendeghaz
+## Szőlőliget Vendégház
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Szololiget Vendeghaz 4 fos, Balaton-felvideki vendeghaz csaladoknak, kiranduloknak es elvonulasra vagy borturara erkezoknek. Fo elonye a nagy, korbejarhato terasz, a csendesebb kornyezet es a Szent Gyorgy-hegy kozeli elhelyezkedes.
+Szőlőliget Vendégház 4 fős, teraszos Balaton-felvidéki szállás családoknak, kirándulóknak és csendesebb pihenésre érkezőknek. Akkor jó választás, ha önállóbb, ház jellegű pihenést szeretnétek a Szent György-hegy környékén.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 4 fore keresel onallo, teraszos vendeghazat.
-- fontos a nyugodtabb, elvonulos hangulat.
-- a kirandulas, bortura vagy balatoni programok a fo celok.
-- megfelel az 1 furdoszobas kialakitas.
-- nem medences, inkabb termeszetkozeli szallast keresel.
+- 4 főre kerestek nyugodtabb, teraszos vendégházat.
+- fontos a természetközeli, elvonulósabb hangulat.
+- kirándulás, bortúra vagy balatoni programok is tervben vannak.
+- apartman helyett önállóbb ház jellegű pihenést szeretnétek.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- 2 vagy tobb furdoszobara van szukseged.
+- kisállattal érkeznétek.
+- 2 vagy több fürdőszobára van szükségetek.
 
-## Szepvolgyi Vendeghaz
+## Szépvölgyi Vendégház
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Szepvolgyi Vendeghaz 8 fos, Badacsonyorshoz kotodo szallas nagyobb csaladoknak vagy tarsasagoknak, 2 furdoszobaval es 1 franciaagy + 6 szimpla agy elrendezessel. Jo valasztas, ha Balaton kozeli, nagyobb befogadokepessegu, kerttel rendelkezo vendeghazat keresel.
+Szépvölgyi Vendégház 8 fős, Badacsonyörshöz kötődő szállás nagyobb családoknak vagy baráti társaságoknak. Jó választás, ha Balaton-közeli házat kerestek 2 fürdőszobával és többféle programlehetőséggel a környéken.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 8 fore keresel szallast.
-- fontos a 2 furdoszoba.
-- nagyobb csaladdal vagy barati tarsasaggal erkeztek.
-- Balaton kozeli, Badacsony kornyeki bazist keresel.
-- Folly Arboretum, Szigliget, borturak es balatoni programok erdekelnek.
+- 8 főre kerestek nagyobb házat.
+- fontos a 2 fürdőszoba.
+- családdal vagy baráti társasággal érkeznétek.
+- Badacsony, Folly Arboretum, Szigliget vagy balatoni programok is szerepelnek a tervben.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- elsosorban franciaagyas elrendezest keresel minden vendegnek.
+- kisállattal érkeznétek.
+- mindenkinek franciaágyas elrendezésre van szüksége.
 
 ## Dandelion Royal Homes
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Dandelion Royal Homes 6 fos, csaladbarat, modern keszthelyi szallas jakuzzival, 1 furdoszobaval es Balaton-parti uduloovezeti elhelyezkedessel. Fo elonye a premium hangulat, a nagy terasz / erkely jellegu kulterek es a Balaton-part kozelsege.
+Dandelion Royal Homes 6 fős, modern és családbarát keszthelyi szállás jakuzzival és Balaton-parti üdülőövezeti elhelyezkedéssel. Akkor jó választás, ha apartmanosabb, kényelmes pihenést kerestek városi és vízparti közelséggel.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 6 fore keresel modern, premium jellegu apartmant.
-- fontos a jakuzzi, de nem kell medence.
-- csaladbarat szallast keresel.
-- Balaton-parti uduloovezetben szeretnel megszallni.
-- Keszthely, kikoto, setany es varosi programok kozeleben lennel.
+- legfeljebb 6 fővel érkeznétek modern, kényelmes apartmanba.
+- fontos a jakuzzi és a teraszos / erkélyes hangulat.
+- családbarát szállást kerestek.
+- Keszthely, a kikötő, a sétány és a Balaton közelsége vonzó.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- 2 vagy tobb furdoszobara van szukseged.
+- kisállattal érkeznétek.
+- 2 vagy több fürdőszobára van szükségetek.
 
 ## Dandelion Vintage / Cottage
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Dandelion Vintage / Cottage 4 fos, csaladbarat es bababarat nemesgulacsi szallas 1 franciaaggyal es 2 szimpla aggyal. Jo valasztas kisebb csaladoknak, paroknak vagy baratoknak, akik Balaton-felvideki, udvaros, grillezesre is alkalmas pihenest keresnek.
+Dandelion Vintage / Cottage 4 fős, családbarát és bababarát nemesgulácsi szállás saját udvarral. Jó választás kisebb családoknak, pároknak vagy barátoknak, akik Balaton-felvidéki, nyugodtabb ház jellegű pihenést keresnek.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 4 fore keresel kisebb, csaladbarat szallast.
-- fontos a sajat udvar es a grillezesi lehetoseg.
-- megfelel az 1 furdoszobas kialakitas.
-- Balaton-felvideki kirandulasokhoz keresel bazist.
-- csaladdal, babaval, baratokkal vagy parban erkeznel.
+- 4 főre kerestek kisebb, otthonos szállást.
+- fontos a saját udvar és a grillezési lehetőség.
+- családdal, babával, párban vagy barátokkal érkeznétek.
+- Balaton-felvidéki kirándulásokhoz szeretnétek kényelmes bázist.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- kozvetlen vizparti szallast keresel.
+- kisállattal érkeznétek.
+- közvetlen vízparti szállást kerestek.
 
-## Dandelion Koveskal
+## Dandelion Köveskál
 
-### Rovid pozicionalas
+### Rövid pozicionálás
 
-Dandelion Koveskal 6 fos, Kali-medencei szallas 2 furdoszobaval, 2 franciaaggyal, 2 szimpla aggyal, nagy kerttel es nagy terasszal. Jo valasztas csendes pihenest kereso paroknak, csaladoknak vagy barati tarsasagoknak, akik Koveskal es a kornyezo falvak, boros megallok es strandok fele indulnanak.
+Dandelion Köveskál 6 fős, Káli-medencei szállás nagy kerttel, nagy terasszal és 2 fürdőszobával. Akkor jó választás, ha csendesebb, falusias pihenést kerestek Köveskál és a környékbeli boros, kirándulós programok közelében.
 
-### Ezt valaszd, ha...
+### Ezt válaszd, ha...
 
-- 6 fore keresel Kali-medencei szallast.
-- fontos a 2 furdoszoba.
-- nagy kertet es nagy teraszt szeretnel.
-- Koveskal, boros megallok, turak es Kali-medencei programok erdekelnek.
-- Zanka, Balatonakali, Abrahamhegy vagy Revfulop kornyeki strandolas is tervben van.
+- 6 főre kerestek nyugodt Káli-medencei szállást.
+- fontos a nagy kert, a nagy terasz és a 2 fürdőszoba.
+- csendesebb, falusiasabb környezetben pihennétek.
+- Zánka, Balatonakali, Ábrahámhegy vagy Révfülöp környéki strandolás is tervben van.
 
-### Nem ez a legjobb valasztas, ha...
+### Nem ez a legjobb választás, ha...
 
-- medences szallast keresel.
-- kisallattal erkeznel.
-- azonnali SabeeApp foglalasi linkkel rendelkezo szallast keresel. ELLENORIZENDO: vegleges Koveskal CTA megoldas.
+- kisállattal érkeznétek.
+- kizárólag azonnal online foglalható szállást kerestek. ELLENŐRIZENDŐ: végleges Köveskál CTA megoldás.
 
-## ELLENORIZENDO pontok jovahagyas elott
+## ELLENŐRIZENDŐ pontok jóváhagyás előtt
 
-- D1, D2, Fugehaz, Zsalya, Szololiget: haloszoba / szobastruktura pontos publikus megfogalmazasa, ha bekerul a vegleges blokkba.
-- D1, D2, Fugehaz, Zsalya, Szololiget: konkret kozeli strandlistak, ha a vegleges oldalszovegben szerepelni fognak.
-- Koveskal: Revfulop strand pontos neve.
-- Koveskal: vegleges booking / CTA megoldas SabeeApp link nelkul.
-- Minden szallas: tulajdonosi jovahagyas a `Nem ez a legjobb valasztas, ha...` pontokra.
+- D1, D2, Fügeház, Zsálya, Szőlőliget: hálószoba / szobastruktúra pontos publikus megfogalmazása, ha bekerül a végleges blokkba.
+- D1, D2, Fügeház, Zsálya, Szőlőliget: konkrét közeli strandlisták, ha a végleges oldalszövegben szerepelni fognak.
+- Köveskál: Révfülöp strand pontos neve.
+- Köveskál: végleges booking / CTA megoldás SabeeApp link nélkül.
+- Minden szállás: tulajdonosi végső jóváhagyás a `Nem ez a legjobb választás, ha...` pontokra.
