@@ -10,6 +10,7 @@
 [CHANGE 2026-05-20 00:00] Recommendation copy levaltva rovid pozicionalasi matrixra.
 [CHANGE 2026-05-20 00:00] Pozicionalasi matrix tisztitva tulajdonosi jovahagyas elott.
 [CHANGE 2026-05-20 00:00] Pozicionalasi matrix HU szallasoldali blokkent beepitve.
+[CHANGE 2026-05-20 00:00] Pozicionalasi blokk HU QA DONE: build, HTML es vizualis ellenorzes rendben.
 
 # Google AI Readiness terv
 
@@ -156,7 +157,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: DONE - Positioning matrix HU beepites
+- Statusz: DONE - Positioning matrix HU beepites es QA
 - Teendok: EN paritas kulon kovetkezo taskban.
 - Blokkolo adatok: EN positioning szovegek jovahagyasa.
 - Utolso frissites: 2026-05-20
@@ -168,6 +169,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - NEM IMPLEMENTÁLHATÓ: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
 - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
 - DONE: a HU szallasoldalak `positioning` mezot kaptak, es a kozos `AccommodationPage.astro` lathato HTML dontesi blokkban rendereli.
+- DONE: Pozicionalasi blokk HU QA; `npm run build`, buildelt HTML, tiltott szovegek es kijelolt desktop/mobil viewportok ellenorizve.
 - EN paritas: TODO.
 
 ## 6. CTA linkesites
