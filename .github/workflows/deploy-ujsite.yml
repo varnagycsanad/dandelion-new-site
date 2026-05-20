@@ -12,7 +12,7 @@ on:
         default: false
         type: boolean
       force_video_upload:
-        description: Force full accommodation video upload
+        description: Force full video upload
         required: false
         default: false
         type: boolean
@@ -125,7 +125,7 @@ jobs:
             BEFORE_SHA="${{ github.event.before }}"
             CURRENT_SHA="${{ github.sha }}"
 
-            if [ -n "${BEFORE_SHA}" ] && [ "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ] && git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/videos/accommodations/**' | grep -q .; then
+            if [ -n "${BEFORE_SHA}" ] && [ "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ] && git diff --name-only "${BEFORE_SHA}" "${CURRENT_SHA}" -- 'public/videos/**' | grep -q .; then
               echo "videos_changed=true" >> "$GITHUB_OUTPUT"
             else
               echo "videos_changed=false" >> "$GITHUB_OUTPUT"
@@ -156,7 +156,7 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
-              --exclude "videos/accommodations/" \
+              --exclude "videos/" \
               dist-current/ ../_prev_build/dist/ > dist-delta.txt
 
             while IFS='|' read -r change path; do
@@ -179,7 +179,7 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
-              --exclude "videos/accommodations/" \
+              --exclude "videos/" \
               dist-current/ deploy-dist/
 
             find deploy-dist -type f -printf '%P\n' > deploy-files.txt
@@ -190,13 +190,13 @@ jobs:
           echo "Upload candidates: $(wc -l < deploy-files.txt)"
           echo "Delete candidates intentionally disabled for root deploy."
 
-      - name: Prepare accommodation video payload
+      - name: Prepare video payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p deploy-videos
-          rsync -av --delete dist/videos/accommodations/ deploy-videos/
+          rsync -av --delete dist/videos/ deploy-videos/
 
       - name: Prepare full assets payload
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
@@ -908,7 +908,7 @@ jobs:
           })();
           EOF
 
-      - name: Deploy accommodation videos over FTP
+      - name: Deploy videos over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
         shell: bash
         run: |
@@ -921,7 +921,7 @@ jobs:
           set net:reconnect-interval-base 5
           set net:reconnect-interval-max 15
           set xfer:clobber on
-          mirror -R deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/accommodations/"
+          mirror -R deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/"
           bye
           EOF
 
