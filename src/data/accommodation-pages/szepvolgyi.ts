@@ -9,6 +9,23 @@ export const szepvolgyiPageData: AccommodationPageData = {
       "Tágas, balatoni panorámás nyaraló Badacsonyörsön 4 hálószobával, 2 fürdőszobával, zárt kerttel és kényelmes pihenéssel akár 8 főre, a Balaton közelében."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=7d46f283f2f5792f&lang=Hu",
+  positioning: {
+    shortCharacter: "Nagyobb ház családoknak és baráti társaságoknak Balaton-közeli programokhoz.",
+    goodFor: ["nagyobb családoknak", "baráti társaságoknak", "Balaton-közeli pihenéshez", "badacsonyi programokhoz"],
+    strengths: ["2 fürdőszoba", "nagyobb befogadóképesség", "kert", "wifi", "ingyenes parkolás"],
+    keyFacts: [
+      "férőhely: 8 fő",
+      "fürdőszoba: 2",
+      "ágyelrendezés: 1 franciaágy + 6 szimpla ágy",
+      "kisállat: nem engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medence: nincs",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha kisebb, intimebb házat kerestek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "szepvolgyi",

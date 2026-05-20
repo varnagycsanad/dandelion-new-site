@@ -10,6 +10,23 @@ export const szololigetPageData: AccommodationPageData = {
       "Csendes, különálló vendégház Kisapátiban 4 főre, nagy terasszal, 180 fokos tanúhegy panorámával és napfelkeltével, csendes hegyoldali környezetben."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=e30c4b62d7324b3f&lang=Hu",
+  positioning: {
+    shortCharacter: "Teraszos, természetközeli ház csendesebb pihenéshez.",
+    goodFor: ["családoknak", "pároknak", "elvonulós pihenéshez", "Balaton-felvidéki kirándulásokhoz"],
+    strengths: ["nagy terasz", "wifi", "légkondi", "ingyenes parkolás", "önálló ház jelleg"],
+    keyFacts: [
+      "férőhely: 4 fő",
+      "fürdőszoba: 1",
+      "ágyelrendezés: 1 franciaágy + 1 kihúzható kanapé",
+      "kisállat: nem engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medence: nincs",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha több fürdőszobás elrendezést kerestek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "szololiget",

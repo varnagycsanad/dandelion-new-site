@@ -17,6 +17,23 @@ export const d2PageData: AccommodationPageData = {
       "Galériás apartman nagy udvarral, fedett terasszal és 2026. június 1-től elérhető Panorama Pool használattal a Balaton-felvidéken."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=Hu",
+  positioning: {
+    shortCharacter: "Kertközeli, családias ház nyugodtabb balatoni pihenéshez.",
+    goodFor: ["családoknak", "kisebb baráti társaságoknak", "kutyával érkezőknek", "Szent György-hegy környéki programokhoz"],
+    strengths: ["kert", "terasz", "nyári medencehasználat", "wifi", "légkondi"],
+    keyFacts: [
+      "férőhely: 6 fő",
+      "fürdőszoba: 1",
+      "ágyelrendezés: 1 franciaágy + 2 szimpla ágy + 1 kihúzható kanapé",
+      "kisállat: engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medencehasználat: van",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha több fürdőszobás elrendezést kerestek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",

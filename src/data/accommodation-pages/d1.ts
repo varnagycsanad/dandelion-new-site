@@ -14,6 +14,23 @@ export const d1PageData: AccommodationPageData = {
       "Tágas, családbarát vendégház Kisapátiban akár 8 főre, panorámás terasszal, grillezési lehetőséggel és 2026-tól közös panorámás medencével családoknak."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=Hu",
+  positioning: {
+    shortCharacter: "Tágas ház nagyobb családoknak és baráti társaságoknak.",
+    goodFor: ["családoknak", "baráti társaságoknak", "kutyával érkezőknek", "Balaton-felvidéki kirándulásokhoz"],
+    strengths: ["kert", "terasz", "2 fürdőszoba", "nyári medencehasználat", "ingyenes parkolás"],
+    keyFacts: [
+      "férőhely: 8 fő",
+      "fürdőszoba: 2",
+      "ágyelrendezés: 6 szimpla ágy + 1 kihúzható kanapé",
+      "kisállat: engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medencehasználat: van",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha franciaágyas elrendezésű házat kerestek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d1",

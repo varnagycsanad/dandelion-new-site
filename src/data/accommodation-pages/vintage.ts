@@ -9,6 +9,23 @@ export const vintagePageData: AccommodationPageData = {
       "Kényelmes, vintage hangulatú vendégház Nemesgulácson saját udvarral, grillezéssel, klímával és gyors internettel, 7 km-re a Balatontól, nyugodt pihenéshez."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=0c9e5eaae0545ee3&lang=Hu",
+  positioning: {
+    shortCharacter: "Otthonos, udvaros ház kisebb családoknak és pároknak.",
+    goodFor: ["kisebb családoknak", "pároknak", "babával érkezőknek", "Balaton-felvidéki kirándulásokhoz"],
+    strengths: ["saját udvar", "grillezési lehetőség", "családbarát", "wifi", "légkondi"],
+    keyFacts: [
+      "férőhely: 4 fő",
+      "fürdőszoba: 1",
+      "ágyelrendezés: 1 franciaágy + 2 szimpla ágy",
+      "kisállat: nem engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medence: nincs",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha kutyával jönnétek, D1, D2 vagy Fügeház lehet jobb irány."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "vintage",

@@ -9,6 +9,23 @@ export const royalHomesPageData: AccommodationPageData = {
       "Prémium apartman Keszthelyen, a Balaton közelében, saját parti mólóval, nagy terasszal, tetőteraszos jakuzzival és 2 hálószobás elrendezéssel."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=Hu",
+  positioning: {
+    shortCharacter: "Kényelmes városi apartman családi pihenéshez.",
+    goodFor: ["családoknak", "modern apartmant keresőknek", "Keszthely környéki programokhoz", "Balaton-part közeli pihenéshez"],
+    strengths: ["jakuzzi", "nagy terasz", "családbarát", "wifi", "légkondi"],
+    keyFacts: [
+      "férőhely: 6 fő",
+      "fürdőszoba: 1",
+      "ágyelrendezés: 1 franciaágy + 2 kihúzható kanapé",
+      "kisállat: nem engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medence: nincs",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha inkább önálló vendégházat kerestek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "royal_homes",

@@ -10,6 +10,23 @@ export const koveskalPageData: AccommodationPageData = {
       "Nyugodt vendégház Köveskálon, természetközeli pihenéssel, falusi hangulattal és jó kiindulóponttal a Káli-medence felfedezéséhez."
   },
   bookingLink: "https://dandelionhouse.hu/koveskal/",
+  positioning: {
+    shortCharacter: "Nagy kerttel és terasszal rendelkező ház a Káli-medence hangulatához.",
+    goodFor: ["családoknak", "baráti társaságoknak", "elvonulós pihenéshez", "Káli-medencei programokhoz"],
+    strengths: ["nagy kert", "nagy terasz", "2 fürdőszoba", "wifi", "ingyenes parkolás"],
+    keyFacts: [
+      "férőhely: 6 fő",
+      "fürdőszoba: 2",
+      "ágyelrendezés: 2 franciaágy + 2 szimpla ágy",
+      "kisállat: nem engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medence: nincs",
+      "booking státusz: külön döntés kell"
+    ],
+    betterAlternativeNote: "ha azonnali online foglalást szeretnétek, Köveskálnál külön döntés kell."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "koveskal",

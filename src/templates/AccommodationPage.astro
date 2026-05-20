@@ -41,6 +41,11 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/",
     secondaryDetailsLabel: "Tudnivalók és programok",
     decisionPanelAriaLabel: "Szállás döntési áttekintés",
+    positioningKicker: "Gyors döntési segítség",
+    positioningGoodForTitle: "Kinek jó?",
+    positioningStrengthsTitle: "Fő előnyök",
+    positioningKeyFactsTitle: "Fontos tudnivalók",
+    positioningAlternativeTitle: "Másik Dandelion ház lehet jobb, ha...",
     overviewTitle: "Gyors áttekintés",
     reasonsTitle: "Amiért szeretni fogod",
     relatedListingCta: "Nézd meg a többi Dandelion szállást is.",
@@ -55,6 +60,11 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/en/",
     secondaryDetailsLabel: "Local tips and things to know",
     decisionPanelAriaLabel: "Accommodation decision overview",
+    positioningKicker: "Quick decision guide",
+    positioningGoodForTitle: "Good for",
+    positioningStrengthsTitle: "Main strengths",
+    positioningKeyFactsTitle: "Key facts",
+    positioningAlternativeTitle: "Another Dandelion stay may fit better if...",
     overviewTitle: "Quick overview",
     reasonsTitle: "Why you will love it",
     relatedListingCta: "Back to accommodations.",
@@ -271,6 +281,7 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
+const positioning = pageData.positioning;
 const introKicker = pageData.intro.kicker?.trim() || "";
 const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
@@ -637,6 +648,55 @@ const accommodationStructuredData = [
           {introKicker && <span class="dnd-section-kicker">{introKicker}</span>}
           {introTitle && <h2 id="accommodation-intro-title" class="d2-section-title">{introTitle}</h2>}
           {introLead && <p class="d2-intro__lead">{introLead}</p>}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {positioning && (
+    <section class="d2-positioning dnd-section" aria-labelledby="accommodation-positioning-title">
+      <div class="dnd-container">
+        <div class="d2-positioning__shell">
+          <div class="d2-positioning__head">
+            <span class="dnd-section-kicker">{templateText.positioningKicker}</span>
+            <h2 id="accommodation-positioning-title" class="d2-positioning__title">{positioning.shortCharacter}</h2>
+          </div>
+
+          <div class="d2-positioning__grid">
+            <section class="d2-positioning__group" aria-label={templateText.positioningGoodForTitle}>
+              <h3>{templateText.positioningGoodForTitle}</h3>
+              <ul>
+                {positioning.goodFor.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="d2-positioning__group" aria-label={templateText.positioningStrengthsTitle}>
+              <h3>{templateText.positioningStrengthsTitle}</h3>
+              <ul>
+                {positioning.strengths.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="d2-positioning__group d2-positioning__group--facts" aria-label={templateText.positioningKeyFactsTitle}>
+              <h3>{templateText.positioningKeyFactsTitle}</h3>
+              <ul>
+                {positioning.keyFacts.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          {positioning.betterAlternativeNote && (
+            <p class="d2-positioning__alternative">
+              <strong>{templateText.positioningAlternativeTitle}</strong>
+              <span>{positioning.betterAlternativeNote}</span>
+            </p>
+          )}
         </div>
       </div>
     </section>
@@ -1751,6 +1811,106 @@ const accommodationStructuredData = [
     line-height: 1.72;
   }
 
+  .d2-positioning {
+    padding-top: 8px;
+    padding-bottom: 34px;
+    background: #fdfbf7;
+  }
+
+  .d2-positioning__shell {
+    display: grid;
+    gap: 18px;
+    padding: clamp(20px, 3vw, 30px);
+    border: 1px solid rgba(217, 158, 43, 0.2);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 251, 244, 0.96), rgba(249, 239, 221, 0.78)),
+      #fdfbf7;
+  }
+
+  .d2-positioning__head {
+    max-width: 760px;
+  }
+
+  .d2-positioning__title {
+    margin: 8px 0 0;
+    color: rgba(28, 22, 16, 0.92);
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+    line-height: 1.12;
+    font-weight: 600;
+  }
+
+  .d2-positioning__grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
+  }
+
+  .d2-positioning__group {
+    min-width: 0;
+  }
+
+  .d2-positioning__group h3 {
+    margin: 0 0 8px;
+    color: rgba(121, 93, 48, 0.96);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .d2-positioning__group ul {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .d2-positioning__group li {
+    position: relative;
+    padding-left: 16px;
+    color: rgba(28, 22, 16, 0.72);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
+  }
+
+  .d2-positioning__group li::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: #d99e2b;
+    transform: translateY(-50%);
+  }
+
+  .d2-positioning__group--facts ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+
+  .d2-positioning__alternative {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid rgba(217, 158, 43, 0.16);
+    color: rgba(28, 22, 16, 0.68);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .d2-positioning__alternative strong {
+    color: rgba(28, 22, 16, 0.86);
+    font-weight: 650;
+  }
+
   .d2-details__layout {
     display: grid;
     gap: 16px 22px;
@@ -2664,6 +2824,11 @@ const accommodationStructuredData = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .d2-positioning__grid,
+    .d2-positioning__group--facts ul {
+      grid-template-columns: 1fr;
+    }
+
     .d2-map__card {
       height: 380px;
       min-height: 380px;
@@ -2997,6 +3162,32 @@ const accommodationStructuredData = [
       margin-top: 12px;
       font-size: var(--dnd-text-md);
       line-height: 1.52;
+    }
+
+    .d2-positioning {
+      padding-top: 0;
+      padding-bottom: 28px;
+    }
+
+    .d2-positioning__shell {
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .d2-positioning__title {
+      font-size: clamp(1.4rem, 7vw, 1.8rem);
+      line-height: 1.12;
+    }
+
+    .d2-positioning__group h3 {
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.1em;
+    }
+
+    .d2-positioning__group li,
+    .d2-positioning__alternative {
+      font-size: var(--dnd-text-xs);
+      line-height: 1.42;
     }
 
     .d2-details__layout {

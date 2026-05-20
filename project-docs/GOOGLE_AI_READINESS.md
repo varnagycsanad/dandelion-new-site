@@ -9,6 +9,7 @@
 [CHANGE 2026-05-20 00:00] Recommendation copy ujrafinomitva vendegbaratabb, kevesbe technikai szovegiranyra.
 [CHANGE 2026-05-20 00:00] Recommendation copy levaltva rovid pozicionalasi matrixra.
 [CHANGE 2026-05-20 00:00] Pozicionalasi matrix tisztitva tulajdonosi jovahagyas elott.
+[CHANGE 2026-05-20 00:00] Pozicionalasi matrix HU szallasoldali blokkent beepitve.
 
 # Google AI Readiness terv
 
@@ -155,9 +156,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR
-- Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` alapjan.
-- Blokkolo adatok: pozicionalasi matrix jovahagyasa; eros negativ marketing megfogalmazas tilos.
+- Statusz: DONE - Positioning matrix HU beepites
+- Teendok: EN paritas kulon kovetkezo taskban.
+- Blokkolo adatok: EN positioning szovegek jovahagyasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`.
 
@@ -166,14 +167,15 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
 - NEM IMPLEMENTÁLHATÓ: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
 - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
-- Package 1 szoveges resze csak a pozicionalasi matrix tulajdonosi jovahagyasa utan indulhat.
+- DONE: a HU szallasoldalak `positioning` mezot kaptak, es a kozos `AccommodationPage.astro` lathato HTML dontesi blokkban rendereli.
+- EN paritas: TODO.
 
 ## 6. CTA linkesites
 
 - Cel: a szallasoldali foglalasi CTA-k crawler szamara is rendes linkek legyenek.
-- Statusz: ELOKESZITVE / JOVAHAGYASRA VAR
-- Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` tervre; utana kulon kodtask.
-- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal; pozicionalasi matrix jovahagyasa.
+- Statusz: TODO
+- Teendok: kulon kodtaskban valos `<a href>` CTA-k tervezese es OpenBE kompatibilitas megtartasa.
+- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal; szobaspecifikus URL-ek ujrajovahagyasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`.
 
@@ -214,7 +216,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 10. Kep SEO javitas
 
 - Cel: a galeria kepek alt/title/caption adatai legyenek konkretak es kephez kotottek.
-- Statusz: IN_PROGRESS
+- Statusz: TODO
 - Teendok: generikus galeria mezok listazasa; kepenkenti vizualis atnezes; jovahagyott HU/EN mezok keszitese.
 - Blokkolo adatok: kepek vizualis atnezese; jovahagyott kep SEO szovegek.
 - Utolso frissites: 2026-05-20
@@ -230,8 +232,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 11. Angol oldalak ellenorzese
 
 - Cel: az EN oldalak ugyanazokat a dontesi adatokat tartalmazzak, mint a HU oldalak.
-- Statusz: CHECK
-- Teendok: HU/EN adatparitas tabla; hianyzo EN allitasok jelolese; canonical/hreflang ujraellenorzes.
+- Statusz: TODO
+- Teendok: HU/EN positioning paritas; hianyzo EN allitasok jelolese; canonical/hreflang ujraellenorzes.
 - Blokkolo adatok: szallasadat-mester tabla; jovahagyott angol terminologia.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: jelen statuszfrissites.

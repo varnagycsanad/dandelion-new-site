@@ -24,6 +24,14 @@ export interface AccommodationPageIconCard {
   text?: string;
 }
 
+export interface AccommodationPagePositioning {
+  shortCharacter: string;
+  goodFor: string[];
+  strengths: string[];
+  keyFacts: string[];
+  betterAlternativeNote?: string;
+}
+
 export interface AccommodationPageFeaturedExperience {
   title: string;
   label?: string;
@@ -80,6 +88,7 @@ export interface AccommodationPageData {
     description: string;
   };
   bookingLink: string;
+  positioning?: AccommodationPagePositioning;
   // [CHANGE 2026-05-16 12:45] Opcionális supporting link mezők a shared szállásoldali hero és details blokkokhoz.
   hero: {
     mobileImagePath: string;

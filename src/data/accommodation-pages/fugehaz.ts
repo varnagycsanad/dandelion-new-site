@@ -14,6 +14,23 @@ export const fugehazPageData: AccommodationPageData = {
       "Panorámás családi vendégház teraszokkal és 2026. június 1-től közös medencével a Balaton-felvidéken, a Szent György-hegy közelében."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145&lang=Hu",
+  positioning: {
+    shortCharacter: "Teraszos, nyugodt ház pároknak vagy kisebb családoknak.",
+    goodFor: ["pároknak", "kisebb családoknak", "kutyával érkezőknek", "teraszos pihenéshez"],
+    strengths: ["terasz", "2 franciaágy", "nyári medencehasználat", "wifi", "ingyenes parkolás"],
+    keyFacts: [
+      "férőhely: 4 fő",
+      "fürdőszoba: 1",
+      "ágyelrendezés: 2 franciaágy",
+      "kisállat: engedélyezett",
+      "wifi: van",
+      "parkolás: ingyenes",
+      "légkondi: van",
+      "medencehasználat: van",
+      "booking státusz: online foglalási link van"
+    ],
+    betterAlternativeNote: "ha nagyobb társasággal érkeztek."
+  },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "fugehaz",
