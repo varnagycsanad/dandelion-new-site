@@ -189,6 +189,7 @@ function resolveDecisionPanelImage(
 }
 
 const bookingLink = pageData.bookingLink;
+const hasSabeeBookingLink = bookingLink.includes("ibe.sabeeapp.com");
 const heroVideo = pageData.hero.video ?? null;
 const hasPoolHighlight = Boolean(pageData.hero.poolHighlight?.enabled);
 const baseHref = resolveBaseHref(import.meta.env.BASE_URL);
@@ -216,7 +217,7 @@ const amenityItems =
         iconKey: item.icon,
         title: item.label
       }));
-const bookingTrustLabel = bookingLink ? templateText.bookingTrustLabel : null;
+const bookingTrustLabel = hasSabeeBookingLink ? templateText.bookingTrustLabel : null;
 const locationBenefits = pageData.map.benefits;
 const {
   reviewBrandAssets,
@@ -512,7 +513,17 @@ const accommodationStructuredData = [
             </p>
           )}
           <div class="d2-hero__actions">
-            <button type="button" class="dnd-btn dnd-btn--primary d2-hero__booking" onclick="OpenBE()">{pageData.hero.primaryCtaLabel}</button>
+            {hasSabeeBookingLink && (
+              <a
+                href={bookingLink}
+                class="dnd-btn dnd-btn--primary d2-hero__booking"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="OpenBE(); return false;"
+              >
+                {pageData.hero.primaryCtaLabel}
+              </a>
+            )}
             <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
           </div>
         </div>
@@ -664,16 +675,26 @@ const accommodationStructuredData = [
               </div>
             </details>
           )}
-          <div class="d2-details__actions">
-            <button type="button" class="dnd-btn dnd-btn--primary" onclick="OpenBE()">
-              {pageData.details.ctaLabel}
-            </button>
-            {pageData.details.supportingLink && (
-              <a class="dnd-btn dnd-btn--secondary d2-details__secondary" href={pageData.details.supportingLink.href}>
-                {templateText.secondaryDetailsLabel}
-              </a>
-            )}
-          </div>
+          {(hasSabeeBookingLink || pageData.details.supportingLink) && (
+            <div class="d2-details__actions">
+              {hasSabeeBookingLink && (
+                <a
+                  href={bookingLink}
+                  class="dnd-btn dnd-btn--primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onclick="OpenBE(); return false;"
+                >
+                  {pageData.details.ctaLabel}
+                </a>
+              )}
+              {pageData.details.supportingLink && (
+                <a class="dnd-btn dnd-btn--secondary d2-details__secondary" href={pageData.details.supportingLink.href}>
+                  {templateText.secondaryDetailsLabel}
+                </a>
+              )}
+            </div>
+          )}
           {bookingTrustLabel && <p class="d2-details__trust">{bookingTrustLabel}</p>}
         </div>
 
