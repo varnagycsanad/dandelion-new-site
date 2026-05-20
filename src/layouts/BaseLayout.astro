@@ -732,20 +732,36 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
           video.autoplay = true;
           video.playsInline = true;
           video.controls = false;
+          video.disableRemotePlayback = true;
+          if ("disablePictureInPicture" in video) {
+            video.disablePictureInPicture = true;
+          }
           video.setAttribute("muted", "");
           video.setAttribute("autoplay", "");
           video.setAttribute("playsinline", "");
           video.setAttribute("webkit-playsinline", "");
+          video.setAttribute("disableremoteplayback", "");
+          video.setAttribute("disablepictureinpicture", "");
           video.removeAttribute("controls");
+          video.dataset.dndAutoplayState = "pending";
 
           const playback = video.play();
 
           if (playback && typeof playback.catch === "function") {
             playback.catch(() => {
+              video.dataset.dndAutoplayState = "blocked";
+              video.controls = false;
+              video.removeAttribute("controls");
+
               if (video.readyState < 2) {
                 video.addEventListener("canplay", () => playAutoplayVideo(video), { once: true });
               }
             });
+            playback.then(() => {
+              video.dataset.dndAutoplayState = "playing";
+            });
+          } else if (!video.paused) {
+            video.dataset.dndAutoplayState = "playing";
           }
         };
 

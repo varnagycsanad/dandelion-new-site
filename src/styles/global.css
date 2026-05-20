@@ -542,6 +542,20 @@ main {
   object-fit: cover;
 }
 
+video[autoplay][muted] {
+  pointer-events: none;
+}
+
+video[autoplay][muted]::-webkit-media-controls,
+video[autoplay][muted]::-webkit-media-controls-panel,
+video[autoplay][muted]::-webkit-media-controls-overlay-play-button,
+video[autoplay][muted]::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .dnd-hero__video-overlay {
   position: absolute;
   inset: 0;
