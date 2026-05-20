@@ -19,6 +19,7 @@
 [CHANGE 2026-05-20 00:00] EN szallasoldali CTA paritas ellenorizve; Koveskal EN erdeklodes CTA `/en/contact/` URL-re beallitva.
 [CHANGE 2026-05-20 00:00] Szallasoldali schema audit elkeszult, bovitesi terv dokumentalva.
 [CHANGE 2026-05-20 00:00] Minimalis LodgingBusiness schema bovites elkeszult SabeeApp reservation action mezovel; Koveskal contact-only schema maradt.
+[CHANGE 2026-05-20 00:00] LodgingBusiness ReserveAction schema QA DONE: buildelt JSON-LD parse es HU/EN booking target ellenorzes rendben.
 
 # Google AI Readiness terv
 
@@ -210,7 +211,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 - Cel: a lathato szoveggel egyezo, reszletesebb structured data.
 - Statusz: DONE - minimalis LodgingBusiness booking schema bovites elkeszult.
-- Teendok: Rich Results Test eles/deploy utan; kovetkezo schema bovites csak kulon dontessel.
+- Teendok: Rich Results Test eles/deploy utan; kovetkezo schema kor csak kesobb, kulon dontessel.
 - Blokkolo adatok: amenity normalizalas; address/geo publikalhato adatok; VacationRental / Google booking kapcsolat tisztazasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md`.
@@ -220,6 +221,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - MEGVAN: `Organization`, `WebSite`, szallasoldalakon `LodgingBusiness`, `BreadcrumbList`.
 - MEGVAN: `LodgingBusiness` alapmezok: `name`, `url`, `description`, `image`, `telephone`.
 - DONE: SabeeAppos szallasoknal `potentialAction` / `ReserveAction` kerult be a mar lathato `bookingLink` URL alapjan.
+- DONE: LodgingBusiness ReserveAction QA; buildelt HTML-ben D2 HU/EN, Fugehaz HU, Vintage HU, Royal Homes EN, Koveskal HU/EN JSON-LD parse es target ellenorzes rendben.
+- DONE: Koveskal schema kivetel; nincs `ReserveAction`, nincs SabeeApp target, a `LodgingBusiness` schema megmarad.
 - PARTIAL: Koveskalnal nincs reservation action, mert nincs SabeeApp booking link; a CTA tovabbra is contact/inquiry utvonal.
 - HIANYZIK: address/geo, amenityFeature, reszletes szallasadatok.
 - SZABALY: bovites csak lathato, ellenorzott adattal.
