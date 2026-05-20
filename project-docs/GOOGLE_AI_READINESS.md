@@ -18,6 +18,7 @@
 [CHANGE 2026-05-20 00:00] Dandelion Koveskal HU erdeklodes CTA meglevo kapcsolat URL-re beallitva.
 [CHANGE 2026-05-20 00:00] EN szallasoldali CTA paritas ellenorizve; Koveskal EN erdeklodes CTA `/en/contact/` URL-re beallitva.
 [CHANGE 2026-05-20 00:00] Szallasoldali schema audit elkeszult, bovitesi terv dokumentalva.
+[CHANGE 2026-05-20 00:00] Minimalis LodgingBusiness schema bovites elkeszult SabeeApp reservation action mezovel; Koveskal contact-only schema maradt.
 
 # Google AI Readiness terv
 
@@ -208,20 +209,21 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 7. Schema bovites
 
 - Cel: a lathato szoveggel egyezo, reszletesebb structured data.
-- Statusz: CHECK - schema audit elkeszult, implementacio meg nem tortent.
-- Teendok: elso minimal schema implementacios task kulon jovahagyassal; mezovalasztas `makesOffer` / `potentialAction` / `ReserveAction` kozott; Rich Results Test kesobb.
-- Blokkolo adatok: schema booking URL dontes; amenity normalizalas; address/geo publikalhato adatok.
+- Statusz: DONE - minimalis LodgingBusiness booking schema bovites elkeszult.
+- Teendok: Rich Results Test eles/deploy utan; kovetkezo schema bovites csak kulon dontessel.
+- Blokkolo adatok: amenity normalizalas; address/geo publikalhato adatok; VacationRental / Google booking kapcsolat tisztazasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md`.
 
 ### Schema allapot
 
 - MEGVAN: `Organization`, `WebSite`, szallasoldalakon `LodgingBusiness`, `BreadcrumbList`.
-- GYENGE: `LodgingBusiness` csak minimalis `name`, `url`, `description`, `image`, `telephone`.
-- HIANYZIK: address/geo, amenityFeature, booking URL, reszletes szallasadatok.
+- MEGVAN: `LodgingBusiness` alapmezok: `name`, `url`, `description`, `image`, `telephone`.
+- DONE: SabeeAppos szallasoknal `potentialAction` / `ReserveAction` kerult be a mar lathato `bookingLink` URL alapjan.
+- PARTIAL: Koveskalnal nincs reservation action, mert nincs SabeeApp booking link; a CTA tovabbra is contact/inquiry utvonal.
+- HIANYZIK: address/geo, amenityFeature, reszletes szallasadatok.
 - SZABALY: bovites csak lathato, ellenorzott adattal.
-- JAVASOLT ELSO TASK: `LodgingBusiness` kis bovites booking/contact URL iranyba, uj schema tipus nelkul; Koveskalnal csak `/kapcsolat/` es `/en/contact/`, nem SabeeApp.
-- KESOBBRE: `amenityFeature`, `ImageObject`, `FAQPage`, `VacationRental`, `address`, `geo`.
+- KESOBBRE: `amenityFeature`, `ImageObject`, `FAQPage`, `VacationRental`, `address`, `geo`, `petsAllowed`.
 
 ## 8. Google Business Profile audit
 

@@ -296,6 +296,12 @@ const accommodationListingHref =
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
+const reservationAction = hasSabeeBookingLink
+  ? {
+      "@type": "ReserveAction",
+      target: toAbsoluteUrl(bookingLink)
+    }
+  : undefined;
 const heroSchemaImage = desktopHeroImage || initialHeroImage.src || mobileHeroImage;
 const fallbackOgImage =
   imageSet.card?.astroSrc?.src ||
@@ -312,7 +318,9 @@ const accommodationStructuredData = [
     url: canonicalUrl,
     description: pageData.seo.description,
     image: toAbsoluteUrl(heroSchemaImage),
-    telephone: "+36207730807"
+    telephone: "+36207730807",
+    // [CHANGE 2026-05-20 00:00] Minimal LodgingBusiness action from the visible SabeeApp CTA href; contact-only stays intentionally omit reservation action.
+    potentialAction: reservationAction
   },
   {
     "@context": "https://schema.org",
