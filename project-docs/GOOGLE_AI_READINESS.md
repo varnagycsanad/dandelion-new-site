@@ -21,6 +21,7 @@
 [CHANGE 2026-05-20 00:00] Minimalis LodgingBusiness schema bovites elkeszult SabeeApp reservation action mezovel; Koveskal contact-only schema maradt.
 [CHANGE 2026-05-20 00:00] LodgingBusiness ReserveAction schema QA DONE: buildelt JSON-LD parse es HU/EN booking target ellenorzes rendben.
 [CHANGE 2026-05-20 00:00] Kep SEO hianylista szallasonkenti javitasi prioritassa pontositva; image registry modositas nelkul.
+[CHANGE 2026-05-20 00:00] Kep SEO Batch 1 review munkalap elkeszult; image registry es hero registry javitas jovahagyas utani TODO.
 
 # Google AI Readiness terv
 
@@ -44,6 +45,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR; rovid, tablazatos forras a Package 1 szoveges reszehez.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md` - szallasoldali JSON-LD audit es biztonsagos schema bovitesi terv.
+- `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md` - elso kep SEO review munkalap, jovahagyas elotti draftokkal.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
@@ -250,11 +252,11 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 10. Kep SEO javitas
 
 - Cel: a galeria kepek alt/title/caption adatai legyenek konkretak es kephez kotottek.
-- Statusz: CHECK - szallasonkenti hianylista es javitasi sorrend dokumentalva, implementacio nelkul.
-- Teendok: kepenkenti vizualis atnezes; nem-D2 hero kepek azonositasa; elso 4-6 gallery kep priorizalt HU/EN draftja; jovahagyott mezok keszitese kesobbi kulon image registry taskban.
+- Statusz: CHECK - Batch 1 review munkalap DONE, implementacio nelkul.
+- Teendok: kepenkenti vizualis atnezes; Batch 1 draftok jovahagyasa; jovahagyott mezok keszitese kesobbi kulon image registry taskban.
 - Blokkolo adatok: kepek vizualis atnezese; draftok ellenorzese; jovahagyott kep SEO szovegek.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md`.
 
 ### Kep SEO allapot
 
@@ -266,6 +268,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - GYENGE: D2-nel nehany caption meg mindig altalanos, peldaul `A kep a szallas egyik reszletet mutatja.`
 - ELLENORIZENDO: caption mezok nem jelennek meg tartalmi kepalairaskent a preview/lightbox feluleten.
 - ELLENORIZENDO: `project-docs/gallery-order-tool/*.html` alatt minden szallashoz van `seoDraft` export `approved:false` allapottal; kiindulasnak hasznalhato, de nem johet at automatikusan final SEO adatkent.
+- DONE: Kep SEO Batch 1 review munkalap elkeszult Royal Homes, Szepvolgyi, Szololiget, Koveskal, D1 es Vintage hero-jelolt + elso 6 gallery kep korre.
+- TODO / jovahagyas utan: image registry alt/title/caption mezok modositasa.
+- TODO / jovahagyas utan: nem-D2 `hero.desktop` es `hero.mobile` registry javitas.
 
 ## 11. Angol oldalak ellenorzese
 
