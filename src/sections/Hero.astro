@@ -24,7 +24,6 @@ const {
 } = Astro.props;
 
 const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4";
-const heroPoster = "";
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
@@ -32,11 +31,14 @@ const heroPoster = "";
   <video
     class="dnd-hero__video"
     src={heroVideo}
-    poster={heroPoster}
     autoplay
     muted
     loop
     playsinline
+    webkit-playsinline
+    preload="auto"
+    disablepictureinpicture
+    disableremoteplayback
   >
     {videoFallbackText}
   </video>
