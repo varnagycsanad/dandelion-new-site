@@ -142,11 +142,11 @@ Dandelion Royal Homes 6 fős, modern és családbarát keszthelyi szállás jaku
 - kisállattal érkeznétek.
 - 2 vagy több fürdőszobára van szükségetek.
 
-## Dandelion Vintage / Cottage
+## Dandelion Vintage
 
 ### Rövid pozicionálás
 
-Dandelion Vintage / Cottage 4 fős, családbarát és bababarát nemesgulácsi szállás saját udvarral. Jó választás kisebb családoknak, pároknak vagy barátoknak, akik Balaton-felvidéki, nyugodtabb ház jellegű pihenést keresnek.
+Dandelion Vintage 4 fős, családbarát és bababarát nemesgulácsi szállás saját udvarral. Jó választás kisebb családoknak, pároknak vagy barátoknak, akik Balaton-felvidéki, nyugodtabb ház jellegű pihenést keresnek.
 
 ### Ezt válaszd, ha...
 

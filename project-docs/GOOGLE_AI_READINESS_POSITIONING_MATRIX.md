@@ -85,7 +85,7 @@ Használati szabályok:
 | Fontos tudnivalók | férőhely: 6 fő<br>fürdőszoba: 1<br>ágyelrendezés: 1 franciaágy + 2 kihúzható kanapé<br>kisállat: nem engedélyezett<br>wifi: van<br>parkolás: ingyenes<br>légkondi: van<br>medence: nincs<br>booking státusz: online foglalási link van |
 | Másik ház lehet jobb, ha... | ha inkább önálló vendégházat kerestek. |
 
-## Dandelion Vintage / Cottage
+## Dandelion Vintage
 
 | Mező | Tartalom |
 | --- | --- |

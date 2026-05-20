@@ -26,7 +26,7 @@ Forras: `src/data/accommodation-pages/*.ts`, `src/templates/AccommodationPage.as
 | Szololiget Vendeghaz | `/szololiget/` | `/en/szololiget/` | `selectedRooms=e30c4b62d7324b3f&lang=Hu` | `selectedRooms=e30c4b62d7324b3f&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
 | Szepvolgyi Vendeghaz | `/szepvolgyi/` | `/en/szepvolgyi/` | `selectedRooms=7d46f283f2f5792f&lang=Hu` | `selectedRooms=7d46f283f2f5792f&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
 | Dandelion Royal Homes | `/royal/` | `/en/royal/` | `selectedRooms=c4b8753ec9ad4dc9&lang=Hu` | `selectedRooms=c4b8753ec9ad4dc9&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
-| Dandelion Vintage / Cottage | `/dandelion-vintage/` | `/en/dandelion-vintage/` | `selectedRooms=0c9e5eaae0545ee3&lang=Hu` | `selectedRooms=0c9e5eaae0545ee3&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
+| Dandelion Vintage | `/dandelion-vintage/` | `/en/dandelion-vintage/` | `selectedRooms=0c9e5eaae0545ee3&lang=Hu` | `selectedRooms=0c9e5eaae0545ee3&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
 | Dandelion Koveskal | `/dandelion-koveskal/` | `/en/dandelion-koveskal/` | nincs SabeeApp booking link | nincs SabeeApp booking link | nem | nem | igen | nem | nincs foglalasi motor link; a korabbi sajat oldalas cel nem tekintheto booking CTA-nak | kesobbi booking/CTA dontes: kulon kapcsolatfelvetel, erdeklodes vagy mas foglalasi ut |
 
 ## Header CTA

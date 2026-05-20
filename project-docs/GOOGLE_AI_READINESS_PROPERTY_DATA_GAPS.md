@@ -183,7 +183,7 @@ Statuszok:
 | HU booking link | MEGVAN | SabeeApp selectedRooms=c4b8753ec9ad4dc9, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=c4b8753ec9ad4dc9, lang=En | nincs |
 
-## Dandelion Vintage / Cottage
+## Dandelion Vintage
 
 | Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |

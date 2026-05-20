@@ -69,7 +69,7 @@ Szallasok:
 - Szololiget Vendeghaz
 - Szepvolgyi Vendeghaz
 - Dandelion Royal Homes
-- Dandelion Vintage / Cottage
+- Dandelion Vintage
 - Koveskal
 
 Vegrehajtas:

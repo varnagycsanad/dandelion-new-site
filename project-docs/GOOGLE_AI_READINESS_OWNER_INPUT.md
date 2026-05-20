@@ -185,7 +185,7 @@ Meg nyitott mezok:
 - [ ] HU booking link ujra jovahagyasa: `selectedRooms=c4b8753ec9ad4dc9&lang=Hu`
 - [ ] EN booking link ujra jovahagyasa: `selectedRooms=c4b8753ec9ad4dc9&lang=En`
 
-## Dandelion Vintage / Cottage
+## Dandelion Vintage
 
 Megerositett adatok:
 
