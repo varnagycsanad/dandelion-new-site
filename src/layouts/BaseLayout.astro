@@ -726,9 +726,57 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
           });
         };
 
+        const playAutoplayVideo = (video) => {
+          video.muted = true;
+          video.defaultMuted = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.controls = false;
+          video.setAttribute("muted", "");
+          video.setAttribute("autoplay", "");
+          video.setAttribute("playsinline", "");
+          video.setAttribute("webkit-playsinline", "");
+          video.removeAttribute("controls");
+
+          const playback = video.play();
+
+          if (playback && typeof playback.catch === "function") {
+            playback.catch(() => {
+              if (video.readyState < 2) {
+                video.addEventListener("canplay", () => playAutoplayVideo(video), { once: true });
+              }
+            });
+          }
+        };
+
+        const initAutoplayVideos = () => {
+          const videos = document.querySelectorAll("video[autoplay]");
+
+          videos.forEach((video) => {
+            if (!(video instanceof HTMLVideoElement)) {
+              return;
+            }
+
+            playAutoplayVideo(video);
+          });
+
+          document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState !== "visible") {
+              return;
+            }
+
+            videos.forEach((video) => {
+              if (video instanceof HTMLVideoElement && video.paused) {
+                playAutoplayVideo(video);
+              }
+            });
+          });
+        };
+
         const boot = () => {
           initMailtoLinks();
           initHeader();
+          initAutoplayVideos();
         };
 
         if (document.readyState === "loading") {
