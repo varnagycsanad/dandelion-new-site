@@ -102,7 +102,6 @@ const headerText = isEnglishPage
       staysLabel: "Accommodations",
       experiencesLabel: "Experiences",
       galleryLabel: "Gallery",
-      languageLabel: "Language",
       staysSubmenuAria: "Accommodations submenu",
       mobileNavAria: "Mobile navigation",
       mobileStayGroupsAria: "Accommodation groups",
@@ -123,7 +122,6 @@ const headerText = isEnglishPage
       staysLabel: "Szállások–Házak",
       experiencesLabel: "Élmények",
       galleryLabel: "Galéria",
-      languageLabel: "Nyelv",
       staysSubmenuAria: "Szállások almenü",
       mobileNavAria: "Mobil navigáció",
       mobileStayGroupsAria: "Szálláscsoportok",
@@ -359,13 +357,11 @@ const currentLanguageRoutes = languageRoutesByPath[normalizedCurrentPath] ?? {
 const headerLanguageLinks = [
   {
     label: "HU",
-    name: isEnglishPage ? "Hungarian" : "Magyar",
     href: localizedHref(currentLanguageRoutes.hu),
     active: lang === "hu"
   },
   {
     label: "EN",
-    name: isEnglishPage ? "English" : "Angol",
     href: currentLanguageRoutes.en ? localizedHref(currentLanguageRoutes.en) : undefined,
     active: lang === "en"
   }
@@ -554,11 +550,21 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
           type="button"
           aria-label={headerText.languageAria}
           aria-expanded="false"
-          data-dnd-menu-toggle
+          data-dnd-language-toggle
         >
           <span>{mobileCurrentLanguageLabel}</span>
           <span aria-hidden="true">▾</span>
         </button>
+        <nav class="dnd-mobile-language-popover" aria-label={headerText.languageAria} data-dnd-language-popover>
+          {headerLanguageLinks.map((languageLink) => languageLink.href ? (
+            <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
+              {languageLink.label}
+            </a>
+          ) : (
+            <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
+          ))}
+          <span class="dnd-language__pending" aria-disabled="true">DE</span>
+        </nav>
 
         <div class="dnd-header__mobile-actions">
           <a
@@ -596,26 +602,6 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
         </div>
         <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
         <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
-        <div class="dnd-mobile-menu__language" aria-label={headerText.languageAria}>
-          <span class="dnd-mobile-menu__language-title">{headerText.languageLabel}</span>
-          <div class="dnd-mobile-menu__language-list">
-            {headerLanguageLinks.map((languageLink) => languageLink.href ? (
-              <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
-                <span>{languageLink.label}</span>
-                {languageLink.name}
-              </a>
-            ) : (
-              <span class="dnd-mobile-menu__language-pending" aria-disabled="true">
-                <span>{languageLink.label}</span>
-                {languageLink.name}
-              </span>
-            ))}
-            <span class="dnd-mobile-menu__language-pending" aria-disabled="true">
-              <span>DE</span>
-              Deutsch
-            </span>
-          </div>
-        </div>
         <a
           href={bookingHref}
           class="dnd-mobile-menu__booking"
@@ -682,6 +668,8 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
         const initHeader = () => {
           const header = document.querySelector("[data-dnd-header]");
           const toggles = document.querySelectorAll("[data-dnd-menu-toggle]");
+          const languageToggle = document.querySelector("[data-dnd-language-toggle]");
+          const languagePopover = document.querySelector("[data-dnd-language-popover]");
           const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
           const quickContact = document.querySelector("[data-dnd-quick-contact]");
           const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
@@ -721,7 +709,15 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
               const isOpen = header.classList.toggle("is-menu-open");
               toggles.forEach((item) => item.setAttribute("aria-expanded", String(isOpen)));
               mobileMenu?.setAttribute("data-open", String(isOpen));
+              languageToggle?.setAttribute("aria-expanded", "false");
+              languagePopover?.setAttribute("data-open", "false");
             });
+          });
+
+          languageToggle?.addEventListener("click", () => {
+            const isOpen = languageToggle.getAttribute("aria-expanded") !== "true";
+            languageToggle.setAttribute("aria-expanded", String(isOpen));
+            languagePopover?.setAttribute("data-open", String(isOpen));
           });
 
           quickContactToggle?.addEventListener("click", () => {
@@ -829,7 +825,7 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
         border: 1px solid rgba(45, 36, 28, 0.16);
         border-radius: 999px;
         background: rgba(255, 252, 246, 0.78);
-        color: inherit;
+        color: #2d241c;
         font-family: var(--dnd-font-body);
         font-size: var(--dnd-text-xs);
         font-weight: 600;
@@ -844,56 +840,39 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
         opacity: 0.7;
       }
 
-      .dnd-mobile-menu__language {
-        display: grid;
-        gap: 10px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(45, 36, 28, 0.1);
-      }
-
-      .dnd-mobile-menu__language-title {
-        color: rgba(45, 36, 28, 0.52);
-        font-size: var(--dnd-text-2xs);
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        line-height: 1.45;
-        text-transform: uppercase;
-      }
-
-      .dnd-mobile-menu__language-list {
-        display: grid;
-        gap: 8px;
-      }
-
-      .dnd-mobile-menu__language-list a,
-      .dnd-mobile-menu__language-pending {
+      .dnd-mobile-language-popover {
         display: flex;
+        position: absolute;
+        top: 54px;
+        right: 0;
         align-items: center;
         gap: 12px;
         min-height: 42px;
         padding: 0 14px;
-        border: 1px solid rgba(45, 36, 28, 0.12);
+        border: 1px solid rgba(45, 36, 28, 0.14);
         border-radius: 999px;
-        background: rgba(255, 252, 246, 0.46);
+        background: rgba(255, 252, 246, 0.96);
+        color: #2d241c;
+        font-family: var(--dnd-font-body);
         font-size: var(--dnd-text-xs);
-        letter-spacing: 0.08em;
-        line-height: 1.2;
-      }
-
-      .dnd-mobile-menu__language-list a span,
-      .dnd-mobile-menu__language-pending span {
-        min-width: 34px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 0.12em;
+        text-transform: uppercase;
+        box-shadow: 0 12px 28px rgba(49, 36, 22, 0.14);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-4px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
       }
 
-      .dnd-mobile-menu__language-list a[aria-current="page"] {
-        background: rgba(255, 252, 246, 0.74);
-        border-color: rgba(45, 36, 28, 0.22);
+      .dnd-mobile-language-popover[data-open="true"] {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
       }
 
-      .dnd-mobile-menu__language-pending {
-        opacity: 0.55;
+      .dnd-mobile-language-popover a[aria-current="page"] {
+        opacity: 1;
       }
 
       .dnd-language__pending {
@@ -909,6 +888,7 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
 
       @media (max-width: 767px) {
         .dnd-header__mobile {
+          position: relative;
           display: grid;
           grid-template-columns: minmax(0, 1fr) auto;
           grid-template-areas:
