@@ -1,33 +1,34 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness szallasadat-hiany munkalap letrehozva.
+[CHANGE 2026-05-20 00:00] Tulajdonos altal megerositett alap szallasadatok atvezetve.
 
 # Google AI Readiness property data gaps
 
 Cel: emberileg kitoltheto hianylista a szallasoldalak Google AI Readiness adataihoz.
 
-Forras: jelenlegi repo, build futtatas nelkul. Codex nem talalhat ki szallasadatot.
+Forras: jelenlegi repo es tulajdonos altal megadott megerositett adatok. Codex nem talalhat ki szallasadatot.
 
 Statuszok:
 
-- MEGVAN: a repoban egyertelmuen megtalalhato.
-- HIANYZIK: a vizsgalt repo-adatokban nem talaltam meg.
-- ELLENORIZENDO: reszben van meg, ellentmondasos vagy tulajdonosi megerosites kell.
+- MEGVAN: a repoban vagy tulajdonosi megerosites alapjan egyertelmuen megtalalhato.
+- HIANYZIK: a vizsgalt repo-adatokban es a tulajdonosi adatok kozott sem talaltam meg.
+- ELLENORIZENDO: reszben van meg, ellentmondasos vagy tovabbi megerosites kell.
 - BLOKKOLT: kulso dontes vagy hianyzo celadat miatt nem veglegesitheto.
 
 ## Dandelion D1
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | akar 8 fo / 6-8 fo | ellenorizni a vegleges publikus megfogalmazast |
-| haloszobak | ELLENORIZENDO | 3 haloszoba + nappali; leirasban tobb halo reszlet is szerepel | pontos szobaszam veglegesitese |
-| furdok | ELLENORIZENDO | tobb zuhanyzos furdo + kulon WC; lista szerint 2 furdo | pontos furdo/WC bontas |
-| agyelrendezes | ELLENORIZENDO | ket 90 cm-es agy, kanape; tobbi agy reszlete nem teljes | teljes agykiosztas |
-| medence statusz | MEGVAN | kozos panoramas medence 2026.06.01-tol | nincs |
-| parkolas | ELLENORIZENDO | listaadatban zart parkolo, oldalszovegben nem eleg explicit | parkolasi mondat jovahagyasa |
-| legkondi | ELLENORIZENDO | listaadatban klima, oldalon nem eleg explicit | van/nincs es helyisegek |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz megadasa |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | nagy csaladi haz / csaladbarat | nincs |
-| kert / terasz | MEGVAN | kert es panoramas terasz | nincs |
+| ferohely | MEGVAN | Tulajdonos: 8 fo | nincs |
+| haloszobak | ELLENORIZENDO | repo: 3 haloszoba + nappali; tulajdonos nem adott uj haloszoba bontast | pontos szobaszam, ha kell |
+| furdok | MEGVAN | Tulajdonos: 2 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 6 szimpla agy + 1 kihuzhato kanape; franciaagy nincs | nincs |
+| medence statusz | MEGVAN | Tulajdonos: kozos medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: nagy csaladi haz / csaladbarat | nincs |
+| kert / terasz | MEGVAN | repo: kert es panoramas terasz | nincs |
 | telepules | MEGVAN | Kisapati | nincs |
 | regio | MEGVAN | Szent Gyorgy-hegy / Tapolcai-medence / Balaton-felvidek | nincs |
 | kozeli latnivalok | MEGVAN | Balaton, Badacsony, Szigliget, Csobanc, boraszatok | nincs |
@@ -39,19 +40,19 @@ Statuszok:
 
 ## Dandelion D2
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | 4-6 fo | nincs |
-| haloszobak | ELLENORIZENDO | listaadatban 2 halo + nappali, oldalon nem mindenhol explicit | pontositas |
-| furdok | HIANYZIK | kad szerepel, furdo darabszam nem biztos | furdo darabszam |
-| agyelrendezes | HIANYZIK | nincs teljes agykiosztas | teljes agykiosztas |
-| medence statusz | MEGVAN | Panorama Pool 2026.06.01-tol | nincs |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | MEGVAN | klima | nincs |
-| wifi | MEGVAN | gigabites internet | nincs |
-| kisallat | HIANYZIK | allatok a haznal nem azonos kisallat-szaballyal | kisallat-szabaly |
-| csaladbarat | MEGVAN | csaladi bazis / gyerekekkel kenyelmes | nincs |
-| kert / terasz | MEGVAN | nagy udvar, kert, fedett terasz | nincs |
+| ferohely | MEGVAN | Tulajdonos: 6 fo | nincs |
+| haloszobak | ELLENORIZENDO | repo: 2 halo + nappali; tulajdonos nem adott uj haloszoba bontast | pontos szobaszam, ha kell |
+| furdok | MEGVAN | Tulajdonos: 1 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 1 franciaagy + 2 szimpla agy + 1 kihuzhato kanape | nincs |
+| medence statusz | MEGVAN | Tulajdonos: kozos medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: csaladi bazis / gyerekekkel kenyelmes | nincs |
+| kert / terasz | MEGVAN | repo: nagy udvar, kert, fedett terasz | nincs |
 | telepules | MEGVAN | Kisapati | nincs |
 | regio | MEGVAN | Szent Gyorgy-hegy / Balaton-felvidek | nincs |
 | kozeli latnivalok | MEGVAN | Balaton, turak, boraszatok | nincs |
@@ -63,19 +64,19 @@ Statuszok:
 
 ## Fugehaz
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | 4 fo, potaggyal akar 6 fo | vegleges szoveg jovahagyasa |
-| haloszobak | ELLENORIZENDO | ket szint, nappali-haloter es emeleti nyitott haloresz | pontos szobastruktura |
-| furdok | ELLENORIZENDO | zuhanyzos furdo, darabszam nem eleg explicit | furdo darabszam |
-| agyelrendezes | ELLENORIZENDO | franciaagy, agyazhato kanape; teljes kiosztas nem biztos | teljes agykiosztas |
-| medence statusz | MEGVAN | kozos panoramas medence 2026.06.01-tol | nincs |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | ELLENORIZENDO | listaadatban klima, oldalon nem eleg explicit | van/nincs es helyisegek |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | csaladbarat haz | nincs |
-| kert / terasz | MEGVAN | panoramas teraszok, kerti etkezo | nincs |
+| ferohely | MEGVAN | Tulajdonos: 4 fo | nincs |
+| haloszobak | ELLENORIZENDO | repo: ket szint, nappali-haloter es emeleti nyitott haloresz | pontos szobastruktura, ha publikalando |
+| furdok | MEGVAN | Tulajdonos: 1 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 2 franciaagy | nincs |
+| medence statusz | MEGVAN | Tulajdonos: kozos medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: csaladbarat haz | nincs |
+| kert / terasz | MEGVAN | repo: panoramas teraszok, kerti etkezo | nincs |
 | telepules | ELLENORIZENDO | Szent Gyorgy-hegy kozeleben, pontos telepules nem explicit | pontos telepules |
 | regio | MEGVAN | Balaton-felvidek / Szent Gyorgy-hegy kornyeke | nincs |
 | kozeli latnivalok | MEGVAN | tanuhagyek, turak, borok, strandok | nincs |
@@ -87,19 +88,19 @@ Statuszok:
 
 ## Zsalya Vendeghaz
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | 4 fo | nincs |
-| haloszobak | ELLENORIZENDO | ket szint, halo megnevezes nem explicit | pontos szobastruktura |
-| furdok | ELLENORIZENDO | zuhanyzos furdo, furdo-kad, kulon WC; darabszam nem biztos | furdo/WC bontas |
-| agyelrendezes | ELLENORIZENDO | franciaagy; tovabbi agyak nem biztosak | teljes agykiosztas |
-| medence statusz | HIANYZIK | nincs explicit nincs/van allitas | medence statusz |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | MEGVAN | klima mindket szinten | nincs |
-| wifi | ELLENORIZENDO | listaikon lehet teves, szoveges wifi nincs | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | parok, kisebb csaladok, baratok | nincs |
-| kert / terasz | MEGVAN | reszben fedett terasz | nincs |
+| ferohely | MEGVAN | Tulajdonos: 4 fo | nincs |
+| haloszobak | ELLENORIZENDO | repo: ket szint, halo megnevezes nem explicit | pontos szobastruktura, ha publikalando |
+| furdok | MEGVAN | Tulajdonos: 2 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 2 franciaagy | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: parok, kisebb csaladok, baratok | nincs |
+| kert / terasz | MEGVAN | repo: reszben fedett terasz | nincs |
 | telepules | MEGVAN | Kisapati / Szent Gyorgy-hegy keleti oldala | nincs |
 | regio | MEGVAN | Balaton-felvidek / Szent Gyorgy-hegy | nincs |
 | kozeli latnivalok | MEGVAN | turautvonal, tanuhagyek, Csobanc, Gulacs, Toti-hegy | nincs |
@@ -111,19 +112,19 @@ Statuszok:
 
 ## Szololiget Vendeghaz
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | 4 fo + 1 potagy | vegleges kapacitas jovahagyasa |
-| haloszobak | ELLENORIZENDO | kulonallo ketszintes haz, haloszoba nem explicit | pontos szobastruktura |
-| furdok | HIANYZIK | nem talaltam biztos szoveges adatot | furdo darabszam |
-| agyelrendezes | ELLENORIZENDO | potagy szerepel, tobbi agy nem biztos | teljes agykiosztas |
-| medence statusz | HIANYZIK | nincs explicit nincs/van allitas | medence statusz |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | ELLENORIZENDO | listaadatban klima, oldalon nem eleg explicit | van/nincs es helyisegek |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | csaladoknak is idealis | nincs |
-| kert / terasz | MEGVAN | nagy, korbejarhato terasz | nincs |
+| ferohely | MEGVAN | Tulajdonos: 4 fo | nincs |
+| haloszobak | ELLENORIZENDO | repo: kulonallo ketszintes haz, haloszoba nem explicit | pontos szobastruktura, ha publikalando |
+| furdok | MEGVAN | Tulajdonos: 1 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 1 franciaagy + 1 kihuzhato kanape | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: csaladoknak is idealis | nincs |
+| kert / terasz | MEGVAN | repo: nagy, korbejarhato terasz | nincs |
 | telepules | MEGVAN | Kisapati / Szent Gyorgy-hegy keleti oldala | nincs |
 | regio | MEGVAN | Balaton-felvidek | nincs |
 | kozeli latnivalok | MEGVAN | Bazaltorgona, boraszatok, tanuhagyek, Badacsony, Szigliget, Balaton | nincs |
@@ -135,23 +136,23 @@ Statuszok:
 
 ## Szepvolgyi Vendeghaz
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | MEGVAN | akar 8 fo | nincs |
-| haloszobak | MEGVAN | 4 haloszoba | nincs |
-| furdok | MEGVAN | 2 furdo | nincs |
-| agyelrendezes | HIANYZIK | nem talaltam teljes agykiosztast | teljes agykiosztas |
-| medence statusz | HIANYZIK | nincs explicit nincs/van allitas | medence statusz |
-| parkolas | MEGVAN | zart kert, parkolas ket autonak | nincs |
-| legkondi | ELLENORIZENDO | listaadatban klima, oldalon nem eleg explicit | van/nincs es helyisegek |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | csaladi nyaralashoz / nagyobb tarsasagnak | nincs |
-| kert / terasz | MEGVAN | zart kert, teraszbuborok | nincs |
+| ferohely | MEGVAN | Tulajdonos: 8 fo | nincs |
+| haloszobak | MEGVAN | repo: 4 haloszoba | nincs |
+| furdok | MEGVAN | Tulajdonos: 2 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 1 franciaagy + 6 szimpla agy | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: csaladi nyaralashoz / nagyobb tarsasagnak | nincs |
+| kert / terasz | MEGVAN | repo: zart kert, teraszbuborok | nincs |
 | telepules | MEGVAN | Badacsonyors | nincs |
 | regio | MEGVAN | Balaton kozeli / Badacsonyors | nincs |
 | kozeli latnivalok | MEGVAN | Folly Arboretum, Szigligeti var, borturak, gasztroprogramok, fesztivalok | nincs |
-| kozeli strandok | MEGVAN | strand kozelben | konkret strand neve ellenorizheto |
+| kozeli strandok | MEGVAN | strand kozelben | konkret strand neve opcionalisan pontosithato |
 | kinek ajanlott | MEGVAN | nagyobb csalad / tarsasag Balaton kozeleben | nincs |
 | kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=7d46f283f2f5792f, lang=Hu | nincs |
@@ -159,19 +160,19 @@ Statuszok:
 
 ## Dandelion Royal Homes
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | ELLENORIZENDO | listaadatban 4-6 fo, oldalon nem eleg explicit | vegleges kapacitas |
-| haloszobak | MEGVAN | 2 haloszoba + nappali | nincs |
-| furdok | ELLENORIZENDO | furdo kad+WC, kulon WC; darabszam nem biztos | furdo/WC bontas |
-| agyelrendezes | ELLENORIZENDO | 180 cm franciaagy, kihuzhato kanape; tovabbi alvas nem biztos | teljes agykiosztas |
-| medence statusz | ELLENORIZENDO | medence nincs megfogalmazva; tetoteraszos jakuzzi van | medence/jakuzzi kommunikacio |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | MEGVAN | huto-futo klima | nincs |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | ELLENORIZENDO | nem eleg explicit | csaladbarat statusz |
-| kert / terasz | MEGVAN | nagy terasz, szeles erkely, napozoterasz | nincs |
+| ferohely | MEGVAN | Tulajdonos: 6 fo | nincs |
+| haloszobak | MEGVAN | repo: 2 haloszoba + nappali | nincs |
+| furdok | MEGVAN | Tulajdonos: 1 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 1 franciaagy + 2 kihuzhato kanape | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence, jakuzzi van | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | ELLENORIZENDO | tulajdonos nem adott kulon csaladbarat valaszt | csaladbarat statusz |
+| kert / terasz | MEGVAN | repo: nagy terasz, szeles erkely, napozoterasz | nincs |
 | telepules | MEGVAN | Keszthely | nincs |
 | regio | MEGVAN | Balaton-parti uduloovezet | nincs |
 | kozeli latnivalok | MEGVAN | kikoto, setany, varoskozpont kb. 10 perc, kerekparut | nincs |
@@ -183,57 +184,57 @@ Statuszok:
 
 ## Dandelion Vintage / Cottage
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | ELLENORIZENDO | ferohely nincs explicit a szallasoldalon | vegleges kapacitas |
-| haloszobak | MEGVAN | 2 haloszoba + nappali | nincs |
-| furdok | ELLENORIZENDO | furdo szerepel, darabszam nem biztos | furdo darabszam |
-| agyelrendezes | MEGVAN | 180 cm franciaagy, 2 kulon 90 cm agy, kihuzhato kanape | nincs |
-| medence statusz | HIANYZIK | nincs explicit nincs/van allitas | medence statusz |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | MEGVAN | klima | nincs |
-| wifi | MEGVAN | eros / gigabites internet | nincs |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | csaladbarat, bababarat | nincs |
-| kert / terasz | MEGVAN | sajat udvar, grillezes | nincs |
+| ferohely | MEGVAN | Tulajdonos: 4 fo | nincs |
+| haloszobak | MEGVAN | repo: 2 haloszoba + nappali | nincs |
+| furdok | MEGVAN | Tulajdonos: 1 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 1 franciaagy + 2 szimpla agy | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: csaladbarat, bababarat | nincs |
+| kert / terasz | MEGVAN | repo: sajat udvar, grillezes | nincs |
 | telepules | MEGVAN | Nemesgulacs | nincs |
 | regio | MEGVAN | Balaton-felvidek | nincs |
 | kozeli latnivalok | MEGVAN | kirandulohelyek, tanuhagyek, boraszatok | nincs |
-| kozeli strandok | MEGVAN | Balaton 7 km | konkret strandok ellenorizhetok |
+| kozeli strandok | MEGVAN | Balaton 7 km | konkret strandok opcionalisan pontosithatok |
 | kinek ajanlott | MEGVAN | csaladok, babaval erkezok, baratok, parok | nincs |
 | kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
 | HU booking link | MEGVAN | SabeeApp selectedRooms=0c9e5eaae0545ee3, lang=Hu | nincs |
 | EN booking link | MEGVAN | SabeeApp selectedRooms=0c9e5eaae0545ee3, lang=En | nincs |
 
-## Dandelion Koveskal / Kovagoors
+## Dandelion Koveskal
 
-| Mezo | Statusz | Repo-alapu adat / megjegyzes | Csanad teendo |
+| Mezo | Statusz | Repo-alapu / tulajdonosi adat | Csanad teendo |
 | --- | --- | --- | --- |
-| ferohely | HIANYZIK | nem talaltam biztos szoveges adatot | kapacitas megadasa |
-| haloszobak | HIANYZIK | nem talaltam biztos szoveges adatot | haloszobak megadasa |
-| furdok | HIANYZIK | nem talaltam biztos szoveges adatot | furdok megadasa |
-| agyelrendezes | HIANYZIK | nem talaltam biztos szoveges adatot | agykiosztas megadasa |
-| medence statusz | HIANYZIK | nincs explicit nincs/van allitas | medence statusz |
-| parkolas | HIANYZIK | nem talaltam biztos szoveges adatot | parkolas statusz |
-| legkondi | HIANYZIK | nem talaltam biztos szoveges adatot | legkondi statusz |
-| wifi | HIANYZIK | nem talaltam biztos szoveges adatot | wifi statusz |
-| kisallat | HIANYZIK | nincs biztos szabaly | kisallat-szabaly |
-| csaladbarat | MEGVAN | paroknak, csaladoknak, barati tarsasagoknak | ellenorizni |
+| ferohely | MEGVAN | Tulajdonos: 6 fo | nincs |
+| haloszobak | HIANYZIK | tulajdonos agyelrendezest adott, haloszoba darabszamot nem | haloszobak megadasa |
+| furdok | MEGVAN | Tulajdonos: 2 furdoszoba | nincs |
+| agyelrendezes | MEGVAN | Tulajdonos: 2 franciaagy + 2 szimpla agy | nincs |
+| medence statusz | MEGVAN | Tulajdonos: nincs medence | nincs |
+| parkolas | MEGVAN | Tulajdonos: ingyenes parkolas van | parkolas tipusa opcionalisan pontosithato |
+| legkondi | MEGVAN | Tulajdonos: van | nincs |
+| wifi | MEGVAN | Tulajdonos: van | nincs |
+| kisallat | MEGVAN | Tulajdonos: nem engedelyezett | nincs |
+| csaladbarat | MEGVAN | repo: paroknak, csaladoknak, barati tarsasagoknak | nincs |
 | kert / terasz | ELLENORIZENDO | kert/terasz nincs explicit | kinti terek megadasa |
-| telepules | MEGVAN | Koveskal a repoban; feladatban Kovagoors is emlitve | telepules-nev tisztazasa |
+| telepules | MEGVAN | Tulajdonos: Koveskal | nincs |
 | regio | MEGVAN | Kali-medence | nincs |
 | kozeli latnivalok | MEGVAN | Kali-medence falvai, turak, boros megallok, pincesorok | nincs |
 | kozeli strandok | HIANYZIK | nem talaltam biztos szoveges adatot | strand/Balaton kapcsolat |
 | kinek ajanlott | MEGVAN | csendes pihenest keresok | nincs |
 | kinek nem ajanlott | HIANYZIK | nincs strukturalt negativ dontesi blokk | tartalom megadasa |
-| HU booking link | BLOKKOLT | sajat oldalra mutat: https://dandelionhouse.hu/koveskal/ | valodi booking cel |
-| EN booking link | BLOKKOLT | sajat oldalra mutat: https://dandelionhouse.hu/koveskal/ | valodi booking cel |
+| HU booking link | BLOKKOLT | Tulajdonos: nincs SabeeApp booking link | kesobbi booking/CTA dontes |
+| EN booking link | BLOKKOLT | Tulajdonos: nincs SabeeApp booking link | kesobbi booking/CTA dontes |
 
-## Prioritas Csanadnak
+## Tovabbra is hianyzo / ellenorizendo adatok
 
-1. Koveskal / Kovagoors nev, telepules es booking cel tisztazasa.
-2. Kisallat-szabaly minden szallasra.
-3. Kinek nem ajanlott blokk minden szallasra.
-4. Wifi, parkolas, legkondi, medence negativ statuszok.
-5. Furdok es teljes agyelrendezes.
-6. Konkret strandok es kozeli pontok.
+1. Minden szallas: `kinek nem idealis` blokk hianyzik.
+2. D1, D2, Fugehaz, Zsalya, Szololiget: haloszoba bontas csak reszben tiszta.
+3. Fugehaz: pontos telepules tovabbra is ellenorizendo.
+4. Royal Homes: csaladbarat statusz tovabbra is ellenorizendo.
+5. Koveskal: haloszobak szama, kert/terasz, kozeli strandok, booking/CTA dontes tovabbra is nyitott.
+6. Konkret kozeli strandlistak tobb szallasnal meg pontosithatok.

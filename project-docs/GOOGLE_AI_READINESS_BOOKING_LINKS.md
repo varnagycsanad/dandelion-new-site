@@ -1,4 +1,5 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness foglalasi link terkep letrehozva.
+[CHANGE 2026-05-20 00:00] Dandelion Koveskal booking statusz tulajdonosi megerosites alapjan frissitve.
 
 # Google AI Readiness booking link terkep
 
@@ -12,7 +13,7 @@ Forras: `src/data/accommodation-pages/*.ts`, `src/templates/AccommodationPage.as
 - A HU linkek `lang=Hu`, az EN linkek `lang=En` parametert hasznalnak.
 - A szallasoldali fo CTA-k jelenleg `button onclick="OpenBE()"` elemek, ezert a szobaspecifikus booking URL nem latszik kozvetlen `<a href>`-kent.
 - A header CTA rendes `<a href>`, de property szintu SabeeApp link, nem szobaspecifikus.
-- Koveskal / Kovagoors bookingLink mind HU, mind EN oldalon sajat oldalra mutat, nem SabeeApp Booking Engine linkre.
+- Dandelion Koveskal eseteben tulajdonosi megerosites alapjan nincs SabeeApp booking link; ezt kesobbi booking/CTA donteskent kell kezelni.
 
 ## Link tabla
 
@@ -26,7 +27,7 @@ Forras: `src/data/accommodation-pages/*.ts`, `src/templates/AccommodationPage.as
 | Szepvolgyi Vendeghaz | `/szepvolgyi/` | `/en/szepvolgyi/` | `selectedRooms=7d46f283f2f5792f&lang=Hu` | `selectedRooms=7d46f283f2f5792f&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
 | Dandelion Royal Homes | `/royal/` | `/en/royal/` | `selectedRooms=c4b8753ec9ad4dc9&lang=Hu` | `selectedRooms=c4b8753ec9ad4dc9&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
 | Dandelion Vintage / Cottage | `/dandelion-vintage/` | `/en/dandelion-vintage/` | `selectedRooms=0c9e5eaae0545ee3&lang=Hu` | `selectedRooms=0c9e5eaae0545ee3&lang=En` | igen | igen | igen | nem | CTA crawlernek nem egyertelmu href | `<a href={bookingLink}>` kompatibilis CTA minta |
-| Dandelion Koveskal / Kovagoors | `/dandelion-koveskal/` | `/en/dandelion-koveskal/` | `https://dandelionhouse.hu/koveskal/` | `https://dandelionhouse.hu/koveskal/` | nem | nem | igen | nem | sajat oldalra mutat, nem booking engine-re; EN sem nyelvspecifikus | valodi SabeeApp vagy mas foglalasi cel tisztazasa |
+| Dandelion Koveskal | `/dandelion-koveskal/` | `/en/dandelion-koveskal/` | nincs SabeeApp booking link | nincs SabeeApp booking link | nem | nem | igen | nem | nincs foglalasi motor link; a korabbi sajat oldalas cel nem tekintheto booking CTA-nak | kesobbi booking/CTA dontes: kulon kapcsolatfelvetel, erdeklodes vagy mas foglalasi ut |
 
 ## Header CTA
 
@@ -40,7 +41,7 @@ Forras: `src/data/accommodation-pages/*.ts`, `src/templates/AccommodationPage.as
 
 ## Kovetkezo booking task
 
-1. Koveskal / Kovagoors valodi foglalasi cel tisztazasa.
+1. Dandelion Koveskal CTA dontes: SabeeApp link nincs, ezert kulon foglalasi/erdeklodesi ut kell.
 2. SabeeApp selectedRooms kodok tulajdonosi ellenorzese.
 3. Szallasoldali CTA linkesites megtervezese a meglevo OpenBE mukodes megtartasaval.
 4. Header, listing es szallasoldali CTA kommunikacio osszehangolasa.
