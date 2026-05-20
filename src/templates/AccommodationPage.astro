@@ -41,7 +41,7 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/",
     secondaryDetailsLabel: "Tudnivalók és programok",
     decisionPanelAriaLabel: "Szállás döntési áttekintés",
-    positioningKicker: "Gyors döntési segítség",
+    positioningKicker: "Röviden erről a házról",
     positioningGoodForTitle: "Kinek jó?",
     positioningStrengthsTitle: "Fő előnyök",
     positioningKeyFactsTitle: "Fontos tudnivalók",
@@ -282,6 +282,8 @@ const compactRelatedStays = buildRelatedStays({
   baseHref
 });
 const positioning = pageData.positioning;
+const positioningGoodFor = positioning?.goodFor.slice(0, 5) || [];
+const positioningStrengths = positioning?.strengths.slice(0, 4) || [];
 const introKicker = pageData.intro.kicker?.trim() || "";
 const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
@@ -662,41 +664,29 @@ const accommodationStructuredData = [
             <h2 id="accommodation-positioning-title" class="d2-positioning__title">{positioning.shortCharacter}</h2>
           </div>
 
-          <div class="d2-positioning__grid">
-            <section class="d2-positioning__group" aria-label={templateText.positioningGoodForTitle}>
-              <h3>{templateText.positioningGoodForTitle}</h3>
-              <ul>
-                {positioning.goodFor.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </section>
+          <div class="d2-positioning__summary">
+            {positioningGoodFor.length > 0 && (
+              <section class="d2-positioning__group" aria-label={templateText.positioningGoodForTitle}>
+                <h3>{templateText.positioningGoodForTitle}</h3>
+                <ul>
+                  {positioningGoodFor.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
-            <section class="d2-positioning__group" aria-label={templateText.positioningStrengthsTitle}>
-              <h3>{templateText.positioningStrengthsTitle}</h3>
-              <ul>
-                {positioning.strengths.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </section>
-
-            <section class="d2-positioning__group d2-positioning__group--facts" aria-label={templateText.positioningKeyFactsTitle}>
-              <h3>{templateText.positioningKeyFactsTitle}</h3>
-              <ul>
-                {positioning.keyFacts.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </section>
+            {positioningStrengths.length > 0 && (
+              <section class="d2-positioning__group" aria-label={templateText.positioningStrengthsTitle}>
+                <h3>{templateText.positioningStrengthsTitle}</h3>
+                <ul>
+                  {positioningStrengths.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
-
-          {positioning.betterAlternativeNote && (
-            <p class="d2-positioning__alternative">
-              <strong>{templateText.positioningAlternativeTitle}</strong>
-              <span>{positioning.betterAlternativeNote}</span>
-            </p>
-          )}
         </div>
       </div>
     </section>
@@ -1812,39 +1802,38 @@ const accommodationStructuredData = [
   }
 
   .d2-positioning {
-    padding-top: 8px;
-    padding-bottom: 34px;
+    padding-top: 0;
+    padding-bottom: 24px;
     background: #fdfbf7;
   }
 
   .d2-positioning__shell {
     display: grid;
-    gap: 18px;
-    padding: clamp(20px, 3vw, 30px);
-    border: 1px solid rgba(217, 158, 43, 0.2);
-    border-radius: 8px;
-    background:
-      linear-gradient(180deg, rgba(255, 251, 244, 0.96), rgba(249, 239, 221, 0.78)),
-      #fdfbf7;
+    gap: 14px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 18px 0;
+    border-top: 1px solid rgba(217, 158, 43, 0.22);
+    border-bottom: 1px solid rgba(217, 158, 43, 0.16);
   }
 
   .d2-positioning__head {
-    max-width: 760px;
+    max-width: 720px;
   }
 
   .d2-positioning__title {
-    margin: 8px 0 0;
+    margin: 6px 0 0;
     color: rgba(28, 22, 16, 0.92);
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
-    line-height: 1.12;
+    font-size: clamp(1.22rem, 2vw, 1.58rem);
+    line-height: 1.18;
     font-weight: 600;
   }
 
-  .d2-positioning__grid {
+  .d2-positioning__summary {
     display: grid;
-    gap: 16px;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
+    gap: 12px 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .d2-positioning__group {
@@ -1852,7 +1841,7 @@ const accommodationStructuredData = [
   }
 
   .d2-positioning__group h3 {
-    margin: 0 0 8px;
+    margin: 0 0 7px;
     color: rgba(121, 93, 48, 0.96);
     font-size: var(--dnd-text-xs);
     font-weight: 700;
@@ -1862,53 +1851,22 @@ const accommodationStructuredData = [
   }
 
   .d2-positioning__group ul {
-    display: grid;
-    gap: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .d2-positioning__group li {
-    position: relative;
-    padding-left: 16px;
+    padding: 6px 10px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.54);
     color: rgba(28, 22, 16, 0.72);
     font-size: var(--dnd-text-sm);
-    line-height: 1.45;
-  }
-
-  .d2-positioning__group li::before {
-    content: "";
-    position: absolute;
-    top: 0.7em;
-    left: 0;
-    width: 5px;
-    height: 5px;
-    border-radius: 999px;
-    background: #d99e2b;
-    transform: translateY(-50%);
-  }
-
-  .d2-positioning__group--facts ul {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 16px;
-  }
-
-  .d2-positioning__alternative {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 0;
-    padding-top: 14px;
-    border-top: 1px solid rgba(217, 158, 43, 0.16);
-    color: rgba(28, 22, 16, 0.68);
-    font-size: var(--dnd-text-sm);
-    line-height: 1.5;
-  }
-
-  .d2-positioning__alternative strong {
-    color: rgba(28, 22, 16, 0.86);
-    font-weight: 650;
+    line-height: 1.35;
   }
 
   .d2-details__layout {
@@ -2824,8 +2782,7 @@ const accommodationStructuredData = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .d2-positioning__grid,
-    .d2-positioning__group--facts ul {
+    .d2-positioning__summary {
       grid-template-columns: 1fr;
     }
 
@@ -3166,17 +3123,17 @@ const accommodationStructuredData = [
 
     .d2-positioning {
       padding-top: 0;
-      padding-bottom: 28px;
+      padding-bottom: 22px;
     }
 
     .d2-positioning__shell {
-      gap: 14px;
-      padding: 18px;
+      gap: 12px;
+      padding: 16px 0;
     }
 
     .d2-positioning__title {
-      font-size: clamp(1.4rem, 7vw, 1.8rem);
-      line-height: 1.12;
+      font-size: clamp(1.22rem, 5.6vw, 1.52rem);
+      line-height: 1.16;
     }
 
     .d2-positioning__group h3 {
@@ -3184,10 +3141,9 @@ const accommodationStructuredData = [
       letter-spacing: 0.1em;
     }
 
-    .d2-positioning__group li,
-    .d2-positioning__alternative {
+    .d2-positioning__group li {
       font-size: var(--dnd-text-xs);
-      line-height: 1.42;
+      line-height: 1.32;
     }
 
     .d2-details__layout {
