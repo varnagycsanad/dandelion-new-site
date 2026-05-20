@@ -1,6 +1,7 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness projektkoveto letrehozva.
 [CHANGE 2026-05-20 00:00] Elso repo-alapu allapotfelmeres rogzitve a Google AI Readiness tervhez.
 [CHANGE 2026-05-20 00:00] Google AI Readiness munkadokumentumok letrehozva es a statuszhoz kapcsolva.
+[CHANGE 2026-05-20 00:00] Tulajdonosi adatbekero munkalap letrehozva, implementacio elotti kotelezo kitolteskent.
 
 # Google AI Readiness terv
 
@@ -19,6 +20,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_BOOKING_LINKS.md` - HU/EN booking link terkep es CTA kockazatok.
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
+- `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
@@ -66,7 +68,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 - Cel: egyetlen attekintheto tabla minden szallas AI-szempontbol fontos adatarol.
 - Statusz: IN_PROGRESS
-- Teendok: a lentebbi elso repo-alapu tablazat tulajdonosi ellenorzese; hianyzo mezok potlasa; HU/EN paritas kesobb.
+- Teendok: `GOOGLE_AI_READINESS_OWNER_INPUT.md` kitoltese; hianyzo mezok potlasa; HU/EN paritas kesobb.
 - Blokkolo adatok: pontos agyelrendezes, kisallat-szabaly, parkolasi reszletek, medence statusz hazankent.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`.
@@ -89,7 +91,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 - Cel: latszodjon, melyik szallasoldalon melyik dontesi adat hianyzik vagy nem eleg explicit.
 - Statusz: IN_PROGRESS
-- Teendok: tulajdonosi ellenorzes; biztos adatok potlasa kesobbi adatfajl-taskban.
+- Teendok: tulajdonosi ellenorzes az `GOOGLE_AI_READINESS_OWNER_INPUT.md` alapjan; biztos adatok potlasa kesobbi adatfajl-taskban.
 - Blokkolo adatok: tulajdonosi megerosites a nem publikus komfortadatokra.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`.
@@ -257,12 +259,16 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 
 ## Javasolt kovetkezo vegrehajtasi sorrend
 
-1. `GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`: Csanad ellenorizze es toltse ki a hianyzo szallasadatokat.
+1. `GOOGLE_AI_READINESS_OWNER_INPUT.md`: Csanad toltse ki a tulajdonosi adatbekero lapot.
 2. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: Koveskal / Kovagoors booking cel es SabeeApp selectedRooms kodok tisztazasa.
-3. Vegleges szallasadat-mester tabla letrehozasa az ellenorzott hianylista alapjan.
-4. Gyors dontesi blokk adatainak egysegesitese HU/EN oldalon.
-5. `Kinek ajanljuk / kinek nem` blokk tartalmi tervezese.
-6. CTA linkesites kodtask a booking link terkep alapjan.
+3. Vegleges szallasadat-mester tabla letrehozasa az OWNER_INPUT es a hianylista alapjan.
+4. Gyors dontesi blokk adatainak egysegesitese HU/EN oldalon, csak kitoltott OWNER_INPUT utan.
+5. `Kinek ajanljuk / kinek nem` blokk tartalmi tervezese, csak kitoltott OWNER_INPUT utan.
+6. CTA linkesites kodtask a booking link terkep alapjan, csak jovahagyott booking URL-ekkel.
 7. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott adatokkal, es csak utana implementacio.
 8. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
 9. GBP es SabeeApp / Google Free Booking tisztazas.
+
+## Implementacio elotti kapu
+
+Kovetkezo kodos vagy adatfajlos implementacio csak akkor induljon, ha a `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` ki van toltve, es a Koveskal / Kovagoors booking kerdes el van dontve.
