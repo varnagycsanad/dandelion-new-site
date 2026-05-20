@@ -571,6 +571,17 @@ const headerLanguageLinks = [
         >
           {headerText.bookingLabel}
         </a>
+        <!-- [CHANGE 2026-05-20 02:00] Mobile menu now exposes the same language switcher as desktop. -->
+        <nav class="dnd-mobile-language" aria-label={headerText.languageAria}>
+          {headerLanguageLinks.map((languageLink) => languageLink.href ? (
+            <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
+              {languageLink.label}
+            </a>
+          ) : (
+            <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
+          ))}
+          <span class="dnd-language__pending" aria-disabled="true">DE</span>
+        </nav>
         <a href={headerHomeHref}>{headerText.homeLabel}</a>
         <a href={headerStaysHref}>{headerText.staysLabel}</a>
         <div class="dnd-mobile-menu__groups" aria-label={headerText.mobileStayGroupsAria}>
@@ -779,6 +790,31 @@ const headerLanguageLinks = [
       .dnd-mobile-menu__group-items {
         display: grid;
         gap: 6px;
+      }
+
+      .dnd-mobile-language {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        min-height: 38px;
+        padding: 0 12px;
+        border: 1px solid rgba(45, 36, 28, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 252, 246, 0.5);
+        font-family: var(--dnd-font-body);
+        font-size: var(--dnd-text-2xs);
+        font-weight: 600;
+        letter-spacing: var(--dnd-tracking-wide);
+        text-transform: uppercase;
+      }
+
+      .dnd-mobile-language a {
+        opacity: 0.86;
+      }
+
+      .dnd-mobile-language a[aria-current="page"] {
+        opacity: 1;
       }
 
       .dnd-language__pending {
