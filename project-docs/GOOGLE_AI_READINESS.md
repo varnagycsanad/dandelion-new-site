@@ -17,6 +17,7 @@
 [CHANGE 2026-05-20 00:00] HU szallasoldali SabeeApp booking CTA-k href linkesitese elkeszult; Koveskal tovabbra is blokkolt.
 [CHANGE 2026-05-20 00:00] Dandelion Koveskal HU erdeklodes CTA meglevo kapcsolat URL-re beallitva.
 [CHANGE 2026-05-20 00:00] EN szallasoldali CTA paritas ellenorizve; Koveskal EN erdeklodes CTA `/en/contact/` URL-re beallitva.
+[CHANGE 2026-05-20 00:00] Szallasoldali schema audit elkeszult, bovitesi terv dokumentalva.
 
 # Google AI Readiness terv
 
@@ -39,6 +40,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTÁLHATÓ: hosszunak bizonyult, pozicionalasi matrix valtja.
 - `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR; rovid, tablazatos forras a Package 1 szoveges reszehez.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
+- `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md` - szallasoldali JSON-LD audit es biztonsagos schema bovitesi terv.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 
@@ -206,11 +208,11 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 7. Schema bovites
 
 - Cel: a lathato szoveggel egyezo, reszletesebb structured data.
-- Statusz: TODO
-- Teendok: schema terv csak az ellenorzott mester tabla utan.
-- Blokkolo adatok: szallasadat-mester tabla; CTA link terkep.
+- Statusz: CHECK - schema audit elkeszult, implementacio meg nem tortent.
+- Teendok: elso minimal schema implementacios task kulon jovahagyassal; mezovalasztas `makesOffer` / `potentialAction` / `ReserveAction` kozott; Rich Results Test kesobb.
+- Blokkolo adatok: schema booking URL dontes; amenity normalizalas; address/geo publikalhato adatok.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md`.
 
 ### Schema allapot
 
@@ -218,6 +220,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - GYENGE: `LodgingBusiness` csak minimalis `name`, `url`, `description`, `image`, `telephone`.
 - HIANYZIK: address/geo, amenityFeature, booking URL, reszletes szallasadatok.
 - SZABALY: bovites csak lathato, ellenorzott adattal.
+- JAVASOLT ELSO TASK: `LodgingBusiness` kis bovites booking/contact URL iranyba, uj schema tipus nelkul; Koveskalnal csak `/kapcsolat/` es `/en/contact/`, nem SabeeApp.
+- KESOBBRE: `amenityFeature`, `ImageObject`, `FAQPage`, `VacationRental`, `address`, `geo`.
 
 ## 8. Google Business Profile audit
 
