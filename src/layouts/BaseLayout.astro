@@ -102,6 +102,7 @@ const headerText = isEnglishPage
       staysLabel: "Accommodations",
       experiencesLabel: "Experiences",
       galleryLabel: "Gallery",
+      languageLabel: "Language",
       staysSubmenuAria: "Accommodations submenu",
       mobileNavAria: "Mobile navigation",
       mobileStayGroupsAria: "Accommodation groups",
@@ -122,6 +123,7 @@ const headerText = isEnglishPage
       staysLabel: "Szállások–Házak",
       experiencesLabel: "Élmények",
       galleryLabel: "Galéria",
+      languageLabel: "Nyelv",
       staysSubmenuAria: "Szállások almenü",
       mobileNavAria: "Mobil navigáció",
       mobileStayGroupsAria: "Szálláscsoportok",
@@ -357,15 +359,18 @@ const currentLanguageRoutes = languageRoutesByPath[normalizedCurrentPath] ?? {
 const headerLanguageLinks = [
   {
     label: "HU",
+    name: isEnglishPage ? "Hungarian" : "Magyar",
     href: localizedHref(currentLanguageRoutes.hu),
     active: lang === "hu"
   },
   {
     label: "EN",
+    name: isEnglishPage ? "English" : "Angol",
     href: currentLanguageRoutes.en ? localizedHref(currentLanguageRoutes.en) : undefined,
     active: lang === "en"
   }
 ];
+const mobileCurrentLanguageLabel = lang.toUpperCase();
 ---
 
 <!DOCTYPE html>
@@ -543,17 +548,17 @@ const headerLanguageLinks = [
           />
         </a>
 
-        <!-- [CHANGE 2026-05-20 08:00] Mobile header keeps the language switcher visible outside the hamburger menu. -->
-        <nav class="dnd-mobile-language" aria-label={headerText.languageAria}>
-          {headerLanguageLinks.map((languageLink) => languageLink.href ? (
-            <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
-              {languageLink.label}
-            </a>
-          ) : (
-            <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
-          ))}
-          <span class="dnd-language__pending" aria-disabled="true">DE</span>
-        </nav>
+        <!-- [CHANGE 2026-05-20 08:30] Mobile header shows the current language only; full language choices live in the menu. -->
+        <button
+          class="dnd-mobile-language-current"
+          type="button"
+          aria-label={headerText.languageAria}
+          aria-expanded="false"
+          data-dnd-menu-toggle
+        >
+          <span>{mobileCurrentLanguageLabel}</span>
+          <span aria-hidden="true">▾</span>
+        </button>
 
         <div class="dnd-header__mobile-actions">
           <a
@@ -575,14 +580,6 @@ const headerLanguageLinks = [
       </div>
 
       <nav class="dnd-mobile-menu" aria-label={headerText.mobileNavAria} data-dnd-mobile-menu>
-        <a
-          href={bookingHref}
-          class="dnd-mobile-menu__booking"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {headerText.bookingLabel}
-        </a>
         <a href={headerHomeHref}>{headerText.homeLabel}</a>
         <a href={headerStaysHref}>{headerText.staysLabel}</a>
         <div class="dnd-mobile-menu__groups" aria-label={headerText.mobileStayGroupsAria}>
@@ -599,7 +596,34 @@ const headerLanguageLinks = [
         </div>
         <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
         <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
-        <a href={bookingHref} target="_blank" rel="noopener noreferrer">{headerText.bookingSmallLabel}</a>
+        <div class="dnd-mobile-menu__language" aria-label={headerText.languageAria}>
+          <span class="dnd-mobile-menu__language-title">{headerText.languageLabel}</span>
+          <div class="dnd-mobile-menu__language-list">
+            {headerLanguageLinks.map((languageLink) => languageLink.href ? (
+              <a href={languageLink.href} aria-current={languageLink.active ? "page" : undefined}>
+                <span>{languageLink.label}</span>
+                {languageLink.name}
+              </a>
+            ) : (
+              <span class="dnd-mobile-menu__language-pending" aria-disabled="true">
+                <span>{languageLink.label}</span>
+                {languageLink.name}
+              </span>
+            ))}
+            <span class="dnd-mobile-menu__language-pending" aria-disabled="true">
+              <span>DE</span>
+              Deutsch
+            </span>
+          </div>
+        </div>
+        <a
+          href={bookingHref}
+          class="dnd-mobile-menu__booking"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {headerText.bookingSmallLabel}
+        </a>
       </nav>
     </header>}
 
@@ -657,7 +681,7 @@ const headerLanguageLinks = [
 
         const initHeader = () => {
           const header = document.querySelector("[data-dnd-header]");
-          const toggle = document.querySelector("[data-dnd-menu-toggle]");
+          const toggles = document.querySelectorAll("[data-dnd-menu-toggle]");
           const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
           const quickContact = document.querySelector("[data-dnd-quick-contact]");
           const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
@@ -692,10 +716,12 @@ const headerLanguageLinks = [
           applyHeaderScrollState();
           window.addEventListener("scroll", queueHeaderScrollState, { passive: true });
 
-          toggle?.addEventListener("click", () => {
-            const isOpen = header.classList.toggle("is-menu-open");
-            toggle.setAttribute("aria-expanded", String(isOpen));
-            mobileMenu?.setAttribute("data-open", String(isOpen));
+          toggles.forEach((toggle) => {
+            toggle.addEventListener("click", () => {
+              const isOpen = header.classList.toggle("is-menu-open");
+              toggles.forEach((item) => item.setAttribute("aria-expanded", String(isOpen)));
+              mobileMenu?.setAttribute("data-open", String(isOpen));
+            });
           });
 
           quickContactToggle?.addEventListener("click", () => {
@@ -793,29 +819,81 @@ const headerLanguageLinks = [
         gap: 6px;
       }
 
-      .dnd-mobile-language {
-        display: flex;
+      .dnd-mobile-language-current {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        min-height: 38px;
-        padding: 0 12px;
-        border: 1px solid rgba(45, 36, 28, 0.12);
+        gap: 7px;
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid rgba(45, 36, 28, 0.16);
         border-radius: 999px;
-        background: rgba(255, 252, 246, 0.5);
+        background: rgba(255, 252, 246, 0.78);
+        color: inherit;
         font-family: var(--dnd-font-body);
+        font-size: var(--dnd-text-xs);
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        box-shadow: 0 8px 22px rgba(49, 36, 22, 0.12);
+      }
+
+      .dnd-mobile-language-current span:last-child {
+        font-size: var(--dnd-text-2xs);
+        letter-spacing: 0;
+        opacity: 0.7;
+      }
+
+      .dnd-mobile-menu__language {
+        display: grid;
+        gap: 10px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(45, 36, 28, 0.1);
+      }
+
+      .dnd-mobile-menu__language-title {
+        color: rgba(45, 36, 28, 0.52);
         font-size: var(--dnd-text-2xs);
         font-weight: 600;
-        letter-spacing: var(--dnd-tracking-wide);
+        letter-spacing: 0.18em;
+        line-height: 1.45;
         text-transform: uppercase;
       }
 
-      .dnd-mobile-language a {
-        opacity: 0.86;
+      .dnd-mobile-menu__language-list {
+        display: grid;
+        gap: 8px;
       }
 
-      .dnd-mobile-language a[aria-current="page"] {
-        opacity: 1;
+      .dnd-mobile-menu__language-list a,
+      .dnd-mobile-menu__language-pending {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid rgba(45, 36, 28, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 252, 246, 0.46);
+        font-size: var(--dnd-text-xs);
+        letter-spacing: 0.08em;
+        line-height: 1.2;
+      }
+
+      .dnd-mobile-menu__language-list a span,
+      .dnd-mobile-menu__language-pending span {
+        min-width: 34px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+
+      .dnd-mobile-menu__language-list a[aria-current="page"] {
+        background: rgba(255, 252, 246, 0.74);
+        border-color: rgba(45, 36, 28, 0.22);
+      }
+
+      .dnd-mobile-menu__language-pending {
+        opacity: 0.55;
       }
 
       .dnd-language__pending {
@@ -849,12 +927,9 @@ const headerLanguageLinks = [
           min-width: 0;
         }
 
-        .dnd-mobile-language {
+        .dnd-mobile-language-current {
           grid-area: language;
           justify-self: end;
-          min-height: 34px;
-          padding: 0 10px;
-          gap: 10px;
         }
 
         .dnd-header__mobile-actions {
