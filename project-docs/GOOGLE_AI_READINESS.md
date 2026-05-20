@@ -8,6 +8,7 @@
 [CHANGE 2026-05-20 00:00] Elso implementacios csomag elokeszito dokumentuma letrehozva.
 [CHANGE 2026-05-20 00:00] Recommendation copy ujrafinomitva vendegbaratabb, kevesbe technikai szovegiranyra.
 [CHANGE 2026-05-20 00:00] Recommendation copy levaltva rovid pozicionalasi matrixra.
+[CHANGE 2026-05-20 00:00] Pozicionalasi matrix tisztitva tulajdonosi jovahagyas elott.
 
 # Google AI Readiness terv
 
@@ -27,8 +28,8 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTALHATO: hosszunak bizonyult, pozicionalasi matrix valtja.
-- `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - uj, rovid, tablazatos forras a Package 1 szoveges reszehez.
+- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTÁLHATÓ: hosszunak bizonyult, pozicionalasi matrix valtja.
+- `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR; rovid, tablazatos forras a Package 1 szoveges reszehez.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
@@ -154,7 +155,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: POSITIONING MATRIX DRAFT / TULAJDONOSI JOVAHAGYASRA VAR
+- Statusz: TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR
 - Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` alapjan.
 - Blokkolo adatok: pozicionalasi matrix jovahagyasa; eros negativ marketing megfogalmazas tilos.
 - Utolso frissites: 2026-05-20
@@ -163,8 +164,8 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ### Allapot
 
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
-- NEM IMPLEMENTALHATO: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
-- UJ FORRAS: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
+- NEM IMPLEMENTÁLHATÓ: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
+- TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
 - Package 1 szoveges resze csak a pozicionalasi matrix tulajdonosi jovahagyasa utan indulhat.
 
 ## 6. CTA linkesites
@@ -172,7 +173,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - Cel: a szallasoldali foglalasi CTA-k crawler szamara is rendes linkek legyenek.
 - Statusz: ELOKESZITVE / JOVAHAGYASRA VAR
 - Teendok: tulajdonosi jovahagyas a `GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` tervre; utana kulon kodtask.
-- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal; recommendation copy jovahagyasa.
+- Blokkolo adatok: foglalasi link terkep, kulonosen Koveskal; pozicionalasi matrix jovahagyasa.
 - Utolso frissites: 2026-05-20
 - Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`.
 
