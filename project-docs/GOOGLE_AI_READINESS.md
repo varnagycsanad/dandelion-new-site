@@ -12,6 +12,7 @@
 [CHANGE 2026-05-20 00:00] Pozicionalasi matrix HU szallasoldali blokkent beepitve.
 [CHANGE 2026-05-20 00:00] Pozicionalasi blokk HU QA DONE: build, HTML es vizualis ellenorzes rendben.
 [CHANGE 2026-05-20 00:00] Pozicionalasi blokk HU UX-suritese DONE: kompaktabb, kevesbe adatlap-szeru megjelenes.
+[CHANGE 2026-05-20 00:00] Positioning lathato megjelenites mikro ajanlo sorra cserelve.
 
 # Google AI Readiness terv
 
@@ -158,7 +159,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 5. Kinek ajanljuk / kinek nem blokk
 
 - Cel: AI es emberi donteshez is egyertelmu alkalmassagi jelzesek adasa.
-- Statusz: DONE - Positioning matrix HU beepites, QA es UX-surites
+- Statusz: DONE - Positioning matrix HU beepites, QA es mikro ajanlo sor
 - Teendok: EN paritas kulon kovetkezo taskban.
 - Blokkolo adatok: EN positioning szovegek jovahagyasa.
 - Utolso frissites: 2026-05-20
@@ -171,8 +172,9 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
 - DONE: a HU szallasoldalak `positioning` mezot kaptak, es a kozos `AccommodationPage.astro` lathato HTML dontesi blokkban rendereli.
 - DONE: Pozicionalasi blokk HU QA; `npm run build`, buildelt HTML, tiltott szovegek es kijelolt desktop/mobil viewportok ellenorizve.
-- DONE: Pozicionalasi blokk HU UX-surites; a lathato blokk csak a rovid karaktert, a `Kinek jo?` chipeket es a maximum 4 `Fo elonyok` chipet mutatja.
-- MEGJEGYZES: a `keyFacts` adatok az adatmodellben megmaradtak, de ebben a vizualis blokkban nem jelennek meg teljes listakent.
+- DONE: Positioning lathato megjelenites: MIKRO AJANLO SORRA CSERELVE.
+- MEGJEGYZES: a `keyFacts` adatok az adatmodellben megmaradtak, de vizualisan nem jelennek meg.
+- MEGJEGYZES: a `betterAlternativeNote` adatok az adatmodellben megmaradtak, de vizualisan nem jelennek meg.
 - EN paritas: TODO.
 
 ## 6. CTA linkesites

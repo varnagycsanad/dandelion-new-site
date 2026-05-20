@@ -41,11 +41,8 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/",
     secondaryDetailsLabel: "Tudnivalók és programok",
     decisionPanelAriaLabel: "Szállás döntési áttekintés",
-    positioningKicker: "Röviden erről a házról",
-    positioningGoodForTitle: "Kinek jó?",
-    positioningStrengthsTitle: "Fő előnyök",
-    positioningKeyFactsTitle: "Fontos tudnivalók",
-    positioningAlternativeTitle: "Másik Dandelion ház lehet jobb, ha...",
+    positioningNoteAriaLabel: "Kinek ajánljuk ezt a szállást?",
+    positioningNoteLabel: "Kinek ajánljuk?",
     overviewTitle: "Gyors áttekintés",
     reasonsTitle: "Amiért szeretni fogod",
     relatedListingCta: "Nézd meg a többi Dandelion szállást is.",
@@ -60,11 +57,8 @@ const localizedTemplateText = {
     homeBreadcrumbHref: "/en/",
     secondaryDetailsLabel: "Local tips and things to know",
     decisionPanelAriaLabel: "Accommodation decision overview",
-    positioningKicker: "Quick decision guide",
-    positioningGoodForTitle: "Good for",
-    positioningStrengthsTitle: "Main strengths",
-    positioningKeyFactsTitle: "Key facts",
-    positioningAlternativeTitle: "Another Dandelion stay may fit better if...",
+    positioningNoteAriaLabel: "Who is this stay recommended for?",
+    positioningNoteLabel: "Recommended for",
     overviewTitle: "Quick overview",
     reasonsTitle: "Why you will love it",
     relatedListingCta: "Back to accommodations.",
@@ -164,6 +158,25 @@ function areDescriptionsSimilar(first?: string, second?: string) {
 
   const overlapRatio = sharedTokens / Math.min(firstTokens.size, secondTokens.size);
   return overlapRatio >= 0.72;
+}
+
+function capitalizeFirstLetter(value: string) {
+  if (!value) return "";
+  return value.charAt(0).toLocaleUpperCase("hu-HU") + value.slice(1);
+}
+
+function formatPositioningList(items: string[]) {
+  const cleanItems = items.map((item) => item.trim()).filter(Boolean);
+  if (cleanItems.length === 0) return "";
+
+  const [firstItem, ...restItems] = cleanItems;
+  const capitalizedItems = [capitalizeFirstLetter(firstItem), ...restItems];
+  const sentence =
+    capitalizedItems.length === 1
+      ? capitalizedItems[0]
+      : `${capitalizedItems.slice(0, -1).join(", ")} és ${capitalizedItems.at(-1)}`;
+
+  return sentence.endsWith(".") ? sentence : `${sentence}.`;
 }
 
 function resolveDecisionPanelImage(
@@ -282,8 +295,10 @@ const compactRelatedStays = buildRelatedStays({
   baseHref
 });
 const positioning = pageData.positioning;
-const positioningGoodFor = positioning?.goodFor.slice(0, 5) || [];
-const positioningStrengths = positioning?.strengths.slice(0, 4) || [];
+const positioningGoodFor = positioning?.goodFor.slice(0, 3) || [];
+const positioningStrengths = positioning?.strengths.slice(0, 3) || [];
+const positioningNoteText = formatPositioningList(positioningGoodFor);
+const positioningNoteMeta = positioningStrengths.map((item) => item.trim()).filter(Boolean).join(" · ");
 const introKicker = pageData.intro.kicker?.trim() || "";
 const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
@@ -655,38 +670,20 @@ const accommodationStructuredData = [
     </section>
   )}
 
-  {positioning && (
-    <section class="d2-positioning dnd-section" aria-labelledby="accommodation-positioning-title">
-      <div class="dnd-container">
-        <div class="d2-positioning__shell">
-          <div class="d2-positioning__head">
-            <span class="dnd-section-kicker">{templateText.positioningKicker}</span>
-            <h2 id="accommodation-positioning-title" class="d2-positioning__title">{positioning.shortCharacter}</h2>
-          </div>
+  {positioningNoteText && (
+    <section class="dnd-positioning-note" aria-label={templateText.positioningNoteAriaLabel}>
+      <div class="dnd-positioning-note__inner">
+        <div class="dnd-positioning-note__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M12 3.5c1.8 3.4 3.1 4.7 6.5 6.5-3.4 1.8-4.7 3.1-6.5 6.5-1.8-3.4-3.1-4.7-6.5-6.5 3.4-1.8 4.7-3.1 6.5-6.5Z"></path>
+            <path d="M18.5 14.5c.7 1.3 1.2 1.8 2.5 2.5-1.3.7-1.8 1.2-2.5 2.5-.7-1.3-1.2-1.8-2.5-2.5 1.3-.7 1.8-1.2 2.5-2.5Z"></path>
+          </svg>
+        </div>
 
-          <div class="d2-positioning__summary">
-            {positioningGoodFor.length > 0 && (
-              <section class="d2-positioning__group" aria-label={templateText.positioningGoodForTitle}>
-                <h3>{templateText.positioningGoodForTitle}</h3>
-                <ul>
-                  {positioningGoodFor.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {positioningStrengths.length > 0 && (
-              <section class="d2-positioning__group" aria-label={templateText.positioningStrengthsTitle}>
-                <h3>{templateText.positioningStrengthsTitle}</h3>
-                <ul>
-                  {positioningStrengths.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </section>
-            )}
-          </div>
+        <div class="dnd-positioning-note__content">
+          <div class="dnd-positioning-note__label">{templateText.positioningNoteLabel}</div>
+          <p class="dnd-positioning-note__text">{positioningNoteText}</p>
+          {positioningNoteMeta && <p class="dnd-positioning-note__meta">{positioningNoteMeta}</p>}
         </div>
       </div>
     </section>
@@ -1801,72 +1798,66 @@ const accommodationStructuredData = [
     line-height: 1.72;
   }
 
-  .d2-positioning {
-    padding-top: 0;
-    padding-bottom: 24px;
-    background: #fdfbf7;
-  }
-
-  .d2-positioning__shell {
-    display: grid;
-    gap: 14px;
-    max-width: 980px;
-    margin: 0 auto;
+  .dnd-positioning-note {
+    max-width: 1060px;
+    margin: 28px auto 0;
     padding: 18px 0;
-    border-top: 1px solid rgba(217, 158, 43, 0.22);
-    border-bottom: 1px solid rgba(217, 158, 43, 0.16);
+    border-top: 1px solid rgba(217, 158, 43, 0.24);
+    border-bottom: 1px solid rgba(217, 158, 43, 0.14);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
-  .d2-positioning__head {
-    max-width: 720px;
+  .dnd-positioning-note__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
   }
 
-  .d2-positioning__title {
-    margin: 6px 0 0;
-    color: rgba(28, 22, 16, 0.92);
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.22rem, 2vw, 1.58rem);
-    line-height: 1.18;
-    font-weight: 600;
+  .dnd-positioning-note__icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: #d99e2b;
   }
 
-  .d2-positioning__summary {
-    display: grid;
-    gap: 12px 22px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .dnd-positioning-note__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
   }
 
-  .d2-positioning__group {
+  .dnd-positioning-note__content {
     min-width: 0;
+    text-align: left;
   }
 
-  .d2-positioning__group h3 {
-    margin: 0 0 7px;
-    color: rgba(121, 93, 48, 0.96);
-    font-size: var(--dnd-text-xs);
+  .dnd-positioning-note__label {
+    margin-bottom: 4px;
+    color: #d99e2b;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     line-height: 1.25;
     text-transform: uppercase;
   }
 
-  .d2-positioning__group ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
+  .dnd-positioning-note__text {
     margin: 0;
-    padding: 0;
-    list-style: none;
+    color: #1f1a14;
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
   }
 
-  .d2-positioning__group li {
-    padding: 6px 10px;
-    border: 1px solid rgba(217, 158, 43, 0.18);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.54);
-    color: rgba(28, 22, 16, 0.72);
-    font-size: var(--dnd-text-sm);
-    line-height: 1.35;
+  .dnd-positioning-note__meta {
+    margin: 6px 0 0;
+    color: rgba(31, 26, 20, 0.68);
+    font-size: 14px;
+    line-height: 1.45;
   }
 
   .d2-details__layout {
@@ -2782,10 +2773,6 @@ const accommodationStructuredData = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .d2-positioning__summary {
-      grid-template-columns: 1fr;
-    }
-
     .d2-map__card {
       height: 380px;
       min-height: 380px;
@@ -3121,29 +3108,23 @@ const accommodationStructuredData = [
       line-height: 1.52;
     }
 
-    .d2-positioning {
-      padding-top: 0;
-      padding-bottom: 22px;
-    }
-
-    .d2-positioning__shell {
-      gap: 12px;
+    .dnd-positioning-note {
+      margin-top: 22px;
       padding: 16px 0;
     }
 
-    .d2-positioning__title {
-      font-size: clamp(1.22rem, 5.6vw, 1.52rem);
-      line-height: 1.16;
+    .dnd-positioning-note__inner {
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 12px;
     }
 
-    .d2-positioning__group h3 {
-      font-size: var(--dnd-text-2xs);
-      letter-spacing: 0.1em;
+    .dnd-positioning-note__text {
+      font-size: 15px;
     }
 
-    .d2-positioning__group li {
-      font-size: var(--dnd-text-xs);
-      line-height: 1.32;
+    .dnd-positioning-note__meta {
+      font-size: 13px;
     }
 
     .d2-details__layout {
