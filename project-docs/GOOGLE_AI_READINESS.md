@@ -20,6 +20,7 @@
 [CHANGE 2026-05-20 00:00] Szallasoldali schema audit elkeszult, bovitesi terv dokumentalva.
 [CHANGE 2026-05-20 00:00] Minimalis LodgingBusiness schema bovites elkeszult SabeeApp reservation action mezovel; Koveskal contact-only schema maradt.
 [CHANGE 2026-05-20 00:00] LodgingBusiness ReserveAction schema QA DONE: buildelt JSON-LD parse es HU/EN booking target ellenorzes rendben.
+[CHANGE 2026-05-20 00:00] Kep SEO hianylista szallasonkenti javitasi prioritassa pontositva; image registry modositas nelkul.
 
 # Google AI Readiness terv
 
@@ -249,18 +250,22 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ## 10. Kep SEO javitas
 
 - Cel: a galeria kepek alt/title/caption adatai legyenek konkretak es kephez kotottek.
-- Statusz: TODO
-- Teendok: generikus galeria mezok listazasa; kepenkenti vizualis atnezes; jovahagyott HU/EN mezok keszitese.
-- Blokkolo adatok: kepek vizualis atnezese; jovahagyott kep SEO szovegek.
+- Statusz: CHECK - szallasonkenti hianylista es javitasi sorrend dokumentalva, implementacio nelkul.
+- Teendok: kepenkenti vizualis atnezes; nem-D2 hero kepek azonositasa; elso 4-6 gallery kep priorizalt HU/EN draftja; jovahagyott mezok keszitese kesobbi kulon image registry taskban.
+- Blokkolo adatok: kepek vizualis atnezese; draftok ellenorzese; jovahagyott kep SEO szovegek.
 - Utolso frissites: 2026-05-20
-- Kapcsolodo commit / RESULT helye: jelen statuszfrissites.
+- Kapcsolodo commit / RESULT helye: `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`.
 
 ### Kep SEO allapot
 
 - MEGVAN: image registry alt/title/caption strukturaval, HU/EN mezokkel.
 - MEGVAN: a template az `alt` mezot hasznalja a hero, gallery, related stay kepeknel.
-- GYENGE: sok galeria alt/title/caption generikus, peldaul `Fugehaz gallery 001`, `Szololiget gallery image 001`.
+- MEGVAN: D2 hero desktop/mobile konkret HU/EN alt/title/caption mezokkel rendelkezik.
+- HIANYZIK: minden nem-D2 szallasnal a registry `hero.desktop` es `hero.mobile` null; a renderelt hero gallery/fallbackAlt alapu.
+- GYENGE: minden nem-D2 galeria alt/title/caption generikus, peldaul `Fugehaz gallery 001`, `Szololiget gallery image 001`, `Royal Homes 022`.
+- GYENGE: D2-nel nehany caption meg mindig altalanos, peldaul `A kep a szallas egyik reszletet mutatja.`
 - ELLENORIZENDO: caption mezok nem jelennek meg tartalmi kepalairaskent a preview/lightbox feluleten.
+- ELLENORIZENDO: `project-docs/gallery-order-tool/*.html` alatt minden szallashoz van `seoDraft` export `approved:false` allapottal; kiindulasnak hasznalhato, de nem johet at automatikusan final SEO adatkent.
 
 ## 11. Angol oldalak ellenorzese
 
@@ -305,7 +310,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 3. `GOOGLE_AI_READINESS_BOOKING_LINKS.md`: nem-Koveskal SabeeApp URL-ek ujra jovahagyasa es Koveskal CTA dontes.
 4. Elso implementacios kodtask csak jovahagyott pozicionalasi matrix, Package 1 es booking/erdeklodesi URL-ek utan.
 5. `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`: schema bovitesi terv frissitese ellenorzott, lathato adatokkal, es csak utana implementacio.
-6. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: kep SEO konkretizalas kepenkenti vizualis ellenorzes utan.
+6. `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`: DONE/CHECK - szallasonkenti kep SEO hianyok es prioritasi sorrend dokumentalva; kovetkezo lepes a vizualis ellenorzesre epulo image registry implementacios task.
 7. GBP es SabeeApp / Google Free Booking tisztazas.
 
 ## Implementacio elotti kapu
