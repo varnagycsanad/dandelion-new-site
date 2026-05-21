@@ -82,6 +82,14 @@ const poolFacts = [
           <h2>A medence röviden.</h2>
         </div>
 
+        <aside class="pool-temperature" data-pool-temperature data-endpoint="/api/pool-temperature.json" aria-live="polite">
+          <span class="pool-temperature__label">Medencevíz</span>
+          <p class="pool-temperature__value" data-pool-temperature-value>
+            A medence hőmérséklete hamarosan frissül.
+          </p>
+          <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
+        </aside>
+
         <ul class="pool-facts" aria-label="Panorama Pool alapadatok">
           {poolFacts.map((fact) => (
             <li>{fact}</li>
@@ -168,10 +176,71 @@ const poolFacts = [
         }
       };
 
+      const updatePoolTemperature = async () => {
+        const widget = document.querySelector("[data-pool-temperature]");
+        if (!widget) return;
+
+        const valueNode = widget.querySelector("[data-pool-temperature-value]");
+        const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
+        const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
+        const fallbackText = "A medence hőmérséklete hamarosan frissül.";
+
+        if (!valueNode) return;
+
+        try {
+          const response = await fetch(endpoint, {
+            headers: { Accept: "application/json" },
+            cache: "no-store"
+          });
+
+          if (!response.ok) {
+            throw new Error("Pool temperature is unavailable.");
+          }
+
+          const data = await response.json();
+          const temperature = Number(data.temperature);
+
+          if (!Number.isFinite(temperature)) {
+            throw new Error("Pool temperature is invalid.");
+          }
+
+          const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "°C";
+          const formattedTemperature = temperature.toLocaleString("hu-HU", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          });
+
+          valueNode.textContent = `Aktuális medencevíz: ${formattedTemperature} ${unit}`;
+
+          if (updatedNode && typeof data.updatedAt === "string") {
+            const updatedAt = new Date(data.updatedAt);
+
+            if (!Number.isNaN(updatedAt.getTime())) {
+              updatedNode.textContent = `Frissítve: ${updatedAt.toLocaleTimeString("hu-HU", {
+                hour: "2-digit",
+                minute: "2-digit"
+              })}`;
+              updatedNode.removeAttribute("hidden");
+            }
+          }
+        } catch {
+          valueNode.textContent = fallbackText;
+          updatedNode?.setAttribute("hidden", "");
+        }
+      };
+
       if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", applyPoolHeaderState, { once: true });
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => {
+            applyPoolHeaderState();
+            updatePoolTemperature();
+          },
+          { once: true }
+        );
       } else {
         applyPoolHeaderState();
+        updatePoolTemperature();
       }
     })();
   </script>
@@ -316,6 +385,41 @@ const poolFacts = [
 
   .pool-section-heading p {
     margin-top: 12px;
+  }
+
+  .pool-temperature {
+    display: grid;
+    gap: 6px;
+    width: min(100%, 460px);
+    padding: 18px 20px;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(250, 244, 234, 0.9));
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.05);
+  }
+
+  .pool-temperature__label {
+    color: #9c7a34;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .pool-temperature__value {
+    margin: 0;
+    color: #2e241b;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 2vw, 1.95rem);
+    font-weight: 600;
+    line-height: 1.16;
+  }
+
+  .pool-temperature__updated {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.66);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
   }
 
   .pool-facts {
