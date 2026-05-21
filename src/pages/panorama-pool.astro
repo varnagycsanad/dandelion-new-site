@@ -184,6 +184,7 @@ const poolFacts = [
         const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
         const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
         const fallbackText = "A medence hőmérséklete hamarosan frissül.";
+        const staleAfterMs = 6 * 60 * 60 * 1000;
 
         if (!valueNode) return;
 
@@ -209,18 +210,23 @@ const poolFacts = [
             minimumFractionDigits: 1,
             maximumFractionDigits: 1
           });
+          const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
+          const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
+          const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
-          valueNode.textContent = `Aktuális medencevíz: ${formattedTemperature} ${unit}`;
+          valueNode.textContent = isStale
+            ? `Legutóbbi mérés: ${formattedTemperature} ${unit}`
+            : `Aktuális medencevíz: ${formattedTemperature} ${unit}`;
 
-          if (updatedNode && typeof data.updatedAt === "string") {
-            const updatedAt = new Date(data.updatedAt);
-
-            if (!Number.isNaN(updatedAt.getTime())) {
+          if (updatedNode) {
+            if (hasValidUpdatedAt) {
               updatedNode.textContent = `Frissítve: ${updatedAt.toLocaleTimeString("hu-HU", {
                 hour: "2-digit",
                 minute: "2-digit"
               })}`;
               updatedNode.removeAttribute("hidden");
+            } else {
+              updatedNode.setAttribute("hidden", "");
             }
           }
         } catch {
