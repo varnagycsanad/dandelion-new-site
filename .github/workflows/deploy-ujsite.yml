@@ -156,6 +156,7 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
+              --exclude "en/panorama-pool/index.html" \
               --exclude "videos/" \
               dist-current/ ../_prev_build/dist/ > dist-delta.txt
 
@@ -179,6 +180,7 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
+              --exclude "en/panorama-pool/index.html" \
               --exclude "videos/" \
               dist-current/ deploy-dist/
 
