@@ -355,6 +355,46 @@ jobs:
 
           rm -f "$HOME/.ssh/ujsite_deploy_key" "$RUNNER_TEMP/ssh-askpass.sh"
 
+      - name: Deploy site contents to root over FTP with curl
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s deploy-files.txt ]; then
+            echo "No root deploy changes detected."
+            exit 0
+          fi
+
+          ftp_port="${UJSITE_FTP_PORT:-21}"
+          ftp_root="${UJSITE_FTP_PATH%/}"
+          : > failed-root-curl-upload.txt
+
+          while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+
+            remote_url="ftp://${UJSITE_FTP_HOST}:${ftp_port}${ftp_root}/${rel}"
+            echo "CURL FTP UPLOAD ${rel}"
+
+            if ! curl --fail --silent --show-error \
+              --ftp-pasv \
+              --connect-timeout 20 \
+              --max-time 60 \
+              --retry 2 \
+              --retry-delay 5 \
+              --user "${UJSITE_FTP_USER}:${UJSITE_FTP_PASSWORD}" \
+              --upload-file "deploy-dist/$rel" \
+              "$remote_url"; then
+              echo "$rel" >> failed-root-curl-upload.txt
+            fi
+          done < deploy-files.txt
+
+          if [ -s failed-root-curl-upload.txt ]; then
+            echo "Root files failed with curl FTP upload:"
+            cat failed-root-curl-upload.txt
+            exit 1
+          fi
+
       - name: Deploy site contents to root over FTP
         if: env.UJSITE_SSH_HOST == '' && env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
         shell: bash
