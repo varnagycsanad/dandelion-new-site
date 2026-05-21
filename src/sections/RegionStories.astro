@@ -145,7 +145,7 @@ const {
 
   .dnd-region-stories__sticky-layer {
     position: absolute;
-    inset: 196px 0 36px;
+    inset: 0 0 36px;
     z-index: 0;
     pointer-events: none;
   }
@@ -154,7 +154,8 @@ const {
     position: sticky;
     top: 118px;
     width: 100vw;
-    height: clamp(420px, 46vw, 620px);
+    height: calc(100vh - 118px);
+    min-height: 520px;
     margin-left: calc(50% - 50vw);
     overflow: hidden;
     isolation: isolate;
@@ -209,6 +210,7 @@ const {
     gap: 64px;
     position: relative;
     z-index: 1;
+    padding-top: max(560px, calc(100vh - 118px + 84px));
   }
 
   .dnd-region-story {
