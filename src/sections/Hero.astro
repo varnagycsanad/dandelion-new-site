@@ -122,6 +122,11 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
           ))}
         </div>
       </div>
+      {Astro.slots.has("aside") && (
+        <div class="dnd-hero__aside">
+          <slot name="aside" />
+        </div>
+      )}
     </div>
   </div>
 </section>
@@ -183,6 +188,11 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
   .dnd-hero__text {
     width: min(100%, 540px);
     text-align: left;
+  }
+
+  .dnd-hero__aside {
+    position: relative;
+    z-index: 2;
   }
 
   .dnd-hero__kicker {
@@ -266,6 +276,10 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
       align-items: center;
       width: min(100%, 1040px);
       text-align: center;
+    }
+
+    .dnd-hero__aside {
+      width: min(100%, 360px);
     }
 
     .dnd-hero__title {

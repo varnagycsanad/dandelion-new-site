@@ -62,7 +62,21 @@ const poolFacts = [
       posterDesktopSrc={panoramaPoolHero.desktop}
       posterMobileSrc={panoramaPoolHero.mobile}
       posterAlt={heroImage.altHu}
-    />
+    >
+      <aside
+        slot="aside"
+        class="pool-temperature pool-temperature--hero"
+        data-pool-temperature
+        data-endpoint="/api/pool-temperature.json"
+        aria-live="polite"
+      >
+        <span class="pool-temperature__label">Medencevíz</span>
+        <p class="pool-temperature__value" data-pool-temperature-value>
+          A medence hőmérséklete hamarosan frissül.
+        </p>
+        <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
+      </aside>
+    </Hero>
 
     <section class="pool-section pool-section--intro">
       <div class="dnd-container pool-shell pool-intro">
@@ -81,14 +95,6 @@ const poolFacts = [
           <span class="pool-eyebrow">Alapadatok</span>
           <h2>A medence röviden.</h2>
         </div>
-
-        <aside class="pool-temperature" data-pool-temperature data-endpoint="/api/pool-temperature.json" aria-live="polite">
-          <span class="pool-temperature__label">Medencevíz</span>
-          <p class="pool-temperature__value" data-pool-temperature-value>
-            A medence hőmérséklete hamarosan frissül.
-          </p>
-          <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
-        </aside>
 
         <ul class="pool-facts" aria-label="Panorama Pool alapadatok">
           {poolFacts.map((fact) => (
@@ -172,7 +178,7 @@ const poolFacts = [
       const applyPoolHeaderState = () => {
         const header = document.querySelector("[data-dnd-header]");
         if (header) {
-          header.classList.add("is-pool-visible");
+          header.classList.toggle("is-pool-visible", window.scrollY > 12);
         }
       };
 
@@ -199,7 +205,9 @@ const poolFacts = [
           }
 
           const data = await response.json();
-          const temperature = Number(data.temperature);
+          const rawTemperature = data.temperature;
+          const temperature =
+            typeof rawTemperature === "number" || typeof rawTemperature === "string" ? Number(rawTemperature) : Number.NaN;
 
           if (!Number.isFinite(temperature)) {
             throw new Error("Pool temperature is invalid.");
@@ -241,12 +249,14 @@ const poolFacts = [
           () => {
             applyPoolHeaderState();
             updatePoolTemperature();
+            window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
           },
           { once: true }
         );
       } else {
         applyPoolHeaderState();
         updatePoolTemperature();
+        window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
       }
     })();
   </script>
@@ -297,27 +307,45 @@ const poolFacts = [
   }
 
   .pool-page :global(.dnd-hero__inner) {
-    justify-content: flex-end;
-    padding-top: 180px;
-    padding-bottom: clamp(90px, 15vh, 150px);
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(220px, 0.42fr);
+    gap: clamp(28px, 6vw, 92px);
+    align-items: end;
+    justify-content: space-between;
+    padding: 190px clamp(36px, 7vw, 104px) clamp(74px, 12vh, 128px);
   }
 
   .pool-page :global(.dnd-hero__text) {
-    width: min(100%, 860px);
+    align-items: flex-start;
+    width: min(100%, 620px);
+    text-align: left;
+    text-shadow: 0 2px 18px rgba(22, 17, 12, 0.28);
   }
 
   .pool-page :global(.dnd-hero__title) {
-    max-width: 18ch;
-    font-size: clamp(2.75rem, 5.4vw, 5.9rem);
-    line-height: 0.98;
-    letter-spacing: 0.02em;
+    max-width: 14ch;
+    font-size: clamp(1.95rem, 3vw, 3.45rem);
+    line-height: 1.02;
+    letter-spacing: 0;
     text-transform: none;
     text-wrap: balance;
     white-space: normal;
   }
 
   .pool-page :global(.dnd-hero__desc) {
-    max-width: 44ch;
+    max-width: 36ch;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .pool-page :global(.dnd-hero__cta) {
+    justify-content: flex-start;
+  }
+
+  .pool-page :global(.dnd-hero__aside) {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
   }
 
   .pool-shell {
@@ -395,13 +423,21 @@ const poolFacts = [
 
   .pool-temperature {
     display: grid;
-    gap: 6px;
-    width: min(100%, 460px);
-    padding: 18px 20px;
-    border: 1px solid rgba(90, 67, 41, 0.12);
-    border-radius: 8px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(250, 244, 234, 0.9));
-    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.05);
+    gap: 8px;
+    place-items: center;
+    width: clamp(188px, 18vw, 270px);
+    aspect-ratio: 1;
+    padding: 26px;
+    border: 1px solid rgba(126, 88, 34, 0.24);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.98), rgba(250, 244, 234, 0.86) 48%, rgba(221, 194, 140, 0.78)),
+      #f8efe0;
+    box-shadow:
+      0 22px 58px rgba(45, 30, 15, 0.18),
+      inset 0 0 0 10px rgba(255, 255, 255, 0.26),
+      inset 0 0 0 1px rgba(122, 86, 38, 0.18);
+    text-align: center;
   }
 
   .pool-temperature__label {
@@ -416,9 +452,10 @@ const poolFacts = [
     margin: 0;
     color: #2e241b;
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.35rem, 2vw, 1.95rem);
+    font-size: clamp(1.18rem, 2.1vw, 2.05rem);
     font-weight: 600;
-    line-height: 1.16;
+    line-height: 1.06;
+    text-wrap: balance;
   }
 
   .pool-temperature__updated {
@@ -615,7 +652,10 @@ const poolFacts = [
     }
 
     .pool-page :global(.dnd-hero__inner) {
-      padding: 0 18px 44px;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-content: end;
+      padding: 0 18px 36px;
     }
 
     .pool-page :global(.dnd-hero__text) {
@@ -624,13 +664,22 @@ const poolFacts = [
 
     .pool-page :global(.dnd-hero__title) {
       max-width: 12ch;
-      font-size: clamp(2.3rem, 11vw, 3.55rem);
-      line-height: 0.98;
+      font-size: clamp(1.95rem, 8.4vw, 2.7rem);
+      line-height: 1.02;
     }
 
     .pool-page :global(.dnd-hero__desc) {
       max-width: 28ch;
       color: rgba(255, 255, 255, 0.84);
+    }
+
+    .pool-page :global(.dnd-hero__aside) {
+      justify-content: flex-start;
+    }
+
+    .pool-temperature {
+      width: min(100%, 210px);
+      padding: 22px;
     }
 
     .pool-page :global(.dnd-hero__cta .dnd-btn) {
