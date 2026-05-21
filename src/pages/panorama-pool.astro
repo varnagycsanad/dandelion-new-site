@@ -1,15 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../sections/Hero.astro";
-import { panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
 
 const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
 const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
-const galleryImages = sortedImages.slice(0, 6);
-const mainImageCaptionId = "panorama-pool-main-image-caption";
+const galleryImages = sortedImages;
 
 const poolHeroVideos = {
   desktop: "",
@@ -47,7 +46,7 @@ const poolFacts = [
   title="Dandelion Panorama Pool | Panorámás medence a Balaton-felvidéken"
   description="2026. június 1-től panorámás domboldali medence várja a Dandelion D1, D2 és Fügeház vendégeit Kisapátiban, a Balaton-felvidéken."
   canonicalPath="/panorama-pool/"
-  ogImage={heroImage.src}
+  ogImage={panoramaPoolHero.desktop}
   ogImageAlt={heroImage.altHu}
 >
   <section class="pool-page">
@@ -60,7 +59,8 @@ const poolFacts = [
       videoSrc=""
       videoDesktopSrc={poolHeroVideos.desktop}
       videoMobileSrc={poolHeroVideos.mobile}
-      posterSrc={heroImage.src}
+      posterDesktopSrc={panoramaPoolHero.desktop}
+      posterMobileSrc={panoramaPoolHero.mobile}
       posterAlt={heroImage.altHu}
       overlay
     />
@@ -114,58 +114,36 @@ const poolFacts = [
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Galéria</span>
-          <h2>Pillanatok a készülő medencetérből.</h2>
+          <h2>Pillanatok a medencetérből.</h2>
           <p>
-            A hero után csak egy rövid válogatás marad: a meglévő medenceképek mutatják a panorámát,
-            a fedhető kialakítást és a domboldali környezetet.
+            Az új képek a medence vizét, a napozóteraszt és a Szent György-hegy környéki panorámát mutatják.
           </p>
         </div>
 
-        <div class="pool-gallery" data-pool-gallery>
-          <figure class="pool-gallery__main">
-            <img
-              id="pool-gallery-main-image"
-              src={heroImage.src}
-              alt={heroImage.altHu}
-              title={heroImage.titleHu}
-              width="1800"
-              height="1350"
-              loading="lazy"
-              decoding="async"
-              data-default-src={heroImage.src}
-              data-default-alt={heroImage.altHu}
-              data-default-title={heroImage.titleHu}
-            />
-            <figcaption>
-              <span id={mainImageCaptionId}>{heroImage.captionHu}</span>
-            </figcaption>
-          </figure>
-
-          <div class="pool-gallery__thumbs" role="list" aria-label="Panorama Pool képek">
-            {galleryImages.map((image, index) => (
-              <button
-                type="button"
-                class={`pool-thumb${image.id === heroImage.id ? " is-active" : ""}`}
-                aria-pressed={image.id === heroImage.id ? "true" : "false"}
-                aria-label={image.titleHu}
-                data-gallery-thumb
-                data-src={image.src}
-                data-alt={image.altHu}
-                data-title={image.titleHu}
-                data-caption={image.captionHu}
-              >
-                <img
-                  src={image.thumb}
-                  alt={image.altHu}
-                  title={image.titleHu}
-                  width="600"
-                  height="450"
-                  loading={index < 2 ? "eager" : "lazy"}
-                  decoding="async"
-                />
-              </button>
-            ))}
-          </div>
+        <div class="pool-gallery" aria-label="Panorama Pool galéria">
+          {galleryImages.map((image, index) => (
+            <article class:list={["pool-gallery-card", index % 2 === 1 && "pool-gallery-card--reverse"]}>
+              <figure class="pool-gallery-card__media">
+                <picture>
+                  {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                  <img
+                    src={image.src}
+                    alt={image.altHu}
+                    title={image.titleHu}
+                    width="1800"
+                    height="1350"
+                    loading={index < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+              <div class="pool-gallery-card__panel">
+                <p class="pool-gallery-card__kicker">Panorama Pool</p>
+                <h3>{image.titleHu}</h3>
+                <p>{image.captionHu}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -181,41 +159,6 @@ const poolFacts = [
       </div>
     </section>
   </section>
-
-  <script define:vars={{ mainImageCaptionId }}>
-    (() => {
-      const gallery = document.querySelector("[data-pool-gallery]");
-      if (!gallery) return;
-
-      const mainImage = gallery.querySelector("#pool-gallery-main-image");
-      const captionNode = document.getElementById(mainImageCaptionId);
-      const thumbs = Array.from(gallery.querySelectorAll("[data-gallery-thumb]"));
-
-      if (!mainImage || !captionNode || thumbs.length === 0) return;
-
-      thumbs.forEach((thumb) => {
-        thumb.addEventListener("click", () => {
-          const src = thumb.getAttribute("data-src") || mainImage.getAttribute("data-default-src") || "";
-          const alt = thumb.getAttribute("data-alt") || mainImage.getAttribute("data-default-alt") || "";
-          const title = thumb.getAttribute("data-title") || "";
-          const caption = thumb.getAttribute("data-caption") || "";
-
-          mainImage.setAttribute("src", src);
-          mainImage.setAttribute("alt", alt);
-          mainImage.setAttribute("title", title);
-          captionNode.textContent = caption;
-
-          thumbs.forEach((item) => {
-            item.classList.remove("is-active");
-            item.setAttribute("aria-pressed", "false");
-          });
-
-          thumb.classList.add("is-active");
-          thumb.setAttribute("aria-pressed", "true");
-        });
-      });
-    })();
-  </script>
 
   <script>
     (() => {
@@ -435,62 +378,80 @@ const poolFacts = [
 
   .pool-gallery {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
-    gap: 16px;
-    align-items: stretch;
+    gap: 54px;
   }
 
-  .pool-gallery__main {
+  .pool-gallery-card {
+    position: relative;
+    width: min(100%, 980px);
+  }
+
+  .pool-gallery-card--reverse {
+    justify-self: end;
+  }
+
+  .pool-gallery-card__media {
+    position: relative;
     overflow: hidden;
-    border: 1px solid rgba(90, 67, 41, 0.12);
+    margin: 0;
     border-radius: 8px;
-    background: #fbf7ef;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    background: #ddd5c8;
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.08);
   }
 
-  .pool-gallery__main img {
+  .pool-gallery-card__media picture,
+  .pool-gallery-card__media img {
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 10;
+    height: 100%;
+  }
+
+  .pool-gallery-card__media img {
+    aspect-ratio: 16 / 9;
     object-fit: cover;
   }
 
-  .pool-gallery__main figcaption {
-    padding: 12px 14px 14px;
-    color: rgba(46, 36, 27, 0.68);
+  .pool-gallery-card__panel {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    max-width: 370px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(253, 251, 247, 0.92);
+    box-shadow: 0 18px 34px rgba(45, 30, 15, 0.12);
+  }
+
+  .pool-gallery-card--reverse .pool-gallery-card__panel {
+    right: auto;
+    left: 22px;
+  }
+
+  .pool-gallery-card__kicker {
+    margin: 0 0 8px;
+    color: #8b6318;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .pool-gallery-card__panel h3 {
+    margin: 0;
+    color: #241b14;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-weight: 500;
+    line-height: 1.12;
+  }
+
+  .pool-gallery-card__panel p:last-child {
+    margin: 10px 0 0;
+    color: rgba(46, 36, 27, 0.74);
     font-size: var(--dnd-text-sm);
-    line-height: 1.5;
-  }
-
-  .pool-gallery__thumbs {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .pool-thumb {
-    overflow: hidden;
-    min-width: 0;
-    padding: 0;
-    border: 1px solid rgba(90, 67, 41, 0.12);
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 12px 28px rgba(64, 45, 27, 0.04);
-    cursor: pointer;
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .pool-thumb:hover,
-  .pool-thumb.is-active {
-    border-color: rgba(217, 158, 43, 0.45);
-    box-shadow: 0 18px 34px rgba(64, 45, 27, 0.08);
-    transform: translateY(-1px);
-  }
-
-  .pool-thumb img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    line-height: 1.55;
   }
 
   .pool-closing {
@@ -524,8 +485,7 @@ const poolFacts = [
 
   @media (max-width: 980px) {
     .pool-facts,
-    .pool-stays,
-    .pool-gallery {
+    .pool-stays {
       grid-template-columns: 1fr;
     }
 
@@ -597,12 +557,37 @@ const poolFacts = [
       padding: 16px;
     }
 
-    .pool-gallery__thumbs {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .pool-gallery {
+      gap: 28px;
+      width: calc(100% + 32px);
+      margin-left: -16px;
     }
 
-    .pool-gallery__main img {
+    .pool-gallery-card,
+    .pool-gallery-card--reverse {
+      width: 100%;
+      justify-self: stretch;
+    }
+
+    .pool-gallery-card__media {
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    .pool-gallery-card__media img {
       aspect-ratio: 4 / 3;
+    }
+
+    .pool-gallery-card__panel,
+    .pool-gallery-card--reverse .pool-gallery-card__panel {
+      position: static;
+      max-width: none;
+      margin: 0;
+      border-radius: 0;
+      border-right: 0;
+      border-left: 0;
+      box-shadow: none;
     }
 
     .pool-stay-card,

@@ -20,6 +20,8 @@ interface Props {
   videoDesktopSrc?: string;
   videoMobileSrc?: string;
   posterSrc?: string;
+  posterDesktopSrc?: string;
+  posterMobileSrc?: string;
   posterAlt?: string;
   overlay?: boolean;
   videoFallbackText?: string;
@@ -37,6 +39,8 @@ const {
   videoDesktopSrc,
   videoMobileSrc,
   posterSrc,
+  posterDesktopSrc,
+  posterMobileSrc,
   posterAlt = "",
   overlay = false,
   videoFallbackText = "A böngésződ nem támogatja a háttérvideó lejátszását."
@@ -45,6 +49,7 @@ const {
 const heroVideo = videoSrc ?? "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-faststart";
 const hasResponsiveVideo = Boolean(videoDesktopSrc || videoMobileSrc);
 const hasVideo = Boolean(heroVideo || hasResponsiveVideo);
+const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
@@ -67,8 +72,16 @@ const hasVideo = Boolean(heroVideo || hasResponsiveVideo);
       {videoDesktopSrc && <source media="(min-width: 768px)" src={videoDesktopSrc} type="video/mp4" />}
       {videoFallbackText}
     </video>
-  ) : (
-    posterSrc && <img class="dnd-hero__video" src={posterSrc} alt={posterAlt} loading="eager" decoding="async" />
+  ) : fallbackPoster && (
+    posterDesktopSrc || posterMobileSrc ? (
+      <picture class="dnd-hero__video">
+        {posterMobileSrc && <source media="(max-width: 767px)" srcset={posterMobileSrc} />}
+        {posterDesktopSrc && <source media="(min-width: 768px)" srcset={posterDesktopSrc} />}
+        <img src={fallbackPoster} alt={posterAlt} loading="eager" decoding="async" />
+      </picture>
+    ) : (
+      <img class="dnd-hero__video" src={fallbackPoster} alt={posterAlt} loading="eager" decoding="async" />
+    )
   )}
 
   <div class="dnd-hero__content">
@@ -128,6 +141,12 @@ const hasVideo = Boolean(heroVideo || hasResponsiveVideo);
   }
 
   .dnd-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dnd-hero__video img {
     width: 100%;
     height: 100%;
     object-fit: cover;
