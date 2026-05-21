@@ -1,0 +1,758 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../sections/Hero.astro";
+import { panoramaPoolHero, panoramaPoolImages } from "../../data/images/panorama-pool-images";
+
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
+
+const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
+const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
+const galleryImages = sortedImages;
+
+const poolHeroVideos = {
+  desktop: "",
+  mobile: ""
+};
+
+const stays = [
+  {
+    title: "Dandelion D1",
+    href: resolveHref("/en/dandelion-d1/"),
+    description: "A hillside stay near Szent Gyorgy Hill with summer access to Panorama Pool."
+  },
+  {
+    title: "Dandelion D2",
+    href: resolveHref("/en/dandelion-d2/"),
+    description: "Quiet Kisapati days, a spacious garden and shared Panorama Pool access from summer 2026."
+  },
+  {
+    title: "Fugehaz",
+    href: resolveHref("/en/dandelion-fugehaz/"),
+    description: "A family-friendly base for slow summer days with terrace, panorama and pool access."
+  }
+];
+
+const poolFacts = [
+  "panoramic hillside setting",
+  "saltwater treatment system",
+  "retractable covered design",
+  "for D1, D2 and Fugehaz guests",
+  "from 1 June 2026"
+];
+---
+
+<BaseLayout
+  title="Dandelion Panorama Pool | Panoramic pool in the Balaton Uplands"
+  description="From 1 June 2026, Panorama Pool welcomes Dandelion D1, D2 and Fugehaz guests in Kisapati, in the Balaton Uplands."
+  canonicalPath="/en/panorama-pool/"
+  lang="en"
+  ogLocale="en_US"
+  ogImage={panoramaPoolHero.desktop}
+  ogImageAlt={heroImage.altEn}
+>
+  <section class="pool-page">
+    <Hero
+      kicker="Panorama Pool"
+      title="Panoramic pool on the side of Szent Gyorgy Hill"
+      description="Available from 1 June 2026 for guests of D1, D2 and Fugehaz."
+      ctas={[{ label: "View accommodations", href: "#pool-stays" }]}
+      secondaryCtas={[{ label: "See the houses", href: "#pool-stays" }]}
+      videoSrc=""
+      videoDesktopSrc={poolHeroVideos.desktop}
+      videoMobileSrc={poolHeroVideos.mobile}
+      posterDesktopSrc={panoramaPoolHero.desktop}
+      posterMobileSrc={panoramaPoolHero.mobile}
+      posterAlt={heroImage.altEn}
+    >
+      <aside
+        slot="aside"
+        class="pool-temperature pool-temperature--hero"
+        data-pool-temperature
+        data-endpoint="/api/pool-temperature.json"
+        aria-live="polite"
+      >
+        <span class="pool-temperature__label">Pool water</span>
+        <p class="pool-temperature__value" data-pool-temperature-value>
+          The pool temperature will be updated soon.
+        </p>
+        <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
+      </aside>
+    </Hero>
+
+    <section class="pool-section pool-section--intro">
+      <div class="dnd-container pool-shell pool-intro">
+        <span class="pool-eyebrow">Summer experience</span>
+        <h2>Not a separate extra, but part of the summer mood of D1, D2 and Fugehaz.</h2>
+        <p>
+          Panorama Pool is made for guests staying in the nearby houses: a quiet hillside pool where swimming,
+          the view and the rhythm of the Balaton Uplands naturally become part of the stay.
+        </p>
+      </div>
+    </section>
+
+    <section class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Pool facts</span>
+          <h2>The pool in brief.</h2>
+        </div>
+
+        <ul class="pool-facts" aria-label="Panorama Pool facts">
+          {poolFacts.map((fact) => (
+            <li>{fact}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="pool-stays" class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Available stays</span>
+          <h2>Panorama Pool belongs to these Dandelion houses.</h2>
+        </div>
+
+        <div class="pool-stays">
+          {stays.map((stay) => (
+            <article class="pool-stay-card">
+              <h3>{stay.title}</h3>
+              <p>{stay.description}</p>
+              <a href={stay.href}>Open page</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-section">
+      <div class="dnd-container pool-shell pool-section-shell">
+        <div class="pool-section-heading">
+          <span class="pool-eyebrow">Gallery</span>
+          <h2>Moments from the pool area.</h2>
+          <p>
+            The new images show the water, the sun terrace and the panorama around Szent Gyorgy Hill.
+          </p>
+        </div>
+
+        <div class="pool-gallery" aria-label="Panorama Pool gallery">
+          {galleryImages.map((image, index) => (
+            <article class:list={["pool-gallery-card", index % 2 === 1 && "pool-gallery-card--reverse"]}>
+              <figure class="pool-gallery-card__media">
+                <picture>
+                  {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                  <img
+                    src={image.src}
+                    alt={image.altEn}
+                    title={image.titleEn}
+                    width="1800"
+                    height="1350"
+                    loading={index < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+              <div class="pool-gallery-card__panel">
+                <p class="pool-gallery-card__kicker">Panorama Pool</p>
+                <h3>{image.titleEn}</h3>
+                <p>{image.captionEn}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-section pool-section--closing">
+      <div class="dnd-container pool-shell">
+        <div class="pool-closing">
+          <span class="pool-eyebrow">Summer stays</span>
+          <h2>Book a summer stay with pool access.</h2>
+          <p>As a guest of D1, D2 or Fugehaz, Panorama Pool can become part of your summer days from 1 June 2026.</p>
+          <a href="#pool-stays" class="pool-button">View accommodations</a>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    (() => {
+      const applyPoolHeaderState = () => {
+        const header = document.querySelector("[data-dnd-header]");
+        if (header) {
+          header.classList.toggle("is-pool-visible", window.scrollY > 12);
+        }
+      };
+
+      const updatePoolTemperature = async () => {
+        const widget = document.querySelector("[data-pool-temperature]");
+        if (!widget) return;
+
+        const valueNode = widget.querySelector("[data-pool-temperature-value]");
+        const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
+        const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
+        const fallbackText = "The pool temperature will be updated soon.";
+        const staleAfterMs = 6 * 60 * 60 * 1000;
+
+        if (!valueNode) return;
+
+        try {
+          const response = await fetch(endpoint, {
+            headers: { Accept: "application/json" },
+            cache: "no-store"
+          });
+
+          if (!response.ok) {
+            throw new Error("Pool temperature is unavailable.");
+          }
+
+          const data = await response.json();
+          const rawTemperature = data.temperature;
+          const temperature =
+            typeof rawTemperature === "number" || typeof rawTemperature === "string" ? Number(rawTemperature) : Number.NaN;
+
+          if (!Number.isFinite(temperature)) {
+            throw new Error("Pool temperature is invalid.");
+          }
+
+          const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "\u00B0C";
+          const formattedTemperature = temperature.toLocaleString("en-US", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          });
+          const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
+          const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
+          const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
+
+          valueNode.textContent = isStale
+            ? `Last measurement: ${formattedTemperature} ${unit}`
+            : `Current pool water: ${formattedTemperature} ${unit}`;
+
+          if (updatedNode) {
+            if (hasValidUpdatedAt) {
+              updatedNode.textContent = `Updated: ${updatedAt.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit"
+              })}`;
+              updatedNode.removeAttribute("hidden");
+            } else {
+              updatedNode.setAttribute("hidden", "");
+            }
+          }
+        } catch {
+          valueNode.textContent = fallbackText;
+          updatedNode?.setAttribute("hidden", "");
+        }
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => {
+            applyPoolHeaderState();
+            updatePoolTemperature();
+            window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
+          },
+          { once: true }
+        );
+      } else {
+        applyPoolHeaderState();
+        updatePoolTemperature();
+        window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
+      }
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(.dnd-header.is-pool-visible) {
+    background: rgba(239, 228, 211, 0.94);
+    border-bottom: 1px solid rgba(111, 87, 59, 0.1);
+    box-shadow: 0 14px 34px rgba(79, 52, 29, 0.08);
+    color: #2d241c;
+    backdrop-filter: blur(12px);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-logo img) {
+    filter: none;
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a) {
+    border-color: rgba(94, 65, 39, 0.18);
+    background: rgba(255, 252, 246, 0.22);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a:hover),
+  :global(.dnd-header.is-pool-visible .dnd-header__contact a:focus-visible) {
+    border-color: rgba(94, 65, 39, 0.36);
+    background: rgba(255, 252, 246, 0.56);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-nav) {
+    border-top-color: rgba(94, 65, 39, 0.12);
+  }
+
+  :global(.dnd-header.is-pool-visible .dnd-header-cta) {
+    border-color: rgba(94, 65, 39, 0.16);
+    background: rgba(255, 252, 246, 0.46);
+  }
+
+  .pool-page {
+    overflow-x: clip;
+    background: #fdfbf7;
+    color: #2e241b;
+  }
+
+  .pool-page :global(.dnd-hero) {
+    min-height: 680px;
+    height: 92vh;
+  }
+
+  .pool-page :global(.dnd-hero__inner) {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(220px, 0.42fr);
+    gap: clamp(28px, 6vw, 92px);
+    align-items: end;
+    justify-content: space-between;
+    padding: 190px clamp(36px, 7vw, 104px) clamp(74px, 12vh, 128px);
+  }
+
+  .pool-page :global(.dnd-hero__text) {
+    align-items: flex-start;
+    width: min(100%, 620px);
+    text-align: left;
+    text-shadow: 0 2px 18px rgba(22, 17, 12, 0.28);
+  }
+
+  .pool-page :global(.dnd-hero__title) {
+    max-width: 14ch;
+    font-size: clamp(1.95rem, 3vw, 3.45rem);
+    line-height: 1.02;
+    letter-spacing: 0;
+    text-transform: none;
+    text-wrap: balance;
+    white-space: normal;
+  }
+
+  .pool-page :global(.dnd-hero__desc) {
+    max-width: 36ch;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .pool-page :global(.dnd-hero__cta) {
+    justify-content: flex-start;
+  }
+
+  .pool-page :global(.dnd-hero__aside) {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+  }
+
+  .pool-shell {
+    max-width: 1120px;
+  }
+
+  .pool-section {
+    padding: 72px 0;
+  }
+
+  .pool-section--intro {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+
+  .pool-section--closing {
+    padding-top: 24px;
+    padding-bottom: 88px;
+  }
+
+  .pool-section-shell {
+    display: grid;
+    gap: 24px;
+  }
+
+  .pool-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #9c7a34;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .pool-intro {
+    max-width: 790px;
+  }
+
+  .pool-intro h2,
+  .pool-section-heading h2,
+  .pool-closing h2 {
+    margin: 0;
+    color: #2a2017;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2rem, 3.2vw, 3.55rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: var(--dnd-tracking-display-tight);
+    text-wrap: balance;
+  }
+
+  .pool-intro p,
+  .pool-section-heading p,
+  .pool-stay-card p,
+  .pool-closing p {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.76);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .pool-intro p {
+    max-width: 64ch;
+    margin-top: 16px;
+  }
+
+  .pool-section-heading {
+    max-width: 720px;
+  }
+
+  .pool-section-heading p {
+    margin-top: 12px;
+  }
+
+  .pool-temperature {
+    display: grid;
+    gap: 8px;
+    place-items: center;
+    width: clamp(188px, 18vw, 270px);
+    aspect-ratio: 1;
+    padding: 26px;
+    border: 1px solid rgba(126, 88, 34, 0.24);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.98), rgba(250, 244, 234, 0.86) 48%, rgba(221, 194, 140, 0.78)),
+      #f8efe0;
+    box-shadow:
+      0 22px 58px rgba(45, 30, 15, 0.18),
+      inset 0 0 0 10px rgba(255, 255, 255, 0.26),
+      inset 0 0 0 1px rgba(122, 86, 38, 0.18);
+    text-align: center;
+  }
+
+  .pool-temperature__label {
+    color: #9c7a34;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .pool-temperature__value {
+    margin: 0;
+    color: #2e241b;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.18rem, 2.1vw, 2.05rem);
+    font-weight: 600;
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+
+  .pool-temperature__updated {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.66);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
+  }
+
+  .pool-facts {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pool-facts li,
+  .pool-stay-card,
+  .pool-closing {
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.06);
+  }
+
+  .pool-facts li {
+    display: flex;
+    min-height: 118px;
+    align-items: flex-end;
+    padding: 18px;
+    color: #443527;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .pool-stays {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .pool-stay-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    min-height: 212px;
+    padding: 22px 20px;
+  }
+
+  .pool-stay-card h3 {
+    margin: 0;
+    color: #241b14;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .pool-stay-card a {
+    color: #8b6318;
+    font-size: var(--dnd-text-body);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .pool-gallery {
+    display: grid;
+    gap: 54px;
+  }
+
+  .pool-gallery-card {
+    position: relative;
+    width: min(100%, 980px);
+  }
+
+  .pool-gallery-card--reverse {
+    justify-self: end;
+  }
+
+  .pool-gallery-card__media {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    background: #ddd5c8;
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.08);
+  }
+
+  .pool-gallery-card__media picture,
+  .pool-gallery-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pool-gallery-card__media img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .pool-gallery-card__panel {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    max-width: 370px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(253, 251, 247, 0.92);
+    box-shadow: 0 18px 34px rgba(45, 30, 15, 0.12);
+  }
+
+  .pool-gallery-card--reverse .pool-gallery-card__panel {
+    right: auto;
+    left: 22px;
+  }
+
+  .pool-gallery-card__kicker {
+    margin: 0 0 8px;
+    color: #8b6318;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .pool-gallery-card__panel h3 {
+    margin: 0;
+    color: #241b14;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-weight: 500;
+    line-height: 1.12;
+  }
+
+  .pool-gallery-card__panel p:last-child {
+    margin: 10px 0 0;
+    color: rgba(46, 36, 27, 0.74);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.55;
+  }
+
+  .pool-closing {
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+    padding: 28px 24px 32px;
+    text-align: center;
+  }
+
+  .pool-button {
+    display: inline-flex;
+    min-height: 46px;
+    margin-top: 4px;
+    padding: 0 22px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    background: #d99e2b;
+    color: #1f170f;
+    font-size: var(--dnd-text-body);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .pool-button:hover {
+    background: #cb901f;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 980px) {
+    .pool-facts,
+    .pool-stays {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pool-page :global(.dnd-hero) {
+      min-height: max(660px, 92svh);
+      height: auto;
+    }
+
+    .pool-page :global(.dnd-hero__content),
+    .pool-page :global(.dnd-hero__inner) {
+      min-height: max(660px, 92svh);
+    }
+
+    .pool-page :global(.dnd-hero__inner) {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-content: end;
+      padding: 0 18px 36px;
+    }
+
+    .pool-page :global(.dnd-hero__text) {
+      max-width: 350px;
+    }
+
+    .pool-page :global(.dnd-hero__title) {
+      max-width: 12ch;
+      font-size: clamp(1.95rem, 8.4vw, 2.7rem);
+      line-height: 1.02;
+    }
+
+    .pool-page :global(.dnd-hero__desc) {
+      max-width: 28ch;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .pool-page :global(.dnd-hero__aside) {
+      justify-content: flex-start;
+    }
+
+    .pool-temperature {
+      width: min(100%, 210px);
+      padding: 22px;
+    }
+
+    .pool-page :global(.dnd-hero__cta .dnd-btn) {
+      width: auto;
+      min-width: 0;
+    }
+
+    .pool-section {
+      padding: 52px 0;
+    }
+
+    .pool-section--intro {
+      padding-top: 46px;
+    }
+
+    .pool-section--closing {
+      padding-top: 14px;
+      padding-bottom: 72px;
+    }
+
+    .pool-intro h2,
+    .pool-section-heading h2,
+    .pool-closing h2 {
+      font-size: clamp(1.85rem, 8vw, 2.5rem);
+    }
+
+    .pool-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-facts li {
+      min-height: 74px;
+      padding: 16px;
+    }
+
+    .pool-gallery {
+      gap: 28px;
+      width: calc(100% + 32px);
+      margin-left: -16px;
+    }
+
+    .pool-gallery-card,
+    .pool-gallery-card--reverse {
+      width: 100%;
+      justify-self: stretch;
+    }
+
+    .pool-gallery-card__media {
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    .pool-gallery-card__media img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .pool-gallery-card__panel,
+    .pool-gallery-card--reverse .pool-gallery-card__panel {
+      position: static;
+      max-width: none;
+      margin: 0;
+      border-radius: 0;
+      border-right: 0;
+      border-left: 0;
+      box-shadow: none;
+    }
+
+    .pool-stay-card,
+    .pool-closing {
+      padding: 20px;
+    }
+  }
+</style>
