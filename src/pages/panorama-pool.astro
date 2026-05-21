@@ -34,11 +34,11 @@ const stays = [
 ];
 
 const poolFacts = [
-  "panorámás domboldali elhelyezkedés",
-  "sóbontós vízkezelés",
-  "fedhető kialakítás",
-  "D1, D2 és Fügeház vendégeinek",
-  "2026. június 1-től"
+  "Szent-György hegy lábánál",
+  "Tanúhegyekre, Badacsonyra kilátással",
+  "Kristálytiszta víz",
+  "D1, D2, Fügeház vendégei részére",
+  "elérhető: Június 1. után."
 ];
 ---
 
@@ -125,17 +125,9 @@ const poolFacts = [
 
     <section class="pool-section">
       <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-section-heading">
-          <span class="pool-eyebrow">Galéria</span>
-          <h2>Pillanatok a medencetérből.</h2>
-          <p>
-            Az új képek a medence vizét, a napozóteraszt és a Szent György-hegy környéki panorámát mutatják.
-          </p>
-        </div>
-
         <div class="pool-gallery" aria-label="Panorama Pool galéria">
           {galleryImages.map((image, index) => (
-            <article class:list={["pool-gallery-card", index % 2 === 1 && "pool-gallery-card--reverse"]}>
+            <article class="pool-gallery-card">
               <figure class="pool-gallery-card__media">
                 <picture>
                   {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
@@ -150,11 +142,6 @@ const poolFacts = [
                   />
                 </picture>
               </figure>
-              <div class="pool-gallery-card__panel">
-                <p class="pool-gallery-card__kicker">Panorama Pool</p>
-                <h3>{image.titleHu}</h3>
-                <p>{image.captionHu}</p>
-              </div>
             </article>
           ))}
         </div>
@@ -486,11 +473,13 @@ const poolFacts = [
   .pool-facts li {
     display: flex;
     min-height: 118px;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     padding: 18px;
     color: #443527;
     font-weight: 600;
     line-height: 1.35;
+    text-align: center;
   }
 
   .pool-stays {
@@ -524,26 +513,21 @@ const poolFacts = [
 
   .pool-gallery {
     display: grid;
-    gap: 54px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    background: #fff;
   }
 
   .pool-gallery-card {
-    position: relative;
-    width: min(100%, 980px);
-  }
-
-  .pool-gallery-card--reverse {
-    justify-self: end;
+    min-width: 0;
   }
 
   .pool-gallery-card__media {
-    position: relative;
     overflow: hidden;
     margin: 0;
-    border-radius: 8px;
-    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 0;
+    border: 0;
     background: #ddd5c8;
-    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.08);
   }
 
   .pool-gallery-card__media picture,
@@ -556,48 +540,6 @@ const poolFacts = [
   .pool-gallery-card__media img {
     aspect-ratio: 16 / 9;
     object-fit: cover;
-  }
-
-  .pool-gallery-card__panel {
-    position: absolute;
-    right: 22px;
-    bottom: 22px;
-    max-width: 370px;
-    padding: 18px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 8px;
-    background: rgba(253, 251, 247, 0.92);
-    box-shadow: 0 18px 34px rgba(45, 30, 15, 0.12);
-  }
-
-  .pool-gallery-card--reverse .pool-gallery-card__panel {
-    right: auto;
-    left: 22px;
-  }
-
-  .pool-gallery-card__kicker {
-    margin: 0 0 8px;
-    color: #8b6318;
-    font-size: var(--dnd-text-2xs);
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .pool-gallery-card__panel h3 {
-    margin: 0;
-    color: #241b14;
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.35rem, 2vw, 2rem);
-    font-weight: 500;
-    line-height: 1.12;
-  }
-
-  .pool-gallery-card__panel p:last-child {
-    margin: 10px 0 0;
-    color: rgba(46, 36, 27, 0.74);
-    font-size: var(--dnd-text-sm);
-    line-height: 1.55;
   }
 
   .pool-closing {
@@ -716,15 +658,10 @@ const poolFacts = [
     }
 
     .pool-gallery {
-      gap: 28px;
+      grid-template-columns: 1fr;
+      gap: 10px;
       width: calc(100% + 32px);
       margin-left: -16px;
-    }
-
-    .pool-gallery-card,
-    .pool-gallery-card--reverse {
-      width: 100%;
-      justify-self: stretch;
     }
 
     .pool-gallery-card__media {
@@ -735,17 +672,6 @@ const poolFacts = [
 
     .pool-gallery-card__media img {
       aspect-ratio: 4 / 3;
-    }
-
-    .pool-gallery-card__panel,
-    .pool-gallery-card--reverse .pool-gallery-card__panel {
-      position: static;
-      max-width: none;
-      margin: 0;
-      border-radius: 0;
-      border-right: 0;
-      border-left: 0;
-      box-shadow: none;
     }
 
     .pool-stay-card,

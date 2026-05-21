@@ -25,3 +25,4 @@ tmp/*.log
 # jetbrains setting folder
 .idea/
 source-images/
+public/images/panorama-pool/05-21/
