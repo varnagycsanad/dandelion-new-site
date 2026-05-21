@@ -2,6 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import { panoramaPoolHero, panoramaPoolImages } from "../../data/images/panorama-pool-images";
+import { d1EnglishPageData } from "../../data/accommodation-pages/d1.en";
+import { d2EnglishPageData } from "../../data/accommodation-pages/d2.en";
+import { fugehazEnglishPageData } from "../../data/accommodation-pages/fugehaz.en";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
@@ -15,20 +18,44 @@ const poolHeroVideos = {
   mobile: "/videos/medence/HERO/Phone%20video/Medence_Hero_Phone%2005-21.mp4?v=20260521"
 };
 
+const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
+  const pageDataMap = {
+    d1: d1EnglishPageData,
+    d2: d2EnglishPageData,
+    fugehaz: fugehazEnglishPageData
+  } as const;
+  const pageData = pageDataMap[key];
+  const fallbackTitleMap = {
+    d1: "Dandelion D1 hero",
+    d2: "Dandelion D2 hero",
+    fugehaz: "Fugehaz hero"
+  } as const;
+
+  return {
+    desktopSrc: pageData.hero.mobileImagePath,
+    mobileSrc: pageData.hero.mobileImagePath,
+    altEn: pageData.hero.fallbackAlt,
+    titleEn: fallbackTitleMap[key]
+  };
+};
+
 const stays = [
   {
     title: "Dandelion D1",
     href: resolveHref("/en/dandelion-d1/"),
+    image: getStayImage("d1"),
     description: "A hillside stay near Szent Gyorgy Hill with summer access to Panorama Pool."
   },
   {
     title: "Dandelion D2",
     href: resolveHref("/en/dandelion-d2/"),
+    image: getStayImage("d2"),
     description: "Quiet Kisapati days, a spacious garden and shared Panorama Pool access from summer 2026."
   },
   {
     title: "Fugehaz",
     href: resolveHref("/en/dandelion-fugehaz/"),
+    image: getStayImage("fugehaz"),
     description: "A family-friendly base for slow summer days with terrace, panorama and pool access."
   }
 ];
@@ -112,13 +139,28 @@ const poolFacts = [
           <span class="pool-eyebrow">Available stays</span>
           <h2>Panorama Pool belongs to these Dandelion houses.</h2>
         </div>
-
         <div class="pool-stays">
           {stays.map((stay) => (
             <article class="pool-stay-card">
-              <h3>{stay.title}</h3>
-              <p>{stay.description}</p>
-              <a href={stay.href}>Open page</a>
+              <figure class="pool-stay-card__media">
+                <picture>
+                  {stay.image.mobileSrc && <source media="(max-width: 767px)" srcset={stay.image.mobileSrc} />}
+                  <img
+                    src={stay.image.desktopSrc}
+                    alt={stay.image.altEn}
+                    title={stay.image.titleEn}
+                    width="1600"
+                    height="1200"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+              <div class="pool-stay-card__body">
+                <h3>{stay.title}</h3>
+                <p>{stay.description}</p>
+                <a href={stay.href}>Open page</a>
+              </div>
             </article>
           ))}
         </div>
@@ -496,10 +538,34 @@ const poolFacts = [
 
   .pool-stay-card {
     display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  .pool-stay-card__media {
+    margin: 0;
+    background: #ddd5c8;
+  }
+
+  .pool-stay-card__media picture,
+  .pool-stay-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pool-stay-card__media img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .pool-stay-card__body {
+    display: grid;
     grid-template-rows: auto 1fr auto;
     gap: 12px;
     min-height: 212px;
-    padding: 22px 20px;
+    padding: 18px 20px 22px;
   }
 
   .pool-stay-card h3 {
@@ -692,3 +758,4 @@ const poolFacts = [
     }
   }
 </style>
+
