@@ -25,7 +25,9 @@ if (!is_array($payload)) {
     send_json(400, ['error' => 'Invalid JSON body.']);
 }
 
-$secret = $payload['secret'] ?? '';
+$headerSecret = $_SERVER['HTTP_X_POOL_SECRET'] ?? '';
+$bodySecret = $payload['secret'] ?? '';
+$secret = is_string($headerSecret) && trim($headerSecret) !== '' ? $headerSecret : $bodySecret;
 
 if (!is_string($secret) || !hash_equals(POOL_TEMPERATURE_SECRET_HASH, hash('sha256', $secret))) {
     send_json(403, ['error' => 'Forbidden.']);
