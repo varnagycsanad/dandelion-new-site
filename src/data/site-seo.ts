@@ -19,7 +19,7 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/" },
   { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/" },
   { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/" },
-  { hu: "/panorama-pool/", en: "/en/panorama-pool/" },
+  { hu: "/panorama-pool/", en: "/en/panorama-pool.html" },
   { hu: "/dandelion-d2/", en: "/en/dandelion-d2/" },
   { hu: "/fuge/", en: "/en/dandelion-fugehaz/" },
   { hu: "/dandelion-d1/", en: "/en/dandelion-d1/" },
@@ -51,7 +51,7 @@ export const SITEMAP_PATHS = [
   "/impresszum/",
   "/szallasok/",
   "/panorama-pool/",
-  "/en/panorama-pool/",
+  "/en/panorama-pool.html",
   "/fuge/",
   "/dandelion-d1/",
   "/dandelion-d2/",
@@ -85,6 +85,10 @@ export function normalizePathname(pathname: string): string {
   }
 
   const stripped = pathname.replace(/\/+$/, "");
+  if (/\.[a-z0-9]+$/i.test(stripped)) {
+    return stripped.startsWith("/") ? stripped : `/${stripped}`;
+  }
+
   return stripped.startsWith("/") ? `${stripped}/` : `/${stripped}/`;
 }
 
