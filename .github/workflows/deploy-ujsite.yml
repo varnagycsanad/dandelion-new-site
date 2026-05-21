@@ -19,7 +19,7 @@ on:
 
 concurrency:
   group: deploy-root-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -38,6 +38,12 @@ jobs:
       UJSITE_FTP_PASSWORD: ${{ secrets.UJSITE_FTP_PASSWORD }}
       UJSITE_FTP_PORT: ${{ secrets.UJSITE_FTP_PORT }}
       UJSITE_FTP_PATH: ${{ secrets.UJSITE_FTP_PATH }}
+      UJSITE_SSH_HOST: ${{ secrets.UJSITE_SSH_HOST }}
+      UJSITE_SSH_PORT: ${{ secrets.UJSITE_SSH_PORT }}
+      UJSITE_SSH_USER: ${{ secrets.UJSITE_SSH_USER }}
+      UJSITE_SSH_PRIVATE_KEY: ${{ secrets.UJSITE_SSH_PRIVATE_KEY }}
+      UJSITE_SSH_PASSPHRASE: ${{ secrets.UJSITE_SSH_PASSPHRASE }}
+      UJSITE_SSH_REMOTE_PATH: ${{ secrets.UJSITE_SSH_REMOTE_PATH }}
 
     steps:
       - name: Checkout
@@ -255,8 +261,102 @@ jobs:
             echo "value=21" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Deploy site contents to root over SSH
+        id: ssh_root_deploy
+        if: env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != ''
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s deploy-files.txt ]; then
+            echo "No root deploy changes detected."
+            exit 0
+          fi
+
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$UJSITE_SSH_PRIVATE_KEY" > "$HOME/.ssh/ujsite_deploy_key"
+          chmod 600 "$HOME/.ssh/ujsite_deploy_key"
+
+          eval "$(ssh-agent -s)"
+          {
+            echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+            echo "SSH_AGENT_PID=$SSH_AGENT_PID"
+          } >> "$GITHUB_ENV"
+
+          if [ -n "${UJSITE_SSH_PASSPHRASE:-}" ]; then
+            printf '%s\n' \
+              '#!/usr/bin/env bash' \
+              'printf "%s\n" "$UJSITE_SSH_PASSPHRASE"' \
+              > "$RUNNER_TEMP/ssh-askpass.sh"
+            chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
+
+            export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
+            export SSH_ASKPASS_REQUIRE=force
+            export DISPLAY=:0
+
+            ssh-add "$HOME/.ssh/ujsite_deploy_key" < /dev/null
+          else
+            ssh-add "$HOME/.ssh/ujsite_deploy_key"
+          fi
+
+          try_candidate() {
+            local host="$1"
+            local port="$2"
+            local label="$3"
+            local scan_output
+
+            if [ -z "$host" ] || [ -z "$port" ]; then
+              return 1
+            fi
+
+            if scan_output=$(timeout 10s ssh-keyscan -T 5 -p "$port" -H "$host" 2>/dev/null); then
+              if [ -n "$scan_output" ]; then
+                printf '%s\n' "$scan_output" >> "$HOME/.ssh/known_hosts"
+                SELECTED_SSH_HOST="$host"
+                SELECTED_SSH_PORT="$port"
+                SELECTED_SSH_LABEL="$label"
+                return 0
+              fi
+            fi
+
+            return 1
+          }
+
+          secret_port="${UJSITE_SSH_PORT:-}"
+          default_port="22"
+          shared_ip_host="185.33.55.51"
+
+          if ! (
+            try_candidate "$UJSITE_SSH_HOST" "$secret_port" "secret-host:secret-port" ||
+            try_candidate "$UJSITE_SSH_HOST" "$default_port" "secret-host:22" ||
+            try_candidate "$shared_ip_host" "$secret_port" "shared-ip:secret-port" ||
+            try_candidate "$shared_ip_host" "$default_port" "shared-ip:22"
+          ); then
+            echo "::error::No SSH host/port candidate returned a host key"
+            exit 1
+          fi
+
+          echo "selected SSH candidate: $SELECTED_SSH_LABEL"
+
+          remote_path_quoted=$(printf '%q' "$UJSITE_SSH_REMOTE_PATH")
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "$SELECTED_SSH_PORT"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@$SELECTED_SSH_HOST" "mkdir -p $remote_path_quoted"
+          rsync -az --files-from=deploy-files.txt -e "ssh ${ssh_options[*]}" deploy-dist/ "$UJSITE_SSH_USER@$SELECTED_SSH_HOST:$UJSITE_SSH_REMOTE_PATH/"
+
+          rm -f "$HOME/.ssh/ujsite_deploy_key" "$RUNNER_TEMP/ssh-askpass.sh"
+
       - name: Deploy site contents to root over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_root_deploy.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -299,7 +399,7 @@ jobs:
 
           run_lftp_script() {
             local script_file="$1"
-            lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" -f "$script_file"
+            timeout 90s lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" -f "$script_file"
           }
 
           write_root_upload_script deploy-files.txt root-upload.lftp
