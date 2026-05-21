@@ -264,28 +264,77 @@ jobs:
             exit 0
           fi
 
-          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          write_root_upload_script() {
+            local list_file="$1"
+            local script_file="$2"
+
+            cat > "$script_file" <<'LFTP_SETTINGS'
           set ssl:verify-certificate no
+          set ftp:passive-mode yes
           set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
+          set net:timeout 45
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-max 45
           set xfer:clobber on
-          $(while IFS= read -r rel; do
+          LFTP_SETTINGS
+
+            while IFS= read -r rel; do
             [ -z "$rel" ] && continue
             remote_dir="${UJSITE_FTP_PATH%/}/$(dirname "$rel")"
             if [ "$(dirname "$rel")" = "." ]; then
               remote_dir="${UJSITE_FTP_PATH%/}"
             fi
-            printf 'echo "UPLOAD %s"\n' "$rel"
-            printf 'set cmd:fail-exit no\n'
-            printf 'mkdir -p "%s"\n' "$remote_dir"
-            printf 'set cmd:fail-exit yes\n'
-            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
-          done < deploy-files.txt)
-          bye
-          EOF
+              {
+                printf 'echo "UPLOAD %s"\n' "$rel"
+                printf 'set cmd:fail-exit no\n'
+                printf 'mkdir -p "%s"\n' "$remote_dir"
+                printf 'set cmd:fail-exit yes\n'
+                printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
+              } >> "$script_file"
+            done < "$list_file"
+
+            printf 'bye\n' >> "$script_file"
+          }
+
+          run_lftp_script() {
+            local script_file="$1"
+            lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" -f "$script_file"
+          }
+
+          write_root_upload_script deploy-files.txt root-upload.lftp
+          if run_lftp_script root-upload.lftp; then
+            exit 0
+          fi
+
+          echo "Root deploy batch failed; retrying files one by one."
+          : > failed-root-upload.txt
+
+          while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            printf '%s\n' "$rel" > root-upload-single.txt
+            write_root_upload_script root-upload-single.txt root-upload-single.lftp
+
+            uploaded=false
+            for attempt in 1 2 3; do
+              echo "Retry root upload ${rel} (attempt ${attempt}/3)"
+              if run_lftp_script root-upload-single.lftp; then
+                uploaded=true
+                break
+              fi
+              sleep $((attempt * 20))
+            done
+
+            if [ "$uploaded" != "true" ]; then
+              echo "$rel" >> failed-root-upload.txt
+            fi
+          done < deploy-files.txt
+
+          if [ -s failed-root-upload.txt ]; then
+            echo "Root files still failed after retry:"
+            cat failed-root-upload.txt
+            exit 1
+          fi
 
       - name: Cleanup previous worktree
         if: always()
@@ -310,11 +359,12 @@ jobs:
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set ftp:passive-mode yes
           set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
+          set net:timeout 45
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-max 45
           set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
@@ -471,11 +521,12 @@ jobs:
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set ftp:passive-mode yes
           set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
+          set net:timeout 45
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-max 45
           set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
@@ -767,11 +818,12 @@ jobs:
 
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set ftp:passive-mode yes
           set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
+          set net:timeout 45
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-max 45
           set xfer:clobber on
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
@@ -915,11 +967,12 @@ jobs:
           set -euo pipefail
           lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
           set ssl:verify-certificate no
+          set ftp:passive-mode yes
           set cmd:fail-exit yes
-          set net:timeout 20
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 15
+          set net:timeout 45
+          set net:max-retries 6
+          set net:reconnect-interval-base 10
+          set net:reconnect-interval-max 45
           set xfer:clobber on
           mirror -R deploy-videos/ "${UJSITE_FTP_PATH%/}/videos/"
           bye
