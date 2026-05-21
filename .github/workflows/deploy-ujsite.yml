@@ -286,18 +286,11 @@ jobs:
             rel_dir="$(dirname "$rel")"
               {
                 printf 'echo "UPLOAD %s"\n' "$rel"
-                printf 'cd "%s"\n' "${UJSITE_FTP_PATH%/}"
+                remote_dir="${UJSITE_FTP_PATH%/}"
                 if [ "$rel_dir" != "." ]; then
-                  IFS='/' read -ra dir_parts <<< "$rel_dir"
-                  for dir_part in "${dir_parts[@]}"; do
-                    [ -z "$dir_part" ] && continue
-                    printf 'set cmd:fail-exit no\n'
-                    printf 'mkdir "%s"\n' "$dir_part"
-                    printf 'set cmd:fail-exit yes\n'
-                    printf 'cd "%s"\n' "$dir_part"
-                  done
+                  remote_dir="${remote_dir}/${rel_dir}"
                 fi
-                printf 'put "%s"\n' "deploy-dist/$rel"
+                printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
               } >> "$script_file"
             done < "$list_file"
 
@@ -835,19 +828,12 @@ jobs:
           $(while IFS= read -r rel; do
             [ -z "$rel" ] && continue
             rel_dir="$(dirname "$rel")"
-            printf 'echo "ROOT REPAIR %s"\n' "$rel"
-            printf 'cd "%s"\n' "${UJSITE_FTP_PATH%/}"
+            remote_dir="${UJSITE_FTP_PATH%/}"
             if [ "$rel_dir" != "." ]; then
-              IFS='/' read -ra dir_parts <<< "$rel_dir"
-              for dir_part in "${dir_parts[@]}"; do
-                [ -z "$dir_part" ] && continue
-                printf 'set cmd:fail-exit no\n'
-                printf 'mkdir "%s"\n' "$dir_part"
-                printf 'set cmd:fail-exit yes\n'
-                printf 'cd "%s"\n' "$dir_part"
-              done
+              remote_dir="${remote_dir}/${rel_dir}"
             fi
-            printf 'put "%s"\n' "deploy-dist/$rel"
+            printf 'echo "ROOT REPAIR %s"\n' "$rel"
+            printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
           done < repair-root-files.txt)
           bye
           EOF
