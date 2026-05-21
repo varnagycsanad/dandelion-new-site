@@ -1,5 +1,6 @@
 ---
 // [CHANGE 2026-05-20 00:00] Hero copy and CTAs can now be localized while preserving the original video layout.
+// [CHANGE 2026-05-21 00:00] The homepage hero accepts optional responsive video sources and poster fallback for landing pages.
 interface HeroCta {
   label: string;
   href: string;
@@ -8,66 +9,103 @@ interface HeroCta {
 }
 
 interface Props {
+  kicker?: string;
+  title?: string;
   titleTopLines?: string[];
   titleBottomLines?: string[];
   description?: string;
   ctas?: HeroCta[];
+  secondaryCtas?: HeroCta[];
+  videoSrc?: string;
+  videoDesktopSrc?: string;
+  videoMobileSrc?: string;
+  posterSrc?: string;
+  posterAlt?: string;
+  overlay?: boolean;
   videoFallbackText?: string;
 }
 
 const {
+  kicker,
+  title,
   titleTopLines = ["Reggel", "hegyekkel."],
   titleBottomLines = ["Este", "csillagokkal."],
   description = "Vendégházak a Balaton-felvidéken, távol a nyüzsgéstől.",
   ctas = [{ label: "Szállásaink", href: "#stays" }],
+  secondaryCtas = [],
+  videoSrc,
+  videoDesktopSrc,
+  videoMobileSrc,
+  posterSrc,
+  posterAlt = "",
+  overlay = false,
   videoFallbackText = "A böngésződ nem támogatja a háttérvideó lejátszását."
 } = Astro.props;
 
-const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-faststart";
+const heroVideo = videoSrc ?? "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-faststart";
+const hasResponsiveVideo = Boolean(videoDesktopSrc || videoMobileSrc);
+const hasVideo = Boolean(heroVideo || hasResponsiveVideo);
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
-<section class="dnd-hero">
-  <video
-    class="dnd-hero__video"
-    src={heroVideo}
-    autoplay
-    muted
-    loop
-    playsinline
-    webkit-playsinline
-    preload="auto"
-    disablepictureinpicture
-    disableremoteplayback
-  >
-    {videoFallbackText}
-  </video>
+<section class:list={["dnd-hero", overlay && "dnd-hero--overlay"]}>
+  {hasVideo ? (
+    <video
+      class="dnd-hero__video"
+      src={hasResponsiveVideo ? undefined : heroVideo}
+      poster={posterSrc}
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      disablepictureinpicture
+      disableremoteplayback
+    >
+      {videoMobileSrc && <source media="(max-width: 767px)" src={videoMobileSrc} type="video/mp4" />}
+      {videoDesktopSrc && <source media="(min-width: 768px)" src={videoDesktopSrc} type="video/mp4" />}
+      {videoFallbackText}
+    </video>
+  ) : (
+    posterSrc && <img class="dnd-hero__video" src={posterSrc} alt={posterAlt} loading="eager" decoding="async" />
+  )}
 
   <div class="dnd-hero__content">
     <div class="dnd-container dnd-hero__inner">
       <div class="dnd-hero__text">
-        <h1 class="dnd-hero__title">
-          <span class="dnd-hero__title-block dnd-hero__title-block--top">
-            {titleTopLines.map((line, index) => (
-              <span class="dnd-hero__title-line">{line}{index < titleTopLines.length - 1 ? " " : ""}</span>
-            ))}
-          </span>
-          <span class="dnd-hero__divider" aria-hidden="true">
-            <span class="dnd-hero__divider-line"></span>
-            <span class="dnd-hero__divider-circle"></span>
-            <span class="dnd-hero__divider-line"></span>
-          </span>
-          <span class="dnd-hero__title-block dnd-hero__title-block--bottom">
-            {titleBottomLines.map((line, index) => (
-              <span class="dnd-hero__title-line">{line}{index < titleBottomLines.length - 1 ? " " : ""}</span>
-            ))}
-          </span>
+        {kicker && <span class="dnd-hero__kicker">{kicker}</span>}
+        <h1 class:list={["dnd-hero__title", !title && "dnd-hero__title--split"]}>
+          {title ? (
+            title
+          ) : (
+            <>
+              <span class="dnd-hero__title-block dnd-hero__title-block--top">
+                {titleTopLines.map((line, index) => (
+                  <span class="dnd-hero__title-line">{line}{index < titleTopLines.length - 1 ? " " : ""}</span>
+                ))}
+              </span>
+              <span class="dnd-hero__divider" aria-hidden="true">
+                <span class="dnd-hero__divider-line"></span>
+                <span class="dnd-hero__divider-circle"></span>
+                <span class="dnd-hero__divider-line"></span>
+              </span>
+              <span class="dnd-hero__title-block dnd-hero__title-block--bottom">
+                {titleBottomLines.map((line, index) => (
+                  <span class="dnd-hero__title-line">{line}{index < titleBottomLines.length - 1 ? " " : ""}</span>
+                ))}
+              </span>
+            </>
+          )}
         </h1>
         <p class="dnd-hero__desc">{description}</p>
 
         <div class="dnd-hero__cta">
           {ctas.map((cta) => (
             <a href={cta.href} class="dnd-btn dnd-btn--primary" target={cta.target} rel={cta.rel}>{cta.label}</a>
+          ))}
+          {secondaryCtas.map((cta) => (
+            <a href={cta.href} class="dnd-btn dnd-btn--secondary" target={cta.target} rel={cta.rel}>{cta.label}</a>
           ))}
         </div>
       </div>
@@ -95,9 +133,20 @@ const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-f
     object-fit: cover;
   }
 
+  .dnd-hero--overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.18) 42%, rgba(0, 0, 0, 0.48)),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.04) 52%, rgba(0, 0, 0, 0.28));
+  }
+
   .dnd-hero__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     min-height: 100%;
     color: #fff;
   }
@@ -115,6 +164,16 @@ const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-f
   .dnd-hero__text {
     width: min(100%, 540px);
     text-align: left;
+  }
+
+  .dnd-hero__kicker {
+    display: inline-block;
+    margin: 0 0 14px;
+    color: rgba(255, 250, 241, 0.78);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   .dnd-hero__title {
@@ -166,6 +225,11 @@ const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-f
     border-color: rgba(255, 250, 241, 1);
   }
 
+  .dnd-hero__cta .dnd-btn--secondary {
+    background: rgba(255, 250, 241, 0.08);
+    color: rgba(255, 250, 241, 0.92);
+  }
+
   @media (min-width: 768px) {
     .dnd-hero {
       padding: 0;
@@ -193,12 +257,15 @@ const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-f
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-wrap: initial;
-      white-space: nowrap;
     }
 
     .dnd-hero__title-block,
     .dnd-hero__title-line {
       display: inline;
+    }
+
+    .dnd-hero__title--split {
+      white-space: nowrap;
     }
 
     .dnd-hero__divider {
@@ -260,6 +327,12 @@ const heroVideo = "/videos/fooldal/hero/dandelion_%20hero_video.mp4?v=20260520-f
     .dnd-hero__text {
       width: 100%;
       max-width: 332px;
+    }
+
+    .dnd-hero__kicker {
+      margin-bottom: 12px;
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.16em;
     }
 
     .dnd-hero__title {
