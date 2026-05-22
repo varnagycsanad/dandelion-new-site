@@ -67,6 +67,8 @@ const poolFacts = [
   "D1, D2, Fügeház vendégei részére",
   "elérhető: Június 1. után."
 ];
+
+const poolTemperatureFallback = "Hamarosan";
 ---
 
 <BaseLayout
@@ -98,9 +100,7 @@ const poolFacts = [
         aria-live="polite"
       >
         <span class="pool-temperature__label">Medencevíz</span>
-        <p class="pool-temperature__value" data-pool-temperature-value>
-          A medence hőmérséklete hamarosan frissül.
-        </p>
+        <p class="pool-temperature__value" data-pool-temperature-value>{poolTemperatureFallback}</p>
         <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
       </aside>
     </Hero>
@@ -127,6 +127,12 @@ const poolFacts = [
           {poolFacts.map((fact) => (
             <li>{fact}</li>
           ))}
+          <li class="pool-facts__temperature" data-pool-temperature-fact aria-live="polite">
+            <span class="pool-facts__temperature-label">Aktuális hőmérséklet</span>
+            <strong class="pool-facts__temperature-value" data-pool-temperature-fact-value>
+              {poolTemperatureFallback}
+            </strong>
+          </li>
         </ul>
       </div>
     </section>
@@ -217,8 +223,9 @@ const poolFacts = [
 
         const valueNode = widget.querySelector("[data-pool-temperature-value]");
         const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
+        const factValueNode = document.querySelector("[data-pool-temperature-fact-value]");
         const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
-        const fallbackText = "A medence hőmérséklete hamarosan frissül.";
+        const fallbackText = "Hamarosan";
         const staleAfterMs = 6 * 60 * 60 * 1000;
 
         if (!valueNode) return;
@@ -251,9 +258,12 @@ const poolFacts = [
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
           const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
-          valueNode.textContent = isStale
-            ? `Legutóbbi mérés: ${formattedTemperature} ${unit}`
-            : `Aktuális medencevíz: ${formattedTemperature} ${unit}`;
+          valueNode.textContent = `${formattedTemperature} ${unit}`;
+          if (factValueNode) {
+            factValueNode.textContent = isStale
+              ? `Legutóbbi mérés: ${formattedTemperature} ${unit}`
+              : `${formattedTemperature} ${unit}`;
+          }
 
           if (updatedNode) {
             if (hasValidUpdatedAt) {
@@ -268,6 +278,9 @@ const poolFacts = [
           }
         } catch {
           valueNode.textContent = fallbackText;
+          if (factValueNode) {
+            factValueNode.textContent = fallbackText;
+          }
           updatedNode?.setAttribute("hidden", "");
         }
       };
@@ -500,7 +513,7 @@ const poolFacts = [
 
   .pool-facts {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
     margin: 0;
     padding: 0;
@@ -526,6 +539,28 @@ const poolFacts = [
     font-weight: 600;
     line-height: 1.35;
     text-align: center;
+  }
+
+  .pool-facts__temperature {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pool-facts__temperature-label {
+    color: #9c7a34;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .pool-facts__temperature-value {
+    color: #241b14;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .pool-stays {
@@ -657,50 +692,83 @@ const poolFacts = [
 
   @media (max-width: 767px) {
     .pool-page :global(.dnd-hero) {
-      min-height: max(660px, 92svh);
+      min-height: max(520px, 78svh);
       height: auto;
     }
 
     .pool-page :global(.dnd-hero__content),
     .pool-page :global(.dnd-hero__inner) {
-      min-height: max(660px, 92svh);
+      min-height: max(520px, 78svh);
     }
 
     .pool-page :global(.dnd-hero__inner) {
       grid-template-columns: 1fr;
-      gap: 22px;
-      align-content: end;
-      padding: 0 18px 36px;
+      gap: 14px;
+      align-content: start;
+      justify-content: flex-start;
+      padding: 118px 18px 28px;
     }
 
     .pool-page :global(.dnd-hero__text) {
-      max-width: 350px;
+      max-width: 320px;
+      text-shadow: none;
     }
 
     .pool-page :global(.dnd-hero__title) {
       max-width: 12ch;
-      font-size: clamp(1.45rem, 6.2vw, 1.95rem);
-      line-height: 1.18;
-      letter-spacing: 0.05em;
+      color: #1f170f;
+      font-size: clamp(1.16rem, 5vw, 1.46rem);
+      line-height: 1.14;
+      letter-spacing: 0.04em;
+    }
+
+    .pool-page :global(.dnd-hero__kicker) {
+      color: rgba(31, 23, 15, 0.8);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
     }
 
     .pool-page :global(.dnd-hero__desc) {
-      max-width: 28ch;
-      color: rgba(255, 255, 255, 0.84);
+      max-width: 27ch;
+      margin-top: 14px;
+      color: rgba(31, 23, 15, 0.82);
+      font-size: 0.92rem;
+      line-height: 1.36;
+    }
+
+    .pool-page :global(.dnd-hero__cta) {
+      display: none;
     }
 
     .pool-page :global(.dnd-hero__aside) {
+      order: -1;
       justify-content: flex-start;
     }
 
     .pool-temperature {
-      width: min(100%, 210px);
-      padding: 22px;
+      width: min(100%, 132px);
+      gap: 4px;
+      padding: 14px;
+      box-shadow:
+        0 14px 30px rgba(45, 30, 15, 0.14),
+        inset 0 0 0 6px rgba(255, 255, 255, 0.26),
+        inset 0 0 0 1px rgba(122, 86, 38, 0.16);
     }
 
-    .pool-page :global(.dnd-hero__cta .dnd-btn) {
-      width: auto;
-      min-width: 0;
+    .pool-temperature__label {
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+    }
+
+    .pool-temperature__value {
+      font-size: 0.82rem;
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+    }
+
+    .pool-temperature__updated {
+      font-size: 0.68rem;
+      line-height: 1.2;
     }
 
     .pool-section {
@@ -725,7 +793,7 @@ const poolFacts = [
     }
 
     .pool-facts {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .pool-facts li {
@@ -734,20 +802,16 @@ const poolFacts = [
     }
 
     .pool-gallery {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      width: calc(100% + 32px);
-      margin-left: -16px;
     }
 
     .pool-gallery-card__media {
-      border-right: 0;
-      border-left: 0;
-      border-radius: 0;
+      border-radius: 8px;
     }
 
     .pool-gallery-card__media img {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1 / 1;
     }
 
     .pool-stay-card,
