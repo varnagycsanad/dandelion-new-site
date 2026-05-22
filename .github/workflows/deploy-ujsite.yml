@@ -193,6 +193,11 @@ jobs:
             find deploy-dist -type f -printf '%P\n' > deploy-files.txt
           fi
 
+          if [ -d dist-current/guide ]; then
+            rsync -av dist-current/guide/ deploy-dist/guide/
+            find deploy-dist/guide -type f -printf 'guide/%P\n' >> deploy-files.txt
+          fi
+
           sort -u deploy-files.txt -o deploy-files.txt
           sort -u deploy-delete.txt -o deploy-delete.txt
           echo "Upload candidates: $(wc -l < deploy-files.txt)"
