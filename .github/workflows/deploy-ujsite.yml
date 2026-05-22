@@ -327,12 +327,12 @@ jobs:
           default_port="22"
           shared_ip_host="185.33.55.51"
 
-          if ! (
+          if ! {
             try_candidate "$UJSITE_SSH_HOST" "$secret_port" "secret-host:secret-port" ||
             try_candidate "$UJSITE_SSH_HOST" "$default_port" "secret-host:22" ||
             try_candidate "$shared_ip_host" "$secret_port" "shared-ip:secret-port" ||
             try_candidate "$shared_ip_host" "$default_port" "shared-ip:22"
-          ); then
+          }; then
             echo "::error::No SSH host/port candidate returned a host key"
             exit 1
           fi
@@ -378,6 +378,7 @@ jobs:
 
             if ! curl --fail --silent --show-error \
               --ftp-pasv \
+              --ftp-create-dirs \
               --connect-timeout 20 \
               --max-time 60 \
               --retry 2 \
@@ -429,6 +430,9 @@ jobs:
                 remote_dir="${UJSITE_FTP_PATH%/}"
                 if [ "$rel_dir" != "." ]; then
                   remote_dir="${remote_dir}/${rel_dir}"
+                  printf 'set cmd:fail-exit no\n'
+                  printf 'mkdir -p "%s"\n' "$remote_dir"
+                  printf 'set cmd:fail-exit yes\n'
                 fi
                 printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
               } >> "$script_file"
@@ -971,6 +975,9 @@ jobs:
             remote_dir="${UJSITE_FTP_PATH%/}"
             if [ "$rel_dir" != "." ]; then
               remote_dir="${remote_dir}/${rel_dir}"
+              printf 'set cmd:fail-exit no\n'
+              printf 'mkdir -p "%s"\n' "$remote_dir"
+              printf 'set cmd:fail-exit yes\n'
             fi
             printf 'echo "ROOT REPAIR %s"\n' "$rel"
             printf 'put -O "%s" "%s"\n' "$remote_dir" "deploy-dist/$rel"
