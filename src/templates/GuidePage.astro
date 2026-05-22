@@ -1,0 +1,339 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { GuideContent, GuideLocale } from "../data/guides/types";
+
+const { guide } = Astro.props as { guide: GuideContent };
+const locales: GuideLocale[] = ["hu", "en"];
+const pageTitle = `${guide.content.hu.title} | ${guide.houseName}`;
+const description = guide.content.hu.intro;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  canonicalPath={guide.path}
+  noindex={true}
+  hideHeader={true}
+  hideFooter={true}
+>
+  <section class="guide-page" data-guide-page>
+    <div class="guide-shell">
+      <a class="guide-back" href={`/guide/${guide.houseSlug}/`} data-guide-label="back">
+        {guide.content.hu.backLabel}
+      </a>
+
+      <header class="guide-hero">
+        <p class="guide-eyebrow">QR vendégútmutató · {guide.houseName}</p>
+        <div class="guide-language" aria-label="Guide language selector">
+          {locales.map((locale) => (
+            <button
+              class="guide-language__button"
+              type="button"
+              data-guide-lang-button={locale}
+              aria-pressed={locale === "hu" ? "true" : "false"}
+            >
+              {locale.toUpperCase()}
+            </button>
+          ))}
+          <span class="guide-language__pending" aria-disabled="true" title={guide.dePreparedTitle}>DE</span>
+        </div>
+
+        {locales.map((locale) => (
+          <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
+            <h1>{guide.content[locale].title}</h1>
+            <p>{guide.content[locale].intro}</p>
+          </div>
+        ))}
+      </header>
+
+      {locales.map((locale) => (
+        <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
+          <section class="guide-important" aria-label={locale === "hu" ? "Fontos pontok" : "Key points"}>
+            <h2>{locale === "hu" ? "Fontos pontok" : "Key points"}</h2>
+            <ul>
+              {guide.content[locale].keyPoints.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </section>
+
+          <nav class="guide-toc" aria-label={locale === "hu" ? "Tartalom" : "Contents"}>
+            {guide.content[locale].sections.map((section) => (
+              <a href={`#${locale}-${section.id}`}>{section.title}</a>
+            ))}
+          </nav>
+
+          <article class="guide-content">
+            <h2>{guide.content[locale].subtitle}</h2>
+            {guide.content[locale].sections.map((section) => (
+              <section class="guide-section" id={`${locale}-${section.id}`}>
+                <h3>{section.title}</h3>
+                {section.paragraphs.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                {section.steps && (
+                  <ol>
+                    {section.steps.map((step) => (
+                      <li>{step}</li>
+                    ))}
+                  </ol>
+                )}
+                {section.important && <p class="guide-note">{section.important}</p>}
+              </section>
+            ))}
+          </article>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.querySelector("[data-guide-page]");
+      if (!root) return;
+
+      const buttons = root.querySelectorAll("[data-guide-lang-button]");
+      const panels = root.querySelectorAll("[data-guide-lang-panel]");
+      const backLink = root.querySelector("[data-guide-label='back']");
+      const backLabels = {
+        hu: "Vissza a Fügeház útmutatóhoz",
+        en: "Back to the Fugehaz guide"
+      };
+
+      const setLanguage = (nextLanguage) => {
+        panels.forEach((panel) => {
+          panel.hidden = panel.getAttribute("data-guide-lang-panel") !== nextLanguage;
+        });
+
+        buttons.forEach((button) => {
+          button.setAttribute(
+            "aria-pressed",
+            button.getAttribute("data-guide-lang-button") === nextLanguage ? "true" : "false"
+          );
+        });
+
+        if (backLink) {
+          backLink.textContent = backLabels[nextLanguage] || backLabels.hu;
+        }
+
+        document.documentElement.lang = nextLanguage;
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextLanguage = button.getAttribute("data-guide-lang-button");
+          if (nextLanguage) setLanguage(nextLanguage);
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    background: #fdfbf7;
+  }
+
+  .guide-page {
+    min-height: 100vh;
+    padding: 18px 0 48px;
+    background: linear-gradient(180deg, #fff8ec 0%, #fdfbf7 42%, #ffffff 100%);
+    color: #261d16;
+  }
+
+  .guide-shell {
+    width: min(100% - 28px, 760px);
+    margin: 0 auto;
+  }
+
+  .guide-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    margin-bottom: 18px;
+    color: #5e4127;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .guide-back::before {
+    content: "<";
+    margin-right: 8px;
+  }
+
+  .guide-hero {
+    display: grid;
+    gap: 18px;
+    padding: 24px 0 22px;
+    border-bottom: 1px solid rgba(94, 65, 39, 0.16);
+  }
+
+  .guide-eyebrow {
+    margin: 0;
+    color: #9a6a1e;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-language {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .guide-language__button,
+  .guide-language__pending {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    min-height: 42px;
+    border: 1px solid rgba(94, 65, 39, 0.18);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #5e4127;
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .guide-language__button[aria-pressed="true"] {
+    border-color: #d99e2b;
+    background: #d99e2b;
+    color: #1b140f;
+  }
+
+  .guide-language__pending {
+    opacity: 0.45;
+  }
+
+  .guide-hero h1 {
+    margin: 0;
+    max-width: 12ch;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.25rem, 11vw, 4rem);
+    font-weight: 500;
+    line-height: 1.02;
+  }
+
+  .guide-hero p {
+    margin: 14px 0 0;
+    color: rgba(38, 29, 22, 0.78);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.65;
+  }
+
+  .guide-important {
+    margin: 22px 0;
+    padding: 18px;
+    border: 1px solid rgba(217, 158, 43, 0.34);
+    border-radius: 8px;
+    background: #fff7e5;
+  }
+
+  .guide-important h2,
+  .guide-content h2 {
+    margin: 0 0 12px;
+    font-size: var(--dnd-heading-xs);
+    line-height: 1.18;
+  }
+
+  .guide-important ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .guide-important li,
+  .guide-section li {
+    line-height: 1.62;
+  }
+
+  .guide-toc {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 26px;
+    padding: 0 0 4px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .guide-toc a {
+    flex: 0 0 auto;
+    max-width: 220px;
+    padding: 10px 12px;
+    border: 1px solid rgba(94, 65, 39, 0.14);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #3a2b1f;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .guide-content {
+    display: grid;
+    gap: 18px;
+  }
+
+  .guide-section {
+    padding: 22px 0;
+    border-top: 1px solid rgba(94, 65, 39, 0.14);
+  }
+
+  .guide-section h3 {
+    margin: 0 0 12px;
+    font-size: var(--dnd-heading-xs);
+    line-height: 1.2;
+  }
+
+  .guide-section p {
+    margin: 0 0 12px;
+    color: rgba(38, 29, 22, 0.82);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .guide-section ol {
+    display: grid;
+    gap: 8px;
+    margin: 14px 0;
+    padding-left: 22px;
+  }
+
+  .guide-note {
+    margin-top: 16px;
+    padding: 14px;
+    border-left: 4px solid #d99e2b;
+    border-radius: 0 8px 8px 0;
+    background: #fff7e5;
+    color: #261d16;
+    font-weight: 700;
+  }
+
+  @media (min-width: 760px) {
+    .guide-page {
+      padding-top: 34px;
+    }
+
+    .guide-hero {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .guide-language {
+      justify-content: flex-end;
+    }
+
+    .guide-hero [data-guide-lang-panel] {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

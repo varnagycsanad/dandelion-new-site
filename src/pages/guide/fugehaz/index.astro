@@ -1,0 +1,202 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { fugehazDezsaGuide } from "../../../data/guides/fugehaz-dezsa";
+
+const title = "Fügeház vendégútmutató | Dandelion";
+const description = "QR-kóddal megnyitható Fügeház vendégútmutató a helyszíni használati információkhoz.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/guide/fugehaz/"
+  noindex={true}
+  hideHeader={true}
+  hideFooter={true}
+>
+  <section class="guide-index" data-guide-index>
+    <div class="guide-index__shell">
+      <header class="guide-index__header">
+        <p class="guide-index__eyebrow">QR vendégútmutató · Fügeház</p>
+        <div class="guide-language" aria-label="Guide language selector">
+          <button class="guide-language__button" type="button" data-guide-lang-button="hu" aria-pressed="true">HU</button>
+          <button class="guide-language__button" type="button" data-guide-lang-button="en" aria-pressed="false">EN</button>
+          <span class="guide-language__pending" aria-disabled="true">DE</span>
+        </div>
+
+        <div data-guide-lang-panel="hu">
+          <h1>Fügeház útmutató</h1>
+          <p>Válaszd ki, melyik helyszíni használati útmutatót szeretnéd megnyitni.</p>
+        </div>
+        <div data-guide-lang-panel="en" hidden>
+          <h1>Fugehaz guide</h1>
+          <p>Choose the on-site user guide you would like to open.</p>
+        </div>
+      </header>
+
+      <div class="guide-index__list">
+        <a class="guide-index__item" href={fugehazDezsaGuide.path}>
+          <span data-guide-lang-panel="hu">Dézsafürdő használati útmutató</span>
+          <span data-guide-lang-panel="en" hidden>Wood-Fired Hot Tub User Guide</span>
+          <small data-guide-lang-panel="hu">Begyújtás, felfűtés, vízhőfok és vízforgató.</small>
+          <small data-guide-lang-panel="en" hidden>Lighting, heating, water temperature and circulation.</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.querySelector("[data-guide-index]");
+      if (!root) return;
+
+      const buttons = root.querySelectorAll("[data-guide-lang-button]");
+      const panels = root.querySelectorAll("[data-guide-lang-panel]");
+
+      const setLanguage = (nextLanguage) => {
+        panels.forEach((panel) => {
+          panel.hidden = panel.getAttribute("data-guide-lang-panel") !== nextLanguage;
+        });
+        buttons.forEach((button) => {
+          button.setAttribute(
+            "aria-pressed",
+            button.getAttribute("data-guide-lang-button") === nextLanguage ? "true" : "false"
+          );
+        });
+        document.documentElement.lang = nextLanguage;
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextLanguage = button.getAttribute("data-guide-lang-button");
+          if (nextLanguage) setLanguage(nextLanguage);
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    background: #fdfbf7;
+  }
+
+  .guide-index {
+    min-height: 100vh;
+    padding: 22px 0 48px;
+    background: linear-gradient(180deg, #fff8ec 0%, #fdfbf7 44%, #ffffff 100%);
+    color: #261d16;
+  }
+
+  .guide-index__shell {
+    width: min(100% - 28px, 720px);
+    margin: 0 auto;
+  }
+
+  .guide-index__header {
+    display: grid;
+    gap: 18px;
+    padding: 24px 0 22px;
+    border-bottom: 1px solid rgba(94, 65, 39, 0.16);
+  }
+
+  .guide-index__eyebrow {
+    margin: 0;
+    color: #9a6a1e;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-index h1 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.4rem, 12vw, 4rem);
+    font-weight: 500;
+    line-height: 1.02;
+  }
+
+  .guide-index p {
+    margin: 14px 0 0;
+    color: rgba(38, 29, 22, 0.78);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.65;
+  }
+
+  .guide-language {
+    display: flex;
+    gap: 8px;
+  }
+
+  .guide-language__button,
+  .guide-language__pending {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    min-height: 42px;
+    border: 1px solid rgba(94, 65, 39, 0.18);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #5e4127;
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .guide-language__button[aria-pressed="true"] {
+    border-color: #d99e2b;
+    background: #d99e2b;
+    color: #1b140f;
+  }
+
+  .guide-language__pending {
+    opacity: 0.45;
+  }
+
+  .guide-index__list {
+    display: grid;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .guide-index__item {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+    border: 1px solid rgba(94, 65, 39, 0.16);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #261d16;
+    text-decoration: none;
+  }
+
+  .guide-index__item span {
+    font-size: var(--dnd-heading-xs);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .guide-index__item small {
+    color: rgba(38, 29, 22, 0.72);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.55;
+  }
+
+  @media (min-width: 760px) {
+    .guide-index {
+      padding-top: 36px;
+    }
+
+    .guide-index__header {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .guide-index__header [data-guide-lang-panel] {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
