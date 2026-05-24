@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // [CHANGE 2026-05-12 00:00] A rövid ÁSZF placeholder teljes, tagolt ÁSZF tartalomra cserélve a meglévő legal-page stílushoz igazítva.
+// [CHANGE 2026-05-24 20:30] Panorama Pool hasznalati szabaly es erintett guide linkek hozzaadva.
+// [CHANGE 2026-05-24 20:45] ASZF pontvalaszto legordulo es guide oldalakkal harmonizalt mobil tipografia.
 
 const sections = [
   {
@@ -40,6 +42,23 @@ const sections = [
   },
   {
     number: "4",
+    title: "Panorama Pool használatára vonatkozó szabály",
+    paragraphs: [
+      "Azon szálláshelyek esetében, amelyeknél a Panorama Pool használata elérhető, a vendég a medence használatával elfogadja a mindenkor érvényes Medencehasználati szabályzatot.",
+      "A Medencehasználati szabályzat az érintett szálláshelyek online vendégútmutatójában érhető el. A szabályzat pontos online elérési helyét a szálláshelyhez tartozó vendégtájékoztató / lakás guide tartalmazza.",
+      "A vendég köteles a medence használata előtt a Medencehasználati szabályzatot megismerni, és a medence használata során az abban foglaltakat betartani.",
+      "Az üzemeltető jogosult a medence használatát időjárási okból, karbantartás, vízkezelés, műszaki hiba, biztonsági ok vagy a Medencehasználati szabályzat megsértése esetén korlátozni vagy ideiglenesen szüneteltetni.",
+      "A medence használata saját felelősségre történik. Gyermekek kizárólag felnőtt felügyeletével használhatják a medencét. A gyermekek biztonságáért minden esetben a velük érkező felnőtt felel.",
+      "A Medencehasználati szabályzat megszegéséből eredő balesetért, sérülésért, kárért vagy többletköltségért az üzemeltető felelősséget nem vállal. Szándékos vagy gondatlan károkozás esetén a helyreállítás költsége a vendéget terheli."
+    ],
+    links: [
+      { label: "Dandelion D1 medencehasználati szabályzat", href: "/guide/d1/medence/" },
+      { label: "Dandelion D2 medencehasználati szabályzat", href: "/guide/d2/medence/" },
+      { label: "Fügeház medencehasználati szabályzat", href: "/guide/fugehaz/medence/" }
+    ]
+  },
+  {
+    number: "5",
     title: "Fizetési feltételek",
     paragraphs: [
       "A foglalás véglegesítéséhez a szállásdíj 30%-át kérjük banki átutalással megfizetni a foglalást követő 5 munkanapon belül. A foglalás az előleg beérkezésével válik garantálttá.",
@@ -48,7 +67,7 @@ const sections = [
     ]
   },
   {
-    number: "5",
+    number: "6",
     title: "Utalási adatok",
     paragraphs: [
       "Az előleg utalásához kérjük a foglalt szálláshelyhez tartozó számlaadatokat használd. Magyarországi foglalás esetén javasolt HUF-ban utalni, külföldről történő utalásnál EUR utalás is lehetséges. A pontos fizetendő összeg és a választott pénznem minden esetben a foglalás visszaigazolásában szerepel."
@@ -81,7 +100,7 @@ const sections = [
     note: "Tipp: mobilon a mezők hosszan érintve egyszerűen másolhatók."
   },
   {
-    number: "6",
+    number: "7",
     title: "Lemondási feltételek",
     bullets: [
       "Díjmentes lemondás: érkezés előtt 30 nappal vagy korábban lemondva az előleg visszajár.",
@@ -94,7 +113,7 @@ const sections = [
     ]
   },
   {
-    number: "7",
+    number: "8",
     title: "Be- és kijelentkezés / self check-in",
     paragraphs: [
       "A beköltözés jellemzően self check-in rendszerben történik, kulcsdoboz használatával. A részletes érkezési információkat e-mailben küldjük.",
@@ -102,7 +121,7 @@ const sections = [
     ]
   },
   {
-    number: "8",
+    number: "9",
     title: "Érkezés–távozás",
     bullets: [
       "Check-in: 15:00–19:00",
@@ -112,7 +131,7 @@ const sections = [
     ]
   },
   {
-    number: "9",
+    number: "10",
     title: "Kaució",
     paragraphs: [
       "Kauciót alapesetben nem kérünk. Kivételes esetekben azonban kaució kérhető, erről a vendéget minden esetben előre tájékoztatjuk.",
@@ -120,7 +139,7 @@ const sections = [
     ]
   },
   {
-    number: "10",
+    number: "11",
     title: "Házirend, dohányzás, kisállatok",
     bullets: [
       "A berendezést rendeltetésszerűen kell használni, a tűz- és balesetvédelmi szabályok betartása kötelező.",
@@ -129,14 +148,14 @@ const sections = [
     ]
   },
   {
-    number: "11",
+    number: "12",
     title: "Vendégek száma",
     paragraphs: [
       "Csak az előzetesen bejelentett vendégek tartózkodhatnak a szálláshelyen."
     ]
   },
   {
-    number: "12",
+    number: "13",
     title: "Takarítás",
     paragraphs: [
       "A foglalás végösszegében külön végtakarítási díj szerepelhet, amelyet a foglalási folyamat minden esetben külön feltüntet.",
@@ -144,7 +163,7 @@ const sections = [
     ]
   },
   {
-    number: "13",
+    number: "14",
     title: "Károkozás / felelősség",
     paragraphs: [
       "Károkozás esetén a vendég köteles a keletkezett kárt megtéríteni.",
@@ -152,7 +171,7 @@ const sections = [
     ]
   },
   {
-    number: "14",
+    number: "15",
     title: "Kapcsolat",
     paragraphs: [
       "Kérdés esetén örömmel segítünk a foglalással, fizetéssel, érkezéssel vagy a szálláshelyekkel kapcsolatban."
@@ -163,6 +182,8 @@ const sections = [
     ]
   }
 ];
+
+const sectionId = (section: { number: string }) => `aszf-${section.number}`;
 ---
 
 <BaseLayout
@@ -183,6 +204,7 @@ const sections = [
         <div>
           <span class="legal-page__meta-label">Érvényesség</span>
           <strong>Érvényes: 2026. február 01-től</strong>
+          <strong>Módosítva: 2026. május 24.</strong>
         </div>
         <div>
           <span class="legal-page__meta-label">Kapcsolat</span>
@@ -199,9 +221,19 @@ const sections = [
         </p>
       </div>
 
+      <div class="legal-page__toc" aria-label="ÁSZF tartalom">
+        <label for="aszf-toc">Ugrás a ponthoz</label>
+        <select id="aszf-toc" data-legal-toc-select>
+          <option value="">Válassz pontot</option>
+          {sections.map((section) => (
+            <option value={sectionId(section)}>{section.number}. {section.title}</option>
+          ))}
+        </select>
+      </div>
+
       <div class="legal-page__sections">
         {sections.map((section) => (
-          <article class="legal-page__card">
+          <article class="legal-page__card" id={sectionId(section)}>
             <header class="legal-page__card-header">
               <span class="legal-page__index">{section.number}</span>
               <h2>{section.title}</h2>
@@ -213,6 +245,16 @@ const sections = [
               <ul>
                 {section.bullets.map((bullet) => <li>{bullet}</li>)}
               </ul>
+            )}
+
+            {section.links && (
+              <div class="legal-page__links">
+                {section.links.map((link) => (
+                  <a href={link.href} class="legal-page__link-item">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             )}
 
             {section.groups && (
@@ -245,18 +287,33 @@ const sections = [
       </div>
     </div>
   </section>
+
+  <script>
+    (() => {
+      const select = document.querySelector("[data-legal-toc-select]");
+      if (!(select instanceof HTMLSelectElement)) return;
+
+      select.addEventListener("change", () => {
+        if (!select.value) return;
+        const target = document.getElementById(select.value);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    })();
+  </script>
 </BaseLayout>
 
 <style>
   .legal-page {
-    padding: 132px 0 88px;
-    background: #fdfbf7;
+    padding: 118px 0 64px;
+    background: linear-gradient(180deg, #fff8ec 0%, #fdfbf7 42%, #ffffff 100%);
   }
 
   .legal-page__inner {
     display: grid;
-    gap: 24px;
-    max-width: 920px;
+    gap: 18px;
+    max-width: 760px;
   }
 
   .legal-page__eyebrow {
@@ -276,20 +333,23 @@ const sections = [
 
   .legal-page h1 {
     font-family: var(--dnd-font-display);
-    font-size: clamp(2rem, 3.6vw, 3.3rem);
-    font-weight: 500;
-    line-height: 1.08;
+    font-size: clamp(1.2rem, 5.4vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   .legal-page h2 {
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.35rem, 2vw, 1.8rem);
-    font-weight: 500;
-    line-height: 1.15;
+    font-family: var(--dnd-font-body);
+    font-size: clamp(1rem, 4vw, 1.16rem);
+    font-weight: 700;
+    line-height: 1.24;
   }
 
   .legal-page h3 {
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-sm);
     font-weight: 700;
     line-height: 1.4;
   }
@@ -306,8 +366,8 @@ const sections = [
   .legal-page li {
     margin: 0;
     color: rgba(38, 29, 22, 0.78);
-    font-size: var(--dnd-text-body);
-    line-height: 1.72;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.58;
   }
 
   .legal-page a {
@@ -321,30 +381,32 @@ const sections = [
 
   .legal-page__lead {
     max-width: 780px;
-    font-size: var(--dnd-text-lead);
+    font-size: var(--dnd-text-base);
+    line-height: 1.58;
+    text-align: center;
   }
 
   .legal-page__intro-card,
   .legal-page__notice,
   .legal-page__card {
     border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 18px;
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.9);
   }
 
   .legal-page__intro-card {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-    padding: 22px 24px;
+    gap: 14px;
+    padding: 14px;
   }
 
   .legal-page__intro-card strong,
   .legal-page__intro-card a {
     display: block;
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-sm);
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   .legal-page__meta-label {
@@ -358,37 +420,72 @@ const sections = [
   }
 
   .legal-page__notice {
-    padding: 18px 24px;
-    background: rgba(217, 158, 43, 0.08);
+    padding: 12px;
+    background: #fff7e5;
+  }
+
+  .legal-page__toc {
+    display: grid;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid rgba(94, 65, 39, 0.14);
+    border-radius: 8px;
+    background: #fffefb;
+  }
+
+  .legal-page__toc label {
+    color: rgba(38, 29, 22, 0.68);
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .legal-page__toc select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 38px 0 12px;
+    border: 1px solid rgba(94, 65, 39, 0.14);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #3a2b1f;
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.4;
   }
 
   .legal-page__sections {
     display: grid;
-    gap: 18px;
+    gap: 12px;
   }
 
   .legal-page__card {
     display: grid;
-    gap: 16px;
-    padding: 24px;
+    gap: 10px;
+    padding: 18px 0;
+    border-width: 1px 0 0;
+    border-radius: 0;
+    background: transparent;
+    scroll-margin-top: 92px;
   }
 
   .legal-page__card-header {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .legal-page__index {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 999px;
     background: rgba(217, 158, 43, 0.14);
     color: #a46f17;
-    font-size: var(--dnd-text-md);
+    font-size: var(--dnd-text-xs);
     font-weight: 700;
     flex-shrink: 0;
   }
@@ -396,21 +493,47 @@ const sections = [
   .legal-page__card ul,
   .legal-page__group-list {
     display: grid;
-    gap: 10px;
+    gap: 6px;
     margin: 0;
     padding-left: 1.2rem;
   }
 
   .legal-page__groups {
     display: grid;
-    gap: 14px;
+    gap: 10px;
+  }
+
+  .legal-page__links {
+    display: grid;
+    gap: 10px;
+  }
+
+  .legal-page__link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+    border-radius: 8px;
+    background: #fffaf0;
+    color: #8f6217;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .legal-page__link-item::after {
+    content: ">";
+    color: #d99e2b;
+    flex-shrink: 0;
   }
 
   .legal-page__group {
     display: grid;
-    gap: 10px;
-    padding: 16px 18px;
-    border-radius: 14px;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
     background: #fffaf0;
     border: 1px solid rgba(217, 158, 43, 0.16);
   }
@@ -421,7 +544,7 @@ const sections = [
 
   .legal-page__note {
     color: rgba(38, 29, 22, 0.6);
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-sm);
   }
 
   .legal-page__contacts {
@@ -433,8 +556,8 @@ const sections = [
   .legal-page__contact-item {
     display: grid;
     gap: 4px;
-    padding: 16px 18px;
-    border-radius: 14px;
+    padding: 12px;
+    border-radius: 8px;
     background: #fffaf0;
     border: 1px solid rgba(217, 158, 43, 0.16);
   }
@@ -449,7 +572,7 @@ const sections = [
 
   .legal-page__contact-item strong {
     color: #261d16;
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-sm);
     font-weight: 600;
   }
 

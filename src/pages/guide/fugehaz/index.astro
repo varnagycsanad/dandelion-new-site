@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { fugehazDezsaGuide } from "../../../data/guides/fugehaz-dezsa";
+import { fugehazPoolGuide } from "../../../data/guides/panorama-pool";
 
 const title = "Fügeház vendégútmutató | Dandelion";
 const description = "QR-kóddal megnyitható Fügeház vendégútmutató a helyszíni használati információkhoz.";
@@ -40,6 +41,12 @@ const description = "QR-kóddal megnyitható Fügeház vendégútmutató a helys
           <span data-guide-lang-panel="en" hidden>Wood-Fired Hot Tub User Guide</span>
           <small data-guide-lang-panel="hu">Begyújtás, felfűtés, vízhőfok és vízforgató.</small>
           <small data-guide-lang-panel="en" hidden>Lighting, heating, water temperature and circulation.</small>
+        </a>
+        <a class="guide-index__item" href={fugehazPoolGuide.path}>
+          <span data-guide-lang-panel="hu">Medencehasználati útmutató</span>
+          <span data-guide-lang-panel="en" hidden>Pool User Guide</span>
+          <small data-guide-lang-panel="hu">Biztonság, higiénia, gyermekfelügyelet és közös használat.</small>
+          <small data-guide-lang-panel="en" hidden>Safety, hygiene, child supervision and shared use.</small>
         </a>
       </div>
     </div>

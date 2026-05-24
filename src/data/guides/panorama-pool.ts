@@ -344,3 +344,8 @@ export const d2PoolGuide = createPoolGuide({
   houseSlug: "d2",
   houseName: "Dandelion D2"
 });
+
+export const fugehazPoolGuide = createPoolGuide({
+  houseSlug: "fugehaz",
+  houseName: "Fügeház"
+});
