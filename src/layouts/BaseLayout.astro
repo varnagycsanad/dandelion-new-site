@@ -439,7 +439,10 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-P75FHKLJ');
     </script>
+    <link rel="stylesheet" href="/vendor/klaro/klaro.min.css" />
     <script defer src="/scripts/consent-init.js"></script>
+    <script defer src="/scripts/klaro-config.js"></script>
+    <script defer src="/vendor/klaro/klaro-no-css.js"></script>
     {schemaScripts.map((item) => (
       <script type="application/ld+json" set:html={JSON.stringify(item)} />
     ))}
