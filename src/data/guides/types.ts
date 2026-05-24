@@ -4,6 +4,7 @@ export interface GuideSection {
   id: string;
   title: string;
   paragraphs: string[];
+  bullets?: string[];
   steps?: string[];
   important?: string;
 }
@@ -26,4 +27,3 @@ export interface GuideContent {
   dePreparedTitle: string;
   content: Record<GuideLocale, GuideLocaleContent>;
 }
-

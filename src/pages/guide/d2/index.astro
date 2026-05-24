@@ -1,0 +1,24 @@
+---
+import { d2PoolGuide } from "../../../data/guides/panorama-pool";
+import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
+
+// [CHANGE 2026-05-24 00:00] D2 QR guide index letrehozva medencehasznalati guide linkkel.
+---
+
+<GuideHouseIndexPage
+  houseName="Dandelion D2"
+  canonicalPath="/guide/d2/"
+  title="Dandelion D2 vendégútmutató | Dandelion"
+  description="QR-kóddal megnyitható Dandelion D2 vendégútmutató a helyszíni használati információkhoz."
+  introHu="Válaszd ki, melyik helyszíni használati útmutatót szeretnéd megnyitni."
+  introEn="Choose the on-site user guide you would like to open."
+  items={[
+    {
+      guide: d2PoolGuide,
+      titleHu: "Medencehasználati útmutató",
+      titleEn: "Pool User Guide",
+      descriptionHu: "Biztonság, higiénia, gyermekfelügyelet és közös használat.",
+      descriptionEn: "Safety, hygiene, child supervision and shared use."
+    }
+  ]}
+/>
