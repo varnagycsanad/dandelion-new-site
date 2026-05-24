@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import bikingImage from "../assets/experiences/stock-bike.jpg";
 import wineImage from "../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
 import balatonImage from "../assets/experiences/balaton-shore.jpg";
 import mountainsImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
 
 const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-0516.mp4?v=20260520-faststart";
+const bikingImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 
 const quickFacts = [
   "bringás körök és mellékutak",
@@ -145,7 +145,11 @@ const structuredData = [
         {experiences.map((item) => (
           <article class="experience-card">
             <div class="experience-card__media">
-              <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+              {typeof item.image === "string" ? (
+                <img src={item.image} alt={item.imageAlt} loading="lazy" />
+              ) : (
+                <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+              )}
             </div>
 
             <div class="experience-card__body">
