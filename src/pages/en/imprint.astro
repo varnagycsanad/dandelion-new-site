@@ -1,0 +1,74 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+// [CHANGE 2026-05-24 21:05] English Imprint page added from the Hungarian impresszum content.
+
+const sections = [
+  {
+    title: "Website operator",
+    items: [
+      ["Company name", "Dandelion Vendeghazak Kft."],
+      ["Registered office", "8284 Kisapati, Kossuth utca 78/5, Hungary"],
+      ["Company registration number", "19-09-523814"],
+      ["Tax number", "24646345-1-19"],
+      ["Representative", "Ilona Varnagy"]
+    ]
+  },
+  {
+    title: "Contact",
+    items: [
+      ["E-mail", "hello@dandelionhouse.hu", "mailto:hello@dandelionhouse.hu"],
+      ["Phone", "+36 20 773 0807", "tel:+36207730807"],
+      ["Website", "dandelionhouse.hu", "https://dandelionhouse.hu/"]
+    ]
+  },
+  {
+    title: "Hosting provider",
+    items: [
+      ["Provider name", "DotRoll Kft."],
+      ["Registered office", "1148 Budapest, Fogarasi ut 3-5, Hungary"],
+      ["Phone", "+36 1 432 3232", "tel:+3614323232"],
+      ["E-mail", "support@dotroll.com", "mailto:support@dotroll.com"],
+      ["Website", "dotroll.com", "https://dotroll.com/"]
+    ]
+  },
+  {
+    title: "Purpose of the website",
+    paragraphs: [
+      "The dandelionhouse.hu website presents the accommodations of Dandelion Guesthouses, provides direct booking options and offers information for guests."
+    ]
+  },
+  {
+    title: "Copyright",
+    paragraphs: [
+      "The texts, images, videos, graphic elements and other content on the website are protected by copyright.",
+      "Their use, copying or publication is permitted only with the operator's prior written permission."
+    ]
+  },
+  {
+    title: "Liability",
+    paragraphs: [
+      "The operator strives to keep the information on the website accurate and up to date.",
+      "Accommodation prices, availability and booking terms are always valid as recorded during the booking process and in the booking confirmation."
+    ]
+  },
+  {
+    title: "Related documents",
+    links: [
+      { label: "Terms and Conditions", href: "/en/terms-and-conditions/" },
+      { label: "Privacy Policy", href: "/en/privacy-policy/" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="en"
+  title="Imprint | Dandelion Guesthouses"
+  description="Operator, contact and hosting provider details of the dandelionhouse.hu website."
+  canonicalPath="/en/imprint/"
+  eyebrow="Legal information"
+  heading="Imprint"
+  lead="Operator, contact and hosting provider details of the dandelionhouse.hu website."
+  sections={sections}
+/>

@@ -1,0 +1,186 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+// [CHANGE 2026-05-24 21:05] English Privacy Policy page added from the Hungarian adatkezelesi tajekoztato.
+
+const sections = [
+  {
+    number: "1",
+    title: "Data controller details",
+    bullets: [
+      "Data controller: Dandelion Vendeghazak Kft.",
+      "Representative: Ilona Varnagy",
+      "E-mail: hello@dandelionhouse.hu",
+      "Phone: +36 20 773 0807",
+      "Website: dandelionhouse.hu",
+      "Registered office / mailing address: 8284 Kisapati, Kossuth utca 78/5, Hungary"
+    ]
+  },
+  {
+    number: "2",
+    title: "Purpose of this notice",
+    paragraphs: [
+      "The purpose of this Privacy Policy is to provide guests, enquirers and website visitors with transparent information about what personal data we process, for what purpose, on what legal basis, for how long, and what rights they have.",
+      "We process personal data only to the extent necessary for providing accommodation services, managing bookings, communicating with guests, fulfilling legal obligations and operating the website."
+    ]
+  },
+  {
+    number: "3",
+    title: "Contact and quote requests",
+    bullets: [
+      "Data processed: name, e-mail address, phone number, message content, requested arrival and departure dates, number of guests and any other information provided voluntarily.",
+      "Purpose: responding to enquiries, sending offers, booking coordination and guest communication.",
+      "Legal basis: steps prior to entering into a contract, and legitimate interest based on the voluntary enquiry of the data subject.",
+      "Retention period: up to 2 years from closing the enquiry, unless the communication results in a booking or a matter subject to legal or accounting obligations."
+    ]
+  },
+  {
+    number: "4",
+    title: "Booking management",
+    paragraphs: ["Bookings may be made directly through the website, by e-mail, by phone or through external sales channels."],
+    bullets: [
+      "Data processed: name, contact details, booking data, arrival and departure dates, number of guests, selected accommodation, payment information, billing data and notes.",
+      "Purpose: recording, confirming, fulfilling, modifying or cancelling a booking.",
+      "Legal basis: performance of a contract and steps prior to entering into a contract.",
+      "Retention period: for the time necessary to fulfil the booking and according to statutory retention obligations."
+    ]
+  },
+  {
+    number: "5",
+    title: "Online booking engine and guest management system",
+    paragraphs: [
+      "The booking and guest management processes of Dandelion Guesthouses may involve the SabeeApp property management and booking system."
+    ],
+    bullets: [
+      "Provider: thePass Kft. / SabeeApp",
+      "Purpose: booking management, recording guest data, supporting confirmations and guest communication.",
+      "Data processed: data necessary for booking, contact, online check-in and accommodation services."
+    ],
+    note: "SabeeApp has its own privacy notice, available through the SabeeApp interface."
+  },
+  {
+    number: "6",
+    title: "Online check-in, document data, NTAK / VIZA",
+    paragraphs: [
+      "Occupying the accommodation may require online check-in, during which guest data and identity document data required by law must be recorded."
+    ],
+    bullets: [
+      "Data processed: name, birth data, nationality, address, identity document data, arrival and departure data and other guest data required by law.",
+      "Purpose: statutory guest registration, performance of accommodation services and official data reporting.",
+      "Legal basis: compliance with a legal obligation."
+    ],
+    note: "If online check-in is not completed, the entry code or key box code may not be sent because the legal conditions for occupying the accommodation have not been met."
+  },
+  {
+    number: "7",
+    title: "Invoicing and payment",
+    bullets: [
+      "Data processed: billing name, billing address, payment data, booking identifier, paid amounts and invoice content.",
+      "Purpose: issuing invoices, accounting, tax and bookkeeping obligations.",
+      "Legal basis: compliance with a legal obligation.",
+      "Retention period: accounting documents must be retained for at least 8 years under applicable laws."
+    ]
+  },
+  {
+    number: "8",
+    title: "Website visits, technical data and cookies",
+    paragraphs: [
+      "During website operation, technical data may be generated, such as IP address, browser type, device data, visit time, viewed pages and error information."
+    ],
+    bullets: [
+      "Purpose: secure website operation, troubleshooting, performance measurement and visitor statistics.",
+      "Legal basis: legitimate interest and, where required, consent."
+    ],
+    note: "The website may use cookies necessary for operation, as well as technologies for statistics or measurement. Google Tag Manager is used on the website and may load analytics services."
+  },
+  {
+    number: "9",
+    title: "Newsletter and marketing communication - MailerLite",
+    bullets: [
+      "Dandelion Guesthouses may use MailerLite for newsletters and marketing communication.",
+      "Data processed: name, e-mail address, subscription time, proof of consent, newsletter open and click data, unsubscribe data and any other data voluntarily provided during subscription.",
+      "Purpose: sending newsletters, offers, seasonal updates, promotions, guesthouse news and marketing content.",
+      "Legal basis: voluntary consent of the data subject.",
+      "Processor: MailerLite",
+      "Duration: until consent is withdrawn, i.e. until unsubscribing from the newsletter.",
+      "Unsubscribe: through the link at the bottom of newsletters or by writing to hello@dandelionhouse.hu."
+    ],
+    note: "Unsubscribing does not affect the lawfulness of processing carried out before withdrawal."
+  },
+  {
+    number: "10",
+    title: "External providers and processors",
+    paragraphs: ["External providers may be involved in providing the service and operating the website."],
+    bullets: [
+      "hosting provider and website operation providers,",
+      "SabeeApp / thePass Kft. as booking and guest management system,",
+      "Google services, such as Google Tag Manager and Google Analytics,",
+      "MailerLite as newsletter and marketing automation provider,",
+      "banking and payment service providers,",
+      "accounting and invoicing providers,",
+      "authorities and official systems acting under law."
+    ],
+    note: "External providers may access personal data only to the necessary extent and process it according to their contractual, statutory or processor obligations."
+  },
+  {
+    number: "11",
+    title: "Data transfers",
+    paragraphs: [
+      "We transfer personal data to third parties only if necessary for fulfilling a booking, complying with legal obligations, official reporting, payment, invoicing or enforcing legitimate claims.",
+      "If a booking was made through an external sales channel, the privacy notice of that channel may also apply."
+    ]
+  },
+  {
+    number: "12",
+    title: "Data security",
+    paragraphs: [
+      "The data controller protects personal data with appropriate technical and organisational measures against unauthorised access, modification, transfer, disclosure, deletion, damage or destruction.",
+      "Access is restricted, and data may be handled only by persons who need it for their specific task."
+    ]
+  },
+  {
+    number: "13",
+    title: "Rights of data subjects",
+    paragraphs: ["Data subjects may exercise the following rights in relation to data processing:"],
+    bullets: [
+      "request information about data processing,",
+      "access personal data processed,",
+      "request rectification,",
+      "request erasure where the legal conditions apply,",
+      "request restriction of processing,",
+      "object to processing based on legitimate interest,",
+      "data portability where the conditions apply,",
+      "withdraw consent where processing is based on consent."
+    ],
+    note: "Requests may be sent to hello@dandelionhouse.hu. We respond without undue delay and within no more than 1 month."
+  },
+  {
+    number: "14",
+    title: "Complaints, remedies and changes to this notice",
+    paragraphs: [
+      "In case of a data protection complaint, please first write to us at hello@dandelionhouse.hu so that we can resolve the issue directly.",
+      "The data subject may also lodge a complaint with the Hungarian National Authority for Data Protection and Freedom of Information."
+    ],
+    bullets: [
+      "Hungarian National Authority for Data Protection and Freedom of Information - NAIH",
+      "Address: 1055 Budapest, Falk Miksa utca 9-11, Hungary",
+      "Mailing address: 1363 Budapest, Pf. 9, Hungary",
+      "E-mail: ugyfelszolgalat@naih.hu",
+      "Phone: +36 1 391 1400",
+      "Web: naih.hu"
+    ],
+    note: "The data controller reserves the right to amend this notice. Changes take effect when published on the website."
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="en"
+  title="Privacy Policy | Dandelion Guesthouses"
+  description="Privacy policy of Dandelion Guesthouses covering booking data, guest management, invoicing, cookies, MailerLite newsletters and data subject rights."
+  canonicalPath="/en/privacy-policy/"
+  eyebrow="Legal information"
+  heading="Privacy Policy"
+  lead="Effective from 12 May 2026 until withdrawn. This Privacy Policy summarises the data processing carried out on the Dandelion Guesthouses website and in booking and guest management processes."
+  sections={sections}
+/>

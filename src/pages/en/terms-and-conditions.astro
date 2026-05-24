@@ -1,0 +1,188 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+// [CHANGE 2026-05-24 21:05] English Terms and Conditions page added from the Hungarian ASZF content.
+
+const sections = [
+  {
+    number: "1",
+    title: "How to book",
+    paragraphs: [
+      "Bookings can be made through the online booking engine on our website, by e-mail, by phone, or through external sales channels (OTAs).",
+      "For OTA bookings, the payment and cancellation terms of the relevant channel apply."
+    ]
+  },
+  {
+    number: "2",
+    title: "Prices and mandatory charges",
+    paragraphs: ["The best accommodation rates are usually available on our own website."],
+    bullets: [
+      "Tourist tax: payable according to the applicable local municipal regulation. The tourist tax may differ by municipality, accommodation and house; the amount shown during booking is the relevant amount. For information only, at several of our accommodations it is HUF 750 per person per night.",
+      "Final cleaning: the amount shown during booking. It may vary by accommodation and is typically HUF 20,000 or HUF 30,000 per booking."
+    ]
+  },
+  {
+    number: "3",
+    title: "Use of the Szekely hot tub, where available",
+    paragraphs: [
+      "Use of the Szekely hot tub is subject to a separate fee and is available only at accommodations where the hot tub is provided.",
+      "It is usually not practical to heat the hot tub for one day only, because heating requires time and energy; therefore the minimum use period is 2 days.",
+      "Please request hot tub use in advance when booking or before arrival, so that we can prepare it properly."
+    ],
+    bullets: [
+      "Heating fee, one-time: HUF 15,000",
+      "Daily use fee: HUF 7,500 per day",
+      "Example for 2 nights: HUF 15,000 + 2 x HUF 7,500 = HUF 30,000",
+      "For longer hot tub use, prices may be agreed individually."
+    ]
+  },
+  {
+    number: "4",
+    title: "Rules for using Panorama Pool",
+    paragraphs: [
+      "For accommodations where Panorama Pool use is available, the guest accepts the currently valid Pool Rules by using the pool.",
+      "The Pool Rules are available in the online guest guide of the relevant accommodations. The exact online location of the rules is included in the guest information / apartment guide for the accommodation.",
+      "Before using the pool, the guest must read the Pool Rules and must comply with them during pool use.",
+      "The operator may restrict or temporarily suspend pool use due to weather, maintenance, water treatment, technical fault, safety reasons, or breach of the Pool Rules.",
+      "Guests use the pool at their own responsibility. Children may use the pool only under adult supervision. The accompanying adult is always responsible for the safety of children.",
+      "The operator accepts no liability for accidents, injuries, damage or additional costs resulting from breach of the Pool Rules. In case of intentional or negligent damage, the guest is responsible for the cost of restoration."
+    ],
+    links: [
+      { label: "Dandelion D1 Pool Rules", href: "/guide/d1/medence/" },
+      { label: "Dandelion D2 Pool Rules", href: "/guide/d2/medence/" },
+      { label: "Fugehaz Pool Rules", href: "/guide/fugehaz/medence/" }
+    ]
+  },
+  {
+    number: "5",
+    title: "Payment terms",
+    paragraphs: [
+      "To finalize the booking, 30% of the accommodation fee must be paid by bank transfer within 5 working days after booking. The booking becomes guaranteed when the deposit is received.",
+      "The remaining accommodation fee is payable on arrival in cash or by bank transfer.",
+      "Please include the booker's name and arrival date in the transfer reference. If the booker is not the arriving guest, please also include the arriving guest's name."
+    ]
+  },
+  {
+    number: "6",
+    title: "Bank transfer details",
+    paragraphs: [
+      "Please use the bank details belonging to the booked accommodation. For Hungarian bookings, HUF transfer is recommended; EUR transfer is also possible from abroad. The exact payable amount and selected currency are always stated in the booking confirmation."
+    ],
+    groups: [
+      {
+        title: "Dandelion D1 / D2 / Fugehaz",
+        lines: ["Beneficiary: Ilona Varnagy", "Revolut", "OTP HUF", "Account number / IBAN", "OTP EUR", "Account number / IBAN", "BIC / SWIFT"]
+      },
+      {
+        title: "Dandelion Zsalya / Szololiget / Royal Homes / Szepvolgyi",
+        lines: ["Beneficiary: Dandelion Vendeghazak Kft.", "OTP HUF", "Account number / IBAN", "OTP EUR", "Account number / IBAN", "BIC / SWIFT"]
+      }
+    ],
+    note: "Tip: on mobile, the fields can be copied easily by long pressing them."
+  },
+  {
+    number: "7",
+    title: "Cancellation terms",
+    bullets: [
+      "Free cancellation: if cancelled 30 days or more before arrival, the deposit is refunded.",
+      "Cancellation within 30 days: the deposit is non-refundable; the cancellation fee is 30% of the booking.",
+      "In case of no-show or cancellation on the day of arrival, 100% of the accommodation fee is payable."
+    ],
+    paragraphs: [
+      "Cancellation is valid when sent by the guest in writing by e-mail, or officially cancelled through the booking system or the sales channel. The time of cancellation is the time when it is received.",
+      "If the deposit is refundable based on the cancellation, we will transfer it back within 5 working days to the bank account from which the deposit was received, or to another account provided by the guest in writing."
+    ]
+  },
+  {
+    number: "8",
+    title: "Check-in / check-out / self check-in",
+    paragraphs: [
+      "Arrival is usually handled through a self check-in system using a key box. Detailed arrival information is sent by e-mail.",
+      "Online check-in is a condition of occupying the accommodation; guest data and documents must be recorded. Without this, the entry code or key box code cannot be sent by the system."
+    ]
+  },
+  {
+    number: "9",
+    title: "Arrival and departure",
+    bullets: [
+      "Check-in: 15:00-19:00",
+      "Check-out: by 10:00",
+      "Late arrival is possible, but advance notice is required.",
+      "Early check-in or late check-out may be requested depending on capacity, for a maximum of +/-2 hours. Fee: HUF 4,000 per occasion."
+    ]
+  },
+  {
+    number: "10",
+    title: "Deposit",
+    paragraphs: [
+      "As a general rule, we do not request a security deposit. In exceptional cases, a deposit may be requested; the guest will always be informed in advance.",
+      "If no damage occurs, the deposit is refunded after the post-departure inspection. In case of damage, the value of the damage may be deducted."
+    ]
+  },
+  {
+    number: "11",
+    title: "House rules, smoking and pets",
+    bullets: [
+      "Furniture, equipment and fittings must be used properly, and fire safety and accident prevention rules must be followed.",
+      "Smoking: all accommodations are non-smoking. Indoor smoking results in an extra cleaning fee of HUF 30,000.",
+      "We cannot accept pets."
+    ]
+  },
+  {
+    number: "12",
+    title: "Number of guests",
+    paragraphs: ["Only guests declared in advance may stay at the accommodation."]
+  },
+  {
+    number: "13",
+    title: "Cleaning",
+    paragraphs: [
+      "A separate final cleaning fee may be included in the total booking amount and is always shown separately during the booking process.",
+      "Extra cleaning fees may be charged in case of unusual soiling or breach of the house rules."
+    ]
+  },
+  {
+    number: "14",
+    title: "Damage and liability",
+    paragraphs: [
+      "In case of damage, the guest must compensate the damage caused.",
+      "Please use the accommodation's furniture, equipment and fittings only as intended. If necessary, the damage amount may be deducted from the deposit or settled separately."
+    ]
+  },
+  {
+    number: "15",
+    title: "Contact",
+    paragraphs: ["If you have any questions, we are happy to help with bookings, payment, arrival or the accommodations."],
+    contacts: [
+      { label: "E-mail", value: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+      { label: "Phone", value: "+36 20 773 0807", href: "tel:+36207730807" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="en"
+  title="Terms and Conditions | Dandelion Guesthouses"
+  description="Terms and booking conditions of Dandelion Guesthouses: payment, deposit, cancellation, check-in, house rules and contact details."
+  canonicalPath="/en/terms-and-conditions/"
+  eyebrow="Legal information"
+  heading="Terms and Conditions"
+  lead="The booking and stay conditions of Dandelion Guesthouses apply as set out below. By submitting and confirming a booking, the guest accepts these terms."
+  introBlocks={[
+    {
+      label: "Validity",
+      lines: ["Valid from: 1 February 2026", "Modified: 24 May 2026"]
+    },
+    {
+      label: "Contact",
+      lines: [],
+      links: [
+        { label: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+        { label: "+36 20 773 0807", href: "tel:+36207730807" }
+      ]
+    }
+  ]}
+  notice="Our best prices are usually available in our own booking engine. For OTA bookings, for example through Booking or Airbnb, the payment and cancellation terms of the relevant channel always apply."
+  sections={sections}
+/>

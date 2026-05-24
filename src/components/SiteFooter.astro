@@ -75,6 +75,11 @@ const englishLanguageLinks = [
   { label: "HU", href: homeHref },
   { label: "EN", href: `${homeHref}en/` }
 ];
+const englishLegalLinks = [
+  { label: "Terms and Conditions", href: `${homeHref}en/terms-and-conditions/` },
+  { label: "Privacy Policy", href: `${homeHref}en/privacy-policy/` },
+  { label: "Imprint", href: `${homeHref}en/imprint/` }
+];
 ---
 
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
@@ -137,10 +142,13 @@ const englishLanguageLinks = [
 
     {isEnglishFooter ? (
       <nav class="dnd-site-footer__group" aria-label="Languages">
-        <h2>Languages</h2>
+        <h2>Legal</h2>
         <ul>
-          {englishLanguageLinks.map((item) => (
+          {englishLegalLinks.map((item) => (
             <li><a href={item.href}>{item.label}</a></li>
+          ))}
+          {englishLanguageLinks.map((item) => (
+            <li class="dnd-site-footer__language-link"><a href={item.href}>{item.label}</a></li>
           ))}
         </ul>
       </nav>

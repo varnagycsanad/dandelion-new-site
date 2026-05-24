@@ -1,0 +1,510 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type LegalLink = {
+  label: string;
+  href: string;
+};
+
+type LegalGroup = {
+  title: string;
+  lines: string[];
+};
+
+type LegalContact = {
+  label: string;
+  value: string;
+  href: string;
+};
+
+type LegalDetailItem = [string, string, string?];
+
+type LegalSection = {
+  number?: string;
+  title: string;
+  paragraphs?: string[];
+  bullets?: string[];
+  links?: LegalLink[];
+  groups?: LegalGroup[];
+  note?: string;
+  contacts?: LegalContact[];
+  items?: LegalDetailItem[];
+};
+
+type LegalMetaBlock = {
+  label: string;
+  lines: string[];
+  links?: LegalLink[];
+};
+
+interface Props {
+  lang?: "hu" | "en";
+  title: string;
+  description: string;
+  canonicalPath: string;
+  eyebrow: string;
+  heading: string;
+  lead: string;
+  sections: LegalSection[];
+  introBlocks?: LegalMetaBlock[];
+  notice?: string;
+  tocLabel?: string;
+  tocPlaceholder?: string;
+}
+
+const {
+  lang = "en",
+  title,
+  description,
+  canonicalPath,
+  eyebrow,
+  heading,
+  lead,
+  sections,
+  introBlocks = [],
+  notice,
+  tocLabel = "Jump to section",
+  tocPlaceholder = "Choose a section"
+} = Astro.props;
+
+const sectionId = (section: LegalSection, index: number) => `legal-section-${section.number ?? index + 1}`;
+const showToc = sections.length > 3;
+---
+
+<BaseLayout title={title} description={description} canonicalPath={canonicalPath} lang={lang}>
+  <section class="legal-page">
+    <div class="dnd-container legal-page__inner">
+      <span class="legal-page__eyebrow">{eyebrow}</span>
+      <h1>{heading}</h1>
+      <p class="legal-page__lead">{lead}</p>
+
+      {introBlocks.length > 0 && (
+        <div class="legal-page__intro-card">
+          {introBlocks.map((block) => (
+            <div>
+              <span class="legal-page__meta-label">{block.label}</span>
+              {block.lines.map((line) => <strong>{line}</strong>)}
+              {block.links?.map((link) => <a href={link.href}>{link.label}</a>)}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {notice && (
+        <div class="legal-page__notice">
+          <p>{notice}</p>
+        </div>
+      )}
+
+      {showToc && (
+        <div class="legal-page__toc" aria-label={`${heading} contents`}>
+          <label for="legal-toc">{tocLabel}</label>
+          <select id="legal-toc" data-legal-toc-select>
+            <option value="">{tocPlaceholder}</option>
+            {sections.map((section, index) => (
+              <option value={sectionId(section, index)}>
+                {section.number ? `${section.number}. ` : ""}{section.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      <div class="legal-page__sections">
+        {sections.map((section, index) => (
+          <article class="legal-page__card" id={sectionId(section, index)}>
+            <header class="legal-page__card-header">
+              {section.number && <span class="legal-page__index">{section.number}</span>}
+              <h2>{section.title}</h2>
+            </header>
+
+            {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            )}
+
+            {section.links && (
+              <div class="legal-page__links">
+                {section.links.map((link) => (
+                  <a href={link.href} class="legal-page__link-item">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {section.groups && (
+              <div class="legal-page__groups">
+                {section.groups.map((group) => (
+                  <section class="legal-page__group">
+                    <h3>{group.title}</h3>
+                    <ul class="legal-page__group-list">
+                      {group.lines.map((line) => <li>{line}</li>)}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {section.items && (
+              <dl class="legal-page__details">
+                {section.items.map(([label, value, href]) => (
+                  <div class="legal-page__detail-row">
+                    <dt>{label}</dt>
+                    <dd>{href ? <a href={href}>{value}</a> : value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+
+            {section.note && <p class="legal-page__note">{section.note}</p>}
+
+            {section.contacts && (
+              <div class="legal-page__contacts">
+                {section.contacts.map((contact) => (
+                  <a href={contact.href} class="legal-page__contact-item">
+                    <span>{contact.label}</span>
+                    <strong>{contact.value}</strong>
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const select = document.querySelector("[data-legal-toc-select]");
+      if (!(select instanceof HTMLSelectElement)) return;
+
+      select.addEventListener("change", () => {
+        if (!select.value) return;
+        const target = document.getElementById(select.value);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: 118px 0 64px;
+    background: linear-gradient(180deg, #fff8ec 0%, #fdfbf7 42%, #ffffff 100%);
+  }
+
+  .legal-page__inner {
+    display: grid;
+    gap: 18px;
+    max-width: 760px;
+  }
+
+  .legal-page__eyebrow {
+    color: #d99e2b;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .legal-page h1,
+  .legal-page h2,
+  .legal-page h3 {
+    margin: 0;
+    color: #261d16;
+  }
+
+  .legal-page h1 {
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.2rem, 5.4vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .legal-page h2 {
+    font-family: var(--dnd-font-body);
+    font-size: clamp(1rem, 4vw, 1.16rem);
+    font-weight: 700;
+    line-height: 1.24;
+  }
+
+  .legal-page h3 {
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .legal-page p,
+  .legal-page li,
+  .legal-page a,
+  .legal-page strong,
+  .legal-page span,
+  .legal-page dt,
+  .legal-page dd {
+    font-family: var(--dnd-font-body);
+  }
+
+  .legal-page p,
+  .legal-page li,
+  .legal-page dt,
+  .legal-page dd {
+    margin: 0;
+    color: rgba(38, 29, 22, 0.78);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.58;
+  }
+
+  .legal-page a {
+    color: #8f6217;
+    text-decoration: none;
+  }
+
+  .legal-page a:hover {
+    color: #d99e2b;
+  }
+
+  .legal-page__lead {
+    max-width: 780px;
+    font-size: var(--dnd-text-base);
+    line-height: 1.58;
+    text-align: center;
+  }
+
+  .legal-page__intro-card,
+  .legal-page__notice,
+  .legal-page__card {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .legal-page__intro-card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .legal-page__intro-card strong,
+  .legal-page__intro-card a {
+    display: block;
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .legal-page__meta-label {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(38, 29, 22, 0.54);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .legal-page__notice {
+    padding: 12px;
+    background: #fff7e5;
+  }
+
+  .legal-page__toc {
+    display: grid;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid rgba(94, 65, 39, 0.14);
+    border-radius: 8px;
+    background: #fffefb;
+  }
+
+  .legal-page__toc label {
+    color: rgba(38, 29, 22, 0.68);
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .legal-page__toc select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 38px 0 12px;
+    border: 1px solid rgba(94, 65, 39, 0.14);
+    border-radius: 8px;
+    background: #fffefb;
+    color: #3a2b1f;
+    font-family: var(--dnd-font-body);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .legal-page__sections {
+    display: grid;
+    gap: 12px;
+  }
+
+  .legal-page__card {
+    display: grid;
+    gap: 10px;
+    padding: 18px 0;
+    border-width: 1px 0 0;
+    border-radius: 0;
+    background: transparent;
+    scroll-margin-top: 92px;
+  }
+
+  .legal-page__card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .legal-page__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.14);
+    color: #a46f17;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .legal-page__card ul,
+  .legal-page__group-list {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .legal-page__groups,
+  .legal-page__links,
+  .legal-page__details {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .legal-page__link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+    border-radius: 8px;
+    background: #fffaf0;
+    color: #8f6217;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .legal-page__link-item::after {
+    content: ">";
+    color: #d99e2b;
+    flex-shrink: 0;
+  }
+
+  .legal-page__group {
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fffaf0;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+  }
+
+  .legal-page__group-list {
+    padding-left: 1rem;
+  }
+
+  .legal-page__detail-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .legal-page__detail-row dt {
+    color: rgba(38, 29, 22, 0.56);
+    font-weight: 600;
+  }
+
+  .legal-page__detail-row dd {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .legal-page__note {
+    color: rgba(38, 29, 22, 0.6);
+    font-size: var(--dnd-text-sm);
+  }
+
+  .legal-page__contacts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .legal-page__contact-item {
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fffaf0;
+    border: 1px solid rgba(217, 158, 43, 0.16);
+  }
+
+  .legal-page__contact-item span {
+    color: rgba(38, 29, 22, 0.54);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .legal-page__contact-item strong {
+    color: #261d16;
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+  }
+
+  @media (max-width: 767px) {
+    .legal-page {
+      padding: 110px 0 64px;
+    }
+
+    .legal-page__inner {
+      gap: 20px;
+    }
+
+    .legal-page__intro-card,
+    .legal-page__contacts {
+      grid-template-columns: 1fr;
+    }
+
+    .legal-page__card {
+      padding: 20px 0;
+    }
+
+    .legal-page__detail-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+</style>
