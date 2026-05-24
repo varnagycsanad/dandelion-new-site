@@ -158,8 +158,8 @@ export const d1PageData: AccommodationPageData = {
     featuredExperience: {
       label: "KIEMELT ÉLMÉNY",
       title: "Panorama Pool",
-      text: "közös panorámás medence a ház melletti dombon",
-      note: "2026. június 1-től elérhető",
+      text: "Foglald le a Dandelion D1-et, és nyártól a panorámás medencehasználat is benne van az árban.",
+      note: "2026. június 1-től",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {

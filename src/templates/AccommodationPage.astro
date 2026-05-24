@@ -1,7 +1,8 @@
 ﻿---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { AccommodationPageData } from "../data/accommodation-pages/types";
+import type { AccommodationPageData, AccommodationPageRelatedStay } from "../data/accommodation-pages/types";
+import { accommodations } from "../data/accommodations";
 import type { AccommodationImageSet } from "../data/images/image-types";
 import {
   buildGalleryImages,
@@ -156,6 +157,63 @@ function areDescriptionsSimilar(first?: string, second?: string) {
   return overlapRatio >= 0.72;
 }
 
+const relatedStayTargetCount = 6;
+const englishAccommodationHrefBySlug: Record<string, string> = {
+  "dandelion-d1": "/en/dandelion-d1/",
+  "dandelion-d2": "/en/dandelion-d2/",
+  "dandelion-koveskal": "/en/dandelion-koveskal/",
+  "fugehaz": "/en/dandelion-fugehaz/",
+  "royal-homes": "/en/royal/",
+  "szepvolgyi-vendeghaz": "/en/szepvolgyi/",
+  "szololiget-vendeghaz": "/en/szololiget/",
+  "vintage-vendeghaz": "/en/dandelion-vintage/",
+  "zsalya-vendeghaz": "/en/dandelion-zsalya/"
+};
+
+function normalizeRelatedStayPath(href: string) {
+  const path = href.startsWith("http") ? new URL(href).pathname : href;
+  const withoutQuery = path.split("#")[0]?.split("?")[0] || "/";
+  const absolutePath = withoutQuery.startsWith("/") ? withoutQuery : `/${withoutQuery}`;
+
+  return absolutePath.replace(/\/+$/, "") + "/";
+}
+
+function resolveAccommodationHrefForLocale(slug: string, url: string) {
+  if (lang === "en") {
+    return englishAccommodationHrefBySlug[slug] || `/en${url}`;
+  }
+
+  return url;
+}
+
+function buildSupplementedRelatedStays(items: AccommodationPageRelatedStay[]) {
+  const currentPath = normalizeRelatedStayPath(canonicalPath || Astro.url.pathname);
+  const usedPaths = new Set(items.map((stay) => normalizeRelatedStayPath(stay.href)));
+  const supplementedItems = [...items];
+
+  for (const accommodation of accommodations) {
+    if (supplementedItems.length >= relatedStayTargetCount) break;
+
+    const href = resolveAccommodationHrefForLocale(accommodation.slug, accommodation.url);
+    const normalizedHref = normalizeRelatedStayPath(href);
+
+    if (normalizedHref === currentPath || usedPaths.has(normalizedHref)) continue;
+
+    usedPaths.add(normalizedHref);
+    supplementedItems.push({
+      name: accommodation.name,
+      meta: accommodation.location,
+      href,
+      image: {
+        type: "mapping",
+        slot: accommodation.imageSlot
+      }
+    });
+  }
+
+  return supplementedItems;
+}
+
 function resolveDecisionPanelImage(
   experience?: AccommodationPageData["decisionPanel"] extends infer T
     ? T extends { featuredExperience?: infer U }
@@ -275,7 +333,7 @@ const {
 
 const imageMapping = await readHomepageImageMapping();
 const compactRelatedStays = buildRelatedStays({
-  stays: pageData.relatedStays.items,
+  stays: buildSupplementedRelatedStays(pageData.relatedStays.items),
   imageMapping,
   baseHref
 });
@@ -817,10 +875,10 @@ const accommodationStructuredData = [
             </section>
 
           {decisionReasons.length > 0 && (
-            <section class="d2-reasons d2-detail-block" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}>
-              <div class="d2-details__section-head">
+            <details class="d2-reasons d2-detail-block d2-mobile-collapsible" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle} open data-mobile-collapsed>
+              <summary class="d2-details__section-head d2-mobile-collapsible__summary">
                 <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}</span>
-              </div>
+              </summary>
               <div class="d2-reasons__grid">
                 {decisionReasons.map((item) => (
                   <article class="d2-reasons__card">
@@ -834,14 +892,14 @@ const accommodationStructuredData = [
                   </article>
                 ))}
               </div>
-            </section>
+            </details>
           )}
 
           {amenityItems.length > 0 && (
-            <section class="d2-amenities d2-detail-block" aria-label={pageData.features.title}>
-              <div class="d2-details__section-head">
+            <details class="d2-amenities d2-detail-block d2-mobile-collapsible" aria-label={pageData.features.title} open data-mobile-collapsed>
+              <summary class="d2-details__section-head d2-mobile-collapsible__summary">
                 <span class="dnd-section-kicker">{pageData.features.title}</span>
-              </div>
+              </summary>
               <div class="d2-amenities__grid">
                 {amenityItems.map((item) => (
                   <article class="d2-amenities__card">
@@ -855,7 +913,7 @@ const accommodationStructuredData = [
                   </article>
                 ))}
               </div>
-            </section>
+            </details>
           )}
         </aside>
 
@@ -1175,11 +1233,26 @@ const accommodationStructuredData = [
     const closeButtons = Array.from(document.querySelectorAll("[data-accommodation-lightbox-close]"));
     const prevButton = document.querySelector("[data-accommodation-lightbox-prev]");
     const nextButton = document.querySelector("[data-accommodation-lightbox-next]");
+    const mobileCollapsedBlocks = Array.from(document.querySelectorAll("[data-mobile-collapsed]"));
+    const mobileDetailsQuery = window.matchMedia("(max-width: 768px)");
     const navigationEntries =
       typeof performance.getEntriesByType === "function"
         ? performance.getEntriesByType("navigation")
         : [];
     const isReloadNavigation = navigationEntries[0]?.type === "reload";
+
+    const syncMobileCollapsedBlocks = () => {
+      mobileCollapsedBlocks.forEach((block) => {
+        if (mobileDetailsQuery.matches) {
+          block.removeAttribute("open");
+        } else {
+          block.setAttribute("open", "");
+        }
+      });
+    };
+
+    syncMobileCollapsedBlocks();
+    mobileDetailsQuery.addEventListener?.("change", syncMobileCollapsedBlocks);
 
     if (isReloadNavigation && window.location.hash === "#accommodation-gallery") {
       history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
@@ -2043,9 +2116,24 @@ const accommodationStructuredData = [
     border-top: 1px solid rgba(217, 158, 43, 0.12);
   }
 
+  .d2-details__panel > * + * {
+    margin-top: 0;
+    padding-top: 10px;
+    border-top: 1px solid rgba(217, 158, 43, 0.12);
+  }
+
   .d2-details__section-head {
     margin-bottom: 7px;
     text-align: center;
+  }
+
+  .d2-mobile-collapsible__summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .d2-mobile-collapsible__summary::-webkit-details-marker {
+    display: none;
   }
 
   .d2-detail-block {
@@ -2601,7 +2689,7 @@ const accommodationStructuredData = [
   .d2-closer__grid {
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .d2-closer__card {
@@ -3232,22 +3320,26 @@ const accommodationStructuredData = [
       gap: 18px;
     }
 
-    .d2-details__story .dnd-section-kicker {
-      margin-bottom: 10px;
+    .d2-details__story {
+      text-align: center;
     }
 
+    .d2-details__story .dnd-section-kicker,
     .d2-details__story .d2-section-title {
-      font-size: clamp(1.58rem, 8.8vw, 2.05rem);
-      line-height: 1.1;
+      display: none;
     }
 
     .d2-details__story p {
-      margin-top: 8px;
+      max-width: 34rem;
+      margin-top: 0;
+      margin-right: auto;
+      margin-left: auto;
       font-size: var(--dnd-text-md);
       line-height: 1.48;
     }
 
     .d2-details__inline-link {
+      justify-content: center;
       margin-top: 8px;
       font-size: var(--dnd-text-xs);
       line-height: 1.4;
@@ -3255,7 +3347,7 @@ const accommodationStructuredData = [
 
     .d2-details__actions {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       gap: 8px;
       margin-top: 14px;
     }
@@ -3296,6 +3388,16 @@ const accommodationStructuredData = [
       padding-top: 12px;
     }
 
+    .d2-details__panel > * + * {
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+
+    .d2-details__panel > .d2-mobile-collapsible {
+      padding-top: 0;
+      border-top: 0;
+    }
+
     .d2-overview__grid,
     .d2-reasons__grid,
     .d2-amenities__grid {
@@ -3311,6 +3413,49 @@ const accommodationStructuredData = [
       padding: 9px;
       border-radius: 7px;
       background: rgba(255, 252, 247, 0.82);
+    }
+
+    .d2-overview__card:nth-child(n + 5) {
+      display: none;
+    }
+
+    .d2-mobile-collapsible__summary {
+      position: relative;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      place-items: center;
+      min-height: 42px;
+      padding: 0 42px;
+      margin-bottom: 0;
+      border: 1px solid rgba(217, 158, 43, 0.24);
+      border-radius: 8px;
+      background: rgba(255, 252, 247, 0.9);
+      text-align: center;
+    }
+
+    .d2-mobile-collapsible__summary .dnd-section-kicker {
+      margin: 0;
+      line-height: 1;
+    }
+
+    .d2-mobile-collapsible__summary::after {
+      content: "▾";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      color: rgba(121, 93, 48, 0.9);
+      font-size: var(--dnd-text-2xs);
+      transform: translateY(-50%);
+      transition: transform 0.2s ease;
+    }
+
+    .d2-mobile-collapsible[open] .d2-mobile-collapsible__summary {
+      margin-bottom: 8px;
+    }
+
+    .d2-mobile-collapsible[open] .d2-mobile-collapsible__summary::after {
+      transform: translateY(-50%) rotate(180deg);
     }
 
     .d2-reasons__card {
@@ -3361,11 +3506,13 @@ const accommodationStructuredData = [
 
     .d2-featured-experience {
       gap: 10px;
-      padding: 10px;
+      padding: 12px 10px;
       grid-template-columns: 1fr;
+      justify-items: center;
     }
 
     .d2-featured-experience__copy {
+      width: 100%;
       justify-items: center;
       text-align: center;
     }
@@ -3375,21 +3522,28 @@ const accommodationStructuredData = [
     }
 
     .d2-featured-experience__title-row h3 {
-      font-size: 1.26rem;
+      font-size: 1.18rem;
     }
 
     .d2-featured-experience__media {
+      width: min(100%, 276px);
       aspect-ratio: 16 / 8.6;
       min-height: 0;
       max-height: 150px;
+      justify-self: center;
     }
 
-    .d2-amenities {
+    .d2-amenities.d2-mobile-collapsible {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .d2-amenities.d2-mobile-collapsible[open] {
       padding: 10px;
-    }
-
-    .d2-overview__grid {
-      grid-template-columns: 1fr;
+      border: 1px solid rgba(217, 158, 43, 0.16);
+      border-left-width: 1px;
+      background: linear-gradient(180deg, rgba(255, 248, 235, 0.84), rgba(252, 244, 229, 0.72));
     }
 
     .d2-gallery__grid {

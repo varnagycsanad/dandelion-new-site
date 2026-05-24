@@ -165,8 +165,8 @@ export const d2PageData: AccommodationPageData = {
     featuredExperience: {
       label: "Kiemelt élmény",
       title: "Panorama Pool",
-      text: "a ház melletti dombon",
-      note: "2026. június 1-től elérhető",
+      text: "Foglald le a Dandelion D2-t, és nyártól a panorámás medencehasználat is benne van az árban.",
+      note: "2026. június 1-től",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {

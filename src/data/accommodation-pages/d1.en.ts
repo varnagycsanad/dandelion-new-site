@@ -141,10 +141,10 @@ export const d1EnglishPageData: AccommodationPageData = {
       { iconKey: "family", title: "Family-friendly", text: "Stay style" }
     ],
     featuredExperience: {
-      label: "Shared highlight",
+      label: "Featured experience",
       title: "Panorama Pool",
-      text: "shared by guests of D1, D2 and Fügeház",
-      note: "available from June 1, 2026",
+      text: "Book Dandelion D1, and from summer the panoramic pool access is included in the price.",
+      note: "from June 1, 2026",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {

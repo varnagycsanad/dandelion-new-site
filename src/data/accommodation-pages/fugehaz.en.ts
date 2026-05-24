@@ -140,10 +140,10 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       { iconKey: "family", title: "Family-friendly house", text: "Stay style" }
     ],
     featuredExperience: {
-      label: "Shared highlight",
+      label: "Featured experience",
       title: "Panorama Pool",
-      text: "shared by guests of D1, D2 and Fügeház",
-      note: "available from June 1, 2026",
+      text: "Book Fügeház, and from summer the panoramic pool access is included in the price.",
+      note: "from June 1, 2026",
       iconKey: "pool",
       image: fugehazPanoramaPoolHeroImage
         ? {
