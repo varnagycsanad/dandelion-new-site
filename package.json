@@ -16,10 +16,18 @@
     "images:process": "node scripts/process-accommodation-images.mjs",
     "images:publish": "node scripts/images-publish.mjs",
     "preview": "astro preview",
+    "speed": "npm run build && node scripts/run-lighthouse.mjs",
+    "speed:view": "npm run build && node scripts/run-lighthouse.mjs --view",
+    "speed:json": "npm run build && node scripts/run-lighthouse.mjs --json",
+    "speed:desktop": "npm run build && node scripts/run-lighthouse.mjs --desktop",
+    "speed:desktop:json": "npm run build && node scripts/run-lighthouse.mjs --desktop --json",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^6.1.5",
     "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.3.0"
   }
 }

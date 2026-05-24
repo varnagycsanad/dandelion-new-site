@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import bikingImage from "../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
 import wineTourImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -80,13 +81,16 @@ const {
         experiences.map((experience) => (
           <a class="dnd-experience-card" href={experience.href}>
             <div class="dnd-experience-card__media">
-              <img
-                src={experience.image.src}
+              <Picture
+                src={experience.image}
                 alt={experience.imageAlt}
                 loading="lazy"
                 decoding="async"
-                width={experience.image.width}
-                height={experience.image.height}
+                formats={["webp"]}
+                fallbackFormat="webp"
+                quality={64}
+                widths={[320, 480, 640]}
+                sizes="(max-width: 767px) 46vw, (max-width: 1180px) 45vw, 22vw"
               />
             </div>
             <div class="dnd-experience-card__body">
