@@ -233,7 +233,10 @@ const {
   bookingLogoAlt: pageData.labels.bookingLogoAlt
 });
 const mobileReviewGridItems = reviewItems.slice(0, 4);
+const mobileReviewGridVisibleItems = mobileReviewGridItems.slice(0, 2);
+const mobileReviewGridMoreItems = mobileReviewGridItems.slice(2);
 const mobileReviewGridAriaLabel = lang === "en" ? "Guest reviews mobile grid" : "Vendégértékelések mobil rács";
+const mobileReviewGridMoreLabel = lang === "en" ? "Show more reviews" : "További értékelések";
 
 const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
@@ -574,7 +577,7 @@ const accommodationStructuredData = [
         </div>
 
         <div class="d2-reviews__mobile-grid" aria-label={mobileReviewGridAriaLabel}>
-          {mobileReviewGridItems.map((review) => (
+          {mobileReviewGridVisibleItems.map((review) => (
             <article class="d2-review-card d2-review-card--mobile-grid">
               <div class="d2-review-card__top d2-review-card__top--mobile-grid">
                 {review.source === "Booking.com" ? (
@@ -610,6 +613,50 @@ const accommodationStructuredData = [
               <p class="d2-review-card__meta">{review.meta}</p>
             </article>
           ))}
+
+          {mobileReviewGridMoreItems.length > 0 && (
+            <details class="d2-reviews__mobile-grid-more">
+              <summary>{mobileReviewGridMoreLabel}</summary>
+              <div class="d2-reviews__mobile-grid d2-reviews__mobile-grid--nested">
+                {mobileReviewGridMoreItems.map((review) => (
+                  <article class="d2-review-card d2-review-card--mobile-grid">
+                    <div class="d2-review-card__top d2-review-card__top--mobile-grid">
+                      {review.source === "Booking.com" ? (
+                        <span class="d2-review-card__logo-crop d2-review-card__logo-crop--mobile-booking">
+                          <img
+                            src={review.logoSrc}
+                            alt={review.logoAlt}
+                            width={70}
+                            height={24}
+                            class:list={[
+                              "d2-review-card__logo",
+                              "is-booking",
+                              "d2-review-card__logo--mobile-booking"
+                            ]}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </span>
+                      ) : (
+                        <img
+                          src={review.logoSrc}
+                          alt={review.logoAlt}
+                          width={82}
+                          height={24}
+                          class:list={["d2-review-card__logo", "is-google"]}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
+                      <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
+                    </div>
+                    <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
+                    <p class="d2-review-card__meta">{review.meta}</p>
+                  </article>
+                ))}
+              </div>
+            </details>
+          )}
         </div>
 
         <div class="d2-reviews__mobile d2-reviews__mobile--legacy">
@@ -1644,6 +1691,10 @@ const accommodationStructuredData = [
   }
 
   .d2-reviews__mobile-grid {
+    display: none;
+  }
+
+  .d2-reviews__mobile-grid-more {
     display: none;
   }
 
@@ -2996,6 +3047,47 @@ const accommodationStructuredData = [
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
+    }
+
+    .d2-reviews__mobile-grid--nested {
+      margin-top: 10px;
+    }
+
+    .d2-reviews__mobile-grid-more {
+      display: block;
+      grid-column: 1 / -1;
+    }
+
+    .d2-reviews__mobile-grid-more summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid rgba(217, 158, 43, 0.34);
+      border-radius: 8px;
+      background: rgba(253, 251, 247, 0.92);
+      color: #8a5b12;
+      cursor: pointer;
+      font-size: var(--dnd-text-sm);
+      font-weight: 700;
+      line-height: 1.3;
+      list-style: none;
+      text-align: center;
+    }
+
+    .d2-reviews__mobile-grid-more summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .d2-reviews__mobile-grid-more summary::after {
+      content: "▾";
+      margin-left: 8px;
+      font-size: var(--dnd-text-2xs);
+      transition: transform 0.2s ease;
+    }
+
+    .d2-reviews__mobile-grid-more[open] summary::after {
+      transform: rotate(180deg);
     }
 
     .d2-reviews__mobile--legacy {
