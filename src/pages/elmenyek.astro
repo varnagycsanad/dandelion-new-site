@@ -271,14 +271,15 @@ const structuredData = [
   }
 
   .experiences-hero h1 {
-    max-width: 17ch;
-    font-size: clamp(2.6rem, 4.8vw, 4.8rem);
-    line-height: 1.04;
+    max-width: 32ch;
+    font-size: clamp(2.2rem, 3.35vw, 3.55rem);
+    line-height: 1.08;
     font-weight: 500;
-    letter-spacing: var(--dnd-tracking-display-tight);
+    letter-spacing: 0.04em;
     white-space: normal;
     color: #ffffff;
     text-wrap: balance;
+    text-transform: uppercase;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
   }
 
@@ -466,6 +467,28 @@ const structuredData = [
   @media (max-width: 1100px) {
     .experiences-page__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .experiences-hero__content {
+      position: absolute;
+      inset: 0;
+    }
+
+    .experiences-hero__inner {
+      position: relative;
+      justify-content: flex-end;
+      height: 100%;
+      min-height: 100%;
+    }
+
+    .experiences-hero__headline {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(92px, 12vh, 132px);
+      width: min(calc(100% - 96px), 1040px);
+      transform: translateX(-50%);
     }
   }
 
