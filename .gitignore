@@ -18,6 +18,12 @@ tmp/*.log
 # environment variables
 .env
 .env.production
+tmp/ga4-service-account*.json
+ga4-service-account*.json
+tmp/ga4-oauth-client*.json
+tmp/ga4-oauth-token*.json
+ga4-oauth-client*.json
+ga4-oauth-token*.json
 
 # macOS-specific files
 .DS_Store
