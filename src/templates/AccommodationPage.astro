@@ -232,6 +232,8 @@ const {
   googleLogoAlt: pageData.labels.googleLogoAlt,
   bookingLogoAlt: pageData.labels.bookingLogoAlt
 });
+const mobileReviewGridItems = reviewItems.slice(0, 4);
+const mobileReviewGridAriaLabel = lang === "en" ? "Guest reviews mobile grid" : "Vendégértékelések mobil rács";
 
 const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
@@ -571,7 +573,46 @@ const accommodationStructuredData = [
           ))}
         </div>
 
-        <div class="d2-reviews__mobile">
+        <div class="d2-reviews__mobile-grid" aria-label={mobileReviewGridAriaLabel}>
+          {mobileReviewGridItems.map((review) => (
+            <article class="d2-review-card d2-review-card--mobile-grid">
+              <div class="d2-review-card__top d2-review-card__top--mobile-grid">
+                {review.source === "Booking.com" ? (
+                  <span class="d2-review-card__logo-crop d2-review-card__logo-crop--mobile-booking">
+                    <img
+                      src={review.logoSrc}
+                      alt={review.logoAlt}
+                      width={70}
+                      height={24}
+                      class:list={[
+                        "d2-review-card__logo",
+                        "is-booking",
+                        "d2-review-card__logo--mobile-booking"
+                      ]}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                ) : (
+                  <img
+                    src={review.logoSrc}
+                    alt={review.logoAlt}
+                    width={82}
+                    height={24}
+                    class:list={["d2-review-card__logo", "is-google"]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
+              </div>
+              <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
+              <p class="d2-review-card__meta">{review.meta}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="d2-reviews__mobile d2-reviews__mobile--legacy">
           <section class="d2-reviews__mobile-group" aria-label={pageData.reviews.mobileHighlightedAriaLabel}>
             <div class="d2-reviews__mobile-head">
               <img
@@ -1602,6 +1643,10 @@ const accommodationStructuredData = [
     display: none;
   }
 
+  .d2-reviews__mobile-grid {
+    display: none;
+  }
+
   .d2-review-card {
     display: flex;
     flex-direction: column;
@@ -1743,6 +1788,35 @@ const accommodationStructuredData = [
 
   .d2-review-card__top--mobile {
     justify-content: flex-start;
+  }
+
+  .d2-review-card--mobile-grid {
+    gap: 8px;
+  }
+
+  .d2-review-card__top--mobile-grid {
+    align-items: flex-start;
+  }
+
+  .d2-review-card__logo-crop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 70px;
+    height: 26px;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .d2-review-card__logo--mobile-booking {
+    width: 96px;
+    max-width: none;
+    height: 18px;
+    transform: translateX(-12px);
+  }
+
+  .d2-review-card__logo-crop--mobile-booking {
+    width: 72px;
   }
 
   .d2-section-title {
@@ -2918,9 +2992,14 @@ const accommodationStructuredData = [
       display: none;
     }
 
-    .d2-reviews__mobile {
+    .d2-reviews__mobile-grid {
       display: grid;
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .d2-reviews__mobile--legacy {
+      display: none;
     }
 
     .d2-reviews__more {
@@ -2944,6 +3023,11 @@ const accommodationStructuredData = [
       min-height: 0;
     }
 
+    .d2-review-card--mobile-grid {
+      min-height: 168px;
+      padding: 12px 10px 10px;
+    }
+
     .d2-reviews__mobile-list {
       gap: 12px;
     }
@@ -2952,12 +3036,30 @@ const accommodationStructuredData = [
       gap: 6px;
     }
 
+    .d2-review-card__top--mobile-grid {
+      gap: 6px;
+      justify-content: flex-start;
+    }
+
     .d2-review-card--mobile .d2-review-card__quote {
       margin-bottom: 2px;
     }
 
+    .d2-review-card--mobile-grid .d2-review-card__quote {
+      margin-bottom: 2px;
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.35;
+      -webkit-line-clamp: 4;
+    }
+
     .d2-review-card--mobile .d2-review-card__meta {
       letter-spacing: 0;
+    }
+
+    .d2-review-card--mobile-grid .d2-review-card__meta {
+      letter-spacing: 0;
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.3;
     }
 
     .d2-reviews__shell {
@@ -2997,6 +3099,10 @@ const accommodationStructuredData = [
     }
 
     .d2-review-card--mobile .d2-review-card__stars {
+      font-size: var(--dnd-text-2xs);
+    }
+
+    .d2-review-card--mobile-grid .d2-review-card__stars {
       font-size: var(--dnd-text-2xs);
     }
 
