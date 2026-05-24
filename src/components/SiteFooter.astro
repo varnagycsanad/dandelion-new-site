@@ -54,22 +54,52 @@ const footerStayColumns = [
     .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
+const englishStayHrefOverrides: Record<string, string> = {
+  "dandelion-d1": `${homeHref}en/dandelion-d1/`,
+  "dandelion-d2": `${homeHref}en/dandelion-d2/`,
+  fugehaz: `${homeHref}en/dandelion-fugehaz/`,
+  "szololiget-vendeghaz": `${homeHref}en/szololiget/`,
+  "zsalya-vendeghaz": `${homeHref}en/dandelion-zsalya/`,
+  "vintage-vendeghaz": `${homeHref}en/dandelion-vintage/`,
+  "royal-homes": `${homeHref}en/royal/`,
+  "szepvolgyi-vendeghaz": `${homeHref}en/szepvolgyi/`,
+  "dandelion-koveskal": `${homeHref}en/dandelion-koveskal/`
+};
+
+const englishStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fugehaz",
+  "zsalya-vendeghaz": "Dandelion Zsalya",
+  "szololiget-vendeghaz": "Dandelion Szololiget",
+  "szepvolgyi-vendeghaz": "Dandelion Szepvolgyi",
+  "vintage-vendeghaz": "Dandelion Vintage"
+};
+
+const englishFooterStayBySlug = new Map(
+  accommodations.map((stay) => [
+    stay.slug,
+    {
+      label: englishStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
+      href: englishStayHrefOverrides[stay.slug] ?? buildStayHref(stay.slug, stay.url)
+    }
+  ])
+);
+
+const englishFooterStayColumns = [
+  ["dandelion-d1", "dandelion-d2", "fugehaz", "szololiget-vendeghaz"],
+  ["zsalya-vendeghaz", "vintage-vendeghaz", "royal-homes", "szepvolgyi-vendeghaz", "dandelion-koveskal"]
+].map((column) =>
+  column
+    .map((slug) => englishFooterStayBySlug.get(slug))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
+);
+
 const bookingLanguage = isEnglishFooter ? "En" : "Hu";
 const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const englishFooterNav = [
   { label: "Home", href: `${homeHref}en/` },
   { label: "Accommodations", href: `${homeHref}en/szallasok/` },
   { label: "Experiences", href: `${homeHref}en/experiences/` },
-  { label: "Contact", href: `${homeHref}en/contact/` },
-  { label: "Dandelion D2", href: `${homeHref}en/dandelion-d2/` },
-  { label: "Fügeház", href: `${homeHref}en/dandelion-fugehaz/` },
-  { label: "Dandelion D1", href: `${homeHref}en/dandelion-d1/` },
-  { label: "Zsálya Vendégház", href: `${homeHref}en/dandelion-zsalya/` },
-  { label: "Szőlőliget Vendégház", href: `${homeHref}en/szololiget/` },
-  { label: "Szépvölgyi Vendégház", href: `${homeHref}en/szepvolgyi/` },
-  { label: "Dandelion Royal Homes", href: `${homeHref}en/royal/` },
-  { label: "Dandelion Vintage Vendégház", href: `${homeHref}en/dandelion-vintage/` },
-  { label: "Dandelion Köveskál", href: `${homeHref}en/dandelion-koveskal/` }
+  { label: "Contact", href: `${homeHref}en/contact/` }
 ];
 const englishLanguageLinks = [
   { label: "HU", href: homeHref },
@@ -96,13 +126,17 @@ const englishLegalLinks = [
     </div>
 
     {isEnglishFooter ? (
-      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="English footer navigation">
-        <h2>Navigation</h2>
-        <ul>
-          {englishFooterNav.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Accommodations">
+        <h2>Accommodations</h2>
+        <div class="dnd-site-footer__stay-columns">
+          {englishFooterStayColumns.map((column) => (
+            <ul>
+              {column.map((stay) => (
+                <li><a href={stay.href}>{stay.label}</a></li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </nav>
     ) : (
       <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Szállások">
@@ -121,8 +155,11 @@ const englishLegalLinks = [
 
     {isEnglishFooter ? (
       <nav class="dnd-site-footer__group" aria-label="Booking">
-        <h2>Booking</h2>
+        <h2>Useful links</h2>
         <ul>
+          {englishFooterNav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
           <li><a href={bookingHref}>Check availability</a></li>
           <li><a href={bookingHref}>Book now</a></li>
         </ul>
