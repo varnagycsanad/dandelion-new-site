@@ -1,6 +1,10 @@
 import type { HomepageImageSlotKey } from "../homepage-image-slots";
 import type { AccommodationPageData } from "./types";
 
+const englishSharedBookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+const resolveGermanBookingLink = (baseData: AccommodationPageData) =>
+  baseData.bookingLink.includes("ibe.sabeeapp.com") ? baseData.bookingLink : englishSharedBookingLink;
+
 type GermanAccommodationProfile = {
   title: string;
   titleAccent: string;
@@ -107,7 +111,7 @@ export function createGermanAccommodationPage(
       title: `${profile.title} | Dandelion Unterkünfte am Balaton`,
       description: profile.shortDescription
     },
-    bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
+    bookingLink: resolveGermanBookingLink(baseData),
     hero: {
       mobileImagePath: baseData.hero.mobileImagePath,
       fallbackAlt: `${profile.title} Unterkunft in ${profile.location}`,

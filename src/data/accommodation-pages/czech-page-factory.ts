@@ -1,6 +1,10 @@
 import type { HomepageImageSlotKey } from "../homepage-image-slots";
 import type { AccommodationPageData } from "./types";
 
+const englishSharedBookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+const resolveCzechBookingLink = (baseData: AccommodationPageData) =>
+  baseData.bookingLink.includes("ibe.sabeeapp.com") ? baseData.bookingLink : englishSharedBookingLink;
+
 type CzechAccommodationProfile = {
   title: string;
   titleAccent: string;
@@ -60,7 +64,7 @@ export function createCzechAccommodationPage(
       title: `${profile.title} | Dandelion ubytování u Balatonu`,
       description: profile.shortDescription
     },
-    bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
+    bookingLink: resolveCzechBookingLink(baseData),
     hero: {
       mobileImagePath: baseData.hero.mobileImagePath,
       fallbackAlt: `${profile.title} ubytování v oblasti ${profile.location}`,

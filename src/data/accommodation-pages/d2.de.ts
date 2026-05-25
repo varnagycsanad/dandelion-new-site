@@ -10,7 +10,7 @@ export const d2GermanPageData: AccommodationPageData = {
     description:
       "Dandelion D2 ist eine ruhige, familienfreundliche Unterkunft im Balaton-Oberland mit Garten, Terrasse und Zugang zum gemeinsamen Panorama Pool."
   },
-  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",
