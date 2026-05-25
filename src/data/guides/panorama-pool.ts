@@ -57,11 +57,12 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
       title: "Panorama Pool - Medencehasználati szabályzat",
       subtitle: `Panorama Pool medencehasználati szabályzat - ${houseName}`,
       intro:
-        "Hatályos: 2026. május 24. A Panorama Pool a Dandelion vendégek részére, a fürdési szezonban használható.",
+        "Hatályos: 2026. május 24. Módosítva: 2026. május 25. A Panorama Pool a Dandelion vendégek részére, a fürdési szezonban használható.",
       keyPoints: [
         "Nyitvatartás a fürdési szezonban: naponta 10:00-21:00.",
         "A medence használata saját felelősségre történik, úszómester nincs.",
         "Gyermekek kizárólag felnőtt felügyeletével használhatják a medencét.",
+        "A közös medencetér kamerás megfigyeléssel érintett terület.",
         "A medencefedést az esti utolsó használat után vissza kell tolni a medence fölé."
       ],
       backLabel: `Vissza a ${houseName} útmutatóhoz`,
@@ -170,8 +171,18 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           ]
         },
         {
+          id: "kameras-megfigyeles",
+          title: "10. Kamerás megfigyelés",
+          paragraphs: [
+            "A Panorama Pool közös medencetere kamerás megfigyeléssel érintett terület lehet.",
+            "A kamerás megfigyelés célja a vendégek és a szálláshely biztonságának védelme, a vagyonvédelem, a károkozások és szabályszegések megelőzése, valamint panaszok, balesetek vagy káresemények tisztázása.",
+            "A kamerás megfigyelés nem jelent úszómesteri vagy folyamatos személyes felügyeletet, és nem helyettesíti a gyermekek felnőtt felügyeletét.",
+            "A kamerás adatkezelés részletes szabályait a Dandelion Vendégházak Adatkezelési tájékoztatója tartalmazza."
+          ]
+        },
+        {
           id: "bejelentes",
-          title: "10. Baleset, hiba, szennyezés bejelentése",
+          title: "11. Baleset, hiba, szennyezés bejelentése",
           paragraphs: [
             "Baleset, sérülés, rosszullét, műszaki hiba, szennyezés vagy rendellenes vízminőség esetén kérjük, azonnal értesítsétek az üzemeltetőt.",
             "Különösen fontos azonnal jelezni, ha:"
@@ -180,7 +191,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
         },
         {
           id: "felelosseg",
-          title: "11. Felelősség",
+          title: "12. Felelősség",
           paragraphs: [
             "A medence használata saját felelősségre történik.",
             "A szabályok be nem tartásából eredő balesetért, sérülésért, kárért vagy többletköltségért az üzemeltető felelősséget nem vállal.",
@@ -196,11 +207,12 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
       title: "Panorama Pool - Pool Rules",
       subtitle: `Panorama Pool rules - ${houseName}`,
       intro:
-        "Effective date: 24 May 2026. Panorama Pool may be used by Dandelion guests during the bathing season.",
+        "Effective date: 24 May 2026. Modified: 25 May 2026. Panorama Pool may be used by Dandelion guests during the bathing season.",
       keyPoints: [
         "Opening hours during the bathing season: daily from 10:00 to 21:00.",
         "Guests use the pool at their own responsibility. There is no lifeguard on duty.",
         "Children may use the pool only under adult supervision.",
+        "The shared pool area is covered by camera surveillance.",
         "After the last evening use, the pool cover must be pulled back over the pool."
       ],
       backLabel: `Back to the ${houseName} guide`,
@@ -309,8 +321,18 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           ]
         },
         {
+          id: "camera-surveillance",
+          title: "10. Camera surveillance",
+          paragraphs: [
+            "The shared Panorama Pool area may be covered by camera surveillance.",
+            "The purpose of camera surveillance is to protect guests and the accommodation, protect property, prevent damage and breaches of rules, and clarify complaints, accidents or damage events.",
+            "Camera surveillance does not constitute lifeguard service or continuous personal supervision, and it does not replace adult supervision of children.",
+            "Detailed rules on camera-related data processing are set out in the Dandelion Guesthouses Privacy Policy."
+          ]
+        },
+        {
           id: "reporting",
-          title: "10. Reporting accidents, faults or contamination",
+          title: "11. Reporting accidents, faults or contamination",
           paragraphs: [
             "In case of accident, injury, illness, technical fault, contamination or abnormal water quality, please notify the operator immediately.",
             "It is especially important to report immediately if:"
@@ -319,7 +341,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
         },
         {
           id: "liability",
-          title: "11. Liability",
+          title: "12. Liability",
           paragraphs: [
             "Guests use the pool at their own responsibility.",
             "The operator does not accept liability for accidents, injuries, damage or additional costs resulting from failure to follow the rules.",
@@ -335,6 +357,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
 });
 
 // [CHANGE 2026-05-24 20:20] Medencehasznalati guide szabalyzati szovegre frissitve HU/EN tartalommal es hatalyossagi datummal.
+// [CHANGE 2026-05-25 00:00] Medenceter kameras megfigyelesi tajekoztatas HU/EN tartalommal hozzaadva.
 export const d1PoolGuide = createPoolGuide({
   houseSlug: "d1",
   houseName: "Dandelion D1"

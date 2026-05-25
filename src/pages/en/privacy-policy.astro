@@ -2,6 +2,7 @@
 import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
 
 // [CHANGE 2026-05-24 21:05] English Privacy Policy page added from the Hungarian adatkezelesi tajekoztato.
+// [CHANGE 2026-05-25 00:00] Camera surveillance data processing information added.
 
 const sections = [
   {
@@ -109,6 +110,25 @@ const sections = [
   },
   {
     number: "10",
+    title: "Camera surveillance",
+    paragraphs: [
+      "An electronic camera surveillance system may operate only in certain shared-use areas of Dandelion Guesthouses. Warning notices are displayed before entering shared areas covered by camera surveillance.",
+      "Shared areas covered by cameras may include, in particular, entrances, yards, parking areas, access routes and, at the affected houses, the shared Panorama Pool area. Cameras are not directed at indoor living areas, bedrooms, bathrooms, toilets or other areas affecting guests' private sphere.",
+      "Camera surveillance does not include audio recording."
+    ],
+    bullets: [
+      "Data processed: the data subject's image, physical appearance visible on the recording, and the place and time of the recording.",
+      "Purpose of processing: personal and property protection, protection of guests and the accommodation, prevention of damage and breaches of rules, and clarification of complaints, accidents, damage events or legal infringements.",
+      "Legal basis: the data controller's legitimate interest under Article 6(1)(f) GDPR.",
+      "Retention period: recordings are generally retained for no more than 3 working days. In case of an incident, complaint, damage event or legal claim, the relevant recording may be retained for the period necessary to clarify the matter, conduct official or legal proceedings, or enforce a claim.",
+      "Access: recordings may be accessed only by authorised operator or processor personnel. Recordings may be reviewed only where justified, for example in case of a complaint, accident, damage event, legal infringement or authority request.",
+      "Disclosure: where necessary, a recording may be disclosed to an authority, insurer, legal representative or other entitled body if required for compliance with a legal obligation or enforcement of a legitimate claim.",
+      "Data subject rights: the data subject may request information and access, request restriction or erasure of the recording, and object to processing based on legitimate interest under the applicable legal conditions."
+    ],
+    note: "Camera surveillance does not replace personal supervision, adult supervision of children or guests' own responsibility."
+  },
+  {
+    number: "11",
     title: "External providers and processors",
     paragraphs: ["External providers may be involved in providing the service and operating the website."],
     bullets: [
@@ -116,6 +136,7 @@ const sections = [
       "SabeeApp / thePass Kft. as booking and guest management system,",
       "Google services, such as Google Tag Manager and Google Analytics,",
       "MailerLite as newsletter and marketing automation provider,",
+      "technical provider involved in the operation or maintenance of the camera system,",
       "banking and payment service providers,",
       "accounting and invoicing providers,",
       "authorities and official systems acting under law."
@@ -123,7 +144,7 @@ const sections = [
     note: "External providers may access personal data only to the necessary extent and process it according to their contractual, statutory or processor obligations."
   },
   {
-    number: "11",
+    number: "12",
     title: "Data transfers",
     paragraphs: [
       "We transfer personal data to third parties only if necessary for fulfilling a booking, complying with legal obligations, official reporting, payment, invoicing or enforcing legitimate claims.",
@@ -131,7 +152,7 @@ const sections = [
     ]
   },
   {
-    number: "12",
+    number: "13",
     title: "Data security",
     paragraphs: [
       "The data controller protects personal data with appropriate technical and organisational measures against unauthorised access, modification, transfer, disclosure, deletion, damage or destruction.",
@@ -139,7 +160,7 @@ const sections = [
     ]
   },
   {
-    number: "13",
+    number: "14",
     title: "Rights of data subjects",
     paragraphs: ["Data subjects may exercise the following rights in relation to data processing:"],
     bullets: [
@@ -155,7 +176,7 @@ const sections = [
     note: "Requests may be sent to hello@dandelionhouse.hu. We respond without undue delay and within no more than 1 month."
   },
   {
-    number: "14",
+    number: "15",
     title: "Complaints, remedies and changes to this notice",
     paragraphs: [
       "In case of a data protection complaint, please first write to us at hello@dandelionhouse.hu so that we can resolve the issue directly.",
@@ -181,6 +202,6 @@ const sections = [
   canonicalPath="/en/privacy-policy/"
   eyebrow="Legal information"
   heading="Privacy Policy"
-  lead="Effective from 12 May 2026 until withdrawn. This Privacy Policy summarises the data processing carried out on the Dandelion Guesthouses website and in booking and guest management processes."
+  lead="Effective from 12 May 2026 until withdrawn. Modified: 25 May 2026. This Privacy Policy summarises the data processing carried out on the Dandelion Guesthouses website and in booking and guest management processes."
   sections={sections}
 />

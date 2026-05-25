@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // [CHANGE 2026-05-12 00:00] A rövid adatkezelési placeholder teljes, 14 pontos adatkezelési tájékoztatóra cserélve, MailerLite blokk hozzáadásával.
+// [CHANGE 2026-05-25 00:00] Kameras megfigyeles adatkezelesi tajekoztatasa hozzaadva.
 
 const sections = [
   {
@@ -111,6 +112,25 @@ const sections = [
   },
   {
     number: "10",
+    title: "Kamerás megfigyelés",
+    paragraphs: [
+      "A Dandelion Vendégházak kizárólag egyes közös használatú területein működhet elektronikus kamerás megfigyelőrendszer. A kamerás megfigyeléssel érintett közös területekre a belépés előtt figyelemfelhívó tájékoztatás hívja fel a figyelmet.",
+      "Kamerával érintett közös terület lehet különösen a bejárat, az udvar, a parkoló, a közlekedési útvonal, illetve az érintett házaknál a Panorama Pool közös medencetere. Kamera nem irányul a vendégek magánszféráját érintő belső lakóterekre, hálószobákra, fürdőszobákra vagy illemhelyekre.",
+      "A kamerás megfigyelés hangrögzítéssel nem jár."
+    ],
+    bullets: [
+      "Kezelt adatok: az érintett képmása, a kameraképen látható fizikai megjelenése, a felvétel helye és időpontja.",
+      "Adatkezelés célja: személy- és vagyonvédelem, a vendégek és a szálláshely biztonságának védelme, károkozások és szabályszegések megelőzése, valamint panaszok, balesetek, káresemények vagy jogsértések tisztázása.",
+      "Jogalap: az adatkezelő GDPR 6. cikk (1) bekezdés f) pontja szerinti jogos érdeke.",
+      "Megőrzési idő: a felvételeket főszabály szerint legfeljebb 3 munkanapig őrizzük meg. Incidens, panasz, káresemény vagy jogi igény esetén az érintett felvétel az ügy tisztázásához, a hatósági vagy jogi eljáráshoz, illetve az igényérvényesítéshez szükséges ideig őrizhető meg.",
+      "Hozzáférés: a felvételekhez kizárólag az erre jogosult üzemeltetői vagy adatfeldolgozói személyek férhetnek hozzá. A felvételek csak indokolt esetben, például panasz, baleset, káresemény, jogsértés vagy hatósági megkeresés esetén nézhetők vissza.",
+      "Adattovábbítás: szükség esetén a felvétel átadható hatóságnak, biztosítónak, jogi képviselőnek vagy más jogosult szervnek, ha ez jogi kötelezettség teljesítéséhez vagy jogos igény érvényesítéséhez szükséges.",
+      "Érintetti jogok: az érintett tájékoztatást és hozzáférést kérhet, kérheti a felvétel zárolását vagy törlését, illetve tiltakozhat a jogos érdeken alapuló adatkezelés ellen a jogszabályi feltételek szerint."
+    ],
+    note: "A kamerás megfigyelés nem helyettesíti a személyes felügyeletet, a gyermekek felnőtt felügyeletét vagy a vendégek saját felelősségét."
+  },
+  {
+    number: "11",
     title: "Külső szolgáltatók és adatfeldolgozók",
     paragraphs: [
       "A szolgáltatás nyújtásához és a weboldal működtetéséhez külső szolgáltatók működhetnek közre."
@@ -120,6 +140,7 @@ const sections = [
       "SabeeApp / thePass Kft. mint foglalási és vendégkezelési rendszer,",
       "Google-szolgáltatások, például Google Tag Manager és Google Analytics,",
       "MailerLite mint hírlevélküldő és marketingautomatizációs szolgáltató,",
+      "kamerarendszer üzemeltetésében vagy karbantartásában közreműködő technikai szolgáltató,",
       "banki és fizetési szolgáltatók,",
       "könyvelési és számlázási szolgáltatók,",
       "jogszabály alapján eljáró hatóságok és hivatalos rendszerek."
@@ -127,7 +148,7 @@ const sections = [
     note: "A külső szolgáltatók csak a szükséges mértékben férhetnek hozzá személyes adatokhoz, és azokat saját szerződéses, jogszabályi vagy adatfeldolgozói kötelezettségeik szerint kezelik."
   },
   {
-    number: "11",
+    number: "12",
     title: "Adattovábbítás",
     paragraphs: [
       "Személyes adatot harmadik félnek kizárólag akkor továbbítunk, ha az a foglalás teljesítéséhez, jogszabályi kötelezettség teljesítéséhez, hatósági adatszolgáltatáshoz, fizetéshez, számlázáshoz vagy jogos igény érvényesítéséhez szükséges.",
@@ -135,7 +156,7 @@ const sections = [
     ]
   },
   {
-    number: "12",
+    number: "13",
     title: "Adatbiztonság",
     paragraphs: [
       "Az adatkezelő megfelelő technikai és szervezési intézkedésekkel védi a személyes adatokat a jogosulatlan hozzáférés, módosítás, továbbítás, nyilvánosságra hozatal, törlés, sérülés vagy megsemmisülés ellen.",
@@ -143,7 +164,7 @@ const sections = [
     ]
   },
   {
-    number: "13",
+    number: "14",
     title: "Az érintettek jogai",
     paragraphs: [
       "Az érintettek az adatkezeléssel kapcsolatban az alábbi jogokkal élhetnek:"
@@ -161,7 +182,7 @@ const sections = [
     note: "A kérelmeket a hello@dandelionhouse.hu címre lehet elküldeni. A kérelmeket indokolatlan késedelem nélkül, legfeljebb 1 hónapon belül megválaszoljuk."
   },
   {
-    number: "14",
+    number: "15",
     title: "Panasz és jogorvoslat, a tájékoztató módosítása",
     paragraphs: [
       "Adatkezelési panasz esetén elsőként kérjük, írj nekünk a hello@dandelionhouse.hu címre, hogy a problémát közvetlenül rendezni tudjuk.",
@@ -190,7 +211,7 @@ const sections = [
       <span class="legal-page__eyebrow">Jogi információ</span>
       <h1>Adatkezelési tájékoztató</h1>
       <p class="legal-page__lead">
-        Hatályos: 2026. május 12-től visszavonásig. Jelen adatkezelési tájékoztató a Dandelion
+        Hatályos: 2026. május 12-től visszavonásig. Módosítva: 2026. május 25. Jelen adatkezelési tájékoztató a Dandelion
         Vendégházak weboldalán, foglalási és vendégkezelési folyamataiban megvalósuló
         adatkezeléseket foglalja össze.
       </p>

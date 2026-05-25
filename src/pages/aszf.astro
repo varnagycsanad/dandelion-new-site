@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 // [CHANGE 2026-05-12 00:00] A rövid ÁSZF placeholder teljes, tagolt ÁSZF tartalomra cserélve a meglévő legal-page stílushoz igazítva.
 // [CHANGE 2026-05-24 20:30] Panorama Pool hasznalati szabaly es erintett guide linkek hozzaadva.
 // [CHANGE 2026-05-24 20:45] ASZF pontvalaszto legordulo es guide oldalakkal harmonizalt mobil tipografia.
+// [CHANGE 2026-05-25 00:00] Kameras megfigyelesre vonatkozo altalanos es medencehasznalati tajekoztatas hozzaadva.
 
 const sections = [
   {
@@ -48,6 +49,7 @@ const sections = [
       "A Medencehasználati szabályzat az érintett szálláshelyek online vendégútmutatójában érhető el. A szabályzat pontos online elérési helyét a szálláshelyhez tartozó vendégtájékoztató / lakás guide tartalmazza.",
       "A vendég köteles a medence használata előtt a Medencehasználati szabályzatot megismerni, és a medence használata során az abban foglaltakat betartani.",
       "Az üzemeltető jogosult a medence használatát időjárási okból, karbantartás, vízkezelés, műszaki hiba, biztonsági ok vagy a Medencehasználati szabályzat megsértése esetén korlátozni vagy ideiglenesen szüneteltetni.",
+      "A Panorama Pool közös használatú területe kamerás megfigyeléssel érintett terület lehet. A kamerás megfigyelés vagyonvédelmi, baleset-megelőzési, biztonsági és szabálybetartási célokat szolgál, de nem helyettesíti az úszómestert, a személyes felügyeletet vagy a gyermekek felnőtt felügyeletét.",
       "A medence használata saját felelősségre történik. Gyermekek kizárólag felnőtt felügyeletével használhatják a medencét. A gyermekek biztonságáért minden esetben a velük érkező felnőtt felel.",
       "A Medencehasználati szabályzat megszegéséből eredő balesetért, sérülésért, kárért vagy többletköltségért az üzemeltető felelősséget nem vállal. Szándékos vagy gondatlan károkozás esetén a helyreállítás költsége a vendéget terheli."
     ],
@@ -55,6 +57,19 @@ const sections = [
       { label: "Dandelion D1 medencehasználati szabályzat", href: "/guide/d1/medence/" },
       { label: "Dandelion D2 medencehasználati szabályzat", href: "/guide/d2/medence/" },
       { label: "Fügeház medencehasználati szabályzat", href: "/guide/fugehaz/medence/" }
+    ]
+  },
+  {
+    number: "4/A",
+    title: "Kamerás megfigyelés",
+    paragraphs: [
+      "A Dandelion Vendégházak kizárólag egyes közös használatú területein működhet kamerás megfigyelőrendszer. Ilyen közös terület lehet különösen a bejárat, az udvar, a parkoló, a közlekedési útvonal, illetve az érintett házaknál a Panorama Pool közös medencetere.",
+      "A kamerás megfigyelés célja a vendégek és a szálláshely biztonságának védelme, a vagyonvédelem, a károkozások és szabályszegések megelőzése, illetve szükség esetén a panaszok, balesetek vagy káresemények tisztázása.",
+      "A kamerák nem irányulnak a vendégek magánszféráját érintő belső lakóterekre, hálószobákra, fürdőszobákra vagy illemhelyekre.",
+      "A kamerás megfigyeléssel érintett területeken figyelemfelhívó tájékoztatás kerül elhelyezésre. A kamerás adatkezelés részletes szabályait az Adatkezelési tájékoztató tartalmazza."
+    ],
+    links: [
+      { label: "Adatkezelési tájékoztató", href: "/adatkezelesi-tajekoztato/" }
     ]
   },
   {
@@ -204,7 +219,7 @@ const sectionId = (section: { number: string }) => `aszf-${section.number}`;
         <div>
           <span class="legal-page__meta-label">Érvényesség</span>
           <strong>Érvényes: 2026. február 01-től</strong>
-          <strong>Módosítva: 2026. május 24.</strong>
+          <strong>Módosítva: 2026. május 25.</strong>
         </div>
         <div>
           <span class="legal-page__meta-label">Kapcsolat</span>

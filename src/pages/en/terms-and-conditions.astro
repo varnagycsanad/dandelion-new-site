@@ -2,6 +2,7 @@
 import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
 
 // [CHANGE 2026-05-24 21:05] English Terms and Conditions page added from the Hungarian ASZF content.
+// [CHANGE 2026-05-25 00:00] Camera surveillance information added for general areas and Panorama Pool.
 
 const sections = [
   {
@@ -44,6 +45,7 @@ const sections = [
       "The Pool Rules are available in the online guest guide of the relevant accommodations. The exact online location of the rules is included in the guest information / apartment guide for the accommodation.",
       "Before using the pool, the guest must read the Pool Rules and must comply with them during pool use.",
       "The operator may restrict or temporarily suspend pool use due to weather, maintenance, water treatment, technical fault, safety reasons, or breach of the Pool Rules.",
+      "The shared Panorama Pool area may be covered by camera surveillance. Camera surveillance serves property protection, accident prevention, safety and rule compliance purposes, but it does not replace a lifeguard, personal supervision or adult supervision of children.",
       "Guests use the pool at their own responsibility. Children may use the pool only under adult supervision. The accompanying adult is always responsible for the safety of children.",
       "The operator accepts no liability for accidents, injuries, damage or additional costs resulting from breach of the Pool Rules. In case of intentional or negligent damage, the guest is responsible for the cost of restoration."
     ],
@@ -52,6 +54,17 @@ const sections = [
       { label: "Dandelion D2 Pool Rules", href: "/guide/d2/medence/" },
       { label: "Fugehaz Pool Rules", href: "/guide/fugehaz/medence/" }
     ]
+  },
+  {
+    number: "4/A",
+    title: "Camera surveillance",
+    paragraphs: [
+      "Camera surveillance may operate only in certain shared-use areas of Dandelion Guesthouses. Such shared areas may include, in particular, entrances, yards, parking areas, access routes and, at the affected houses, the shared Panorama Pool area.",
+      "The purpose of camera surveillance is to protect guests and the accommodation, protect property, prevent damage and breaches of rules, and, where necessary, clarify complaints, accidents or damage events.",
+      "Cameras are not directed at indoor living areas, bedrooms, bathrooms, toilets or other areas affecting guests' private sphere.",
+      "Warning notices are displayed in areas covered by camera surveillance. Detailed rules on camera-related data processing are set out in the Privacy Policy."
+    ],
+    links: [{ label: "Privacy Policy", href: "/en/privacy-policy/" }]
   },
   {
     number: "5",
@@ -172,7 +185,7 @@ const sections = [
   introBlocks={[
     {
       label: "Validity",
-      lines: ["Valid from: 1 February 2026", "Modified: 24 May 2026"]
+      lines: ["Valid from: 1 February 2026", "Modified: 25 May 2026"]
     },
     {
       label: "Contact",
