@@ -7,25 +7,25 @@ export const royalHomesCzechPageData = createCzechAccommodationPage(royalHomesEn
   route: "/cs/royal/",
   location: "Keszthely / Balaton",
   region: "Keszthely - Balaton",
-  guests: "4-6 hostu",
+  guests: "4-6 hostů",
   character: "APARTMAN BLIZKO BALATONU",
-  shortDescription: "Pohodlny apartman v Keszthelyi, vhodny pro balatonske dny, prochazky a jednodussi mestsky rytmus.",
-  lead: "Royal Homes je dobra volba pro hosty, kteri chteji byt blizko Balatonu, Keszthelye a programu u vody, ale zustat v klidnem zazemi.",
+  shortDescription: "Pohodlný apartman v Keszthelyi, vhodny pro balatonské dny, prochazky a jednodušší mestsky rytmus.",
+  lead: "Royal Homes je dobra volba pro hosty, kteri chteji byt blízko Balatonu, Keszthelye a programu u vody, ale zustat v klidném zazemi.",
   longDescription: [
-    "Apartman spojuje pohodlne ubytovani s balatonskou polohou. Hodi se pro rodinu nebo par, ktery chce travit cas u vody a mit vse prakticky blizko.",
-    "Keszthely nabizi prochazky, plaze, restaurace i vyletni smer k Hevizu nebo severnimu brehu Balatonu.",
-    "Pobyt je vice balatonsky a mestsky nez domy u Szent Gyorgy-hegy, ale porad zustava v klidnem stylu Dandelion."
+    "Apartman spojuje pohodlne ubytování s balatonskou polohou. Hodi se pro rodinu nebo par, ktery chce travit čas u vody a mit vse prakticky blízko.",
+    "Keszthely nabizi prochazky, plaze, restaurace i výletni smer k Hevizu nebo severnimu brehu Balatonu.",
+    "Pobyt je více balatonsky a mestsky nez domy u Szent György-hegy, ale porad zustava v klidném stylu Dandelion."
   ],
-  facts: [["Hoste", "4-6 hostu"], ["Poloha", "Keszthely / Balaton"], ["Typ", "apartman"], ["Vhodne pro", "balatonske dny"]],
-  experienceFacts: [["Balaton", "voda a prochazky"], ["Keszthely", "mesto a programy"], ["Heviz", "vyletni smer"], ["Rodiny", "prakticka poloha"]],
-  highlights: ["Apartman", "Terasa", "Kuchyne", "Klimatizace", "Balaton pobliz", "Parkovani"],
+  facts: [["Hosté", "4-6 hostů"], ["Poloha", "Keszthely / Balaton"], ["Typ", "apartman"], ["Vhodne pro", "balatonské dny"]],
+  experienceFacts: [["Balaton", "voda a prochazky"], ["Keszthely", "mesto a programy"], ["Heviz", "výletni smer"], ["Rodiny", "prakticka poloha"]],
+  highlights: ["Apartman", "Terasa", "Kuchyně", "Klimatizace", "Balaton poblíž", "Parkování"],
   reasons: [
-    { iconKey: "balaton", title: "Balaton", text: "blizko vody" },
+    { iconKey: "balaton", title: "Balaton", text: "blízko vody" },
     { iconKey: "home", title: "Apartman", text: "pohodlne zazemi" },
-    { iconKey: "route", title: "Keszthely", text: "programy pobliz" },
+    { iconKey: "route", title: "Keszthely", text: "programy poblíž" },
     { iconKey: "users", title: "Rodinna volba", text: "prakticky pobyt" }
   ],
-  amenities: ["Wi-Fi", "Kuchyne", "Klimatizace", "Terasa", "Koupelna", "Topeni", "Parkovani", "Balaton pobliz"],
-  mapBody: "Royal Homes lezi v Keszthelyi, v dobre poloze pro balatonske plaze, promenady, restaurace a vylety v zapadni casti jezera.",
-  mapBenefits: [{ label: "Balaton pobliz", icon: "balaton" }, { label: "Keszthely programy", icon: "route" }, { label: "Pohodlny apartman", icon: "home" }]
+  amenities: ["Wi-Fi", "Kuchyně", "Klimatizace", "Terasa", "Koupelna", "Topení", "Parkování", "Balaton poblíž"],
+  mapBody: "Royal Homes lezi v Keszthelyi, v dobře poloze pro balatonské plaze, promenady, restaurace a výlety v zapadni časti jezera.",
+  mapBenefits: [{ label: "Balaton poblíž", icon: "balaton" }, { label: "Keszthely programy", icon: "route" }, { label: "Pohodlný apartman", icon: "home" }]
 });

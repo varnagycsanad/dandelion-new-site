@@ -3,29 +3,29 @@ import { createCzechAccommodationPage } from "./czech-page-factory";
 
 export const szepvolgyiCzechPageData = createCzechAccommodationPage(szepvolgyiEnglishPageData, {
   title: "Dandelion",
-  titleAccent: "Szepvolgyi",
+  titleAccent: "Szépvölgyi",
   route: "/cs/szepvolgyi/",
-  location: "Badacsonyors / Balaton",
-  region: "Badacsonyors - Balaton",
-  guests: "az 8 hostu",
+  location: "Badacsonyörs / Balaton",
+  region: "Badacsonyörs - Balaton",
+  guests: "až 8 hostů",
   character: "VELKY DUM S BALATONSKYM PANORAMATEM",
-  shortDescription: "Prostorny dum u Badacsonyors az pro 8 hostu, s vyhledem na Balaton a dobrym zazemim pro rodiny.",
-  lead: "Szepvolgyi je pro vetsi rodinu nebo skupinu, ktera chce byt blizko Balatonu, Badacsonye a mit dost prostoru pro spolecny pobyt.",
+  shortDescription: "Prostorný dům u Badacsonyörs až pro 8 hostů, s výhledem na Balaton a dobrým zazemim pro rodiny.",
+  lead: "Szépvölgyi je pro větší rodinu nebo skupinu, ktera chce byt blízko Balatonu, Badacsonye a mit dost prostoru pro společný pobyt.",
   longDescription: [
-    "Dum nabizi vice loznic, zahradu a prakticke zazemi pro delsi pobyt. Vyhled na Balaton dava pobytu silny letni charakter.",
-    "Poloha u Badacsonyors je dobra pro plaze, vecerni programy v Badacsonyi, Folly Arboretum i vylety smerem Szigliget.",
-    "Szepvolgyi dobre funguje, kdyz chcete kombinovat vodu, vino, vyhled a spolecny cas ve vetsim dome."
+    "Dům nabizi více loznic, zahradu a prakticke zazemi pro delsi pobyt. Výhled na Balaton dava pobytu silny letni charakter.",
+    "Poloha u Badacsonyörs je dobra pro plaze, večerni programy v Badacsonyi, Folly Arboretum i výlety smerem Szigliget.",
+    "Szépvölgyi dobře funguje, kdyz chcete kombinovat vodu, víno, výhled a společný čas ve větším dome."
   ],
-  facts: [["Hoste", "az 8 hostu"], ["Loznice", "4 loznice"], ["Koupelny", "2 koupelny"], ["Poloha", "Badacsonyors / Balaton"]],
-  experienceFacts: [["Balaton", "plaze a promenady pobliz"], ["Badacsony", "vino a vecere"], ["Vyhled", "balatonske panorama"], ["Rodiny", "vice prostoru"]],
-  highlights: ["4 loznice", "2 koupelny", "Balatonske panorama", "Zahrada", "Kuchyne", "Parkovani"],
+  facts: [["Hosté", "až 8 hostů"], ["Ložnice", "4 ložnice"], ["Koupelny", "2 koupelny"], ["Poloha", "Badacsonyörs / Balaton"]],
+  experienceFacts: [["Balaton", "plaze a promenady poblíž"], ["Badacsony", "víno a večere"], ["Výhled", "balatonské panorama"], ["Rodiny", "více prostoru"]],
+  highlights: ["4 ložnice", "2 koupelny", "Balatonské panorama", "Zahrada", "Kuchyně", "Parkování"],
   reasons: [
-    { iconKey: "guests", title: "Az 8 hostu", text: "pro vetsi skupinu" },
-    { iconKey: "balaton", title: "Balaton", text: "voda a vyhled" },
-    { iconKey: "home", title: "Prostor", text: "vice loznic" },
-    { iconKey: "route", title: "Badacsony", text: "programy pobliz" }
+    { iconKey: "guests", title: "Až 8 hostů", text: "pro větší skupinu" },
+    { iconKey: "balaton", title: "Balaton", text: "voda a výhled" },
+    { iconKey: "home", title: "Prostor", text: "více loznic" },
+    { iconKey: "route", title: "Badacsony", text: "programy poblíž" }
   ],
-  amenities: ["Wi-Fi", "Kuchyne", "Zahrada", "Terasa", "2 koupelny", "Parkovani", "Topeni", "Venkovni posezeni"],
-  mapBody: "Szepvolgyi lezi v Badacsonyors, odkud je blizko k Balatonu, Badacsonyi, plazim, vinum i rodinnym programum.",
-  mapBenefits: [{ label: "Balaton pobliz", icon: "balaton" }, { label: "Badacsony a vino", icon: "grapes" }, { label: "Pro vetsi rodiny", icon: "users" }]
+  amenities: ["Wi-Fi", "Kuchyně", "Zahrada", "Terasa", "2 koupelny", "Parkování", "Topení", "Venkovní posezení"],
+  mapBody: "Szépvölgyi lezi v Badacsonyörs, odkud je blízko k Balatonu, Badacsonyi, plazim, vinum i rodinným programum.",
+  mapBenefits: [{ label: "Balaton poblíž", icon: "balaton" }, { label: "Badacsony a víno", icon: "grapes" }, { label: "Pro větší rodiny", icon: "users" }]
 });

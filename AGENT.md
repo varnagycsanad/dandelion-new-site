@@ -165,11 +165,24 @@ Task előtt:
 
 ## ENCODING (KRITIKUS)
 
-Elvárt: UTF-8
+Elvárt minden forrás-, adat- és dokumentációs fájlban: UTF-8.
+
+### NYELVI KARAKTERHASZNÁLAT
+
+A publikus szövegekben nem ASCII-átírást, hanem a cél nyelv valódi karaktereit kell használni.
+
+- magyar (`hu`): teljes magyar ékezetkészlet, például `á é í ó ö ő ú ü ű`, valamint nagybetűs párjaik.
+- német (`de`): `ä ö ü Ä Ö Ü ß`; tilos ezek helyett SEO- vagy UI-szövegben `ae`, `oe`, `ue`, `ss`, `fuer`, `Gaeste`, `Unterkuenfte` típusú kényszerátírást használni.
+- cseh (`cs`): cseh diakritikák, például `á č ď é ě í ň ó ř š ť ú ů ý ž` és nagybetűs párjaik.
+- angol (`en`): általában alap latin betűk, de márkanevekben, magyar helynevekben és személynevekben meg kell őrizni az eredeti ékezeteket.
+- jövőbeni szlovák (`sk`): szlovák diakritikák, például `á ä č ď é í ĺ ľ ň ó ô ŕ š ť ú ý ž` és nagybetűs párjaik.
+- jövőbeni lengyel (`pl`): lengyel diakritikák, például `ą ć ę ł ń ó ś ź ż` és nagybetűs párjaik.
+
+Magyar/helyi tulajdonnevek minden nyelven őrizhetik az eredeti alakot, például `Kisapáti`, `Köveskál`, `Káli-medence`, `Szent György-hegy`, `Fügeház`, `Zsálya`, `Szőlőliget`, `Szépvölgyi`.
 
 ### NEM hiba:
-- magyar ékezet
-- Unicode karakter
+- helyes magyar, német, cseh, angol, szlovák vagy lengyel diakritika
+- Unicode karakter, ha valódi nyelvi vagy tartalmi oka van
 - editor highlight
 - nem ASCII karakter önmagában
 
@@ -177,6 +190,12 @@ Elvárt: UTF-8
 - torz szöveg
 - mojibake (`Ã¡`, `Ăł`, `â€`, stb.)
 - `�`
+- ASCII-átírás lokalizált publikus szövegben, ha a cél nyelv normál írásmódja diakritikát használna
+- kevert vagy értelmetlen átírás, például `Unterkuenfte`, `Gastehauser`, `Koveskal`, `Szent Gyorgy-hegy`, `ubytovani`, `svedecne hory`
+
+### KIVÉTEL
+
+ASCII slug, URL, fájlnév, technikai azonosító, API-kulcs, CSS class, import path és asset filename maradhat ékezet nélküli. Példa: `/de/unterkuenfte/` technikailag rendben van, de a látható címnek `Unterkünfte` kell lennie.
 
 ### SZABÁLY
 

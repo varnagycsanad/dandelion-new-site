@@ -11,42 +11,42 @@ const bikingImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 
 const experiences = [
   {
-    eyebrow: "Aktivni dny",
-    title: "Pujcovna kol",
-    description: "Klidne vesnicke okruhy, vinarske cesty a pomale vyjizdky Balatonskou vrchovinou.",
-    highlights: ["kratke trasy i celodenni plan", "klasicka kola a e-bike moznost"],
+    eyebrow: "Aktivní dny",
+    title: "Půjčovna kol",
+    description: "Klidné vesnické okruhy, vinařské cesty a pomalé vyjížďky Balatonskou vrchovinou.",
+    highlights: ["krátké trasy i celodenní plán", "klasická kola a možnost e-biku"],
     image: bikingImage,
-    imageAlt: "Kolo v prirodnim prostredi Balatonske vrchoviny",
+    imageAlt: "Kolo v přírodním prostředí Balatonské vrchoviny",
     href: "/cs/pujcovna-kol/",
     ctaLabel: "Kola"
   },
   {
-    eyebrow: "Vino a panorama",
-    title: "Vinarstvi",
-    description: "Sklepy, terasy a pomala odpoledne kolem Szent Gyorgy-hegy a Badacsonye.",
-    highlights: ["vinarske sklepy", "zapad slunce s vyhledem"],
+    eyebrow: "Víno a panorama",
+    title: "Vinařství",
+    description: "Sklepy, terasy a pomalá odpoledne kolem Szent György-hegy a Badacsonye.",
+    highlights: ["vinařské sklepy", "západ slunce s výhledem"],
     image: wineImage,
-    imageAlt: "Vinice na Szent Gyorgy-hegy v Balatonske vrchovine",
+    imageAlt: "Vinice na Szent György-hegy v Balatonské vrchovině",
     href: "/cs/vinarstvi/",
-    ctaLabel: "Vinarstvi"
+    ctaLabel: "Vinařství"
   },
   {
     eyebrow: "Dny u vody",
     title: "Balaton",
-    description: "Plaze, prochazky u vody a letni programy v kratke dojezdove vzdalenosti.",
-    highlights: ["plaze pobliz", "kajak, kanoe a SUP napady"],
+    description: "Pláže, procházky u vody a letní programy v krátké dojezdové vzdálenosti.",
+    highlights: ["pláže poblíž", "kajak, kanoe a SUP nápady"],
     image: balatonImage,
-    imageAlt: "Kamenity breh Balatonu v letnim svetle",
+    imageAlt: "Kamenitý břeh Balatonu v letním světle",
     href: "/cs/balaton/",
     ctaLabel: "Balaton"
   },
   {
-    eyebrow: "Priroda",
-    title: "Svedecne hory",
-    description: "Vyhlidky, kratsi prochazky a klidne trasy kolem sopecnych kopcu regionu.",
-    highlights: ["vyhlidkova mista", "trasy pri zapadu slunce"],
+    eyebrow: "Příroda",
+    title: "Svědecké hory",
+    description: "Vyhlídky, kratší procházky a klidné trasy kolem sopečných kopců regionu.",
+    highlights: ["vyhlídková místa", "trasy při západu slunce"],
     image: mountainsImage,
-    imageAlt: "Dronovy pohled na svedecne hory a Tapolcai-medence",
+    imageAlt: "Dronový pohled na svědecké hory a Tapolcai-medence",
     href: "/cs/svedecne-hory/",
     ctaLabel: "Hory"
   }
@@ -57,16 +57,16 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Uvod", item: toAbsoluteUrl("/cs/") },
-      { "@type": "ListItem", position: 2, name: "Zazitky", item: toAbsoluteUrl("/cs/zazitky/") }
+      { "@type": "ListItem", position: 1, name: "Úvod", item: toAbsoluteUrl("/cs/") },
+      { "@type": "ListItem", position: 2, name: "Zážitky", item: toAbsoluteUrl("/cs/zazitky/") }
     ]
   }
 ];
 ---
 
 <BaseLayout
-  title="Zazitky u Balatonu | Dandelion ubytovani"
-  description="Kola, vinarstvi, plaze Balatonu a vychazky po svedecnych horach kolem ubytovani Dandelion."
+  title="Zážitky u Balatonu | Dandelion ubytování"
+  description="Kola, vinařství, pláže Balatonu a vycházky po svědeckých horách kolem ubytování Dandelion."
   canonicalPath="/cs/zazitky/"
   lang="cs"
   ogLocale="cs_CZ"
@@ -76,13 +76,13 @@ const structuredData = [
   <section class="experiences-page">
     <section class="experiences-hero">
       <video class="experiences-hero__video" src={heroVideo} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
-        Vas prohlizec nepodporuje prehravani videa na pozadi.
+        Váš prohlížeč nepodporuje přehrávání videa na pozadí.
       </video>
       <div class="experiences-hero__content">
         <div class="dnd-container experiences-hero__inner">
           <div class="experiences-hero__headline">
             <span class="experiences-page__eyebrow">Region a programy</span>
-            <h1>Vyberte naladu dne a naplanujte ji od sveho domu.</h1>
+            <h1>Vyberte náladu dne a naplánujte ji od svého domu.</h1>
           </div>
         </div>
       </div>
@@ -91,12 +91,12 @@ const structuredData = [
     <div class="dnd-container experiences-page__inner">
       <section class="experiences-page__intro">
         <p class="experiences-page__lead">
-          Domy Dandelion lezi mezi Balatonem, Szent Gyorgy-hegy a Balatonskou vrchovinou.
-          Nektere dny patri kolu, jine vinu, plazi nebo kratke prochazce po kopcich.
+          Domy Dandelion leží mezi Balatonem, Szent György-hegy a Balatonskou vrchovinou.
+          Některé dny patří kolu, jiné vínu, pláži nebo krátké procházce po kopcích.
         </p>
       </section>
 
-      <section class="experiences-page__grid" aria-label="Vybrane zazitky">
+      <section class="experiences-page__grid" aria-label="Vybrané zážitky">
         {experiences.map((item) => (
           <article class="experience-card">
             <div class="experience-card__media">
@@ -106,7 +106,7 @@ const structuredData = [
               <span class="experience-card__eyebrow">{item.eyebrow}</span>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
-              <ul class="experience-card__highlights" aria-label={`${item.title} prehled`}>
+              <ul class="experience-card__highlights" aria-label={`${item.title} přehled`}>
                 {item.highlights.map((highlight) => <li>{highlight}</li>)}
               </ul>
               <a class="experience-card__cta" href={item.href}>{item.ctaLabel}</a>
@@ -116,11 +116,11 @@ const structuredData = [
       </section>
 
       <section class="experiences-page__cta-panel">
-        <h2>Vybrat dum podle planu dne?</h2>
-        <p>Projit cesky prehled ubytovani a vybrat krajinu, ktera sedi vasemu rytmu.</p>
+        <h2>Vybrat dům podle plánu dne?</h2>
+        <p>Projít český přehled ubytování a vybrat krajinu, která sedí vašemu rytmu.</p>
         <div class="experiences-page__cta-actions">
-          <a href="/cs/ubytovani/" class="experiences-page__cta-primary">Zobrazit ubytovani</a>
-          <a href="/cs/" class="experiences-page__cta-secondary">Zpet na uvod</a>
+          <a href="/cs/ubytovani/" class="experiences-page__cta-primary">Zobrazit ubytování</a>
+          <a href="/cs/" class="experiences-page__cta-secondary">Zpět na úvod</a>
         </div>
       </section>
     </div>

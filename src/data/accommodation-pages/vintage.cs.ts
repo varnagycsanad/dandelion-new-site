@@ -5,27 +5,27 @@ export const vintageCzechPageData = createCzechAccommodationPage(vintageEnglishP
   title: "Dandelion",
   titleAccent: "Vintage",
   route: "/cs/dandelion-vintage/",
-  location: "Nemesgulacs / Balatonska vrchovina",
-  region: "Nemesgulacs - Balatonska vrchovina",
-  guests: "4 hoste",
+  location: "Nemesgulács / Balatonská vrchovina",
+  region: "Nemesgulács - Balatonská vrchovina",
+  guests: "4 hosté",
   character: "UTULNY PENZION S VLASTNIM DVOREM",
-  shortDescription: "Utulny dum v Nemesgulacsi s vlastnim dvorem, klidnou atmosferou a dobrou polohou pro vylety.",
-  lead: "Dandelion Vintage je mensi, klidnejsi dum pro hosty, kteri chteji jednoduche zazemi, vlastni dvur a dobrou dostupnost Balatonu i kopcu.",
+  shortDescription: "Útulný dům v Nemesgulácsi s vlastním dvorem, klidnou atmosferou a dobrou polohou pro výlety.",
+  lead: "Dandelion Vintage je menší, klidnéjsi dům pro hosty, kteri chteji jednoduché zazemi, vlastní dvůr a dobrou dostupnost Balatonu i kopcu.",
   longDescription: [
-    "Vintage ma venkovsky charakter a komornejsi meritko. Vlastni dvur vytvari prijemny prostor pro rano, odpocinek i vecerni posezeni.",
-    "Nemesgulacs je dobra zakladna pro Badacsony, Szent Gyorgy-hegy, Tapolcai-medence a balatonske programy.",
-    "Dum je vhodny pro mensi rodinu, par nebo pratele, kteri hledaji klidnou, neprehnane hotelovou atmosferu."
+    "Vintage ma venkovsky charakter a komornejsi meritko. Vlastní dvůr vytvari prijemny prostor pro ráno, odpocinek i večerni posezení.",
+    "Nemesgulács je dobra základna pro Badacsony, Szent György-hegy, Tapolcai-medence a balatonské programy.",
+    "Dům je vhodny pro menší rodinu, par nebo přátele, kteri hledaji klidnou, neprehnane hotelovou atmosferu."
   ],
-  facts: [["Hoste", "az 4 hoste"], ["Loznice", "2 loznice"], ["Exterier", "vlastni dvur"], ["Poloha", "Nemesgulacs"]],
-  experienceFacts: [["Badacsony", "vylety a vino"], ["Balaton", "kratka jizda"], ["Kopce", "Szent Gyorgy-hegy a okoli"], ["Klid", "mensi dum"]],
-  highlights: ["Vlastni dvur", "2 loznice", "Kuchyne", "Klidna poloha", "Parkovani", "Venkovni posezeni"],
+  facts: [["Hosté", "až 4 hosté"], ["Ložnice", "2 ložnice"], ["Exterier", "vlastní dvůr"], ["Poloha", "Nemesgulács"]],
+  experienceFacts: [["Badacsony", "výlety a víno"], ["Balaton", "krátká jízda"], ["Kopce", "Szent György-hegy a okolí"], ["Klid", "menší dům"]],
+  highlights: ["Vlastní dvůr", "2 ložnice", "Kuchyně", "Klidná poloha", "Parkování", "Venkovní posezení"],
   reasons: [
-    { iconKey: "leaf", title: "Vlastni dvur", text: "soukromy venkovni cas" },
-    { iconKey: "home", title: "Utulny dum", text: "mensi meritko" },
+    { iconKey: "leaf", title: "Vlastní dvůr", text: "soukromy venkovní čas" },
+    { iconKey: "home", title: "Útulný dům", text: "menší meritko" },
     { iconKey: "route", title: "Dobra poloha", text: "Balaton a Badacsony" },
-    { iconKey: "grapes", title: "Vinarsky region", text: "vylety do okoli" }
+    { iconKey: "grapes", title: "Vinařský region", text: "výlety do okolí" }
   ],
-  amenities: ["Wi-Fi", "Kuchyne", "Vlastni dvur", "Topeni", "Parkovani", "Venkovni posezeni", "Koupelna", "Klidna poloha"],
-  mapBody: "Dandelion Vintage lezi v Nemesgulacsi, prakticky mezi Balatonem, Badacsonyi a kopci Balatonske vrchoviny.",
-  mapBenefits: [{ label: "Vlastni dvur", icon: "leaf" }, { label: "Badacsony pobliz", icon: "grapes" }, { label: "Balaton kratkou jizdou", icon: "route" }]
+  amenities: ["Wi-Fi", "Kuchyně", "Vlastní dvůr", "Topení", "Parkování", "Venkovní posezení", "Koupelna", "Klidná poloha"],
+  mapBody: "Dandelion Vintage lezi v Nemesgulácsi, prakticky mezi Balatonem, Badacsonyi a kopci Balatonské vrchoviny.",
+  mapBenefits: [{ label: "Vlastní dvůr", icon: "leaf" }, { label: "Badacsony poblíž", icon: "grapes" }, { label: "Balaton krátkou jízdou", icon: "route" }]
 });

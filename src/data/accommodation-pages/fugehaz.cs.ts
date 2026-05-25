@@ -3,29 +3,29 @@ import { createCzechAccommodationPage } from "./czech-page-factory";
 
 export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishPageData, {
   title: "Dandelion",
-  titleAccent: "Fugehaz",
+  titleAccent: "Fügeház",
   route: "/cs/dandelion-fugehaz/",
-  location: "Szent Gyorgy-hegy / Kisapati",
-  region: "Szent Gyorgy-hegy - Balatonska vrchovina",
-  guests: "4-6 hostu",
+  location: "Szent György-hegy / Kisapáti",
+  region: "Szent György-hegy - Balatonská vrchovina",
+  guests: "4-6 hostů",
   character: "PANORAMATICKY DUM PRO KLIDNY RODINNY POBYT",
-  shortDescription: "Panoramaticky dum s terasami, prirodni atmosferou a dobrou polohou pro pomale dny u Szent Gyorgy-hegy.",
-  lead: "Fugehaz je pro hosty, kteri chteji vyhledy, terasy, klid a citit krajinu kolem sebe. Dobre funguje pro rodinu i mensi skupinu.",
+  shortDescription: "Panoramatický dům s terasami, přírodní atmosferou a dobrou polohou pro pomalé dny u Szent György-hegy.",
+  lead: "Fügeház je pro hosty, kteri chteji výhledy, terasy, klid a citit krajinu kolem sebe. Dobře funguje pro rodinu i menší skupinu.",
   longDescription: [
-    "Dum ma nekolik venkovnich mist, kde se da snidat, odpocivat nebo vecer sedet s vyhledem. Atmosfera je prirodni a neformalni.",
-    "Poloha u Szent Gyorgy-hegy dava snadny pristup k vyletum, vinarstvim a balatonskym programum.",
-    "Hoste Fugehaz mohou od 1. cervna 2026 vyuzivat spolecny Panorama Pool pro D1, D2 a Fugehaz."
+    "Dům ma nekolik venkovních mist, kde se da snidat, odpocivat nebo večer sedet s výhledem. Atmosfera je přírodní a neformalni.",
+    "Poloha u Szent György-hegy dava snadny pristup k výletum, vinařstvím a balatonskym programum.",
+    "Hosté Fügeház mohou od 1. června 2026 vyuzivat společný Panorama Pool pro D1, D2 a Fügeház."
   ],
-  facts: [["Hoste", "4-6 hostu"], ["Charakter", "terasovy panoramaticky dum"], ["Exterier", "venkovni posezeni"], ["Poloha", "u Szent Gyorgy-hegy"]],
-  experienceFacts: [["Panorama Pool", "spolecny bazen od 1. cervna 2026"], ["Vyhledy", "kopce a krajina"], ["Vinarstvi", "kratke vylety do okoli"], ["Balaton", "dostupny autem"]],
-  highlights: ["Panoramaticke terasy", "Klidna poloha", "Kuchyne", "Zahradni posezeni", "Spolecny Panorama Pool", "Prirodni atmosfera"],
+  facts: [["Hosté", "4-6 hostů"], ["Charakter", "terasovy panoramaticky dům"], ["Exterier", "venkovní posezení"], ["Poloha", "u Szent György-hegy"]],
+  experienceFacts: [["Panorama Pool", "společný bazén od 1. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
+  highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradni posezení", "Společný Panorama Pool", "Přírodní atmosfera"],
   reasons: [
-    { iconKey: "terrace", title: "Terasy", text: "pro pomale rano" },
-    { iconKey: "trail", title: "Kopce pobliz", text: "vylety a vyhledy" },
-    { iconKey: "pool", title: "Panorama Pool", text: "spolecny bazen" },
-    { iconKey: "leaf", title: "Klid", text: "prirodni rytmus" }
+    { iconKey: "terrace", title: "Terasy", text: "pro pomalé ráno" },
+    { iconKey: "trail", title: "Kopce poblíž", text: "výlety a výhledy" },
+    { iconKey: "pool", title: "Panorama Pool", text: "společný bazén" },
+    { iconKey: "leaf", title: "Klid", text: "přírodní rytmus" }
   ],
-  amenities: ["Wi-Fi", "Kuchyne", "Terasy", "Topeni", "Parkovani", "Venkovni posezeni", "Hot tub", "Koupelna"],
-  mapBody: "Fugehaz je dobry vychozi bod pro Szent Gyorgy-hegy, Badacsony, vinice a pomale balatonske dny.",
-  mapBenefits: [{ label: "Panoramaticka poloha", icon: "trail" }, { label: "Vinarstvi v okoli", icon: "grapes" }, { label: "Balaton na dosah", icon: "route" }]
+  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna"],
+  mapBody: "Fügeház je dobrý vychozi bod pro Szent György-hegy, Badacsony, vinice a pomalé balatonské dny.",
+  mapBenefits: [{ label: "Panoramaticka poloha", icon: "trail" }, { label: "Vinařství v okolí", icon: "grapes" }, { label: "Balaton na dosah", icon: "route" }]
 });

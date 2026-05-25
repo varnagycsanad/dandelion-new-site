@@ -15,7 +15,7 @@ const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 
-const resolveLocalHref = (href: st?ing) => {
+const resolveLocalHref = (href: string) => {
   if (href.startsWith("http")) {
     return href;
   }
@@ -23,7 +23,7 @@ const resolveLocalHref = (href: st?ing) => {
   return href.startsWith("/") ? `${homeHref}${href.replace(/^\/+/, "")}` : `${homeHref}${href}`;
 };
 
-const buildStayHref = (slug: st?ing, url: st?ing) =>
+const buildStayHref = (slug: string, url: string) =>
   slug === "dandelion-d2"
     ? `${homeHref}dandelion-d2/`
     : slug === "fugehaz"
@@ -32,7 +32,7 @@ const buildStayHref = (slug: st?ing, url: st?ing) =>
         ? `${homeHref}royal/`
         : resolveLocalHref(url);
 
-const footerStayLabelOverrides: Record<st?ing, st?ing> = {
+const footerStayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage"
 };
@@ -53,10 +53,10 @@ const footerStayColumns = [
 ].map((column) =>
   column
     .map((slug) => footerStayBySlug.get(slug))
-    .filter((stay): stay is { label: st?ing; href: st?ing } => Boolean(stay))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const englishStayHrefOverrides: Record<st?ing, st?ing> = {
+const englishStayHrefOverrides: Record<string, string> = {
   "dandelion-d1": `${homeHref}en/dandelion-d1/`,
   "dandelion-d2": `${homeHref}en/dandelion-d2/`,
   fugehaz: `${homeHref}en/dandelion-fugehaz/`,
@@ -68,11 +68,11 @@ const englishStayHrefOverrides: Record<st?ing, st?ing> = {
   "dandelion-koveskal": `${homeHref}en/dandelion-koveskal/`
 };
 
-const englishStayLabelOverrides: Record<st?ing, st?ing> = {
-  fugehaz: "Dandelion F?geh?z",
-  "zsalya-vendeghaz": "Dandelion Zs?lya",
-  "szololiget-vendeghaz": "Dandelion Sz?l?liget",
-  "szepvolgyi-vendeghaz": "Dandelion Sz?pv?lgyi",
+const englishStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fugehaz",
+  "zsalya-vendeghaz": "Dandelion Zsalya",
+  "szololiget-vendeghaz": "Dandelion Szololiget",
+  "szepvolgyi-vendeghaz": "Dandelion Szepvolgyi",
   "vintage-vendeghaz": "Dandelion Vintage"
 };
 
@@ -92,10 +92,10 @@ const englishFooterStayColumns = [
 ].map((column) =>
   column
     .map((slug) => englishFooterStayBySlug.get(slug))
-    .filter((stay): stay is { label: st?ing; href: st?ing } => Boolean(stay))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const germanStayLabelOverrides: Record<st?ing, st?ing> = {
+const germanStayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "zsalya-vendeghaz": "Dandelion Zsálya",
   "szololiget-vendeghaz": "Dandelion Szőlőliget",
@@ -103,7 +103,7 @@ const germanStayLabelOverrides: Record<st?ing, st?ing> = {
   "vintage-vendeghaz": "Dandelion Vintage"
 };
 
-const germanStayHrefOverrides: Record<st?ing, st?ing> = {
+const germanStayHrefOverrides: Record<string, string> = {
   "dandelion-d1": `${homeHref}de/dandelion-d1/`,
   "dandelion-d2": `${homeHref}de/dandelion-d2/`,
   fugehaz: `${homeHref}de/dandelion-fugehaz/`,
@@ -131,18 +131,18 @@ const germanFooterStayColumns = [
 ].map((column) =>
   column
     .map((slug) => germanFooterStayBySlug.get(slug))
-    .filter((stay): stay is { label: st?ing; href: st?ing } => Boolean(stay))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const czechStayLabelOverrides: Record<st?ing, st?ing> = {
-  fugehaz: "Dandelion F?geh?z",
-  "zsalya-vendeghaz": "Dandelion Zs?lya",
-  "szololiget-vendeghaz": "Dandelion Sz?l?liget",
-  "szepvolgyi-vendeghaz": "Dandelion Sz?pv?lgyi",
+const czechStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fügeház",
+  "zsalya-vendeghaz": "Dandelion Zsálya",
+  "szololiget-vendeghaz": "Dandelion Szőlőliget",
+  "szepvolgyi-vendeghaz": "Dandelion Szépvölgyi",
   "vintage-vendeghaz": "Dandelion Vintage"
 };
 
-const czechStayHrefOverrides: Record<st?ing, st?ing> = {
+const czechStayHrefOverrides: Record<string, string> = {
   "dandelion-d1": `${homeHref}cs/dandelion-d1/`,
   "dandelion-d2": `${homeHref}cs/dandelion-d2/`,
   fugehaz: `${homeHref}cs/dandelion-fugehaz/`,
@@ -159,7 +159,7 @@ const czechFooterStayBySlug = new Map(
     stay.slug,
     {
       label: czechStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
-      href: czechStayHrefOverrides[stay.slug] ?? `${homeHref}cs/ubytov?n?/#${stay.slug}`
+      href: czechStayHrefOverrides[stay.slug] ?? `${homeHref}cs/ubytovani/#${stay.slug}`
     }
   ])
 );
@@ -170,7 +170,7 @@ const czechFooterStayColumns = [
 ].map((column) =>
   column
     .map((slug) => czechFooterStayBySlug.get(slug))
-    .filter((stay): stay is { label: st?ing; href: st?ing } => Boolean(stay))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
 const bookingLanguage = isEnglishFooter ? "En" : "Hu";
@@ -211,9 +211,9 @@ const germanLegalLinks = [
   { label: "Impressum", href: `${homeHref}de/impressum/` }
 ];
 const czechFooterNav = [
-  { label: "?vod", href: `${homeHref}cs/` },
-  { label: "Ubytov?n?", href: `${homeHref}cs/ubytov?n?/` },
-  { label: "Z??itky", href: `${homeHref}cs/z??itky/` },
+  { label: "Úvod", href: `${homeHref}cs/` },
+  { label: "Ubytování", href: `${homeHref}cs/ubytovani/` },
+  { label: "Zážitky", href: `${homeHref}cs/zazitky/` },
   { label: "Kontakt", href: `${homeHref}cs/kontakt/` }
 ];
 const czechLanguageLinks = [
@@ -228,14 +228,14 @@ const czechLanguageLinks = [
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
-        <a href={`${homeHref}cs/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytov?n? ?vod">
-          Dandelion ubytov?n?
+        <a href={`${homeHref}cs/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytování úvod">
+          Dandelion ubytování
         </a>
-        <p id="site-footer-title">Klidn? penziony a apartmany u Balatonu a v Balatonsk? vrchovin?.</p>
+        <p id="site-footer-title">Klidné penziony a apartmány u Balatonu a v Balatonské vrchovině.</p>
       </div>
 
-      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Ubytov?n?">
-        <h2>Ubytov?n?</h2>
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Ubytování">
+        <h2>Ubytování</h2>
         <div class="dnd-site-footer__stay-columns">
           {czechFooterStayColumns.map((column) => (
             <ul>
@@ -253,7 +253,7 @@ const czechLanguageLinks = [
           {czechFooterNav.map((item) => (
             <li><a href={item.href}>{item.label}</a></li>
           ))}
-          <li><a href={resolvedBookingHref}>Ov??it dostupnost</a></li>
+          <li><a href={resolvedBookingHref}>Ověřit dostupnost</a></li>
           <li><a href={resolvedBookingHref}>Rezervace</a></li>
         </ul>
       </nav>
@@ -269,7 +269,7 @@ const czechLanguageLinks = [
     </div>
 
     <div class="dnd-container dnd-site-footer__bottom">
-      <span>© Dandelion ubytov?n?</span>
+      <span>© Dandelion ubytování</span>
     </div>
   </footer>
 )}
@@ -342,7 +342,7 @@ const czechLanguageLinks = [
       </a>
       <p id="site-footer-title">
         {isEnglishFooter
-          ? "Peaceful countryside guesthouses and apartments in the Balaton Upl?nds."
+          ? "Peaceful countryside guesthouses and apartments in the Balaton Uplands."
           : "Természetközeli vendégházak a Balaton-felvidéken, családoknak, pároknak és nyugodt elvonuláshoz."}
       </p>
     </div>
@@ -473,7 +473,7 @@ const czechLanguageLinks = [
     font-weight: 700;
     letter-spacing: var(--dnd-tracking-wide);
     line-height: 1.4;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   .dnd-site-footer__group ul {

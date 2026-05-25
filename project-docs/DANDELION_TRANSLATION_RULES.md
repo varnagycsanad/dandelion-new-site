@@ -2,20 +2,45 @@
 
 Ez a fájl a Dandelion honlap többnyelvű fordítási szabályait rögzíti.
 
-Első implementálandó nyelv:
+Aktív nyelvek:
 - `hu`: magyar, forrásnyelv
 - `en`: angol, első idegen nyelv
+- `de`: német
+- `cs`: cseh
 
 Későbbi nyelvek:
-- `de`: német
 - `sk`: szlovák
 - `pl`: lengyel
-- `cs`: cseh
 
 Nem része az első körnek:
 - ukrán
 - orosz
 - cirill betűs lokalizáció
+
+---
+
+## 0. Karakterkódolás és diakritika
+
+Minden fordítási fájl, adatfájl és Markdown dokumentum UTF-8 kódolású legyen.
+
+A lokalizált szövegben a cél nyelv valódi betűit kell használni, nem ASCII-átírást. A technikai slugs, fájlnevek, import pathok, CSS classok és belső azonosítók maradhatnak ASCII formában.
+
+Nyelvenkénti minimum:
+
+- magyar (`hu`): `á é í ó ö ő ú ü ű`, nagybetűs párjaikkal.
+- német (`de`): `ä ö ü Ä Ö Ü ß`; például `Unterkünfte`, `Gäste`, `für`, `Küche`, `Weingüter`.
+- cseh (`cs`): `á č ď é ě í ň ó ř š ť ú ů ý ž`, nagybetűs párjaikkal.
+- angol (`en`): angol közszavak alap latin betűkkel, de magyar/helyi tulajdonnevek eredeti ékezettel.
+- jövőbeni szlovák (`sk`): `á ä č ď é í ĺ ľ ň ó ô ŕ š ť ú ý ž`, nagybetűs párjaikkal.
+- jövőbeni lengyel (`pl`): `ą ć ę ł ń ó ś ź ż`, nagybetűs párjaikkal.
+
+Tilos publikus, látható szövegben:
+
+- német ASCII-átírás: `fuer`, `Gaeste`, `Unterkuenfte`, `Weingueter`, `Verfugbarkeit prufen`.
+- cseh ASCII-átírás: `ubytovani`, `prirodni`, `svedecne hory`, `pujcovna kol`.
+- magyar/helyi nevek ékezet nélküli rontása: `Koveskal`, `Fugehaz`, `Zsalya`, `Szololiget`, `Szepvolgyi`, `Szent Gyorgy-hegy`.
+
+Részletes audit és ellenőrzőlista: `project-docs/character-encoding-audit-and-rules-2026-05-25.md`.
 
 ---
 

@@ -79,18 +79,18 @@ const localizedTemplateText = {
     poolSealDate: "AB 1. JUNI 2026"
   },
   cs: {
-    bookingTrustLabel: "Prima rezervace · kontakt Dandelion",
-    homeBreadcrumbLabel: "?esk? ?vod",
+    bookingTrustLabel: "Přímá rezervace · kontakt Dandelion",
+    homeBreadcrumbLabel: "Český úvod",
     homeBreadcrumbHref: "/cs/",
-    secondaryDetailsLabel: "Tipy a prakticke informace",
-    decisionPanelAriaLabel: "P?ehled ubytov?n? pro rozhodnuti",
-    overviewTitle: "Rychly p?ehled",
-    reasonsTitle: "Proc se v?m tu bude libit",
-    relatedListingCta: "Zp?t na p?ehled ubytov?n?.",
-    galleryMoreSuffix: "fotografii",
+    secondaryDetailsLabel: "Tipy a praktické informace",
+    decisionPanelAriaLabel: "Přehled ubytování pro rozhodnutí",
+    overviewTitle: "Rychlý přehled",
+    reasonsTitle: "Proč se vám tu bude líbit",
+    relatedListingCta: "Zpět na přehled ubytování.",
+    galleryMoreSuffix: "fotografií",
     poolSealTitleLine1: "PANORAMA",
     poolSealTitleLine2: "POOL",
-    poolSealDate: "OD 1. CERVNA 2026"
+    poolSealDate: "OD 1. ČERVNA 2026"
   }
 } satisfies Record<AccommodationPageLocale, Record<string, string>>;
 
@@ -149,13 +149,13 @@ function normalizeDescriptionText(value: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^\p{L}\p{N}\s]/gu, " ")
     .replace(/\s+/g, " ")
-    .t?im();
+    .trim();
 }
 
 function tokenizeDescriptionText(value: string) {
   return normalizeDescriptionText(value)
     .split(" ")
-    .map((token) => token.t?im())
+    .map((token) => token.trim())
     .filter((token) => token.length >= 3);
 }
 
@@ -222,48 +222,48 @@ const czechAccommodationHrefBySlug: Record<string, string> = {
 const czechAccommodationRelatedTextBySlug: Record<string, { name: string; meta: string; alt: string }> = {
   "dandelion-d1": {
     name: "Dandelion D1",
-    meta: "6-8 host? - zahrada - rodinn? ?as",
-    alt: "Dandelion D1 ubytov?n? Dandelion"
+    meta: "6-8 hostů - zahrada - rodinný čas",
+    alt: "Dandelion D1 ubytování Dandelion"
   },
   "dandelion-d2": {
     name: "Dandelion D2",
-    meta: "4-6 host? - terasa - Panorama Pool",
-    alt: "Dandelion D2 ubytov?n? Dandelion"
+    meta: "4-6 hostů - terasa - Panorama Pool",
+    alt: "Dandelion D2 ubytování Dandelion"
   },
   "dandelion-koveskal": {
     name: "Dandelion Köveskál",
-    meta: "oblast Káli - vesnicka atmosf?ra",
-    alt: "Dandelion Köveskál ubytov?n? Dandelion"
+    meta: "oblast Káli - vesnická atmosféra",
+    alt: "Dandelion Köveskál ubytování Dandelion"
   },
   fugehaz: {
     name: "Dandelion Fügeház",
-    meta: "4-6 host? - panorama - klidn? poloha",
-    alt: "Dandelion Fügeház ubytov?n? Dandelion"
+    meta: "4-6 hostů - panorama - klidná poloha",
+    alt: "Dandelion Fügeház ubytování Dandelion"
   },
   "royal-homes": {
     name: "Dandelion Royal Homes",
-    meta: "Keszthely - apartman - Balaton",
-    alt: "Dandelion Royal Homes ubytov?n? Dandelion"
+    meta: "Keszthely - apartmán - Balaton",
+    alt: "Dandelion Royal Homes ubytování Dandelion"
   },
   "szepvolgyi-vendeghaz": {
     name: "Dandelion Szépvölgyi",
-    meta: "a? 8 host? - panorama Balatonu",
-    alt: "Dandelion Szépvölgyi ubytov?n? Dandelion"
+    meta: "až 8 hostů - panorama Balatonu",
+    alt: "Dandelion Szépvölgyi ubytování Dandelion"
   },
   "szololiget-vendeghaz": {
     name: "Dandelion Szőlőliget",
-    meta: "2-4 host? - vinice - v?hled",
-    alt: "Dandelion Szőlőliget ubytov?n? Dandelion"
+    meta: "2-4 hosté - vinice - výhled",
+    alt: "Dandelion Szőlőliget ubytování Dandelion"
   },
   "vintage-vendeghaz": {
     name: "Dandelion Vintage",
-    meta: "Nemesgulács - dv?r - klidn? dny",
-    alt: "Dandelion Vintage ubytov?n? Dandelion"
+    meta: "Nemesgulács - dvůr - klidné dny",
+    alt: "Dandelion Vintage ubytování Dandelion"
   },
   "zsalya-vendeghaz": {
     name: "Dandelion Zsálya",
-    meta: "2-4 host? - terasa - priroda",
-    alt: "Dandelion Zsálya ubytov?n? Dandelion"
+    meta: "2-4 hosté - terasa - příroda",
+    alt: "Dandelion Zsálya ubytování Dandelion"
   }
 };
 
@@ -285,7 +285,7 @@ function resolveAccommodationHrefForLocale(slug: string, url: string) {
   }
 
   if (lang === "cs") {
-    return czechAccommodationHrefBySlug[slug] || "/cs/ubytov?n?/";
+    return czechAccommodationHrefBySlug[slug] || "/cs/ubytovani/";
   }
 
   return url;
@@ -378,9 +378,9 @@ const overviewFacts =
 const featuredExperience = decisionPanel?.featuredExperience ?? null;
 const featuredExperienceImage = resolveDecisionPanelImage(featuredExperience);
 const decisionReasons = decisionPanel?.reasons ?? [];
-const am?n?tyItems =
-  pageData.am?n?ties && pageData.am?n?ties.length > 0
-    ? pageData.am?n?ties
+const amenityItems =
+  pageData.amenities && pageData.amenities.length > 0
+    ? pageData.amenities
     : featureHighlights.map((item) => ({
         iconKey: item.icon,
         title: item.label
@@ -403,7 +403,7 @@ const mobileReviewGridVisibleItems = mobileReviewGridItems.slice(0, 2);
 const mobileReviewGridMoreItems = mobileReviewGridItems.slice(2);
 const mobileReviewGridAriaLabel =
   lang === "cs"
-    ? "Mobilni zobrazeni hodnoceni host?"
+    ? "Mobilní zobrazení hodnocení hostů"
     : lang === "de"
       ? "Gästebewertungen mobile Ansicht"
       : lang === "en"
@@ -411,7 +411,7 @@ const mobileReviewGridAriaLabel =
         : "Vendégértékelések mobil rács";
 const mobileReviewGridMoreLabel =
   lang === "cs"
-    ? "Zobrazit dal?? hodnoceni"
+    ? "Zobrazit další hodnocení"
     : lang === "de"
       ? "Weitere Bewertungen anzeigen"
       : lang === "en"
@@ -459,14 +459,14 @@ const compactRelatedStays = buildRelatedStays({
   imageMapping,
   baseHref
 });
-const introKicker = pageData.intro.kicker?.t?im() || "";
-const introTitle = pageData.intro.title?.t?im() || "";
-const introLead = pageData.intro.lead?.t?im() || "";
+const introKicker = pageData.intro.kicker?.trim() || "";
+const introTitle = pageData.intro.title?.trim() || "";
+const introLead = pageData.intro.lead?.trim() || "";
 const hasIntroBlock = Boolean(introKicker || introTitle || introLead);
-const shortDescription = pageData.details.shortDescription?.t?im() || "";
+const shortDescription = pageData.details.shortDescription?.trim() || "";
 const visibleDetailsSummary = shortDescription || introLead;
 const detailsLongDescription = (pageData.details.longDescription || [])
-  .map((paragraph) => paragraph.t?im())
+  .map((paragraph) => paragraph.trim())
   .filter(Boolean)
   .filter((paragraph, index) => {
     if (index === 0 && areDescriptionsSimilar(paragraph, introLead)) {
@@ -477,8 +477,8 @@ const detailsLongDescription = (pageData.details.longDescription || [])
   });
 const accommodationListingHref =
   accommodationListingHrefOverride ||
-  `${baseHref}${lang === "cs" ? "cs/ubytov?n?/" : lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
-const accommodationName = pageData.seo.title.split("|")[0]?.t?im() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.t?im();
+  `${baseHref}${lang === "cs" ? "cs/ubytovani/" : lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
+const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
 const reservationAction = hasSabeeBookingLink
@@ -1017,14 +1017,14 @@ const accommodationStructuredData = [
             </details>
           )}
 
-          {am?n?tyItems.length > 0 && (
-            <details class="d2-am?n?ties d2-detail-block d2-mobile-collapsible" aria-label={pageData.features.title} open data-mobile-collapsed>
+          {amenityItems.length > 0 && (
+            <details class="d2-amenities d2-detail-block d2-mobile-collapsible" aria-label={pageData.features.title} open data-mobile-collapsed>
               <summary class="d2-details__section-head d2-mobile-collapsible__summary">
                 <span class="dnd-section-kicker">{pageData.features.title}</span>
               </summary>
-              <div class="d2-am?n?ties__grid">
-                {am?n?tyItems.map((item) => (
-                  <article class="d2-am?n?ties__card">
+              <div class="d2-amenities__grid">
+                {amenityItems.map((item) => (
+                  <article class="d2-amenities__card">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
                     </svg>
@@ -1096,8 +1096,8 @@ const accommodationStructuredData = [
             <figure class="d2-gallery__item">
               <button
                 type="button"
-                class="d2-gallery__t?igger"
-                data-accommodation-gallery-t?igger
+                class="d2-gallery__trigger"
+                data-accommodation-gallery-trigger
                 data-accommodation-gallery-index={index}
                 data-accommodation-gallery-id={image.id}
                 aria-label={pageData.labels.galleryOpenAriaLabel}
@@ -1351,24 +1351,24 @@ const accommodationStructuredData = [
     const lightboxImage = document.querySelector("[data-accommodation-lightbox-image]");
     const lightboxCounter = document.querySelector("[data-accommodation-lightbox-counter]");
     const galleryGrid = document.querySelector(".d2-gallery__grid");
-    const galleryTriggers = Array.from(document.querySelectorAll("[data-accommodation-gallery-t?igger]"));
+    const galleryTriggers = Array.from(document.querySelectorAll("[data-accommodation-gallery-trigger]"));
     const closeButtons = Array.from(document.querySelectorAll("[data-accommodation-lightbox-close]"));
     const prevButton = document.querySelector("[data-accommodation-lightbox-prev]");
     const nextButton = document.querySelector("[data-accommodation-lightbox-next]");
     const mobileCollapsedBlocks = Array.from(document.querySelectorAll("[data-mobile-collapsed]"));
     const mobileDetailsQuery = window.matchMedia("(max-width: 768px)");
-    const navigationEnt?ies =
-      typeof performance.getEnt?iesByType === "function"
-        ? performance.getEnt?iesByType("navigation")
+    const navigationEntries =
+      typeof performance.getEntriesByType === "function"
+        ? performance.getEntriesByType("navigation")
         : [];
-    const isReloadNavigation = navigationEnt?ies[0]?.type === "reload";
+    const isReloadNavigation = navigationEntries[0]?.type === "reload";
 
     const syncMobileCollapsedBlocks = () => {
       mobileCollapsedBlocks.forEach((block) => {
         if (mobileDetailsQuery.matches) {
-          block.removeAtt?ibute("open");
+          block.removeAttribute("open");
         } else {
-          block.setAtt?ibute("open", "");
+          block.setAttribute("open", "");
         }
       });
     };
@@ -1397,16 +1397,16 @@ const accommodationStructuredData = [
       let autoplayTimer = null;
       const heroFallback = heroImage
         ? {
-            src: heroImage.getAtt?ibute("src") || "",
-            alt: heroImage.getAtt?ibute("alt") || ""
+            src: heroImage.getAttribute("src") || "",
+            alt: heroImage.getAttribute("alt") || ""
           }
         : null;
       const previewItems = galleryTriggers
-        .map((t?igger) => ({
-          t?igger,
-          figure: t?igger.closest(".d2-gallery__item"),
-          image: t?igger.querySelector("img"),
-          badge: t?igger.querySelector(".d2-gallery__more-badge")
+        .map((trigger) => ({
+          trigger,
+          figure: trigger.closest(".d2-gallery__item"),
+          image: trigger.querySelector("img"),
+          badge: trigger.querySelector(".d2-gallery__more-badge")
         }))
         .filter((item) => item.figure && item.image);
 
@@ -1446,8 +1446,8 @@ const accommodationStructuredData = [
             return;
           }
 
-          item.t?igger.setAtt?ibute("data-accommodation-gallery-index", string(index));
-          item.t?igger.setAtt?ibute("data-accommodation-gallery-id", string(nextImage.id));
+          item.trigger.setAttribute("data-accommodation-gallery-index", string(index));
+          item.trigger.setAttribute("data-accommodation-gallery-id", string(nextImage.id));
           item.image.src = nextImage.thumb || nextImage.src;
           item.image.alt = nextImage.alt;
           item.image.loading = index < 2 ? "eager" : "lazy";
@@ -1460,7 +1460,7 @@ const accommodationStructuredData = [
             const nextBadge = document.createElement("span");
             nextBadge.className = "d2-gallery__more-badge";
             nextBadge.textContent = `+${moreCount} kép`;
-            item.t?igger.appendChild(nextBadge);
+            item.trigger.appendChild(nextBadge);
           }
           nextFigures.push(item.figure);
         });
@@ -1570,9 +1570,9 @@ const accommodationStructuredData = [
         startAutoplay();
       };
 
-      galleryTriggers.forEach((t?igger) => {
-        t?igger.addEventListener("click", () => {
-          const nextIndex = Number(t?igger.getAtt?ibute("data-accommodation-gallery-index"));
+      galleryTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const nextIndex = Number(trigger.getAttribute("data-accommodation-gallery-index"));
           openLightbox(Number.isFinite(nextIndex) ? nextIndex : 0);
         });
       });
@@ -1690,7 +1690,7 @@ const accommodationStructuredData = [
     margin-bottom: 18px;
     font-size: var(--dnd-text-2xs);
     letter-spacing: 0.18em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
     color: rgba(253, 251, 247, 0.86);
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
@@ -1725,7 +1725,7 @@ const accommodationStructuredData = [
     margin: 20px 0 0;
     font-size: var(--dnd-text-body);
     letter-spacing: 0.08em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
     color: rgba(253, 251, 247, 0.84);
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
   }
@@ -1774,7 +1774,7 @@ const accommodationStructuredData = [
     font-size: 29px;
     font-weight: 700;
     letter-spacing: 0.12em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   .dnd-pool-seal__date {
@@ -1782,7 +1782,7 @@ const accommodationStructuredData = [
     font-size: var(--dnd-text-xs);
     font-weight: 700;
     letter-spacing: 0.1em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -2186,7 +2186,7 @@ const accommodationStructuredData = [
     font-weight: 700;
     letter-spacing: 0.08em;
     line-height: 1.4;
-    text-transform: upper?ase;
+    text-transform: uppercase;
     cursor: pointer;
     list-style: none;
   }
@@ -2277,7 +2277,7 @@ const accommodationStructuredData = [
 
   .d2-overview__card,
   .d2-reasons__card,
-  .d2-am?n?ties__card {
+  .d2-amenities__card {
     min-width: 0;
   }
 
@@ -2301,7 +2301,7 @@ const accommodationStructuredData = [
 
   .d2-overview__card > div,
   .d2-reasons__card > div,
-  .d2-am?n?ties__card > div {
+  .d2-amenities__card > div {
     min-width: 0;
   }
 
@@ -2313,7 +2313,7 @@ const accommodationStructuredData = [
 
   .d2-overview__card strong,
   .d2-reasons__card strong,
-  .d2-am?n?ties__card strong {
+  .d2-amenities__card strong {
     font-size: var(--dnd-text-md);
     line-height: 1.2;
     font-weight: 600;
@@ -2322,7 +2322,7 @@ const accommodationStructuredData = [
 
   .d2-overview__card p,
   .d2-reasons__card p,
-  .d2-am?n?ties__card p {
+  .d2-amenities__card p {
     margin: 0;
     color: rgba(45, 36, 28, 0.58);
     font-size: var(--dnd-text-xs);
@@ -2366,7 +2366,7 @@ const accommodationStructuredData = [
     font-size: var(--dnd-text-2xs);
     font-weight: 600;
     letter-spacing: 0.1em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   .d2-featured-experience__copy {
@@ -2414,7 +2414,7 @@ const accommodationStructuredData = [
     font-size: var(--dnd-text-2xs);
     font-weight: 600;
     letter-spacing: 0.04em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   .d2-featured-experience__media {
@@ -2440,7 +2440,7 @@ const accommodationStructuredData = [
   }
 
   .d2-reasons__card,
-  .d2-am?n?ties__card {
+  .d2-amenities__card {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -2452,7 +2452,7 @@ const accommodationStructuredData = [
 
   .d2-reasons__card strong,
   .d2-reasons__card p,
-  .d2-am?n?ties__card > div {
+  .d2-amenities__card > div {
     grid-column: auto;
   }
 
@@ -2482,14 +2482,14 @@ const accommodationStructuredData = [
     align-content: center;
   }
 
-  .d2-am?n?ties__grid {
+  .d2-amenities__grid {
     display: grid;
     column-gap: 14px;
     row-gap: 4px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .d2-am?n?ties {
+  .d2-amenities {
     padding: 10px 10px 6px 12px;
     border: 1px solid rgba(217, 158, 43, 0.16);
     border-left-width: 2px;
@@ -2501,7 +2501,7 @@ const accommodationStructuredData = [
   .d2-overview__card svg,
   .d2-featured-experience__title-row svg,
   .d2-reasons__card svg,
-  .d2-am?n?ties__card svg,
+  .d2-amenities__card svg,
   .d2-location__benefit svg {
     flex: 0 0 auto;
     width: 19px;
@@ -2536,19 +2536,19 @@ const accommodationStructuredData = [
   }
 
   .d2-reasons__card svg,
-  .d2-am?n?ties__card svg {
+  .d2-amenities__card svg {
     align-self: center;
   }
 
   .d2-reasons__card p,
-  .d2-am?n?ties__card p {
+  .d2-amenities__card p {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .d2-am?n?ties__card {
+  .d2-amenities__card {
     align-items: center;
     min-height: 35px;
     padding: 6px 0;
@@ -2558,32 +2558,32 @@ const accommodationStructuredData = [
     background: transparent;
   }
 
-  .d2-am?n?ties__card strong {
+  .d2-amenities__card strong {
     font-size: var(--dnd-text-sm);
     line-height: 1.18;
     font-weight: 550;
     color: rgba(28, 22, 16, 0.92);
   }
 
-  .d2-am?n?ties__card > div {
+  .d2-amenities__card > div {
     display: flex;
     align-items: center;
     min-width: 0;
   }
 
-  .d2-am?n?ties__card p {
+  .d2-amenities__card p {
     display: none;
   }
 
-  .d2-am?n?ties__card svg {
+  .d2-amenities__card svg {
     flex: 0 0 16px;
     width: 16px;
     height: 16px;
     color: rgba(197, 138, 23, 0.9);
   }
 
-  .d2-am?n?ties__card:last-child,
-  .d2-am?n?ties__card:nth-last-child(2):nth-child(odd) {
+  .d2-amenities__card:last-child,
+  .d2-amenities__card:nth-last-child(2):nth-child(odd) {
     border-bottom-color: transparent;
   }
 
@@ -2634,7 +2634,7 @@ const accommodationStructuredData = [
     background: rgba(0, 0, 0, 0.04);
   }
 
-  .d2-gallery__t?igger {
+  .d2-gallery__trigger {
     position: relative;
     display: block;
     width: 100%;
@@ -2675,7 +2675,7 @@ const accommodationStructuredData = [
     font-weight: 600;
     letter-spacing: 0.08em;
     line-height: 1;
-    text-transform: upper?ase;
+    text-transform: uppercase;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.24s ease, transform 0.24s ease, background 0.24s ease;
@@ -2693,18 +2693,18 @@ const accommodationStructuredData = [
     color: #fdfbf7;
     font-size: var(--dnd-text-2xs);
     letter-spacing: 0.08em;
-    text-transform: upper?ase;
+    text-transform: uppercase;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .d2-gallery__t?igger:hover img,
-    .d2-gallery__t?igger:focus-visible img {
+    .d2-gallery__trigger:hover img,
+    .d2-gallery__trigger:focus-visible img {
       transform: scale(1.035);
       filter: saturate(1.02);
     }
 
-    .d2-gallery__t?igger:hover .d2-gallery__hover-label,
-    .d2-gallery__t?igger:focus-visible .d2-gallery__hover-label {
+    .d2-gallery__trigger:hover .d2-gallery__hover-label,
+    .d2-gallery__trigger:focus-visible .d2-gallery__hover-label {
       opacity: 1;
       transform: translateY(0);
     }
@@ -2926,7 +2926,7 @@ const accommodationStructuredData = [
     font-size: var(--dnd-text-sm);
     letter-spacing: 0.08em;
     line-height: 1.5;
-    text-transform: upper?ase;
+    text-transform: uppercase;
     backdrop-filter: blur(8px);
   }
 
@@ -3014,7 +3014,7 @@ const accommodationStructuredData = [
     }
 
     .d2-overview__grid,
-    .d2-am?n?ties__grid {
+    .d2-amenities__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -3522,7 +3522,7 @@ const accommodationStructuredData = [
 
     .d2-overview__grid,
     .d2-reasons__grid,
-    .d2-am?n?ties__grid {
+    .d2-amenities__grid {
       display: grid;
       gap: 8px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3530,7 +3530,7 @@ const accommodationStructuredData = [
 
     .d2-overview__card,
     .d2-reasons__card,
-    .d2-am?n?ties__card {
+    .d2-amenities__card {
       min-height: 0;
       padding: 9px;
       border-radius: 7px;
@@ -3585,17 +3585,17 @@ const accommodationStructuredData = [
       padding: 9px;
     }
 
-    .d2-am?n?ties__grid {
+    .d2-amenities__grid {
       column-gap: 10px;
       row-gap: 4px;
     }
 
-    .d2-am?n?ties {
+    .d2-amenities {
       padding: 10px 8px 6px;
       border-left-width: 1px;
     }
 
-    .d2-am?n?ties__card {
+    .d2-amenities__card {
       min-height: 32px;
       padding: 4px 0;
       border-radius: 0;
@@ -3604,14 +3604,14 @@ const accommodationStructuredData = [
 
     .d2-overview__card strong,
     .d2-reasons__card strong,
-    .d2-am?n?ties__card strong {
+    .d2-amenities__card strong {
       font-size: var(--dnd-text-xs);
       line-height: 1.22;
     }
 
     .d2-overview__card p,
     .d2-reasons__card p,
-    .d2-am?n?ties__card p {
+    .d2-amenities__card p {
       font-size: var(--dnd-text-2xs);
       line-height: 1.28;
     }
@@ -3619,7 +3619,7 @@ const accommodationStructuredData = [
     .d2-overview__card svg,
     .d2-featured-experience__title-row svg,
     .d2-reasons__card svg,
-    .d2-am?n?ties__card svg,
+    .d2-amenities__card svg,
     .d2-location__benefit svg {
       width: 22px;
       height: 22px;
@@ -3655,13 +3655,13 @@ const accommodationStructuredData = [
       justify-self: center;
     }
 
-    .d2-am?n?ties.d2-mobile-collapsible {
+    .d2-amenities.d2-mobile-collapsible {
       padding: 0;
       border: 0;
       background: transparent;
     }
 
-    .d2-am?n?ties.d2-mobile-collapsible[open] {
+    .d2-amenities.d2-mobile-collapsible[open] {
       padding: 10px;
       border: 1px solid rgba(217, 158, 43, 0.16);
       border-left-width: 1px;
