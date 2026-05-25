@@ -1,0 +1,103 @@
+---
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const copyByLang = {
+  hu: {
+    kicker: "SZÁLLÁSOK TÉRSÉGEK SZERINT",
+    text:
+      "A szállásokat terület szerint rendeztük. Lent külön blokkban találod a Tapolcai-medence, a Balaton melletti és a Káli-medencei házakat."
+  },
+  en: {
+    kicker: "ACCOMMODATIONS BY AREA",
+    text:
+      "The houses are grouped by landscape: stays around the Tapolca Basin and witness hills, places close to Lake Balaton, and the quieter Káli Basin villages."
+  },
+  de: {
+    kicker: "UNTERKÜNFTE NACH REGION",
+    text:
+      "Die Unterkünfte sind nach Landschaften geordnet: Tapolca-Becken und Zeugenberge, Häuser nahe dem Balaton und die ruhigeren Dörfer des Káli-Beckens."
+  },
+  cs: {
+    kicker: "UBYTOVÁNÍ PODLE OBLASTI",
+    text:
+      "Ubytování je rozdělené podle krajiny: Tapolcai pánev a svědecké hory, domy poblíž Balatonu a klidnější vesnice oblasti Káli."
+  }
+} as const;
+const copy = copyByLang[lang];
+---
+
+<section class="home-region-guide dnd-section" aria-labelledby={`home-region-guide-title-${lang}`}>
+  <div class="dnd-container home-region-guide__container">
+    <span class="home-region-guide__kicker">{copy.kicker}</span>
+    <p id={`home-region-guide-title-${lang}`} class="home-region-guide__text">{copy.text}</p>
+  </div>
+</section>
+
+<style>
+  .home-region-guide {
+    padding: 10px 0 18px;
+  }
+
+  .home-region-guide__container {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .home-region-guide__kicker {
+    color: #9c7a34;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    font-family: var(--dnd-font-display);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .home-region-guide__kicker::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: rgba(156, 122, 52, 0.32);
+  }
+
+  .home-region-guide__text {
+    margin: 0;
+    max-width: 560px;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: var(--dnd-text-xs);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .home-region-guide {
+      padding: 6px 0 14px;
+    }
+
+    .home-region-guide__container {
+      gap: 6px;
+    }
+
+    .home-region-guide__kicker {
+      font-size: var(--dnd-text-xs);
+      letter-spacing: 0.16em;
+    }
+
+    .home-region-guide__kicker::after {
+      width: 56px;
+      margin-top: 8px;
+    }
+
+    .home-region-guide__text {
+      max-width: 340px;
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.4;
+    }
+  }
+</style>

@@ -1,27 +1,65 @@
-<!-- [CHANGE 2026-05-16 11:45] Homepage newsletter copy pontosítva akció fókuszra. -->
-<section class="dnd-section dnd-newsletter-signup" aria-labelledby="newsletter-signup-title">
+---
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const copyByLang = {
+  hu: {
+    kicker: "Dandelion hírlevél",
+    title: "Akciók, különleges ajánlatok és felszabaduló dátumok e-mailben.",
+    lead: "Diszkrét értesítések akciókról, szezonális ajánlatokról és szabad időpontokról.",
+    aria: "Hírlevél popup megnyitása",
+    button: "Értesítést kérek",
+    note: "Egy rövid felugró ablakban tudsz feliratkozni."
+  },
+  en: {
+    kicker: "Dandelion newsletter",
+    title: "Offers, special dates and newly available stays by e-mail.",
+    lead: "Quiet updates about seasonal offers, direct booking opportunities and free dates.",
+    aria: "Open newsletter signup popup",
+    button: "Send me updates",
+    note: "You can subscribe in a short popup window."
+  },
+  de: {
+    kicker: "Dandelion Newsletter",
+    title: "Angebote, besondere Termine und freie Zeiträume per E-Mail.",
+    lead: "Diskrete Hinweise zu saisonalen Angeboten, Direktbuchung und frei gewordenen Terminen.",
+    aria: "Newsletter-Popup öffnen",
+    button: "Updates erhalten",
+    note: "Die Anmeldung öffnet sich in einem kurzen Popup-Fenster."
+  },
+  cs: {
+    kicker: "Newsletter Dandelion",
+    title: "Nabídky, speciální termíny a uvolněné pobyty e-mailem.",
+    lead: "Nenápadné novinky o sezónních nabídkách, přímé rezervaci a volných termínech.",
+    aria: "Otevřít přihlášení k newsletteru",
+    button: "Chci novinky",
+    note: "Přihlášení se otevře v krátkém vyskakovacím okně."
+  }
+} as const;
+const copy = copyByLang[lang];
+---
+
+<section class="dnd-section dnd-newsletter-signup" aria-labelledby={`newsletter-signup-title-${lang}`}>
   <div class="dnd-container">
     <div class="dnd-newsletter-signup__shell">
       <div class="dnd-newsletter-signup__copy">
         <div class="dnd-newsletter-signup__intro">
-          <span class="dnd-newsletter-signup__kicker">Dandelion hírlevél</span>
-          <h2 id="newsletter-signup-title">Akciók, különleges ajánlatok és felszabaduló dátumok e-mailben.</h2>
-          <p class="dnd-newsletter-signup__lead">
-            Diszkrét értesítések akciókról, szezonális ajánlatokról és szabad időpontokról.
-          </p>
+          <span class="dnd-newsletter-signup__kicker">{copy.kicker}</span>
+          <h2 id={`newsletter-signup-title-${lang}`}>{copy.title}</h2>
+          <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
         </div>
 
-        <div class="dnd-newsletter-signup__form" role="group" aria-label="Hírlevél popup megnyitása">
+        <div class="dnd-newsletter-signup__form" role="group" aria-label={copy.aria}>
           <button
             type="button"
             class="dnd-btn dnd-btn--primary dnd-newsletter-signup__trigger"
             onclick="ml('show', '4eQILc', true)"
           >
-            Értesítést kérek
+            {copy.button}
           </button>
-          <p class="dnd-newsletter-signup__note">
-            Egy rövid felugró ablakban tudsz feliratkozni.
-          </p>
+          <p class="dnd-newsletter-signup__note">{copy.note}</p>
         </div>
       </div>
     </div>
@@ -51,8 +89,7 @@
     box-shadow: 0 18px 34px rgba(80, 57, 31, 0.06);
   }
 
-  .dnd-newsletter-signup__copy,
-  .dnd-newsletter-signup__success {
+  .dnd-newsletter-signup__copy {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -78,15 +115,14 @@
 
   .dnd-newsletter-signup h2 {
     margin: 0;
+    color: rgba(39, 32, 24, 0.94);
     font-family: var(--dnd-font-display);
     font-size: clamp(1.16rem, 1.8vw, 1.6rem);
     font-weight: 400;
     line-height: 1.06;
-    color: rgba(39, 32, 24, 0.94);
   }
 
-  .dnd-newsletter-signup__lead,
-  .dnd-newsletter-signup__success p {
+  .dnd-newsletter-signup__lead {
     margin: 0;
     color: rgba(39, 32, 24, 0.72);
     font-size: var(--dnd-text-md);
@@ -97,7 +133,6 @@
     display: grid;
     gap: 10px;
     flex: 0 0 auto;
-    min-width: 0;
     justify-items: end;
     text-align: right;
   }
@@ -130,10 +165,8 @@
       border-radius: 16px;
     }
 
-    .dnd-newsletter-signup__copy,
-    .dnd-newsletter-signup__success {
+    .dnd-newsletter-signup__copy {
       display: grid;
-      justify-content: stretch;
       gap: 16px;
     }
 
@@ -151,23 +184,6 @@
     .dnd-newsletter-signup__note {
       max-width: none;
       text-align: left;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .dnd-newsletter-signup {
-      padding: 12px 0 18px;
-    }
-
-    .dnd-newsletter-signup h2 {
-      font-size: clamp(1rem, 5vw, 1.15rem);
-      line-height: 1.08;
-    }
-
-    .dnd-newsletter-signup__lead,
-    .dnd-newsletter-signup__success p {
-      font-size: var(--dnd-text-xs);
-      line-height: 1.34;
     }
   }
 </style>

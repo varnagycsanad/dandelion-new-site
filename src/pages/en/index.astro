@@ -2,8 +2,12 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import HomeReviews from "../../sections/HomeReviews.astro";
+import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
+import NewsletterSignup from "../../sections/NewsletterSignup.astro";
+import GoogleRegionMap from "../../sections/GoogleRegionMap.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
 import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -129,6 +133,7 @@ const galleryItems = [
   />
 
   <PanoramaPoolHighlight lang="en" />
+  <HomeReviews lang="en" />
 
   <section class="en-home-intro dnd-section" aria-labelledby="english-home-intro-title">
     <div class="dnd-container en-home-intro__inner">
@@ -140,6 +145,8 @@ const galleryItems = [
       </p>
     </div>
   </section>
+
+  <HomeRegionGuide lang="en" />
 
   <RegionStories
     kickerLabel="Accommodations"
@@ -157,6 +164,9 @@ const galleryItems = [
     mobileCtaLabel="MORE"
     experiences={englishExperiences}
   />
+
+  <NewsletterSignup lang="en" />
+  <GoogleRegionMap lang="en" />
 
   <section id="gallery" class="en-home-gallery dnd-section" aria-labelledby="english-gallery-title">
     <div class="dnd-container">

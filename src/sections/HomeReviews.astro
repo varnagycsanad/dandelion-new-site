@@ -1,0 +1,253 @@
+---
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const googleLogoSrc = `${baseHref}images/brand/google-logo-compact-optimized-v2.png`;
+
+const copyByLang = {
+  hu: {
+    kicker: "Vendégértékelések",
+    title: "Vendégeink szerint",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból",
+    googleLogoAlt: "Google értékelés",
+    bookingLogoAlt: "Booking.com értékelés",
+    reviews: [
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Idilli környezet, kedves házigazdák, sok hely a gyerekeknek és nyugodt, szerethető hangulat.",
+        meta: "Vanessa L. · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "A ház minden igényt kielégít, és jó szívvel ajánlom annak, aki pár napra elvonulna.",
+        meta: "Ildikó Barna · Google · 5/5"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Tökéletes pihentető napokhoz: csendes hely, barátságos házigazdák és kényelmes szállás.",
+        meta: "Angelika · Booking.com · 9,0/10"
+      }
+    ]
+  },
+  en: {
+    kicker: "Guest reviews",
+    title: "What guests say",
+    intro: "Real guest feedback from Google and Booking.com",
+    googleLogoAlt: "Google review",
+    bookingLogoAlt: "Booking.com review",
+    reviews: [
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "An idyllic setting, kind hosts, plenty of space for children and a calm, loveable atmosphere.",
+        meta: "Vanessa L. · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "The house had everything we needed, and I gladly recommend it for a few quiet days away.",
+        meta: "Ildiko Barna · Google · 5/5"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Perfect for restful days: a quiet place, friendly hosts and comfortable accommodation.",
+        meta: "Angelika · Booking.com · 9.0/10"
+      }
+    ]
+  },
+  de: {
+    kicker: "Gästebewertungen",
+    title: "Was Gäste sagen",
+    intro: "Echte Rückmeldungen von Google und Booking.com",
+    googleLogoAlt: "Google Bewertung",
+    bookingLogoAlt: "Booking.com Bewertung",
+    reviews: [
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Idyllische Umgebung, freundliche Gastgeber, viel Platz für Kinder und eine ruhige Atmosphäre.",
+        meta: "Vanessa L. · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Das Haus erfüllt alle Wünsche und ist sehr empfehlenswert für ein paar ruhige Tage.",
+        meta: "Ildiko Barna · Google · 5/5"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Perfekt für erholsame Tage: ruhige Lage, freundliche Gastgeber und eine komfortable Unterkunft.",
+        meta: "Angelika · Booking.com · 9,0/10"
+      }
+    ]
+  },
+  cs: {
+    kicker: "Hodnocení hostů",
+    title: "Co říkají hosté",
+    intro: "Skutečná hodnocení z Google a Booking.com",
+    googleLogoAlt: "Hodnocení Google",
+    bookingLogoAlt: "Hodnocení Booking.com",
+    reviews: [
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Idylické prostředí, milí hostitelé, dost prostoru pro děti a klidná atmosféra.",
+        meta: "Vanessa L. · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Dům splnil vše, co jsme potřebovali, a rádi ho doporučíme pro pár klidných dní.",
+        meta: "Ildiko Barna · Google · 5/5"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Perfektní pro odpočinkové dny: klidné místo, přátelští hostitelé a pohodlné ubytování.",
+        meta: "Angelika · Booking.com · 9,0/10"
+      }
+    ]
+  }
+} as const;
+const copy = copyByLang[lang];
+---
+
+<section class="home-reviews dnd-section" aria-labelledby={`home-reviews-title-${lang}`}>
+  <div class="dnd-container">
+    <div class="home-reviews__shell">
+      <div class="home-reviews__heading">
+        <span class="dnd-section-kicker">{copy.kicker}</span>
+        <h2 id={`home-reviews-title-${lang}`}>{copy.title}</h2>
+        <p>{copy.intro}</p>
+      </div>
+      <div class="home-reviews__grid">
+        {copy.reviews.map((review) => (
+          <article class="home-review-card">
+            <div class="home-review-card__top">
+              <img
+                src={review.logoSrc}
+                alt={review.source === "Google" ? copy.googleLogoAlt : copy.bookingLogoAlt}
+                width={review.source === "Google" ? 82 : 96}
+                height={24}
+                loading="lazy"
+                decoding="async"
+              />
+              <span aria-hidden="true">★★★★★</span>
+            </div>
+            <blockquote>{review.quote}</blockquote>
+            <p>{review.meta}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-reviews {
+    padding-top: 18px;
+    padding-bottom: 20px;
+  }
+
+  .home-reviews__shell {
+    padding: 20px 22px 22px;
+    border: 1px solid rgba(91, 70, 42, 0.1);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(253, 251, 247, 0.96), rgba(247, 242, 231, 0.88));
+  }
+
+  .home-reviews__heading {
+    max-width: 680px;
+    margin-bottom: 16px;
+  }
+
+  .home-reviews__heading h2 {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.86);
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.65rem, 2.7vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .home-reviews__heading p {
+    margin: 8px 0 0;
+    color: rgba(0, 0, 0, 0.64);
+    font-size: var(--dnd-text-md);
+    line-height: 1.52;
+  }
+
+  .home-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .home-review-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .home-review-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .home-review-card__top img {
+    display: block;
+    width: auto;
+    max-width: 96px;
+    height: 18px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .home-review-card__top span {
+    color: rgba(217, 158, 43, 0.85);
+    font-size: var(--dnd-text-2xs);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .home-review-card blockquote {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.78);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.45;
+  }
+
+  .home-review-card p {
+    margin: auto 0 0;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 768px) {
+    .home-reviews__shell {
+      padding: 22px 18px 18px;
+    }
+
+    .home-reviews__grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+</style>

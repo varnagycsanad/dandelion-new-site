@@ -2,8 +2,12 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import HomeReviews from "../../sections/HomeReviews.astro";
+import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
+import NewsletterSignup from "../../sections/NewsletterSignup.astro";
+import GoogleRegionMap from "../../sections/GoogleRegionMap.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
 import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -124,6 +128,7 @@ const galleryItems = [
   />
 
   <PanoramaPoolHighlight lang="cs" />
+  <HomeReviews lang="cs" />
 
   <section class="cs-home-intro dnd-section" aria-labelledby="czech-home-intro-title">
     <div class="dnd-container cs-home-intro__inner">
@@ -136,6 +141,8 @@ const galleryItems = [
       </p>
     </div>
   </section>
+
+  <HomeRegionGuide lang="cs" />
 
   <RegionStories
     kickerLabel="Ubytování"
@@ -154,6 +161,9 @@ const galleryItems = [
     mobileCtaLabel="VÍCE"
     experiences={czechExperiences}
   />
+
+  <NewsletterSignup lang="cs" />
+  <GoogleRegionMap lang="cs" />
 
   <section id="gallery" class="cs-home-gallery dnd-section" aria-labelledby="czech-gallery-title">
     <div class="dnd-container">
