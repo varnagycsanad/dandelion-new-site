@@ -219,6 +219,53 @@ const czechAccommodationHrefBySlug: Record<string, string> = {
   "vintage-vendeghaz": "/cs/dandelion-vintage/",
   "zsalya-vendeghaz": "/cs/dandelion-zsalya/"
 };
+const czechAccommodationRelatedTextBySlug: Record<string, { name: string; meta: string; alt: string }> = {
+  "dandelion-d1": {
+    name: "Dandelion D1",
+    meta: "6-8 hostu - zahrada - rodinny cas",
+    alt: "Dandelion D1 ubytovani Dandelion"
+  },
+  "dandelion-d2": {
+    name: "Dandelion D2",
+    meta: "4-6 hostu - terasa - Panorama Pool",
+    alt: "Dandelion D2 ubytovani Dandelion"
+  },
+  "dandelion-koveskal": {
+    name: "Dandelion Koveskal",
+    meta: "oblast Kali - vesnicka atmosfera",
+    alt: "Dandelion Koveskal ubytovani Dandelion"
+  },
+  fugehaz: {
+    name: "Dandelion Fugehaz",
+    meta: "4-6 hostu - panorama - klidna poloha",
+    alt: "Dandelion Fugehaz ubytovani Dandelion"
+  },
+  "royal-homes": {
+    name: "Dandelion Royal Homes",
+    meta: "Keszthely - apartman - Balaton",
+    alt: "Dandelion Royal Homes ubytovani Dandelion"
+  },
+  "szepvolgyi-vendeghaz": {
+    name: "Dandelion Szepvolgyi",
+    meta: "az 8 hostu - panorama Balatonu",
+    alt: "Dandelion Szepvolgyi ubytovani Dandelion"
+  },
+  "szololiget-vendeghaz": {
+    name: "Dandelion Szololiget",
+    meta: "2-4 hoste - vinice - vyhled",
+    alt: "Dandelion Szololiget ubytovani Dandelion"
+  },
+  "vintage-vendeghaz": {
+    name: "Dandelion Vintage",
+    meta: "Nemesgulacs - dvur - klidne dny",
+    alt: "Dandelion Vintage ubytovani Dandelion"
+  },
+  "zsalya-vendeghaz": {
+    name: "Dandelion Zsalya",
+    meta: "2-4 hoste - terasa - priroda",
+    alt: "Dandelion Zsalya ubytovani Dandelion"
+  }
+};
 
 function normalizeRelatedStayPath(href: string) {
   const path = href.startsWith("http") ? new URL(href).pathname : href;
@@ -258,13 +305,16 @@ function buildSupplementedRelatedStays(items: AccommodationPageRelatedStay[]) {
     if (normalizedHref === currentPath || usedPaths.has(normalizedHref)) continue;
 
     usedPaths.add(normalizedHref);
+    const czechText = lang === "cs" ? czechAccommodationRelatedTextBySlug[accommodation.slug] : undefined;
+
     supplementedItems.push({
-      name: accommodation.name,
-      meta: accommodation.location,
+      name: czechText?.name || accommodation.name,
+      meta: czechText?.meta || accommodation.location,
       href,
       image: {
         type: "mapping",
-        slot: accommodation.imageSlot
+        slot: accommodation.imageSlot,
+        alt: czechText?.alt
       }
     });
   }
@@ -483,7 +533,7 @@ const accommodationStructuredData = [
   description={pageData.seo.description}
   canonicalPath={resolvedCanonicalPath}
   lang={lang}
-  ogLocale={lang === "de" ? "de_DE" : lang === "en" ? "en_US" : "hu_HU"}
+  ogLocale={lang === "de" ? "de_DE" : lang === "en" ? "en_US" : lang === "cs" ? "cs_CZ" : "hu_HU"}
   ogImage={fallbackOgImage}
   ogImageAlt={initialHeroImage.alt}
   structuredData={accommodationStructuredData}
