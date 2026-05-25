@@ -7,9 +7,11 @@ interface GuideIndexItem {
   titleHu: string;
   titleEn: string;
   titleCs: string;
+  titleDe: string;
   descriptionHu: string;
   descriptionEn: string;
   descriptionCs: string;
+  descriptionDe: string;
 }
 
 interface Props {
@@ -20,11 +22,12 @@ interface Props {
   introHu: string;
   introEn: string;
   introCs: string;
+  introDe: string;
   items: GuideIndexItem[];
 }
 
 // [CHANGE 2026-05-24 00:00] Kozos QR guide index sablon letrehozva uj hazankenti guide oldalakhoz.
-const { houseName, canonicalPath, title, description, introHu, introEn, introCs, items } = Astro.props;
+const { houseName, canonicalPath, title, description, introHu, introEn, introCs, introDe, items } = Astro.props;
 ---
 
 <BaseLayout
@@ -43,7 +46,7 @@ const { houseName, canonicalPath, title, description, introHu, introEn, introCs,
           <button class="guide-language__button" type="button" data-guide-lang-button="hu" aria-pressed="true">HU</button>
           <button class="guide-language__button" type="button" data-guide-lang-button="en" aria-pressed="false">EN</button>
           <button class="guide-language__button" type="button" data-guide-lang-button="cs" aria-pressed="false">CZ</button>
-          <span class="guide-language__pending" aria-disabled="true">DE</span>
+          <button class="guide-language__button" type="button" data-guide-lang-button="de" aria-pressed="false">DE</button>
         </div>
 
         <div data-guide-lang-panel="hu">
@@ -58,6 +61,10 @@ const { houseName, canonicalPath, title, description, introHu, introEn, introCs,
           <h1>{houseName} průvodce</h1>
           <p>{introCs}</p>
         </div>
+        <div data-guide-lang-panel="de" hidden>
+          <h1>{houseName} Guide</h1>
+          <p>{introDe}</p>
+        </div>
       </header>
 
       <div class="guide-index__list">
@@ -66,9 +73,11 @@ const { houseName, canonicalPath, title, description, introHu, introEn, introCs,
             <span data-guide-lang-panel="hu">{item.titleHu}</span>
             <span data-guide-lang-panel="en" hidden>{item.titleEn}</span>
             <span data-guide-lang-panel="cs" hidden>{item.titleCs}</span>
+            <span data-guide-lang-panel="de" hidden>{item.titleDe}</span>
             <small data-guide-lang-panel="hu">{item.descriptionHu}</small>
             <small data-guide-lang-panel="en" hidden>{item.descriptionEn}</small>
             <small data-guide-lang-panel="cs" hidden>{item.descriptionCs}</small>
+            <small data-guide-lang-panel="de" hidden>{item.descriptionDe}</small>
           </a>
         ))}
       </div>

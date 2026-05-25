@@ -3,13 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import type { GuideContent, GuideLocale } from "../data/guides/types";
 
 const { guide } = Astro.props as { guide: GuideContent };
-const locales: GuideLocale[] = ["hu", "en", "cs"];
+const locales: GuideLocale[] = ["hu", "en", "cs", "de"];
 const pageTitle = `${guide.content.hu.title} | ${guide.houseName}`;
 const description = guide.content.hu.intro;
-const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ" };
-const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "Důležité body" };
-const tocLabels: Record<GuideLocale, string> = { hu: "Ugrás a ponthoz", en: "Jump to section", cs: "Přejít na sekci" };
-const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "Válassz pontot", en: "Choose a section", cs: "Vyberte sekci" };
+const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ", de: "DE" };
+const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte" };
+const tocLabels: Record<GuideLocale, string> = { hu: "Ugr\u00e1s a ponthoz", en: "Jump to section", cs: "P\u0159ej\u00edt na sekci", de: "Zum Abschnitt springen" };
+const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz pontot", en: "Choose a section", cs: "Vyberte sekci", de: "Abschnitt w\u00e4hlen" };
 ---
 
 <BaseLayout
@@ -29,6 +29,7 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "Válassz pontot
         data-back-label-hu={guide.content.hu.backLabel}
         data-back-label-en={guide.content.en.backLabel}
         data-back-label-cs={guide.content.cs.backLabel}
+        data-back-label-de={guide.content.de.backLabel}
       >
         {guide.content.hu.backLabel}
       </a>
@@ -121,7 +122,8 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "Válassz pontot
       const backLabels = {
         hu: backLink?.getAttribute("data-back-label-hu") || "",
         en: backLink?.getAttribute("data-back-label-en") || "",
-        cs: backLink?.getAttribute("data-back-label-cs") || ""
+        cs: backLink?.getAttribute("data-back-label-cs") || "",
+        de: backLink?.getAttribute("data-back-label-de") || ""
       };
 
       const setLanguage = (nextLanguage) => {
