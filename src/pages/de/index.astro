@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const bookingContactHref = "/de/kontakt/";
+---
+
+<BaseLayout
+  title="Dandelion Gastehauser | Unterkunfte am Balaton"
+  description="Ruhige Gastehauser und Apartments im Balaton-Oberland, bei Badacsony, Szent Gyorgy-hegy, Keszthely und im Kali-Becken."
+  canonicalPath="/de/"
+  lang="de"
+  ogLocale="de_DE"
+>
+  <section class="de-home">
+    <div class="dnd-container de-home__inner">
+      <div class="de-home__copy">
+        <span class="de-home__eyebrow">Dandelion Gastehauser</span>
+        <h1>Ruhige Orte zum Ankommen rund um den Balaton.</h1>
+        <p>
+          Naturverbundene Gastehauser und Apartments im Balaton-Oberland, nahe Szent Gyorgy-hegy,
+          Badacsony, Keszthely und dem Kali-Becken.
+        </p>
+        <div class="de-home__actions">
+          <a class="de-home__cta de-home__cta--primary" href="/de/unterkuenfte/">Unterkunfte ansehen</a>
+          <a class="de-home__cta" href={bookingContactHref}>Kontakt aufnehmen</a>
+        </div>
+      </div>
+
+      <div class="de-home__panel" aria-label="Dandelion Kurzuberblick">
+        <span>Direkter Kontakt</span>
+        <strong>Wir helfen bei der Auswahl des passenden Hauses.</strong>
+        <p>
+          Die vollstandige deutsche Version wird schrittweise erweitert. Die wichtigsten
+          Informationen zu Unterkunft und Kontakt sind zuerst verfugbar.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .de-home {
+    padding: 132px 0 88px;
+    background: linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
+  }
+
+  .de-home__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .de-home__copy {
+    max-width: 780px;
+  }
+
+  .de-home__eyebrow,
+  .de-home__panel span {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #b67b20;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .de-home h1 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.35rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.03;
+  }
+
+  .de-home p {
+    color: rgba(38, 29, 22, 0.76);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .de-home__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .de-home__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 20px;
+    border: 1px solid rgba(38, 29, 22, 0.16);
+    border-radius: 999px;
+    color: #261d16;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .de-home__cta--primary {
+    border-color: #d99e2b;
+    background: #d99e2b;
+    color: #1b140f;
+  }
+
+  .de-home__panel {
+    padding: 28px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
+  }
+
+  .de-home__panel strong {
+    display: block;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.16;
+  }
+
+  @media (max-width: 760px) {
+    .de-home {
+      padding: 108px 0 64px;
+    }
+
+    .de-home__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

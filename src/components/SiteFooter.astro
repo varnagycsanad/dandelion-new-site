@@ -3,11 +3,12 @@ import { accommodations } from "../data/accommodations";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 interface Props {
-  lang?: "hu" | "en";
+  lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
 }
 
 const { lang = "hu" } = Astro.props as Props;
 const isEnglishFooter = lang === "en";
+const isGermanFooter = lang === "de";
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
@@ -93,8 +94,36 @@ const englishFooterStayColumns = [
     .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
+const germanStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fugehaz",
+  "zsalya-vendeghaz": "Dandelion Zsalya",
+  "szololiget-vendeghaz": "Dandelion Szololiget",
+  "szepvolgyi-vendeghaz": "Dandelion Szepvolgyi",
+  "vintage-vendeghaz": "Dandelion Vintage"
+};
+
+const germanFooterStayBySlug = new Map(
+  accommodations.map((stay) => [
+    stay.slug,
+    {
+      label: germanStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
+      href: `${homeHref}de/unterkuenfte/#${stay.slug}`
+    }
+  ])
+);
+
+const germanFooterStayColumns = [
+  ["dandelion-d1", "dandelion-d2", "fugehaz", "szololiget-vendeghaz"],
+  ["zsalya-vendeghaz", "vintage-vendeghaz", "royal-homes", "szepvolgyi-vendeghaz", "dandelion-koveskal"]
+].map((column) =>
+  column
+    .map((slug) => germanFooterStayBySlug.get(slug))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
+);
+
 const bookingLanguage = isEnglishFooter ? "En" : "Hu";
 const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
+const resolvedBookingHref = isGermanFooter ? `${homeHref}de/kontakt/` : bookingHref;
 const englishFooterNav = [
   { label: "Home", href: `${homeHref}en/` },
   { label: "Accommodations", href: `${homeHref}en/szallasok/` },
@@ -103,15 +132,78 @@ const englishFooterNav = [
 ];
 const englishLanguageLinks = [
   { label: "HU", href: homeHref },
-  { label: "EN", href: `${homeHref}en/` }
+  { label: "EN", href: `${homeHref}en/` },
+  { label: "DE", href: `${homeHref}de/` }
 ];
 const englishLegalLinks = [
   { label: "Terms and Conditions", href: `${homeHref}en/terms-and-conditions/` },
   { label: "Privacy Policy", href: `${homeHref}en/privacy-policy/` },
   { label: "Imprint", href: `${homeHref}en/imprint/` }
 ];
+const germanFooterNav = [
+  { label: "Startseite", href: `${homeHref}de/` },
+  { label: "Unterkunfte", href: `${homeHref}de/unterkuenfte/` },
+  { label: "Erlebnisse", href: `${homeHref}de/` },
+  { label: "Kontakt", href: `${homeHref}de/kontakt/` }
+];
+const germanLanguageLinks = [
+  { label: "HU", href: homeHref },
+  { label: "EN", href: `${homeHref}en/` },
+  { label: "DE", href: `${homeHref}de/` }
+];
 ---
 
+{isGermanFooter && (
+  <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+    <div class="dnd-container dnd-site-footer__inner">
+      <div class="dnd-site-footer__brand">
+        <a href={`${homeHref}de/`} class="dnd-site-footer__brand-link" aria-label="Dandelion Gastehauser Startseite">
+          Dandelion Gastehauser
+        </a>
+        <p id="site-footer-title">Ruhige Gastehauser und Apartments im Balaton-Oberland.</p>
+      </div>
+
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Unterkunfte">
+        <h2>Unterkunfte</h2>
+        <div class="dnd-site-footer__stay-columns">
+          {germanFooterStayColumns.map((column) => (
+            <ul>
+              {column.map((stay) => (
+                <li><a href={stay.href}>{stay.label}</a></li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Buchung">
+        <h2>Nutzliche Links</h2>
+        <ul>
+          {germanFooterNav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+          <li><a href={resolvedBookingHref}>Verfugbarkeit prufen</a></li>
+          <li><a href={resolvedBookingHref}>Jetzt buchen</a></li>
+        </ul>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Sprachen">
+        <h2>Sprachen</h2>
+        <ul>
+          {germanLanguageLinks.map((item) => (
+            <li class="dnd-site-footer__language-link"><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dnd-container dnd-site-footer__bottom">
+      <span>© Dandelion Gastehauser</span>
+    </div>
+  </footer>
+)}
+
+{!isGermanFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">
@@ -205,6 +297,7 @@ const englishLegalLinks = [
     <span>© {isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"}</span>
   </div>
 </footer>
+)}
 
 <style>
   .dnd-site-footer {
