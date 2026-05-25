@@ -6,45 +6,45 @@ export const vintageGermanPageData = createGermanAccommodationPage(vintageEnglis
   titleAccent: "Vintage",
   route: "/de/dandelion-vintage/",
   listingAnchor: "vintage-vendeghaz",
-  location: "Nemesgulacs",
-  region: "Balaton-Oberland - Nemesgulacs",
-  guests: "4-6 Gaeste",
-  character: "Gemutliches Haus mit eigenem Hof",
-  shortDescription: "Charaktervolles Ferienhaus in Nemesgulacs mit eigenem Hof und ruhiger Dorfstimmung.",
+  location: "Nemesgulács",
+  region: "Balaton-Oberland - Nemesgulács",
+  guests: "4-6 Gäste",
+  character: "Gemütliches Haus mit eigenem Hof",
+  shortDescription: "Charaktervolles Ferienhaus in Nemesgulács mit eigenem Hof und ruhiger Dorfstimmung.",
   lead:
-    "Dandelion Vintage ist eine warme, entspannte Unterkunft fuer Gaeste, die Balaton-Naehe und ruhige Dorfatmosphaere verbinden moechten.",
+    "Dandelion Vintage ist eine warme, entspannte Unterkunft für Gäste, die Balaton-Nähe und ruhige Dorfatmosphäre verbinden möchten.",
   longDescription: [
-    "Das Haus hat eine gemuetliche, persoenliche Stimmung und passt zu Familien, Paaren oder Freunden, die einige ruhige Tage zusammen verbringen moechten.",
-    "Der eigene Hof macht den Aufenthalt unkompliziert: draussen sitzen, langsam fruehstuecken und nach Ausfluegen wieder in eine ruhigere Umgebung zurueckkehren.",
-    "Nemesgulacs ist guenstig fuer Badacsony, Szigliget, Balaton-Strandtage und die kleineren Orte des Balaton-Oberlands."
+    "Das Haus hat eine gemütliche, persönliche Stimmung und passt zu Familien, Paaren oder Freunden, die einige ruhige Tage zusammen verbringen möchten.",
+    "Der eigene Hof macht den Aufenthalt unkompliziert: draußen sitzen, langsam frühstücken und nach Ausflügen wieder in eine ruhigere Umgebung zurückkehren.",
+    "Nemesgulács ist günstig für Badacsony, Szigliget, Balaton-Strandtage und die kleineren Orte des Balaton-Oberlands."
   ],
   facts: [
-    ["Gaeste", "4-6 Gaeste"],
+    ["Gäste", "4-6 Gäste"],
     ["Charakter", "Vintage-Stimmung"],
-    ["Aussenbereich", "eigener Hof"],
-    ["Lage", "Nemesgulacs"],
+    ["Außenbereich", "eigener Hof"],
+    ["Lage", "Nemesgulács"],
     ["Umgebung", "Balaton-Oberland und Badacsony"]
   ],
   experienceFacts: [
     ["Dorfstimmung", "ruhiger eigener Hof"],
-    ["Badacsony", "Wein und Ausfluege"],
+    ["Badacsony", "Wein und Ausflüge"],
     ["Balaton", "Strandtage in Reichweite"],
-    ["Gemeinsam reisen", "angenehm fuer Familien und Freunde"]
+    ["Gemeinsam reisen", "angenehm für Familien und Freunde"]
   ],
-  highlights: ["Eigener Hof", "Gemuetliche Innenraeume", "Kueche", "Klimaanlage", "Ruhige Dorfumgebung"],
+  highlights: ["Eigener Hof", "Gemütliche Innenräume", "Küche", "Klimaanlage", "Ruhige Dorfumgebung"],
   reasons: [
-    { iconKey: "home", title: "Charakter", text: "waermer als ein Standardapartment" },
-    { iconKey: "leaf", title: "Eigener Hof", text: "entspannte Stunden draussen" },
+    { iconKey: "home", title: "Charakter", text: "wärmer als ein Standardapartment" },
+    { iconKey: "leaf", title: "Eigener Hof", text: "entspannte Stunden draußen" },
     { iconKey: "grapes", title: "Badacsony", text: "Weinregion nah" },
     { iconKey: "balaton", title: "Balaton", text: "gut erreichbar" }
   ],
-  amenities: ["WLAN", "Kueche", "Klimaanlage", "Heizung", "Eigener Hof", "Parken"],
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Eigener Hof", "Parken"],
   mapBody:
-    "Vintage liegt in Nemesgulacs, ideal fuer Badacsony, Szigliget, Balaton-Strandtage und Ausfluege im Balaton-Oberland.",
+    "Vintage liegt in Nemesgulács, ideal für Badacsony, Szigliget, Balaton-Strandtage und Ausflüge im Balaton-Oberland.",
   mapBenefits: [
     { label: "Badacsony in Reichweite", icon: "grapes" },
     { label: "Ruhige Dorfumgebung", icon: "leaf" },
-    { label: "Balaton-Ausfluege", icon: "route" }
+    { label: "Balaton-Ausflüge", icon: "route" }
   ],
   relatedSlot: "vintage_card_image"
 });

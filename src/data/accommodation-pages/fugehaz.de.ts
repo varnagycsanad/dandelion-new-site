@@ -3,48 +3,48 @@ import { fugehazEnglishPageData } from "./fugehaz.en";
 
 export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglishPageData, {
   title: "Dandelion",
-  titleAccent: "Fugehaz",
+  titleAccent: "Fügeház",
   route: "/de/dandelion-fugehaz/",
   listingAnchor: "fugehaz",
-  location: "Szent Gyorgy-hegy",
+  location: "Szent György-hegy",
   region: "Balaton-Oberland - Panorama",
-  guests: "4-6 Gaeste",
+  guests: "4-6 Gäste",
   character: "Panoramahaus mit Terrasse und Hot Tub",
-  shortDescription: "Ruhiges Panoramahaus fuer 4-6 Gaeste nahe Szent Gyorgy-hegy.",
+  shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste nahe Szent György-hegy.",
   lead:
-    "Dandelion Fugehaz ist fuer Gaeste gemacht, die Aussicht, Terrassenzeit und eine ruhige Basis im Balaton-Oberland suchen.",
+    "Dandelion Fügeház ist für Gäste gemacht, die Aussicht, Terrassenzeit und eine ruhige Basis im Balaton-Oberland suchen.",
   longDescription: [
-    "Das Haus hat eine klare, entspannte Aufteilung und eignet sich gut fuer Familien, Paare oder Freunde, die ein paar ruhige Tage zusammen verbringen moechten.",
-    "Die Terrasse und die Aussicht praegen den Aufenthalt: morgens langsam starten, tagsueber die Umgebung erkunden und abends draussen sitzen.",
-    "Fugehaz gehoert zu den Unterkuenften mit Zugang zum gemeinsamen Panorama Poolbereich ab 1. Juni 2026."
+    "Das Haus hat eine klare, entspannte Aufteilung und eignet sich gut für Familien, Paare oder Freunde, die ein paar ruhige Tage zusammen verbringen möchten.",
+    "Die Terrasse und die Aussicht prägen den Aufenthalt: morgens langsam starten, tagsüber die Umgebung erkunden und abends draußen sitzen.",
+    "Fügeház gehört zu den Unterkünften mit Zugang zum gemeinsamen Panorama Poolbereich ab 1. Juni 2026."
   ],
   facts: [
-    ["Gaeste", "4-6 Gaeste"],
+    ["Gäste", "4-6 Gäste"],
     ["Charakter", "Panorama und Terrassen"],
-    ["Aussenbereich", "Terrasse und Hot Tub"],
-    ["Lage", "nahe Szent Gyorgy-hegy"],
+    ["Außenbereich", "Terrasse und Hot Tub"],
+    ["Lage", "nahe Szent György-hegy"],
     ["Pool", "gemeinsamer Panorama Poolbereich"]
   ],
   experienceFacts: [
-    ["Panorama", "Blick in die Huegellandschaft"],
-    ["Hot Tub", "entspannte Abende draussen"],
+    ["Panorama", "Blick in die Hügellandschaft"],
+    ["Hot Tub", "entspannte Abende draußen"],
     ["Gemeinsamer Pool", "ab 1. Juni 2026"],
     ["Umgebung", "Wein, Wandern und Balaton"]
   ],
   highlights: ["Panorama", "Terrasse", "Hot Tub", "Gemeinsamer Panorama Pool", "Ruhige Lage"],
   reasons: [
-    { iconKey: "terrace", title: "Aussicht", text: "Terrasse mit weitem Gefuehl" },
+    { iconKey: "terrace", title: "Aussicht", text: "Terrasse mit weitem Gefühl" },
     { iconKey: "pool", title: "Poolbereich", text: "gemeinsam mit D1 und D2" },
-    { iconKey: "grapes", title: "Weinregion", text: "kurze Wege zu Weinguetern" },
+    { iconKey: "grapes", title: "Weinregion", text: "kurze Wege zu Weingütern" },
     { iconKey: "home", title: "Ruhige Basis", text: "komfortabel und unkompliziert" }
   ],
-  amenities: ["WLAN", "Kueche", "Klimaanlage", "Heizung", "Terrasse", "Hot Tub", "Parken"],
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Hot Tub", "Parken"],
   mapBody:
-    "Fugehaz liegt im Balaton-Oberland nahe Szent Gyorgy-hegy, Badacsony, Tapolca und mehreren Aussichtspunkten.",
+    "Fügeház liegt im Balaton-Oberland nahe Szent György-hegy, Badacsony, Tapolca und mehreren Aussichtspunkten.",
   mapBenefits: [
-    { label: "Panorama und Huegel", icon: "trail" },
-    { label: "Weingueter in Reichweite", icon: "grapes" },
-    { label: "Balaton-Ausfluege", icon: "route" }
+    { label: "Panorama und Hügel", icon: "trail" },
+    { label: "Weingüter in Reichweite", icon: "grapes" },
+    { label: "Balaton-Ausflüge", icon: "route" }
   ],
   relatedSlot: "fugehaz_card_image"
 });

@@ -31,12 +31,12 @@ const defaultReviews = [
   },
   {
     source: "Google" as const,
-    quote: "Das Haus war sauber, gut ausgestattet und ideal fuer ein paar entspannte Tage im Balaton-Oberland.",
+    quote: "Das Haus war sauber, gut ausgestattet und ideal für ein paar entspannte Tage im Balaton-Oberland.",
     meta: "Gast - Google - 5/5"
   },
   {
     source: "Booking.com" as const,
-    quote: "Schnelle Kommunikation, schoene Umgebung und eine Unterkunft, in der man gut abschalten kann.",
+    quote: "Schnelle Kommunikation, schöne Umgebung und eine Unterkunft, in der man gut abschalten kann.",
     meta: "Gast - Booking.com - 9/10"
   }
 ];
@@ -44,37 +44,37 @@ const defaultReviews = [
 const relatedStays = [
   {
     name: "Dandelion D1",
-    meta: "6-8 Gaeste - Garten - Familienzeit",
+    meta: "6-8 Gäste - Garten - Familienzeit",
     href: "/de/dandelion-d1/",
     slot: "d1_card_image" as const
   },
   {
     name: "Dandelion D2",
-    meta: "4-6 Gaeste - Terrasse - Panorama Pool",
+    meta: "4-6 Gäste - Terrasse - Panorama Pool",
     href: "/de/dandelion-d2/",
     slot: "d2_card_image" as const
   },
   {
-    name: "Dandelion Fugehaz",
-    meta: "4-6 Gaeste - Panorama - ruhige Lage",
+    name: "Dandelion Fügeház",
+    meta: "4-6 Gäste - Panorama - ruhige Lage",
     href: "/de/dandelion-fugehaz/",
     slot: "fugehaz_card_image" as const
   },
   {
-    name: "Dandelion Zsalya",
-    meta: "2-4 Gaeste - Terrasse - naturnah",
+    name: "Dandelion Zsálya",
+    meta: "2-4 Gäste - Terrasse - naturnah",
     href: "/de/dandelion-zsalya/",
     slot: "zsalya_card_image" as const
   },
   {
-    name: "Dandelion Szololiget",
-    meta: "2-4 Gaeste - Weinberge - Ausblick",
+    name: "Dandelion Szőlőliget",
+    meta: "2-4 Gäste - Weinberge - Ausblick",
     href: "/de/szololiget/",
     slot: "szololiget_card_image" as const
   },
   {
-    name: "Dandelion Szepvolgyi",
-    meta: "bis 8 Gaeste - Balaton-Panorama",
+    name: "Dandelion Szépvölgyi",
+    meta: "bis 8 Gäste - Balaton-Panorama",
     href: "/de/szepvolgyi/",
     slot: "szepvolgyi_card_image" as const
   },
@@ -91,7 +91,7 @@ const relatedStays = [
     slot: "vintage_card_image" as const
   },
   {
-    name: "Dandelion Koveskal",
+    name: "Dandelion Köveskál",
     meta: "Kali-Becken - Dorfstimmung - Auszeit",
     href: "/de/dandelion-koveskal/",
     slot: "koveskal_card_image" as const
@@ -104,7 +104,7 @@ export function createGermanAccommodationPage(
 ): AccommodationPageData {
   return {
     seo: {
-      title: `${profile.title} | Dandelion Unterkuenfte am Balaton`,
+      title: `${profile.title} | Dandelion Unterkünfte am Balaton`,
       description: profile.shortDescription
     },
     bookingLink: "/de/kontakt/",
@@ -117,16 +117,16 @@ export function createGermanAccommodationPage(
       subtitle: profile.character,
       lead: profile.lead,
       supportingLink: {
-        label: "Zur Unterkunftsuebersicht",
+        label: "Zur Unterkunftsübersicht",
         href: "/de/unterkuenfte/"
       },
       poolHighlight: baseData.hero.poolHighlight
         ? {
             enabled: true,
             label: "Gemeinsamer Panorama Pool",
-            text: "Bei D1, D2 und Fugehaz ist der gemeinsame Panorama Pool Teil des Aufenthalts.",
+            text: "Bei D1, D2 und Fügeház ist der gemeinsame Panorama Pool Teil des Aufenthalts.",
             href: "/de/unterkuenfte/",
-            ctaLabel: "Unterkuenfte vergleichen",
+            ctaLabel: "Unterkünfte vergleichen",
             variant: "strong"
           }
         : undefined,
@@ -134,9 +134,9 @@ export function createGermanAccommodationPage(
       secondaryCtaLabel: "Fotos ansehen"
     },
     reviews: {
-      kicker: "Gaestebewertungen",
-      title: "Was Gaeste sagen",
-      intro: "Rueckmeldungen von Google und Booking.com",
+      kicker: "Gästebewertungen",
+      title: "Was Gäste sagen",
+      intro: "Rückmeldungen von Google und Booking.com",
       mobileSummaryLabel: "Weitere Bewertungen",
       mobileHighlightedAriaLabel: "Hervorgehobene Google-Bewertung",
       mobileMoreGoogleAriaLabel: "Weitere Google-Bewertungen",
@@ -153,12 +153,12 @@ export function createGermanAccommodationPage(
       title: `${profile.title} in ${profile.location}`,
       shortDescription: profile.shortDescription,
       supportingLink: {
-        label: "Zur deutschen Unterkunftsuebersicht.",
+        label: "Zur deutschen Unterkunftsübersicht.",
         href: "/de/unterkuenfte/"
       },
       longDescription: profile.longDescription,
-      moreLabel: `Mehr ueber ${profile.title}`,
-      ctaLabel: "Verfuegbarkeit anfragen"
+      moreLabel: `Mehr über ${profile.title}`,
+      ctaLabel: "Verfügbarkeit anfragen"
     },
     facts: {
       groups: [
@@ -177,9 +177,9 @@ export function createGermanAccommodationPage(
       highlights: profile.highlights.map((label) => ({ label, icon: "home" }))
     },
     decisionPanel: {
-      overviewTitle: "Kurzueberblick",
+      overviewTitle: "Kurzüberblick",
       overviewFacts: [
-        { iconKey: "guests", title: profile.guests, text: "Kapazitaet" },
+        { iconKey: "guests", title: profile.guests, text: "Kapazität" },
         ...profile.facts.slice(1, 5).map(([title, text]) => ({ iconKey: "home", title, text }))
       ],
       featuredExperience: {
@@ -195,9 +195,9 @@ export function createGermanAccommodationPage(
     gallery: {
       kicker: "Galerie",
       title: `Ein Blick in ${profile.title}`,
-      moreHint: "Klicken Sie auf ein Foto fuer mehr Bilder",
-      defaultHint: "Galeriebilder koennen geoeffnet werden",
-      emptyMessage: `Die Galerie von ${profile.title} hat derzeit keine verfuegbaren Bilder.`,
+      moreHint: "Klicken Sie auf ein Foto für mehr Bilder",
+      defaultHint: "Galeriebilder können geöffnet werden",
+      emptyMessage: `Die Galerie von ${profile.title} hat derzeit keine verfügbaren Bilder.`,
       previewCount: baseData.gallery.previewCount
     },
     map: {
@@ -211,20 +211,20 @@ export function createGermanAccommodationPage(
     },
     lightbox: {
       galleryAriaLabel: `${profile.title} Galerie`,
-      closeAriaLabel: "Galerie schliessen",
+      closeAriaLabel: "Galerie schließen",
       previousAriaLabel: "Vorheriges Bild",
-      nextAriaLabel: "Naechstes Bild"
+      nextAriaLabel: "Nächstes Bild"
     },
     labels: {
       googleLogoAlt: "Google Bewertung",
       bookingLogoAlt: "Booking.com Bewertung",
-      galleryOpenAriaLabel: "Galeriebild oeffnen",
+      galleryOpenAriaLabel: "Galeriebild öffnen",
       galleryHoverLabel: "Foto ansehen"
     },
     relatedStays: {
-      kicker: "Weitere Unterkuenfte",
-      title: "Weitere Dandelion Unterkuenfte",
-      intro: "Vergleichen Sie weitere Haeuser und Regionen rund um den Balaton.",
+      kicker: "Weitere Unterkünfte",
+      title: "Weitere Dandelion Unterkünfte",
+      intro: "Vergleichen Sie weitere Häuser und Regionen rund um den Balaton.",
       items: relatedStays
         .filter((stay) => stay.href !== profile.route)
         .slice(0, 5)

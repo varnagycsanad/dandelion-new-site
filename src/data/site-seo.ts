@@ -8,9 +8,9 @@ export const SITE_DEFAULT_DESCRIPTION =
 export const SITE_DEFAULT_DESCRIPTION_EN =
   "Nature-focused guesthouses in the Balaton Uplands, close to Szent György Hill, Badacsony, Lake Balaton and the Káli Basin.";
 export const SITE_DEFAULT_DESCRIPTION_DE =
-  "Naturverbundene Gastehauser im Balaton-Oberland, nahe Szent Gyorgy-hegy, Badacsony, Balaton und Kali-Becken.";
+  "Naturverbundene Gästehäuser im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Balaton und Káli-Becken.";
 export const SITE_DEFAULT_DESCRIPTION_CS =
-  "Klidne penziony a apartmany v okoli Balatonu, u Szent Gyorgy-hegy, Badacsonye, Keszthelye a v oblasti Kali.";
+  "Klidne penziony a apartmany v okoli Balatonu, u Szent György-hegy, Badacsonye, Keszthelye a v oblasti Káli.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
