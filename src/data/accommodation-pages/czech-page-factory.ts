@@ -88,12 +88,12 @@ export function createCzechAccommodationPage(
     },
     reviews: {
       kicker: "Hodnocení hostů",
-      title: "Co rikaji hoste",
-      intro: "Zpetna vazba z Google a Booking.com",
-      mobileSummaryLabel: "Dalsi hodnoceni",
-      mobileHighlightedAriaLabel: "Vybrane hodnoceni Google",
-      mobileMoreGoogleAriaLabel: "Dalsi hodnoceni Google",
-      mobileBookingAriaLabel: "Hodnoceni Booking.com",
+      title: "Co říkají hosté",
+      intro: "Zpětná vazba z Google a Booking.com",
+      mobileSummaryLabel: "Další hodnocení",
+      mobileHighlightedAriaLabel: "Vybrané hodnocení Google",
+      mobileMoreGoogleAriaLabel: "Další hodnocení Google",
+      mobileBookingAriaLabel: "Hodnocení Booking.com",
       items: defaultReviews
     },
     intro: {
@@ -110,21 +110,21 @@ export function createCzechAccommodationPage(
         href: "/cs/ubytovani/"
       },
       longDescription: profile.longDescription,
-      moreLabel: `Vice o ${profile.title}`,
+      moreLabel: `Více o ${profile.title}`,
       ctaLabel: "Zeptat se na dostupnost"
     },
     facts: {
       groups: [
-        { title: "Dulezite detaily", items: profile.facts },
+        { title: "Důležité detaily", items: profile.facts },
         { title: "Zážitky v okolí", items: profile.experienceFacts }
       ]
     },
     features: {
-      title: "Vybaveni",
+      title: "Vybavení",
       highlights: profile.highlights.map((label) => ({ label, icon: "home" }))
     },
     decisionPanel: {
-      overviewTitle: "Rychly prehled",
+      overviewTitle: "Rychlý přehled",
       overviewFacts: [
         { iconKey: "guests", title: profile.guests, text: "Kapacita" },
         ...profile.facts.slice(1, 5).map(([title, text]) => ({ iconKey: "home", title, text }))
@@ -135,43 +135,43 @@ export function createCzechAccommodationPage(
         text: profile.shortDescription,
         iconKey: "leaf"
       },
-      reasonsTitle: "Proc se vam tu bude libit",
+      reasonsTitle: "Proč se vám tu bude líbit",
       reasons: profile.reasons
     },
     amenities: profile.amenities.map((title) => ({ iconKey: "home", title })),
     gallery: {
       kicker: "Galerie",
-      title: `Nahled do ${profile.title}`,
-      moreHint: "Kliknutim na fotografii otevreme dalsi snimky",
+      title: `Náhled do ${profile.title}`,
+      moreHint: "Kliknutím na fotografii otevřeme další snímky",
       defaultHint: "Fotografie v galerii lze otevrit",
-      emptyMessage: `Galerie ${profile.title} momentalne nema dostupne fotografie.`,
+      emptyMessage: `Galerie ${profile.title} momentálně nemá dostupné fotografie.`,
       previewCount: baseData.gallery.previewCount
     },
     map: {
       kicker: profile.region,
-      title: `Okoli ${profile.title}`,
+      title: `Okolí ${profile.title}`,
       body: profile.mapBody,
-      benefitsAriaLabel: "Vyhody polohy",
+      benefitsAriaLabel: "Výhody polohy",
       benefits: profile.mapBenefits,
       embedSrc: baseData.map.embedSrc,
-      embedTitle: `Mapa okoli ${profile.title}`
+      embedTitle: `Mapa okolí ${profile.title}`
     },
     lightbox: {
       galleryAriaLabel: `${profile.title} galerie`,
-      closeAriaLabel: "Zavrit galerii",
-      previousAriaLabel: "Predchozi fotografie",
-      nextAriaLabel: "Dalsi fotografie"
+      closeAriaLabel: "Zavřít galerii",
+      previousAriaLabel: "Předchozí fotografie",
+      nextAriaLabel: "Další fotografie"
     },
     labels: {
-      googleLogoAlt: "Hodnoceni Google",
-      bookingLogoAlt: "Hodnoceni Booking.com",
-      galleryOpenAriaLabel: "Otevrit fotografii v galerii",
+      googleLogoAlt: "Hodnocení Google",
+      bookingLogoAlt: "Hodnocení Booking.com",
+      galleryOpenAriaLabel: "Otevřít fotografii v galerii",
       galleryHoverLabel: "Zobrazit fotografii"
     },
     relatedStays: {
       kicker: "Další ubytování",
       title: "Další Dandelion ubytování",
-      intro: "Porovnejte dalsi domy a oblasti kolem Balatonu.",
+      intro: "Porovnejte další domy a oblasti kolem Balatonu.",
       items: relatedStays
         .filter((stay) => stay.href !== profile.route)
         .slice(0, 5)

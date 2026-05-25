@@ -10,15 +10,15 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
   guests: "4-6 hostů",
   character: "RODINNE UBYTOVANI SE ZAHRADOU A TERASOU",
   shortDescription: "Světlý a klidný dům pro rodiny, s velkou zahradou, krytou terasou a dobrou polohou pro balatonské dny.",
-  lead: "Dandelion D2 je klidná základna u Szent György-hegy. Hodi se pro rodiny, ktere chteji zahradu, terasu, jednoduché vareni a krátké výlety k Balatonu, do vinic nebo na vyhlidky.",
+  lead: "Dandelion D2 je klidná základna u Szent György-hegy. Hodí se pro rodiny, které chtějí zahradu, terasu, jednoduché vaření a krátké výlety k Balatonu, do vinic nebo na vyhlídky.",
   longDescription: [
-    "Otevreny obytny prostor, prakticka kuchyně a krytá terasa davaji domu pomaly rytmus. Rano muze zacit venku u stolu, den pokracuje v kopcich nebo u vody a večer se vraci do zahrady.",
-    "Velka zahrada je prirozene misto pro deti, grilovani i odpocinek. Ubytování zustava jednoduché na pouzivani, ale pritom ma dost prostoru pro delsi pobyt.",
+    "Otevřený obytný prostor, praktická kuchyně a krytá terasa dávají domu pomalý rytmus. Ráno může začít venku u stolu, den pokračuje v kopcích nebo u vody a večer se vrací do zahrady.",
+    "Velká zahrada je přirozené místo pro děti, grilování i odpočinek. Ubytování zůstává jednoduché na používání, ale přitom má dost prostoru pro delší pobyt.",
     "Panorama Pool je společný pro hosty D1, D2 a Fügeház od 1. června 2026. Neni to soukromy bazén pouze pro D2.",
-    "Balaton, turisticke trasy Szent György-hegy a vinařstvi v okolí jsou dostupné krátkou jízdou."
+    "Balaton, turistické trasy Szent György-hegy a vinařství v okolí jsou dostupné krátkou jízdou."
   ],
-  facts: [["Hosté", "4-6 hostů"], ["Terasa", "krytá terasa a posezení v zahrade"], ["Zahrada", "velka a dobře vyuzitelna"], ["Kuchyně", "prakticky vybavena"]],
-  experienceFacts: [["Panorama Pool", "společný pro D1, D2 a Fügeház od 1. června 2026"], ["Venkovní čas", "zahrada, terasa, gril"], ["Pro deti", "prostor a přírodní atmosfera"], ["V okolí", "Balaton, trasy, vinařství"]],
+  facts: [["Hosté", "4-6 hostů"], ["Terasa", "krytá terasa a posezení v zahradě"], ["Zahrada", "velká a dobře využitelná"], ["Kuchyně", "prakticky vybavená"]],
+  experienceFacts: [["Panorama Pool", "společný pro D1, D2 a Fügeház od 1. června 2026"], ["Venkovní čas", "zahrada, terasa, gril"], ["Pro děti", "prostor a přírodní atmosféra"], ["V okolí", "Balaton, trasy, vinařství"]],
   highlights: ["Krytá terasa", "Velka zahrada", "Klimatizace", "Kuchyně", "Společný Panorama Pool", "Grilovani venku"],
   reasons: [
     { iconKey: "terrace", title: "Rana venku", text: "terasa a zahrada" },
@@ -27,6 +27,6 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
     { iconKey: "home", title: "Klidná základna", text: "pro rodinný pobyt" }
   ],
   amenities: ["Wi-Fi", "Klimatizace", "Kuchyně", "Koupelna", "Topení", "Zahradni posezení", "Gril", "Parkování"],
-  mapBody: "Dandelion D2 lezi v klidné časti u Szent György-hegy. Odtud se da dobře vyrazit k Balatonu, do Tapolcai-medence i mezi vinice.",
+  mapBody: "Dandelion D2 leží v klidné části u Szent György-hegy. Odtud se dá dobře vyrazit k Balatonu, do Tapolcai-medence i mezi vinice.",
   mapBenefits: [{ label: "Turisticke trasy poblíž", icon: "trail" }, { label: "Vinařská oblast", icon: "grapes" }, { label: "Balaton krátkou jízdou", icon: "route" }]
 });
