@@ -26,8 +26,9 @@ A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese u
    - Csak letezo nemet oldalak kapnak aktiv linket.
 
 4. Nemet szallasadatok elokeszitese.
-   - Allapot: kovetkezo lepes.
-   - A cel a szallasoldalak adatmodelljenek DE mezokkel valo bovitesese, torott route-ok nelkul.
+   - Allapot: technikai alap kesz.
+   - A shared accommodation template es a kep-szoveg lokalizacios tipus mar fogadja a `de` locale-t.
+   - Egyedi, indexelheto nemet szallasoldalak meg nincsenek megnyitva.
 
 5. Egyedi nemet szallasoldalak letrehozasa.
    - Allapot: kesobb.
