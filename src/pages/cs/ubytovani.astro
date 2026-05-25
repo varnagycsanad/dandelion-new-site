@@ -1,0 +1,230 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { accommodations } from "../../data/accommodations";
+
+const stayCopy: Record<string, { name: string; location: string; description: string; facts: string[] }> = {
+  "dandelion-d2": {
+    name: "Dandelion D2",
+    location: "Kisapati / Balatonska vrchovina",
+    description: "Svetly rodinny dum pro 4-6 hostu s velkou zahradou, terasou a klidnym okolim.",
+    facts: ["4-6 hostu", "2 loznice + obytny prostor", "Zahrada", "Klimatizace"]
+  },
+  fugehaz: {
+    name: "Dandelion Fugehaz",
+    location: "U Szent Gyorgy-hegy",
+    description: "Panoramaticky dum pro 4-6 hostu s terasami a prijemnym rozvrzenim pro rodiny.",
+    facts: ["4-6 hostu", "2 podlazi", "Panorama", "Hot tub"]
+  },
+  "dandelion-d1": {
+    name: "Dandelion D1",
+    location: "Kisapati / Balatonska vrchovina",
+    description: "Prostorny penzion pro 6-8 hostu se tremi loznicemi, zahradou a terasou.",
+    facts: ["6-8 hostu", "3 loznice", "2 koupelny", "Terasa"]
+  },
+  "szololiget-vendeghaz": {
+    name: "Dandelion Szololiget",
+    location: "Kisapati / Szent Gyorgy-hegy",
+    description: "Samostatny dum pro 2-4 hosty s terasou, vyhledem a klidnou polohou ve svahu.",
+    facts: ["2-4 hoste", "1 loznice + obytny prostor", "Terasa", "Vyhled"]
+  },
+  "zsalya-vendeghaz": {
+    name: "Dandelion Zsalya",
+    location: "Kisapati / Szent Gyorgy-hegy",
+    description: "Klidny samostatny penzion pro 4 hosty s krytou terasou a prirodni atmosferou.",
+    facts: ["2-4 hoste", "2 loznice", "Kryta terasa", "Klimatizace"]
+  },
+  "vintage-vendeghaz": {
+    name: "Dandelion Vintage",
+    location: "Nemesgulacs / Balatonska vrchovina",
+    description: "Utulny penzion s vlastnim dvorem a dobrou polohou pro vylety kolem Balatonu.",
+    facts: ["Penzion", "2 loznice", "Vlastni dvur", "Nemesgulacs"]
+  },
+  "royal-homes": {
+    name: "Dandelion Royal Homes",
+    location: "Keszthely / Balaton",
+    description: "Apartman blizko vody s terasou a pohodlnym vybavenim pro balatonske dny.",
+    facts: ["4-6 hostu", "Blizko vody", "2 loznice + obytny prostor", "Keszthely"]
+  },
+  "szepvolgyi-vendeghaz": {
+    name: "Dandelion Szepvolgyi",
+    location: "Badacsonyors / Balaton",
+    description: "Velky dovolenkovy dum az pro 8 hostu s vyhledem na Balaton a dostatkem prostoru.",
+    facts: ["8 hostu", "4 loznice", "Balatonske panorama", "2 koupelny"]
+  },
+  "dandelion-koveskal": {
+    name: "Dandelion Koveskal",
+    location: "Koveskal / oblast Kali",
+    description: "Klidny penzion v oblasti Kali, vhodny pro pomale dny a male vylety po okoli.",
+    facts: ["Penzion", "Oblast Kali", "Klidna vesnice", "Dotaz pres kontakt"]
+  }
+};
+
+const detailHrefBySlug: Record<string, string> = {
+  "dandelion-d1": "/cs/dandelion-d1/",
+  "dandelion-d2": "/cs/dandelion-d2/",
+  fugehaz: "/cs/dandelion-fugehaz/",
+  "zsalya-vendeghaz": "/cs/dandelion-zsalya/",
+  "szololiget-vendeghaz": "/cs/szololiget/",
+  "szepvolgyi-vendeghaz": "/cs/szepvolgyi/",
+  "royal-homes": "/cs/royal/",
+  "vintage-vendeghaz": "/cs/dandelion-vintage/",
+  "dandelion-koveskal": "/cs/dandelion-koveskal/"
+};
+---
+
+<BaseLayout
+  title="Ubytovani u Balatonu | Dandelion"
+  description="Dandelion ubytovani v Balatonske vrchovine, u Badacsonye, Keszthelye a v oblasti Kali."
+  canonicalPath="/cs/ubytovani/"
+  lang="cs"
+  ogLocale="cs_CZ"
+>
+  <section class="cs-stays">
+    <div class="dnd-container cs-stays__inner">
+      <div class="cs-stays__hero">
+        <span class="cs-stays__eyebrow">Ubytovani</span>
+        <h1>Dandelion domy a apartmany kolem Balatonu.</h1>
+        <p>
+          Prehled ceskych ubytovani pomaha vybrat spravnou oblast, velikost domu a atmosferu
+          pobytu. Kazda karta vede na samostatnou ceskou detailni stranku.
+        </p>
+      </div>
+
+      <div class="cs-stays__grid">
+        {accommodations.map((stay) => {
+          const copy = stayCopy[stay.slug];
+          return (
+            <article class="cs-stay-card" id={stay.slug}>
+              <span class="cs-stay-card__location">{copy.location}</span>
+              <h2>{copy.name}</h2>
+              <p>{copy.description}</p>
+              <ul>
+                {copy.facts.map((fact) => (
+                  <li>{fact}</li>
+                ))}
+              </ul>
+              <a href={detailHrefBySlug[stay.slug] ?? "/cs/kontakt/"}>
+                {detailHrefBySlug[stay.slug] ? "Zobrazit detail" : "Poslat dotaz"}
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cs-stays {
+    padding: 132px 0 88px;
+    background: #fcfbf8;
+  }
+
+  .cs-stays__inner {
+    display: grid;
+    gap: 34px;
+  }
+
+  .cs-stays__hero {
+    max-width: 860px;
+  }
+
+  .cs-stays__eyebrow,
+  .cs-stay-card__location {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #b67b20;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .cs-stays h1 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .cs-stays__hero p,
+  .cs-stay-card p {
+    color: rgba(38, 29, 22, 0.76);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .cs-stays__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .cs-stay-card {
+    display: grid;
+    gap: 12px;
+    padding: 22px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
+  }
+
+  .cs-stay-card h2 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .cs-stay-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cs-stay-card li {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: #f7f2ea;
+    color: rgba(38, 29, 22, 0.78);
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+  }
+
+  .cs-stay-card a {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: #d99e2b;
+    color: #1b140f;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 980px) {
+    .cs-stays__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .cs-stays {
+      padding: 108px 0 64px;
+    }
+
+    .cs-stays__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
