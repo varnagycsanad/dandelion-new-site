@@ -1,136 +1,309 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../sections/Hero.astro";
+import RegionStories from "../../sections/RegionStories.astro";
+import Experiences from "../../sections/Experiences.astro";
+import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
+import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
+import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
+import mountainsImage from "../../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
+import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
+import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
+import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
+import galleryD2Image from "../../assets/accommodations/d2/gallery/dandelion-d2-source-002.webp";
+import galleryFugehazImage from "../../assets/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp";
+import galleryRoyalImage from "../../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
 
-const bookingContactHref = "/de/kontakt/";
+const deTitle = "Dandelion Gastehauser | Unterkuenfte am Balaton";
+const deDescription =
+  "Ruhige Gastehauser und Apartments im Balaton-Oberland, nahe Szent Gyorgy-hegy, Badacsony, Keszthely und dem Kali-Becken.";
+
+const germanRegionStories = [
+  {
+    kicker: "Kisapati - Szent Gyorgy-hegy - Tapolca-Becken",
+    title: "Zwischen den Zeugenbergen",
+    description: "Weinreihen, ruhige Wege und langsame Morgen praegen diese Seite des Balaton-Oberlands.",
+    meta: "Eine ruhige Basis nahe Szent Gyorgy-hegy.",
+    ctaLabel: "Unterkuenfte an den Huegeln ansehen",
+    mobileCtaLabel: "Huegel-Unterkuenfte",
+    ctaHref: "/de/unterkuenfte/#balaton-uplands",
+    image: kisapatiStoryImage,
+    imageAlt: "Kisapati und Zeugenberge im Balaton-Oberland"
+  },
+  {
+    kicker: "Keszthely - Badacsonyors - Balaton",
+    title: "Nah am See",
+    description: "Leichte Balaton-Tage, Uferorte und Sommerabende mit dem ruhigeren Dandelion Rhythmus.",
+    meta: "Fuer Gaeste, die den Balaton nahe haben moechten.",
+    ctaLabel: "Unterkuenfte am Balaton ansehen",
+    mobileCtaLabel: "Balaton-Unterkuenfte",
+    ctaHref: "/de/unterkuenfte/#near-lake-balaton",
+    image: balatonStoryImage,
+    imageAlt: "Dandelion Unterkunft nahe dem Balaton"
+  },
+  {
+    kicker: "Koveskal - Kali-Becken",
+    title: "Die ruhigere Kali-Seite",
+    description: "Steinmauern, Dorfstrassen und ein weicheres Tempo fuer zurueckgezogene Tage.",
+    meta: "Gut fuer langsame Tage, Weinwege und Dorfspaziergaenge.",
+    ctaLabel: "Unterkunft im Kali-Becken ansehen",
+    mobileCtaLabel: "Kali-Becken",
+    ctaHref: "/de/unterkuenfte/#kali-medence",
+    image: kaliStoryImage,
+    imageAlt: "Kali-Becken Landschaft nahe Koveskal"
+  }
+];
+
+const germanExperiences = [
+  {
+    title: "RADFAHREN",
+    description: "Dorfstrassen, Weinberge und sanfte Huegel fuer leichte Touren.",
+    image: bikingImage,
+    imageAlt: "Radroute im Balaton-Oberland",
+    href: "/de/fahrradverleih/"
+  },
+  {
+    title: "WEIN UND GASTRONOMIE",
+    description: "Keller, Terrassen und kleine Stopps rund um die Huegel.",
+    image: wineTourImage,
+    imageAlt: "Wein und Gastronomie im Balaton-Oberland",
+    href: "/de/weingueter/"
+  },
+  {
+    title: "BALATON",
+    description: "Straende, Uferorte und einfache Sommerprogramme in der Naehe.",
+    image: balatonImage,
+    imageAlt: "Badacsony und Balaton Panorama",
+    href: "/de/balaton/"
+  },
+  {
+    title: "ZEUGENBERGE",
+    description: "Aussichtspunkte und Wege rund um Szent Gyorgy-hegy und Badacsony.",
+    image: mountainsImage,
+    imageAlt: "Zeugenberge im Balaton-Oberland",
+    href: "/de/zeugenberge/"
+  }
+];
+
+const galleryItems = [
+  {
+    image: galleryD2Image,
+    alt: "Dandelion D2 Terrasse mit Sitzbereich",
+    label: "Dandelion D2"
+  },
+  {
+    image: galleryFugehazImage,
+    alt: "Fugehaz Terrasse in ruhiger Umgebung",
+    label: "Fugehaz"
+  },
+  {
+    image: galleryRoyalImage,
+    alt: "Dandelion Royal Homes Apartment nahe dem Balaton",
+    label: "Dandelion Royal Homes"
+  }
+];
 ---
 
 <BaseLayout
-  title="Dandelion Gastehauser | Unterkunfte am Balaton"
-  description="Ruhige Gastehauser und Apartments im Balaton-Oberland, bei Badacsony, Szent Gyorgy-hegy, Keszthely und im Kali-Becken."
+  title={deTitle}
+  description={deDescription}
   canonicalPath="/de/"
   lang="de"
   ogLocale="de_DE"
 >
-  <section class="de-home">
-    <div class="dnd-container de-home__inner">
-      <div class="de-home__copy">
-        <span class="de-home__eyebrow">Dandelion Gastehauser</span>
-        <h1>Ruhige Orte zum Ankommen rund um den Balaton.</h1>
-        <p>
-          Naturverbundene Gastehauser und Apartments im Balaton-Oberland, nahe Szent Gyorgy-hegy,
-          Badacsony, Keszthely und dem Kali-Becken.
-        </p>
-        <div class="de-home__actions">
-          <a class="de-home__cta de-home__cta--primary" href="/de/unterkuenfte/">Unterkunfte ansehen</a>
-          <a class="de-home__cta" href={bookingContactHref}>Kontakt aufnehmen</a>
-        </div>
-      </div>
+  <Hero
+    titleTopLines={["Ruhige", "Gastehauser"]}
+    titleBottomLines={["nahe", "dem Balaton"]}
+    description="Naturverbundene Unterkuenfte im Balaton-Oberland, nahe Szent Gyorgy-hegy und Badacsony."
+    ctas={[
+      { label: "Unterkuenfte ansehen", href: "/de/unterkuenfte/" },
+      { label: "Kontakt aufnehmen", href: "/de/kontakt/" }
+    ]}
+    videoFallbackText="Ihr Browser unterstuetzt keine Hintergrundvideos."
+  />
 
-      <div class="de-home__panel" aria-label="Dandelion Kurzuberblick">
-        <span>Direkter Kontakt</span>
-        <strong>Wir helfen bei der Auswahl des passenden Hauses.</strong>
+  <section class="de-home-intro dnd-section" aria-labelledby="german-home-intro-title">
+    <div class="dnd-container de-home-intro__inner">
+      <span class="dnd-section-kicker">Dandelion Gastehauser</span>
+      <h2 id="german-home-intro-title">Ruhige Orte mit Garten, Terrasse und Raum zum Ankommen.</h2>
+      <p>
+        Dandelion ist fuer Gaeste, die den Balaton nah haben moechten, aber nicht die Hektik:
+        familienfreundliche Haeuser, Apartments mit Aussenbereichen und ein ruhiger laendlicher
+        Rhythmus rund um das Balaton-Oberland.
+      </p>
+    </div>
+  </section>
+
+  <RegionStories
+    kickerLabel="Unterkuenfte"
+    heading="Ein Dandelion Gefuehl, drei Landschaften"
+    lead="Waehlen Sie zwischen Zeugenbergen, Balaton-Tagen und den ruhigeren Doerfern des Kali-Beckens."
+    stories={germanRegionStories}
+  />
+
+  <Experiences
+    sectionId="experiences"
+    title="ERLEBNISSE"
+    lead="Radfahren, Wein, Balaton und Spaziergaenge an den Huegeln im leichten Rhythmus der Region."
+    ctaLabel="ERLEBNISSE PLANEN"
+    ctaHref="/de/erlebnisse/"
+    mobileCtaLabel="MEHR"
+    experiences={germanExperiences}
+  />
+
+  <section id="gallery" class="de-home-gallery dnd-section" aria-labelledby="german-gallery-title">
+    <div class="dnd-container">
+      <div class="de-home-gallery__head">
+        <span class="dnd-section-kicker">Galerie</span>
+        <h2 id="german-gallery-title">Ein erster Blick auf die Dandelion Stimmung.</h2>
+        <p>Terrassen, Gaerten und ruhige Innenraeume aus der Dandelion Welt.</p>
+      </div>
+      <div class="de-home-gallery__grid">
+        {galleryItems.map((item) => (
+          <figure class="de-home-gallery__item">
+            <img
+              src={item.image.src}
+              alt={item.alt}
+              width={item.image.width}
+              height={item.image.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{item.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="de-home-booking dnd-section" aria-labelledby="german-booking-title">
+    <div class="dnd-container de-home-booking__inner">
+      <div>
+        <span class="dnd-section-kicker">Direkter Kontakt</span>
+        <h2 id="german-booking-title">Fragen Sie direkt, waehlen Sie in Ruhe.</h2>
         <p>
-          Die vollstandige deutsche Version wird schrittweise erweitert. Die wichtigsten
-          Informationen zu Unterkunft und Kontakt sind zuerst verfugbar.
+          Wir helfen bei der Auswahl des passenden Hauses, bei Anreisefragen, Lage, Kapazitaet und
+          allem, was vor der Buchung wichtig ist.
         </p>
       </div>
+      <a class="de-home-booking__cta" href="/de/kontakt/">Kontakt aufnehmen</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .de-home {
-    padding: 132px 0 88px;
-    background: linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
+  .de-home-intro {
+    padding: 64px 0 34px;
+    background: #fdfbf7;
   }
 
-  .de-home__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-    gap: clamp(28px, 5vw, 64px);
-    align-items: center;
+  .de-home-intro__inner {
+    max-width: 760px;
+    text-align: center;
   }
 
-  .de-home__copy {
-    max-width: 780px;
-  }
-
-  .de-home__eyebrow,
-  .de-home__panel span {
-    display: inline-block;
-    margin-bottom: 12px;
-    color: #b67b20;
-    font-size: var(--dnd-text-2xs);
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .de-home h1 {
-    margin: 0;
-    color: #261d16;
+  .de-home-intro h2,
+  .de-home-gallery h2,
+  .de-home-booking h2 {
+    margin: 10px 0 0;
     font-family: var(--dnd-font-display);
-    font-size: clamp(2.35rem, 5vw, 4.8rem);
-    font-weight: 500;
-    line-height: 1.03;
+    font-size: clamp(1.65rem, 2.7vw, 2.45rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: rgba(0, 0, 0, 0.86);
   }
 
-  .de-home p {
-    color: rgba(38, 29, 22, 0.76);
-    font-size: var(--dnd-text-body);
+  .de-home-intro p,
+  .de-home-gallery p,
+  .de-home-booking p {
+    margin: 16px auto 0;
+    max-width: 64ch;
+    color: rgba(0, 0, 0, 0.68);
     line-height: 1.72;
   }
 
-  .de-home__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
+  .de-home-gallery {
+    background: #fdfbf7;
   }
 
-  .de-home__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 0 20px;
-    border: 1px solid rgba(38, 29, 22, 0.16);
-    border-radius: 999px;
+  .de-home-gallery__head {
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+
+  .de-home-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .de-home-gallery__item {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #eee6da;
+  }
+
+  .de-home-gallery__item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .de-home-gallery__item figcaption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
     color: #261d16;
+    font-size: var(--dnd-text-xs);
     font-weight: 700;
-    text-decoration: none;
   }
 
-  .de-home__cta--primary {
-    border-color: #d99e2b;
-    background: #d99e2b;
-    color: #1b140f;
+  .de-home-booking {
+    background: #f6f0e7;
   }
 
-  .de-home__panel {
+  .de-home-booking__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
     padding: 28px;
     border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
   }
 
-  .de-home__panel strong {
-    display: block;
-    color: #261d16;
-    font-family: var(--dnd-font-display);
-    font-size: 1.8rem;
-    font-weight: 500;
-    line-height: 1.16;
+  .de-home-booking__inner p {
+    margin-left: 0;
   }
 
-  @media (max-width: 760px) {
-    .de-home {
-      padding: 108px 0 64px;
+  .de-home-booking__cta {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 22px;
+    border-radius: 8px;
+    background: #d99e2b;
+    color: #1f170f;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 820px) {
+    .de-home-gallery__grid {
+      grid-template-columns: 1fr;
     }
 
-    .de-home__inner {
-      grid-template-columns: 1fr;
+    .de-home-booking__inner {
+      display: grid;
     }
   }
 </style>
