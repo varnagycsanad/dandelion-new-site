@@ -8,6 +8,108 @@ export const fugehazDezsaGuide = {
   qrTarget: "https://dandelionhouse.hu/guide/fugehaz/dezsa/",
   dePreparedTitle: "Anleitung für den holzbefeuerten Badezuber",
   content: {
+    de: {
+      title: "Guide für den holzbefeuerten Badezuber",
+      subtitle: "Anleitung zum Anfeuern und Nutzen des holzbefeuerten Badezubers - Fügeház",
+      intro:
+        "Ein kurzer, mobilfreundlicher Guide zum sicheren Anfeuern, Aufheizen und Nutzen des holzbefeuerten Badezubers im Fügeház.",
+      keyPoints: [
+        "Das Feuer schrittweise mit Papier und Anzündholz starten.",
+        "Während des Aufheizens muss die Luftöffnung am Ofen frei bleiben.",
+        "Die Umwälzpumpe läuft während des Aufheizens; abends kann sie ausgesteckt werden, morgens bitte wieder einstecken.",
+        "Die angenehmste Wassertemperatur liegt meistens bei etwa 38 °C."
+      ],
+      backLabel: "Zurück zum Fügeház Guide",
+      sections: [
+        {
+          id: "anzuenden",
+          title: "1. Feuer anzünden",
+          paragraphs: [
+            "Der Badezuber sollte schrittweise aufgeheizt werden. Bitte den Ofen nicht sofort mit großen Holzscheiten füllen, weil das Feuer dadurch leicht ersticken kann.",
+            "Das Brennholz liegt im kleinen Holzlager links von der Eingangstür. Dort finden Sie auch kleinere, trockene Holzstücke zum Anzünden."
+          ],
+          steps: [
+            "Legen Sie unten in den Feuerraum des Ofens reichlich Papier.",
+            "Darauf kommen dünne, kleine Stücke trockenes Anzündholz.",
+            "Den Anzündwürfel bitte nicht in den Feuerraum werfen.",
+            "In der Nähe des Ofens liegt ein Metallwerkzeug. Legen Sie den Anzündwürfel darauf.",
+            "Zünden Sie den Anzündwürfel auf dem Metallwerkzeug mit einem Feuerzeug an.",
+            "Senken Sie den brennenden Anzündwürfel anschließend vorsichtig zum Papier und Anzündholz hinunter.",
+            "Warten Sie kurz, bis Papier und Anzündholz richtig Feuer gefangen haben.",
+            "Wenn das Anzündholz gut brennt, können dünnere Holzstücke nachgelegt werden.",
+            "Größere Scheite erst nachlegen, wenn das Feuer stabil und kräftig brennt."
+          ],
+          important:
+            "Nicht hetzen. Das Feuer funktioniert am besten, wenn zuerst Papier, Anzündholz und kleinere Holzstücke gut durchbrennen. Werden große Scheite zu früh nachgelegt, kann das Feuer ausgehen."
+        },
+        {
+          id: "ofendeckel",
+          title: "2. Deckel des Ofens",
+          paragraphs: [
+            "Am Ofen gibt es eine ungefähr 5 cm breite Luftöffnung. Durch diese Öffnung bekommt das Feuer Luft.",
+            "Beim Anzünden und während des Aufheizens darf diese Öffnung nicht abgedeckt werden, sonst bekommt das Feuer zu wenig Luft und brennt nicht richtig.",
+            "Legen Sie den Ofendeckel so auf, dass diese etwa 5 cm breite Luftöffnung frei bleibt.",
+            "Der Deckel sollte erst stärker geschlossen werden, wenn Sie bereits baden und das Wasser zu warm geworden ist, oder wenn das Feuer ruhiger brennen soll.",
+            "Während des Aufheizens ist das Ziel ein kräftig brennendes Feuer."
+          ]
+        },
+        {
+          id: "holz-nachlegen",
+          title: "3. Holz nachlegen",
+          paragraphs: [
+            "Holzscheite bitte nicht in den Ofen werfen, weil der Boden des Ofens beschädigt werden kann. Das Holz immer vorsichtig hineinlegen.",
+            "Eine volle Ladung besteht meist aus etwa 6-7 Holzstücken.",
+            "Diese Menge brennt normalerweise in etwa 30-45 Minuten herunter. Danach kann wieder eine ähnliche Menge nachgelegt werden.",
+            "Über 30 °C kann eine gute Holzladung die Wassertemperatur um etwa 3 °C erhöhen."
+          ]
+        },
+        {
+          id: "wassertemperatur",
+          title: "4. Empfohlene Wassertemperatur",
+          paragraphs: [
+            "Die angenehmste Wassertemperatur liegt meistens bei etwa 38 °C.",
+            "Im Sommer kann sich auch Wasser mit 36 °C bereits angenehm anfühlen.",
+            "Bei kühlerem Wetter, besonders im Winter, können 39-40 °C angenehm sein. Darüber hinaus sollte das Wasser nicht weiter aufgeheizt werden.",
+            "Wenn das Wasser zu warm geworden ist, können Sie mit dem Wasserhahn und Schlauch neben dem Badezuber kaltes Wasser nachfüllen."
+          ]
+        },
+        {
+          id: "thermometer",
+          title: "5. Thermometer",
+          paragraphs: [
+            "Die Wassertemperatur können Sie am Thermometer im Skimmer kontrollieren.",
+            "Der Skimmer ist der Bereich, an dem die Umwälzung Wasser von der Oberfläche ansaugt. Dort befindet sich das Thermometer."
+          ]
+        },
+        {
+          id: "umwaelzung",
+          title: "6. Umwälzung",
+          paragraphs: [
+            "Während des Aufheizens sollte die Umwälzpumpe laufen. Sie mischt wärmeres und kälteres Wasser, damit der Badezuber gleichmäßiger warm wird.",
+            "Auch für die Wasserqualität ist es wichtig, dass die Umwälzung läuft.",
+            "Am Abend, wenn Sie baden, kann die Umwälzpumpe an der Steckdose ausgesteckt werden, damit sie nachts nicht brummt."
+          ],
+          important:
+            "Bitte stecken Sie sie am nächsten Morgen wieder ein, damit das Wasser weiter umgewälzt und gereinigt wird."
+        },
+        {
+          id: "wasserbehandlung",
+          title: "7. Wasserbehandlung",
+          paragraphs: [
+            "Das Wasser im Badezuber wird mit Chlor sauber gehalten.",
+            "Bitte geben Sie keine anderen Chemikalien oder Zusätze ins Wasser."
+          ]
+        },
+        {
+          id: "abendstimmung",
+          title: "8. Sonnenschirm und Abendstimmung",
+          paragraphs: [
+            "Neben dem Badezuber steht ein Sonnenschirm. Wenn die Sonne stark scheint, können Sie ihn gern öffnen.",
+            "Am Abend lohnt es sich, die Außenbeleuchtung auszuschalten. Es gibt wenig Lichtverschmutzung, deshalb sind bei klarem Himmel die Sterne sehr schön zu sehen."
+          ]
+        }
+      ]
+    },
     hu: {
       title: "Dézsafürdő használati útmutató",
       subtitle: "Dézsafürdő használati és begyújtási útmutató - Fügeház",

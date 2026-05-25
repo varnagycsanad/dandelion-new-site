@@ -216,6 +216,178 @@ const createPoolGuideCsContent = (houseName: string): GuideLocaleContent => ({
   ]
 });
 
+const issueBulletsDe = [
+  "Glas zerbricht im Poolbereich",
+  "Schmutz oder Verunreinigung gelangt ins Wasser",
+  "die Poolabdeckung beschädigt ist oder nicht bewegt werden kann",
+  "Farbe, Geruch oder Zustand des Wassers ungewöhnlich wirkt",
+  "sich jemand unwohl fühlt oder verletzt"
+];
+
+const forbiddenBulletsDe = [
+  "Kopfsprünge",
+  "ins Wasser springen",
+  "im Poolbereich laufen",
+  "andere Personen schubsen",
+  "andere Gäste durch Spritzen oder Lärm stören",
+  "sich am Poolrand gefährlich bewegen",
+  "auf die Poolabdeckung steigen, sich darauf setzen oder darauf springen",
+  "elektrische Geräte direkt am Wasser verwenden",
+  "Abfälle liegen lassen oder das Wasser verunreinigen"
+];
+
+const createPoolGuideDeContent = (houseName: string): GuideLocaleContent => ({
+  title: "Panorama Pool - Poolnutzungsordnung",
+  subtitle: `Poolnutzungsordnung für den Panorama Pool - ${houseName}`,
+  intro:
+    "Gültig ab 24. Mai 2026. Geändert am 25. Mai 2026. Der Panorama Pool darf während der Badesaison von Dandelion Gästen genutzt werden.",
+  keyPoints: [
+    "Öffnungszeiten während der Badesaison: täglich 10:00-21:00.",
+    "Die Nutzung des Pools erfolgt auf eigene Verantwortung. Es gibt keinen Bademeister.",
+    "Kinder dürfen den Pool nur unter Aufsicht eines Erwachsenen nutzen.",
+    "Der gemeinsame Poolbereich kann videoüberwacht sein.",
+    "Nach der letzten Nutzung am Abend muss die Poolabdeckung wieder über den Pool gezogen werden."
+  ],
+  backLabel: `Zurück zum ${houseName} Guide`,
+  sections: [
+    {
+      id: "annahme",
+      title: "Annahme der Regeln",
+      paragraphs: [
+        "Der Panorama Pool darf während der Badesaison von Dandelion Gästen genutzt werden.",
+        "Mit der Nutzung des Pools akzeptiert der Gast diese Poolnutzungsordnung und verpflichtet sich, den Pool nur nach den hier beschriebenen Regeln zu verwenden."
+      ]
+    },
+    {
+      id: "oeffnungszeiten",
+      title: "1. Öffnungszeiten",
+      paragraphs: [
+        "Während der Badesaison darf der Panorama Pool täglich zwischen 10:00 und 21:00 genutzt werden.",
+        "Außerhalb der Öffnungszeiten darf der Pool nicht genutzt werden.",
+        "Der Betreiber kann die Nutzung wegen Wetter, Wartung, Wasserbehandlung, technischer Probleme, Sicherheitsgründen oder Regelverstößen vorübergehend einschränken oder aussetzen."
+      ]
+    },
+    {
+      id: "nutzung",
+      title: "2. Nutzung des Pools",
+      paragraphs: [
+        "Die Nutzung des Pools erfolgt auf eigene Verantwortung.",
+        "Am Pool ist kein Bademeister anwesend.",
+        "Die Wassertiefe beträgt ungefähr 1,30 m. Der Pool ist kein Sprungbecken; Kopfsprünge, Springen, Schubsen, Hineinspringen vom Beckenrand und Laufen rund um den Pool sind verboten.",
+        "Jeder Gast darf den Pool nur entsprechend der eigenen Schwimmfähigkeit, Gesundheit und körperlichen Verfassung nutzen.",
+        "Nichtschwimmer oder unsichere Schwimmer dürfen den Pool nur mit besonderer Vorsicht und bei Bedarf mit Schwimmhilfe nutzen."
+      ]
+    },
+    {
+      id: "kinder",
+      title: "3. Regeln für Kinder",
+      paragraphs: [
+        "Kinder dürfen den Pool nur unter Aufsicht eines Erwachsenen nutzen.",
+        "Für die Sicherheit der Kinder ist immer der mitreisende Elternteil, Angehörige oder begleitende Erwachsene verantwortlich.",
+        "Kinder dürfen im Pool oder im Poolbereich nicht unbeaufsichtigt gelassen werden.",
+        "Kinder dürfen die Poolabdeckung nicht bewegen, nicht darauf klettern und nicht darauf laufen."
+      ]
+    },
+    {
+      id: "hygiene",
+      title: "4. Hygieneregeln",
+      paragraphs: [
+        "Vor der Nutzung des Pools ist Duschen verpflichtend.",
+        "Nach Sonnencreme, Körperlotion, Öl oder anderen Cremes bitten wir besonders auf das Duschen zu achten, da diese die Wasserqualität beeinträchtigen.",
+        "Essen, Getränke, Shampoo, Duschgel, Schaumbad, Öl oder andere Fremdstoffe dürfen nicht in den Pool gelangen.",
+        "Essen im Pool ist verboten.",
+        "Kleinkinder dürfen den Pool nur mit geeigneter Schwimmwindel nutzen.",
+        "Personen mit ansteckender Krankheit, Fieber, Durchfall, Erbrechen, offenen Wunden oder Hautinfektionen dürfen den Pool nicht nutzen."
+      ]
+    },
+    {
+      id: "verboten",
+      title: "5. Verbotene Gegenstände und Tätigkeiten",
+      paragraphs: [
+        "Glas, Glasbecher und zerbrechliche Gegenstände dürfen nicht in den Pool oder den unmittelbaren Poolbereich mitgenommen werden.",
+        "Im Pool und rund um den Pool ist Folgendes verboten:"
+      ],
+      bullets: forbiddenBulletsDe,
+      important:
+        "Haustiere dürfen nicht in den Pool. Personen unter Alkohol-, Drogen- oder bewusstseinsveränderndem Einfluss dürfen den Pool nicht nutzen."
+    },
+    {
+      id: "spielzeug",
+      title: "6. Aufblasbare Gegenstände und Spielzeug",
+      paragraphs: [
+        "Aufblasbares Spielzeug, Matratzen, Bälle oder anderes Wasserspielzeug dürfen nur genutzt werden, wenn sie andere Gäste nicht stören oder gefährden.",
+        "Der Betreiber kann große aufblasbare Gegenstände einschränken oder verbieten.",
+        "Für Unfälle durch Spielzeug oder Hilfsmittel ist der Nutzer verantwortlich; bei Kindern der begleitende Erwachsene."
+      ]
+    },
+    {
+      id: "abdeckung",
+      title: "7. Nutzung der Poolabdeckung",
+      paragraphs: [
+        "Vor der ersten Nutzung des Tages muss die Poolabdeckung geöffnet werden.",
+        "Bitte bewegen Sie die Poolabdeckung immer vorsichtig und langsam, damit Abdeckung und Schiene nicht beschädigt werden.",
+        "Nach der letzten Nutzung am Abend müssen Gäste die Poolabdeckung wieder über den Pool ziehen.",
+        "Das Schließen der Abdeckung ist wichtig für Sauberkeit, Wärmeerhalt und Sicherheit.",
+        "Auf die Poolabdeckung zu steigen, sich darauf zu setzen, darauf zu springen oder darauf zu laufen ist verboten.",
+        "Kinder dürfen die Poolabdeckung nicht bewegen.",
+        "Wenn die Abdeckung klemmt, blockiert oder ungewöhnlich funktioniert, bitte nicht erzwingen, sondern sofort den Betreiber informieren."
+      ]
+    },
+    {
+      id: "wetter",
+      title: "8. Wetter und außergewöhnliche Situationen",
+      paragraphs: [
+        "Bei Gewitter, Blitz, starkem Wind oder gefährlichen Wetterbedingungen darf der Pool nicht genutzt werden.",
+        "Bei Blitz muss der Pool sofort verlassen werden.",
+        "Der Pool kann wegen Wartung, Wasserbehandlung, chemischer Behandlung, technischer Probleme oder ungewöhnlicher Wasserqualität vorübergehend geschlossen werden.",
+        "Ein geschlossener oder außer Betrieb befindlicher Pool darf nicht genutzt werden."
+      ]
+    },
+    {
+      id: "ordnung",
+      title: "9. Ordnung, Sauberkeit und Ruhe anderer Gäste",
+      paragraphs: [
+        "Bitte halten Sie den Poolbereich sauber und respektieren Sie die Ruhe anderer Gäste.",
+        "Möbel, Sonnenliegen und andere Gegenstände im Poolbereich dürfen nur bestimmungsgemäß genutzt werden.",
+        "Nach der Nutzung nehmen Sie bitte eigene Gegenstände, Handtücher, Spielzeug und Abfall mit.",
+        "Laute Musik oder störendes Verhalten ist im Poolbereich nicht erlaubt."
+      ]
+    },
+    {
+      id: "kamera",
+      title: "10. Videoüberwachung",
+      paragraphs: [
+        "Der gemeinsame Panorama Pool Bereich kann videoüberwacht sein.",
+        "Zweck der Videoüberwachung ist der Schutz der Gäste und der Unterkunft, der Eigentumsschutz, die Vorbeugung von Schäden und Regelverstößen sowie die Klärung von Beschwerden, Unfällen oder Schadensfällen.",
+        "Videoüberwachung ist kein Bademeisterdienst und keine dauerhafte persönliche Aufsicht; sie ersetzt nicht die Aufsicht von Kindern durch Erwachsene.",
+        "Die detaillierten Regeln zur Kameradatenverarbeitung stehen in der Datenschutzerklärung der Dandelion Gästehäuser."
+      ]
+    },
+    {
+      id: "meldung",
+      title: "11. Meldung von Unfällen, Fehlern oder Verunreinigung",
+      paragraphs: [
+        "Bei Unfall, Verletzung, Unwohlsein, technischem Fehler, Verunreinigung oder ungewöhnlicher Wasserqualität informieren Sie bitte sofort den Betreiber.",
+        "Besonders wichtig ist eine sofortige Meldung, wenn:"
+      ],
+      bullets: issueBulletsDe
+    },
+    {
+      id: "haftung",
+      title: "12. Haftung",
+      paragraphs: [
+        "Die Nutzung des Pools erfolgt auf eigene Verantwortung.",
+        "Der Betreiber haftet nicht für Unfälle, Verletzungen, Schäden oder Zusatzkosten, die aus der Nichtbeachtung der Regeln entstehen.",
+        "Bei Kindern ist der Elternteil oder begleitende Erwachsene während der gesamten Poolnutzung für die Sicherheit des Kindes verantwortlich.",
+        "Bei vorsätzlicher oder fahrlässiger Beschädigung trägt der verursachende Gast die Kosten für Reparatur, Wiederherstellung oder Ersatz."
+      ],
+      important:
+        "Mit der Nutzung des Pools nimmt der Gast diese Poolnutzungsordnung zur Kenntnis und akzeptiert sie."
+    }
+  ]
+});
+
+
 const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent => ({
   slug: "medence",
   houseSlug,
@@ -224,6 +396,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
   qrTarget: `https://dandelionhouse.hu/guide/${houseSlug}/medence/`,
   dePreparedTitle: "Poolnutzungsordnung",
   content: {
+    de: createPoolGuideDeContent(houseName),
     hu: {
       title: "Panorama Pool - Medencehasználati szabályzat",
       subtitle: `Panorama Pool medencehasználati szabályzat - ${houseName}`,

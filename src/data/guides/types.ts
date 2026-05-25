@@ -1,4 +1,4 @@
-export type GuideLocale = "hu" | "en" | "cs";
+export type GuideLocale = "hu" | "en" | "cs" | "de";
 
 export interface GuideSection {
   id: string;
