@@ -6,16 +6,16 @@ export const szepvolgyiGermanPageData = createGermanAccommodationPage(szepvolgyi
   titleAccent: "Szépvölgyi",
   route: "/de/szepvolgyi/",
   listingAnchor: "szepvolgyi-vendeghaz",
-  location: "Badacsonyors",
-  region: "Balaton - Badacsonyors",
+  location: "Badacsonyörs",
+  region: "Balaton - Badacsonyörs",
   guests: "bis 8 Gäste",
   character: "Großes Ferienhaus mit Balaton-Panorama",
-  shortDescription: "Großes Ferienhaus in Badacsonyors mit Balaton-Panorama und viel Platz.",
+  shortDescription: "Großes Ferienhaus in Badacsonyörs mit Balaton-Panorama und viel Platz.",
   lead:
     "Dandelion Szépvölgyi ist für größere Familien und Freundesgruppen gedacht, die nahe am Balaton wohnen und trotzdem ein eigenes Haus mit Ausblick haben möchten.",
   longDescription: [
     "Das Haus gibt mehreren Gästen genug Raum für gemeinsame Tage, Mahlzeiten und ruhige Pausen. Die Terrasse und der Blick zum Balaton sind zentrale Teile des Aufenthalts.",
-    "Badacsonyors ist gut für Strandtage, Radwege, Ausflüge nach Badacsony und ruhige Abende abseits der dichtesten Sommerorte.",
+    "Badacsonyörs ist gut für Strandtage, Radwege, Ausflüge nach Badacsony und ruhige Abende abseits der dichtesten Sommerorte.",
     "Szépvölgyi eignet sich besonders, wenn viel Platz, mehrere Schlafzimmer und gute Erreichbarkeit des Balaton wichtiger sind als ein kleines Dorfhaus."
   ],
   facts: [
@@ -23,7 +23,7 @@ export const szepvolgyiGermanPageData = createGermanAccommodationPage(szepvolgyi
     ["Schlafzimmer", "4 Schlafzimmer"],
     ["Badezimmer", "2 Badezimmer"],
     ["Ausblick", "Balaton-Panorama"],
-    ["Lage", "Badacsonyors"]
+    ["Lage", "Badacsonyörs"]
   ],
   experienceFacts: [
     ["Balaton", "Strand und Ufer in Reichweite"],
@@ -40,7 +40,7 @@ export const szepvolgyiGermanPageData = createGermanAccommodationPage(szepvolgyi
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Parken"],
   mapBody:
-    "Szépvölgyi liegt in Badacsonyors, mit Zugang zu Balaton-Ufer, Badacsony, Radwegen und regionalen Ausflugszielen.",
+    "Szépvölgyi liegt in Badacsonyörs, mit Zugang zu Balaton-Ufer, Badacsony, Radwegen und regionalen Ausflugszielen.",
   mapBenefits: [
     { label: "Balaton-Panorama", icon: "balaton" },
     { label: "Badacsony und Wein", icon: "grapes" },

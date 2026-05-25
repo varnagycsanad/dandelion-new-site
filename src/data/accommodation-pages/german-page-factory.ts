@@ -86,13 +86,13 @@ const relatedStays = [
   },
   {
     name: "Dandelion Vintage",
-    meta: "Nemesgulacs - Hof - ruhige Tage",
+    meta: "Nemesgulács - Hof - ruhige Tage",
     href: "/de/dandelion-vintage/",
     slot: "vintage_card_image" as const
   },
   {
     name: "Dandelion Köveskál",
-    meta: "Kali-Becken - Dorfstimmung - Auszeit",
+    meta: "Káli-Becken - Dorfstimmung - Auszeit",
     href: "/de/dandelion-koveskal/",
     slot: "koveskal_card_image" as const
   }
