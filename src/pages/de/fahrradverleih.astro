@@ -1,0 +1,48 @@
+---
+import GermanExperiencePage from "../../templates/GermanExperiencePage.astro";
+import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+---
+
+<GermanExperiencePage
+  title="Fahrradverleih im Balaton-Oberland | Dandelion Unterkuenfte"
+  description="Fahrradverleih, Preise und Routenvorschlaege fuer Dandelion Gaeste rund um Szent Gyorgy-hegy und den Balaton."
+  canonicalPath="/de/fahrradverleih/"
+  breadcrumbName="Fahrradverleih"
+  eyebrow="Balaton-Oberland auf zwei Raedern"
+  heading="Langsamer und freier durch die Landschaft."
+  lead={[
+    "Radfahren bringt die Umgebung naeher: ruhige Doerfer, Weinbergstrassen, Aussichtspunkte und kleine Stopps, bei denen kein Tempo noetig ist.",
+    "Sie koennen eine kurze Nachmittagsrunde oder einen ganzen Tag planen. E-Bikes sind besonders angenehm fuer huegeligere Abschnitte rund um Szent Gyorgy-hegy."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Weinberge und Radstimmung im Balaton-Oberland"
+  supportImage={supportImage}
+  supportAlt="Zeugenberge und Tapolca-Becken aus der Luft"
+  supportTitle="Erst die Art des Tages waehlen."
+  supportText="Manche Routen sind kurz und panoramisch, andere fuehren Richtung Balaton, Weingueter oder Kali-Becken."
+  highlights={["4 normale Erwachsenenraeder", "2 E-Bikes", "1 Kinderfahrrad nach Absprache", "Abholung und Rueckgabe nach vorheriger Abstimmung"]}
+  primaryLink={{ label: "Unterkuenfte ansehen", href: "/de/unterkuenfte/" }}
+  secondaryLink={{ label: "Zurueck zu Erlebnissen", href: "/de/erlebnisse/" }}
+  sections={[
+    {
+      title: "Fahrradverleih, Preise und Bedingungen",
+      intro: "Der Fahrradverleih ist fuer Dandelion Gaeste nach vorheriger Absprache moeglich. Die Anzahl der Raeder ist begrenzt.",
+      cards: [
+        { title: "Normales Erwachsenenrad", body: "9 000 HUF pro Tag." },
+        { title: "E-Bike", body: "12 000 HUF pro Tag." },
+        { title: "Kinderfahrrad", body: "Nach vorheriger Absprache." },
+        { title: "Wichtig", body: "Die Raeder sind nicht fuer Royal Homes, Dandelion Koveskal oder Szepvolgyi Gaeste verfuegbar. Szololiget, Zsalya und Vintage Gaeste holen die Raeder an unserer zentralen Adresse ab." }
+      ]
+    },
+    {
+      title: "Routenideen",
+      cards: [
+        { title: "Kurze Runde in der Naehe", body: "Doerfer, Weinberge und Aussichtspunkte fuer eine leichtere Fahrt." },
+        { title: "Szent Gyorgy-hegy", body: "Schoen, aber teilweise huegelig. Ein E-Bike macht die Route entspannter." },
+        { title: "Richtung Badacsony und Balaton", body: "Gut, wenn Radfahren Teil eines Strand- oder Wein-Tages sein soll." },
+        { title: "Kali-Becken", body: "Fuer laengere, geplante Tage mit mehreren Stopps." }
+      ]
+    }
+  ]}
+/>

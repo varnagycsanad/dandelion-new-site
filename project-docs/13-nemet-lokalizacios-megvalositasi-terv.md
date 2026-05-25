@@ -37,22 +37,22 @@ A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese u
    - Canonical, hreflang es sitemap ellenorzes lefutott.
 
 6. Nemet elmenyoldalak es tematikus oldalak forditasa.
-   - Allapot: kesobb.
-   - Addig a nemet navigacio nem mutat kulon nem letezo elmenyoldalakra.
+   - Allapot: kesz.
+   - Elerheto utak: `/de/erlebnisse/`, `/de/fahrradverleih/`, `/de/weingueter/`, `/de/balaton/`, `/de/zeugenberge/`, `/de/panorama-pool/`.
+   - A nemet header, footer, sitemap es hreflang bekotest kaptak.
 
 7. Jogi oldalak nemet valtozatanak elokeszitese.
-   - Allapot: kesobb.
-   - Ezt kulon jogi kontrollal kell kezelni.
+   - Allapot: kesz.
+   - Elerheto utak: `/de/agb/`, `/de/datenschutz/`, `/de/impressum/`.
+   - Megjegyzes: ha kesobb kulso jogi kontroll modositasokat ker, a nemet jogi oldalak kulon frissithetok.
 
 8. Teljes nemet belso link audit.
-   - Allapot: reszben kesz.
-   - Kesz: header, footer, szallaslista-kartyak, szallasoldali CTA-k, nyelvvalto, sitemap, hreflang.
-   - Hatra van: nemet elmenyoldalak es nemet jogi oldalak bekotese, ha elkeszulnek.
+   - Allapot: kesz.
+   - Kesz: header, footer, szallaslista-kartyak, szallasoldali CTA-k, elmenyoldali CTA-k, jogi linkek, nyelvvalto, sitemap, hreflang.
 
 9. Vegso build, SEO es publikacios audit.
-   - Allapot: reszben kesz.
-   - Lefutott: `npm run build`, sitemap, canonical, hreflang, ures linkek es placeholder szovegek ellenorzese a jelenlegi nemet oldalakon.
-   - Hatra van: vegso audit a nemet elmenyoldalak es jogi oldalak utan.
+   - Allapot: kesz.
+   - Lefutott: `npm run build`, sitemap, canonical, hreflang, ures linkek es placeholder szovegek ellenorzese a nemet oldalakon.
 
 ## Ellenorzesi parancsok
 
@@ -65,4 +65,4 @@ $files | Select-String -Pattern 'href=""','src=""' -SimpleMatch
 
 ## Kovetkezo javasolt munka
 
-A kovetkezo biztonsagos feladat a nemet elmenyoldalak es tematikus oldalak forditasa. Ezek utan kulon jogi kontrollal johetnek a nemet jogi oldalak.
+A nemet lokalizacios terv vegig lett vezetve. Kovetkezo opcionalis feladat: nemet szovegek stilisztikai finomhangolasa anyanyelvi vagy jogi kontroll alapjan, ha kesobb erkezik ilyen visszajelzes.

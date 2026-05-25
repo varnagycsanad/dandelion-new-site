@@ -1,0 +1,39 @@
+---
+import GermanExperiencePage from "../../templates/GermanExperiencePage.astro";
+import wineImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import balatonImage from "../../assets/experiences/balaton-shore.jpg";
+---
+
+<GermanExperiencePage
+  title="Erlebnisse am Balaton | Dandelion Unterkuenfte"
+  description="Fahrradverleih, Weingueter, Balaton-Strandtage und Spaziergaenge an den Zeugenbergen rund um die Dandelion Unterkuenfte."
+  canonicalPath="/de/erlebnisse/"
+  breadcrumbName="Erlebnisse"
+  eyebrow="Region und Programme"
+  heading="Waehlen Sie die Stimmung des Tages."
+  lead={[
+    "Die Dandelion Haeuser liegen zwischen Balaton, Szent Gyorgy-hegy und dem Balaton-Oberland. Manche Tage passen zum Radfahren, andere zu einer Weinterrasse, einem Strandnachmittag oder einem ruhigen Spaziergang.",
+    "Diese Uebersicht sammelt die wichtigsten Richtungen fuer deutschsprachige Gaeste."
+  ]}
+  heroImage={wineImage}
+  heroAlt="Weinberge am Szent Gyorgy-hegy im Balaton-Oberland"
+  supportImage={balatonImage}
+  supportAlt="Balaton-Ufer im Sommerlicht"
+  supportTitle="Erst die Stimmung, dann das Ziel."
+  supportText="Von den Haeusern aus lassen sich Balaton-Tage, Wein, Radwege und Zeugenberge gut kombinieren, ohne den Tag zu ueberladen."
+  highlights={["Fahrradverleih und ruhige Nebenstrassen", "Weingueter rund um Szent Gyorgy-hegy und Badacsony", "Balaton-Strandtage in kurzer Fahrt", "Zeugenberge, Aussichtspunkte und Sonnenuntergaenge"]}
+  primaryLink={{ label: "Unterkuenfte ansehen", href: "/de/unterkuenfte/" }}
+  secondaryLink={{ label: "Kontakt", href: "/de/kontakt/" }}
+  sections={[
+    {
+      title: "Programme rund um Dandelion",
+      cards: [
+        { title: "Fahrradverleih", body: "Dorfstrassen, Weinberge und langsamere Routen durch das Balaton-Oberland.", href: "/de/fahrradverleih/", linkLabel: "Fahrradverleih" },
+        { title: "Weingueter", body: "Keller, Terrassen und ruhige Abende rund um Szent Gyorgy-hegy und Badacsony.", href: "/de/weingueter/", linkLabel: "Weingueter" },
+        { title: "Balaton", body: "Straende, Uferwege und einfache Sommerprogramme in kurzer Fahrt.", href: "/de/balaton/", linkLabel: "Balaton" },
+        { title: "Zeugenberge", body: "Aussichtspunkte, leichtere Wanderungen und Sonnenuntergaenge an den vulkanischen Huegeln.", href: "/de/zeugenberge/", linkLabel: "Zeugenberge" },
+        { title: "Panorama Pool", body: "Der gemeinsame Poolbereich fuer D1, D2 und Fugehaz ab 1. Juni 2026.", href: "/de/panorama-pool/", linkLabel: "Panorama Pool" }
+      ]
+    }
+  ]}
+/>

@@ -1,0 +1,72 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    title: "Betreiber der Website",
+    items: [
+      ["Firmenname", "Dandelion Vendeghazak Kft."],
+      ["Sitz", "8284 Kisapati, Kossuth utca 78/5, Ungarn"],
+      ["Handelsregisternummer", "19-09-523814"],
+      ["Steuernummer", "24646345-1-19"],
+      ["Vertreterin", "Ilona Varnagy"]
+    ]
+  },
+  {
+    title: "Kontakt",
+    items: [
+      ["E-Mail", "hello@dandelionhouse.hu", "mailto:hello@dandelionhouse.hu"],
+      ["Telefon", "+36 20 773 0807", "tel:+36207730807"],
+      ["Website", "dandelionhouse.hu", "https://dandelionhouse.hu/"]
+    ]
+  },
+  {
+    title: "Hosting-Anbieter",
+    items: [
+      ["Name des Anbieters", "DotRoll Kft."],
+      ["Sitz", "1148 Budapest, Fogarasi ut 3-5, Ungarn"],
+      ["Telefon", "+36 1 432 3232", "tel:+3614323232"],
+      ["E-Mail", "support@dotroll.com", "mailto:support@dotroll.com"],
+      ["Website", "dotroll.com", "https://dotroll.com/"]
+    ]
+  },
+  {
+    title: "Zweck der Website",
+    paragraphs: [
+      "Die Website dandelionhouse.hu stellt die Unterkuenfte von Dandelion vor, bietet direkte Buchungsmoeglichkeiten und informiert Gaeste."
+    ]
+  },
+  {
+    title: "Urheberrecht",
+    paragraphs: [
+      "Texte, Bilder, Videos, grafische Elemente und sonstige Inhalte der Website sind urheberrechtlich geschuetzt.",
+      "Nutzung, Kopie oder Veroeffentlichung sind nur mit vorheriger schriftlicher Genehmigung des Betreibers erlaubt."
+    ]
+  },
+  {
+    title: "Haftung",
+    paragraphs: [
+      "Der Betreiber bemueht sich, die Informationen auf der Website korrekt und aktuell zu halten.",
+      "Preise, Verfuegbarkeiten und Buchungsbedingungen gelten jeweils in der im Buchungsprozess und in der Buchungsbestaetigung festgehaltenen Form."
+    ]
+  },
+  {
+    title: "Verwandte Dokumente",
+    links: [
+      { label: "Allgemeine Geschaeftsbedingungen", href: "/de/agb/" },
+      { label: "Datenschutzerklaerung", href: "/de/datenschutz/" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="de"
+  title="Impressum | Dandelion Unterkuenfte"
+  description="Betreiber-, Kontakt- und Hostingdaten der Website dandelionhouse.hu."
+  canonicalPath="/de/impressum/"
+  eyebrow="Rechtliche Informationen"
+  heading="Impressum"
+  lead="Betreiber-, Kontakt- und Hostingdaten der Website dandelionhouse.hu."
+  sections={sections}
+/>

@@ -9,31 +9,33 @@ export const SITE_DEFAULT_DESCRIPTION_EN =
   "Nature-focused guesthouses in the Balaton Uplands, close to Szent György Hill, Badacsony, Lake Balaton and the Káli Basin.";
 export const SITE_DEFAULT_DESCRIPTION_DE =
   "Naturverbundene Gastehauser im Balaton-Oberland, nahe Szent Gyorgy-hegy, Badacsony, Balaton und Kali-Becken.";
+export const SITE_DEFAULT_DESCRIPTION_CS =
+  "Klidne penziony a apartmany v okoli Balatonu, u Szent Gyorgy-hegy, Badacsonye, Keszthelye a v oblasti Kali.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
 export const LOCALIZED_ROUTE_PAIRS = [
-  { hu: "/", en: "/en/", de: "/de/" },
-  { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/" },
-  { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/" },
-  { hu: "/elmenyek/", en: "/en/experiences/" },
-  { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
-  { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/" },
-  { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/" },
-  { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/" },
-  { hu: "/panorama-pool/", en: "/en/panorama-pool/" },
-  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/" },
-  { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/" },
-  { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/" },
-  { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/" },
-  { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/" },
-  { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/" },
-  { hu: "/royal/", en: "/en/royal/", de: "/de/royal/" },
-  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/" },
-  { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/" },
-  { hu: "/aszf/", en: "/en/terms-and-conditions/" },
-  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/" },
-  { hu: "/impresszum/", en: "/en/imprint/" }
+  { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
+  { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
+  { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
+  { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
+  { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/" },
+  { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
+  { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
+  { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
+  { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/" },
+  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/" },
+  { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/" },
+  { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/" },
+  { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/" },
+  { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/" },
+  { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/" },
+  { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/" },
+  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/" },
+  { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/" },
+  { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/" },
+  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/" },
+  { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/" }
 ] as const;
 
 const canonicalAliasMap: Record<string, string> = {
@@ -49,6 +51,23 @@ export const SITEMAP_PATHS = [
   "/de/",
   "/de/kontakt/",
   "/de/unterkuenfte/",
+  "/de/erlebnisse/",
+  "/de/fahrradverleih/",
+  "/de/weingueter/",
+  "/de/balaton/",
+  "/de/zeugenberge/",
+  "/de/panorama-pool/",
+  "/de/agb/",
+  "/de/datenschutz/",
+  "/de/impressum/",
+  "/cs/",
+  "/cs/kontakt/",
+  "/cs/ubytovani/",
+  "/cs/zazitky/",
+  "/cs/pujcovna-kol/",
+  "/cs/vinarstvi/",
+  "/cs/balaton/",
+  "/cs/svedecne-hory/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",
@@ -72,6 +91,15 @@ export const SITEMAP_PATHS = [
   "/de/royal/",
   "/de/dandelion-vintage/",
   "/de/dandelion-koveskal/",
+  "/cs/dandelion-d1/",
+  "/cs/dandelion-d2/",
+  "/cs/dandelion-fugehaz/",
+  "/cs/dandelion-zsalya/",
+  "/cs/szololiget/",
+  "/cs/szepvolgyi/",
+  "/cs/royal/",
+  "/cs/dandelion-vintage/",
+  "/cs/dandelion-koveskal/",
   "/en/",
   "/en/szallasok/",
   "/en/experiences/",
@@ -120,7 +148,11 @@ export function getCanonicalPath(pathname: string): string {
 export function getLocalizedRouteAlternates(pathname: string) {
   const normalizedPath = normalizePathname(pathname);
   const routePair = LOCALIZED_ROUTE_PAIRS.find(
-    (pair) => pair.hu === normalizedPath || pair.en === normalizedPath || pair.de === normalizedPath
+    (pair) =>
+      pair.hu === normalizedPath ||
+      pair.en === normalizedPath ||
+      pair.de === normalizedPath ||
+      pair.cs === normalizedPath
   );
 
   if (!routePair) {
@@ -131,6 +163,7 @@ export function getLocalizedRouteAlternates(pathname: string) {
     { hreflang: "hu", path: routePair.hu },
     { hreflang: "en", path: routePair.en },
     ...(routePair.de ? [{ hreflang: "de", path: routePair.de }] : []),
+    ...(routePair.cs ? [{ hreflang: "cs", path: routePair.cs }] : []),
     { hreflang: "x-default", path: routePair.hu }
   ];
 }

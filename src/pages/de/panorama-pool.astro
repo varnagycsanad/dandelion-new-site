@@ -1,0 +1,43 @@
+---
+import GermanExperiencePage from "../../templates/GermanExperiencePage.astro";
+import { panoramaPoolImages } from "../../data/images/panorama-pool-images";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+
+const poolHero = panoramaPoolImages.find((image) => image.usageHint === "hero");
+---
+
+<GermanExperiencePage
+  title="Dandelion Panorama Pool | Pool im Balaton-Oberland"
+  description="Ab 1. Juni 2026 gehoert der Panorama Pool fuer Gaeste von D1, D2 und Fugehaz zum Sommeraufenthalt in Kisapati."
+  canonicalPath="/de/panorama-pool/"
+  breadcrumbName="Panorama Pool"
+  eyebrow="Sommererlebnis"
+  heading="Panorama Pool am Szent Gyorgy-hegy."
+  lead={[
+    "Der Panorama Pool ist fuer Gaeste der nahe gelegenen Haeuser gedacht: Dandelion D1, Dandelion D2 und Fugehaz.",
+    "Schwimmen, Aussicht und der ruhigere Rhythmus des Balaton-Oberlands werden ab 1. Juni 2026 Teil des Sommeraufenthalts."
+  ]}
+  heroImage={heroImage}
+  heroAlt={poolHero?.altEn ?? "Panorama Pool im Balaton-Oberland"}
+  highlights={["am Fuss des Szent Gyorgy-hegy", "Blick auf Zeugenberge und Badacsony", "fuer Gaeste von D1, D2 und Fugehaz", "verfuegbar ab 1. Juni 2026"]}
+  primaryLink={{ label: "D1 ansehen", href: "/de/dandelion-d1/" }}
+  secondaryLink={{ label: "D2 ansehen", href: "/de/dandelion-d2/" }}
+  sections={[
+    {
+      title: "Pool in Kuerze",
+      cards: [
+        { title: "Nicht separat buchbar", body: "Der Pool gehoert zum Aufenthalt in D1, D2 und Fugehaz, wenn die Saison laeuft." },
+        { title: "Gemeinsamer Bereich", body: "Der Panorama Pool ist ein gemeinsamer Poolbereich fuer die passenden Dandelion Haeuser." },
+        { title: "Sommer 2026", body: "Die Verfuegbarkeit ist ab 1. Juni 2026 geplant." }
+      ]
+    },
+    {
+      title: "Unterkuenfte mit Poolzugang",
+      cards: [
+        { title: "Dandelion D1", body: "Grosses Ferienhaus fuer Familien und Freunde.", href: "/de/dandelion-d1/", linkLabel: "D1 oeffnen" },
+        { title: "Dandelion D2", body: "Familienfreundliches Haus mit Garten und Terrasse.", href: "/de/dandelion-d2/", linkLabel: "D2 oeffnen" },
+        { title: "Dandelion Fugehaz", body: "Panoramahaus mit Terrasse und ruhiger Lage.", href: "/de/dandelion-fugehaz/", linkLabel: "Fugehaz oeffnen" }
+      ]
+    }
+  ]}
+/>

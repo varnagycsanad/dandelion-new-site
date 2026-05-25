@@ -1,0 +1,200 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    number: "1",
+    title: "Daten des Verantwortlichen",
+    bullets: [
+      "Verantwortlicher: Dandelion Vendeghazak Kft.",
+      "Vertreterin: Ilona Varnagy",
+      "E-Mail: hello@dandelionhouse.hu",
+      "Telefon: +36 20 773 0807",
+      "Website: dandelionhouse.hu",
+      "Sitz / Postanschrift: 8284 Kisapati, Kossuth utca 78/5, Ungarn"
+    ]
+  },
+  {
+    number: "2",
+    title: "Zweck dieser Information",
+    paragraphs: [
+      "Diese Datenschutzerklaerung informiert Gaeste, Anfragende und Website-Besucher transparent darueber, welche personenbezogenen Daten wir zu welchem Zweck, auf welcher Rechtsgrundlage und wie lange verarbeiten.",
+      "Wir verarbeiten personenbezogene Daten nur in dem Umfang, der fuer Unterkunftsleistungen, Buchungsverwaltung, Gaestekommunikation, gesetzliche Pflichten und den Betrieb der Website notwendig ist."
+    ]
+  },
+  {
+    number: "3",
+    title: "Kontakt- und Angebotsanfragen",
+    bullets: [
+      "Verarbeitete Daten: Name, E-Mail-Adresse, Telefonnummer, Nachricht, gewuenschte An- und Abreise, Gaestezahl und freiwillig angegebene weitere Daten.",
+      "Zweck: Beantwortung von Anfragen, Angebotserstellung, Buchungsabstimmung und Gaestekommunikation.",
+      "Rechtsgrundlage: vorvertragliche Schritte und berechtigtes Interesse aufgrund der freiwilligen Anfrage.",
+      "Aufbewahrung: bis zu 2 Jahre nach Abschluss der Anfrage, sofern daraus keine Buchung oder gesetzliche Pflicht entsteht."
+    ]
+  },
+  {
+    number: "4",
+    title: "Buchungsverwaltung",
+    paragraphs: ["Buchungen koennen direkt ueber die Website, per E-Mail, telefonisch oder ueber externe Vertriebskanaele erfolgen."],
+    bullets: [
+      "Verarbeitete Daten: Name, Kontaktdaten, Buchungsdaten, An- und Abreise, Gaestezahl, Unterkunft, Zahlungsdaten, Rechnungsdaten und Notizen.",
+      "Zweck: Erfassung, Bestaetigung, Erfuellung, Aenderung oder Stornierung einer Buchung.",
+      "Rechtsgrundlage: Vertragserfuellung und vorvertragliche Schritte.",
+      "Aufbewahrung: fuer die zur Buchungserfuellung und gesetzlichen Aufbewahrung erforderliche Zeit."
+    ]
+  },
+  {
+    number: "5",
+    title: "Online-Buchungssystem und Gaesteverwaltung",
+    paragraphs: ["Buchungs- und Gaesteverwaltungsprozesse koennen ueber das SabeeApp System erfolgen."],
+    bullets: [
+      "Anbieter: thePass Kft. / SabeeApp",
+      "Zweck: Buchungsverwaltung, Erfassung von Gaestedaten, Bestaetigungen und Kommunikation.",
+      "Verarbeitete Daten: fuer Buchung, Kontakt, Online Check-in und Unterkunftsleistung notwendige Daten."
+    ],
+    note: "SabeeApp stellt eigene Datenschutzinformationen ueber die SabeeApp Oberflaeche bereit."
+  },
+  {
+    number: "6",
+    title: "Online Check-in, Dokumentdaten, NTAK / VIZA",
+    paragraphs: [
+      "Die Nutzung der Unterkunft kann einen Online Check-in erfordern, bei dem gesetzlich vorgeschriebene Gast- und Ausweisdaten erfasst werden."
+    ],
+    bullets: [
+      "Verarbeitete Daten: Name, Geburtsdaten, Staatsangehoerigkeit, Adresse, Ausweisdaten, An- und Abreisedaten und weitere gesetzlich vorgeschriebene Gastdaten.",
+      "Zweck: gesetzliche Gaesteregistrierung, Erfuellung der Unterkunftsleistung und amtliche Datenmeldung.",
+      "Rechtsgrundlage: Erfuellung einer gesetzlichen Pflicht."
+    ],
+    note: "Ohne abgeschlossenen Online Check-in kann der Zutrittscode oder Schluesselkasten-Code nicht versendet werden."
+  },
+  {
+    number: "7",
+    title: "Rechnung und Zahlung",
+    bullets: [
+      "Verarbeitete Daten: Rechnungsname, Rechnungsadresse, Zahlungsdaten, Buchungskennung, gezahlte Betraege und Rechnungsinhalt.",
+      "Zweck: Rechnungstellung, Buchhaltung, Steuer- und Aufbewahrungspflichten.",
+      "Rechtsgrundlage: gesetzliche Pflicht.",
+      "Aufbewahrung: Buchhaltungsunterlagen sind nach geltendem Recht mindestens 8 Jahre aufzubewahren."
+    ]
+  },
+  {
+    number: "8",
+    title: "Websitebesuche, technische Daten und Cookies",
+    paragraphs: [
+      "Beim Betrieb der Website koennen technische Daten entstehen, zum Beispiel IP-Adresse, Browsertyp, Geraetedaten, Besuchszeit, aufgerufene Seiten und Fehlermeldungen."
+    ],
+    bullets: [
+      "Zweck: sicherer Websitebetrieb, Fehlerbehebung, Leistungsmessung und Besucherstatistik.",
+      "Rechtsgrundlage: berechtigtes Interesse und, soweit erforderlich, Einwilligung."
+    ],
+    note: "Die Website kann notwendige Cookies sowie Technologien fuer Statistik oder Messung verwenden. Google Tag Manager kann Analysedienste laden."
+  },
+  {
+    number: "9",
+    title: "Newsletter und Marketingkommunikation - MailerLite",
+    bullets: [
+      "Dandelion kann MailerLite fuer Newsletter und Marketingkommunikation nutzen.",
+      "Verarbeitete Daten: Name, E-Mail-Adresse, Zeitpunkt der Anmeldung, Einwilligungsnachweis, Oeffnungs- und Klickdaten, Abmeldedaten und freiwillig angegebene weitere Daten.",
+      "Zweck: Versand von Newslettern, Angeboten, saisonalen Informationen, Aktionen und Neuigkeiten.",
+      "Rechtsgrundlage: freiwillige Einwilligung.",
+      "Aufbewahrung: bis zum Widerruf der Einwilligung, also bis zur Abmeldung."
+    ],
+    note: "Die Abmeldung beruehrt nicht die Rechtmaessigkeit der Verarbeitung vor dem Widerruf."
+  },
+  {
+    number: "10",
+    title: "Kameralueberwachung",
+    paragraphs: [
+      "Ein elektronisches Kamerasystem kann nur in bestimmten gemeinschaftlich genutzten Bereichen der Dandelion Unterkuenfte betrieben werden. Vor betreten kameralueberwachter Bereiche werden Hinweise angebracht.",
+      "Erfasste Bereiche koennen insbesondere Eingaenge, Hoefe, Parkbereiche, Zugangswege und bei betroffenen Haeusern der gemeinsame Panorama Pool Bereich sein.",
+      "Kameras sind nicht auf Wohnraeume, Schlafzimmer, Badezimmer, Toiletten oder andere private Bereiche gerichtet. Es erfolgt keine Tonaufnahme."
+    ],
+    bullets: [
+      "Verarbeitete Daten: Bild der betroffenen Person, sichtbares Erscheinungsbild sowie Ort und Zeit der Aufnahme.",
+      "Zweck: Personen- und Eigentumsschutz, Schutz der Gaeste und Unterkunft, Schadens- und Regelverstossvorbeugung sowie Klaerung von Beschwerden, Unfaellen oder Schadensfaellen.",
+      "Rechtsgrundlage: berechtigtes Interesse des Verantwortlichen nach Art. 6 Abs. 1 lit. f DSGVO.",
+      "Aufbewahrung: Aufnahmen werden grundsaetzlich hoechstens 3 Werktage aufbewahrt. Bei Vorfaellen koennen relevante Aufnahmen fuer die zur Klaerung oder Rechtsdurchsetzung notwendige Zeit gespeichert werden.",
+      "Zugriff: nur befugte Personen des Betreibers oder Auftragsverarbeiters.",
+      "Weitergabe: soweit erforderlich an Behoerden, Versicherer, Rechtsvertreter oder berechtigte Stellen."
+    ],
+    note: "Kameralueberwachung ersetzt keine persoenliche Aufsicht, keine Aufsicht von Kindern und nicht die eigene Verantwortung der Gaeste."
+  },
+  {
+    number: "11",
+    title: "Externe Anbieter und Auftragsverarbeiter",
+    paragraphs: ["Fuer Leistungserbringung und Websitebetrieb koennen externe Anbieter eingebunden werden."],
+    bullets: [
+      "Hosting- und Website-Betriebsanbieter,",
+      "SabeeApp / thePass Kft. als Buchungs- und Gaesteverwaltungssystem,",
+      "Google Dienste wie Google Tag Manager und Google Analytics,",
+      "MailerLite fuer Newsletter und Marketingautomatisierung,",
+      "technische Anbieter fuer Kamerasysteme,",
+      "Bank- und Zahlungsdienstleister,",
+      "Buchhaltungs- und Rechnungsanbieter,",
+      "Behoerden und gesetzliche Systeme."
+    ]
+  },
+  {
+    number: "12",
+    title: "Datenuebermittlungen",
+    paragraphs: [
+      "Personenbezogene Daten werden nur dann an Dritte uebermittelt, wenn dies fuer Buchungserfuellung, gesetzliche Pflichten, amtliche Meldungen, Zahlung, Rechnungsstellung oder Rechtsdurchsetzung notwendig ist.",
+      "Bei Buchungen ueber externe Vertriebskanaele kann auch deren Datenschutzerklaerung gelten."
+    ]
+  },
+  {
+    number: "13",
+    title: "Datensicherheit",
+    paragraphs: [
+      "Der Verantwortliche schuetzt personenbezogene Daten mit angemessenen technischen und organisatorischen Massnahmen gegen unbefugten Zugriff, Aenderung, Uebermittlung, Offenlegung, Loeschung, Beschaedigung oder Zerstoerung.",
+      "Zugriffe sind beschraenkt und Daten duerfen nur von Personen verarbeitet werden, die diese fuer ihre konkrete Aufgabe benoetigen."
+    ]
+  },
+  {
+    number: "14",
+    title: "Rechte der betroffenen Personen",
+    paragraphs: ["Betroffene Personen koennen folgende Rechte ausueben:"],
+    bullets: [
+      "Auskunft ueber die Datenverarbeitung verlangen,",
+      "Zugang zu verarbeiteten personenbezogenen Daten verlangen,",
+      "Berichtigung verlangen,",
+      "Loeschung verlangen, soweit die rechtlichen Voraussetzungen vorliegen,",
+      "Einschraenkung der Verarbeitung verlangen,",
+      "Widerspruch gegen Verarbeitung auf Grundlage berechtigten Interesses einlegen,",
+      "Datenuebertragbarkeit verlangen, soweit die Voraussetzungen vorliegen,",
+      "Einwilligung widerrufen, wenn die Verarbeitung auf Einwilligung beruht."
+    ],
+    note: "Anfragen koennen an hello@dandelionhouse.hu gesendet werden. Wir antworten ohne unnoetige Verzoegerung, spaetestens innerhalb eines Monats."
+  },
+  {
+    number: "15",
+    title: "Beschwerden, Rechtsbehelfe und Aenderungen",
+    paragraphs: [
+      "Bei Datenschutzbeschwerden bitten wir zunaechst um Nachricht an hello@dandelionhouse.hu, damit wir das Anliegen direkt klaeren koennen.",
+      "Betroffene Personen koennen auch eine Beschwerde bei der ungarischen Datenschutzbehoerde einreichen."
+    ],
+    bullets: [
+      "Ungarische Nationale Behoerde fuer Datenschutz und Informationsfreiheit - NAIH",
+      "Adresse: 1055 Budapest, Falk Miksa utca 9-11, Ungarn",
+      "Postanschrift: 1363 Budapest, Pf. 9, Ungarn",
+      "E-Mail: ugyfelszolgalat@naih.hu",
+      "Telefon: +36 1 391 1400",
+      "Web: naih.hu"
+    ],
+    note: "Der Verantwortliche behaelt sich vor, diese Information zu aendern. Aenderungen treten mit Veroeffentlichung auf der Website in Kraft."
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="de"
+  title="Datenschutzerklaerung | Dandelion Unterkuenfte"
+  description="Datenschutzerklaerung von Dandelion zu Buchungsdaten, Gaesteverwaltung, Rechnungen, Cookies, MailerLite Newsletter und Betroffenenrechten."
+  canonicalPath="/de/datenschutz/"
+  eyebrow="Rechtliche Informationen"
+  heading="Datenschutzerklaerung"
+  lead="Gueltig ab 12. Mai 2026 bis auf Widerruf. Geaendert: 25. Mai 2026. Diese Datenschutzerklaerung fasst die Datenverarbeitung auf der Dandelion Website sowie in Buchungs- und Gaesteverwaltungsprozessen zusammen."
+  tocLabel="Zum Abschnitt springen"
+  tocPlaceholder="Abschnitt waehlen"
+  sections={sections}
+/>
