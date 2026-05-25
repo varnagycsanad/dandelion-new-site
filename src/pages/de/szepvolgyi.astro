@@ -1,0 +1,13 @@
+---
+import { szepvolgyiGermanPageData } from "../../data/accommodation-pages/szepvolgyi.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={szepvolgyiGermanPageData}
+  imageSet={accommodationImages.szepvolgyi}
+  lang="de"
+  canonicalPath="/de/szepvolgyi/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

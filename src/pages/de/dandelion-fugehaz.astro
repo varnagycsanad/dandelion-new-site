@@ -1,0 +1,13 @@
+---
+import { fugehazGermanPageData } from "../../data/accommodation-pages/fugehaz.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={fugehazGermanPageData}
+  imageSet={accommodationImages.fugehaz}
+  lang="de"
+  canonicalPath="/de/dandelion-fugehaz/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

@@ -1,0 +1,13 @@
+---
+import { royalHomesGermanPageData } from "../../data/accommodation-pages/royal_homes.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={royalHomesGermanPageData}
+  imageSet={accommodationImages.royal_homes}
+  lang="de"
+  canonicalPath="/de/royal/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

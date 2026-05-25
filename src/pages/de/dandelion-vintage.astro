@@ -1,0 +1,13 @@
+---
+import { vintageGermanPageData } from "../../data/accommodation-pages/vintage.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={vintageGermanPageData}
+  imageSet={accommodationImages.vintage}
+  lang="de"
+  canonicalPath="/de/dandelion-vintage/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

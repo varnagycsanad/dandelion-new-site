@@ -1,0 +1,13 @@
+---
+import { koveskalGermanPageData } from "../../data/accommodation-pages/koveskal.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={koveskalGermanPageData}
+  imageSet={accommodationImages.koveskal}
+  lang="de"
+  canonicalPath="/de/dandelion-koveskal/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

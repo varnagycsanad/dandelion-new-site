@@ -1,0 +1,13 @@
+---
+import { szololigetGermanPageData } from "../../data/accommodation-pages/szololiget.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={szololigetGermanPageData}
+  imageSet={accommodationImages.szololiget}
+  lang="de"
+  canonicalPath="/de/szololiget/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

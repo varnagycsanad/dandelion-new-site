@@ -1,0 +1,13 @@
+---
+import { zsalyaGermanPageData } from "../../data/accommodation-pages/zsalya.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={zsalyaGermanPageData}
+  imageSet={accommodationImages.zsalya}
+  lang="de"
+  canonicalPath="/de/dandelion-zsalya/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

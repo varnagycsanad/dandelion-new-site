@@ -102,12 +102,24 @@ const germanStayLabelOverrides: Record<string, string> = {
   "vintage-vendeghaz": "Dandelion Vintage"
 };
 
+const germanStayHrefOverrides: Record<string, string> = {
+  "dandelion-d1": `${homeHref}de/dandelion-d1/`,
+  "dandelion-d2": `${homeHref}de/dandelion-d2/`,
+  fugehaz: `${homeHref}de/dandelion-fugehaz/`,
+  "zsalya-vendeghaz": `${homeHref}de/dandelion-zsalya/`,
+  "szololiget-vendeghaz": `${homeHref}de/szololiget/`,
+  "szepvolgyi-vendeghaz": `${homeHref}de/szepvolgyi/`,
+  "royal-homes": `${homeHref}de/royal/`,
+  "vintage-vendeghaz": `${homeHref}de/dandelion-vintage/`,
+  "dandelion-koveskal": `${homeHref}de/dandelion-koveskal/`
+};
+
 const germanFooterStayBySlug = new Map(
   accommodations.map((stay) => [
     stay.slug,
     {
       label: germanStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
-      href: stay.slug === "dandelion-d2" ? `${homeHref}de/dandelion-d2/` : `${homeHref}de/unterkuenfte/#${stay.slug}`
+      href: germanStayHrefOverrides[stay.slug] ?? `${homeHref}de/unterkuenfte/#${stay.slug}`
     }
   ])
 );
