@@ -13,6 +13,9 @@ yarn-error.log*
 pnpm-debug.log*
 tmp/chrome-cdp-profile-*/
 tmp/*.log
+.codex-devserver*.log
+tmp/lighthouse-*.html
+tmp/lighthouse-*.json
 
 
 # environment variables
