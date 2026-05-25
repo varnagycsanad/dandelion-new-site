@@ -77,6 +77,20 @@ const localizedTemplateText = {
     poolSealTitleLine1: "PANORAMA",
     poolSealTitleLine2: "POOL",
     poolSealDate: "AB 1. JUNI 2026"
+  },
+  cs: {
+    bookingTrustLabel: "Prima rezervace · kontakt Dandelion",
+    homeBreadcrumbLabel: "Cesky uvod",
+    homeBreadcrumbHref: "/cs/",
+    secondaryDetailsLabel: "Tipy a prakticke informace",
+    decisionPanelAriaLabel: "Prehled ubytovani pro rozhodnuti",
+    overviewTitle: "Rychly prehled",
+    reasonsTitle: "Proc se vam tu bude libit",
+    relatedListingCta: "Zpet na prehled ubytovani.",
+    galleryMoreSuffix: "fotografii",
+    poolSealTitleLine1: "PANORAMA",
+    poolSealTitleLine2: "POOL",
+    poolSealDate: "OD 1. CERVNA 2026"
   }
 } satisfies Record<AccommodationPageLocale, Record<string, string>>;
 
@@ -194,6 +208,17 @@ const germanAccommodationHrefBySlug: Record<string, string> = {
   "vintage-vendeghaz": "/de/unterkuenfte/#vintage-vendeghaz",
   "zsalya-vendeghaz": "/de/unterkuenfte/#zsalya-vendeghaz"
 };
+const czechAccommodationHrefBySlug: Record<string, string> = {
+  "dandelion-d1": "/cs/dandelion-d1/",
+  "dandelion-d2": "/cs/dandelion-d2/",
+  "dandelion-koveskal": "/cs/dandelion-koveskal/",
+  fugehaz: "/cs/dandelion-fugehaz/",
+  "royal-homes": "/cs/royal/",
+  "szepvolgyi-vendeghaz": "/cs/szepvolgyi/",
+  "szololiget-vendeghaz": "/cs/szololiget/",
+  "vintage-vendeghaz": "/cs/dandelion-vintage/",
+  "zsalya-vendeghaz": "/cs/dandelion-zsalya/"
+};
 
 function normalizeRelatedStayPath(href: string) {
   const path = href.startsWith("http") ? new URL(href).pathname : href;
@@ -210,6 +235,10 @@ function resolveAccommodationHrefForLocale(slug: string, url: string) {
 
   if (lang === "de") {
     return germanAccommodationHrefBySlug[slug] || "/de/unterkuenfte/";
+  }
+
+  if (lang === "cs") {
+    return czechAccommodationHrefBySlug[slug] || "/cs/ubytovani/";
   }
 
   return url;
@@ -323,9 +352,21 @@ const mobileReviewGridItems = reviewItems.slice(0, 4);
 const mobileReviewGridVisibleItems = mobileReviewGridItems.slice(0, 2);
 const mobileReviewGridMoreItems = mobileReviewGridItems.slice(2);
 const mobileReviewGridAriaLabel =
-  lang === "de" ? "Gaestebewertungen mobile Ansicht" : lang === "en" ? "Guest reviews mobile grid" : "Vendégértékelések mobil rács";
+  lang === "cs"
+    ? "Mobilni zobrazeni hodnoceni hostu"
+    : lang === "de"
+      ? "Gaestebewertungen mobile Ansicht"
+      : lang === "en"
+        ? "Guest reviews mobile grid"
+        : "Vendégértékelések mobil rács";
 const mobileReviewGridMoreLabel =
-  lang === "de" ? "Weitere Bewertungen anzeigen" : lang === "en" ? "Show more reviews" : "További értékelések";
+  lang === "cs"
+    ? "Zobrazit dalsi hodnoceni"
+    : lang === "de"
+      ? "Weitere Bewertungen anzeigen"
+      : lang === "en"
+        ? "Show more reviews"
+        : "További értékelések";
 
 const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
@@ -386,7 +427,7 @@ const detailsLongDescription = (pageData.details.longDescription || [])
   });
 const accommodationListingHref =
   accommodationListingHrefOverride ||
-  `${baseHref}${lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
+  `${baseHref}${lang === "cs" ? "cs/ubytovani/" : lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);

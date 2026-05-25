@@ -6,6 +6,7 @@ export type LocalizedText = {
   hu: string;
   en: string;
   de?: string;
+  cs?: string;
 };
 
 export type ImageRole =

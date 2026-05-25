@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetFromPublicPath } from "../data/images/ast
 import type { ImageAsset, GalleryImage, LocalizedText } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
 
-export type AccommodationPageLocale = "hu" | "en" | "de";
+export type AccommodationPageLocale = "hu" | "en" | "de" | "cs";
 
 export interface AccommodationHeroImage {
   src: string;
@@ -65,6 +65,58 @@ export function resolveBaseHref(baseUrl: string): string {
 
 function resolveLocalizedText(value: LocalizedText, locale: AccommodationPageLocale): string {
   return value[locale] || value.en || value.hu || "";
+}
+
+function formatCzechAccommodationName(apartmentKey?: string): string {
+  const names: Record<string, string> = {
+    d1: "Dandelion D1",
+    d2: "Dandelion D2",
+    fugehaz: "Dandelion Fugehaz",
+    zsalya: "Dandelion Zsalya",
+    szololiget: "Dandelion Szololiget",
+    szepvolgyi: "Dandelion Szepvolgyi",
+    royal_homes: "Dandelion Royal Homes",
+    vintage: "Dandelion Vintage",
+    koveskal: "Dandelion Koveskal"
+  };
+
+  return apartmentKey ? names[apartmentKey] || apartmentKey : "Dandelion ubytovani";
+}
+
+function buildCzechImageText(image: ImageAsset, kind: "alt" | "title" | "caption"): string {
+  const name = formatCzechAccommodationName(image.apartmentKey);
+  const sequence = String(Math.max(Math.round(image.sortOrder / 10), 1)).padStart(3, "0");
+
+  if (kind === "title") {
+    return `${name} fotografie ${sequence}`;
+  }
+
+  if (kind === "caption") {
+    return `${name} - galerie ubytovani, fotografie ${sequence}.`;
+  }
+
+  if (image.role === "hero_desktop" || image.role === "hero_mobile") {
+    return `${name} - hlavni fotografie ubytovani`;
+  }
+
+  if (image.role === "card") {
+    return `${name} - nahledova fotografie ubytovani`;
+  }
+
+  return `${name} - galerie ubytovani, fotografie ${sequence}`;
+}
+
+function resolveImageText(
+  image: ImageAsset,
+  field: LocalizedText,
+  locale: AccommodationPageLocale,
+  kind: "alt" | "title" | "caption"
+): string {
+  if (locale === "cs" && !field.cs) {
+    return buildCzechImageText(image, kind);
+  }
+
+  return resolveLocalizedText(field, locale);
 }
 
 function requireAccommodationDisplayAsset(
@@ -139,13 +191,13 @@ export function buildGalleryImages(input: {
         id: typeof image.source.wpId === "number" ? image.source.wpId : image.sortOrder,
         src: astroSrc.src,
         thumb: thumbAstroSrc.src,
-        alt: resolveLocalizedText(image.alt, locale),
+        alt: resolveImageText(image, image.alt, locale, "alt"),
         astroSrc,
         thumbAstroSrc,
         width: image.width,
         height: image.height,
-        title: resolveLocalizedText(image.title, locale),
-        caption: resolveLocalizedText(image.caption, locale),
+        title: resolveImageText(image, image.title, locale, "title"),
+        caption: resolveImageText(image, image.caption, locale, "caption"),
         sortOrder: image.sortOrder
       };
     });
@@ -207,7 +259,7 @@ export function buildHeroImages(input: {
       : undefined);
   const desktopHeroImage = desktopHeroAstroSrc?.src || "";
   const locale = input.locale ?? "hu";
-  const desktopHeroAlt = input.desktopHero ? resolveLocalizedText(input.desktopHero.alt, locale) : input.fallbackAlt;
+  const desktopHeroAlt = input.desktopHero ? resolveImageText(input.desktopHero, input.desktopHero.alt, locale, "alt") : input.fallbackAlt;
   const mobileHeroWidth = input.mobileHero?.width || 1200;
   const mobileHeroHeight = input.mobileHero?.height || 1600;
   const localHeroFallback = {
