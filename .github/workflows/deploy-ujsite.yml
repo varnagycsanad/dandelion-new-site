@@ -361,7 +361,7 @@ jobs:
           rm -f "$HOME/.ssh/ujsite_deploy_key" "$RUNNER_TEMP/ssh-askpass.sh"
 
       - name: Deploy site contents to root over FTP with curl
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_root_deploy.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
