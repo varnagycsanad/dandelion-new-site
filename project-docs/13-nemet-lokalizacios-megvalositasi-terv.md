@@ -11,6 +11,7 @@ A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese u
 - A nemet oldalak canonical, hreflang es sitemap bekotest kaptak.
 - A nemet header es footer csak letezo nemet utvonalakra mutat.
 - A nemet foglalasi CTA egyelore a `/de/kontakt/` oldalra mutat, amig a SabeeApp nemet nyelvi parametere kulon nincs auditolva.
+- A teljes nemet szallasoldal-keszlet elerheto es indexelheto: D1, D2, Fugehaz, Zsalya, Szololiget, Szepvolgyi, Royal Homes, Vintage es Koveskal.
 
 ## Biztonsagos megvalositasi lepesek
 
@@ -26,13 +27,14 @@ A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese u
    - Csak letezo nemet oldalak kapnak aktiv linket.
 
 4. Nemet szallasadatok elokeszitese.
-   - Allapot: technikai alap kesz.
-   - A shared accommodation template es a kep-szoveg lokalizacios tipus mar fogadja a `de` locale-t.
-   - Egyedi, indexelheto nemet szallasoldalak meg nincsenek megnyitva.
+   - Allapot: kesz.
+   - A shared accommodation template es a kep-szoveg lokalizacios tipus fogadja a `de` locale-t.
+   - A nemet szallasoldalak a `/de/kontakt/` foglalasi/anfrage utvonalra mutatnak.
 
 5. Egyedi nemet szallasoldalak letrehozasa.
-   - Allapot: kesobb.
-   - Csak akkor indexelhetoek, ha a teljes oldalszoveg, SEO, CTA es belso linkek rendben vannak.
+   - Allapot: kesz.
+   - Elerheto utak: `/de/dandelion-d1/`, `/de/dandelion-d2/`, `/de/dandelion-fugehaz/`, `/de/dandelion-zsalya/`, `/de/szololiget/`, `/de/szepvolgyi/`, `/de/royal/`, `/de/dandelion-vintage/`, `/de/dandelion-koveskal/`.
+   - Canonical, hreflang es sitemap ellenorzes lefutott.
 
 6. Nemet elmenyoldalak es tematikus oldalak forditasa.
    - Allapot: kesobb.
@@ -43,12 +45,14 @@ A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese u
    - Ezt kulon jogi kontrollal kell kezelni.
 
 8. Teljes nemet belso link audit.
-   - Allapot: kesobb.
-   - Ellenorizendo: header, footer, CTA-k, kartyak, nyelvvalto, sitemap, hreflang.
+   - Allapot: reszben kesz.
+   - Kesz: header, footer, szallaslista-kartyak, szallasoldali CTA-k, nyelvvalto, sitemap, hreflang.
+   - Hatra van: nemet elmenyoldalak es nemet jogi oldalak bekotese, ha elkeszulnek.
 
 9. Vegso build, SEO es publikacios audit.
-   - Allapot: kesobb.
-   - Ellenorizendo: `npm run build`, sitemap, canonical, hreflang, noindex/index, ures linkek, placeholder szovegek.
+   - Allapot: reszben kesz.
+   - Lefutott: `npm run build`, sitemap, canonical, hreflang, ures linkek es placeholder szovegek ellenorzese a jelenlegi nemet oldalakon.
+   - Hatra van: vegso audit a nemet elmenyoldalak es jogi oldalak utan.
 
 ## Ellenorzesi parancsok
 
@@ -61,4 +65,4 @@ $files | Select-String -Pattern 'href=""','src=""' -SimpleMatch
 
 ## Kovetkezo javasolt munka
 
-A kovetkezo biztonsagos feladat a nemet szallasadatok elokeszitese: a shared accommodation adatmodell es template DE-kompatibilis bovitesese ugy, hogy a magyar es angol oldalak viselkedese ne valtozzon.
+A kovetkezo biztonsagos feladat a nemet elmenyoldalak es tematikus oldalak forditasa. Ezek utan kulon jogi kontrollal johetnek a nemet jogi oldalak.
