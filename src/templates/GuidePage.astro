@@ -3,9 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import type { GuideContent, GuideLocale } from "../data/guides/types";
 
 const { guide } = Astro.props as { guide: GuideContent };
-const locales: GuideLocale[] = ["hu", "en"];
+const locales: GuideLocale[] = ["hu", "en", "cs"];
 const pageTitle = `${guide.content.hu.title} | ${guide.houseName}`;
 const description = guide.content.hu.intro;
+const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ" };
+const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "Důležité body" };
+const tocLabels: Record<GuideLocale, string> = { hu: "Ugrás a ponthoz", en: "Jump to section", cs: "Přejít na sekci" };
+const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "Válassz pontot", en: "Choose a section", cs: "Vyberte sekci" };
 ---
 
 <BaseLayout
@@ -24,6 +28,7 @@ const description = guide.content.hu.intro;
         data-guide-label="back"
         data-back-label-hu={guide.content.hu.backLabel}
         data-back-label-en={guide.content.en.backLabel}
+        data-back-label-cs={guide.content.cs.backLabel}
       >
         {guide.content.hu.backLabel}
       </a>
@@ -38,7 +43,7 @@ const description = guide.content.hu.intro;
               data-guide-lang-button={locale}
               aria-pressed={locale === "hu" ? "true" : "false"}
             >
-              {locale.toUpperCase()}
+              {languageLabels[locale]}
             </button>
           ))}
           <span class="guide-language__pending" aria-disabled="true" title={guide.dePreparedTitle}>DE</span>
@@ -54,8 +59,8 @@ const description = guide.content.hu.intro;
 
       {locales.map((locale) => (
         <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
-          <section class="guide-important" aria-label={locale === "hu" ? "Fontos pontok" : "Key points"}>
-            <h2>{locale === "hu" ? "Fontos pontok" : "Key points"}</h2>
+          <section class="guide-important" aria-label={importantLabels[locale]}>
+            <h2>{importantLabels[locale]}</h2>
             <ul>
               {guide.content[locale].keyPoints.map((point) => (
                 <li>{point}</li>
@@ -63,10 +68,10 @@ const description = guide.content.hu.intro;
             </ul>
           </section>
 
-          <div class="guide-toc" aria-label={locale === "hu" ? "Tartalom" : "Contents"}>
-            <label for={`guide-toc-${locale}`}>{locale === "hu" ? "Ugrás a ponthoz" : "Jump to section"}</label>
+          <div class="guide-toc" aria-label={locale === "hu" ? "Tartalom" : locale === "en" ? "Contents" : "Obsah"}>
+            <label for={`guide-toc-${locale}`}>{tocLabels[locale]}</label>
             <select id={`guide-toc-${locale}`} data-guide-toc-select={locale}>
-              <option value="">{locale === "hu" ? "Válassz pontot" : "Choose a section"}</option>
+              <option value="">{tocPlaceholderLabels[locale]}</option>
               {guide.content[locale].sections.map((section) => (
                 <option value={`${locale}-${section.id}`}>{section.title}</option>
               ))}
@@ -115,7 +120,8 @@ const description = guide.content.hu.intro;
       const backLink = root.querySelector("[data-guide-label='back']");
       const backLabels = {
         hu: backLink?.getAttribute("data-back-label-hu") || "",
-        en: backLink?.getAttribute("data-back-label-en") || ""
+        en: backLink?.getAttribute("data-back-label-en") || "",
+        cs: backLink?.getAttribute("data-back-label-cs") || ""
       };
 
       const setLanguage = (nextLanguage) => {

@@ -211,6 +211,108 @@ export const fugehazDezsaGuide = {
           ]
         }
       ]
+    },
+    cs: {
+      title: "Návod k používání dřevem vytápěné kádě",
+      subtitle: "Návod k používání a zatápění dřevem vytápěné kádě - Fügeház",
+      intro:
+        "Krátký, mobilní průvodce bezpečným zatopením, ohřevem a používáním dřevem vytápěné kádě u Fügeházu.",
+      keyPoints: [
+        "Oheň zakládejte postupně papírem a třískami.",
+        "Během ohřevu nechte větrací otvor kamen volný.",
+        "Během ohřevu nechte běžet cirkulaci vody; večer ji můžete vytáhnout ze zásuvky a ráno znovu zapojit.",
+        "Nejpříjemnější teplota vody je obvykle kolem 38 °C."
+      ],
+      backLabel: "Zpět na průvodce Fügeház",
+      sections: [
+        {
+          id: "lighting",
+          title: "1. Zatopení v kádi",
+          paragraphs: [
+            "Káď je potřeba roztápět postupně. Nezačínejte velkými poleny, protože by mohla oheň snadno udusit.",
+            "Dřevo na zatopení je v malé dřevárně vlevo od vstupních dveří. Najdete tam i menší suché kousky dřeva."
+          ],
+          steps: [
+            "Na dno topeniště kamen dejte dostatek papíru.",
+            "Na papír položte tenké suché třísky.",
+            "Podpalovací kostku neházejte do topeniště.",
+            "U kamen najdete kovovou škrabku/nástroj. Podpalovací kostku položte na tento nástroj.",
+            "Podpalovací kostku na kovové škrabce zapalte zapalovačem.",
+            "Poté ji pomocí kovové škrabky opatrně spusťte k papíru a třískám.",
+            "Chvíli počkejte, až papír a třísky dobře chytnou.",
+            "Když třísky dobře hoří, přidejte tenčí kousky dřeva.",
+            "Větší polena přidávejte až tehdy, když oheň hoří stabilně."
+          ],
+          important:
+            "Nespěchejte. Oheň funguje nejlépe, když nejprve pořádně prohoří papír, třísky a menší dřevo. Pokud přidáte velká polena příliš brzy, mohou oheň udusit."
+        },
+        {
+          id: "stove-lid",
+          title: "2. Používání víka kamen",
+          paragraphs: [
+            "Na kamnech je přibližně 5 cm větrací otvor. Tudy oheň dostává vzduch.",
+            "Při zatápění a ohřevu se tento otvor nesmí zakrývat, jinak oheň nedostane dost vzduchu a nebude správně hořet.",
+            "Víko kamen položte tak, aby tento přibližně 5 cm otvor zůstal volný.",
+            "Víko je vhodné více přivřít až tehdy, když se už koupete a voda je příliš teplá, nebo když nechcete, aby oheň hořel tak silně.",
+            "Během ohřevu je naopak cílem, aby oheň hořel silným plamenem."
+          ]
+        },
+        {
+          id: "adding-wood",
+          title: "3. Přikládání dřeva do kamen",
+          paragraphs: [
+            "Polena do kamen neházejte, mohlo by dojít k poškození dna kamen. Vkládejte je vždy opatrně.",
+            "Jedno přiložení je obvykle asi 6-7 kusů dřeva.",
+            "To shoří přibližně za 30-45 minut. Když poté znovu přiložíte 6-7 kusů dřeva, voda se rychle ohřívá dál.",
+            "Nad 30 °C může jedno dobré přiložení zvýšit teplotu vody asi o 3 °C."
+          ]
+        },
+        {
+          id: "temperature",
+          title: "4. Doporučená teplota vody",
+          paragraphs: [
+            "Nejpříjemnější teplota vody je obvykle kolem 38 °C.",
+            "V létě, za teplejšího počasí, může být příjemná už voda o teplotě 36 °C.",
+            "V chladnějším počasí, hlavně v zimě, může lépe vyhovovat 39-40 °C. Výš už vodu nedoporučujeme ohřívat, protože může být nepříjemná.",
+            "Pokud je voda příliš horká, můžete dopustit studenou vodu kohoutkem a hadicí vedle kádě."
+          ]
+        },
+        {
+          id: "thermometer",
+          title: "5. Teploměr",
+          paragraphs: [
+            "Teplotu vody zkontrolujete na teploměru ve skimmeru.",
+            "Skimmer je část, kde filtrace nasává vodu z hladiny. Teploměr je umístěn právě tam."
+          ]
+        },
+        {
+          id: "circulation",
+          title: "6. Používání cirkulace vody",
+          paragraphs: [
+            "Během ohřevu nechte běžet cirkulaci vody. Promíchává teplejší a chladnější vodu, takže se celá káď ohřívá rovnoměrněji.",
+            "Je důležitá také pro čistotu vody.",
+            "Večer, když se koupete, můžete cirkulaci vytáhnout ze zásuvky ve zdi, aby v noci nerušila."
+          ],
+          important:
+            "Druhý den ráno ji prosím znovu zapojte, aby dál čistila a cirkulovala vodu."
+        },
+        {
+          id: "water-treatment",
+          title: "7. Úprava vody",
+          paragraphs: [
+            "Voda v kádi je chlorovaná a takto se udržuje čistá.",
+            "Prosím nepřidávejte do vody žádné jiné chemikálie ani přísady."
+          ]
+        },
+        {
+          id: "evening",
+          title: "8. Slunečník a večerní atmosféra",
+          paragraphs: [
+            "Vedle kádě je slunečník. Pokud je slunce silné, ale chcete káď použít, můžete ho otevřít pro stín.",
+            "Večer se vyplatí zhasnout venkovní světla. Je tu málo světelného znečištění, takže za jasné noci jsou krásně vidět hvězdy."
+          ]
+        }
+      ]
     }
   }
 } satisfies GuideContent;

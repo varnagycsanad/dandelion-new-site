@@ -625,12 +625,12 @@ const headerLanguageLinks = [
     active: lang === "de"
   },
   {
-    label: "CS",
+    label: "CZ",
     href: currentLanguageRoutes.cs ? localizedHref(currentLanguageRoutes.cs) : undefined,
     active: lang === "cs"
   }
 ];
-const mobileCurrentLanguageLabel = lang.toUpperCase();
+const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
 ---
 
 <!DOCTYPE html>

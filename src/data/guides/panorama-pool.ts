@@ -1,4 +1,4 @@
-import type { GuideContent } from "./types";
+import type { GuideContent, GuideLocaleContent } from "./types";
 
 type PoolGuideHouse = {
   houseSlug: string;
@@ -44,6 +44,177 @@ const forbiddenBulletsEn = [
   "using electrical devices directly near the water",
   "littering or contaminating the water"
 ];
+
+const issueBulletsCs = [
+  "se kolem bazénu rozbije sklo",
+  "do vody se dostane nečistota",
+  "zastřešení bazénu je poškozené nebo s ním nelze pohnout",
+  "barva, zápach nebo stav vody je neobvyklý",
+  "někomu se udělá špatně nebo se zraní"
+];
+
+const forbiddenBulletsCs = [
+  "skákat do vody po hlavě",
+  "skákat do vody",
+  "běhat kolem bazénu",
+  "strkat do ostatních",
+  "rušit ostatní cákáním nebo křikem",
+  "pohybovat se nebezpečně u okraje bazénu",
+  "stát, sedět nebo skákat na zastřešení bazénu",
+  "používat elektrická zařízení přímo u vody",
+  "odhazovat odpadky nebo znečišťovat vodu"
+];
+
+const createPoolGuideCsContent = (houseName: string): GuideLocaleContent => ({
+  title: "Panorama Pool - pravidla používání bazénu",
+  subtitle: `Pravidla používání bazénu Panorama Pool - ${houseName}`,
+  intro:
+    "Platí od: 24. května 2026. Upraveno: 25. května 2026. Panorama Pool mohou hosté Dandelion používat během koupací sezóny.",
+  keyPoints: [
+    "Otevírací doba během koupací sezóny: denně 10:00-21:00.",
+    "Bazén používáte na vlastní odpovědnost, plavčík není přítomen.",
+    "Děti mohou bazén používat pouze pod dohledem dospělé osoby.",
+    "Společný prostor bazénu může být monitorován kamerovým systémem.",
+    "Po posledním večerním použití je nutné zastřešení zatáhnout zpět nad bazén."
+  ],
+  backLabel: `Zpět na průvodce ${houseName}`,
+  sections: [
+    {
+      id: "acceptance",
+      title: "Přijetí pravidel",
+      paragraphs: [
+        "Panorama Pool mohou hosté Dandelion používat během koupací sezóny.",
+        "Použitím bazénu host přijímá tato pravidla a zavazuje se používat bazén pouze podle nich."
+      ]
+    },
+    {
+      id: "opening-hours",
+      title: "1. Otevírací doba",
+      paragraphs: [
+        "Během koupací sezóny je Panorama Pool otevřen denně od 10:00 do 21:00.",
+        "Mimo otevírací dobu se bazén nesmí používat.",
+        "Provozovatel může používání bazénu dočasně omezit nebo pozastavit kvůli počasí, údržbě, úpravě vody, technické závadě, bezpečnostním důvodům nebo porušení pravidel."
+      ]
+    },
+    {
+      id: "pool-use",
+      title: "2. Používání bazénu",
+      paragraphs: [
+        "Bazén používáte na vlastní odpovědnost.",
+        "U bazénu není plavčík.",
+        "Hloubka vody je přibližně 1,30 m. Bazén není skokanský bazén, proto je zakázáno skákat po hlavě, skákat do vody, strkat do ostatních, skákat z okraje bazénu a běhat kolem bazénu.",
+        "Každý host smí bazén používat jen podle svých plaveckých schopností, zdravotního a fyzického stavu.",
+        "Hosté, kteří neumějí plavat nebo si nejsou jistí, mohou bazén používat pouze s náležitou opatrností a případně s plaveckou pomůckou."
+      ]
+    },
+    {
+      id: "children",
+      title: "3. Pravidla pro děti",
+      paragraphs: [
+        "Děti mohou bazén používat pouze pod dohledem dospělé osoby.",
+        "Za bezpečnost dětí vždy odpovídá rodič, příbuzný nebo doprovázející dospělý.",
+        "Děti nesmí zůstat v bazénu ani v jeho okolí bez dozoru.",
+        "Děti nesmí pohybovat se zastřešením bazénu, lézt na něj ani po něm chodit."
+      ]
+    },
+    {
+      id: "hygiene",
+      title: "4. Hygienická pravidla",
+      paragraphs: [
+        "Před použitím bazénu je sprchování povinné.",
+        "Po použití opalovacího krému, tělového mléka, oleje nebo jiné kosmetiky se prosím zvlášť pečlivě osprchujte, protože tyto přípravky zhoršují kvalitu vody.",
+        "Do bazénu se nesmí dostat jídlo, nápoje, šampon, sprchový gel, pěna do koupele, olej ani žádná cizí látka.",
+        "Jíst v bazénu je zakázáno.",
+        "Malé děti mohou bazén používat pouze s vhodnou plovací plenou.",
+        "Bazén nesmí používat osoba s infekční nemocí, horečkou, průjmem, zvracením, otevřenou ranou nebo kožní infekcí."
+      ]
+    },
+    {
+      id: "forbidden",
+      title: "5. Zakázané předměty a činnosti",
+      paragraphs: [
+        "Do bazénu ani do jeho bezprostředního okolí se nesmí nosit sklo, skleněné kelímky ani rozbitné předměty.",
+        "V bazénu a jeho okolí je zakázáno:"
+      ],
+      bullets: forbiddenBulletsCs,
+      important:
+        "Domácí zvířata do bazénu nesmí. Osoba pod vlivem alkoholu, drog nebo jinak ovlivněná nesmí bazén používat."
+    },
+    {
+      id: "toys",
+      title: "6. Nafukovací pomůcky a hračky",
+      paragraphs: [
+        "Nafukovací hračky, matrace, míče nebo jiné vodní hračky lze používat pouze tehdy, pokud neruší a neohrožují ostatní hosty.",
+        "Provozovatel může použití velkých nafukovacích pomůcek omezit nebo zakázat.",
+        "Za nehody způsobené používáním hraček a pomůcek odpovídá uživatel, u dětí doprovázející dospělý."
+      ]
+    },
+    {
+      id: "pool-cover",
+      title: "7. Používání zastřešení bazénu",
+      paragraphs: [
+        "Před prvním použitím dne je nutné zastřešení bazénu odsunout.",
+        "Se zastřešením vždy pohybujte opatrně a pomalu, aby se nepoškodilo zastřešení ani kolejnice.",
+        "Po posledním večerním použití musí hosté zastřešení zatáhnout zpět nad bazén.",
+        "Zatažení zastřešení je důležité pro čistotu vody, udržení tepla a bezpečnost.",
+        "Na zastřešení je zakázáno stát, sedět, skákat nebo po něm chodit.",
+        "Děti nesmí se zastřešením pohybovat.",
+        "Pokud se zastřešení zasekne nebo nefunguje správně, nepoužívejte sílu a ihned informujte provozovatele."
+      ]
+    },
+    {
+      id: "weather",
+      title: "8. Počasí a mimořádné situace",
+      paragraphs: [
+        "Bazén se nesmí používat při bouřce, blescích, silném větru nebo nebezpečném počasí.",
+        "Při blescích je nutné bazén okamžitě opustit.",
+        "Bazén může být dočasně uzavřen kvůli údržbě, úpravě vody, chemickému ošetření, technické závadě nebo neobvyklé kvalitě vody.",
+        "Uzavřený nebo mimo provoz označený bazén se nesmí používat."
+      ]
+    },
+    {
+      id: "order",
+      title: "9. Pořádek, čistota a klid ostatních hostů",
+      paragraphs: [
+        "Udržujte prosím prostor bazénu čistý a uklizený a respektujte odpočinek ostatních hostů.",
+        "Nábytek, lehátka a další vybavení kolem bazénu používejte pouze k určenému účelu.",
+        "Po použití si prosím odneste své věci, ručníky, hračky i odpad.",
+        "Hlasitá hudba nebo chování rušící ostatní není v okolí bazénu dovoleno."
+      ]
+    },
+    {
+      id: "camera-surveillance",
+      title: "10. Kamerový dohled",
+      paragraphs: [
+        "Společný prostor Panorama Pool může být monitorován kamerovým systémem.",
+        "Účelem kamerového monitoringu je ochrana hostů a ubytování, ochrana majetku, prevence škod a porušování pravidel a objasnění stížností, nehod nebo škodních událostí.",
+        "Kamerový dohled není službou plavčíka ani nepřetržitým osobním dohledem a nenahrazuje dohled dospělých nad dětmi.",
+        "Podrobná pravidla zpracování kamerových záznamů obsahují zásady ochrany osobních údajů Dandelion Vendégházak."
+      ]
+    },
+    {
+      id: "reporting",
+      title: "11. Hlášení nehody, závady nebo znečištění",
+      paragraphs: [
+        "V případě nehody, zranění, nevolnosti, technické závady, znečištění nebo neobvyklé kvality vody prosím ihned informujte provozovatele.",
+        "Zvlášť důležité je okamžitě hlásit, pokud:"
+      ],
+      bullets: issueBulletsCs
+    },
+    {
+      id: "liability",
+      title: "12. Odpovědnost",
+      paragraphs: [
+        "Bazén používáte na vlastní odpovědnost.",
+        "Provozovatel nenese odpovědnost za nehody, zranění, škody nebo dodatečné náklady vzniklé nedodržením pravidel.",
+        "U dětí odpovídá za jejich bezpečnost po celou dobu používání bazénu rodič nebo doprovázející dospělý.",
+        "Při úmyslném nebo nedbalostním poškození nese náklady na opravu, obnovu nebo náhradu host, který škodu způsobil."
+      ],
+      important:
+        "Použitím bazénu host bere na vědomí a přijímá tato pravidla používání bazénu."
+    }
+  ]
+});
 
 const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent => ({
   slug: "medence",
@@ -352,7 +523,8 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
             "By using the pool, the guest acknowledges and accepts these Pool Rules."
         }
       ]
-    }
+    },
+    cs: createPoolGuideCsContent(houseName)
   }
 });
 

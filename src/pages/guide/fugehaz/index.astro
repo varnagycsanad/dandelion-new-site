@@ -22,6 +22,7 @@ const description = "QR-kóddal megnyitható Fügeház vendégútmutató a helys
         <div class="guide-language" aria-label="Guide language selector">
           <button class="guide-language__button" type="button" data-guide-lang-button="hu" aria-pressed="true">HU</button>
           <button class="guide-language__button" type="button" data-guide-lang-button="en" aria-pressed="false">EN</button>
+          <button class="guide-language__button" type="button" data-guide-lang-button="cs" aria-pressed="false">CZ</button>
           <span class="guide-language__pending" aria-disabled="true">DE</span>
         </div>
 
@@ -33,20 +34,28 @@ const description = "QR-kóddal megnyitható Fügeház vendégútmutató a helys
           <h1>Fugehaz guide</h1>
           <p>Choose the on-site user guide you would like to open.</p>
         </div>
+        <div data-guide-lang-panel="cs" hidden>
+          <h1>Fügeház průvodce</h1>
+          <p>Vyberte, kterého místního průvodce chcete otevřít.</p>
+        </div>
       </header>
 
       <div class="guide-index__list">
         <a class="guide-index__item" href={fugehazDezsaGuide.path}>
           <span data-guide-lang-panel="hu">Dézsafürdő használati útmutató</span>
           <span data-guide-lang-panel="en" hidden>Wood-Fired Hot Tub User Guide</span>
+          <span data-guide-lang-panel="cs" hidden>Návod k používání dřevem vytápěné kádě</span>
           <small data-guide-lang-panel="hu">Begyújtás, felfűtés, vízhőfok és vízforgató.</small>
           <small data-guide-lang-panel="en" hidden>Lighting, heating, water temperature and circulation.</small>
+          <small data-guide-lang-panel="cs" hidden>Zatopení, ohřev, teplota vody a cirkulace.</small>
         </a>
         <a class="guide-index__item" href={fugehazPoolGuide.path}>
           <span data-guide-lang-panel="hu">Medencehasználati útmutató</span>
           <span data-guide-lang-panel="en" hidden>Pool User Guide</span>
+          <span data-guide-lang-panel="cs" hidden>Návod k používání bazénu</span>
           <small data-guide-lang-panel="hu">Biztonság, higiénia, gyermekfelügyelet és közös használat.</small>
           <small data-guide-lang-panel="en" hidden>Safety, hygiene, child supervision and shared use.</small>
+          <small data-guide-lang-panel="cs" hidden>Bezpečnost, hygiena, dohled nad dětmi a společné používání.</small>
         </a>
       </div>
     </div>
