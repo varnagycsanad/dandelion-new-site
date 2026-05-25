@@ -34,21 +34,21 @@ const defaultReviews = [
   },
   {
     source: "Booking.com" as const,
-    quote: "Rychla komunikace, hezke okoli a ubytovani, kde se da opravdu vypnout.",
+    quote: "Rychlá komunikace, hezké okolí a ubytování, kde se dá opravdu vypnout.",
     meta: "Host - Booking.com - 9/10"
   }
 ];
 
 const relatedStays = [
-  { name: "Dandelion D1", meta: "6-8 hostu - zahrada - rodinny cas", href: "/cs/dandelion-d1/", slot: "d1_card_image" as const },
-  { name: "Dandelion D2", meta: "4-6 hostu - terasa - Panorama Pool", href: "/cs/dandelion-d2/", slot: "d2_card_image" as const },
-  { name: "Dandelion Fugehaz", meta: "4-6 hostu - panorama - klidna poloha", href: "/cs/dandelion-fugehaz/", slot: "fugehaz_card_image" as const },
-  { name: "Dandelion Zsalya", meta: "2-4 hoste - terasa - priroda", href: "/cs/dandelion-zsalya/", slot: "zsalya_card_image" as const },
-  { name: "Dandelion Szololiget", meta: "2-4 hoste - vinice - vyhled", href: "/cs/szololiget/", slot: "szololiget_card_image" as const },
-  { name: "Dandelion Szepvolgyi", meta: "az 8 hostu - panorama Balatonu", href: "/cs/szepvolgyi/", slot: "szepvolgyi_card_image" as const },
+  { name: "Dandelion D1", meta: "6-8 hostů - zahrada - rodinný čas", href: "/cs/dandelion-d1/", slot: "d1_card_image" as const },
+  { name: "Dandelion D2", meta: "4-6 hostů - terasa - Panorama Pool", href: "/cs/dandelion-d2/", slot: "d2_card_image" as const },
+  { name: "Dandelion Fügeház", meta: "4-6 hostů - panorama - klidná poloha", href: "/cs/dandelion-fugehaz/", slot: "fugehaz_card_image" as const },
+  { name: "Dandelion Zsálya", meta: "2-4 hosté - terasa - příroda", href: "/cs/dandelion-zsalya/", slot: "zsalya_card_image" as const },
+  { name: "Dandelion Szőlőliget", meta: "2-4 hosté - vinice - výhled", href: "/cs/szololiget/", slot: "szololiget_card_image" as const },
+  { name: "Dandelion Szépvölgyi", meta: "až 8 hostů - panorama Balatonu", href: "/cs/szepvolgyi/", slot: "szepvolgyi_card_image" as const },
   { name: "Dandelion Royal Homes", meta: "Keszthely - apartman - Balaton", href: "/cs/royal/", slot: "royal_homes_card_image" as const },
   { name: "Dandelion Vintage", meta: "Nemesgulacs - dvur - klidne dny", href: "/cs/dandelion-vintage/", slot: "vintage_card_image" as const },
-  { name: "Dandelion Koveskal", meta: "oblast Kali - vesnicka atmosféra", href: "/cs/dandelion-koveskal/", slot: "koveskal_card_image" as const }
+  { name: "Dandelion Köveskál", meta: "oblast Káli - vesnická atmosféra", href: "/cs/dandelion-koveskal/", slot: "koveskal_card_image" as const }
 ];
 
 export function createCzechAccommodationPage(
@@ -57,29 +57,29 @@ export function createCzechAccommodationPage(
 ): AccommodationPageData {
   return {
     seo: {
-      title: `${profile.title} | Dandelion ubytovani u Balatonu`,
+      title: `${profile.title} | Dandelion ubytování u Balatonu`,
       description: profile.shortDescription
     },
     bookingLink: "/cs/kontakt/",
     hero: {
       mobileImagePath: baseData.hero.mobileImagePath,
-      fallbackAlt: `${profile.title} ubytovani v oblasti ${profile.location}`,
+      fallbackAlt: `${profile.title} ubytování v oblasti ${profile.location}`,
       kicker: profile.region,
       title: profile.title,
       titleAccent: profile.titleAccent,
       subtitle: profile.character,
       lead: profile.lead,
       supportingLink: {
-        label: "Zpet na prehled ubytovani",
+        label: "Zpět na přehled ubytování",
         href: "/cs/ubytovani/"
       },
       poolHighlight: baseData.hero.poolHighlight
         ? {
             enabled: true,
             label: "Spolecny Panorama Pool",
-            text: "U D1, D2 a Fugehaz je spolecny Panorama Pool soucasti pobytu.",
+            text: "U D1, D2 a Fügeház je společný Panorama Pool součástí pobytu.",
             href: "/cs/ubytovani/",
-            ctaLabel: "Porovnat ubytovani",
+            ctaLabel: "Porovnat ubytování",
             variant: "strong"
           }
         : undefined,
@@ -87,7 +87,7 @@ export function createCzechAccommodationPage(
       secondaryCtaLabel: "Zobrazit fotografie"
     },
     reviews: {
-      kicker: "Hodnoceni hostu",
+      kicker: "Hodnocení hostů",
       title: "Co rikaji hoste",
       intro: "Zpetna vazba z Google a Booking.com",
       mobileSummaryLabel: "Dalsi hodnoceni",
@@ -106,7 +106,7 @@ export function createCzechAccommodationPage(
       title: `${profile.title} v oblasti ${profile.location}`,
       shortDescription: profile.shortDescription,
       supportingLink: {
-        label: "Zpet na cesky prehled ubytovani.",
+        label: "Zpět na český přehled ubytování.",
         href: "/cs/ubytovani/"
       },
       longDescription: profile.longDescription,
@@ -116,7 +116,7 @@ export function createCzechAccommodationPage(
     facts: {
       groups: [
         { title: "Dulezite detaily", items: profile.facts },
-        { title: "Zazitky v okoli", items: profile.experienceFacts }
+        { title: "Zážitky v okolí", items: profile.experienceFacts }
       ]
     },
     features: {
@@ -169,8 +169,8 @@ export function createCzechAccommodationPage(
       galleryHoverLabel: "Zobrazit fotografii"
     },
     relatedStays: {
-      kicker: "Dalsi ubytovani",
-      title: "Dalsi Dandelion ubytovani",
+      kicker: "Další ubytování",
+      title: "Další Dandelion ubytování",
       intro: "Porovnejte dalsi domy a oblasti kolem Balatonu.",
       items: relatedStays
         .filter((stay) => stay.href !== profile.route)
@@ -182,7 +182,7 @@ export function createCzechAccommodationPage(
           image: {
             type: "mapping" as const,
             slot: stay.slot as HomepageImageSlotKey,
-            alt: `${stay.name} ubytovani Dandelion`
+            alt: `${stay.name} ubytování Dandelion`
           }
         }))
     }
