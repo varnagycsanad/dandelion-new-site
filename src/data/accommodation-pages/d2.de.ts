@@ -10,7 +10,7 @@ export const d2GermanPageData: AccommodationPageData = {
     description:
       "Dandelion D2 ist eine ruhige, familienfreundliche Unterkunft im Balaton-Oberland mit Garten, Terrasse und Zugang zum gemeinsamen Panorama Pool."
   },
-  bookingLink: "/de/kontakt/",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",
@@ -32,7 +32,7 @@ export const d2GermanPageData: AccommodationPageData = {
       ctaLabel: "Unterkünfte ansehen",
       variant: "strong"
     },
-    primaryCtaLabel: "Anfrage senden",
+    primaryCtaLabel: "Verfügbarkeit prüfen",
     secondaryCtaLabel: "Fotos ansehen"
   },
   reviews: {
@@ -93,7 +93,7 @@ export const d2GermanPageData: AccommodationPageData = {
       "Der Balaton, die Wanderwege des Szent György-hegy und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Dandelion D2 eignet sich deshalb gut als ruhige Basis für verschiedene Tage im Balaton-Oberland."
     ],
     moreLabel: "Mehr über Dandelion D2",
-    ctaLabel: "Verfügbarkeit anfragen"
+    ctaLabel: "Verfügbarkeit prüfen"
   },
   facts: {
     groups: [

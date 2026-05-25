@@ -107,7 +107,7 @@ export function createGermanAccommodationPage(
       title: `${profile.title} | Dandelion Unterkünfte am Balaton`,
       description: profile.shortDescription
     },
-    bookingLink: "/de/kontakt/",
+    bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
     hero: {
       mobileImagePath: baseData.hero.mobileImagePath,
       fallbackAlt: `${profile.title} Unterkunft in ${profile.location}`,
@@ -130,7 +130,7 @@ export function createGermanAccommodationPage(
             variant: "strong"
           }
         : undefined,
-      primaryCtaLabel: "Anfrage senden",
+      primaryCtaLabel: "Verfügbarkeit prüfen",
       secondaryCtaLabel: "Fotos ansehen"
     },
     reviews: {
@@ -158,7 +158,7 @@ export function createGermanAccommodationPage(
       },
       longDescription: profile.longDescription,
       moreLabel: `Mehr über ${profile.title}`,
-      ctaLabel: "Verfügbarkeit anfragen"
+      ctaLabel: "Verfügbarkeit prüfen"
     },
     facts: {
       groups: [

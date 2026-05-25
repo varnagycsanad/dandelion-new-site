@@ -18,6 +18,7 @@ const contactItems = [
     href: "https://wa.me/36207730807"
   }
 ];
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 ---
 
 <BaseLayout
@@ -50,10 +51,10 @@ const contactItems = [
       <div class="info-page__note">
         <h2>Buchung</h2>
         <p>
-          Der deutsche SabeeApp-Sprachparameter wird separat gepruft. Bis dahin ist diese
-          Kontaktseite der sichere Einstieg für deutschsprachige Anfragen.
+          Die Buchungsmaschine öffnet sich auf Englisch. Für deutschsprachige Rückfragen
+          können Sie uns weiterhin per E-Mail, Telefon oder WhatsApp erreichen.
         </p>
-        <a class="info-page__cta" href="mailto:hello@dandelionhouse.hu">Anfrage senden</a>
+        <a class="info-page__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Verfügbarkeit prüfen</a>
       </div>
     </div>
   </section>

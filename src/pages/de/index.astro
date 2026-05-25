@@ -22,6 +22,7 @@ import galleryRoyalImage from "../../assets/accommodations/royal_homes/gallery/d
 const deTitle = "Dandelion Gästehäuser | Unterkünfte am Balaton";
 const deDescription =
   "Ruhige Gästehäuser und Apartments im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Keszthely und dem Káli-Becken.";
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 
 const germanRegionStories = [
   {
@@ -122,7 +123,7 @@ const galleryItems = [
     description="Naturverbundene Unterkünfte im Balaton-Oberland, nahe Szent György-hegy und Badacsony."
     ctas={[
       { label: "Unterkünfte ansehen", href: "/de/unterkuenfte/" },
-      { label: "Kontakt aufnehmen", href: "/de/kontakt/" }
+      { label: "Verfügbarkeit prüfen", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
     ]}
     videoFallbackText="Ihr Browser unterstützt keine Hintergrundvideos."
   />
@@ -199,7 +200,7 @@ const galleryItems = [
           allem, was vor der Buchung wichtig ist.
         </p>
       </div>
-      <a class="de-home-booking__cta" href="/de/kontakt/">Kontakt aufnehmen</a>
+      <a class="de-home-booking__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Verfügbarkeit prüfen</a>
     </div>
   </section>
 </BaseLayout>

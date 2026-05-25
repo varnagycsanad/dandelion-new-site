@@ -6,8 +6,7 @@ import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
 import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
 
 const imageMapping = await readHomepageImageMapping();
-const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const contactHref = `${baseHref}de/kontakt/`;
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
 const accommodationsOgImageAlt = "Dandelion Gästehäuser Unterkunftsauswahl im Balaton-Oberland";
 
@@ -354,7 +353,7 @@ const accommodationsStructuredData = {
           Schreiben Sie uns kurz, mit wie vielen Gästen Sie reisen und welche Art von Aufenthalt Sie suchen. Wir helfen bei der Auswahl.
         </p>
         <div class="dnd-accommodations-closing__actions">
-          <a class="dnd-accommodations-closing__cta" href={contactHref}>Verfügbarkeit anfragen</a>
+          <a class="dnd-accommodations-closing__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Verfügbarkeit prüfen</a>
           <a class="dnd-accommodations-closing__cta dnd-accommodations-closing__cta--secondary" href="/de/kontakt/">
             Hilfe bei der Auswahl
           </a>

@@ -22,6 +22,7 @@ import galleryRoyalImage from "../../assets/accommodations/royal_homes/gallery/d
 const csTitle = "Dandelion ubytování | Klidné pobyty u Balatonu";
 const csDescription =
   "Klidné penziony a apartmány v Balatonské vrchovině, u Szent György-hegy, Badacsonye, Keszthelye a v oblasti Káli.";
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 
 const czechRegionStories = [
   {
@@ -122,7 +123,7 @@ const galleryItems = [
     description="Přírodní penziony a apartmány v Balatonské vrchovině, poblíž Szent György-hegy a Badacsonye."
     ctas={[
       { label: "Zobrazit ubytování", href: "/cs/ubytovani/" },
-      { label: "Kontaktovat nás", href: "/cs/kontakt/" }
+      { label: "Ověřit dostupnost", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
     ]}
     videoFallbackText="Váš prohlížeč nepodporuje přehrávání videa na pozadí."
   />
@@ -200,7 +201,7 @@ const galleryItems = [
           co je před rezervací důležité.
         </p>
       </div>
-      <a class="cs-home-booking__cta" href="/cs/kontakt/">Kontaktovat nás</a>
+      <a class="cs-home-booking__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Ověřit dostupnost</a>
     </div>
   </section>
 </BaseLayout>

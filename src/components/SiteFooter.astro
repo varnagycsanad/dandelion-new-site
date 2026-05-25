@@ -173,9 +173,9 @@ const czechFooterStayColumns = [
     .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const bookingLanguage = isEnglishFooter ? "En" : "Hu";
+const bookingLanguage = isEnglishFooter || isGermanFooter || isCzechFooter ? "En" : "Hu";
 const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
-const resolvedBookingHref = isCzechFooter ? `${homeHref}cs/kontakt/` : isGermanFooter ? `${homeHref}de/kontakt/` : bookingHref;
+const resolvedBookingHref = bookingHref;
 const englishFooterNav = [
   { label: "Home", href: `${homeHref}en/` },
   { label: "Accommodations", href: `${homeHref}en/szallasok/` },

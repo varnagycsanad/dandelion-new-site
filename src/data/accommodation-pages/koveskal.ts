@@ -9,7 +9,7 @@ export const koveskalPageData: AccommodationPageData = {
     description:
       "Nyugodt vendégház Köveskálon, természetközeli pihenéssel, falusi hangulattal és jó kiindulóponttal a Káli-medence felfedezéséhez."
   },
-  bookingLink: "/kapcsolat/",
+  bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu",
   positioning: {
     shortCharacter: "Nagy kerttel és terasszal rendelkező ház a Káli-medence hangulatához.",
     goodFor: ["családoknak", "baráti társaságoknak", "elvonulós pihenéshez", "Káli-medencei programokhoz"],

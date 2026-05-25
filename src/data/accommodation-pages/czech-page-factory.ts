@@ -60,7 +60,7 @@ export function createCzechAccommodationPage(
       title: `${profile.title} | Dandelion ubytování u Balatonu`,
       description: profile.shortDescription
     },
-    bookingLink: "/cs/kontakt/",
+    bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En",
     hero: {
       mobileImagePath: baseData.hero.mobileImagePath,
       fallbackAlt: `${profile.title} ubytování v oblasti ${profile.location}`,
@@ -83,7 +83,7 @@ export function createCzechAccommodationPage(
             variant: "strong"
           }
         : undefined,
-      primaryCtaLabel: "Poslat dotaz",
+      primaryCtaLabel: "Ověřit dostupnost",
       secondaryCtaLabel: "Zobrazit fotografie"
     },
     reviews: {
@@ -111,7 +111,7 @@ export function createCzechAccommodationPage(
       },
       longDescription: profile.longDescription,
       moreLabel: `Více o ${profile.title}`,
-      ctaLabel: "Zeptat se na dostupnost"
+      ctaLabel: "Ověřit dostupnost"
     },
     facts: {
       groups: [

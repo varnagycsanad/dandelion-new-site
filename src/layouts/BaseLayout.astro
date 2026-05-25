@@ -236,14 +236,10 @@ const quickContacts = [
   { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
 
-const bookingLanguage = isEnglishPage ? "En" : "Hu";
-const bookingHref = isCzechPage
-  ? `${homeHref}cs/kontakt/`
-  : isGermanPage
-  ? `${homeHref}de/kontakt/`
-  : `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
-const bookingTarget = isGermanPage || isCzechPage ? undefined : "_blank";
-const bookingRel = isGermanPage || isCzechPage ? undefined : "noopener noreferrer";
+const bookingLanguage = isEnglishPage || isGermanPage || isCzechPage ? "En" : "Hu";
+const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
+const bookingTarget = "_blank";
+const bookingRel = "noopener noreferrer";
 const stayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage",
