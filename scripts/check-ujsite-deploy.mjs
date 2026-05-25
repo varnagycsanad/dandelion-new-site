@@ -3,6 +3,7 @@ const HOME_URL = `${BASE_URL}/`;
 
 const criticalPages = [
   `${BASE_URL}/`,
+  `${BASE_URL}/cs/`,
   `${BASE_URL}/szallasok`,
   `${BASE_URL}/dandelion-d2/`,
 ];
