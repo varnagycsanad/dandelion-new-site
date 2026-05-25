@@ -7,21 +7,13 @@ export const SITE_DEFAULT_DESCRIPTION =
   "Természetközeli vendégházak a Balaton-felvidéken és a Balaton mellett, közvetlen foglalással, inspiráló környezettel és nyugodt pihenéssel.";
 export const SITE_DEFAULT_DESCRIPTION_EN =
   "Nature-focused guesthouses in the Balaton Uplands, close to Szent György Hill, Badacsony, Lake Balaton and the Káli Basin.";
-export const SITE_DEFAULT_DESCRIPTION_DE =
-  "Naturverbundene Gastehauser im Balaton-Oberland, nahe Szent Gyorgy-hegy, Badacsony, Balaton und Kali-Becken.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
-type LocalizedRoutePair = {
-  hu: string;
-  en?: string;
-  de?: string;
-};
-
-export const LOCALIZED_ROUTE_PAIRS: readonly LocalizedRoutePair[] = [
-  { hu: "/", en: "/en/", de: "/de/" },
-  { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/" },
-  { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/" },
+export const LOCALIZED_ROUTE_PAIRS = [
+  { hu: "/", en: "/en/" },
+  { hu: "/kapcsolat/", en: "/en/contact/" },
+  { hu: "/szallasok/", en: "/en/szallasok/" },
   { hu: "/elmenyek/", en: "/en/experiences/" },
   { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
   { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/" },
@@ -52,7 +44,6 @@ export const SITEMAP_PATHS = [
   "/",
   "/kapcsolat/",
   "/en/contact/",
-  "/de/kontakt/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",
@@ -62,8 +53,6 @@ export const SITEMAP_PATHS = [
   "/adatkezelesi-tajekoztato/",
   "/impresszum/",
   "/szallasok/",
-  "/de/",
-  "/de/unterkuenfte/",
   "/panorama-pool/",
   "/en/panorama-pool/",
   "/fuge/",
@@ -116,9 +105,7 @@ export function getCanonicalPath(pathname: string): string {
 
 export function getLocalizedRouteAlternates(pathname: string) {
   const normalizedPath = normalizePathname(pathname);
-  const routePair = LOCALIZED_ROUTE_PAIRS.find((pair) =>
-    [pair.hu, pair.en, pair.de].includes(normalizedPath)
-  );
+  const routePair = LOCALIZED_ROUTE_PAIRS.find((pair) => pair.hu === normalizedPath || pair.en === normalizedPath);
 
   if (!routePair) {
     return [];
@@ -126,10 +113,9 @@ export function getLocalizedRouteAlternates(pathname: string) {
 
   return [
     { hreflang: "hu", path: routePair.hu },
-    routePair.en ? { hreflang: "en", path: routePair.en } : null,
-    routePair.de ? { hreflang: "de", path: routePair.de } : null,
+    { hreflang: "en", path: routePair.en },
     { hreflang: "x-default", path: routePair.hu }
-  ].filter((alternate): alternate is { hreflang: string; path: string } => Boolean(alternate));
+  ];
 }
 
 export function isCanonicalAliasPath(pathname: string): boolean {

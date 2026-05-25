@@ -4,7 +4,6 @@ import { accommodations } from "../data/accommodations";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
   SITE_DEFAULT_DESCRIPTION,
-  SITE_DEFAULT_DESCRIPTION_DE,
   SITE_DEFAULT_DESCRIPTION_EN,
   SITE_DEFAULT_OG_IMAGE,
   SITE_DEFAULT_TITLE,
@@ -79,51 +78,17 @@ const schemaLanguageByLang: Record<NonNullable<Props["lang"]>, string> = {
 const resolvedOgLocale = ogLocale ?? defaultOgLocaleByLang[lang];
 const schemaLanguage = schemaLanguageByLang[lang];
 const isEnglishPage = lang === "en";
-const isGermanPage = lang === "de";
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 const emailLocalPart = "hello";
 const emailDomain = "dandelionhouse.hu";
-const contactPageHref = isGermanPage
-  ? `${homeHref}de/kontakt/`
-  : isEnglishPage
-    ? `${homeHref}en/contact/`
-    : `${homeHref}kapcsolat/`;
-const headerHomeHref = isGermanPage ? `${homeHref}de/` : isEnglishPage ? `${homeHref}en/` : homeHref;
-const headerStaysHref = isGermanPage
-  ? `${homeHref}de/unterkuenfte/`
-  : isEnglishPage
-    ? `${homeHref}en/szallasok/`
-    : `${homeHref}szallasok/`;
-const headerExperiencesHref = isGermanPage
-  ? `${homeHref}de/`
-  : isEnglishPage
-    ? `${homeHref}en/experiences/`
-    : `${homeHref}elmenyek/`;
-const headerGalleryHref = isGermanPage ? `${homeHref}de/` : isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
-const headerText = isGermanPage
-  ? {
-      contactAria: "Kontakt",
-      phoneAria: "Telefon",
-      languageAria: "Sprachwechsel",
-      bookingLabel: "Buchung / Preise",
-      bookingShortLabel: "Buchen",
-      bookingSmallLabel: "Verfugbarkeit prufen",
-      bookingAria: "Buchung und Preise",
-      mainNavAria: "Hauptnavigation",
-      homeLabel: "Startseite",
-      staysLabel: "Unterkunfte",
-      experiencesLabel: "Erlebnisse",
-      galleryLabel: "Galerie",
-      staysSubmenuAria: "Unterkunfte Untermenü",
-      mobileNavAria: "Mobile Navigation",
-      mobileStayGroupsAria: "Unterkunftsgruppen",
-      menuOpenAria: "Menu offnen",
-      quickContactOpenAria: "Schnellkontakt offnen",
-      quickContactLabel: "Kontakt"
-    }
-  : isEnglishPage
+const contactPageHref = isEnglishPage ? `${homeHref}en/contact/` : `${homeHref}kapcsolat/`;
+const headerHomeHref = isEnglishPage ? `${homeHref}en/` : homeHref;
+const headerStaysHref = isEnglishPage ? `${homeHref}en/szallasok/` : `${homeHref}szallasok/`;
+const headerExperiencesHref = isEnglishPage ? `${homeHref}en/experiences/` : `${homeHref}elmenyek/`;
+const headerGalleryHref = isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
+const headerText = isEnglishPage
   ? {
       contactAria: "Contact",
       phoneAria: "Phone",
@@ -181,11 +146,7 @@ const schemaScripts = [
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
     inLanguage: schemaLanguage,
-    description: isGermanPage
-      ? SITE_DEFAULT_DESCRIPTION_DE
-      : isEnglishPage
-        ? SITE_DEFAULT_DESCRIPTION_EN
-        : SITE_DEFAULT_DESCRIPTION,
+    description: isEnglishPage ? SITE_DEFAULT_DESCRIPTION_EN : SITE_DEFAULT_DESCRIPTION,
     publisher: {
       "@id": `${toAbsoluteUrl("/")}#organization`
     }
@@ -206,11 +167,7 @@ const quickContacts = [
 ];
 
 const bookingLanguage = isEnglishPage ? "En" : "Hu";
-const bookingHref = isGermanPage
-  ? `${homeHref}de/kontakt/`
-  : `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
-const bookingTarget = isGermanPage ? undefined : "_blank";
-const bookingRel = isGermanPage ? undefined : "noopener noreferrer";
+const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const stayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage",
@@ -306,15 +263,7 @@ const englishGroupedStayLinks = [
     ]
   }
 ];
-const germanGroupedStayLinks = [
-  {
-    title: "Unterkunfte",
-    items: [
-      { label: "Alle Unterkunfte", href: `${homeHref}de/unterkuenfte/` }
-    ]
-  }
-];
-const headerStayGroups = isGermanPage ? germanGroupedStayLinks : isEnglishPage ? englishGroupedStayLinks : groupedStayLinks;
+const headerStayGroups = isEnglishPage ? englishGroupedStayLinks : groupedStayLinks;
 
 const transparentHeaderPaths = new Set([
   "/",
@@ -363,17 +312,14 @@ const isTransparentHeaderStart =
       ? false
       : transparentHeaderPaths.has(normalizedCurrentPath);
 
-// [CHANGE 2026-05-25 14:35] Language route map accepts prepared German pairs while keeping unavailable DE routes disabled.
-const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: string }> = {
+// [CHANGE 2026-05-19 00:00] Header language links now point only to existing Hungarian and English routes.
+const languageRoutesByPath: Record<string, { hu: string; en?: string }> = {
   "/": { hu: "/", en: "/en/" },
   "/en/": { hu: "/", en: "/en/" },
-  "/de/": { hu: "/", en: "/en/", de: "/de/" },
-  "/kapcsolat/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/" },
-  "/en/contact/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/" },
-  "/de/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/" },
-  "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/" },
-  "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/" },
-  "/de/unterkuenfte/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/" },
+  "/kapcsolat/": { hu: "/kapcsolat/", en: "/en/contact/" },
+  "/en/contact/": { hu: "/kapcsolat/", en: "/en/contact/" },
+  "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
+  "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/" },
   "/elmenyek/": { hu: "/elmenyek/", en: "/en/experiences/" },
   "/en/experiences/": { hu: "/elmenyek/", en: "/en/experiences/" },
   "/elmenyek/kerekpar/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/" },
@@ -403,7 +349,8 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: strin
   "/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
   "/en/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/" },
   "/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" },
-  "/en/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" }
+  "/en/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/" },
+  "/de/": { hu: "/" }
 };
 const localizedHref = (path: string) =>
   path === "/" ? homeHref : `${homeHref}${path.replace(/^\/+/, "")}`;
@@ -420,11 +367,6 @@ const headerLanguageLinks = [
     label: "EN",
     href: currentLanguageRoutes.en ? localizedHref(currentLanguageRoutes.en) : undefined,
     active: lang === "en"
-  },
-  {
-    label: "DE",
-    href: currentLanguageRoutes.de ? localizedHref(currentLanguageRoutes.de) : undefined,
-    active: lang === "de"
   }
 ];
 const mobileCurrentLanguageLabel = lang.toUpperCase();
@@ -561,12 +503,13 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
               ) : (
                 <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
               ))}
+              <span class="dnd-language__pending" aria-disabled="true">DE</span>
             </nav>
             <a
               href={bookingHref}
               class="dnd-header-cta"
-              target={bookingTarget}
-              rel={bookingRel}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <span>{headerText.bookingLabel}</span>
               <small>{headerText.bookingSmallLabel}</small>
@@ -593,7 +536,7 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
           </div>
           <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
           <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
-          <a href={bookingHref} target={bookingTarget} rel={bookingRel}>{headerText.bookingLabel}</a>
+          <a href={bookingHref} target="_blank" rel="noopener noreferrer">{headerText.bookingLabel}</a>
         </nav>
       </div>
 
@@ -626,6 +569,7 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
           ) : (
             <span class="dnd-language__pending" aria-disabled="true">{languageLink.label}</span>
           ))}
+          <span class="dnd-language__pending" aria-disabled="true">DE</span>
         </nav>
 
         <div class="dnd-header__mobile-actions">
@@ -633,8 +577,8 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
             href={bookingHref}
             class="dnd-header-cta dnd-header-cta--mobile"
             aria-label={headerText.bookingAria}
-            target={bookingTarget}
-            rel={bookingRel}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span class="dnd-header-cta__label-full">{headerText.bookingLabel}</span>
             <span class="dnd-header-cta__label-short">{headerText.bookingShortLabel}</span>
@@ -667,8 +611,8 @@ const mobileCurrentLanguageLabel = lang.toUpperCase();
         <a
           href={bookingHref}
           class="dnd-mobile-menu__booking"
-          target={bookingTarget}
-          rel={bookingRel}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {headerText.bookingSmallLabel}
         </a>

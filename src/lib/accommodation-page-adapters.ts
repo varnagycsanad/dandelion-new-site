@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetFromPublicPath } from "../data/images/ast
 import type { ImageAsset, GalleryImage, LocalizedText } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
 
-export type AccommodationPageLocale = "hu" | "en" | "de";
+export type AccommodationPageLocale = "hu" | "en";
 
 export interface AccommodationHeroImage {
   src: string;

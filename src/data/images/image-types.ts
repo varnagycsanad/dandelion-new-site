@@ -5,7 +5,6 @@ import type { ImageMetadata } from "astro";
 export type LocalizedText = {
   hu: string;
   en: string;
-  de?: string;
 };
 
 export type ImageRole =
