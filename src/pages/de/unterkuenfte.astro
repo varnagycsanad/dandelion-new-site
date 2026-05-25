@@ -58,6 +58,10 @@ const stayCopy: Record<string, { name: string; location: string; description: st
     facts: ["Gastehaus", "Kali-Becken", "Ruhiges Dorf", "Kontaktanfrage"]
   }
 };
+
+const detailHrefBySlug: Record<string, string> = {
+  "dandelion-d2": "/de/dandelion-d2/"
+};
 ---
 
 <BaseLayout
@@ -91,7 +95,9 @@ const stayCopy: Record<string, { name: string; location: string; description: st
                   <li>{fact}</li>
                 ))}
               </ul>
-              <a href="/de/kontakt/">Anfrage senden</a>
+              <a href={detailHrefBySlug[stay.slug] ?? "/de/kontakt/"}>
+                {detailHrefBySlug[stay.slug] ? "Details ansehen" : "Anfrage senden"}
+              </a>
             </article>
           );
         })}

@@ -1,0 +1,13 @@
+---
+import { d2GermanPageData } from "../../data/accommodation-pages/d2.de";
+import { accommodationImages } from "../../data/images/accommodation-images";
+import AccommodationPage from "../../templates/AccommodationPage.astro";
+---
+
+<AccommodationPage
+  pageData={d2GermanPageData}
+  imageSet={accommodationImages.d2}
+  lang="de"
+  canonicalPath="/de/dandelion-d2/"
+  accommodationListingHref="/de/unterkuenfte/"
+/>

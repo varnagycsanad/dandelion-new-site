@@ -107,7 +107,7 @@ const germanFooterStayBySlug = new Map(
     stay.slug,
     {
       label: germanStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
-      href: `${homeHref}de/unterkuenfte/#${stay.slug}`
+      href: stay.slug === "dandelion-d2" ? `${homeHref}de/dandelion-d2/` : `${homeHref}de/unterkuenfte/#${stay.slug}`
     }
   ])
 );

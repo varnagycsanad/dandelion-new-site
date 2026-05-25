@@ -64,7 +64,7 @@ export function resolveBaseHref(baseUrl: string): string {
 }
 
 function resolveLocalizedText(value: LocalizedText, locale: AccommodationPageLocale): string {
-  return value[locale] || value.hu || value.en || "";
+  return value[locale] || value.en || value.hu || "";
 }
 
 function requireAccommodationDisplayAsset(
