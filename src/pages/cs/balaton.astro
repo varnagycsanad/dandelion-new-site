@@ -1,0 +1,45 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/balaton-shore.jpg";
+import supportImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+---
+
+<CzechExperiencePage
+  title="Balaton pobliz domu Dandelion | Plaze a letni programy"
+  description="Plaze, prochazky, Badacsony, Szigliget a lehke vodni programy dostupne z domu Dandelion."
+  canonicalPath="/cs/balaton/"
+  breadcrumbName="Balaton"
+  eyebrow="Dny u vody"
+  heading="Balaton jako lehky letni program z klidneho domu."
+  lead={[
+    "Z domu Dandelion se da spojit dopoledni koupani, odpoledni vino na kopci a vecerni prochazka v Badacsonyi nebo Szigligetu.",
+    "Balaton tady neni jen plaz. Je to voda, vyhledy, jidlo, promenady a pomale letni presuny."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Kamenity breh Balatonu v letnim svetle"
+  supportImage={supportImage}
+  supportAlt="Vinice u Balatonu jako vecerni program po dni u vody"
+  supportTitle="Rano voda, vecer kopec"
+  supportText="Silna stranka regionu je kombinace: plazovy den nemusi byt oddeleny od vina, vyhledu nebo kratke prochazky."
+  highlights={["plaze v dosahu autem", "Badacsony a Szigliget", "kajak, kanoe nebo SUP podle sezony", "vhodne pro rodiny i pary"]}
+  primaryLink={{ label: "Ubytovani", href: "/cs/ubytovani/" }}
+  secondaryLink={{ label: "Zazitky", href: "/cs/zazitky/" }}
+  sections={[
+    {
+      title: "Plazove smery",
+      cards: [
+        { title: "Szigliget a Abrahamhegy", body: "Pohodlne smery pro klidnejsi rodinny plazovy den." },
+        { title: "Badacsony", body: "Dobry smer, pokud chcete vodu spojit s veceri, vinem nebo vecerni prochazkou." },
+        { title: "Badacsonylabdihegy", body: "Prakticky vychozi bod pro koupani a lehke vodni programy." }
+      ]
+    },
+    {
+      title: "Jak den poskladat",
+      cards: [
+        { title: "S detmi", body: "Zvolte plaz s jednodussim pristupem a nechte si cas na prestavky." },
+        { title: "Romanticky vecer", body: "Badacsony nebo Szigliget dobre funguji na vecerni prochazku a jidlo." },
+        { title: "Aktivni voda", body: "Kajak, kanoe nebo SUP planujte podle aktualni nabidky a pocasi." }
+      ]
+    }
+  ]}
+/>

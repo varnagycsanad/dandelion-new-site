@@ -1,0 +1,45 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import supportImage from "../../assets/experiences/balaton-shore.jpg";
+---
+
+<CzechExperiencePage
+  title="Svedecne hory a vyhlidky | Dandelion"
+  description="Lehke turisticke napady kolem Szent Gyorgy-hegy, Badacsonye, Csobance a Szigligetu pobliz domu Dandelion."
+  canonicalPath="/cs/svedecne-hory/"
+  breadcrumbName="Svedecne hory"
+  eyebrow="Priroda a vyhledy"
+  heading="Kopce, vyhlidky a tiche prochazky kolem Balatonu."
+  lead={[
+    "Szent Gyorgy-hegy, Badacsony, Csobanc, Gulacs a Szigliget davaji kazdemu dni jinou naladu.",
+    "Nemusi jit o narocnou turu. Casto staci kratka cesta, vyhled a cas zustat chvili ticho."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Dronovy pohled na svedecne hory a Tapolcai-medence"
+  supportImage={supportImage}
+  supportAlt="Balaton jako kulisa vyletu po svedecnych horach"
+  supportTitle="Vyberte kopec podle energie dne"
+  supportText="Nektery den se hodi Szent Gyorgy-hegy, jindy Szigliget s hradem nebo Badacsony s vecerni atmosferou."
+  highlights={["Szent Gyorgy-hegy", "Badacsony a Szigliget", "kratke prochazky i delsi trasy", "zapad slunce a vyhledy"]}
+  primaryLink={{ label: "Ubytovani", href: "/cs/ubytovani/" }}
+  secondaryLink={{ label: "Zazitky", href: "/cs/zazitky/" }}
+  sections={[
+    {
+      title: "Ktery smer zvolit",
+      cards: [
+        { title: "Szent Gyorgy-hegy", body: "Nejblizsi a velmi prirodni smer s vinicemi, vyhledy a klidnejsimi cestami." },
+        { title: "Badacsony", body: "Silnejsi balatonska atmosfera, dobra pro vyhled, vino a vecerni program." },
+        { title: "Szigliget", body: "Hrad, prochazka a voda v jednom dni. Dobre funguje i s detmi." }
+      ]
+    },
+    {
+      title: "Pro koho se co hodi",
+      cards: [
+        { title: "Rodiny", body: "Szigliget nebo kratsi trasy kolem Szent Gyorgy-hegy jsou jednodussi volba." },
+        { title: "Par", body: "Zapad slunce na kopci nebo vecerni Badacsony doda dni mekci atmosferu." },
+        { title: "Klid v prirode", body: "Gulacs nebo Csobanc mohou byt lepsi, pokud chcete mene rusny smer." }
+      ]
+    }
+  ]}
+/>

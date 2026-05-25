@@ -1,0 +1,261 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { toAbsoluteUrl } from "../data/site-seo";
+
+type Link = { label: string; href: string };
+type Card = { title: string; body: string; href?: string; linkLabel?: string };
+type Section = { title: string; intro?: string; cards: Card[] };
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  breadcrumbName: string;
+  eyebrow: string;
+  heading: string;
+  lead: string[];
+  heroImage: ImageMetadata;
+  heroAlt: string;
+  supportImage?: ImageMetadata;
+  supportAlt?: string;
+  supportTitle?: string;
+  supportText?: string;
+  highlights: string[];
+  sections: Section[];
+  primaryLink?: Link;
+  secondaryLink?: Link;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  breadcrumbName,
+  eyebrow,
+  heading,
+  lead,
+  heroImage,
+  heroAlt,
+  supportImage,
+  supportAlt = "",
+  supportTitle,
+  supportText,
+  highlights,
+  sections,
+  primaryLink,
+  secondaryLink
+} = Astro.props;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Uvod", item: toAbsoluteUrl("/cs/") },
+      { "@type": "ListItem", position: 2, name: breadcrumbName, item: toAbsoluteUrl(canonicalPath) }
+    ]
+  }
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={canonicalPath} lang="cs" ogLocale="cs_CZ" structuredData={structuredData}>
+  <section class="cs-topic">
+    <div class="dnd-container cs-topic__inner">
+      <section class="cs-topic__hero">
+        <div class="cs-topic__copy">
+          <span class="cs-topic__eyebrow">{eyebrow}</span>
+          <h1>{heading}</h1>
+          {lead.map((paragraph) => <p>{paragraph}</p>)}
+          <ul class="cs-topic__highlights">
+            {highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
+          {(primaryLink || secondaryLink) && (
+            <div class="cs-topic__actions">
+              {primaryLink && <a class="cs-topic__button cs-topic__button--dark" href={primaryLink.href}>{primaryLink.label}</a>}
+              {secondaryLink && <a class="cs-topic__button" href={secondaryLink.href}>{secondaryLink.label}</a>}
+            </div>
+          )}
+        </div>
+        <figure class="cs-topic__media">
+          <Image src={heroImage} alt={heroAlt} loading="eager" />
+        </figure>
+      </section>
+
+      {supportImage && supportTitle && supportText && (
+        <section class="cs-topic__support">
+          <article class="cs-topic__support-card">
+            <span class="cs-topic__eyebrow">Nalada</span>
+            <h2>{supportTitle}</h2>
+            <p>{supportText}</p>
+          </article>
+          <figure class="cs-topic__support-card cs-topic__support-card--image">
+            <Image src={supportImage} alt={supportAlt} loading="lazy" />
+          </figure>
+        </section>
+      )}
+
+      <div class="cs-topic__sections">
+        {sections.map((section, sectionIndex) => (
+          <section class="cs-topic__section">
+            <details open={sectionIndex === 0}>
+              <summary>{section.title}</summary>
+              <div class="cs-topic__details">
+                {section.intro && <p class="cs-topic__section-intro">{section.intro}</p>}
+                {section.cards.map((card) => (
+                  <article class="cs-topic-card">
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                    {card.href && <a href={card.href}>{card.linkLabel ?? "Vice"}</a>}
+                  </article>
+                ))}
+              </div>
+            </details>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cs-topic {
+    padding: 124px 0 88px;
+    background: radial-gradient(circle at top left, rgba(168, 129, 64, 0.13), transparent 30%), linear-gradient(180deg, #fcfbf7 0%, #f5efe5 100%);
+  }
+  .cs-topic__inner,
+  .cs-topic__copy,
+  .cs-topic__sections,
+  .cs-topic__details,
+  .cs-topic-card {
+    display: grid;
+  }
+  .cs-topic__inner { gap: 28px; }
+  .cs-topic__hero,
+  .cs-topic__support {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+  .cs-topic__copy,
+  .cs-topic__support-card,
+  .cs-topic__section details {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 252, 246, 0.9);
+  }
+  .cs-topic__copy,
+  .cs-topic__support-card {
+    gap: 14px;
+    padding: 30px;
+    align-content: center;
+  }
+  .cs-topic__eyebrow {
+    color: #9b6a1d;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .cs-topic h1,
+  .cs-topic h2,
+  .cs-topic h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+  .cs-topic h1 { max-width: 13ch; font-size: clamp(2.25rem, 4.2vw, 4.1rem); }
+  .cs-topic h2 { font-size: clamp(1.55rem, 2.4vw, 2.2rem); }
+  .cs-topic h3 { font-size: clamp(1.08rem, 1.5vw, 1.28rem); }
+  .cs-topic p,
+  .cs-topic li {
+    margin: 0;
+    color: rgba(43, 32, 22, 0.82);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+  .cs-topic__highlights { display: grid; gap: 8px; margin: 0; padding-left: 1.2rem; }
+  .cs-topic__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  .cs-topic__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 18px;
+    border: 1px solid rgba(65, 47, 30, 0.28);
+    border-radius: 8px;
+    background: #fff;
+    color: #2b2016;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .cs-topic__button--dark { background: #2b2016; border-color: #2b2016; color: #fff; }
+  .cs-topic__media,
+  .cs-topic__support-card--image {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #ded6c8;
+    box-shadow: 0 22px 56px rgba(43, 28, 14, 0.1);
+  }
+  .cs-topic__media :global(picture),
+  .cs-topic__media :global(img),
+  .cs-topic__support-card--image :global(picture),
+  .cs-topic__support-card--image :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .cs-topic__media :global(img),
+  .cs-topic__support-card--image :global(img) { object-fit: cover; }
+  .cs-topic__sections { gap: 16px; }
+  .cs-topic__section details { overflow: hidden; }
+  .cs-topic__section summary {
+    position: relative;
+    padding: 22px 68px 22px 24px;
+    cursor: pointer;
+    list-style: none;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.25rem, 2vw, 1.58rem);
+    font-weight: 500;
+  }
+  .cs-topic__section summary::-webkit-details-marker { display: none; }
+  .cs-topic__section summary::after {
+    content: "+";
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8b6318;
+    font-size: 1.45rem;
+  }
+  .cs-topic__section details[open] summary::after { content: "-"; }
+  .cs-topic__details { gap: 14px; padding: 0 24px 24px; }
+  .cs-topic-card {
+    gap: 9px;
+    padding: 18px;
+    border: 1px solid rgba(88, 63, 38, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+  .cs-topic-card a { color: #8b6318; font-weight: 700; text-decoration: none; }
+  @media (max-width: 940px) {
+    .cs-topic__hero,
+    .cs-topic__support { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .cs-topic { padding: 108px 0 72px; }
+    .cs-topic__copy,
+    .cs-topic__support-card,
+    .cs-topic__details { padding: 20px; }
+    .cs-topic__section summary { padding: 18px 56px 18px 20px; }
+    .cs-topic__section summary::after { right: 20px; }
+  }
+</style>

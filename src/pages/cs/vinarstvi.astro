@@ -1,0 +1,45 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+---
+
+<CzechExperiencePage
+  title="Vinarstvi a degustace u Badacsonye | Dandelion"
+  description="Vinarske terasy, sklepy a pomale vecery kolem Szent Gyorgy-hegy, Badacsonye a domu Dandelion."
+  canonicalPath="/cs/vinarstvi/"
+  breadcrumbName="Vinarstvi"
+  eyebrow="Vino a panorama"
+  heading="Vinice, terasy a pomale vecery u Badacsonye."
+  lead={[
+    "Kolem domu Dandelion je vino soucasti krajiny. Szent Gyorgy-hegy, Badacsony a okolni kopce spojuji vinice, vyhledy a klidne tempo.",
+    "Nejlepsi zazitek nevznikne ze spechu. Staci kratka prochazka, jedna dobra terasa, zapad slunce a rozumny navrat."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Vinice na Szent Gyorgy-hegy v Balatonske vrchovine"
+  supportImage={supportImage}
+  supportAlt="Svedecne hory a vinarska krajina kolem Badacsonye"
+  supportTitle="Zacnete vyhledem a potom vyberte zastavku"
+  supportText="Nekdo hleda tichy sklep na kopci, nekdo zivejsi badacsonyskou terasu s veceri. Obe varianty do regionu patri."
+  highlights={["vinice Szent Gyorgy-hegy", "Badacsony a balatonske vyhledy", "pomale odpoledne", "vhodne pro pary i pratele"]}
+  primaryLink={{ label: "Ubytovani", href: "/cs/ubytovani/" }}
+  secondaryLink={{ label: "Zazitky", href: "/cs/zazitky/" }}
+  sections={[
+    {
+      title: "Kam za vinem",
+      cards: [
+        { title: "Szent Gyorgy-hegy", body: "Klidnejsi vinarsky smer s mensimi cestami, vinicemi, vyhledy a prirodni atmosferou." },
+        { title: "Badacsony", body: "Vice restauraci, teras a letniho pohybu. Dobre pro vecer s jidlem a vyhledem na Balaton." },
+        { title: "Folly a okoli", body: "Kombinace zahrady, vyhledu, vinarstvi a lehciho programu pro klidnejsi den." }
+      ]
+    },
+    {
+      title: "Pred odjezdem",
+      cards: [
+        { title: "Overte oteviraci dobu", body: "Degustace, stoly a oteviraci doby se meni podle sezony." },
+        { title: "Planujte dopravu", body: "Po degustaci je potreba mit odpovedny plan navratu." },
+        { title: "Mene zastavek, lepsi den", body: "Dve dobre vybrane zastavky casto funguji lepe nez dlouhy seznam mist." }
+      ]
+    }
+  ]}
+/>

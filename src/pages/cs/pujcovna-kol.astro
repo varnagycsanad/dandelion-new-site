@@ -1,0 +1,45 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import supportImage from "../../assets/experiences/balaton-shore.jpg";
+---
+
+<CzechExperiencePage
+  title="Pujcovna kol u Balatonu | Dandelion"
+  description="Prakticke tipy pro cyklistiku a pujcovnu kol pro hosty Dandelion v okoli Szent Gyorgy-hegy a Balatonu."
+  canonicalPath="/cs/pujcovna-kol/"
+  breadcrumbName="Pujcovna kol"
+  eyebrow="Aktivni den"
+  heading="Kola pro pomale objevovani Balatonske vrchoviny."
+  lead={[
+    "Okoli Dandelion domu se dobre objevuje pomalu: pres vesnice, vinice, bocni cesty a mirnejsi trasy.",
+    "Kolo neni jen sportovni program. Je to zpusob, jak se dostat k vyhledum, malym zastavkam a mistum, kam autem clovek casto jen projede."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Krajina Balatonske vrchoviny vhodna pro cyklisticke vylety"
+  supportImage={supportImage}
+  supportAlt="Balaton jako cil pomaleho cyklistickeho dne"
+  supportTitle="Vyberte si kratky okruh nebo cely den venku"
+  supportText="Pro rodiny davaji smysl kratsi trasy, pro aktivnejsi hosty celodenni plan smerem k Balatonu, Badacsonyi nebo vesnicim v okoli."
+  highlights={["klidne bocni cesty", "vinice a vesnice", "moznost kratsiho i delsiho planu", "vhodne kombinovat s plazi nebo vinem"]}
+  primaryLink={{ label: "Vybrat ubytovani", href: "/cs/ubytovani/" }}
+  secondaryLink={{ label: "Zpet na zazitky", href: "/cs/zazitky/" }}
+  sections={[
+    {
+      title: "Jak planovat cyklisticky den",
+      cards: [
+        { title: "Kratsi rodinny okruh", body: "Zvolte nenarocnou trasu pres vesnice a vinice, s casem na zastavky a navrat pred horkem." },
+        { title: "Balatonsky smer", body: "Delší plan muze spojit jizdu, plaz a vecerni navrat pres vyhlidku nebo vinarstvi." },
+        { title: "E-bike pro kopce", body: "V kopcovite krajine dava elektrokolo smysl, hlavne pokud chcete vic videt a mene resit prevyseni." }
+      ]
+    },
+    {
+      title: "Dobre vedet",
+      cards: [
+        { title: "Overte dostupnost", body: "Dostupnost kol a konkretni ceny je potreba predem overit, protoze se mohou menit podle sezony." },
+        { title: "Voda a slunce", body: "V lete planujte vodu, pokryvku hlavy a prestavky. V polednim horku je lepsi zpomalit." },
+        { title: "Bezpecny navrat", body: "Po vinarske zastavce je dobre mit plan navratu a nepodcenit vecerni viditelnost." }
+      ]
+    }
+  ]}
+/>
