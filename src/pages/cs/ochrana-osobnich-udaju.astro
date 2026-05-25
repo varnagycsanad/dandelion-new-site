@@ -1,0 +1,157 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    number: "1",
+    title: "Správce údajů",
+    bullets: [
+      "Správce: Dandelion Vendégházak Kft.",
+      "Zástupce: Ilona Várnagy",
+      "E-mail: hello@dandelionhouse.hu",
+      "Telefon: +36 20 773 0807",
+      "Web: dandelionhouse.hu",
+      "Sídlo / korespondenční adresa: 8284 Kisapáti, Kossuth utca 78/5, Maďarsko"
+    ]
+  },
+  {
+    number: "2",
+    title: "Účel oznámení",
+    paragraphs: [
+      "Cílem tohoto oznámení je transparentně informovat hosty, zájemce a návštěvníky webu o zpracování osobních údajů.",
+      "Osobní údaje zpracováváme pouze v rozsahu nezbytném pro poskytování ubytovacích služeb, správu rezervací, komunikaci, plnění právních povinností a provoz webu."
+    ]
+  },
+  {
+    number: "3",
+    title: "Kontakt a žádosti o nabídku",
+    bullets: [
+      "Zpracovávané údaje: jméno, e-mail, telefon, obsah zprávy, požadovaný termín, počet hostů a další dobrovolně poskytnuté údaje.",
+      "Účel: odpověď na dotaz, zaslání nabídky, koordinace rezervace a komunikace s hostem.",
+      "Právní základ: kroky před uzavřením smlouvy a oprávněný zájem.",
+      "Doba uchování: nejdéle 2 roky od uzavření dotazu, pokud komunikace nepřejde do rezervace nebo zákonné povinnosti."
+    ]
+  },
+  {
+    number: "4",
+    title: "Správa rezervací",
+    bullets: [
+      "Zpracovávané údaje: jméno, kontaktní údaje, údaje o rezervaci, termín příjezdu a odjezdu, počet hostů, vybrané ubytování, platební a fakturační údaje.",
+      "Účel: zaznamenání, potvrzení, splnění, změna nebo zrušení rezervace.",
+      "Právní základ: plnění smlouvy a kroky před uzavřením smlouvy.",
+      "Doba uchování: po dobu nezbytnou pro splnění rezervace a podle zákonných archivačních povinností."
+    ]
+  },
+  {
+    number: "5",
+    title: "Online check-in, údaje z dokladů, NTAK / VIZA",
+    paragraphs: [
+      "Obsazení ubytování může vyžadovat online check-in, při kterém se zaznamenávají zákonem požadované údaje hostů a dokladů totožnosti."
+    ],
+    bullets: [
+      "Zpracovávané údaje: jméno, datum narození, státní příslušnost, adresa, údaje z dokladu totožnosti, údaje o příjezdu a odjezdu.",
+      "Účel: zákonná evidence hostů, poskytování ubytovacích služeb a úřední hlášení.",
+      "Právní základ: splnění právní povinnosti."
+    ]
+  },
+  {
+    number: "6",
+    title: "Platba a fakturace",
+    bullets: [
+      "Zpracovávané údaje: fakturační jméno, fakturační adresa, platební údaje, identifikátor rezervace, zaplacené částky a obsah faktury.",
+      "Účel: vystavení faktury, účetnictví, daňové a archivační povinnosti.",
+      "Právní základ: splnění právní povinnosti.",
+      "Účetní doklady uchováváme po dobu stanovenou právními předpisy."
+    ]
+  },
+  {
+    number: "7",
+    title: "Web, technické údaje a cookies",
+    paragraphs: [
+      "Při provozu webu mohou vznikat technické údaje, například IP adresa, typ prohlížeče, údaje o zařízení, čas návštěvy, navštívené stránky a chybové informace."
+    ],
+    bullets: [
+      "Účel: bezpečný provoz webu, řešení technických chyb, měření výkonu a návštěvnosti.",
+      "Právní základ: oprávněný zájem a tam, kde je to nutné, souhlas."
+    ]
+  },
+  {
+    number: "8",
+    title: "Newsletter a marketingová komunikace",
+    bullets: [
+      "Dandelion ubytování může používat MailerLite pro newslettery a marketingovou komunikaci.",
+      "Zpracovávané údaje: jméno, e-mail, čas přihlášení, důkaz souhlasu, údaje o otevření a kliknutí, odhlášení.",
+      "Právní základ: dobrovolný souhlas.",
+      "Odhlášení je možné odkazem v newsletteru nebo e-mailem na hello@dandelionhouse.hu."
+    ]
+  },
+  {
+    number: "9",
+    title: "Kamerový systém",
+    paragraphs: [
+      "Kamerový systém může fungovat pouze ve vybraných společných prostorách Dandelion ubytování. Před vstupem do monitorovaných prostor jsou umístěna upozornění.",
+      "Monitorované společné prostory mohou zahrnovat zejména vstupy, dvory, parkoviště, přístupové cesty a u dotčených domů také společný prostor Panorama Pool.",
+      "Kamery nejsou namířeny do obytných vnitřních prostor, ložnic, koupelen, toalet nebo jiných prostor soukromé sféry hostů. Kamerový systém nezahrnuje zvukový záznam."
+    ],
+    bullets: [
+      "Zpracovávané údaje: obraz osoby, fyzický vzhled viditelný na záznamu, místo a čas záznamu.",
+      "Účel: ochrana osob a majetku, bezpečnost hostů a ubytování, prevence škod a porušování pravidel, objasnění stížností, nehod nebo škodních událostí.",
+      "Právní základ: oprávněný zájem správce podle GDPR.",
+      "Doba uchování: záznamy jsou zpravidla uchovávány nejdéle 3 pracovní dny; v případě incidentu mohou být uchovány po nezbytnou dobu k objasnění věci nebo uplatnění nároku."
+    ],
+    note: "Kamerový systém nenahrazuje osobní dohled, dohled dospělých nad dětmi ani vlastní odpovědnost hostů."
+  },
+  {
+    number: "10",
+    title: "Externí poskytovatelé",
+    bullets: [
+      "poskytovatel hostingu a provozu webu,",
+      "SabeeApp / thePass Kft. jako rezervační a hostovský systém,",
+      "Google služby, například Google Tag Manager a Google Analytics,",
+      "MailerLite jako poskytovatel newsletteru,",
+      "bankovní, platební, účetní a fakturační poskytovatelé,",
+      "úřady a oficiální systémy jednající podle zákona."
+    ]
+  },
+  {
+    number: "11",
+    title: "Práva subjektů údajů",
+    paragraphs: ["Subjekty údajů mohou v souvislosti se zpracováním uplatnit tato práva:"],
+    bullets: [
+      "požádat o informace a přístup k osobním údajům,",
+      "požádat o opravu údajů,",
+      "požádat o výmaz nebo omezení zpracování, pokud jsou splněny právní podmínky,",
+      "vznést námitku proti zpracování založenému na oprávněném zájmu,",
+      "odvolat souhlas tam, kde je zpracování založeno na souhlasu."
+    ],
+    note: "Žádosti lze zaslat na hello@dandelionhouse.hu. Odpovíme bez zbytečného odkladu, nejpozději do 1 měsíce."
+  },
+  {
+    number: "12",
+    title: "Stížnosti a změny oznámení",
+    paragraphs: [
+      "V případě stížnosti v oblasti ochrany osobních údajů nás prosíme nejprve kontaktujte na hello@dandelionhouse.hu.",
+      "Subjekt údajů se může obrátit také na maďarský Národní úřad pro ochranu údajů a svobodu informací (NAIH)."
+    ],
+    bullets: [
+      "NAIH - Hungarian National Authority for Data Protection and Freedom of Information",
+      "Adresa: 1055 Budapest, Falk Miksa utca 9-11, Maďarsko",
+      "E-mail: ugyfelszolgalat@naih.hu",
+      "Web: naih.hu"
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="cs"
+  title="Ochrana osobních údajů | Dandelion ubytování"
+  description="Zásady ochrany osobních údajů Dandelion ubytování: rezervace, fakturace, cookies, newsletter, kamerový systém a práva hostů."
+  canonicalPath="/cs/ochrana-osobnich-udaju/"
+  eyebrow="Právní informace"
+  heading="Ochrana osobních údajů"
+  lead="Platné od 12. května 2026 do odvolání. Aktualizováno: 25. května 2026. Toto oznámení shrnuje zpracování osobních údajů na webu Dandelion a v procesech rezervace a správy hostů."
+  tocLabel="Přejít na část"
+  tocPlaceholder="Vyberte část"
+  sections={sections}
+/>

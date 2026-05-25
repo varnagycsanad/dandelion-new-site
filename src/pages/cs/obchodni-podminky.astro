@@ -1,0 +1,128 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    number: "1",
+    title: "Rezervace",
+    paragraphs: [
+      "Rezervaci lze provést přes online rezervační systém na webu, e-mailem, telefonicky nebo přes externí prodejní kanály.",
+      "U rezervací přes externí kanály platí platební a storno podmínky daného kanálu."
+    ]
+  },
+  {
+    number: "2",
+    title: "Ceny a povinné poplatky",
+    paragraphs: ["Nejvýhodnější ceny ubytování jsou obvykle dostupné při přímé rezervaci na našem webu."],
+    bullets: [
+      "Místní turistická daň se hradí podle aktuálních pravidel příslušné obce.",
+      "Závěrečný úklid se účtuje podle částky uvedené během rezervace."
+    ]
+  },
+  {
+    number: "3",
+    title: "Používání kádě, pokud je k dispozici",
+    paragraphs: [
+      "Používání koupací kádě je možné pouze u ubytování, kde je tato služba k dispozici, a je zpoplatněno samostatně.",
+      "O využití kádě prosíme požádat předem, aby ji bylo možné řádně připravit."
+    ]
+  },
+  {
+    number: "4",
+    title: "Pravidla používání Panorama Pool",
+    paragraphs: [
+      "U ubytování, kde je Panorama Pool dostupný, host používáním bazénu přijímá aktuálně platná pravidla bazénu.",
+      "Panorama Pool je společný prostor pro hosty Dandelion D1, Dandelion D2 a Dandelion Fügeház.",
+      "Provozovatel může používání bazénu omezit nebo dočasně pozastavit kvůli počasí, údržbě, bezpečnosti, technické závadě nebo porušení pravidel.",
+      "Děti mohou bazén používat pouze pod dohledem dospělé osoby. Hosté používají bazén na vlastní odpovědnost.",
+      "Společný prostor Panorama Pool může být monitorován kamerovým systémem z důvodu ochrany majetku, bezpečnosti a dodržování pravidel."
+    ],
+    links: [
+      { label: "Pravidla bazénu Dandelion D1", href: "/guide/d1/medence/" },
+      { label: "Pravidla bazénu Dandelion D2", href: "/guide/d2/medence/" },
+      { label: "Pravidla bazénu Fügeház", href: "/guide/fugehaz/medence/" }
+    ]
+  },
+  {
+    number: "5",
+    title: "Platba",
+    paragraphs: [
+      "Pro potvrzení rezervace je obvykle nutné uhradit zálohu ve výši 30 % ceny ubytování bankovním převodem do 5 pracovních dnů.",
+      "Doplatek ceny ubytování je splatný při příjezdu v hotovosti nebo bankovním převodem."
+    ]
+  },
+  {
+    number: "6",
+    title: "Storno podmínky",
+    bullets: [
+      "Bezplatné storno: při zrušení 30 a více dní před příjezdem se záloha vrací.",
+      "Storno do 30 dní před příjezdem: záloha je nevratná.",
+      "V případě nedojezdu nebo zrušení v den příjezdu může být účtována celá cena ubytování."
+    ]
+  },
+  {
+    number: "7",
+    title: "Příjezd a odjezd",
+    bullets: [
+      "Check-in: obvykle 15:00-19:00",
+      "Check-out: do 10:00",
+      "Pozdější příjezd je možný po předchozí domluvě.",
+      "Online check-in a předání požadovaných údajů hostů může být podmínkou obsazení ubytování."
+    ]
+  },
+  {
+    number: "8",
+    title: "Domovní pravidla, kouření a domácí mazlíčci",
+    bullets: [
+      "Vybavení ubytování je nutné používat řádně a šetrně.",
+      "Všechna ubytování jsou nekuřácká.",
+      "Domácí mazlíčky aktuálně nepřijímáme."
+    ]
+  },
+  {
+    number: "9",
+    title: "Škoda a odpovědnost",
+    paragraphs: [
+      "Host odpovídá za škodu způsobenou na ubytování, vybavení nebo společných prostorech.",
+      "V případě úmyslné nebo nedbalostní škody může být účtována náhrada nákladů na opravu nebo uvedení do původního stavu."
+    ]
+  },
+  {
+    number: "10",
+    title: "Kontakt",
+    paragraphs: ["V případě dotazů k rezervaci, platbě, příjezdu nebo ubytování nás kontaktujte."],
+    contacts: [
+      { label: "E-mail", value: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+      { label: "Telefon", value: "+36 20 773 0807", href: "tel:+36207730807" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="cs"
+  title="Obchodní podmínky | Dandelion ubytování"
+  description="Obchodní a rezervační podmínky Dandelion ubytování: platba, storno, příjezd, pravidla domu a Panorama Pool."
+  canonicalPath="/cs/obchodni-podminky/"
+  eyebrow="Právní informace"
+  heading="Obchodní podmínky"
+  lead="Tyto obchodní podmínky upravují rezervaci a pobyt v ubytováních Dandelion. Odesláním a potvrzením rezervace host tyto podmínky přijímá."
+  introBlocks={[
+    {
+      label: "Platnost",
+      lines: ["Platné od: 1. února 2026", "Aktualizováno: 25. května 2026"]
+    },
+    {
+      label: "Kontakt",
+      lines: [],
+      links: [
+        { label: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+        { label: "+36 20 773 0807", href: "tel:+36207730807" }
+      ]
+    }
+  ]}
+  notice="Nejvýhodnější ceny jsou obvykle dostupné v našem vlastním rezervačním systému. U rezervací přes externí kanály platí podmínky daného kanálu."
+  tocLabel="Přejít na část"
+  tocPlaceholder="Vyberte část"
+  sections={sections}
+/>

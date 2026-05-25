@@ -125,8 +125,8 @@ export function createGermanAccommodationPage(
             enabled: true,
             label: "Gemeinsamer Panorama Pool",
             text: "Bei D1, D2 und Fügeház ist der gemeinsame Panorama Pool Teil des Aufenthalts.",
-            href: "/de/unterkuenfte/",
-            ctaLabel: "Unterkünfte vergleichen",
+            href: "/de/panorama-pool/",
+            ctaLabel: "Panorama Pool ansehen",
             variant: "strong"
           }
         : undefined,

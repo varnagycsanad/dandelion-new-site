@@ -78,8 +78,8 @@ export function createCzechAccommodationPage(
             enabled: true,
             label: "Spolecny Panorama Pool",
             text: "U D1, D2 a Fügeház je společný Panorama Pool součástí pobytu.",
-            href: "/cs/ubytovani/",
-            ctaLabel: "Porovnat ubytování",
+            href: "/cs/panorama-pool/",
+            ctaLabel: "Zobrazit Panorama Pool",
             variant: "strong"
           }
         : undefined,

@@ -222,6 +222,11 @@ const czechLanguageLinks = [
   { label: "DE", href: `${homeHref}de/` },
   { label: "CZ", href: `${homeHref}cs/` }
 ];
+const czechLegalLinks = [
+  { label: "Obchodní podmínky", href: `${homeHref}cs/obchodni-podminky/` },
+  { label: "Ochrana osobních údajů", href: `${homeHref}cs/ochrana-osobnich-udaju/` },
+  { label: "Tiráž", href: `${homeHref}cs/tiraz/` }
+];
 ---
 
 {isCzechFooter && (
@@ -263,6 +268,15 @@ const czechLanguageLinks = [
         <ul>
           {czechLanguageLinks.map((item) => (
             <li class="dnd-site-footer__language-link"><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Právní informace">
+        <h2>Právní</h2>
+        <ul>
+          {czechLegalLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
           ))}
         </ul>
       </nav>

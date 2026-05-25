@@ -1,6 +1,11 @@
 ---
 import { panoramaPoolImages } from "../data/images/panorama-pool-images";
 
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs";
+}
+
+const { lang = "hu" } = Astro.props as Props;
 const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
 const poolHighlightSrcSet = [
   "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-480-q72.webp 480w",
@@ -9,22 +14,64 @@ const poolHighlightSrcSet = [
   "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-1280-q72.webp 1280w"
 ].join(", ");
 const poolHighlightSizes = "(max-width: 767px) calc(100vw - 72px), (max-width: 959px) calc(100vw - 96px), 46vw";
+const copyByLang = {
+  hu: {
+    kicker: "ÚJ 2026-TÓL",
+    title: "Panoráma medence a Szent György-hegy oldalában",
+    text:
+      "A D1, D2 és Fügeház vendégei 2026. június 1-től a házak melletti dombon található panoráma medencét is használhatják. Egy nyugodt hely napozáshoz, fürdéshez és a tanúhegyek látványához.",
+    ctaLabel: "Megnézem a medencét",
+    href: "/panorama-pool/",
+    imageAlt: poolHighlightImage.altHu,
+    imageTitle: poolHighlightImage.titleHu
+  },
+  en: {
+    kicker: "NEW FROM 2026",
+    title: "Panorama Pool on the side of Szent Gyorgy Hill",
+    text:
+      "From 1 June 2026, guests of D1, D2 and Fugehaz can use the panoramic pool on the hill beside the houses: a quiet place for swimming, sun and witness-hill views.",
+    ctaLabel: "View the pool",
+    href: "/en/panorama-pool/",
+    imageAlt: poolHighlightImage.altEn,
+    imageTitle: poolHighlightImage.titleEn
+  },
+  de: {
+    kicker: "NEU AB 2026",
+    title: "Panorama Pool am Szent Gyorgy-hegy",
+    text:
+      "Ab 1. Juni 2026 können Gäste von D1, D2 und Fügeház den Panorama Pool am Hügel neben den Häusern nutzen: ein ruhiger Ort zum Baden, Sonnen und für den Blick auf die Zeugenberge.",
+    ctaLabel: "Pool ansehen",
+    href: "/de/panorama-pool/",
+    imageAlt: poolHighlightImage.altEn,
+    imageTitle: poolHighlightImage.titleEn
+  },
+  cs: {
+    kicker: "NOVĚ OD ROKU 2026",
+    title: "Panorama Pool na svahu Szent Gyorgy-hegy",
+    text:
+      "Od 1. června 2026 mohou hosté D1, D2 a Fügeház využívat panoramatický bazén na kopci vedle domů: klidné místo na koupání, slunce a výhled na svědecké hory.",
+    ctaLabel: "Zobrazit bazén",
+    href: "/cs/panorama-pool/",
+    imageAlt: poolHighlightImage.altEn,
+    imageTitle: poolHighlightImage.titleEn
+  }
+} as const;
+const copy = copyByLang[lang];
 ---
 
 <section class="pool-highlight dnd-section" aria-labelledby="pool-highlight-title">
   <div class="dnd-container">
     <div class="pool-highlight__shell">
       <div class="pool-highlight__content">
-        <span class="dnd-section-kicker pool-highlight__kicker">ÚJ 2026-TÓL</span>
+        <span class="dnd-section-kicker pool-highlight__kicker">{copy.kicker}</span>
         <h2 id="pool-highlight-title" class="pool-highlight__title">
-          Panoráma medence a Szent György-hegy oldalában
+          {copy.title}
         </h2>
         <p class="pool-highlight__text">
-          A D1, D2 és Fügeház vendégei 2026. június 1-től a házak melletti dombon található panoráma
-          medencét is használhatják. Egy nyugodt hely napozáshoz, fürdéshez és a tanúhegyek látványához.
+          {copy.text}
         </p>
-        <a href="/panorama-pool/" class="dnd-btn dnd-btn--primary pool-highlight__cta">
-          <span>Megnézem a medencét</span>
+        <a href={copy.href} class="dnd-btn dnd-btn--primary pool-highlight__cta">
+          <span>{copy.ctaLabel}</span>
           <span class="pool-highlight__cta-icon" aria-hidden="true">
             <svg viewBox="0 0 20 20" focusable="false">
               <path
@@ -45,8 +92,8 @@ const poolHighlightSizes = "(max-width: 767px) calc(100vw - 72px), (max-width: 9
           src="/images/panorama-pool/responsive/dandelion-panorama-pool-hero-960-q72.webp"
           srcset={poolHighlightSrcSet}
           sizes={poolHighlightSizes}
-          alt={poolHighlightImage.altHu}
-          title={poolHighlightImage.titleHu}
+          alt={copy.imageAlt}
+          title={copy.imageTitle}
           width="960"
           height="720"
           class="pool-highlight__image"
@@ -55,7 +102,7 @@ const poolHighlightSizes = "(max-width: 767px) calc(100vw - 72px), (max-width: 9
         />
         <div class="pool-highlight__visual-badge">
           <span class="pool-highlight__visual-kicker">Panorama Pool</span>
-          <p>{poolHighlightImage.titleHu}</p>
+          <p>{copy.imageTitle}</p>
         </div>
       </figure>
     </div>

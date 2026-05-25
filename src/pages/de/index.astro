@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
+import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
 import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
@@ -121,6 +122,8 @@ const galleryItems = [
     ]}
     videoFallbackText="Ihr Browser unterstützt keine Hintergrundvideos."
   />
+
+  <PanoramaPoolHighlight lang="de" />
 
   <section class="de-home-intro dnd-section" aria-labelledby="german-home-intro-title">
     <div class="dnd-container de-home-intro__inner">

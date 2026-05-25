@@ -23,7 +23,7 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
   { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
   { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
-  { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/" },
+  { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/" },
   { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/" },
   { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/" },
   { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/" },
@@ -33,9 +33,9 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/" },
   { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/" },
   { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/" },
-  { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/" },
-  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/" },
-  { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/" }
+  { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/" },
+  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/", cs: "/cs/ochrana-osobnich-udaju/" },
+  { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/", cs: "/cs/tiraz/" }
 ] as const;
 
 const canonicalAliasMap: Record<string, string> = {
@@ -68,6 +68,10 @@ export const SITEMAP_PATHS = [
   "/cs/vinarstvi/",
   "/cs/balaton/",
   "/cs/svedecne-hory/",
+  "/cs/panorama-pool/",
+  "/cs/obchodni-podminky/",
+  "/cs/ochrana-osobnich-udaju/",
+  "/cs/tiraz/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",
