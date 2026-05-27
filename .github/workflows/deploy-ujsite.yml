@@ -103,7 +103,7 @@ jobs:
           popd >/dev/null
 
       - name: Detect accommodation image changes
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: (env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')
         id: path_changes
         shell: bash
         run: |
@@ -139,14 +139,16 @@ jobs:
           fi
 
       - name: Prepare site deploy payload
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: (env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')
         shell: bash
         run: |
           set -euo pipefail
 
-          case "${UJSITE_FTP_PATH}" in
+          deploy_target_path="${UJSITE_SSH_REMOTE_PATH:-${UJSITE_FTP_PATH:-}}"
+
+          case "${deploy_target_path}" in
             ''|*/ujsite|*/ujsite/)
-              echo "UJSITE_FTP_PATH must point to the final root target, not the legacy /ujsite/ directory." >&2
+              echo "Deploy target path must point to the final root target, not the legacy /ujsite/ directory." >&2
               exit 1
               ;;
             *)
@@ -204,7 +206,7 @@ jobs:
           echo "Delete candidates intentionally disabled for root deploy."
 
       - name: Prepare video payload
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
+        if: ((env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')) && steps.path_changes.outputs.videos_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -212,7 +214,7 @@ jobs:
           rsync -av --delete dist/videos/ deploy-videos/
 
       - name: Prepare full assets payload
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
+        if: ((env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')) && steps.path_changes.outputs.assets_force_upload == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -266,18 +268,13 @@ jobs:
             echo "value=21" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy site contents to root over SSH
-        id: ssh_root_deploy
+      - name: Setup SSH rsync deploy connection
+        id: ssh_setup
         if: env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != ''
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
-
-          if [ ! -s deploy-files.txt ]; then
-            echo "No root deploy changes detected."
-            exit 0
-          fi
 
           install -m 700 -d "$HOME/.ssh"
           printf '%s\n' "$UJSITE_SSH_PRIVATE_KEY" > "$HOME/.ssh/ujsite_deploy_key"
@@ -321,6 +318,9 @@ jobs:
                 SELECTED_SSH_HOST="$host"
                 SELECTED_SSH_PORT="$port"
                 SELECTED_SSH_LABEL="$label"
+                echo "host=$host" >> "$GITHUB_OUTPUT"
+                echo "port=$port" >> "$GITHUB_OUTPUT"
+                echo "label=$label" >> "$GITHUB_OUTPUT"
                 return 0
               fi
             fi
@@ -343,11 +343,34 @@ jobs:
           fi
 
           echo "selected SSH candidate: $SELECTED_SSH_LABEL"
-
           remote_path_quoted=$(printf '%q' "$UJSITE_SSH_REMOTE_PATH")
+          ssh \
+            -i "$HOME/.ssh/ujsite_deploy_key" \
+            -p "$SELECTED_SSH_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o LogLevel=ERROR \
+            "$UJSITE_SSH_USER@$SELECTED_SSH_HOST" \
+            "mkdir -p $remote_path_quoted"
+
+      - name: Deploy site contents to root over SSH
+        id: ssh_root_deploy
+        if: steps.ssh_setup.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s deploy-files.txt ]; then
+            echo "No root deploy changes detected."
+            exit 0
+          fi
+
           ssh_options=(
             -i "$HOME/.ssh/ujsite_deploy_key"
-            -p "$SELECTED_SSH_PORT"
+            -p "${{ steps.ssh_setup.outputs.port }}"
             -o BatchMode=yes
             -o IdentitiesOnly=yes
             -o StrictHostKeyChecking=yes
@@ -355,10 +378,7 @@ jobs:
             -o LogLevel=ERROR
           )
 
-          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@$SELECTED_SSH_HOST" "mkdir -p $remote_path_quoted"
-          rsync -az --files-from=deploy-files.txt -e "ssh ${ssh_options[*]}" deploy-dist/ "$UJSITE_SSH_USER@$SELECTED_SSH_HOST:$UJSITE_SSH_REMOTE_PATH/"
-
-          rm -f "$HOME/.ssh/ujsite_deploy_key" "$RUNNER_TEMP/ssh-askpass.sh"
+          rsync -az --files-from=deploy-files.txt -e "ssh ${ssh_options[*]}" deploy-dist/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$UJSITE_SSH_REMOTE_PATH/"
 
       - name: Deploy site contents to root over FTP with curl
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_root_deploy.outcome != 'success'
@@ -495,8 +515,47 @@ jobs:
             rm -rf ../_prev_build || true
           fi
 
+      - name: Deploy changed hashed assets over SSH
+        id: ssh_asset_deploy
+        if: steps.ssh_setup.outcome == 'success' && steps.path_changes.outputs.assets_force_upload == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s asset-upload.txt ] && [ ! -s asset-delete.txt ]; then
+            echo "No hashed asset changes detected."
+            exit 0
+          fi
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          remote_assets_path="${UJSITE_SSH_REMOTE_PATH%/}/assets"
+          remote_assets_path_quoted=$(printf '%q' "$remote_assets_path")
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "mkdir -p $remote_assets_path_quoted"
+
+          if [ -s asset-upload.txt ]; then
+            rsync -az --files-from=asset-upload.txt -e "ssh ${ssh_options[*]}" deploy-assets/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$remote_assets_path/"
+          fi
+
+          if [ -s asset-delete.txt ]; then
+            while IFS= read -r rel; do
+              [ -z "$rel" ] && continue
+              remote_file=$(printf '%q' "$remote_assets_path/$rel")
+              ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "rm -f $remote_file"
+            done < asset-delete.txt
+          fi
+
       - name: Deploy changed hashed assets over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true'
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.assets_force_upload == 'true' && steps.ssh_asset_deploy.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -539,7 +598,7 @@ jobs:
           EOF
 
       - name: Validate critical hashed assets
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: (env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')
         id: asset_health
         continue-on-error: true
         shell: bash
@@ -649,8 +708,49 @@ jobs:
           })();
           EOF
 
-      - name: Repair hashed assets over FTP when health-check fails
+      - name: Repair hashed assets over SSH when health-check fails
+        id: ssh_asset_repair
         if: steps.asset_health.outcome == 'failure'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f repair-assets.txt ]; then
+            tr -d '\r' < repair-assets.txt | sed '/^$/d' | sort -u > repair-assets.normalized.txt
+            mv repair-assets.normalized.txt repair-assets.txt
+          fi
+
+          if [ ! -s repair-assets.txt ]; then
+            echo "No repairable hashed assets were pre-collected."
+            echo "Falling back to full assets repair payload."
+            rm -rf deploy-assets
+            mkdir -p deploy-assets
+            rsync -av --delete dist/assets/ deploy-assets/
+            find deploy-assets -type f -printf '%P\n' | sort -u > repair-assets.txt
+          fi
+
+          if [ "${{ steps.ssh_setup.outcome }}" != "success" ]; then
+            echo "SSH rsync connection is not available for asset repair."
+            exit 1
+          fi
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          remote_assets_path="${UJSITE_SSH_REMOTE_PATH%/}/assets"
+          remote_assets_path_quoted=$(printf '%q' "$remote_assets_path")
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "mkdir -p $remote_assets_path_quoted"
+          rsync -az --files-from=repair-assets.txt -e "ssh ${ssh_options[*]}" deploy-assets/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$remote_assets_path/"
+
+      - name: Repair hashed assets over FTP when health-check fails
+        if: steps.asset_health.outcome == 'failure' && env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_asset_repair.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -814,7 +914,7 @@ jobs:
           EOF
 
       - name: Validate critical root public assets
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: (env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')
         id: root_public_health
         continue-on-error: true
         shell: bash
@@ -950,8 +1050,42 @@ jobs:
           })();
           EOF
 
-      - name: Repair root public assets over FTP when health-check fails
+      - name: Repair root public assets over SSH when health-check fails
+        id: ssh_root_public_repair
         if: steps.root_public_health.outcome == 'failure'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f repair-root-files.txt ]; then
+            tr -d '\r' < repair-root-files.txt | sed '/^$/d' | sort -u > repair-root-files.normalized.txt
+            mv repair-root-files.normalized.txt repair-root-files.txt
+          fi
+
+          if [ ! -s repair-root-files.txt ]; then
+            echo "No repairable root public assets were collected."
+            exit 1
+          fi
+
+          if [ "${{ steps.ssh_setup.outcome }}" != "success" ]; then
+            echo "SSH rsync connection is not available for root public asset repair."
+            exit 1
+          fi
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          rsync -az --files-from=repair-root-files.txt -e "ssh ${ssh_options[*]}" deploy-dist/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$UJSITE_SSH_REMOTE_PATH/"
+
+      - name: Repair root public assets over FTP when health-check fails
+        if: steps.root_public_health.outcome == 'failure' && env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_root_public_repair.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -1110,8 +1244,31 @@ jobs:
           })();
           EOF
 
+      - name: Deploy videos over SSH
+        id: ssh_video_deploy
+        if: steps.ssh_setup.outcome == 'success' && steps.path_changes.outputs.videos_changed == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          remote_videos_path="${UJSITE_SSH_REMOTE_PATH%/}/videos"
+          remote_videos_path_quoted=$(printf '%q' "$remote_videos_path")
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "mkdir -p $remote_videos_path_quoted"
+          rsync -az --delete -e "ssh ${ssh_options[*]}" deploy-videos/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$remote_videos_path/"
+
       - name: Deploy videos over FTP
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true'
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.path_changes.outputs.videos_changed == 'true' && steps.ssh_video_deploy.outcome != 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -1128,8 +1285,18 @@ jobs:
           bye
           EOF
 
+      - name: Cleanup SSH deploy material
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "${SSH_AGENT_PID:-}" ]; then
+            ssh-agent -k >/dev/null || true
+          fi
+          rm -f "$HOME/.ssh/ujsite_deploy_key" "$RUNNER_TEMP/ssh-askpass.sh"
+
       - name: Check live root deploy
-        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != ''
+        if: (env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '') || (env.UJSITE_SSH_HOST != '' && env.UJSITE_SSH_USER != '' && env.UJSITE_SSH_PRIVATE_KEY != '' && env.UJSITE_SSH_REMOTE_PATH != '')
         env:
           DND_ROUTE_STABILITY_WARN_ONLY: 'true'
         run: npm run check:root
