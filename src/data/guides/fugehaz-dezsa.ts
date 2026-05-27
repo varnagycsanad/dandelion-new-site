@@ -214,16 +214,16 @@ export const fugehazDezsaGuide = {
     },
     en: {
       title: "Wood-Fired Hot Tub User Guide",
-      subtitle: "Wood-Fired Hot Tub Instructions - Fugehaz",
+      subtitle: "Wood-Fired Hot Tub Instructions - Fügeház",
       intro:
-        "A short mobile-friendly guide for lighting, heating and using the wood-fired hot tub at Fugehaz.",
+        "A short mobile-friendly guide for lighting, heating and using the wood-fired hot tub at Fügeház.",
       keyPoints: [
         "Start the fire gradually with paper and kindling.",
         "Keep the stove air opening free while heating.",
         "Run the circulation system while heating; you may unplug it at night, then plug it back in the morning.",
         "The most pleasant water temperature is usually around 38 °C."
       ],
-      backLabel: "Back to the Fugehaz guide",
+      backLabel: "Back to the Fügeház guide",
       sections: [
         {
           id: "lighting",

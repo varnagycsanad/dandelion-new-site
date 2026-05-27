@@ -53,7 +53,7 @@ const d2Reviews = [
 const d2MobileReviews = d2Reviews.slice(0, 4);
 const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
 const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
-const homepageOgImageAlt = "Napfelkelte a Szent Gyorgy-hegyrol a Tapolcai-medencere nezve";
+const homepageOgImageAlt = "Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve";
 const homepageStructuredData = [
   {
     "@context": "https://schema.org",
@@ -61,7 +61,7 @@ const homepageStructuredData = [
     "@id": `${toAbsoluteUrl("/")}#homepage-region-image`,
     contentUrl: toAbsoluteUrl(homeRegionOgImage.src),
     url: toAbsoluteUrl(homeRegionOgImage.src),
-    name: "Szent Gyorgy-hegy napfelkelte panorama",
+    name: "Szent György-hegy napfelkelte panoráma",
     description: homepageOgImageAlt,
     caption: homepageOgImageAlt,
     inLanguage: "hu-HU"

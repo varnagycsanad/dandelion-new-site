@@ -71,16 +71,16 @@ function formatCzechAccommodationName(apartmentKey?: string): string {
   const names: Record<string, string> = {
     d1: "Dandelion D1",
     d2: "Dandelion D2",
-    fugehaz: "Dandelion Fugehaz",
-    zsalya: "Dandelion Zsalya",
-    szololiget: "Dandelion Szololiget",
-    szepvolgyi: "Dandelion Szepvolgyi",
+    fugehaz: "Dandelion Fügeház",
+    zsalya: "Dandelion Zsálya",
+    szololiget: "Dandelion Szőlőliget",
+    szepvolgyi: "Dandelion Szépvölgyi",
     royal_homes: "Dandelion Royal Homes",
     vintage: "Dandelion Vintage",
-    koveskal: "Dandelion Koveskal"
+    koveskal: "Dandelion Köveskál"
   };
 
-  return apartmentKey ? names[apartmentKey] || apartmentKey : "Dandelion ubytovani";
+  return apartmentKey ? names[apartmentKey] || apartmentKey : "Dandelion ubytování";
 }
 
 function buildCzechImageText(image: ImageAsset, kind: "alt" | "title" | "caption"): string {
@@ -92,18 +92,18 @@ function buildCzechImageText(image: ImageAsset, kind: "alt" | "title" | "caption
   }
 
   if (kind === "caption") {
-    return `${name} - galerie ubytovani, fotografie ${sequence}.`;
+    return `${name} - galerie ubytování, fotografie ${sequence}.`;
   }
 
   if (image.role === "hero_desktop" || image.role === "hero_mobile") {
-    return `${name} - hlavni fotografie ubytovani`;
+    return `${name} - hlavní fotografie ubytování`;
   }
 
   if (image.role === "card") {
-    return `${name} - nahledova fotografie ubytovani`;
+    return `${name} - náhledová fotografie ubytování`;
   }
 
-  return `${name} - galerie ubytovani, fotografie ${sequence}`;
+  return `${name} - galerie ubytování, fotografie ${sequence}`;
 }
 
 function resolveImageText(

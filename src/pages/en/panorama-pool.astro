@@ -28,7 +28,7 @@ const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
   const fallbackTitleMap = {
     d1: "Dandelion D1 hero",
     d2: "Dandelion D2 hero",
-    fugehaz: "Fugehaz hero"
+    fugehaz: "Fügeház hero"
   } as const;
 
   return {
@@ -44,7 +44,7 @@ const stays = [
     title: "Dandelion D1",
     href: resolveHref("/en/dandelion-d1/"),
     image: getStayImage("d1"),
-    description: "A hillside stay near Szent Gyorgy Hill with summer access to Panorama Pool."
+    description: "A hillside stay near Szent György Hill with summer access to Panorama Pool."
   },
   {
     title: "Dandelion D2",
@@ -53,7 +53,7 @@ const stays = [
     description: "Quiet Kisapati days, a spacious garden and shared Panorama Pool access from summer 2026."
   },
   {
-    title: "Fugehaz",
+    title: "Fügeház",
     href: resolveHref("/en/dandelion-fugehaz/"),
     image: getStayImage("fugehaz"),
     description: "A family-friendly base for slow summer days with terrace, panorama and pool access."
@@ -61,10 +61,10 @@ const stays = [
 ];
 
 const poolFacts = [
-  "At the foot of Szent Gyorgy Hill",
+  "At the foot of Szent György Hill",
   "Views of the witness hills and Badacsony",
   "Crystal-clear water",
-  "For guests of D1, D2 and Fugehaz",
+  "For guests of D1, D2 and Fügeház",
   "Available after June 1"
 ];
 
@@ -73,7 +73,7 @@ const poolTemperatureFallback = "Soon";
 
 <BaseLayout
   title="Dandelion Panorama Pool | Panoramic pool in the Balaton Uplands"
-  description="From 1 June 2026, Panorama Pool welcomes Dandelion D1, D2 and Fugehaz guests in Kisapati, in the Balaton Uplands."
+  description="From 1 June 2026, Panorama Pool welcomes Dandelion D1, D2 and Fügeház guests in Kisapáti, in the Balaton Uplands."
   canonicalPath="/en/panorama-pool/"
   lang="en"
   ogLocale="en_US"
@@ -83,8 +83,8 @@ const poolTemperatureFallback = "Soon";
   <section class="pool-page" data-page="panorama-pool" data-deploy-retry="english-html-alias">
     <Hero
       kicker="Panorama Pool"
-      title="Panoramic pool on the side of Szent Gyorgy Hill"
-      description="Available from 1 June 2026 for guests of D1, D2 and Fugehaz."
+      title="Panoramic pool on the side of Szent György Hill"
+      description="Available from 1 June 2026 for guests of D1, D2 and Fügeház."
       ctas={[{ label: "View accommodations", href: "#pool-stays" }]}
       secondaryCtas={[{ label: "See the houses", href: "#pool-stays" }]}
       videoSrc=""
@@ -110,7 +110,7 @@ const poolTemperatureFallback = "Soon";
     <section class="pool-section pool-section--intro">
       <div class="dnd-container pool-shell pool-intro">
         <span class="pool-eyebrow">Summer experience</span>
-        <h2>Not a separate extra, but part of the summer mood of D1, D2 and Fugehaz.</h2>
+        <h2>Not a separate extra, but part of the summer mood of D1, D2 and Fügeház.</h2>
         <p>
           Panorama Pool is made for guests staying in the nearby houses: a quiet hillside pool where swimming,
           the view and the rhythm of the Balaton Uplands naturally become part of the stay.
@@ -203,7 +203,7 @@ const poolTemperatureFallback = "Soon";
         <div class="pool-closing">
           <span class="pool-eyebrow">Summer stays</span>
           <h2>Book a summer stay with pool access.</h2>
-          <p>As a guest of D1, D2 or Fugehaz, Panorama Pool can become part of your summer days from 1 June 2026.</p>
+          <p>As a guest of D1, D2 or Fügeház, Panorama Pool can become part of your summer days from 1 June 2026.</p>
           <a href="#pool-stays" class="pool-button">View accommodations</a>
         </div>
       </div>
