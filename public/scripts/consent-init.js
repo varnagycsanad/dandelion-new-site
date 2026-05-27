@@ -127,6 +127,7 @@
 
   function ensureCookieDetailsLink() {
     const modalHeader = document.querySelector("#dnd-klaro .cm-header");
+    const modalDescription = modalHeader?.querySelector("p");
 
     if (!modalHeader || modalHeader.querySelector(".dnd-cookie-more-link")) {
       return;
@@ -137,7 +138,13 @@
     detailsLink.href = "/docs/dandelion-suti-tajekoztato.pdf";
     detailsLink.download = "dandelion-suti-tajekoztato.pdf";
     detailsLink.textContent = "B\u0151vebben";
-    modalHeader.appendChild(detailsLink);
+
+    if (modalDescription) {
+      modalDescription.append(" ");
+      modalDescription.appendChild(detailsLink);
+    } else {
+      modalHeader.appendChild(detailsLink);
+    }
   }
 
   function watchCookieModal() {
