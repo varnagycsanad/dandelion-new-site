@@ -12,51 +12,90 @@ window.klaroConfig = {
   translations: {
     hu: {
       consentNotice: {
-        title: "Süti beállítások",
+        title: "Kérem, válasszon az alábbi süti lehetőségek közül:",
         description:
-          "A weboldal működéséhez szükséges sütik mellett analitikai és marketing célú sütiket is használhatunk. A beállításokat bármikor módosíthatod."
+          "A weboldal működéséhez szükséges sütiket mindig használjuk. Statisztikai és marketing sütiket csak akkor használunk, ha az összes elfogadását választja.",
+        learnMore: "Bővebben",
+        privacyPolicy: {
+          name: "adatkezelési tájékoztatót"
+        }
       },
       consentModal: {
-        title: "Adatkezelési és süti beállítások",
-        description: "Válaszd ki, mely célokhoz adsz hozzájárulást."
+        title: "Kérem, válasszon az alábbi süti lehetőségek közül:",
+        description:
+          "A weboldal működéséhez szükséges sütiket mindig használjuk. Statisztikai és marketing sütiket csak akkor használunk, ha az összes elfogadását választja.",
+        privacyPolicy: {
+          name: "adatkezelési tájékoztatót",
+          text: "További részletekért olvassa el az {privacyPolicy}."
+        }
       },
-      ok: "Elfogadom",
-      decline: "Elutasítom",
-      acceptAll: "Elfogadom",
-      acceptSelected: "Kiválasztottak elfogadása",
+      privacyPolicy: {
+        name: "adatkezelési tájékoztatót",
+        text: "További részletekért olvassa el az {privacyPolicy}."
+      },
+      ok: "Összes elfogadása",
+      decline: "Csak a szükségeseket engedélyezem",
+      acceptAll: "Összes elfogadása",
+      acceptSelected: "Mentés",
       save: "Mentés",
-      close: "Mentés",
+      close: "Bezárás",
       settings: "Beállítások",
+      poweredBy: "",
+      purposeItem: {
+        service: "szolgáltatás",
+        services: "szolgáltatás"
+      },
       purposes: {
-        necessary: "Szükséges",
-        analytics: "Analitika",
-        marketing: "Marketing"
+        necessary: {
+          title: "Szükséges",
+          description: "Az oldal működéséhez szükséges."
+        },
+        analytics: {
+          title: "Statisztika",
+          description: "Az oldal használatának méréséhez."
+        },
+        marketing: {
+          title: "Marketing",
+          description: "Hirdetések és kampányok méréséhez."
+        }
       },
       service: {
         disableAll: {
-          title: "Összes letiltása",
-          description: "Kapcsold ki az összes opcionális szolgáltatást."
-        }
+          title: "Opcionális sütik kikapcsolása",
+          description: "Kapcsolja ki a statisztikai és marketing sütiket."
+        },
+        required: {
+          title: "(mindig szükséges)",
+          description: "Ez az oldal működéséhez kell, ezért nem kapcsolható ki."
+        },
+        purpose: "Cél",
+        purposes: "Célok"
+      },
+      necessary: {
+        title: "Szükséges sütik",
+        description: "Az oldal működéséhez és a süti beállítások mentéséhez kellenek."
       },
       googleAnalytics: {
-        title: "Google Analytics (GA4)"
+        title: "Google Analytics",
+        description: "Statisztikai mérés."
       },
       metaPixel: {
-        title: "Meta Pixel"
+        title: "Meta Pixel",
+        description: "Marketingkampányok mérése."
       }
     }
   },
   services: [
     {
       name: "necessary",
-      title: "Szükséges",
+      title: "Szükséges sütik",
       purposes: ["necessary"],
       required: true,
       default: true
     },
     {
       name: "googleAnalytics",
-      title: "Google Analytics (GA4)",
+      title: "Google Analytics",
       purposes: ["analytics"],
       required: false,
       default: false,

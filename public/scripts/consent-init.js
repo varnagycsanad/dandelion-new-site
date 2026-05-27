@@ -125,5 +125,46 @@
     return window.dndApplyConsent(consents);
   };
 
+  function ensureCookieDetailsLink() {
+    const modalHeader = document.querySelector("#dnd-klaro .cm-header");
+
+    if (!modalHeader || modalHeader.querySelector(".dnd-cookie-more-link")) {
+      return;
+    }
+
+    const detailsLink = document.createElement("a");
+    detailsLink.className = "dnd-cookie-more-link";
+    detailsLink.href = "/docs/dandelion-suti-tajekoztato.pdf";
+    detailsLink.download = "dandelion-suti-tajekoztato.pdf";
+    detailsLink.textContent = "B\u0151vebben";
+    modalHeader.appendChild(detailsLink);
+  }
+
+  function watchCookieModal() {
+    ensureCookieDetailsLink();
+
+    if (typeof MutationObserver === "function") {
+      const observer = new MutationObserver(ensureCookieDetailsLink);
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    const intervalID = window.setInterval(function addCookieDetailsLinkUntilReady() {
+      ensureCookieDetailsLink();
+
+      if (document.querySelector("#dnd-klaro .dnd-cookie-more-link")) {
+        window.clearInterval(intervalID);
+      }
+    }, 250);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", watchCookieModal);
+  } else {
+    watchCookieModal();
+  }
+
   // Defaults are sent inline in BaseLayout before GTM loads.
 })();
