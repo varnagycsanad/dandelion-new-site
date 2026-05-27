@@ -1109,6 +1109,7 @@ video[autoplay][muted]::-webkit-media-controls-start-playback-button {
 
 .klaro .cookie-modal .cm-modal {
   width: min(100% - 40px, 760px);
+  max-width: 760px;
   max-height: min(86vh, 430px);
   border: 1px solid rgba(255, 249, 239, 0.16);
   border-radius: var(--dnd-radius-md);
