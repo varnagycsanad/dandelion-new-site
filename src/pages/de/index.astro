@@ -18,11 +18,25 @@ import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandeli
 import galleryD2Image from "../../assets/accommodations/d2/gallery/dandelion-d2-source-002.webp";
 import galleryFugehazImage from "../../assets/accommodations/fugehaz/gallery/dandelion-fugehaz-source-001.webp";
 import galleryRoyalImage from "../../assets/accommodations/royal_homes/gallery/dandelion-royal-homes-source-001.webp";
+import { buildVideoObject } from "../../data/video-seo";
 
 const deTitle = "Dandelion Gästehäuser | Unterkünfte am Balaton";
 const deDescription =
   "Ruhige Gästehäuser und Apartments im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Keszthely und dem Káli-Becken.";
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+
+// [CHANGE 2026-05-29 00:00] German homepage hero video now has poster and VideoObject data for Google indexing.
+const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
+const homepageHeroPoster = kisapatiStoryImage.src;
+const homepageVideoStructuredData = buildVideoObject({
+  id: "/de/#homepage-hero-video",
+  name: "Dandelion Gästehäuser Startseitenvideo",
+  description: "Startseitenvideo der Dandelion Gästehäuser nahe dem Balaton.",
+  contentUrl: homepageHeroVideo,
+  thumbnailUrl: homepageHeroPoster,
+  uploadDate: "2026-05-21T00:00:00+02:00",
+  inLanguage: "de-DE"
+});
 
 const germanRegionStories = [
   {
@@ -116,6 +130,7 @@ const galleryItems = [
   canonicalPath="/de/"
   lang="de"
   ogLocale="de_DE"
+  structuredData={homepageVideoStructuredData}
 >
   <Hero
     titleTopLines={["Ruhige", "Gästehäuser"]}
@@ -125,6 +140,8 @@ const galleryItems = [
       { label: "Unterkünfte ansehen", href: "/de/unterkuenfte/" },
       { label: "Verfügbarkeit prüfen", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
     ]}
+    posterSrc={homepageHeroPoster}
+    posterAlt="Kisapáti und die Zeugenberge im Balaton-Oberland"
     videoFallbackText="Ihr Browser unterstützt keine Hintergrundvideos."
   />
 

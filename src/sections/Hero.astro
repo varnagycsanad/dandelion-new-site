@@ -1,6 +1,7 @@
 ---
 // [CHANGE 2026-05-20 00:00] Hero copy and CTAs can now be localized while preserving the original video layout.
 // [CHANGE 2026-05-21 00:00] The homepage hero accepts optional responsive video sources and poster fallback for landing pages.
+// [CHANGE 2026-05-29 00:00] Responsive hero videos now expose their poster fallback for video indexing.
 interface HeroCta {
   label: string;
   href: string;
@@ -58,7 +59,7 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
     <video
       class="dnd-hero__video"
       src={hasResponsiveVideo ? undefined : heroVideo}
-      poster={posterSrc}
+      poster={fallbackPoster}
       autoplay
       muted
       loop

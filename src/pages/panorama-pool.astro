@@ -5,6 +5,7 @@ import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-po
 import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
+import { buildVideoObject } from "../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
@@ -17,6 +18,16 @@ const poolHeroVideos = {
   desktop: "/videos/medence/HERO/PC%20video/Medence_video_Hero_PC.mp4?v=20260521",
   mobile: "/videos/medence/HERO/Phone%20video/Medence_Hero_Phone%2005-21.mp4?v=20260521"
 };
+// [CHANGE 2026-05-29 00:00] Panorama Pool video exposes a thumbnail URL through VideoObject data.
+const poolVideoStructuredData = buildVideoObject({
+  id: "/panorama-pool/#hero-video",
+  name: "Dandelion Panorama Pool videó",
+  description: "Panorama Pool hero videó a Dandelion medence és a balatoni-felvidéki kilátás bemutatásához.",
+  contentUrl: poolHeroVideos.desktop,
+  thumbnailUrl: panoramaPoolHero.desktop,
+  uploadDate: "2026-05-21T00:00:00+02:00",
+  inLanguage: "hu-HU"
+});
 
 const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
   const pageDataMap = {
@@ -77,6 +88,7 @@ const poolTemperatureFallback = "Hamarosan";
   canonicalPath="/panorama-pool/"
   ogImage={panoramaPoolHero.desktop}
   ogImageAlt={heroImage.altHu}
+  structuredData={poolVideoStructuredData}
 >
   <section class="pool-page" data-page="panorama-pool" data-deploy-retry="english-html-alias">
     <Hero

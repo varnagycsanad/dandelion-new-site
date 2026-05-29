@@ -5,8 +5,11 @@ import wineImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
 import balatonImage from "../../assets/experiences/balaton-shore.jpg";
 import mountainsImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
 import { toAbsoluteUrl } from "../../data/site-seo";
+import { buildVideoObject } from "../../data/video-seo";
 
 const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-0516.mp4?v=20260520-faststart";
+// [CHANGE 2026-05-29 00:00] Czech experiences hero video now has poster and VideoObject data for Google indexing.
+const heroPoster = mountainsImage.src;
 const bikingImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 
 const experiences = [
@@ -60,7 +63,16 @@ const structuredData = [
       { "@type": "ListItem", position: 1, name: "Úvod", item: toAbsoluteUrl("/cs/") },
       { "@type": "ListItem", position: 2, name: "Zážitky", item: toAbsoluteUrl("/cs/zazitky/") }
     ]
-  }
+  },
+  buildVideoObject({
+    id: "/cs/zazitky/#hero-video",
+    name: "Dandelion zážitky hero video",
+    description: "Hero video představující cyklistiku, vinařství, Balaton a výlety v okolí Dandelion.",
+    contentUrl: heroVideo,
+    thumbnailUrl: heroPoster,
+    uploadDate: "2026-05-20T00:00:00+02:00",
+    inLanguage: "cs-CZ"
+  })
 ];
 ---
 
@@ -75,7 +87,7 @@ const structuredData = [
 >
   <section class="experiences-page">
     <section class="experiences-hero">
-      <video class="experiences-hero__video" src={heroVideo} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+      <video class="experiences-hero__video" src={heroVideo} poster={heroPoster} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
         Váš prohlížeč nepodporuje přehrávání videa na pozadí.
       </video>
       <div class="experiences-hero__content">

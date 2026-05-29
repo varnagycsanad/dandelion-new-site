@@ -4,8 +4,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import wineImage from "../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
 import balatonImage from "../assets/experiences/balaton-shore.jpg";
 import mountainsImage from "../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import { buildVideoObject } from "../data/video-seo";
 
 const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-0516.mp4?v=20260520-faststart";
+// [CHANGE 2026-05-29 00:00] Experiences hero video now has poster and VideoObject data for Google indexing.
+const heroPoster = mountainsImage.src;
 const bikingImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 
 const quickFacts = [
@@ -88,7 +91,16 @@ const structuredData = [
       description: item.description,
       url: `https://dandelionhouse.hu${item.href}`
     }))
-  }
+  },
+  buildVideoObject({
+    id: "/elmenyek/#hero-video",
+    name: "Dandelion élmények hero videó",
+    description: "Hero videó a Balaton-felvidéki programok és Dandelion élmények bemutatásához.",
+    contentUrl: heroVideo,
+    thumbnailUrl: heroPoster,
+    uploadDate: "2026-05-20T00:00:00+02:00",
+    inLanguage: "hu-HU"
+  })
 ];
 ---
 
@@ -104,6 +116,7 @@ const structuredData = [
       <video
         class="experiences-hero__video"
         src={heroVideo}
+        poster={heroPoster}
         autoplay
         muted
         loop

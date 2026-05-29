@@ -8,6 +8,7 @@ import GoogleRegionMap from "../sections/GoogleRegionMap.astro";
 import NewsletterSignup from "../sections/NewsletterSignup.astro";
 import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg.webp";
 import { toAbsoluteUrl } from "../data/site-seo";
+import { buildVideoObject } from "../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const googleLogoSrc = `${baseHref}images/brand/google-logo-compact-optimized-v2.png`;
@@ -54,6 +55,9 @@ const d2MobileReviews = d2Reviews.slice(0, 4);
 const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
 const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
 const homepageOgImageAlt = "Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve";
+// [CHANGE 2026-05-29 00:00] Homepage hero video now has poster and VideoObject data for Google indexing.
+const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
+const homepageHeroPoster = homeRegionOgImage.src;
 const homepageStructuredData = [
   {
     "@context": "https://schema.org",
@@ -65,7 +69,16 @@ const homepageStructuredData = [
     description: homepageOgImageAlt,
     caption: homepageOgImageAlt,
     inLanguage: "hu-HU"
-  }
+  },
+  buildVideoObject({
+    id: "/#homepage-hero-video",
+    name: "Dandelion Vendégházak főoldali hangulatvideó",
+    description: "Főoldali Dandelion hangulatvideó a Balaton-felvidéki vendégházak bemutatásához.",
+    contentUrl: homepageHeroVideo,
+    thumbnailUrl: homepageHeroPoster,
+    uploadDate: "2026-05-21T00:00:00+02:00",
+    inLanguage: "hu-HU"
+  })
 ];
 ---
 
@@ -76,7 +89,7 @@ const homepageStructuredData = [
   ogImageAlt={homepageOgImageAlt}
   structuredData={homepageStructuredData}
 >
-  <Hero />
+  <Hero posterSrc={homepageHeroPoster} posterAlt={homepageOgImageAlt} />
   <PanoramaPoolHighlight />
   <section class="d2-reviews dnd-section" aria-labelledby="homepage-reviews-title">
     <div class="dnd-container">

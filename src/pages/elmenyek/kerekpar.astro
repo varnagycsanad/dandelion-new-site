@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { buildVideoObject } from "../../data/video-seo";
 
 const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4?v=20260520-faststart";
 const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 const bikeOgImage = desktopImage;
+// [CHANGE 2026-05-29 00:00] Bike hero video now has poster and VideoObject data for Google indexing.
 
 const availableBikes = [
   "4 db normál felnőtt kerékpár",
@@ -71,7 +73,16 @@ const structuredData = [
         item: "https://dandelionhouse.hu/elmenyek/kerekpar/"
       }
     ]
-  }
+  },
+  buildVideoObject({
+    id: "/elmenyek/kerekpar/#hero-video",
+    name: "Balaton-felvidéki bicikli túra videó",
+    description: "Hero videó a Balaton-felvidéki biciklis élmény és kerékpárbérlés bemutatásához.",
+    contentUrl: heroVideo,
+    thumbnailUrl: desktopImage,
+    uploadDate: "2026-05-20T00:00:00+02:00",
+    inLanguage: "hu-HU"
+  })
 ];
 ---
 
@@ -89,6 +100,7 @@ const structuredData = [
       <video
         class="bike-hero__video"
         src={heroVideo}
+        poster={desktopImage}
         autoplay
         muted
         loop

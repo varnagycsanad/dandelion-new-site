@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { toAbsoluteUrl } from "../../data/site-seo";
+import { buildVideoObject } from "../../data/video-seo";
 
 // [CHANGE 2026-05-20 00:00] First English bike rental page added from the existing Hungarian bike content.
 const title = "Bike Rental in the Balaton Uplands | Dandelion Guesthouses";
@@ -10,6 +11,7 @@ const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4?
 const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 const bikeOgImage = desktopImage;
+// [CHANGE 2026-05-29 00:00] English bike hero video now has poster and VideoObject data for Google indexing.
 
 const availableBikes = [
   "4 standard adult bikes",
@@ -76,7 +78,16 @@ const structuredData = [
         item: toAbsoluteUrl("/en/bike-rental/")
       }
     ]
-  }
+  },
+  buildVideoObject({
+    id: "/en/bike-rental/#hero-video",
+    name: "Balaton Uplands bike rental video",
+    description: "Hero video introducing cycling and bike rental for Dandelion guests in the Balaton Uplands.",
+    contentUrl: heroVideo,
+    thumbnailUrl: desktopImage,
+    uploadDate: "2026-05-20T00:00:00+02:00",
+    inLanguage: "en-US"
+  })
 ];
 ---
 
@@ -96,6 +107,7 @@ const structuredData = [
       <video
         class="bike-hero__video"
         src={heroVideo}
+        poster={desktopImage}
         autoplay
         muted
         loop
