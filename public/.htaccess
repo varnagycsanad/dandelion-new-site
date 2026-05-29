@@ -1,4 +1,5 @@
 # [CHANGE 2026-05-06 13:20] Serve Astro static files from the domain root.
+# [CHANGE 2026-05-29 00:00] Redirect legacy WordPress URLs from Search Console coverage reports.
 DirectoryIndex index.html
 Options -MultiViews
 
@@ -58,6 +59,53 @@ Options -MultiViews
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Legacy WordPress technical endpoints should disappear cleanly.
+  RewriteRule ^wp-admin/ - [G,L]
+  RewriteRule ^wp-json/ - [G,L]
+
+  # Legacy home and test URLs.
+  RewriteRule ^(?:home|fooldal|test|test-2|valami)/?$ /? [R=301,L]
+  RewriteRule ^ipv6\.dandelionhouse\.hu/?$ /? [R=301,L]
+  RewriteCond %{QUERY_STRING} ^et_core_page_resource$ [NC]
+  RewriteRule ^(?:fooldal/?)?$ /? [R=301,L]
+
+  # Legacy contact, legal and booking information URLs.
+  RewriteRule ^(?:hu/)?kapcsolat-2/?$ /kapcsolat/? [R=301,L]
+  RewriteRule ^(?:hu/)?arak-es-foglalasi-feltetelek/?$ /szallasok/? [R=301,L]
+  RewriteRule ^altalanos-szerzodesi-feltetelek/?$ /aszf/? [R=301,L]
+  RewriteRule ^adatvedelem/?$ /adatkezelesi-tajekoztato/? [R=301,L]
+
+  # Legacy accommodation URLs.
+  RewriteRule ^zsalya/?$ /dandelion-zsalya/? [R=301,L]
+  RewriteRule ^koveskal/?$ /dandelion-koveskal/? [R=301,L]
+  RewriteRule ^vintage/?$ /dandelion-vintage/? [R=301,L]
+  RewriteRule ^fuge-vendeghaz/?$ /fuge/? [R=301,L]
+  RewriteRule ^badacsonyhaz/?$ /szepvolgyi/? [R=301,L]
+  RewriteRule ^dandelion-2-d2/zsalya/?$ /dandelion-zsalya/? [R=301,L]
+  RewriteRule ^szallas-kisapati/?$ /szallasok/? [R=301,L]
+  RewriteRule ^szallas-kisapatin-d2-(?:apartman|vendeghaz)-a-szent-gyorgy-hegy-labanal-dandelion-vendeghazak/?$ /dandelion-d2/? [R=301,L]
+
+  # Legacy blog, category and tag URLs.
+  RewriteRule ^blog/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^hasznos(?:-[23])?/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^hu/hasznos-2/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^project/?$ /szallasok/? [R=301,L]
+  RewriteRule ^project/fooldali-haz-bemutato/?$ /szallasok/? [R=301,L]
+  RewriteRule ^category/(?:kornyek|kornyek/programtippek|kornyek/turak|nevezetessegek|hegyek)/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^category/dandelion-hazakkal-kapcsolatos-informaciok/?$ /szallasok/? [R=301,L]
+  RewriteRule ^category/dandelion-vendeghazak-szent-gyorgy-hegy-2/?$ /szallasok/? [R=301,L]
+  RewriteRule ^category/egyeb-kategoria-hu/?$ /? [R=301,L]
+  RewriteRule ^tag/(?:tavmunka|workation|digitalis-nomad|hosszutavu-szallas)/?(?:feed/?)?$ /szallasok/? [R=301,L]
+  RewriteRule ^tag/balaton-felvidek/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^author/vilona/?(?:feed/?)?$ /? [R=301,L]
+
+  # Legacy article URLs mapped to the closest current editorial pages.
+  RewriteRule ^szent-gyorgy-hegyi-kirandulas/?$ /elmenyek/tanuhegyek/? [R=301,L]
+  RewriteRule ^szent-gyorgy-hegy-bazaltorgonak-tura-es-panorama-a-balaton-felvideken-dandelion-vendeghazak/?$ /elmenyek/tanuhegyek/? [R=301,L]
+  RewriteRule ^szureti-felvonulas-szent-gyorgy-hegy-hegymagas-raposka-kisapati-2025-okt-11-dandelion/?$ /elmenyek/bor-es-panorama/? [R=301,L]
+  RewriteRule ^dolgozz-onnan-ahol-mas-nyaral-digitalis-nomad-szallas-a-balaton-felvideken/?$ /szallasok/? [R=301,L]
+  RewriteRule ^digitalis-nomad-szallas-balaton-felvidek/?$ /szallasok/? [R=301,L]
 
   # Astro build assets should be served directly from /assets/.
   RewriteRule ^assets/ - [END]
