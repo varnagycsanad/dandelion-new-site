@@ -81,7 +81,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     kicker: "Fügeház",
     title: "Terraces, countryside views and a shared panoramic pool",
     shortDescription:
-      "A comfortable guesthouse for 4 guests, extendable with an extra bed for up to 6 guests, with terraces, outdoor dining and access to the shared panoramic pool from June 1, 2026.",
+      "A comfortable guesthouse for 4 guests, extendable with an extra bed for up to 6 guests, with terraces, outdoor dining and access to the shared panoramic pool from June 15, 2026.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -89,7 +89,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     longDescription: [
       "Fügeház is memorable for its terraces and outdoor rhythm. Mornings can start with the surrounding hills, while evenings naturally slow down into longer conversations and quiet countryside air.",
       "The house is comfortable for 4 guests and can host up to 6 guests with an extra bed. From the dining room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony; on the other side of the house, garden seating offers a quieter corner facing Szent György Hill.",
-      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for Fügeház, but part of the nearby D1-D2-Fügeház pool area from June 1, 2026.",
+      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for Fügeház, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
       "Outdoor time is supported by terraces, garden furniture and a grill option. The hill beside the house opens toward the surrounding witness hills, so sunsets and clear evenings can become part of the experience.",
       "The house has two levels. Downstairs there is a well-equipped kitchen, a bathroom with shower, a living-sleeping area and a dining space. Upstairs, an open sleeping area offers a double bed and a sofa bed."
     ],
@@ -104,7 +104,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
           ["Guests", "4 guests, up to 6 with an extra bed"],
           ["Location", "near Szent György Hill"],
           ["Atmosphere", "peaceful, panoramic, family-friendly"],
-          ["Highlight", "shared panoramic pool from June 1, 2026"]
+          ["Highlight", "shared panoramic pool from June 15, 2026"]
         ]
       },
       {
@@ -143,7 +143,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       label: "Featured experience",
       title: "Panorama Pool",
       text: "Book Fügeház, and from summer the panoramic pool access is included in the price.",
-      note: "from June 1, 2026",
+      note: "from June 15, 2026",
       iconKey: "pool",
       image: fugehazPanoramaPoolHeroImage
         ? {

@@ -47,7 +47,7 @@ export const d1PageData: AccommodationPageData = {
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
-      text: "2026. június 1-től a D1 vendégei is használhatják a közeli panoráma medencét.",
+      text: "2026. június 15-től a D1 vendégei is használhatják a közeli panoráma medencét.",
       href: "/panorama-pool/",
       ctaLabel: "Medence oldal megnyitása",
       variant: "strong"
@@ -100,11 +100,11 @@ export const d1PageData: AccommodationPageData = {
     kicker: "Dandelion D1",
     title: "Panorámás terasz, nagy közösségi terek és közös medence egy helyen",
     shortDescription:
-      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 1-től közös panorámás medencével.",
+      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 15-től közös panorámás medencével.",
     longDescription: [
       "A D1 egyik legnagyobb előnye a tágas elrendezés: több hálószoba, jól használható közös terek és olyan terasz, ahol a társas együttlétnek is kényelmes kerete van.",
       "A nappaliból nyíló hangulatos teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványa tárul a vendégek elé. A panoráma minden napszakban más arcát mutatja: reggel nyugodt és tiszta, este pedig különösen hangulatos. A kültéri étkezőszett és a grillezési lehetőség kényelmessé teszi a kinti együttléteket.",
-      "2026. június 1-től a D1 vendégei számára közös panorámás medence is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
+      "2026. június 15-től a D1 vendégei számára közös panorámás medence is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
       "A ház alsó szintjén jól felszerelt nappali-konyha-étkező található hűtőszekrénnyel és fagyasztóval. A közösségi térben hatszemélyes kör alakú étkezőasztal és kinyitható kanapé kapott helyet, amelyen két fő kényelmesen alhat. Az alsó szinten két hálószoba és két zuhanyzós fürdőszoba is segíti a kényelmes elhelyezést.",
       "Az emeletre falépcső vezet fel. Itt két hálószoba, egy zuhanyfülkés tusoló és külön WC található. A nagyobb hálószoba a Szent György-hegy felé néz, két 90 cm-es ággyal, amelyek összetolva és különálló ágyként is használhatók. A kisebbik hálószobához erkély tartozik, ahonnan szép kilátás nyílik a Gulács és a Csobánc irányába.",
       "A D1 azoknak való, akik tágas, kényelmes, természetközeli házat keresnek, ahol együtt lehet lenni, de mindenkinek jut saját tér is. A Balaton, a Szent György-hegy, Badacsony, Szigliget, a Csobánc és a környék borászatai rövid autóúttal elérhetők."
@@ -126,7 +126,7 @@ export const d1PageData: AccommodationPageData = {
       {
         title: "Kikapcsolódás",
         items: [
-          ["Medence", "2026. június 1-től közös panorámás medence"],
+          ["Medence", "2026. június 15-től közös panorámás medence"],
           ["Kültér", "kültéri étkező és grillezési lehetőség"],
           ["Fürdők", "több zuhanyzós fürdőszoba és külön WC"],
           ["Panoráma", "Csobánc, Tóti-hegy, Gulács és Badacsony"]
@@ -159,7 +159,7 @@ export const d1PageData: AccommodationPageData = {
       label: "KIEMELT ÉLMÉNY",
       title: "Panorama Pool",
       text: "Foglald le a Dandelion D1-et, és nyártól a panorámás medencehasználat is benne van az árban.",
-      note: "2026. június 1-től",
+      note: "2026. június 15-től",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {

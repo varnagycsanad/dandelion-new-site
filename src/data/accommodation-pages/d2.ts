@@ -14,7 +14,7 @@ export const d2PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 Kisapáti | Családbarát apartman kerttel",
     description:
-      "Galériás apartman nagy udvarral, fedett terasszal és 2026. június 1-től elérhető Panorama Pool használattal a Balaton-felvidéken."
+      "Galériás apartman nagy udvarral, fedett terasszal és 2026. június 15-től elérhető Panorama Pool használattal a Balaton-felvidéken."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=Hu",
   positioning: {
@@ -50,7 +50,7 @@ export const d2PageData: AccommodationPageData = {
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
-      text: "2026. június 1-től a D2 vendégei is használhatják a közeli panoráma medencét.",
+      text: "2026. június 15-től a D2 vendégei is használhatják a közeli panoráma medencét.",
       href: "/panorama-pool/",
       ctaLabel: "Medence oldal megnyitása",
       variant: "strong"
@@ -111,7 +111,7 @@ export const d2PageData: AccommodationPageData = {
     longDescription: [
       "A galériás nappali világos és jól használható közös tér, a felújított konyha pedig kényelmessé teszi a hosszabb itt tartózkodást is. A ház ritmusa egyszerű: reggeli a teraszon, napközben kirándulás vagy balatoni program, este nyugodt visszaérkezés a kertbe.",
       "A fedett terasz és a kerti ülőhelyek rosszabb időben is használhatók, a nagy udvar pedig sokat ad hozzá a pihenéshez. Itt van hely játszani, üldögélni, grillezni vagy csak élvezni a csendet.",
-      "A D2 vendégei 2026. június 1-től a közös Panorama Poolt is használhatják. A medence a ház melletti dombon kapott helyet, így a fürdés mellé tanúhegyes panoráma és nyári balatoni-felvidéki hangulat is jár.",
+      "A D2 vendégei 2026. június 15-től a közös Panorama Poolt is használhatják. A medence a ház melletti dombon kapott helyet, így a fürdés mellé tanúhegyes panoráma és nyári balatoni-felvidéki hangulat is jár.",
       "A háznál állatok is vannak, amit sok gyerek külön élményként él meg. Ez ad a kertnek egy lazább, falusiasabb hangulatot, anélkül hogy a ház kényelméből bármit elvenne.",
       "A Balaton, a tanúhegyek túraútvonalai és a környék borászatai rövid autóúttal elérhetők, így a D2 jó bázis akkor is, ha többféle programot szeretnétek egy helyről bejárni."
     ],
@@ -132,7 +132,7 @@ export const d2PageData: AccommodationPageData = {
       {
         title: "Élmények",
         items: [
-          ["Panorama Pool", "a ház melletti dombon, 2026. június 1-től"],
+          ["Panorama Pool", "a ház melletti dombon, 2026. június 15-től"],
           ["Rostonsütés", "kültéri grillezési lehetőség"],
           ["Gyerekeknek", "állatok és nagy udvar a háznál"],
           ["Programok", "Balaton, túrák és borászatok a közelben"]
@@ -166,7 +166,7 @@ export const d2PageData: AccommodationPageData = {
       label: "Kiemelt élmény",
       title: "Panorama Pool",
       text: "Foglald le a Dandelion D2-t, és nyártól a panorámás medencehasználat is benne van az árban.",
-      note: "2026. június 1-től",
+      note: "2026. június 15-től",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {

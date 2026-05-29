@@ -16,7 +16,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   longDescription: [
     "Das Haus hat eine klare, entspannte Aufteilung und eignet sich gut für Familien, Paare oder Freunde, die ein paar ruhige Tage zusammen verbringen möchten.",
     "Die Terrasse und die Aussicht prägen den Aufenthalt: morgens langsam starten, tagsüber die Umgebung erkunden und abends draußen sitzen.",
-    "Fügeház gehört zu den Unterkünften mit Zugang zum gemeinsamen Panorama Poolbereich ab 1. Juni 2026."
+    "Fügeház gehört zu den Unterkünften mit Zugang zum gemeinsamen Panorama Poolbereich ab 15. Juni 2026."
   ],
   facts: [
     ["Gäste", "4-6 Gäste"],
@@ -28,7 +28,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   experienceFacts: [
     ["Panorama", "Blick in die Hügellandschaft"],
     ["Hot Tub", "entspannte Abende draußen"],
-    ["Gemeinsamer Pool", "ab 1. Juni 2026"],
+    ["Gemeinsamer Pool", "ab 15. Juni 2026"],
     ["Umgebung", "Wein, Wandern und Balaton"]
   ],
   highlights: ["Panorama", "Terrasse", "Hot Tub", "Gemeinsamer Panorama Pool", "Ruhige Lage"],

@@ -14,10 +14,10 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   longDescription: [
     "Dům ma nekolik venkovních mist, kde se da snidat, odpocivat nebo večer sedet s výhledem. Atmosfera je přírodní a neformalni.",
     "Poloha u Szent György-hegy dává snadný přístup k výletům, vinařstvím a balatonským programům.",
-    "Hosté Fügeház mohou od 1. června 2026 vyuzivat společný Panorama Pool pro D1, D2 a Fügeház."
+    "Hosté Fügeház mohou od 15. června 2026 vyuzivat společný Panorama Pool pro D1, D2 a Fügeház."
   ],
   facts: [["Hosté", "4-6 hostů"], ["Charakter", "terasový panoramatický dům"], ["Exteriér", "venkovní posezení"], ["Poloha", "u Szent György-hegy"]],
-  experienceFacts: [["Panorama Pool", "společný bazén od 1. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
+  experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
   highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradní posezení", "Společný Panorama Pool", "Přírodní atmosféra"],
   reasons: [
     { iconKey: "terrace", title: "Terasy", text: "pro pomalé ráno" },

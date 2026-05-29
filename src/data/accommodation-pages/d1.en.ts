@@ -81,7 +81,7 @@ export const d1EnglishPageData: AccommodationPageData = {
     kicker: "Dandelion D1",
     title: "Panoramic terrace, generous shared spaces and a shared pool",
     shortDescription:
-      "A spacious three-bedroom house for up to 8 guests, with a panoramic terrace, generous shared spaces and access to the shared panoramic pool from June 1, 2026.",
+      "A spacious three-bedroom house for up to 8 guests, with a panoramic terrace, generous shared spaces and access to the shared panoramic pool from June 15, 2026.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -89,7 +89,7 @@ export const d1EnglishPageData: AccommodationPageData = {
     longDescription: [
       "One of D1's strongest features is its spacious layout: several bedrooms, usable shared areas and a terrace that gives the group a comfortable place to spend time together.",
       "From the living room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony. The outdoor dining set and grill option make shared meals outside simple and comfortable.",
-      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for D1, but part of the nearby D1-D2-Fügeház pool area from June 1, 2026.",
+      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for D1, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
       "On the lower level, the house has a well-equipped living-kitchen-dining area with refrigerator and freezer. The shared space includes a round dining table for six and a sofa bed where two guests can sleep comfortably. Two bedrooms and two bathrooms with showers are also on the lower level.",
       "Wooden stairs lead to the upper level, where two bedrooms, a shower cabin and a separate toilet are located. The larger bedroom faces Szent György Hill and has two 90 cm beds that can be used together or separately. The smaller bedroom has a balcony with views toward Gulács and Csobánc.",
       "Dandelion D1 is for guests looking for a spacious, comfortable, nature-close house where the group can stay together while everyone still has their own space. Lake Balaton, Szent György Hill, Badacsony, Szigliget, Csobánc and local wineries are all within a short drive."
@@ -111,7 +111,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       {
         title: "Outdoor time",
         items: [
-          ["Pool", "shared panoramic pool from June 1, 2026"],
+          ["Pool", "shared panoramic pool from June 15, 2026"],
           ["Outdoor space", "outdoor dining and grill option"],
           ["Bathrooms", "multiple bathrooms with showers and a separate toilet"],
           ["Views", "Csobánc, Tóti Hill, Gulács and Badacsony"]
@@ -144,7 +144,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       label: "Featured experience",
       title: "Panorama Pool",
       text: "Book Dandelion D1, and from summer the panoramic pool access is included in the price.",
-      note: "from June 1, 2026",
+      note: "from June 15, 2026",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {

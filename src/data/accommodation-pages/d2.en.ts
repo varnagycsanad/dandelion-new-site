@@ -89,7 +89,7 @@ export const d2EnglishPageData: AccommodationPageData = {
     longDescription: [
       "The gallery-style living room gives the house an open, easy rhythm, and the renovated kitchen makes longer stays comfortable too. Mornings can start on the terrace, days can move toward the hills or Lake Balaton, and evenings can slow down again in the garden.",
       "The covered terrace and outdoor seating are useful even when the weather changes, while the large garden gives children and adults space to play, sit, grill or simply enjoy the quiet.",
-      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for D2, but part of the nearby D1-D2-Fügeház pool area from June 1, 2026.",
+      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for D2, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
       "There are animals around the house, which many children experience as a small countryside adventure. It adds a warmer village feeling without taking anything away from the comfort of the stay.",
       "Lake Balaton, the hiking routes of Szent György Hill and the wineries of the region are all within a short drive, so Dandelion D2 works well as one calm base for several kinds of Balaton Uplands days."
     ],
@@ -110,7 +110,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         title: "Experiences",
         items: [
-          ["Shared panoramic pool", "for D1, D2 and Fügeház guests from June 1, 2026"],
+          ["Shared panoramic pool", "for D1, D2 and Fügeház guests from June 15, 2026"],
           ["Outdoor cooking", "grill option in the garden"],
           ["For children", "animals and a large garden around the house"],
           ["Nearby", "Lake Balaton, hiking routes and wineries"]
@@ -144,7 +144,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       label: "Featured experience",
       title: "Panorama Pool",
       text: "Book Dandelion D2, and from summer the panoramic pool access is included in the price.",
-      note: "from June 1, 2026",
+      note: "from June 15, 2026",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {

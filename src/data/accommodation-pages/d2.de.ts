@@ -88,7 +88,7 @@ export const d2GermanPageData: AccommodationPageData = {
     longDescription: [
       "Der galerieartige Wohnraum gibt dem Haus einen offenen, unkomplizierten Rhythmus. Die renovierte Küche macht auch längere Aufenthalte angenehm. Der Morgen kann auf der Terrasse beginnen, tagsüber geht es in die Hügel oder an den Balaton, und abends wird es im Garten wieder ruhig.",
       "Die überdachte Terrasse und die Sitzplätze im Freien sind auch nützlich, wenn das Wetter wechselt. Der große Garten gibt Kindern und Erwachsenen Raum zum Spielen, Sitzen, Grillen oder einfach zum Ausruhen.",
-      "Der Panorama Pool wird von den Gästen von D1, D2 und Fügeház gemeinsam genutzt. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen D1-D2-Fügeház Poolbereichs ab 1. Juni 2026.",
+      "Der Panorama Pool wird von den Gästen von D1, D2 und Fügeház gemeinsam genutzt. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen D1-D2-Fügeház Poolbereichs ab 15. Juni 2026.",
       "Rund um das Haus gibt es Tiere, was viele Kinder als kleines Landerlebnis erleben. Das gibt dem Aufenthalt eine warme, dorfliche Stimmung, ohne den Komfort des Hauses zu schmälern.",
       "Der Balaton, die Wanderwege des Szent György-hegy und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Dandelion D2 eignet sich deshalb gut als ruhige Basis für verschiedene Tage im Balaton-Oberland."
     ],
@@ -109,7 +109,7 @@ export const d2GermanPageData: AccommodationPageData = {
       {
         title: "Erlebnisse",
         items: [
-          ["Gemeinsamer Panorama Pool", "für D1, D2 und Fügeház Gäste ab 1. Juni 2026"],
+          ["Gemeinsamer Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
           ["Draussen kochen", "Grillmöglichkeit im Garten"],
           ["Für Kinder", "Tiere und großer Garten rund um das Haus"],
           ["In der Nähe", "Balaton, Wanderwege und Weingüter"]
@@ -143,7 +143,7 @@ export const d2GermanPageData: AccommodationPageData = {
       label: "Besonderes Erlebnis",
       title: "Panorama Pool",
       text: "Bei Dandelion D2 ist der Zugang zum gemeinsamen Panorama Pool ab Sommer im Aufenthalt enthalten.",
-      note: "ab 1. Juni 2026",
+      note: "ab 15. Juni 2026",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {

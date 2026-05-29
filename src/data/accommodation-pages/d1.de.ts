@@ -16,7 +16,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   longDescription: [
     "Das Haus eignet sich für Gäste, die zusammen reisen, aber trotzdem genug Raum im Alltag brauchen. Wohnbereich, Küche und Terrasse verbinden sich zu einem unkomplizierten Ferienrhythmus.",
     "Der Garten und die Außenbereiche machen D1 besonders angenehm für Familien. Tagsüber sind Ausflüge an den Balaton, Wanderungen am Szent György-hegy und Besuche bei Weingütern gut erreichbar.",
-    "Der gemeinsame Panorama Pool gehört zum nahe gelegenen D1-D2-Fügeház Bereich und ist ab 1. Juni 2026 für die passenden Unterkünfte vorgesehen."
+    "Der gemeinsame Panorama Pool gehört zum nahe gelegenen D1-D2-Fügeház Bereich und ist ab 15. Juni 2026 für die passenden Unterkünfte vorgesehen."
   ],
   facts: [
     ["Gäste", "6-8 Gäste"],
@@ -26,7 +26,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     ["Lage", "Kisapati, nahe Szent György-hegy"]
   ],
   experienceFacts: [
-    ["Gemeinsamer Panorama Pool", "für D1, D2 und Fügeház Gäste ab 1. Juni 2026"],
+    ["Gemeinsamer Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
     ["Familienzeit", "viel Platz im Haus und draußen"],
     ["Ausflüge", "Balaton, Wanderwege und Weingüter"],
     ["Direktanfrage", "deutsche Anfrage über Kontaktseite"]
