@@ -108,14 +108,14 @@ const {
 <style>
   .dnd-experiences {
     background: #fbfaf7;
-    padding: 118px 0 88px;
+    padding: 92px 0 82px;
     scroll-margin-top: 150px;
   }
 
   .dnd-experiences__inner {
     display: grid;
-    grid-template-columns: 360px minmax(0, 1fr);
-    gap: 34px;
+    grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+    gap: 42px;
     width: min(100% - 96px, 1460px);
     margin: 0 auto;
     align-items: start;
@@ -124,13 +124,9 @@ const {
   .dnd-experiences__intro {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 86px 28px 28px;
-    min-height: 100%;
-    border: 1px solid rgba(121, 93, 48, 0.14);
-    border-radius: 18px;
-    background: linear-gradient(180deg, rgba(250, 245, 235, 0.96), rgba(245, 237, 224, 0.92));
-    text-align: center;
+    justify-content: flex-start;
+    padding: 10px 0 0;
+    text-align: left;
   }
 
   .dnd-experiences__title {
@@ -145,10 +141,10 @@ const {
   }
 
   .dnd-experiences__lead {
-    margin: 24px auto 0;
-    max-width: 30ch;
+    margin: 18px 0 0;
+    max-width: 28ch;
     font-size: var(--dnd-text-body);
-    line-height: 1.6;
+    line-height: 1.56;
     color: rgba(0, 0, 0, 0.6);
   }
 
@@ -156,25 +152,26 @@ const {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 242px;
-    min-height: 54px;
-    margin-top: 30px;
-    padding: 0 24px;
-    border: 1px solid rgba(0, 0, 0, 0.52);
-    background: transparent;
+    width: fit-content;
+    min-height: 42px;
+    margin-top: 22px;
+    padding: 0 18px;
+    border: 1px solid rgba(121, 93, 48, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
     color: rgba(0, 0, 0, 0.78);
     font-size: var(--dnd-text-2xs);
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    align-self: center;
+    align-self: flex-start;
   }
 
   .dnd-experiences__cta:hover,
   .dnd-experiences__cta:focus-visible {
-    border-color: rgba(0, 0, 0, 0.82);
-    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(121, 93, 48, 0.46);
+    background: #ffffff;
     color: rgba(0, 0, 0, 0.92);
   }
 
@@ -274,7 +271,7 @@ const {
 
   @media (max-width: 767px) {
     .dnd-experiences {
-      padding: 64px 0 70px;
+      padding: 28px 0 64px;
     }
 
     .dnd-experiences__inner {
@@ -283,33 +280,68 @@ const {
     }
 
     .dnd-experiences__intro {
-      padding: 24px 18px 20px;
-      text-align: left;
+      align-items: center;
+      padding: 0 12px;
+      text-align: center;
     }
 
     .dnd-experiences__title {
-      font-size: 1.55rem;
-      letter-spacing: 0.12em;
+      font-size: 1.5rem;
+      letter-spacing: 0.14em;
     }
 
-    .dnd-experiences__lead,
+    .dnd-experiences__lead {
+      margin-top: 14px;
+      max-width: 29ch;
+      font-size: var(--dnd-text-md);
+      line-height: 1.48;
+    }
+
+    .dnd-experiences__cta {
+      min-height: 34px;
+      margin-top: 14px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: rgba(121, 93, 48, 0.95);
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.12em;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      align-self: center;
+    }
+
     .dnd-experience-card p {
       max-width: none;
     }
 
     .dnd-experiences__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 24px;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .dnd-experience-card {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 16px;
     }
 
     .dnd-experience-card__body {
-      padding: 12px 2px 0;
+      min-width: 0;
+      padding: 0 4px 0 0;
     }
 
     .dnd-experience-card__media {
-      height: auto;
-      aspect-ratio: 0.92 / 1;
+      width: 112px;
+      height: 112px;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
     }
 
     .dnd-experience-card__media :global(picture) {
@@ -318,20 +350,38 @@ const {
 
     .dnd-experience-card h3 {
       font-size: var(--dnd-text-xs);
-      letter-spacing: 0.12em;
+      line-height: 1.2;
+      letter-spacing: 0.08em;
+    }
+
+    .dnd-experience-card h3::after {
+      width: 34px;
+      margin-top: 8px;
     }
 
     .dnd-experience-card p {
       margin-top: 8px;
-      font-size: var(--dnd-text-2xs);
-      line-height: 1.3;
+      font-size: var(--dnd-text-xs);
+      line-height: 1.34;
     }
 
     .dnd-experience-card__mobile-cta {
-      margin-top: 10px;
+      margin-top: 9px;
       font-size: var(--dnd-text-2xs);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       padding-top: 0;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .dnd-experience-card {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .dnd-experience-card__media {
+      width: 96px;
+      height: 104px;
     }
   }
 
@@ -342,7 +392,7 @@ const {
     }
 
     .dnd-experiences__intro {
-      padding: 28px 24px 24px;
+      padding: 0;
       text-align: left;
       max-width: 640px;
     }

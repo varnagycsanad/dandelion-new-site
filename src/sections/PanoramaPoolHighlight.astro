@@ -304,13 +304,20 @@ const copy = copyByLang[lang];
       border-radius: 18px;
     }
 
+    .pool-highlight__content {
+      text-align: center;
+    }
+
     .pool-highlight__title {
-      font-size: clamp(1.55rem, 7vw, 2rem);
+      font-size: 1.5rem;
+      line-height: 1.08;
     }
 
     .pool-highlight__text {
-      font-size: var(--dnd-text-body);
-      line-height: 1.62;
+      margin-right: auto;
+      margin-left: auto;
+      font-size: var(--dnd-text-md);
+      line-height: 1.56;
     }
 
     .pool-highlight__cta {
@@ -320,7 +327,7 @@ const copy = copyByLang[lang];
     }
 
     .pool-highlight__cta span:first-child {
-      font-size: var(--dnd-text-body);
+      font-size: var(--dnd-text-sm);
     }
 
     .pool-highlight__cta-icon {
