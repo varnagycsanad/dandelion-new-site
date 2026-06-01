@@ -66,6 +66,9 @@ Options -MultiViews
   # Legacy WordPress technical endpoints should disappear cleanly.
   RewriteRule ^wp-admin/ - [G,L]
   RewriteRule ^wp-json/ - [G,L]
+  RewriteRule ^wp-[^/]+\.php$ - [G,L]
+  RewriteRule ^comments/feed/?$ - [G,L]
+  RewriteRule ^\*$ - [G,L]
 
   # Legacy home and test URLs.
   RewriteRule ^(?:home|fooldal|test|test-2|valami)/?$ /? [R=301,L]
@@ -85,22 +88,26 @@ Options -MultiViews
   RewriteRule ^vintage/?$ /dandelion-vintage/? [R=301,L]
   RewriteRule ^fuge-vendeghaz/?$ /fuge/? [R=301,L]
   RewriteRule ^badacsonyhaz/?$ /szepvolgyi/? [R=301,L]
+  RewriteRule ^dandelion-royal-homes/?$ /royal/? [R=301,L]
+  RewriteRule ^dandelion-szololiget/?$ /szololiget/? [R=301,L]
+  RewriteRule ^dandelion-szepvolgyi-vendeghaz/?$ /szepvolgyi/? [R=301,L]
   RewriteRule ^dandelion-2-d2/zsalya/?$ /dandelion-zsalya/? [R=301,L]
   RewriteRule ^szallas-kisapati/?$ /szallasok/? [R=301,L]
   RewriteRule ^szallas-kisapatin-d2-(?:apartman|vendeghaz)-a-szent-gyorgy-hegy-labanal-dandelion-vendeghazak/?$ /dandelion-d2/? [R=301,L]
 
   # Legacy blog, category and tag URLs.
+  RewriteRule ^feed/?$ /? [R=301,L]
   RewriteRule ^blog/?$ /elmenyek/? [R=301,L]
   RewriteRule ^hasznos(?:-[23])?/?$ /elmenyek/? [R=301,L]
   RewriteRule ^hu/hasznos-2/?$ /elmenyek/? [R=301,L]
   RewriteRule ^project/?$ /szallasok/? [R=301,L]
   RewriteRule ^project/fooldali-haz-bemutato/?$ /szallasok/? [R=301,L]
-  RewriteRule ^category/(?:kornyek|kornyek/programtippek|kornyek/turak|nevezetessegek|hegyek)/?$ /elmenyek/? [R=301,L]
-  RewriteRule ^category/dandelion-hazakkal-kapcsolatos-informaciok/?$ /szallasok/? [R=301,L]
-  RewriteRule ^category/dandelion-vendeghazak-szent-gyorgy-hegy-2/?$ /szallasok/? [R=301,L]
-  RewriteRule ^category/egyeb-kategoria-hu/?$ /? [R=301,L]
+  RewriteRule ^category/(?:kornyek|kornyek/programtippek|kornyek/turak|nevezetessegek|hegyek)/?(?:feed/?)?$ /elmenyek/? [R=301,L]
+  RewriteRule ^category/dandelion-hazakkal-kapcsolatos-informaciok/?(?:feed/?)?$ /szallasok/? [R=301,L]
+  RewriteRule ^category/dandelion-vendeghazak-szent-gyorgy-hegy-2/?(?:feed/?)?$ /szallasok/? [R=301,L]
+  RewriteRule ^category/egyeb-kategoria-hu/?(?:feed/?)?$ /? [R=301,L]
   RewriteRule ^tag/(?:tavmunka|workation|digitalis-nomad|hosszutavu-szallas)/?(?:feed/?)?$ /szallasok/? [R=301,L]
-  RewriteRule ^tag/balaton-felvidek/?$ /elmenyek/? [R=301,L]
+  RewriteRule ^tag/balaton-felvidek/?(?:feed/?)?$ /elmenyek/? [R=301,L]
   RewriteRule ^author/vilona/?(?:feed/?)?$ /? [R=301,L]
 
   # Legacy article URLs mapped to the closest current editorial pages.

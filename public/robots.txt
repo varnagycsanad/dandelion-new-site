@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /wp-admin/
+Disallow: /wp-json/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /comments/feed/
 
 Sitemap: https://dandelionhouse.hu/sitemap.xml
