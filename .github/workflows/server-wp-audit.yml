@@ -1,0 +1,233 @@
+name: Server WP Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/server-wp-audit.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SSH_HOST: ${{ secrets.UJSITE_SSH_HOST }}
+      SSH_PORT: ${{ secrets.UJSITE_SSH_PORT }}
+      SSH_USER: ${{ secrets.UJSITE_SSH_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.UJSITE_SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.UJSITE_SSH_PASSPHRASE }}
+      REMOTE_PATH: ${{ secrets.UJSITE_SSH_REMOTE_PATH }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for var_name in SSH_HOST SSH_USER SSH_PRIVATE_KEY REMOTE_PATH; do
+            if [ -z "${!var_name:-}" ]; then
+              echo "::error::Missing required secret: ${var_name}"
+              exit 1
+            fi
+          done
+          for mask_value in "$SSH_HOST" "${SSH_PORT:-}" "$SSH_USER" "$REMOTE_PATH"; do
+            if [ -n "$mask_value" ]; then
+              echo "::add-mask::$mask_value"
+            fi
+          done
+
+      - name: Start ssh-agent
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/server_wp_audit_key"
+          chmod 600 "$HOME/.ssh/server_wp_audit_key"
+
+          eval "$(ssh-agent -s)"
+          {
+            echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+            echo "SSH_AGENT_PID=$SSH_AGENT_PID"
+          } >> "$GITHUB_ENV"
+
+          if [ -n "${SSH_PASSPHRASE:-}" ]; then
+            printf '%s\n' \
+              '#!/usr/bin/env bash' \
+              'printf "%s\n" "$SSH_PASSPHRASE"' \
+              > "$RUNNER_TEMP/ssh-askpass.sh"
+            chmod 700 "$RUNNER_TEMP/ssh-askpass.sh"
+            export SSH_ASKPASS="$RUNNER_TEMP/ssh-askpass.sh"
+            export SSH_ASKPASS_REQUIRE=force
+            export DISPLAY=:0
+            ssh-add "$HOME/.ssh/server_wp_audit_key" < /dev/null
+          else
+            ssh-add "$HOME/.ssh/server_wp_audit_key"
+          fi
+
+      - name: Discover SSH host key candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          secret_host="$SSH_HOST"
+          shared_ip_host="185.33.55.51"
+          secret_port="${SSH_PORT:-}"
+          default_port="22"
+
+          try_candidate() {
+            local host="$1"
+            local port="$2"
+            local label="$3"
+            local scan_output
+            if [ -z "$host" ] || [ -z "$port" ]; then
+              return 1
+            fi
+            if scan_output=$(timeout 10s ssh-keyscan -T 5 -p "$port" -H "$host" 2>/dev/null); then
+              if [ -n "$scan_output" ]; then
+                printf '%s\n' "$scan_output" >> "$HOME/.ssh/known_hosts"
+                {
+                  echo "SELECTED_SSH_HOST=$host"
+                  echo "SELECTED_SSH_PORT=$port"
+                  echo "SELECTED_SSH_LABEL=$label"
+                } >> "$GITHUB_ENV"
+                return 0
+              fi
+            fi
+            return 1
+          }
+
+          try_candidate "$secret_host" "$secret_port" "secret-host:secret-port" || \
+          try_candidate "$secret_host" "$default_port" "secret-host:22" || \
+          try_candidate "$shared_ip_host" "$secret_port" "shared-ip:secret-port" || \
+          try_candidate "$shared_ip_host" "$default_port" "shared-ip:22" || \
+          { echo "::error::No SSH host/port candidate returned a host key"; exit 1; }
+
+      - name: Audit remote docroot
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p project-docs
+          report="project-docs/server-wp-audit-latest.md"
+          remote_path_quoted=$(printf '%q' "$REMOTE_PATH")
+
+          ssh_options=(
+            -i "$HOME/.ssh/server_wp_audit_key"
+            -p "$SELECTED_SSH_PORT"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          {
+            echo "# Server WordPress Audit"
+            echo
+            echo "Generated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo
+            echo "## Remote File-System Findings"
+            echo
+            ssh "${ssh_options[@]}" "$SSH_USER@$SELECTED_SSH_HOST" "REMOTE_PATH=$remote_path_quoted bash -s" <<'REMOTE_AUDIT'
+          set -euo pipefail
+          cd "$REMOTE_PATH"
+
+          echo "### Top-level entries"
+          echo '```text'
+          find . -maxdepth 1 -mindepth 1 -printf '%M %s %TY-%Tm-%Td %TH:%TM %p\n' | sort | sed 's#^#/#' | head -200
+          echo '```'
+          echo
+
+          echo "### WordPress core/plugin/theme markers"
+          echo '```text'
+          find . -maxdepth 5 \( \
+            -name 'wp-admin' -o \
+            -name 'wp-content' -o \
+            -name 'wp-includes' -o \
+            -name 'wp-config.php' -o \
+            -name 'wp-login.php' -o \
+            -name 'xmlrpc.php' -o \
+            -name 'wp-load.php' -o \
+            -name 'wp-settings.php' -o \
+            -name 'readme.html' -o \
+            -name 'license.txt' \
+          \) -print | sort | sed 's#^#/#' || true
+          echo '```'
+          echo
+
+          echo "### PHP files near docroot"
+          echo '```text'
+          find . -maxdepth 4 -type f -name '*.php' -printf '%s %TY-%Tm-%Td %TH:%TM %p\n' | sort | sed 's#^#/#' | head -300 || true
+          echo '```'
+          echo
+
+          echo "### wp-content uploads sample"
+          echo '```text'
+          if [ -d wp-content/uploads ]; then
+            find wp-content/uploads -maxdepth 3 -type f | sort | head -100 | sed 's#^#/#'
+            echo "COUNT=$(find wp-content/uploads -type f | wc -l | tr -d ' ')"
+          else
+            echo "wp-content/uploads not found"
+          fi
+          echo '```'
+          echo
+
+          echo "### Active .htaccess WordPress-related rules"
+          echo '```text'
+          if [ -f .htaccess ]; then
+            grep -nEi 'wordpress|wp-|wp_|wp-admin|wp-json|wp-content|category|tag|feed|RewriteRule|Redirect|Gone|\[G' .htaccess | head -250 || true
+          else
+            echo ".htaccess not found"
+          fi
+          echo '```'
+          echo
+REMOTE_AUDIT
+
+            echo "## HTTP Checks"
+            echo
+            echo '```text'
+            for url in \
+              https://dandelionhouse.hu/wp-admin/ \
+              https://dandelionhouse.hu/wp-login.php \
+              https://dandelionhouse.hu/wp-content/ \
+              https://dandelionhouse.hu/wp-includes/ \
+              https://dandelionhouse.hu/wp-json/ \
+              https://dandelionhouse.hu/xmlrpc.php \
+              https://dandelionhouse.hu/category/kornyek/ \
+              https://dandelionhouse.hu/category/kornyek/feed/ \
+              https://dandelionhouse.hu/tag/hosszutavu-szallas/ \
+              https://dandelionhouse.hu/zsalya/ \
+              https://dandelionhouse.hu/elmenyek; do
+              status=$(curl -k -sS -o /dev/null -w '%{http_code} %{redirect_url}' -I "$url" || true)
+              printf '%s -> %s\n' "$url" "$status"
+            done
+            echo '```'
+          } > "$report"
+
+      - name: Commit audit report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-docs/server-wp-audit-latest.md
+          if git diff --cached --quiet; then
+            echo "No audit report changes."
+            exit 0
+          fi
+          git commit -m "docs: update server wp audit [skip ci]"
+          git push
+
+      - name: Cleanup SSH material
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "${SSH_AGENT_PID:-}" ]; then
+            ssh-agent -k >/dev/null || true
+          fi
+          rm -f "$HOME/.ssh/server_wp_audit_key" "$RUNNER_TEMP/ssh-askpass.sh"
