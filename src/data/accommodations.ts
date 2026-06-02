@@ -61,14 +61,14 @@ export const accommodations: Accommodation[] = [
     slug: "dandelion-d2",
     url: "/dandelion-d2/",
     location: "Kisapáti / Balaton-felvidék",
-    description: "Modern, családbarát apartman 4-6 főre nagy udvarral, panorámás medence kapcsolattal és közeli kirándulóhelyekkel.",
-    hoverText: "4-6 főre, panorámás medence kapcsolattal és állatsimogatóval.",
+    description: "Modern, családbarát apartman 4-6 főre nagy udvarral, panorámás medencehasználattal és közeli kirándulóhelyekkel.",
+    hoverText: "4-6 főre, panorámás medencehasználattal és állatsimogatóval.",
     imageSlot: "d2_card_image",
     section: "upland",
     chips: [
       { label: "4-6 fő", type: "accent" },
       { label: "2 háló + nappali" },
-      { label: "Panorámás medence kapcsolattal", type: "blue" },
+      { label: "Panorámás medence", type: "blue" },
       { label: "Klíma", type: "blue" },
       { label: "Állatsimogató", type: "purple" },
       { label: "Kandalló" },
@@ -80,8 +80,8 @@ export const accommodations: Accommodation[] = [
     slug: "fugehaz",
     url: "/fuge/",
     location: "Szent György-hegy közelében",
-    description: "Panorámás vendégház 4-6 főre teraszokkal, panorámás medence kapcsolattal és családi pihenéshez jó elrendezéssel.",
-    hoverText: "4-6 főre, panorámával és panorámás medence kapcsolattal.",
+    description: "Panorámás vendégház 4-6 főre teraszokkal, panorámás medencehasználattal és családi pihenéshez jó elrendezéssel.",
+    hoverText: "4-6 főre, panorámával és panorámás medencehasználattal.",
     imageSlot: "fugehaz_card_image",
     section: "upland",
     chips: [
@@ -89,7 +89,7 @@ export const accommodations: Accommodation[] = [
       { label: "2 szint / 2 szoba" },
       { label: "Panoráma", type: "green" },
       { label: "Klíma", type: "blue" },
-      { label: "Panorámás medence kapcsolattal", type: "blue" },
+      { label: "Panorámás medence", type: "blue" },
       { label: "Kandalló" },
       { label: "Állatsimogató", type: "purple" }
     ]
@@ -106,7 +106,7 @@ export const accommodations: Accommodation[] = [
     chips: [
       { label: "6-8 fő", type: "accent" },
       { label: "3 szoba + nappali" },
-      { label: "Panorámás medence kapcsolattal", type: "blue" },
+      { label: "Panorámás medence", type: "blue" },
       { label: "Panorámás terasz", type: "green" },
       { label: "Klíma", type: "blue" },
       { label: "2 fürdő" },
