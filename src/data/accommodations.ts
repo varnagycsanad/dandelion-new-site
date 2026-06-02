@@ -35,7 +35,7 @@ export const accommodationSections: AccommodationSection[] = [
     title: "Tanúhegyek ölelésében",
     subtitle:
       "Túraútvonalak, borászatok és többféle háztípus ugyanabban a térségben. Akkor jó választás, ha a Balaton-felvidék klasszikus oldalát keresed.",
-    gridClass: "dnd-grid--3"
+    gridClass: "dnd-grid--2"
   },
   {
     key: "shore",
@@ -56,6 +56,45 @@ export const accommodationSections: AccommodationSection[] = [
 ];
 
 export const accommodations: Accommodation[] = [
+  {
+    name: "Dandelion D1",
+    slug: "dandelion-d1",
+    url: "/dandelion-d1/",
+    location: "Kisapáti / Balaton-felvidék",
+    description: "Tágas vendégház 6-8 főre, három hálóval, panorámás terasszal és nagyobb társaságoknak is kényelmes elrendezéssel.",
+    hoverText: "6-8 főre, 3 hálóval és panorámás terasszal.",
+    imageSlot: "d1_card_image",
+    section: "upland",
+    chips: [
+      { label: "6-8 fő", type: "accent" },
+      { label: "3 szoba + nappali" },
+      { label: "Panorámás medence", type: "blue" },
+      { label: "Panorámás terasz", type: "green" },
+      { label: "Klíma", type: "blue" },
+      { label: "2 fürdő" },
+      { label: "Zárt parkoló" },
+      { label: "Kandalló" },
+      { label: "Nagycsaládosoknak", type: "purple" }
+    ]
+  },
+  {
+    name: "Dandelion Zsálya",
+    slug: "zsalya-vendeghaz",
+    url: "/dandelion-zsalya/",
+    location: "Szent György-hegy keleti oldala / Kisapáti",
+    description: "Különálló vendégház 4 főre fedett terasszal, panorámával és nyugodt hegyoldali környezettel.",
+    hoverText: "4 főre, fedett terasszal és tanúhegy panorámával.",
+    imageSlot: "zsalya_card_image",
+    section: "upland",
+    chips: [
+      { label: "2-4 fő", type: "accent" },
+      { label: "2 háló + nappali" },
+      { label: "Panoráma", type: "green" },
+      { label: "Klíma", type: "blue" },
+      { label: "Fedett terasz", type: "green" },
+      { label: "Családbarát", type: "purple" }
+    ]
+  },
   {
     name: "Dandelion D2",
     slug: "dandelion-d2",
@@ -95,27 +134,6 @@ export const accommodations: Accommodation[] = [
     ]
   },
   {
-    name: "Dandelion D1",
-    slug: "dandelion-d1",
-    url: "/dandelion-d1/",
-    location: "Kisapáti / Balaton-felvidék",
-    description: "Tágas vendégház 6-8 főre, három hálóval, panorámás terasszal és nagyobb társaságoknak is kényelmes elrendezéssel.",
-    hoverText: "6-8 főre, 3 hálóval és panorámás terasszal.",
-    imageSlot: "d1_card_image",
-    section: "upland",
-    chips: [
-      { label: "6-8 fő", type: "accent" },
-      { label: "3 szoba + nappali" },
-      { label: "Panorámás medence", type: "blue" },
-      { label: "Panorámás terasz", type: "green" },
-      { label: "Klíma", type: "blue" },
-      { label: "2 fürdő" },
-      { label: "Zárt parkoló" },
-      { label: "Kandalló" },
-      { label: "Nagycsaládosoknak", type: "purple" }
-    ]
-  },
-  {
     name: "Dandelion Szőlőliget",
     slug: "szololiget-vendeghaz",
     url: "/szololiget/",
@@ -131,24 +149,6 @@ export const accommodations: Accommodation[] = [
       { label: "Klíma", type: "blue" },
       { label: "Csendes", type: "purple" },
       { label: "Kilátás a Csobáncra", type: "green" }
-    ]
-  },
-  {
-    name: "Dandelion Zsálya",
-    slug: "zsalya-vendeghaz",
-    url: "/dandelion-zsalya/",
-    location: "Szent György-hegy keleti oldala / Kisapáti",
-    description: "Különálló vendégház 4 főre fedett terasszal, panorámával és nyugodt hegyoldali környezettel.",
-    hoverText: "4 főre, fedett terasszal és tanúhegy panorámával.",
-    imageSlot: "zsalya_card_image",
-    section: "upland",
-    chips: [
-      { label: "2-4 fő", type: "accent" },
-      { label: "2 háló + nappali" },
-      { label: "Panoráma", type: "green" },
-      { label: "Klíma", type: "blue" },
-      { label: "Fedett terasz", type: "green" },
-      { label: "Családbarát", type: "purple" }
     ]
   },
   {
