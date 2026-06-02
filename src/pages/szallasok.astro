@@ -89,7 +89,6 @@ const accommodationsStructuredData = {
     <video
       class="dnd-accommodations-hero__video"
       src={accommodationsHeroVideo}
-      poster={accommodationsOgImage}
       autoplay
       muted
       loop
@@ -273,9 +272,7 @@ const accommodationsStructuredData = {
     height: calc(84vh + 118px);
     padding-top: 118px;
     overflow: hidden;
-    background-image: url("/images/pages/szallasok-hero-bg.webp");
-    background-position: center 28%;
-    background-size: cover;
+    background: #171717;
   }
 
   .dnd-accommodations-hero::after {
@@ -363,7 +360,8 @@ const accommodationsStructuredData = {
 
   .dnd-accommodations-picker__intro {
     max-width: 700px;
-    margin-bottom: 18px;
+    margin: 0 auto 18px;
+    text-align: center;
   }
 
   .dnd-accommodations-picker__eyebrow {
@@ -386,7 +384,7 @@ const accommodationsStructuredData = {
 
   .dnd-accommodations-picker__intro p:last-child {
     max-width: 58ch;
-    margin: 12px 0 0;
+    margin: 12px auto 0;
     color: #5d554b;
     line-height: 1.6;
   }
@@ -469,7 +467,7 @@ const accommodationsStructuredData = {
     display: block !important;
     width: 100% !important;
     clear: both !important;
-    padding: 32px 0 48px;
+    padding: 20px 0 48px;
     color: var(--text);
     box-sizing: border-box;
     font-family: var(--dnd-font-body);
@@ -511,26 +509,30 @@ const accommodationsStructuredData = {
 
   #dnd-apts-final .dnd-h2 {
     margin: 0 0 6px;
-    font-size: 29px;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.55rem, 2.5vw, 2.2rem);
     line-height: 1.15;
-    font-weight: 700;
-    letter-spacing: var(--dnd-tracking-display-tight);
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
   #dnd-apts-final .dnd-sub {
     max-width: 900px;
-    margin: 0 0 8px;
+    margin: 0 auto 8px;
     color: var(--muted);
     font-size: var(--dnd-text-body);
     line-height: 1.55;
   }
 
   .dnd-region-block__header {
-    margin-bottom: 14px;
+    max-width: 920px;
+    margin: 0 auto 16px;
+    text-align: center;
   }
 
   .dnd-region-block__audience {
-    margin: 0;
+    max-width: 64ch;
+    margin: 0 auto;
     color: #5b5348;
     font-size: var(--dnd-text-md);
     font-weight: 600;
@@ -898,7 +900,6 @@ const accommodationsStructuredData = {
       min-height: calc(500px + 66px);
       height: auto;
       padding-top: 66px;
-      background-position: center 24%;
     }
 
     .dnd-accommodations-hero__content {
@@ -994,7 +995,7 @@ const accommodationsStructuredData = {
       --pad: 12px;
       --gap: 12px;
       --img-h: 208px;
-      padding-top: 28px;
+      padding-top: 18px;
     }
 
     #dnd-apts-final .dnd-grid--3,
@@ -1072,7 +1073,7 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-h2 {
-      font-size: 22px;
+      font-size: var(--dnd-heading-xs);
     }
 
     #dnd-apts-final .dnd-eyebrow {

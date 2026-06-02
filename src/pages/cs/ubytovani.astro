@@ -20,6 +20,7 @@ const title = "Ubytování v Balatonské vrchovině | Dandelion";
 const description =
   "Vyberte si klidné penziony a apartmány u Szent György-hegy, Badacsonye, Kisapáti, Keszthelye a v Balatonské vrchovině.";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
+const accommodationsHeroVideo = "/videos/szallasok/202507%20V1.mp4?v=20260602";
 const accommodationsOgImageAlt =
   "Výběr ubytování Dandelion v Balatonské vrchovině";
 
@@ -64,24 +65,24 @@ const sectionCopy: Record<
     eyebrow: "Szent György-hegy · Tapolcai-medence · Kisapáti · Nemesgulács",
     title: "Kolem svědeckých hor",
     subtitle:
-      "Turistické trasy, vinařství a klidné vesnické cesty se tu potkávají v klasické atmosféře Balatonské vrchoviny.",
-    audienceText: "Dobré pro výlety, panoramata a přírodní pobyty.",
+      "Kisapáti, Nemesgulács a okolí Szent György-hegy se hodí, pokud hledáte dům ve svahu, výhledy, zahradu a snadno dostupné výlety.",
+    audienceText: "Pro kopce, výhledy, rodiny a pobyt s přáteli.",
     anchorId: "balaton-uplands"
   },
   shore: {
     eyebrow: "Keszthely · Badacsonyörs · Balaton",
     title: "Snadné dny u Balatonu",
     subtitle:
-      "Blíž k plážím, přístavům a balatonským programům, přitom stále v klidné atmosféře Dandelion.",
-    audienceText: "Dobré pro pláže, balatonské programy a snadný přístup.",
+      "Keszthely a Badacsonyörs jsou dobrá volba, když je pro vás důležitější blízkost Balatonu, pláže a pohodlné programy u vody než ústraní ve svahu.",
+    audienceText: "Pro břeh Balatonu, pláže a balatonské programy.",
     anchorId: "near-lake-balaton"
   },
   kali: {
     eyebrow: "Köveskál · Káli-medence · klidná vesnice",
     title: "Tišší strana oblasti Káli",
     subtitle:
-      "Pomalejší vesnický rytmus v jedné z nejatmosféričtějších částí Balatonské vrchoviny.",
-    audienceText: "Dobré pro klidnější a zdrženlivější venkovský pobyt.",
+      "Köveskál je pomalejší a tišší volba: vesnické prostředí, procházky v Káli-medence, vinařství a střídmější odpočinek.",
+    audienceText: "Pro ticho, vesnické prostředí a výlety v Káli-medence.",
     anchorId: "kali-medence"
   }
 };
@@ -91,8 +92,8 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion D2",
     location: "Kisapáti / Balatonská vrchovina",
     description:
-      "Moderní, rodinné ubytování pro 4-6 hostů s velkou zahradou, přístupem k Panorama Pool a snadným přístupem k Szent György-hegy.",
-    hoverText: "Pro 4-6 hostů, se zahradou, Panorama Pool a klidnou venkovskou atmosférou.",
+      "Rodinný apartmán v Kisapáti s velkou zahradou, krytou terasou, krbem a společným letním přístupem k Panorama Pool.",
+    hoverText: "Pro 4-6 hostů, se zahradou, terasou a společným Panorama Pool.",
     facts: ["4-6 hostů", "2 ložnice + obývací pokoj", "Panorama Pool", "Klimatizace", "Rodinné"],
     imageAlt: "Dandelion D2 venkovské ubytování u Szent György-hegy"
   },
@@ -100,8 +101,8 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Fügeház",
     location: "U Szent György-hegy",
     description:
-      "Panoramatický penzion pro 4-6 hostů s terasami, přístupem k Panorama Pool a pohodlným rozvržením pro rodinný pobyt.",
-    hoverText: "Pro 4-6 hostů, s terasami, výhledy a Panorama Pool.",
+      "Penzion blízko kopce s terasami, výhledy a klidnými venkovními prostory pro menší rodiny nebo přátele.",
+    hoverText: "Pro 4-6 hostů, s terasami, výhledy a společným Panorama Pool.",
     facts: ["4-6 hostů", "2 podlaží", "Panorama Pool", "Panorama", "Klimatizace"],
     imageAlt: "Dandelion Fügeház penzion u Szent György-hegy"
   },
@@ -109,7 +110,7 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion D1",
     location: "Kisapáti / Balatonská vrchovina",
     description:
-      "Prostorný penzion pro 6-8 hostů se třemi ložnicemi, zahradou a místem pro větší rodiny nebo přátele.",
+      "Prostorný penzion v Kisapáti pro větší rodiny nebo přátele, se třemi ložnicemi, dvěma koupelnami, terasou a společným letním bazénem.",
     hoverText: "Pro 6-8 hostů, se třemi ložnicemi a zahradou.",
     facts: ["6-8 hostů", "3 ložnice + obývací pokoj", "Panorama Pool", "Terasa", "Klimatizace"],
     imageAlt: "Dandelion D1 prostorný venkovský penzion v Kisapáti"
@@ -118,7 +119,7 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Szőlőliget",
     location: "Kisapáti / Szent György-hegy",
     description:
-      "Samostatný dům pro 2-4 hosty s terasou, výhledem a klidnou polohou mezi vinicemi.",
+      "Samostatný dům s velkou terasou a výhledem směrem na Csobánc, vhodný pro klidnější dny ve svahu.",
     hoverText: "Pro 2-4 hosty, s velkou terasou a otevřeným výhledem.",
     facts: ["2-4 hosté", "1 ložnice + obývací pokoj", "Panorama", "Klidný svah", "Klimatizace"],
     imageAlt: "Dandelion Szőlőliget ubytování u Szent György-hegy"
@@ -127,7 +128,7 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Zsálya",
     location: "Szent György-hegy / Kisapáti",
     description:
-      "Samostatný penzion pro 2-4 hosty s krytou terasou, výhledy a pokojnou venkovskou atmosférou.",
+      "Samostatný penzion v Kisapáti s krytou terasou a výhledem na svědecké hory, když hledáte klidnější a soukromější dům.",
     hoverText: "Pro 2-4 hosty, s krytou terasou a panoramatem svědeckých hor.",
     facts: ["2-4 hosté", "2 ložnice", "Krytá terasa", "Panorama", "Klimatizace"],
     imageAlt: "Dandelion Zsálya s krytou terasou u Szent György-hegy"
@@ -136,25 +137,25 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Vintage",
     location: "Nemesgulács / Balatonská vrchovina",
     description:
-      "Útulný penzion v Nemesgulácsi se dvěma ložnicemi, vlastním dvorem a dobrou polohou pro balatonské programy.",
+      "Penzion v Nemesgulácsi s vlastním dvorem a dvěma ložnicemi, praktická volba pro balatonské programy a klidnější večery.",
     hoverText: "V Nemesgulácsi, se dvěma ložnicemi a vlastním dvorem.",
-    facts: ["Penzion", "2 ložnice", "Vlastní dvůr", "Klimatizace", "Vintage atmosféra"],
+    facts: ["Penzion", "2 ložnice", "Vlastní dvůr", "Klimatizace", "Klidnější večery"],
     imageAlt: "Dandelion Vintage venkovský penzion v Nemesgulácsi"
   },
   "royal-homes": {
     name: "Dandelion Royal Homes",
     location: "Keszthely / Balaton",
     description:
-      "Pohodlný apartmán pro 4-6 hostů s balatonskou atmosférou, velkou terasou a praktickou polohou v Keszthelyi.",
-    hoverText: "Pro 4-6 hostů, s velkou terasou a balatonskou polohou.",
-    facts: ["4-6 hostů", "2 ložnice + obývací pokoj", "Balaton", "Velká terasa", "Keszthely"],
+      "Moderní apartmán v Keszthelyi pro 4-6 hostů s velkou terasou, jacuzzi na střešní terase a přímým prostředím u vody.",
+    hoverText: "Pro 4-6 hostů, u Balatonu a s jacuzzi na střešní terase.",
+    facts: ["4-6 hostů", "2 ložnice + obývací pokoj", "Balaton", "Střešní jacuzzi", "Keszthely"],
     imageAlt: "Dandelion Royal Homes apartmán u Balatonu v Keszthelyi"
   },
   "szepvolgyi-vendeghaz": {
     name: "Dandelion Szépvölgyi",
     location: "Badacsonyörs / Szépvölgyi út",
     description:
-      "Prostorný dovolenkový dům pro 8 hostů se čtyřmi ložnicemi, výhledem na Balaton a polohou u Badacsonyörs.",
+      "Dům v Badacsonyörs pro větší skupiny, se čtyřmi ložnicemi, výhledem na Balaton a plážemi pár minut autem.",
     hoverText: "Pro 8 hostů, se čtyřmi ložnicemi a výhledem na Balaton.",
     facts: ["8 hostů", "4 ložnice", "Balatonské panorama", "2 koupelny", "Velká zahrada"],
     imageAlt: "Dandelion Szépvölgyi prostorný dům v Badacsonyörs"
@@ -163,8 +164,8 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Köveskál",
     location: "Köveskál / Káli-medence",
     description:
-      "Klidný penzion v Köveskálu, vhodný pro vesnické procházky, víno a pomalejší dny v oblasti Káli.",
-    hoverText: "V Köveskálu, pro klidný a zdrženlivý venkovský pobyt.",
+      "Klidný penzion v Köveskálu, blízko vesnic, procházek a vinařství v Káli-medence.",
+    hoverText: "V Köveskálu, pro pomalejší dny v Káli-medence.",
     facts: ["Penzion", "Köveskál", "Káli-medence", "Blízko přírody", "Klidná vesnice"],
     imageAlt: "Dandelion Köveskál klidný venkovský penzion v Káli-medence"
   }
@@ -226,17 +227,31 @@ const accommodationsStructuredData = {
   structuredData={accommodationsStructuredData}
 >
   <section class="dnd-accommodations-hero">
+    <video
+      class="dnd-accommodations-hero__video"
+      src={accommodationsHeroVideo}
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      disablepictureinpicture
+      disableremoteplayback
+      aria-hidden="true"
+    >
+      Váš prohlížeč nepodporuje přehrávání videa na pozadí.
+    </video>
     <div class="dnd-accommodations-hero__content">
       <div class="dnd-container dnd-accommodations-hero__inner">
         <div class="dnd-accommodations-hero__text">
           <p class="dnd-accommodations-hero__eyebrow">Ubytování</p>
           <h1 class="dnd-accommodations-hero__title">
-            <span>Nejdřív vyberte oblast,</span>
-            <span>potom najděte dům.</span>
+            <span>Ubytování podle oblasti</span>
+            <span>a potřeb</span>
           </h1>
           <p class="dnd-accommodations-hero__lead">
-            Dandelion penziony a apartmány najdete v Balatonské vrchovině, u Szent György-hegy,
-            Badacsonye, Kisapáti, Keszthelye a v oblasti Káli.
+            Svahy Kisapáti, břeh Balatonu nebo tichá Káli-medence: tady uvidíte, který dům Dandelion se k čemu hodí.
           </p>
         </div>
       </div>
@@ -246,11 +261,11 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-picker" aria-labelledby="accommodation-regions-title">
     <div class="dnd-container">
       <div class="dnd-accommodations-picker__intro">
-        <p class="dnd-accommodations-picker__eyebrow">Rychlý výběr</p>
-        <h2 id="accommodation-regions-title">Která část Balatonské vrchoviny vám sedí?</h2>
+        <p class="dnd-accommodations-picker__eyebrow">Výběr oblasti</p>
+        <h2 id="accommodation-regions-title">Kde se chcete ubytovat?</h2>
         <p>
-          Začněte krajinou: svědecké hory a vinařské cesty, snadnější rytmus u Balatonu,
-          nebo klidnější vesnický pobyt v oblasti Káli.
+          Pokud ještě nehledáte konkrétní dům, začněte okolím: Szent György-hegy,
+          břeh Balatonu nebo Káli-medence.
         </p>
       </div>
 
@@ -351,8 +366,8 @@ const accommodationsStructuredData = {
       <div class="dnd-accommodations-closing__inner">
         <h2 id="accommodation-closing-title">Nejste si jistí, které ubytování sedí nejlépe?</h2>
         <p>
-          Napište nám, kolik hostů přijede a jaký rytmus pobytu hledáte.
-          Pomůžeme vám zúžit výběr podle oblasti, velikosti domu a stylu odpočinku.
+          Napište nám, kolik hostů přijede, kdy chcete cestovat a která oblast nebo vybavení je pro vás důležité.
+          Pomůžeme vám zúžit výběr.
         </p>
         <div class="dnd-accommodations-closing__actions">
           <a class="dnd-accommodations-closing__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Ověřit dostupnost</a>
@@ -373,10 +388,27 @@ const accommodationsStructuredData = {
     height: calc(84vh + 118px);
     padding-top: 118px;
     overflow: hidden;
-    background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
-      url("/images/pages/szallasok-hero-bg.webp");
-    background-position: center 28%;
-    background-size: cover;
+    background: #171717;
+  }
+
+  .dnd-accommodations-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32));
+  }
+
+  .dnd-accommodations-hero__video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
   }
 
   .dnd-accommodations-hero__content {
@@ -917,7 +949,6 @@ const accommodationsStructuredData = {
       min-height: calc(500px + 66px);
       height: auto;
       padding-top: 66px;
-      background-position: center 24%;
     }
 
     .dnd-accommodations-hero__content {

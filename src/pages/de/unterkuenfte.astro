@@ -8,6 +8,7 @@ import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
 const imageMapping = await readHomepageImageMapping();
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
+const accommodationsHeroVideo = "/videos/szallasok/202507%20V1.mp4?v=20260602";
 const accommodationsOgImageAlt = "Dandelion Gästehäuser Unterkunftsauswahl im Balaton-Oberland";
 
 const sectionCopy = {
@@ -16,24 +17,24 @@ const sectionCopy = {
     eyebrow: "Szent György-hegy / Tapolca-Becken / Kisapáti / Nemesgulács",
     title: "Zwischen den Zeugenbergen",
     subtitle:
-      "Wanderwege, Weingüter und unterschiedliche Haustypen in derselben Region. Eine gute Wahl, wenn Sie die klassische Seite des Balaton-Oberlands suchen.",
-    audienceText: "Für Panorama, Weinberge, Ausflüge und mehrere Haustypen in einer Region."
+      "Kisapáti, Nemesgulács und die Umgebung des Szent György-hegy passen gut, wenn Sie ein Haus am Hang, Panorama, Garten und gut erreichbare Ausflüge suchen.",
+    audienceText: "Für Berge, Panorama, Familien und Reisen mit Freunden."
   },
   shore: {
     anchorId: "balaton-naehe",
     eyebrow: "Keszthely / Badacsonyörs / Balaton-Nähe",
     title: "Leichte Tage am Balaton",
     subtitle:
-      "Näher an Stränden, Uferorten und Sommerprogrammen. Eine gute Wahl, wenn Wasser, einfache Wege und bequeme Erreichbarkeit wichtig sind.",
-    audienceText: "Für Strandtage, Balaton-Programme und praktische Wege."
+      "Keszthely und Badacsonyörs sind die richtige Richtung, wenn Balaton-Nähe, Strände und bequeme Programme am Wasser wichtiger sind als ein Rückzug am Hang.",
+    audienceText: "Für Ufer, Strand und Balaton-Programme."
   },
   kali: {
     anchorId: "kali-becken",
     eyebrow: "Köveskál / Káli-Becken / ruhige Auszeit",
     title: "Die ruhigere Seite des Káli-Beckens",
     subtitle:
-      "Köveskál und das Káli-Becken stehen für eine ruhigere, dörfliche Atmosphäre. Gut, wenn Sie weniger Trubel und mehr Rückzug suchen.",
-    audienceText: "Für langsamere Tage, Dorfstimmung, Wein und zurückgezogene Erholung."
+      "Köveskál ist die langsamere, ruhigere Wahl: Dorfumgebung, Spaziergänge im Káli-Becken, Weingüter und zurückhaltendere Erholung.",
+    audienceText: "Für Ruhe, Dorfumgebung und Ausflüge im Káli-Becken."
   }
 } as const;
 
@@ -41,8 +42,8 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "dandelion-d2": {
     name: "Dandelion D2",
     location: "Kisapáti / Balaton-Oberland",
-    description: "Modernes, familienfreundliches Apartment für 4-6 Gäste mit großem Garten, Panorama Pool und guter Lage für Ausflüge.",
-    hoverText: "4-6 Gäste, Garten, Panorama Pool und ruhige Tage.",
+    description: "Familienfreundliches Apartment in Kisapáti mit großem Garten, überdachter Terrasse, Kamin und gemeinsam genutztem Panorama Pool im Sommer.",
+    hoverText: "4-6 Gäste, Garten, Terrasse und gemeinsamer Panorama Pool.",
     href: "/de/dandelion-d2/",
     chips: [
       { label: "4-6 Gäste", type: "accent" },
@@ -56,8 +57,8 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   fugehaz: {
     name: "Dandelion Fügeház",
     location: "Nahe Szent György-hegy",
-    description: "Panoramahaus für 4-6 Gäste mit Terrassen, Panorama Pool und entspannter Aufteilung für Familien oder Freunde.",
-    hoverText: "4-6 Gäste, Panorama, Terrassen und Panorama Pool.",
+    description: "Haus nahe am Berg mit Terrassen, Panorama und ruhigen Außenbereichen für kleinere Familien oder Freunde.",
+    hoverText: "4-6 Gäste, Terrassen, Panorama und gemeinsamer Panorama Pool.",
     href: "/de/dandelion-fugehaz/",
     chips: [
       { label: "4-6 Gäste", type: "accent" },
@@ -71,7 +72,7 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "dandelion-d1": {
     name: "Dandelion D1",
     location: "Kisapáti / Balaton-Oberland",
-    description: "Großzügiges Ferienhaus für 6-8 Gäste mit drei Schlafzimmern, Terrasse, Garten und viel Platz für gemeinsame Tage.",
+    description: "Großzügiges Gästehaus in Kisapáti für größere Familien oder Freunde, mit drei Schlafzimmern, zwei Bädern, Terrasse und gemeinsamer Poolnutzung im Sommer.",
     hoverText: "6-8 Gäste, drei Schlafzimmer und viel Platz.",
     href: "/de/dandelion-d1/",
     chips: [
@@ -87,8 +88,8 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "szololiget-vendeghaz": {
     name: "Dandelion Szőlőliget",
     location: "Kisapáti / Szent György-hegy",
-    description: "Freistehendes Haus für 2-4 Gäste mit großer Terrasse, Weinberglage und ruhiger Aussicht.",
-    hoverText: "2-4 Gäste, Terrasse und langsamer Weinberg-Rhythmus.",
+    description: "Freistehendes Haus mit großer Terrasse und Blick Richtung Csobánc, passend für ruhigere Tage am Hang.",
+    hoverText: "2-4 Gäste, große Terrasse und offene Aussicht.",
     href: "/de/szololiget/",
     chips: [
       { label: "2-4 Gäste", type: "accent" },
@@ -102,7 +103,7 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "zsalya-vendeghaz": {
     name: "Dandelion Zsálya",
     location: "Kisapáti / Szent György-hegy",
-    description: "Freistehendes Gästehaus für 2-4 Gäste mit überdachter Terrasse und naturnaher, ruhiger Umgebung.",
+    description: "Freistehendes Gästehaus in Kisapáti mit überdachter Terrasse und Blick auf die Zeugenberge, wenn Sie ein ruhigeres, privateres Haus suchen.",
     hoverText: "2-4 Gäste, Überdachte Terrasse und ruhige Hanglage.",
     href: "/de/dandelion-zsalya/",
     chips: [
@@ -116,8 +117,8 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "vintage-vendeghaz": {
     name: "Dandelion Vintage",
     location: "Nemesgulács / Balaton-Oberland",
-    description: "Gemütliches Gästehaus mit eigenem Hof, zwei Schlafzimmern und guter Lage für Badacsony, Szigliget und Balaton-Tage.",
-    hoverText: "Nemesgulács, eigener Hof und entspannte Dorfstimmung.",
+    description: "Gästehaus in Nemesgulács mit eigenem Hof und zwei Schlafzimmern, praktisch für Balaton-Programme und ruhigere Abende.",
+    hoverText: "Nemesgulács, eigener Hof und ruhigere Abende.",
     href: "/de/dandelion-vintage/",
     chips: [
       { label: "Gästehaus", type: "accent" },
@@ -125,20 +126,20 @@ const stayCopy: Record<string, { name: string; location: string; description: st
       { label: "Eigener Hof", type: "green" },
       { label: "Klimaanlage", type: "blue" },
       { label: "Nemesgulács" },
-      { label: "Vintage-Stimmung" }
+      { label: "Ruhige Abende" }
     ]
   },
   "royal-homes": {
     name: "Dandelion Royal Homes",
     location: "Keszthely / Balaton",
-    description: "Komfortables Apartment nahe am Wasser mit Terrasse und praktischer Lage für Keszthely, Strandtage und Stadtprogramme.",
-    hoverText: "4-6 Gäste, Balaton-Nähe und Keszthely-Programme.",
+    description: "Modernes Apartment in Keszthely für 4-6 Gäste mit großer Terrasse, Dachterrassen-Jacuzzi und direkter Umgebung am Wasser.",
+    hoverText: "4-6 Gäste, Balaton-Umgebung und Dachterrassen-Jacuzzi.",
     href: "/de/royal/",
     chips: [
       { label: "4-6 Gäste", type: "accent" },
-      { label: "Nahe am Wasser", type: "blue" },
+      { label: "Direkt am Wasser", type: "blue" },
       { label: "2 Schlafzimmer + Wohnbereich" },
-      { label: "Terrasse oder Balkon", type: "green" },
+      { label: "Dachterrassen-Jacuzzi", type: "blue" },
       { label: "Klimaanlage", type: "blue" },
       { label: "Keszthely" }
     ]
@@ -146,7 +147,7 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "szepvolgyi-vendeghaz": {
     name: "Dandelion Szépvölgyi",
     location: "Badacsonyörs / Balaton",
-    description: "Großes Ferienhaus für bis zu 8 Gäste mit vier Schlafzimmern, Balaton-Panorama und viel Platz für Familien oder Freunde.",
+    description: "Haus in Badacsonyörs für größere Gruppen, mit vier Schlafzimmern, Balaton-Panorama und Stränden wenige Autominuten entfernt.",
     hoverText: "Bis 8 Gäste, vier Schlafzimmer und Balaton-Panorama.",
     href: "/de/szepvolgyi/",
     chips: [
@@ -161,8 +162,8 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   "dandelion-koveskal": {
     name: "Dandelion Köveskál",
     location: "Köveskál / Káli-Becken",
-    description: "Ruhiges Gästehaus in Köveskál, gut für langsame Tage, regionale Gastronomie, Wein und kleine Ausflüge im Káli-Becken.",
-    hoverText: "Köveskál, ruhige Dorfstimmung und Káli-Becken.",
+    description: "Ruhiges Gästehaus in Köveskál, nah an den Dörfern, Spazierwegen und Weingütern des Káli-Beckens.",
+    hoverText: "Köveskál, für ruhigere Tage im Káli-Becken.",
     href: "/de/dandelion-koveskal/",
     chips: [
       { label: "Gästehaus", type: "accent" },
@@ -229,16 +230,31 @@ const accommodationsStructuredData = {
   structuredData={accommodationsStructuredData}
 >
   <section class="dnd-accommodations-hero">
+    <video
+      class="dnd-accommodations-hero__video"
+      src={accommodationsHeroVideo}
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      disablepictureinpicture
+      disableremoteplayback
+      aria-hidden="true"
+    >
+      Ihr Browser unterstützt keine Hintergrundvideos.
+    </video>
     <div class="dnd-accommodations-hero__content">
       <div class="dnd-container dnd-accommodations-hero__inner">
         <div class="dnd-accommodations-hero__text">
           <p class="dnd-accommodations-hero__eyebrow">Unterkünfte</p>
           <h1 class="dnd-accommodations-hero__title">
-            <span>Erst die Region wählen,</span>
-            <span>dann das Haus ansehen.</span>
+            <span>Unterkünfte nach Region</span>
+            <span>und Bedarf</span>
           </h1>
           <p class="dnd-accommodations-hero__lead">
-            Die Dandelion Unterkünfte liegen in drei unterschiedlichen Landschaften: zwischen den Zeugenbergen, nah am Balaton und im ruhigeren Káli-Becken.
+            Die Hänge von Kisapáti, der Balaton oder das ruhige Káli-Becken: hier sehen Sie, welches Dandelion Haus wofür passt.
           </p>
         </div>
       </div>
@@ -248,10 +264,11 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-picker" aria-labelledby="unterkuenfte-regionen-title">
     <div class="dnd-container">
       <div class="dnd-accommodations-picker__intro">
-        <p class="dnd-accommodations-picker__eyebrow">Schnellauswahl</p>
-        <h2 id="unterkuenfte-regionen-title">Welche Region passt zu Ihrer Reise?</h2>
+        <p class="dnd-accommodations-picker__eyebrow">Regionsauswahl</p>
+        <h2 id="unterkuenfte-regionen-title">Wo möchten Sie übernachten?</h2>
         <p>
-          Wählen Sie zuerst nach Landschaft und Tagesrhythmus: Zeugenberge, Balaton-Nähe oder die ruhigere Seite des Káli-Beckens.
+          Wenn Sie noch kein konkretes Haus suchen, beginnen Sie mit der Umgebung: Szent György-hegy,
+          Balaton-Ufer oder Káli-Becken.
         </p>
       </div>
 
@@ -351,7 +368,7 @@ const accommodationsStructuredData = {
       <div class="dnd-accommodations-closing__inner">
         <h2 id="unterkuenfte-closing-title">Noch unsicher, welche Unterkunft passt?</h2>
         <p>
-          Schreiben Sie uns kurz, mit wie vielen Gästen Sie reisen und welche Art von Aufenthalt Sie suchen. Wir helfen bei der Auswahl.
+          Schreiben Sie uns, mit wie vielen Personen Sie reisen, wann Sie kommen möchten und welche Umgebung oder Ausstattung wichtig ist. Wir helfen beim Eingrenzen.
         </p>
         <div class="dnd-accommodations-closing__actions">
           <a class="dnd-accommodations-closing__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Verfügbarkeit prüfen</a>
@@ -375,10 +392,27 @@ const accommodationsStructuredData = {
     height: calc(84vh + 118px);
     padding-top: 118px;
     overflow: hidden;
-    background-image: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32)),
-      url("/images/pages/szallasok-hero-bg.webp");
-    background-position: center 28%;
-    background-size: cover;
+    background: #171717;
+  }
+
+  .dnd-accommodations-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(15, 16, 15, 0.18), rgba(15, 16, 15, 0.32));
+  }
+
+  .dnd-accommodations-hero__video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
   }
 
   .dnd-accommodations-hero__content {
@@ -982,7 +1016,6 @@ const accommodationsStructuredData = {
       min-height: calc(500px + 66px);
       height: auto;
       padding-top: 66px;
-      background-position: center 24%;
     }
 
     .dnd-accommodations-hero__content {
