@@ -22,9 +22,9 @@ const sectionAnchorMap = {
 } as const;
 
 const sectionAudienceMap = {
-  upland: "Túrákhoz, panorámához és többféle háztípushoz.",
-  shore: "Strandokhoz, balatoni programokhoz és könnyű megközelítéshez.",
-  kali: "Nyugodtabb, visszafogott pihenéshez."
+  upland: "Hegyekhez, panorámához, családi és baráti pihenéshez.",
+  shore: "Vízparthoz, strandhoz, balatoni programokhoz.",
+  kali: "Csendhez, falusi környezethez, Káli-medencei kirándulásokhoz."
 } as const;
 
 const sections = accommodationSections.map((section) => ({
@@ -90,12 +90,12 @@ const accommodationsStructuredData = {
         <div class="dnd-accommodations-hero__text">
           <p class="dnd-accommodations-hero__eyebrow">Szállások</p>
           <h1 class="dnd-accommodations-hero__title">
-            <span>Először válassz térséget,</span>
-            <span>utána nézz házat.</span>
+            <span>Szállások térség</span>
+            <span>és igény szerint</span>
           </h1>
           <p class="dnd-accommodations-hero__lead">
-            A Dandelion szállásai három térségben vannak. Először döntsd el, melyik környék áll hozzád közelebb,
-            utána hasonlítsd össze a konkrét házakat.
+            Kisapáti hegyoldalai, balatoni vízpart vagy Káli-medencei csend: itt egyben látod, melyik Dandelion ház
+            mire való.
           </p>
         </div>
       </div>
@@ -105,11 +105,11 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-picker" aria-labelledby="szallasok-regiok-cim">
     <div class="dnd-container">
       <div class="dnd-accommodations-picker__intro">
-        <p class="dnd-accommodations-picker__eyebrow">Gyors választó</p>
-        <h2 id="szallasok-regiok-cim">Melyik térség áll hozzád közelebb?</h2>
+        <p class="dnd-accommodations-picker__eyebrow">Térségválasztó</p>
+        <h2 id="szallasok-regiok-cim">Merre szeretnétek megszállni?</h2>
         <p>
-          Válassz régiót aszerint, hogy inkább a tanúhegyek, a Balaton közelsége vagy a Káli-medence nyugodtabb oldala
-          fontos neked.
+          Ha még nem konkrét házat kerestek, induljatok a környékből: Szent György-hegy, Balaton-part vagy
+          Káli-medence.
         </p>
       </div>
 
@@ -219,10 +219,10 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-closing" aria-labelledby="szallasok-zaro-cim">
     <div class="dnd-container">
       <div class="dnd-accommodations-closing__inner">
-        <h2 id="szallasok-zaro-cim">Nem tudod még, melyik szállást válaszd?</h2>
+        <h2 id="szallasok-zaro-cim">Nem biztos, melyik ház illik hozzátok?</h2>
         <p>
-          Ha szűkítenéd a kört, segítünk kiválasztani azt a házat, ami a létszámhoz, a környékhez és a pihenés
-          stílusához is jobban passzol.
+          Írd meg, hányan jöttök, mikor utaznátok, és melyik környék vagy felszereltség fontos nektek. Segítünk
+          leszűkíteni a választást.
         </p>
         <div class="dnd-accommodations-closing__actions">
           <button class="dnd-accommodations-closing__cta" type="button" onclick="OpenBE()">
