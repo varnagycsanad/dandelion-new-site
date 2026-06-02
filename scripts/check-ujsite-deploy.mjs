@@ -336,6 +336,22 @@ async function checkAdminRoute() {
 
 async function checkRoyalAliasRedirect() {
   try {
+    const redirectResponse = await fetchStatusNoRetry(royalAliasUrl);
+    const redirectLocation = redirectResponse.headers.get('location');
+    const resolvedRedirectLocation = redirectLocation
+      ? new URL(redirectLocation, BASE_URL).href
+      : null;
+    const isServerRedirect =
+      (redirectResponse.status === 301 ||
+        redirectResponse.status === 302 ||
+        redirectResponse.status === 308) &&
+      resolvedRedirectLocation === royalCanonicalUrl;
+
+    if (isServerRedirect) {
+      ok('/dandelion-royal-homes redirects to /royal/ at server level');
+      return;
+    }
+
     const { response, text } = await fetchText(royalAliasUrl);
 
     if (response.status !== 200) {
