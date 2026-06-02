@@ -172,7 +172,7 @@ jobs:
             echo ".htaccess not found"
           fi
           echo '```'
-REMOTE_AUDIT
+          REMOTE_AUDIT
             echo
             echo "## HTTP Checks"
             echo
