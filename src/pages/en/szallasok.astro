@@ -544,13 +544,14 @@ const accommodationsStructuredData = {
 
   .dnd-region-picker-card__title {
     color: #1f2937;
-    font-size: var(--dnd-text-lead);
+    font-size: var(--dnd-heading-card);
+    font-weight: 650;
     line-height: 1.25;
   }
 
   .dnd-region-picker-card__text {
     color: #5b5348;
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-md);
     line-height: 1.5;
   }
 
@@ -574,8 +575,8 @@ const accommodationsStructuredData = {
     --pad: 16px;
     --gap: 18px;
     --img-h: 300px;
-    --title: 20px;
-    --chipfs: 11px;
+    --title: var(--dnd-heading-card);
+    --chipfs: var(--dnd-text-2xs);
     display: block !important;
     width: 100% !important;
     clear: both !important;
@@ -750,7 +751,7 @@ const accommodationsStructuredData = {
     margin: auto 0 26px;
     padding: 0 24px;
     color: #fff;
-    font-size: var(--dnd-heading-card);
+    font-size: var(--dnd-text-lead);
     font-weight: 600;
     line-height: 1.4;
     opacity: 0;
@@ -775,14 +776,14 @@ const accommodationsStructuredData = {
     margin: 0;
     color: var(--text);
     font-size: var(--title);
-    font-weight: 700;
-    line-height: 1.2;
+    font-weight: 650;
+    line-height: 1.25;
     letter-spacing: 0;
   }
 
   .dnd-location {
     color: #7b6f63;
-    font-size: var(--dnd-text-md);
+    font-size: var(--dnd-text-sm);
     font-weight: 600;
     line-height: 1.4;
   }
@@ -790,7 +791,7 @@ const accommodationsStructuredData = {
   .dnd-description {
     margin: 0;
     color: #4b5563;
-    font-size: var(--dnd-text-body);
+    font-size: var(--dnd-text-md);
     line-height: 1.55;
   }
 
@@ -810,7 +811,7 @@ const accommodationsStructuredData = {
     color: var(--c-gray-txt);
     font-size: var(--chipfs);
     font-weight: 650;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   #dnd-apts-final .dnd-chip--accent {
@@ -830,7 +831,7 @@ const accommodationsStructuredData = {
     color: #b06200;
     font-size: var(--dnd-text-xs);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
