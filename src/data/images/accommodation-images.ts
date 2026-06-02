@@ -888,8 +888,21 @@ function buildSzololigetGalleryEntries() {
 }
 
 function buildZsalyaGalleryEntries() {
-  return Array.from({ length: 11 }, (_, index) => {
-    const sequence = String(index + 1).padStart(3, "0");
+  const zsalyaGalleryOrder = [
+    "003",
+    "011",
+    "006",
+    "007",
+    "002",
+    "010",
+    "001",
+    "004",
+    "005",
+    "008",
+    "009",
+  ];
+
+  return zsalyaGalleryOrder.map((sequence, index) => {
     const sortOrder = (index + 1) * 10;
     const filename = `dandelion-zsalya-source-${sequence}.webp`;
     const { src, thumb, astroSrc, thumbAstroSrc, sourceOriginalUrl } = buildAstroGalleryRefs("zsalya", filename);
