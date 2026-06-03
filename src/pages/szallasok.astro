@@ -398,11 +398,7 @@ const accommodationsStructuredData = {
   .dnd-accommodations-picker__grid {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dnd-region-picker-card--1 {
-    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .dnd-region-picker-card {
@@ -974,7 +970,7 @@ const accommodationsStructuredData = {
 
   @media (max-width: 980px) {
     .dnd-accommodations-picker__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     #dnd-apts-final .dnd-grid--3,
@@ -1059,7 +1055,38 @@ const accommodationsStructuredData = {
     }
 
     .dnd-accommodations-picker__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .dnd-region-picker-card--1 {
+      grid-column: 1 / -1;
+    }
+
+    .dnd-region-picker-card {
+      min-height: 144px;
+      gap: 8px;
+      padding: 14px;
+    }
+
+    .dnd-region-picker-card:not(.dnd-region-picker-card--1) .dnd-region-picker-card__text {
+      display: none;
+    }
+
+    .dnd-region-picker-card:not(.dnd-region-picker-card--1) .dnd-region-picker-card__eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+
+    .dnd-region-picker-card:not(.dnd-region-picker-card--1) .dnd-region-picker-card__title {
+      font-size: var(--dnd-text-body);
+      line-height: 1.2;
+    }
+
+    .dnd-region-picker-card:not(.dnd-region-picker-card--1) .dnd-region-picker-card__cta {
+      margin-top: 4px;
+      font-size: var(--dnd-text-2xs);
     }
 
     .dnd-accommodations-picker__intro {
