@@ -1,11 +1,13 @@
 # Astro-Only Képkezelési Javítási Terv
 
 Status: RESZBEN AKTUALIS
-Last checked: 2026-06-02
+Last checked: 2026-06-03
 Use for: kepkezeles celarchitektura, Astro-only irany, legacy media tiltas ertelmezese
 Do not use for: jelenlegi implementacios keszultseg teljes allapotjelentesekent
 
 Statuszfrissites 2026-06-02: ez a dokumentum tovabbra is relevans celarchitektura, de a jelenlegi repo mar atmeneti/reszben megvalosult allapotban van. Letezik `src/assets` alapu kepanyag, `astro:assets` hasznalat es buildelt Astro kepoptimalizalas, mikozben az `src/admin-disabled` es regi WordPress/public-image eredetu munkalapok meg jelen vannak seged/archiv retegeben. A dokumentumot celallapotkent, nem teljesen aktualis allapotjelenteskent kell olvasni.
+
+Statuszfrissites 2026-06-03: a live accommodation registryben a korabbi `hero.desktop`, `hero.mobile`, `card` es `thumbnail` null hianyok rendezve lettek. D2 thumbnailt kapott, a tobbi 8 szallasnal explicit lokalis hero/card WebP assetek kerultek a `src/assets/accommodations/<slug>/hero/` es `card/` mappakba, a thumbnail mezok pedig a lokalis `thumbs/` valtozatokra mutatnak. `npm run build` sikeres volt. A regi `src/admin-disabled` es kepfeldolgozo script workflow tovabbra is kulon dontesi tema, nem live registry hiany.
 
 ## Cél
 

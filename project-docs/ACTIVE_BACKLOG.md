@@ -60,14 +60,16 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ### P1-3 - Astro-only kepkezeles befejezese
 
-- Statusz: reszben teljesult, nyitott
+- Statusz: live registry lezárva 2026-06-03; legacy admin/script dontes kulon P1-5 alatt
 - Forras: `12-astro-only-kepkezelesi-javitasi-terv.md`, `10-astro-image-migracios-terv.md`
-- Mi a gond: van mar `astro:assets`, de a dokumentumok szerint az accommodation hero/card/gallery/homepage kepvezetek es a regi fallbackek teljes lezárasa meg ellenorizendo.
+- Mi a gond: van mar `astro:assets`, de a dokumentumok szerint az accommodation hero/card/gallery/homepage kepvezetek es a regi fallbackek teljes lezárasa ellenorizendo volt.
 - 2026-06-03 ellenorzes: a live accommodation galeriak nagy resze mar `src/assets/accommodations/...` alatti lokalis WebP assetre epul, `astro:assets`-en keresztul. A galeria/thumbnail bejegyzesek buildidoben `requireAccommodationLocalAsset...` ellenorzest kapnak.
 - 2026-06-03 ellenorzes: D2 eseteben hero desktop, hero mobile es card asset is Astro-local registryben van.
 - 2026-06-03 ellenorzes: D2-n kivul 8 szallasnal a registryben meg `hero.desktop: null`, `hero.mobile: null`, `card: null`; 9 szallasnal `thumbnail: null`.
 - 2026-06-03 ellenorzes: a live `src/` retegen kivul az `src/admin-disabled` es a kepfeldolgozo scriptek meg tartalmaznak WordPress / `/images/accommodations/...` / `source-images` eredetu legacy workflow-t.
-- Kovetkezo konkret lepes: nem-D2 hero/card/thumbnail assetek Astro-local registrybe emelese, majd a script/admin legacy utvonalak kulon dontese vagy archiválasa.
+- 2026-06-03 javitas: a D2 thumbnail es a 8 nem-D2 szallas hero desktop, hero mobile, card es thumbnail bejegyzese Astro-local registrybe kerult. A nem-D2 hero/card assetek `src/assets/accommodations/<slug>/hero/` es `src/assets/accommodations/<slug>/card/` alatt explicit lokalis WebP fajlkent elnek; a thumbnail mezok a lokalis `thumbs/` valtozatokra mutatnak.
+- 2026-06-03 ellenorzes: `accommodation-images.ts` alatt nem maradt `hero.desktop: null`, `hero.mobile: null`, `card: null` vagy `thumbnail: null`; `npm run build` sikeres, 93 oldal es 120 optimalizalt kepasset keszult. A statikus szerveren a generalt `/assets/...` kepfajlok 200-zal elerhetok.
+- Kovetkezo konkret lepes: nincs a live accommodation registryre. A regi `src/admin-disabled` es kepfeldolgozo script workflow sorsa P1-5 alatt kulon dontesi feladat.
 
 ### P1-4 - WP media maradek hivatkozasok auditja
 
@@ -81,6 +83,7 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 - Statusz: nyitott
 - Forras: `12-astro-only-kepkezelesi-javitasi-terv.md`, `archive/image-admin-v2-audit-2026-04-30.md`
 - Mi a gond: az admin-disabled es regi image admin jegyzetek nem napi forrasok, de el kell donteni, lesz-e Astro asset registry manager.
+- 2026-06-03 megjegyzes: a live accommodation registry kep-hianyai rendezve lettek; az admin-disabled es regi `images:*` script workflow ettol fuggetlenul meg legacy dontesi tema.
 - Kovetkezo konkret lepes: donteni kell, hogy kell-e uj admin es ha igen, csak a jelenlegi Astro-local asset modellre epuljon.
 
 ## P2 - minoseg, tartalom, paritas

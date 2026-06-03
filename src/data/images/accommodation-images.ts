@@ -7,7 +7,7 @@ import {
   d2LocalAstroAssets,
   requireAccommodationLocalAssetByKey
 } from "./astro-local-assets";
-import type { AccommodationImageSet } from "./image-types";
+import type { AccommodationImageSet, ImageAsset, ImageRole } from "./image-types";
 
 
 const accommodationGalleryAltHuByFilename: Record<string, string> = {
@@ -1237,6 +1237,86 @@ function attachLocalGalleryAstroAssets<
   });
 }
 
+type AccommodationFeatureRole = Extract<ImageRole, "hero_desktop" | "hero_mobile" | "card" | "thumbnail">;
+
+function resolveAspectRatio(width: number, height: number): string {
+  if (width === 1600 && height === 900) {
+    return "16:9";
+  }
+
+  if (width === 1600 && height === 1067) {
+    return "3:2";
+  }
+
+  if (width === 500 && height === 281) {
+    return "16:9";
+  }
+
+  if (width === 500 && height === 333) {
+    return "3:2";
+  }
+
+  return "4:3";
+}
+
+function buildAccommodationFeatureImage(input: {
+  apartmentKey: string;
+  folder: "hero" | "card" | "thumbs";
+  filename: string;
+  sourceFilename: string;
+  role: AccommodationFeatureRole;
+  width: number;
+  height: number;
+  sortOrder?: number;
+}): ImageAsset {
+  const astroSrc = requireAccommodationLocalAssetByKey(
+    input.apartmentKey,
+    input.folder,
+    input.filename,
+    `${input.apartmentKey} ${input.role}`
+  );
+  const fallbackTitle = `${input.apartmentKey} ${input.role.replace("_", " ")}`;
+
+  return {
+    id: `${input.apartmentKey}-${input.role.replace("_", "-")}-01`,
+    apartmentKey: input.apartmentKey,
+    role: input.role,
+    src: astroSrc.src,
+    astroSrc,
+    width: input.width,
+    height: input.height,
+    aspectRatio: resolveAspectRatio(input.width, input.height),
+    alt: {
+      hu: resolveGalleryTextHu(input.sourceFilename, fallbackTitle),
+      en: resolveGalleryTextEn(input.sourceFilename, fallbackTitle),
+      de: resolveGalleryTextDe(input.sourceFilename, fallbackTitle),
+      cs: resolveGalleryTextCs(input.sourceFilename, fallbackTitle),
+    },
+    title: {
+      hu: resolveGalleryTextHu(input.sourceFilename, fallbackTitle),
+      en: resolveGalleryTextEn(input.sourceFilename, fallbackTitle),
+      de: resolveGalleryTextDe(input.sourceFilename, fallbackTitle),
+      cs: resolveGalleryTextCs(input.sourceFilename, fallbackTitle),
+    },
+    caption: {
+      hu: resolveGalleryTextHu(input.sourceFilename, fallbackTitle),
+      en: resolveGalleryTextEn(input.sourceFilename, fallbackTitle),
+      de: resolveGalleryTextDe(input.sourceFilename, fallbackTitle),
+      cs: resolveGalleryTextCs(input.sourceFilename, fallbackTitle),
+    },
+    focusPoint: "center center",
+    sortOrder: input.sortOrder ?? 1,
+    status: "active",
+    source: {
+      type: "local",
+      originalUrl: `/src/assets/accommodations/${input.apartmentKey}/${input.folder}/${input.filename}`,
+      originalFilename: input.filename,
+    },
+    createdAt: "2026-06-03",
+    updatedAt: "2026-06-03",
+  };
+}
+
 export const accommodationImages: Record<string, AccommodationImageSet> = {
   d2: {
     apartmentKey: "d2",
@@ -2010,87 +2090,351 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
         updatedAt: "2026-05-03",
       }
     ]),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "d2",
+      folder: "thumbs",
+      filename: "dandelion-d2-source-001.webp",
+      sourceFilename: "dandelion-d2-source-001.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   d1: {
     apartmentKey: "d1",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "d1",
+        folder: "hero",
+        filename: "dandelion-d1-hero-desktop-01.webp",
+        sourceFilename: "dandelion-d1-source-001.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "d1",
+        folder: "hero",
+        filename: "dandelion-d1-hero-mobile-01.webp",
+        sourceFilename: "dandelion-d1-source-001.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "d1",
+      folder: "card",
+      filename: "dandelion-d1-card-01.webp",
+      sourceFilename: "dandelion-d1-source-001.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("d1", buildD1GalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "d1",
+      folder: "thumbs",
+      filename: "dandelion-d1-source-001.webp",
+      sourceFilename: "dandelion-d1-source-001.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   fugehaz: {
     apartmentKey: "fugehaz",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "fugehaz",
+        folder: "hero",
+        filename: "dandelion-fugehaz-hero-desktop-01.webp",
+        sourceFilename: "dandelion-fugehaz-source-001.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "fugehaz",
+        folder: "hero",
+        filename: "dandelion-fugehaz-hero-mobile-01.webp",
+        sourceFilename: "dandelion-fugehaz-source-001.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "fugehaz",
+      folder: "card",
+      filename: "dandelion-fugehaz-card-01.webp",
+      sourceFilename: "dandelion-fugehaz-source-001.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("fugehaz", buildFugehazGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "fugehaz",
+      folder: "thumbs",
+      filename: "dandelion-fugehaz-source-001.webp",
+      sourceFilename: "dandelion-fugehaz-source-001.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   zsalya: {
     apartmentKey: "zsalya",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "zsalya",
+        folder: "hero",
+        filename: "dandelion-zsalya-hero-desktop-01.webp",
+        sourceFilename: "dandelion-zsalya-source-010.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 900,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "zsalya",
+        folder: "hero",
+        filename: "dandelion-zsalya-hero-mobile-01.webp",
+        sourceFilename: "dandelion-zsalya-source-010.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 900,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "zsalya",
+      folder: "card",
+      filename: "dandelion-zsalya-card-01.webp",
+      sourceFilename: "dandelion-zsalya-source-010.webp",
+      role: "card",
+      width: 1600,
+      height: 900,
+    }),
     gallery: attachLocalGalleryAstroAssets("zsalya", buildZsalyaGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "zsalya",
+      folder: "thumbs",
+      filename: "dandelion-zsalya-source-010.webp",
+      sourceFilename: "dandelion-zsalya-source-010.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 281,
+    }),
   },
   szololiget: {
     apartmentKey: "szololiget",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "szololiget",
+        folder: "hero",
+        filename: "dandelion-szololiget-hero-desktop-01.webp",
+        sourceFilename: "dandelion-szololiget-source-016.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "szololiget",
+        folder: "hero",
+        filename: "dandelion-szololiget-hero-mobile-01.webp",
+        sourceFilename: "dandelion-szololiget-source-016.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "szololiget",
+      folder: "card",
+      filename: "dandelion-szololiget-card-01.webp",
+      sourceFilename: "dandelion-szololiget-source-016.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("szololiget", buildSzololigetGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "szololiget",
+      folder: "thumbs",
+      filename: "dandelion-szololiget-source-016.webp",
+      sourceFilename: "dandelion-szololiget-source-016.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   szepvolgyi: {
     apartmentKey: "szepvolgyi",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "szepvolgyi",
+        folder: "hero",
+        filename: "dandelion-szepvolgyi-hero-desktop-01.webp",
+        sourceFilename: "dandelion-szepvolgyi-source-001.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "szepvolgyi",
+        folder: "hero",
+        filename: "dandelion-szepvolgyi-hero-mobile-01.webp",
+        sourceFilename: "dandelion-szepvolgyi-source-001.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "szepvolgyi",
+      folder: "card",
+      filename: "dandelion-szepvolgyi-card-01.webp",
+      sourceFilename: "dandelion-szepvolgyi-source-001.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("szepvolgyi", buildSzepvolgyiGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "szepvolgyi",
+      folder: "thumbs",
+      filename: "dandelion-szepvolgyi-source-001.webp",
+      sourceFilename: "dandelion-szepvolgyi-source-001.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   royal_homes: {
     apartmentKey: "royal_homes",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "royal_homes",
+        folder: "hero",
+        filename: "dandelion-royal-homes-hero-desktop-01.webp",
+        sourceFilename: "dandelion-royal-homes-source-030.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "royal_homes",
+        folder: "hero",
+        filename: "dandelion-royal-homes-hero-mobile-01.webp",
+        sourceFilename: "dandelion-royal-homes-source-030.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "royal_homes",
+      folder: "card",
+      filename: "dandelion-royal-homes-card-01.webp",
+      sourceFilename: "dandelion-royal-homes-source-030.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("royal_homes", buildRoyalHomesGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "royal_homes",
+      folder: "thumbs",
+      filename: "dandelion-royal-homes-source-030.webp",
+      sourceFilename: "dandelion-royal-homes-source-030.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   koveskal: {
     apartmentKey: "koveskal",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "koveskal",
+        folder: "hero",
+        filename: "dandelion-koveskal-hero-desktop-01.webp",
+        sourceFilename: "dandelion-koveskal-source-020.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1200,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "koveskal",
+        folder: "hero",
+        filename: "dandelion-koveskal-hero-mobile-01.webp",
+        sourceFilename: "dandelion-koveskal-source-020.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1200,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "koveskal",
+      folder: "card",
+      filename: "dandelion-koveskal-card-01.webp",
+      sourceFilename: "dandelion-koveskal-source-020.webp",
+      role: "card",
+      width: 1600,
+      height: 1200,
+    }),
     gallery: attachLocalGalleryAstroAssets("koveskal", buildKoveskalGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "koveskal",
+      folder: "thumbs",
+      filename: "dandelion-koveskal-source-020.webp",
+      sourceFilename: "dandelion-koveskal-source-020.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 375,
+    }),
   },
   vintage: {
     apartmentKey: "vintage",
     hero: {
-      desktop: null,
-      mobile: null,
+      desktop: buildAccommodationFeatureImage({
+        apartmentKey: "vintage",
+        folder: "hero",
+        filename: "dandelion-vintage-hero-desktop-01.webp",
+        sourceFilename: "dandelion-vintage-source-003.webp",
+        role: "hero_desktop",
+        width: 1600,
+        height: 1067,
+      }),
+      mobile: buildAccommodationFeatureImage({
+        apartmentKey: "vintage",
+        folder: "hero",
+        filename: "dandelion-vintage-hero-mobile-01.webp",
+        sourceFilename: "dandelion-vintage-source-003.webp",
+        role: "hero_mobile",
+        width: 1600,
+        height: 1067,
+      }),
     },
-    card: null,
+    card: buildAccommodationFeatureImage({
+      apartmentKey: "vintage",
+      folder: "card",
+      filename: "dandelion-vintage-card-01.webp",
+      sourceFilename: "dandelion-vintage-source-003.webp",
+      role: "card",
+      width: 1600,
+      height: 1067,
+    }),
     gallery: attachLocalGalleryAstroAssets("vintage", buildVintageGalleryEntries()),
-    thumbnail: null,
+    thumbnail: buildAccommodationFeatureImage({
+      apartmentKey: "vintage",
+      folder: "thumbs",
+      filename: "dandelion-vintage-source-003.webp",
+      sourceFilename: "dandelion-vintage-source-003.webp",
+      role: "thumbnail",
+      width: 500,
+      height: 333,
+    }),
   },
 };
 
