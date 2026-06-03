@@ -1163,15 +1163,23 @@ const accommodationsStructuredData = {
 
     #dnd-apts-final {
       --pad: 12px;
-      --gap: 12px;
-      --img-h: 208px;
+      --gap: 10px;
+      --img-h: clamp(104px, 28vw, 132px);
       padding-top: 18px;
     }
 
     #dnd-apts-final .dnd-grid--3,
-    #dnd-apts-final .dnd-grid--2,
+    #dnd-apts-final .dnd-grid--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     #dnd-apts-final .dnd-grid--1 {
       grid-template-columns: 1fr;
+      max-width: none;
+    }
+
+    #dnd-apts-final .dnd-grid--2 .dnd-card:nth-last-child(1):nth-child(odd) {
+      grid-column: 1 / -1;
     }
 
     #dnd-apts-final .dnd-section {
@@ -1185,16 +1193,31 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-info {
-      gap: 8px;
-      padding: 12px 12px 14px;
+      gap: 6px;
+      padding: 10px;
     }
 
     #dnd-apts-final .dnd-title {
-      font-size: var(--dnd-text-body);
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: var(--dnd-text-sm);
+      line-height: 1.22;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
 
-    .dnd-location,
-    .dnd-description,
+    .dnd-location {
+      overflow: hidden;
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.25;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .dnd-description {
+      display: none;
+    }
+
     #dnd-apts-final .dnd-sub,
     .dnd-region-block__audience {
       font-size: var(--dnd-text-md);
@@ -1202,13 +1225,26 @@ const accommodationsStructuredData = {
     }
 
     #dnd-apts-final .dnd-chips {
-      padding-top: 2px;
-      border-top: 1px solid rgba(217, 158, 43, 0.16);
+      display: none;
+    }
+
+    .dnd-card-highlights {
+      gap: 5px;
+    }
+
+    .dnd-card-highlights .dnd-chip:nth-child(n + 3) {
+      display: none;
     }
 
     #dnd-apts-final .dnd-chip {
       font-size: var(--dnd-text-2xs);
-      padding: 5px 8px;
+      padding: 4px 6px;
+    }
+
+    .dnd-card-cta {
+      margin-top: 2px;
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.06em;
     }
 
     #dnd-apts-final .dnd-h2 {
