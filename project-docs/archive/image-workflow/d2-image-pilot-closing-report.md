@@ -40,7 +40,7 @@ A cél ezzel egy ismételhető, kontrollált folyamat kialakítása volt a több
 - `scripts/process-accommodation-images.mjs`
 - review dokumentumok:
   - `project-docs/image-workflow/d2-image-seo-review.md`
-  - `project-docs/image-workflow/d2-gallery-selection-review.md`
+  - `project-docs/archive/image-workflow/d2-gallery-selection-review.md`
   - `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.md`
 
 ## 5. Feldolgozott képek

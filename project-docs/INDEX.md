@@ -123,8 +123,8 @@ Script es workflow tervek:
 
 D2 es generalt munkalapok:
 
-- `project-docs/image-workflow/d2-image-pilot-closing-report.md`
-- `project-docs/image-workflow/d2-gallery-selection-review.md`
+- `project-docs/archive/image-workflow/d2-image-pilot-closing-report.md`
+- `project-docs/archive/image-workflow/d2-gallery-selection-review.md`
 - `project-docs/archive/image-workflow/d2-runtime-image-admin-bridge-note.md`
 - `project-docs/image-workflow/d2-image-seo-review.md`
 - `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.md`
@@ -159,12 +159,12 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 - `project-docs/GA4_CODEX_ANALYTICS.md`
 - `project-docs/GUIDE_FUGEHAZ_DEZSA_CONTENT.md`
 - `project-docs/DANDELION_MASTER_RULES.md`
-- `project-docs/image-admin-v2-audit-2026-04-30.md`
+- `project-docs/archive/image-admin-v2-audit-2026-04-30.md`
 - `project-docs/image-alt-seo-audit-2026-05-25.md`
 - `project-docs/image-alt-seo-source-and-localization-audit-2026-05-25.md`
 - `project-docs/image-alt-localization-review-de-cs-2026-05-25.md`
-- `project-docs/image-alt-de-draft-batch-1-2026-05-25.md`
-- `project-docs/image-alt-cs-draft-batch-1-2026-05-25.md`
+- `project-docs/archive/image-alt/image-alt-de-draft-batch-1-2026-05-25.md`
+- `project-docs/archive/image-alt/image-alt-cs-draft-batch-1-2026-05-25.md`
 
 ## Olvasasi szabaly
 
@@ -182,10 +182,15 @@ ebben a sorrendben kell donteni.
 
 Az elso rendrakasi kor kesz: minden MD fajl statuszolt, es van kozponti index.
 
-Kovetkezo biztonsagos lepes: az `archive-decision-list-2026-06-03.md` alapjan egy kicsi, 4-6 fajlos archiválási pilot kijelolese.
+Kovetkezo biztonsagos lepes: az `archive-decision-list-2026-06-03.md` alapjan a kovetkezo kicsi, 4-6 fajlos archiválási pilot kijelolese.
 
 - fajlmozgatás elott hivatkozaskereses kell
 - csak alacsony kockazatu export / torteneti image workflow fajlokkal szabad kezdeni
 - mozgatás utan az `INDEX.md` es minden erintett hivatkozas frissitendo
 
-Javasolt pilot jeloltek a dontesi lista `E. Első valódi mozgatási csomag javaslat` szakaszaban vannak.
+Eddigi pilotok:
+
+- Pilot 1: 4 D2 processing / image workflow dokumentum archive ala mozgatva.
+- Pilot 2: 5 image workflow / image alt / image admin dokumentum archive ala mozgatva.
+
+Jelenlegi archive MD fajlok szama: 9.

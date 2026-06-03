@@ -48,11 +48,11 @@ Ezek exportok, régi munkalapok vagy egyértelműen történeti D2/image review 
 - DONE 2026-06-03: `project-docs/archive/image-workflow/generated/d2-processing-plan-all.md`
 - DONE 2026-06-03: `project-docs/archive/image-workflow/source-image-rename-map.md`
 - DONE 2026-06-03: `project-docs/archive/image-workflow/d2-runtime-image-admin-bridge-note.md`
-- `project-docs/image-workflow/d2-image-pilot-closing-report.md`
-- `project-docs/image-workflow/d2-gallery-selection-review.md`
-- `project-docs/image-admin-v2-audit-2026-04-30.md`
-- `project-docs/image-alt-cs-draft-batch-1-2026-05-25.md`
-- `project-docs/image-alt-de-draft-batch-1-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/image-workflow/d2-image-pilot-closing-report.md`
+- DONE 2026-06-03: `project-docs/archive/image-workflow/d2-gallery-selection-review.md`
+- DONE 2026-06-03: `project-docs/archive/image-admin-v2-audit-2026-04-30.md`
+- DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-cs-draft-batch-1-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-de-draft-batch-1-2026-05-25.md`
 - `project-docs/image-alt-localization-review-de-cs-2026-05-25.md`
 
 Javasolt célmappa később:
@@ -152,7 +152,7 @@ Pilot utáni hivatkozáskeresés eredménye:
 
 ## Következő lépés
 
-Második archiválási kör előtt:
+Harmadik archiválási kör előtt:
 
 1. Válasszunk ki legfeljebb 4-6 fájlt.
 2. Futtassunk hivatkozáskeresést.

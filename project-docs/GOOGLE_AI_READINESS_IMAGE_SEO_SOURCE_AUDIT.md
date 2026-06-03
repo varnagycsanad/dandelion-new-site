@@ -29,7 +29,7 @@ Ez a dokumentum nem image registry, nem final SEO forras, es nem ir uj alt/title
 | `project-docs/gallery-order-tool/gallery-order-*.html` | korabbi gallery-order export / review felulet | Szallasonkenti kepnezo es sorrendi export, `seoDraft` preview-val | Igen: a HTML-ekben a draft mezok megjelennek; forrasa az admin-disabled `seo-test.json` lehetett | Igen: szallasonkenti gallery-order export | HASZNALHATO, de nem final; fo review felulet jelolt |
 | `project-docs/gallery-order-tool/README.md` | eszkoz dokumentacio | Leirja, hogy a tool a generated JSON-bol es opcionalisan a `seo-test.json`-bol dolgozik | Nem | Igen, eszkozleiras | HASZNALHATO forraslanc tisztazasra |
 | `project-docs/image-workflow/d2-image-seo-review.md` | korabbi D2-specifikus review / draft | D2 source kepek SEO es focusPoint review-ja | Igen: D2 hero/card/gallery alt/title/caption draftok `approved: no` jelolessel | Reszben: D2 source es target kepterv | HASZNALHATO D2-hoz, de nem altalanos forras |
-| `project-docs/image-workflow/d2-gallery-selection-review.md` | korabbi D2 gallery valogatas | D2 aktiv/rejtett gallery dontesi javaslat | Nem SEO final, inkabb valogatas | Igen: D2 gallery sorrend es elrejtendo kepek | HASZNALHATO D2 sorrendhez |
+| `project-docs/archive/image-workflow/d2-gallery-selection-review.md` | korabbi D2 gallery valogatas | D2 aktiv/rejtett gallery dontesi javaslat | Nem SEO final, inkabb valogatas | Igen: D2 gallery sorrend es elrejtendo kepek | HASZNALHATO D2 sorrendhez |
 | `project-docs/image-workflow/d2-image-contact-sheet.html` | D2 vizualis contact sheet | D2 source kepek vizualis ellenorzese | Nem megbizhato final SEO forras | Igen | HASZNALHATO vizualis ellenorzeshez |
 | `project-docs/image-workflow/d2-processed-webp-contact-sheet.html` | D2 feldolgozott WebP contact sheet | D2 processed kepkimenetek vizualis ellenorzese | Nem megbizhato final SEO forras | Igen | HASZNALHATO vizualis ellenorzeshez |
 | `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.*` | D2 processing terv | Kivalasztott D2 kepek target path / output terv | Nem | Igen, D2 processing sorrendhez | HASZNALHATO technikai D2 forrasnak |
@@ -96,7 +96,7 @@ Ezek a Google AI Readiness munkafolyamat reszei. A Batch 1 review kulonosen font
 - `project-docs/gallery-order-tool/gallery-order-*.html`
 - `project-docs/gallery-order-tool/index.html`
 - `project-docs/gallery-order-tool/README.md`
-- `project-docs/image-workflow/d2-gallery-selection-review.md`
+- `project-docs/archive/image-workflow/d2-gallery-selection-review.md`
 - `project-docs/image-workflow/d2-image-contact-sheet.html`
 - `project-docs/image-workflow/d2-processed-webp-contact-sheet.html`
 - `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.*`
