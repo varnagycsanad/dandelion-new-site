@@ -42,8 +42,8 @@ export const koveskalPageData: AccommodationPageData = {
     lead:
       "Nyugodt vendégház azoknak, akik a Káli-medence lassabb ritmusát, a falusi hangulatot és a természetközeli pihenést keresik.",
     video: {
-      desktop: "/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4?v=20260520-faststart",
-      mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4?v=20260520-faststart"
+      desktop: "/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4?v=20260603-lite",
+      mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4?v=20260603-lite"
     },
     primaryCtaLabel: "Érdeklődés",
     secondaryCtaLabel: "Képek megtekintése"
