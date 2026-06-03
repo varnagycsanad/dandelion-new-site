@@ -146,10 +146,7 @@ const {
   }
 
   .dnd-region-stories__sticky-layer {
-    position: absolute;
-    inset: 0 0 36px;
-    z-index: 0;
-    pointer-events: none;
+    display: none;
   }
 
   .dnd-region-stories__sticky-band {
@@ -209,17 +206,18 @@ const {
 
   .dnd-region-stories__list {
     display: grid;
-    gap: 64px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
     position: relative;
     z-index: 1;
-    padding-top: max(560px, calc(100vh - 118px + 84px));
+    padding-top: 0;
   }
 
   .dnd-region-story {
     position: relative;
     z-index: 1;
     display: grid;
-    width: min(100%, 1040px);
+    width: 100%;
     margin-bottom: 0;
   }
 
@@ -228,8 +226,8 @@ const {
     z-index: 1;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: 32px;
-    width: min(100%, 1040px);
+    border-radius: 18px;
+    width: 100%;
     background: #ddd5c8;
   }
 
@@ -246,10 +244,11 @@ const {
   }
 
   .dnd-region-story__panel {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    max-width: 420px;
-    padding: 32px 28px;
+    max-width: none;
+    margin: -1px 12px 0;
+    padding: 24px;
     background: rgba(253, 251, 247, 0.92);
     border: 1px solid rgba(0, 0, 0, 0.04);
   }
@@ -311,52 +310,24 @@ const {
   }
 
   .dnd-region-story--1 {
-    justify-items: start;
-    width: min(calc(100% - 232px), 1000px);
+    grid-column: 1 / -1;
   }
 
-  .dnd-region-story--1 .dnd-region-story__panel {
-    right: -34px;
-    bottom: -34px;
+  .dnd-region-story--1 .dnd-region-story__media {
+    aspect-ratio: 21 / 9;
   }
 
   .dnd-region-story--2 {
-    justify-items: end;
-    width: min(calc(100% - 276px), 1080px);
-    margin-left: auto;
-  }
-
-  .dnd-region-story--2 .dnd-region-story__panel {
-    left: -40px;
-    bottom: -34px;
+    justify-items: stretch;
   }
 
   .dnd-region-story--3 {
-    justify-items: start;
-    width: min(calc(100% - 248px), 980px);
-  }
-
-  .dnd-region-story--3 .dnd-region-story__panel {
-    right: -36px;
-    bottom: -30px;
+    justify-items: stretch;
   }
 
   @media (max-width: 1100px) {
-    .dnd-region-story,
-    .dnd-region-story--1,
-    .dnd-region-story--2,
-    .dnd-region-story--3 {
-      width: 100%;
-      max-width: 1040px;
-      margin-left: 0;
-      justify-items: stretch;
-    }
-
-    .dnd-region-story__panel {
-      position: relative;
-      inset: auto;
-      max-width: none;
-      margin: 18px 0 0;
+    .dnd-region-stories__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .dnd-region-story__title {
@@ -383,6 +354,7 @@ const {
     }
 
     .dnd-region-stories__list {
+      grid-template-columns: 1fr;
       gap: 28px;
       padding-top: 0;
     }
@@ -395,6 +367,7 @@ const {
     .dnd-region-story--1,
     .dnd-region-story--2,
     .dnd-region-story--3 {
+      grid-column: auto;
       gap: 0;
     }
 
