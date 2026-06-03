@@ -7,17 +7,22 @@ Use for: WebP feldolgozo script torteneti terv es sharp bevezetes kontextus
 Do not use for: aktualis scriptlista forrasakent package.json ellenorzes nelkul
 
 [CHANGE 2026-06-02 00:00] Statuszfrissites: ez a dokumentum torteneti terv. A `sharp` mar telepitve van (`0.34.5`), a `package.json` mar tartalmazza az `astro`, `sharp` es `lighthouse` csomagokat, es az aktualis image scriptek: `images:dry-run`, `images:intake`, `images:select`, `images:process`, `images:publish`. A korabbi `images:plan` parancs nem letezik a jelenlegi `package.json`-ban.
+[CHANGE 2026-06-03 00:00] Tooling audit: lokalis kepkonvertalashoz ImageMagick 7.1.2-24 is telepitve van, videokonvertalashoz FFmpeg 8.1.1 es HandBrake 1.10.2 erheto el. A repo tovabbra is Sharp-alapu Node pipeline-t hasznal.
 
 # WebP feldolgozó script terv
 
 ## 1. Jelenlegi állapot
 
-- A `package.json` jelenlegi dependency listája csak az `astro` csomagot tartalmazza.
-- Sharp jelenleg nincs telepítve, és nincs képfeldolgozó dependency bevezetve.
-- Az image source inventory archivált helyen maradt meg: `src/admin-disabled/data/images/accommodation-source-images.ts`.
-- A D2 source inventoryban már vannak `selected` és `needs_review` státuszú képek.
-- A végleges `ImageAsset` registry még nincs kitöltve konkrét képekkel.
-- A jelenlegi D2 source inventory forrásréteg, nem frontend adatforrás.
+- A `package.json` jelenlegi dependency listája tartalmazza az `astro` és `sharp` csomagot.
+- Sharp telepítve van: `sharp@0.34.5`.
+- A működő image pipeline scriptek: `images:dry-run`, `images:intake`, `images:select`, `images:process`, `images:publish`.
+- Az image source inventory továbbra is forrásréteg: `src/admin-disabled/data/images/accommodation-source-images.ts`.
+- A live frontend registry: `src/data/images/accommodation-images.ts`.
+- A registry már konkrét Astro asseteket használ `src/assets/accommodations/...` alatt, ezért a korábbi `public/images/accommodations/...` irány csak átmeneti/legacy kontextus.
+- Külső, lokális segédeszközök:
+  - ImageMagick 7.1.2-24 Q16-HDRI kepkonvertalashoz.
+  - FFmpeg 8.1.1 videokonvertalashoz.
+  - HandBrake 1.10.2 videokonvertalashoz.
 
 ## 2. Cél
 

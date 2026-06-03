@@ -1,9 +1,10 @@
 [CHANGE 2026-05-20 00:00] Kep SEO forrasaudit letrehozva; implementacio blokkolva, amig a fo forras nincs kivalasztva.
+[CHANGE 2026-06-03 00:00] Aktualis audit kiegeszites: a live registry `src/data/images/accommodation-images.ts`, a korabbi SEO draft forras `src/admin-disabled/data/images/accommodation-images.seo-test.json`; kulso konvertalok: ImageMagick, FFmpeg, HandBrake.
 
 # Google AI Readiness kep SEO forrasaudit
 
 Status: TORTENETI
-Last checked: 2026-06-02
+Last checked: 2026-06-03
 Use for: kep SEO forrasaudit kontextus
 Do not use for: aktualis kepforras allapot friss ellenorzes nelkul
 
@@ -39,6 +40,15 @@ Ez a dokumentum nem image registry, nem final SEO forras, es nem ir uj alt/title
 | `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md` | uj Google AI review / draft munkalap | Elso kor: Royal Homes, Szepvolgyi, Szololiget, Koveskal, D1, Vintage hero-jelolt + elso 6 gallery | Igen, de a meglevo `seoDraft` reszhalmaza; nem final | Reszben: review sorrend, nem teljes gallery export | CSAK REVIEW, nem final implementacios forras |
 | `src/data/images/accommodation-images.ts` | live image registry | Jelenlegi frontend kepadatok | Igen, de ez eles registry: D2 konkret, nem-D2 generikus | Igen, renderelt gallery sorrend | NEM MODOSITHATO ebben a korben |
 | `src/data/images/image-types.ts` | tipusdefinicio | `ImageSeoDraft` es registry mezok formaja | Nem | Nem | HASZNALHATO technikai referencia |
+
+## 2026-06-03 tooling es meret audit
+
+- Repo pipeline: `sharp@0.34.5`, `images:dry-run`, `images:intake`, `images:select`, `images:process`, `images:publish`.
+- Lokalis kepkonvertalo: ImageMagick 7.1.2-24 Q16-HDRI.
+- Lokalis videokonvertalok: FFmpeg 8.1.1 es HandBrake 1.10.2.
+- A live accommodation asset irany `src/assets/accommodations/...` + `src/data/images/accommodation-images.ts`.
+- A `public/images/panorama-pool/05-21/` nyers JPEG mappa `.gitignore` alatt van, nem registry forras es nem deployolando frontend asset.
+- Meret QA kapu: card kepek kb. 900-1200 px savban, gallery kepek jellemzoen 1600 px celmerettel, thumb kepek kb. 500-700 px savban maradjanak.
 
 ## Gallery-order es seo-test lefedettseg
 

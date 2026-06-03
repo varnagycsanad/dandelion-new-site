@@ -1204,8 +1204,10 @@ function attachLocalGalleryAstroAssets<
   T extends {
     src: string;
     thumb?: string;
-    astroSrc?: { src: string };
-    thumbAstroSrc?: { src: string };
+    width?: number;
+    height?: number;
+    astroSrc?: { src: string; width?: number; height?: number };
+    thumbAstroSrc?: { src: string; width?: number; height?: number };
     source?: { originalFilename?: string };
   }
 >(
@@ -1231,6 +1233,8 @@ function attachLocalGalleryAstroAssets<
       ...image,
       src: astroSrc?.src || image.src,
       thumb: thumbAstroSrc?.src || image.thumb,
+      width: astroSrc?.width || image.width,
+      height: astroSrc?.height || image.height,
       astroSrc,
       thumbAstroSrc
     };
@@ -2128,8 +2132,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-d1-card-01.webp",
       sourceFilename: "dandelion-d1-source-001.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("d1", buildD1GalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2170,8 +2174,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-fugehaz-card-01.webp",
       sourceFilename: "dandelion-fugehaz-source-001.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("fugehaz", buildFugehazGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2212,8 +2216,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-zsalya-card-01.webp",
       sourceFilename: "dandelion-zsalya-source-010.webp",
       role: "card",
-      width: 1600,
-      height: 900,
+      width: 900,
+      height: 506,
     }),
     gallery: attachLocalGalleryAstroAssets("zsalya", buildZsalyaGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2254,8 +2258,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-szololiget-card-01.webp",
       sourceFilename: "dandelion-szololiget-source-016.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("szololiget", buildSzololigetGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2296,8 +2300,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-szepvolgyi-card-01.webp",
       sourceFilename: "dandelion-szepvolgyi-source-001.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("szepvolgyi", buildSzepvolgyiGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2338,8 +2342,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-royal-homes-card-01.webp",
       sourceFilename: "dandelion-royal-homes-source-030.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("royal_homes", buildRoyalHomesGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2380,8 +2384,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-koveskal-card-01.webp",
       sourceFilename: "dandelion-koveskal-source-020.webp",
       role: "card",
-      width: 1600,
-      height: 1200,
+      width: 900,
+      height: 675,
     }),
     gallery: attachLocalGalleryAstroAssets("koveskal", buildKoveskalGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({
@@ -2422,8 +2426,8 @@ export const accommodationImages: Record<string, AccommodationImageSet> = {
       filename: "dandelion-vintage-card-01.webp",
       sourceFilename: "dandelion-vintage-source-003.webp",
       role: "card",
-      width: 1600,
-      height: 1067,
+      width: 900,
+      height: 600,
     }),
     gallery: attachLocalGalleryAstroAssets("vintage", buildVintageGalleryEntries()),
     thumbnail: buildAccommodationFeatureImage({

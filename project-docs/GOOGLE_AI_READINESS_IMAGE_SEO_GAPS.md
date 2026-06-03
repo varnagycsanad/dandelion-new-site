@@ -1,10 +1,11 @@
 [CHANGE 2026-05-20 00:00] Google AI Readiness kep SEO hianylista letrehozva.
 [CHANGE 2026-05-20 00:00] Szallasonkenti kep SEO hianyok pontos prioritasi tervve reszletezve schema es CTA kor utan.
+[CHANGE 2026-06-03 00:00] Audit frissites: a live registry mar HU/EN/DE/CS kepmezoket hasznal, a korabbi generikus nem-D2 megallapitasok torteneti kockazatkent kezelendok. A draftforras helye: `src/admin-disabled/data/images/accommodation-images.seo-test.json`.
 
 # Google AI Readiness kep SEO hianylista
 
 Status: RESZBEN AKTUALIS
-Last checked: 2026-06-02
+Last checked: 2026-06-03
 Use for: kep SEO hianyok Google AI Readiness kontextusban
 Do not use for: aktualis image registry QA helyettesitesere
 
@@ -19,8 +20,18 @@ Forras:
 - `src/templates/AccommodationPage.astro`
 - `src/lib/accommodation-page-adapters.ts`
 - `project-docs/gallery-order-tool/*.html`
+- `src/admin-disabled/data/images/accommodation-images.seo-test.json`
 
-Nem letezik: `src/data/images/accommodation-images.seo-test.json`.
+Nem live registry forras: `src/data/images/accommodation-images.seo-test.json`.
+
+## 2026-06-03 aktualis audit
+
+- A live registry technikailag minden accommodation gallery kephez tartalmaz HU/EN/DE/CS `alt`, `title`, `caption` mezot.
+- A nyelvi aloldalak build szinten rendben vannak: HU, EN, DE es CS accommodation oldalak hibamentesen epulnek.
+- A cseh oldalakon van fallback generator, ha egy kephez nincs `cs` mezo; ez mukodesi vedohalo, de SEO-minosegben gyengebb lehet, mint a kepenkenti cseh szoveg.
+- A nemet es cseh kepmezok tovabbra is vizualis/nyelvi review-t igenyelnek a legerosebb SEO minoseghez, foleg hero, card es elso 4-6 gallery kep eseteben.
+- A korabbi `approved:false` draftok nem valnak automatikusan final SEO adattá.
+- A `public/images/panorama-pool/05-21/` nyers JPEG csomag `.gitignore` alatt van; publikus deployba nem kerulhet, es csak forrasanyagkent kezelheto.
 
 ## Jelolesek
 
