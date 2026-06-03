@@ -60,10 +60,14 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ### P1-3 - Astro-only kepkezeles befejezese
 
-- Statusz: nyitott
+- Statusz: reszben teljesult, nyitott
 - Forras: `12-astro-only-kepkezelesi-javitasi-terv.md`, `10-astro-image-migracios-terv.md`
 - Mi a gond: van mar `astro:assets`, de a dokumentumok szerint az accommodation hero/card/gallery/homepage kepvezetek es a regi fallbackek teljes lezárasa meg ellenorizendo.
-- Kovetkezo konkret lepes: repo audit a kepforrasokra, majd a megmaradt WordPress/public fallbackek kivaltasa Astro-local asset registryvel.
+- 2026-06-03 ellenorzes: a live accommodation galeriak nagy resze mar `src/assets/accommodations/...` alatti lokalis WebP assetre epul, `astro:assets`-en keresztul. A galeria/thumbnail bejegyzesek buildidoben `requireAccommodationLocalAsset...` ellenorzest kapnak.
+- 2026-06-03 ellenorzes: D2 eseteben hero desktop, hero mobile es card asset is Astro-local registryben van.
+- 2026-06-03 ellenorzes: D2-n kivul 8 szallasnal a registryben meg `hero.desktop: null`, `hero.mobile: null`, `card: null`; 9 szallasnal `thumbnail: null`.
+- 2026-06-03 ellenorzes: a live `src/` retegen kivul az `src/admin-disabled` es a kepfeldolgozo scriptek meg tartalmaznak WordPress / `/images/accommodations/...` / `source-images` eredetu legacy workflow-t.
+- Kovetkezo konkret lepes: nem-D2 hero/card/thumbnail assetek Astro-local registrybe emelese, majd a script/admin legacy utvonalak kulon dontese vagy archiválasa.
 
 ### P1-4 - WP media maradek hivatkozasok auditja
 
