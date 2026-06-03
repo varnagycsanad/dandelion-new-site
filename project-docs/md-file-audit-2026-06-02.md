@@ -11,7 +11,7 @@ Az audit celja annak ellenorzese volt, hogy a sokasodo Markdown dokumentacio egy
 
 Ellenorzott teruletek:
 
-- Markdown dokumentumok: 65 db osszesen, ebbol 60 db a `project-docs/` alatt.
+- Markdown dokumentumok: 66 db osszesen, ebbol 61 db a `project-docs/` alatt.
 - Honlap forras: `src/`, `public/`, `scripts/`, WordPress plugin mappak.
 - Telepitett programok/csomagok: `package.json`, `package-lock.json`, lokalis Node/npm, npm registry.
 - Build: `npm run build`.
@@ -175,9 +175,10 @@ Rovid statuszmegjegyzes kerult a kovetkezo fajlok elejere:
 ## 2026-06-03 frissites
 
 - Letrejott a kozponti dokumentacios belepesi pont: `project-docs/INDEX.md`.
+- Letrejott az elo feladatlista: `project-docs/ACTIVE_BACKLOG.md`.
 - Letrejott az archiválási dontesi lista: `project-docs/archive-decision-list-2026-06-03.md`.
 - Minden MD fajl kapott egységes `Status`, `Last checked`, `Use for`, `Do not use for` blokkot.
-- Aktualis MD darabszam: 65.
+- Aktualis MD darabszam: 66.
 - Statusz nelkuli MD fajl: 0.
 - Elso archiválási pilot lefutott 4 image-workflow fajllal:
   - `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.md`

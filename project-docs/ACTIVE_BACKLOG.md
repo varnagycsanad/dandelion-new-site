@@ -1,0 +1,128 @@
+# Active Backlog
+
+Status: AKTUALIS
+Last checked: 2026-06-03
+Use for: elo feladatlista, nyitott dokumentacios teendok, kovetkezo munka priorizalasa
+Do not use for: torteneti auditok teljes hianylistajanak automatikus vegrehajtasara
+
+## Cel
+
+Ez a fajl az egyetlen kozponti hely, ahol a Markdown dokumentumokbol osszegyujtott, meg nyitott feladatokat kovetni kell.
+
+A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha egy teendo nincs ebben a backlogban, akkor nem tekintendő automatikusan nyitott munkanak; eloszor ujra kell ellenorizni a repo jelenlegi allapotaval.
+
+## Hasznalati szabaly
+
+1. Uj munka inditasakor ezt a fajlt kell nezni az elso korben.
+2. A forrasdokumentumok csak hatteranyagok.
+3. Megvalositas elott mindig kell gyors repo/build ellenorzes, mert tobb regi audit reszben mar teljesult.
+4. Teljesult vagy elavult tetelt innen kell torolni vagy `Lezarva` megjegyzessel atvezetni egy kovetkezo auditba.
+
+## P0 - dontes vagy kulso input kell
+
+### P0-1 - Foglalasi linkek es Koveskal CTA dontes
+
+- Statusz: blokkolt
+- Forras: `GOOGLE_AI_READINESS_BOOKING_LINKS.md`, `GOOGLE_AI_READINESS_EXECUTION_PLAN.md`
+- Mi a gond: Koveskal szallasnal nincs egyertelmu SabeeApp foglalasi link, es a nem-Koveskal szallasok HU/EN szobaszintu SabeeApp URL-jeit ujra jovahagyas nelkul nem szabad tovabbvinni.
+- Kovetkezo konkret lepes: tulajdonosi dontes kell arrol, hogy Koveskalnal erdeklodesi CTA, altalanos foglalasi CTA vagy mas foglalasi utvonal legyen.
+
+### P0-2 - Master accommodation table / tulajdonosi adatforras
+
+- Statusz: blokkolt
+- Forras: `GOOGLE_AI_READINESS_OWNER_INPUT.md`, `GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`, `GOOGLE_AI_READINESS.md`
+- Mi a gond: tobb schema, overviewFacts, pozicionalasi es AI readiness elem csak akkor pontos, ha van jovahagyott master adatforras.
+- Kovetkezo konkret lepes: ossze kell allitani vagy megerositeni a master accommodation tablet: cim, geo, kapacitas, haloszobak, strand tavolsag/nevek, amenity adatok.
+
+### P0-3 - Google Business Profile es Google booking tisztazas
+
+- Statusz: blokkolt
+- Forras: `GOOGLE_AI_READINESS_EXECUTION_PLAN.md`, `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`
+- Mi a gond: GBP audit, Google Free Booking / Vacation Rental es nehany strukturalt adat dontes csak GBP hozzaferessel vagy hivatalos profillinkekkel tisztazhato.
+- Kovetkezo konkret lepes: GBP hozzaferes vagy export, jelenlegi profil URL-ek, SabeeApp Google booking tamogatas tisztazasa.
+
+## P1 - megvalositas elott ellenorizendo
+
+### P1-1 - Astro frissites
+
+- Statusz: nyitott
+- Forras: `md-file-audit-2026-06-02.md`
+- Mi a gond: `astro` telepitett verzio `6.1.5`, az auditkor elerheto npm verzio `6.4.3` volt.
+- Kovetkezo konkret lepes: kulon technikai taskban `astro` frissites, `npm install`, `npm run build`, majd vizualis ellenorzes.
+
+### P1-2 - Szallasok oldal regio-struktura
+
+- Statusz: ellenorizendo
+- Forras: `11-szallasok-oldal-audit-es-megvalositasi-terv.md`
+- Mi a gond: a regi terv szerint regio blokkok, regio anchorok, region chooser es CTA iranyitas lehet meg nyitott vagy reszben kesz.
+- Kovetkezo konkret lepes: ellenorizni a jelenlegi `/szallasok` oldalt, az `accommodationSections` adatokat es a mobil nezetet; csak a hianyzo elemeket implementalni.
+
+### P1-3 - Astro-only kepkezeles befejezese
+
+- Statusz: nyitott
+- Forras: `12-astro-only-kepkezelesi-javitasi-terv.md`, `10-astro-image-migracios-terv.md`
+- Mi a gond: van mar `astro:assets`, de a dokumentumok szerint az accommodation hero/card/gallery/homepage kepvezetek es a regi fallbackek teljes lezárasa meg ellenorizendo.
+- Kovetkezo konkret lepes: repo audit a kepforrasokra, majd a megmaradt WordPress/public fallbackek kivaltasa Astro-local asset registryvel.
+
+### P1-4 - WP media maradek hivatkozasok auditja
+
+- Statusz: ellenorizendo
+- Forras: `wp-uploads-replacement-audit.md`, `server-wp-audit-latest.md`
+- Mi a gond: regi auditok meg `wp-content/uploads` es WordPress eredetu media hivatkozasokat emlegetnek.
+- Kovetkezo konkret lepes: `src/`, `public/`, `scripts/` alatt friss keresest futtatni; csak a live pipeline-ban maradt hivatkozasokat javitani.
+
+### P1-5 - Image admin jovobeli szerepe
+
+- Statusz: nyitott
+- Forras: `12-astro-only-kepkezelesi-javitasi-terv.md`, `archive/image-admin-v2-audit-2026-04-30.md`
+- Mi a gond: az admin-disabled es regi image admin jegyzetek nem napi forrasok, de el kell donteni, lesz-e Astro asset registry manager.
+- Kovetkezo konkret lepes: donteni kell, hogy kell-e uj admin es ha igen, csak a jelenlegi Astro-local asset modellre epuljon.
+
+## P2 - minoseg, tartalom, paritas
+
+### P2-1 - Google AI schema kovetkezo kore
+
+- Statusz: nyitott, P0 adatoktol fugg
+- Forras: `GOOGLE_AI_READINESS_SCHEMA_PLAN.md`, `GOOGLE_AI_READINESS_SCHEMA_AUDIT.md`
+- Mi a gond: minimal ReserveAction mar reszben kesz, de address/geo/amenity es richer structured data csak jovahagyott adatokkal biztonsagos.
+- Kovetkezo konkret lepes: P0 master adatok utan schema bovites, Rich Results Test, URL Inspection es sitemap/GSC monitorozas.
+
+### P2-2 - Google AI kep SEO forrasdontes
+
+- Statusz: nyitott
+- Forras: `GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`, `GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md`, `GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md`
+- Mi a gond: a regi SEO test export, gallery-order export es live registry kozotti forrasdontes nelkul nem szabad tomeges alt/title/caption atirast csinalni.
+- Kovetkezo konkret lepes: kivalasztani a hiteles kepadat-forrast, majd csak ezutan registry alt/title/caption frissites.
+
+### P2-3 - Forditasi oldalparitas
+
+- Statusz: ellenorizendo
+- Forras: `translation-page-parity-audit-2026-05-25.md`, `DANDELION_TRANSLATION_RULES.md`
+- Mi a gond: a cseh legal/pool hianyok mar nem aktiv blokkolok, de az EN/DE/CS home oldalak es accommodation profilok lehetnek tartalmilag konnyebbek a HU verzional.
+- Kovetkezo konkret lepes: oldalankenti paritas audit friss repoallapotbol, majd csak a valodi tartalmi hianyok javitasa.
+
+### P2-4 - Magyar canonical alias / sitemap politika
+
+- Statusz: ellenorizendo
+- Forras: `translation-page-parity-audit-2026-05-25.md`, `current-sitemap-audit-2026-05-24.md`
+- Mi a gond: a magyar canonical aliasok, sitemap es noindex politika regi auditokban felmerult, de a mai builddel ujra kell merni.
+- Kovetkezo konkret lepes: sitemap, canonical, hreflang es noindex ellenorzes a friss build outputbol.
+
+### P2-5 - Nemet stilisztikai / jogi native review
+
+- Statusz: parkolt
+- Forras: `13-nemet-lokalizacios-megvalositasi-terv.md`
+- Mi a gond: nem technikai blokkolo, de kulso nemet anyanyelvi/jogi visszajelzes eseten lehet utomunka.
+- Kovetkezo konkret lepes: csak akkor nyitni, ha erkezik konkret feedback.
+
+## Nem aktiv automatikusan
+
+Az alabbi dokumentumtipusokban levo teendoket nem szabad egy az egyben vegrehajtani:
+
+- regi batch review es draft fajlok
+- archivalt image-alt es D2 munkalapok
+- `generated/` processing plan exportok
+- cseh kiindulo lokalizacios audit elso hianylistaja
+- olyan image workflow terv, amely meg `sharp` hianyrol vagy nem letezo `images:plan` scriptrol beszel
+
+Ezekbol csak akkor lesz uj feladat, ha friss repoellenorzes utan bekerulnek ebbe a backlogba.

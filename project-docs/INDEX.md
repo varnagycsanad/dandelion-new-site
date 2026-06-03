@@ -14,12 +14,12 @@ A projektben sok Markdown dokumentum van, de nem mindegyik aktualis szabaly vagy
 
 2026-06-03-i ellenorzes szerint minden Markdown fajl kapott egységes statuszblokkot:
 
-- Osszes MD fajl: 65
+- Osszes MD fajl: 66
 - Statusz nelkuli MD fajl: 0
 
 Statusz szerinti bontas:
 
-- `AKTUALIS`: 9
+- `AKTUALIS`: 10
 - `RESZBEN AKTUALIS`: 20
 - `RESZBEN TELJESULT`: 9
 - `TORTENETI`: 24
@@ -49,13 +49,16 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 4. `project-docs/INDEX.md`
    - dokumentacios navigacio es aktualis prioritas
 
-5. `project-docs/md-file-audit-2026-06-02.md`
+5. `project-docs/ACTIVE_BACKLOG.md`
+   - egyetlen elo feladatlista; a regi auditok feladatai csak akkor aktivak, ha itt is szerepelnek
+
+6. `project-docs/md-file-audit-2026-06-02.md`
    - legfrissebb MD audit, elavult doksik es frissitendo pontok
 
-6. `project-docs/DANDELION_TRANSLATION_RULES.md`
+7. `project-docs/DANDELION_TRANSLATION_RULES.md`
    - forditasi, lokalizacios es nyelvi szabalyok
 
-7. `project-docs/12-astro-only-kepkezelesi-javitasi-terv.md`
+8. `project-docs/12-astro-only-kepkezelesi-javitasi-terv.md`
    - kepkezeles celarchitektura, de csak a 2026-06-02-es statuszfrissitessel egyutt olvasva
 
 ## Aktualis auditok es allapotfajlok
@@ -63,6 +66,7 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 Ezek friss vagy meg hasznalhato allapotjelentesek, de mindig ellenorizni kell a datumot:
 
 - `project-docs/md-file-audit-2026-06-02.md`
+- `project-docs/ACTIVE_BACKLOG.md`
 - `project-docs/archive-decision-list-2026-06-03.md`
 - `project-docs/server-wp-audit-latest.md`
 - `project-docs/wp-uploads-replacement-audit.md`
@@ -178,11 +182,13 @@ Ha ket dokumentum ellentmond:
 
 ebben a sorrendben kell donteni.
 
-## Javasolt kovetkezo rendrakasi lepes
+## Javasolt kovetkezo lepes
 
-Az elso rendrakasi kor kesz: minden MD fajl statuszolt, es van kozponti index.
+Az elso rendrakasi kor kesz: minden MD fajl statuszolt, van kozponti index, es letrejott az elo feladatlista.
 
-Kovetkezo biztonsagos lepes: az `archive-decision-list-2026-06-03.md` alapjan a kovetkezo kicsi, 4-6 fajlos archiválási pilot kijelolese.
+Kovetkezo biztonsagos lepes: a `project-docs/ACTIVE_BACKLOG.md` alapjan egyetlen P0 vagy P1 feladat kivalasztasa, majd annak friss repoellenorzessel es szuk keresztmetszetu implementacioval torteno lezárasa.
+
+Archiválást csak akkor erdemes folytatni, ha mar nem zavarja az elo feladatok koveteset.
 
 - fajlmozgatás elott hivatkozaskereses kell
 - csak alacsony kockazatu export / torteneti image workflow fajlokkal szabad kezdeni
