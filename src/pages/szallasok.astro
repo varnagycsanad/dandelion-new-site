@@ -10,6 +10,7 @@ const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=397
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const contactHref = `${baseHref}kapcsolat/`;
 const accommodationsHeroVideo = "/videos/szallasok/202507%20V1.mp4?v=20260603-lite";
+const accommodationsHeroMobileVideo = "/videos/szallasok/202507%20V1-mobile.mp4?v=20260603-mobile-crop";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
 const accommodationsOgImageAlt = "Dandelion Vendégházak szállásválasztó oldal a Balaton-felvidéken";
 
@@ -88,7 +89,6 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-hero">
     <video
       class="dnd-accommodations-hero__video"
-      src={accommodationsHeroVideo}
       autoplay
       muted
       loop
@@ -99,6 +99,8 @@ const accommodationsStructuredData = {
       disableremoteplayback
       aria-hidden="true"
     >
+      <source src={accommodationsHeroMobileVideo} media="(max-width: 640px)" type="video/mp4" />
+      <source src={accommodationsHeroVideo} type="video/mp4" />
       A böngésződ nem támogatja a háttérvideó lejátszását.
     </video>
     <div class="dnd-accommodations-hero__content">

@@ -22,6 +22,7 @@ const description =
   "Discover peaceful countryside guesthouses and apartments near Szent György Hill, Badacsony, Kisapáti, Keszthely and the Balaton Uplands.";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
 const accommodationsHeroVideo = "/videos/szallasok/202507%20V1.mp4?v=20260603-lite";
+const accommodationsHeroMobileVideo = "/videos/szallasok/202507%20V1-mobile.mp4?v=20260603-mobile-crop";
 const accommodationsOgImageAlt =
   "Dandelion guesthouse selection page for countryside stays in the Balaton Uplands";
 
@@ -231,7 +232,6 @@ const accommodationsStructuredData = {
   <section class="dnd-accommodations-hero">
     <video
       class="dnd-accommodations-hero__video"
-      src={accommodationsHeroVideo}
       autoplay
       muted
       loop
@@ -242,6 +242,8 @@ const accommodationsStructuredData = {
       disableremoteplayback
       aria-hidden="true"
     >
+      <source src={accommodationsHeroMobileVideo} media="(max-width: 640px)" type="video/mp4" />
+      <source src={accommodationsHeroVideo} type="video/mp4" />
       Your browser does not support background video playback.
     </video>
     <div class="dnd-accommodations-hero__content">
