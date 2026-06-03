@@ -2,6 +2,12 @@
 
 # D2 runtime image-admin bridge – állapotjegyzet
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: D2 runtime image-admin bridge torteneti kontextus
+Do not use for: publikus frontendbe visszahozando runtime/admin logika igazolasara
+
+
 ## 1. Mi maradt bent?
 
 A D2 oldalon bent maradt a runtime `apartment-image-config/d2` olvasási ág:

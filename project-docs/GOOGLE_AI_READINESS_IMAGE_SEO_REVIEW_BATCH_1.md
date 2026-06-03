@@ -2,6 +2,12 @@
 
 # Google AI Readiness kep SEO review - Batch 1
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: kep SEO batch review munkalap
+Do not use for: vegleges jovahagyott SEO adatkent
+
+
 Cel: jovahagyhato munkalap az elso kep SEO implementacios csomaghoz. Ez a dokumentum nem final SEO adat, nem image registry modositas, es nem allit be `approved:true` erteket.
 
 Forrasok:

@@ -4,6 +4,12 @@
 
 # Google AI Readiness tulajdonosi adatbekero
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: tulajdonosi input es adathiany kontextus
+Do not use for: friss tulajdonosi jovahagyas helyettesitesere
+
+
 Cel: ez a dokumentum a tulajdonos altal megadott es meg hatralevo szallasadatokat koveti.
 
 Jeloles:

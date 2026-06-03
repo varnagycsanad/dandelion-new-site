@@ -1,5 +1,11 @@
 # GA4 adatok behuzasa Codexbe
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: GA4 riport script hasznalata es analytics workflow
+Do not use for: aktualis GA4 credential/property allapot bizonyitasara
+
+
 Cel: a Google Analytics 4 adatok helyi scriptbol legyenek lekerdezhetok, hogy Codex ugyanebben a munkaterben tudja elemezni oket.
 
 ## Beallitas service accounttal

@@ -4,6 +4,12 @@
 
 # Google AI Readiness property data gaps
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: szallasadat hianylista kontextus
+Do not use for: friss tulajdonosi adatellenorzes helyettesitesere
+
+
 Cel: emberileg kitoltheto hianylista a szallasoldalak Google AI Readiness adataihoz.
 
 Forras: jelenlegi repo es tulajdonos altal megadott megerositett adatok. Codex nem talalhat ki szallasadatot.

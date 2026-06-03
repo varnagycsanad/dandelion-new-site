@@ -1,5 +1,11 @@
 # 05 – SEO STRUKTÚRA
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: eredeti SEO struktura es oldaltipus-gondolkodas
+Do not use for: aktualis sitemap/schema/hreflang allapot forrasakent
+
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

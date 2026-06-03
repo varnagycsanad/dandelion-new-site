@@ -3,6 +3,12 @@
 
 # Google AI Readiness recommendation copy
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: ajanlasi copy draft/review kontextus
+Do not use for: vegleges publikus copy forrasakent
+
+
 Cél: jóváhagyási munkalap a szállásonkénti `kinek ajánljuk / kinek nem ideális` blokkokhoz.
 
 Státusz: ÚJRAFINOMÍTVA / TULAJDONOSI VÉGSŐ JÓVÁHAGYÁSRA VÁR

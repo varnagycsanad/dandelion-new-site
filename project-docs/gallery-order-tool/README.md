@@ -1,5 +1,11 @@
 # Dandelion galéria rendező
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: gallery order tool hasznalata es export workflow
+Do not use for: aktualis image registry allapot ellenorzese nelkul
+
+
 Helyi segédeszköz a szállásoldali galériák sorrendjének rendezéséhez.
 
 ## Mit használ?

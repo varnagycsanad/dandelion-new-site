@@ -1,5 +1,11 @@
 # QR-os vendegutmutato rendszer
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: QR guide rendszer dokumentacios kontextus
+Do not use for: aktualis guide route/build ellenorzes nelkul
+
+
 ## Projektalap
 
 A QR-os vendegutmutato rendszer celja QR-koddal megnyithato, mobil-first vendegutmutatok letrehozasa.

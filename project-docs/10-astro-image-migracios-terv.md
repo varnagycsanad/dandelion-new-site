@@ -1,5 +1,12 @@
 # Astro Image Migracios Terv
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: kepmigracio hattere, hatralevo image optimalizalasi iranyok
+Do not use for: jelenlegi `astro:assets` hasznalat vagy telepitett csomagallapot megallapitasara
+
+Statuszfrissites 2026-06-02: ez a terv reszben megvalosult. A publikus oldalak es template-ek mar hasznalnak `astro:assets` importot, a repo-ban van `src/assets/accommodations/...` es `src/assets/home/...`, es a 2026-06-02-i build 119 optimalizalt kepassetet generalt. A dokumentum tovabbra is hasznos migracios hatter, de a "nincs tenyleges `astro:assets` hasznalat" allitas mar nem aktualis.
+
 ## Cel
 
 A jelenlegi, jellemzoen string alapu `<img>` hasznalatot fokozatosan at kell vezetni Astro `Image` vagy ahol indokolt `Picture` komponensre. A cel nem pusztan a szintaktikai csere, hanem a valodi kepoptimalizalas:

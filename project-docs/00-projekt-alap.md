@@ -1,5 +1,10 @@
 # 00 - PROJEKT ALAP
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: projektindulasi celok es eredeti informacios architektura kontextusa
+Do not use for: jelenlegi repoallapot, oldalszam vagy mappastruktura pontos leirasara
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

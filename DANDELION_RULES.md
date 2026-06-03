@@ -4,6 +4,11 @@
 
 # DANDELION – DESIGN & STRUCTURE RULES
 
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: design, layout, tipografia, strukturak, publikus frontend es kepkezeles szabalyai
+Do not use for: Codex execution, git vagy deploy folyamatok
+
 Ez a fájl a Dandelion új Astro-alapú honlapjának normatív design-, struktúra-, képkezelési és lakásoldali szabályfájlja.
 
 Elsődleges végrehajtási szabályok: `AGENT.md`.

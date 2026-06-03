@@ -1,6 +1,13 @@
 # Cseh lokalizacios audit es menetterv
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: cseh rollout torteneti kockazatai es munkameneti tanulsagai
+Do not use for: jelenlegi cseh oldalstruktura vagy sitemap keszultseg megallapitasara
+
 Datum: 2026-05-25
+
+Statuszfrissites 2026-06-02: ez a dokumentum torteneti kiindulo audit. A jelenlegi repo-ban mar letezik `src/pages/cs/`, leteznek `src/data/accommodation-pages/*.cs.ts` fajlok, a cseh jogi oldalak es a `/cs/panorama-pool/` oldal is buildelnek, a `src/data/site-seo.ts` pedig tartalmaz cseh route-parokat es sitemap elemeket. A 2026-06-02-i `npm run build` sikeres volt, 93 Astro oldalt epitett.
 
 ## Cel
 

@@ -3,6 +3,12 @@
 
 # D2 kép SEO + fókuszpont review
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: D2 image SEO review munkalap
+Do not use for: vegleges SEO mezok vagy aktualis registry forrasakent
+
+
 Ez a dokumentum nem frontend adatforrás.
 Ez nem végleges SEO registry.
 Célja a D2 source képek emberi review-ja.

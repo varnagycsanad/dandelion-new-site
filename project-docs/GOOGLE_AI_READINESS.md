@@ -26,6 +26,11 @@
 
 # Google AI Readiness terv
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: Google AI Readiness projektkovetes, schema/booking/image SEO munkacsomagok kontextusa
+Do not use for: jelenlegi teljes repoallapot vagy image pipeline keszultseg ellenorzese friss audit nelkul
+
 Cel: a Dandelion szallasoldalak legyenek konzisztensen ertelmezhetok Google AI Overviews / AI Mode, organikus kereses, kepkereses es foglalasi dontest tamogato talalatok szamara.
 
 Ez az elo statuszfajl. A reszletes vegrehajtasi terv kulon dokumentum:

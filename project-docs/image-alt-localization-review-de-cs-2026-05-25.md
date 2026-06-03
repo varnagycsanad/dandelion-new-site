@@ -1,5 +1,11 @@
 # DE/CS kep ALT lokalizacios review munkalap
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: DE/CS image alt lokalizacios review kontextus
+Do not use for: aktualis registry allapot ellenorzese nelkul
+
+
 Datum: 2026-05-25
 
 Ez a munkalap nem final SEO adat es nem image registry modositas. A DE/CS mezoket csak vizualis ellenorzes es jovahagyas utan szabad final registrybe vinni.

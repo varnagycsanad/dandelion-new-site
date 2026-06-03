@@ -1,5 +1,11 @@
 # Nemet lokalizacios megvalositasi terv
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: nemet lokalizacio torteneti menetterve es ellenorzesi pontjai
+Do not use for: jelenlegi nemet keszultseg megallapitasara friss build/repo audit nelkul
+
+
 ## Cel
 
 A magyar honlap nemet nyelvu valtozatanak biztonsagos, lepesenkenti bevezetese ugy, hogy csak a mar ellenorzott nemet oldalak legyenek indexelhetok, a hianyzo tartalmak pedig ne vezessenek torott vagy felkesz allapothoz.

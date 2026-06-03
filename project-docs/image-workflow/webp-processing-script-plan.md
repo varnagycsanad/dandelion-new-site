@@ -1,5 +1,13 @@
 [CHANGE 2026-04-26 00:00] WebP feldolgozó script technikai terv létrehozása Sharp bevezetés előtt.
 
+
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: WebP feldolgozo script torteneti terv es sharp bevezetes kontextus
+Do not use for: aktualis scriptlista forrasakent package.json ellenorzes nelkul
+
+[CHANGE 2026-06-02 00:00] Statuszfrissites: ez a dokumentum torteneti terv. A `sharp` mar telepitve van (`0.34.5`), a `package.json` mar tartalmazza az `astro`, `sharp` es `lighthouse` csomagokat, es az aktualis image scriptek: `images:dry-run`, `images:intake`, `images:select`, `images:process`, `images:publish`. A korabbi `images:plan` parancs nem letezik a jelenlegi `package.json`-ban.
+
 # WebP feldolgozó script terv
 
 ## 1. Jelenlegi állapot

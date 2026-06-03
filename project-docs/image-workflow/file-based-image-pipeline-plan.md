@@ -1,5 +1,11 @@
 # Fajlalapu Dandelion kep-workflow terv
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: file-based image pipeline terv kontextus
+Do not use for: aktualis keszultseg megallapitasara friss audit nelkul
+
+
 Ebben a workflowban a forraskep mappa lesz a kezelt JPG kepek bemeneti helye.
 
 ## Hova kell bemasolni a JPG kepeket

@@ -3,6 +3,12 @@
 
 # Google AI Readiness booking link terkep
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: Google AI Readiness booking link audit kontextus
+Do not use for: aktualis booking URL dontes bizonyitasara friss ellenorzes nelkul
+
+
 Cel: latszodjon, melyik szallasnal milyen foglalasi link van, es hol van crawler / CTA kockazat.
 
 Forras: `src/data/accommodation-pages/*.ts`, `src/templates/AccommodationPage.astro`, `src/layouts/BaseLayout.astro`, HU/EN wrapper oldalak.

@@ -2,6 +2,12 @@
 
 # D2 galéria selection review
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: D2 gallery selection review munkalap
+Do not use for: aktualis D2 gallery sorrend vagy registry forrasakent
+
+
 Ez belső döntési dokumentum.
 Nem frontend adatforrás.
 Nem töröl képet.

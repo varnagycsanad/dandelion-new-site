@@ -1,5 +1,11 @@
 # 02 – OLDALTÍPUSOK ÉS BLOKK-MÁTRIX
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: eredeti oldaltipus- es blokklogika kontextus
+Do not use for: aktualis komponens/blokk inventory helyettesitesere
+
+
 # Státusz: VÉGLEGES
 
 # Utolsó módosítás: 2026-04-12

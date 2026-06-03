@@ -1,5 +1,11 @@
 # Typography Size Audit - 2026-05-18
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: tipografia es mobil meret audit kontextus
+Do not use for: vegso tipografia source-of-truthkent DANDELION_RULES.md nelkul
+
+
 ## Cel
 
 A honlap betumeret-hasznalatanak attekintese, kulon figyelemmel a mobil nezeti olvashatosagra es a kesobbi egysegesites szabalyaira.

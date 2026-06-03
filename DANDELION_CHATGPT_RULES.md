@@ -4,6 +4,11 @@
 
 # DANDELION – CHATGPT / CODEX RULES
 
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: ChatGPT/Codex munkamod, taskiras, AI SEO draft es kontroll szerepek
+Do not use for: konkret frontend design vagy build/deploy technikai parancsok
+
 Ez a fájl a ChatGPT-oldali munkamódot, Codex-task írási szabályokat és AI/SEO draft értelmezést rögzíti.
 
 Normatív társ fájlok:

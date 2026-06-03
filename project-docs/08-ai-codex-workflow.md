@@ -1,5 +1,11 @@
 # 08 – AI / CODEX WORKFLOW
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: korai AI/Codex workflow kontextus
+Do not use for: aktualis Codex execution szabalyok helyett; lasd AGENT.md
+
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

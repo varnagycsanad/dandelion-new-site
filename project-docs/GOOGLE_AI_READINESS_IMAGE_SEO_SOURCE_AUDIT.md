@@ -2,6 +2,12 @@
 
 # Google AI Readiness kep SEO forrasaudit
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: kep SEO forrasaudit kontextus
+Do not use for: aktualis kepforras allapot friss ellenorzes nelkul
+
+
 Cel: beazonositani a mar letezo kep SEO anyagokat, mielott uj review, vizualis review vagy image registry modositas tortenne.
 
 Ez a dokumentum nem image registry, nem final SEO forras, es nem ir uj alt/title/caption szoveget.
@@ -26,8 +32,8 @@ Ez a dokumentum nem image registry, nem final SEO forras, es nem ir uj alt/title
 | `project-docs/image-workflow/d2-gallery-selection-review.md` | korabbi D2 gallery valogatas | D2 aktiv/rejtett gallery dontesi javaslat | Nem SEO final, inkabb valogatas | Igen: D2 gallery sorrend es elrejtendo kepek | HASZNALHATO D2 sorrendhez |
 | `project-docs/image-workflow/d2-image-contact-sheet.html` | D2 vizualis contact sheet | D2 source kepek vizualis ellenorzese | Nem megbizhato final SEO forras | Igen | HASZNALHATO vizualis ellenorzeshez |
 | `project-docs/image-workflow/d2-processed-webp-contact-sheet.html` | D2 feldolgozott WebP contact sheet | D2 processed kepkimenetek vizualis ellenorzese | Nem megbizhato final SEO forras | Igen | HASZNALHATO vizualis ellenorzeshez |
-| `project-docs/image-workflow/generated/d2-processing-plan-selected.*` | D2 processing terv | Kivalasztott D2 kepek target path / output terv | Nem | Igen, D2 processing sorrendhez | HASZNALHATO technikai D2 forrasnak |
-| `project-docs/image-workflow/generated/d2-processing-plan-all.*` | D2 processing terv | Osszes D2 source kep feldolgozasi terve | Nem | Igen, D2 processing sorrendhez | HASZNALHATO technikai D2 forrasnak |
+| `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.*` | D2 processing terv | Kivalasztott D2 kepek target path / output terv | Nem | Igen, D2 processing sorrendhez | HASZNALHATO technikai D2 forrasnak |
+| `project-docs/archive/image-workflow/generated/d2-processing-plan-all.*` | D2 processing terv | Osszes D2 source kep feldolgozasi terve | Nem | Igen, D2 processing sorrendhez | HASZNALHATO technikai D2 forrasnak |
 | `project-docs/image-workflow/webp-processing-script-plan.md` | pipeline terv | Feldolgozasi es jovahagyasi szabalyok | Nem | Nem | HASZNALHATO szabalyforrasnak |
 | `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` | uj Google AI audit | Szallasonkenti hianyok es prioritasi sorrend | Nem teljes javaslat; csak gap/prioritas | Nem | HASZNALHATO auditnak, nem final SEO forrasnak |
 | `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md` | uj Google AI review / draft munkalap | Elso kor: Royal Homes, Szepvolgyi, Szololiget, Koveskal, D1, Vintage hero-jelolt + elso 6 gallery | Igen, de a meglevo `seoDraft` reszhalmaza; nem final | Reszben: review sorrend, nem teljes gallery export | CSAK REVIEW, nem final implementacios forras |
@@ -93,8 +99,8 @@ Ezek a Google AI Readiness munkafolyamat reszei. A Batch 1 review kulonosen font
 - `project-docs/image-workflow/d2-gallery-selection-review.md`
 - `project-docs/image-workflow/d2-image-contact-sheet.html`
 - `project-docs/image-workflow/d2-processed-webp-contact-sheet.html`
-- `project-docs/image-workflow/generated/d2-processing-plan-selected.*`
-- `project-docs/image-workflow/generated/d2-processing-plan-all.*`
+- `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.*`
+- `project-docs/archive/image-workflow/generated/d2-processing-plan-all.*`
 
 ## Osszevetes a Batch 1 review-val
 

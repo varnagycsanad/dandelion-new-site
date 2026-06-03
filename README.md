@@ -2,6 +2,11 @@
 
 # Dandelion új honlap
 
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: projektinditas, workspace, alap parancsok, deploy es source-of-truth gyors attekintes
+Do not use for: reszletes design, lokalizacios vagy kepworkflow dontesek
+
 Ez a repo a Dandelion Vendégházak új, Astro-alapú weboldalának forrása.
 
 ## Projekt célja

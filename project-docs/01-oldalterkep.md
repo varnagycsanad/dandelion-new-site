@@ -1,5 +1,11 @@
 # 01 – OLDALTÉRKÉP
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: eredeti oldalterkep es IA kontextus
+Do not use for: jelenlegi oldallista vagy sitemap allapot pontos forrasakent
+
+
 ## Cél
 
 A Dandelion új honlapjának végleges, AI-barát oldalszerkezetének rögzítése.

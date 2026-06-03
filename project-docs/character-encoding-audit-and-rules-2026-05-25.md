@@ -1,5 +1,11 @@
 # Character Encoding Audit and Multilingual Rules
 
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: encoding, UTF-8 es nyelvi karakterhasznalat audit/rules kontextus
+Do not use for: publikus szoveg konkret tartalmi QA-ja helyett
+
+
 Date: 2026-05-25
 
 Scope: project Markdown rules and public localization text for Hungarian, German, English, Czech, and future Slovak and Polish versions.

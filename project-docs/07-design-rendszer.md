@@ -1,5 +1,10 @@
 # 07 – DESIGN RENDSZER
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: designrendszer torteneti alapjai es UI iranyelvek
+Do not use for: tipografia vegso source-of-truth ellenorzese `DANDELION_RULES.md` nelkul
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-05-18
 

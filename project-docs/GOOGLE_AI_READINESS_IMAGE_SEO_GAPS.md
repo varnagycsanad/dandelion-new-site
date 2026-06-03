@@ -3,6 +3,12 @@
 
 # Google AI Readiness kep SEO hianylista
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: kep SEO hianyok Google AI Readiness kontextusban
+Do not use for: aktualis image registry QA helyettesitesere
+
+
 Cel: pontos, szallasonkenti javitasi terv a generikus vagy gyenge `alt` / `title` / `caption` mezokhoz, implementacio es image registry modositas nelkul.
 
 Forras:

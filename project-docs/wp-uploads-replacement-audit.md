@@ -1,5 +1,11 @@
 # WordPress Uploads Replacement Audit
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: maradek wp-content/uploads replacement audit kontextus
+Do not use for: aktualis kepforras allapot friss keresese nelkul
+
+
 Datum: 2026-05-08
 
 ## Scope

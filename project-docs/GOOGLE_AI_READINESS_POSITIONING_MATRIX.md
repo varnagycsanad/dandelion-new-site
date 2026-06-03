@@ -3,6 +3,12 @@
 
 # Google AI Readiness pozicionálási mátrix
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: pozicionalasi matrix es ajanlasi irany kontextus
+Do not use for: aktualis lathato frontend allapot bizonyitasara
+
+
 Cél: rövid, kontrollált, jóváhagyható döntési mátrix a későbbi szállásoldali blokkokhoz.
 
 Státusz: TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR

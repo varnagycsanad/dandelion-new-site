@@ -2,6 +2,12 @@
 
 # DANDELION_MASTER_RULES – ARCHÍV
 
+Status: ARCHIV
+Last checked: 2026-06-02
+Use for: torteneti master-rule kontextus
+Do not use for: normativ szabalyforraskent; hasznald AGENT.md, DANDELION_RULES.md, DANDELION_CHATGPT_RULES.md
+
+
 Ez a fájl archív / történeti projektösszefoglaló.
 
 **Nem normatív szabályforrás.**

@@ -1,5 +1,11 @@
 # Kep ALT SEO forras- es lokalizacios audit
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: image alt forras es lokalizacios audit kontextus
+Do not use for: aktualis image pipeline allapot helyettesitesere
+
+
 Datum: 2026-05-25
 
 ## Cel

@@ -2,6 +2,12 @@
 
 # Google AI Readiness schema terv
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: schema bovitesi terv kontextus
+Do not use for: aktualis schema implementacio teljes allapotakent
+
+
 Cel: mezoterkep a kesobbi schema boviteshez. Ez nem implementacio.
 
 Alapelv: schema csak olyan adatot tartalmazhat, ami lathato oldaltartalomban is szerepel, es repo vagy tulajdonosi ellenorzes alapjan biztos.

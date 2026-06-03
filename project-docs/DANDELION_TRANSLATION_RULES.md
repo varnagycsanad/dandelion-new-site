@@ -1,5 +1,10 @@
 # DANDELION - TRANSLATION RULES
 
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: aktiv nyelvi, lokalizacios, encoding es forditasi szabalyok
+Do not use for: adott nyelvi rollout keszultsegi allapot onallo megallapitasara
+
 Ez a fájl a Dandelion honlap többnyelvű fordítási szabályait rögzíti.
 
 Aktív nyelvek:

@@ -1,5 +1,12 @@
 # Translation Page Parity Audit - 2026-05-25
 
+Status: RESZBEN TELJESULT
+Last checked: 2026-06-02
+Use for: forditasi paritas es tartalommelyseg review input
+Do not use for: cseh jogi oldalak vagy `/cs/panorama-pool/` hianylistajakent
+
+Status update 2026-06-02: this audit is now partly historical. The current repo builds Czech legal pages and `/cs/panorama-pool/`, and `src/data/site-seo.ts` includes Czech route pairs for those page families. The 2026-06-02 local build passed and built 93 Astro pages. Keep the remaining homepage/content-depth notes as review inputs, but do not treat the Czech legal/pool gaps below as current blockers.
+
 Scope: compare Hungarian source pages against English, German and Czech translated pages after the translation rollout. Checks covered physical Astro routes, `LOCALIZED_ROUTE_PAIRS`, sitemap coverage, footer/legal links, homepage blocks, experience pages and accommodation page data shape.
 
 Build status: `npm run build` passed. Astro built 89 pages successfully.

@@ -2,6 +2,12 @@
 
 # D2 képkezelési pilot – lezáró állapot
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: D2 image pilot zarojelentes kontextus
+Do not use for: aktualis image pipeline allapot forrasakent
+
+
 ## 1. Cél
 
 A D2 lakáson végigfutott a teljes képkezelési pilot workflow: a forrás (local/WP) képekből lokális WebP-k készültek, az adatok image registryben lettek rendezve, és a frontend fő D2 képei már registry/local alapon mennek.  
@@ -35,7 +41,7 @@ A cél ezzel egy ismételhető, kontrollált folyamat kialakítása volt a több
 - review dokumentumok:
   - `project-docs/image-workflow/d2-image-seo-review.md`
   - `project-docs/image-workflow/d2-gallery-selection-review.md`
-  - `project-docs/image-workflow/generated/d2-processing-plan-selected.md`
+  - `project-docs/archive/image-workflow/generated/d2-processing-plan-selected.md`
 
 ## 5. Feldolgozott képek
 

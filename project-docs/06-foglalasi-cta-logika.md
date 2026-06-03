@@ -1,5 +1,11 @@
 # 06 – FOGLALÁSI / CTA LOGIKA
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: foglalasi CTA alapelvek es konverzios gondolkodas
+Do not use for: aktualis SabeeApp vagy nyelvi CTA linkek bizonyitasara
+
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

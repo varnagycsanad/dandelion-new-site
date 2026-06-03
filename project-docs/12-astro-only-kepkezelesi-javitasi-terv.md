@@ -1,5 +1,12 @@
 # Astro-Only Képkezelési Javítási Terv
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: kepkezeles celarchitektura, Astro-only irany, legacy media tiltas ertelmezese
+Do not use for: jelenlegi implementacios keszultseg teljes allapotjelentesekent
+
+Statuszfrissites 2026-06-02: ez a dokumentum tovabbra is relevans celarchitektura, de a jelenlegi repo mar atmeneti/reszben megvalosult allapotban van. Letezik `src/assets` alapu kepanyag, `astro:assets` hasznalat es buildelt Astro kepoptimalizalas, mikozben az `src/admin-disabled` es regi WordPress/public-image eredetu munkalapok meg jelen vannak seged/archiv retegeben. A dokumentumot celallapotkent, nem teljesen aktualis allapotjelenteskent kell olvasni.
+
 ## Cél
 
 A jelenlegi vegyes képkezelési rendszer megszüntetése, és egyetlen egységes, modern Astro-native képfolyamat meghagyása.

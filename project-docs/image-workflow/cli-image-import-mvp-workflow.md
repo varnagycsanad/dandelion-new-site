@@ -2,6 +2,12 @@
 
 # CLI image import MVP workflow
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: CLI image import MVP workflow kontextus
+Do not use for: aktualis package/script allapot ellenorzese nelkul
+
+
 ## 1. Cél
 
 Ez az MVP arra való, hogy egy WordPress media ID-ból parancssoros úton végigvigyünk egy képet a Dandelion image workflow-n.

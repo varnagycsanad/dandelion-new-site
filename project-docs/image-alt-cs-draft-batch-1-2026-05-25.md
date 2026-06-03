@@ -1,5 +1,11 @@
 # Cseh kep ALT draft - Batch 1
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: cseh image alt draft batch kontextus
+Do not use for: jovahagyott vegleges SEO adatkent
+
+
 Datum: 2026-05-25
 
 Forras: `src/admin-disabled/data/images/accommodation-images.seo-test.json`

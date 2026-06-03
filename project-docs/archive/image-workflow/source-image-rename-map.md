@@ -1,5 +1,11 @@
 # Source image rename map
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: source image rename map munkalap
+Do not use for: aktualis fajlnev-konvencio vegleges forrasakent
+
+
 ## D2
 
 - `2025-09-02 15-42-08.jpeg` -> `dandelion-d2-source-001.jpg`

@@ -2,6 +2,12 @@
 
 # Google AI Readiness schema audit
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: schema audit es bovitesi kontextus
+Do not use for: aktualis JSON-LD buildelt allapot ellenorzese nelkul
+
+
 Cel: a jelenlegi szallasoldali JSON-LD allapot pontos rogzitese es a kesobbi, biztonsagos schema bovites technikai terve. Ez nem implementacio.
 
 ## Olvasott forrasok

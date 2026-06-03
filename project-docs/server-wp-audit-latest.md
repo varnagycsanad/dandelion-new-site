@@ -1,5 +1,11 @@
 # Server WordPress Audit
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: legutobbi szerver/WordPress audit kontextus
+Do not use for: mai eles szerverallapot bizonyitasara uj ellenorzes nelkul
+
+
 Generated: 2026-06-02T19:21:41Z
 
 ## Remote File-System Findings

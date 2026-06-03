@@ -1,5 +1,11 @@
 # 11 - Szallasok oldal audit es megvalositasi terv
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: szallasok oldal korabbi auditja es tartalmi/UX iranyai
+Do not use for: aktualis szallaslista implementacio ellenorzese nelkul
+
+
 # Statusz: JAVASOLT
 # Letrehozva: 2026-05-12
 

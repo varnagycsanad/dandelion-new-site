@@ -1,5 +1,11 @@
 # 03 – TARTALOMMODELL
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: eredeti tartalommodell es mezogondolkodas kontextus
+Do not use for: jelenlegi adatfajlok pontos semajakent
+
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

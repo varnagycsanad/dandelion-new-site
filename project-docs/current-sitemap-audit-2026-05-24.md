@@ -1,5 +1,10 @@
 # Oldalterkep es Google sitemap ellenorzes
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: 2026-05-24-i sitemap audit es alias politika kontextusa
+Do not use for: aktualis sitemap URL-szam vagy jelenlegi build allapot; lasd `project-docs/md-file-audit-2026-06-02.md`
+
 Datum: 2026-05-24
 
 ## Forrasok

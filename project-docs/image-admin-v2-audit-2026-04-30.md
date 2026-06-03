@@ -1,5 +1,11 @@
 # Dandelion Image Admin V2 - Technikai audit
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: image admin v2 korabbi WordPress/admin audit kontextus
+Do not use for: aktualis publikus image workflow forrasakent
+
+
 Dátum: 2026-04-30
 
 ## Rövid összefoglaló

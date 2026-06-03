@@ -1,5 +1,11 @@
 # 09 – REPO INDULÁS
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: repo indulas es kezdeti struktura kontextus
+Do not use for: jelenlegi repo/mappastruktura pontos leirasara
+
+
 # Státusz: VÉGLEGES
 
 # Utolsó módosítás: 2026-04-12

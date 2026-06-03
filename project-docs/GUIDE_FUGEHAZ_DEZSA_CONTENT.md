@@ -1,5 +1,11 @@
 # Fügeház – Dézsafürdő használati útmutató tartalom
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: Fugehaz dezsa guide tartalmi forras kontextus
+Do not use for: aktualis publikus guide oldal QA-ja nelkul
+
+
 Projekt: QR-os Vendégútmutató rendszer  
 Tervezett útvonal: /guide/fugehaz/dezsa/  
 QR céloldal: https://dandelionhouse.hu/guide/fugehaz/dezsa/  

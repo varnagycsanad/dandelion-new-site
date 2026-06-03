@@ -1,5 +1,11 @@
 # 04 – NAVIGÁCIÓS LOGIKA
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: eredeti navigacios es konverzios logika kontextus
+Do not use for: aktualis header/footer vagy route allapot ellenorzese nelkul
+
+
 # Státusz: VÉGLEGES
 # Utolsó módosítás: 2026-04-12
 

@@ -1,5 +1,11 @@
 # Dandelion kep ALT SEO audit - HU/DE/CS
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: image alt SEO audit kontextus
+Do not use for: aktualis image SEO allapot forrasakent friss ellenorzes nelkul
+
+
 Datum: 2026-05-25
 
 ## Scope

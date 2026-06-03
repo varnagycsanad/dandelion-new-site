@@ -1,5 +1,10 @@
 # Dandelion honlap – Többnyelvű fordítási és lokalizációs workflow
 
+Status: RESZBEN AKTUALIS
+Last checked: 2026-06-02
+Use for: uj nyelvi workflow, forditasi ellenorzesi logika, sitemap/hreflang gondolkodas
+Do not use for: jelenlegi cseh/nemet allapot megallapitas frissebb repoellenorzes nelkul
+
 Ez a dokumentum a Dandelion új Astro honlap többnyelvű fordításának teljes munkamenete. Célja, hogy új nyelv hozzáadásakor ne ad hoc fordítás történjen, hanem kontrollált, SEO‑biztos, buildelhető és visszaellenőrizhető folyamat.
 
 ---
@@ -800,4 +805,3 @@ helyes SEO-val,
 helyes booking nyelvvel,
 és ne látszódjon rajta, hogy utólag lett összerakva.
 ```
-

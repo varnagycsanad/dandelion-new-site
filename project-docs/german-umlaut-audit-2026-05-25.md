@@ -1,5 +1,11 @@
 # German Umlaut Audit - 2026-05-25
 
+Status: TORTENETI
+Last checked: 2026-06-02
+Use for: nemet umlaut audit eredmenyek kontextusa
+Do not use for: aktualis nemet copy QA helyettesitesere
+
+
 ## Scope
 
 Audit target: the German site branch under `src/pages/de`, German accommodation data under `src/data/accommodation-pages/*.de.ts`, plus shared German text in `src/components/SiteFooter.astro` and `src/templates/AccommodationPage.astro`.

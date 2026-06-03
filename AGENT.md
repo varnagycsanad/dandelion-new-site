@@ -5,8 +5,15 @@
 [CHANGE 2026-05-16 20:56] Git push alapértelmezés rögzítve: mindig a main a cél, ha nincs kifejezetten más branch meghatározva.
 [CHANGE 2026-05-18 13:22] Tipográfiai guardrail rögzítve: Poppins globális, Playfair csak display/headline, Georgia nem használható önálló UI fontként.
 [CHANGE 2026-05-18 15:06] Betűméret guardrail rögzítve: mobil olvashatóság, skála, 12px alatti tartalmi szöveg tiltása.
+[CHANGE 2026-06-02 22:20] MD audit szabály rögzítve: dokumentációs tasknál a friss auditfájl és státuszjelölések elsődlegesek a régi tervdokumentumokkal szemben.
+[CHANGE 2026-06-02 22:30] Project-docs INDEX elsődleges dokumentációs belépési pontként rögzítve.
 
 # DANDELION – AGENT RULES (LEAN)
+
+Status: AKTUALIS
+Last checked: 2026-06-02
+Use for: Codex vegrehajtasi szabalyok, scope, build, git, STOP feltetelek
+Do not use for: design reszletszabalyok vagy tartalmi/lokalizacios dontesek
 
 ## ALAPELV
 
@@ -214,6 +221,20 @@ Az `AGENT.md`, `AGENTS.md`, `README.md`, `project-docs/` és más dokumentáció
 encoding szempontból nem okozhatnak STOP-ot, kivéve ha a task kifejezetten ezek módosítása.
 
 Dokumentációs példákban szereplő hibás karakterlánc nem számít projektfájl-hibának.
+
+---
+
+## DOCUMENTATION AUDIT RULE
+
+Dokumentációs vagy MD-audit tasknál először az aktuális audit- és státuszfájlokat kell figyelembe venni:
+
+- `project-docs/INDEX.md`
+- `project-docs/md-file-audit-2026-06-02.md`
+- az érintett MD fájlok elején lévő `Statuszfrissites` / `Status update` megjegyzések
+
+Régi terv-, export- és auditfájl nem tekinthető automatikusan aktuális állapotnak, ha frissebb státuszjelölés vagy újabb repo/build ellenőrzés ellentmond neki.
+
+Ha egy dokumentum történeti, részben teljesült vagy archív jellegű, akkor ezt jelölni kell, de a régi tartalmat nem szabad tömegesen átírni külön kérés nélkül.
 
 ---
 
