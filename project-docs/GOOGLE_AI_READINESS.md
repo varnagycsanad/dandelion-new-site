@@ -47,7 +47,7 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md` - schema mezoterkep, implementacio nelkul.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md` - kep SEO hianylista szallasonkent.
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md` - Csanad altal kitoltendo adatbekero es dontesi lista.
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTÁLHATÓ: hosszunak bizonyult, pozicionalasi matrix valtja.
+- `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` - NEM IMPLEMENTÁLHATÓ: hosszunak bizonyult, pozicionalasi matrix valtja.
 - `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md` - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR; rovid, tablazatos forras a Package 1 szoveges reszehez.
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` - elso implementacios csomag technikai terve, kodmodositas nelkul.
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md` - szallasoldali JSON-LD audit es biztonsagos schema bovitesi terv.
@@ -186,7 +186,7 @@ Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a sta
 ### Allapot
 
 - Reszben MEGVAN: tobb oldalon termeszetes szovegben szerepel, kinek valo.
-- NEM IMPLEMENTÁLHATÓ: a korabbi `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
+- NEM IMPLEMENTÁLHATÓ: a korabbi `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` tul hosszu es tul prozai forrasnak bizonyult.
 - TISZTÍTVA / TULAJDONOSI JÓVÁHAGYÁSRA VÁR: `GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`, rovid, tablazatos, kontrollalt mezokkel.
 - DONE: a HU szallasoldalak `positioning` mezot kaptak; az adatmodell MEGMARAD.
 - DONE: Pozicionalasi blokk HU QA; `npm run build`, buildelt HTML, tiltott szovegek es kijelolt desktop/mobil viewportok ellenorizve.

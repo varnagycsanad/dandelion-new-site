@@ -53,7 +53,7 @@ Ezek exportok, régi munkalapok vagy egyértelműen történeti D2/image review 
 - DONE 2026-06-03: `project-docs/archive/image-admin-v2-audit-2026-04-30.md`
 - DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-cs-draft-batch-1-2026-05-25.md`
 - DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-de-draft-batch-1-2026-05-25.md`
-- `project-docs/image-alt-localization-review-de-cs-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-localization-review-de-cs-2026-05-25.md`
 
 Javasolt célmappa később:
 
@@ -113,10 +113,10 @@ Ezek nem feltétlenül napi források, de még lehet élő munkaszál vagy ellen
 - `project-docs/06-foglalasi-cta-logika.md`
 - `project-docs/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
 - `project-docs/13-nemet-lokalizacios-megvalositasi-terv.md`
-- `project-docs/german-umlaut-audit-2026-05-25.md`
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
-- `project-docs/image-alt-seo-audit-2026-05-25.md`
-- `project-docs/image-alt-seo-source-and-localization-audit-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
+- DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-seo-audit-2026-05-25.md`
+- DONE 2026-06-03: `project-docs/archive/image-alt/image-alt-seo-source-and-localization-audit-2026-05-25.md`
 
 Javaslat:
 
@@ -152,7 +152,7 @@ Pilot utáni hivatkozáskeresés eredménye:
 
 ## Következő lépés
 
-Harmadik archiválási kör előtt:
+Negyedik archiválási kör előtt:
 
 1. Válasszunk ki legfeljebb 4-6 fájlt.
 2. Futtassunk hivatkozáskeresést.

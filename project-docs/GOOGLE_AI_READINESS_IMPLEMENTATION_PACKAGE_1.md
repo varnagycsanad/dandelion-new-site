@@ -21,7 +21,7 @@ Forrasok:
 - `project-docs/GOOGLE_AI_READINESS_BOOKING_LINKS.md`
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_PLAN.md`
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_GAPS.md`
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
+- `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
 - `src/templates/AccommodationPage.astro`
 - `src/data/accommodation-pages/*.ts`
 - `src/data/accommodations.ts`
@@ -407,7 +407,7 @@ Maximum 4 kisebb task:
 
 ## 8. Jelenlegi blokkolok
 
-- `GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` meg DRAFT / tulajdonosi jovahagyasra var.
+- `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md` meg DRAFT / tulajdonosi jovahagyasra var.
 - Dandelion Koveskal CTA dontes kell, mert nincs SabeeApp booking link.
 - Revfulop pontos strandnev ellenorizendo.
 - D1, D2, Fugehaz, Zsalya, Szololiget haloszoba / szobastruktura pontos publikus megfogalmazasa meg ellenorizheto.

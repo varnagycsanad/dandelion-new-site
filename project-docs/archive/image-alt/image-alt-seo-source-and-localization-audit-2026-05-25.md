@@ -174,7 +174,7 @@ Kovetkezmeny:
 Kesziteni egy uj review dokumentumot, nem registry modositast:
 
 ```text
-project-docs/image-alt-localization-review-de-cs-2026-05-25.md
+project-docs/archive/image-alt/image-alt-localization-review-de-cs-2026-05-25.md
 ```
 
 Tartalma szallasonkent:

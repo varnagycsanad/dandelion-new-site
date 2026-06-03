@@ -69,7 +69,7 @@ Ezek friss vagy meg hasznalhato allapotjelentesek, de mindig ellenorizni kell a 
 - `project-docs/translation-page-parity-audit-2026-05-25.md`
 - `project-docs/current-sitemap-audit-2026-05-24.md`
 - `project-docs/character-encoding-audit-and-rules-2026-05-25.md`
-- `project-docs/german-umlaut-audit-2026-05-25.md`
+- `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
 - `project-docs/typography-size-audit-2026-05-18.md`
 
 Fontos: ha egy audit elejen `Statuszfrissites` vagy `Status update` van, az felulirja a regebbi megallapitasokat.
@@ -147,7 +147,7 @@ Projektkoveto es kapcsolodo munkalapok:
 - `project-docs/GOOGLE_AI_READINESS_PROPERTY_DATA_GAPS.md`
 - `project-docs/GOOGLE_AI_READINESS_POSITIONING_MATRIX.md`
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md`
-- `project-docs/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
+- `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`
 
 Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
@@ -160,9 +160,9 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 - `project-docs/GUIDE_FUGEHAZ_DEZSA_CONTENT.md`
 - `project-docs/DANDELION_MASTER_RULES.md`
 - `project-docs/archive/image-admin-v2-audit-2026-04-30.md`
-- `project-docs/image-alt-seo-audit-2026-05-25.md`
-- `project-docs/image-alt-seo-source-and-localization-audit-2026-05-25.md`
-- `project-docs/image-alt-localization-review-de-cs-2026-05-25.md`
+- `project-docs/archive/image-alt/image-alt-seo-audit-2026-05-25.md`
+- `project-docs/archive/image-alt/image-alt-seo-source-and-localization-audit-2026-05-25.md`
+- `project-docs/archive/image-alt/image-alt-localization-review-de-cs-2026-05-25.md`
 - `project-docs/archive/image-alt/image-alt-de-draft-batch-1-2026-05-25.md`
 - `project-docs/archive/image-alt/image-alt-cs-draft-batch-1-2026-05-25.md`
 
@@ -192,5 +192,6 @@ Eddigi pilotok:
 
 - Pilot 1: 4 D2 processing / image workflow dokumentum archive ala mozgatva.
 - Pilot 2: 5 image workflow / image alt / image admin dokumentum archive ala mozgatva.
+- Pilot 3: 5 image-alt / localization / Google AI draft dokumentum archive ala mozgatva.
 
-Jelenlegi archive MD fajlok szama: 9.
+Jelenlegi archive MD fajlok szama: 14.

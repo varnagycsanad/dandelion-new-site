@@ -184,3 +184,16 @@ Rovid statuszmegjegyzes kerult a kovetkezo fajlok elejere:
   - `project-docs/archive/image-workflow/generated/d2-processing-plan-all.md`
   - `project-docs/archive/image-workflow/source-image-rename-map.md`
   - `project-docs/archive/image-workflow/d2-runtime-image-admin-bridge-note.md`
+- Masodik archiválási pilot lefutott 5 legacy image dokumentummal:
+  - `project-docs/archive/image-workflow/d2-gallery-selection-review.md`
+  - `project-docs/archive/image-workflow/d2-image-pilot-closing-report.md`
+  - `project-docs/archive/image-admin-v2-audit-2026-04-30.md`
+  - `project-docs/archive/image-alt/image-alt-cs-draft-batch-1-2026-05-25.md`
+  - `project-docs/archive/image-alt/image-alt-de-draft-batch-1-2026-05-25.md`
+- Harmadik archiválási pilot lefutott 5 image-alt / lokalizacios / Google AI draft dokumentummal:
+  - `project-docs/archive/image-alt/image-alt-seo-audit-2026-05-25.md`
+  - `project-docs/archive/image-alt/image-alt-seo-source-and-localization-audit-2026-05-25.md`
+  - `project-docs/archive/image-alt/image-alt-localization-review-de-cs-2026-05-25.md`
+  - `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
+  - `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
+- Jelenlegi archive MD fajlok szama: 14.
