@@ -1,9 +1,19 @@
 # 11 - Szallasok oldal audit es megvalositasi terv
 
-Status: RESZBEN AKTUALIS
-Last checked: 2026-06-02
-Use for: szallasok oldal korabbi auditja es tartalmi/UX iranyai
-Do not use for: aktualis szallaslista implementacio ellenorzese nelkul
+Status: TORTENETI
+Last checked: 2026-06-03
+Use for: lezart szallasok regio-struktura audit torteneti hattere
+Do not use for: aktualis szallaslista vagy nyitott task forrasakent
+
+# Statuszfrissites - 2026-06-03
+
+Ez a task archiválva lett. A fo regio-struktura megvalosult es az `ACTIVE_BACKLOG.md` szerint lezart.
+
+Kesobbi uj auditban ujranyithato tema:
+
+- nemet szallasoldali kartyaszintu anchor linkek
+- teljes mobil/desktop vizualis QA
+- link-helper / relativ URL egységesites
 
 
 # Statusz: JAVASOLT

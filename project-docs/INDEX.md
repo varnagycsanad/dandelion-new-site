@@ -20,9 +20,9 @@ A projektben sok Markdown dokumentum van, de nem mindegyik aktualis szabaly vagy
 Statusz szerinti bontas:
 
 - `AKTUALIS`: 10
-- `RESZBEN AKTUALIS`: 20
+- `RESZBEN AKTUALIS`: 19
 - `RESZBEN TELJESULT`: 9
-- `TORTENETI`: 24
+- `TORTENETI`: 25
 - `ARCHIV`: 3
 
 ## Statuszok jelentese
@@ -158,7 +158,7 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 
 ## Egyeb specialis doksik
 
-- `project-docs/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
+- `project-docs/archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
 - `project-docs/QR_GUIDE_SYSTEM.md`
 - `project-docs/GA4_CODEX_ANALYTICS.md`
 - `project-docs/GUIDE_FUGEHAZ_DEZSA_CONTENT.md`
@@ -200,4 +200,6 @@ Eddigi pilotok:
 - Pilot 2: 5 image workflow / image alt / image admin dokumentum archive ala mozgatva.
 - Pilot 3: 5 image-alt / localization / Google AI draft dokumentum archive ala mozgatva.
 
-Jelenlegi archive MD fajlok szama: 14.
+Szallasok regio-struktura task archiválva: `project-docs/archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`.
+
+Jelenlegi archive MD fajlok szama: 15.

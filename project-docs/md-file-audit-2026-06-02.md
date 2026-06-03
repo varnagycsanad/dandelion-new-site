@@ -197,4 +197,6 @@ Rovid statuszmegjegyzes kerult a kovetkezo fajlok elejere:
   - `project-docs/archive/image-alt/image-alt-localization-review-de-cs-2026-05-25.md`
   - `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
   - `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
-- Jelenlegi archive MD fajlok szama: 14.
+- Szallasok regio-struktura task archiválva:
+  - `project-docs/archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
+- Jelenlegi archive MD fajlok szama: 15.

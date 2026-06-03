@@ -111,7 +111,7 @@ Javaslat:
 Ezek nem feltétlenül napi források, de még lehet élő munkaszál vagy ellenőrzési kontextus.
 
 - `project-docs/06-foglalasi-cta-logika.md`
-- `project-docs/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
+- `project-docs/archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
 - `project-docs/13-nemet-lokalizacios-megvalositasi-terv.md`
 - DONE 2026-06-03: `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
 - DONE 2026-06-03: `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`

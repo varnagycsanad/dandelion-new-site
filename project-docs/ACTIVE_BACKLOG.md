@@ -53,10 +53,10 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 ### P1-2 - Szallasok oldal regio-struktura
 
 - Statusz: lezarva 2026-06-03
-- Forras: `11-szallasok-oldal-audit-es-megvalositasi-terv.md`
+- Forras: `archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
 - Ellenorzes eredmenye: a HU/EN/DE/CS szallasvalaszto oldalak 3 regios modellre epulnek, a Koveskal benne van a Káli-medence szekcioban, vannak regio anchorok, valaszto blokkok, szallaskartyak es mobil egyoszlopos kartyaelrendezes.
 - Javitas: a nemet fooldali regio CTA-k rossz anchorokra mutattak; javitva a nemet szallasoldalon letezo `#zeugenberge`, `#balaton-naehe`, `#kali-becken` anchorokra.
-- Kovetkezo konkret lepes: nincs; csak vizualis finomhangolas nyithato kulon UX taskkent, ha kesobb szukseg lesz ra.
+- Kovetkezo konkret lepes: nincs; a forras audit archiválva lett. A megmaradt kartyaszintu anchor / vizualis QA / URL-egységesites temat majd kulon uj auditban kell ujranyitni, ha szukseg lesz ra.
 
 ### P1-3 - Astro-only kepkezeles befejezese
 
