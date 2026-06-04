@@ -93,7 +93,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
           ["Location", "Köveskál"],
           ["Region", "Káli Basin"],
           ["Style", "quiet countryside rest"],
-          ["Best for", "couples, families and friends looking for a calmer stay"]
+          ["Best for", "larger families and groups of friends looking for a calmer stay"]
         ]
       },
       {
@@ -151,6 +151,45 @@ export const koveskalEnglishPageData: AccommodationPageData = {
         text: "Cellars and local stops"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "Köveskál quick answers",
+    title: "Dandelion Köveskál is a good choice if you want a quiet village-style guesthouse in the Káli Basin for slower days and local exploring",
+    lead:
+      "The Köveskál guesthouse gives up to 6 guests a calm Káli Basin base with a large garden, large terrace, 2 bathrooms, village rhythm and nearby wine and gastronomy programmes.",
+    questions: [
+      {
+        question: "Who is Dandelion Köveskál best for?",
+        answer:
+          "It is a good fit for larger families and groups of friends who are not looking for a busy lakeside stay, but for a quieter Káli Basin village atmosphere in Köveskál."
+      },
+      {
+        question: "How many guests is the Köveskál guesthouse comfortable for?",
+        answer:
+          "The house is comfortable for up to 6 guests. The sleeping setup includes 2 double beds and 2 single beds, and 2 bathrooms support a more comfortable stay."
+      },
+      {
+        question: "What are the garden and terrace like?",
+        answer:
+          "The large garden and large terrace suit slower days: breakfast outside, evening conversations, reading and quiet shared time."
+      },
+      {
+        question: "What programmes is Köveskál a good base for?",
+        answer:
+          "It is a good starting point for Káli Basin villages, walks, wine and gastronomy stops, Hegyestű, Salföld, Badacsony and Lake Balaton trips."
+      },
+      {
+        question: "How is Köveskál different from lakeside Balaton stays?",
+        answer:
+          "Köveskál is not a waterfront stay; it is a quieter, more village-like Káli Basin choice. It works best when landscape, village mood, wine region and slower pace matter more than direct beach access."
+      },
+      {
+        question: "What is the courtyard like at the Köveskál guesthouse?",
+        answer:
+          "The house has a pretty enclosed courtyard, giving guests a calm outdoor space for breakfast, evening conversations, reading or slower family time."
+      }
+    ],
+    amenitiesTitle: "What matters at Köveskál"
   },
   amenities: [
     { iconKey: "leaf", title: "Nature-close atmosphere" },

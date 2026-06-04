@@ -111,7 +111,7 @@ export const koveskalPageData: AccommodationPageData = {
           ["Helyszín", "Köveskál"],
           ["Régió", "Káli-medence"],
           ["Jelleg", "vidéki, nyugodt pihenés"],
-          ["Kinek ajánljuk?", "csendes pihenést kereső pároknak, családoknak és baráti társaságoknak"]
+          ["Kinek ajánljuk?", "nagyobb családoknak és baráti társaságoknak, akik csendesebb pihenést keresnek"]
         ]
       },
       {
@@ -169,6 +169,45 @@ export const koveskalPageData: AccommodationPageData = {
         text: "Pincék és megállók"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "Köveskál gyors válaszok",
+    title: "A Dandelion Köveskál akkor jó választás, ha csendes, falusi hangulatú vendégházat kerestek a Káli-medencében, lassabb napokhoz és környékbeli felfedezéshez",
+    lead:
+      "A Köveskál vendégház legfeljebb 6 főnek ad nyugodt Káli-medencei bázist nagy kerttel, nagy terasszal, 2 fürdőszobával, falusi ritmussal és borvidéki, gasztronómiai programokkal a közelben.",
+    questions: [
+      {
+        question: "Kinek jó választás a Dandelion Köveskál?",
+        answer:
+          "Nagyobb családoknak és baráti társaságoknak, akik nem nyüzsgő balatoni szállást, hanem csendesebb, Káli-medencei falusi hangulatot keresnek Köveskálon."
+      },
+      {
+        question: "Hány főnek kényelmes a Köveskál vendégház?",
+        answer:
+          "A ház legfeljebb 6 főnek kényelmes. Az elrendezés 2 franciaágyat és 2 szimpla ágyat ad, a kényelmet pedig 2 fürdőszoba segíti."
+      },
+      {
+        question: "Milyen a kert és a terasz?",
+        answer:
+          "A nagy kert és a nagy terasz a lassabb napokhoz illik: reggelihez, esti beszélgetéshez, olvasáshoz és csendesebb közös időhöz ad teret."
+      },
+      {
+        question: "Milyen programokhoz jó bázis Köveskál?",
+        answer:
+          "Jó kiindulópont a Káli-medence falvaihoz, sétákhoz, boros és gasztronómiai megállókhoz, Hegyestűhöz, Salföldhöz, Badacsonyhoz és balatoni kirándulásokhoz."
+      },
+      {
+        question: "Miben más Köveskál, mint a Balaton-parti szállások?",
+        answer:
+          "Köveskál nem vízparti, hanem csendesebb, falusiasabb Káli-medencei választás. Akkor erős, ha a táj, a falu, a borvidék és a lassabb tempó fontosabb, mint a közvetlen strandközelség."
+      },
+      {
+        question: "Milyen az udvar a Köveskál vendégháznál?",
+        answer:
+          "A házhoz zárt, szép udvar tartozik, ahol nyugodtan lehet kint reggelizni, beszélgetni, olvasni vagy gyerekekkel lassabb, biztonságosabb tempóban pihenni."
+      }
+    ],
+    amenitiesTitle: "Ami Köveskálban fontos"
   },
   amenities: [
     {

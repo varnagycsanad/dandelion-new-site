@@ -39,6 +39,45 @@ export const koveskalGermanPageData = createGermanAccommodationPage(koveskalEngl
     { iconKey: "home", title: "Ruhige Basis", text: "angenehm für langsame Tage" }
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Parken", "Ruhige Umgebung"],
+  geoDecision: {
+    kicker: "Köveskál schnelle Antworten",
+    title: "Dandelion Köveskál passt, wenn Sie ein ruhiges Gästehaus mit Dorfstimmung im Káli-Becken suchen, für langsamere Tage und kleine Ausflüge",
+    lead:
+      "Das Köveskál Gästehaus bietet bis zu 6 Gästen eine ruhige Basis im Káli-Becken mit großem Garten, großer Terrasse, 2 Badezimmern, Dorfstimmung und Wein- sowie Gastronomieprogrammen in der Nähe.",
+    questions: [
+      {
+        question: "Für wen ist Dandelion Köveskál eine gute Wahl?",
+        answer:
+          "Für größere Familien und Freundesgruppen, die keine lebhafte Unterkunft direkt am Balaton suchen, sondern eine ruhigere Dorfatmosphäre im Káli-Becken."
+      },
+      {
+        question: "Für wie viele Gäste ist Köveskál bequem?",
+        answer:
+          "Das Haus ist für bis zu 6 Gäste bequem. Die Schlafmöglichkeiten bestehen aus 2 Doppelbetten und 2 Einzelbetten; 2 Badezimmer machen den Aufenthalt praktischer."
+      },
+      {
+        question: "Wie sind Garten und Terrasse?",
+        answer:
+          "Der große Garten und die große Terrasse passen zu langsameren Tagen: Frühstück draußen, Abendgespräche, Lesen und ruhige gemeinsame Zeit."
+      },
+      {
+        question: "Für welche Programme ist Köveskál ein guter Ausgangspunkt?",
+        answer:
+          "Köveskál ist eine gute Basis für die Dörfer des Káli-Beckens, Spaziergänge, Wein- und Gastronomiestopps, Hegyestű, Salföld, Badacsony und Ausflüge zum Balaton."
+      },
+      {
+        question: "Worin unterscheidet sich Köveskál von Unterkünften direkt am Balaton?",
+        answer:
+          "Köveskál ist keine Unterkunft direkt am Wasser, sondern eine ruhigere, dörflichere Wahl im Káli-Becken. Es passt, wenn Landschaft, Dorfstimmung, Weinregion und langsameres Tempo wichtiger sind als direkter Strandzugang."
+      },
+      {
+        question: "Wie ist der Hof beim Gästehaus Köveskál?",
+        answer:
+          "Zum Haus gehört ein schöner, geschlossener Hof. Er eignet sich für Frühstück im Freien, ruhige Abende, Lesen und entspannte Zeit mit der Familie."
+      }
+    ],
+    amenitiesTitle: "Wichtig bei Köveskál"
+  },
   mapBody:
     "Köveskál liegt im Káli-Becken, mit guter Erreichbarkeit von Salföld, Hegyestű, Badacsony, Balaton-Stränden und regionalen Weingütern.",
   mapBenefits: [
