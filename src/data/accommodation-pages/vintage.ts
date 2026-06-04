@@ -166,6 +166,45 @@ export const vintagePageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Vintage gyors válaszok",
+    title: "A Dandelion Vintage akkor jó választás, ha nyugodt, saját udvaros vendégházat kerestek Nemesgulácson, közel a Balatonhoz és Badacsonyhoz",
+    lead:
+      "A Vintage 4 főnek kényelmes, 2 hálószobás + nappalis ház saját udvarral, grillezési lehetőséggel, klímával, erős internettel és csendes falusi hangulattal.",
+    questions: [
+      {
+        question: "Kinek jó választás a Dandelion Vintage?",
+        answer:
+          "Kisebb családoknak, pároknak és barátoknak, akik saját udvaros, otthonos vendégházat keresnek Nemesgulácson, balatoni programokhoz és Balaton-felvidéki kirándulásokhoz."
+      },
+      {
+        question: "Hány főnek kényelmes a Vintage?",
+        answer:
+          "A ház 4 főnek kényelmes. Két hálószobája van: az egyikben franciaágy, a másikban két külön ágy található, a nappali pedig közös térként működik."
+      },
+      {
+        question: "Milyen a Vintage udvara?",
+        answer:
+          "A saját udvar a ház egyik fontos előnye: jó reggelihez, esti beszélgetéshez, grillezéshez és lassabb vidéki napokhoz."
+      },
+      {
+        question: "Milyen programokhoz jó bázis Nemesgulácson?",
+        answer:
+          "Jó kiindulópont Badacsonyhoz, Szigligethez, a tanúhegyekhez, balatoni strandoláshoz, borászatokhoz és rövid környékbeli kirándulásokhoz."
+      },
+      {
+        question: "Lehet innen nyugodtan dolgozni is?",
+        answer:
+          "Igen, a házban erős, gigabites internet és klíma van, ezért pihenés mellett nyugodtabb munkához vagy hosszabb elvonuláshoz is praktikus."
+      },
+      {
+        question: "Mi adja a Vintage hangulatát?",
+        answer:
+          "A vintage stílusú, otthonos belső tér, a külön konyha, a saját udvar és a csendes nemesgulácsi környezet együtt adják a ház lassú, vidéki ritmusát."
+      }
+    ],
+    amenitiesTitle: "Ami a Vintage-ben fontos"
+  },
   amenities: [
     {
       iconKey: "home",

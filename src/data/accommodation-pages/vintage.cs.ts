@@ -26,6 +26,45 @@ export const vintageCzechPageData = createCzechAccommodationPage(vintageEnglishP
     { iconKey: "grapes", title: "Vinařský region", text: "výlety do okolí" }
   ],
   amenities: ["Wi-Fi", "Kuchyně", "Vlastní dvůr", "Topení", "Parkování", "Venkovní posezení", "Koupelna", "Klidná poloha"],
+  geoDecision: {
+    kicker: "Vintage rychlé odpovědi",
+    title: "Dandelion Vintage je dobrá volba, pokud hledáte klidný dům s vlastním dvorem v Nemesgulácsi, blízko Balatonu a Badacsony",
+    lead:
+      "Vintage je útulný dům pro 4 hosty se 2 ložnicemi, obývacím pokojem, vlastním dvorem, možností grilování, klimatizací, silným internetem a klidnou venkovskou atmosférou.",
+    questions: [
+      {
+        question: "Pro koho je Dandelion Vintage vhodný?",
+        answer:
+          "Pro menší rodiny, páry a přátele, kteří hledají domácí dům s vlastním dvorem v Nemesgulácsi, blízko programů u Balatonu a výletů v Balatonské vrchovině."
+      },
+      {
+        question: "Pro kolik hostů je Vintage pohodlný?",
+        answer:
+          "Dům je pohodlný pro 4 hosty. Má dvě ložnice: jednu s manželskou postelí a druhou se dvěma samostatnými lůžky; obývací pokoj slouží jako společný prostor."
+      },
+      {
+        question: "Jaký je dvůr u Vintage?",
+        answer:
+          "Vlastní dvůr je jednou z hlavních výhod domu: hodí se na snídani venku, večerní posezení, grilování i pomalejší venkovské dny."
+      },
+      {
+        question: "Na jaké programy je Nemesgulács dobrým výchozím bodem?",
+        answer:
+          "Je praktickou základnou pro Badacsony, Szigliget, svědecké kopce, balatonské pláže, vinařství a kratší výlety v okolí."
+      },
+      {
+        question: "Dá se odtud klidně pracovat?",
+        answer:
+          "Ano. Dům má silný gigabitový internet a klimatizaci, takže se hodí i pro klidnou práci, delší pobyt nebo kombinaci odpočinku a práce."
+      },
+      {
+        question: "Co vytváří atmosféru Vintage?",
+        answer:
+          "Teplé vintage detaily, samostatná kuchyně, vlastní dvůr a klidná poloha v Nemesgulácsi společně vytvářejí pomalejší venkovský rytmus domu."
+      }
+    ],
+    amenitiesTitle: "Co je ve Vintage důležité"
+  },
   mapBody: "Dandelion Vintage leží v Nemesgulácsi, prakticky mezi Balatonem, Badacsonyi a kopci Balatonské vrchoviny.",
   mapBenefits: [{ label: "Vlastní dvůr", icon: "leaf" }, { label: "Badacsony poblíž", icon: "grapes" }, { label: "Balaton krátkou jízdou", icon: "route" }]
 });

@@ -153,6 +153,45 @@ export const vintageEnglishPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Vintage quick answers",
+    title: "Dandelion Vintage is a good choice if you want a quiet guesthouse with a private garden in Nemesgulács, close to Lake Balaton and Badacsony",
+    lead:
+      "Vintage is a comfortable two-bedroom house for 4 guests, with a living room, private garden, grilling option, air conditioning, strong internet and a calm village rhythm.",
+    questions: [
+      {
+        question: "Who is Dandelion Vintage best for?",
+        answer:
+          "It works well for smaller families, couples and friends looking for a homely guesthouse with its own garden in Nemesgulács, close to Lake Balaton programmes and Balaton Uplands trips."
+      },
+      {
+        question: "How many guests is Vintage comfortable for?",
+        answer:
+          "The house is comfortable for 4 guests. It has two bedrooms: one with a double bed and one with two separate beds, while the living room serves as the shared space."
+      },
+      {
+        question: "What is the garden like at Vintage?",
+        answer:
+          "The private garden is one of the key strengths of the house: good for breakfast outside, evening conversations, grilling and slower countryside days."
+      },
+      {
+        question: "What programmes is Nemesgulács good for?",
+        answer:
+          "It is a useful base for Badacsony, Szigliget, witness hills, Lake Balaton beach days, wineries and shorter trips in the surrounding countryside."
+      },
+      {
+        question: "Can guests work calmly from here?",
+        answer:
+          "Yes. The house has strong gigabit internet and air conditioning, so it is practical for quiet work, longer stays or a rest-and-work rhythm."
+      },
+      {
+        question: "What gives Vintage its atmosphere?",
+        answer:
+          "The warm vintage-style interior, separate kitchen, private garden and quiet Nemesgulács setting together create the slower countryside mood of the house."
+      }
+    ],
+    amenitiesTitle: "What matters at Vintage"
+  },
   amenities: [
     { iconKey: "home", title: "2 bedrooms + living room" },
     { iconKey: "garden", title: "Private garden" },
