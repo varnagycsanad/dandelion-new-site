@@ -721,6 +721,7 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         style="display:none;visibility:hidden"
       ></iframe>
     </noscript>
+    <!--email_off-->
     {!hideHeader && <header class={`dnd-header ${isTransparentHeaderStart ? "dnd-header--transparent-start" : "dnd-header--solid-start"}`} data-dnd-header>
       <div class="dnd-container dnd-header__desktop">
         <div class="dnd-header__top">
@@ -905,6 +906,7 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         {headerText.quickContactLabel}
       </button>
     </div>}
+    <!--/email_off-->
 
     <script>
       (() => {
