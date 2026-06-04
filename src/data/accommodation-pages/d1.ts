@@ -174,25 +174,63 @@ export const d1PageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "family",
-        title: "Nagyobb családoknak is kényelmes",
-        text: "Több háló és közös terek"
+        title: "Tágas családi ház",
+        text: "8 fő, külön hálók"
       },
       {
         iconKey: "garden",
-        title: "Kinti napok a kertben",
-        text: "Terasz, udvar, pihenés"
+        title: "Kert és terasz",
+        text: "Kinti étkezések"
       },
       {
         iconKey: "sun",
-        title: "Nyári napokhoz ideális",
-        text: "Kert, terasz, pihenés"
+        title: "Nyári pihenés",
+        text: "Medencehasználat"
       },
       {
         iconKey: "balaton",
-        title: "Szent György-hegyi bázis",
-        text: "Túrák, strandok, borászatok"
+        title: "Hegyi bázis",
+        text: "Túrák, borászatok"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "D1 gyors válaszok",
+    title: "A Dandelion D1 akkor jó választás, ha tágas kisapáti házat kerestek medencehasználattal",
+    lead: "A D1 nagyobb családoknak és baráti társaságoknak készült: akár 8 fő, panorámás terasz, több közös tér és 2026. június 15-től közös Panorama Pool.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Van medence a Dandelion D1-hez?",
+        answer: "Igen. 2026. június 15-től a D1 vendégei használhatják a közös Panorama Pool medencét."
+      },
+      {
+        iconKey: "pool",
+        question: "Privát medencéje van a D1-nek?",
+        answer: "Nem privát medence: a Panorama Pool közös használatú, a D1, D2 és Fügeház vendégei számára."
+      },
+      {
+        iconKey: "guests",
+        question: "Hány főnek kényelmes a Dandelion D1?",
+        answer: "Akár 8 főnek kényelmes, 3 hálószobával, nappalival és több fürdőszobával."
+      },
+      {
+        iconKey: "mountain",
+        question: "Milyen programokhoz jó bázis?",
+        answer: "Kisapátiból a Szent György-hegy, Badacsony, Szigliget, Csobánc, a Balaton-part és a borászatok rövid autóúttal elérhetők."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Milyen felszereltség van a D1-ben?",
+        answer: "A D1-ben jól felszerelt konyha, mosogatógép, mosógép, klíma, kényelmes nappali, panorámás terasz és grillezési lehetőség is van."
+      },
+      {
+        iconKey: "wifi",
+        question: "Van gyors internet a Dandelion D1-ben?",
+        answer: "Igen. A Dandelion D1-ben gigabites internet érhető el, ezért hosszabb tartózkodáshoz és nyugodtabb online munkához is praktikus."
+      }
+    ],
+    amenitiesTitle: "Ami a házban fontos"
   },
   amenities: [
     {
@@ -216,12 +254,20 @@ export const d1PageData: AccommodationPageData = {
       title: "Grillezési lehetőség"
     },
     {
-      iconKey: "bathroom",
-      title: "Több fürdőszoba"
+      iconKey: "sun",
+      title: "Klíma"
     },
     {
-      iconKey: "garden",
-      title: "Kerti ülőhelyek"
+      iconKey: "home",
+      title: "Mosógép"
+    },
+    {
+      iconKey: "utensils",
+      title: "Mosogatógép"
+    },
+    {
+      iconKey: "wifi",
+      title: "Gigabites internet"
     }
   ],
   gallery: {

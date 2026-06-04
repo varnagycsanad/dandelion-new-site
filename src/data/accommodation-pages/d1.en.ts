@@ -159,25 +159,63 @@ export const d1EnglishPageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "family",
-        title: "Comfortable for larger families",
-        text: "Bedrooms and shared spaces"
+        title: "Spacious family house",
+        text: "8 guests, separate bedrooms"
       },
       {
         iconKey: "garden",
-        title: "Outdoor days",
-        text: "Terrace, garden, rest"
+        title: "Garden and terrace",
+        text: "Outdoor meals"
       },
       {
         iconKey: "sun",
-        title: "Good for summer stays",
-        text: "Garden and terrace"
+        title: "Summer-friendly stay",
+        text: "Shared pool access"
       },
       {
         iconKey: "balaton",
-        title: "Szent György Hill base",
-        text: "Hikes, beaches, wineries"
+        title: "Hill-country base",
+        text: "Hikes and wineries"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "D1 quick answers",
+    title: "Dandelion D1 is a good choice if you need a spacious Kisapáti house with shared pool access",
+    lead: "D1 is designed for larger families and groups of friends: up to 8 guests, a panoramic terrace, generous shared spaces and shared Panorama Pool access from June 15, 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Does Dandelion D1 have pool access?",
+        answer: "Yes. From June 15, 2026, D1 guests can use the shared Panorama Pool."
+      },
+      {
+        iconKey: "pool",
+        question: "Is the pool private for D1?",
+        answer: "No. The Panorama Pool is a shared pool area for guests of D1, D2 and Fügeház."
+      },
+      {
+        iconKey: "guests",
+        question: "How many guests is Dandelion D1 comfortable for?",
+        answer: "Dandelion D1 is comfortable for up to 8 guests, with 3 bedrooms, a living room and multiple bathrooms."
+      },
+      {
+        iconKey: "mountain",
+        question: "What local trips is D1 a good base for?",
+        answer: "From Kisapáti, Szent György Hill, Badacsony, Szigliget, Csobánc, Lake Balaton and local wineries are all within a short drive."
+      },
+      {
+        iconKey: "kitchen",
+        question: "What amenities does D1 have?",
+        answer: "D1 has a well-equipped kitchen, dishwasher, washing machine, air conditioning, a comfortable living room, panoramic terrace and grill option."
+      },
+      {
+        iconKey: "wifi",
+        question: "Does Dandelion D1 have fast internet?",
+        answer: "Yes. Dandelion D1 has gigabit internet, so it is practical for longer stays and calm online work."
+      }
+    ],
+    amenitiesTitle: "What matters in the house"
   },
   amenities: [
     { iconKey: "home", title: "3 bedrooms" },
@@ -185,8 +223,10 @@ export const d1EnglishPageData: AccommodationPageData = {
     { iconKey: "utensils", title: "Well-equipped kitchen" },
     { iconKey: "terrace", title: "Panoramic terrace" },
     { iconKey: "grill", title: "Grill option" },
-    { iconKey: "bathroom", title: "Multiple bathrooms" },
-    { iconKey: "garden", title: "Garden seating" }
+    { iconKey: "sun", title: "Air conditioning" },
+    { iconKey: "home", title: "Washing machine" },
+    { iconKey: "utensils", title: "Dishwasher" },
+    { iconKey: "wifi", title: "Gigabit internet" }
   ],
   gallery: {
     kicker: "Gallery",

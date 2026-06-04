@@ -33,12 +33,50 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   ],
   highlights: ["Großer Garten", "Terrasse", "Familienfreundliche Aufteilung", "Gut ausgestattete Küche", "Gemeinsamer Panorama Pool"],
   reasons: [
-    { iconKey: "users", title: "Viel Platz", text: "gut für Familien und Freunde" },
-    { iconKey: "terrace", title: "Terrassenzeit", text: "ruhige Abende draußen" },
-    { iconKey: "pool", title: "Panorama Pool", text: "gemeinsamer Poolbereich" },
-    { iconKey: "trail", title: "Aktive Tage", text: "Szent György-hegy und Balaton" }
+    { iconKey: "users", title: "Großes Familienhaus", text: "8 Gäste, getrennte Zimmer" },
+    { iconKey: "terrace", title: "Garten und Terrasse", text: "Essen im Freien" },
+    { iconKey: "pool", title: "Sommeraufenthalt", text: "gemeinsamer Pool" },
+    { iconKey: "trail", title: "Basis am Berg", text: "Wandern und Weingüter" }
   ],
-  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Garten", "Parken"],
+  amenities: ["3 Schlafzimmer", "Gemütliches Wohnzimmer", "Gut ausgestattete Küche", "Panoramaterrasse", "Grillmöglichkeit", "Klimaanlage", "Waschmaschine", "Geschirrspüler", "Gigabit-Internet"],
+  geoDecision: {
+    kicker: "D1 schnelle Antworten",
+    title: "Dandelion D1 passt, wenn Sie ein geräumiges Haus in Kisapati mit gemeinsamem Poolzugang suchen",
+    lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und gemeinsamer Panorama Pool ab 15. Juni 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Hat Dandelion D1 Zugang zum Pool?",
+        answer: "Ja. Ab 15. Juni 2026 können D1-Gäste den gemeinsamen Panorama Pool nutzen."
+      },
+      {
+        iconKey: "pool",
+        question: "Ist der Pool privat für D1?",
+        answer: "Nein. Der Panorama Pool ist ein gemeinsamer Poolbereich für Gäste von D1, D2 und Fügeház."
+      },
+      {
+        iconKey: "guests",
+        question: "Für wie viele Gäste ist Dandelion D1 bequem?",
+        answer: "Dandelion D1 ist für bis zu 8 Gäste bequem, mit 3 Schlafzimmern, Wohnzimmer und mehreren Badezimmern."
+      },
+      {
+        iconKey: "mountain",
+        question: "Für welche Ausflüge ist D1 ein guter Ausgangspunkt?",
+        answer: "Von Kisapati aus sind Szent György-hegy, Badacsony, Szigliget, Csobánc, der Balaton und lokale Weingüter mit kurzer Fahrt erreichbar."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Welche Ausstattung hat D1?",
+        answer: "D1 hat eine gut ausgestattete Küche, Geschirrspüler, Waschmaschine, Klimaanlage, ein gemütliches Wohnzimmer, Panoramaterrasse und Grillmöglichkeit."
+      },
+      {
+        iconKey: "wifi",
+        question: "Hat Dandelion D1 schnelles Internet?",
+        answer: "Ja. In Dandelion D1 gibt es Gigabit-Internet, daher ist das Haus auch für längere Aufenthalte und ruhigeres Online-Arbeiten praktisch."
+      }
+    ],
+    amenitiesTitle: "Was im Haus wichtig ist"
+  },
   mapBody:
     "Dandelion D1 liegt in Kisapati, mit guter Erreichbarkeit von Szent György-hegy, Tapolca, Badacsony und den Balaton-Stränden.",
   mapBenefits: [

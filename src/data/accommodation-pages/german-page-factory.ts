@@ -1,5 +1,5 @@
 import type { HomepageImageSlotKey } from "../homepage-image-slots";
-import type { AccommodationPageData } from "./types";
+import type { AccommodationPageData, AccommodationPageGeoDecision } from "./types";
 
 const englishSharedBookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 const resolveGermanBookingLink = (baseData: AccommodationPageData) =>
@@ -22,6 +22,7 @@ type GermanAccommodationProfile = {
   highlights: string[];
   reasons: { title: string; text: string; iconKey: string }[];
   amenities: string[];
+  geoDecision?: AccommodationPageGeoDecision;
   mapBody: string;
   mapBenefits: { label: string; icon: string }[];
   relatedSlot: HomepageImageSlotKey;
@@ -204,6 +205,7 @@ export function createGermanAccommodationPage(
       reasonsTitle: "Warum Sie es lieben werden",
       reasons: profile.reasons
     },
+    geoDecision: profile.geoDecision,
     amenities: profile.amenities.map((title) => ({ iconKey: "home", title })),
     gallery: {
       kicker: "Galerie",

@@ -24,6 +24,20 @@ export interface AccommodationPageIconCard {
   text?: string;
 }
 
+export interface AccommodationPageGeoQuestion {
+  question: string;
+  answer: string;
+  iconKey?: string;
+}
+
+export interface AccommodationPageGeoDecision {
+  kicker: string;
+  title: string;
+  lead: string;
+  questions: AccommodationPageGeoQuestion[];
+  amenitiesTitle?: string;
+}
+
 export interface AccommodationPagePositioning {
   shortCharacter: string;
   goodFor: string[];
@@ -151,6 +165,7 @@ export interface AccommodationPageData {
     reasonsTitle?: string;
     reasons?: AccommodationPageIconCard[];
   };
+  geoDecision?: AccommodationPageGeoDecision;
   amenities?: AccommodationPageIconCard[];
   gallery: {
     kicker: string;

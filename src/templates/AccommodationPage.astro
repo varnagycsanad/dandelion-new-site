@@ -379,6 +379,16 @@ const overviewFacts =
 const featuredExperience = decisionPanel?.featuredExperience ?? null;
 const featuredExperienceImage = resolveDecisionPanelImage(featuredExperience);
 const decisionReasons = decisionPanel?.reasons ?? [];
+const geoDecision = pageData.geoDecision ?? null;
+const geoDecisionQuestions = geoDecision?.questions ?? [];
+const hasGeoDecision = Boolean(geoDecision && geoDecisionQuestions.length > 0);
+const decisionAnswerCards = hasGeoDecision
+  ? geoDecisionQuestions.map((item) => ({
+      iconKey: item.iconKey ?? "spark",
+      title: item.question,
+      text: item.answer
+    }))
+  : overviewFacts.slice(0, 4);
 const amenityItems =
   pageData.amenities && pageData.amenities.length > 0
     ? pageData.amenities
@@ -501,6 +511,23 @@ const accommodationVideoStructuredData = heroVideo
       inLanguage: lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "hu-HU"
     })
   : null;
+const accommodationFaqStructuredData =
+  hasGeoDecision
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${canonicalUrl}#faq`,
+        inLanguage: lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "hu-HU",
+        mainEntity: geoDecisionQuestions.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer
+          }
+        }))
+      }
+    : null;
 const fallbackOgImage =
   imageSet.card?.astroSrc?.src ||
   imageSet.hero.desktop?.astroSrc?.src ||
@@ -538,7 +565,8 @@ const accommodationStructuredData = [
       }
     ]
   },
-  ...(accommodationVideoStructuredData ? [accommodationVideoStructuredData] : [])
+  ...(accommodationVideoStructuredData ? [accommodationVideoStructuredData] : []),
+  ...(accommodationFaqStructuredData ? [accommodationFaqStructuredData] : [])
 ];
 ---
 
@@ -990,14 +1018,47 @@ const accommodationStructuredData = [
           {bookingTrustLabel && <p class="d2-details__trust">{bookingTrustLabel}</p>}
         </div>
 
-        <aside class="d2-details__panel" aria-label={templateText.decisionPanelAriaLabel}>
-          <section class="d2-overview" aria-label={decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
-            <div class="d2-details__section-head">
-              <span class="dnd-section-kicker">{decisionPanel?.overviewTitle ?? templateText.overviewTitle}</span>
-            </div>
-              <div class="d2-overview__grid">
-                {overviewFacts.map((item) => (
-                  <article class="d2-overview__card">
+        <aside class="d2-decision-panel" aria-label={templateText.decisionPanelAriaLabel}>
+          <div class="d2-decision-panel__top">
+            <section class="d2-decision-panel__summary" aria-label={geoDecision?.kicker ?? decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
+              <span class="d2-decision-panel__eyebrow">{geoDecision?.kicker ?? decisionPanel?.overviewTitle ?? templateText.overviewTitle}</span>
+              <h3>{geoDecision?.title ?? pageData.details.title}</h3>
+              <p>{geoDecision?.lead ?? visibleDetailsSummary}</p>
+              {featuredExperience && (
+                <div class="d2-decision-feature" aria-label={featuredExperience.label ?? featuredExperience.title}>
+                  {featuredExperienceImage && (
+                    <div class="d2-decision-feature__media">
+                      {featuredExperienceImage.astroSrc ? (
+                        <Image
+                          src={featuredExperienceImage.astroSrc}
+                          alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <img
+                          src={featuredExperienceImage.src}
+                          alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
+                          width={featuredExperienceImage.width}
+                          height={featuredExperienceImage.height}
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
+                  )}
+                  <div class="d2-decision-feature__copy">
+                    {featuredExperience.label && <span>{featuredExperience.label}</span>}
+                    <strong>{featuredExperience.title}</strong>
+                    {featuredExperience.text && <p>{featuredExperience.text}</p>}
+                    {featuredExperience.note && <small>{featuredExperience.note}</small>}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            <section class="d2-decision-answers" aria-label={hasGeoDecision ? geoDecision?.kicker : decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
+              <div class="d2-decision-answers__grid">
+                {decisionAnswerCards.map((item) => (
+                  <article class:list={["d2-decision-answer", hasGeoDecision && "d2-decision-answer--qa"]}>
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
                     </svg>
@@ -1009,15 +1070,16 @@ const accommodationStructuredData = [
                 ))}
               </div>
             </section>
+          </div>
 
           {decisionReasons.length > 0 && (
-            <details class="d2-reasons d2-detail-block d2-mobile-collapsible" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle} open data-mobile-collapsed>
-              <summary class="d2-details__section-head d2-mobile-collapsible__summary">
-                <span class="dnd-section-kicker">{decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}</span>
-              </summary>
-              <div class="d2-reasons__grid">
+            <section class="d2-decision-reasons" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}>
+              <div class="d2-decision-panel__head">
+                <span>{decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}</span>
+              </div>
+              <div class="d2-decision-reasons__grid">
                 {decisionReasons.map((item) => (
-                  <article class="d2-reasons__card">
+                  <article class="d2-decision-reason">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
                     </svg>
@@ -1028,17 +1090,17 @@ const accommodationStructuredData = [
                   </article>
                 ))}
               </div>
-            </details>
+            </section>
           )}
 
           {amenityItems.length > 0 && (
-            <details class="d2-amenities d2-detail-block d2-mobile-collapsible" aria-label={pageData.features.title} open data-mobile-collapsed>
-              <summary class="d2-details__section-head d2-mobile-collapsible__summary">
-                <span class="dnd-section-kicker">{pageData.features.title}</span>
-              </summary>
-              <div class="d2-amenities__grid">
+            <section class="d2-decision-amenities" aria-label={pageData.features.title}>
+              <div class="d2-decision-panel__head">
+                <span>{geoDecision?.amenitiesTitle ?? pageData.features.title}</span>
+              </div>
+              <div class="d2-decision-amenities__grid">
                 {amenityItems.map((item) => (
-                  <article class="d2-amenities__card">
+                  <article class="d2-decision-amenity">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <use href={`#d2-icon-${toSpriteIconKey(item.iconKey)}`}></use>
                     </svg>
@@ -1049,48 +1111,9 @@ const accommodationStructuredData = [
                   </article>
                 ))}
               </div>
-            </details>
+            </section>
           )}
         </aside>
-
-        {featuredExperience && (
-          <section
-            class:list={[
-              "d2-featured-section",
-              "d2-featured-experience",
-              !featuredExperienceImage && "d2-featured-experience--no-media"
-            ]}
-            aria-label={featuredExperience.label ?? featuredExperience.title}
-          >
-            {featuredExperienceImage && (
-              <div class="d2-featured-experience__media">
-                {featuredExperienceImage.astroSrc ? (
-                  <Image
-                    src={featuredExperienceImage.astroSrc}
-                    alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    src={featuredExperienceImage.src}
-                    alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
-                    width={featuredExperienceImage.width}
-                    height={featuredExperienceImage.height}
-                    loading="lazy"
-                  />
-                )}
-              </div>
-            )}
-            <div class="d2-featured-experience__copy">
-              {featuredExperience.label && <span class="d2-featured-experience__label">{featuredExperience.label}</span>}
-              <div class="d2-featured-experience__title-row">
-                <h3>{featuredExperience.title}</h3>
-              </div>
-              {featuredExperience.text && <p>{featuredExperience.text}</p>}
-              {featuredExperience.note && <div class="d2-featured-experience__note">{featuredExperience.note}</div>}
-            </div>
-          </section>
-        )}
       </div>
     </div>
   </section>
@@ -2122,8 +2145,7 @@ const accommodationStructuredData = [
     align-items: start;
     grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
     grid-template-areas:
-      "story panel"
-      "featured panel";
+      "story panel";
   }
 
   .d2-details__story p,
@@ -2229,6 +2251,14 @@ const accommodationStructuredData = [
 
   .d2-details__story {
     grid-area: story;
+  }
+
+  @media (min-width: 960px) {
+    .d2-details__story {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
   }
 
   .d2-details__panel {
@@ -2598,6 +2628,264 @@ const accommodationStructuredData = [
 
   .d2-amenities__card:last-child,
   .d2-amenities__card:nth-last-child(2):nth-child(odd) {
+    border-bottom-color: transparent;
+  }
+
+  .d2-decision-panel {
+    grid-area: panel;
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid rgba(36, 122, 131, 0.16);
+    border-radius: 12px;
+    background:
+      linear-gradient(135deg, rgba(230, 248, 249, 0.56), rgba(255, 250, 241, 0.96) 42%),
+      #fffaf1;
+    box-shadow: 0 14px 34px rgba(36, 122, 131, 0.08);
+  }
+
+  .d2-decision-panel__top {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .d2-decision-panel__summary {
+    display: grid;
+    align-content: start;
+    gap: 9px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid rgba(36, 122, 131, 0.14);
+    border-left: 3px solid #247a83;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.58);
+  }
+
+  .d2-decision-panel__eyebrow,
+  .d2-decision-panel__head span {
+    color: #247a83;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 750;
+    letter-spacing: 0.11em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .d2-decision-panel__summary h3 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.24rem, 1.75vw, 1.62rem);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  .d2-decision-panel__summary > p {
+    margin: 0;
+    color: rgba(45, 36, 28, 0.72);
+    font-size: var(--dnd-text-md);
+    line-height: 1.52;
+  }
+
+  .d2-decision-feature {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(118px, 0.34fr) minmax(0, 0.66fr);
+    align-items: center;
+    margin-top: 4px;
+    padding: 8px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 9px;
+    background: linear-gradient(135deg, rgba(255, 248, 236, 0.98), rgba(246, 229, 192, 0.72));
+  }
+
+  .d2-decision-feature__media {
+    overflow: hidden;
+    aspect-ratio: 1.38 / 1;
+    min-height: 78px;
+    border-radius: 7px;
+    background: rgba(36, 122, 131, 0.08);
+  }
+
+  .d2-decision-feature__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .d2-decision-feature__copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .d2-decision-feature__copy span {
+    color: rgba(103, 69, 20, 0.84);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .d2-decision-feature__copy strong {
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.05rem, 1.25vw, 1.28rem);
+    font-weight: 600;
+    line-height: 1.08;
+  }
+
+  .d2-decision-feature__copy p {
+    margin: 0;
+    color: rgba(45, 36, 28, 0.72);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.38;
+  }
+
+  .d2-decision-feature__copy small {
+    width: fit-content;
+    margin-top: 2px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.14);
+    color: rgba(94, 67, 24, 0.88);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .d2-decision-answers__grid {
+    display: grid;
+    height: 100%;
+    gap: 9px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-decision-answer,
+  .d2-decision-reason {
+    display: flex;
+    gap: 9px;
+    min-width: 0;
+    padding: 11px;
+    border: 1px solid rgba(36, 122, 131, 0.1);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 6px 14px rgba(36, 122, 131, 0.035);
+  }
+
+  .d2-decision-answer {
+    min-height: 96px;
+    align-items: flex-start;
+  }
+
+  .d2-decision-answer svg,
+  .d2-decision-reason svg,
+  .d2-decision-amenity svg {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.55;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    color: #247a83;
+  }
+
+  .d2-decision-answer > div,
+  .d2-decision-reason > div,
+  .d2-decision-amenity > div {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .d2-decision-answer strong,
+  .d2-decision-reason strong,
+  .d2-decision-amenity strong {
+    color: #1f2937;
+    font-size: var(--dnd-text-sm);
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  .d2-decision-answer--qa strong {
+    font-size: var(--dnd-text-md);
+  }
+
+  .d2-decision-answer p,
+  .d2-decision-reason p,
+  .d2-decision-amenity p {
+    margin: 0;
+    color: rgba(45, 36, 28, 0.64);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.42;
+  }
+
+  .d2-decision-panel__head {
+    margin-bottom: 8px;
+  }
+
+  .d2-decision-reasons,
+  .d2-decision-amenities {
+    padding-top: 10px;
+    border-top: 1px solid rgba(36, 122, 131, 0.12);
+  }
+
+  .d2-decision-reasons__grid {
+    display: grid;
+    gap: 9px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-decision-reason {
+    min-height: 58px;
+    padding: 10px 11px;
+    background: rgba(255, 255, 255, 0.58);
+  }
+
+  .d2-decision-reason p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .d2-decision-amenities__grid {
+    display: grid;
+    column-gap: 14px;
+    row-gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-decision-amenity {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+    min-height: 34px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(36, 122, 131, 0.1);
+  }
+
+  .d2-decision-amenity strong {
+    font-size: var(--dnd-text-sm);
+    font-weight: 650;
+  }
+
+  .d2-decision-amenity p {
+    display: none;
+  }
+
+  .d2-decision-amenity:last-child,
+  .d2-decision-amenity:nth-last-child(2):nth-child(odd) {
     border-bottom-color: transparent;
   }
 
@@ -3019,12 +3307,16 @@ const accommodationStructuredData = [
       gap: 12px;
       grid-template-areas:
         "story"
-        "panel"
-        "featured";
+        "panel";
     }
 
-    .d2-featured-experience {
+    .d2-featured-experience,
+    .d2-decision-panel__top {
       grid-template-columns: 1fr;
+    }
+
+    .d2-decision-reasons__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .d2-overview__grid,
@@ -3517,6 +3809,109 @@ const accommodationStructuredData = [
 
     .d2-details__panel {
       padding: 12px;
+    }
+
+    .d2-decision-panel {
+      gap: 10px;
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .d2-decision-panel__summary {
+      padding: 13px 12px;
+      border-radius: 9px;
+    }
+
+    .d2-decision-panel__summary h3 {
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .d2-decision-panel__summary > p {
+      font-size: var(--dnd-text-md);
+      line-height: 1.45;
+    }
+
+    .d2-decision-feature {
+      grid-template-columns: minmax(84px, 0.44fr) minmax(0, 0.56fr);
+    }
+
+    .d2-decision-feature__copy p {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .d2-decision-answers__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .d2-decision-answer {
+      display: grid;
+      min-height: 124px;
+      align-content: start;
+      gap: 7px;
+      padding: 10px;
+    }
+
+    .d2-decision-answer svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .d2-decision-answer strong,
+    .d2-decision-answer--qa strong {
+      font-size: 0.76rem;
+      line-height: 1.22;
+    }
+
+    .d2-decision-answer p {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 0.68rem;
+      line-height: 1.34;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+    }
+
+    .d2-decision-reasons__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .d2-decision-reason {
+      min-height: 0;
+      padding: 8px;
+      gap: 7px;
+    }
+
+    .d2-decision-reason strong,
+    .d2-decision-amenity strong {
+      font-size: var(--dnd-text-xs);
+      line-height: 1.22;
+    }
+
+    .d2-decision-reason p {
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.28;
+    }
+
+    .d2-decision-amenities__grid {
+      column-gap: 10px;
+    }
+
+    .d2-decision-amenity {
+      min-height: 32px;
+      padding: 4px 0;
+    }
+
+    .d2-decision-panel__eyebrow,
+    .d2-decision-panel__head span {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      line-height: 1.25;
     }
 
     .d2-details__panel > section + section {

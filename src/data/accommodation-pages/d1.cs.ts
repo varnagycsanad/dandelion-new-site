@@ -17,15 +17,53 @@ export const d1CzechPageData = createCzechAccommodationPage(d1EnglishPageData, {
     "Společný Panorama Pool patří k pobytům D1, D2 a Fügeház od 15. června 2026."
   ],
   facts: [["Hosté", "6-8 hostů"], ["Ložnice", "3 ložnice"], ["Koupelny", "2 koupelny"], ["Exteriér", "zahrada a terasa"]],
-  experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Pro skupiny", "více prostoru pro společný čas"], ["Vylety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
-  highlights: ["Velka zahrada", "Terasa", "3 ložnice", "2 koupelny", "Společný Panorama Pool", "Parkování"],
+  experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Pro skupiny", "více prostoru pro společný čas"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
+  highlights: ["Velká zahrada", "Terasa", "3 ložnice", "2 koupelny", "Společný Panorama Pool", "Parkování"],
   reasons: [
-    { iconKey: "guests", title: "Vice prostoru", text: "pro rodinu nebo přátele" },
-    { iconKey: "garden", title: "Zahrada", text: "venkovní čas" },
-    { iconKey: "pool", title: "Panorama Pool", text: "společný bazén" },
-    { iconKey: "trail", title: "Dobra poloha", text: "kopce a Balaton" }
+    { iconKey: "guests", title: "Prostorný rodinný dům", text: "8 hostů, oddělené pokoje" },
+    { iconKey: "garden", title: "Zahrada a terasa", text: "jídlo venku" },
+    { iconKey: "pool", title: "Letní pobyt", text: "společný bazén" },
+    { iconKey: "trail", title: "Základna u kopců", text: "výlety a vinařství" }
   ],
-  amenities: ["Wi-Fi", "Kuchyně", "Zahrada", "Terasa", "Topení", "Parkování", "Koupelny", "Venkovní posezení"],
+  amenities: ["3 ložnice", "Pohodlný obývací pokoj", "Dobře vybavená kuchyně", "Panoramatická terasa", "Možnost grilování", "Klimatizace", "Pračka", "Myčka nádobí", "Gigabitový internet"],
+  geoDecision: {
+    kicker: "D1 rychlé odpovědi",
+    title: "Dandelion D1 je dobrá volba, pokud hledáte prostorný dům v Kisapáti se společným bazénem",
+    lead: "D1 je připravený pro větší rodiny a skupiny přátel: až 8 hostů, panoramatická terasa, prostorné společné části a společný Panorama Pool od 15. června 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Má Dandelion D1 přístup k bazénu?",
+        answer: "Ano. Od 15. června 2026 mohou hosté D1 využívat společný Panorama Pool."
+      },
+      {
+        iconKey: "pool",
+        question: "Je bazén soukromý jen pro D1?",
+        answer: "Ne. Panorama Pool je společný bazén pro hosty D1, D2 a Fügeház."
+      },
+      {
+        iconKey: "guests",
+        question: "Pro kolik hostů je Dandelion D1 pohodlný?",
+        answer: "Dandelion D1 je pohodlný až pro 8 hostů, se 3 ložnicemi, obývacím pokojem a více koupelnami."
+      },
+      {
+        iconKey: "mountain",
+        question: "Pro jaké výlety je D1 dobrá základna?",
+        answer: "Z Kisapáti jsou krátkou jízdou dostupné Szent György-hegy, Badacsony, Szigliget, Csobánc, Balaton i místní vinařství."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Jaké vybavení má D1?",
+        answer: "D1 má dobře vybavenou kuchyni, myčku nádobí, pračku, klimatizaci, pohodlný obývací pokoj, panoramatickou terasu a možnost grilování."
+      },
+      {
+        iconKey: "wifi",
+        question: "Má Dandelion D1 rychlý internet?",
+        answer: "Ano. V Dandelion D1 je gigabitový internet, takže dům je praktický i pro delší pobyty a klidnější online práci."
+      }
+    ],
+    amenitiesTitle: "Co je v domě důležité"
+  },
   mapBody: "Dandelion D1 leží v Kisapáti, v dosahu Szent György-hegy, Tapolcai-medence, vinic a Balatonu.",
   mapBenefits: [{ label: "Szent György-hegy poblíž", icon: "trail" }, { label: "Pro větší skupinu", icon: "users" }, { label: "Balaton dostupný autem", icon: "route" }]
 });
