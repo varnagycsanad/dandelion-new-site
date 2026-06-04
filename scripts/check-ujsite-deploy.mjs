@@ -5,6 +5,7 @@ const criticalPages = [
   `${BASE_URL}/`,
   `${BASE_URL}/cs/`,
   `${BASE_URL}/szallasok`,
+  `${BASE_URL}/en/panorama-pool/`,
   `${BASE_URL}/dandelion-d2/`,
 ];
 const royalAliasUrl = `${BASE_URL}/dandelion-royal-homes`;

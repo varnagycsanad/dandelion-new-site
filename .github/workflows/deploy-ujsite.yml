@@ -164,7 +164,6 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
-              --exclude "en/panorama-pool/index.html" \
               --exclude "videos/" \
               dist-current/ ../_prev_build/dist/ > dist-delta.txt
 
@@ -188,7 +187,6 @@ jobs:
               --exclude "_local/" \
               --exclude "assets/" \
               --exclude "images/accommodations/" \
-              --exclude "en/panorama-pool/index.html" \
               --exclude "videos/" \
               dist-current/ deploy-dist/
 
@@ -198,6 +196,13 @@ jobs:
           if [ -d dist-current/guide ]; then
             rsync -av dist-current/guide/ deploy-dist/guide/
             find deploy-dist/guide -type f -printf 'guide/%P\n' >> deploy-files.txt
+          fi
+
+          # [CHANGE 2026-06-05 01:06] Ensure the English Panorama Pool clean URL is deployed after removing the legacy HTML alias.
+          if [ -f dist-current/en/panorama-pool/index.html ]; then
+            mkdir -p deploy-dist/en/panorama-pool
+            cp -a dist-current/en/panorama-pool/index.html deploy-dist/en/panorama-pool/index.html
+            echo "en/panorama-pool/index.html" >> deploy-files.txt
           fi
 
           sort -u deploy-files.txt -o deploy-files.txt
