@@ -6,6 +6,7 @@ Use for: kézzel kitölthető heti GEO riport sablon, későbbi agent output mod
 Do not use for: automatikus riportküldés vagy adatlekérés implementáció nélkül.
 
 Kapcsolódó specifikáció: `project-docs/DANDELION_GEO_AGENT_SPEC.md`.
+Kapcsolódó adatbemeneti specifikáció: `project-docs/DANDELION_GEO_DATA_INPUT_SPEC.md`.
 
 ## 1. Riport adatai
 

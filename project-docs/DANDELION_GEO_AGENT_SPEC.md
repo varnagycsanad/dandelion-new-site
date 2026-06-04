@@ -38,6 +38,8 @@ Rögzített kiinduló állapot:
 
 ## 3. Figyelendő adatforrások
 
+A GEO heti riport és a későbbi félautomata adatfeldolgozás pontos mezőigényét a `project-docs/DANDELION_GEO_DATA_INPUT_SPEC.md` rögzíti.
+
 ### 3.1 Google Search Console
 
 Figyelje:
