@@ -20,13 +20,25 @@ tmp/lighthouse-*.json
 
 # environment variables
 .env
+.env.*
+!.env.example
 .env.production
+.secrets/
 tmp/ga4-service-account*.json
 ga4-service-account*.json
 tmp/ga4-oauth-client*.json
 tmp/ga4-oauth-token*.json
 ga4-oauth-client*.json
 ga4-oauth-token*.json
+tmp/*oauth-token*.json
+tmp/*service-account*.json
+tmp/*client_secret*.json
+tmp/*credentials*.json
+tmp/*google*.json
+*.service-account.json
+google-credentials.json
+data/geo/raw/*.json
+data/geo/processed/*.json
 
 # macOS-specific files
 .DS_Store
