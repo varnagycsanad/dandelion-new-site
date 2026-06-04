@@ -25,6 +25,15 @@ type CzechAccommodationProfile = {
   mapBenefits: { label: string; icon: string }[];
 };
 
+function buildCzechSeoTitle(profile: CzechAccommodationProfile) {
+  const stayName = `${profile.title} ${profile.titleAccent}`.replace(/\s+/g, " ").trim();
+  const primaryLocation = profile.location.split("/")[0]?.trim() || profile.location;
+  const locationPhrase = primaryLocation.includes("Szent György-hegy")
+    ? `u ${primaryLocation}`
+    : `v ${primaryLocation}`;
+  return `${stayName} ${locationPhrase} | Dandelion ubytování`;
+}
+
 const defaultReviews = [
   {
     source: "Google" as const,
@@ -61,7 +70,7 @@ export function createCzechAccommodationPage(
 ): AccommodationPageData {
   return {
     seo: {
-      title: `${profile.title} | Dandelion ubytování u Balatonu`,
+      title: buildCzechSeoTitle(profile),
       description: profile.shortDescription
     },
     bookingLink: resolveCzechBookingLink(baseData),

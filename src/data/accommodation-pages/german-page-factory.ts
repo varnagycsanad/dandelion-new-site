@@ -27,6 +27,15 @@ type GermanAccommodationProfile = {
   relatedSlot: HomepageImageSlotKey;
 };
 
+function buildGermanSeoTitle(profile: GermanAccommodationProfile) {
+  const stayName = `${profile.title} ${profile.titleAccent}`.replace(/\s+/g, " ").trim();
+  const primaryLocation = profile.location.split("/")[0]?.trim() || profile.location;
+  const locationPhrase = primaryLocation.includes("Szent György-hegy")
+    ? `bei ${primaryLocation}`
+    : `in ${primaryLocation}`;
+  return `${stayName} ${locationPhrase} | Dandelion Unterkunft`;
+}
+
 const defaultReviews = [
   {
     source: "Google" as const,
@@ -108,7 +117,7 @@ export function createGermanAccommodationPage(
 ): AccommodationPageData {
   return {
     seo: {
-      title: `${profile.title} | Dandelion Unterkünfte am Balaton`,
+      title: buildGermanSeoTitle(profile),
       description: profile.shortDescription
     },
     bookingLink: resolveGermanBookingLink(baseData),
