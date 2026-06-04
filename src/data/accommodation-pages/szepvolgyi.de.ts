@@ -39,6 +39,45 @@ export const szepvolgyiGermanPageData = createGermanAccommodationPage(szepvolgyi
     { iconKey: "grapes", title: "Badacsony", text: "Weinregion in der Nähe" }
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Parken"],
+  geoDecision: {
+    kicker: "Szépvölgyi schnelle Antworten",
+    title: "Szépvölgyi passt, wenn eine größere Familie oder Freundesgruppe ein geräumiges Haus mit Balaton-Panorama und eigenem Garten in Badacsonyörs sucht",
+    lead:
+      "Szépvölgyi ist bis 8 Gäste bequem, mit 4 Schlafzimmern, 2 Badezimmern, geschlossenem Garten, Panorama-Terrasse, Grillmöglichkeit und Balaton-Programmen in der Nähe.",
+    questions: [
+      {
+        question: "Für wen ist Szépvölgyi eine gute Wahl?",
+        answer:
+          "Für größere Familien und Freundesgruppen, die in Badacsonyörs ein geräumiges Haus mit eigenem Garten und Balaton-Panorama suchen, nahe Strand, Hafen und Badacsony-Programmen."
+      },
+      {
+        question: "Für wie viele Gäste ist Szépvölgyi bequem?",
+        answer:
+          "Das Haus ist für bis zu 8 Gäste bequem. Es gibt 4 Schlafzimmer und 2 Badezimmer, deshalb funktioniert es gut für mehrere Familienmitglieder oder eine größere Gruppe."
+      },
+      {
+        question: "Wie ist der Blick von der Terrasse?",
+        answer:
+          "Von der Terrasse öffnet sich ein Balaton-Panorama. Das ist einer der stärksten Punkte des Hauses und gibt Frühstück, Abendgesprächen und gemeinsamer Erholung eine schöne Kulisse."
+      },
+      {
+        question: "Wie sind Garten und Außenbereich?",
+        answer:
+          "Der geschlossene Garten bietet Parkmöglichkeit für zwei Autos. Terrassenmöbel und Grill machen die Zeit draußen bequem und praktisch."
+      },
+      {
+        question: "Welche Programme gibt es in der Nähe?",
+        answer:
+          "Strand, Hafen und Radweg sind gut erreichbar. Folly Arboretum, Burg Szigliget, Badacsony-Weinrouten, Gastroprogramme und Festivals sind gute Ziele in der Umgebung."
+      },
+      {
+        question: "Worin unterscheidet es sich von einem Apartment am Balaton?",
+        answer:
+          "Szépvölgyi bietet eher den Rhythmus eines eigenen Ferienhauses: mehr gemeinsame Räume, eigener Garten und ruhigere Atmosphäre, während der Balaton trotzdem nahe bleibt."
+      }
+    ],
+    amenitiesTitle: "Wichtig bei Szépvölgyi"
+  },
   mapBody:
     "Szépvölgyi liegt in Badacsonyörs, mit Zugang zu Balaton-Ufer, Badacsony, Radwegen und regionalen Ausflugszielen.",
   mapBenefits: [

@@ -165,6 +165,45 @@ export const szepvolgyiPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Szépvölgyi gyors válaszok",
+    title: "A Szépvölgyi akkor jó választás, ha nagyobb családdal vagy baráti társasággal kerestek balatoni panorámás, saját kertes házat Badacsonyörsön",
+    lead:
+      "A Szépvölgyi Vendégház 8 főig kényelmes, 4 hálószobás és 2 fürdőszobás nyaraló zárt kerttel, panorámás terasszal, grillezési lehetőséggel és Balaton-közeli programokkal.",
+    questions: [
+      {
+        question: "Kinek jó választás a Szépvölgyi Vendégház?",
+        answer:
+          "Nagyobb családoknak és baráti társaságoknak, akik Badacsonyörsön keresnek tágas, saját kertes házat balatoni panorámával, közel strandhoz, kikötőhöz és badacsonyi programokhoz."
+      },
+      {
+        question: "Hány főnek kényelmes a Szépvölgyi?",
+        answer:
+          "A ház akár 8 főnek kényelmes. 4 hálószoba és 2 fürdőszoba áll rendelkezésre, ezért több családnak vagy nagyobb társaságnak is jól használható."
+      },
+      {
+        question: "Milyen a kilátás a teraszról?",
+        answer:
+          "A teraszról balatoni panoráma nyílik. Ez a ház egyik legerősebb pontja: reggelihez, esti beszélgetéshez és közös pihenéshez is látványos hátteret ad."
+      },
+      {
+        question: "Milyen a kert és a kinti pihenés?",
+        answer:
+          "A zárt kertben két autó számára van parkolási lehetőség, a kinti időt pedig teraszbútorok és grillező teszik kényelmessé."
+      },
+      {
+        question: "Milyen programok vannak a közelben?",
+        answer:
+          "A strand, a kikötő és a kerékpárút könnyen elérhető, a Folly Arborétum, a Szigligeti vár, a badacsonyi bortúrák, gasztroprogramok és fesztiválok pedig jó környékbeli célpontok."
+      },
+      {
+        question: "Miben más, mint egy apartmanos balatoni szállás?",
+        answer:
+          "A Szépvölgyi nem apartmanos ritmust ad, hanem saját kertes, nagyobb terekkel rendelkező nyaralóhangulatot. Ez akkor erős, ha a Balaton közelsége mellett közös térre és nyugalomra is szükség van."
+      }
+    ],
+    amenitiesTitle: "Ami a Szépvölgyiben fontos"
+  },
   amenities: [
     {
       iconKey: "home",

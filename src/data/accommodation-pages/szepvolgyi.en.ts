@@ -152,6 +152,45 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Szépvölgyi quick answers",
+    title: "Szépvölgyi Vendégház is a good choice if a larger family or group of friends wants a spacious house with Lake Balaton views and a private garden in Badacsonyörs",
+    lead:
+      "Szépvölgyi Vendégház is comfortable for up to 8 guests, with 4 bedrooms, 2 bathrooms, an enclosed garden, panoramic terrace, grilling option and Lake Balaton programmes nearby.",
+    questions: [
+      {
+        question: "Who is Szépvölgyi Vendégház best for?",
+        answer:
+          "It is best for larger families and groups of friends looking for a spacious house with a private garden and Lake Balaton views in Badacsonyörs, close to the beach, harbour and Badacsony programmes."
+      },
+      {
+        question: "How many guests is Szépvölgyi comfortable for?",
+        answer:
+          "The house is comfortable for up to 8 guests. It has 4 bedrooms and 2 bathrooms, so it works well for several family members or a larger group."
+      },
+      {
+        question: "What is the view like from the terrace?",
+        answer:
+          "The terrace has a Lake Balaton view. It is one of the strongest parts of the house and gives breakfast, evening conversations and shared rest a memorable backdrop."
+      },
+      {
+        question: "What is the garden and outdoor space like?",
+        answer:
+          "The enclosed garden has parking for two cars, while terrace furniture and a grill make outdoor time easy and practical."
+      },
+      {
+        question: "What programmes are nearby?",
+        answer:
+          "The beach, harbour and cycling route are easy to reach. Folly Arboretum, Szigliget Castle, Badacsony wine routes, gastro programmes and festivals are good nearby options."
+      },
+      {
+        question: "How is it different from an apartment-style Balaton stay?",
+        answer:
+          "Szépvölgyi gives a private-house rhythm rather than an apartment-style stay: more shared space, a private garden and a calmer setting while staying close to Lake Balaton."
+      }
+    ],
+    amenitiesTitle: "What matters at Szépvölgyi"
+  },
   amenities: [
     { iconKey: "home", title: "4 bedrooms" },
     { iconKey: "bathroom", title: "2 bathrooms" },
