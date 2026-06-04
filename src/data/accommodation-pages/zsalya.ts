@@ -149,31 +149,81 @@ export const zsalyaPageData: AccommodationPageData = {
     reasonsTitle: "Amiért szeretni fogod",
     reasons: [
       {
-        iconKey: "leaf",
-        title: "Csendes hegyoldali pihenés",
-        text: "Nyugodt, lassabb ritmus"
-      },
-      {
-        iconKey: "sun",
-        title: "Szép reggeli fények",
-        text: "Napfelkelte a háznál"
+        iconKey: "mountain",
+        title: "Tanúhegy panoráma",
+        text: "Csobánc, Gulács"
       },
       {
         iconKey: "terrace",
-        title: "Otthonos kis ház",
-        text: "Két szint és terasz"
+        title: "Fedett üvegterasz",
+        text: "Kilátással"
+      },
+      {
+        iconKey: "leaf",
+        title: "Nagy saját terület",
+        text: "Csend, tér"
       },
       {
         iconKey: "trail",
-        title: "Jó túrás bázis",
-        text: "Útvonalak a közelben"
+        title: "Túrázós bázis",
+        text: "Utak közel"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "Zsálya gyors válaszok",
+    title: "A Dandelion Zsálya csendes, különálló hegyoldali ház 4 főre, teljesen fedett terasszal és tanúhegy panorámával",
+    lead: "A Zsálya nagy üvegfelületekkel, nagy saját területtel, két szinttel, klímával mindkét szinten és túraútvonalak közelségével ad nyugodt Balaton-felvidéki bázist.",
+    questions: [
+      {
+        iconKey: "family",
+        question: "Kinek jó választás a Zsálya?",
+        answer: "Pároknak, kisebb családoknak és nyugodt pihenést kereső vendégeknek, akik különálló házat, nagy saját területet és szép kilátást szeretnének."
+      },
+      {
+        iconKey: "mountain",
+        question: "Milyen a kilátás?",
+        answer: "A teraszról és a nagy üvegfelületeken át a tanúhegyek felé nyílik panoráma, többek között Csobánc, Gulács és Tóti-hegy irányába."
+      },
+      {
+        iconKey: "terrace",
+        question: "Miért különleges a terasz?",
+        answer: "Teljesen fedett, nagy üvegfelületekkel kapcsolódik a tájhoz, ezért reggel, este és rosszabb időben is jól használható."
+      },
+      {
+        iconKey: "guests",
+        question: "Hány főnek kényelmes?",
+        answer: "A Zsálya 4 főnek kényelmes, két szinten kialakított vendégház."
+      },
+      {
+        iconKey: "bathroom",
+        question: "Mi van a házban?",
+        answer: "Klíma mindkét szinten, felszerelt teakonyha, két fürdőszoba, fürdőkád, külön WC és nappali teraszkijárattal."
+      },
+      {
+        iconKey: "trail",
+        question: "Milyen programokhoz jó?",
+        answer: "Túrázáshoz, tanúhegyes kirándulásokhoz, balatoni programokhoz és csendes Balaton-felvidéki napokhoz, mert turistaútvonalak több irányban is elérhetők."
+      }
+    ],
+    amenitiesTitle: "Ami a Zsályában fontos"
   },
   amenities: [
     {
       iconKey: "terrace",
-      title: "Részben fedett terasz"
+      title: "Teljesen fedett terasz"
+    },
+    {
+      iconKey: "terrace",
+      title: "Nagy üvegfelületek"
+    },
+    {
+      iconKey: "mountain",
+      title: "Tanúhegy panoráma"
+    },
+    {
+      iconKey: "leaf",
+      title: "Nagy saját terület"
     },
     {
       iconKey: "sun",
@@ -185,23 +235,11 @@ export const zsalyaPageData: AccommodationPageData = {
     },
     {
       iconKey: "bathroom",
-      title: "Zuhanyzós fürdőszoba"
+      title: "Két fürdőszoba"
     },
     {
-      iconKey: "bathroom",
-      title: "Fürdőkád"
-    },
-    {
-      iconKey: "home",
-      title: "Külön WC"
-    },
-    {
-      iconKey: "home",
-      title: "Nappali teraszkijárattal"
-    },
-    {
-      iconKey: "home",
-      title: "Franciaágy"
+      iconKey: "trail",
+      title: "Túraútvonalak közel"
     }
   ],
   gallery: {

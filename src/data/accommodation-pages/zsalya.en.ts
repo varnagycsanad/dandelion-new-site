@@ -21,14 +21,14 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
     title: "Zsálya",
     titleAccent: "Vendégház",
     subtitle: "QUIET COUNTRYSIDE GUESTHOUSE FOR SLOWER DAYS",
-    lead: "A small, separate two-floor guesthouse on the quieter side of Szent György Hill, with a partly covered terrace, sunrise mornings and a peaceful countryside rhythm.",
+    lead: "A separate two-floor hillside guesthouse for 4 guests, with a fully covered glass terrace, large private grounds, witness-hill views and a peaceful countryside rhythm.",
     primaryCtaLabel: "Book now",
     secondaryCtaLabel: "View photos"
   },
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A quiet nature-close base for slower days around Szent György Hill.",
+    intro: "Guest-style notes for the quiet terrace, hillside setting and walks around Szent György Hill.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",
@@ -36,27 +36,27 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
     items: [
       {
         source: "Google",
-        quote: "A quiet, calm place with easy access to walks and a good feeling when you return in the evening.",
+        quote: "A quiet, calm place where it is easy to start a walk and very good to return in the evening.",
         meta: "Guest · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "The terrace and the surrounding countryside make it easy to slow down for a few days.",
+        quote: "The terrace and the surrounding landscape add a lot to the rest, and it is easy to find a slower rhythm here.",
         meta: "Guest · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "A compact but thoughtful house for a nature-close break near Szent György Hill.",
+        quote: "A smaller but thoughtful and comfortable house, a good choice for resting close to nature.",
         meta: "Guest · Google · 5/5"
       },
       {
         source: "Booking.com",
-        quote: "A friendly, comfortable base for exploring Szent György Hill and resting afterwards.",
+        quote: "A friendly, comfortable stay and a very good base for discovering Szent György Hill.",
         meta: "Guest · Booking.com · 9.0/10"
       },
       {
         source: "Booking.com",
-        quote: "Peaceful and quiet, with a covered terrace that stays pleasant even when the weather changes.",
+        quote: "A peaceful, quiet place where the covered terrace is pleasant even when the weather changes.",
         meta: "Guest · Booking.com · 9.0/10"
       }
     ]
@@ -64,23 +64,23 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
   intro: {
     kicker: "Quiet · terrace · sunrise",
     title: "A separate little house in the calm of the hillside",
-    lead: "Zsálya Vendégház is for guests who want a smaller, peaceful house where the terrace, the morning light and the quiet surroundings become part of the stay."
+    lead: "Zsálya Vendégház is for guests who want a separate hillside house where the glass terrace, wide private grounds and witness-hill views shape the stay."
   },
   details: {
     kicker: "Zsálya Vendégház",
     title: "Sunrise, witness-hill views and a calm two-floor stay",
     shortDescription:
-      "A two-floor guesthouse for 4 guests, with a partly covered terrace, refreshed interiors and a quiet, nature-close setting near Szent György Hill.",
+      "A two-floor guesthouse for 4 guests, with a fully covered glass terrace, large private grounds, refreshed interiors and a quiet, nature-close setting near Szent György Hill.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
     },
     longDescription: [
       "Mornings are one of the quiet pleasures of Zsálya Vendégház: sunrise, hillside light and the view from the terrace naturally set a slower pace for the day.",
-      "The house was refreshed in 2026. The terrace is now partly built in and partly covered, so it remains useful in changing weather. From here, the view opens toward Csobánc, Gulács and Tóti Hill.",
+      "The house was refreshed in 2026. The terrace is now fully covered and connected to the landscape through large glass surfaces. From here, the view opens toward Csobánc, Gulács and Tóti Hill.",
       "The lower level has a cooking corner, a bathroom with shower and a separate toilet. The kitchen corner includes a refrigerator, built-in freezer and the everyday tools needed for shorter or longer stays.",
       "The living area is bright and friendly, with a sofa, several windows and direct access to the terrace. Upstairs, guests have a double bed, a sink and a bathtub.",
-      "Both floors have air conditioning, so the house can be cooled in summer and heated in cooler weather. The partly covered terrace and the quiet surroundings help guests settle into an easier countryside rhythm.",
+      "Both floors have air conditioning, so the house can be cooled in summer and heated in cooler weather. The large private grounds, the fully covered terrace and the quiet surroundings help guests settle into an easier countryside rhythm.",
       "One of the practical advantages is the location: hiking routes around Szent György Hill are almost available from the gate. Days can start with a walk and end with a quiet evening back at the house."
     ],
     moreLabel: "More about Zsálya Vendégház",
@@ -94,7 +94,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
           ["Guests", "4 guests"],
           ["Layout", "separate two-floor small house"],
           ["Location", "eastern side of Szent György Hill"],
-          ["Refreshed", "updated in 2026 with a partly covered terrace"]
+          ["Refreshed", "updated in 2026 with a fully covered glass terrace"]
         ]
       },
       {
@@ -114,8 +114,9 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
       { label: "Separate guesthouse", icon: "home" },
       { label: "Comfortable for 4 guests", icon: "users" },
       { label: "Two floors", icon: "route" },
-      { label: "Partly covered terrace", icon: "leaf" },
+      { label: "Fully covered glass terrace", icon: "leaf" },
       { label: "Witness-hill views", icon: "mountain" },
+      { label: "Large private grounds", icon: "leaf" },
       { label: "Air conditioning on both floors", icon: "sun" },
       { label: "Equipped kitchen corner", icon: "utensils" },
       { label: "Hiking route nearby", icon: "trail" }
@@ -126,28 +127,66 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
     overviewFacts: [
       { iconKey: "guests", title: "4 guests", text: "Capacity" },
       { iconKey: "home", title: "Two floors", text: "Layout" },
-      { iconKey: "terrace", title: "Partly covered terrace", text: "Outdoor space" },
+      { iconKey: "terrace", title: "Covered glass terrace", text: "Outdoor space" },
       { iconKey: "mountain", title: "Witness-hill views", text: "View" },
       { iconKey: "sun", title: "Air conditioning on both floors", text: "Comfort" },
       { iconKey: "balaton", title: "Eastern side of Szent György Hill", text: "Location" }
     ],
     reasonsTitle: "Why you will love it",
     reasons: [
-      { iconKey: "leaf", title: "Quiet hillside rest", text: "A calmer countryside rhythm" },
-      { iconKey: "sun", title: "Beautiful morning light", text: "Sunrise at the house" },
-      { iconKey: "terrace", title: "Small and homely", text: "Two floors and a terrace" },
-      { iconKey: "trail", title: "Good walking base", text: "Routes nearby" }
+      { iconKey: "mountain", title: "Witness-hill views", text: "Csobánc, Gulács" },
+      { iconKey: "terrace", title: "Covered glass terrace", text: "With views" },
+      { iconKey: "leaf", title: "Large private grounds", text: "Calm, space" },
+      { iconKey: "trail", title: "Walking base", text: "Routes nearby" }
     ]
   },
+  geoDecision: {
+    kicker: "Zsálya quick answers",
+    title: "Dandelion Zsálya is a quiet, separate hillside house for 4 guests, with a fully covered terrace and witness-hill views",
+    lead: "Zsálya offers large glass surfaces, large private grounds, two floors, air conditioning on both floors and nearby hiking routes for a calm Balaton Uplands stay.",
+    questions: [
+      {
+        iconKey: "family",
+        question: "Who is Zsálya a good choice for?",
+        answer: "Zsálya suits couples, smaller families and guests looking for a quiet stay with a separate house, large private grounds and beautiful views."
+      },
+      {
+        iconKey: "mountain",
+        question: "What is the view like?",
+        answer: "The terrace and large glass surfaces open toward the witness hills, including Csobánc, Gulács and Tóti Hill."
+      },
+      {
+        iconKey: "terrace",
+        question: "What makes the terrace special?",
+        answer: "The terrace is fully covered and connected to the landscape through large glass surfaces, so it works well in the morning, evening and changing weather."
+      },
+      {
+        iconKey: "guests",
+        question: "How many guests is it comfortable for?",
+        answer: "Zsálya is comfortable for 4 guests in a two-floor guesthouse."
+      },
+      {
+        iconKey: "bathroom",
+        question: "What is inside the house?",
+        answer: "There is air conditioning on both floors, an equipped kitchen corner, two bathrooms, a bathtub, a separate toilet and a living area with terrace access."
+      },
+      {
+        iconKey: "trail",
+        question: "What activities is it a good base for?",
+        answer: "Zsálya works well for hiking, witness-hill trips, Lake Balaton programs and quieter Balaton Uplands days, with routes available in several directions nearby."
+      }
+    ],
+    amenitiesTitle: "What matters in Zsálya"
+  },
   amenities: [
-    { iconKey: "terrace", title: "Partly covered terrace" },
+    { iconKey: "terrace", title: "Fully covered terrace" },
+    { iconKey: "terrace", title: "Large glass surfaces" },
+    { iconKey: "mountain", title: "Witness-hill views" },
+    { iconKey: "leaf", title: "Large private grounds" },
     { iconKey: "sun", title: "Air conditioning on both floors" },
     { iconKey: "utensils", title: "Equipped kitchen corner" },
-    { iconKey: "bathroom", title: "Bathroom with shower" },
-    { iconKey: "bathroom", title: "Bathtub" },
-    { iconKey: "home", title: "Separate toilet" },
-    { iconKey: "home", title: "Living area with terrace access" },
-    { iconKey: "home", title: "Double bed" }
+    { iconKey: "bathroom", title: "Two bathrooms" },
+    { iconKey: "trail", title: "Hiking routes nearby" }
   ],
   gallery: {
     kicker: "Gallery",

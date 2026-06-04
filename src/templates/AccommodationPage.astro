@@ -781,15 +781,19 @@ const accommodationStructuredData = [
           {reviewItems.map((review) => (
             <article class="d2-review-card">
               <div class="d2-review-card__top">
-                <img
-                  src={review.logoSrc}
-                  alt={review.logoAlt}
-                  width={review.source === "Google" ? 82 : 96}
-                  height={24}
-                  class:list={["d2-review-card__logo", review.source === "Google" ? "is-google" : "is-booking"]}
-                  loading="lazy"
-                  decoding="async"
-                />
+                {review.source === "Booking.com" ? (
+                  <span class="d2-review-card__booking-wordmark" aria-label={review.logoAlt}>Booking</span>
+                ) : (
+                  <img
+                    src={review.logoSrc}
+                    alt={review.logoAlt}
+                    width={82}
+                    height={24}
+                    class:list={["d2-review-card__logo", "is-google"]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
               </div>
               <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
@@ -803,21 +807,7 @@ const accommodationStructuredData = [
             <article class="d2-review-card d2-review-card--mobile-grid">
               <div class="d2-review-card__top d2-review-card__top--mobile-grid">
                 {review.source === "Booking.com" ? (
-                  <span class="d2-review-card__logo-crop d2-review-card__logo-crop--mobile-booking">
-                    <img
-                      src={review.logoSrc}
-                      alt={review.logoAlt}
-                      width={70}
-                      height={24}
-                      class:list={[
-                        "d2-review-card__logo",
-                        "is-booking",
-                        "d2-review-card__logo--mobile-booking"
-                      ]}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </span>
+                  <span class="d2-review-card__booking-wordmark" aria-label={review.logoAlt}>Booking</span>
                 ) : (
                   <img
                     src={review.logoSrc}
@@ -844,21 +834,7 @@ const accommodationStructuredData = [
                   <article class="d2-review-card d2-review-card--mobile-grid">
                     <div class="d2-review-card__top d2-review-card__top--mobile-grid">
                       {review.source === "Booking.com" ? (
-                        <span class="d2-review-card__logo-crop d2-review-card__logo-crop--mobile-booking">
-                          <img
-                            src={review.logoSrc}
-                            alt={review.logoAlt}
-                            width={70}
-                            height={24}
-                            class:list={[
-                              "d2-review-card__logo",
-                              "is-booking",
-                              "d2-review-card__logo--mobile-booking"
-                            ]}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </span>
+                        <span class="d2-review-card__booking-wordmark" aria-label={review.logoAlt}>Booking</span>
                       ) : (
                         <img
                           src={review.logoSrc}
@@ -2084,25 +2060,12 @@ const accommodationStructuredData = [
     align-items: flex-start;
   }
 
-  .d2-review-card__logo-crop {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 70px;
-    height: 26px;
-    overflow: hidden;
-    flex: 0 0 auto;
-  }
-
-  .d2-review-card__logo--mobile-booking {
-    width: 96px;
-    max-width: none;
-    height: 18px;
-    transform: translateX(-12px);
-  }
-
-  .d2-review-card__logo-crop--mobile-booking {
-    width: 72px;
+  .d2-review-card__booking-wordmark {
+    color: #003b7a;
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .d2-section-title {
