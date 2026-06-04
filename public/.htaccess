@@ -122,8 +122,8 @@ Options -MultiViews
   RewriteRule ^deploy-check\.txt$ - [END]
   RewriteRule ^favicon\.(ico|png|svg)$ - [END]
 
-  # Serve the English Panorama Pool route through the uploaded alias file.
-  RewriteRule ^en/panorama-pool/?$ en/panorama-pool.html [L]
+  # Canonicalize the legacy English Panorama Pool HTML alias.
+  RewriteRule ^en/panorama-pool\.html$ /en/panorama-pool/ [R=301,L]
 
   # Canonicalize directory routes before Apache's own directory handler runs.
   RewriteCond %{REQUEST_FILENAME} -d
