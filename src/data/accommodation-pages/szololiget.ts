@@ -22,7 +22,6 @@ export const szololigetPageData: AccommodationPageData = {
       "wifi: van",
       "parkolás: ingyenes",
       "légkondi: van",
-      "medence: nincs",
       "booking státusz: online foglalási link van"
     ],
     betterAlternativeNote: "ha több fürdőszobás elrendezést kerestek."
@@ -86,13 +85,14 @@ export const szololigetPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Szőlőliget Vendégház",
-    title: "Kétszintes kis ház hatalmas terasszal és 180°-os panorámával",
+    title: "Kétszintes kis ház hatalmas terasszal, kerttel és 180°-os panorámával",
     shortDescription:
-      "2022-ben felújított, kétszintes ház 4 főre, nagy körbejárható terasszal és 180°-os tanúhegy panorámával.",
+      "2022-ben felújított, kétszintes ház 4 főre, nagy terasszal, szép növényes kerttel és 180°-os tanúhegy panorámával.",
     longDescription: [
       "A Szőlőliget egyik legerősebb élménye a reggel: az ágyból látható napfelkelte és a ház körüli csend rögtön belassítja az itt töltött napokat.",
       "A házat 2022-ben újítottuk fel, és vadonatúj bútorokkal rendeztük be. A kétszintes, szintenként körülbelül 20 m²-es kis ház 4 fő részére kényelmes, egy pótággyal pedig tovább bővíthető. Ideális választás családoknak, kirándulóknak, bortúrára érkezőknek vagy balatoni nyaraláshoz is.",
-      "Az alsó szinthez hatalmas, körbejárható terasz kapcsolódik, ahonnan 180°-os panoráma nyílik a környező tanúhegyekre. A Csobánc, a Tóti-hegy és a Gulács innen különösen szép arcát mutatja, a kilátás pedig minden napszakban más hangulatot ad a háznak.",
+      "Az alsó szinthez hatalmas terasz kapcsolódik, ahonnan 180°-os panoráma nyílik a környező tanúhegyekre. A Csobánc, a Tóti-hegy és a Gulács innen különösen szép arcát mutatja, a kilátás pedig minden napszakban más hangulatot ad a háznak.",
+      "A ház körüli kert különösen fontos része a hangulatnak: sokféle, gondosan elültetett növény, zöld részlet és csendes kültéri tér segít abban, hogy a pihenés ne csak a teraszról szóljon.",
       "A Szőlőliget egyik legnagyobb értéke a csend és a tér. Nincs zsúfolt környezet, nincs városi nyüzsgés: csak a hegyoldal, a szőlők, a nagy terasz és a panoráma. Reggeli kávéhoz, lassú délutánokhoz és csillagos estékhez is erős helyszín.",
       "A háztól a Szent György-hegy túraútvonalai könnyen elérhetők. A Bazaltorgonák felé vezető út nagyjából félórás túrával megközelíthető, a környék pedig bőven ad programot: kirándulás, borászatok, tanúhegyek, Badacsony, Szigliget és balatoni programok is rövid autóúttal elérhetők."
     ],
@@ -114,7 +114,8 @@ export const szololigetPageData: AccommodationPageData = {
         title: "Kiemelt élmények",
         items: [
           ["Panoráma", "180°-os kilátás a tanúhegyekre"],
-          ["Terasz", "nagy, körbejárható terasz"],
+          ["Terasz", "nagy terasz"],
+          ["Kert", "különleges növényekkel beültetve"],
           ["Reggel", "napfelkelte az ágyból"],
           ["Programok", "Bazaltorgonák, bortúrák, Balaton rövid úttal"]
         ]
@@ -127,7 +128,8 @@ export const szololigetPageData: AccommodationPageData = {
       { label: "Különálló vendégház", icon: "home" },
       { label: "4 fő + pótágy", icon: "users" },
       { label: "180°-os tanúhegy panoráma", icon: "mountain" },
-      { label: "Nagy, körbejárható terasz", icon: "leaf" },
+      { label: "Nagy terasz", icon: "leaf" },
+      { label: "Szép, növényes kert", icon: "leaf" },
       { label: "Napfelkelte az ágyból", icon: "sun" },
       { label: "Kirándulásokhoz és bortúrához ideális", icon: "trail" }
     ]
@@ -138,7 +140,7 @@ export const szololigetPageData: AccommodationPageData = {
       { iconKey: "guests", title: "4 fő + 1 pótágy", text: "Férőhely" },
       { iconKey: "home", title: "Kétszintes ház", text: "Elrendezés" },
       { iconKey: "sun", title: "2022-ben felújítva", text: "Állapot" },
-      { iconKey: "terrace", title: "Körbejárható terasz", text: "Kültér" },
+      { iconKey: "terrace", title: "Nagy terasz", text: "Kültér" },
       { iconKey: "mountain", title: "180°-os panoráma", text: "Kilátás" },
       { iconKey: "balaton", title: "Szent György-hegy keleti oldala", text: "Elhelyezkedés" }
     ],
@@ -166,10 +168,49 @@ export const szololigetPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Szőlőliget gyors válaszok",
+    title: "A Szőlőliget akkor jó választás, ha különálló, panorámás kis házat kerestek szép kerttel a Szent György-hegy oldalában",
+    lead:
+      "A Szőlőliget 4 főnek és egy pótágynak ad csendes, kétszintes bázist nagy terasszal, különleges növényekkel beültetett kerttel, 180°-os tanúhegy panorámával és napfelkeltével az ágyból.",
+    questions: [
+      {
+        question: "Kinek jó választás a Szőlőliget?",
+        answer:
+          "Pároknak, kisebb családoknak és olyan vendégeknek, akik csendes, különálló házat keresnek Kisapátiban, közel a Szent György-hegy túraútvonalaihoz és a Balaton-felvidéki programokhoz."
+      },
+      {
+        question: "Milyen a kilátás a Szőlőligetből?",
+        answer:
+          "A nagy teraszról 180°-os tanúhegy panoráma nyílik. A Csobánc, a Tóti-hegy és a Gulács is része a látványnak, a napfelkelte pedig az ágyból is látható."
+      },
+      {
+        question: "Hány főnek kényelmes?",
+        answer:
+          "A ház 4 főnek kényelmes, és egy pótággyal bővíthető. A kétszintes elrendezés miatt inkább kisebb családoknak, pároknak vagy túrázós társaságnak ideális."
+      },
+      {
+        question: "Miért különleges a terasz?",
+        answer:
+          "A terasz nagy, ezért a ház egyik fő kültéri élettere. Reggelihez, lassú délutánhoz, borozáshoz és csillagos estéhez is erős része a Szőlőliget élményének."
+      },
+      {
+        question: "Milyen a kert a Szőlőligetnél?",
+        answer:
+          "A kert nagyon szép, sok különleges növénnyel beültetett, nyugodt kültéri tér. A terasz és a növényes kert együtt adja a ház természetközeli, lassú hangulatát."
+      },
+      {
+        question: "Milyen programokhoz jó bázis?",
+        answer:
+          "Jó kiindulópont a Szent György-hegy túráihoz, a Bazaltorgonákhoz, a környék borászataihoz, Badacsonyhoz, Szigligethez és rövid autóúttal balatoni programokhoz is."
+      }
+    ],
+    amenitiesTitle: "Ami a Szőlőligetben fontos"
+  },
   amenities: [
     {
       iconKey: "terrace",
-      title: "Körbejárható terasz"
+      title: "Nagy terasz"
     },
     {
       iconKey: "mountain",
@@ -194,6 +235,14 @@ export const szololigetPageData: AccommodationPageData = {
     {
       iconKey: "guests",
       title: "Pótágy lehetőség"
+    },
+    {
+      iconKey: "trail",
+      title: "Túraútvonalak közel"
+    },
+    {
+      iconKey: "leaf",
+      title: "Különleges növényes kert"
     }
   ],
   gallery: {

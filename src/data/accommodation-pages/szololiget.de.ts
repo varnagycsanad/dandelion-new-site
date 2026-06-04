@@ -7,40 +7,81 @@ export const szololigetGermanPageData = createGermanAccommodationPage(szololiget
   route: "/de/szololiget/",
   listingAnchor: "szololiget-vendeghaz",
   location: "Kisapati",
-  region: "Balaton-Oberland - Weinberge",
-  guests: "2-4 Gäste",
-  character: "Ruhiges Haus zwischen Weinbergen",
-  shortDescription: "Ruhige Unterkunft für 2-4 Gäste in Weinberglage nahe Szent György-hegy.",
+  region: "Szent György-hegy - Weinberge",
+  guests: "4 Gäste + Zustellbett",
+  character: "Panoramahaus mit großer Terrasse",
+  shortDescription: "Separates zweistöckiges Haus für 4 Gäste plus Zustellbett, mit großer Terrasse, schön bepflanztem Garten und 180-Grad-Zeugenberg-Panorama.",
   lead:
-    "Dandelion Szőlőliget ist ein ruhiger Rückzugsort für Gäste, die Aussicht, Weinberge und einen langsamen Tagesrhythmus suchen.",
+    "Dandelion Szőlőliget ist ein ruhiger Rückzugsort am Osthang des Szent György-hegy für Gäste, die Terrasse, Sonnenaufgang und Panorama suchen.",
   longDescription: [
-    "Die Lage zwischen Weinbergen gibt dem Aufenthalt eine besonders ruhige Stimmung. Der Morgen beginnt langsam, der Blick und die Umgebung setzen den Ton.",
-    "Das Haus eignet sich gut für Paare oder kleine Familien, die tagsüber wandern, an den Balaton fahren oder Weingüter besuchen möchten.",
-    "Szőlőliget ist bewusst kein trubeliges Apartment, sondern eine einfache, angenehme Basis für naturnahe Tage im Balaton-Oberland."
+    "Die große Terrasse, der schön bepflanzte Garten und die Lage am Hang geben dem Haus seine stärkste Stimmung: viel Luft, Ruhe, Grün und Blick auf die Zeugenberge.",
+    "Rund um das Haus wachsen viele besondere Pflanzen. Der Garten ist deshalb nicht nur Hintergrund, sondern ein wichtiger Teil des ruhigen, naturnahen Aufenthalts.",
+    "Das Haus ist zweistöckig, für 4 Gäste bequem und mit einem Zustellbett erweiterbar. Es passt gut zu Paaren, kleineren Familien und Gästen, die wandern oder Weingüter besuchen möchten.",
+    "Szőlőliget ist keine trubelige Ferienanlage, sondern eine ruhige Basis für Szent György-hegy, Basaltorgeln, Badacsony, Szigliget und Balaton-Tage."
   ],
   facts: [
-    ["Gäste", "2-4 Gäste"],
-    ["Charakter", "Weinberglage"],
-    ["Außenbereich", "Terrasse"],
-    ["Stimmung", "ruhig und langsam"],
-    ["Lage", "Kisapati"]
+    ["Gäste", "4 Gäste + Zustellbett"],
+    ["Charakter", "separates zweistöckiges Haus"],
+    ["Außenbereich", "große Terrasse"],
+    ["Garten", "schön bepflanzt mit besonderen Pflanzen"],
+    ["Panorama", "180-Grad-Blick auf Zeugenberge"],
+    ["Lage", "Ostseite des Szent György-hegy"]
   ],
   experienceFacts: [
-    ["Morgenlicht", "ruhiger Start mit Aussicht"],
-    ["Weinberge", "direkt in der Umgebung"],
-    ["Wandern", "Szent György-hegy in Reichweite"],
+    ["Sonnenaufgang", "vom Bett aus sichtbar"],
+    ["Terrasse", "großer Außenbereich"],
+    ["Wandern", "Basaltorgeln und Szent György-hegy"],
     ["Balaton", "kurze Fahrt zu Strand und Orten"]
   ],
-  highlights: ["Terrasse", "Weinberglage", "Küche", "Klimaanlage", "Ruhige Umgebung"],
+  highlights: ["Große Terrasse", "Schöner Garten", "180-Grad-Panorama", "Sonnenaufgang", "Ruhige Umgebung"],
   reasons: [
-    { iconKey: "grapes", title: "Weinberge", text: "Landschaft direkt vor der Tür" },
-    { iconKey: "terrace", title: "Terrasse", text: "langsamer Start in den Tag" },
-    { iconKey: "trail", title: "Wandern", text: "Szent György-hegy nah" },
-    { iconKey: "home", title: "Kompakt", text: "angenehm für 2-4 Gäste" }
+    { iconKey: "mountain", title: "Zeugenberg-Panorama", text: "180-Grad-Blick" },
+    { iconKey: "terrace", title: "Große Terrasse", text: "ruhiger Außenbereich" },
+    { iconKey: "sun", title: "Besondere Morgen", text: "Sonnenaufgang vom Bett" },
+    { iconKey: "trail", title: "Gute Wanderbasis", text: "Szent György-hegy nah" }
   ],
-  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Parken"],
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Große Terrasse", "Schön bepflanzter Garten", "180-Grad-Panorama", "Zustellbett"],
+  geoDecision: {
+    kicker: "Szőlőliget schnelle Antworten",
+    title: "Szőlőliget passt, wenn ihr ein separates Panoramahaus mit schönem Garten am Szent György-hegy sucht",
+    lead:
+      "Szőlőliget bietet 4 Gästen plus Zustellbett eine ruhige zweistöckige Basis mit großer Terrasse, schön bepflanztem Garten, 180-Grad-Zeugenberg-Panorama und Sonnenaufgang vom Bett.",
+    questions: [
+      {
+        question: "Für wen ist Szőlőliget eine gute Wahl?",
+        answer:
+          "Für Paare, kleinere Familien und Gäste, die ein ruhiges separates Haus in Kisapáti suchen, nahe Wanderwegen, Weingütern und Balaton-Oberland-Programmen."
+      },
+      {
+        question: "Welche Aussicht hat Szőlőliget?",
+        answer:
+          "Von der großen Terrasse öffnet sich ein 180-Grad-Panorama auf die Zeugenberge, darunter Csobánc, Tóti-hegy und Gulács."
+      },
+      {
+        question: "Wie viele Gäste wohnen bequem?",
+        answer:
+          "Das Haus ist für 4 Gäste bequem und kann mit einem Zustellbett erweitert werden. Die zweistöckige Aufteilung passt gut zu Paaren, kleinen Familien und Wanderurlaubern."
+      },
+      {
+        question: "Warum ist die Terrasse wichtig?",
+        answer:
+          "Die Terrasse ist groß und dadurch ein wichtiger Außenraum für Frühstück, langsame Nachmittage, Wein und ruhige Abende."
+      },
+      {
+        question: "Wie ist der Garten bei Szőlőliget?",
+        answer:
+          "Der Garten ist sehr schön und mit vielen besonderen Pflanzen bepflanzt. Zusammen mit der Terrasse gibt er dem Haus eine ruhige, grüne und naturnahe Atmosphäre."
+      },
+      {
+        question: "Für welche Programme ist das Haus gut?",
+        answer:
+          "Es ist eine gute Basis für Szent György-hegy, Basaltorgeln, lokale Weingüter, Badacsony, Szigliget und Balaton-Ausflüge mit kurzer Autofahrt."
+      }
+    ],
+    amenitiesTitle: "Was in Szőlőliget wichtig ist"
+  },
   mapBody:
-    "Szőlőliget liegt in Kisapati auf der Seite von Szent György-hegy, gut für Wanderungen, Weinregion und Balaton-Tage.",
+    "Szőlőliget liegt in Kisapáti am Szent György-hegy, gut für Wanderungen, Weingüter, Zeugenberge und Balaton-Tage.",
   mapBenefits: [
     { label: "Weinberge rundherum", icon: "grapes" },
     { label: "Wanderwege in der Nähe", icon: "trail" },

@@ -21,7 +21,7 @@ export const szololigetEnglishPageData: AccommodationPageData = {
     title: "Szőlőliget",
     titleAccent: "Vendégház",
     subtitle: "VINEYARD-AREA COUNTRYSIDE STAY WITH A LARGE TERRACE",
-    lead: "A separate two-floor house on the eastern side of Szent György Hill, with a large wraparound terrace, quiet vineyard-area atmosphere and wide witness-hill views.",
+    lead: "A separate two-floor house on the eastern side of Szent György Hill, with a large terrace, a beautiful planted garden, quiet vineyard-area atmosphere and wide witness-hill views.",
     primaryCtaLabel: "Book now",
     secondaryCtaLabel: "View photos"
   },
@@ -68,9 +68,9 @@ export const szololigetEnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Szőlőliget Vendégház",
-    title: "A two-floor small house with a large terrace and 180-degree views",
+    title: "A two-floor small house with a large terrace, garden and 180-degree views",
     shortDescription:
-      "A two-floor house for 4 guests plus an extra bed, refreshed in 2022 with new furniture, a large wraparound terrace and wide witness-hill panorama.",
+      "A two-floor house for 4 guests plus an extra bed, refreshed in 2022 with new furniture, a large terrace, a beautiful planted garden and wide witness-hill panorama.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -78,7 +78,8 @@ export const szololigetEnglishPageData: AccommodationPageData = {
     longDescription: [
       "One of the strongest moments at Szőlőliget Vendégház is the morning: sunrise can be seen from the bed, and the quiet around the house quickly slows down the day.",
       "The house was refreshed in 2022 and furnished with new furniture. The two levels are each about 20 square metres, comfortable for 4 guests and extendable with an extra bed.",
-      "A large wraparound terrace belongs to the lower level. From here, the view opens across the surrounding witness hills, including Csobánc, Tóti Hill and Gulács.",
+      "A large terrace belongs to the lower level. From here, the view opens across the surrounding witness hills, including Csobánc, Tóti Hill and Gulács.",
+      "The garden is also an important part of the stay: it is carefully planted with many distinctive plants, giving the house a softer, greener and more nature-close feeling.",
       "The value of Szőlőliget is the quiet and the space around it. There is no busy resort feeling here: just the hillside, vineyards, the large terrace and the panorama.",
       "Hiking routes around Szent György Hill are easy to reach from the house. The basalt columns can be approached with about a half-hour hike, and wineries, Badacsony, Szigliget and Lake Balaton programmes are all within a short drive."
     ],
@@ -100,7 +101,8 @@ export const szololigetEnglishPageData: AccommodationPageData = {
         title: "Highlights",
         items: [
           ["Panorama", "180-degree witness-hill views"],
-          ["Terrace", "large wraparound terrace"],
+          ["Terrace", "large terrace"],
+          ["Garden", "carefully planted with distinctive plants"],
           ["Morning", "sunrise from the bed"],
           ["Nearby", "basalt columns, wineries and Lake Balaton by short drive"]
         ]
@@ -113,7 +115,8 @@ export const szololigetEnglishPageData: AccommodationPageData = {
       { label: "Separate guesthouse", icon: "home" },
       { label: "4 guests + extra bed", icon: "users" },
       { label: "180-degree witness-hill panorama", icon: "mountain" },
-      { label: "Large wraparound terrace", icon: "leaf" },
+      { label: "Large terrace", icon: "leaf" },
+      { label: "Beautiful planted garden", icon: "leaf" },
       { label: "Sunrise from the bed", icon: "sun" },
       { label: "Good base for hikes and wineries", icon: "trail" }
     ]
@@ -136,14 +139,55 @@ export const szololigetEnglishPageData: AccommodationPageData = {
       { iconKey: "trail", title: "Good base for local trips", text: "Wine, hikes and Lake Balaton" }
     ]
   },
+  geoDecision: {
+    kicker: "Szőlőliget quick answers",
+    title: "Szőlőliget is a good choice if you want a separate panoramic small house on Szent György Hill",
+    lead:
+      "Szőlőliget gives 4 guests plus an extra bed a quiet two-floor base with a large terrace, a beautiful planted garden, 180-degree witness-hill views and sunrise visible from the bed.",
+    questions: [
+      {
+        question: "Who is Szőlőliget best for?",
+        answer:
+          "It is best for couples, smaller families and guests looking for a quiet separate house in Kisapáti, close to Szent György Hill hiking routes and Balaton Uplands programmes."
+      },
+      {
+        question: "What kind of view does Szőlőliget have?",
+        answer:
+          "The large terrace opens to 180-degree witness-hill views. Csobánc, Tóti Hill and Gulács are part of the panorama, and sunrise can be seen from the bed."
+      },
+      {
+        question: "How many guests is it comfortable for?",
+        answer:
+          "The house is comfortable for 4 guests and can be extended with an extra bed. The two-floor layout works especially well for smaller families, couples or hiking-focused guests."
+      },
+      {
+        question: "Why is the terrace important?",
+        answer:
+          "The terrace is large, so it becomes one of the main outdoor living spaces: good for breakfast, slow afternoons, wine and quiet evenings."
+      },
+      {
+        question: "What is the garden like at Szőlőliget?",
+        answer:
+          "The garden is a beautiful, carefully planted outdoor space with many distinctive plants. Together with the terrace, it gives the house its calm, green, nature-close atmosphere."
+      },
+      {
+        question: "What local programmes is it good for?",
+        answer:
+          "It is a good base for Szent György Hill hikes, the basalt columns, local wineries, Badacsony, Szigliget and Lake Balaton programmes within a short drive."
+      }
+    ],
+    amenitiesTitle: "What matters in Szőlőliget"
+  },
   amenities: [
-    { iconKey: "terrace", title: "Wraparound terrace" },
+    { iconKey: "terrace", title: "Large terrace" },
     { iconKey: "mountain", title: "180-degree panorama" },
     { iconKey: "sun", title: "House refreshed in 2022" },
     { iconKey: "home", title: "Two-floor layout" },
     { iconKey: "home", title: "New furniture" },
     { iconKey: "home", title: "Separate house" },
-    { iconKey: "guests", title: "Extra bed option" }
+    { iconKey: "guests", title: "Extra bed option" },
+    { iconKey: "trail", title: "Hiking routes nearby" },
+    { iconKey: "leaf", title: "Distinctive planted garden" }
   ],
   gallery: {
     kicker: "Gallery",
