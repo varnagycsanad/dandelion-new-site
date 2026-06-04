@@ -176,8 +176,8 @@ const copyByLang = {
   }
 } as const;
 const copy = copyByLang[lang];
-const visibleReviews = copy.reviews.slice(0, 2);
-const hiddenReviews = copy.reviews.slice(2, 4);
+const visibleReviews = copy.reviews;
+const hiddenReviews = copy.reviews.slice(2);
 ---
 
 <section class="home-reviews dnd-section" aria-labelledby={`home-reviews-title-${lang}`}>
@@ -281,7 +281,7 @@ const hiddenReviews = copy.reviews.slice(2, 4);
 
   .home-reviews__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 14px;
   }
 
@@ -349,6 +349,7 @@ const hiddenReviews = copy.reviews.slice(2, 4);
   }
 
   .home-reviews__more {
+    display: none;
     margin-top: 12px;
   }
 
@@ -422,6 +423,14 @@ const hiddenReviews = copy.reviews.slice(2, 4);
     .home-reviews__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
+    }
+
+    .home-reviews__grid:not(.home-reviews__grid--more) .home-review-card:nth-child(n + 3) {
+      display: none;
+    }
+
+    .home-reviews__more {
+      display: block;
     }
 
     .home-review-card {

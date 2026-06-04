@@ -55,8 +55,9 @@ const d2Reviews = [
 
 const d2MobileGoogleReviews = d2Reviews.filter((review) => review.source === "Google").slice(0, 2);
 const d2MobileBookingReviews = d2Reviews.filter((review) => review.source === "Booking.com").slice(0, 2);
-const d2VisibleReviews = d2Reviews.slice(0, 2);
-const d2HiddenReviews = d2Reviews.slice(2, 4);
+const d2VisibleReviews = d2Reviews;
+const d2MobileVisibleReviews = d2Reviews.slice(0, 2);
+const d2HiddenReviews = d2Reviews.slice(2);
 const homepageOgImageAlt = "Napfelkelte a Szent György-hegyről a Tapolcai-medencére nézve";
 // [CHANGE 2026-05-29 00:00] Homepage hero video now has poster and VideoObject data for Google indexing.
 const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
@@ -107,25 +108,20 @@ const homepageStructuredData = [
           {d2VisibleReviews.map((review) => (
             <article class="d2-review-card">
               <div class="d2-review-card__top">
-                <img
-                  src={review.logoSrc}
-                  alt={review.logoAlt}
-                  width={review.source === "Google" ? 82 : 96}
-                  height={24}
-                  class:list={["d2-review-card__logo", review.source === "Google" ? "is-google" : "is-booking"]}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span
-                  class:list={[
-                    "d2-review-card__stars",
-                    "d2-review-card__stars--mobile-grid",
-                    review.source === "Booking.com" && "d2-review-card__stars--mobile-booking"
-                  ]}
-                  aria-hidden="true"
-                >
-                  ★★★★★
-                </span>
+                {review.source === "Booking.com" ? (
+                  <span class="d2-review-card__booking-wordmark" aria-label={review.logoAlt}>Booking</span>
+                ) : (
+                  <img
+                    src={review.logoSrc}
+                    alt={review.logoAlt}
+                    width={82}
+                    height={24}
+                    class:list={["d2-review-card__logo", "is-google"]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                <span class="d2-review-card__stars" aria-hidden="true">★★★★★</span>
               </div>
               <blockquote class="d2-review-card__quote">{review.quote}</blockquote>
               <p class="d2-review-card__meta">{review.meta}</p>
@@ -134,7 +130,7 @@ const homepageStructuredData = [
         </div>
 
         <div class="d2-reviews__mobile-grid" aria-label="Vendégértékelések mobil rács">
-          {d2VisibleReviews.map((review) => (
+          {d2MobileVisibleReviews.map((review) => (
             <article class="d2-review-card d2-review-card--mobile-grid">
               <div class="d2-review-card__top d2-review-card__top--mobile-grid">
                 {review.source === "Booking.com" ? (
@@ -372,8 +368,8 @@ const homepageStructuredData = [
   .d2-reviews__grid {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 720px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 100%;
     margin: 0 auto;
   }
 
@@ -491,7 +487,7 @@ const homepageStructuredData = [
   }
 
   .d2-reviews__more {
-    display: grid;
+    display: none;
     gap: 10px;
   }
 
@@ -596,6 +592,7 @@ const homepageStructuredData = [
     }
 
     .d2-reviews__more--cards {
+      display: grid;
       margin-top: 12px;
       justify-items: stretch;
     }
