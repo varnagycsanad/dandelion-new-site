@@ -153,6 +153,8 @@ Projektkoveto es kapcsolodo munkalapok:
 - `project-docs/GOOGLE_AI_READINESS_OWNER_INPUT.md`
 - `project-docs/archive/google-ai-readiness/GOOGLE_AI_READINESS_RECOMMENDATION_COPY.md`
 - `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md`
+- `project-docs/DANDELION_GEO_AGENT_SPEC.md`
+- `project-docs/DANDELION_GEO_WEEKLY_REPORT_TEMPLATE.md`
 
 Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 

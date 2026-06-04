@@ -53,6 +53,8 @@ Kapcsolodo munkadokumentumok:
 - `project-docs/GOOGLE_AI_READINESS_SCHEMA_AUDIT.md` - szallasoldali JSON-LD audit es biztonsagos schema bovitesi terv.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_REVIEW_BATCH_1.md` - elso kep SEO review munkalap, jovahagyas elotti draftokkal.
 - `project-docs/GOOGLE_AI_READINESS_IMAGE_SEO_SOURCE_AUDIT.md` - meglevo kep SEO forrasok auditja; kijeloli, hogy a Batch 1 csak review, nem final implementacios forras.
+- `project-docs/DANDELION_GEO_AGENT_SPEC.md` - GEO agent specifikacio heti/havi AI es keresesi monitoring scope-pal.
+- `project-docs/DANDELION_GEO_WEEKLY_REPORT_TEMPLATE.md` - kezzel kitoltheto heti GEO riport sablon es kesobbi agent output modell.
 
 Feladatinditasi emlekezteto: minden uj Google AI Readiness task elejen ezt a statuszfajlt es a vegrehajtasi tervet kell beolvasni; Codex nem talalhat ki hianyzo szallasadatot, es ami nem biztos, az `HIANYZIK` vagy `ELLENORIZENDO`.
 

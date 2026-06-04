@@ -1,5 +1,10 @@
 # DANDELION GEO AGENT SPEC
 
+Status: AKTUALIS
+Last checked: 2026-06-04
+Use for: GEO agent specifikáció, heti/havi AI és keresési monitoring scope.
+Do not use for: automatikus implementáció, honlapmódosítás, Ads/GA4/GTM/Search Console módosítás jóváhagyás nélkül.
+
 ## 1. Cél
 
 A GEO Agent célja, hogy hetente automatikusan figyelje a Dandelion Vendégházak online keresési és AI-keresési lehetőségeit, és rövid, érthető e-mail jelentést készítsen.
@@ -138,6 +143,8 @@ Témacsoportok:
 ## 5. Heti e-mail riport
 
 Az agent minden hétfő reggel küldjön rövid riportot.
+
+A kézzel kitölthető heti riport sablon: `project-docs/DANDELION_GEO_WEEKLY_REPORT_TEMPLATE.md`.
 
 Riport szerkezete:
 
