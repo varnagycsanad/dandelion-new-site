@@ -205,7 +205,7 @@ Havi egyszer részletesebb riport:
 
 Rögzített szabályok:
 
-- Ne használja a "közös medencehasználat" kifejezést.
+- Kerülje a medencére vonatkozó "közös" jellegű megfogalmazásokat.
 - A Panorama Pool kommunikációban legyen pozitív előny, nem magyarázkodás.
 - Ne javasoljon automatikus tartalompublikálást.
 - Ne javasoljon Smart / Performance Max kampányt induló alapként.

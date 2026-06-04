@@ -14,12 +14,12 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
   longDescription: [
     "Otevřený obytný prostor, praktická kuchyně a krytá terasa dávají domu pomalý rytmus. Ráno může začít venku u stolu, den pokračuje v kopcích nebo u vody a večer se vrací do zahrady.",
     "Velká zahrada je přirozené místo pro děti, grilování i odpočinek. Ubytování zůstává jednoduché na používání, ale přitom má dost prostoru pro delší pobyt.",
-    "Panorama Pool je společný pro hosty D1, D2 a Fügeház od 15. června 2026. Neni to soukromy bazén pouze pro D2.",
+    "Panorama Pool je v sezóně k dispozici hostům D1, D2 a Fügeház od 15. června 2026. Neni to soukromy bazén pouze pro D2.",
     "Balaton, turistické trasy Szent György-hegy a vinařství v okolí jsou dostupné krátkou jízdou."
   ],
   facts: [["Hosté", "4-6 hostů"], ["Terasa", "krytá terasa a posezení v zahradě"], ["Zahrada", "velká a dobře využitelná"], ["Kuchyně", "prakticky vybavená"]],
-  experienceFacts: [["Panorama Pool", "společný pro D1, D2 a Fügeház od 15. června 2026"], ["Venkovní čas", "zahrada, terasa, gril"], ["Pro děti", "prostor a přírodní atmosféra"], ["V okolí", "Balaton, trasy, vinařství"]],
-  highlights: ["Krytá terasa", "Velka zahrada", "Klimatizace", "Kuchyně", "Společný Panorama Pool", "Grilovani venku"],
+  experienceFacts: [["Panorama Pool", "pro hosty D1, D2 a Fügeház od 15. června 2026"], ["Venkovní čas", "zahrada, terasa, gril"], ["Pro děti", "prostor a přírodní atmosféra"], ["V okolí", "Balaton, trasy, vinařství"]],
+  highlights: ["Krytá terasa", "Velka zahrada", "Klimatizace", "Kuchyně", "Panorama Pool", "Grilovani venku"],
   reasons: [
     { iconKey: "terrace", title: "Krytá terasa", text: "Velká zahrada" },
     { iconKey: "users", title: "Zahrada pro děti", text: "Zahrada, zvířata" },
@@ -29,12 +29,12 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
   geoDecision: {
     kicker: "D2 rychlé odpovědi",
     title: "Dandelion D2 se hodí, pokud hledáte rodinný dům se zahradou v Kisapati",
-    lead: "D2 je pohodlný pro 4-6 hostů, s velkou zahradou, krytou terasou, renovovanou kuchyní a společným přístupem k Panorama Pool od 15. června 2026.",
+    lead: "D2 je pohodlný pro 4-6 hostů, s velkou zahradou, krytou terasou, renovovanou kuchyní a přístupem k Panorama Pool od 15. června 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Má Dandelion D2 přístup k bazénu?",
-        answer: "Ano. Od 15. června 2026 mohou hosté D2 využívat společný Panorama Pool spolu s hosty D1 a Fügeház."
+        answer: "Ano. Od 15. června 2026 mohou hosté D2 využívat Panorama Pool spolu s hosty D1 a Fügeház."
       },
       {
         iconKey: "family",

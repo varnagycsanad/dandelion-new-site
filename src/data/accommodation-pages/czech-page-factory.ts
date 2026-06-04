@@ -90,8 +90,8 @@ export function createCzechAccommodationPage(
       poolHighlight: baseData.hero.poolHighlight
         ? {
             enabled: true,
-            label: "Spolecny Panorama Pool",
-            text: "U D1, D2 a Fügeház je společný Panorama Pool součástí pobytu.",
+            label: "Panorama Pool",
+            text: "U D1, D2 a Fügeház je Panorama Pool součástí pobytu.",
             href: "/cs/panorama-pool/",
             ctaLabel: "Zobrazit Panorama Pool",
             variant: "strong"

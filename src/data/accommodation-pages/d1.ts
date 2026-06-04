@@ -11,7 +11,7 @@ export const d1PageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D1 Kisapáti | Panorámás vendégház medencével",
     description:
-      "Tágas, családbarát vendégház Kisapátiban akár 8 főre, panorámás terasszal, grillezési lehetőséggel és 2026-tól közös panorámás medencével családoknak."
+      "Tágas, családbarát vendégház Kisapátiban akár 8 főre, panorámás terasszal, grillezési lehetőséggel és 2026-tól Panorama Pool használattal családoknak."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=Hu",
   positioning: {
@@ -58,7 +58,7 @@ export const d1PageData: AccommodationPageData = {
   reviews: {
     kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból",
     mobileSummaryLabel: "További vélemények",
     mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
     mobileMoreGoogleAriaLabel: "További Google értékelések",
@@ -98,13 +98,13 @@ export const d1PageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D1",
-    title: "Panorámás terasz, nagy közösségi terek és közös medence egy helyen",
+    title: "Panorámás terasz, nagy közösségi terek és Panorama Pool élmény egy helyen",
     shortDescription:
-      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 15-től közös panorámás medencével.",
+      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 15-től Panorama Pool használattal.",
     longDescription: [
       "A D1 egyik legnagyobb előnye a tágas elrendezés: több hálószoba, jól használható közös terek és olyan terasz, ahol a társas együttlétnek is kényelmes kerete van.",
       "A nappaliból nyíló hangulatos teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványa tárul a vendégek elé. A panoráma minden napszakban más arcát mutatja: reggel nyugodt és tiszta, este pedig különösen hangulatos. A kültéri étkezőszett és a grillezési lehetőség kényelmessé teszi a kinti együttléteket.",
-      "2026. június 15-től a D1 vendégei számára közös panorámás medence is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
+      "2026. június 15-től a D1 vendégei számára Panorama Pool élmény is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
       "A ház alsó szintjén jól felszerelt nappali-konyha-étkező található hűtőszekrénnyel és fagyasztóval. A közösségi térben hatszemélyes kör alakú étkezőasztal és kinyitható kanapé kapott helyet, amelyen két fő kényelmesen alhat. Az alsó szinten két hálószoba és két zuhanyzós fürdőszoba is segíti a kényelmes elhelyezést.",
       "Az emeletre falépcső vezet fel. Itt két hálószoba, egy zuhanyfülkés tusoló és külön WC található. A nagyobb hálószoba a Szent György-hegy felé néz, két 90 cm-es ággyal, amelyek összetolva és különálló ágyként is használhatók. A kisebbik hálószobához erkély tartozik, ahonnan szép kilátás nyílik a Gulács és a Csobánc irányába.",
       "A D1 azoknak való, akik tágas, kényelmes, természetközeli házat keresnek, ahol együtt lehet lenni, de mindenkinek jut saját tér is. A Balaton, a Szent György-hegy, Badacsony, Szigliget, a Csobánc és a környék borászatai rövid autóúttal elérhetők."
@@ -126,7 +126,7 @@ export const d1PageData: AccommodationPageData = {
       {
         title: "Kikapcsolódás",
         items: [
-          ["Medence", "2026. június 15-től közös panorámás medence"],
+          ["Medence", "2026. június 15-től Panorama Pool élmény"],
           ["Kültér", "kültéri étkező és grillezési lehetőség"],
           ["Fürdők", "több zuhanyzós fürdőszoba és külön WC"],
           ["Panoráma", "Csobánc, Tóti-hegy, Gulács és Badacsony"]
@@ -139,7 +139,7 @@ export const d1PageData: AccommodationPageData = {
     highlights: [
       { label: "Akár 8 fő részére", icon: "users" },
       { label: "3 kétfős hálószoba", icon: "home" },
-      { label: "Közös panorámás medence", icon: "pool" },
+      { label: "Panorama Pool használat", icon: "pool" },
       { label: "Panorámás terasz", icon: "mountain" },
       { label: "Grillezési lehetőség", icon: "leaf" },
       { label: "Kirándulásokhoz jó bázis", icon: "trail" }
@@ -197,17 +197,17 @@ export const d1PageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D1 gyors válaszok",
     title: "A Dandelion D1 akkor jó választás, ha tágas kisapáti házat kerestek medencehasználattal",
-    lead: "A D1 nagyobb családoknak és baráti társaságoknak készült: akár 8 fő, panorámás terasz, több közös tér és 2026. június 15-től közös Panorama Pool.",
+    lead: "A D1 nagyobb családoknak és baráti társaságoknak készült: akár 8 fő, panorámás terasz, több közös tér és 2026. június 15-től Panorama Pool használattal.",
     questions: [
       {
         iconKey: "pool",
         question: "Van medence a Dandelion D1-hez?",
-        answer: "Igen. 2026. június 15-től a D1 vendégei használhatják a közös Panorama Pool medencét."
+        answer: "Igen. 2026. június 15-től a D1 vendégei használhatják a Panorama Pool medencét."
       },
       {
         iconKey: "pool",
         question: "Privát medencéje van a D1-nek?",
-        answer: "Nem privát medence: a Panorama Pool közös használatú, a D1, D2 és Fügeház vendégei számára."
+        answer: "Nem külön privát medence tartozik a házhoz; a Panorama Pool a D1, D2 és Fügeház vendégeinek szezonális medenceélménye."
       },
       {
         iconKey: "guests",
@@ -319,7 +319,7 @@ export const d1PageData: AccommodationPageData = {
       },
       {
         name: "Fügeház",
-        meta: "4-6 fő · panoráma · közös medence",
+        meta: "4-6 fő · panoráma · Panorama Pool",
         href: "/fuge/",
         image: {
           type: "mapping",

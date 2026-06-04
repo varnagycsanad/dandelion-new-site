@@ -9,7 +9,7 @@ export const d1EnglishPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D1 near Szent György Hill | Spacious countryside stay for families",
     description:
-      "Dandelion D1 is a spacious countryside accommodation near Szent György Hill and Lake Balaton, ideal for families and groups, with access to the shared panoramic pool."
+      "Dandelion D1 is a spacious countryside accommodation near Szent György Hill and Lake Balaton, ideal for families and groups, with access to the Panorama Pool."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=En",
   hero: {
@@ -27,8 +27,8 @@ export const d1EnglishPageData: AccommodationPageData = {
     lead: "A spacious countryside guesthouse in Kisapáti for larger families and friends, with a panoramic terrace and easy access to the Balaton Uplands.",
     poolHighlight: {
       enabled: true,
-      label: "Shared panoramic pool near Dandelion D1",
-      text: "The panoramic pool is shared by guests of D1, D2 and Fügeház.",
+      label: "Panorama Pool near Dandelion D1",
+      text: "Panorama Pool is available in season for guests of D1, D2 and Fügeház.",
       href: "/panorama-pool/",
       ctaLabel: "Open pool page",
       variant: "strong"
@@ -79,9 +79,9 @@ export const d1EnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D1",
-    title: "Panoramic terrace, generous shared spaces and a shared pool",
+    title: "Panoramic terrace, generous spaces and Panorama Pool access",
     shortDescription:
-      "A spacious three-bedroom house for up to 8 guests, with a panoramic terrace, generous shared spaces and access to the shared panoramic pool from June 15, 2026.",
+      "A spacious three-bedroom house for up to 8 guests, with a panoramic terrace, generous living spaces and access to the Panorama Pool from June 15, 2026.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -89,7 +89,7 @@ export const d1EnglishPageData: AccommodationPageData = {
     longDescription: [
       "One of D1's strongest features is its spacious layout: several bedrooms, usable shared areas and a terrace that gives the group a comfortable place to spend time together.",
       "From the living room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony. The outdoor dining set and grill option make shared meals outside simple and comfortable.",
-      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for D1, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
+      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool for D1, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
       "On the lower level, the house has a well-equipped living-kitchen-dining area with refrigerator and freezer. The shared space includes a round dining table for six and a sofa bed where two guests can sleep comfortably. Two bedrooms and two bathrooms with showers are also on the lower level.",
       "Wooden stairs lead to the upper level, where two bedrooms, a shower cabin and a separate toilet are located. The larger bedroom faces Szent György Hill and has two 90 cm beds that can be used together or separately. The smaller bedroom has a balcony with views toward Gulács and Csobánc.",
       "Dandelion D1 is for guests looking for a spacious, comfortable, nature-close house where the group can stay together while everyone still has their own space. Lake Balaton, Szent György Hill, Badacsony, Szigliget, Csobánc and local wineries are all within a short drive."
@@ -111,7 +111,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       {
         title: "Outdoor time",
         items: [
-          ["Pool", "shared panoramic pool from June 15, 2026"],
+          ["Pool", "Panorama Pool from June 15, 2026"],
           ["Outdoor space", "outdoor dining and grill option"],
           ["Bathrooms", "multiple bathrooms with showers and a separate toilet"],
           ["Views", "Csobánc, Tóti Hill, Gulács and Badacsony"]
@@ -124,7 +124,7 @@ export const d1EnglishPageData: AccommodationPageData = {
     highlights: [
       { label: "Up to 8 guests", icon: "users" },
       { label: "3 double bedrooms", icon: "home" },
-      { label: "Shared panoramic pool access", icon: "pool" },
+      { label: "Panorama Pool access", icon: "pool" },
       { label: "Panoramic terrace", icon: "mountain" },
       { label: "Outdoor grilling option", icon: "leaf" },
       { label: "Good base for local trips", icon: "trail" }
@@ -170,7 +170,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       {
         iconKey: "sun",
         title: "Summer-friendly stay",
-        text: "Shared pool access"
+        text: "Panorama Pool access"
       },
       {
         iconKey: "balaton",
@@ -181,18 +181,18 @@ export const d1EnglishPageData: AccommodationPageData = {
   },
   geoDecision: {
     kicker: "D1 quick answers",
-    title: "Dandelion D1 is a good choice if you need a spacious Kisapáti house with shared pool access",
-    lead: "D1 is designed for larger families and groups of friends: up to 8 guests, a panoramic terrace, generous shared spaces and shared Panorama Pool access from June 15, 2026.",
+    title: "Dandelion D1 is a good choice if you need a spacious Kisapáti house with Panorama Pool access",
+    lead: "D1 is designed for larger families and groups of friends: up to 8 guests, a panoramic terrace, generous living spaces and Panorama Pool access from June 15, 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Does Dandelion D1 have pool access?",
-        answer: "Yes. From June 15, 2026, D1 guests can use the shared Panorama Pool."
+        answer: "Yes. From June 15, 2026, D1 guests can use the Panorama Pool."
       },
       {
         iconKey: "pool",
         question: "Is the pool private for D1?",
-        answer: "No. The Panorama Pool is a shared pool area for guests of D1, D2 and Fügeház."
+        answer: "No. It is not a private pool attached to the house; Panorama Pool is available in season for guests of D1, D2 and Fügeház."
       },
       {
         iconKey: "guests",
@@ -278,7 +278,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       },
       {
         name: "Fügeház",
-        meta: "4-6 guests · terraces · shared pool",
+        meta: "4-6 guests · terraces · Panorama Pool",
         href: "/en/dandelion-fugehaz/",
         image: {
           type: "mapping",

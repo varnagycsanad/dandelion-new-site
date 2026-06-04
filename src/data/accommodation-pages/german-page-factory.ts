@@ -137,8 +137,8 @@ export function createGermanAccommodationPage(
       poolHighlight: baseData.hero.poolHighlight
         ? {
             enabled: true,
-            label: "Gemeinsamer Panorama Pool",
-            text: "Bei D1, D2 und Fügeház ist der gemeinsame Panorama Pool Teil des Aufenthalts.",
+            label: "Panorama Pool",
+            text: "Bei D1, D2 und Fügeház ist der Panorama Pool in der Saison Teil des Aufenthalts.",
             href: "/de/panorama-pool/",
             ctaLabel: "Panorama Pool ansehen",
             variant: "strong"

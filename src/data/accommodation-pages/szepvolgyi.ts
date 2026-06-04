@@ -45,7 +45,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
   reviews: {
     kicker: "Vendégértékelések",
     title: "Vendégeink szerint",
-    intro: "Első körös, szerkeszthető review blokk a shared sablon technikai bekötéséhez.",
+    intro: "Valódi vendégértékelések Google és Booking.com forrásból",
     mobileSummaryLabel: "További vélemények",
     mobileHighlightedAriaLabel: "Kiemelt Google értékelés",
     mobileMoreGoogleAriaLabel: "További Google értékelések",

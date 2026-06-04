@@ -7,9 +7,9 @@ const fugehazPanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.us
 
 export const fugehazEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Fügeház near Szent György Hill | Countryside guesthouse with shared panoramic pool",
+    title: "Fügeház near Szent György Hill | Countryside guesthouse with Panorama Pool",
     description:
-      "Fügeház is a peaceful countryside guesthouse near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the shared panoramic pool."
+      "Fügeház is a peaceful countryside guesthouse near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the Panorama Pool."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145&lang=En",
   hero: {
@@ -27,8 +27,8 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     lead: "A peaceful countryside guesthouse near Szent György Hill, made for terrace mornings, slow evenings and easy Balaton Uplands days.",
     poolHighlight: {
       enabled: true,
-      label: "Shared panoramic pool near Fügeház",
-      text: "The panoramic pool is shared by guests of D1, D2 and Fügeház.",
+      label: "Panorama Pool near Fügeház",
+      text: "Panorama Pool is available in season for guests of D1, D2 and Fügeház.",
       href: "/panorama-pool/",
       ctaLabel: "Open pool page",
       variant: "strong"
@@ -79,9 +79,9 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Fügeház",
-    title: "Terraces, countryside views and a shared panoramic pool",
+    title: "Terraces, countryside views and a Panorama Pool",
     shortDescription:
-      "A comfortable guesthouse for 4 guests, extendable with an extra bed for up to 6 guests, with terraces, outdoor dining and access to the shared panoramic pool from June 15, 2026.",
+      "A comfortable guesthouse for 4 guests, extendable with an extra bed for up to 6 guests, with terraces, outdoor dining and access to the Panorama Pool from June 15, 2026.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -89,7 +89,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     longDescription: [
       "Fügeház is memorable for its terraces and outdoor rhythm. Mornings can start with the surrounding hills, while evenings naturally slow down into longer conversations and quiet countryside air.",
       "The house is comfortable for 4 guests and can host up to 6 guests with an extra bed. From the dining room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony; on the other side of the house, garden seating offers a quieter corner facing Szent György Hill.",
-      "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for Fügeház, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
+      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool attached to Fügeház, but part of the nearby D1-D2-Fügeház pool experience from June 15, 2026.",
       "Outdoor time is supported by terraces, garden furniture and a grill option. The hill beside the house opens toward the surrounding witness hills, so sunsets and clear evenings can become part of the experience.",
       "The house has two levels. Downstairs there is a well-equipped kitchen, a bathroom with shower, a living-sleeping area and a dining space. Upstairs, an open sleeping area gives the house its quiet, tucked-away feeling."
     ],
@@ -104,13 +104,13 @@ export const fugehazEnglishPageData: AccommodationPageData = {
           ["Guests", "4 guests, up to 6 with an extra bed"],
           ["Location", "near Szent György Hill"],
           ["Atmosphere", "peaceful, panoramic, family-friendly"],
-          ["Highlight", "shared panoramic pool from June 15, 2026"]
+          ["Highlight", "Panorama Pool from June 15, 2026"]
         ]
       },
       {
         title: "Outdoor time",
         items: [
-          ["Pool", "shared pool used by D1, D2 and Fügeház guests"],
+          ["Pool", "Panorama Pool for D1, D2 and Fügeház guests"],
           ["Terraces", "outdoor seating and garden dining"],
           ["Views", "Csobánc, Tóti Hill, Gulács and Badacsony"],
           ["For families", "relaxed summer days and a calm countryside setting"]
@@ -121,7 +121,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   features: {
     title: "Amenities",
     highlights: [
-      { label: "Shared panoramic pool access", icon: "pool" },
+      { label: "Panorama Pool access", icon: "pool" },
       { label: "Family-friendly layout", icon: "users" },
       { label: "Panoramic terraces", icon: "mountain" },
       { label: "Outdoor grilling option", icon: "leaf" },
@@ -181,12 +181,12 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   geoDecision: {
     kicker: "Fügeház quick answers",
     title: "Dandelion Fügeház is a good choice if you want a panoramic, terrace-focused, quiet guesthouse near Szent György Hill",
-    lead: "Fügeház is comfortable for 4 guests and can be extended up to 6 guests with an extra bed. It is a two-level house with panoramic terraces, a grill option and shared Panorama Pool access from June 15, 2026.",
+    lead: "Fügeház is comfortable for 4 guests and can be extended up to 6 guests with an extra bed. It is a two-level house with panoramic terraces, a grill option and Panorama Pool access from June 15, 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Does Fügeház have pool access?",
-        answer: "Yes. From June 15, 2026, Fügeház guests can use the shared Panorama Pool together with guests of D1 and D2."
+        answer: "Yes. From June 15, 2026, Fügeház guests can use the Panorama Pool together with guests of D1 and D2."
       },
       {
         iconKey: "family",
@@ -206,7 +206,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       {
         iconKey: "kitchen",
         question: "What amenities are available in Fügeház?",
-        answer: "Fügeház has panoramic terraces, a well-equipped kitchen, a grill option, garden dining, a bathroom with shower, two levels and shared Panorama Pool access."
+        answer: "Fügeház has panoramic terraces, a well-equipped kitchen, a grill option, garden dining, a bathroom with shower, two levels and Panorama Pool access."
       },
       {
         iconKey: "mountain",
@@ -224,7 +224,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     { iconKey: "garden", title: "Outdoor resting corner" },
     { iconKey: "home", title: "Two levels" },
     { iconKey: "bathroom", title: "Bathroom with shower" },
-    { iconKey: "pool", title: "Shared Panorama Pool" }
+    { iconKey: "pool", title: "Panorama Pool" }
   ],
   gallery: {
     kicker: "Gallery",

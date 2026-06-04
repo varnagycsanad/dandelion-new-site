@@ -74,7 +74,7 @@ const createPoolGuideCsContent = (houseName: string): GuideLocaleContent => ({
     "Otevírací doba během koupací sezóny: denně 10:00-21:00.",
     "Bazén používáte na vlastní odpovědnost, plavčík není přítomen.",
     "Děti mohou bazén používat pouze pod dohledem dospělé osoby.",
-    "Společný prostor bazénu může být monitorován kamerovým systémem.",
+    "Prostor pro hosty bazénu může být monitorován kamerovým systémem.",
     "Po posledním večerním použití je nutné zastřešení zatáhnout zpět nad bazén."
   ],
   backLabel: `Zpět na průvodce ${houseName}`,
@@ -186,7 +186,7 @@ const createPoolGuideCsContent = (houseName: string): GuideLocaleContent => ({
       id: "camera-surveillance",
       title: "10. Kamerový dohled",
       paragraphs: [
-        "Společný prostor Panorama Pool může být monitorován kamerovým systémem.",
+        "Prostor Panorama Pool může být monitorován kamerovým systémem.",
         "Účelem kamerového monitoringu je ochrana hostů a ubytování, ochrana majetku, prevence škod a porušování pravidel a objasnění stížností, nehod nebo škodních událostí.",
         "Kamerový dohled není službou plavčíka ani nepřetržitým osobním dohledem a nenahrazuje dohled dospělých nad dětmi.",
         "Podrobná pravidla zpracování kamerových záznamů obsahují zásady ochrany osobních údajů Dandelion Vendégházak."
@@ -245,7 +245,7 @@ const createPoolGuideDeContent = (houseName: string): GuideLocaleContent => ({
     "Öffnungszeiten während der Badesaison: täglich 10:00-21:00.",
     "Die Nutzung des Pools erfolgt auf eigene Verantwortung. Es gibt keinen Bademeister.",
     "Kinder dürfen den Pool nur unter Aufsicht eines Erwachsenen nutzen.",
-    "Der gemeinsame Poolbereich kann videoüberwacht sein.",
+    "Der Panorama Pool Bereich kann videoüberwacht sein.",
     "Nach der letzten Nutzung am Abend muss die Poolabdeckung wieder über den Pool gezogen werden."
   ],
   backLabel: `Zurück zum ${houseName} Guide`,
@@ -357,7 +357,7 @@ const createPoolGuideDeContent = (houseName: string): GuideLocaleContent => ({
       id: "kamera",
       title: "10. Videoüberwachung",
       paragraphs: [
-        "Der gemeinsame Panorama Pool Bereich kann videoüberwacht sein.",
+        "Der Panorama Pool Bereich kann videoüberwacht sein.",
         "Zweck der Videoüberwachung ist der Schutz der Gäste und der Unterkunft, der Eigentumsschutz, die Vorbeugung von Schäden und Regelverstößen sowie die Klärung von Beschwerden, Unfällen oder Schadensfällen.",
         "Videoüberwachung ist kein Bademeisterdienst und keine dauerhafte persönliche Aufsicht; sie ersetzt nicht die Aufsicht von Kindern durch Erwachsene.",
         "Die detaillierten Regeln zur Kameradatenverarbeitung stehen in der Datenschutzerklärung der Dandelion Gästehäuser."
@@ -406,7 +406,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
         "Nyitvatartás a fürdési szezonban: naponta 10:00-21:00.",
         "A medence használata saját felelősségre történik, úszómester nincs.",
         "Gyermekek kizárólag felnőtt felügyeletével használhatják a medencét.",
-        "A közös medencetér kamerás megfigyeléssel érintett terület.",
+        "A Panorama Pooltér kamerás megfigyeléssel érintett terület.",
         "A medencefedést az esti utolsó használat után vissza kell tolni a medence fölé."
       ],
       backLabel: `Vissza a ${houseName} útmutatóhoz`,
@@ -518,7 +518,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           id: "kameras-megfigyeles",
           title: "10. Kamerás megfigyelés",
           paragraphs: [
-            "A Panorama Pool közös medencetere kamerás megfigyeléssel érintett terület lehet.",
+            "A Panorama Pool területe kamerás megfigyeléssel érintett terület lehet.",
             "A kamerás megfigyelés célja a vendégek és a szálláshely biztonságának védelme, a vagyonvédelem, a károkozások és szabályszegések megelőzése, valamint panaszok, balesetek vagy káresemények tisztázása.",
             "A kamerás megfigyelés nem jelent úszómesteri vagy folyamatos személyes felügyeletet, és nem helyettesíti a gyermekek felnőtt felügyeletét.",
             "A kamerás adatkezelés részletes szabályait a Dandelion Vendégházak Adatkezelési tájékoztatója tartalmazza."
@@ -556,7 +556,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
         "Opening hours during the bathing season: daily from 10:00 to 21:00.",
         "Guests use the pool at their own responsibility. There is no lifeguard on duty.",
         "Children may use the pool only under adult supervision.",
-        "The shared pool area is covered by camera surveillance.",
+        "The Panorama Pool area is covered by camera surveillance.",
         "After the last evening use, the pool cover must be pulled back over the pool."
       ],
       backLabel: `Back to the ${houseName} guide`,
@@ -668,7 +668,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           id: "camera-surveillance",
           title: "10. Camera surveillance",
           paragraphs: [
-            "The shared Panorama Pool area may be covered by camera surveillance.",
+            "The Panorama Pool area may be covered by camera surveillance.",
             "The purpose of camera surveillance is to protect guests and the accommodation, protect property, prevent damage and breaches of rules, and clarify complaints, accidents or damage events.",
             "Camera surveillance does not constitute lifeguard service or continuous personal supervision, and it does not replace adult supervision of children.",
             "Detailed rules on camera-related data processing are set out in the Dandelion Guesthouses Privacy Policy."

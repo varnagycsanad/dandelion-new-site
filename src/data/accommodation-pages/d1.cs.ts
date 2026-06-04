@@ -14,32 +14,32 @@ export const d1CzechPageData = createCzechAccommodationPage(d1EnglishPageData, {
   longDescription: [
     "Dům má velkorysejší rozvržení a dobře funguje pro rodiny nebo skupinu přátel. Hodí se pro společné snídaně, pomalé večery a dny, kdy někdo zůstane v zahradě a někdo vyrazí na výlet.",
     "Okolí Kisapáti a Szent György-hegy přináší tiché cesty, vinice, vyhlídky a krátké přesuny k Balatonu.",
-    "Společný Panorama Pool patří k pobytům D1, D2 a Fügeház od 15. června 2026."
+    "Panorama Pool patří k pobytům D1, D2 a Fügeház od 15. června 2026."
   ],
   facts: [["Hosté", "6-8 hostů"], ["Ložnice", "3 ložnice"], ["Koupelny", "2 koupelny"], ["Exteriér", "zahrada a terasa"]],
-  experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Pro skupiny", "více prostoru pro společný čas"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
-  highlights: ["Velká zahrada", "Terasa", "3 ložnice", "2 koupelny", "Společný Panorama Pool", "Parkování"],
+  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. června 2026"], ["Pro skupiny", "více prostoru pro čas spolu"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
+  highlights: ["Velká zahrada", "Terasa", "3 ložnice", "2 koupelny", "Panorama Pool", "Parkování"],
   reasons: [
     { iconKey: "guests", title: "Prostorný rodinný dům", text: "8 hostů, oddělené pokoje" },
     { iconKey: "garden", title: "Zahrada a terasa", text: "jídlo venku" },
-    { iconKey: "pool", title: "Letní pobyt", text: "společný bazén" },
+    { iconKey: "pool", title: "Letní pobyt", text: "Panorama Pool" },
     { iconKey: "trail", title: "Základna u kopců", text: "výlety a vinařství" }
   ],
   amenities: ["3 ložnice", "Pohodlný obývací pokoj", "Dobře vybavená kuchyně", "Panoramatická terasa", "Možnost grilování", "Klimatizace", "Pračka", "Myčka nádobí", "Gigabitový internet"],
   geoDecision: {
     kicker: "D1 rychlé odpovědi",
-    title: "Dandelion D1 je dobrá volba, pokud hledáte prostorný dům v Kisapáti se společným bazénem",
-    lead: "D1 je připravený pro větší rodiny a skupiny přátel: až 8 hostů, panoramatická terasa, prostorné společné části a společný Panorama Pool od 15. června 2026.",
+    title: "Dandelion D1 je dobrá volba, pokud hledáte prostorný dům v Kisapáti s přístupem k Panorama Pool",
+    lead: "D1 je připravený pro větší rodiny a skupiny přátel: až 8 hostů, panoramatická terasa, prostorné části a Panorama Pool od 15. června 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Má Dandelion D1 přístup k bazénu?",
-        answer: "Ano. Od 15. června 2026 mohou hosté D1 využívat společný Panorama Pool."
+        answer: "Ano. Od 15. června 2026 mohou hosté D1 využívat Panorama Pool."
       },
       {
         iconKey: "pool",
         question: "Je bazén soukromý jen pro D1?",
-        answer: "Ne. Panorama Pool je společný bazén pro hosty D1, D2 a Fügeház."
+        answer: "Ne. Není to soukromý bazén pouze pro D1; Panorama Pool je v sezóně k dispozici hostům D1, D2 a Fügeház."
       },
       {
         iconKey: "guests",

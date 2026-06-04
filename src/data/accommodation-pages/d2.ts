@@ -111,7 +111,7 @@ export const d2PageData: AccommodationPageData = {
     longDescription: [
       "A galériás nappali világos és jól használható közös tér, a felújított konyha pedig kényelmessé teszi a hosszabb itt tartózkodást is. A ház ritmusa egyszerű: reggeli a teraszon, napközben kirándulás vagy balatoni program, este nyugodt visszaérkezés a kertbe.",
       "A fedett terasz és a kerti ülőhelyek rosszabb időben is használhatók, a nagy udvar pedig sokat ad hozzá a pihenéshez. Itt van hely játszani, üldögélni, grillezni vagy csak élvezni a csendet.",
-      "A D2 vendégei 2026. június 15-től a közös Panorama Poolt is használhatják. A medence a ház melletti dombon kapott helyet, így a fürdés mellé tanúhegyes panoráma és nyári balatoni-felvidéki hangulat is jár.",
+      "A D2 vendégei 2026. június 15-től a Panorama Pool medencét is használhatják. A medence a ház melletti dombon kapott helyet, így a fürdés mellé tanúhegyes panoráma és nyári balatoni-felvidéki hangulat is jár.",
       "A háznál állatok is vannak, amit sok gyerek külön élményként él meg. Ez ad a kertnek egy lazább, falusiasabb hangulatot, anélkül hogy a ház kényelméből bármit elvenne.",
       "A Balaton, a tanúhegyek túraútvonalai és a környék borászatai rövid autóúttal elérhetők, így a D2 jó bázis akkor is, ha többféle programot szeretnétek egy helyről bejárni."
     ],
@@ -204,12 +204,12 @@ export const d2PageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D2 gyors válaszok",
     title: "A Dandelion D2 akkor jó választás, ha kertközeli, családbarát házat kerestek Kisapátiban",
-    lead: "A D2 4-6 főnek kényelmes, nagy udvarral, fedett terasszal, felújított konyhával és 2026. június 15-től közös Panorama Pool használattal.",
+    lead: "A D2 4-6 főnek kényelmes, nagy udvarral, fedett terasszal, felújított konyhával és 2026. június 15-től Panorama Pool használattal.",
     questions: [
       {
         iconKey: "pool",
         question: "Van medence a Dandelion D2-höz?",
-        answer: "Igen. 2026. június 15-től a D2 vendégei használhatják a közös Panorama Pool medencét a D1 és a Fügeház vendégeivel együtt."
+        answer: "Igen. 2026. június 15-től a D2 vendégei használhatják a Panorama Pool medencét a D1 és a Fügeház vendégeivel együtt."
       },
       {
         iconKey: "family",

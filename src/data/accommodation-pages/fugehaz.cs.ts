@@ -14,11 +14,11 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   longDescription: [
     "Dům ma nekolik venkovních mist, kde se da snidat, odpocivat nebo večer sedet s výhledem. Atmosfera je přírodní a neformalni.",
     "Poloha u Szent György-hegy dává snadný přístup k výletům, vinařstvím a balatonským programům.",
-    "Hosté Fügeház mohou od 15. června 2026 vyuzivat společný Panorama Pool pro D1, D2 a Fügeház."
+    "Hosté Fügeház mohou od 15. června 2026 vyuzivat Panorama Pool pro D1, D2 a Fügeház."
   ],
   facts: [["Hosté", "4-6 hostů"], ["Charakter", "terasový panoramatický dům"], ["Exteriér", "venkovní posezení"], ["Poloha", "u Szent György-hegy"]],
-  experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
-  highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradní posezení", "Společný Panorama Pool", "Přírodní atmosféra"],
+  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
+  highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradní posezení", "Panorama Pool", "Přírodní atmosféra"],
   reasons: [
     { iconKey: "terrace", title: "Panoramatické terasy", text: "Kopce, večery" },
     { iconKey: "leaf", title: "Dobré pro páry", text: "Klid, výhledy" },
@@ -28,12 +28,12 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   geoDecision: {
     kicker: "Fügeház rychlé odpovědi",
     title: "Dandelion Fügeház se hodí, pokud hledáte klidný panoramatický dům s terasami u Szent György-hegy",
-    lead: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů. Je to dvoupatrový dům s panoramatickými terasami, možností grilování a společným přístupem k Panorama Pool od 15. června 2026.",
+    lead: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů. Je to dvoupatrový dům s panoramatickými terasami, možností grilování a přístupem k Panorama Pool od 15. června 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Má Fügeház přístup k bazénu?",
-        answer: "Ano. Od 15. června 2026 mohou hosté Fügeház využívat společný Panorama Pool spolu s hosty D1 a D2."
+        answer: "Ano. Od 15. června 2026 mohou hosté Fügeház využívat Panorama Pool spolu s hosty D1 a D2."
       },
       {
         iconKey: "family",
@@ -53,7 +53,7 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
       {
         iconKey: "kitchen",
         question: "Jaké vybavení je ve Fügeház?",
-        answer: "Fügeház má panoramatické terasy, dobře vybavenou kuchyni, možnost grilování, zahradní jídelní místo, koupelnu se sprchou, dvě podlaží a společný přístup k Panorama Pool."
+        answer: "Fügeház má panoramatické terasy, dobře vybavenou kuchyni, možnost grilování, zahradní jídelní místo, koupelnu se sprchou, dvě podlaží a přístup k Panorama Pool."
       },
       {
         iconKey: "mountain",
@@ -63,7 +63,7 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
     ],
     amenitiesTitle: "Co je ve Fügeház důležité"
   },
-  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna", "Společný Panorama Pool"],
+  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna", "Panorama Pool"],
   mapBody: "Fügeház je dobrý výchozí bod pro Szent György-hegy, Badacsony, vinice a pomalé balatonské dny.",
   mapBenefits: [{ label: "Panoramatická poloha", icon: "trail" }, { label: "Vinařství v okolí", icon: "grapes" }, { label: "Balaton na dosah", icon: "route" }]
 });

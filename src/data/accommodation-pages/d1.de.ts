@@ -16,7 +16,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   longDescription: [
     "Das Haus eignet sich für Gäste, die zusammen reisen, aber trotzdem genug Raum im Alltag brauchen. Wohnbereich, Küche und Terrasse verbinden sich zu einem unkomplizierten Ferienrhythmus.",
     "Der Garten und die Außenbereiche machen D1 besonders angenehm für Familien. Tagsüber sind Ausflüge an den Balaton, Wanderungen am Szent György-hegy und Besuche bei Weingütern gut erreichbar.",
-    "Der gemeinsame Panorama Pool gehört zum nahe gelegenen D1-D2-Fügeház Bereich und ist ab 15. Juni 2026 für die passenden Unterkünfte vorgesehen."
+    "Der Panorama Pool gehört zum nahe gelegenen D1-D2-Fügeház Bereich und ist ab 15. Juni 2026 für die passenden Unterkünfte vorgesehen."
   ],
   facts: [
     ["Gäste", "6-8 Gäste"],
@@ -26,33 +26,33 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     ["Lage", "Kisapati, nahe Szent György-hegy"]
   ],
   experienceFacts: [
-    ["Gemeinsamer Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
+    ["Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
     ["Familienzeit", "viel Platz im Haus und draußen"],
     ["Ausflüge", "Balaton, Wanderwege und Weingüter"],
     ["Direktanfrage", "deutsche Anfrage über Kontaktseite"]
   ],
-  highlights: ["Großer Garten", "Terrasse", "Familienfreundliche Aufteilung", "Gut ausgestattete Küche", "Gemeinsamer Panorama Pool"],
+  highlights: ["Großer Garten", "Terrasse", "Familienfreundliche Aufteilung", "Gut ausgestattete Küche", "Panorama Pool"],
   reasons: [
     { iconKey: "users", title: "Großes Familienhaus", text: "8 Gäste, getrennte Zimmer" },
     { iconKey: "terrace", title: "Garten und Terrasse", text: "Essen im Freien" },
-    { iconKey: "pool", title: "Sommeraufenthalt", text: "gemeinsamer Pool" },
+    { iconKey: "pool", title: "Sommeraufenthalt", text: "Panorama Pool" },
     { iconKey: "trail", title: "Basis am Berg", text: "Wandern und Weingüter" }
   ],
   amenities: ["3 Schlafzimmer", "Gemütliches Wohnzimmer", "Gut ausgestattete Küche", "Panoramaterrasse", "Grillmöglichkeit", "Klimaanlage", "Waschmaschine", "Geschirrspüler", "Gigabit-Internet"],
   geoDecision: {
     kicker: "D1 schnelle Antworten",
-    title: "Dandelion D1 passt, wenn Sie ein geräumiges Haus in Kisapati mit gemeinsamem Poolzugang suchen",
-    lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und gemeinsamer Panorama Pool ab 15. Juni 2026.",
+    title: "Dandelion D1 passt, wenn Sie ein geräumiges Haus in Kisapati mit Zugang zum Panorama Pool suchen",
+    lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und Panorama Pool ab 15. Juni 2026.",
     questions: [
       {
         iconKey: "pool",
         question: "Hat Dandelion D1 Zugang zum Pool?",
-        answer: "Ja. Ab 15. Juni 2026 können D1-Gäste den gemeinsamen Panorama Pool nutzen."
+        answer: "Ja. Ab 15. Juni 2026 können D1-Gäste den Panorama Pool nutzen."
       },
       {
         iconKey: "pool",
         question: "Ist der Pool privat für D1?",
-        answer: "Nein. Der Panorama Pool ist ein gemeinsamer Poolbereich für Gäste von D1, D2 und Fügeház."
+        answer: "Nein. Der Panorama Pool ist ein Panorama Pool Bereich für Gäste von D1, D2 und Fügeház."
       },
       {
         iconKey: "guests",
