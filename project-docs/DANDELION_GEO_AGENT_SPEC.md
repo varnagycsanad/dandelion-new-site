@@ -343,3 +343,46 @@ Riasztás csak akkor legyen, ha:
 - Search Console megjelenés erősen visszaesik,
 - aktív kampány irreleváns kereséseket hoz,
 - kiemelt, 80+ GEO pontú kérdés jelenik meg, amire nincs tartalom.
+
+## 17. Dandelion GEO Score
+
+Az agent minden kiemelt oldalra számoljon 0-100 közötti GEO Score értéket.
+
+Kiemelt oldalak:
+
+- Dandelion D2
+- Dandelion D1
+- Fügeház
+- Zsálya Vendégház
+- Szőlőliget Vendégház
+- Szépvölgyi Vendégház
+- Dandelion Royal Homes
+- Dandelion Vintage
+- Dandelion Köveskál
+- Panorama Pool
+
+Pontozási bontás:
+
+- keresési lefedettség: 0-25 pont
+- kérdéslefedettség: 0-25 pont
+- AI / GEO láthatóság: 0-20 pont
+- tartalomfrissesség: 0-15 pont
+- konverziós relevancia: 0-15 pont
+
+Értelmezés:
+
+- 85-100: erős GEO állapot
+- 70-84: jó, de fejleszthető
+- 50-69: közepes, célzott javítás kell
+- 0-49: gyenge, külön tartalommunka szükséges
+
+A riportban minden oldalnál szerepeljen:
+
+- aktuális GEO Score
+- előző havi GEO Score
+- változás
+- legerősebb témák
+- legfontosabb hiányok
+- javasolt következő lépés
+
+A GEO Score nem hivatalos Google-mutató, hanem belső Dandelion döntéstámogató pontszám.
