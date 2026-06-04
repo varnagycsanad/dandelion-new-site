@@ -39,6 +39,45 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
     { iconKey: "users", title: "Flexibel", text: "für 4-6 Gäste" }
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse oder Balkon", "Parken"],
+  geoDecision: {
+    kicker: "Royal Homes schnelle Antworten",
+    title: "Dandelion Royal Homes passt, wenn Sie ein modernes Apartment in Keszthely suchen, nahe am Balaton und praktisch für Stadtprogramme",
+    lead:
+      "Royal Homes ist ein hochwertiges Apartment mit 2 Schlafzimmern und Wohnzimmer in einer balatonnahen Wohnanlage in Keszthely, mit großer Terrasse, breitem Balkon, eigenem Ufersteg der Anlage und gemeinsamem Dachterrassen-Jacuzzi.",
+    questions: [
+      {
+        question: "Für wen ist Dandelion Royal Homes eine gute Wahl?",
+        answer:
+          "Für Familien, Paare und Freunde, die ein modernes, hochwertiges Apartment in Keszthely suchen, nahe am Balaton, der Promenade, dem Hafen und den Stadtprogrammen."
+      },
+      {
+        question: "Wie nah ist Royal Homes am Balaton?",
+        answer:
+          "Royal Homes liegt in einer balatonnahen Wohnanlage. Promenade, Segelhafen und Radweg sind gut erreichbar; zur Anlage gehören ein eigener Ufersteg und eine Sonnenterrasse."
+      },
+      {
+        question: "Für wie viele Gäste ist Royal Homes bequem?",
+        answer:
+          "Das Apartment hat 2 Schlafzimmer und ein Wohnzimmer und ist eine komfortable Balaton-Basis für bis zu 6 Gäste. Ein Schlafzimmer hat ein Doppelbett, das andere ein ausziehbares Sofa."
+      },
+      {
+        question: "Gibt es einen Jacuzzi bei Royal Homes?",
+        answer:
+          "Ja, die Wohnanlage hat einen gemeinsamen Jacuzzi auf der Dachterrasse. Es ist kein privater Jacuzzi im Apartment, sondern ein gemeinsames Premium-Komfortelement des Gebäudes."
+      },
+      {
+        question: "Wie ist der Außenbereich?",
+        answer:
+          "Eine der stärksten Seiten des Apartments sind die große Terrasse und der breite Balkon. Sonnenterrasse und Ufersteg der Anlage verstärken das Balaton-Urlaubsgefühl."
+      },
+      {
+        question: "Für welche Programme ist Keszthely ein guter Ausgangspunkt?",
+        answer:
+          "Die Lage passt für Balaton-Strandtage, Promenade, Hafen, Radfahren, Keszthelyer Stadtprogramme und Ausflüge am West-Balaton. Das Stadtzentrum ist ungefähr 10 Gehminuten entfernt."
+      }
+    ],
+    amenitiesTitle: "Wichtig bei Royal Homes"
+  },
   mapBody:
     "Royal Homes liegt in Keszthely, gut für Balaton-Ufer, Schlosspark, Restaurants und Ausflüge am West-Balaton.",
   mapBenefits: [

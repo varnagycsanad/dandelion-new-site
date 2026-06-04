@@ -169,6 +169,45 @@ export const royalHomesPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Royal Homes gyors válaszok",
+    title: "A Dandelion Royal Homes akkor jó választás, ha modern keszthelyi apartmant kerestek Balaton-közeli, városi programokhoz is kényelmes helyen",
+    lead:
+      "A Royal Homes 2 hálószobás + nappalis prémium apartman Keszthely Balaton-parti üdülőövezetében, nagy terasszal, széles erkéllyel, saját parti mólóval és közös tetőteraszos jakuzzival.",
+    questions: [
+      {
+        question: "Kinek jó választás a Dandelion Royal Homes?",
+        answer:
+          "Családoknak, pároknak és barátoknak, akik modern, igényes apartmant keresnek Keszthelyen, közel a Balatonhoz, a parti sétányhoz, a kikötőhöz és a városi programokhoz."
+      },
+      {
+        question: "Mennyire van közel a Balatonhoz?",
+        answer:
+          "A Royal Homes Balaton-parti üdülőövezetben található. A parti sétány, a vitorlás kikötő és a kerékpárút könnyen elérhető, a lakóparkhoz pedig saját parti móló és napozóterasz tartozik."
+      },
+      {
+        question: "Hány főnek kényelmes a Royal Homes?",
+        answer:
+          "Az apartman 2 hálószobás + nappalis elrendezésű, legfeljebb 6 főnek ad kényelmes balatoni bázist. Az egyik hálóban franciaágy, a másikban kihúzható kanapé található."
+      },
+      {
+        question: "Van jakuzzi a Royal Homesnál?",
+        answer:
+          "Igen, a lakópark közös tetőteraszos jakuzzival rendelkezik. Ez nem privát apartmanon belüli jakuzzi, hanem a társasház közös prémium kényelmi eleme."
+      },
+      {
+        question: "Milyen a kinti pihenőtér?",
+        answer:
+          "Az apartman egyik legerősebb része a nagy terasz és a széles erkély. A lakópark napozóterasza és parti mólója tovább erősíti a balatoni pihenés hangulatát."
+      },
+      {
+        question: "Milyen programokhoz jó bázis Keszthelyen?",
+        answer:
+          "Jó választás balatoni strandoláshoz, sétányhoz, kikötőhöz, kerékpározáshoz, keszthelyi városi programokhoz és a nyugat-balatoni kirándulásokhoz. A városközpont körülbelül 10 perc sétával elérhető."
+      }
+    ],
+    amenitiesTitle: "Ami a Royal Homesban fontos"
+  },
   amenities: [
     {
       iconKey: "leaf",

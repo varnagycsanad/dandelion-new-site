@@ -156,6 +156,45 @@ export const royalHomesEnglishPageData: AccommodationPageData = {
       }
     ]
   },
+  geoDecision: {
+    kicker: "Royal Homes quick answers",
+    title: "Dandelion Royal Homes is a good choice if you want a modern Keszthely apartment close to Lake Balaton and convenient for town programmes",
+    lead:
+      "Royal Homes is a high-quality two-bedroom apartment with living room in Keszthely's lakeside residential area, with a large terrace, wide balcony, waterfront pier for the building and a shared rooftop jacuzzi.",
+    questions: [
+      {
+        question: "Who is Dandelion Royal Homes best for?",
+        answer:
+          "It works well for families, couples and friends looking for a modern, high-quality apartment in Keszthely, close to Lake Balaton, the promenade, the harbour and town programmes."
+      },
+      {
+        question: "How close is it to Lake Balaton?",
+        answer:
+          "Royal Homes is in a lakeside residential area. The promenade, sailing harbour and cycling route are easy to reach, and the building has its own waterfront pier and sun terrace."
+      },
+      {
+        question: "How many guests is Royal Homes comfortable for?",
+        answer:
+          "The apartment has 2 bedrooms and a living room and can serve as a comfortable Lake Balaton base for up to 6 guests. One bedroom has a double bed, while the other has a pull-out sofa."
+      },
+      {
+        question: "Is there a jacuzzi at Royal Homes?",
+        answer:
+          "Yes, the residential complex has a shared rooftop jacuzzi. It is not a private in-apartment jacuzzi, but a shared premium comfort feature of the building."
+      },
+      {
+        question: "What is the outdoor space like?",
+        answer:
+          "One of the strongest parts of the apartment is the large terrace and wide balcony. The building's sun terrace and waterfront pier add to the Lake Balaton holiday feeling."
+      },
+      {
+        question: "What programmes is Keszthely good for?",
+        answer:
+          "It is a good base for Lake Balaton beach days, the promenade, the harbour, cycling, Keszthely town programmes and West Balaton trips. The town centre is around a 10-minute walk away."
+      }
+    ],
+    amenitiesTitle: "What matters at Royal Homes"
+  },
   amenities: [
     { iconKey: "leaf", title: "Waterfront pier for the building" },
     { iconKey: "sun", title: "Sun terrace" },
