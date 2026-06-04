@@ -181,25 +181,63 @@ export const d2PageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "terrace",
-        title: "Kinti reggelek",
-        text: "Terasz, nagy udvar"
+        title: "Fedett terasz",
+        text: "Nagy udvar"
       },
       {
         iconKey: "users",
-        title: "Gyerekekkel kényelmes",
+        title: "Gyerekbarát kert",
         text: "Kert, állatok"
       },
       {
         iconKey: "balaton",
         title: "Balaton és hegyek",
-        text: "Strand, túra, bor"
+        text: "Strand, túra"
       },
       {
         iconKey: "home",
         title: "Családi bázis",
-        text: "Átgondolt terek"
+        text: "Tágas terek"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "D2 gyors válaszok",
+    title: "A Dandelion D2 akkor jó választás, ha kertközeli, családbarát házat kerestek Kisapátiban",
+    lead: "A D2 4-6 főnek kényelmes, nagy udvarral, fedett terasszal, felújított konyhával és 2026. június 15-től közös Panorama Pool használattal.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Van medence a Dandelion D2-höz?",
+        answer: "Igen. 2026. június 15-től a D2 vendégei használhatják a közös Panorama Pool medencét a D1 és a Fügeház vendégeivel együtt."
+      },
+      {
+        iconKey: "family",
+        question: "Kinek jó választás a Dandelion D2?",
+        answer: "A D2 főleg családoknak és kisebb baráti társaságoknak jó választás, akik nagy kertet, fedett teraszt és nyugodt balatoni-felvidéki bázist keresnek."
+      },
+      {
+        iconKey: "guests",
+        question: "Hány főnek kényelmes a Dandelion D2?",
+        answer: "A D2 4-6 főnek kényelmes, galériás nappalival, franciaággyal, két szimpla ággyal és kihúzható kanapéval."
+      },
+      {
+        iconKey: "garden",
+        question: "Gyerekekkel jó választás a D2?",
+        answer: "Igen. A nagy udvar, a kerti ülőhelyek és a háznál lévő állatok miatt a D2 különösen jól működik gyerekes családoknak."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Milyen felszereltség van a D2-ben?",
+        answer: "A D2-ben felújított, jól felszerelt konyha, mosogatógép, klíma, gigabites internet, kandalló, kád, fedett terasz és kerti ülőhelyek vannak."
+      },
+      {
+        iconKey: "mountain",
+        question: "Milyen programokhoz jó bázis a D2?",
+        answer: "A D2 jó kiindulópont a Szent György-hegy, a Balaton, a tanúhegyek, a környék borászatai és a Tapolcai-medence felfedezéséhez."
+      }
+    ],
+    amenitiesTitle: "Ami a D2-ben fontos"
   },
   amenities: [
     {

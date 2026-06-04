@@ -1055,7 +1055,10 @@ const accommodationStructuredData = [
               )}
             </section>
 
-            <section class="d2-decision-answers" aria-label={hasGeoDecision ? geoDecision?.kicker : decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
+            <section
+              class:list={["d2-decision-answers", hasGeoDecision && "d2-decision-answers--qa"]}
+              aria-label={hasGeoDecision ? geoDecision?.kicker : decisionPanel?.overviewTitle ?? templateText.overviewTitle}
+            >
               <div class="d2-decision-answers__grid">
                 {decisionAnswerCards.map((item) => (
                   <article class:list={["d2-decision-answer", hasGeoDecision && "d2-decision-answer--qa"]}>
@@ -3848,6 +3851,10 @@ const accommodationStructuredData = [
       gap: 8px;
     }
 
+    .d2-decision-answers--qa .d2-decision-answers__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .d2-decision-answer {
       display: grid;
       min-height: 124px;
@@ -3876,6 +3883,20 @@ const accommodationStructuredData = [
       -webkit-line-clamp: 4;
     }
 
+    .d2-decision-answer--qa {
+      min-height: 0;
+      grid-template-columns: auto minmax(0, 1fr);
+      padding: 11px;
+    }
+
+    .d2-decision-answer--qa p {
+      display: block;
+      overflow: visible;
+      font-size: 0.76rem;
+      line-height: 1.42;
+      -webkit-line-clamp: unset;
+    }
+
     .d2-decision-reasons__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 7px;
@@ -3896,6 +3917,9 @@ const accommodationStructuredData = [
     .d2-decision-reason p {
       font-size: var(--dnd-text-2xs);
       line-height: 1.28;
+      display: block;
+      overflow: visible;
+      -webkit-line-clamp: unset;
     }
 
     .d2-decision-amenities__grid {
@@ -4192,6 +4216,26 @@ const accommodationStructuredData = [
 
     .d2-lightbox__nav--next {
       right: 6px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :global(.d2-decision-answers--qa .d2-decision-answers__grid) {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    :global(.d2-decision-answer--qa) {
+      min-height: 0 !important;
+      grid-template-columns: auto minmax(0, 1fr);
+      padding: 11px;
+    }
+
+    :global(.d2-decision-answer--qa p) {
+      display: block !important;
+      overflow: visible !important;
+      font-size: 0.76rem;
+      line-height: 1.42;
+      -webkit-line-clamp: unset !important;
     }
   }
 </style>

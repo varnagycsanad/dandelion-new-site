@@ -159,25 +159,63 @@ export const d2EnglishPageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "terrace",
-        title: "Outdoor mornings",
-        text: "Terrace and garden"
+        title: "Covered terrace",
+        text: "Large garden"
       },
       {
         iconKey: "users",
-        title: "Easy with children",
-        text: "Space, garden, animals"
+        title: "Child-friendly garden",
+        text: "Garden, animals"
       },
       {
         iconKey: "balaton",
-        title: "Balaton nearby",
-        text: "Lake, hikes, wine"
+        title: "Balaton and hills",
+        text: "Beach, hikes"
       },
       {
         iconKey: "home",
-        title: "A calm family base",
-        text: "Thoughtful spaces"
+        title: "Family base",
+        text: "Spacious rooms"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "D2 quick answers",
+    title: "Dandelion D2 is a good choice if you want a garden-based, family-friendly house in Kisapati",
+    lead: "D2 is comfortable for 4-6 guests, with a large garden, covered terrace, renovated kitchen and shared Panorama Pool access from June 15, 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Does Dandelion D2 have pool access?",
+        answer: "Yes. From June 15, 2026, D2 guests can use the shared Panorama Pool together with guests of D1 and Fügeház."
+      },
+      {
+        iconKey: "family",
+        question: "Who is Dandelion D2 best for?",
+        answer: "D2 mainly suits families and smaller groups of friends looking for a large garden, covered terrace and a calm Balaton Uplands base."
+      },
+      {
+        iconKey: "guests",
+        question: "How many guests is Dandelion D2 comfortable for?",
+        answer: "D2 is comfortable for 4-6 guests, with a gallery-style living room, a double bed, two single beds and a sofa bed."
+      },
+      {
+        iconKey: "garden",
+        question: "Is D2 a good choice with children?",
+        answer: "Yes. The large garden, outdoor seating and animals around the house make D2 especially practical for families with children."
+      },
+      {
+        iconKey: "kitchen",
+        question: "What amenities are available in D2?",
+        answer: "D2 has a renovated, well-equipped kitchen, dishwasher, air conditioning, gigabit internet, fireplace, bathtub, covered terrace and garden seating."
+      },
+      {
+        iconKey: "mountain",
+        question: "What trips is D2 a good base for?",
+        answer: "D2 is a good base for Szent György Hill, Lake Balaton, the witness hills, local wineries and the Tapolcai Basin."
+      }
+    ],
+    amenitiesTitle: "What matters in D2"
   },
   amenities: [
     {
