@@ -91,7 +91,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       "The house is comfortable for 4 guests and can host up to 6 guests with an extra bed. From the dining room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony; on the other side of the house, garden seating offers a quieter corner facing Szent György Hill.",
       "The panoramic pool is shared by guests of D1, D2 and Fügeház. It is not a private pool for Fügeház, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
       "Outdoor time is supported by terraces, garden furniture and a grill option. The hill beside the house opens toward the surrounding witness hills, so sunsets and clear evenings can become part of the experience.",
-      "The house has two levels. Downstairs there is a well-equipped kitchen, a bathroom with shower, a living-sleeping area and a dining space. Upstairs, an open sleeping area offers a double bed and a sofa bed."
+      "The house has two levels. Downstairs there is a well-equipped kitchen, a bathroom with shower, a living-sleeping area and a dining space. Upstairs, an open sleeping area gives the house its quiet, tucked-away feeling."
     ],
     moreLabel: "More about Fügeház",
     ctaLabel: "Check availability"
@@ -158,25 +158,63 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "terrace",
-        title: "Terrace mornings",
-        text: "Outdoor space and hill views"
-      },
-      {
-        iconKey: "family",
-        title: "Easy with family",
-        text: "Comfortable, calm layout"
+        title: "Panoramic terraces",
+        text: "Hills, evenings"
       },
       {
         iconKey: "leaf",
-        title: "Quiet countryside rhythm",
-        text: "Slow days outside"
+        title: "Good for couples",
+        text: "Calm, views"
       },
       {
-        iconKey: "balaton",
-        title: "Witness hills nearby",
-        text: "Hikes, wine, lake days"
+        iconKey: "family",
+        title: "Smaller families",
+        text: "4 guests, extra bed"
+      },
+      {
+        iconKey: "pool",
+        title: "Pool summer",
+        text: "Panorama Pool"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "Fügeház quick answers",
+    title: "Dandelion Fügeház is a good choice if you want a panoramic, terrace-focused, quiet guesthouse near Szent György Hill",
+    lead: "Fügeház is comfortable for 4 guests and can be extended up to 6 guests with an extra bed. It is a two-level house with panoramic terraces, a grill option and shared Panorama Pool access from June 15, 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Does Fügeház have pool access?",
+        answer: "Yes. From June 15, 2026, Fügeház guests can use the shared Panorama Pool together with guests of D1 and D2."
+      },
+      {
+        iconKey: "family",
+        question: "Who is Dandelion Fügeház best for?",
+        answer: "Fügeház mainly suits couples, smaller families and guests looking for a quieter Balaton Uplands stay."
+      },
+      {
+        iconKey: "guests",
+        question: "How many guests is Fügeház comfortable for?",
+        answer: "Fügeház is comfortable for 4 guests and can be extended up to 6 guests with an extra bed."
+      },
+      {
+        iconKey: "home",
+        question: "How is Fügeház different from D1 or D2?",
+        answer: "Fügeház feels more intimate, panoramic and terrace-focused. If you need larger shared spaces, D1 is the better direction; if you want a garden-based family house, D2 is stronger."
+      },
+      {
+        iconKey: "kitchen",
+        question: "What amenities are available in Fügeház?",
+        answer: "Fügeház has panoramic terraces, a well-equipped kitchen, a grill option, garden dining, a bathroom with shower, two levels and shared Panorama Pool access."
+      },
+      {
+        iconKey: "mountain",
+        question: "What trips is Fügeház a good base for?",
+        answer: "Fügeház is a good base for Szent György Hill, Badacsony, Csobánc, Tóti Hill, Gulács, local wineries and Lake Balaton beaches."
+      }
+    ],
+    amenitiesTitle: "What matters in Fügeház"
   },
   amenities: [
     { iconKey: "terrace", title: "Panoramic terraces" },
@@ -186,7 +224,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     { iconKey: "garden", title: "Outdoor resting corner" },
     { iconKey: "home", title: "Two levels" },
     { iconKey: "bathroom", title: "Bathroom with shower" },
-    { iconKey: "home", title: "Sofa bed" }
+    { iconKey: "pool", title: "Shared Panorama Pool" }
   ],
   gallery: {
     kicker: "Gallery",

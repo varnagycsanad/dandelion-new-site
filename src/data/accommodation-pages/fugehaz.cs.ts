@@ -20,12 +20,50 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   experienceFacts: [["Panorama Pool", "společný bazén od 15. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
   highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradní posezení", "Společný Panorama Pool", "Přírodní atmosféra"],
   reasons: [
-    { iconKey: "terrace", title: "Terasy", text: "pro pomalé ráno" },
-    { iconKey: "trail", title: "Kopce poblíž", text: "výlety a výhledy" },
-    { iconKey: "pool", title: "Panorama Pool", text: "společný bazén" },
-    { iconKey: "leaf", title: "Klid", text: "přírodní rytmus" }
+    { iconKey: "terrace", title: "Panoramatické terasy", text: "Kopce, večery" },
+    { iconKey: "leaf", title: "Dobré pro páry", text: "Klid, výhledy" },
+    { iconKey: "family", title: "Menší rodiny", text: "4 hosté, přistýlka" },
+    { iconKey: "pool", title: "Léto s bazénem", text: "Panorama Pool" }
   ],
-  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna"],
+  geoDecision: {
+    kicker: "Fügeház rychlé odpovědi",
+    title: "Dandelion Fügeház se hodí, pokud hledáte klidný panoramatický dům s terasami u Szent György-hegy",
+    lead: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů. Je to dvoupatrový dům s panoramatickými terasami, možností grilování a společným přístupem k Panorama Pool od 15. června 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Má Fügeház přístup k bazénu?",
+        answer: "Ano. Od 15. června 2026 mohou hosté Fügeház využívat společný Panorama Pool spolu s hosty D1 a D2."
+      },
+      {
+        iconKey: "family",
+        question: "Pro koho je Dandelion Fügeház dobrá volba?",
+        answer: "Fügeház se hodí hlavně pro páry, menší rodiny a hosty, kteří hledají klidnější pobyt v Balatonské vrchovině."
+      },
+      {
+        iconKey: "guests",
+        question: "Pro kolik hostů je Fügeház pohodlný?",
+        answer: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů."
+      },
+      {
+        iconKey: "home",
+        question: "V čem je Fügeház jiný než D1 nebo D2?",
+        answer: "Fügeház působí intimněji, panoramatičtěji a více se soustředí na terasy. Pokud hledáte větší společné prostory, lepší směr je D1; pokud zahradní rodinný dům, silnější je D2."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Jaké vybavení je ve Fügeház?",
+        answer: "Fügeház má panoramatické terasy, dobře vybavenou kuchyni, možnost grilování, zahradní jídelní místo, koupelnu se sprchou, dvě podlaží a společný přístup k Panorama Pool."
+      },
+      {
+        iconKey: "mountain",
+        question: "Pro jaké výlety je Fügeház dobrá základna?",
+        answer: "Fügeház je dobrá základna pro Szent György-hegy, Badacsony, Csobánc, Tóti-hegy, Gulács, místní vinařství a pláže u Balatonu."
+      }
+    ],
+    amenitiesTitle: "Co je ve Fügeház důležité"
+  },
+  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna", "Společný Panorama Pool"],
   mapBody: "Fügeház je dobrý výchozí bod pro Szent György-hegy, Badacsony, vinice a pomalé balatonské dny.",
   mapBenefits: [{ label: "Panoramatická poloha", icon: "trail" }, { label: "Vinařství v okolí", icon: "grapes" }, { label: "Balaton na dosah", icon: "route" }]
 });

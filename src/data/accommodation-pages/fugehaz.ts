@@ -174,24 +174,62 @@ export const fugehazPageData: AccommodationPageData = {
       {
         iconKey: "terrace",
         title: "Panorámás teraszok",
-        text: "Hegyek közeli reggelek"
-      },
-      {
-        iconKey: "family",
-        title: "Gyerekekkel is kényelmes",
-        text: "Családbarát elrendezés"
+        text: "Hegyek, esték"
       },
       {
         iconKey: "leaf",
-        title: "Nyugodt balatoni ritmus",
-        text: "Csendes, pihenős ház"
+        title: "Pároknak is jó",
+        text: "Csend, kilátás"
       },
       {
-        iconKey: "balaton",
-        title: "Tanúhegyek közeli bázis",
-        text: "Túrák, borok, strandok"
+        iconKey: "family",
+        title: "Kisebb családnak",
+        text: "4 fő, pótágy"
+      },
+      {
+        iconKey: "pool",
+        title: "Medencés nyár",
+        text: "Panorama Pool"
       }
     ]
+  },
+  geoDecision: {
+    kicker: "Fügeház gyors válaszok",
+    title: "A Dandelion Fügeház akkor jó választás, ha panorámás, teraszos, nyugodt vendégházat kerestek a Szent György-hegy közelében",
+    lead: "A Fügeház 4 főnek kényelmes, pótággyal akár 6 főig bővíthető, két szintes ház panorámás teraszokkal, grillezési lehetőséggel és 2026. június 15-től közös Panorama Pool használattal.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Van medence a Fügeházhoz?",
+        answer: "Igen. 2026. június 15-től a Fügeház vendégei használhatják a közös Panorama Pool medencét a D1 és D2 vendégeivel együtt."
+      },
+      {
+        iconKey: "family",
+        question: "Kinek jó választás a Dandelion Fügeház?",
+        answer: "A Fügeház főleg pároknak, kisebb családoknak és nyugodtabb balatoni-felvidéki pihenést kereső vendégeknek jó választás."
+      },
+      {
+        iconKey: "guests",
+        question: "Hány főnek kényelmes a Fügeház?",
+        answer: "A Fügeház 4 főnek kényelmes, pótággyal akár 6 főig bővíthető."
+      },
+      {
+        iconKey: "home",
+        question: "Miben más a Fügeház, mint a D1 vagy D2?",
+        answer: "A Fügeház intimebb, panorámásabb, teraszosabb hangulatú ház. Ha nagyobb közösségi tereket kerestek, a D1 jobb irány; ha kertközeli családi házat, akkor a D2."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Milyen felszereltség van a Fügeházban?",
+        answer: "Panorámás teraszok, jól felszerelt konyha, grillezési lehetőség, kerti étkező, zuhanyzós fürdőszoba, két szint és közös Panorama Pool használat."
+      },
+      {
+        iconKey: "mountain",
+        question: "Milyen programokhoz jó bázis a Fügeház?",
+        answer: "Jó kiindulópont a Szent György-hegy, Badacsony, Csobánc, Tóti-hegy, Gulács, környékbeli borászatok és balatoni strandok felé."
+      }
+    ],
+    amenitiesTitle: "Ami a Fügeházban fontos"
   },
   amenities: [
     {
@@ -223,8 +261,8 @@ export const fugehazPageData: AccommodationPageData = {
       title: "Zuhanyzós fürdőszoba"
     },
     {
-      iconKey: "home",
-      title: "Ágyazható kanapé"
+      iconKey: "pool",
+      title: "Közös Panorama Pool"
     }
   ],
   gallery: {

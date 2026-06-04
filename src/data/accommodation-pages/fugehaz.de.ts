@@ -33,12 +33,50 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   ],
   highlights: ["Panorama", "Terrasse", "Hot Tub", "Gemeinsamer Panorama Pool", "Ruhige Lage"],
   reasons: [
-    { iconKey: "terrace", title: "Aussicht", text: "Terrasse mit weitem Gefühl" },
-    { iconKey: "pool", title: "Poolbereich", text: "gemeinsam mit D1 und D2" },
-    { iconKey: "grapes", title: "Weinregion", text: "kurze Wege zu Weingütern" },
-    { iconKey: "home", title: "Ruhige Basis", text: "komfortabel und unkompliziert" }
+    { iconKey: "terrace", title: "Panorama-Terrassen", text: "Hügel, Abende" },
+    { iconKey: "leaf", title: "Gut für Paare", text: "Ruhe, Aussicht" },
+    { iconKey: "family", title: "Kleinere Familien", text: "4 Gäste, Extrabett" },
+    { iconKey: "pool", title: "Sommer mit Pool", text: "Panorama Pool" }
   ],
-  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Hot Tub", "Parken"],
+  geoDecision: {
+    kicker: "Fügeház schnelle Antworten",
+    title: "Dandelion Fügeház passt, wenn Sie ein ruhiges, terrassenbetontes Panoramahaus nahe Szent György-hegy suchen",
+    lead: "Fügeház ist bequem für 4 Gäste und mit Extrabett bis 6 Gäste erweiterbar. Es ist ein zweistöckiges Haus mit Panoramaterrassen, Grillmöglichkeit und Zugang zum gemeinsamen Panorama Pool ab 15. Juni 2026.",
+    questions: [
+      {
+        iconKey: "pool",
+        question: "Hat Fügeház Zugang zum Pool?",
+        answer: "Ja. Ab 15. Juni 2026 können Fügeház-Gäste den gemeinsamen Panorama Pool zusammen mit den Gästen von D1 und D2 nutzen."
+      },
+      {
+        iconKey: "family",
+        question: "Für wen ist Dandelion Fügeház eine gute Wahl?",
+        answer: "Fügeház passt vor allem zu Paaren, kleineren Familien und Gästen, die einen ruhigeren Aufenthalt im Balaton-Oberland suchen."
+      },
+      {
+        iconKey: "guests",
+        question: "Für wie viele Gäste ist Fügeház bequem?",
+        answer: "Fügeház ist bequem für 4 Gäste und mit Extrabett bis 6 Gäste erweiterbar."
+      },
+      {
+        iconKey: "home",
+        question: "Worin unterscheidet sich Fügeház von D1 oder D2?",
+        answer: "Fügeház wirkt intimer, panoramischer und stärker auf Terrassenzeit ausgerichtet. Für größere Gemeinschaftsbereiche passt D1 besser; für ein gartennahes Familienhaus ist D2 stärker."
+      },
+      {
+        iconKey: "kitchen",
+        question: "Welche Ausstattung gibt es in Fügeház?",
+        answer: "Fügeház hat Panoramaterrassen, eine gut ausgestattete Küche, Grillmöglichkeit, Essplatz im Garten, Duschbad, zwei Ebenen und Zugang zum gemeinsamen Panorama Pool."
+      },
+      {
+        iconKey: "mountain",
+        question: "Für welche Ausflüge ist Fügeház eine gute Basis?",
+        answer: "Fügeház ist eine gute Basis für den Szent György-hegy, Badacsony, Csobánc, Tóti-hegy, Gulács, lokale Weingüter und Balaton-Strände."
+      }
+    ],
+    amenitiesTitle: "Was in Fügeház wichtig ist"
+  },
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Hot Tub", "Parken", "Gemeinsamer Panorama Pool"],
   mapBody:
     "Fügeház liegt im Balaton-Oberland nahe Szent György-hegy, Badacsony, Tapolca und mehreren Aussichtspunkten.",
   mapBenefits: [
