@@ -6,9 +6,11 @@ import RegionStories from "../sections/RegionStories.astro";
 import Experiences from "../sections/Experiences.astro";
 import GoogleRegionMap from "../sections/GoogleRegionMap.astro";
 import NewsletterSignup from "../sections/NewsletterSignup.astro";
+import HomeGeoFaq from "../sections/HomeGeoFaq.astro";
 import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import { toAbsoluteUrl } from "../data/site-seo";
 import { buildVideoObject } from "../data/video-seo";
+import { buildHomeGeoFaqStructuredData } from "../data/home-geo-faq";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const googleLogoSrc = `${baseHref}images/brand/google-logo-compact-optimized-v2.png`;
@@ -83,7 +85,8 @@ const homepageStructuredData = [
     thumbnailUrl: homepageHeroPoster,
     uploadDate: "2026-05-21T00:00:00+02:00",
     inLanguage: "hu-HU"
-  })
+  }),
+  buildHomeGeoFaqStructuredData("hu")
 ];
 ---
 
@@ -295,6 +298,7 @@ const homepageStructuredData = [
   <RegionStories />
   <Experiences />
   <NewsletterSignup />
+  <HomeGeoFaq />
   <GoogleRegionMap />
 </BaseLayout>
 

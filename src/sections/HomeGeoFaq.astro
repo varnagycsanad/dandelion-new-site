@@ -1,0 +1,214 @@
+---
+// [CHANGE 2026-06-06 00:00] Reusable homepage GEO FAQ section added before the map.
+import { homeGeoFaqByLang, type HomeGeoFaqLang } from "../data/home-geo-faq";
+
+interface Props {
+  lang?: HomeGeoFaqLang;
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const copy = homeGeoFaqByLang[lang];
+---
+
+<section class="dnd-home-geo-qa dnd-section" aria-labelledby={`home-geo-qa-title-${lang}`}>
+  <div class="dnd-container">
+    <div class="dnd-home-geo-qa__layout">
+      <div class="dnd-home-geo-qa__intro">
+        <p class="dnd-home-geo-qa__eyebrow">{copy.kicker}</p>
+        <h2 id={`home-geo-qa-title-${lang}`}>{copy.title}</h2>
+        <p>{copy.lead}</p>
+        <a class="dnd-home-geo-qa__summary-link" href={copy.items[0].href}>
+          {copy.ctaLabel}
+        </a>
+      </div>
+
+      <div class="dnd-home-geo-qa__grid">
+        {copy.items.map((item) => (
+          <article class="dnd-home-geo-qa__item">
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dnd-home-geo-qa {
+    margin: 22px 0 24px;
+    padding: 0;
+  }
+
+  .dnd-home-geo-qa__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.64fr) minmax(0, 1.6fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .dnd-home-geo-qa__intro {
+    position: sticky;
+    top: 118px;
+    overflow: hidden;
+    padding: 18px;
+    border: 1px solid rgba(36, 122, 131, 0.16);
+    border-left: 3px solid #247a83;
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(230, 248, 249, 0.72), rgba(255, 250, 241, 0.96) 48%),
+      #fffaf1;
+    box-shadow: 0 8px 22px rgba(36, 122, 131, 0.08);
+  }
+
+  .dnd-home-geo-qa__eyebrow {
+    margin: 0 0 8px;
+    color: #247a83;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .dnd-home-geo-qa__intro h2 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 1.8vw, 1.72rem);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  .dnd-home-geo-qa__intro p {
+    margin: 12px 0 0;
+    color: #5d554b;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .dnd-home-geo-qa__summary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: #247a83;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 750;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .dnd-home-geo-qa__summary-link::after {
+    content: "→";
+    font-size: var(--dnd-text-body);
+    line-height: 1;
+  }
+
+  .dnd-home-geo-qa__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .dnd-home-geo-qa__item {
+    min-height: 100%;
+    padding: 15px 16px 14px;
+    border: 1px solid rgba(36, 122, 131, 0.1);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(36, 122, 131, 0.045);
+  }
+
+  .dnd-home-geo-qa__item:nth-child(1) {
+    border-color: rgba(36, 122, 131, 0.24);
+    background: linear-gradient(180deg, rgba(230, 248, 249, 0.72), #fff);
+  }
+
+  .dnd-home-geo-qa__item h3 {
+    margin: 0;
+    color: #1f2937;
+    font-size: var(--dnd-text-body);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  .dnd-home-geo-qa__item p {
+    margin: 8px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 980px) {
+    .dnd-home-geo-qa__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .dnd-home-geo-qa__intro {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dnd-home-geo-qa {
+      margin: 16px 0 18px;
+    }
+
+    .dnd-home-geo-qa__layout {
+      gap: 12px;
+    }
+
+    .dnd-home-geo-qa__intro {
+      padding: 14px 13px 15px;
+    }
+
+    .dnd-home-geo-qa__eyebrow {
+      font-size: var(--dnd-text-2xs);
+      letter-spacing: 0.08em;
+      line-height: 1.25;
+    }
+
+    .dnd-home-geo-qa__intro h2 {
+      font-size: 1.32rem;
+      line-height: 1.18;
+    }
+
+    .dnd-home-geo-qa__intro p {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.48;
+    }
+
+    .dnd-home-geo-qa__summary-link {
+      margin-top: 12px;
+      font-size: var(--dnd-text-xs);
+      letter-spacing: 0;
+      line-height: 1.25;
+      text-transform: none;
+    }
+
+    .dnd-home-geo-qa__grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .dnd-home-geo-qa__item {
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .dnd-home-geo-qa__item h3 {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.25;
+    }
+
+    .dnd-home-geo-qa__item p {
+      margin-top: 6px;
+      font-size: var(--dnd-text-xs);
+      line-height: 1.42;
+    }
+  }
+</style>

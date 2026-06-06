@@ -8,6 +8,7 @@ import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
 import NewsletterSignup from "../../sections/NewsletterSignup.astro";
 import GoogleRegionMap from "../../sections/GoogleRegionMap.astro";
+import HomeGeoFaq from "../../sections/HomeGeoFaq.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-mobile-optimized.webp";
 import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -16,6 +17,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
+import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
 
 const csTitle = "Dandelion ubytování | Klidné pobyty u Balatonu";
 const csDescription =
@@ -35,6 +37,7 @@ const homepageVideoStructuredData = buildVideoObject({
   uploadDate: "2026-05-21T00:00:00+02:00",
   inLanguage: "cs-CZ"
 });
+const homepageStructuredData = [homepageVideoStructuredData, buildHomeGeoFaqStructuredData("cs")];
 
 const czechRegionStories = [
   {
@@ -111,7 +114,7 @@ const czechExperiences = [
   canonicalPath="/cs/"
   lang="cs"
   ogLocale="cs_CZ"
-  structuredData={homepageVideoStructuredData}
+  structuredData={homepageStructuredData}
 >
   <Hero
     titleTopLines={["Klidné", "ubytování"]}
@@ -152,5 +155,6 @@ const czechExperiences = [
   />
 
   <NewsletterSignup lang="cs" />
+  <HomeGeoFaq lang="cs" />
   <GoogleRegionMap lang="cs" />
 </BaseLayout>

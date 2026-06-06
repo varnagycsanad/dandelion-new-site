@@ -8,6 +8,7 @@ import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
 import NewsletterSignup from "../../sections/NewsletterSignup.astro";
 import GoogleRegionMap from "../../sections/GoogleRegionMap.astro";
+import HomeGeoFaq from "../../sections/HomeGeoFaq.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-mobile-optimized.webp";
 import wineTourImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -16,6 +17,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
+import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
 
 // [CHANGE 2026-05-20 00:00] English homepage now follows the Hungarian homepage video and section system.
 const enTitle = "Dandelion Guesthouses | Countryside stays near Lake Balaton";
@@ -36,6 +38,7 @@ const homepageVideoStructuredData = buildVideoObject({
   uploadDate: "2026-05-21T00:00:00+02:00",
   inLanguage: "en-US"
 });
+const homepageStructuredData = [homepageVideoStructuredData, buildHomeGeoFaqStructuredData("en")];
 
 const englishRegionStories = [
   {
@@ -115,7 +118,7 @@ const englishExperiences = [
   canonicalPath="/en/"
   lang="en"
   ogLocale="en_US"
-  structuredData={homepageVideoStructuredData}
+  structuredData={homepageStructuredData}
 >
   <Hero
     titleTopLines={["Countryside", "guesthouses"]}
@@ -155,5 +158,6 @@ const englishExperiences = [
   />
 
   <NewsletterSignup lang="en" />
+  <HomeGeoFaq lang="en" />
   <GoogleRegionMap lang="en" />
 </BaseLayout>
