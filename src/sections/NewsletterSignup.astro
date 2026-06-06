@@ -55,7 +55,8 @@ const copy = copyByLang[lang];
           <button
             type="button"
             class="dnd-btn dnd-btn--primary dnd-newsletter-signup__trigger"
-            onclick="ml('show', '4eQILc', true)"
+            data-dnd-mailerlite-trigger
+            data-dnd-mailerlite-form="4eQILc"
           >
             {copy.button}
           </button>
@@ -67,10 +68,42 @@ const copy = copyByLang[lang];
 </section>
 
 <script is:inline>
-  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};
-  l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-  ml('account', '2003610');
+  (() => {
+    const scriptUrl = "https://assets.mailerlite.com/js/universal.js";
+    const accountId = "2003610";
+    let isLoading = false;
+    let isAccountQueued = false;
+
+    window.ml =
+      window.ml ||
+      function () {
+        (window.ml.q = window.ml.q || []).push(arguments);
+      };
+
+    const loadMailerLite = () => {
+      if (isLoading || document.querySelector(`script[src="${scriptUrl}"]`)) {
+        return;
+      }
+
+      isLoading = true;
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = scriptUrl;
+      document.head.appendChild(script);
+    };
+
+    document.querySelectorAll("[data-dnd-mailerlite-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        if (!isAccountQueued) {
+          window.ml("account", accountId);
+          isAccountQueued = true;
+        }
+
+        window.ml("show", trigger.dataset.dndMailerliteForm, true);
+        loadMailerLite();
+      });
+    });
+  })();
 </script>
 
 <style>
