@@ -2,6 +2,7 @@
 // [CHANGE 2026-05-20 00:00] Hero copy and CTAs can now be localized while preserving the original video layout.
 // [CHANGE 2026-05-21 00:00] The homepage hero accepts optional responsive video sources and poster fallback for landing pages.
 // [CHANGE 2026-05-29 00:00] Responsive hero videos now expose their poster fallback for video indexing.
+// [CHANGE 2026-06-06 00:00] Mobile hero videos can defer their source to keep the poster as the initial mobile paint.
 interface HeroCta {
   label: string;
   href: string;
@@ -25,6 +26,7 @@ interface Props {
   posterMobileSrc?: string;
   posterAlt?: string;
   overlay?: boolean;
+  deferMobileVideo?: boolean;
   videoFallbackText?: string;
 }
 
@@ -44,6 +46,7 @@ const {
   posterMobileSrc,
   posterAlt = "",
   overlay = false,
+  deferMobileVideo = true,
   videoFallbackText = "A böngésződ nem támogatja a háttérvideó lejátszását."
 } = Astro.props;
 
@@ -51,6 +54,7 @@ const heroVideo = videoSrc ?? "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v
 const hasResponsiveVideo = Boolean(videoDesktopSrc || videoMobileSrc);
 const hasVideo = Boolean(heroVideo || hasResponsiveVideo);
 const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
+const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
@@ -65,11 +69,13 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
       loop
       playsinline
       webkit-playsinline
-      preload="auto"
+      preload={shouldDeferMobileVideo ? "metadata" : "auto"}
       disablepictureinpicture
       disableremoteplayback
+      data-dnd-mobile-deferred={shouldDeferMobileVideo ? "true" : undefined}
+      data-dnd-mobile-src={shouldDeferMobileVideo ? videoMobileSrc : undefined}
     >
-      {videoMobileSrc && <source media="(max-width: 767px)" src={videoMobileSrc} type="video/mp4" />}
+      {videoMobileSrc && !shouldDeferMobileVideo && <source media="(max-width: 767px)" src={videoMobileSrc} type="video/mp4" />}
       {videoDesktopSrc && <source media="(min-width: 768px)" src={videoDesktopSrc} type="video/mp4" />}
       {videoFallbackText}
     </video>
@@ -131,6 +137,65 @@ const fallbackPoster = posterSrc ?? posterDesktopSrc ?? posterMobileSrc;
     </div>
   </div>
 </section>
+
+{shouldDeferMobileVideo && (
+  <script is:inline>
+    (() => {
+      const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+      if (!mobileQuery.matches) {
+        return;
+      }
+
+      const videos = document.querySelectorAll("video[data-dnd-mobile-deferred='true'][data-dnd-mobile-src]");
+
+      const attachMobileSource = (video) => {
+        if (!(video instanceof HTMLVideoElement) || video.dataset.dndMobileLoaded === "true") {
+          return;
+        }
+
+        const src = video.dataset.dndMobileSrc;
+
+        if (!src) {
+          return;
+        }
+
+        const source = document.createElement("source");
+        source.media = "(max-width: 767px)";
+        source.src = src;
+        source.type = "video/mp4";
+        video.insertBefore(source, video.firstChild);
+        video.dataset.dndMobileLoaded = "true";
+        video.preload = "metadata";
+        video.load();
+
+        const playback = video.play();
+
+        if (playback && typeof playback.catch === "function") {
+          playback.catch(() => {});
+        }
+      };
+
+      const loadAll = () => {
+        videos.forEach((video) => attachMobileSource(video));
+      };
+
+      const scheduleLoad = () => {
+        window.setTimeout(loadAll, 7000);
+      };
+
+      window.addEventListener("scroll", loadAll, { once: true, passive: true });
+      window.addEventListener("pointerdown", loadAll, { once: true, passive: true });
+      window.addEventListener("keydown", loadAll, { once: true });
+
+      if (document.readyState === "complete") {
+        scheduleLoad();
+      } else {
+        window.addEventListener("load", scheduleLoad, { once: true });
+      }
+    })();
+  </script>
+)}
 
 <style>
   .dnd-hero {
