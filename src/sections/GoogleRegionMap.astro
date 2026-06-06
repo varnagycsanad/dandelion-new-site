@@ -39,6 +39,7 @@ const copyByLang = {
   }
 } as const;
 const copy = copyByLang[lang];
+const mapSrc = "https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV89dI5KAxhqc-I&ehbc=2E312F";
 ---
 
 <section class="dnd-section dnd-google-region-map">
@@ -53,7 +54,7 @@ const copy = copyByLang[lang];
       <div class="dnd-google-region-map__frame" data-dnd-map-frame>
         <iframe
           class="dnd-google-region-map__canvas"
-          src="https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV89dI5KAxhqc-I&ehbc=2E312F"
+          data-dnd-map-src={mapSrc}
           title={copy.iframeTitle}
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
@@ -69,8 +70,13 @@ const copy = copyByLang[lang];
 <script>
   document.querySelectorAll("[data-dnd-map-frame]").forEach((frame) => {
     const activator = frame.querySelector("[data-dnd-map-activate]");
+    const iframe = frame.querySelector("iframe[data-dnd-map-src]");
 
     activator?.addEventListener("click", () => {
+      if (iframe instanceof HTMLIFrameElement && !iframe.src) {
+        iframe.src = iframe.dataset.dndMapSrc ?? "";
+      }
+
       frame.classList.add("is-active");
     });
   });
