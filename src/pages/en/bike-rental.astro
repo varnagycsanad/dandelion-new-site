@@ -8,6 +8,7 @@ const title = "Bike Rental in the Balaton Uplands | Dandelion Guesthouses";
 const description =
   "Bike rental details, prices and easy cycling ideas for Dandelion guests exploring Szent György Hill, Badacsony and the Balaton Uplands.";
 const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4?v=20260520-faststart";
+const heroMobileVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura-mobile-lite.mp4?v=20260606-mobile-lite";
 const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 const bikeOgImage = desktopImage;
@@ -106,7 +107,6 @@ const structuredData = [
     <section class="bike-hero">
       <video
         class="bike-hero__video"
-        src={heroVideo}
         poster={desktopImage}
         autoplay
         muted
@@ -117,6 +117,8 @@ const structuredData = [
         disablepictureinpicture
         disableremoteplayback
       >
+        <source src={heroMobileVideo} media="(max-width: 767px)" type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
         Your browser does not support background video playback.
       </video>
 

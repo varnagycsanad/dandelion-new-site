@@ -25,7 +25,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
       "A peaceful guesthouse for guests who are looking for the slower rhythm of the Káli Basin, village atmosphere and nature-close rest.",
     video: {
       desktop: "/videos/accommodations/koveskal/dandelion-koveskal-hero-desktop.mp4?v=20260603-lite",
-      mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile.mp4?v=20260603-lite"
+      mobile: "/videos/accommodations/koveskal/dandelion-koveskal-hero-mobile-lite.mp4?v=20260606-mobile-lite"
     },
     primaryCtaLabel: "Send inquiry",
     secondaryCtaLabel: "View photos"

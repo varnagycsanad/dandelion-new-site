@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { buildVideoObject } from "../../data/video-seo";
 
 const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4?v=20260520-faststart";
+const heroMobileVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura-mobile-lite.mp4?v=20260606-mobile-lite";
 const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
 const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 const bikeOgImage = desktopImage;
@@ -99,7 +100,6 @@ const structuredData = [
     <section class="bike-hero">
       <video
         class="bike-hero__video"
-        src={heroVideo}
         poster={desktopImage}
         autoplay
         muted
@@ -110,6 +110,8 @@ const structuredData = [
         disablepictureinpicture
         disableremoteplayback
       >
+        <source src={heroMobileVideo} media="(max-width: 767px)" type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
         A böngésződ nem támogatja a háttérvideó lejátszását.
       </video>
 

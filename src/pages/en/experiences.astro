@@ -11,6 +11,7 @@ const title = "Experiences near Lake Balaton | Dandelion Guesthouses";
 const description =
   "Cycling, wineries, Lake Balaton beaches and witness hill walks around the Dandelion guesthouses in the Balaton Uplands.";
 const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-0516.mp4?v=20260520-faststart";
+const heroMobileVideo = "/videos/elmenyek/hero/elmenyek-hero-0516-mobile-lite.mp4?v=20260606-mobile-lite";
 // [CHANGE 2026-05-29 00:00] English experiences hero video now has poster and VideoObject data for Google indexing.
 const heroPoster = mountainsImage.src;
 const bikingImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
@@ -125,7 +126,6 @@ const structuredData = [
     <section class="experiences-hero">
       <video
         class="experiences-hero__video"
-        src={heroVideo}
         poster={heroPoster}
         autoplay
         muted
@@ -136,6 +136,8 @@ const structuredData = [
         disablepictureinpicture
         disableremoteplayback
       >
+        <source src={heroMobileVideo} media="(max-width: 767px)" type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
         Your browser does not support background video playback.
       </video>
 
