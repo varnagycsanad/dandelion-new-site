@@ -266,7 +266,7 @@ const poolTemperatureFallback = "Hamarosan";
     </section>
   </section>
 
-  <script>
+  <script is:inline>
     (() => {
       const applyPoolHeaderState = () => {
         const header = document.querySelector("[data-dnd-header]");
@@ -279,15 +279,15 @@ const poolTemperatureFallback = "Hamarosan";
 
       const updatePoolTemperature = async () => {
         const widget = document.querySelector("[data-pool-temperature]");
-        const valueNode = widget?.querySelector("[data-pool-temperature-value]");
-        const airValueNode = widget?.querySelector("[data-pool-air-temperature]");
-        const updatedNode = widget?.querySelector("[data-pool-temperature-updated]");
+        const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
+        const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature]") : null;
+        const updatedNode = widget ? widget.querySelector("[data-pool-temperature-updated]") : null;
         const liveWaterNode = document.querySelector("[data-pool-live-water]");
         const liveAirNode = document.querySelector("[data-pool-live-air]");
         const liveHumidityNode = document.querySelector("[data-pool-live-humidity]");
         const livePressureNode = document.querySelector("[data-pool-live-pressure]");
         const liveUpdatedNode = document.querySelector("[data-pool-live-updated]");
-        const endpoint = widget?.getAttribute("data-endpoint") || "/api/pool-temperature.json";
+        const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
         const fallbackText = "Hamarosan";
         const liveFallbackText = "Nincs adat";
         const staleAfterMs = 6 * 60 * 60 * 1000;
@@ -327,16 +327,29 @@ const poolTemperatureFallback = "Hamarosan";
           }
 
           const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "°C";
-          const rawAirTemperature = data.airTemperature ?? data.air_temperature ?? data.outdoorTemperature;
+          const rawAirTemperature =
+            data.airTemperature !== undefined && data.airTemperature !== null
+              ? data.airTemperature
+              : data.air_temperature !== undefined && data.air_temperature !== null
+                ? data.air_temperature
+                : data.outdoorTemperature;
           const airTemperature =
             typeof rawAirTemperature === "number" || typeof rawAirTemperature === "string"
               ? Number(rawAirTemperature)
               : Number.NaN;
           const airUnit = typeof data.airUnit === "string" && data.airUnit.trim() ? data.airUnit.trim() : unit;
-          const rawHumidity = data.humidity ?? data.relativeHumidity ?? data.airHumidity;
+          const rawHumidity =
+            data.humidity !== undefined && data.humidity !== null
+              ? data.humidity
+              : data.relativeHumidity !== undefined && data.relativeHumidity !== null
+                ? data.relativeHumidity
+                : data.airHumidity;
           const humidity = typeof rawHumidity === "number" || typeof rawHumidity === "string" ? Number(rawHumidity) : Number.NaN;
           const humidityUnit = typeof data.humidityUnit === "string" && data.humidityUnit.trim() ? data.humidityUnit.trim() : "%";
-          const rawPressure = data.pressure ?? data.airPressure;
+          const rawPressure =
+            data.pressure !== undefined && data.pressure !== null
+              ? data.pressure
+              : data.airPressure;
           const pressure = typeof rawPressure === "number" || typeof rawPressure === "string" ? Number(rawPressure) : Number.NaN;
           const pressureUnit = typeof data.pressureUnit === "string" && data.pressureUnit.trim() ? data.pressureUnit.trim() : "hPa";
           const formattedTemperature = formatMeasurement(temperature, "hu-HU");
@@ -347,7 +360,9 @@ const poolTemperatureFallback = "Hamarosan";
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
           const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
-          widget?.classList.add("has-temperature");
+          if (widget) {
+            widget.classList.add("has-temperature");
+          }
           if (valueNode) {
             valueNode.textContent = `${formattedTemperature} ${unit}`;
           }
@@ -357,7 +372,9 @@ const poolTemperatureFallback = "Hamarosan";
               : `${formattedTemperature} ${unit}`;
           }
           if (Number.isFinite(airTemperature)) {
-            widget?.classList.add("has-air-temperature");
+            if (widget) {
+              widget.classList.add("has-air-temperature");
+            }
             if (airValueNode) {
               airValueNode.textContent = `Levegő: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
@@ -366,8 +383,12 @@ const poolTemperatureFallback = "Hamarosan";
               liveAirNode.textContent = `${formattedAirTemperature} ${airUnit}`;
             }
           } else {
-            widget?.classList.remove("has-air-temperature");
-            airValueNode?.setAttribute("hidden", "");
+            if (widget) {
+              widget.classList.remove("has-air-temperature");
+            }
+            if (airValueNode) {
+              airValueNode.setAttribute("hidden", "");
+            }
             if (liveAirNode) {
               liveAirNode.textContent = liveFallbackText;
             }
@@ -398,16 +419,22 @@ const poolTemperatureFallback = "Hamarosan";
             }
           }
         } catch {
-          widget?.classList.remove("has-temperature");
-          widget?.classList.remove("has-air-temperature");
+          if (widget) {
+            widget.classList.remove("has-temperature");
+            widget.classList.remove("has-air-temperature");
+          }
           if (valueNode) valueNode.textContent = fallbackText;
           if (liveWaterNode) liveWaterNode.textContent = liveFallbackText;
           if (liveAirNode) liveAirNode.textContent = liveFallbackText;
           if (liveHumidityNode) liveHumidityNode.textContent = liveFallbackText;
           if (livePressureNode) livePressureNode.textContent = liveFallbackText;
           if (liveUpdatedNode) liveUpdatedNode.textContent = "Frissítésre vár";
-          airValueNode?.setAttribute("hidden", "");
-          updatedNode?.setAttribute("hidden", "");
+          if (airValueNode) {
+            airValueNode.setAttribute("hidden", "");
+          }
+          if (updatedNode) {
+            updatedNode.setAttribute("hidden", "");
+          }
         }
       };
 
