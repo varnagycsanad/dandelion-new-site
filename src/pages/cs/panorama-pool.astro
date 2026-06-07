@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PoolGalleryLightbox from "../../components/PoolGalleryLightbox.astro";
 import Hero from "../../sections/Hero.astro";
 import { panoramaPoolHero, panoramaPoolImages } from "../../data/images/panorama-pool-images";
 import { d1CzechPageData } from "../../data/accommodation-pages/d1.cs";
@@ -182,7 +183,7 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       </div>
     </section>
 
-    <section id="pool-stays" class="pool-section">
+    <section id="pool-stays" class="pool-section pool-section--stays">
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-stays">
           {stays.map((stay) => (
@@ -211,30 +212,7 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       </div>
     </section>
 
-    <section class="pool-section">
-      <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-gallery" aria-label="Galerie Panorama Pool">
-          {galleryImages.map((image, index) => (
-            <article class="pool-gallery-card">
-              <figure class="pool-gallery-card__media">
-                <picture>
-                  {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
-                  <img
-                    src={image.src}
-                    alt={image.altEn}
-                    title={image.titleEn}
-                    width="1800"
-                    height="1350"
-                    loading={index < 2 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                </picture>
-              </figure>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <PoolGalleryLightbox images={galleryImages} locale="cs" ariaLabel="Galerie Panorama Pool" />
 
     <section class="pool-section pool-section--closing">
       <div class="dnd-container pool-shell">
@@ -1076,6 +1054,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
     .pool-section {
       padding: 52px 0;
+    }
+
+    .pool-section--stays {
+      padding-bottom: 16px;
     }
 
     .pool-section.pool-section--live {

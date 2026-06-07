@@ -1,0 +1,535 @@
+---
+import type { PanoramaPoolImageDraft } from "../data/images/panorama-pool-images";
+
+type PoolGalleryLocale = "hu" | "en" | "de" | "cs";
+
+const {
+  images,
+  locale = "hu",
+  ariaLabel = "Panorama Pool galéria"
+} = Astro.props as {
+  images: PanoramaPoolImageDraft[];
+  locale?: PoolGalleryLocale;
+  ariaLabel?: string;
+};
+
+const labels = {
+  hu: {
+    heading: "Képgaléria",
+    open: "Galériakép megnyitása",
+    view: "Kép megtekintése",
+    close: "Galéria bezárása",
+    previous: "Előző kép",
+    next: "Következő kép"
+  },
+  en: {
+    heading: "Photo gallery",
+    open: "Open gallery image",
+    view: "View photo",
+    close: "Close gallery",
+    previous: "Previous image",
+    next: "Next image"
+  },
+  de: {
+    heading: "Bildergalerie",
+    open: "Galeriebild öffnen",
+    view: "Foto ansehen",
+    close: "Galerie schließen",
+    previous: "Vorheriges Bild",
+    next: "Nächstes Bild"
+  },
+  cs: {
+    heading: "Fotogalerie",
+    open: "Otevřít fotografii v galerii",
+    view: "Zobrazit fotografii",
+    close: "Zavřít galerii",
+    previous: "Předchozí fotografie",
+    next: "Další fotografie"
+  }
+} satisfies Record<PoolGalleryLocale, Record<string, string>>;
+
+const galleryText = labels[locale];
+const useHungarianText = locale === "hu";
+const galleryItems = images.map((image) => ({
+  ...image,
+  alt: useHungarianText ? image.altHu : image.altEn,
+  title: useHungarianText ? image.titleHu : image.titleEn,
+  caption: useHungarianText ? image.captionHu : image.captionEn
+}));
+const lightboxImages = galleryItems.map((image) => ({
+  id: image.id,
+  src: image.src,
+  alt: image.alt,
+  title: image.title,
+  caption: image.caption
+}));
+---
+
+<section class="pool-section">
+  <div class="dnd-container pool-shell pool-section-shell">
+    <div class="pool-gallery-heading">
+      <h2>{galleryText.heading}</h2>
+    </div>
+    <div class="pool-gallery" aria-label={ariaLabel}>
+      {galleryItems.map((image, index) => (
+        <article class="pool-gallery-card">
+          <figure class="pool-gallery-card__media">
+            <button
+              type="button"
+              class="pool-gallery-card__trigger"
+              data-pool-gallery-trigger
+              data-pool-gallery-index={index}
+              aria-label={galleryText.open}
+            >
+              <picture>
+                {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                <img
+                  src={image.thumb || image.src}
+                  alt={image.alt}
+                  title={image.title}
+                  width="1800"
+                  height="1350"
+                  loading={index < 2 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              </picture>
+              <span class="pool-gallery-card__hover-label" aria-hidden="true">{galleryText.view}</span>
+            </button>
+          </figure>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div class="pool-lightbox" data-pool-lightbox hidden>
+  <div class="pool-lightbox__backdrop" data-pool-lightbox-close></div>
+  <div class="pool-lightbox__dialog" role="dialog" aria-modal="true" aria-label={ariaLabel}>
+    <button type="button" class="pool-lightbox__close" data-pool-lightbox-close aria-label={galleryText.close}>×</button>
+    <button type="button" class="pool-lightbox__nav pool-lightbox__nav--prev" data-pool-lightbox-prev aria-label={galleryText.previous}>‹</button>
+    <figure class="pool-lightbox__figure">
+      <img
+        alt=""
+        width="1800"
+        height="1350"
+        class="pool-lightbox__image"
+        data-pool-lightbox-image
+      />
+      <figcaption class="pool-lightbox__meta">
+        <span data-pool-lightbox-caption></span>
+        <span class="pool-lightbox__counter" data-pool-lightbox-counter></span>
+      </figcaption>
+    </figure>
+    <button type="button" class="pool-lightbox__nav pool-lightbox__nav--next" data-pool-lightbox-next aria-label={galleryText.next}>›</button>
+  </div>
+</div>
+
+<script define:vars={{ lightboxImages }}>
+  (() => {
+    const lightbox = document.querySelector("[data-pool-lightbox]");
+    const lightboxImage = document.querySelector("[data-pool-lightbox-image]");
+    const lightboxCounter = document.querySelector("[data-pool-lightbox-counter]");
+    const lightboxCaption = document.querySelector("[data-pool-lightbox-caption]");
+    const triggers = Array.from(document.querySelectorAll("[data-pool-gallery-trigger]"));
+    const closeButtons = Array.from(document.querySelectorAll("[data-pool-lightbox-close]"));
+    const prevButton = document.querySelector("[data-pool-lightbox-prev]");
+    const nextButton = document.querySelector("[data-pool-lightbox-next]");
+
+    if (!lightbox || !lightboxImage || !lightboxCounter || !triggers.length || !lightboxImages.length) {
+      return;
+    }
+
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    const renderLightbox = () => {
+      const currentImage = lightboxImages[activeIndex];
+
+      if (!currentImage) {
+        return;
+      }
+
+      lightboxImage.src = currentImage.src;
+      lightboxImage.alt = currentImage.alt;
+      lightboxCounter.textContent = `${activeIndex + 1} / ${lightboxImages.length}`;
+
+      if (lightboxCaption) {
+        lightboxCaption.textContent = currentImage.caption || currentImage.title || "";
+      }
+    };
+
+    const openLightbox = (index) => {
+      activeIndex = Math.max(0, Math.min(index, lightboxImages.length - 1));
+      lightbox.hidden = false;
+      document.body.classList.add("pool-lightbox-open");
+      renderLightbox();
+      closeButtons[0]?.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.hidden = true;
+      document.body.classList.remove("pool-lightbox-open");
+    };
+
+    const stepLightbox = (direction) => {
+      activeIndex = (activeIndex + direction + lightboxImages.length) % lightboxImages.length;
+      renderLightbox();
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const nextIndex = Number(trigger.getAttribute("data-pool-gallery-index"));
+        openLightbox(Number.isFinite(nextIndex) ? nextIndex : 0);
+      });
+    });
+
+    closeButtons.forEach((button) => button.addEventListener("click", closeLightbox));
+    prevButton?.addEventListener("click", () => stepLightbox(-1));
+    nextButton?.addEventListener("click", () => stepLightbox(1));
+
+    lightbox.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0]?.clientX || 0;
+    }, { passive: true });
+
+    lightbox.addEventListener("touchend", (event) => {
+      const touchEndX = event.changedTouches[0]?.clientX || 0;
+      const deltaX = touchEndX - touchStartX;
+
+      if (Math.abs(deltaX) > 48) {
+        stepLightbox(deltaX > 0 ? -1 : 1);
+      }
+    }, { passive: true });
+
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.hidden) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+
+      if (event.key === "ArrowLeft") {
+        stepLightbox(-1);
+      }
+
+      if (event.key === "ArrowRight") {
+        stepLightbox(1);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .pool-shell {
+    max-width: 1120px;
+  }
+
+  .pool-section {
+    padding: 72px 0;
+  }
+
+  .pool-section-shell {
+    display: grid;
+    gap: 24px;
+  }
+
+  .pool-gallery-heading {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pool-gallery-heading h2 {
+    margin: 0;
+    color: #231a12;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1.16;
+    text-transform: uppercase;
+  }
+
+  .pool-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    background: #fff;
+  }
+
+  .pool-gallery-card {
+    min-width: 0;
+  }
+
+  .pool-gallery-card__media {
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+    background: #ddd5c8;
+  }
+
+  .pool-gallery-card__trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
+  .pool-gallery-card__trigger picture,
+  .pool-gallery-card__trigger img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pool-gallery-card__trigger img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.32s ease, filter 0.32s ease;
+  }
+
+  .pool-gallery-card__hover-label {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%) translateY(8px);
+    opacity: 0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(19, 12, 7, 0.68);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.24s ease, transform 0.24s ease;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pool-gallery-card__trigger:hover img,
+    .pool-gallery-card__trigger:focus-visible img {
+      transform: scale(1.035);
+      filter: saturate(1.04);
+    }
+
+    .pool-gallery-card__trigger:hover .pool-gallery-card__hover-label,
+    .pool-gallery-card__trigger:focus-visible .pool-gallery-card__hover-label {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  .pool-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 140;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .pool-lightbox[hidden] {
+    display: none;
+  }
+
+  .pool-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 11, 9, 0.68);
+    backdrop-filter: blur(4px);
+  }
+
+  .pool-lightbox__dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: min(100%, 1440px);
+    max-height: calc(100vh - 48px);
+    padding: 0 68px;
+  }
+
+  .pool-lightbox__figure {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: transparent;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.26);
+  }
+
+  .pool-lightbox__image {
+    display: block;
+    width: auto;
+    max-width: min(calc(100vw - 180px), 1280px);
+    max-height: calc(100vh - 108px);
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .pool-lightbox__meta {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid rgba(253, 251, 247, 0.14);
+    border-radius: 999px;
+    background: rgba(17, 12, 9, 0.46);
+    color: rgba(253, 251, 247, 0.92);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.35;
+    backdrop-filter: blur(8px);
+  }
+
+  .pool-lightbox__counter {
+    flex: 0 0 auto;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-lightbox__close,
+  .pool-lightbox__nav {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(253, 251, 247, 0.16);
+    background: rgba(253, 251, 247, 0.08);
+    color: #fdfbf7;
+    cursor: pointer;
+    font: inherit;
+    backdrop-filter: blur(8px);
+    transition: background 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .pool-lightbox__nav {
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    height: 58px;
+    border-radius: 999px;
+    font-size: 1.45rem;
+    transform: translateY(-50%);
+  }
+
+  .pool-lightbox__close:hover,
+  .pool-lightbox__close:focus-visible,
+  .pool-lightbox__nav:hover,
+  .pool-lightbox__nav:focus-visible {
+    background: rgba(253, 251, 247, 0.15);
+    border-color: rgba(253, 251, 247, 0.28);
+  }
+
+  .pool-lightbox__close:hover,
+  .pool-lightbox__close:focus-visible {
+    transform: scale(1.03);
+  }
+
+  .pool-lightbox__nav:hover,
+  .pool-lightbox__nav:focus-visible {
+    transform: translateY(-50%) scale(1.03);
+  }
+
+  .pool-lightbox__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    font-size: 1.15rem;
+  }
+
+  .pool-lightbox__nav--prev {
+    left: 10px;
+  }
+
+  .pool-lightbox__nav--next {
+    right: 10px;
+  }
+
+  :global(.pool-lightbox-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 767px) {
+    .pool-section {
+      padding: 8px 0 52px;
+    }
+
+    .pool-gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pool-gallery-card__media {
+      border-radius: 8px;
+    }
+
+    .pool-gallery-card__trigger img {
+      aspect-ratio: 1 / 1;
+    }
+
+    .pool-lightbox {
+      padding: 12px;
+    }
+
+    .pool-lightbox__dialog {
+      width: 100%;
+      max-height: calc(100vh - 24px);
+      padding: 0;
+    }
+
+    .pool-lightbox__figure {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .pool-lightbox__image {
+      width: 100%;
+      max-width: 100%;
+      max-height: calc(100vh - 74px);
+    }
+
+    .pool-lightbox__close {
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+    }
+
+    .pool-lightbox__nav {
+      width: 38px;
+      height: 50px;
+      background: rgba(17, 12, 9, 0.34);
+    }
+
+    .pool-lightbox__nav--prev {
+      left: 8px;
+    }
+
+    .pool-lightbox__nav--next {
+      right: 8px;
+    }
+
+    .pool-lightbox__meta {
+      right: 10px;
+      bottom: 10px;
+      left: 10px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+    }
+  }
+</style>
