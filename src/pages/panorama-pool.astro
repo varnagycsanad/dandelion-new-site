@@ -151,28 +151,12 @@ const poolTemperatureFallback = "Hamarosan";
             <p>A medence és a domboldali pihenőtér aktuális adatai Home Assistant mérés alapján.</p>
           </div>
 
-          <div class="pool-live-grid" aria-label="Panorama Pool aktuális mérések">
-            <article class="pool-live-card pool-live-card--primary">
-              <span>Medencevíz</span>
-              <strong data-pool-live-water>Nincs adat</strong>
-              <small data-pool-live-updated>Frissítésre vár</small>
-            </article>
-            <article class="pool-live-card">
-              <span>Levegő hőmérséklete</span>
-              <strong data-pool-live-air>Nincs adat</strong>
-              <small>Kültéri mérés</small>
-            </article>
-            <article class="pool-live-card">
-              <span>Páratartalom</span>
-              <strong data-pool-live-humidity>Nincs adat</strong>
-              <small>Kültéri mérés</small>
-            </article>
-            <article class="pool-live-card">
-              <span>Légnyomás</span>
-              <strong data-pool-live-pressure>Nincs adat</strong>
-              <small>Kültéri mérés</small>
-            </article>
-          </div>
+          <iframe
+            class="pool-live-frame"
+            src="/api/pool-live-widget.php"
+            title="Panorama Pool aktuális mérések"
+            loading="lazy"
+          ></iframe>
         </div>
 
         <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
@@ -282,15 +266,8 @@ const poolTemperatureFallback = "Hamarosan";
         const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
         const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature]") : null;
         const updatedNode = widget ? widget.querySelector("[data-pool-temperature-updated]") : null;
-        const liveWaterNode = document.querySelector("[data-pool-live-water]");
-        const liveAirNode = document.querySelector("[data-pool-live-air]");
-        const liveHumidityNode = document.querySelector("[data-pool-live-humidity]");
-        const livePressureNode = document.querySelector("[data-pool-live-pressure]");
-        const liveUpdatedNode = document.querySelector("[data-pool-live-updated]");
         const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
         const fallbackText = "Hamarosan";
-        const liveFallbackText = "Nincs adat";
-        const staleAfterMs = 6 * 60 * 60 * 1000;
         const buildEndpointUrl = () => {
           const url = new URL(endpoint, window.location.href);
           url.searchParams.set("refresh", Date.now().toString());
@@ -338,38 +315,16 @@ const poolTemperatureFallback = "Hamarosan";
               ? Number(rawAirTemperature)
               : Number.NaN;
           const airUnit = typeof data.airUnit === "string" && data.airUnit.trim() ? data.airUnit.trim() : unit;
-          const rawHumidity =
-            data.humidity !== undefined && data.humidity !== null
-              ? data.humidity
-              : data.relativeHumidity !== undefined && data.relativeHumidity !== null
-                ? data.relativeHumidity
-                : data.airHumidity;
-          const humidity = typeof rawHumidity === "number" || typeof rawHumidity === "string" ? Number(rawHumidity) : Number.NaN;
-          const humidityUnit = typeof data.humidityUnit === "string" && data.humidityUnit.trim() ? data.humidityUnit.trim() : "%";
-          const rawPressure =
-            data.pressure !== undefined && data.pressure !== null
-              ? data.pressure
-              : data.airPressure;
-          const pressure = typeof rawPressure === "number" || typeof rawPressure === "string" ? Number(rawPressure) : Number.NaN;
-          const pressureUnit = typeof data.pressureUnit === "string" && data.pressureUnit.trim() ? data.pressureUnit.trim() : "hPa";
           const formattedTemperature = formatMeasurement(temperature, "hu-HU");
           const formattedAirTemperature = formatMeasurement(airTemperature, "hu-HU");
-          const formattedHumidity = formatMeasurement(humidity, "hu-HU", { maximumFractionDigits: 0 });
-          const formattedPressure = formatMeasurement(pressure, "hu-HU", { maximumFractionDigits: 0 });
           const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
-          const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
           if (widget) {
             widget.classList.add("has-temperature");
           }
           if (valueNode) {
             valueNode.textContent = `${formattedTemperature} ${unit}`;
-          }
-          if (liveWaterNode) {
-            liveWaterNode.textContent = isStale
-              ? `${formattedTemperature} ${unit}`
-              : `${formattedTemperature} ${unit}`;
           }
           if (Number.isFinite(airTemperature)) {
             if (widget) {
@@ -379,9 +334,6 @@ const poolTemperatureFallback = "Hamarosan";
               airValueNode.textContent = `Levegő: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
             }
-            if (liveAirNode) {
-              liveAirNode.textContent = `${formattedAirTemperature} ${airUnit}`;
-            }
           } else {
             if (widget) {
               widget.classList.remove("has-air-temperature");
@@ -389,15 +341,6 @@ const poolTemperatureFallback = "Hamarosan";
             if (airValueNode) {
               airValueNode.setAttribute("hidden", "");
             }
-            if (liveAirNode) {
-              liveAirNode.textContent = liveFallbackText;
-            }
-          }
-          if (liveHumidityNode) {
-            liveHumidityNode.textContent = Number.isFinite(humidity) ? `${formattedHumidity} ${humidityUnit}` : liveFallbackText;
-          }
-          if (livePressureNode) {
-            livePressureNode.textContent = Number.isFinite(pressure) ? `${formattedPressure} ${pressureUnit}` : liveFallbackText;
           }
 
           if (updatedNode) {
@@ -407,15 +350,9 @@ const poolTemperatureFallback = "Hamarosan";
                 minute: "2-digit"
               })}`;
               updatedNode.textContent = updatedText;
-              if (liveUpdatedNode) {
-                liveUpdatedNode.textContent = isStale ? `Legutóbbi mérés: ${updatedText.replace("Frissítve: ", "")}` : updatedText;
-              }
               updatedNode.removeAttribute("hidden");
             } else {
               updatedNode.setAttribute("hidden", "");
-              if (liveUpdatedNode) {
-                liveUpdatedNode.textContent = "Frissítésre vár";
-              }
             }
           }
         } catch {
@@ -424,11 +361,6 @@ const poolTemperatureFallback = "Hamarosan";
             widget.classList.remove("has-air-temperature");
           }
           if (valueNode) valueNode.textContent = fallbackText;
-          if (liveWaterNode) liveWaterNode.textContent = liveFallbackText;
-          if (liveAirNode) liveAirNode.textContent = liveFallbackText;
-          if (liveHumidityNode) liveHumidityNode.textContent = liveFallbackText;
-          if (livePressureNode) livePressureNode.textContent = liveFallbackText;
-          if (liveUpdatedNode) liveUpdatedNode.textContent = "Frissítésre vár";
           if (airValueNode) {
             airValueNode.setAttribute("hidden", "");
           }
@@ -730,53 +662,13 @@ const poolTemperatureFallback = "Hamarosan";
     max-width: 680px;
   }
 
-  .pool-live-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+  .pool-live-frame {
+    display: block;
+    width: 100%;
+    height: 156px;
     margin-top: 24px;
-  }
-
-  .pool-live-card {
-    display: grid;
-    min-height: 156px;
-    align-content: space-between;
-    gap: 14px;
-    padding: 18px;
-    border: 1px solid rgba(90, 67, 41, 0.1);
-    border-radius: 8px;
-    background: #fbfaf7;
-  }
-
-  .pool-live-card--primary {
-    background:
-      radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.98), rgba(246, 236, 216, 0.9)),
-      #f5ead3;
-  }
-
-  .pool-live-card span {
-    color: #9c7a34;
-    font-size: var(--dnd-text-2xs);
-    font-weight: 760;
-    letter-spacing: 0.12em;
-    line-height: 1.2;
-    text-transform: uppercase;
-  }
-
-  .pool-live-card strong {
-    color: #241b14;
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.14rem, 1.55vw, 1.9rem);
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.01em;
-  }
-
-  .pool-live-card small {
-    color: rgba(68, 53, 39, 0.72);
-    font-size: var(--dnd-text-xs);
-    font-weight: 600;
-    line-height: 1.35;
+    border: 0;
+    background: transparent;
   }
 
   .pool-geo-faq {
@@ -1109,23 +1001,9 @@ const poolTemperatureFallback = "Hamarosan";
       padding: 18px;
     }
 
-    .pool-live-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+    .pool-live-frame {
+      height: 262px;
       margin-top: 18px;
-    }
-
-    .pool-live-card {
-      min-height: 126px;
-      padding: 14px;
-    }
-
-    .pool-live-card strong {
-      font-size: 1.34rem;
-    }
-
-    .pool-live-card small {
-      font-size: 0.72rem;
     }
 
     .pool-geo-faq h2 {
