@@ -9,6 +9,7 @@ import { buildVideoObject } from "../../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
+const poolLandingHref = resolveHref("/en/szallasok/");
 
 const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
 const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
@@ -18,7 +19,7 @@ const poolHeroVideos = {
   desktop: "/videos/medence/HERO/PC%20video/Medence_video_Hero_PC.mp4?v=20260521",
   mobile: "/videos/medence/HERO/Phone%20video/Medence_Hero_Phone_05-21-mobile-lite.mp4?v=20260606-mobile-lite"
 };
-// [CHANGE 2026-05-29 00:00] English Panorama Pool video exposes a thumbnail URL through VideoObject data.
+// [CHANGE 2026-05-29 00:00] Panorama Pool video exposes a thumbnail URL through VideoObject data.
 const poolVideoStructuredData = buildVideoObject({
   id: "/en/panorama-pool/#hero-video",
   name: "Dandelion Panorama Pool video",
@@ -61,7 +62,7 @@ const stays = [
     title: "Dandelion D2",
     href: resolveHref("/en/dandelion-d2/"),
     image: getStayImage("d2"),
-    description: "Quiet Kisapati days, a spacious garden and Panorama Pool access from summer 2026."
+    description: "Quiet Kisapáti days, a spacious garden and Panorama Pool access from summer 2026."
   },
   {
     title: "Fügeház",
@@ -71,15 +72,29 @@ const stays = [
   }
 ];
 
-const poolFacts = [
-  "At the foot of Szent György Hill",
-  "Views of the witness hills and Badacsony",
-  "Crystal-clear water",
-  "For guests of D1, D2 and Fügeház",
-  "Available after June 15"
+const poolGeoFaqItems = [
+  {
+    question: "Who can use Panorama Pool?",
+    answer: "The pool can be used by guests of Dandelion D1, Dandelion D2 and Fügeház."
+  },
+  {
+    question: "Where is the pool located?",
+    answer: "In Kisapáti, at the foot of Szent György Hill, on the hill beside the houses."
+  },
+  {
+    question: "What view does the pool have?",
+    answer: "The witness hills of the Balaton Uplands are visible from around the pool."
+  },
+  {
+    question: "How deep is the pool?",
+    answer: "The pool is about 130 cm deep, so children may use it only with adult supervision."
+  }
 ];
 
 const poolTemperatureFallback = "Soon";
+const poolLiveWidgetSrc = import.meta.env.DEV
+  ? "http://127.0.0.1:8091/api/pool-live-widget.php"
+  : "/api/pool-live-widget.php";
 ---
 
 <BaseLayout
@@ -120,37 +135,50 @@ const poolTemperatureFallback = "Soon";
       </aside>
     </Hero>
 
+    <section class="pool-section pool-section--live">
+      <div class="dnd-container pool-shell">
+        <div class="pool-live-panel" aria-live="polite">
+          <div class="pool-section-heading pool-live-panel__heading">
+            <span class="pool-eyebrow">Panorama Pool</span>
+            <h2>Current measurements.</h2>
+          </div>
+
+          <iframe
+            class="pool-live-frame"
+            src={poolLiveWidgetSrc}
+            title="Panorama Pool current measurements"
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
     <section class="pool-section pool-section--intro">
       <div class="dnd-container pool-shell pool-intro">
         <span class="pool-eyebrow">Summer experience</span>
         <h2>Pool for guests of D1, D2 and Fügeház.</h2>
         <p>
-          Panorama Pool is available to guests of D1, D2 and Fügeház during the summer season. The pool is
-          located on the hill beside the houses, with views of the witness hills – for cooling off during the day
-          and winding down quietly in the evening.
+          Panorama Pool is available to guests of D1, D2 and Fügeház during the summer season. The pool is located on the hill beside the houses, with views of the witness hills - for cooling off during the day and winding down quietly in the evening.
         </p>
+        <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>View pool-access houses</a>
       </div>
     </section>
 
-    <section class="pool-section">
-      <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-section-heading">
-          <span class="pool-eyebrow">Pool facts</span>
-          <h2>The pool in brief.</h2>
-        </div>
-
-        <ul class="pool-facts" aria-label="Panorama Pool facts">
-          {poolFacts.map((fact) => (
-            <li>{fact}</li>
-          ))}
-          <li class="pool-facts__temperature" data-pool-temperature-fact aria-live="polite">
-            <span class="pool-facts__temperature-label">Current temperature</span>
-            <strong class="pool-facts__temperature-value" data-pool-temperature-fact-value>
-              {poolTemperatureFallback}
-            </strong>
-            <span class="pool-facts__temperature-air" data-pool-air-temperature-fact hidden></span>
-          </li>
-        </ul>
+    <section class="pool-section pool-section--faq">
+      <div class="dnd-container pool-shell">
+        <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
+          <span class="pool-eyebrow">Frequently asked questions</span>
+          <h2 id="pool-geo-faq-title">Useful things to know about Panorama Pool.</h2>
+          <div class="pool-geo-faq__list">
+            {poolGeoFaqItems.map((item) => (
+              <article class="pool-geo-faq__item">
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -158,7 +186,11 @@ const poolTemperatureFallback = "Soon";
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-section-heading">
           <span class="pool-eyebrow">Available stays</span>
-          <h2>Panorama Pool belongs to these Dandelion houses.</h2>
+          <h2>Panorama Pool belongs to these houses.</h2>
+          <p>
+            We also created a dedicated overview for D1, D2 and Fügeház pool access, family questions and the basic pool details.
+          </p>
+          <a class="pool-text-link" href={poolLandingHref}>D1, D2 and Fügeház with pool access</a>
         </div>
         <div class="pool-stays">
           {stays.map((stay) => (
@@ -225,7 +257,7 @@ const poolTemperatureFallback = "Soon";
     </section>
   </section>
 
-  <script>
+  <script is:inline>
     (() => {
       const applyPoolHeaderState = () => {
         const header = document.querySelector("[data-dnd-header]");
@@ -234,23 +266,33 @@ const poolTemperatureFallback = "Soon";
         }
       };
 
+      const refreshIntervalMs = 5 * 60 * 1000;
+
       const updatePoolTemperature = async () => {
         const widget = document.querySelector("[data-pool-temperature]");
-        if (!widget) return;
-
-        const valueNode = widget.querySelector("[data-pool-temperature-value]");
-        const airValueNode = widget.querySelector("[data-pool-air-temperature]");
-        const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
-        const factValueNode = document.querySelector("[data-pool-temperature-fact-value]");
-        const factAirValueNode = document.querySelector("[data-pool-air-temperature-fact]");
-        const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
+        const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
+        const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature]") : null;
+        const updatedNode = widget ? widget.querySelector("[data-pool-temperature-updated]") : null;
+        const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
         const fallbackText = "Soon";
-        const staleAfterMs = 6 * 60 * 60 * 1000;
+        const buildEndpointUrl = () => {
+          const url = new URL(endpoint, window.location.href);
+          url.searchParams.set("refresh", Date.now().toString());
+          return url.toString();
+        };
+        const formatMeasurement = (value, locale, options = {}) => {
+          const numericValue = typeof value === "number" || typeof value === "string" ? Number(value) : Number.NaN;
+          if (!Number.isFinite(numericValue)) return "";
 
-        if (!valueNode) return;
+          return numericValue.toLocaleString(locale, {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+            ...options
+          });
+        };
 
         try {
-          const response = await fetch(endpoint, {
+          const response = await fetch(buildEndpointUrl(), {
             headers: { Accept: "application/json" },
             cache: "no-store"
           });
@@ -268,71 +310,70 @@ const poolTemperatureFallback = "Soon";
             throw new Error("Pool temperature is invalid.");
           }
 
-          const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "\u00B0C";
-          const rawAirTemperature = data.airTemperature ?? data.air_temperature ?? data.outdoorTemperature;
+          const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "°C";
+          const rawAirTemperature =
+            data.airTemperature !== undefined && data.airTemperature !== null
+              ? data.airTemperature
+              : data.air_temperature !== undefined && data.air_temperature !== null
+                ? data.air_temperature
+                : data.outdoorTemperature;
           const airTemperature =
             typeof rawAirTemperature === "number" || typeof rawAirTemperature === "string"
               ? Number(rawAirTemperature)
               : Number.NaN;
           const airUnit = typeof data.airUnit === "string" && data.airUnit.trim() ? data.airUnit.trim() : unit;
-          const formattedTemperature = temperature.toLocaleString("en-US", {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1
-          });
-          const formattedAirTemperature = Number.isFinite(airTemperature)
-            ? airTemperature.toLocaleString("en-US", {
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-              })
-            : "";
+          const formattedTemperature = formatMeasurement(temperature, "en-US");
+          const formattedAirTemperature = formatMeasurement(airTemperature, "en-US");
           const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
-          const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
-          widget.classList.add("has-temperature");
-          valueNode.textContent = `${formattedTemperature} ${unit}`;
-          if (factValueNode) {
-            factValueNode.textContent = isStale
-              ? `Last measurement: ${formattedTemperature} ${unit}`
-              : `${formattedTemperature} ${unit}`;
+          if (widget) {
+            widget.classList.add("has-temperature");
+          }
+          if (valueNode) {
+            valueNode.textContent = `${formattedTemperature} ${unit}`;
           }
           if (Number.isFinite(airTemperature)) {
-            widget.classList.add("has-air-temperature");
+            if (widget) {
+              widget.classList.add("has-air-temperature");
+            }
             if (airValueNode) {
               airValueNode.textContent = `Air: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
             }
-            if (factAirValueNode) {
-              factAirValueNode.textContent = `Air: ${formattedAirTemperature} ${airUnit}`;
-              factAirValueNode.removeAttribute("hidden");
-            }
           } else {
-            widget.classList.remove("has-air-temperature");
-            airValueNode?.setAttribute("hidden", "");
-            factAirValueNode?.setAttribute("hidden", "");
+            if (widget) {
+              widget.classList.remove("has-air-temperature");
+            }
+            if (airValueNode) {
+              airValueNode.setAttribute("hidden", "");
+            }
           }
 
           if (updatedNode) {
             if (hasValidUpdatedAt) {
-              updatedNode.textContent = `Updated: ${updatedAt.toLocaleTimeString("en-US", {
+              const updatedText = `Updated: ${updatedAt.toLocaleTimeString("en-US", {
                 hour: "2-digit",
                 minute: "2-digit"
               })}`;
+              updatedNode.textContent = updatedText;
               updatedNode.removeAttribute("hidden");
             } else {
               updatedNode.setAttribute("hidden", "");
             }
           }
         } catch {
-          widget.classList.remove("has-temperature");
-          widget.classList.remove("has-air-temperature");
-          valueNode.textContent = fallbackText;
-          if (factValueNode) {
-            factValueNode.textContent = fallbackText;
+          if (widget) {
+            widget.classList.remove("has-temperature");
+            widget.classList.remove("has-air-temperature");
           }
-          airValueNode?.setAttribute("hidden", "");
-          factAirValueNode?.setAttribute("hidden", "");
-          updatedNode?.setAttribute("hidden", "");
+          if (valueNode) valueNode.textContent = fallbackText;
+          if (airValueNode) {
+            airValueNode.setAttribute("hidden", "");
+          }
+          if (updatedNode) {
+            updatedNode.setAttribute("hidden", "");
+          }
         }
       };
 
@@ -342,6 +383,7 @@ const poolTemperatureFallback = "Soon";
           () => {
             applyPoolHeaderState();
             updatePoolTemperature();
+            window.setInterval(updatePoolTemperature, refreshIntervalMs);
             window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
           },
           { once: true }
@@ -349,6 +391,7 @@ const poolTemperatureFallback = "Soon";
       } else {
         applyPoolHeaderState();
         updatePoolTemperature();
+        window.setInterval(updatePoolTemperature, refreshIntervalMs);
         window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
       }
     })();
@@ -508,12 +551,48 @@ const poolTemperatureFallback = "Soon";
     margin-top: 16px;
   }
 
+  .pool-text-link.pool-intro__cta {
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 18px;
+    border: 1px solid rgba(139, 99, 24, 0.28);
+    border-radius: 999px;
+    background: #8b6318;
+    color: #fffaf0;
+    box-shadow: 0 12px 24px rgba(68, 44, 12, 0.16);
+    text-decoration: none;
+  }
+
+  .pool-text-link.pool-intro__cta::after {
+    color: currentColor;
+  }
+
   .pool-section-heading {
     max-width: 720px;
   }
 
   .pool-section-heading p {
     margin-top: 12px;
+  }
+
+  .pool-text-link {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    margin-top: 16px;
+    color: #8b6318;
+    font-size: var(--dnd-text-xs);
+    font-weight: 750;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .pool-text-link::after {
+    content: "→";
+    margin-left: 8px;
+    font-size: var(--dnd-text-body);
+    line-height: 1;
   }
 
   .pool-temperature {
@@ -575,6 +654,120 @@ const poolTemperatureFallback = "Soon";
     font-size: var(--dnd-text-sm);
     font-weight: 650;
     line-height: 1.3;
+  }
+
+  .pool-section--live {
+    position: sticky;
+    top: 119px;
+    z-index: 38;
+    margin-top: -1px;
+    padding: 14px 0;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(21, 117, 174, 0.34), transparent 32%),
+      linear-gradient(135deg, #061626 0%, #082339 54%, #06121f 100%);
+    border-top: 1px solid rgba(116, 194, 255, 0.18);
+    border-bottom: 1px solid rgba(116, 194, 255, 0.2);
+    box-shadow: 0 18px 40px rgba(4, 17, 30, 0.2);
+  }
+
+  .pool-live-panel,
+  .pool-geo-faq {
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 22px 52px rgba(64, 45, 27, 0.07);
+  }
+
+  .pool-live-panel {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border-color: rgba(102, 181, 244, 0.24);
+    background: rgba(4, 18, 32, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(137, 202, 255, 0.08), 0 14px 30px rgba(0, 7, 14, 0.22);
+    backdrop-filter: blur(14px);
+  }
+
+  .pool-live-panel__heading {
+    display: flex;
+    min-height: 96px;
+    max-width: 180px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .pool-live-panel .pool-eyebrow {
+    margin-bottom: 8px;
+    color: #53b8ff;
+    line-height: 1;
+  }
+
+  .pool-live-panel__heading h2 {
+    color: #f3fbff;
+    font-family: var(--dnd-font-body);
+    font-size: 0.9rem;
+    font-weight: 760;
+    line-height: 1.12;
+    letter-spacing: 0.03em;
+  }
+
+  .pool-live-frame {
+    display: block;
+    width: 100%;
+    height: 96px;
+    border: 0;
+    background: transparent;
+  }
+
+  .pool-section--faq {
+    padding-top: 24px;
+    background:
+      linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(255, 255, 255, 0.82)),
+      #f8f5ef;
+  }
+
+  .pool-geo-faq {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    padding: 28px;
+  }
+
+  .pool-geo-faq h2 {
+    margin: 0;
+    color: #241b14;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.5rem, 2.25vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.12;
+  }
+
+  .pool-geo-faq__list {
+    display: grid;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .pool-geo-faq__item {
+    padding-top: 14px;
+    border-top: 1px solid rgba(90, 67, 41, 0.12);
+  }
+
+  .pool-geo-faq__item h3 {
+    margin: 0;
+    color: #2f251c;
+    font-size: var(--dnd-text-body);
+    font-weight: 760;
+    line-height: 1.25;
+  }
+
+  .pool-geo-faq__item p {
+    margin: 6px 0 0;
+    color: rgba(68, 53, 39, 0.78);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
   }
 
   .pool-facts {
@@ -784,13 +977,14 @@ const poolTemperatureFallback = "Soon";
 
     .pool-page :global(.dnd-hero__text) {
       max-width: 320px;
+      margin-top: clamp(118px, 18svh, 170px);
       text-shadow: none;
     }
 
     .pool-page :global(.dnd-hero__title) {
-      max-width: 12ch;
+      max-width: 17ch;
       color: #1f170f;
-      font-size: clamp(1.16rem, 5vw, 1.46rem);
+      font-size: clamp(1.08rem, 4.7vw, 1.34rem);
       line-height: 1.14;
       letter-spacing: 0.04em;
     }
@@ -802,10 +996,10 @@ const poolTemperatureFallback = "Soon";
     }
 
     .pool-page :global(.dnd-hero__desc) {
-      max-width: 27ch;
-      margin-top: 14px;
+      max-width: 30ch;
+      margin-top: 12px;
       color: rgba(31, 23, 15, 0.82);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       line-height: 1.36;
     }
 
@@ -855,12 +1049,64 @@ const poolTemperatureFallback = "Soon";
       line-height: 1.15;
     }
 
+    .pool-section--live {
+      top: 109px;
+      padding: 6px 0;
+    }
+
+    .pool-live-panel,
+    .pool-geo-faq {
+      padding: 18px;
+    }
+
+    .pool-live-panel {
+      grid-template-columns: 1fr;
+      gap: 5px;
+      padding: 8px;
+    }
+
+    .pool-live-panel__heading {
+      min-height: 0;
+      max-width: none;
+    }
+
+    .pool-live-panel .pool-eyebrow {
+      margin-bottom: 0;
+      font-size: 0.64rem;
+    }
+
+    .pool-live-panel__heading h2 {
+      display: none;
+    }
+
+    .pool-live-frame {
+      height: 66px;
+    }
+
+    .pool-geo-faq h2 {
+      font-size: 1.36rem;
+    }
+
     .pool-section {
       padding: 52px 0;
     }
 
+    .pool-section.pool-section--live {
+      padding: 6px 0;
+    }
+
     .pool-section--intro {
       padding-top: 46px;
+    }
+
+    .pool-intro {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .pool-intro .pool-eyebrow {
+      margin-bottom: 12px;
     }
 
     .pool-section--closing {
@@ -868,12 +1114,46 @@ const poolTemperatureFallback = "Soon";
       padding-bottom: 72px;
     }
 
-    .pool-intro h2,
+    .pool-intro h2 {
+      width: min(100%, 310px);
+      max-width: none;
+      font-size: clamp(0.94rem, 3.95vw, 1.14rem);
+      line-height: 1.24;
+      letter-spacing: 0.045em;
+      text-wrap: initial;
+    }
+
+    .pool-intro p {
+      max-width: 31ch;
+      margin-top: 18px;
+      font-size: 0.94rem;
+      line-height: 1.64;
+      text-align: center !important;
+    }
+
     .pool-section-heading h2,
     .pool-closing h2 {
       font-size: clamp(1.2rem, 5.3vw, 1.58rem);
       line-height: 1.24;
       letter-spacing: 0.08em;
+    }
+
+    .pool-text-link {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      letter-spacing: 0;
+      line-height: 1.25;
+      text-transform: none;
+    }
+
+    .pool-text-link.pool-intro__cta {
+      width: min(100%, 280px);
+      margin-top: 20px;
+      padding: 13px 18px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .pool-facts {
@@ -904,3 +1184,5 @@ const poolTemperatureFallback = "Soon";
     }
   }
 </style>
+
+
