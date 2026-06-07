@@ -15,6 +15,14 @@ if (is_file($dataPath)) {
     }
 }
 
+if (($data['temperature'] ?? null) === null && ($_SERVER['HTTP_HOST'] ?? '') === '127.0.0.1:8091') {
+    $remoteJson = @file_get_contents('https://dandelionhouse.hu/api/pool-temperature.json');
+    $remoteData = is_string($remoteJson) ? json_decode($remoteJson, true) : null;
+    if (is_array($remoteData) && ($remoteData['temperature'] ?? null) !== null) {
+        $data = $remoteData;
+    }
+}
+
 function measurement_value(array $data, string $key): ?float
 {
     if (!array_key_exists($key, $data) || $data[$key] === null || $data[$key] === '') {
@@ -101,6 +109,7 @@ $metrics = [
         'level' => level_percent($pressure, 980, 1040),
     ],
 ];
+$waterLevel = level_percent($water, 15, 35);
 ?>
 <!doctype html>
 <html lang="hu">
@@ -110,7 +119,7 @@ $metrics = [
   <meta http-equiv="refresh" content="300">
   <style>
     :root {
-      color: #241b14;
+      color: #e9f7ff;
       background: transparent;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -119,75 +128,115 @@ $metrics = [
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
       background: transparent;
+      overflow: hidden;
     }
 
     .dashboard {
       display: grid;
-      grid-template-columns: minmax(240px, 0.92fr) minmax(280px, 1.08fr);
-      gap: 12px;
-    }
-
-    .water-card,
-    .metric-card {
-      border: 1px solid rgba(90, 67, 41, 0.1);
-      border-radius: 8px;
-      background: #fbfaf7;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 10px;
+      align-items: stretch;
     }
 
     .water-card {
-      display: grid;
-      min-height: 218px;
-      align-content: space-between;
+      display: flex;
+      min-height: 92px;
+      align-items: center;
       gap: 18px;
-      padding: 22px;
+      padding: 14px 18px 14px 16px;
+      border: 1px solid rgba(75, 183, 255, 0.34);
+      border-radius: 14px;
       background:
-        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 1), rgba(250, 240, 220, 0.92) 52%, rgba(234, 214, 174, 0.8)),
-        #f5ead3;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+        radial-gradient(circle at 12% 26%, rgba(33, 205, 255, 0.2), transparent 34%),
+        linear-gradient(135deg, rgba(8, 47, 77, 0.98), rgba(5, 23, 40, 0.98));
+      box-shadow: inset 0 0 0 1px rgba(116, 207, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .water-gauge {
+      display: grid;
+      flex: 0 0 60px;
+      width: 60px;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #071b2e 0 54%, transparent 55%),
+        conic-gradient(#2fd6ff var(--level), rgba(93, 160, 213, 0.18) 0);
+      box-shadow: 0 0 22px rgba(47, 214, 255, 0.18), inset 0 0 0 1px rgba(144, 218, 255, 0.2);
+    }
+
+    .water-gauge::after {
+      content: "";
+      width: 9px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #7decff;
+      box-shadow: 0 0 0 4px rgba(125, 236, 255, 0.14), 0 0 12px rgba(47, 214, 255, 0.8);
+    }
+
+    .water-copy {
+      display: grid;
+      min-width: 0;
+      gap: 6px;
+      align-content: center;
     }
 
     .metric-stack {
       display: grid;
-      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
     }
 
     .metric-card {
-      display: grid;
-      min-height: 66px;
-      gap: 10px;
-      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      min-height: 92px;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 13px;
+      text-align: center;
+      border: 1px solid rgba(75, 183, 255, 0.22);
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(8, 39, 65, 0.96), rgba(5, 24, 42, 0.96)),
+        #061827;
+      box-shadow: inset 0 0 0 1px rgba(116, 207, 255, 0.06);
     }
 
     .label {
-      color: #9c7a34;
-      font-size: 0.72rem;
-      font-weight: 760;
-      letter-spacing: 0.12em;
-      line-height: 1.2;
+      color: #79cfff;
+      font-size: 0.58rem;
+      font-weight: 780;
+      letter-spacing: 0.03em;
+      line-height: 1.12;
       text-transform: uppercase;
     }
 
     .water-card .label {
-      font-size: 0.76rem;
+      color: #a7e8ff;
+      font-size: 0.72rem;
+      line-height: 1;
     }
 
     .value {
-      color: #241b14;
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 500;
+      color: #f4fbff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 820;
       line-height: 1;
-      letter-spacing: 0.01em;
+      letter-spacing: 0;
     }
 
     .water-card .value {
-      font-size: clamp(2.35rem, 6vw, 3.7rem);
+      font-size: clamp(1.75rem, 3.2vw, 2.45rem);
     }
 
     .metric-card .value {
-      font-size: clamp(1.18rem, 2.8vw, 1.52rem);
+      font-size: clamp(1rem, 1.18vw, 1.14rem);
+      white-space: nowrap;
     }
 
     .unit {
@@ -195,55 +244,124 @@ $metrics = [
       font-size: 0.58em;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-weight: 650;
+      vertical-align: baseline;
     }
 
     .note {
-      color: rgba(68, 53, 39, 0.72);
-      font-size: 0.78rem;
+      color: rgba(203, 232, 246, 0.72);
+      font-size: 0.68rem;
       font-weight: 650;
       line-height: 1.35;
     }
 
     .metric-head {
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
+      min-height: 54px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
     }
 
-    .meter {
-      height: 5px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(90, 67, 41, 0.11);
+    .metric-head .label,
+    .metric-head .value {
+      min-width: 0;
+      overflow-wrap: normal;
     }
 
-    .meter span {
-      display: block;
-      width: var(--level);
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #9c7a34, #d7a84a);
+    .metric-head .label {
+      max-width: 13ch;
+      min-height: 2.24em;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
-    @media (max-width: 720px) {
+    .metric-card:first-child .label {
+      line-height: 1.42;
+      min-height: 2.84em;
+    }
+
+    @media (max-width: 560px) {
       .dashboard {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.92fr);
+        gap: 5px;
+        align-items: stretch;
       }
 
       .water-card {
-        min-height: 154px;
-        padding: 18px;
+        min-height: 62px;
+        gap: 8px;
+        padding: 8px 9px;
+        border-radius: 11px;
+      }
+
+      .water-gauge {
+        flex-basis: 34px;
+        width: 34px;
+      }
+
+      .water-gauge::after {
+        width: 6px;
+        box-shadow: 0 0 0 3px rgba(125, 236, 255, 0.14), 0 0 8px rgba(47, 214, 255, 0.8);
+      }
+
+      .water-copy {
+        gap: 3px;
+      }
+
+      .water-card .label {
+        font-size: 0.5rem;
       }
 
       .water-card .value {
-        font-size: 2.18rem;
+        font-size: 1.24rem;
+      }
+
+      .note {
+        font-size: 0.54rem;
+        line-height: 1.1;
+      }
+
+      .metric-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
       }
 
       .metric-card {
         min-height: 62px;
-        padding: 13px 14px;
+        gap: 4px;
+        padding: 6px 5px;
+        border-radius: 11px;
+      }
+
+      .metric-card:nth-child(3) {
+        display: none;
+      }
+
+      .metric-head {
+        min-height: 46px;
+        gap: 4px;
+      }
+
+      .label {
+        font-size: 0.43rem;
+        letter-spacing: 0.02em;
+      }
+
+      .metric-card .value {
+        font-size: 0.76rem;
+      }
+
+      .metric-head .label {
+        max-width: 11ch;
+        min-height: 2.24em;
+      }
+
+      .metric-card:first-child .label {
+        line-height: 1.28;
+        min-height: 2.56em;
       }
     }
   </style>
@@ -251,11 +369,14 @@ $metrics = [
 <body>
   <div class="dashboard" aria-label="Panorama Pool aktuális mérések">
     <article class="water-card">
-      <span class="label">Medencevíz</span>
-      <strong class="value">
-        <?= h(format_number($water, 1)); ?><?php if ($water !== null): ?><span class="unit"><?= h($waterUnit); ?></span><?php endif; ?>
-      </strong>
-      <small class="note"><?= h($updatedText); ?></small>
+      <span class="water-gauge" style="--level: <?= h((string) $waterLevel); ?>%;" aria-hidden="true"></span>
+      <div class="water-copy">
+        <span class="label">Medencevíz</span>
+        <strong class="value">
+          <?= h(format_number($water, 1)); ?><?php if ($water !== null): ?><span class="unit"><?= h($waterUnit); ?></span><?php endif; ?>
+        </strong>
+        <small class="note"><?= h($updatedText); ?></small>
+      </div>
     </article>
 
     <div class="metric-stack">
@@ -267,7 +388,6 @@ $metrics = [
               <?= h($metric['value']); ?><?php if ($metric['unit'] !== ''): ?><span class="unit"><?= h($metric['unit']); ?></span><?php endif; ?>
             </strong>
           </div>
-          <div class="meter" aria-hidden="true"><span style="--level: <?= h((string) $metric['level']); ?>%;"></span></div>
         </article>
       <?php endforeach; ?>
     </div>

@@ -92,6 +92,9 @@ const poolGeoFaqItems = [
 ];
 
 const poolTemperatureFallback = "Hamarosan";
+const poolLiveWidgetSrc = import.meta.env.DEV
+  ? "http://127.0.0.1:8091/api/pool-live-widget.php"
+  : "/api/pool-live-widget.php";
 ---
 
 <BaseLayout
@@ -130,6 +133,25 @@ const poolTemperatureFallback = "Hamarosan";
       </aside>
     </Hero>
 
+    <section class="pool-section pool-section--live">
+      <div class="dnd-container pool-shell">
+        <div class="pool-live-panel" aria-live="polite">
+          <div class="pool-section-heading pool-live-panel__heading">
+            <span class="pool-eyebrow">Panorama Pool</span>
+            <h2>Aktuális mérések.</h2>
+          </div>
+
+          <iframe
+            class="pool-live-frame"
+            src={poolLiveWidgetSrc}
+            title="Panorama Pool aktuális mérések"
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
     <section class="pool-section pool-section--intro">
       <div class="dnd-container pool-shell pool-intro">
         <span class="pool-eyebrow">Nyári élmény</span>
@@ -142,23 +164,8 @@ const poolTemperatureFallback = "Hamarosan";
       </div>
     </section>
 
-    <section class="pool-section pool-section--live">
-      <div class="dnd-container pool-shell pool-live-shell">
-        <div class="pool-live-panel" aria-live="polite">
-          <div class="pool-section-heading pool-live-panel__heading">
-            <span class="pool-eyebrow">Aktuális adatok</span>
-            <h2>Panorama Pool élő állapot.</h2>
-            <p>A medence és a domboldali pihenőtér aktuális adatai Home Assistant mérés alapján.</p>
-          </div>
-
-          <iframe
-            class="pool-live-frame"
-            src="/api/pool-live-widget.php"
-            title="Panorama Pool aktuális mérések"
-            loading="lazy"
-          ></iframe>
-        </div>
-
+    <section class="pool-section pool-section--faq">
+      <div class="dnd-container pool-shell">
         <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
           <span class="pool-eyebrow">Gyakori kérdések</span>
           <h2 id="pool-geo-faq-title">Amit a Panorama Poolról érdemes tudni.</h2>
@@ -634,16 +641,17 @@ const poolTemperatureFallback = "Hamarosan";
   }
 
   .pool-section--live {
+    position: sticky;
+    top: 119px;
+    z-index: 38;
+    margin-top: -1px;
+    padding: 14px 0;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 245, 239, 0.96)),
-      #f8f5ef;
-  }
-
-  .pool-live-shell {
-    display: grid;
-    grid-template-columns: minmax(0, 1.28fr) minmax(360px, 0.72fr);
-    gap: 28px;
-    align-items: start;
+      radial-gradient(circle at 12% 0%, rgba(21, 117, 174, 0.34), transparent 32%),
+      linear-gradient(135deg, #061626 0%, #082339 54%, #06121f 100%);
+    border-top: 1px solid rgba(116, 194, 255, 0.18);
+    border-bottom: 1px solid rgba(116, 194, 255, 0.2);
+    box-shadow: 0 18px 40px rgba(4, 17, 30, 0.2);
   }
 
   .pool-live-panel,
@@ -655,20 +663,53 @@ const poolTemperatureFallback = "Hamarosan";
   }
 
   .pool-live-panel {
-    padding: 28px;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border-color: rgba(102, 181, 244, 0.24);
+    background: rgba(4, 18, 32, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(137, 202, 255, 0.08), 0 14px 30px rgba(0, 7, 14, 0.22);
+    backdrop-filter: blur(14px);
   }
 
   .pool-live-panel__heading {
-    max-width: 680px;
+    display: flex;
+    min-height: 96px;
+    max-width: 180px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .pool-live-panel .pool-eyebrow {
+    margin-bottom: 8px;
+    color: #53b8ff;
+    line-height: 1;
+  }
+
+  .pool-live-panel__heading h2 {
+    color: #f3fbff;
+    font-family: var(--dnd-font-body);
+    font-size: 0.9rem;
+    font-weight: 760;
+    line-height: 1.12;
+    letter-spacing: 0.03em;
   }
 
   .pool-live-frame {
     display: block;
     width: 100%;
-    height: 218px;
-    margin-top: 24px;
+    height: 96px;
     border: 0;
     background: transparent;
+  }
+
+  .pool-section--faq {
+    padding-top: 24px;
+    background:
+      linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(255, 255, 255, 0.82)),
+      #f8f5ef;
   }
 
   .pool-geo-faq {
@@ -920,13 +961,14 @@ const poolTemperatureFallback = "Hamarosan";
 
     .pool-page :global(.dnd-hero__text) {
       max-width: 320px;
+      margin-top: clamp(118px, 18svh, 170px);
       text-shadow: none;
     }
 
     .pool-page :global(.dnd-hero__title) {
-      max-width: 12ch;
+      max-width: 17ch;
       color: #1f170f;
-      font-size: clamp(1.16rem, 5vw, 1.46rem);
+      font-size: clamp(1.08rem, 4.7vw, 1.34rem);
       line-height: 1.14;
       letter-spacing: 0.04em;
     }
@@ -938,10 +980,10 @@ const poolTemperatureFallback = "Hamarosan";
     }
 
     .pool-page :global(.dnd-hero__desc) {
-      max-width: 27ch;
-      margin-top: 14px;
+      max-width: 30ch;
+      margin-top: 12px;
       color: rgba(31, 23, 15, 0.82);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       line-height: 1.36;
     }
 
@@ -991,9 +1033,9 @@ const poolTemperatureFallback = "Hamarosan";
       line-height: 1.15;
     }
 
-    .pool-live-shell {
-      grid-template-columns: 1fr;
-      gap: 16px;
+    .pool-section--live {
+      top: 109px;
+      padding: 6px 0;
     }
 
     .pool-live-panel,
@@ -1001,9 +1043,28 @@ const poolTemperatureFallback = "Hamarosan";
       padding: 18px;
     }
 
+    .pool-live-panel {
+      grid-template-columns: 1fr;
+      gap: 5px;
+      padding: 8px;
+    }
+
+    .pool-live-panel__heading {
+      min-height: 0;
+      max-width: none;
+    }
+
+    .pool-live-panel .pool-eyebrow {
+      margin-bottom: 0;
+      font-size: 0.64rem;
+    }
+
+    .pool-live-panel__heading h2 {
+      display: none;
+    }
+
     .pool-live-frame {
-      height: 382px;
-      margin-top: 18px;
+      height: 66px;
     }
 
     .pool-geo-faq h2 {
@@ -1012,6 +1073,10 @@ const poolTemperatureFallback = "Hamarosan";
 
     .pool-section {
       padding: 52px 0;
+    }
+
+    .pool-section.pool-section--live {
+      padding: 6px 0;
     }
 
     .pool-section--intro {
