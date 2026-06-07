@@ -87,8 +87,8 @@ const poolGeoFaqItems = [
     answer: "A medence környékéről a Balaton-felvidék tanúhegyei látszanak."
   },
   {
-    question: "Milyen mély a medence?",
-    answer: "A medence körülbelül 130 cm mély, ezért gyerekek csak felnőtt felügyelettel használhatják."
+    question: "Mekkora és milyen mély a medence?",
+    answer: "A medence 8 x 4 méteres, körülbelül 130 cm mély, és fedéssel is rendelkezik. Gyerekek csak felnőtt felügyelettel használhatják."
   }
 ];
 
@@ -153,20 +153,17 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       </div>
     </section>
 
-    <section class="pool-section pool-section--intro">
-      <div class="dnd-container pool-shell pool-intro">
-        <span class="pool-eyebrow">Nyári élmény</span>
-        <h2>Medence a D1, D2 és Fügeház vendégeinek.</h2>
-        <p>
-          A Panorama Pool a D1, D2 és Fügeház vendégeinek érhető el a nyári szezonban. A medence a házak
-          melletti dombon található, kilátással a tanúhegyekre – napközben hűsöléshez, este nyugodt levezetéshez.
-        </p>
-        <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>Medencés házak megtekintése</a>
-      </div>
-    </section>
-
-    <section class="pool-section pool-section--faq">
-      <div class="dnd-container pool-shell">
+    <section class="pool-section pool-section--intro pool-section--info">
+      <div class="dnd-container pool-shell pool-info-layout">
+        <div class="pool-intro">
+          <span class="pool-eyebrow">Nyári élmény</span>
+          <h2>Medence a D1, D2 és Fügeház vendégeinek.</h2>
+          <p>
+            A Panorama Pool a D1, D2 és Fügeház vendégeinek érhető el a nyári szezonban. A medence a házak
+            melletti dombon található, kilátással a tanúhegyekre – napközben hűsöléshez, este nyugodt levezetéshez.
+          </p>
+          <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>Medencés házak megtekintése</a>
+        </div>
         <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
           <span class="pool-eyebrow">Gyakori kérdések</span>
           <h2 id="pool-geo-faq-title">Amit a Panorama Poolról érdemes tudni.</h2>
@@ -466,6 +463,12 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     padding-bottom: 48px;
   }
 
+  .pool-section--info {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 245, 239, 0.72)),
+      #fbf8f2;
+  }
+
   .pool-section--closing {
     padding-top: 24px;
     padding-bottom: 88px;
@@ -488,6 +491,19 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
   .pool-intro {
     max-width: 790px;
+  }
+
+  .pool-info-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.72fr);
+    gap: 34px;
+    align-items: start;
+  }
+
+  .pool-info-layout .pool-intro {
+    align-self: start;
+    max-width: none;
+    padding: 26px 0 0;
   }
 
   .pool-intro h2,
@@ -703,6 +719,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     padding: 28px;
   }
 
+  .pool-info-layout .pool-geo-faq {
+    padding: 26px;
+  }
+
   .pool-geo-faq h2 {
     margin: 0;
     color: #241b14;
@@ -710,6 +730,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     font-size: clamp(1.5rem, 2.25vw, 2.1rem);
     font-weight: 400;
     line-height: 1.12;
+  }
+
+  .pool-info-layout .pool-geo-faq h2 {
+    font-size: clamp(1.36rem, 1.75vw, 1.82rem);
   }
 
   .pool-geo-faq__list {
@@ -910,6 +934,11 @@ const poolLiveWidgetSrc = import.meta.env.DEV
   }
 
   @media (max-width: 980px) {
+    .pool-info-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
     .pool-facts,
     .pool-stays {
       grid-template-columns: 1fr;
@@ -1071,6 +1100,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       display: grid;
       justify-items: center;
       text-align: center;
+    }
+
+    .pool-info-layout .pool-intro {
+      padding: 0;
     }
 
     .pool-intro .pool-eyebrow {

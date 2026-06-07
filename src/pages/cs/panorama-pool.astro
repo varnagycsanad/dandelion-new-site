@@ -87,8 +87,8 @@ const poolGeoFaqItems = [
     answer: "Z okolí bazénu jsou vidět svědecké hory Balatonské vrchoviny."
   },
   {
-    question: "Jak hluboký je bazén?",
-    answer: "Bazén je hluboký přibližně 130 cm, proto ho děti mohou používat jen pod dohledem dospělých."
+    question: "Jak velký a hluboký je bazén?",
+    answer: "Bazén má rozměr 8 x 4 metry, je hluboký přibližně 130 cm a má také zastřešení. Děti ho mohou používat jen pod dohledem dospělých."
   }
 ];
 
@@ -155,19 +155,16 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       </div>
     </section>
 
-    <section class="pool-section pool-section--intro">
-      <div class="dnd-container pool-shell pool-intro">
-        <span class="pool-eyebrow">Letní zážitek</span>
-        <h2>Bazén pro hosty D1, D2 a Fügeház.</h2>
-        <p>
-          Panorama Pool je v letní sezoně k dispozici hostům D1, D2 a Fügeház. Bazén se nachází na kopci vedle domů, s výhledem na svědecké hory - přes den k osvěžení, večer ke klidnému zakončení dne.
-        </p>
-        <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>Zobrazit domy s bazénem</a>
-      </div>
-    </section>
-
-    <section class="pool-section pool-section--faq">
-      <div class="dnd-container pool-shell">
+    <section class="pool-section pool-section--intro pool-section--info">
+      <div class="dnd-container pool-shell pool-info-layout">
+        <div class="pool-intro">
+          <span class="pool-eyebrow">Letní zážitek</span>
+          <h2>Bazén pro hosty D1, D2 a Fügeház.</h2>
+          <p>
+            Panorama Pool je v letní sezoně k dispozici hostům D1, D2 a Fügeház. Bazén se nachází na kopci vedle domů, s výhledem na svědecké hory - přes den k osvěžení, večer ke klidnému zakončení dne.
+          </p>
+          <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>Zobrazit domy s bazénem</a>
+        </div>
         <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
           <span class="pool-eyebrow">Časté otázky</span>
           <h2 id="pool-geo-faq-title">Co je dobré vědět o Panorama Pool.</h2>
@@ -467,6 +464,12 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     padding-bottom: 48px;
   }
 
+  .pool-section--info {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 245, 239, 0.72)),
+      #fbf8f2;
+  }
+
   .pool-section--closing {
     padding-top: 24px;
     padding-bottom: 88px;
@@ -489,6 +492,19 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
   .pool-intro {
     max-width: 790px;
+  }
+
+  .pool-info-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.72fr);
+    gap: 34px;
+    align-items: start;
+  }
+
+  .pool-info-layout .pool-intro {
+    align-self: start;
+    max-width: none;
+    padding: 26px 0 0;
   }
 
   .pool-intro h2,
@@ -704,6 +720,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     padding: 28px;
   }
 
+  .pool-info-layout .pool-geo-faq {
+    padding: 26px;
+  }
+
   .pool-geo-faq h2 {
     margin: 0;
     color: #241b14;
@@ -711,6 +731,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     font-size: clamp(1.5rem, 2.25vw, 2.1rem);
     font-weight: 400;
     line-height: 1.12;
+  }
+
+  .pool-info-layout .pool-geo-faq h2 {
+    font-size: clamp(1.36rem, 1.75vw, 1.82rem);
   }
 
   .pool-geo-faq__list {
@@ -911,6 +935,11 @@ const poolLiveWidgetSrc = import.meta.env.DEV
   }
 
   @media (max-width: 980px) {
+    .pool-info-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
     .pool-facts,
     .pool-stays {
       grid-template-columns: 1fr;
@@ -1072,6 +1101,10 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       display: grid;
       justify-items: center;
       text-align: center;
+    }
+
+    .pool-info-layout .pool-intro {
+      padding: 0;
     }
 
     .pool-intro .pool-eyebrow {
