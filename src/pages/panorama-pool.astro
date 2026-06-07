@@ -275,23 +275,22 @@ const poolTemperatureFallback = "Hamarosan";
         }
       };
 
+      const refreshIntervalMs = 5 * 60 * 1000;
+
       const updatePoolTemperature = async () => {
         const widget = document.querySelector("[data-pool-temperature]");
-        if (!widget) return;
-
-        const valueNode = widget.querySelector("[data-pool-temperature-value]");
-        const airValueNode = widget.querySelector("[data-pool-air-temperature]");
-        const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
+        const valueNode = widget?.querySelector("[data-pool-temperature-value]");
+        const airValueNode = widget?.querySelector("[data-pool-air-temperature]");
+        const updatedNode = widget?.querySelector("[data-pool-temperature-updated]");
         const liveWaterNode = document.querySelector("[data-pool-live-water]");
         const liveAirNode = document.querySelector("[data-pool-live-air]");
         const liveHumidityNode = document.querySelector("[data-pool-live-humidity]");
         const livePressureNode = document.querySelector("[data-pool-live-pressure]");
         const liveUpdatedNode = document.querySelector("[data-pool-live-updated]");
-        const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
+        const endpoint = widget?.getAttribute("data-endpoint") || "/api/pool-temperature.json";
         const fallbackText = "Hamarosan";
         const liveFallbackText = "Nincs adat";
         const staleAfterMs = 6 * 60 * 60 * 1000;
-        const refreshIntervalMs = 5 * 60 * 1000;
         const buildEndpointUrl = () => {
           const url = new URL(endpoint, window.location.href);
           url.searchParams.set("refresh", Date.now().toString());
@@ -307,8 +306,6 @@ const poolTemperatureFallback = "Hamarosan";
             ...options
           });
         };
-
-        if (!valueNode) return;
 
         try {
           const response = await fetch(buildEndpointUrl(), {
@@ -350,15 +347,17 @@ const poolTemperatureFallback = "Hamarosan";
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
           const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
-          widget.classList.add("has-temperature");
-          valueNode.textContent = `${formattedTemperature} ${unit}`;
+          widget?.classList.add("has-temperature");
+          if (valueNode) {
+            valueNode.textContent = `${formattedTemperature} ${unit}`;
+          }
           if (liveWaterNode) {
             liveWaterNode.textContent = isStale
               ? `${formattedTemperature} ${unit}`
               : `${formattedTemperature} ${unit}`;
           }
           if (Number.isFinite(airTemperature)) {
-            widget.classList.add("has-air-temperature");
+            widget?.classList.add("has-air-temperature");
             if (airValueNode) {
               airValueNode.textContent = `Levegő: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
@@ -367,7 +366,7 @@ const poolTemperatureFallback = "Hamarosan";
               liveAirNode.textContent = `${formattedAirTemperature} ${airUnit}`;
             }
           } else {
-            widget.classList.remove("has-air-temperature");
+            widget?.classList.remove("has-air-temperature");
             airValueNode?.setAttribute("hidden", "");
             if (liveAirNode) {
               liveAirNode.textContent = liveFallbackText;
@@ -399,9 +398,9 @@ const poolTemperatureFallback = "Hamarosan";
             }
           }
         } catch {
-          widget.classList.remove("has-temperature");
-          widget.classList.remove("has-air-temperature");
-          valueNode.textContent = fallbackText;
+          widget?.classList.remove("has-temperature");
+          widget?.classList.remove("has-air-temperature");
+          if (valueNode) valueNode.textContent = fallbackText;
           if (liveWaterNode) liveWaterNode.textContent = liveFallbackText;
           if (liveAirNode) liveAirNode.textContent = liveFallbackText;
           if (liveHumidityNode) liveHumidityNode.textContent = liveFallbackText;
