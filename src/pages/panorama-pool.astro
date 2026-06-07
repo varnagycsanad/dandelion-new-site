@@ -56,19 +56,19 @@ const stays = [
     title: "Dandelion D1",
     href: resolveHref("/dandelion-d1/"),
     image: getStayImage("d1"),
-    description: "Panorámás domboldali pihenés a Szent György-hegy közelében, nyári medencehasználattal."
+    description: "3 hálószoba + nappali, akár 8 fő. Légkondicionált, pergola, 2 fürdőszoba."
   },
   {
     title: "Dandelion D2",
     href: resolveHref("/dandelion-d2/"),
     image: getStayImage("d2"),
-    description: "Kisapáti nyugalom, tágas kert és a Panorama Pool élménye 2026 nyarától."
+    description: "4-6 főnek kényelmes. Légkondicionált, nagy terasz és udvar."
   },
   {
     title: "Fügeház",
     href: resolveHref("/fuge/"),
     image: getStayImage("fugehaz"),
-    description: "Családias, lassú nyári napokhoz, terasszal, panorámával és medencehasználattal."
+    description: "4 főre kényelmes, pótággyal akár 6 fő. Légkondicionált, terasz a tanúhegyekre."
   }
 ];
 
@@ -185,7 +185,7 @@ const poolLiveWidgetSrc = import.meta.env.DEV
       <div class="dnd-container pool-shell pool-section-shell">
         <div class="pool-stays">
           {stays.map((stay) => (
-            <article class="pool-stay-card">
+            <a href={stay.href} class="pool-stay-card">
               <figure class="pool-stay-card__media">
                 <picture>
                   {stay.image.mobileSrc && <source media="(max-width: 767px)" srcset={stay.image.mobileSrc} />}
@@ -203,9 +203,8 @@ const poolLiveWidgetSrc = import.meta.env.DEV
               <div class="pool-stay-card__body">
                 <h3>{stay.title}</h3>
                 <p>{stay.description}</p>
-                <a href={stay.href}>Oldal megnyitása</a>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
@@ -831,6 +830,9 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     grid-template-rows: auto 1fr;
     min-height: 100%;
     overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
   }
 
   .pool-stay-card__media {
@@ -867,13 +869,6 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     line-height: 1.24;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-  }
-
-  .pool-stay-card a {
-    color: #8b6318;
-    font-size: var(--dnd-text-body);
-    font-weight: 600;
-    text-decoration: none;
   }
 
   .pool-gallery {
@@ -1172,6 +1167,33 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     .pool-stay-card,
     .pool-closing {
       padding: 20px;
+    }
+
+    .pool-stay-card {
+      padding: 0;
+    }
+
+    .pool-stay-card__body {
+      min-height: auto;
+      gap: 6px;
+      justify-items: center;
+      padding: 12px 12px 14px;
+      text-align: center;
+    }
+
+    .pool-stay-card h3 {
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .pool-stay-card p {
+      max-width: 28ch;
+      margin-inline: auto;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      text-align: center;
     }
   }
 </style>
