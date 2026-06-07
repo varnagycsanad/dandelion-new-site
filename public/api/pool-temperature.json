@@ -7,5 +7,15 @@
   "airUnit": "°C",
   "airUpdatedAt": null,
   "airSource": "not-yet-updated",
-  "airEntityId": "sensor.d1_pergola_kulteri_homero_homerseklet"
+  "airEntityId": "sensor.d1_pergola_kulteri_homero_homerseklet",
+  "humidity": null,
+  "humidityUnit": "%",
+  "humidityUpdatedAt": null,
+  "humiditySource": "not-yet-updated",
+  "humidityEntityId": "sensor.d1_pergola_kulteri_homero_paratartalom",
+  "pressure": null,
+  "pressureUnit": "hPa",
+  "pressureUpdatedAt": null,
+  "pressureSource": "not-yet-updated",
+  "pressureEntityId": "sensor.d1_pergola_kulteri_homero_nyomas"
 }

@@ -6,7 +6,13 @@ const POOL_TEMPERATURE_MIN = -5;
 const POOL_TEMPERATURE_MAX = 45;
 const AIR_TEMPERATURE_MIN = -40;
 const AIR_TEMPERATURE_MAX = 60;
+const HUMIDITY_MIN = 0;
+const HUMIDITY_MAX = 100;
+const PRESSURE_MIN = 800;
+const PRESSURE_MAX = 1100;
 const DEFAULT_AIR_TEMPERATURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_homerseklet';
+const DEFAULT_HUMIDITY_ENTITY = 'sensor.d1_pergola_kulteri_homero_paratartalom';
+const DEFAULT_PRESSURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_nyomas';
 
 function send_json(int $statusCode, array $payload): void
 {
@@ -105,6 +111,74 @@ if (!is_string($airSourceEntity) || trim($airSourceEntity) === '') {
 }
 
 $airSourceEntity = trim($airSourceEntity);
+$humidityPayload = $payload['humidity'] ?? $payload['relativeHumidity'] ?? $payload['airHumidity'] ?? null;
+$hasHumidityPayload = $humidityPayload !== null && $humidityPayload !== '';
+$humidity = $hasHumidityPayload ? filter_var($humidityPayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasHumidityPayload &&
+    (
+        $humidity === false ||
+        $humidity < HUMIDITY_MIN ||
+        $humidity > HUMIDITY_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid humidity.']);
+}
+
+$humidityUnit = $payload['humidityUnit'] ?? $payload['humidity_unit'] ?? '%';
+
+if (!is_string($humidityUnit) || trim($humidityUnit) === '') {
+    $humidityUnit = '%';
+}
+
+$humidityUnit = trim($humidityUnit);
+
+if (strlen($humidityUnit) > 8) {
+    $humidityUnit = '%';
+}
+
+$humiditySourceEntity = $payload['humidityEntityId'] ?? $payload['humidity_entity_id'] ?? DEFAULT_HUMIDITY_ENTITY;
+
+if (!is_string($humiditySourceEntity) || trim($humiditySourceEntity) === '') {
+    $humiditySourceEntity = DEFAULT_HUMIDITY_ENTITY;
+}
+
+$humiditySourceEntity = trim($humiditySourceEntity);
+$pressurePayload = $payload['pressure'] ?? $payload['airPressure'] ?? null;
+$hasPressurePayload = $pressurePayload !== null && $pressurePayload !== '';
+$pressure = $hasPressurePayload ? filter_var($pressurePayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasPressurePayload &&
+    (
+        $pressure === false ||
+        $pressure < PRESSURE_MIN ||
+        $pressure > PRESSURE_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid pressure.']);
+}
+
+$pressureUnit = $payload['pressureUnit'] ?? $payload['pressure_unit'] ?? 'hPa';
+
+if (!is_string($pressureUnit) || trim($pressureUnit) === '') {
+    $pressureUnit = 'hPa';
+}
+
+$pressureUnit = trim($pressureUnit);
+
+if (strlen($pressureUnit) > 8) {
+    $pressureUnit = 'hPa';
+}
+
+$pressureSourceEntity = $payload['pressureEntityId'] ?? $payload['pressure_entity_id'] ?? DEFAULT_PRESSURE_ENTITY;
+
+if (!is_string($pressureSourceEntity) || trim($pressureSourceEntity) === '') {
+    $pressureSourceEntity = DEFAULT_PRESSURE_ENTITY;
+}
+
+$pressureSourceEntity = trim($pressureSourceEntity);
 $now = date(DATE_ATOM);
 $output = [
     'temperature' => $temperature,
@@ -116,6 +190,16 @@ $output = [
     'airUpdatedAt' => $hasAirTemperaturePayload ? $now : ($existingOutput['airUpdatedAt'] ?? null),
     'airSource' => 'Home Assistant',
     'airEntityId' => $hasAirTemperaturePayload ? $airSourceEntity : ($existingOutput['airEntityId'] ?? DEFAULT_AIR_TEMPERATURE_ENTITY),
+    'humidity' => $hasHumidityPayload ? round((float) $humidity, 1) : ($existingOutput['humidity'] ?? null),
+    'humidityUnit' => $hasHumidityPayload ? $humidityUnit : ($existingOutput['humidityUnit'] ?? '%'),
+    'humidityUpdatedAt' => $hasHumidityPayload ? $now : ($existingOutput['humidityUpdatedAt'] ?? null),
+    'humiditySource' => 'Home Assistant',
+    'humidityEntityId' => $hasHumidityPayload ? $humiditySourceEntity : ($existingOutput['humidityEntityId'] ?? DEFAULT_HUMIDITY_ENTITY),
+    'pressure' => $hasPressurePayload ? round((float) $pressure, 1) : ($existingOutput['pressure'] ?? null),
+    'pressureUnit' => $hasPressurePayload ? $pressureUnit : ($existingOutput['pressureUnit'] ?? 'hPa'),
+    'pressureUpdatedAt' => $hasPressurePayload ? $now : ($existingOutput['pressureUpdatedAt'] ?? null),
+    'pressureSource' => 'Home Assistant',
+    'pressureEntityId' => $hasPressurePayload ? $pressureSourceEntity : ($existingOutput['pressureEntityId'] ?? DEFAULT_PRESSURE_ENTITY),
 ];
 
 $json = json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
