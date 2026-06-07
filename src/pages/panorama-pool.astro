@@ -277,6 +277,7 @@ const poolTemperatureFallback = "Hamarosan";
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
           const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
+          widget.classList.add("has-temperature");
           valueNode.textContent = `${formattedTemperature} ${unit}`;
           if (factValueNode) {
             factValueNode.textContent = isStale
@@ -296,6 +297,7 @@ const poolTemperatureFallback = "Hamarosan";
             }
           }
         } catch {
+          widget.classList.remove("has-temperature");
           valueNode.textContent = fallbackText;
           if (factValueNode) {
             factValueNode.textContent = fallbackText;
@@ -535,12 +537,19 @@ const poolTemperatureFallback = "Hamarosan";
     margin: 0;
     color: #2e241b;
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.02rem, 1.55vw, 1.4rem);
+    font-size: clamp(1.1rem, 1.7vw, 1.48rem);
     font-weight: 400;
-    line-height: 1.18;
-    letter-spacing: 0.05em;
+    line-height: 1.08;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     text-wrap: balance;
+  }
+
+  .pool-temperature.has-temperature .pool-temperature__value {
+    font-size: clamp(2rem, 3.35vw, 3rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.02em;
   }
 
   .pool-temperature__updated {
@@ -785,9 +794,9 @@ const poolTemperatureFallback = "Hamarosan";
     }
 
     .pool-temperature {
-      width: min(100%, 132px);
-      gap: 4px;
-      padding: 14px;
+      width: min(100%, 154px);
+      gap: 6px;
+      padding: 16px;
       box-shadow:
         0 14px 30px rgba(45, 30, 15, 0.14),
         inset 0 0 0 6px rgba(255, 255, 255, 0.26),
@@ -800,13 +809,19 @@ const poolTemperatureFallback = "Hamarosan";
     }
 
     .pool-temperature__value {
-      font-size: 0.82rem;
-      line-height: 1.1;
-      letter-spacing: 0.03em;
+      font-size: 0.84rem;
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+    }
+
+    .pool-temperature.has-temperature .pool-temperature__value {
+      font-size: 1.42rem;
+      line-height: 1;
+      letter-spacing: 0.01em;
     }
 
     .pool-temperature__updated {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       line-height: 1.2;
     }
 
