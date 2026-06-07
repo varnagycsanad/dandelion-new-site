@@ -46,6 +46,16 @@ function format_number(?float $value, int $decimals = 1): string
     return number_format($value, $decimals, ',', ' ');
 }
 
+function level_percent(?float $value, float $min, float $max): int
+{
+    if ($value === null || $max <= $min) {
+        return 0;
+    }
+
+    $percent = (($value - $min) / ($max - $min)) * 100;
+    return (int) max(0, min(100, round($percent)));
+}
+
 function h(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -71,34 +81,24 @@ if ($updatedAtRaw !== '') {
     }
 }
 
-$cards = [
+$metrics = [
     [
-        'class' => ' card--primary',
-        'label' => 'Medencevíz',
-        'value' => format_number($water, 1),
-        'unit' => $water === null ? '' : $waterUnit,
-        'note' => $updatedText,
-    ],
-    [
-        'class' => '',
         'label' => 'Levegő hőmérséklete',
         'value' => format_number($air, 1),
         'unit' => $air === null ? '' : $airUnit,
-        'note' => 'Kültéri mérés',
+        'level' => level_percent($air, 0, 40),
     ],
     [
-        'class' => '',
         'label' => 'Páratartalom',
         'value' => format_number($humidity, 0),
         'unit' => $humidity === null ? '' : $humidityUnit,
-        'note' => 'Kültéri mérés',
+        'level' => level_percent($humidity, 0, 100),
     ],
     [
-        'class' => '',
         'label' => 'Légnyomás',
         'value' => format_number($pressure, 0),
         'unit' => $pressure === null ? '' : $pressureUnit,
-        'note' => 'Kültéri mérés',
+        'level' => level_percent($pressure, 980, 1040),
     ],
 ];
 ?>
@@ -124,27 +124,41 @@ $cards = [
       background: transparent;
     }
 
-    .grid {
+    .dashboard {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: minmax(240px, 0.92fr) minmax(280px, 1.08fr);
       gap: 12px;
     }
 
-    .card {
-      display: grid;
-      min-height: 156px;
-      align-content: space-between;
-      gap: 14px;
-      padding: 18px;
+    .water-card,
+    .metric-card {
       border: 1px solid rgba(90, 67, 41, 0.1);
       border-radius: 8px;
       background: #fbfaf7;
     }
 
-    .card--primary {
+    .water-card {
+      display: grid;
+      min-height: 218px;
+      align-content: space-between;
+      gap: 18px;
+      padding: 22px;
       background:
-        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.98), rgba(246, 236, 216, 0.9)),
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 1), rgba(250, 240, 220, 0.92) 52%, rgba(234, 214, 174, 0.8)),
         #f5ead3;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+    }
+
+    .metric-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .metric-card {
+      display: grid;
+      min-height: 66px;
+      gap: 10px;
+      padding: 14px 16px;
     }
 
     .label {
@@ -156,18 +170,31 @@ $cards = [
       text-transform: uppercase;
     }
 
+    .water-card .label {
+      font-size: 0.76rem;
+    }
+
     .value {
       color: #241b14;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.34rem, 2.2vw, 1.9rem);
       font-weight: 500;
       line-height: 1;
       letter-spacing: 0.01em;
     }
 
+    .water-card .value {
+      font-size: clamp(2.35rem, 6vw, 3.7rem);
+    }
+
+    .metric-card .value {
+      font-size: clamp(1.18rem, 2.8vw, 1.52rem);
+    }
+
     .unit {
-      margin-left: 0.16em;
-      font-size: 0.72em;
+      margin-left: 0.18em;
+      font-size: 0.58em;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 650;
     }
 
     .note {
@@ -177,38 +204,73 @@ $cards = [
       line-height: 1.35;
     }
 
+    .metric-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .meter {
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(90, 67, 41, 0.11);
+    }
+
+    .meter span {
+      display: block;
+      width: var(--level);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #9c7a34, #d7a84a);
+    }
+
     @media (max-width: 720px) {
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .dashboard {
+        grid-template-columns: 1fr;
         gap: 10px;
       }
 
-      .card {
-        min-height: 126px;
-        padding: 14px;
+      .water-card {
+        min-height: 154px;
+        padding: 18px;
       }
 
-      .value {
-        font-size: 1.34rem;
+      .water-card .value {
+        font-size: 2.18rem;
       }
 
-      .note {
-        font-size: 0.72rem;
+      .metric-card {
+        min-height: 62px;
+        padding: 13px 14px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="grid" aria-label="Panorama Pool aktuális mérések">
-    <?php foreach ($cards as $card): ?>
-      <article class="card<?= h($card['class']); ?>">
-        <span class="label"><?= h($card['label']); ?></span>
-        <strong class="value">
-          <?= h($card['value']); ?><?php if ($card['unit'] !== ''): ?><span class="unit"><?= h($card['unit']); ?></span><?php endif; ?>
-        </strong>
-        <small class="note"><?= h($card['note']); ?></small>
-      </article>
-    <?php endforeach; ?>
+  <div class="dashboard" aria-label="Panorama Pool aktuális mérések">
+    <article class="water-card">
+      <span class="label">Medencevíz</span>
+      <strong class="value">
+        <?= h(format_number($water, 1)); ?><?php if ($water !== null): ?><span class="unit"><?= h($waterUnit); ?></span><?php endif; ?>
+      </strong>
+      <small class="note"><?= h($updatedText); ?></small>
+    </article>
+
+    <div class="metric-stack">
+      <?php foreach ($metrics as $metric): ?>
+        <article class="metric-card">
+          <div class="metric-head">
+            <span class="label"><?= h($metric['label']); ?></span>
+            <strong class="value">
+              <?= h($metric['value']); ?><?php if ($metric['unit'] !== ''): ?><span class="unit"><?= h($metric['unit']); ?></span><?php endif; ?>
+            </strong>
+          </div>
+          <div class="meter" aria-hidden="true"><span style="--level: <?= h((string) $metric['level']); ?>%;"></span></div>
+        </article>
+      <?php endforeach; ?>
+    </div>
   </div>
 </body>
 </html>
