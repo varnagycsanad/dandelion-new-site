@@ -184,14 +184,6 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
     <section id="pool-stays" class="pool-section">
       <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-section-heading">
-          <span class="pool-eyebrow">Dostupné pobyty</span>
-          <h2>Panorama Pool patří k těmto domům.</h2>
-          <p>
-            Pro D1, D2 a Fügeház jsme připravili také samostatný přehled o přístupu k bazénu, otázkách pro rodiny a základních údajích o bazénu.
-          </p>
-          <a class="pool-text-link" href={poolLandingHref}>D1, D2 a Fügeház s přístupem k bazénu</a>
-        </div>
         <div class="pool-stays">
           {stays.map((stay) => (
             <article class="pool-stay-card">

@@ -184,14 +184,6 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
     <section id="pool-stays" class="pool-section">
       <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-section-heading">
-          <span class="pool-eyebrow">Available stays</span>
-          <h2>Panorama Pool belongs to these houses.</h2>
-          <p>
-            We also created a dedicated overview for D1, D2 and Fügeház pool access, family questions and the basic pool details.
-          </p>
-          <a class="pool-text-link" href={poolLandingHref}>D1, D2 and Fügeház with pool access</a>
-        </div>
         <div class="pool-stays">
           {stays.map((stay) => (
             <article class="pool-stay-card">

@@ -184,14 +184,6 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 
     <section id="pool-stays" class="pool-section">
       <div class="dnd-container pool-shell pool-section-shell">
-        <div class="pool-section-heading">
-          <span class="pool-eyebrow">Verfügbare Unterkünfte</span>
-          <h2>Zu diesen Häusern gehört der Panorama Pool.</h2>
-          <p>
-            Für D1, D2 und Fügeház gibt es auch eine eigene Übersicht zu Poolzugang, Familienfragen und den wichtigsten Pooldaten.
-          </p>
-          <a class="pool-text-link" href={poolLandingHref}>D1, D2 und Fügeház mit Poolzugang</a>
-        </div>
         <div class="pool-stays">
           {stays.map((stay) => (
             <article class="pool-stay-card">
