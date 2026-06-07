@@ -9,6 +9,7 @@ const imageMapping = await readHomepageImageMapping();
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const contactHref = `${baseHref}kapcsolat/`;
+const poolLandingHref = `${baseHref}kisapati-medences-szallas/`;
 const accommodationsHeroVideo = "/videos/szallasok/202507%20V1.mp4?v=20260603-lite";
 const accommodationsHeroMobileVideo = "/videos/szallasok/202507%20V1-mobile-lite.mp4?v=20260606-mobile-lite";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
@@ -53,7 +54,7 @@ const accommodationFaqItems = [
     question: "Melyik házaknál van medencehasználat?",
     answer:
       "Medencéhez a Dandelion D1, Dandelion D2 és a Fügeház a fő opció. Ezeknél Panorama Pool használat szerepel, hegyoldali pihenés mellé.",
-    href: "#tanuhegyek"
+    href: poolLandingHref
   },
   {
     question: "Hol érdemes megszállni Kisapátiban?",
@@ -236,6 +237,9 @@ const accommodationFaqStructuredData = {
         <div class="dnd-accommodations-transition__content">
           <p class="dnd-accommodations-transition__eyebrow">Panorama Pool</p>
           <h2 id="szallasok-hangulat-cim">Medencés pihenés a Szent György-hegy lábánál</h2>
+          <a class="dnd-accommodations-transition__link" href={poolLandingHref}>
+            D1, D2 és Fügeház medencehasználattal
+          </a>
         </div>
       </div>
     </div>
@@ -1058,6 +1062,24 @@ const accommodationFaqStructuredData = {
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
   }
 
+  .dnd-accommodations-transition__link {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 16px;
+    color: #fffaf1;
+    font-size: var(--dnd-text-xs);
+    font-weight: 750;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+  }
+
+  .dnd-accommodations-transition__link::after {
+    content: "→";
+    margin-left: 8px;
+  }
+
   .dnd-accommodations-qa {
     margin: 22px 0 22px;
   }
@@ -1449,6 +1471,14 @@ const accommodationFaqStructuredData = {
       max-width: 15ch;
       font-size: 1.18rem;
       line-height: 1.24;
+    }
+
+    .dnd-accommodations-transition__link {
+      margin-top: 10px;
+      font-size: 0.68rem;
+      letter-spacing: 0;
+      line-height: 1.25;
+      text-transform: none;
     }
 
     .dnd-accommodations-qa {
