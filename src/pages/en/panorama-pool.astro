@@ -115,6 +115,7 @@ const poolTemperatureFallback = "Soon";
       >
         <span class="pool-temperature__label">Pool water</span>
         <p class="pool-temperature__value" data-pool-temperature-value>{poolTemperatureFallback}</p>
+        <p class="pool-temperature__air" data-pool-air-temperature hidden></p>
         <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
       </aside>
     </Hero>
@@ -146,6 +147,7 @@ const poolTemperatureFallback = "Soon";
             <strong class="pool-facts__temperature-value" data-pool-temperature-fact-value>
               {poolTemperatureFallback}
             </strong>
+            <span class="pool-facts__temperature-air" data-pool-air-temperature-fact hidden></span>
           </li>
         </ul>
       </div>
@@ -236,8 +238,10 @@ const poolTemperatureFallback = "Soon";
         if (!widget) return;
 
         const valueNode = widget.querySelector("[data-pool-temperature-value]");
+        const airValueNode = widget.querySelector("[data-pool-air-temperature]");
         const updatedNode = widget.querySelector("[data-pool-temperature-updated]");
         const factValueNode = document.querySelector("[data-pool-temperature-fact-value]");
+        const factAirValueNode = document.querySelector("[data-pool-air-temperature-fact]");
         const endpoint = widget.getAttribute("data-endpoint") || "/api/pool-temperature.json";
         const fallbackText = "Soon";
         const staleAfterMs = 6 * 60 * 60 * 1000;
@@ -264,19 +268,47 @@ const poolTemperatureFallback = "Soon";
           }
 
           const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "\u00B0C";
+          const rawAirTemperature = data.airTemperature ?? data.air_temperature ?? data.outdoorTemperature;
+          const airTemperature =
+            typeof rawAirTemperature === "number" || typeof rawAirTemperature === "string"
+              ? Number(rawAirTemperature)
+              : Number.NaN;
+          const airUnit = typeof data.airUnit === "string" && data.airUnit.trim() ? data.airUnit.trim() : unit;
           const formattedTemperature = temperature.toLocaleString("en-US", {
             minimumFractionDigits: 1,
             maximumFractionDigits: 1
           });
+          const formattedAirTemperature = Number.isFinite(airTemperature)
+            ? airTemperature.toLocaleString("en-US", {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1
+              })
+            : "";
           const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
           const isStale = !hasValidUpdatedAt || Date.now() - updatedAt.getTime() > staleAfterMs;
 
+          widget.classList.add("has-temperature");
           valueNode.textContent = `${formattedTemperature} ${unit}`;
           if (factValueNode) {
             factValueNode.textContent = isStale
               ? `Last measurement: ${formattedTemperature} ${unit}`
               : `${formattedTemperature} ${unit}`;
+          }
+          if (Number.isFinite(airTemperature)) {
+            widget.classList.add("has-air-temperature");
+            if (airValueNode) {
+              airValueNode.textContent = `Air: ${formattedAirTemperature} ${airUnit}`;
+              airValueNode.removeAttribute("hidden");
+            }
+            if (factAirValueNode) {
+              factAirValueNode.textContent = `Air: ${formattedAirTemperature} ${airUnit}`;
+              factAirValueNode.removeAttribute("hidden");
+            }
+          } else {
+            widget.classList.remove("has-air-temperature");
+            airValueNode?.setAttribute("hidden", "");
+            factAirValueNode?.setAttribute("hidden", "");
           }
 
           if (updatedNode) {
@@ -291,10 +323,14 @@ const poolTemperatureFallback = "Soon";
             }
           }
         } catch {
+          widget.classList.remove("has-temperature");
+          widget.classList.remove("has-air-temperature");
           valueNode.textContent = fallbackText;
           if (factValueNode) {
             factValueNode.textContent = fallbackText;
           }
+          airValueNode?.setAttribute("hidden", "");
+          factAirValueNode?.setAttribute("hidden", "");
           updatedNode?.setAttribute("hidden", "");
         }
       };
@@ -510,12 +546,19 @@ const poolTemperatureFallback = "Soon";
     margin: 0;
     color: #2e241b;
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.02rem, 1.55vw, 1.4rem);
+    font-size: clamp(1.1rem, 1.7vw, 1.48rem);
     font-weight: 400;
-    line-height: 1.18;
-    letter-spacing: 0.05em;
+    line-height: 1.08;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     text-wrap: balance;
+  }
+
+  .pool-temperature.has-temperature .pool-temperature__value {
+    font-size: clamp(2rem, 3.35vw, 3rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.02em;
   }
 
   .pool-temperature__updated {
@@ -523,6 +566,14 @@ const poolTemperatureFallback = "Soon";
     color: rgba(46, 36, 27, 0.66);
     font-size: var(--dnd-text-sm);
     line-height: 1.45;
+  }
+
+  .pool-temperature__air {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.74);
+    font-size: var(--dnd-text-sm);
+    font-weight: 650;
+    line-height: 1.3;
   }
 
   .pool-facts {
@@ -575,6 +626,13 @@ const poolTemperatureFallback = "Soon";
     font-weight: 400;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+  }
+
+  .pool-facts__temperature-air {
+    color: rgba(68, 53, 39, 0.78);
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+    line-height: 1.25;
   }
 
   .pool-stays {
@@ -760,9 +818,9 @@ const poolTemperatureFallback = "Soon";
     }
 
     .pool-temperature {
-      width: min(100%, 132px);
-      gap: 4px;
-      padding: 14px;
+      width: min(100%, 154px);
+      gap: 6px;
+      padding: 16px;
       box-shadow:
         0 14px 30px rgba(45, 30, 15, 0.14),
         inset 0 0 0 6px rgba(255, 255, 255, 0.26),
@@ -775,14 +833,25 @@ const poolTemperatureFallback = "Soon";
     }
 
     .pool-temperature__value {
-      font-size: 0.82rem;
-      line-height: 1.1;
-      letter-spacing: 0.03em;
+      font-size: 0.84rem;
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+    }
+
+    .pool-temperature.has-temperature .pool-temperature__value {
+      font-size: 1.42rem;
+      line-height: 1;
+      letter-spacing: 0.01em;
     }
 
     .pool-temperature__updated {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       line-height: 1.2;
+    }
+
+    .pool-temperature__air {
+      font-size: 0.7rem;
+      line-height: 1.15;
     }
 
     .pool-section {

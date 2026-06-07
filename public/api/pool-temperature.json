@@ -2,5 +2,10 @@
   "temperature": null,
   "unit": "°C",
   "updatedAt": null,
-  "source": "not-yet-updated"
+  "source": "not-yet-updated",
+  "airTemperature": null,
+  "airUnit": "°C",
+  "airUpdatedAt": null,
+  "airSource": "not-yet-updated",
+  "airEntityId": "sensor.d1_pergola_kulteri_homero_homerseklet"
 }
