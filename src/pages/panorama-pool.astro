@@ -158,19 +158,19 @@ const poolTemperatureFallback = "Hamarosan";
               <small data-pool-live-updated>Frissítésre vár</small>
             </article>
             <article class="pool-live-card">
-              <span>Levegő</span>
+              <span>Levegő hőmérséklete</span>
               <strong data-pool-live-air>Nincs adat</strong>
-              <small>Kültéri hőmérő</small>
+              <small>Kültéri mérés</small>
             </article>
             <article class="pool-live-card">
               <span>Páratartalom</span>
               <strong data-pool-live-humidity>Nincs adat</strong>
-              <small>D1 pergola</small>
+              <small>Kültéri mérés</small>
             </article>
             <article class="pool-live-card">
               <span>Légnyomás</span>
               <strong data-pool-live-pressure>Nincs adat</strong>
-              <small>Kültéri szenzor</small>
+              <small>Kültéri mérés</small>
             </article>
           </div>
         </div>
@@ -291,6 +291,12 @@ const poolTemperatureFallback = "Hamarosan";
         const fallbackText = "Hamarosan";
         const liveFallbackText = "Nincs adat";
         const staleAfterMs = 6 * 60 * 60 * 1000;
+        const refreshIntervalMs = 5 * 60 * 1000;
+        const buildEndpointUrl = () => {
+          const url = new URL(endpoint, window.location.href);
+          url.searchParams.set("refresh", Date.now().toString());
+          return url.toString();
+        };
         const formatMeasurement = (value, locale, options = {}) => {
           const numericValue = typeof value === "number" || typeof value === "string" ? Number(value) : Number.NaN;
           if (!Number.isFinite(numericValue)) return "";
@@ -305,7 +311,7 @@ const poolTemperatureFallback = "Hamarosan";
         if (!valueNode) return;
 
         try {
-          const response = await fetch(endpoint, {
+          const response = await fetch(buildEndpointUrl(), {
             headers: { Accept: "application/json" },
             cache: "no-store"
           });
@@ -412,6 +418,7 @@ const poolTemperatureFallback = "Hamarosan";
           () => {
             applyPoolHeaderState();
             updatePoolTemperature();
+            window.setInterval(updatePoolTemperature, refreshIntervalMs);
             window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
           },
           { once: true }
@@ -419,6 +426,7 @@ const poolTemperatureFallback = "Hamarosan";
       } else {
         applyPoolHeaderState();
         updatePoolTemperature();
+        window.setInterval(updatePoolTemperature, refreshIntervalMs);
         window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
       }
     })();
