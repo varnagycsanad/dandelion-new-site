@@ -81,6 +81,7 @@ export const SITEMAP_PATHS = [
   "/adatkezelesi-tajekoztato/",
   "/impresszum/",
   "/szallasok/",
+  "/kisapati-medences-szallas/",
   "/panorama-pool/",
   "/en/panorama-pool/",
   "/fuge/",

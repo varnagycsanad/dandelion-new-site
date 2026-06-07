@@ -1,0 +1,856 @@
+---
+// [CHANGE 2026-06-06 00:00] Kisapáti medencés szállás landing page added for D1, D2 and Fügeház.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { d1PageData } from "../data/accommodation-pages/d1";
+import { d2PageData } from "../data/accommodation-pages/d2";
+import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
+import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
+
+const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const pagePath = "/kisapati-medences-szallas/";
+const heroImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
+const teaserImages = panoramaPoolImages
+  .filter((image) => image.usageHint === "teaser")
+  .sort((a, b) => a.sortOrder - b.sortOrder)
+  .slice(0, 3);
+
+const stays = [
+  {
+    name: "Dandelion D1",
+    href: "/dandelion-d1/",
+    bookingHref: d1PageData.bookingLink,
+    image: d1PageData.hero.mobileImagePath,
+    imageAlt: d1PageData.hero.fallbackAlt,
+    label: "akár 8 fő",
+    title: "Tágas ház nagyobb családoknak és baráti társaságoknak",
+    text:
+      "A D1 akkor jó választás, ha több hálószobára, kényelmes közös terekre és nyári medencehasználatra is szükségetek van.",
+    facts: ["3 hálószoba", "2 fürdőszoba", "Panorama Pool használat"]
+  },
+  {
+    name: "Dandelion D2",
+    href: "/dandelion-d2/",
+    bookingHref: d2PageData.bookingLink,
+    image: d2PageData.hero.mobileImagePath,
+    imageAlt: d2PageData.hero.fallbackAlt,
+    label: "4-6 fő",
+    title: "Családbarát vendégház nagy kerttel és fedett terasszal",
+    text:
+      "A D2 családoknak és kisebb társaságoknak kényelmes: nagy udvar, fedett terasz és szezonban Panorama Pool használat tartozik hozzá.",
+    facts: ["nagy kert", "fedett terasz", "Panorama Pool használat"]
+  },
+  {
+    name: "Dandelion Fügeház",
+    href: "/fuge/",
+    bookingHref: fugehazPageData.bookingLink,
+    image: fugehazPageData.hero.mobileImagePath,
+    imageAlt: fugehazPageData.hero.fallbackAlt,
+    label: "4 fő, pótággyal bővíthető",
+    title: "Panorámás, teraszos pihenés a tanúhegyek közelében",
+    text:
+      "A Fügeház csendesebb, teraszos pihenéshez illik. Nyáron a Panorama Pool ad hozzá egy kényelmes medencés lehetőséget.",
+    facts: ["teraszos pihenés", "panoráma", "Panorama Pool használat"]
+  }
+];
+
+const faqItems = [
+  {
+    question: "Melyik Dandelion házak kapcsolódnak a Panorama Poolhoz?",
+    answer:
+      "A Dandelion D1, a Dandelion D2 és a Dandelion Fügeház vendégei számára érhető el a Panorama Pool a szezonban."
+  },
+  {
+    question: "Hol vannak ezek a medencés szállások?",
+    answer:
+      "A három ház Kisapátiban, a Szent György-hegy lábánál található, a Balaton-felvidék nyugodtabb részén."
+  },
+  {
+    question: "Saját medencéje van a házaknak?",
+    answer:
+      "Nem, a házaknak nincs külön saját medencéjük. A D1, D2 és Fügeház vendégei a házak melletti dombon található medencét használhatják, ahonnan a tanúhegyek látszanak."
+  },
+  {
+    question: "Mikortól használható a medence?",
+    answer:
+      "A medencét a D1, D2 és Fügeház vendégei a tervek szerint 2026. június 15. után használhatják."
+  },
+  {
+    question: "Milyen mély a medence?",
+    answer:
+      "A medence körülbelül 130 cm mély, ezért gyerekekkel is kényelmesen használható, szülői felügyelet mellett."
+  },
+  {
+    question: "Vannak gyerekjátékok a medencénél?",
+    answer:
+      "Igen, a medencénél vannak gyerekjátékok is, így gyerekekkel is könnyebb eltölteni ott az időt."
+  },
+  {
+    question: "Melyik ház jó nagyobb társaságnak?",
+    answer:
+      "Nagyobb családnak vagy baráti társaságnak elsőként a D1-et érdemes megnézni, mert ez a legtágasabb a három ház közül."
+  },
+  {
+    question: "4 fős családnak melyik ház jó?",
+    answer:
+      "4 fős családnak a D1 és a D2 is jó választás. A D2 kényelmesebb, kertközelibb családi pihenéshez, a D1 akkor erős, ha több térre van szükségetek."
+  }
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Főoldal",
+        item: toAbsoluteUrl("/")
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Kisapáti medencés szállás",
+        item: toAbsoluteUrl(pagePath)
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${toAbsoluteUrl(pagePath)}#collection`,
+    name: "Kisapáti medencés szállás Dandelion házakban",
+    url: toAbsoluteUrl(pagePath),
+    inLanguage: "hu-HU",
+    description:
+      "Dandelion D1, D2 és Fügeház Kisapátiban, Panorama Pool használattal a nyári pihenéshez.",
+    isPartOf: {
+      "@id": `${toAbsoluteUrl("/")}#website`
+    },
+    about: ["Kisapáti szállás", "medencés szállás", "Panorama Pool", "Szent György-hegy"],
+    provider: {
+      "@type": "LodgingBusiness",
+      name: SITE_NAME,
+      url: toAbsoluteUrl("/")
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: stays.map((stay, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: stay.name,
+        url: toAbsoluteUrl(stay.href)
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${toAbsoluteUrl(pagePath)}#faq`,
+    inLanguage: "hu-HU",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  }
+];
+---
+
+<BaseLayout
+  title="Kisapáti medencés szállás | D1, D2 és Fügeház | Dandelion"
+  description="Kisapáti medencés szállás Dandelion hangulatban: D1, D2 és Fügeház a Szent György-hegy lábánál, szezonális Panorama Pool használattal."
+  canonicalPath={pagePath}
+  ogImage={panoramaPoolHero.desktop}
+  ogImageAlt={heroImage.altHu}
+  structuredData={structuredData}
+  headerMode="transparent"
+>
+  <div class="pool-landing">
+    <section class="pool-landing-hero">
+      <picture>
+        <source media="(max-width: 767px)" srcset={panoramaPoolHero.mobile} />
+        <img
+          class="pool-landing-hero__image"
+          src={panoramaPoolHero.desktop}
+          alt={heroImage.altHu}
+          width="1920"
+          height="1280"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+      <div class="pool-landing-hero__overlay" aria-hidden="true"></div>
+      <div class="pool-landing-hero__content">
+        <div class="dnd-container pool-landing-hero__inner">
+          <p class="pool-landing__eyebrow">Kisapáti - Szent György-hegy - Panorama Pool</p>
+          <h1>Kisapáti szállások medencehasználattal</h1>
+          <p>
+            Dandelion D1, D2 és Fügeház a Szent György-hegy lábánál. Három külön ház,
+            nyári Panorama Pool használattal és nyugodt balatoni-felvidéki környezettel.
+          </p>
+          <div class="pool-landing-hero__actions">
+            <a href="#hazak" class="pool-landing__button pool-landing__button--primary">Házak megnézése</a>
+            <a href={bookingHref} class="pool-landing__button pool-landing__button--secondary" target="_blank" rel="noopener noreferrer">
+              Foglalás / árak
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-intro">
+      <div class="dnd-container pool-landing-intro__layout">
+        <div>
+          <p class="pool-landing__eyebrow">Mikor jó választás?</p>
+          <h2>Ha Kisapátiban kerestek házat, és a medence is fontos szempont.</h2>
+        </div>
+        <div class="pool-landing-intro__text">
+          <p>
+            Ez az oldal a Dandelion három, Panorama Poolhoz kapcsolódó kisapáti házát fogja össze.
+            Nem saját, házanként külön medencéről van szó: a medence a házak melletti dombon
+            helyezkedik el, ahonnan a tanúhegyek látszanak.
+          </p>
+          <p>
+            A három ház más-más utazáshoz passzol: a D1 nagyobb társaságoknak, a D2 családos
+            pihenéshez, a Fügeház pedig csendesebb, teraszos napokhoz illik.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-facts" aria-label="Kisapáti medencés szállás gyors áttekintő">
+      <div class="dnd-container pool-landing-facts__grid">
+        <article>
+          <span>01</span>
+          <h2>D1, D2 és Fügeház</h2>
+          <p>Három külön ház, eltérő mérettel és hangulattal, közös nyári medencehasználati lehetőséggel.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Panorama Pool</h2>
+          <p>A házak melletti dombon található medence, ahonnan a tanúhegyek látszanak.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Kisapáti bázis</h2>
+          <p>Szent György-hegy, Tapolcai-medence, borászatok és balatoni programok rövid autóútra.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="hazak" class="pool-landing-stays">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">A három ház</p>
+          <h2>Melyik Dandelion ház illik hozzátok?</h2>
+          <p>Érdemes létszám és hangulat alapján választani: nagyobb társaság, családos pihenés vagy csendesebb teraszos napok.</p>
+        </div>
+
+        <div class="pool-landing-stays__grid">
+          {stays.map((stay) => (
+            <article class="pool-landing-stay-card">
+              <a href={stay.href} class="pool-landing-stay-card__media" aria-label={`${stay.name} oldal megnyitása`}>
+                <img src={stay.image} alt={stay.imageAlt} loading="lazy" decoding="async" width="1200" height="900" />
+              </a>
+              <div class="pool-landing-stay-card__body">
+                <span>{stay.label}</span>
+                <h3>{stay.name}</h3>
+                <h4>{stay.title}</h4>
+                <p>{stay.text}</p>
+                <ul aria-label={`${stay.name} fő jellemzői`}>
+                  {stay.facts.map((fact) => (
+                    <li>{fact}</li>
+                  ))}
+                </ul>
+                <div class="pool-landing-stay-card__actions">
+                  <a href={stay.href}>Részletek</a>
+                  <a href={stay.bookingHref} target="_blank" rel="noopener noreferrer">Foglalás</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-pool">
+      <div class="dnd-container pool-landing-pool__layout">
+        <div class="pool-landing-pool__copy">
+          <p class="pool-landing__eyebrow">Panorama Pool</p>
+          <h2>Medencés nyári pihenés panorámával.</h2>
+          <p>
+            A Panorama Pool a házak melletti dombon helyezkedik el, és a D1, D2, valamint Fügeház
+            vendégei számára érhető el a szezonban. A medencétől a tanúhegyek látszanak, a kilátás
+            és a napozóterasz adja a nyári pihenés hangulatát.
+          </p>
+          <a class="pool-landing__text-link" href="/panorama-pool/">Panorama Pool oldal megnyitása</a>
+        </div>
+        <div class="pool-landing-pool__gallery" aria-label="Panorama Pool képek">
+          {teaserImages.map((image) => (
+            <figure>
+              <picture>
+                {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                <img src={image.src} alt={image.altHu} loading="lazy" decoding="async" width="1200" height="900" />
+              </picture>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="pool-landing-faq">
+      <div class="dnd-container pool-landing-faq__layout">
+        <div class="pool-landing-faq__intro">
+          <p class="pool-landing__eyebrow">Gyors válaszok</p>
+          <h2>Gyakori kérdések a kisapáti medencés szállásokról</h2>
+          <p>Rövid válaszok a D1, D2, Fügeház és Panorama Pool kapcsolatáról.</p>
+        </div>
+        <div class="pool-landing-faq__grid">
+          {faqItems.map((item) => (
+            <article>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-closing">
+      <div class="dnd-container pool-landing-closing__panel">
+        <p class="pool-landing__eyebrow">Következő lépés</p>
+        <h2>Válasszatok házat, aztán nézzétek meg az elérhető időpontokat.</h2>
+        <p>
+          Ha a medence fontos szempont a nyári pihenésnél, induljatok a D1, D2 és Fügeház összehasonlításából.
+          Ha már megvan a ház, a foglalási felület mutatja az aktuális árakat és elérhető időpontokat.
+        </p>
+        <div class="pool-landing-closing__actions">
+          <a href="#hazak" class="pool-landing__button pool-landing__button--primary">Házak összehasonlítása</a>
+          <a href={bookingHref} class="pool-landing__button pool-landing__button--secondary" target="_blank" rel="noopener noreferrer">
+            Foglalás / árak
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pool-landing {
+    background: #fdfbf7;
+    color: #1f2937;
+  }
+
+  .pool-landing-hero {
+    position: relative;
+    min-height: 720px;
+    height: 92vh;
+    overflow: hidden;
+    background: #15120e;
+  }
+
+  .pool-landing-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pool-landing-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 11, 8, 0.72), rgba(13, 11, 8, 0.24) 58%, rgba(13, 11, 8, 0.16)),
+      linear-gradient(180deg, rgba(13, 11, 8, 0.3), rgba(13, 11, 8, 0.66));
+  }
+
+  .pool-landing-hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    color: #fffaf1;
+  }
+
+  .pool-landing-hero__inner {
+    max-width: 1120px;
+    padding-top: 132px;
+  }
+
+  .pool-landing__eyebrow {
+    margin: 0 0 14px;
+    color: #d99e2b;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .pool-landing-hero p:not(.pool-landing__eyebrow) {
+    max-width: 650px;
+    margin: 22px 0 0;
+    color: rgba(255, 250, 241, 0.9);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.65;
+  }
+
+  .pool-landing-hero__actions,
+  .pool-landing-closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .pool-landing__button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .pool-landing__button--primary {
+    background: #d99e2b;
+    color: #18120b;
+  }
+
+  .pool-landing__button--secondary {
+    border-color: rgba(255, 250, 241, 0.52);
+    background: rgba(255, 250, 241, 0.1);
+    color: #fffaf1;
+  }
+
+  .pool-landing-intro,
+  .pool-landing-facts,
+  .pool-landing-stays,
+  .pool-landing-pool,
+  .pool-landing-faq,
+  .pool-landing-closing {
+    padding: 82px 0;
+  }
+
+  .pool-landing-intro__layout,
+  .pool-landing-pool__layout,
+  .pool-landing-faq__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .pool-landing-intro h2,
+  .pool-landing-section-head h2,
+  .pool-landing-pool h2,
+  .pool-landing-faq h2,
+  .pool-landing-closing h2 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.9rem, 3vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  .pool-landing-intro__text {
+    display: grid;
+    gap: 14px;
+  }
+
+  .pool-landing-intro__text p,
+  .pool-landing-section-head p,
+  .pool-landing-pool p,
+  .pool-landing-faq__intro p,
+  .pool-landing-closing p {
+    margin: 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-body);
+    line-height: 1.7;
+  }
+
+  .pool-landing-facts {
+    background: #f3efe6;
+  }
+
+  .pool-landing-facts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pool-landing-facts article,
+  .pool-landing-faq article,
+  .pool-landing-stay-card {
+    border: 1px solid rgba(121, 93, 48, 0.12);
+    border-radius: 8px;
+    background: #fffefb;
+  }
+
+  .pool-landing-facts article {
+    padding: 22px;
+  }
+
+  .pool-landing-facts span {
+    display: inline-flex;
+    margin-bottom: 14px;
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .pool-landing-facts h2,
+  .pool-landing-stay-card h3,
+  .pool-landing-faq h3 {
+    margin: 0;
+    color: #1f2937;
+    font-size: var(--dnd-heading-card);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .pool-landing-facts p {
+    margin: 10px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .pool-landing-section-head {
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .pool-landing-section-head p {
+    margin-top: 14px;
+  }
+
+  .pool-landing-stays__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .pool-landing-stay-card {
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(80, 57, 31, 0.08);
+  }
+
+  .pool-landing-stay-card__media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e9e0d2;
+  }
+
+  .pool-landing-stay-card__media img,
+  .pool-landing-pool__gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+
+  .pool-landing-stay-card__media:hover img,
+  .pool-landing-stay-card__media:focus-visible img {
+    transform: scale(1.025);
+  }
+
+  .pool-landing-stay-card__body {
+    display: grid;
+    gap: 11px;
+    padding: 20px;
+  }
+
+  .pool-landing-stay-card__body > span {
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-stay-card h4 {
+    margin: 0;
+    color: #3d3428;
+    font-size: var(--dnd-text-md);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .pool-landing-stay-card p {
+    margin: 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .pool-landing-stay-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pool-landing-stay-card li {
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(36, 122, 131, 0.1);
+    color: #1f5f65;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .pool-landing-stay-card__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .pool-landing-stay-card__actions a,
+  .pool-landing__text-link {
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-pool {
+    background: #f7f2e7;
+  }
+
+  .pool-landing-pool__copy {
+    position: sticky;
+    top: 118px;
+  }
+
+  .pool-landing-pool__copy p {
+    margin-top: 16px;
+  }
+
+  .pool-landing__text-link {
+    display: inline-flex;
+    margin-top: 18px;
+  }
+
+  .pool-landing-pool__gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .pool-landing-pool__gallery figure {
+    min-height: 220px;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #e9e0d2;
+  }
+
+  .pool-landing-pool__gallery figure:first-child {
+    grid-column: 1 / -1;
+    min-height: 340px;
+  }
+
+  .pool-landing-pool__gallery picture {
+    display: block;
+    height: 100%;
+  }
+
+  .pool-landing-faq__intro {
+    position: sticky;
+    top: 118px;
+    padding: 18px;
+    border: 1px solid rgba(36, 122, 131, 0.16);
+    border-left: 3px solid #247a83;
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(230, 248, 249, 0.72), rgba(255, 250, 241, 0.96) 48%),
+      #fffaf1;
+  }
+
+  .pool-landing-faq__intro p {
+    margin-top: 12px;
+  }
+
+  .pool-landing-faq__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pool-landing-faq article {
+    padding: 16px;
+  }
+
+  .pool-landing-faq article:first-child {
+    border-color: rgba(36, 122, 131, 0.24);
+    background: linear-gradient(180deg, rgba(230, 248, 249, 0.72), #fff);
+  }
+
+  .pool-landing-faq article p {
+    margin: 8px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .pool-landing-closing {
+    padding-top: 20px;
+  }
+
+  .pool-landing-closing__panel {
+    padding: clamp(28px, 5vw, 52px);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1d1711, #3a2b1e);
+    color: #fffaf1;
+  }
+
+  .pool-landing-closing h2,
+  .pool-landing-closing p {
+    color: #fffaf1;
+  }
+
+  .pool-landing-closing p {
+    max-width: 760px;
+    margin-top: 16px;
+    color: rgba(255, 250, 241, 0.82);
+  }
+
+  @media (max-width: 980px) {
+    .pool-landing-intro__layout,
+    .pool-landing-pool__layout,
+    .pool-landing-faq__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-facts__grid,
+    .pool-landing-stays__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-pool__copy,
+    .pool-landing-faq__intro {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pool-landing-hero {
+      min-height: 680px;
+      height: 88vh;
+    }
+
+    .pool-landing-hero__overlay {
+      background:
+        linear-gradient(180deg, rgba(13, 11, 8, 0.18), rgba(13, 11, 8, 0.78)),
+        linear-gradient(90deg, rgba(13, 11, 8, 0.42), rgba(13, 11, 8, 0.2));
+    }
+
+    .pool-landing-hero__content {
+      align-items: flex-end;
+      padding-bottom: 46px;
+    }
+
+    .pool-landing-hero__inner {
+      padding-top: 124px;
+    }
+
+    .pool-landing-hero h1 {
+      max-width: 11ch;
+      font-size: 2.52rem;
+      line-height: 1.02;
+    }
+
+    .pool-landing-hero p:not(.pool-landing__eyebrow) {
+      max-width: 32ch;
+      font-size: var(--dnd-text-body);
+      line-height: 1.55;
+    }
+
+    .pool-landing-hero__actions,
+    .pool-landing-closing__actions,
+    .pool-landing-stay-card__actions {
+      flex-direction: column;
+    }
+
+    .pool-landing__button {
+      width: 100%;
+    }
+
+    .pool-landing-intro,
+    .pool-landing-facts,
+    .pool-landing-stays,
+    .pool-landing-pool,
+    .pool-landing-faq,
+    .pool-landing-closing {
+      padding: 56px 0;
+    }
+
+    .pool-landing-intro h2,
+    .pool-landing-section-head h2,
+    .pool-landing-pool h2,
+    .pool-landing-faq h2,
+    .pool-landing-closing h2 {
+      font-size: 1.68rem;
+      line-height: 1.12;
+    }
+
+    .pool-landing-facts article,
+    .pool-landing-stay-card__body,
+    .pool-landing-faq article {
+      padding: 15px;
+    }
+
+    .pool-landing-pool__gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-pool__gallery figure,
+    .pool-landing-pool__gallery figure:first-child {
+      grid-column: auto;
+      min-height: 230px;
+    }
+
+    .pool-landing-faq__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-faq__intro {
+      padding: 15px;
+    }
+
+    .pool-landing-stay-card li {
+      font-size: var(--dnd-text-2xs);
+    }
+  }
+</style>
