@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetFromPublicPath } from "../data/images/ast
 import type { ImageAsset, GalleryImage, LocalizedText } from "../data/images/image-types";
 import type { HomepageImageMapping } from "./homepage-image-mapping";
 
-export type AccommodationPageLocale = "hu" | "en" | "de" | "cs";
+export type AccommodationPageLocale = "hu" | "en" | "de" | "cs" | "sk";
 
 export interface AccommodationHeroImage {
   src: string;
@@ -106,6 +106,29 @@ function buildCzechImageText(image: ImageAsset, kind: "alt" | "title" | "caption
   return `${name} - galerie ubytování, fotografie ${sequence}`;
 }
 
+function buildSlovakImageText(image: ImageAsset, kind: "alt" | "title" | "caption"): string {
+  const name = formatCzechAccommodationName(image.apartmentKey).replace("ubytování", "ubytovanie");
+  const sequence = String(Math.max(Math.round(image.sortOrder / 10), 1)).padStart(3, "0");
+
+  if (kind === "title") {
+    return `${name} fotografia ${sequence}`;
+  }
+
+  if (kind === "caption") {
+    return `${name} - galéria ubytovania, fotografia ${sequence}.`;
+  }
+
+  if (image.role === "hero_desktop" || image.role === "hero_mobile") {
+    return `${name} - hlavná fotografia ubytovania`;
+  }
+
+  if (image.role === "card") {
+    return `${name} - náhľadová fotografia ubytovania`;
+  }
+
+  return `${name} - galéria ubytovania, fotografia ${sequence}`;
+}
+
 function resolveImageText(
   image: ImageAsset,
   field: LocalizedText,
@@ -114,6 +137,10 @@ function resolveImageText(
 ): string {
   if (locale === "cs" && !field.cs) {
     return buildCzechImageText(image, kind);
+  }
+
+  if (locale === "sk" && !field.sk) {
+    return buildSlovakImageText(image, kind);
   }
 
   return resolveLocalizedText(field, locale);

@@ -1,7 +1,7 @@
 // [CHANGE 2026-06-06 00:00] Homepage GEO FAQ copy and FAQPage schema source added for all public languages.
 import { toAbsoluteUrl } from "./site-seo";
 
-export type HomeGeoFaqLang = "hu" | "en" | "de" | "cs";
+export type HomeGeoFaqLang = "hu" | "en" | "de" | "cs" | "sk";
 
 export interface HomeGeoFaqItem {
   question: string;
@@ -201,6 +201,52 @@ export const homeGeoFaqByLang: Record<HomeGeoFaqLang, HomeGeoFaqCopy> = {
         answer:
           "Blízko jsou cyklistika, vinařství, pláže u Balatonu a výlety na svědecké hory. Ubytování je dobré vybírat podle hlavního programu.",
         href: "/cs/zazitky/"
+      }
+    ]
+  },
+  sk: {
+    path: "/sk/",
+    inLanguage: "sk-SK",
+    kicker: "Rýchle odpovede",
+    title: "Časté otázky pred výberom ubytovania Dandelion",
+    lead: "Krátke odpovede, ak si ešte vyberáte oblasť alebo dom pre svoj pobyt.",
+    ctaLabel: "Zobraziť ubytovanie",
+    items: [
+      {
+        question: "Kde sa nachádzajú domy Dandelion?",
+        answer:
+          "Hlavné oblasti sú Kisapáti a Szent György-hegy, ubytovanie blízko Balatonu v Keszthelyi a Badacsonyörsi a pokojnejšia oblasť Káli.",
+        href: "/sk/ubytovanie/"
+      },
+      {
+        question: "Kde sa ubytovať v Kisapáti?",
+        answer:
+          "D1, D2, Zsálya a Szőlőliget sú hlavné možnosti v Kisapáti. Hodia sa k programom pri Szent György-hegy a v Tapolcai-medence.",
+        href: "/sk/ubytovanie/#balaton-uplands"
+      },
+      {
+        question: "Je ubytovanie Dandelion blízko Balatonu?",
+        answer:
+          "Áno. Royal Homes Keszthely a Szépvölgyi v Badacsonyörsi sú dobré voľby, ak je pre vás dôležitá blízkosť Balatonu.",
+        href: "/sk/ubytovanie/#near-lake-balaton"
+      },
+      {
+        question: "Ktorý dom je vhodný pre rodiny?",
+        answer:
+          "Rodiny často volia D2, Szőlőliget, Zsálya alebo pobyt spojený s atmosférou Panorama Pool, podľa veľkosti skupiny a plánov.",
+        href: "/sk/ubytovanie/"
+      },
+      {
+        question: "Kde je pokojnejší pobyt?",
+        answer:
+          "Oblasť Káli, Köveskál a viacero domov v Kisapáti sa hodí, ak hľadáte pokojnejší pobyt v prírode.",
+        href: "/sk/ubytovanie/#kali-medence"
+      },
+      {
+        question: "Čo sa dá robiť v okolí domov?",
+        answer:
+          "Blízko sú cyklistika, vinárstva, pláže pri Balatone a výlety na svedecké vrchy. Ubytovanie je dobré vyberať podľa hlavného programu.",
+        href: "/sk/zazitky/"
       }
     ]
   }

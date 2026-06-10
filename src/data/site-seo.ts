@@ -11,28 +11,30 @@ export const SITE_DEFAULT_DESCRIPTION_DE =
   "Naturverbundene Gästehäuser im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Balaton und Káli-Becken.";
 export const SITE_DEFAULT_DESCRIPTION_CS =
   "Klidné penziony a apartmány v okolí Balatonu, u Szent György-hegy, Badacsonye, Keszthelye a v oblasti Káli.";
+export const SITE_DEFAULT_DESCRIPTION_SK =
+  "Pokojné penzióny a apartmány pri Balatone, v okolí Szent György-hegy, Badacsonyu, Keszthelyu a v oblasti Káli.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;
 
 // [CHANGE 2026-05-19 00:00] First HU-EN SEO route pairs added for sitemap and hreflang alternates.
 export const LOCALIZED_ROUTE_PAIRS = [
-  { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
-  { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
-  { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
-  { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
-  { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/" },
-  { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
-  { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
-  { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
+  { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
   { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/" },
-  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/" },
-  { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/" },
-  { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/" },
-  { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/" },
-  { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/" },
-  { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/" },
-  { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/" },
-  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/" },
-  { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/" },
+  { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
   { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/" },
   { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/", cs: "/cs/ochrana-osobnich-udaju/" },
   { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/", cs: "/cs/tiraz/" }
@@ -72,6 +74,23 @@ export const SITEMAP_PATHS = [
   "/cs/obchodni-podminky/",
   "/cs/ochrana-osobnich-udaju/",
   "/cs/tiraz/",
+  "/sk/",
+  "/sk/kontakt/",
+  "/sk/ubytovanie/",
+  "/sk/zazitky/",
+  "/sk/dandelion-d1/",
+  "/sk/dandelion-d2/",
+  "/sk/dandelion-fugehaz/",
+  "/sk/dandelion-zsalya/",
+  "/sk/szololiget/",
+  "/sk/szepvolgyi/",
+  "/sk/royal/",
+  "/sk/dandelion-vintage/",
+  "/sk/dandelion-koveskal/",
+  "/sk/pozicovna-bicyklov/",
+  "/sk/vinarstva/",
+  "/sk/balaton/",
+  "/sk/svedecke-vrchy/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",
@@ -157,7 +176,8 @@ export function getLocalizedRouteAlternates(pathname: string) {
       pair.hu === normalizedPath ||
       pair.en === normalizedPath ||
       pair.de === normalizedPath ||
-      pair.cs === normalizedPath
+      pair.cs === normalizedPath ||
+      pair.sk === normalizedPath
   );
 
   if (!routePair) {
@@ -169,6 +189,7 @@ export function getLocalizedRouteAlternates(pathname: string) {
     { hreflang: "en", path: routePair.en },
     ...(routePair.de ? [{ hreflang: "de", path: routePair.de }] : []),
     ...(routePair.cs ? [{ hreflang: "cs", path: routePair.cs }] : []),
+    ...(routePair.sk ? [{ hreflang: "sk", path: routePair.sk }] : []),
     { hreflang: "x-default", path: routePair.hu }
   ];
 }

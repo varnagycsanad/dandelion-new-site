@@ -1,6 +1,6 @@
 ---
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs";
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
 
 const { lang = "hu" } = Astro.props as Props;
@@ -170,6 +170,47 @@ const copyByLang = {
         source: "Booking.com",
         logoSrc: `${baseHref}images/brand/booking-logo.svg`,
         quote: "Perfektní pro odpočinkové dny: klidné místo, přátelští hostitelé a pohodlné ubytování.",
+        meta: "Angelika · Booking.com · 9,0/10"
+      }
+    ]
+  },
+  sk: {
+    kicker: "Hodnotenia hostí",
+    title: "Čo hovoria hostia",
+    intro: "Skutočné hodnotenia z Google a Booking.com",
+    googleLogoAlt: "Hodnotenie Google",
+    bookingLogoAlt: "Hodnotenie Booking.com",
+    moreLabel: "Ďalšie hodnotenia",
+    googleLinkLabel: "Hodnotenia Google",
+    reviews: [
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Idylické prostredie, milí hostitelia, veľa priestoru pre deti a pokojná atmosféra.",
+        meta: "Vanessa L. · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Dom mal všetko, čo sme potrebovali, a radi ho odporúčame na pár pokojných dní.",
+        meta: "Ildiko Barna · Google · 5/5"
+      },
+      {
+        source: "Google",
+        logoSrc: googleLogoSrc,
+        quote: "Pekné, upravené miesto v tichom prostredí a bezproblémový príchod. Ideálne na oddych.",
+        meta: "Eszter K. · Google · 5/5"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Veľmi pozitívna skúsenosť, rýchle odpovede a naozaj ochotní hostitelia.",
+        meta: "Bernadett · Booking.com · 10/10"
+      },
+      {
+        source: "Booking.com",
+        logoSrc: `${baseHref}images/brand/booking-logo.svg`,
+        quote: "Výborné na oddychové dni: pokojné miesto, priateľskí hostitelia a pohodlné ubytovanie.",
         meta: "Angelika · Booking.com · 9,0/10"
       }
     ]

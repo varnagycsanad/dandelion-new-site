@@ -1,6 +1,6 @@
 ---
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs";
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
 
 const { lang = "hu" } = Astro.props as Props;
@@ -35,6 +35,14 @@ const copyByLang = {
     text:
       "Domy Dandelion leží mezi Tapolcai pánví, oblastí Káli a západní stranou Balatonu. Na mapě rychle porovnáte, která oblast je pro vás nejvhodnější.",
     iframeTitle: "Mapa Dandelion v Balatonské vrchovině",
+    overlay: "Kliknutím aktivujete mapu"
+  },
+  sk: {
+    kicker: "Balatonská vrchovina",
+    title: "Kde nájdete naše domy?",
+    text:
+      "Domy Dandelion ležia medzi Tapolcai-medence, oblasťou Káli a západnou stranou Balatonu. Na mape rýchlo porovnáte, ktorá oblasť vám sedí najviac.",
+    iframeTitle: "Mapa Dandelion v Balatonskej vrchovine",
     overlay: "Kliknutím aktivujete mapu"
   }
 } as const;

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs";
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
 
 const { lang = "hu" } = Astro.props as Props;
@@ -24,6 +24,11 @@ const copyByLang = {
     kicker: "UBYTOVÁNÍ PODLE OBLASTI",
     text:
       "Ubytování je rozdělené podle krajiny: Tapolcai pánev a svědecké hory, domy poblíž Balatonu a klidnější vesnice oblasti Káli."
+  },
+  sk: {
+    kicker: "UBYTOVANIE PODĽA OBLASTI",
+    text:
+      "Ubytovanie je rozdelené podľa krajiny: Tapolcai-medence a svedecké vrchy, domy pri Balatone a pokojnejšie dediny oblasti Káli."
   }
 } as const;
 const copy = copyByLang[lang];

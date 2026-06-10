@@ -1,0 +1,387 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { accommodationSections, accommodations } from "../../data/accommodations";
+import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
+import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
+
+type SectionKey = (typeof accommodationSections)[number]["key"];
+
+interface SlovakStayCopy {
+  name: string;
+  location: string;
+  description: string;
+  facts: string[];
+  imageAlt: string;
+}
+
+const title = "Ubytovanie v Balatonskej vrchovine | Dandelion";
+const description =
+  "Vyberte si pokojné penzióny a apartmány pri Szent György-hegy, Badacsonyi, Kisapáti, Keszthelyi a v Balatonskej vrchovine.";
+const imageMapping = await readHomepageImageMapping();
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+
+const sectionCopy: Record<SectionKey, { eyebrow: string; title: string; subtitle: string; audienceText: string; anchorId: string }> = {
+  upland: {
+    eyebrow: "Szent György-hegy · Tapolcai-medence · Kisapáti · Nemesgulács",
+    title: "Okolo svedeckých vrchov",
+    subtitle:
+      "Kisapáti, Nemesgulács a okolie Szent György-hegy sa hodia, ak hľadáte dom vo svahu, výhľady, záhradu a ľahko dostupné výlety.",
+    audienceText: "Pre vrchy, výhľady, rodiny a pobyt s priateľmi.",
+    anchorId: "balaton-uplands"
+  },
+  shore: {
+    eyebrow: "Keszthely · Badacsonyörs · Balaton",
+    title: "Jednoduché dni pri Balatone",
+    subtitle:
+      "Keszthely a Badacsonyörs sú dobrá voľba, keď je pre vás dôležitejšia blízkosť Balatonu, pláže a pohodlné programy pri vode.",
+    audienceText: "Pre breh Balatonu, pláže a balatonské programy.",
+    anchorId: "near-lake-balaton"
+  },
+  kali: {
+    eyebrow: "Köveskál · Káli-medence · pokojná dedina",
+    title: "Tichšia strana oblasti Káli",
+    subtitle:
+      "Köveskál je pomalšia a tichšia voľba: dedinské prostredie, prechádzky v Káli-medence, vinárstva a striedmejší oddych.",
+    audienceText: "Pre ticho, dedinské prostredie a výlety v Káli-medence.",
+    anchorId: "kali-medence"
+  }
+};
+
+const stayCopy: Record<string, SlovakStayCopy> = {
+  "dandelion-d2": {
+    name: "Dandelion D2",
+    location: "Kisapáti / Balatonská vrchovina",
+    description: "Rodinný apartmán v Kisapáti s veľkou záhradou, krytou terasou a letným prístupom k Panorama Pool.",
+    facts: ["4-6 hostí", "2 spálne + obývačka", "Panorama Pool", "Klimatizácia"],
+    imageAlt: "Dandelion D2 vidiecke ubytovanie pri Szent György-hegy"
+  },
+  fugehaz: {
+    name: "Dandelion Fügeház",
+    location: "Pri Szent György-hegy",
+    description: "Penzión blízko vrchu s terasami, výhľadmi a pokojnými vonkajšími priestormi.",
+    facts: ["4-6 hostí", "2 podlažia", "Panorama Pool", "Výhľad"],
+    imageAlt: "Dandelion Fügeház penzión pri Szent György-hegy"
+  },
+  "dandelion-d1": {
+    name: "Dandelion D1",
+    location: "Kisapáti / Balatonská vrchovina",
+    description: "Priestranný dom pre väčšie rodiny alebo priateľov, s terasou a letným prístupom k Panorama Pool.",
+    facts: ["6-8 hostí", "3 spálne", "Panorama Pool", "Terasa"],
+    imageAlt: "Dandelion D1 priestranný vidiecky penzión v Kisapáti"
+  },
+  "szololiget-vendeghaz": {
+    name: "Dandelion Szőlőliget",
+    location: "Kisapáti / Szent György-hegy",
+    description: "Samostatný dom s veľkou terasou a výhľadom smerom na Csobánc, vhodný na pokojnejšie dni vo svahu.",
+    facts: ["2-4 hostia", "Terasa", "Panoráma", "Klimatizácia"],
+    imageAlt: "Dandelion Szőlőliget ubytovanie pri Szent György-hegy"
+  },
+  "zsalya-vendeghaz": {
+    name: "Dandelion Zsálya",
+    location: "Szent György-hegy / Kisapáti",
+    description: "Samostatný penzión v Kisapáti s krytou terasou a výhľadom na svedecké vrchy.",
+    facts: ["2-4 hostia", "2 spálne", "Krytá terasa", "Panoráma"],
+    imageAlt: "Dandelion Zsálya s krytou terasou pri Szent György-hegy"
+  },
+  "vintage-vendeghaz": {
+    name: "Dandelion Vintage",
+    location: "Nemesgulács / Balatonská vrchovina",
+    description: "Penzión v Nemesgulácsi s vlastným dvorom a dvoma spálňami, praktická voľba pre balatonské programy.",
+    facts: ["Penzión", "2 spálne", "Vlastný dvor", "Klimatizácia"],
+    imageAlt: "Dandelion Vintage vidiecky penzión v Nemesgulácsi"
+  },
+  "royal-homes": {
+    name: "Dandelion Royal Homes",
+    location: "Keszthely / Balaton",
+    description: "Moderný apartmán v Keszthelyi pre 4-6 hostí s veľkou terasou a prostredím pri vode.",
+    facts: ["4-6 hostí", "Balaton", "Keszthely", "Terasa"],
+    imageAlt: "Dandelion Royal Homes apartmán pri Balatone v Keszthelyi"
+  },
+  "szepvolgyi-vendeghaz": {
+    name: "Dandelion Szépvölgyi",
+    location: "Badacsonyörs / Szépvölgyi út",
+    description: "Dom v Badacsonyörsi pre väčšie skupiny, so štyrmi spálňami, výhľadom na Balaton a plážami autom nablízku.",
+    facts: ["8 hostí", "4 spálne", "Balatonská panoráma", "Veľká záhrada"],
+    imageAlt: "Dandelion Szépvölgyi priestranný dom v Badacsonyörsi"
+  },
+  "dandelion-koveskal": {
+    name: "Dandelion Köveskál",
+    location: "Köveskál / Káli-medence",
+    description: "Pokojný penzión v Köveskáli, blízko dedín, prechádzok a vinárstiev v Káli-medence.",
+    facts: ["Penzión", "Köveskál", "Káli-medence", "Pokojná dedina"],
+    imageAlt: "Dandelion Köveskál pokojný vidiecky penzión v Káli-medence"
+  }
+};
+
+const sections = accommodationSections.map((section) => ({
+  ...sectionCopy[section.key],
+  key: section.key,
+  stays: accommodations
+    .filter((stay) => stay.section === section.key && stayCopy[stay.slug])
+    .map((stay) => ({
+      ...stayCopy[stay.slug],
+      slug: stay.slug,
+      image: imageMapping[stay.imageSlot]
+    }))
+})).filter((section) => section.stays.length > 0);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${toAbsoluteUrl("/sk/ubytovanie/")}#collection`,
+  name: title,
+  url: toAbsoluteUrl("/sk/ubytovanie/"),
+  inLanguage: "sk-SK",
+  description,
+  isPartOf: { "@id": `${toAbsoluteUrl("/sk/")}#website` },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: sections.flatMap((section, sectionIndex) =>
+      section.stays.map((stay, stayIndex) => ({
+        "@type": "ListItem",
+        position: sectionIndex * 10 + stayIndex + 1,
+        name: stay.name
+      }))
+    )
+  },
+  provider: {
+    "@type": "LodgingBusiness",
+    name: SITE_NAME,
+    url: toAbsoluteUrl("/")
+  }
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/sk/ubytovanie/" lang="sk" ogLocale="sk_SK" structuredData={structuredData}>
+  <section class="sk-stays">
+    <div class="dnd-container sk-stays__inner">
+      <header class="sk-stays__hero">
+        <p>Ubytovanie</p>
+        <h1>Vyberte si dom podľa oblasti a rytmu pobytu.</h1>
+        <a href={englishBookingHref} target="_blank" rel="noopener noreferrer">Overiť dostupnosť</a>
+      </header>
+
+      <nav class="sk-stays__regions" aria-label="Oblasti ubytovania">
+        {sections.map((section) => (
+          <a href={`#${section.anchorId}`}>
+            <span>{section.eyebrow}</span>
+            <strong>{section.title}</strong>
+          </a>
+        ))}
+      </nav>
+
+      <section id="pool" class="sk-stays__pool">
+        <p>Panorama Pool</p>
+        <h2>D1, D2 a Fügeház majú od 15. júna 2026 prístup k Panorama Pool.</h2>
+      </section>
+
+      {sections.map((section) => (
+        <section id={section.anchorId} class="sk-stays__section">
+          <div class="sk-stays__section-head">
+            <p>{section.eyebrow}</p>
+            <h2>{section.title}</h2>
+            <span>{section.subtitle}</span>
+          </div>
+
+          <div class="sk-stays__grid">
+            {section.stays.map((stay) => (
+              <article class="sk-stay-card">
+                <figure>
+                  {stay.image?.astroSrc ? (
+                    <Image src={stay.image.astroSrc} alt={stay.imageAlt} loading="lazy" />
+                  ) : stay.image ? (
+                    <img src={stay.image.sourceUrl} alt={stay.imageAlt} loading="lazy" />
+                  ) : (
+                    <div class="sk-stay-card__placeholder">{stay.name}</div>
+                  )}
+                </figure>
+                <div>
+                  <h3>{stay.name}</h3>
+                  <p class="sk-stay-card__location">{stay.location}</p>
+                  <p>{stay.description}</p>
+                  <ul>
+                    {stay.facts.map((fact) => <li>{fact}</li>)}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sk-stays {
+    padding: 132px 0 82px;
+    background: linear-gradient(180deg, #f8f2e8 0%, #fdfbf7 48%, #ffffff 100%);
+  }
+
+  .sk-stays__inner {
+    display: grid;
+    gap: 28px;
+  }
+
+  .sk-stays__hero {
+    display: grid;
+    gap: 14px;
+    max-width: 780px;
+  }
+
+  .sk-stays__hero p,
+  .sk-stays__section-head p,
+  .sk-stays__pool p {
+    margin: 0;
+    color: #9b6a1d;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .sk-stays h1,
+  .sk-stays h2,
+  .sk-stays h3 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .sk-stays h1 {
+    max-width: 14ch;
+    font-size: clamp(2.35rem, 5vw, 4.6rem);
+  }
+
+  .sk-stays__hero a {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: #d99e2b;
+    color: #1f170f;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .sk-stays__regions,
+  .sk-stays__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .sk-stays__regions a,
+  .sk-stays__pool,
+  .sk-stay-card {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.06);
+  }
+
+  .sk-stays__regions a {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sk-stays__regions span,
+  .sk-stays__section-head span,
+  .sk-stay-card p,
+  .sk-stay-card li {
+    color: rgba(38, 29, 22, 0.76);
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .sk-stays__pool {
+    display: grid;
+    gap: 10px;
+    padding: 22px;
+    background: #fdf7eb;
+  }
+
+  .sk-stays__section {
+    display: grid;
+    gap: 16px;
+    scroll-margin-top: 120px;
+  }
+
+  .sk-stays__section-head {
+    display: grid;
+    gap: 8px;
+    max-width: 760px;
+    text-align: left;
+  }
+
+  .sk-stay-card {
+    overflow: hidden;
+  }
+
+  .sk-stay-card figure {
+    height: 240px;
+    margin: 0;
+    background: #ded6c8;
+  }
+
+  .sk-stay-card :global(img),
+  .sk-stay-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sk-stay-card > div {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .sk-stay-card__location {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .sk-stay-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sk-stay-card li {
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: #f5efe5;
+  }
+
+  .sk-stay-card__placeholder {
+    display: grid;
+    height: 100%;
+    place-items: center;
+    color: rgba(38, 29, 22, 0.64);
+  }
+
+  @media (max-width: 900px) {
+    .sk-stays__regions,
+    .sk-stays__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sk-stays h1 {
+      font-size: 2.35rem;
+    }
+  }
+</style>

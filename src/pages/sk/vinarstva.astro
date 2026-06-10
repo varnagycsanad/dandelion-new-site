@@ -1,0 +1,46 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+---
+
+<CzechExperiencePage
+  lang="sk"
+  title="Vinárstva a degustácie pri Badacsonyi | Dandelion"
+  description="Vinárske terasy, pivnice a pomalé večery okolo Szent György-hegy, Badacsonyu a domov Dandelion."
+  canonicalPath="/sk/vinarstva/"
+  breadcrumbName="Vinárstva"
+  eyebrow="Víno a panoráma"
+  heading="Vinice, terasy a pomalé večery pri Badacsonyi."
+  lead={[
+    "Okolo domov Dandelion je víno súčasťou krajiny. Szent György-hegy, Badacsony a okolité kopce spájajú vinice, výhľady a pokojné tempo.",
+    "Najlepší zážitok nevzniká zo zhonu. Stačí krátka prechádzka, jedna dobrá terasa, západ slnka a rozumný návrat."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Vinice na Szent György-hegy v Balatonskej vrchovine"
+  supportImage={supportImage}
+  supportAlt="Svedecké vrchy a vinárska krajina okolo Badacsonyu"
+  supportTitle="Začnite výhľadom a potom vyberte zastávku"
+  supportText="Niekto hľadá tichú pivnicu na kopci, niekto živšiu badacsonyskú terasu s večerou. Obe možnosti patria k regiónu."
+  highlights={["vinice Szent György-hegy", "Badacsony a balatonské výhľady", "pomalé popoludnie", "vhodné pre páry aj priateľov"]}
+  primaryLink={{ label: "Ubytovanie", href: "/sk/ubytovanie/" }}
+  secondaryLink={{ label: "Zážitky", href: "/sk/zazitky/" }}
+  sections={[
+    {
+      title: "Kam za vínom",
+      cards: [
+        { title: "Szent György-hegy", body: "Pokojnejší vinársky smer s menšími cestami, vinicami, výhľadmi a prírodnou atmosférou." },
+        { title: "Badacsony", body: "Viac reštaurácií, terás a letného pohybu. Dobré na večer s jedlom a výhľadom na Balaton." },
+        { title: "Folly a okolie", body: "Kombinácia záhrady, výhľadu, vinárstva a ľahšieho programu na pokojnejší deň." }
+      ]
+    },
+    {
+      title: "Pred odchodom",
+      cards: [
+        { title: "Overte otváracie hodiny", body: "Degustácie, stoly a otváracie hodiny sa menia podľa sezóny." },
+        { title: "Plánujte dopravu", body: "Po degustácii je potrebné mať zodpovedný plán návratu." },
+        { title: "Menej zastávok, lepší deň", body: "Dve dobre vybrané zastávky často fungujú lepšie než dlhý zoznam miest." }
+      ]
+    }
+  ]}
+/>

@@ -2,7 +2,7 @@
 import { panoramaPoolImages } from "../data/images/panorama-pool-images";
 
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs";
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
 
 const { lang = "hu" } = Astro.props as Props;
@@ -52,6 +52,16 @@ const copyByLang = {
       "Od 15. června 2026 mohou hosté D1, D2 a Fügeház využívat panoramatický bazén na kopci vedle domů: klidné místo na koupání, slunce a výhled na svědecké hory.",
     ctaLabel: "Zobrazit bazén",
     href: "/cs/panorama-pool/",
+    imageAlt: poolHighlightImage.altEn,
+    imageTitle: poolHighlightImage.titleEn
+  },
+  sk: {
+    kicker: "NOVÉ OD ROKU 2026",
+    title: "Panorama Pool na svahu Szent György-hegy",
+    text:
+      "Od 15. júna 2026 môžu hostia D1, D2 a Fügeház využívať panoramatický bazén na kopci pri domoch: pokojné miesto na kúpanie, slnko a výhľad na svedecké vrchy.",
+    ctaLabel: "Zobraziť bazén",
+    href: "/sk/ubytovanie/#pool",
     imageAlt: poolHighlightImage.altEn,
     imageTitle: poolHighlightImage.titleEn
   }

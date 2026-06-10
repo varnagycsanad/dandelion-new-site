@@ -10,6 +10,7 @@ const { lang = "hu" } = Astro.props as Props;
 const isEnglishFooter = lang === "en";
 const isGermanFooter = lang === "de";
 const isCzechFooter = lang === "cs";
+const isSlovakFooter = lang === "sk";
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
@@ -173,7 +174,46 @@ const czechFooterStayColumns = [
     .filter((stay): stay is { label: string; href: string } => Boolean(stay))
 );
 
-const bookingLanguage = isEnglishFooter || isGermanFooter || isCzechFooter ? "En" : "Hu";
+const slovakStayLabelOverrides: Record<string, string> = {
+  fugehaz: "Dandelion Fügeház",
+  "zsalya-vendeghaz": "Dandelion Zsálya",
+  "szololiget-vendeghaz": "Dandelion Szőlőliget",
+  "szepvolgyi-vendeghaz": "Dandelion Szépvölgyi",
+  "vintage-vendeghaz": "Dandelion Vintage"
+};
+
+const slovakStayHrefOverrides: Record<string, string> = {
+  "dandelion-d1": `${homeHref}sk/dandelion-d1/`,
+  "dandelion-d2": `${homeHref}sk/dandelion-d2/`,
+  fugehaz: `${homeHref}sk/dandelion-fugehaz/`,
+  "zsalya-vendeghaz": `${homeHref}sk/dandelion-zsalya/`,
+  "szololiget-vendeghaz": `${homeHref}sk/szololiget/`,
+  "szepvolgyi-vendeghaz": `${homeHref}sk/szepvolgyi/`,
+  "royal-homes": `${homeHref}sk/royal/`,
+  "vintage-vendeghaz": `${homeHref}sk/dandelion-vintage/`,
+  "dandelion-koveskal": `${homeHref}sk/dandelion-koveskal/`
+};
+
+const slovakFooterStayBySlug = new Map(
+  accommodations.map((stay) => [
+    stay.slug,
+    {
+      label: slovakStayLabelOverrides[stay.slug] ?? footerStayLabelOverrides[stay.slug] ?? stay.name,
+      href: slovakStayHrefOverrides[stay.slug] ?? `${homeHref}sk/ubytovanie/#${stay.slug}`
+    }
+  ])
+);
+
+const slovakFooterStayColumns = [
+  ["dandelion-d1", "dandelion-d2", "fugehaz", "szololiget-vendeghaz"],
+  ["zsalya-vendeghaz", "vintage-vendeghaz", "royal-homes", "szepvolgyi-vendeghaz", "dandelion-koveskal"]
+].map((column) =>
+  column
+    .map((slug) => slovakFooterStayBySlug.get(slug))
+    .filter((stay): stay is { label: string; href: string } => Boolean(stay))
+);
+
+const bookingLanguage = isEnglishFooter || isGermanFooter || isCzechFooter || isSlovakFooter ? "En" : "Hu";
 const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const resolvedBookingHref = bookingHref;
 const englishFooterNav = [
@@ -186,7 +226,8 @@ const englishLanguageLinks = [
   { label: "HU", href: homeHref },
   { label: "EN", href: `${homeHref}en/` },
   { label: "DE", href: `${homeHref}de/` },
-  { label: "CZ", href: `${homeHref}cs/` }
+  { label: "CZ", href: `${homeHref}cs/` },
+  { label: "SK", href: `${homeHref}sk/` }
 ];
 const englishLegalLinks = [
   { label: "Terms and Conditions", href: `${homeHref}en/terms-and-conditions/` },
@@ -203,7 +244,8 @@ const germanLanguageLinks = [
   { label: "HU", href: homeHref },
   { label: "EN", href: `${homeHref}en/` },
   { label: "DE", href: `${homeHref}de/` },
-  { label: "CZ", href: `${homeHref}cs/` }
+  { label: "CZ", href: `${homeHref}cs/` },
+  { label: "SK", href: `${homeHref}sk/` }
 ];
 const germanLegalLinks = [
   { label: "AGB", href: `${homeHref}de/agb/` },
@@ -220,14 +262,78 @@ const czechLanguageLinks = [
   { label: "HU", href: homeHref },
   { label: "EN", href: `${homeHref}en/` },
   { label: "DE", href: `${homeHref}de/` },
-  { label: "CZ", href: `${homeHref}cs/` }
+  { label: "CZ", href: `${homeHref}cs/` },
+  { label: "SK", href: `${homeHref}sk/` }
 ];
 const czechLegalLinks = [
   { label: "Obchodní podmínky", href: `${homeHref}cs/obchodni-podminky/` },
   { label: "Ochrana osobních údajů", href: `${homeHref}cs/ochrana-osobnich-udaju/` },
   { label: "Tiráž", href: `${homeHref}cs/tiraz/` }
 ];
+const slovakFooterNav = [
+  { label: "Úvod", href: `${homeHref}sk/` },
+  { label: "Ubytovanie", href: `${homeHref}sk/ubytovanie/` },
+  { label: "Zážitky", href: `${homeHref}sk/zazitky/` },
+  { label: "Kontakt", href: `${homeHref}sk/kontakt/` }
+];
+const slovakLanguageLinks = [
+  { label: "HU", href: homeHref },
+  { label: "EN", href: `${homeHref}en/` },
+  { label: "DE", href: `${homeHref}de/` },
+  { label: "CZ", href: `${homeHref}cs/` },
+  { label: "SK", href: `${homeHref}sk/` }
+];
 ---
+
+{isSlovakFooter && (
+  <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+    <div class="dnd-container dnd-site-footer__inner">
+      <div class="dnd-site-footer__brand">
+        <a href={`${homeHref}sk/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytovanie úvod">
+          Dandelion ubytovanie
+        </a>
+        <p id="site-footer-title">Pokojné penzióny a apartmány pri Balatone a v Balatonskej vrchovine.</p>
+      </div>
+
+      <nav class="dnd-site-footer__group dnd-site-footer__group--stays" aria-label="Ubytovanie">
+        <h2>Ubytovanie</h2>
+        <div class="dnd-site-footer__stay-columns">
+          {slovakFooterStayColumns.map((column) => (
+            <ul>
+              {column.map((stay) => (
+                <li><a href={stay.href}>{stay.label}</a></li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Užitočné odkazy">
+        <h2>Užitočné odkazy</h2>
+        <ul>
+          {slovakFooterNav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+          <li><a href={resolvedBookingHref}>Overiť dostupnosť</a></li>
+          <li><a href={resolvedBookingHref}>Rezervácia</a></li>
+        </ul>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Jazyky">
+        <h2>Jazyky</h2>
+        <ul>
+          {slovakLanguageLinks.map((item) => (
+            <li class="dnd-site-footer__language-link"><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dnd-container dnd-site-footer__bottom">
+      <span>© Dandelion ubytovanie</span>
+    </div>
+  </footer>
+)}
 
 {isCzechFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
@@ -347,7 +453,7 @@ const czechLegalLinks = [
   </footer>
 )}
 
-{!isGermanFooter && !isCzechFooter && (
+{!isGermanFooter && !isCzechFooter && !isSlovakFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">

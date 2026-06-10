@@ -1,0 +1,177 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import bikingImageAsset from "../../assets/home/experiences/dandelion-home-experience-bike-01-optimized.webp";
+import wineImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
+import balatonImage from "../../assets/experiences/balaton-shore.jpg";
+import mountainsImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import { toAbsoluteUrl } from "../../data/site-seo";
+import { buildVideoObject } from "../../data/video-seo";
+
+const heroVideo = "/videos/elmenyek/hero/elmenyek-hero-0516.mp4?v=20260520-faststart";
+const heroMobileVideo = "/videos/elmenyek/hero/elmenyek-hero-0516-mobile-lite.mp4?v=20260606-mobile-lite";
+const heroPoster = mountainsImage.src;
+
+const experiences = [
+  {
+    eyebrow: "Aktívne dni",
+    title: "Bicykle",
+    description: "Pokojné dedinské okruhy, vinárske cesty a pomalé výlety Balatonskou vrchovinou.",
+    highlights: ["kratšie trasy aj celodenný plán", "klasické bicykle a možnosť e-biku"],
+    image: bikingImageAsset,
+    imageAlt: "Bicykel v prírodnom prostredí Balatonskej vrchoviny",
+    ctaLabel: "Bicykle",
+    href: "/sk/pozicovna-bicyklov/"
+  },
+  {
+    eyebrow: "Víno a panoráma",
+    title: "Vinárstva",
+    description: "Pivnice, terasy a pomalé popoludnia okolo Szent György-hegy a Badacsonyu.",
+    highlights: ["vinárske pivnice", "západ slnka s výhľadom"],
+    image: wineImage,
+    imageAlt: "Vinica na Szent György-hegy v Balatonskej vrchovine",
+    ctaLabel: "Vinárstva",
+    href: "/sk/vinarstva/"
+  },
+  {
+    eyebrow: "Dni pri vode",
+    title: "Balaton",
+    description: "Pláže, prechádzky pri vode a letné programy v krátkej dojazdovej vzdialenosti.",
+    highlights: ["pláže nablízku", "nápady na kajak, kanoe a SUP"],
+    image: balatonImage,
+    imageAlt: "Kamenistý breh Balatonu v letnom svetle",
+    ctaLabel: "Balaton",
+    href: "/sk/balaton/"
+  },
+  {
+    eyebrow: "Príroda",
+    title: "Svedecké vrchy",
+    description: "Vyhliadky, kratšie prechádzky a pokojné trasy okolo sopečných vrchov regiónu.",
+    highlights: ["vyhliadkové miesta", "trasy pri západe slnka"],
+    image: mountainsImage,
+    imageAlt: "Dronový pohľad na svedecké vrchy a Tapolcai-medence",
+    ctaLabel: "Vrchy",
+    href: "/sk/svedecke-vrchy/"
+  }
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Úvod", item: toAbsoluteUrl("/sk/") },
+      { "@type": "ListItem", position: 2, name: "Zážitky", item: toAbsoluteUrl("/sk/zazitky/") }
+    ]
+  },
+  buildVideoObject({
+    id: "/sk/zazitky/#hero-video",
+    name: "Dandelion zážitky hero video",
+    description: "Hero video predstavujúce cyklistiku, vinárstva, Balaton a výlety v okolí Dandelion.",
+    contentUrl: heroVideo,
+    thumbnailUrl: heroPoster,
+    uploadDate: "2026-05-20T00:00:00+02:00",
+    inLanguage: "sk-SK"
+  })
+];
+---
+
+<BaseLayout
+  title="Zážitky pri Balatone | Dandelion ubytovanie"
+  description="Bicykle, vinárstva, pláže Balatonu a prechádzky po svedeckých vrchoch v okolí ubytovania Dandelion."
+  canonicalPath="/sk/zazitky/"
+  lang="sk"
+  ogLocale="sk_SK"
+  structuredData={structuredData}
+  headerMode="transparent"
+>
+  <section class="experiences-page">
+    <section class="experiences-hero">
+      <video class="experiences-hero__video" poster={heroPoster} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+        <source src={heroMobileVideo} media="(max-width: 767px)" type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
+        Váš prehliadač nepodporuje prehrávanie videa na pozadí.
+      </video>
+      <div class="experiences-hero__content">
+        <div class="dnd-container experiences-hero__inner">
+          <div class="experiences-hero__headline">
+            <span class="experiences-page__eyebrow">Región a programy</span>
+            <h1>Vyberte náladu dňa a naplánujte ju od svojho domu.</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dnd-container experiences-page__inner">
+      <section class="experiences-page__intro">
+        <p class="experiences-page__lead">
+          Domy Dandelion ležia medzi Balatonom, Szent György-hegy a Balatonskou vrchovinou.
+          Niektoré dni patria bicyklu, iné vínu, pláži alebo krátkej prechádzke po vrchoch.
+        </p>
+      </section>
+
+      <section class="experiences-page__grid" aria-label="Vybrané zážitky">
+        {experiences.map((item) => (
+          <article class="experience-card">
+            <div class="experience-card__media">
+              <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+            </div>
+            <div class="experience-card__body">
+              <span class="experience-card__eyebrow">{item.eyebrow}</span>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+              <ul class="experience-card__highlights" aria-label={`${item.title} prehľad`}>
+                {item.highlights.map((highlight) => <li>{highlight}</li>)}
+              </ul>
+              <a class="experience-card__cta" href={item.href}>{item.ctaLabel}</a>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section class="experiences-page__cta-panel">
+        <h2>Vybrať dom podľa plánu dňa?</h2>
+        <p>Prejdite si slovenský prehľad ubytovania a vyberte krajinu, ktorá sedí vášmu rytmu.</p>
+        <div class="experiences-page__cta-actions">
+          <a href="/sk/ubytovanie/" class="experiences-page__cta-primary">Zobraziť ubytovanie</a>
+          <a href="/sk/" class="experiences-page__cta-secondary">Späť na úvod</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .experiences-page { padding-bottom: 88px; background: radial-gradient(circle at top left, rgba(215,188,127,.16), transparent 34%), linear-gradient(180deg,#fcfbf7 0%,#f6f0e7 100%); }
+  .experiences-page__inner { display: grid; gap: 26px; margin-top: 28px; }
+  .experiences-hero { position: relative; min-height: 640px; height: 84vh; overflow: hidden; background: #171717; }
+  .experiences-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .experiences-hero__content { position: relative; z-index: 2; min-height: 100%; color: #fff; }
+  .experiences-hero__inner { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100%; max-width: none; padding: 148px clamp(48px,7vw,96px) 96px; }
+  .experiences-hero__headline { display: grid; justify-items: center; gap: 16px; width: min(100%,1040px); text-align: center; }
+  .experiences-page__eyebrow, .experience-card__eyebrow { display: inline-block; color: #a56d1f; font-size: var(--dnd-text-2xs); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .experiences-hero .experiences-page__eyebrow { color: rgba(255,255,255,.96); text-shadow: 0 1px 10px rgba(0,0,0,.18); }
+  .experiences-page h1, .experiences-page__cta-panel h2, .experience-card h2 { margin: 0; color: #261d16; font-family: var(--dnd-font-display); font-weight: 500; line-height: 1.08; }
+  .experiences-hero h1 { max-width: 32ch; font-size: clamp(2.2rem,3.35vw,3.55rem); color: #fff; text-wrap: balance; text-transform: uppercase; text-shadow: 0 2px 18px rgba(0,0,0,.2); }
+  .experiences-page__intro, .experiences-page__cta-panel { display: grid; gap: 14px; padding: 28px; border: 1px solid rgba(88,63,38,.12); border-radius: 8px; background: rgba(255,252,246,.84); box-shadow: 0 20px 56px rgba(43,28,14,.07); }
+  .experiences-page__lead, .experience-card p, .experiences-page__cta-panel p { margin: 0; color: rgba(38,29,22,.76); font-size: var(--dnd-text-body); line-height: 1.68; }
+  .experiences-page__intro { justify-items: center; text-align: center; }
+  .experiences-page__lead { max-width: 72ch; }
+  .experiences-page__grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; align-items: stretch; }
+  .experience-card { display: grid; grid-template-rows: auto 1fr; border: 1px solid rgba(88,63,38,.12); border-radius: 8px; background: rgba(255,255,255,.92); overflow: hidden; box-shadow: 0 20px 56px rgba(43,28,14,.07); }
+  .experience-card__media { overflow: hidden; }
+  .experience-card__media :global(picture), .experience-card__media :global(img) { display: block; width: 100%; height: 100%; }
+  .experience-card__media :global(img) { aspect-ratio: 1 / .88; object-fit: cover; }
+  .experience-card__body { display: grid; grid-template-rows: auto auto auto auto 1fr auto; gap: 10px; padding: 18px; }
+  .experience-card h2 { font-size: clamp(1.06rem,1.42vw,1.34rem); }
+  .experience-card__highlights { margin: 2px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; align-self: start; }
+  .experience-card__highlights li { padding: 8px 11px; border-radius: 999px; background: rgba(255,255,255,.9); border: 1px solid rgba(88,63,38,.12); color: rgba(38,29,22,.86); font-size: var(--dnd-text-md); }
+  .experience-card__cta, .experiences-page__cta-primary, .experiences-page__cta-secondary { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px; text-decoration: none; font-size: var(--dnd-text-xs); letter-spacing: .12em; text-transform: uppercase; border: 1px solid rgba(65,47,30,.4); }
+  .experience-card__cta { margin-top: 2px; width: 100%; background: #2b2016; color: #fff; border-color: #2b2016; }
+  .experiences-page__cta-actions { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .experiences-page__cta-primary { background: #fff; color: #2b2016; }
+  .experiences-page__cta-secondary { background: #2b2016; color: #fff; border-color: #2b2016; }
+  @media (max-width: 1100px) { .experiences-page__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  @media (min-width: 768px) { .experiences-hero__content { position: absolute; inset: 0; } .experiences-hero__inner { position: relative; justify-content: flex-end; height: 100%; min-height: 100%; } .experiences-hero__headline { position: absolute; left: 50%; bottom: clamp(92px,12vh,132px); width: min(calc(100% - 96px),1040px); transform: translateX(-50%); } }
+  @media (max-width: 767px) { .experiences-page { padding-bottom: 64px; } .experiences-page__inner { gap: 20px; margin-top: 20px; } .experiences-hero, .experiences-hero__content, .experiences-hero__inner { min-height: 520px; } .experiences-hero { height: auto; } .experiences-hero__inner { justify-content: center; padding: 0; } .experiences-hero h1 { max-width: 12ch; font-size: clamp(2rem,9vw,2.8rem); line-height: 1.03; } .experiences-page__intro, .experiences-page__cta-panel, .experience-card__body { padding: 16px; } .experiences-page__grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; } .experience-card__highlights { display: none; } .experience-card__cta { min-height: 40px; padding-inline: 12px; font-size: var(--dnd-text-2xs); letter-spacing: .08em; } }
+</style>

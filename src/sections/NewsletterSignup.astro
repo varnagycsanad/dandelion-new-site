@@ -1,6 +1,6 @@
 ---
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs";
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
 
 const { lang = "hu" } = Astro.props as Props;
@@ -36,6 +36,14 @@ const copyByLang = {
     aria: "Otevřít přihlášení k newsletteru",
     button: "Chci novinky",
     note: "Přihlášení se otevře v krátkém vyskakovacím okně."
+  },
+  sk: {
+    kicker: "Newsletter Dandelion",
+    title: "Ponuky, špeciálne termíny a uvoľnené pobyty e-mailom.",
+    lead: "Nenápadné novinky o sezónnych ponukách, priamej rezervácii a voľných termínoch.",
+    aria: "Otvoriť prihlásenie k newsletteru",
+    button: "Chcem novinky",
+    note: "Prihlásenie sa otvorí v krátkom vyskakovacom okne."
   }
 } as const;
 const copy = copyByLang[lang];

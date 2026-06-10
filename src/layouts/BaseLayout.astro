@@ -7,6 +7,7 @@ import {
   SITE_DEFAULT_DESCRIPTION_DE,
   SITE_DEFAULT_DESCRIPTION_EN,
   SITE_DEFAULT_DESCRIPTION_CS,
+  SITE_DEFAULT_DESCRIPTION_SK,
   SITE_DEFAULT_OG_IMAGE,
   SITE_DEFAULT_TITLE,
   SITE_NAME,
@@ -82,6 +83,7 @@ const schemaLanguage = schemaLanguageByLang[lang];
 const isEnglishPage = lang === "en";
 const isGermanPage = lang === "de";
 const isCzechPage = lang === "cs";
+const isSlovakPage = lang === "sk";
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -89,27 +91,33 @@ const emailLocalPart = "hello";
 const emailDomain = "dandelionhouse.hu";
 const contactPageHref = isCzechPage
   ? `${homeHref}cs/kontakt/`
-  : isGermanPage
-    ? `${homeHref}de/kontakt/`
-    : isEnglishPage
-      ? `${homeHref}en/contact/`
-      : `${homeHref}kapcsolat/`;
-const headerHomeHref = isCzechPage ? `${homeHref}cs/` : isGermanPage ? `${homeHref}de/` : isEnglishPage ? `${homeHref}en/` : homeHref;
+  : isSlovakPage
+    ? `${homeHref}sk/kontakt/`
+    : isGermanPage
+      ? `${homeHref}de/kontakt/`
+      : isEnglishPage
+        ? `${homeHref}en/contact/`
+        : `${homeHref}kapcsolat/`;
+const headerHomeHref = isCzechPage ? `${homeHref}cs/` : isSlovakPage ? `${homeHref}sk/` : isGermanPage ? `${homeHref}de/` : isEnglishPage ? `${homeHref}en/` : homeHref;
 const headerStaysHref = isCzechPage
   ? `${homeHref}cs/ubytovani/`
-  : isGermanPage
-    ? `${homeHref}de/unterkuenfte/`
-    : isEnglishPage
-      ? `${homeHref}en/szallasok/`
-      : `${homeHref}szallasok/`;
+  : isSlovakPage
+    ? `${homeHref}sk/ubytovanie/`
+    : isGermanPage
+      ? `${homeHref}de/unterkuenfte/`
+      : isEnglishPage
+        ? `${homeHref}en/szallasok/`
+        : `${homeHref}szallasok/`;
 const headerExperiencesHref = isCzechPage
   ? `${homeHref}cs/zazitky/`
-  : isGermanPage
-    ? `${homeHref}de/erlebnisse/`
-    : isEnglishPage
-      ? `${homeHref}en/experiences/`
-      : `${homeHref}elmenyek/`;
-const headerGalleryHref = isCzechPage ? `${homeHref}cs/` : isGermanPage ? `${homeHref}de/#gallery` : isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
+  : isSlovakPage
+    ? `${homeHref}sk/zazitky/`
+    : isGermanPage
+      ? `${homeHref}de/erlebnisse/`
+      : isEnglishPage
+        ? `${homeHref}en/experiences/`
+        : `${homeHref}elmenyek/`;
+const headerGalleryHref = isCzechPage ? `${homeHref}cs/` : isSlovakPage ? `${homeHref}sk/` : isGermanPage ? `${homeHref}de/#gallery` : isEnglishPage ? `${homeHref}en/#gallery` : homeHref;
 const headerText = isEnglishPage
   ? {
       contactAria: "Contact",
@@ -173,6 +181,27 @@ const headerText = isEnglishPage
           quickContactOpenAria: "Otevřít rychlý kontakt",
           quickContactLabel: "Kontakt"
         }
+      : isSlovakPage
+        ? {
+            contactAria: "Kontakt",
+            phoneAria: "Telefón",
+            languageAria: "Prepínač jazyka",
+            bookingLabel: "Rezervácia / Ceny",
+            bookingShortLabel: "Rezervácia",
+            bookingSmallLabel: "Overiť dostupnosť",
+            bookingAria: "Rezervácia a ceny",
+            mainNavAria: "Hlavná navigácia",
+            homeLabel: "Úvod",
+            staysLabel: "Ubytovanie",
+            experiencesLabel: "Zážitky",
+            galleryLabel: "Galéria",
+            staysSubmenuAria: "Podmenu ubytovania",
+            mobileNavAria: "Mobilná navigácia",
+            mobileStayGroupsAria: "Skupiny ubytovania",
+            menuOpenAria: "Otvoriť menu",
+            quickContactOpenAria: "Otvoriť rýchly kontakt",
+            quickContactLabel: "Kontakt"
+          }
   : {
       contactAria: "Kapcsolat",
       phoneAria: "Telefon",
@@ -210,7 +239,9 @@ const schemaScripts = [
     name: SITE_NAME,
     url: toAbsoluteUrl("/"),
     inLanguage: schemaLanguage,
-    description: isCzechPage
+    description: isSlovakPage
+      ? SITE_DEFAULT_DESCRIPTION_SK
+      : isCzechPage
       ? SITE_DEFAULT_DESCRIPTION_CS
       : isGermanPage
         ? SITE_DEFAULT_DESCRIPTION_DE
@@ -225,7 +256,7 @@ const schemaScripts = [
 ];
 
 const quickContacts = [
-  { label: isEnglishPage ? "Phone" : "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
+  { label: isEnglishPage ? "Phone" : isSlovakPage ? "Telefón" : "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
   {
     label: "E-mail",
     href: contactPageHref,
@@ -236,7 +267,7 @@ const quickContacts = [
   { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
 
-const bookingLanguage = isEnglishPage || isGermanPage || isCzechPage ? "En" : "Hu";
+const bookingLanguage = isEnglishPage || isGermanPage || isCzechPage || isSlovakPage ? "En" : "Hu";
 const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
 const bookingTarget = "_blank";
 const bookingRel = "noopener noreferrer";
@@ -429,26 +460,74 @@ const czechGroupedStayLinks = [
     ]
   }
 ];
+const slovakGroupedStayLinks = [
+  {
+    title: "Ubytovanie",
+    items: [
+      {
+        label: "Všetky ubytovania",
+        href: `${homeHref}sk/ubytovanie/`
+      },
+      {
+        label: "Dandelion D1",
+        href: `${homeHref}sk/dandelion-d1/`
+      },
+      {
+        label: "Dandelion D2",
+        href: `${homeHref}sk/dandelion-d2/`
+      },
+      {
+        label: "Dandelion Fügeház",
+        href: `${homeHref}sk/dandelion-fugehaz/`
+      },
+      {
+        label: "Dandelion Zsálya",
+        href: `${homeHref}sk/dandelion-zsalya/`
+      },
+      {
+        label: "Dandelion Szőlőliget",
+        href: `${homeHref}sk/szololiget/`
+      },
+      {
+        label: "Dandelion Royal Homes",
+        href: `${homeHref}sk/royal/`
+      },
+      {
+        label: "Dandelion Szépvölgyi",
+        href: `${homeHref}sk/szepvolgyi/`
+      },
+      {
+        label: "Dandelion Köveskál",
+        href: `${homeHref}sk/dandelion-koveskal/`
+      }
+    ]
+  }
+];
 const headerStayGroups = isEnglishPage ? englishGroupedStayLinks : groupedStayLinks;
 const localizedHeaderStayGroups = isCzechPage
   ? czechGroupedStayLinks
-  : isGermanPage
-    ? germanGroupedStayLinks
-    : headerStayGroups;
+  : isSlovakPage
+    ? slovakGroupedStayLinks
+    : isGermanPage
+      ? germanGroupedStayLinks
+      : headerStayGroups;
 
 const transparentHeaderPaths = new Set([
   "/",
   "/en/",
   "/de/",
   "/cs/",
+  "/sk/",
   "/szallasok/",
   "/en/szallasok/",
   "/de/unterkuenfte/",
   "/cs/ubytovani/",
+  "/sk/ubytovanie/",
   "/elmenyek/",
   "/en/experiences/",
   "/de/erlebnisse/",
   "/cs/zazitky/",
+  "/sk/zazitky/",
   "/elmenyek/kerekpar/",
   "/en/bike-rental/",
   "/de/fahrradverleih/",
@@ -461,6 +540,7 @@ const transparentHeaderPaths = new Set([
   "/en/lake-balaton/",
   "/de/balaton/",
   "/cs/balaton/",
+  "/sk/balaton/",
   "/elmenyek/tanuhegyek/",
   "/en/witness-hills/",
   "/de/zeugenberge/",
@@ -518,23 +598,72 @@ const isTransparentHeaderStart =
       : transparentHeaderPaths.has(normalizedCurrentPath);
 
 // [CHANGE 2026-05-19 00:00] Header language links now point only to existing Hungarian and English routes.
-const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: string; cs?: string }> = {
-  "/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
-  "/en/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
-  "/de/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
-  "/cs/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/" },
-  "/kapcsolat/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
-  "/en/contact/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
-  "/de/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
-  "/cs/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/" },
-  "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
-  "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
-  "/de/unterkuenfte/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
-  "/cs/ubytovani/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/" },
-  "/elmenyek/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
-  "/en/experiences/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
-  "/de/erlebnisse/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
-  "/cs/zazitky/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/" },
+const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: string; cs?: string; sk?: string }> = {
+  "/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  "/en/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  "/de/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  "/cs/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  "/sk/": { hu: "/", en: "/en/", de: "/de/", cs: "/cs/", sk: "/sk/" },
+  "/kapcsolat/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  "/en/contact/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  "/de/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  "/cs/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  "/sk/kontakt/": { hu: "/kapcsolat/", en: "/en/contact/", de: "/de/kontakt/", cs: "/cs/kontakt/", sk: "/sk/kontakt/" },
+  "/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  "/en/szallasok/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  "/de/unterkuenfte/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  "/cs/ubytovani/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  "/sk/ubytovanie/": { hu: "/szallasok/", en: "/en/szallasok/", de: "/de/unterkuenfte/", cs: "/cs/ubytovani/", sk: "/sk/ubytovanie/" },
+  "/elmenyek/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  "/en/experiences/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  "/de/erlebnisse/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  "/cs/zazitky/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  "/sk/zazitky/": { hu: "/elmenyek/", en: "/en/experiences/", de: "/de/erlebnisse/", cs: "/cs/zazitky/", sk: "/sk/zazitky/" },
+  "/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  "/en/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  "/de/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  "/cs/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  "/sk/dandelion-d1/": { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
+  "/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  "/en/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  "/de/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  "/cs/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  "/sk/dandelion-d2/": { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
+  "/fuge/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  "/en/dandelion-fugehaz/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  "/de/dandelion-fugehaz/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  "/cs/dandelion-fugehaz/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  "/sk/dandelion-fugehaz/": { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
+  "/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  "/en/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  "/de/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  "/cs/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  "/sk/dandelion-zsalya/": { hu: "/dandelion-zsalya/", en: "/en/dandelion-zsalya/", de: "/de/dandelion-zsalya/", cs: "/cs/dandelion-zsalya/", sk: "/sk/dandelion-zsalya/" },
+  "/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  "/en/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  "/de/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  "/cs/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  "/sk/szololiget/": { hu: "/szololiget/", en: "/en/szololiget/", de: "/de/szololiget/", cs: "/cs/szololiget/", sk: "/sk/szololiget/" },
+  "/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  "/en/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  "/de/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  "/cs/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  "/sk/szepvolgyi/": { hu: "/szepvolgyi/", en: "/en/szepvolgyi/", de: "/de/szepvolgyi/", cs: "/cs/szepvolgyi/", sk: "/sk/szepvolgyi/" },
+  "/royal/": { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  "/en/royal/": { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  "/de/royal/": { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  "/cs/royal/": { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  "/sk/royal/": { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
+  "/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  "/en/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  "/de/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  "/cs/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  "/sk/dandelion-vintage/": { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
+  "/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
+  "/en/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
+  "/de/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
+  "/cs/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
+  "/sk/dandelion-koveskal/": { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
   "/elmenyek/kerekpar/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/" },
   "/en/bike-rental/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/" },
   "/de/fahrradverleih/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/" },
@@ -543,10 +672,26 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: strin
   "/en/wineries/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
   "/de/weingueter/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
   "/cs/vinarstvi/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/" },
-  "/elmenyek/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
-  "/en/lake-balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
-  "/de/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
-  "/cs/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/" },
+  "/elmenyek/kerekpar/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  "/en/bike-rental/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  "/de/fahrradverleih/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  "/cs/pujcovna-kol/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  "/sk/pozicovna-bicyklov/": { hu: "/elmenyek/kerekpar/", en: "/en/bike-rental/", de: "/de/fahrradverleih/", cs: "/cs/pujcovna-kol/", sk: "/sk/pozicovna-bicyklov/" },
+  "/elmenyek/bor-es-panorama/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  "/en/wineries/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  "/de/weingueter/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  "/cs/vinarstvi/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  "/sk/vinarstva/": { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
+  "/elmenyek/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  "/en/lake-balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  "/de/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  "/cs/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  "/sk/balaton/": { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
+  "/elmenyek/tanuhegyek/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
+  "/en/witness-hills/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
+  "/de/zeugenberge/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
+  "/cs/svedecne-hory/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
+  "/sk/svedecke-vrchy/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
   "/elmenyek/tanuhegyek/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
   "/en/witness-hills/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
   "/de/zeugenberge/": { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/" },
@@ -629,6 +774,11 @@ const headerLanguageLinks = [
     label: "CZ",
     href: currentLanguageRoutes.cs ? localizedHref(currentLanguageRoutes.cs) : undefined,
     active: lang === "cs"
+  },
+  {
+    label: "SK",
+    href: currentLanguageRoutes.sk ? localizedHref(currentLanguageRoutes.sk) : undefined,
+    active: lang === "sk"
   }
 ];
 const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();

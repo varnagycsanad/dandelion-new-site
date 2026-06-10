@@ -1,0 +1,46 @@
+---
+import CzechExperiencePage from "../../templates/CzechExperiencePage.astro";
+import heroImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+import supportImage from "../../assets/experiences/balaton-shore.jpg";
+---
+
+<CzechExperiencePage
+  lang="sk"
+  title="Požičovňa bicyklov pri Balatone | Dandelion"
+  description="Praktické tipy na cyklistiku a požičanie bicyklov pre hostí Dandelion v okolí Szent György-hegy a Balatonu."
+  canonicalPath="/sk/pozicovna-bicyklov/"
+  breadcrumbName="Požičovňa bicyklov"
+  eyebrow="Aktívny deň"
+  heading="Bicykle na pomalé objavovanie Balatonskej vrchoviny."
+  lead={[
+    "Okolie domov Dandelion sa dobre objavuje pomaly: cez dediny, vinice, bočné cesty a miernejšie trasy.",
+    "Bicykel nie je iba športový program. Je to spôsob, ako sa dostať k výhľadom, malým zastávkam a miestam, ktorými autom človek často len prejde."
+  ]}
+  heroImage={heroImage}
+  heroAlt="Krajina Balatonskej vrchoviny vhodná na cyklistické výlety"
+  supportImage={supportImage}
+  supportAlt="Balaton ako cieľ pomalého cyklistického dňa"
+  supportTitle="Vyberte si krátky okruh alebo celý deň vonku"
+  supportText="Pre rodiny dávajú zmysel kratšie trasy, pre aktívnejších hostí celodenný plán smerom k Balatonu, Badacsonyu alebo dedinám v okolí."
+  highlights={["pokojné bočné cesty", "vinice a dediny", "možnosť kratšieho aj dlhšieho plánu", "vhodné kombinovať s plážou alebo vínom"]}
+  primaryLink={{ label: "Vybrať ubytovanie", href: "/sk/ubytovanie/" }}
+  secondaryLink={{ label: "Späť na zážitky", href: "/sk/zazitky/" }}
+  sections={[
+    {
+      title: "Ako plánovať cyklistický deň",
+      cards: [
+        { title: "Kratší rodinný okruh", body: "Zvoľte nenáročnú trasu cez dediny a vinice, s časom na zastávky a návrat pred horúčavou." },
+        { title: "Smer Balaton", body: "Dlhší plán môže spojiť jazdu, pláž a večerný návrat cez vyhliadku alebo vinárstvo." },
+        { title: "E-bike do kopcov", body: "V kopcovitej krajine dáva elektrobicykel zmysel, najmä ak chcete viac vidieť a menej riešiť prevýšenie." }
+      ]
+    },
+    {
+      title: "Dobré vedieť",
+      cards: [
+        { title: "Overte dostupnosť", body: "Dostupnosť bicyklov a konkrétne ceny je potrebné vopred overiť, pretože sa môžu meniť podľa sezóny." },
+        { title: "Voda a slnko", body: "V lete plánujte vodu, pokrývku hlavy a prestávky. V poludňajšej horúčave je lepšie spomaliť." },
+        { title: "Bezpečný návrat", body: "Po vinárskej zastávke je dobré mať plán návratu a nepodceniť večernú viditeľnosť." }
+      ]
+    }
+  ]}
+/>
