@@ -10,9 +10,21 @@ const HUMIDITY_MIN = 0;
 const HUMIDITY_MAX = 100;
 const PRESSURE_MIN = 800;
 const PRESSURE_MAX = 1100;
+const PH_MIN = 0;
+const PH_MAX = 14;
+const SALT_CONCENTRATION_MIN = 0;
+const SALT_CONCENTRATION_MAX = 100000;
+const POOL_VOLUME_MIN = 0;
+const POOL_VOLUME_MAX = 1000;
+const ORP_MIN = 0;
+const ORP_MAX = 1200;
 const DEFAULT_AIR_TEMPERATURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_homerseklet';
 const DEFAULT_HUMIDITY_ENTITY = 'sensor.d1_pergola_kulteri_homero_paratartalom';
 const DEFAULT_PRESSURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_nyomas';
+const DEFAULT_PH_ENTITY = 'sensor.mr_pure_sensor_12';
+const DEFAULT_SALT_CONCENTRATION_ENTITY = 'sensor.mr_pure_sensor_1';
+const DEFAULT_POOL_VOLUME_ENTITY = 'sensor.mr_pure_sensor_8';
+const DEFAULT_ORP_ENTITY = 'sensor.mr_pure_sensor_orp';
 
 function send_json(int $statusCode, array $payload): void
 {
@@ -20,6 +32,25 @@ function send_json(int $statusCode, array $payload): void
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
+}
+
+function sanitize_unit($unit, string $fallback): string
+{
+    if (!is_string($unit) || trim($unit) === '') {
+        return $fallback;
+    }
+
+    $unit = trim($unit);
+    return strlen($unit) > 8 ? $fallback : $unit;
+}
+
+function sanitize_entity_id($entityId, string $fallback): string
+{
+    if (!is_string($entityId) || trim($entityId) === '') {
+        return $fallback;
+    }
+
+    return trim($entityId);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -179,6 +210,83 @@ if (!is_string($pressureSourceEntity) || trim($pressureSourceEntity) === '') {
 }
 
 $pressureSourceEntity = trim($pressureSourceEntity);
+$phPayload = $payload['ph'] ?? $payload['pH'] ?? $payload['waterPh'] ?? null;
+$hasPhPayload = $phPayload !== null && $phPayload !== '';
+$ph = $hasPhPayload ? filter_var($phPayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasPhPayload &&
+    (
+        $ph === false ||
+        $ph < PH_MIN ||
+        $ph > PH_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid pH.']);
+}
+
+$phUnit = sanitize_unit($payload['phUnit'] ?? $payload['ph_unit'] ?? '', '');
+$phSourceEntity = sanitize_entity_id($payload['phEntityId'] ?? $payload['ph_entity_id'] ?? DEFAULT_PH_ENTITY, DEFAULT_PH_ENTITY);
+$saltConcentrationPayload = $payload['saltConcentration'] ?? $payload['salt'] ?? $payload['salt_concentration'] ?? null;
+$hasSaltConcentrationPayload = $saltConcentrationPayload !== null && $saltConcentrationPayload !== '';
+$saltConcentration = $hasSaltConcentrationPayload ? filter_var($saltConcentrationPayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasSaltConcentrationPayload &&
+    (
+        $saltConcentration === false ||
+        $saltConcentration < SALT_CONCENTRATION_MIN ||
+        $saltConcentration > SALT_CONCENTRATION_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid salt concentration.']);
+}
+
+$saltConcentrationUnit = sanitize_unit(
+    $payload['saltConcentrationUnit'] ?? $payload['saltUnit'] ?? $payload['salt_concentration_unit'] ?? 'g/l',
+    'g/l'
+);
+$saltConcentrationSourceEntity = sanitize_entity_id(
+    $payload['saltConcentrationEntityId'] ?? $payload['saltEntityId'] ?? $payload['salt_concentration_entity_id'] ?? DEFAULT_SALT_CONCENTRATION_ENTITY,
+    DEFAULT_SALT_CONCENTRATION_ENTITY
+);
+$poolVolumePayload = $payload['poolVolume'] ?? $payload['volume'] ?? $payload['pool_volume'] ?? null;
+$hasPoolVolumePayload = $poolVolumePayload !== null && $poolVolumePayload !== '';
+$poolVolume = $hasPoolVolumePayload ? filter_var($poolVolumePayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasPoolVolumePayload &&
+    (
+        $poolVolume === false ||
+        $poolVolume < POOL_VOLUME_MIN ||
+        $poolVolume > POOL_VOLUME_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid pool volume.']);
+}
+
+$poolVolumeUnit = sanitize_unit($payload['poolVolumeUnit'] ?? $payload['volumeUnit'] ?? $payload['pool_volume_unit'] ?? 'm³', 'm³');
+$poolVolumeSourceEntity = sanitize_entity_id(
+    $payload['poolVolumeEntityId'] ?? $payload['volumeEntityId'] ?? $payload['pool_volume_entity_id'] ?? DEFAULT_POOL_VOLUME_ENTITY,
+    DEFAULT_POOL_VOLUME_ENTITY
+);
+$orpPayload = $payload['orp'] ?? $payload['ORP'] ?? $payload['waterOrp'] ?? null;
+$hasOrpPayload = $orpPayload !== null && $orpPayload !== '';
+$orp = $hasOrpPayload ? filter_var($orpPayload, FILTER_VALIDATE_FLOAT) : null;
+
+if (
+    $hasOrpPayload &&
+    (
+        $orp === false ||
+        $orp < ORP_MIN ||
+        $orp > ORP_MAX
+    )
+) {
+    send_json(422, ['error' => 'Invalid ORP.']);
+}
+
+$orpUnit = sanitize_unit($payload['orpUnit'] ?? $payload['orp_unit'] ?? 'mV', 'mV');
+$orpSourceEntity = sanitize_entity_id($payload['orpEntityId'] ?? $payload['orp_entity_id'] ?? DEFAULT_ORP_ENTITY, DEFAULT_ORP_ENTITY);
 $now = date(DATE_ATOM);
 $output = [
     'temperature' => $temperature,
@@ -200,6 +308,26 @@ $output = [
     'pressureUpdatedAt' => $hasPressurePayload ? $now : ($existingOutput['pressureUpdatedAt'] ?? null),
     'pressureSource' => 'Home Assistant',
     'pressureEntityId' => $hasPressurePayload ? $pressureSourceEntity : ($existingOutput['pressureEntityId'] ?? DEFAULT_PRESSURE_ENTITY),
+    'ph' => $hasPhPayload ? round((float) $ph, 2) : ($existingOutput['ph'] ?? null),
+    'phUnit' => $hasPhPayload ? $phUnit : ($existingOutput['phUnit'] ?? ''),
+    'phUpdatedAt' => $hasPhPayload ? $now : ($existingOutput['phUpdatedAt'] ?? null),
+    'phSource' => 'Home Assistant',
+    'phEntityId' => $hasPhPayload ? $phSourceEntity : ($existingOutput['phEntityId'] ?? DEFAULT_PH_ENTITY),
+    'saltConcentration' => $hasSaltConcentrationPayload ? round((float) $saltConcentration, 2) : ($existingOutput['saltConcentration'] ?? null),
+    'saltConcentrationUnit' => $hasSaltConcentrationPayload ? $saltConcentrationUnit : ($existingOutput['saltConcentrationUnit'] ?? 'g/l'),
+    'saltConcentrationUpdatedAt' => $hasSaltConcentrationPayload ? $now : ($existingOutput['saltConcentrationUpdatedAt'] ?? null),
+    'saltConcentrationSource' => 'Home Assistant',
+    'saltConcentrationEntityId' => $hasSaltConcentrationPayload ? $saltConcentrationSourceEntity : ($existingOutput['saltConcentrationEntityId'] ?? DEFAULT_SALT_CONCENTRATION_ENTITY),
+    'poolVolume' => $hasPoolVolumePayload ? round((float) $poolVolume, 2) : ($existingOutput['poolVolume'] ?? null),
+    'poolVolumeUnit' => $hasPoolVolumePayload ? $poolVolumeUnit : ($existingOutput['poolVolumeUnit'] ?? 'm³'),
+    'poolVolumeUpdatedAt' => $hasPoolVolumePayload ? $now : ($existingOutput['poolVolumeUpdatedAt'] ?? null),
+    'poolVolumeSource' => 'Home Assistant',
+    'poolVolumeEntityId' => $hasPoolVolumePayload ? $poolVolumeSourceEntity : ($existingOutput['poolVolumeEntityId'] ?? DEFAULT_POOL_VOLUME_ENTITY),
+    'orp' => $hasOrpPayload ? round((float) $orp, 0) : ($existingOutput['orp'] ?? null),
+    'orpUnit' => $hasOrpPayload ? $orpUnit : ($existingOutput['orpUnit'] ?? 'mV'),
+    'orpUpdatedAt' => $hasOrpPayload ? $now : ($existingOutput['orpUpdatedAt'] ?? null),
+    'orpSource' => 'Home Assistant',
+    'orpEntityId' => $hasOrpPayload ? $orpSourceEntity : ($existingOutput['orpEntityId'] ?? DEFAULT_ORP_ENTITY),
 ];
 
 $json = json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

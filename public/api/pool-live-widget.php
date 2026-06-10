@@ -7,6 +7,7 @@ header('Pragma: no-cache');
 
 $dataPath = __DIR__ . '/pool-temperature.json';
 $data = [];
+$isGuideMode = ($_GET['mode'] ?? '') === 'guide';
 
 if (is_file($dataPath)) {
     $decoded = json_decode((string) file_get_contents($dataPath), true);
@@ -73,10 +74,18 @@ $water = measurement_value($data, 'temperature');
 $air = measurement_value($data, 'airTemperature');
 $humidity = measurement_value($data, 'humidity');
 $pressure = measurement_value($data, 'pressure');
+$ph = measurement_value($data, 'ph');
+$saltConcentration = measurement_value($data, 'saltConcentration');
+$poolVolume = measurement_value($data, 'poolVolume');
+$orp = measurement_value($data, 'orp');
 $waterUnit = text_value($data, 'unit', '°C');
 $airUnit = text_value($data, 'airUnit', '°C');
 $humidityUnit = text_value($data, 'humidityUnit', '%');
 $pressureUnit = text_value($data, 'pressureUnit', 'hPa');
+$phUnit = text_value($data, 'phUnit', '');
+$saltConcentrationUnit = text_value($data, 'saltConcentrationUnit', 'g/l');
+$poolVolumeUnit = text_value($data, 'poolVolumeUnit', 'm³');
+$orpUnit = text_value($data, 'orpUnit', 'mV');
 $updatedAtRaw = text_value($data, 'updatedAt', '');
 $updatedText = 'Frissítésre vár';
 
@@ -109,6 +118,44 @@ $metrics = [
         'level' => level_percent($pressure, 980, 1040),
     ],
 ];
+
+if ($isGuideMode) {
+    $metrics = array_merge($metrics, [
+        [
+            'label' => 'Aktuális pH',
+            'value' => format_number($ph, 2),
+            'unit' => $ph === null ? '' : $phUnit,
+            'level' => level_percent($ph, 6, 9),
+            'note' => 'A víz pH értéke',
+        ],
+        [
+            'label' => 'Só koncentráció',
+            'value' => format_number($saltConcentration, 2),
+            'unit' => $saltConcentration === null ? '' : $saltConcentrationUnit,
+            'level' => level_percent($saltConcentration, 0, 10),
+        ],
+        [
+            'label' => 'Medence térfogata',
+            'value' => format_number($poolVolume, 1),
+            'unit' => $poolVolume === null ? '' : $poolVolumeUnit,
+            'level' => level_percent($poolVolume, 0, 100),
+        ],
+        [
+            'label' => 'Vízmélység',
+            'value' => 'kb. 125',
+            'unit' => 'cm',
+            'level' => 100,
+        ],
+        [
+            'label' => 'ORP értéke',
+            'value' => format_number($orp, 0),
+            'unit' => $orp === null ? '' : $orpUnit,
+            'level' => level_percent($orp, 650, 750),
+            'note' => 'Az ORP a víz fertőtlenítő erejét mutatja. Jó érték: 650-750.',
+            'variant' => 'featured',
+        ],
+    ]);
+}
 $waterLevel = level_percent($water, 15, 35);
 ?>
 <!doctype html>
@@ -140,6 +187,10 @@ $waterLevel = level_percent($water, 15, 35);
       grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
       gap: 10px;
       align-items: stretch;
+    }
+
+    body.is-guide .dashboard {
+      grid-template-columns: 1fr;
     }
 
     .water-card {
@@ -191,6 +242,10 @@ $waterLevel = level_percent($water, 15, 35);
       gap: 8px;
     }
 
+    body.is-guide .metric-stack {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .metric-card {
       display: flex;
       flex-direction: column;
@@ -239,6 +294,45 @@ $waterLevel = level_percent($water, 15, 35);
       white-space: nowrap;
     }
 
+    .metric-card.is-featured {
+      grid-column: 1 / -1;
+      min-height: 128px;
+      text-align: left;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(42, 210, 255, 0.26), transparent 36%),
+        linear-gradient(135deg, rgba(8, 60, 94, 0.98), rgba(5, 23, 40, 0.98));
+    }
+
+    .metric-card.is-featured .metric-head {
+      align-items: flex-start;
+      min-height: 0;
+    }
+
+    .metric-card.is-featured .label {
+      max-width: none;
+      min-height: 0;
+      align-items: flex-start;
+      justify-content: flex-start;
+      font-size: 0.7rem;
+    }
+
+    .metric-card.is-featured .value {
+      font-size: clamp(1.9rem, 7vw, 3rem);
+    }
+
+    .metric-card.is-featured .metric-note {
+      max-width: 58ch;
+      min-height: 0;
+      color: rgba(221, 242, 252, 0.84);
+      font-size: 0.72rem;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    body.is-guide .metric-card .value {
+      font-size: clamp(0.95rem, 3.2vw, 1.14rem);
+    }
+
     .unit {
       margin-left: 0.18em;
       font-size: 0.58em;
@@ -252,6 +346,14 @@ $waterLevel = level_percent($water, 15, 35);
       font-size: 0.68rem;
       font-weight: 650;
       line-height: 1.35;
+    }
+
+    .metric-note {
+      min-height: 1.8em;
+      color: rgba(203, 232, 246, 0.7);
+      font-size: 0.55rem;
+      font-weight: 650;
+      line-height: 1.2;
     }
 
     .metric-head {
@@ -288,6 +390,10 @@ $waterLevel = level_percent($water, 15, 35);
         grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.92fr);
         gap: 5px;
         align-items: stretch;
+      }
+
+      body.is-guide .dashboard {
+        grid-template-columns: 1fr;
       }
 
       .water-card {
@@ -329,6 +435,10 @@ $waterLevel = level_percent($water, 15, 35);
         gap: 5px;
       }
 
+      body.is-guide .metric-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .metric-card {
         min-height: 62px;
         gap: 4px;
@@ -336,7 +446,29 @@ $waterLevel = level_percent($water, 15, 35);
         border-radius: 11px;
       }
 
-      .metric-card:nth-child(3) {
+      .metric-card.is-featured {
+        min-height: 124px;
+        padding: 12px;
+      }
+
+      .metric-card.is-featured .metric-head {
+        gap: 7px;
+      }
+
+      .metric-card.is-featured .label {
+        font-size: 0.58rem;
+      }
+
+      .metric-card.is-featured .value {
+        font-size: 2.15rem;
+      }
+
+      .metric-card.is-featured .metric-note {
+        font-size: 0.64rem;
+        line-height: 1.35;
+      }
+
+      body:not(.is-guide) .metric-card:nth-child(3) {
         display: none;
       }
 
@@ -354,6 +486,15 @@ $waterLevel = level_percent($water, 15, 35);
         font-size: 0.76rem;
       }
 
+      body.is-guide .metric-card .value {
+        font-size: 0.82rem;
+      }
+
+      .metric-note {
+        min-height: 1.6em;
+        font-size: 0.43rem;
+      }
+
       .metric-head .label {
         max-width: 11ch;
         min-height: 2.24em;
@@ -366,7 +507,7 @@ $waterLevel = level_percent($water, 15, 35);
     }
   </style>
 </head>
-<body>
+<body class="<?= $isGuideMode ? 'is-guide' : ''; ?>">
   <div class="dashboard" aria-label="Panorama Pool aktuális mérések">
     <article class="water-card">
       <span class="water-gauge" style="--level: <?= h((string) $waterLevel); ?>%;" aria-hidden="true"></span>
@@ -381,12 +522,13 @@ $waterLevel = level_percent($water, 15, 35);
 
     <div class="metric-stack">
       <?php foreach ($metrics as $metric): ?>
-        <article class="metric-card">
+        <article class="metric-card<?= (($metric['variant'] ?? '') === 'featured') ? ' is-featured' : ''; ?>">
           <div class="metric-head">
             <span class="label"><?= h($metric['label']); ?></span>
             <strong class="value">
               <?= h($metric['value']); ?><?php if ($metric['unit'] !== ''): ?><span class="unit"><?= h($metric['unit']); ?></span><?php endif; ?>
             </strong>
+            <?php if (isset($metric['note'])): ?><small class="metric-note"><?= h($metric['note']); ?></small><?php endif; ?>
           </div>
         </article>
       <?php endforeach; ?>
