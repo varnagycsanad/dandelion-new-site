@@ -65,6 +65,7 @@ const structuredData = [
     ]
   }
 ];
+const cardLinkFallbackLabel = lang === "sk" ? "Viac" : "Více";
 ---
 
 <BaseLayout title={title} description={description} canonicalPath={canonicalPath} lang={lang} ogLocale={ogLocale} structuredData={structuredData}>
@@ -114,7 +115,7 @@ const structuredData = [
                   <article class="cs-topic-card">
                     <h3>{card.title}</h3>
                     <p>{card.body}</p>
-                    {card.href && <a href={card.href}>{card.linkLabel ?? "Více"}</a>}
+                    {card.href && <a href={card.href}>{card.linkLabel ?? cardLinkFallbackLabel}</a>}
                   </article>
                 ))}
               </div>
