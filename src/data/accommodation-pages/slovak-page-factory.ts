@@ -61,6 +61,18 @@ const relatedStays = [
   { name: "Dandelion Köveskál", meta: "oblasť Káli - dedinská atmosféra", href: "/sk/dandelion-koveskal/", slot: "koveskal_card_image" as const }
 ];
 
+const relatedStayImageAltBySlot: Record<HomepageImageSlotKey, string> = {
+  d1_card_image: "Dandelion D1 ubytovanie so záhradou v Kisapáti",
+  d2_card_image: "Dandelion D2 ubytovanie s terasou a záhradou v Kisapáti",
+  fugehaz_card_image: "Dandelion Fügeház ubytovanie s terasou v Balatonskej vrchovine",
+  zsalya_card_image: "Dandelion Zsálya ubytovanie s krytou terasou",
+  szololiget_card_image: "Dandelion Szőlőliget ubytovanie medzi vinicami",
+  szepvolgyi_card_image: "Dandelion Szépvölgyi ubytovanie so záhradou",
+  royal_homes_card_image: "Dandelion Royal Homes apartmánový dom v Keszthely",
+  vintage_card_image: "Dandelion Vintage ubytovanie s pokojným dvorom",
+  koveskal_card_image: "Dandelion Köveskál ubytovanie v oblasti Káli"
+};
+
 export function createSlovakAccommodationPage(
   baseData: AccommodationPageData,
   profile: SlovakAccommodationProfile
@@ -193,7 +205,7 @@ export function createSlovakAccommodationPage(
           image: {
             type: "mapping" as const,
             slot: stay.slot as HomepageImageSlotKey,
-            alt: `${stay.name} ubytovanie Dandelion`
+            alt: relatedStayImageAltBySlot[stay.slot]
           }
         }))
     }

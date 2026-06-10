@@ -87,7 +87,7 @@ const structuredData = [
 >
   <section class="experiences-page">
     <section class="experiences-hero">
-      <video class="experiences-hero__video" poster={heroPoster} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+      <video class="experiences-hero__video" poster={heroPoster} autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture disableremoteplayback>
         <source src={heroMobileVideo} media="(max-width: 767px)" type="video/mp4" />
         <source src={heroVideo} type="video/mp4" />
         Váš prehliadač nepodporuje prehrávanie videa na pozadí.
@@ -114,7 +114,7 @@ const structuredData = [
         {experiences.map((item) => (
           <article class="experience-card">
             <div class="experience-card__media">
-              <Image src={item.image} alt={item.imageAlt} loading="lazy" />
+              <Image src={item.image} alt={item.imageAlt} width={1200} loading="lazy" decoding="async" />
             </div>
             <div class="experience-card__body">
               <span class="experience-card__eyebrow">{item.eyebrow}</span>

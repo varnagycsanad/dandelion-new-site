@@ -99,7 +99,7 @@ const structuredData = [
           )}
         </div>
         <figure class="de-topic__media">
-          <Image src={heroImage} alt={heroAlt} loading="eager" />
+          <Image src={heroImage} alt={heroAlt} width={1400} loading="eager" decoding="async" />
         </figure>
       </section>
 
@@ -111,7 +111,7 @@ const structuredData = [
             <p>{supportText}</p>
           </article>
           <figure class="de-topic__support-card de-topic__support-card--image">
-            <Image src={supportImage} alt={supportAlt} loading="lazy" />
+            <Image src={supportImage} alt={supportAlt} width={1000} loading="lazy" decoding="async" />
           </figure>
         </section>
       )}

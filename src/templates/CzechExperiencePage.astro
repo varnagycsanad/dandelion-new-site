@@ -87,7 +87,7 @@ const cardLinkFallbackLabel = lang === "sk" ? "Viac" : "Více";
           )}
         </div>
         <figure class="cs-topic__media">
-          <Image src={heroImage} alt={heroAlt} loading="eager" />
+          <Image src={heroImage} alt={heroAlt} width={1400} loading="eager" decoding="async" />
         </figure>
       </section>
 
@@ -99,7 +99,7 @@ const cardLinkFallbackLabel = lang === "sk" ? "Viac" : "Více";
             <p>{supportText}</p>
           </article>
           <figure class="cs-topic__support-card cs-topic__support-card--image">
-            <Image src={supportImage} alt={supportAlt} loading="lazy" />
+            <Image src={supportImage} alt={supportAlt} width={1000} loading="lazy" decoding="async" />
           </figure>
         </section>
       )}

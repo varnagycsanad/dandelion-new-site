@@ -112,6 +112,18 @@ const relatedStays = [
   }
 ];
 
+const relatedStayImageAltBySlot: Record<HomepageImageSlotKey, string> = {
+  d1_card_image: "Dandelion D1 Gästehaus mit Garten in Kisapáti",
+  d2_card_image: "Dandelion D2 Gästehaus mit Terrasse und Garten in Kisapáti",
+  fugehaz_card_image: "Dandelion Fügeház Gästehaus mit Terrasse im Balaton-Oberland",
+  zsalya_card_image: "Dandelion Zsálya Gästehaus mit überdachter Terrasse",
+  szololiget_card_image: "Dandelion Szőlőliget Gästehaus zwischen Weinbergen",
+  szepvolgyi_card_image: "Dandelion Szépvölgyi Gästehaus mit Garten",
+  royal_homes_card_image: "Dandelion Royal Homes Apartmenthaus in Keszthely",
+  vintage_card_image: "Dandelion Vintage Gästehaus mit ruhigem Hof",
+  koveskal_card_image: "Dandelion Köveskál Gästehaus im Káli-Becken"
+};
+
 export function createGermanAccommodationPage(
   baseData: AccommodationPageData,
   profile: GermanAccommodationProfile
@@ -250,7 +262,7 @@ export function createGermanAccommodationPage(
           image: {
             type: "mapping" as const,
             slot: stay.slot,
-            alt: `${stay.name} Dandelion Unterkunft`
+            alt: relatedStayImageAltBySlot[stay.slot]
           }
         }))
     }

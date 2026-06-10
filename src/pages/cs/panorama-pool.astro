@@ -47,8 +47,8 @@ const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
   return {
     desktopSrc: pageData.hero.mobileImagePath,
     mobileSrc: pageData.hero.mobileImagePath,
-    altEn: pageData.hero.fallbackAlt,
-    titleEn: fallbackTitleMap[key]
+    alt: pageData.hero.fallbackAlt,
+    title: fallbackTitleMap[key]
   };
 };
 
@@ -190,8 +190,8 @@ const poolLiveWidgetSrc = import.meta.env.DEV
                   {stay.image.mobileSrc && <source media="(max-width: 767px)" srcset={stay.image.mobileSrc} />}
                   <img
                     src={stay.image.desktopSrc}
-                    alt={stay.image.altEn}
-                    title={stay.image.titleEn}
+                    alt={stay.image.alt}
+                    title={stay.image.title}
                     width="1600"
                     height="1200"
                     loading="lazy"

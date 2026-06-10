@@ -135,11 +135,11 @@ function resolveImageText(
   locale: AccommodationPageLocale,
   kind: "alt" | "title" | "caption"
 ): string {
-  if (locale === "cs" && !field.cs) {
+  if (locale === "cs") {
     return buildCzechImageText(image, kind);
   }
 
-  if (locale === "sk" && !field.sk) {
+  if (locale === "sk") {
     return buildSlovakImageText(image, kind);
   }
 
