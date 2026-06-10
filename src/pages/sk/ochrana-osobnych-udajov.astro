@@ -1,0 +1,140 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    number: "1",
+    title: "Prevádzkovateľ údajov",
+    bullets: [
+      "Prevádzkovateľ: Dandelion Vendégházak Kft.",
+      "Zástupca: Ilona Várnagy",
+      "E-mail: hello@dandelionhouse.hu",
+      "Telefón: +36 20 773 0807",
+      "Web: dandelionhouse.hu",
+      "Sídlo / korešpondenčná adresa: 8284 Kisapáti, Kossuth utca 78/5, Maďarsko"
+    ]
+  },
+  {
+    number: "2",
+    title: "Účel oznámenia",
+    paragraphs: [
+      "Cieľom tohto oznámenia je transparentne informovať hostí, záujemcov a návštevníkov webu o spracúvaní osobných údajov.",
+      "Osobné údaje spracúvame iba v rozsahu nevyhnutnom na poskytovanie ubytovacích služieb, správu rezervácií, komunikáciu, plnenie právnych povinností a prevádzku webu."
+    ]
+  },
+  {
+    number: "3",
+    title: "Kontakt a žiadosti o ponuku",
+    bullets: [
+      "Spracúvané údaje: meno, e-mail, telefón, obsah správy, požadovaný termín, počet hostí a ďalšie dobrovoľne poskytnuté údaje.",
+      "Účel: odpoveď na otázku, zaslanie ponuky, koordinácia rezervácie a komunikácia s hosťom.",
+      "Právny základ: kroky pred uzavretím zmluvy a oprávnený záujem.",
+      "Doba uchovávania: najviac 2 roky od uzavretia otázky, ak komunikácia neprejde do rezervácie alebo zákonnej povinnosti."
+    ]
+  },
+  {
+    number: "4",
+    title: "Správa rezervácií",
+    bullets: [
+      "Spracúvané údaje: meno, kontaktné údaje, údaje o rezervácii, termín príchodu a odchodu, počet hostí, vybrané ubytovanie, platobné a fakturačné údaje.",
+      "Účel: zaznamenanie, potvrdenie, splnenie, zmena alebo zrušenie rezervácie.",
+      "Právny základ: plnenie zmluvy a kroky pred uzavretím zmluvy.",
+      "Doba uchovávania: po dobu nevyhnutnú na splnenie rezervácie a podľa zákonných archivačných povinností."
+    ]
+  },
+  {
+    number: "5",
+    title: "Online check-in, údaje z dokladov, NTAK / VIZA",
+    paragraphs: ["Obsadenie ubytovania môže vyžadovať online check-in, pri ktorom sa zaznamenávajú zákonom požadované údaje hostí a dokladov totožnosti."],
+    bullets: [
+      "Spracúvané údaje: meno, dátum narodenia, štátna príslušnosť, adresa, údaje z dokladu totožnosti, údaje o príchode a odchode.",
+      "Účel: zákonná evidencia hostí, poskytovanie ubytovacích služieb a úradné hlásenia.",
+      "Právny základ: splnenie právnej povinnosti."
+    ]
+  },
+  {
+    number: "6",
+    title: "Platba a fakturácia",
+    bullets: [
+      "Spracúvané údaje: fakturačné meno, fakturačná adresa, platobné údaje, identifikátor rezervácie, zaplatené sumy a obsah faktúry.",
+      "Účel: vystavenie faktúry, účtovníctvo, daňové a archivačné povinnosti.",
+      "Právny základ: splnenie právnej povinnosti.",
+      "Účtovné doklady uchovávame po dobu stanovenú právnymi predpismi."
+    ]
+  },
+  {
+    number: "7",
+    title: "Web, technické údaje a cookies",
+    paragraphs: ["Pri prevádzke webu môžu vznikať technické údaje, napríklad IP adresa, typ prehliadača, údaje o zariadení, čas návštevy, navštívené stránky a chybové informácie."],
+    bullets: [
+      "Účel: bezpečná prevádzka webu, riešenie technických chýb, meranie výkonu a návštevnosti.",
+      "Právny základ: oprávnený záujem a tam, kde je to potrebné, súhlas."
+    ]
+  },
+  {
+    number: "8",
+    title: "Newsletter a marketingová komunikácia",
+    bullets: [
+      "Newsletter alebo marketingové správy posielame iba vtedy, ak je na to vhodný právny základ.",
+      "Súhlas je možné kedykoľvek odvolať.",
+      "Odvolanie súhlasu nemá vplyv na zákonnosť spracúvania pred jeho odvolaním."
+    ]
+  },
+  {
+    number: "9",
+    title: "Kamerový systém pri Panorama Pool",
+    paragraphs: [
+      "Priestor Panorama Pool môže byť monitorovaný kamerovým systémom z dôvodu ochrany majetku, bezpečnosti hostí a dodržiavania pravidiel bazéna.",
+      "Záznamy sa uchovávajú iba po nevyhnutnú dobu a prístup k nim je obmedzený."
+    ]
+  },
+  {
+    number: "10",
+    title: "Príjemcovia a sprostredkovatelia",
+    paragraphs: [
+      "Do spracúvania môžu byť zapojení poskytovatelia rezervačných, účtovných, IT, hostingových, platobných a komunikačných služieb.",
+      "Údaje odovzdávame iba v rozsahu potrebnom na splnenie uvedených účelov alebo zákonných povinností."
+    ]
+  },
+  {
+    number: "11",
+    title: "Práva dotknutých osôb",
+    paragraphs: ["Dotknuté osoby môžu v súvislosti so spracúvaním uplatniť tieto práva:"],
+    bullets: [
+      "požiadať o informácie a prístup k osobným údajom,",
+      "požiadať o opravu údajov,",
+      "požiadať o výmaz alebo obmedzenie spracúvania, ak sú splnené právne podmienky,",
+      "namietať proti spracúvaniu založenému na oprávnenom záujme,",
+      "odvolať súhlas tam, kde je spracúvanie založené na súhlase."
+    ],
+    note: "Žiadosti možno zaslať na hello@dandelionhouse.hu. Odpovieme bez zbytočného odkladu, najneskôr do 1 mesiaca."
+  },
+  {
+    number: "12",
+    title: "Sťažnosti a zmeny oznámenia",
+    paragraphs: [
+      "V prípade sťažnosti v oblasti ochrany osobných údajov nás prosíme najprv kontaktujte na hello@dandelionhouse.hu.",
+      "Dotknutá osoba sa môže obrátiť aj na maďarský Národný úrad pre ochranu údajov a slobodu informácií (NAIH)."
+    ],
+    bullets: [
+      "NAIH - Hungarian National Authority for Data Protection and Freedom of Information",
+      "Adresa: 1055 Budapest, Falk Miksa utca 9-11, Maďarsko",
+      "E-mail: ugyfelszolgalat@naih.hu",
+      "Web: naih.hu"
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="sk"
+  title="Ochrana osobných údajov | Dandelion ubytovanie"
+  description="Zásady ochrany osobných údajov Dandelion ubytovania: rezervácie, fakturácia, cookies, newsletter, kamerový systém a práva hostí."
+  canonicalPath="/sk/ochrana-osobnych-udajov/"
+  eyebrow="Právne informácie"
+  heading="Ochrana osobných údajov"
+  lead="Platné od 12. mája 2026 do odvolania. Aktualizované: 25. mája 2026. Toto oznámenie zhŕňa spracúvanie osobných údajov na webe Dandelion a v procesoch rezervácie a správy hostí."
+  tocLabel="Prejsť na časť"
+  tocPlaceholder="Vyberte časť"
+  sections={sections}
+/>

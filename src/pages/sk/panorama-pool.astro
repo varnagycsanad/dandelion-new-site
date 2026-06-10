@@ -1,0 +1,288 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../sections/Hero.astro";
+import { panoramaPoolHero, panoramaPoolImages } from "../../data/images/panorama-pool-images";
+import { buildVideoObject } from "../../data/video-seo";
+import { toAbsoluteUrl } from "../../data/site-seo";
+
+const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+const poolHeroVideos = {
+  desktop: "/videos/medence/HERO/PC%20video/dandelion-panorama-pool-hero-desktop-20260610.mp4?v=20260610",
+  mobile: "/videos/medence/HERO/Phone%20video/dandelion-panorama-pool-hero-mobile-20260610.mp4?v=20260610"
+};
+
+const galleryImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder).slice(0, 6);
+const poolFacts = [
+  ["Pre koho", "Hostia Dandelion D1, Dandelion D2 a Fügeház"],
+  ["Od kedy", "Od 15. júna 2026"],
+  ["Rozmer", "8 x 4 metre"],
+  ["Hĺbka", "približne 130 cm"],
+  ["Poloha", "Kisapáti, pri Szent György-hegy"],
+  ["Dôležité", "Deti iba pod dohľadom dospelej osoby"]
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Úvod", item: toAbsoluteUrl("/sk/") },
+      { "@type": "ListItem", position: 2, name: "Panorama Pool", item: toAbsoluteUrl("/sk/panorama-pool/") }
+    ]
+  },
+  buildVideoObject({
+    id: "/sk/panorama-pool/#hero-video",
+    name: "Dandelion Panorama Pool video",
+    description: "Hero video predstavujúce Panorama Pool a výhľady v Balatonskej vrchovine.",
+    contentUrl: poolHeroVideos.desktop,
+    thumbnailUrl: panoramaPoolHero.desktop,
+    uploadDate: "2026-06-10T00:00:00+02:00",
+    inLanguage: "sk-SK"
+  })
+];
+---
+
+<BaseLayout
+  title="Dandelion Panorama Pool | Panoramatický bazén pri Balatone"
+  description="Od 15. júna 2026 je Panorama Pool k dispozícii hosťom D1, D2 a Fügeház v Kisapáti v Balatonskej vrchovine."
+  canonicalPath="/sk/panorama-pool/"
+  lang="sk"
+  ogLocale="sk_SK"
+  ogImage={panoramaPoolHero.desktop}
+  ogImageAlt="Panorama Pool v Kisapáti s výhľadom na svedecké vrchy"
+  structuredData={structuredData}
+  headerMode="transparent"
+>
+  <section class="sk-pool-page">
+    <Hero
+      kicker="Panorama Pool"
+      title="Panorama Pool na svahu Szent György-hegy"
+      description="Od 15. júna 2026 pre hostí D1, D2 a Fügeház."
+      ctas={[{ label: "Zobraziť ubytovanie", href: "#pool-stays" }]}
+      secondaryCtas={[{ label: "Overiť dostupnosť", href: bookingHref, target: "_blank", rel: "noopener noreferrer" }]}
+      videoSrc=""
+      videoDesktopSrc={poolHeroVideos.desktop}
+      videoMobileSrc={poolHeroVideos.mobile}
+      posterDesktopSrc={panoramaPoolHero.desktop}
+      posterMobileSrc={panoramaPoolHero.mobile}
+      posterAlt="Panorama Pool pri Dandelion ubytovaní"
+      overlay
+      videoFallbackText="Váš prehliadač nepodporuje prehrávanie videa na pozadí."
+    />
+
+    <div class="dnd-container sk-pool-page__inner">
+      <section class="sk-pool-intro">
+        <div>
+          <span>Pokoj pri vode</span>
+          <h2>Bazén je letný doplnok pre domy D1, D2 a Fügeház.</h2>
+          <p>
+            Panorama Pool dopĺňa pobyt v Kisapáti: modrá voda, výhľad na svedecké vrchy a jednoduchý
+            priestor na oddych medzi výletmi, vínom a balatonskými programami.
+          </p>
+          <p>
+            Nie je to verejné kúpalisko. Je určený pre hostí vybraných ubytovaní Dandelion a používa
+            sa podľa aktuálnych pravidiel bazéna.
+          </p>
+        </div>
+
+        <dl>
+          {poolFacts.map(([term, value]) => (
+            <div>
+              <dt>{term}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section class="sk-pool-gallery" aria-label="Panorama Pool galéria">
+        <header>
+          <span>Galéria</span>
+          <h2>Výhľady, terasa a voda v jednom letnom priestore.</h2>
+        </header>
+        <div class="sk-pool-gallery__grid">
+          {galleryImages.map((image, index) => (
+            <figure class={index === 0 ? "is-large" : ""}>
+              <picture>
+                {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                <img
+                  src={image.thumb || image.src}
+                  alt={`Panorama Pool v Kisapáti, fotografia ${index + 1}`}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  width="1800"
+                  height="1350"
+                />
+              </picture>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section id="pool-stays" class="sk-pool-stays">
+        <header>
+          <span>Ubytovania s prístupom</span>
+          <h2>Vyberte dom, ku ktorému Panorama Pool patrí.</h2>
+        </header>
+        <div>
+          <a href="/sk/dandelion-d1/">Dandelion D1</a>
+          <a href="/sk/dandelion-d2/">Dandelion D2</a>
+          <a href="/sk/dandelion-fugehaz/">Dandelion Fügeház</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sk-pool-page {
+    background: linear-gradient(180deg, #f6f0e4 0%, #fffdf8 48%, #ffffff 100%);
+  }
+
+  .sk-pool-page__inner {
+    display: grid;
+    gap: 34px;
+    padding: 78px 0 88px;
+  }
+
+  .sk-pool-intro,
+  .sk-pool-stays,
+  .sk-pool-gallery {
+    display: grid;
+    gap: 22px;
+  }
+
+  .sk-pool-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+    align-items: start;
+  }
+
+  .sk-pool-intro > div,
+  .sk-pool-intro dl,
+  .sk-pool-stays {
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 252, 246, 0.92);
+    box-shadow: 0 18px 44px rgba(64, 45, 27, 0.06);
+  }
+
+  .sk-pool-intro > div,
+  .sk-pool-intro dl,
+  .sk-pool-stays {
+    padding: 26px;
+  }
+
+  .sk-pool-page span {
+    color: #9b6a1d;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .sk-pool-page h2 {
+    margin: 0;
+    color: #261d16;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.7rem, 3vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .sk-pool-page p {
+    margin: 14px 0 0;
+    color: rgba(38, 29, 22, 0.78);
+    font-size: var(--dnd-text-body);
+    line-height: 1.75;
+  }
+
+  .sk-pool-intro dl {
+    display: grid;
+    gap: 0;
+    margin: 0;
+  }
+
+  .sk-pool-intro dl div {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .sk-pool-intro dl div:last-child {
+    border-bottom: 0;
+  }
+
+  .sk-pool-intro dt,
+  .sk-pool-intro dd {
+    margin: 0;
+    color: #261d16;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .sk-pool-intro dt {
+    font-weight: 700;
+  }
+
+  .sk-pool-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .sk-pool-gallery figure {
+    min-height: 240px;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #d8d0c4;
+  }
+
+  .sk-pool-gallery figure.is-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .sk-pool-gallery picture,
+  .sk-pool-gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sk-pool-gallery img {
+    object-fit: cover;
+  }
+
+  .sk-pool-stays div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sk-pool-stays a {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    border-radius: 8px;
+    background: #2b2016;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 860px) {
+    .sk-pool-intro,
+    .sk-pool-gallery__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sk-pool-gallery figure.is-large {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+</style>

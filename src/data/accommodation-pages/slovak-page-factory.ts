@@ -88,8 +88,8 @@ export function createSlovakAccommodationPage(
             enabled: true,
             label: "Panorama Pool",
             text: "Pri pobytoch D1, D2 a Fügeház je Panorama Pool súčasťou letnej ponuky.",
-            href: "/sk/ubytovanie/#pool",
-            ctaLabel: "Zobraziť ubytovanie s Panorama Pool",
+            href: "/sk/panorama-pool/",
+            ctaLabel: "Zobraziť Panorama Pool",
             variant: "strong"
           }
         : undefined,

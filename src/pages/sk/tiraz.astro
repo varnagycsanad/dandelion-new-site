@@ -1,0 +1,70 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    title: "Prevádzkovateľ webu",
+    items: [
+      ["Názov spoločnosti", "Dandelion Vendégházak Kft."],
+      ["Sídlo", "8284 Kisapáti, Kossuth utca 78/5, Maďarsko"],
+      ["IČ spoločnosti", "19-09-523814"],
+      ["Daňové číslo", "24646345-1-19"],
+      ["Zástupca", "Ilona Várnagy"]
+    ]
+  },
+  {
+    title: "Kontakt",
+    items: [
+      ["E-mail", "hello@dandelionhouse.hu", "mailto:hello@dandelionhouse.hu"],
+      ["Telefón", "+36 20 773 0807", "tel:+36207730807"],
+      ["Web", "dandelionhouse.hu", "https://dandelionhouse.hu/"]
+    ]
+  },
+  {
+    title: "Poskytovateľ hostingu",
+    items: [
+      ["Názov poskytovateľa", "DotRoll Kft."],
+      ["Sídlo", "1148 Budapest, Fogarasi út 3-5, Maďarsko"],
+      ["Telefón", "+36 1 432 3232", "tel:+3614323232"],
+      ["E-mail", "support@dotroll.com", "mailto:support@dotroll.com"],
+      ["Web", "dotroll.com", "https://dotroll.com/"]
+    ]
+  },
+  {
+    title: "Účel webu",
+    paragraphs: ["Web dandelionhouse.hu predstavuje ubytovanie Dandelion, poskytuje možnosť priamej rezervácie a ponúka informácie pre hostí."]
+  },
+  {
+    title: "Autorské práva",
+    paragraphs: [
+      "Texty, obrázky, videá, grafické prvky a ďalší obsah webu sú chránené autorským právom.",
+      "Ich použitie, kopírovanie alebo zverejnenie je možné iba s predchádzajúcim písomným súhlasom prevádzkovateľa."
+    ]
+  },
+  {
+    title: "Zodpovednosť",
+    paragraphs: [
+      "Prevádzkovateľ sa snaží udržiavať informácie na webe presné a aktuálne.",
+      "Ceny, dostupnosť a rezervačné podmienky sú vždy platné podľa údajov uvedených počas rezervácie a v potvrdení rezervácie."
+    ]
+  },
+  {
+    title: "Súvisiace dokumenty",
+    links: [
+      { label: "Obchodné podmienky", href: "/sk/obchodne-podmienky/" },
+      { label: "Ochrana osobných údajov", href: "/sk/ochrana-osobnych-udajov/" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="sk"
+  title="Tiráž | Dandelion ubytovanie"
+  description="Údaje o prevádzkovateľovi, kontakte a poskytovateľovi hostingu webu dandelionhouse.hu."
+  canonicalPath="/sk/tiraz/"
+  eyebrow="Právne informácie"
+  heading="Tiráž"
+  lead="Údaje o prevádzkovateľovi, kontakte a poskytovateľovi hostingu webu dandelionhouse.hu."
+  sections={sections}
+/>

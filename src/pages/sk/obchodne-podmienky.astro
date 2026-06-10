@@ -1,0 +1,125 @@
+---
+import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
+
+const sections = [
+  {
+    number: "1",
+    title: "Rezervácia",
+    paragraphs: [
+      "Rezerváciu je možné uskutočniť cez online rezervačný systém na webovej stránke, e-mailom, telefonicky alebo cez externé predajné kanály.",
+      "Pri rezerváciách cez externé kanály platia platobné a storno podmienky daného kanála."
+    ]
+  },
+  {
+    number: "2",
+    title: "Ceny a povinné poplatky",
+    paragraphs: ["Najvýhodnejšie ceny ubytovania sú zvyčajne dostupné pri priamej rezervácii na našej webovej stránke."],
+    bullets: [
+      "Miestna turistická daň sa platí podľa aktuálnych pravidiel príslušnej obce.",
+      "Záverečné upratovanie sa účtuje podľa sumy uvedenej počas rezervácie."
+    ]
+  },
+  {
+    number: "3",
+    title: "Používanie kade, ak je k dispozícii",
+    paragraphs: [
+      "Používanie kúpacej kade je možné iba pri ubytovaní, kde je táto služba dostupná, a účtuje sa samostatne.",
+      "O využitie kade prosíme požiadať vopred, aby ju bolo možné riadne pripraviť."
+    ]
+  },
+  {
+    number: "4",
+    title: "Pravidlá používania Panorama Pool",
+    paragraphs: [
+      "Pri ubytovaní, kde je Panorama Pool dostupný, hosť používaním bazéna prijíma aktuálne platné pravidlá bazéna.",
+      "Panorama Pool je priestor pre hostí Dandelion D1, Dandelion D2 a Dandelion Fügeház.",
+      "Prevádzkovateľ môže používanie bazéna obmedziť alebo dočasne pozastaviť z dôvodu počasia, údržby, bezpečnosti, technickej poruchy alebo porušenia pravidiel.",
+      "Deti môžu bazén používať iba pod dohľadom dospelej osoby. Hostia používajú bazén na vlastnú zodpovednosť.",
+      "Priestor Panorama Pool môže byť monitorovaný kamerovým systémom z dôvodu ochrany majetku, bezpečnosti a dodržiavania pravidiel."
+    ],
+    links: [
+      { label: "Pravidlá bazéna Dandelion D1", href: "/guide/d1/medence/" },
+      { label: "Pravidlá bazéna Dandelion D2", href: "/guide/d2/medence/" },
+      { label: "Pravidlá bazéna Fügeház", href: "/guide/fugehaz/medence/" }
+    ]
+  },
+  {
+    number: "5",
+    title: "Platba",
+    paragraphs: [
+      "Na potvrdenie rezervácie je zvyčajne potrebné uhradiť zálohu vo výške 30 % ceny ubytovania bankovým prevodom do 5 pracovných dní.",
+      "Doplatok ceny ubytovania je splatný pri príchode v hotovosti alebo bankovým prevodom."
+    ]
+  },
+  {
+    number: "6",
+    title: "Storno podmienky",
+    bullets: [
+      "Bezplatné storno: pri zrušení 30 a viac dní pred príchodom sa záloha vracia.",
+      "Storno do 30 dní pred príchodom: záloha je nevratná.",
+      "V prípade nepríchodu alebo zrušenia v deň príchodu môže byť účtovaná celá cena ubytovania."
+    ]
+  },
+  {
+    number: "7",
+    title: "Príchod a odchod",
+    bullets: [
+      "Check-in: zvyčajne 15:00-19:00",
+      "Check-out: do 10:00",
+      "Neskorší príchod je možný po predchádzajúcej dohode.",
+      "Online check-in a odovzdanie požadovaných údajov hostí môže byť podmienkou obsadenia ubytovania."
+    ]
+  },
+  {
+    number: "8",
+    title: "Domový poriadok, fajčenie a domáce zvieratá",
+    bullets: [
+      "Vybavenie ubytovania je potrebné používať riadne a šetrne.",
+      "Všetky ubytovania sú nefajčiarske.",
+      "Domáce zvieratá aktuálne neprijímame."
+    ]
+  },
+  {
+    number: "9",
+    title: "Zodpovednosť",
+    paragraphs: [
+      "Hosť zodpovedá za škodu spôsobenú na ubytovaní, vybavení alebo okolí ubytovania.",
+      "Prevádzkovateľ nenesie zodpovednosť za škodu spôsobenú nesprávnym používaním vybavenia, porušením pravidiel alebo konaním hostí."
+    ]
+  },
+  {
+    number: "10",
+    title: "Kontakt",
+    paragraphs: ["V prípade otázok k rezervácii, platbe, príchodu alebo ubytovaniu nás kontaktujte."],
+    contacts: [
+      { label: "E-mail", value: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+      { label: "Telefón", value: "+36 20 773 0807", href: "tel:+36207730807" }
+    ]
+  }
+];
+---
+
+<LegalDocumentPage
+  lang="sk"
+  title="Obchodné podmienky | Dandelion ubytovanie"
+  description="Obchodné a rezervačné podmienky Dandelion ubytovania: platba, storno, príchod, pravidlá domu a Panorama Pool."
+  canonicalPath="/sk/obchodne-podmienky/"
+  eyebrow="Právne informácie"
+  heading="Obchodné podmienky"
+  lead="Tieto obchodné podmienky upravujú rezerváciu a pobyt v ubytovaniach Dandelion. Odoslaním a potvrdením rezervácie hosť tieto podmienky prijíma."
+  introBlocks={[
+    { label: "Platnosť", lines: ["Platné od: 1. februára 2026", "Aktualizované: 25. mája 2026"] },
+    {
+      label: "Kontakt",
+      lines: [],
+      links: [
+        { label: "hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" },
+        { label: "+36 20 773 0807", href: "tel:+36207730807" }
+      ]
+    }
+  ]}
+  notice="Najvýhodnejšie ceny sú zvyčajne dostupné v našom vlastnom rezervačnom systéme. Pri rezerváciách cez externé kanály platia podmienky daného kanála."
+  tocLabel="Prejsť na časť"
+  tocPlaceholder="Vyberte časť"
+  sections={sections}
+/>

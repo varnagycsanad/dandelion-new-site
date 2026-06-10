@@ -283,6 +283,11 @@ const slovakLanguageLinks = [
   { label: "CZ", href: `${homeHref}cs/` },
   { label: "SK", href: `${homeHref}sk/` }
 ];
+const slovakLegalLinks = [
+  { label: "Obchodné podmienky", href: `${homeHref}sk/obchodne-podmienky/` },
+  { label: "Ochrana osobných údajov", href: `${homeHref}sk/ochrana-osobnych-udajov/` },
+  { label: "Tiráž", href: `${homeHref}sk/tiraz/` }
+];
 ---
 
 {isSlovakFooter && (
@@ -324,6 +329,15 @@ const slovakLanguageLinks = [
         <ul>
           {slovakLanguageLinks.map((item) => (
             <li class="dnd-site-footer__language-link"><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="dnd-site-footer__group" aria-label="Právne informácie">
+        <h2>Právne</h2>
+        <ul>
+          {slovakLegalLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
           ))}
         </ul>
       </nav>

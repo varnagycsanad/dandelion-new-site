@@ -25,7 +25,7 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/elmenyek/bor-es-panorama/", en: "/en/wineries/", de: "/de/weingueter/", cs: "/cs/vinarstvi/", sk: "/sk/vinarstva/" },
   { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
   { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
-  { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/" },
+  { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/", sk: "/sk/panorama-pool/" },
   { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
   { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
   { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },
@@ -35,9 +35,9 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/royal/", en: "/en/royal/", de: "/de/royal/", cs: "/cs/royal/", sk: "/sk/royal/" },
   { hu: "/dandelion-vintage/", en: "/en/dandelion-vintage/", de: "/de/dandelion-vintage/", cs: "/cs/dandelion-vintage/", sk: "/sk/dandelion-vintage/" },
   { hu: "/dandelion-koveskal/", en: "/en/dandelion-koveskal/", de: "/de/dandelion-koveskal/", cs: "/cs/dandelion-koveskal/", sk: "/sk/dandelion-koveskal/" },
-  { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/" },
-  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/", cs: "/cs/ochrana-osobnich-udaju/" },
-  { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/", cs: "/cs/tiraz/" }
+  { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
+  { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/", cs: "/cs/ochrana-osobnich-udaju/", sk: "/sk/ochrana-osobnych-udajov/" },
+  { hu: "/impresszum/", en: "/en/imprint/", de: "/de/impressum/", cs: "/cs/tiraz/", sk: "/sk/tiraz/" }
 ] as const;
 
 const canonicalAliasMap: Record<string, string> = {
@@ -91,6 +91,10 @@ export const SITEMAP_PATHS = [
   "/sk/vinarstva/",
   "/sk/balaton/",
   "/sk/svedecke-vrchy/",
+  "/sk/panorama-pool/",
+  "/sk/obchodne-podmienky/",
+  "/sk/ochrana-osobnych-udajov/",
+  "/sk/tiraz/",
   "/elmenyek/",
   "/elmenyek/balaton/",
   "/elmenyek/bor-es-panorama/",
