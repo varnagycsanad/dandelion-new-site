@@ -1,7 +1,7 @@
 ---
 import type { PanoramaPoolImageDraft } from "../data/images/panorama-pool-images";
 
-type PoolGalleryLocale = "hu" | "en" | "de" | "cs";
+type PoolGalleryLocale = "hu" | "en" | "de" | "cs" | "sk";
 
 const {
   images,
@@ -45,6 +45,14 @@ const labels = {
     close: "Zavřít galerii",
     previous: "Předchozí fotografie",
     next: "Další fotografie"
+  },
+  sk: {
+    heading: "Fotogaléria",
+    open: "Otvoriť fotografiu v galérii",
+    view: "Zobraziť fotografiu",
+    close: "Zavrieť galériu",
+    previous: "Predchádzajúca fotografia",
+    next: "Nasledujúca fotografia"
   }
 } satisfies Record<PoolGalleryLocale, Record<string, string>>;
 
@@ -53,7 +61,8 @@ const localizedTextKeys = {
   hu: { alt: "altHu", title: "titleHu", caption: "captionHu" },
   en: { alt: "altEn", title: "titleEn", caption: "captionEn" },
   de: { alt: "altDe", title: "titleDe", caption: "captionDe" },
-  cs: { alt: "altCs", title: "titleCs", caption: "captionCs" }
+  cs: { alt: "altCs", title: "titleCs", caption: "captionCs" },
+  sk: { alt: "altCs", title: "titleCs", caption: "captionCs" }
 } as const satisfies Record<PoolGalleryLocale, {
   alt: keyof PanoramaPoolImageDraft;
   title: keyof PanoramaPoolImageDraft;
