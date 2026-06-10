@@ -74,6 +74,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
       disableremoteplayback
       data-dnd-mobile-deferred={shouldDeferMobileVideo ? "true" : undefined}
       data-dnd-mobile-src={shouldDeferMobileVideo ? videoMobileSrc : undefined}
+      data-dnd-mobile-poster={shouldDeferMobileVideo && posterMobileSrc ? posterMobileSrc : undefined}
     >
       {videoMobileSrc && !shouldDeferMobileVideo && <source media="(max-width: 767px)" src={videoMobileSrc} type="video/mp4" />}
       {videoDesktopSrc && <source media="(min-width: 768px)" src={videoDesktopSrc} type="video/mp4" />}
@@ -148,6 +149,12 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
       }
 
       const videos = document.querySelectorAll("video[data-dnd-mobile-deferred='true'][data-dnd-mobile-src]");
+
+      videos.forEach((video) => {
+        if (video instanceof HTMLVideoElement && video.dataset.dndMobilePoster) {
+          video.poster = video.dataset.dndMobilePoster;
+        }
+      });
 
       const attachMobileSource = (video) => {
         if (!(video instanceof HTMLVideoElement) || video.dataset.dndMobileLoaded === "true") {

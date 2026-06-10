@@ -1290,6 +1290,58 @@ jobs:
           bye
           EOF
 
+      - name: Cleanup retired Panorama Pool hero media over SSH
+        id: ssh_retired_pool_hero_cleanup
+        if: steps.ssh_setup.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          remote_root="${UJSITE_SSH_REMOTE_PATH%/}"
+          retired_paths=(
+            "images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop.webp"
+            "images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile.webp"
+            "videos/medence/HERO/PC video/Medence_video_Hero_PC.mp4"
+            "videos/medence/HERO/Phone video/Medence_Hero_Phone 05-21.mp4"
+            "videos/medence/HERO/Phone video/Medence_Hero_Phone_05-21-mobile-lite.mp4"
+          )
+
+          delete_args=()
+          for rel in "${retired_paths[@]}"; do
+            delete_args+=("$(printf '%q' "$remote_root/$rel")")
+          done
+
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "rm -f ${delete_args[*]}"
+
+      - name: Cleanup retired Panorama Pool hero media over FTP
+        if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_retired_pool_hero_cleanup.outcome != 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "${UJSITE_FTP_USER},${UJSITE_FTP_PASSWORD}" -p "${{ steps.deploy_port.outputs.value }}" "${UJSITE_FTP_HOST}" <<EOF
+          set ssl:verify-certificate no
+          set ftp:passive-mode yes
+          set net:timeout 45
+          set net:max-retries 4
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/PC video/Medence_video_Hero_PC.mp4"
+          rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/Phone video/Medence_Hero_Phone 05-21.mp4"
+          rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/Phone video/Medence_Hero_Phone_05-21-mobile-lite.mp4"
+          bye
+          EOF
+
       - name: Cleanup SSH deploy material
         if: always()
         shell: bash

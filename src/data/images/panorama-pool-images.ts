@@ -19,8 +19,8 @@ export interface PanoramaPoolImageDraft {
 }
 
 export const panoramaPoolHero = {
-  desktop: "/images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop.webp",
-  mobile: "/images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile.webp"
+  desktop: "/images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop-20260610.webp",
+  mobile: "/images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile-20260610.webp"
 };
 
 export const panoramaPoolImages: PanoramaPoolImageDraft[] = [
