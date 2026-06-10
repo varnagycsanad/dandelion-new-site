@@ -22,9 +22,9 @@ const DEFAULT_AIR_TEMPERATURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_homerse
 const DEFAULT_HUMIDITY_ENTITY = 'sensor.d1_pergola_kulteri_homero_paratartalom';
 const DEFAULT_PRESSURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_nyomas';
 const DEFAULT_PH_ENTITY = 'sensor.mr_pure_sensor_12';
-const DEFAULT_SALT_CONCENTRATION_ENTITY = 'sensor.mr_pure_sensor_1';
-const DEFAULT_POOL_VOLUME_ENTITY = 'sensor.mr_pure_sensor_8';
-const DEFAULT_ORP_ENTITY = 'sensor.mr_pure_sensor_orp';
+const DEFAULT_SALT_CONCENTRATION_ENTITY = 'sensor.mr_pure_sensor_8';
+const DEFAULT_POOL_VOLUME_ENTITY = '';
+const DEFAULT_ORP_ENTITY = 'sensor.mr_pure_sensor_11';
 
 function send_json(int $statusCode, array $payload): void
 {
