@@ -49,12 +49,22 @@ const labels = {
 } satisfies Record<PoolGalleryLocale, Record<string, string>>;
 
 const galleryText = labels[locale];
-const useHungarianText = locale === "hu";
+const localizedTextKeys = {
+  hu: { alt: "altHu", title: "titleHu", caption: "captionHu" },
+  en: { alt: "altEn", title: "titleEn", caption: "captionEn" },
+  de: { alt: "altDe", title: "titleDe", caption: "captionDe" },
+  cs: { alt: "altCs", title: "titleCs", caption: "captionCs" }
+} as const satisfies Record<PoolGalleryLocale, {
+  alt: keyof PanoramaPoolImageDraft;
+  title: keyof PanoramaPoolImageDraft;
+  caption: keyof PanoramaPoolImageDraft;
+}>;
+const textKeys = localizedTextKeys[locale];
 const galleryItems = images.map((image) => ({
   ...image,
-  alt: useHungarianText ? image.altHu : image.altEn,
-  title: useHungarianText ? image.titleHu : image.titleEn,
-  caption: useHungarianText ? image.captionHu : image.captionEn
+  alt: image[textKeys.alt],
+  title: image[textKeys.title],
+  caption: image[textKeys.caption]
 }));
 const lightboxImages = galleryItems.map((image) => ({
   id: image.id,

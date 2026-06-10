@@ -1290,7 +1290,7 @@ jobs:
           bye
           EOF
 
-      - name: Cleanup retired Panorama Pool hero media over SSH
+      - name: Cleanup retired Panorama Pool media over SSH
         id: ssh_retired_pool_hero_cleanup
         if: steps.ssh_setup.outcome == 'success'
         continue-on-error: true
@@ -1310,8 +1310,38 @@ jobs:
 
           remote_root="${UJSITE_SSH_REMOTE_PATH%/}"
           retired_paths=(
+            "images/panorama-pool/gallery/dandelion-panorama-pool-001.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-002.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-003.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-004.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-005.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-006.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-007.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-008.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-009.webp"
+            "images/panorama-pool/gallery/dandelion-panorama-pool-010.webp"
             "images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop.webp"
             "images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile.webp"
+            "images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop-20260610.webp"
+            "images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile-20260610.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-001.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-002.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-003.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-004.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-005.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-006.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-007.webp"
+            "images/panorama-pool/mobile/dandelion-panorama-pool-mobile-008.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-001.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-002.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-003.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-004.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-005.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-006.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-007.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-008.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-009.webp"
+            "images/panorama-pool/thumbs/dandelion-panorama-pool-010.webp"
             "videos/medence/HERO/PC video/Medence_video_Hero_PC.mp4"
             "videos/medence/HERO/Phone video/Medence_Hero_Phone 05-21.mp4"
             "videos/medence/HERO/Phone video/Medence_Hero_Phone_05-21-mobile-lite.mp4"
@@ -1324,7 +1354,7 @@ jobs:
 
           ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "rm -f ${delete_args[*]}"
 
-      - name: Cleanup retired Panorama Pool hero media over FTP
+      - name: Cleanup retired Panorama Pool media over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_retired_pool_hero_cleanup.outcome != 'success'
         shell: bash
         run: |
@@ -1334,8 +1364,38 @@ jobs:
           set ftp:passive-mode yes
           set net:timeout 45
           set net:max-retries 4
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-001.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-002.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-003.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-004.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-005.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-006.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-007.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-008.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-009.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-010.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-desktop-20260610.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/hero/dandelion-panorama-pool-hero-mobile-20260610.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-001.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-002.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-003.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-004.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-005.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-006.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-007.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/mobile/dandelion-panorama-pool-mobile-008.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-001.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-002.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-003.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-004.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-005.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-006.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-007.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-008.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-009.webp"
+          rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/thumbs/dandelion-panorama-pool-010.webp"
           rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/PC video/Medence_video_Hero_PC.mp4"
           rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/Phone video/Medence_Hero_Phone 05-21.mp4"
           rm -f "${UJSITE_FTP_PATH%/}/videos/medence/HERO/Phone video/Medence_Hero_Phone_05-21-mobile-lite.mp4"
