@@ -6,7 +6,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   titleAccent: "D1",
   route: "/de/dandelion-d1/",
   listingAnchor: "dandelion-d1",
-  location: "Kisapati",
+  location: "Kisapáti",
   region: "Balaton-Oberland - Szent György-hegy",
   guests: "6-8 Gäste",
   character: "Großes Ferienhaus mit Garten und Terrasse",
@@ -23,7 +23,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     ["Schlafzimmer", "3 Schlafzimmer"],
     ["Badezimmer", "2 Badezimmer"],
     ["Außenbereich", "Terrasse und großer Garten"],
-    ["Lage", "Kisapati, nahe Szent György-hegy"]
+    ["Lage", "Kisapáti, nahe Szent György-hegy"]
   ],
   experienceFacts: [
     ["Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
@@ -36,12 +36,12 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     { iconKey: "users", title: "Großes Familienhaus", text: "8 Gäste, getrennte Zimmer" },
     { iconKey: "terrace", title: "Garten und Terrasse", text: "Essen im Freien" },
     { iconKey: "pool", title: "Sommeraufenthalt", text: "Panorama Pool" },
-    { iconKey: "trail", title: "Basis am Berg", text: "Wandern und Weingüter" }
+    { iconKey: "trail", title: "Ausgangspunkt am Berg", text: "Wandern und Weingüter" }
   ],
   amenities: ["3 Schlafzimmer", "Gemütliches Wohnzimmer", "Gut ausgestattete Küche", "Panoramaterrasse", "Grillmöglichkeit", "Klimaanlage", "Waschmaschine", "Geschirrspüler", "Gigabit-Internet"],
   geoDecision: {
     kicker: "D1 schnelle Antworten",
-    title: "Dandelion D1 passt, wenn Sie ein geräumiges Haus in Kisapati mit Zugang zum Panorama Pool suchen",
+    title: "Dandelion D1 ist eine gute Wahl, wenn Sie ein geräumiges Haus in Kisapáti mit Zugang zum Panorama Pool suchen",
     lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und Panorama Pool ab 15. Juni 2026.",
     questions: [
       {
@@ -52,7 +52,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
       {
         iconKey: "pool",
         question: "Ist der Pool privat für D1?",
-        answer: "Nein. Der Panorama Pool ist ein Panorama Pool Bereich für Gäste von D1, D2 und Fügeház."
+        answer: "Nein. Der Panorama Pool ist ein gemeinsamer Poolbereich für Gäste von D1, D2 und Fügeház."
       },
       {
         iconKey: "guests",
@@ -62,7 +62,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
       {
         iconKey: "mountain",
         question: "Für welche Ausflüge ist D1 ein guter Ausgangspunkt?",
-        answer: "Von Kisapati aus sind Szent György-hegy, Badacsony, Szigliget, Csobánc, der Balaton und lokale Weingüter mit kurzer Fahrt erreichbar."
+        answer: "Von Kisapáti aus sind Szent György-hegy, Badacsony, Szigliget, Csobánc, der Balaton und lokale Weingüter mit kurzer Fahrt erreichbar."
       },
       {
         iconKey: "kitchen",
@@ -78,7 +78,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     amenitiesTitle: "Was im Haus wichtig ist"
   },
   mapBody:
-    "Dandelion D1 liegt in Kisapati, mit guter Erreichbarkeit von Szent György-hegy, Tapolca, Badacsony und den Balaton-Stränden.",
+    "Dandelion D1 liegt in Kisapáti, mit guter Erreichbarkeit von Szent György-hegy, Tapolca, Badacsony und den Balaton-Stränden.",
   mapBenefits: [
     { label: "Wanderwege in der Nähe", icon: "trail" },
     { label: "Balaton mit kurzer Fahrt erreichbar", icon: "route" },

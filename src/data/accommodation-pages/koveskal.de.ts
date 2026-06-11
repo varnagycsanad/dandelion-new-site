@@ -14,9 +14,9 @@ export const koveskalGermanPageData = createGermanAccommodationPage(koveskalEngl
   lead:
     "Dandelion Köveskál ist für Gäste gedacht, die Dorfstimmung, gute Gastronomie, Steinlandschaft und die ruhigere Seite des Balaton-Oberlands suchen.",
   longDescription: [
-    "Köveskál hat eine besondere Mischung aus Ruhe, Gastronomie und Landschaft. Die Unterkunft ist eine passende Basis für langsame Tage und kleine Ausflüge.",
+    "Köveskál hat eine besondere Mischung aus Ruhe, Gastronomie und Landschaft. Die Unterkunft ist ein passender Ausgangspunkt für entspannte Tage und kleine Ausflüge.",
     "Von hier aus sind das Káli-Becken, Salföld, Hegyestű, Badacsony und mehrere Balaton-Orte gut erreichbar.",
-    "Das Haus passt zu Gästen, die weniger Strandtrubel und mehr Dorf, Natur, Wein und regionale Stimmung suchen."
+    "Das Haus eignet sich für Gäste, die weniger Strandtrubel und mehr Dorf, Natur, Wein und regionale Stimmung suchen."
   ],
   facts: [
     ["Gäste", "4-6 Gäste"],
@@ -36,14 +36,14 @@ export const koveskalGermanPageData = createGermanAccommodationPage(koveskalEngl
     { iconKey: "leaf", title: "Káli-Becken", text: "Natur und Dorfstimmung" },
     { iconKey: "grapes", title: "Regionale Orte", text: "Wein und Gastronomie" },
     { iconKey: "route", title: "Ausflüge", text: "Hegyestű, Salföld, Balaton" },
-    { iconKey: "home", title: "Ruhige Basis", text: "angenehm für langsame Tage" }
+    { iconKey: "home", title: "Ruhiger Rückzugsort", text: "angenehm für entspannte Tage" }
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Parken", "Ruhige Umgebung"],
   geoDecision: {
     kicker: "Köveskál schnelle Antworten",
-    title: "Dandelion Köveskál passt, wenn Sie ein ruhiges Gästehaus mit Dorfstimmung im Káli-Becken suchen, für langsamere Tage und kleine Ausflüge",
+    title: "Dandelion Köveskál ist eine gute Wahl, wenn Sie ein ruhiges Gästehaus mit Dorfstimmung im Káli-Becken suchen",
     lead:
-      "Das Köveskál Gästehaus bietet bis zu 6 Gästen eine ruhige Basis im Káli-Becken mit großem Garten, großer Terrasse, 2 Badezimmern, Dorfstimmung und Wein- sowie Gastronomieprogrammen in der Nähe.",
+      "Das Köveskál Gästehaus bietet bis zu 6 Gästen einen ruhigen Ausgangspunkt im Káli-Becken mit großem Garten, großer Terrasse, 2 Badezimmern, Dorfstimmung und Wein- sowie Gastronomieprogrammen in der Nähe.",
     questions: [
       {
         question: "Für wen ist Dandelion Köveskál eine gute Wahl?",
@@ -63,12 +63,12 @@ export const koveskalGermanPageData = createGermanAccommodationPage(koveskalEngl
       {
         question: "Für welche Programme ist Köveskál ein guter Ausgangspunkt?",
         answer:
-          "Köveskál ist eine gute Basis für die Dörfer des Káli-Beckens, Spaziergänge, Wein- und Gastronomiestopps, Hegyestű, Salföld, Badacsony und Ausflüge zum Balaton."
+          "Köveskál ist ein guter Ausgangspunkt für die Dörfer des Káli-Beckens, Spaziergänge, Wein- und Gastronomiestopps, Hegyestű, Salföld, Badacsony und Ausflüge zum Balaton."
       },
       {
         question: "Worin unterscheidet sich Köveskál von Unterkünften direkt am Balaton?",
         answer:
-          "Köveskál ist keine Unterkunft direkt am Wasser, sondern eine ruhigere, dörflichere Wahl im Káli-Becken. Es passt, wenn Landschaft, Dorfstimmung, Weinregion und langsameres Tempo wichtiger sind als direkter Strandzugang."
+          "Köveskál ist keine Unterkunft direkt am Wasser, sondern eine ruhigere, dörflichere Wahl im Káli-Becken. Es eignet sich besonders, wenn Landschaft, Dorfstimmung, Weinregion und ein entspannteres Tempo wichtiger sind als direkter Strandzugang."
       },
       {
         question: "Wie ist der Hof beim Gästehaus Köveskál?",

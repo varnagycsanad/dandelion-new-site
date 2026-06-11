@@ -18,7 +18,7 @@ export const d2GermanPageData: AccommodationPageData = {
       "dandelion-d2-kisapati-hero-mobile-01.webp",
       "d2 German mobile hero"
     ),
-    fallbackAlt: "Dandelion D2 überdachte Terrasse mit gelben Stühlen und großem Garten in Kisapati",
+    fallbackAlt: "Dandelion D2 überdachte Terrasse mit gelben Stühlen und großem Garten in Kisapáti",
     kicker: "Balaton-Oberland - Szent György-hegy",
     title: "Dandelion",
     titleAccent: "D2",
@@ -74,7 +74,7 @@ export const d2GermanPageData: AccommodationPageData = {
   intro: {
     kicker: "Langsamer Rhythmus - großer Garten - überdachte Terrasse",
     title: "Terrasse, Garten und entspannte Räume für Familien",
-    lead: "Dandelion D2 passt gut zu ruhiger Familienzeit im Balaton-Oberland. Die überdachte Terrasse, der große Garten und die praktische Küche machen den Aufenthalt leicht, während Hügel, Strände und Weingüter in kurzer Fahrt erreichbar sind."
+    lead: "Dandelion D2 ist eine gute Wahl für Familien, die im Balaton-Oberland Garten, Terrasse und unkomplizierten Komfort suchen. Hügel, Strände und Weingüter sind von hier aus in kurzer Fahrt erreichbar."
   },
   details: {
     kicker: "Dandelion D2",
@@ -88,9 +88,9 @@ export const d2GermanPageData: AccommodationPageData = {
     longDescription: [
       "Der galerieartige Wohnraum gibt dem Haus einen offenen, unkomplizierten Rhythmus. Die renovierte Küche macht auch längere Aufenthalte angenehm. Der Morgen kann auf der Terrasse beginnen, tagsüber geht es in die Hügel oder an den Balaton, und abends wird es im Garten wieder ruhig.",
       "Die überdachte Terrasse und die Sitzplätze im Freien sind auch nützlich, wenn das Wetter wechselt. Der große Garten gibt Kindern und Erwachsenen Raum zum Spielen, Sitzen, Grillen oder einfach zum Ausruhen.",
-      "Der Panorama Pool ist in der Saison für Gäste von D1, D2 und Fügeház verfügbar. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen D1-D2-Fügeház Poolerlebnisses ab 15. Juni 2026.",
+      "Der Panorama Pool ist in der Saison für Gäste von D1, D2 und Fügeház verfügbar. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen Poolbereichs von D1, D2 und Fügeház ab 15. Juni 2026.",
       "Rund um das Haus gibt es Tiere, was viele Kinder als kleines Landerlebnis erleben. Das gibt dem Aufenthalt eine warme, dorfliche Stimmung, ohne den Komfort des Hauses zu schmälern.",
-      "Der Balaton, die Wanderwege des Szent György-hegy und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Dandelion D2 eignet sich deshalb gut als ruhige Basis für verschiedene Tage im Balaton-Oberland."
+      "Der Balaton, die Wanderwege des Szent György-hegy und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Dandelion D2 eignet sich deshalb gut als Ausgangspunkt für unterschiedliche Tage im Balaton-Oberland."
     ],
     moreLabel: "Mehr über Dandelion D2",
     ctaLabel: "Verfügbarkeit prüfen"
@@ -110,7 +110,7 @@ export const d2GermanPageData: AccommodationPageData = {
         title: "Erlebnisse",
         items: [
           ["Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
-          ["Draussen kochen", "Grillmöglichkeit im Garten"],
+          ["Draußen kochen", "Grillmöglichkeit im Garten"],
           ["Für Kinder", "Tiere und großer Garten rund um das Haus"],
           ["In der Nähe", "Balaton, Wanderwege und Weingüter"]
         ]
@@ -126,7 +126,7 @@ export const d2GermanPageData: AccommodationPageData = {
       { label: "überdachte Terrasse und Gartenbereich", icon: "leaf" },
       { label: "Grillmöglichkeit im Freien", icon: "grapes" },
       { label: "Tiere rund um das Haus", icon: "users" },
-      { label: "Gute Basis für Wanderungen an den Zeugenbergen", icon: "trail" }
+      { label: "Guter Ausgangspunkt für Wanderungen an den Zeugenbergen", icon: "trail" }
     ]
   },
   decisionPanel: {
@@ -180,7 +180,7 @@ export const d2GermanPageData: AccommodationPageData = {
   },
   geoDecision: {
     kicker: "D2 schnelle Antworten",
-    title: "Dandelion D2 passt, wenn Sie ein familienfreundliches Haus mit Gartennähe in Kisapati suchen",
+    title: "Dandelion D2 ist eine gute Wahl, wenn Sie ein familienfreundliches Haus mit Garten in Kisapáti suchen",
     lead: "D2 ist bequem für 4-6 Gäste, mit großem Garten, überdachter Terrasse, renovierter Küche und Zugang zum Panorama Pool ab 15. Juni 2026.",
     questions: [
       {
@@ -191,7 +191,7 @@ export const d2GermanPageData: AccommodationPageData = {
       {
         iconKey: "family",
         question: "Für wen ist Dandelion D2 eine gute Wahl?",
-        answer: "D2 passt vor allem zu Familien und kleineren Freundesgruppen, die einen großen Garten, eine überdachte Terrasse und eine ruhige Basis im Balaton-Oberland suchen."
+        answer: "D2 eignet sich vor allem für Familien und kleinere Freundesgruppen, die einen großen Garten, eine überdachte Terrasse und einen ruhigen Ausgangspunkt im Balaton-Oberland suchen."
       },
       {
         iconKey: "guests",
@@ -210,8 +210,8 @@ export const d2GermanPageData: AccommodationPageData = {
       },
       {
         iconKey: "mountain",
-        question: "Für welche Ausflüge ist D2 eine gute Basis?",
-        answer: "D2 ist eine gute Basis für den Szent György-hegy, den Balaton, die Zeugenberge, Weingüter in der Umgebung und das Tapolca-Becken."
+        question: "Für welche Ausflüge ist D2 ein guter Ausgangspunkt?",
+        answer: "D2 ist ein guter Ausgangspunkt für den Szent György-hegy, den Balaton, die Zeugenberge, Weingüter in der Umgebung und das Tapolca-Becken."
       }
     ],
     amenitiesTitle: "Was in D2 wichtig ist"
@@ -235,9 +235,9 @@ export const d2GermanPageData: AccommodationPageData = {
     previewCount: 8
   },
   map: {
-    kicker: "SZENT GYORGY-HEGY - KISAPATI",
+    kicker: "SZENT GYÖRGY-HEGY - KISAPÁTI",
     title: "Die Umgebung von Dandelion D2",
-    body: "Dandelion D2 liegt günstig, um das Tapolca-Becken, den Balaton und die umliegende Weinregion von einer ruhigen Basis aus zu erkunden. Es passt zu nahen Wanderungen ebenso wie zu langsameren Balaton-Tagen.",
+    body: "Dandelion D2 liegt günstig, um das Tapolca-Becken, den Balaton und die umliegende Weinregion von einem ruhigen Ausgangspunkt aus zu erkunden. Die Lage eignet sich für nahe Wanderungen ebenso wie für entspannte Balaton-Tage.",
     benefitsAriaLabel: "Vorteile der Lage",
     benefits: [
       { label: "Wanderwege in der Nähe", icon: "trail" },
@@ -281,7 +281,7 @@ export const d2GermanPageData: AccommodationPageData = {
         image: {
           type: "mapping",
           slot: "d1_card_image",
-          alt: "Dandelion D1 Ferienhaus für Familien in Kisapati"
+          alt: "Dandelion D1 Ferienhaus für Familien in Kisapáti"
         }
       },
       {
@@ -316,7 +316,7 @@ export const d2GermanPageData: AccommodationPageData = {
             "dandelion-koveskal-source-001.webp",
             "D2 German related Köveskál"
           ),
-          alt: "Aussenansicht des Dandelion Köveskál Ferienhauses"
+          alt: "Außenansicht des Dandelion Köveskál Ferienhauses"
         }
       }
     ]

@@ -18,14 +18,14 @@ export const koveskalCzechPageData = createCzechAccommodationPage(koveskalEnglis
   ],
   facts: [["Poloha", "Köveskál / oblast Káli"], ["Charakter", "klidná vesnice"], ["Rezervace", "anglický SabeeApp"], ["Vhodné pro", "pomalé dny"]],
   experienceFacts: [["Káli-medence", "vesnice a krajina"], ["Gastronomie", "místní restaurace"], ["Víno", "vinařství v okolí"], ["Klid", "méně rušný pobyt"]],
-  highlights: ["Oblast Káli", "Klidná vesnice", "Anglický booking", "Vylety", "Gastronomie", "Vinařská krajina"],
+  highlights: ["Oblast Káli", "Klidná vesnice", "Anglický booking", "Výlety", "Gastronomie", "Vinařská krajina"],
   reasons: [
     { iconKey: "leaf", title: "Ticho oblasti Káli", text: "pomalé tempo" },
     { iconKey: "route", title: "Vesnice a výlety", text: "Köveskál a okolí" },
     { iconKey: "grapes", title: "Víno a gastronomie", text: "lokální atmosféra" },
     { iconKey: "home", title: "Jednoduchá základna", text: "pro klidný pobyt" }
   ],
-  amenities: ["Wi-Fi", "Kuchyně", "Koupelna", "Topení", "Parkování", "Klidná poloha", "Vylety v okolí", "Anglický booking"],
+  amenities: ["Wi-Fi", "Kuchyně", "Koupelna", "Topení", "Parkování", "Klidná poloha", "Výlety v okolí", "Anglický booking"],
   geoDecision: {
     kicker: "Köveskál rychlé odpovědi",
     title: "Dandelion Köveskál je dobrá volba, pokud hledáte klidný penzion s vesnickou atmosférou v oblasti Káli, pro pomalejší dny a výlety",

@@ -14,7 +14,7 @@ export const vintageGermanPageData = createGermanAccommodationPage(vintageEnglis
   lead:
     "Dandelion Vintage ist eine warme, entspannte Unterkunft für Gäste, die Balaton-Nähe und ruhige Dorfatmosphäre verbinden möchten.",
   longDescription: [
-    "Das Haus hat eine gemütliche, persönliche Stimmung und passt zu Familien, Paaren oder Freunden, die einige ruhige Tage zusammen verbringen möchten.",
+    "Das Haus hat eine gemütliche, persönliche Stimmung und eignet sich für Familien, Paare oder Freunde, die einige ruhige Tage zusammen verbringen möchten.",
     "Der eigene Hof macht den Aufenthalt unkompliziert: draußen sitzen, langsam frühstücken und nach Ausflügen wieder in eine ruhigere Umgebung zurückkehren.",
     "Nemesgulács ist günstig für Badacsony, Szigliget, Balaton-Strandtage und die kleineren Orte des Balaton-Oberlands."
   ],
@@ -41,7 +41,7 @@ export const vintageGermanPageData = createGermanAccommodationPage(vintageEnglis
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Eigener Hof", "Parken"],
   geoDecision: {
     kicker: "Vintage schnelle Antworten",
-    title: "Dandelion Vintage passt, wenn Sie ein ruhiges Gästehaus mit eigenem Hof in Nemesgulács suchen, nahe Balaton und Badacsony",
+    title: "Dandelion Vintage ist eine gute Wahl, wenn Sie ein ruhiges Gästehaus mit eigenem Hof in Nemesgulács suchen, nahe Balaton und Badacsony",
     lead:
       "Vintage ist ein gemütliches Haus für 4 Gäste mit 2 Schlafzimmern, Wohnzimmer, eigenem Hof, Grillmöglichkeit, Klimaanlage, starkem Internet und ruhiger Dorfstimmung.",
     questions: [

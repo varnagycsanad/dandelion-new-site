@@ -9,7 +9,7 @@ export const d2EnglishPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D2 near Szent György Hill | Family-friendly countryside stay",
     description:
-      "Dandelion D2 is a peaceful family-friendly accommodation near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the Panorama Pool."
+      "Dandelion D2 is a family-friendly house near Szent György Hill, with a large garden, covered terrace and seasonal access to the Panorama Pool."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c64244f6153c3ca1&lang=En",
   hero: {
@@ -24,7 +24,7 @@ export const d2EnglishPageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "D2",
     subtitle: "FAMILY-FRIENDLY COUNTRYSIDE ACCOMMODATION WITH GARDEN AND TERRACE",
-    lead: "A bright, peaceful countryside stay near Szent György Hill, with a large garden, covered terrace and easy access to Lake Balaton.",
+    lead: "A bright family house near Szent György Hill, with a large garden, covered terrace and easy access to Lake Balaton.",
     poolHighlight: {
       enabled: true,
       label: "Panorama Pool near Dandelion D2",
@@ -62,7 +62,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       },
       {
         source: "Booking.com",
-        quote: "A completely positive experience, with quick replies and very helpful hosts.",
+        quote: "Everything worked smoothly, with quick replies and very helpful hosts.",
         meta: "Bernadett · Booking.com · 10/10"
       },
       {
@@ -73,25 +73,25 @@ export const d2EnglishPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Slow rhythm · large garden · covered terrace",
+    kicker: "Large garden · covered terrace · family rooms",
     title: "Covered terrace, garden space and relaxed family rooms",
-    lead: "Dandelion D2 is made for calm family time in the Balaton Uplands. The covered terrace, large garden and practical kitchen keep the stay easy, while nearby hills, beaches and wineries give every day a different route."
+    lead: "Dandelion D2 works well for families who want outdoor space without giving up comfort. The covered terrace is useful throughout the day, the garden gives children room to play, and the kitchen is practical for longer stays."
   },
   details: {
     kicker: "Dandelion D2",
     title: "Family-friendly countryside accommodation near Szent György Hill",
     shortDescription:
-      "A peaceful base with bright indoor spaces, a large garden, animals around the house and Lake Balaton within easy reach.",
+      "A bright family house with practical indoor spaces, a large garden, animals around the house and Lake Balaton within easy reach.",
     supportingLink: {
       label: "Explore Dandelion stays from the English accommodations page.",
       href: "/en/szallasok/"
     },
     longDescription: [
-      "The gallery-style living room gives the house an open, easy rhythm, and the renovated kitchen makes longer stays comfortable too. Mornings can start on the terrace, days can move toward the hills or Lake Balaton, and evenings can slow down again in the garden.",
+      "The gallery-style living room gives the house an open feel, and the renovated kitchen makes longer stays comfortable too. Mornings can start on the terrace, days can move toward the hills or Lake Balaton, and evenings can finish in the garden.",
       "The covered terrace and outdoor seating are useful even when the weather changes, while the large garden gives children and adults space to play, sit, grill or simply enjoy the quiet.",
       "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool for D2, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
-      "There are animals around the house, which many children experience as a small countryside adventure. It adds a warmer village feeling without taking anything away from the comfort of the stay.",
-      "Lake Balaton, the hiking routes of Szent György Hill and the wineries of the region are all within a short drive, so Dandelion D2 works well as one calm base for several kinds of Balaton Uplands days."
+      "There are animals around the house, which many children enjoy as a small countryside detail. It adds a warmer village feeling without taking anything away from the comfort of the stay.",
+      "Lake Balaton, the hiking routes of Szent György Hill and the wineries of the region are all within a short drive, so Dandelion D2 works well for several kinds of Balaton Uplands days."
     ],
     moreLabel: "More about Dandelion D2",
     ctaLabel: "Check availability"
@@ -127,7 +127,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       { label: "Covered terrace and garden area", icon: "leaf" },
       { label: "Outdoor grilling option", icon: "grapes" },
       { label: "Animals around the house", icon: "users" },
-      { label: "Good base for witness-hill walks", icon: "trail" }
+      { label: "Good starting point for witness-hill walks", icon: "trail" }
     ]
   },
   decisionPanel: {
@@ -135,7 +135,7 @@ export const d2EnglishPageData: AccommodationPageData = {
     overviewFacts: [
       { iconKey: "guests", title: "4-6 guests", text: "Capacity" },
       { iconKey: "terrace", title: "Covered terrace", text: "and garden seating" },
-      { iconKey: "garden", title: "Large garden", text: "with space to slow down" },
+      { iconKey: "garden", title: "Large garden", text: "with room for children and outdoor meals" },
       { iconKey: "kitchen", title: "Renovated kitchen" },
       { iconKey: "home", title: "Gallery-style living room" },
       { iconKey: "animals", title: "Animals around the house" }
@@ -181,7 +181,7 @@ export const d2EnglishPageData: AccommodationPageData = {
   },
   geoDecision: {
     kicker: "D2 quick answers",
-    title: "Dandelion D2 is a good choice if you want a garden-based, family-friendly house in Kisapati",
+    title: "Dandelion D2 is a good choice if you want a garden-based, family-friendly house in Kisapáti",
     lead: "D2 is comfortable for 4-6 guests, with a large garden, covered terrace, renovated kitchen and Panorama Pool access from June 15, 2026.",
     questions: [
       {
@@ -192,7 +192,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         iconKey: "family",
         question: "Who is Dandelion D2 best for?",
-        answer: "D2 mainly suits families and smaller groups of friends looking for a large garden, covered terrace and a calm Balaton Uplands base."
+        answer: "D2 mainly suits families and smaller groups of friends looking for a large garden, covered terrace and an easy Balaton Uplands starting point."
       },
       {
         iconKey: "guests",
@@ -211,8 +211,8 @@ export const d2EnglishPageData: AccommodationPageData = {
       },
       {
         iconKey: "mountain",
-        question: "What trips is D2 a good base for?",
-        answer: "D2 is a good base for Szent György Hill, Lake Balaton, the witness hills, local wineries and the Tapolcai Basin."
+        question: "What trips is D2 a good starting point for?",
+        answer: "D2 is a good starting point for Szent György Hill, Lake Balaton, the witness hills, local wineries and the Tapolcai Basin."
       }
     ],
     amenitiesTitle: "What matters in D2"
@@ -262,7 +262,7 @@ export const d2EnglishPageData: AccommodationPageData = {
   map: {
     kicker: "SZENT GYÖRGY HILL · KISAPÁTI",
     title: "Around Dandelion D2",
-    body: "Dandelion D2 is well placed for exploring the Tapolcai Basin, the shore of Lake Balaton and the surrounding wine region from one peaceful base. It works for nearby hill walks as well as slower Balaton days.",
+    body: "Dandelion D2 is well placed for exploring the Tapolcai Basin, the shore of Lake Balaton and the surrounding wine region. It works for nearby hill walks as well as easy Balaton days.",
     benefitsAriaLabel: "Location benefits",
     benefits: [
       { label: "Hiking routes nearby", icon: "trail" },

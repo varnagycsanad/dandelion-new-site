@@ -245,7 +245,7 @@ const createPoolGuideDeContent = (houseName: string): GuideLocaleContent => ({
     "Öffnungszeiten während der Badesaison: täglich 10:00-21:00.",
     "Die Nutzung des Pools erfolgt auf eigene Verantwortung. Es gibt keinen Bademeister.",
     "Kinder dürfen den Pool nur unter Aufsicht eines Erwachsenen nutzen.",
-    "Der Panorama Pool Bereich kann videoüberwacht sein.",
+    "Der Panorama-Poolbereich kann videoüberwacht sein.",
     "Nach der letzten Nutzung am Abend muss die Poolabdeckung wieder über den Pool gezogen werden."
   ],
   backLabel: `Zurück zum ${houseName} Guide`,
@@ -357,7 +357,7 @@ const createPoolGuideDeContent = (houseName: string): GuideLocaleContent => ({
       id: "kamera",
       title: "10. Videoüberwachung",
       paragraphs: [
-        "Der Panorama Pool Bereich kann videoüberwacht sein.",
+        "Der Panorama-Poolbereich kann videoüberwacht sein.",
         "Zweck der Videoüberwachung ist der Schutz der Gäste und der Unterkunft, der Eigentumsschutz, die Vorbeugung von Schäden und Regelverstößen sowie die Klärung von Beschwerden, Unfällen oder Schadensfällen.",
         "Videoüberwachung ist kein Bademeisterdienst und keine dauerhafte persönliche Aufsicht; sie ersetzt nicht die Aufsicht von Kindern durch Erwachsene.",
         "Die detaillierten Regeln zur Kameradatenverarbeitung stehen in der Datenschutzerklärung der Dandelion Gästehäuser."

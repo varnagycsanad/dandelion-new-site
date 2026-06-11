@@ -12,18 +12,18 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   character: "Panoramahaus mit Terrasse und Hot Tub",
   shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste nahe Szent György-hegy.",
   lead:
-    "Dandelion Fügeház ist für Gäste gemacht, die Aussicht, Terrassenzeit und eine ruhige Basis im Balaton-Oberland suchen.",
+    "Dandelion Fügeház ist für Gäste gemacht, die Aussicht, Terrassenzeit und einen ruhigen Rückzugsort im Balaton-Oberland suchen.",
   longDescription: [
     "Das Haus hat eine klare, entspannte Aufteilung und eignet sich gut für Familien, Paare oder Freunde, die ein paar ruhige Tage zusammen verbringen möchten.",
     "Die Terrasse und die Aussicht prägen den Aufenthalt: morgens langsam starten, tagsüber die Umgebung erkunden und abends draußen sitzen.",
-    "Fügeház gehört zu den Unterkünften mit Zugang zum Panorama Pool Bereich ab 15. Juni 2026."
+    "Fügeház gehört zu den Unterkünften mit Zugang zum Panorama-Poolbereich ab 15. Juni 2026."
   ],
   facts: [
     ["Gäste", "4-6 Gäste"],
     ["Charakter", "Panorama und Terrassen"],
     ["Außenbereich", "Terrasse und Hot Tub"],
     ["Lage", "nahe Szent György-hegy"],
-    ["Pool", "Panorama Pool Bereich"]
+    ["Pool", "Panorama-Poolbereich"]
   ],
   experienceFacts: [
     ["Panorama", "Blick in die Hügellandschaft"],
@@ -40,7 +40,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   ],
   geoDecision: {
     kicker: "Fügeház schnelle Antworten",
-    title: "Dandelion Fügeház passt, wenn Sie ein ruhiges, terrassenbetontes Panoramahaus nahe Szent György-hegy suchen",
+    title: "Dandelion Fügeház ist eine gute Wahl, wenn Sie ein ruhiges, terrassenbetontes Panoramahaus nahe Szent György-hegy suchen",
     lead: "Fügeház ist bequem für 4 Gäste und mit Extrabett bis 6 Gäste erweiterbar. Es ist ein zweistöckiges Haus mit Panoramaterrassen, Grillmöglichkeit und Zugang zum Panorama Pool ab 15. Juni 2026.",
     questions: [
       {
@@ -51,7 +51,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
       {
         iconKey: "family",
         question: "Für wen ist Dandelion Fügeház eine gute Wahl?",
-        answer: "Fügeház passt vor allem zu Paaren, kleineren Familien und Gästen, die einen ruhigeren Aufenthalt im Balaton-Oberland suchen."
+        answer: "Fügeház eignet sich vor allem für Paare, kleinere Familien und Gäste, die einen ruhigeren Aufenthalt im Balaton-Oberland suchen."
       },
       {
         iconKey: "guests",
@@ -61,7 +61,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
       {
         iconKey: "home",
         question: "Worin unterscheidet sich Fügeház von D1 oder D2?",
-        answer: "Fügeház wirkt intimer, panoramischer und stärker auf Terrassenzeit ausgerichtet. Für größere Gemeinschaftsbereiche passt D1 besser; für ein gartennahes Familienhaus ist D2 stärker."
+        answer: "Fügeház wirkt intimer, panoramischer und stärker auf Terrassenzeit ausgerichtet. Für größere Gemeinschaftsbereiche ist D1 die bessere Wahl; für ein gartennahes Familienhaus ist D2 stärker."
       },
       {
         iconKey: "kitchen",
@@ -70,8 +70,8 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
       },
       {
         iconKey: "mountain",
-        question: "Für welche Ausflüge ist Fügeház eine gute Basis?",
-        answer: "Fügeház ist eine gute Basis für den Szent György-hegy, Badacsony, Csobánc, Tóti-hegy, Gulács, lokale Weingüter und Balaton-Strände."
+        question: "Für welche Ausflüge ist Fügeház ein guter Ausgangspunkt?",
+        answer: "Fügeház ist ein guter Ausgangspunkt für den Szent György-hegy, Badacsony, Csobánc, Tóti-hegy, Gulács, lokale Weingüter und Balaton-Strände."
       }
     ],
     amenitiesTitle: "Was in Fügeház wichtig ist"

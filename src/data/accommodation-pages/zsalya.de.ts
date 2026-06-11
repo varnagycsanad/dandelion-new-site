@@ -6,13 +6,13 @@ const zsalyaGermanBasePageData = createGermanAccommodationPage(zsalyaEnglishPage
   titleAccent: "Zsálya",
   route: "/de/dandelion-zsalya/",
   listingAnchor: "zsalya-vendeghaz",
-  location: "Kisapati",
+  location: "Kisapáti",
   region: "Balaton-Oberland - Szent György-hegy",
   guests: "4 Gäste",
   character: "Ruhiges Hanghaus mit Glas-Terrasse",
   shortDescription: "Ruhiges, separates Hanghaus für 4 Gäste nahe Szent György-hegy mit komplett überdachter Glas-Terrasse und Zeugenberg-Panorama.",
   lead:
-    "Dandelion Zsálya passt zu Gästen, die ein ruhiges separates Haus mit großer eigener Fläche, Glas-Terrasse, Aussicht und kurzen Wegen zu Wanderwegen suchen.",
+    "Dandelion Zsálya eignet sich für Gäste, die ein ruhiges separates Haus mit großer eigener Fläche, Glas-Terrasse, Aussicht und kurzen Wegen zu Wanderwegen suchen.",
   longDescription: [
     "Zsálya ist ruhig, separat und gut für langsame Tage geeignet. Die komplett überdachte Glas-Terrasse macht den Außenbereich zu einem wichtigen Teil des Aufenthalts.",
     "Die Umgebung ist naturnah, mit Szent György-hegy, Weinbergen und kleineren Wegen direkt in Reichweite.",
@@ -23,7 +23,7 @@ const zsalyaGermanBasePageData = createGermanAccommodationPage(zsalyaEnglishPage
     ["Haus", "separates zweistöckiges Haus"],
     ["Außenbereich", "komplett überdachte Glas-Terrasse"],
     ["Stimmung", "ruhig, hell und naturnah"],
-    ["Lage", "Kisapati"]
+    ["Lage", "Kisapáti"]
   ],
   experienceFacts: [
     ["Morgen", "Terrasse und ruhiger Start"],
@@ -31,7 +31,7 @@ const zsalyaGermanBasePageData = createGermanAccommodationPage(zsalyaEnglishPage
     ["Balaton", "mit kurzer Fahrt erreichbar"],
     ["Anfrage", "über deutsche Kontaktseite"]
   ],
-  highlights: ["Komplett überdachte Terrasse", "Große Glasflächen", "Zeugenberg-Panorama", "Große eigene Fläche", "Klimaanlage auf beiden Ebenen", "Zwei Badezimmer", "Gute Basis für Ausflüge"],
+  highlights: ["Komplett überdachte Terrasse", "Große Glasflächen", "Zeugenberg-Panorama", "Große eigene Fläche", "Klimaanlage auf beiden Ebenen", "Zwei Badezimmer", "Guter Ausgangspunkt für Ausflüge"],
   reasons: [
     { iconKey: "mountain", title: "Zeugenberg-Panorama", text: "Csobánc, Gulács" },
     { iconKey: "terrace", title: "Glas-Terrasse", text: "mit Aussicht" },
@@ -46,7 +46,7 @@ const zsalyaGermanBasePageData = createGermanAccommodationPage(zsalyaEnglishPage
       {
         iconKey: "family",
         question: "Für wen ist Zsálya eine gute Wahl?",
-        answer: "Zsálya passt zu Paaren, kleineren Familien und Gästen, die ein separates Haus, eine große eigene Fläche und schöne Aussicht suchen."
+        answer: "Zsálya eignet sich für Paare, kleinere Familien und Gäste, die ein separates Haus, eine große eigene Fläche und schöne Aussicht suchen."
       },
       {
         iconKey: "mountain",
@@ -70,15 +70,15 @@ const zsalyaGermanBasePageData = createGermanAccommodationPage(zsalyaEnglishPage
       },
       {
         iconKey: "trail",
-        question: "Für welche Programme ist Zsálya eine gute Basis?",
-        answer: "Zsálya passt gut für Wanderungen, Ausflüge zu den Zeugenbergen, Balaton-Programme und ruhigere Tage im Balaton-Oberland."
+        question: "Für welche Programme ist Zsálya ein guter Ausgangspunkt?",
+        answer: "Zsálya eignet sich gut für Wanderungen, Ausflüge zu den Zeugenbergen, Balaton-Programme und ruhigere Tage im Balaton-Oberland."
       }
     ],
     amenitiesTitle: "Was in Zsálya wichtig ist"
   },
   amenities: ["Komplett überdachte Terrasse", "Große Glasflächen", "Zeugenberg-Panorama", "Große eigene Fläche", "Klimaanlage auf beiden Ebenen", "Kochnische", "Zwei Badezimmer", "Wanderwege in der Nähe"],
   mapBody:
-    "Zsálya liegt auf der ruhigeren Seite von Kisapati, mit guter Nähe zu Szent György-hegy, Tapolca und Balaton-Ausflügen.",
+    "Zsálya liegt auf der ruhigeren Seite von Kisapáti, mit guter Nähe zu Szent György-hegy, Tapolca und Balaton-Ausflügen.",
   mapBenefits: [
     { label: "Ruhige Hanglage", icon: "trail" },
     { label: "Balaton-Oberland", icon: "route" },
@@ -115,7 +115,7 @@ export const zsalyaGermanPageData = {
       },
       {
         source: "Booking.com" as const,
-        quote: "Freundliche, komfortable Unterkunft und eine sehr gute Basis, um den Szent György-hegy zu entdecken.",
+        quote: "Freundliche, komfortable Unterkunft und ein sehr guter Ausgangspunkt, um den Szent György-hegy zu entdecken.",
         meta: "Gast - Booking.com - 9/10"
       },
       {

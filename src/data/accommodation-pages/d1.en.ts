@@ -39,7 +39,7 @@ export const d1EnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A spacious countryside stay that gives families and friends room to slow down together.",
+    intro: "A spacious house that gives families and friends room for shared meals, terrace time and local trips.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",
@@ -57,7 +57,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       },
       {
         source: "Google",
-        quote: "A good base for hikes, quiet days and larger family or friend gatherings.",
+        quote: "A good starting point for hikes and a practical house for larger family or friend gatherings.",
         meta: "Guest · Google · 5/5"
       },
       {
@@ -67,7 +67,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       },
       {
         source: "Booking.com",
-        quote: "A peaceful, nature-close setting with a spacious layout and a good location for Balaton Uplands programmes.",
+        quote: "A nature-close setting with a spacious layout and a good location for Balaton Uplands programmes.",
         meta: "Guest · Booking.com · 9.0/10"
       }
     ]
@@ -127,7 +127,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       { label: "Panorama Pool access", icon: "pool" },
       { label: "Panoramic terrace", icon: "mountain" },
       { label: "Outdoor grilling option", icon: "leaf" },
-      { label: "Good base for local trips", icon: "trail" }
+      { label: "Good starting point for local trips", icon: "trail" }
     ]
   },
   decisionPanel: {
@@ -174,7 +174,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       },
       {
         iconKey: "balaton",
-        title: "Hill-country base",
+        title: "Hill-country location",
         text: "Hikes and wineries"
       }
     ]
@@ -201,7 +201,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       },
       {
         iconKey: "mountain",
-        question: "What local trips is D1 a good base for?",
+        question: "What local trips is D1 a good starting point for?",
         answer: "From Kisapáti, Szent György Hill, Badacsony, Szigliget, Csobánc, Lake Balaton and local wineries are all within a short drive."
       },
       {

@@ -9,7 +9,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   seo: {
     title: "Fügeház near Szent György Hill | Countryside guesthouse with Panorama Pool",
     description:
-      "Fügeház is a peaceful countryside guesthouse near Szent György Hill and the Balaton Uplands, with garden, terrace and access to the Panorama Pool."
+      "Fügeház is a terraced guesthouse near Szent György Hill and the Balaton Uplands, with garden seating and seasonal access to the Panorama Pool."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145&lang=En",
   hero: {
@@ -24,7 +24,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     title: "Dandelion",
     titleAccent: "Fügeház",
     subtitle: "COUNTRYSIDE GUESTHOUSE WITH TERRACES AND WITNESS-HILL VIEWS",
-    lead: "A peaceful countryside guesthouse near Szent György Hill, made for terrace mornings, slow evenings and easy Balaton Uplands days.",
+    lead: "A terraced guesthouse near Szent György Hill, made for outdoor breakfasts, hillside views and easy Balaton Uplands days.",
     poolHighlight: {
       enabled: true,
       label: "Panorama Pool near Fügeház",
@@ -39,7 +39,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   reviews: {
     kicker: "Guest reviews",
     title: "What guests say",
-    intro: "A calm guesthouse for terrace mornings, quiet evenings and easy Balaton Uplands days.",
+    intro: "Guest notes about the terraces, views and location near Szent György Hill.",
     mobileSummaryLabel: "More reviews",
     mobileHighlightedAriaLabel: "Highlighted Google review",
     mobileMoreGoogleAriaLabel: "More Google reviews",
@@ -47,12 +47,12 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     items: [
       {
         source: "Google",
-        quote: "A calm, thoughtful place for guests who want slower days and wide countryside views.",
+        quote: "A thoughtful place for guests who want wide countryside views and time on the terraces.",
         meta: "Guest · Google · 5/5"
       },
       {
         source: "Google",
-        quote: "The terrace, the quiet rhythm and the Balaton Uplands setting make the stay feel easy.",
+        quote: "The terraces and the Balaton Uplands setting make the stay feel easy.",
         meta: "Guest · Google · 5/5"
       },
       {
@@ -67,15 +67,15 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       },
       {
         source: "Booking.com",
-        quote: "Friendly countryside atmosphere, comfortable days and a relaxed Balaton Uplands pace.",
+        quote: "Friendly countryside atmosphere, comfortable days and good access to the Balaton Uplands.",
         meta: "Guest · Booking.com · 9.0/10"
       }
     ]
   },
   intro: {
-    kicker: "Terraces · panorama · countryside calm",
-    title: "A peaceful guesthouse for terrace time near the witness hills",
-    lead: "Fügeház suits guests who want a calm, family-friendly base where the outdoor spaces, terraces and surrounding hills are part of the stay."
+    kicker: "Terraces · panorama · witness hills",
+    title: "A guesthouse for terrace time near the witness hills",
+    lead: "Fügeház suits guests who want outdoor space, family-friendly rooms and views toward the surrounding hills."
   },
   details: {
     kicker: "Fügeház",
@@ -87,10 +87,10 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       href: "/en/szallasok/"
     },
     longDescription: [
-      "Fügeház is memorable for its terraces and outdoor rhythm. Mornings can start with the surrounding hills, while evenings naturally slow down into longer conversations and quiet countryside air.",
+      "Fügeház is memorable for its terraces. Mornings can start with the surrounding hills, while evenings are easy to spend outside with longer conversations and countryside air.",
       "The house is comfortable for 4 guests and can host up to 6 guests with an extra bed. From the dining room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony; on the other side of the house, garden seating offers a quieter corner facing Szent György Hill.",
-      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool attached to Fügeház, but part of the nearby D1-D2-Fügeház pool experience from June 15, 2026.",
-      "Outdoor time is supported by terraces, garden furniture and a grill option. The hill beside the house opens toward the surrounding witness hills, so sunsets and clear evenings can become part of the experience.",
+      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool attached to Fügeház, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
+      "Outdoor time is supported by terraces, garden furniture and a grill option. The hill beside the house opens toward the surrounding witness hills, so sunsets and clear evenings are a real part of the stay.",
       "The house has two levels. Downstairs there is a well-equipped kitchen, a bathroom with shower, a living-sleeping area and a dining space. Upstairs, an open sleeping area gives the house its quiet, tucked-away feeling."
     ],
     moreLabel: "More about Fügeház",
@@ -125,8 +125,8 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       { label: "Family-friendly layout", icon: "users" },
       { label: "Panoramic terraces", icon: "mountain" },
       { label: "Outdoor grilling option", icon: "leaf" },
-      { label: "Good base for witness-hill walks", icon: "trail" },
-      { label: "Quiet Balaton Uplands rhythm", icon: "route" }
+      { label: "Good starting point for witness-hill walks", icon: "trail" },
+      { label: "Balaton Uplands location", icon: "route" }
     ]
   },
   decisionPanel: {
@@ -134,7 +134,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
     overviewFacts: [
       { iconKey: "guests", title: "4 guests, up to 6 with an extra bed", text: "Capacity" },
       { iconKey: "mountain", title: "Near Szent György Hill", text: "Location" },
-      { iconKey: "mountain", title: "Peaceful and panoramic", text: "Atmosphere" },
+      { iconKey: "mountain", title: "Panoramic terraces", text: "Atmosphere" },
       { iconKey: "terrace", title: "Terrace time", text: "Outdoor space" },
       { iconKey: "grill", title: "Grill option", text: "Outdoor dining" },
       { iconKey: "family", title: "Family-friendly house", text: "Stay style" }
@@ -180,7 +180,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   },
   geoDecision: {
     kicker: "Fügeház quick answers",
-    title: "Dandelion Fügeház is a good choice if you want a panoramic, terrace-focused, quiet guesthouse near Szent György Hill",
+    title: "Dandelion Fügeház is a good choice if you want a panoramic, terrace-focused guesthouse near Szent György Hill",
     lead: "Fügeház is comfortable for 4 guests and can be extended up to 6 guests with an extra bed. It is a two-level house with panoramic terraces, a grill option and Panorama Pool access from June 15, 2026.",
     questions: [
       {
@@ -191,7 +191,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       {
         iconKey: "family",
         question: "Who is Dandelion Fügeház best for?",
-        answer: "Fügeház mainly suits couples, smaller families and guests looking for a quieter Balaton Uplands stay."
+        answer: "Fügeház mainly suits couples, smaller families and guests looking for terraces, views and a Balaton Uplands setting."
       },
       {
         iconKey: "guests",
@@ -210,8 +210,8 @@ export const fugehazEnglishPageData: AccommodationPageData = {
       },
       {
         iconKey: "mountain",
-        question: "What trips is Fügeház a good base for?",
-        answer: "Fügeház is a good base for Szent György Hill, Badacsony, Csobánc, Tóti Hill, Gulács, local wineries and Lake Balaton beaches."
+        question: "What trips is Fügeház a good starting point for?",
+        answer: "Fügeház is a good starting point for Szent György Hill, Badacsony, Csobánc, Tóti Hill, Gulács, local wineries and Lake Balaton beaches."
       }
     ],
     amenitiesTitle: "What matters in Fügeház"
@@ -237,12 +237,12 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   map: {
     kicker: "BALATON UPLANDS · NEAR SZENT GYÖRGY HILL",
     title: "Around Fügeház",
-    body: "Fügeház connects to the quieter, nature-close side of the Balaton Uplands. The area works well for slow rest, walks and scenic trips around the witness hills.",
+    body: "Fügeház sits on the nature-close side of the Balaton Uplands. The area works well for walks, winery visits and scenic trips around the witness hills.",
     benefitsAriaLabel: "Location benefits",
     benefits: [
       { label: "Panoramic countryside setting", icon: "mountain" },
       { label: "Hiking routes nearby", icon: "trail" },
-      { label: "Quiet Balaton Uplands rhythm", icon: "leaf" }
+      { label: "Balaton Uplands setting", icon: "leaf" }
     ],
     embedSrc: "https://www.google.com/maps?q=Kisap%C3%A1ti&z=13&output=embed",
     embedTitle: "Map of the area around Fügeház"

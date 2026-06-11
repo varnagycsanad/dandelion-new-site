@@ -38,12 +38,12 @@ function buildCzechSeoTitle(profile: CzechAccommodationProfile) {
 const defaultReviews = [
   {
     source: "Google" as const,
-    quote: "Velmi prijemne a klidne misto, jednoducha domluva a pratelsti hostitele.",
+    quote: "Velmi příjemné a klidné místo, jednoduchá domluva a přátelští hostitelé.",
     meta: "Host - Google - 5/5"
   },
   {
     source: "Google" as const,
-    quote: "Dum byl cisty, dobre vybaveny a idealni pro nekolik odpocinkovych dni u Balatonu.",
+    quote: "Dům byl čistý, dobře vybavený a ideální pro několik odpočinkových dní u Balatonu.",
     meta: "Host - Google - 5/5"
   },
   {
@@ -61,7 +61,7 @@ const relatedStays = [
   { name: "Dandelion Szőlőliget", meta: "2-4 hosté - vinice - výhled", href: "/cs/szololiget/", slot: "szololiget_card_image" as const },
   { name: "Dandelion Szépvölgyi", meta: "až 8 hostů - panorama Balatonu", href: "/cs/szepvolgyi/", slot: "szepvolgyi_card_image" as const },
   { name: "Dandelion Royal Homes", meta: "Keszthely - apartman - Balaton", href: "/cs/royal/", slot: "royal_homes_card_image" as const },
-  { name: "Dandelion Vintage", meta: "Nemesgulacs - dvur - klidne dny", href: "/cs/dandelion-vintage/", slot: "vintage_card_image" as const },
+  { name: "Dandelion Vintage", meta: "Nemesgulács - dvůr - klidné dny", href: "/cs/dandelion-vintage/", slot: "vintage_card_image" as const },
   { name: "Dandelion Köveskál", meta: "oblast Káli - vesnická atmosféra", href: "/cs/dandelion-koveskal/", slot: "koveskal_card_image" as const }
 ];
 
@@ -170,7 +170,7 @@ export function createCzechAccommodationPage(
       kicker: "Galerie",
       title: `Náhled do ${profile.title}`,
       moreHint: "Kliknutím na fotografii otevřeme další snímky",
-      defaultHint: "Fotografie v galerii lze otevrit",
+      defaultHint: "Fotografie v galerii lze otevřít",
       emptyMessage: `Galerie ${profile.title} momentálně nemá dostupné fotografie.`,
       previewCount: baseData.gallery.previewCount
     },

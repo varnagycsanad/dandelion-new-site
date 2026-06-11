@@ -4,9 +4,9 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Dandelion Vintage content added for the shared accommodation template.
 export const vintageEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Vintage Vendégház | Peaceful countryside stay near Lake Balaton",
+    title: "Dandelion Vintage Vendégház | Private garden stay near Lake Balaton",
     description:
-      "Dandelion Vintage Vendégház is a peaceful countryside guesthouse with a warm, characterful atmosphere, ideal for a relaxed stay near Lake Balaton and the Balaton Uplands."
+      "Dandelion Vintage Vendégház is a characterful guesthouse with a private garden, close to Lake Balaton and Balaton Uplands day trips."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=0c9e5eaae0545ee3&lang=En",
   hero: {
@@ -16,12 +16,12 @@ export const vintageEnglishPageData: AccommodationPageData = {
       "dandelion-vintage-source-001.webp",
       "Dandelion Vintage English mobile hero"
     ),
-    fallbackAlt: "Dandelion Vintage Vendégház in Nemesgulács with a private garden and peaceful countryside atmosphere",
+    fallbackAlt: "Dandelion Vintage Vendégház in Nemesgulács with a private garden and village atmosphere",
     kicker: "Nemesgulács · Balaton Uplands",
     title: "Dandelion",
     titleAccent: "Vintage",
-    subtitle: "PEACEFUL COUNTRYSIDE STAY WITH A PRIVATE GARDEN NEAR LAKE BALATON",
-    lead: "A friendly countryside guesthouse in Nemesgulács, with a private garden and an easy, relaxed rhythm close to Lake Balaton.",
+    subtitle: "PRIVATE GARDEN STAY NEAR LAKE BALATON",
+    lead: "A friendly guesthouse in Nemesgulács, with a private garden, grill option and easy access to Lake Balaton.",
     primaryCtaLabel: "Book now",
     secondaryCtaLabel: "View photos"
   },
@@ -36,7 +36,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
     items: [
       {
         source: "Google",
-        quote: "A very lovable house, where the private garden and quiet surroundings truly help you slow down.",
+        quote: "A very lovable house, where the private garden and quiet surroundings make evenings feel easy.",
         meta: "Guest · Google · 5/5"
       },
       {
@@ -51,7 +51,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
       },
       {
         source: "Booking.com",
-        quote: "Good location, a quiet house and stable internet, comfortable for both rest and calm work.",
+        quote: "Good location, a quiet house and stable internet, comfortable for both rest and remote work.",
         meta: "Guest · Booking.com · 9.0/10"
       },
       {
@@ -62,13 +62,13 @@ export const vintageEnglishPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Countryside calm · private garden · family-friendly rest",
+    kicker: "Private garden · family-friendly · Lake Balaton nearby",
     title: "A comfortable guesthouse in Nemesgulács with a gentle Vintage mood",
     lead: "Vintage works well for guests who like having Lake Balaton nearby, but prefer returning at the end of the day to a quieter house with its own garden."
   },
   details: {
     kicker: "Dandelion Vintage Vendégház",
-    title: "Private garden, air-conditioned comfort and a quiet base near Lake Balaton",
+    title: "Private garden, air-conditioned comfort and an easy location near Lake Balaton",
     shortDescription:
       "A two-bedroom house with living room, private garden, air conditioning and strong internet, comfortable for families, couples and friends.",
     supportingLink: {
@@ -76,8 +76,8 @@ export const vintageEnglishPageData: AccommodationPageData = {
       href: "/en/szallasok/"
     },
     longDescription: [
-      "One of the best parts of Vintage is the private garden and the calm daily rhythm: breakfast outside, a Lake Balaton or countryside programme during the day, then grilling and quiet in the evening.",
-      "The house is well equipped, air-conditioned and has strong gigabit internet, so it is comfortable for resting, retreating or even a little calm work. Lake Balaton is only 7 km away, close enough for easy beach days while the stay itself keeps a quieter village pace.",
+      "One of the best parts of Vintage is the private garden: breakfast outside, a Lake Balaton or countryside programme during the day, then grilling in the evening.",
+      "The house is well equipped, air-conditioned and has strong gigabit internet, so it is comfortable for holidays, longer stays or remote work. Lake Balaton is only 7 km away, close enough for easy beach days while the house stays in a village setting.",
       "The guesthouse has two bedrooms and a living room. The main bedroom has a 180 cm double bed, the second bedroom has two separate 90 cm beds, and the living room offers an additional sofa bed. A separate kitchen and bathroom are also available.",
       "Vintage is set up in a simple, useful, everything-you-need way: a practical kitchen, air conditioning, stable internet, a private garden and a grill make the days easy. Baby-friendly equipment also makes it a good choice for families arriving with small children.",
       "Dandelion Vintage Vendégház suits families, friends spending a few quiet days together, couples looking for a countryside break, and guests who want Lake Balaton within easy reach without sleeping in the middle of the bustle."
@@ -133,8 +133,8 @@ export const vintageEnglishPageData: AccommodationPageData = {
     reasons: [
       {
         iconKey: "leaf",
-        title: "Quiet countryside rhythm",
-        text: "A calm house for slower days"
+        title: "Private garden",
+        text: "Outdoor meals and easy evenings"
       },
       {
         iconKey: "grill",
@@ -157,7 +157,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
     kicker: "Vintage quick answers",
     title: "Dandelion Vintage is a good choice if you want a quiet guesthouse with a private garden in Nemesgulács, close to Lake Balaton and Badacsony",
     lead:
-      "Vintage is a comfortable two-bedroom house for 4 guests, with a living room, private garden, grilling option, air conditioning, strong internet and a calm village rhythm.",
+      "Vintage is a comfortable two-bedroom house for 4 guests, with a living room, private garden, grilling option, air conditioning, strong internet and a village setting.",
     questions: [
       {
         question: "Who is Dandelion Vintage best for?",
@@ -172,7 +172,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
       {
         question: "What is the garden like at Vintage?",
         answer:
-          "The private garden is one of the key strengths of the house: good for breakfast outside, evening conversations, grilling and slower countryside days."
+          "The private garden is one of the key strengths of the house: good for breakfast outside, evening conversations, grilling and unhurried days."
       },
       {
         question: "What programmes is Nemesgulács good for?",
@@ -187,7 +187,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
       {
         question: "What gives Vintage its atmosphere?",
         answer:
-          "The warm vintage-style interior, separate kitchen, private garden and quiet Nemesgulács setting together create the slower countryside mood of the house."
+          "The warm vintage-style interior, separate kitchen, private garden and Nemesgulács setting together create the house's countryside mood."
       }
     ],
     amenitiesTitle: "What matters at Vintage"
@@ -213,7 +213,7 @@ export const vintageEnglishPageData: AccommodationPageData = {
   map: {
     kicker: "NEMESGULÁCS · BALATON UPLANDS",
     title: "Around Dandelion Vintage Vendégház",
-    body: "Dandelion Vintage Vendégház is located in Nemesgulács, in a quiet countryside setting. From here, the Lake Balaton shore, local trips, witness hills and Balaton Uplands wineries are easy to reach, while the house itself keeps a calmer rhythm.",
+    body: "Dandelion Vintage Vendégház is located in Nemesgulács. From here, the Lake Balaton shore, local trips, witness hills and Balaton Uplands wineries are easy to reach, while the house offers its own private garden after days out.",
     benefitsAriaLabel: "Location benefits",
     benefits: [
       { label: "Lake Balaton 7 km", icon: "route" },

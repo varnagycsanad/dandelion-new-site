@@ -41,7 +41,7 @@ export const szepvolgyiGermanPageData = createGermanAccommodationPage(szepvolgyi
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Parken"],
   geoDecision: {
     kicker: "Szépvölgyi schnelle Antworten",
-    title: "Szépvölgyi passt, wenn eine größere Familie oder Freundesgruppe ein geräumiges Haus mit Balaton-Panorama und eigenem Garten in Badacsonyörs sucht",
+    title: "Szépvölgyi ist eine gute Wahl, wenn eine größere Familie oder Freundesgruppe ein geräumiges Haus mit Balaton-Panorama und eigenem Garten in Badacsonyörs sucht",
     lead:
       "Szépvölgyi ist bis 8 Gäste bequem, mit 4 Schlafzimmern, 2 Badezimmern, geschlossenem Garten, Panorama-Terrasse, Grillmöglichkeit und Balaton-Programmen in der Nähe.",
     questions: [

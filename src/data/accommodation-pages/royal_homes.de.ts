@@ -14,8 +14,8 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
   lead:
     "Dandelion Royal Homes ist die städtischere Balaton-Option: komfortabel, praktisch und gut gelegen für Keszthely, Strandtage und Ausflüge.",
   longDescription: [
-    "Das Apartment passt zu Gästen, die den Balaton und Keszthely bequem erreichen möchten, ohne auf eine ruhige, gut ausgestattete Unterkunft zu verzichten.",
-    "Es eignet sich für Paare, Familien oder Freunde, die tagsüber viel unterwegs sind und abends eine komfortable Basis suchen.",
+    "Das Apartment eignet sich für Gäste, die den Balaton und Keszthely bequem erreichen möchten, ohne auf eine ruhige, gut ausgestattete Unterkunft zu verzichten.",
+    "Es ist passend für Paare, Familien oder Freunde, die tagsüber viel unterwegs sind und abends einen komfortablen Rückzugsort suchen.",
     "Royal Homes ist besonders praktisch, wenn Wassernähe, Restaurants, Kultur und Balaton-Programme wichtiger sind als Dorf- oder Weinberglage."
   ],
   facts: [
@@ -35,13 +35,13 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
   reasons: [
     { iconKey: "balaton", title: "Wassernähe", text: "praktisch für Balaton-Tage" },
     { iconKey: "route", title: "Keszthely", text: "Stadt und Programme nah" },
-    { iconKey: "home", title: "Komfort", text: "gut ausgestattete Basis" },
+    { iconKey: "home", title: "Komfort", text: "gut ausgestattete Unterkunft" },
     { iconKey: "users", title: "Flexibel", text: "für 4-6 Gäste" }
   ],
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse oder Balkon", "Parken"],
   geoDecision: {
     kicker: "Royal Homes schnelle Antworten",
-    title: "Dandelion Royal Homes passt, wenn Sie ein modernes Apartment in Keszthely suchen, nahe am Balaton und praktisch für Stadtprogramme",
+    title: "Dandelion Royal Homes ist eine gute Wahl, wenn Sie ein modernes Apartment in Keszthely suchen, nahe am Balaton und praktisch für Stadtprogramme",
     lead:
       "Royal Homes ist ein hochwertiges Apartment mit 2 Schlafzimmern und Wohnzimmer in einer balatonnahen Wohnanlage in Keszthely, mit großer Terrasse, breitem Balkon, eigenem Ufersteg der Anlage und gemeinsamem Dachterrassen-Jacuzzi.",
     questions: [
@@ -58,7 +58,7 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
       {
         question: "Für wie viele Gäste ist Royal Homes bequem?",
         answer:
-          "Das Apartment hat 2 Schlafzimmer und ein Wohnzimmer und ist eine komfortable Balaton-Basis für bis zu 6 Gäste. Ein Schlafzimmer hat ein Doppelbett, das andere ein ausziehbares Sofa."
+          "Das Apartment hat 2 Schlafzimmer und ein Wohnzimmer und ist eine komfortable Balaton-Unterkunft für bis zu 6 Gäste. Ein Schlafzimmer hat ein Doppelbett, das andere ein ausziehbares Sofa."
       },
       {
         question: "Gibt es einen Jacuzzi bei Royal Homes?",
@@ -73,7 +73,7 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
       {
         question: "Für welche Programme ist Keszthely ein guter Ausgangspunkt?",
         answer:
-          "Die Lage passt für Balaton-Strandtage, Promenade, Hafen, Radfahren, Keszthelyer Stadtprogramme und Ausflüge am West-Balaton. Das Stadtzentrum ist ungefähr 10 Gehminuten entfernt."
+          "Die Lage eignet sich für Balaton-Strandtage, Promenade, Hafen, Radfahren, Keszthelyer Stadtprogramme und Ausflüge am West-Balaton. Das Stadtzentrum ist ungefähr 10 Gehminuten entfernt."
       }
     ],
     amenitiesTitle: "Wichtig bei Royal Homes"
