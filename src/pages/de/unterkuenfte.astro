@@ -5,6 +5,7 @@ import { accommodationSections, accommodations } from "../../data/accommodations
 import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
 import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
 
+// [CHANGE 2026-06-11 00:00] Unterkunftsauswahl-Copy konkreter und weniger generisch formuliert.
 const imageMapping = await readHomepageImageMapping();
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 const accommodationsOgImage = "/images/pages/szallasok-hero-bg.webp";
@@ -32,15 +33,15 @@ const sectionCopy = {
     eyebrow: "Keszthely / Badacsonyörs / Balaton-Nähe",
     title: "Leichte Tage am Balaton",
     subtitle:
-      "Keszthely und Badacsonyörs sind die richtige Richtung, wenn Balaton-Nähe, Strände und bequeme Programme am Wasser wichtiger sind als ein Rückzug am Hang.",
+      "Keszthely und Badacsonyörs passen, wenn Balaton-Nähe, Strände und Programme am Wasser wichtiger sind als ein Haus am Hang.",
     audienceText: "Für Ufer, Strand und Balaton-Programme."
   },
   kali: {
     anchorId: "kali-becken",
-    eyebrow: "Köveskál / Káli-Becken / ruhige Auszeit",
+    eyebrow: "Köveskál / Káli-Becken / Dorfumgebung",
     title: "Die ruhigere Seite des Káli-Beckens",
     subtitle:
-      "Köveskál ist die langsamere, ruhigere Wahl: Dorfumgebung, Spaziergänge im Káli-Becken, Weingüter und zurückhaltendere Erholung.",
+      "Köveskál bietet Dorfumgebung, Spaziergänge im Káli-Becken und Weingüter, wenn Sie einen ruhigeren Ausgangspunkt suchen.",
     audienceText: "Für Ruhe, Dorfumgebung und Ausflüge im Káli-Becken."
   }
 } as const;
@@ -64,7 +65,7 @@ const stayCopy: Record<string, { name: string; location: string; description: st
   fugehaz: {
     name: "Dandelion Fügeház",
     location: "Nahe Szent György-hegy",
-    description: "Haus nahe am Berg mit Terrassen, Panorama und ruhigen Außenbereichen für kleinere Familien oder Freunde.",
+    description: "Haus mit Terrassen, Blick auf die Zeugenberge und Sommerzugang zum Panorama Pool.",
     hoverText: "4-6 Gäste, Terrassen, Panorama und Panorama Pool.",
     href: "/de/dandelion-fugehaz/",
     chips: [
@@ -170,15 +171,15 @@ const stayCopy: Record<string, { name: string; location: string; description: st
     name: "Dandelion Köveskál",
     location: "Köveskál / Káli-Becken",
     description: "Ruhiges Gästehaus in Köveskál, nah an den Dörfern, Spazierwegen und Weingütern des Káli-Beckens.",
-    hoverText: "Köveskál, für ruhigere Tage im Káli-Becken.",
+    hoverText: "Köveskál, nah an Spazierwegen und Weingütern im Káli-Becken.",
     href: "/de/dandelion-koveskal/",
     chips: [
       { label: "Gästehaus", type: "accent" },
       { label: "Köveskál" },
       { label: "Káli-Becken", type: "green" },
-      { label: "Naturnah", type: "green" },
-      { label: "Ruhiges Dorf", type: "purple" },
-      { label: "Wein und Gastronomie" }
+      { label: "Dorfumgebung", type: "green" },
+      { label: "Weingüter nahe", type: "purple" },
+      { label: "Ruhige Straße" }
     ]
   }
 };
@@ -217,7 +218,7 @@ const accommodationFaqItems = [
   {
     question: "Welche Unterkunft liegt näher am Balaton?",
     answer:
-      "Für Balaton-Nähe sind Royal Homes in Keszthely und Szépvölgyi in Badacsonyörs die stärksten Richtungen.",
+      "Royal Homes in Keszthely passt, wenn Balaton-Nähe und Dachterrassen-Jacuzzi wichtig sind. Szépvölgyi in Badacsonyörs passt für größere Gruppen und Balaton-Panorama.",
     href: "#balaton-naehe"
   },
   {
@@ -229,7 +230,7 @@ const accommodationFaqItems = [
   {
     question: "Welche Unterkunft ist ruhiger und zurückgezogener?",
     answer:
-      "Für ruhigere Tage sind Köveskál, Szőlőliget und Zsálya gute Richtungen. Köveskál ist dörflicher, Szőlőliget und Zsálya liegen eher am Hang.",
+      "Für ruhigere Tage passen Köveskál, Szőlőliget und Zsálya. Köveskál liegt im Dorf, Szőlőliget und Zsálya liegen eher am Hang.",
     href: "#kali-becken"
   }
 ];
@@ -381,7 +382,7 @@ const accommodationFaqStructuredData = {
           <h2 id="unterkuenfte-qa-title">Welche Dandelion Unterkunft passt zu Ihnen?</h2>
           <p>
             Wenn Sie nicht mit einem Hausnamen beginnen, starten Sie mit den häufigsten Fragen:
-            Personenzahl, Region, Poolnutzung, Balaton-Nähe, Panorama oder ruhiger Rückzug.
+            Personenzahl, Region, Poolnutzung, Balaton-Nähe, Panorama oder ruhigere Umgebung.
           </p>
           <a class="dnd-accommodations-qa__summary-link" href="#unterkuenfte-liste">
             Zur Unterkunftsliste

@@ -5,6 +5,7 @@ import { accommodationSections, accommodations } from "../data/accommodations";
 import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
 
+// [CHANGE 2026-06-11 00:00] Szállásválasztó FAQ copy konkrétabb, kevesebb generikus jelzővel.
 const imageMapping = await readHomepageImageMapping();
 const bookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -71,7 +72,7 @@ const accommodationFaqItems = [
   {
     question: "Melyik szállást válasszam, ha közel szeretnék lenni a Balatonhoz?",
     answer:
-      "Balaton-közeli pihenéshez a Royal Homes Keszthely és a Szépvölgyi Badacsonyörs a két legerősebb irány. Royal vízpartosabb, Szépvölgyi panorámásabb.",
+      "Balaton-közeli pihenéshez a Royal Homes Keszthely és a Szépvölgyi Badacsonyörs a két fő választás. Royal Homes akkor jó, ha vízpart és jakuzzi fontos; Szépvölgyi akkor, ha nagyobb házat és balatoni panorámát kerestek.",
     href: "#balaton-mellett"
   },
   {
@@ -83,7 +84,7 @@ const accommodationFaqItems = [
   {
     question: "Melyik szállás jó vízparti vagy jakuzzis pihenéshez?",
     answer:
-      "Ha vízparti hangulat vagy jakuzzi fontos, a Royal Homes Keszthely a legerősebb választás: modern apartman, nagy terasz, tetőteraszos jakuzzi.",
+      "Ha fontos a Balaton közelsége vagy a jakuzzi, a Royal Homes Keszthely a legkézenfekvőbb: modern apartman, nagy terasz, tetőteraszos jakuzzi.",
     href: "#balaton-mellett"
   },
   {
@@ -254,7 +255,7 @@ const accommodationFaqStructuredData = {
           <h2 id="szallasok-qa-cim">Melyik Dandelion szállás illik hozzátok?</h2>
           <p>
             Ha nem konkrét háznevet kerestek, induljatok a leggyakoribb vendégkérdésekből: hányan jöttök,
-            melyik környék fontos, és inkább panoráma, Balaton-közelség vagy csendesebb elvonulás kell.
+            melyik környék fontos, és inkább panoráma, Balaton-közelség vagy csendesebb környék kell.
           </p>
           <a class="dnd-accommodations-qa__summary-link" href="#szallasok-lista">
             Ugrás a szálláslistára

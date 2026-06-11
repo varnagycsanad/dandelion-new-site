@@ -5,6 +5,7 @@ import { accommodationSections, accommodations } from "../../data/accommodations
 import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
 import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
 
+// [CHANGE 2026-06-11 00:00] Text výběru ubytování je konkrétnější a méně obecný.
 type SectionKey = (typeof accommodationSections)[number]["key"];
 
 interface CzechStayCopy {
@@ -80,15 +81,15 @@ const sectionCopy: Record<
     eyebrow: "Keszthely · Badacsonyörs · Balaton",
     title: "Snadné dny u Balatonu",
     subtitle:
-      "Keszthely a Badacsonyörs jsou dobrá volba, když je pro vás důležitější blízkost Balatonu, pláže a pohodlné programy u vody než ústraní ve svahu.",
+      "Keszthely a Badacsonyörs se hodí, když je pro vás důležitá blízkost Balatonu, pláže a programy u vody spíše než dům ve svahu.",
     audienceText: "Pro břeh Balatonu, pláže a balatonské programy.",
     anchorId: "near-lake-balaton"
   },
   kali: {
-    eyebrow: "Köveskál · Káli-medence · klidná vesnice",
+    eyebrow: "Köveskál · Káli-medence · vesnické prostředí",
     title: "Tišší strana oblasti Káli",
     subtitle:
-      "Köveskál je pomalejší a tišší volba: vesnické prostředí, procházky v Káli-medence, vinařství a střídmější odpočinek.",
+      "Köveskál nabízí vesnické prostředí, procházky v Káli-medence a vinařství, pokud hledáte tišší základnu.",
     audienceText: "Pro ticho, vesnické prostředí a výlety v Káli-medence.",
     anchorId: "kali-medence"
   }
@@ -108,7 +109,7 @@ const stayCopy: Record<string, CzechStayCopy> = {
     name: "Dandelion Fügeház",
     location: "U Szent György-hegy",
     description:
-      "Penzion blízko kopce s terasami, výhledy a klidnými venkovními prostory pro menší rodiny nebo přátele.",
+      "Penzion s terasami, výhledem na svědecké hory a letním přístupem k Panorama Pool.",
     hoverText: "Pro 4-6 hostů, s terasami, výhledy a Panorama Pool.",
     facts: ["4-6 hostů", "2 podlaží", "Panorama Pool", "Panorama", "Klimatizace"],
     imageAlt: "Dandelion Fügeház penzion u Szent György-hegy"
@@ -172,8 +173,8 @@ const stayCopy: Record<string, CzechStayCopy> = {
     location: "Köveskál / Káli-medence",
     description:
       "Klidný penzion v Köveskálu, blízko vesnic, procházek a vinařství v Káli-medence.",
-    hoverText: "V Köveskálu, pro pomalejší dny v Káli-medence.",
-    facts: ["Penzion", "Köveskál", "Káli-medence", "Blízko přírody", "Klidná vesnice"],
+    hoverText: "V Köveskálu, blízko procházek a vinařství v Káli-medence.",
+    facts: ["Penzion", "Köveskál", "Káli-medence", "Vesnické prostředí", "Vinařství blízko"],
     imageAlt: "Dandelion Köveskál klidný venkovský penzion v Káli-medence"
   }
 };
@@ -214,7 +215,7 @@ const accommodationFaqItems = [
   {
     question: "Které ubytování je nejblíže Balatonu?",
     answer:
-      "Pro pobyt blízko Balatonu jsou nejsilnější možnosti Royal Homes v Keszthelyi a Szépvölgyi v Badacsonyörs.",
+      "Royal Homes v Keszthelyi se hodí, když je důležitá blízkost Balatonu a střešní jacuzzi. Szépvölgyi v Badacsonyörs se hodí pro větší skupiny a výhled na Balaton.",
     href: "#near-lake-balaton"
   },
   {
@@ -226,7 +227,7 @@ const accommodationFaqItems = [
   {
     question: "Které ubytování je klidnější?",
     answer:
-      "Pro klidnější dny jsou dobrým směrem Köveskál, Szőlőliget a Zsálya. Köveskál je více vesnický, Szőlőliget a Zsálya jsou spíše ve svahu.",
+      "Pro klidnější dny se hodí Köveskál, Szőlőliget a Zsálya. Köveskál je vesnická základna, Szőlőliget a Zsálya jsou spíše domy ve svahu.",
     href: "#kali-medence"
   }
 ];
@@ -378,7 +379,7 @@ const accommodationFaqStructuredData = {
           <h2 id="ubytovani-qa-title">Které ubytování Dandelion se hodí pro vaši cestu?</h2>
           <p>
             Pokud nezačínáte konkrétním názvem domu, začněte otázkami hostů: počet osob, oblast,
-            bazén, blízkost Balatonu, výhledy nebo klidnější ústraní.
+            bazén, blízkost Balatonu, výhledy nebo klidnější okolí.
           </p>
           <a class="dnd-accommodations-qa__summary-link" href="#accommodations-list">
             Přejít na seznam ubytování

@@ -1,5 +1,6 @@
 import type { HomepageImageSlotKey } from "./homepage-image-slots";
 
+// [CHANGE 2026-06-11 00:00] Szállásválasztó copy konkrétabb, kevesebb generikus jelzővel.
 export type AccommodationChipType = "default" | "accent" | "blue" | "green" | "purple";
 
 export interface AccommodationChip {
@@ -42,15 +43,15 @@ export const accommodationSections: AccommodationSection[] = [
     eyebrow: "Keszthely · Badacsonyörs · vízparti kikapcsolódás",
     title: "Balaton-parti könnyedség",
     subtitle:
-      "Keszthely és Badacsonyörs akkor jó irány, ha a Balaton közelsége, a strandok és a kényelmes vízparti programok fontosabbak, mint a hegyoldali elvonulás.",
+      "Keszthely és Badacsonyörs akkor jó választás, ha a Balaton közelsége, a strandok és a vízparti programok fontosabbak, mint a hegyoldali környezet.",
     gridClass: "dnd-grid--2"
   },
   {
     key: "kali",
-    eyebrow: "Köveskál · Káli-medence · elvonulós pihenés",
+    eyebrow: "Köveskál · Káli-medence · falusi környezet",
     title: "A Káli-medence csendjében",
     subtitle:
-      "Köveskál lassabb, csendesebb választás: falusi környezet, Káli-medencei séták, borászatok és visszafogottabb pihenés.",
+      "Köveskál falusi környezetet, Káli-medencei sétákat és borászatokat ad azoknak, akik csendesebb bázist keresnek.",
     gridClass: "dnd-grid--1"
   }
 ];
@@ -101,7 +102,7 @@ export const accommodations: Accommodation[] = [
     slug: "fugehaz",
     url: "/fuge/",
     location: "Szent György-hegy közelében",
-    description: "Hegyhez közeli vendégház teraszokkal, panorámával és nyugodt kinti terekkel, kisebb családoknak vagy baráti pihenéshez.",
+    description: "Vendégház teraszokkal, tanúhegyes kilátással és nyári Panorama Pool használattal.",
     hoverText: "4-6 főre, teraszokkal, panorámával és Panorama Pool hozzáféréssel.",
     imageSlot: "fugehaz_card_image",
     section: "upland",
@@ -138,7 +139,7 @@ export const accommodations: Accommodation[] = [
     slug: "szololiget-vendeghaz",
     url: "/szololiget/",
     location: "Kisapáti / Szent György-hegy keleti oldala",
-    description: "Különálló ház nagy terasszal és Csobáncra néző kilátással, lassabb hegyoldali napokhoz.",
+    description: "Különálló ház nagy terasszal és Csobáncra néző kilátással, hegyoldali napokhoz.",
     hoverText: "4 főre, nagy terasszal és panorámával.",
     imageSlot: "szololiget_card_image",
     section: "upland",
@@ -215,16 +216,16 @@ export const accommodations: Accommodation[] = [
     url: "/dandelion-koveskal/",
     location: "Köveskál / Káli-medence",
     description: "Csendes köveskáli vendégház a Káli-medence falvaihoz, sétáihoz és borászataihoz közel.",
-    hoverText: "Köveskálon, lassabb Káli-medencei napokhoz.",
+    hoverText: "Köveskálon, Káli-medencei sétákhoz és borászatokhoz közel.",
     imageSlot: "koveskal_card_image",
     section: "kali",
     chips: [
       { label: "Vendégház", type: "accent" },
       { label: "Köveskál" },
       { label: "Káli-medence", type: "green" },
-      { label: "Természetközeli", type: "green" },
-      { label: "Elvonuláshoz ideális", type: "purple" },
-      { label: "Nyugodt falu", type: "purple" }
+      { label: "Falusi környezet", type: "green" },
+      { label: "Borászatok közel", type: "purple" },
+      { label: "Csendes utca", type: "purple" }
     ]
   }
 ];

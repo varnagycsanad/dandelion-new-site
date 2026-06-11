@@ -5,6 +5,7 @@ import { accommodationSections, accommodations } from "../../data/accommodations
 import { SITE_NAME, toAbsoluteUrl } from "../../data/site-seo";
 import { readHomepageImageMapping } from "../../lib/homepage-image-mapping";
 
+// [CHANGE 2026-06-11 00:00] Text výberu ubytovania je konkrétnejší a menej všeobecný.
 type SectionKey = (typeof accommodationSections)[number]["key"];
 
 interface SlovakStayCopy {
@@ -80,15 +81,15 @@ const sectionCopy: Record<
     eyebrow: "Keszthely · Badacsonyörs · Balaton",
     title: "Jednoduché dni pri Balatone",
     subtitle:
-      "Keszthely a Badacsonyörs sú dobrá voľba, keď je pre vás dôležitejšia blízkosť Balatonu, pláže a pohodlné programy pri vode než ústranie vo svahu.",
+      "Keszthely a Badacsonyörs sa hodia, keď je pre vás dôležitá blízkosť Balatonu, pláže a programy pri vode skôr než dom vo svahu.",
     audienceText: "Pre breh Balatonu, pláže a balatonské programy.",
     anchorId: "near-lake-balaton"
   },
   kali: {
-    eyebrow: "Köveskál · Káli-medence · pokojná dedina",
+    eyebrow: "Köveskál · Káli-medence · dedinské prostredie",
     title: "Tichšia strana oblasti Káli",
     subtitle:
-      "Köveskál je pomalšia a tichšia voľba: dedinské prostredie, prechádzky v Káli-medence, vinárstva a striedmejší oddych.",
+      "Köveskál ponúka dedinské prostredie, prechádzky v Káli-medence a vinárstva, ak hľadáte tichšiu základňu.",
     audienceText: "Pre ticho, dedinské prostredie a výlety v Káli-medence.",
     anchorId: "kali-medence"
   }
@@ -108,7 +109,7 @@ const stayCopy: Record<string, SlovakStayCopy> = {
     name: "Dandelion Fügeház",
     location: "Pri Szent György-hegy",
     description:
-      "Penzión blízko vrchu s terasami, výhľadmi a pokojnými vonkajšími priestormi pre menšie rodiny alebo priateľov.",
+      "Penzión s terasami, výhľadom na svedecké vrchy a letným prístupom k Panorama Pool.",
     hoverText: "Pre 4-6 hostí, s terasami, výhľadmi a Panorama Pool.",
     facts: ["4-6 hostí", "2 podlažia", "Panorama Pool", "Panoráma", "Klimatizácia"],
     imageAlt: "Dandelion Fügeház penzión pri Szent György-hegy"
@@ -172,8 +173,8 @@ const stayCopy: Record<string, SlovakStayCopy> = {
     location: "Köveskál / Káli-medence",
     description:
       "Pokojný penzión v Köveskáli, blízko dedín, prechádzok a vinárstiev v Káli-medence.",
-    hoverText: "V Köveskáli, pre pomalšie dni v Káli-medence.",
-    facts: ["Penzión", "Köveskál", "Káli-medence", "Blízko prírody", "Pokojná dedina"],
+    hoverText: "V Köveskáli, blízko prechádzok a vinárstiev v Káli-medence.",
+    facts: ["Penzión", "Köveskál", "Káli-medence", "Dedinské prostredie", "Vinárstva blízko"],
     imageAlt: "Dandelion Köveskál pokojný vidiecky penzión v Káli-medence"
   }
 };
@@ -214,7 +215,7 @@ const accommodationFaqItems = [
   {
     question: "Ktoré ubytovanie je najbližšie k Balatonu?",
     answer:
-      "Pre pobyt blízko Balatonu sú najsilnejšie možnosti Royal Homes v Keszthelyi a Szépvölgyi v Badacsonyörsi.",
+      "Royal Homes v Keszthelyi sa hodí, keď je dôležitá blízkosť Balatonu a strešné jacuzzi. Szépvölgyi v Badacsonyörsi sa hodí pre väčšie skupiny a výhľad na Balaton.",
     href: "#near-lake-balaton"
   },
   {
@@ -226,7 +227,7 @@ const accommodationFaqItems = [
   {
     question: "Ktoré ubytovanie je pokojnejšie?",
     answer:
-      "Pre pokojnejšie dni sú dobrým smerom Köveskál, Szőlőliget a Zsálya. Köveskál je viac dedinský, Szőlőliget a Zsálya sú skôr vo svahu.",
+      "Pre pokojnejšie dni sa hodia Köveskál, Szőlőliget a Zsálya. Köveskál je dedinská základňa, Szőlőliget a Zsálya sú skôr domy vo svahu.",
     href: "#kali-medence"
   }
 ];
@@ -378,7 +379,7 @@ const accommodationFaqStructuredData = {
           <h2 id="ubytovanie-qa-title">Ktoré ubytovanie Dandelion sa hodí na vašu cestu?</h2>
           <p>
             Ak nezačínate konkrétnym názvom domu, začnite otázkami hostí: počet osôb, oblasť,
-            bazén, blízkosť Balatonu, výhľady alebo pokojnejšie ústranie.
+            bazén, blízkosť Balatonu, výhľady alebo pokojnejšie okolie.
           </p>
           <a class="dnd-accommodations-qa__summary-link" href="#accommodations-list">
             Prejsť na zoznam ubytovania
