@@ -21,7 +21,7 @@ import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
 
 const deTitle = "Dandelion Gästehäuser | Unterkünfte am Balaton";
 const deDescription =
-  "Ruhige Gästehäuser und Apartments im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Keszthely und dem Káli-Becken.";
+  "Gästehäuser rund um Szent György-hegy, Balaton und Káli-Becken, mit Terrassen, Ausblicken, Pooltagen und Direktbuchung.";
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 
 // [CHANGE 2026-05-29 00:00] German homepage hero video now has poster and VideoObject data for Google indexing.
@@ -54,7 +54,7 @@ const germanRegionStories = [
   {
     kicker: "Keszthely - Badacsonyörs - Balaton",
     title: "Nah am See",
-    description: "Leichte Balaton-Tage, Uferorte und Sommerabende mit dem ruhigeren Dandelion Rhythmus.",
+    description: "Leichte Balaton-Tage, Uferorte und Sommerabende. Keszthely und Badacsonyörs passen, wenn Sie nah am Ufer bleiben möchten.",
     meta: "Für Gäste, die den Balaton nahe haben möchten.",
     ctaLabel: "Unterkünfte am Balaton ansehen",
     mobileCtaLabel: "Balaton-Unterkünfte",
@@ -65,7 +65,7 @@ const germanRegionStories = [
   {
     kicker: "Köveskál - Káli-Becken",
     title: "Die ruhigere Káli-Seite",
-    description: "Steinmauern, Dorfstraßen und ein weicheres Tempo für zurückgezogene Tage.",
+    description: "Steinmauern, Dorfstraßen und offene Landschaft. Köveskál passt, wenn Sie die dörflichere Seite des Balaton-Oberlands suchen.",
     meta: "Gut für langsame Tage, Weinwege und Dorfspaziergänge.",
     ctaLabel: "Unterkunft im Káli-Becken ansehen",
     mobileCtaLabel: "Káli-Becken",
@@ -119,7 +119,7 @@ const germanExperiences = [
   <Hero
     titleTopLines={["Ruhige", "Gästehäuser"]}
     titleBottomLines={["nahe", "dem Balaton"]}
-    description="Naturverbundene Unterkünfte im Balaton-Oberland, nahe Szent György-hegy und Badacsony."
+    description="Unterkünfte rund um Szent György-hegy, Balaton und Káli-Becken. Terrassen, Ausblicke, Pooltage und Ruhe."
     ctas={[
       { label: "Unterkünfte ansehen", href: "/de/unterkuenfte/" },
       { label: "Verfügbarkeit prüfen", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
@@ -138,15 +138,15 @@ const germanExperiences = [
 
   <RegionStories
     kickerLabel="Unterkünfte"
-    heading="Ein Dandelion Gefühl, drei Landschaften"
-    lead="Wählen Sie zwischen Zeugenbergen, Balaton-Tagen und den ruhigeren Dörfern des Káli-Beckens."
+    heading="Drei Landschaften, drei Arten anzukommen"
+    lead="Wählen Sie zwischen Zeugenbergen, Balaton-Tagen und ruhigeren Dörfern des Káli-Beckens."
     stories={germanRegionStories}
   />
 
   <Experiences
     sectionId="experiences"
     title="ERLEBNISSE"
-    lead="Radfahren, Wein, Balaton und Spaziergänge an den Hügeln im leichten Rhythmus der Region."
+    lead="Radfahren, Wein, Balaton und Hügelwege, alles in kurzer Fahrt von den Häusern."
     ctaLabel="ERLEBNISSE PLANEN"
     ctaHref="/de/erlebnisse/"
     mobileCtaLabel="MEHR"

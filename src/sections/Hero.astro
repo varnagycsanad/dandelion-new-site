@@ -3,6 +3,7 @@
 // [CHANGE 2026-05-21 00:00] The homepage hero accepts optional responsive video sources and poster fallback for landing pages.
 // [CHANGE 2026-05-29 00:00] Responsive hero videos now expose their poster fallback for video indexing.
 // [CHANGE 2026-06-06 00:00] Mobile hero videos can defer their source to keep the poster as the initial mobile paint.
+// [CHANGE 2026-06-11 00:00] Hungarian homepage hero description made more concrete and less generic.
 interface HeroCta {
   label: string;
   href: string;
@@ -35,7 +36,7 @@ const {
   title,
   titleTopLines = ["Reggel", "hegyekkel."],
   titleBottomLines = ["Este", "csillagokkal."],
-  description = "Vendégházak a Balaton-felvidéken, távol a nyüzsgéstől.",
+  description = "Vendégházak a Szent György-hegy, a Balaton és a Káli-medence körül. Terasz, panoráma, medence és csend.",
   ctas = [{ label: "Szállásaink", href: "#stays" }],
   secondaryCtas = [],
   videoSrc,
