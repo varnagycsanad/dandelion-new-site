@@ -22,7 +22,7 @@ const DEFAULT_AIR_TEMPERATURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_homerse
 const DEFAULT_HUMIDITY_ENTITY = 'sensor.d1_pergola_kulteri_homero_paratartalom';
 const DEFAULT_PRESSURE_ENTITY = 'sensor.d1_pergola_kulteri_homero_nyomas';
 const DEFAULT_PH_ENTITY = 'sensor.mr_pure_sensor_12';
-const DEFAULT_SALT_CONCENTRATION_ENTITY = 'sensor.mr_pure_sensor_8';
+const DEFAULT_SALT_CONCENTRATION_ENTITY = 'sensor.mr_pure_sensor_1';
 const DEFAULT_POOL_VOLUME_ENTITY = '';
 const DEFAULT_ORP_ENTITY = 'sensor.mr_pure_sensor_11';
 
@@ -243,8 +243,8 @@ if (
 }
 
 $saltConcentrationUnit = sanitize_unit(
-    $payload['saltConcentrationUnit'] ?? $payload['saltUnit'] ?? $payload['salt_concentration_unit'] ?? 'g/l',
-    'g/l'
+    $payload['saltConcentrationUnit'] ?? $payload['saltUnit'] ?? $payload['salt_concentration_unit'] ?? 'ppm',
+    'ppm'
 );
 $saltConcentrationSourceEntity = sanitize_entity_id(
     $payload['saltConcentrationEntityId'] ?? $payload['saltEntityId'] ?? $payload['salt_concentration_entity_id'] ?? DEFAULT_SALT_CONCENTRATION_ENTITY,
@@ -314,7 +314,7 @@ $output = [
     'phSource' => 'Home Assistant',
     'phEntityId' => $hasPhPayload ? $phSourceEntity : ($existingOutput['phEntityId'] ?? DEFAULT_PH_ENTITY),
     'saltConcentration' => $hasSaltConcentrationPayload ? round((float) $saltConcentration, 2) : ($existingOutput['saltConcentration'] ?? null),
-    'saltConcentrationUnit' => $hasSaltConcentrationPayload ? $saltConcentrationUnit : ($existingOutput['saltConcentrationUnit'] ?? 'g/l'),
+    'saltConcentrationUnit' => $hasSaltConcentrationPayload ? $saltConcentrationUnit : ($existingOutput['saltConcentrationUnit'] ?? 'ppm'),
     'saltConcentrationUpdatedAt' => $hasSaltConcentrationPayload ? $now : ($existingOutput['saltConcentrationUpdatedAt'] ?? null),
     'saltConcentrationSource' => 'Home Assistant',
     'saltConcentrationEntityId' => $hasSaltConcentrationPayload ? $saltConcentrationSourceEntity : ($existingOutput['saltConcentrationEntityId'] ?? DEFAULT_SALT_CONCENTRATION_ENTITY),

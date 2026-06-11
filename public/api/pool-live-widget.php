@@ -83,7 +83,7 @@ $airUnit = text_value($data, 'airUnit', '°C');
 $humidityUnit = text_value($data, 'humidityUnit', '%');
 $pressureUnit = text_value($data, 'pressureUnit', 'hPa');
 $phUnit = text_value($data, 'phUnit', '');
-$saltConcentrationUnit = text_value($data, 'saltConcentrationUnit', 'g/l');
+$saltConcentrationUnit = text_value($data, 'saltConcentrationUnit', 'ppm');
 $poolVolumeUnit = text_value($data, 'poolVolumeUnit', 'm³');
 $orpUnit = text_value($data, 'orpUnit', 'mV');
 $updatedAtRaw = text_value($data, 'updatedAt', '');
@@ -132,13 +132,14 @@ if ($isGuideMode) {
             'label' => 'Só koncentráció',
             'value' => format_number($saltConcentration, 2),
             'unit' => $saltConcentration === null ? '' : $saltConcentrationUnit,
-            'level' => level_percent($saltConcentration, 0, 10),
+            'level' => level_percent($saltConcentration, 0, 5000),
+            'note' => 'A víz sótartalma ppm-ben, vagyis milliomodrészben mérve.',
         ],
         [
             'label' => 'Medence térfogata',
-            'value' => format_number($poolVolume, 1),
-            'unit' => $poolVolume === null ? '' : $poolVolumeUnit,
-            'level' => level_percent($poolVolume, 0, 100),
+            'value' => '45',
+            'unit' => 'm³',
+            'level' => 45,
         ],
         [
             'label' => 'Vízmélység',
