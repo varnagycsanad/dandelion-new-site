@@ -44,7 +44,7 @@ jobs:
       UJSITE_SSH_PRIVATE_KEY: ${{ secrets.UJSITE_SSH_PRIVATE_KEY }}
       UJSITE_SSH_PASSPHRASE: ${{ secrets.UJSITE_SSH_PASSPHRASE }}
       UJSITE_SSH_REMOTE_PATH: ${{ secrets.UJSITE_SSH_REMOTE_PATH }}
-      GUIDE_AUTH_HTPASSWD_LINE: 'vendeg:$apr1$d2guide1$/u5PMo8OyMbExXGevTKJ./'
+      GUIDE_AUTH_HTPASSWD_LINE: 'guest:$apr1$d2guide1$/u5PMo8OyMbExXGevTKJ./'
 
     steps:
       - name: Checkout
