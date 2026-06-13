@@ -5,6 +5,8 @@ Last checked: 2026-06-04
 Use for: GEO agent specifikáció, heti/havi AI és keresési monitoring scope.
 Do not use for: automatikus implementáció, honlapmódosítás, Ads/GA4/GTM/Search Console módosítás jóváhagyás nélkül.
 
+Megjegyzes 2026-06-13: a Meta Ads / Facebook hirdetesi API elokeszitese kulon dokumentumban elerheto: `project-docs/META_ADS_CODEX_INTEGRATION.md`. Mivel meg nincs uj aktiv Facebook kampany, ez a GEO specifikacio nem bovul Meta riportolasi mezokkel.
+
 ## 1. Cél
 
 A GEO Agent célja, hogy hetente automatikusan figyelje a Dandelion Vendégházak online keresési és AI-keresési lehetőségeit, és rövid, érthető e-mail jelentést készítsen.
@@ -19,7 +21,7 @@ Az agent:
 Az agent NEM:
 
 - ír át automatikusan honlapot,
-- indít vagy módosít Google Ads kampányt,
+- indít vagy módosít Google Ads vagy Meta Ads kampányt,
 - módosít GA4/GTM/Search Console beállításokat,
 - publikál tartalmat jóváhagyás nélkül.
 
@@ -32,6 +34,7 @@ Rögzített kiinduló állapot:
 - GTM eseménylánc működik.
 - Fő konverziós esemény: `dnd_booking_click`.
 - Google Ads fiók aktív, fizetés beállítva.
+- Meta Ads API elokeszitve, de uj Facebook kampany meg nem fut.
 - Régi Smart/PMax jellegű kampányok nem indulnak újra automatikusan.
 - Search Console adat jelenleg kevés és főleg brand keresésekből áll.
 - A GEO irány ezért nem csak saját Search Console adatra épül, hanem piaci kérdéskutatásra is.

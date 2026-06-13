@@ -88,6 +88,13 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ## P2 - minoseg, tartalom, paritas
 
+### P2-0 - Meta Ads elso kampany elokeszitese
+
+- Statusz: elokeszitve, kampany meg nem fut
+- Forras: `META_ADS_CODEX_INTEGRATION.md`
+- Mi a gond: a Meta Marketing API kapcsolat mukodik es a Dandelion Vendeghaz hirdetesi fiok lathato, de uj Facebook kampany meg nincs elinditva. Ezert most nincs mit heti riportolasi mezokkel dokumentalni.
+- Kovetkezo konkret lepes: elso Facebook kampanyterv keszitese celzassal, kreativ iranyokkal, budgettel es landing oldalakkal; kampany letrehozasa csak kulon jovahagyas utan, `PAUSED` allapotban.
+
 ### P2-1 - Google AI schema kovetkezo kore
 
 - Statusz: nyitott, P0 adatoktol fugg

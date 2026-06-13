@@ -12,14 +12,14 @@ A projektben sok Markdown dokumentum van, de nem mindegyik aktualis szabaly vagy
 
 ## Statusz-leltar
 
-2026-06-03-i ellenorzes szerint minden Markdown fajl kapott egységes statuszblokkot:
+2026-06-13-i frissites szerint minden Markdown fajl kapott egységes statuszblokkot:
 
-- Osszes MD fajl: 66
+- Osszes MD fajl: 67
 - Statusz nelkuli MD fajl: 0
 
 Statusz szerinti bontas:
 
-- `AKTUALIS`: 10
+- `AKTUALIS`: 11
 - `RESZBEN AKTUALIS`: 19
 - `RESZBEN TELJESULT`: 9
 - `TORTENETI`: 25
@@ -159,11 +159,19 @@ Projektkoveto es kapcsolodo munkalapok:
 
 Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 
+## Marketing / Ads / Analytics
+
+- `project-docs/META_ADS_CODEX_INTEGRATION.md`
+- `project-docs/GA4_CODEX_ANALYTICS.md`
+- `project-docs/DANDELION_GEO_API_SETUP.md`
+- `project-docs/DANDELION_GEO_AGENT_SPEC.md`
+
+Megjegyzes: a Meta Ads dokumentum jelenleg kampanyinditas elotti technikai elokeszites. Nem heti riportolasi source of truth, amig nincs aktiv Facebook kampany.
+
 ## Egyeb specialis doksik
 
 - `project-docs/archive/accommodations/11-szallasok-oldal-audit-es-megvalositasi-terv.md`
 - `project-docs/QR_GUIDE_SYSTEM.md`
-- `project-docs/GA4_CODEX_ANALYTICS.md`
 - `project-docs/GUIDE_FUGEHAZ_DEZSA_CONTENT.md`
 - `project-docs/DANDELION_MASTER_RULES.md`
 - `project-docs/archive/image-admin-v2-audit-2026-04-30.md`

@@ -3,7 +3,7 @@
 Status: AKTUALIS
 Last checked: 2026-06-04
 Use for: GEO Search Console és GA4 OAuth, GA4 service account fallback és későbbi API-előkészítés biztonságos helyi beállítása.
-Do not use for: Google Ads API használat, automatikus adatletöltő implementáció vagy secret fájlok commitolása.
+Do not use for: Google Ads vagy Meta Ads API használat, automatikus adatletöltő implementáció vagy secret fájlok commitolása.
 
 ## 1. Cél
 
@@ -96,6 +96,14 @@ GA4_PROPERTY_ID=383805366
 A Google Ads API engedélyezve van, de a GEO projektben szándékosan későbbi fázisra van halasztva.
 
 Most nem készül Ads API hívás, Ads OAuth token vagy Ads fetcher.
+
+## 8.1 Meta Ads
+
+A Meta Ads / Facebook hirdetesi API nem ennek a Google GEO setupnak a resze.
+
+Kulon dokumentum: `project-docs/META_ADS_CODEX_INTEGRATION.md`.
+
+Jelenlegi szerepe: kampanyfiok ellenorzes es kesobbi elso Facebook kampany elokeszitese. Riportolasi workflow csak akkor keszuljon hozza, ha mar fut Meta kampany.
 
 ## 9. Helyi ellenőrzés
 
