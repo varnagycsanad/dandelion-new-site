@@ -412,7 +412,7 @@ jobs:
           )
 
           printf '%s\n' "$GUIDE_AUTH_HTPASSWD_LINE" | ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" \
-            "umask 077; mkdir -p $auth_dir_quoted; cat > $auth_file_quoted; chmod 600 $auth_file_quoted"
+            "umask 022; mkdir -p $auth_dir_quoted; cat > $auth_file_quoted; chmod 644 $auth_file_quoted"
 
       - name: Guard guide auth SSH setup
         if: steps.ssh_setup.outcome != 'success'
