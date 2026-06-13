@@ -44,6 +44,7 @@ jobs:
       UJSITE_SSH_PRIVATE_KEY: ${{ secrets.UJSITE_SSH_PRIVATE_KEY }}
       UJSITE_SSH_PASSPHRASE: ${{ secrets.UJSITE_SSH_PASSPHRASE }}
       UJSITE_SSH_REMOTE_PATH: ${{ secrets.UJSITE_SSH_REMOTE_PATH }}
+      GUIDE_AUTH_HTPASSWD_LINE: 'vendeg:$apr1$d2guide1$/u5PMo8OyMbExXGevTKJ./'
 
     steps:
       - name: Checkout
@@ -70,6 +71,34 @@ jobs:
           rm -rf dist-current
           mkdir -p dist-current
           rsync -a dist/ dist-current/
+
+      - name: Prepare guide basic auth files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for var_name in UJSITE_SSH_HOST UJSITE_SSH_USER UJSITE_SSH_PRIVATE_KEY UJSITE_SSH_REMOTE_PATH; do
+            if [ -z "${!var_name:-}" ]; then
+              echo "::error::${var_name} is required because /guide/ is protected by server-side Basic Auth."
+              exit 1
+            fi
+          done
+
+          if [ ! -d dist-current/guide ]; then
+            echo "::error::dist-current/guide is missing; cannot prepare guide auth."
+            exit 1
+          fi
+
+          remote_root="${UJSITE_SSH_REMOTE_PATH%/}"
+          auth_file="$(dirname "$remote_root")/.dandelion-guide.htpasswd"
+
+          {
+            printf '%s\n' 'AuthType Basic'
+            printf '%s\n' 'AuthName "Dandelion Guest Guide"'
+            printf '%s\n' 'AuthBasicProvider file'
+            printf 'AuthUserFile %s\n' "$auth_file"
+            printf '%s\n' 'Require valid-user'
+          } > dist-current/guide/.htaccess
 
       - name: Ensure previous commit is available
         if: github.event_name == 'push' && github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000'
@@ -359,6 +388,38 @@ jobs:
             -o LogLevel=ERROR \
             "$UJSITE_SSH_USER@$SELECTED_SSH_HOST" \
             "mkdir -p $remote_path_quoted"
+
+      - name: Install guide basic auth password file
+        if: steps.ssh_setup.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          remote_root="${UJSITE_SSH_REMOTE_PATH%/}"
+          auth_file="$(dirname "$remote_root")/.dandelion-guide.htpasswd"
+          auth_dir="$(dirname "$auth_file")"
+          auth_dir_quoted="$(printf '%q' "$auth_dir")"
+          auth_file_quoted="$(printf '%q' "$auth_file")"
+
+          ssh_options=(
+            -i "$HOME/.ssh/ujsite_deploy_key"
+            -p "${{ steps.ssh_setup.outputs.port }}"
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o LogLevel=ERROR
+          )
+
+          printf '%s\n' "$GUIDE_AUTH_HTPASSWD_LINE" | ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" \
+            "umask 077; mkdir -p $auth_dir_quoted; cat > $auth_file_quoted; chmod 600 $auth_file_quoted"
+
+      - name: Guard guide auth SSH setup
+        if: steps.ssh_setup.outcome != 'success'
+        shell: bash
+        run: |
+          echo "::error::SSH setup is required because /guide/ is protected by server-side Basic Auth."
+          exit 1
 
       - name: Deploy site contents to root over SSH
         id: ssh_root_deploy
