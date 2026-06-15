@@ -105,6 +105,7 @@ export function createSlovakAccommodationPage(
             variant: "strong"
           }
         : undefined,
+      video: baseData.hero.video,
       primaryCtaLabel: "Overiť dostupnosť",
       secondaryCtaLabel: "Zobraziť fotografie"
     },

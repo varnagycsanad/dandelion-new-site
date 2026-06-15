@@ -38,7 +38,7 @@ export const d2PageData: AccommodationPageData = {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",
       "hero",
-      "dandelion-d2-kisapati-hero-mobile-01.webp",
+      "dandelion-d2-mobile-hero-video-poster-20260615.webp",
       "d2 mobile hero"
     ),
     fallbackAlt: "Dandelion D2 fedett terasza sárga székekkel és nagy kerttel Kisapátiban",
@@ -54,6 +54,16 @@ export const d2PageData: AccommodationPageData = {
       href: "/panorama-pool/",
       ctaLabel: "Medence oldal megnyitása",
       variant: "strong"
+    },
+    video: {
+      mobile: "/videos/accommodations/d2/dandelion-d2-mobile-hero-20260615.mp4?v=20260615",
+      posterImagePath: requireAccommodationLocalAssetPath(
+        "d2",
+        "hero",
+        "dandelion-d2-mobile-hero-video-poster-20260615.webp",
+        "d2 mobile hero video poster"
+      ),
+      uploadDate: "2026-06-15T00:00:00+02:00"
     },
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"

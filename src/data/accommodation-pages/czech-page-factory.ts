@@ -109,6 +109,7 @@ export function createCzechAccommodationPage(
             variant: "strong"
           }
         : undefined,
+      video: baseData.hero.video,
       primaryCtaLabel: "Ověřit dostupnost",
       secondaryCtaLabel: "Zobrazit fotografie"
     },

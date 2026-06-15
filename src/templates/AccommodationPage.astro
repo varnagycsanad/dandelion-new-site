@@ -412,6 +412,9 @@ const amenityItems =
       }));
 const bookingTrustLabel = hasSabeeBookingLink ? templateText.bookingTrustLabel : null;
 const locationBenefits = pageData.map.benefits;
+const hasHeroVideo = Boolean(heroVideo?.desktop || heroVideo?.mobile);
+const isMobileOnlyHeroVideo = Boolean(heroVideo?.mobile && !heroVideo?.desktop);
+const heroVideoPosterImage = heroVideo?.posterImagePath || null;
 const {
   reviewBrandAssets,
   reviews: reviewItems,
@@ -506,6 +509,9 @@ const accommodationListingHref =
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
+const heroVideoContentUrl = heroVideo?.desktop || heroVideo?.mobile;
+const heroVideoThumbnail = heroVideoPosterImage || (isMobileOnlyHeroVideo ? localHeroFallback.src : heroFallback.src);
+const effectiveMobileHeroImage = isMobileOnlyHeroVideo && heroVideoPosterImage ? heroVideoPosterImage : mobileHeroImage;
 const reservationAction = hasSabeeBookingLink
   ? {
       "@type": "ReserveAction",
@@ -514,14 +520,14 @@ const reservationAction = hasSabeeBookingLink
   : undefined;
 const heroSchemaImage = desktopHeroImage || initialHeroImage.src || mobileHeroImage;
 // [CHANGE 2026-05-29 00:00] Accommodation hero videos now include VideoObject thumbnail metadata.
-const accommodationVideoStructuredData = heroVideo
+const accommodationVideoStructuredData = heroVideoContentUrl
   ? buildVideoObject({
       id: `${resolvedCanonicalPath}#hero-video`,
       name: `${accommodationName} hero video`,
       description: pageData.seo.description,
-      contentUrl: heroVideo.desktop,
-      thumbnailUrl: heroFallback.src,
-      uploadDate: "2026-05-20T00:00:00+02:00",
+      contentUrl: heroVideoContentUrl,
+      thumbnailUrl: heroVideoThumbnail,
+      uploadDate: heroVideo?.uploadDate || "2026-05-20T00:00:00+02:00",
       inLanguage: lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "hu-HU"
     })
   : null;
@@ -600,7 +606,7 @@ const accommodationStructuredData = [
     <link
       rel="preload"
       as="image"
-      href={mobileHeroImage}
+      href={effectiveMobileHeroImage}
       type="image/webp"
       media="(max-width: 767px)"
       fetchpriority="high"
@@ -609,7 +615,7 @@ const accommodationStructuredData = [
   </Fragment>
 
   <section class="d2-hero">
-    {heroVideo ? (
+    {hasHeroVideo && !isMobileOnlyHeroVideo ? (
       <div class="d2-hero__picture">
         <video
           class="d2-hero__image"
@@ -625,8 +631,8 @@ const accommodationStructuredData = [
           aria-hidden="true"
           data-accommodation-hero-video
         >
-          <source media="(max-width: 767px)" src={heroVideo.mobile} type="video/mp4" />
-          <source media="(min-width: 768px)" src={heroVideo.desktop} type="video/mp4" />
+          {heroVideo?.mobile && <source media="(max-width: 767px)" src={heroVideo.mobile} type="video/mp4" />}
+          {heroVideo?.desktop && <source media="(min-width: 768px)" src={heroVideo.desktop} type="video/mp4" />}
           {heroFallback.astroSrc ? (
             <Image
               src={heroFallback.astroSrc}
@@ -654,7 +660,7 @@ const accommodationStructuredData = [
       </div>
     ) : (
       <picture class="d2-hero__picture">
-        <source media="(max-width: 767px)" srcset={mobileHeroImage} data-accommodation-hero-mobile-source />
+        <source media="(max-width: 767px)" srcset={effectiveMobileHeroImage} data-accommodation-hero-mobile-source />
         {initialHeroImage.astroSrc ? (
           <Image
             src={initialHeroImage.astroSrc}
@@ -679,6 +685,24 @@ const accommodationStructuredData = [
           />
         )}
       </picture>
+    )}
+    {isMobileOnlyHeroVideo && (
+      <video
+        class="d2-hero__image d2-hero__video d2-hero__video--mobile"
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+        disablepictureinpicture
+        disableremoteplayback
+        poster={heroVideoThumbnail}
+        aria-hidden="true"
+        data-accommodation-hero-video
+      >
+        <source media="(max-width: 767px)" src={heroVideo?.mobile} type="video/mp4" />
+      </video>
     )}
     <div
       class:list={[
@@ -1675,6 +1699,10 @@ const accommodationStructuredData = [
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .d2-hero__video--mobile {
+    display: none;
   }
 
   .d2-hero__content {
@@ -3390,6 +3418,13 @@ const accommodationStructuredData = [
 
     .d2-hero__image {
       object-position: 52% center;
+    }
+
+    .d2-hero__video--mobile {
+      position: absolute;
+      inset: 0;
+      display: block;
+      z-index: 0;
     }
 
     .d2-kicker {

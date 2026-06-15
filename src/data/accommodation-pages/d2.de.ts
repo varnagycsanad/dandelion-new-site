@@ -15,7 +15,7 @@ export const d2GermanPageData: AccommodationPageData = {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",
       "hero",
-      "dandelion-d2-kisapati-hero-mobile-01.webp",
+      "dandelion-d2-mobile-hero-video-poster-20260615.webp",
       "d2 German mobile hero"
     ),
     fallbackAlt: "Dandelion D2 überdachte Terrasse mit gelben Stühlen und großem Garten in Kisapáti",
@@ -31,6 +31,16 @@ export const d2GermanPageData: AccommodationPageData = {
       href: "/de/unterkuenfte/",
       ctaLabel: "Unterkünfte ansehen",
       variant: "strong"
+    },
+    video: {
+      mobile: "/videos/accommodations/d2/dandelion-d2-mobile-hero-20260615.mp4?v=20260615",
+      posterImagePath: requireAccommodationLocalAssetPath(
+        "d2",
+        "hero",
+        "dandelion-d2-mobile-hero-video-poster-20260615.webp",
+        "d2 German mobile hero video poster"
+      ),
+      uploadDate: "2026-06-15T00:00:00+02:00"
     },
     primaryCtaLabel: "Verfügbarkeit prüfen",
     secondaryCtaLabel: "Fotos ansehen"

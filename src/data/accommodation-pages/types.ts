@@ -118,8 +118,10 @@ export interface AccommodationPageData {
     };
     poolHighlight?: AccommodationPagePoolHighlight;
     video?: {
-      desktop: string;
-      mobile: string;
+      desktop?: string;
+      mobile?: string;
+      posterImagePath?: string;
+      uploadDate?: string;
     };
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
