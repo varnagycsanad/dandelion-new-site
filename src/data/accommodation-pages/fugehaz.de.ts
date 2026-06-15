@@ -1,6 +1,7 @@
 import { createGermanAccommodationPage } from "./german-page-factory";
 import { fugehazEnglishPageData } from "./fugehaz.en";
 
+// [CHANGE 2026-06-15 00:00] Fügeház német tartalom magyar szolgáltatáslistához igazítva, téves wellness állítás eltávolítva.
 export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglishPageData, {
   title: "Dandelion",
   titleAccent: "Fügeház",
@@ -9,7 +10,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   location: "Szent György-hegy",
   region: "Balaton-Oberland - Panorama",
   guests: "4-6 Gäste",
-  character: "Panoramahaus mit Terrasse und Hot Tub",
+  character: "Panoramahaus mit Terrassen und ruhiger Lage",
   shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste nahe Szent György-hegy.",
   lead:
     "Dandelion Fügeház ist für Gäste gemacht, die Aussicht, Terrassenzeit und einen ruhigen Rückzugsort im Balaton-Oberland suchen.",
@@ -21,17 +22,17 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   facts: [
     ["Gäste", "4-6 Gäste"],
     ["Charakter", "Panorama und Terrassen"],
-    ["Außenbereich", "Terrasse und Hot Tub"],
+    ["Außenbereich", "Panoramaterrassen und Garten-Essplatz"],
     ["Lage", "nahe Szent György-hegy"],
     ["Pool", "Panorama-Poolbereich"]
   ],
   experienceFacts: [
     ["Panorama", "Blick in die Hügellandschaft"],
-    ["Hot Tub", "entspannte Abende draußen"],
+    ["Terrassenzeit", "entspannte Abende draußen"],
     ["Panorama Pool", "ab 15. Juni 2026"],
     ["Umgebung", "Wein, Wandern und Balaton"]
   ],
-  highlights: ["Panorama", "Terrasse", "Hot Tub", "Panorama Pool", "Ruhige Lage"],
+  highlights: ["Panorama", "Terrassen", "Grillmöglichkeit", "Panorama Pool", "Ruhige Lage"],
   reasons: [
     { iconKey: "terrace", title: "Panorama-Terrassen", text: "Hügel, Abende" },
     { iconKey: "leaf", title: "Gut für Paare", text: "Ruhe, Aussicht" },
@@ -76,7 +77,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
     ],
     amenitiesTitle: "Was in Fügeház wichtig ist"
   },
-  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse", "Hot Tub", "Parken", "Panorama Pool"],
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrassen", "Grillmöglichkeit", "Parken", "Panorama Pool"],
   mapBody:
     "Fügeház liegt im Balaton-Oberland nahe Szent György-hegy, Badacsony, Tapolca und mehreren Aussichtspunkten.",
   mapBenefits: [

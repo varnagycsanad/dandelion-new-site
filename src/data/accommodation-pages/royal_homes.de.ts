@@ -1,6 +1,7 @@
 import { createGermanAccommodationPage } from "./german-page-factory";
 import { royalHomesEnglishPageData } from "./royal_homes.en";
 
+// [CHANGE 2026-06-15 00:00] Royal Homes német fő tartalom magyar jacuzzi- és mólóállításaihoz igazítva.
 export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomesEnglishPageData, {
   title: "Dandelion",
   titleAccent: "Royal Homes",
@@ -9,12 +10,13 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
   location: "Keszthely",
   region: "Balaton - Keszthely",
   guests: "4-6 Gäste",
-  character: "Komfortables Apartment nahe am Balaton",
-  shortDescription: "Apartment in Keszthely für 4-6 Gäste, nah am Wasser und an Stadtprogrammen.",
+  character: "Premium-Apartment mit Ufersteg und Dachterrassen-Jacuzzi",
+  shortDescription: "Premium-Apartment in Keszthely für 4-6 Gäste, mit großer Terrasse, Ufersteg der Anlage und gemeinsamem Dachterrassen-Jacuzzi.",
   lead:
     "Dandelion Royal Homes ist die städtischere Balaton-Option: komfortabel, praktisch und gut gelegen für Keszthely, Strandtage und Ausflüge.",
   longDescription: [
-    "Das Apartment eignet sich für Gäste, die den Balaton und Keszthely bequem erreichen möchten, ohne auf eine ruhige, gut ausgestattete Unterkunft zu verzichten.",
+    "Das Apartment eignet sich für Gäste, die den Balaton und Keszthely bequem erreichen möchten, ohne auf eine ruhige, hochwertige Unterkunft zu verzichten.",
+    "Die Wohnanlage hat einen eigenen Ufersteg, eine Sonnenterrasse und einen gemeinsamen Jacuzzi auf der Dachterrasse. Diese Elemente geben dem Aufenthalt seinen balatonnahen Premium-Charakter.",
     "Es ist passend für Paare, Familien oder Freunde, die tagsüber viel unterwegs sind und abends einen komfortablen Rückzugsort suchen.",
     "Royal Homes ist besonders praktisch, wenn Wassernähe, Restaurants, Kultur und Balaton-Programme wichtiger sind als Dorf- oder Weinberglage."
   ],
@@ -23,22 +25,23 @@ export const royalHomesGermanPageData = createGermanAccommodationPage(royalHomes
     ["Typ", "Apartment"],
     ["Lage", "Keszthely"],
     ["Umgebung", "Balaton und Stadtprogramme"],
-    ["Außenbereich", "Terrasse oder Balkon je nach Einheit"]
+    ["Außenbereich", "große Terrasse, breiter Balkon"],
+    ["Dachterrasse", "gemeinsamer Jacuzzi"]
   ],
   experienceFacts: [
     ["Balaton", "nah am Wasser"],
     ["Keszthely", "Restaurants, Schloss und Programme"],
-    ["Komfort", "praktische Ausstattung"],
+    ["Komfort", "Dachterrassen-Jacuzzi und Ufersteg"],
     ["Ausflüge", "West-Balaton und Umgebung"]
   ],
-  highlights: ["Balaton-nahe Lage", "Komfortables Apartment", "Klimaanlage", "Küche", "Praktisch für Keszthely"],
+  highlights: ["Balaton-nahe Lage", "Ufersteg der Anlage", "Dachterrassen-Jacuzzi", "Große Terrasse", "Klimaanlage", "Küche"],
   reasons: [
     { iconKey: "balaton", title: "Wassernähe", text: "praktisch für Balaton-Tage" },
     { iconKey: "route", title: "Keszthely", text: "Stadt und Programme nah" },
-    { iconKey: "home", title: "Komfort", text: "gut ausgestattete Unterkunft" },
+    { iconKey: "spark", title: "Dachterrassen-Jacuzzi", text: "gemeinsames Premium-Element" },
     { iconKey: "users", title: "Flexibel", text: "für 4-6 Gäste" }
   ],
-  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Terrasse oder Balkon", "Parken"],
+  amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Große Terrasse", "Ufersteg der Anlage", "Dachterrassen-Jacuzzi", "Parken"],
   geoDecision: {
     kicker: "Royal Homes schnelle Antworten",
     title: "Dandelion Royal Homes ist eine gute Wahl, wenn Sie ein modernes Apartment in Keszthely suchen, nahe am Balaton und praktisch für Stadtprogramme",

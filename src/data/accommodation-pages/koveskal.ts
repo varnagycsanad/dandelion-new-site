@@ -3,6 +3,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 
 // [CHANGE 2026-05-06 20:00] Köveskál SEO title, meta, headings and intro copy refined for production baseline.
 // [CHANGE 2026-05-16 18:35] Köveskál megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
+// [CHANGE 2026-06-15 00:00] Kapcsolódó Fügeház meta téves wellness állítása javítva a magyar szolgáltatáslistához.
 export const koveskalPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Köveskál | Nyugodt vendégház a Káli-medencében",
@@ -273,7 +274,7 @@ export const koveskalPageData: AccommodationPageData = {
     items: [
       {
         name: "Fügeház",
-        meta: "2-4 fő · panoráma · dézsa",
+        meta: "4 fő · panorámás teraszok · Panorama Pool",
         href: "/fuge/",
         image: {
           type: "mapping",

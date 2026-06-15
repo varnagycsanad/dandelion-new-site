@@ -1,6 +1,7 @@
 import { royalHomesEnglishPageData } from "./royal_homes.en";
 import { createSlovakAccommodationPage } from "./slovak-page-factory";
 
+// [CHANGE 2026-06-15 00:00] Royal Homes szlovák fő tartalom magyar jacuzzi- és mólóállításaihoz igazítva.
 export const royalHomesSlovakPageData = createSlovakAccommodationPage(royalHomesEnglishPageData, {
   title: "Dandelion",
   titleAccent: "Royal Homes",
@@ -8,24 +9,25 @@ export const royalHomesSlovakPageData = createSlovakAccommodationPage(royalHomes
   location: "Keszthely / Balaton",
   region: "Keszthely - Balaton",
   guests: "4-6 hostí",
-  character: "APARTMÁN BLÍZKO BALATONU",
-  shortDescription: "Pohodlný apartmán v Keszthelyi, vhodný na balatonské dni, prechádzky a jednoduchší mestský rytmus.",
+  character: "PRÉMIOVÝ APARTMÁN S MÓLOM A STREŠNOU VÍRIVKOU",
+  shortDescription: "Prémiový apartmán v Keszthelyi s veľkou terasou, mólom rezidencie a spoločnou strešnou vírivkou.",
   lead: "Royal Homes je dobrá voľba pre hostí, ktorí chcú byť blízko Balatonu, Keszthelyu a programov pri vode, no zostať v pokojnom zázemí.",
   longDescription: [
     "Apartmán spája pohodlné ubytovanie s balatonskou polohou. Hodí sa pre rodinu alebo pár, ktorý chce tráviť čas pri vode a mať všetko prakticky blízko.",
+    "Rezidencia má vlastné mólo, slnečnú terasu a spoločnú vírivku na strešnej terase. Tieto prvky dávajú pobytu prémiový balatonský charakter.",
     "Keszthely ponúka prechádzky, pláže, reštaurácie aj výletný smer k Hévízu alebo severnému brehu Balatonu.",
     "Pobyt je viac balatonský a mestský než domy pri Szent György-hegy, ale stále zostáva v pokojnom štýle Dandelion."
   ],
-  facts: [["Hostia", "4-6 hostí"], ["Poloha", "Keszthely / Balaton"], ["Typ", "apartmán"], ["Vhodné na", "balatonské dni"]],
-  experienceFacts: [["Balaton", "voda a prechádzky"], ["Keszthely", "mesto a programy"], ["Hévíz", "výletný smer"], ["Rodiny", "praktická poloha"]],
-  highlights: ["Apartmán", "Terasa", "Kuchyňa", "Klimatizácia", "Balaton nablízku", "Parkovanie"],
+  facts: [["Hostia", "4-6 hostí"], ["Poloha", "Keszthely / Balaton"], ["Typ", "apartmán"], ["Exteriér", "veľká terasa a balkón"], ["Strecha", "spoločná vírivka"]],
+  experienceFacts: [["Balaton", "mólo a prechádzky"], ["Keszthely", "mesto a programy"], ["Strešná vírivka", "spoločný prémiový prvok"], ["Rodiny", "praktická poloha"]],
+  highlights: ["Apartmán", "Veľká terasa", "Mólo rezidencie", "Strešná vírivka", "Klimatizácia", "Balaton nablízku"],
   reasons: [
     { iconKey: "balaton", title: "Balaton", text: "blízko vody" },
-    { iconKey: "home", title: "Apartmán", text: "pohodlné zázemie" },
+    { iconKey: "spark", title: "Strešná vírivka", text: "spoločný prémiový prvok" },
     { iconKey: "route", title: "Keszthely", text: "programy nablízku" },
     { iconKey: "users", title: "Rodinná voľba", text: "praktický pobyt" }
   ],
-  amenities: ["Wi-Fi", "Kuchyňa", "Klimatizácia", "Terasa", "Kúpeľňa", "Kúrenie", "Parkovanie", "Balaton nablízku"],
+  amenities: ["Wi-Fi", "Kuchyňa", "Klimatizácia", "Veľká terasa", "Mólo rezidencie", "Strešná vírivka", "Kúrenie", "Parkovanie"],
   geoDecision: {
     kicker: "Royal Homes rýchle odpovede",
     title: "Dandelion Royal Homes je dobrá voľba, ak hľadáte moderný apartmán v Keszthelyi, blízko Balatonu a mestských programov",

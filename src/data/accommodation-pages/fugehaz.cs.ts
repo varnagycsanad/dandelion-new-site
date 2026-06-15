@@ -1,6 +1,7 @@
 import { fugehazEnglishPageData } from "./fugehaz.en";
 import { createCzechAccommodationPage } from "./czech-page-factory";
 
+// [CHANGE 2026-06-15 00:00] Fügeház cseh felszereltség magyar oldalhoz igazítva, téves Hot tub eltávolítva.
 export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishPageData, {
   title: "Dandelion",
   titleAccent: "Fügeház",
@@ -63,7 +64,7 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
     ],
     amenitiesTitle: "Co je ve Fügeház důležité"
   },
-  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Hot tub", "Koupelna", "Panorama Pool"],
+  amenities: ["Wi-Fi", "Kuchyně", "Terasy", "Topení", "Parkování", "Venkovní posezení", "Grilování", "Koupelna", "Panorama Pool"],
   mapBody: "Fügeház je dobrý výchozí bod pro Szent György-hegy, Badacsony, vinice a pomalé balatonské dny.",
   mapBenefits: [{ label: "Panoramatická poloha", icon: "trail" }, { label: "Vinařství v okolí", icon: "grapes" }, { label: "Balaton na dosah", icon: "route" }]
 });
