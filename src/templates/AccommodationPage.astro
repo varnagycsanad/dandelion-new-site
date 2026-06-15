@@ -1,7 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { AccommodationPageData, AccommodationPageRelatedStay } from "../data/accommodation-pages/types";
+import type {
+  AccommodationPageData,
+  AccommodationPageExperienceCta,
+  AccommodationPageIconCard,
+  AccommodationPageRelatedStay
+} from "../data/accommodation-pages/types";
 import { accommodations } from "../data/accommodations";
 import type { AccommodationImageSet } from "../data/images/image-types";
 import {
@@ -45,7 +50,9 @@ const localizedTemplateText = {
     decisionPanelAriaLabel: "Szállás döntési áttekintés",
     overviewTitle: "Gyors áttekintés",
     reasonsTitle: "Amiért szeretni fogod",
+    faqBlockLabel: "Gyakori kérdések",
     faqAnswerLabel: "Válasz",
+    detailHighlightsAriaLabel: "Választást segítő információk",
     relatedListingCta: "Nézd meg a többi Dandelion szállást is.",
     galleryMoreSuffix: "kép",
     poolSealTitleLine1: "PANORÁMA",
@@ -76,7 +83,9 @@ const localizedTemplateText = {
     decisionPanelAriaLabel: "Accommodation decision overview",
     overviewTitle: "Quick overview",
     reasonsTitle: "Why you will love it",
+    faqBlockLabel: "Frequently asked questions",
     faqAnswerLabel: "Answer",
+    detailHighlightsAriaLabel: "Decision-supporting details",
     relatedListingCta: "Back to accommodations.",
     galleryMoreSuffix: "images",
     poolSealTitleLine1: "PANORAMA",
@@ -107,7 +116,9 @@ const localizedTemplateText = {
     decisionPanelAriaLabel: "Unterkunft Entscheidungsübersicht",
     overviewTitle: "Kurzüberblick",
     reasonsTitle: "Warum Sie es lieben werden",
+    faqBlockLabel: "Häufige Fragen",
     faqAnswerLabel: "Antwort",
+    detailHighlightsAriaLabel: "Details zur Entscheidungsfindung",
     relatedListingCta: "Zurück zu den Unterkünften.",
     galleryMoreSuffix: "Bilder",
     poolSealTitleLine1: "PANORAMA",
@@ -138,7 +149,9 @@ const localizedTemplateText = {
     decisionPanelAriaLabel: "Přehled ubytování pro rozhodnutí",
     overviewTitle: "Rychlý přehled",
     reasonsTitle: "Proč se vám tu bude líbit",
+    faqBlockLabel: "Časté dotazy",
     faqAnswerLabel: "Odpověď",
+    detailHighlightsAriaLabel: "Informace pro výběr ubytování",
     relatedListingCta: "Zpět na přehled ubytování.",
     galleryMoreSuffix: "fotografií",
     poolSealTitleLine1: "PANORAMA",
@@ -169,7 +182,9 @@ const localizedTemplateText = {
     decisionPanelAriaLabel: "Prehľad ubytovania pre rozhodnutie",
     overviewTitle: "Rýchly prehľad",
     reasonsTitle: "Prečo sa vám tu bude páčiť",
+    faqBlockLabel: "Časté otázky",
     faqAnswerLabel: "Odpoveď",
+    detailHighlightsAriaLabel: "Informácie pre výber ubytovania",
     relatedListingCta: "Späť na prehľad ubytovania.",
     galleryMoreSuffix: "fotografií",
     poolSealTitleLine1: "PANORAMA",
@@ -454,6 +469,98 @@ function resolveDecisionPanelImage(
   return null;
 }
 
+function buildDefaultExperienceCta(stayLabel: string, locale: AccommodationPageLocale): AccommodationPageExperienceCta {
+  const commonImage = {
+    src: "/images/bicikli/balaton-felvidek-bicikli-desktop.webp",
+    width: 1800,
+    height: 1350
+  };
+
+  if (locale === "en") {
+    return {
+      eyebrow: "Balaton Uplands experiences",
+      title: "Local trips, cycling routes and hand-picked tips",
+      text: `See where to go from ${stayLabel}: bikes, witness hills, wineries and relaxed Balaton days in one place.`,
+      href: "/en/experiences/",
+      ctaLabel: "Open experiences",
+      image: {
+        ...commonImage,
+        alt: "Bicycles beside vineyard rows in the Balaton Uplands"
+      }
+    };
+  }
+
+  if (locale === "de") {
+    return {
+      eyebrow: "Erlebnisse im Balaton-Oberland",
+      title: "Ausflüge, Radtouren und lokale Tipps",
+      text: `Sehen Sie, wohin Sie von ${stayLabel} starten können: Räder, Zeugenberge, Weingüter und Balaton-Tage an einem Ort.`,
+      href: "/de/erlebnisse/",
+      ctaLabel: "Erlebnisse öffnen",
+      image: {
+        ...commonImage,
+        alt: "Fahrräder neben Weinreben im Balaton-Oberland"
+      }
+    };
+  }
+
+  if (locale === "cs") {
+    return {
+      eyebrow: "Zážitky v Balatonské vrchovině",
+      title: "Výlety, cyklotrasy a místní tipy",
+      text: `Podívejte se, kam vyrazit z ${stayLabel}: kola, svědecké vrchy, vinařství a dny u Balatonu na jednom místě.`,
+      href: "/cs/zazitky/",
+      ctaLabel: "Otevřít zážitky",
+      image: {
+        ...commonImage,
+        alt: "Kola vedle řádků vinic v Balatonské vrchovině"
+      }
+    };
+  }
+
+  if (locale === "sk") {
+    return {
+      eyebrow: "Zážitky v Balatonskej vrchovine",
+      title: "Výlety, cyklotrasy a miestne tipy",
+      text: `Pozrite sa, kam vyraziť z ${stayLabel}: bicykle, svedecké vrchy, vinárstva a dni pri Balatone na jednom mieste.`,
+      href: "/sk/zazitky/",
+      ctaLabel: "Otvoriť zážitky",
+      image: {
+        ...commonImage,
+        alt: "Bicykle pri radoch viniča v Balatonskej vrchovine"
+      }
+    };
+  }
+
+  return {
+    eyebrow: "Balatoni-felvidéki élmények",
+    title: "Programok, bringatúrák és helyi tippek",
+    text: `Nézd meg, merre induljatok a ${stayLabel}-ből: kerékpár, tanúhegyek, borászatok és balatoni napok egy helyen.`,
+    href: "/elmenyek/",
+    ctaLabel: "Élmények megnyitása",
+    image: {
+      ...commonImage,
+      alt: "Kerékpárok szőlősorok mellett a Balaton-felvidéken"
+    }
+  };
+}
+
+function buildDefaultDetailHighlights(items: AccommodationPageIconCard[]) {
+  const seenLabels = new Set<string>();
+
+  return items
+    .map((item) => item.title.trim())
+    .filter(Boolean)
+    .filter((label) => {
+      const normalizedLabel = normalizeDescriptionText(label);
+      if (!normalizedLabel || seenLabels.has(normalizedLabel)) return false;
+
+      seenLabels.add(normalizedLabel);
+      return true;
+    })
+    .slice(0, 5);
+}
+
 const bookingLink = pageData.bookingLink;
 const hasSabeeBookingLink = bookingLink.includes("ibe.sabeeapp.com");
 const hasInternalBookingLink = bookingLink.startsWith("/") && !bookingLink.startsWith("//");
@@ -498,6 +605,14 @@ const amenityItems =
         iconKey: item.icon,
         title: item.label
       }));
+const stayLabel = `${pageData.hero.title} ${pageData.hero.titleAccent}`.replace(/\s+/g, " ").trim();
+const experienceCta = decisionPanel?.experienceCta ?? buildDefaultExperienceCta(stayLabel, lang);
+const detailHighlights =
+  pageData.details.highlights && pageData.details.highlights.length > 0
+    ? pageData.details.highlights
+    : buildDefaultDetailHighlights(amenityItems);
+const canRenderDetailsBookingCta = canRenderBookingCta && !experienceCta;
+const canRenderDetailsSupportingLink = Boolean(pageData.details.supportingLink && !experienceCta);
 const bookingTrustLabel = hasSabeeBookingLink ? templateText.bookingTrustLabel : null;
 const locationBenefits = pageData.map.benefits;
 const hasHeroVideo = Boolean(heroVideo?.desktop || heroVideo?.mobile);
@@ -579,6 +694,7 @@ const introKicker = pageData.intro.kicker?.trim() || "";
 const introTitle = pageData.intro.title?.trim() || "";
 const introLead = pageData.intro.lead?.trim() || "";
 const hasIntroBlock = Boolean(introKicker || introTitle || introLead);
+const shouldRenderIntroBlock = hasIntroBlock && detailHighlights.length === 0;
 const shortDescription = pageData.details.shortDescription?.trim() || "";
 const visibleDetailsSummary = shortDescription || introLead;
 const detailsLongDescription = (pageData.details.longDescription || [])
@@ -1123,7 +1239,7 @@ const accommodationStructuredData = [
     </div>
   </section>
 
-  {hasIntroBlock && (
+  {shouldRenderIntroBlock && (
     <section class="d2-intro dnd-section" aria-labelledby="accommodation-intro-title">
       <div class="dnd-container">
         <div class="d2-intro__inner">
@@ -1138,11 +1254,18 @@ const accommodationStructuredData = [
   <section class="d2-details dnd-section">
     <div class="dnd-container">
       <div class="d2-details__layout">
-        <div class="d2-details__story">
+        <div class:list={["d2-details__story", detailHighlights.length > 0 && "d2-details__story--with-highlights"]}>
           <span class="dnd-section-kicker">{pageData.details.kicker}</span>
           <h2 class="d2-section-title">{pageData.details.title}</h2>
           {visibleDetailsSummary && <p class="d2-details__summary">{visibleDetailsSummary}</p>}
-          {pageData.details.supportingLink && (
+          {detailHighlights.length > 0 && (
+            <ul class="d2-details__highlights" aria-label={templateText.detailHighlightsAriaLabel}>
+              {detailHighlights.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+          {canRenderDetailsSupportingLink && pageData.details.supportingLink && (
             <a class="d2-details__inline-link" href={pageData.details.supportingLink.href}>
               {pageData.details.supportingLink.label}
             </a>
@@ -1157,9 +1280,9 @@ const accommodationStructuredData = [
               </div>
             </details>
           )}
-          {(canRenderBookingCta || pageData.details.supportingLink) && (
+          {(canRenderDetailsBookingCta || canRenderDetailsSupportingLink) && (
             <div class="d2-details__actions">
-              {canRenderBookingCta && (
+              {canRenderDetailsBookingCta && (
                 <a
                   href={bookingLink}
                   class="dnd-btn dnd-btn--primary"
@@ -1170,18 +1293,18 @@ const accommodationStructuredData = [
                   {pageData.details.ctaLabel}
                 </a>
               )}
-              {pageData.details.supportingLink && (
+              {canRenderDetailsSupportingLink && pageData.details.supportingLink && (
                 <a class="dnd-btn dnd-btn--secondary d2-details__secondary" href={pageData.details.supportingLink.href}>
                   {templateText.secondaryDetailsLabel}
                 </a>
               )}
             </div>
           )}
-          {bookingTrustLabel && <p class="d2-details__trust">{bookingTrustLabel}</p>}
+          {bookingTrustLabel && canRenderDetailsBookingCta && <p class="d2-details__trust">{bookingTrustLabel}</p>}
         </div>
 
         <aside class="d2-decision-panel" aria-label={templateText.decisionPanelAriaLabel}>
-          <div class="d2-decision-panel__top">
+          <div class:list={["d2-decision-panel__top", hasFaqDecisionAnswers && "d2-decision-panel__top--has-qa"]}>
             <section class="d2-decision-panel__summary" aria-label={geoDecision?.kicker ?? decisionPanel?.overviewTitle ?? templateText.overviewTitle}>
               <span class="d2-decision-panel__eyebrow">{geoDecision?.kicker ?? decisionPanel?.overviewTitle ?? templateText.overviewTitle}</span>
               <h3>{geoDecision?.title ?? pageData.details.title}</h3>
@@ -1221,6 +1344,7 @@ const accommodationStructuredData = [
               class:list={["d2-decision-answers", hasFaqDecisionAnswers && "d2-decision-answers--qa"]}
               aria-label={hasFaqDecisionAnswers ? geoDecision?.kicker : decisionPanel?.overviewTitle ?? templateText.overviewTitle}
             >
+              {hasFaqDecisionAnswers && <span class="d2-decision-answers__label">{templateText.faqBlockLabel}</span>}
               <div class="d2-decision-answers__grid">
                 {decisionAnswerCards.map((item) => (
                   hasFaqDecisionAnswers ? (
@@ -1249,6 +1373,26 @@ const accommodationStructuredData = [
               </div>
             </section>
           </div>
+
+          {experienceCta && (
+            <a class="d2-experience-cta" href={experienceCta.href}>
+              <span class="d2-experience-cta__media">
+                <img
+                  src={experienceCta.image.src}
+                  alt={experienceCta.image.alt}
+                  width={experienceCta.image.width}
+                  height={experienceCta.image.height}
+                  loading="lazy"
+                />
+              </span>
+              <span class="d2-experience-cta__copy">
+                {experienceCta.eyebrow && <span class="d2-experience-cta__eyebrow">{experienceCta.eyebrow}</span>}
+                <strong>{experienceCta.title}</strong>
+                {experienceCta.text && <span class="d2-experience-cta__text">{experienceCta.text}</span>}
+                <span class="d2-experience-cta__link">{experienceCta.ctaLabel}</span>
+              </span>
+            </a>
+          )}
 
           {decisionReasons.length > 0 && (
             <section class="d2-decision-reasons" aria-label={decisionPanel?.reasonsTitle ?? templateText.reasonsTitle}>
@@ -2703,6 +2847,31 @@ const accommodationStructuredData = [
     font-size: var(--dnd-text-md);
   }
 
+  .d2-details__highlights {
+    display: flex;
+    max-width: 32rem;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .d2-details__highlights li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 6px 9px;
+    border: 1px solid rgba(36, 122, 131, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: rgba(31, 41, 55, 0.78);
+    font-size: var(--dnd-text-xs);
+    font-weight: 750;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
   .d2-details__inline-link {
     display: inline-flex;
     margin-top: 12px;
@@ -3297,11 +3466,123 @@ const accommodationStructuredData = [
     text-transform: uppercase;
   }
 
+  .d2-experience-cta {
+    display: grid;
+    grid-template-columns: minmax(118px, 0.42fr) minmax(0, 0.58fr);
+    gap: 12px;
+    align-items: stretch;
+    padding: 10px;
+    border: 1px solid rgba(36, 122, 131, 0.13);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.86);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(36, 122, 131, 0.07);
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .d2-experience-cta:hover,
+  .d2-experience-cta:focus-visible {
+    border-color: rgba(36, 122, 131, 0.28);
+    box-shadow: 0 16px 30px rgba(36, 122, 131, 0.11);
+    transform: translateY(-1px);
+  }
+
+  .d2-experience-cta__media {
+    position: relative;
+    min-height: 132px;
+    overflow: hidden;
+    border-radius: 9px;
+    background: #dbe7e3;
+  }
+
+  .d2-experience-cta__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .d2-experience-cta__copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    padding: 6px 4px 6px 0;
+  }
+
+  .d2-experience-cta__eyebrow {
+    color: #d99e2b;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .d2-experience-cta strong {
+    color: #142f32;
+    font-family: var(--font-serif);
+    font-size: 1.28rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.05;
+  }
+
+  .d2-experience-cta__text {
+    color: rgba(45, 36, 28, 0.68);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.42;
+  }
+
+  .d2-experience-cta__link {
+    width: fit-content;
+    margin-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(36, 122, 131, 0.38);
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 850;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
   .d2-decision-answers__grid {
     display: grid;
     height: 100%;
     gap: 9px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .d2-decision-answers--qa {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid rgba(217, 158, 43, 0.18);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 251, 244, 0.88), rgba(255, 255, 255, 0.72));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  }
+
+  .d2-decision-answers__label {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(217, 158, 43, 0.13);
+    color: rgba(102, 73, 26, 0.88);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
   }
 
   .d2-decision-answer,
@@ -3429,6 +3710,13 @@ const accommodationStructuredData = [
   .d2-decision-amenities {
     padding-top: 10px;
     border-top: 1px solid rgba(36, 122, 131, 0.12);
+  }
+
+  .d2-experience-cta + .d2-decision-reasons,
+  .d2-decision-panel__top--has-qa + .d2-decision-reasons {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top-color: rgba(217, 158, 43, 0.24);
   }
 
   .d2-decision-reasons__grid {
@@ -4539,6 +4827,25 @@ const accommodationStructuredData = [
       display: none;
     }
 
+    .d2-details__story--with-highlights .dnd-section-kicker,
+    .d2-details__story--with-highlights .d2-section-title {
+      display: block;
+    }
+
+    .d2-details__story--with-highlights .dnd-section-kicker {
+      margin-bottom: 8px;
+      font-size: 0.67rem;
+      line-height: 1.35;
+    }
+
+    .d2-details__story--with-highlights .d2-section-title {
+      max-width: 21rem;
+      margin-right: auto;
+      margin-left: auto;
+      font-size: 1.92rem;
+      line-height: 1.08;
+    }
+
     .d2-details__story p {
       max-width: 34rem;
       margin-top: 0;
@@ -4546,6 +4853,22 @@ const accommodationStructuredData = [
       margin-left: auto;
       font-size: var(--dnd-text-md);
       line-height: 1.48;
+    }
+
+    .d2-details__story--with-highlights p {
+      margin-top: 12px;
+    }
+
+    .d2-details__highlights {
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .d2-details__highlights li {
+      min-height: 26px;
+      padding: 5px 8px;
+      font-size: 0.68rem;
     }
 
     .d2-details__inline-link {
@@ -4625,9 +4948,61 @@ const accommodationStructuredData = [
       -webkit-line-clamp: 2;
     }
 
+    .d2-experience-cta {
+      grid-template-columns: minmax(112px, 0.42fr) minmax(0, 0.58fr);
+      gap: 9px;
+      padding: 9px;
+      border-radius: 10px;
+    }
+
+    .d2-experience-cta__media {
+      min-height: 118px;
+      border-radius: 8px;
+    }
+
+    .d2-experience-cta__copy {
+      gap: 5px;
+      padding: 4px 2px 4px 0;
+    }
+
+    .d2-experience-cta__eyebrow {
+      font-size: 0.57rem;
+      letter-spacing: 0.07em;
+    }
+
+    .d2-experience-cta strong {
+      font-size: 1.04rem;
+      line-height: 1.08;
+    }
+
+    .d2-experience-cta__text {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 0.74rem;
+      line-height: 1.34;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    .d2-experience-cta__link {
+      font-size: 0.63rem;
+    }
+
     .d2-decision-answers__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
+    }
+
+    .d2-decision-answers--qa {
+      gap: 8px;
+      padding: 9px;
+      border-radius: 10px;
+    }
+
+    .d2-decision-answers__label {
+      padding: 4px 7px;
+      font-size: 0.57rem;
+      letter-spacing: 0.07em;
     }
 
     .d2-decision-answers--qa .d2-decision-answers__grid {
@@ -4691,6 +5066,12 @@ const accommodationStructuredData = [
     .d2-decision-reasons__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 7px;
+    }
+
+    .d2-experience-cta + .d2-decision-reasons,
+    .d2-decision-panel__top--has-qa + .d2-decision-reasons {
+      margin-top: 8px;
+      padding-top: 14px;
     }
 
     .d2-decision-reason {

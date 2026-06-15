@@ -14,6 +14,8 @@ type SlovakAccommodationProfile = {
   guests: string;
   character: string;
   shortDescription: string;
+  detailTitle?: string;
+  detailHighlights?: string[];
   lead: string;
   longDescription: string[];
   facts: [string, string][];
@@ -126,8 +128,9 @@ export function createSlovakAccommodationPage(
     },
     details: {
       kicker: profile.title,
-      title: `${profile.title} v oblasti ${profile.location}`,
+      title: profile.detailTitle ?? `${profile.title} v oblasti ${profile.location}`,
       shortDescription: profile.shortDescription,
+      highlights: profile.detailHighlights ?? profile.highlights.slice(0, 5),
       supportingLink: {
         label: "Späť na slovenský prehľad ubytovania.",
         href: "/sk/ubytovanie/"

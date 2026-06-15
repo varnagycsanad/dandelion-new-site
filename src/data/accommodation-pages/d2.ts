@@ -112,13 +112,10 @@ export const d2PageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Fedett terasz, nagy kert, családi terek",
+    title: "Két hálószobás és nappalis ház Panoráma medence használattal",
     shortDescription:
-      "Tágas terek, állatok a háznál, közel strandokhoz, túrákhoz és hangulatos borászatokhoz.",
-    supportingLink: {
-      label: "Programötletek és balatoni tippek az Élmények oldalon.",
-      href: "/elmenyek/"
-    },
+      "A D2 egy önálló, családias vendégház fedett terasszal, nagy udvarral és kényelmes közös terekkel. Jó választás, ha a balatoni programok mellé nyugodt bázist szeretnétek, ahol este is van hova visszaérni.",
+    highlights: ["Gigabites WIFI", "Légkondi", "Ventilátor", "Jól felszerelt konyha", "Modern fürdőszoba"],
     longDescription: [
       "A galériás nappali világos és jól használható közös tér, a felújított konyha pedig kényelmessé teszi a hosszabb itt tartózkodást is. A ház ritmusa egyszerű: reggeli a teraszon, napközben kirándulás vagy balatoni program, este nyugodt visszaérkezés a kertbe.",
       "A fedett terasz és a kerti ülőhelyek rosszabb időben is használhatók, a nagy udvar pedig sokat ad hozzá a pihenéshez. Itt van hely játszani, üldögélni, grillezni vagy csak élvezni a csendet.",
@@ -187,6 +184,19 @@ export const d2PageData: AccommodationPageData = {
             height: 1350
           }
         : undefined
+    },
+    experienceCta: {
+      eyebrow: "Balatoni-felvidéki élmények",
+      title: "Programok, bringatúrák és helyi tippek",
+      text: "Nézd meg, merre induljatok a D2-ből: kerékpár, tanúhegyek, borászatok és balatoni napok egy helyen.",
+      href: "/elmenyek/",
+      ctaLabel: "Élmények megnyitása",
+      image: {
+        src: "/images/bicikli/balaton-felvidek-bicikli-desktop.webp",
+        alt: "Kerékpárok szőlősorok mellett a Balaton-felvidéken",
+        width: 1800,
+        height: 1350
+      }
     },
     reasonsTitle: "Amiért szeretni fogod",
     reasons: [

@@ -89,9 +89,10 @@ export const d2GermanPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Familienfreundliche Unterkunft bei Szent György-hegy",
+    title: "Haus mit zwei Schlafzimmern, Wohnzimmer und Zugang zum Panorama Pool",
     shortDescription:
-      "Ein ruhiger Ausgangspunkt mit hellen Innenräumen, großem Garten, Tieren rund um das Haus und dem Balaton in guter Reichweite.",
+      "D2 ist ein eigenständiges, familienfreundliches Gästehaus mit überdachter Terrasse, großem Garten und bequemen Gemeinschaftsbereichen. Eine gute Wahl, wenn Sie für Balaton-Tage eine ruhige Basis suchen, zu der Sie abends gern zurückkehren.",
+    highlights: ["Gigabit-WLAN", "Klimaanlage", "Ventilator", "Gut ausgestattete Küche", "Modernes Badezimmer"],
     supportingLink: {
       label: "Zur deutschen Unterkunftsübersicht.",
       href: "/de/unterkuenfte/"

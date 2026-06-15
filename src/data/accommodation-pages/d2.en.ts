@@ -90,9 +90,10 @@ export const d2EnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Family-friendly countryside accommodation near Szent György Hill",
+    title: "A two-bedroom house with a living room and Panorama Pool access",
     shortDescription:
-      "A bright family house with practical indoor spaces, a large garden, animals around the house and Lake Balaton within easy reach.",
+      "D2 is a standalone, family-friendly guesthouse with a covered terrace, a large garden and comfortable shared spaces. It is a good choice if you want a calm base for Balaton days, with somewhere easy to return to in the evening.",
+    highlights: ["Gigabit Wi-Fi", "Air conditioning", "Fan", "Well-equipped kitchen", "Modern bathroom"],
     supportingLink: {
       label: "Explore Dandelion stays from the English accommodations page.",
       href: "/en/szallasok/"

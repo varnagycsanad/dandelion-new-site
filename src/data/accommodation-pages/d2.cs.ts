@@ -10,6 +10,8 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
   guests: "4-6 hostů",
   character: "GALERIJNÍ RODINNÝ DŮM SE ZAHRADOU A TERASOU",
   shortDescription: "Světlý a klidný dům pro rodiny, s velkou zahradou, krytou terasou a dobrou polohou pro balatonské dny.",
+  detailTitle: "Dům se dvěma ložnicemi, obývacím pokojem a přístupem k Panorama Pool",
+  detailHighlights: ["Gigabitová Wi-Fi", "Klimatizace", "Ventilátor", "Dobře vybavená kuchyně", "Moderní koupelna"],
   lead: "Dandelion D2 je klidná základna u Szent György-hegy. Hodí se pro rodiny, které chtějí zahradu, terasu, jednoduché vaření a krátké výlety k Balatonu, do vinic nebo na vyhlídky.",
   longDescription: [
     "Otevřený obytný prostor, praktická kuchyně a krytá terasa dávají domu pomalý rytmus. Ráno může začít venku u stolu, den pokračuje v kopcích nebo u vody a večer se vrací do zahrady.",

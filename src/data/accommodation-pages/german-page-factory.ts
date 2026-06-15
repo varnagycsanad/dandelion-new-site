@@ -15,6 +15,8 @@ type GermanAccommodationProfile = {
   guests: string;
   character: string;
   shortDescription: string;
+  detailTitle?: string;
+  detailHighlights?: string[];
   lead: string;
   longDescription: string[];
   facts: [string, string][];
@@ -176,8 +178,9 @@ export function createGermanAccommodationPage(
     },
     details: {
       kicker: profile.title,
-      title: `${profile.title} in ${profile.location}`,
+      title: profile.detailTitle ?? `${profile.title} in ${profile.location}`,
       shortDescription: profile.shortDescription,
+      highlights: profile.detailHighlights ?? profile.highlights.slice(0, 5),
       supportingLink: {
         label: "Zur deutschen Unterkunftsübersicht.",
         href: "/de/unterkuenfte/"

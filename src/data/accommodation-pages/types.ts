@@ -62,6 +62,20 @@ export interface AccommodationPageFeaturedExperience {
   };
 }
 
+export interface AccommodationPageExperienceCta {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  href: string;
+  ctaLabel: string;
+  image: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  };
+}
+
 export interface AccommodationPageLocationBenefit {
   label: string;
   icon: string;
@@ -145,6 +159,7 @@ export interface AccommodationPageData {
     kicker: string;
     title: string;
     shortDescription: string;
+    highlights?: string[];
     supportingLink?: {
       label: string;
       href: string;
@@ -164,6 +179,7 @@ export interface AccommodationPageData {
     overviewTitle?: string;
     overviewFacts?: AccommodationPageIconCard[];
     featuredExperience?: AccommodationPageFeaturedExperience;
+    experienceCta?: AccommodationPageExperienceCta;
     reasonsTitle?: string;
     reasons?: AccommodationPageIconCard[];
   };
