@@ -88,6 +88,18 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ## P2 - minoseg, tartalom, paritas
 
+### P2-0a - Medencehasznalati szabalyzat kesobbi bovites
+
+- Statusz: nyitott
+- Forras: tulajdonosi input 2026-06-13
+- Mi a gond: a Panorama Pool medencehasznalati szabalyzat kovetkezo tartalmi frissitesenel ket uj szabaly keruljon be, de egyelore ne a publikus hasznalati utasitasokba / ASZF-be, csak teendokent legyen nyilvantartva.
+- Javasolt HU szoveg: "Szeles idoben a napernyot le kell engedni." / "Koveket, kavicsokat vagy mas targyakat a vizbe dobni tilos. Kerjuk a szuloket, figyeljenek erre a gyerekek miatt."
+- Javasolt EN szoveg: "In windy weather, the parasol must be closed." / "Throwing stones, pebbles or other objects into the water is prohibited. Parents are asked to pay attention to this because of children."
+- Javasolt DE szoveg: "Bei windigem Wetter muss der Sonnenschirm geschlossen werden." / "Steine, Kiesel oder andere Gegenstaende duerfen nicht ins Wasser geworfen werden. Eltern werden gebeten, wegen der Kinder besonders darauf zu achten."
+- Javasolt CS szoveg: "Za vetrneho pocasi je nutne slunecnik zavrit." / "Do vody je zakazano hazet kameny, oblazky nebo jine predmety. Prosime rodice, aby na to kvuli detem dohlizeli."
+- Javasolt SK szoveg: "Vo veternom pocasi je potrebne slnecnik zavriet." / "Do vody je zakazane hadzat kamene, kamienky alebo ine predmety. Prosime rodicov, aby na to kvoli detom dohliadli."
+- Kovetkezo konkret lepes: amikor a medencehasznalati szabalyzat kovetkezo publikus frissitese indul, ezeket a pontokat ellenorizni es minden relevans nyelvi valtozatba beilleszteni; az ASZF-be tovabbra se keruljon.
+
 ### P2-0 - Meta Ads elso kampany elokeszitese
 
 - Statusz: elokeszitve, kampany meg nem fut

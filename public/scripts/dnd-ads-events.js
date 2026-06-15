@@ -1,4 +1,5 @@
 // [CHANGE 2026-05-26 00:00] Google Ads / GA4-ready CTA dataLayer events without network requests.
+// [CHANGE 2026-06-13 00:00] Meta Pixel-ready dataLayer events for GTM mapping.
 (function () {
   window.dataLayer = window.dataLayer || [];
 
@@ -123,6 +124,11 @@
     return normalize(value).includes("ibe.sabeeapp.com");
   }
 
+  function isWhatsAppUrl(value) {
+    const normalizedValue = normalize(value);
+    return normalizedValue.includes("wa.me/") || normalizedValue.includes("whatsapp");
+  }
+
   function isBookingClick(element, linkUrl, href, text) {
     const inlineClick = element.getAttribute("onclick") || "";
     const className = element.getAttribute("class") || "";
@@ -156,6 +162,51 @@
     }
   }
 
+  function pushMetaEvent(eventName, metaEventName, payload) {
+    pushEvent(
+      eventName,
+      Object.assign(
+        {
+          meta_event_name: metaEventName,
+          page_path: window.location.pathname,
+          page_url: window.location.href
+        },
+        payload || {}
+      )
+    );
+  }
+
+  function isAccommodationPage() {
+    const path = normalize(window.location.pathname);
+
+    if (path.includes("/guide/") || path.includes("/szallasok/") || path.includes("/unterkuenfte/") || path.includes("/ubytovani/") || path.includes("/ubytovanie/")) {
+      return false;
+    }
+
+    return Boolean(inferPropertySlug(null));
+  }
+
+  function pushAccommodationViewContent() {
+    if (!isAccommodationPage()) {
+      return;
+    }
+
+    const propertySlug = inferPropertySlug(null);
+
+    pushMetaEvent("meta_view_content", "ViewContent", {
+      content_type: "accommodation",
+      content_name: document.title,
+      content_ids: propertySlug ? [propertySlug] : undefined,
+      property_slug: propertySlug
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", pushAccommodationViewContent, { once: true });
+  } else {
+    pushAccommodationViewContent();
+  }
+
   document.addEventListener(
     "click",
     function (event) {
@@ -172,7 +223,7 @@
       const label = text || element.getAttribute("aria-label") || href || null;
 
       if (isBookingClick(element, linkUrl, href, text)) {
-        pushEvent("dnd_booking_click", {
+        const bookingPayload = {
           event_category: "booking",
           event_action: "click",
           event_label: label,
@@ -181,6 +232,33 @@
           link_url: linkUrl,
           cta_text: text,
           property_slug: inferPropertySlug(linkUrl)
+        };
+
+        pushEvent("dnd_booking_click", {
+          event_category: bookingPayload.event_category,
+          event_action: bookingPayload.event_action,
+          event_label: bookingPayload.event_label,
+          page_path: bookingPayload.page_path,
+          page_url: bookingPayload.page_url,
+          link_url: bookingPayload.link_url,
+          cta_text: bookingPayload.cta_text,
+          property_slug: bookingPayload.property_slug
+        });
+        pushMetaEvent("meta_booking_click", "BookingClick", {
+          event_category: bookingPayload.event_category,
+          event_action: bookingPayload.event_action,
+          event_label: bookingPayload.event_label,
+          link_url: bookingPayload.link_url,
+          cta_text: bookingPayload.cta_text,
+          property_slug: bookingPayload.property_slug
+        });
+        pushMetaEvent("meta_initiate_checkout", "InitiateCheckout", {
+          content_type: "accommodation",
+          content_name: bookingPayload.event_label,
+          content_ids: bookingPayload.property_slug ? [bookingPayload.property_slug] : undefined,
+          link_url: bookingPayload.link_url,
+          cta_text: bookingPayload.cta_text,
+          property_slug: bookingPayload.property_slug
         });
         return;
       }
@@ -193,6 +271,11 @@
           page_path: window.location.pathname,
           link_url: linkUrl || href
         });
+        pushMetaEvent("meta_contact", "Contact", {
+          contact_method: "phone",
+          event_label: label,
+          link_url: linkUrl || href
+        });
         return;
       }
 
@@ -203,6 +286,27 @@
           event_label: label,
           page_path: window.location.pathname,
           link_url: mailtoUrl
+        });
+        pushMetaEvent("meta_contact", "Contact", {
+          contact_method: "email",
+          event_label: label,
+          link_url: mailtoUrl
+        });
+        return;
+      }
+
+      if (isWhatsAppUrl(href) || isWhatsAppUrl(linkUrl) || isWhatsAppUrl(text)) {
+        pushEvent("dnd_whatsapp_click", {
+          event_category: "contact",
+          event_action: "whatsapp_click",
+          event_label: label,
+          page_path: window.location.pathname,
+          link_url: linkUrl || href
+        });
+        pushMetaEvent("meta_contact", "Contact", {
+          contact_method: "whatsapp",
+          event_label: label,
+          link_url: linkUrl || href
         });
         return;
       }
@@ -225,6 +329,12 @@
           event_action: "contact_cta_click",
           event_label: label,
           page_path: window.location.pathname,
+          link_url: linkUrl,
+          cta_text: text
+        });
+        pushMetaEvent("meta_lead", "Lead", {
+          lead_type: "contact_or_quote_request",
+          event_label: label,
           link_url: linkUrl,
           cta_text: text
         });
