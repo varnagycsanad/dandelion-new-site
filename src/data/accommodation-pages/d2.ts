@@ -38,14 +38,14 @@ export const d2PageData: AccommodationPageData = {
     mobileImagePath: requireAccommodationLocalAssetPath(
       "d2",
       "hero",
-      "dandelion-d2-mobile-hero-video-poster-20260615.webp",
+      "dandelion-d2-mobile-hero-video-poster-20260615-mobile1.webp",
       "d2 mobile hero"
     ),
     fallbackAlt: "Dandelion D2 fedett terasza sárga székekkel és nagy kerttel Kisapátiban",
     kicker: "Balaton-felvidék - Szent György-hegy",
     title: "Dandelion",
     titleAccent: "D2",
-    subtitle: "GALÉRIÁS APARTMAN NAGY UDVARRAL ÉS FEDETT TERASSZAL",
+    subtitle: "GALÉRIÁS HÁZ NAGY UDVARRAL ÉS FEDETT TERASSZAL",
     lead: "Világos, kényelmes vendégház nagy kerttel és fedett terasszal, nyugodt balatoni-felvidéki napokhoz.",
     poolHighlight: {
       enabled: true,
@@ -56,12 +56,12 @@ export const d2PageData: AccommodationPageData = {
       variant: "strong"
     },
     video: {
-      desktop: "/videos/accommodations/d2/dandelion-d2-desktop-hero-20260615.mp4?v=20260615",
-      mobile: "/videos/accommodations/d2/dandelion-d2-mobile-hero-20260615.mp4?v=20260615",
+      desktop: "/videos/accommodations/d2/dandelion-d2-desktop-hero-20260615-pc1-lite.mp4?v=20260615-pc1-lite",
+      mobile: "/videos/accommodations/d2/dandelion-d2-mobile-hero-20260615-mobile1-lite.mp4?v=20260615-mobile1-lite",
       posterImagePath: requireAccommodationLocalAssetPath(
         "d2",
         "hero",
-        "dandelion-d2-desktop-hero-video-poster-20260615.webp",
+        "dandelion-d2-desktop-hero-video-poster-20260615-pc1.webp",
         "d2 desktop hero video poster"
       ),
       uploadDate: "2026-06-15T00:00:00+02:00"

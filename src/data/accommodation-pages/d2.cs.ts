@@ -8,7 +8,7 @@ export const d2CzechPageData = createCzechAccommodationPage(d2EnglishPageData, {
   location: "Kisapáti / Szent György-hegy",
   region: "Balatonská vrchovina - Szent György-hegy",
   guests: "4-6 hostů",
-  character: "RODINNÉ UBYTOVÁNÍ SE ZAHRADOU A TERASOU",
+  character: "GALERIJNÍ RODINNÝ DŮM SE ZAHRADOU A TERASOU",
   shortDescription: "Světlý a klidný dům pro rodiny, s velkou zahradou, krytou terasou a dobrou polohou pro balatonské dny.",
   lead: "Dandelion D2 je klidná základna u Szent György-hegy. Hodí se pro rodiny, které chtějí zahradu, terasu, jednoduché vaření a krátké výlety k Balatonu, do vinic nebo na vyhlídky.",
   longDescription: [
