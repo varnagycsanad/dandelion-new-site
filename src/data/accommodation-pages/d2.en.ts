@@ -34,12 +34,13 @@ export const d2EnglishPageData: AccommodationPageData = {
       variant: "strong"
     },
     video: {
+      desktop: "/videos/accommodations/d2/dandelion-d2-desktop-hero-20260615.mp4?v=20260615",
       mobile: "/videos/accommodations/d2/dandelion-d2-mobile-hero-20260615.mp4?v=20260615",
       posterImagePath: requireAccommodationLocalAssetPath(
         "d2",
         "hero",
-        "dandelion-d2-mobile-hero-video-poster-20260615.webp",
-        "d2 English mobile hero video poster"
+        "dandelion-d2-desktop-hero-video-poster-20260615.webp",
+        "d2 English desktop hero video poster"
       ),
       uploadDate: "2026-06-15T00:00:00+02:00"
     },

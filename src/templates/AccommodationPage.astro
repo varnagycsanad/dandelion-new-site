@@ -511,6 +511,7 @@ const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathna
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
 const heroVideoContentUrl = heroVideo?.desktop || heroVideo?.mobile;
 const heroVideoThumbnail = heroVideoPosterImage || (isMobileOnlyHeroVideo ? localHeroFallback.src : heroFallback.src);
+const heroVideoMobilePosterImage = pageData.hero.mobileImagePath || mobileHeroImage;
 const effectiveMobileHeroImage = isMobileOnlyHeroVideo && heroVideoPosterImage ? heroVideoPosterImage : mobileHeroImage;
 const reservationAction = hasSabeeBookingLink
   ? {
@@ -627,9 +628,11 @@ const accommodationStructuredData = [
           preload="metadata"
           disablepictureinpicture
           disableremoteplayback
-          poster={heroFallback.src}
+          poster={heroVideoThumbnail}
           aria-hidden="true"
           data-accommodation-hero-video
+          data-accommodation-hero-video-desktop-poster={heroVideoThumbnail}
+          data-accommodation-hero-video-mobile-poster={heroVideoMobilePosterImage}
         >
           {heroVideo?.mobile && <source media="(max-width: 767px)" src={heroVideo.mobile} type="video/mp4" />}
           {heroVideo?.desktop && <source media="(min-width: 768px)" src={heroVideo.desktop} type="video/mp4" />}
@@ -1400,6 +1403,7 @@ const accommodationStructuredData = [
     }
 
     const heroImage = document.querySelector("[data-accommodation-hero-image]");
+    const heroVideos = Array.from(document.querySelectorAll("[data-accommodation-hero-video]"));
     const galleryJump = document.querySelector("[data-accommodation-gallery-jump]");
     const lightbox = document.querySelector("[data-accommodation-lightbox]");
     const lightboxImage = document.querySelector("[data-accommodation-lightbox-image]");
@@ -1411,11 +1415,32 @@ const accommodationStructuredData = [
     const nextButton = document.querySelector("[data-accommodation-lightbox-next]");
     const mobileCollapsedBlocks = Array.from(document.querySelectorAll("[data-mobile-collapsed]"));
     const mobileDetailsQuery = window.matchMedia("(max-width: 768px)");
+    const heroVideoPosterQuery = window.matchMedia("(max-width: 767px)");
     const navigationEntries =
       typeof performance.getEntriesByType === "function"
         ? performance.getEntriesByType("navigation")
         : [];
     const isReloadNavigation = navigationEntries[0]?.type === "reload";
+
+    const syncHeroVideoPosters = () => {
+      heroVideos.forEach((video) => {
+        const desktopPoster = video.getAttribute("data-accommodation-hero-video-desktop-poster");
+        const mobilePoster = video.getAttribute("data-accommodation-hero-video-mobile-poster");
+        const poster = heroVideoPosterQuery.matches ? mobilePoster : desktopPoster;
+
+        if (poster && video.getAttribute("poster") !== poster) {
+          video.setAttribute("poster", poster);
+        }
+      });
+    };
+
+    syncHeroVideoPosters();
+
+    if (typeof heroVideoPosterQuery.addEventListener === "function") {
+      heroVideoPosterQuery.addEventListener("change", syncHeroVideoPosters);
+    } else if (typeof heroVideoPosterQuery.addListener === "function") {
+      heroVideoPosterQuery.addListener(syncHeroVideoPosters);
+    }
 
     const syncMobileCollapsedBlocks = () => {
       mobileCollapsedBlocks.forEach((block) => {
