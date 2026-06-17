@@ -81,18 +81,16 @@ export const d1EnglishPageData: AccommodationPageData = {
     kicker: "Dandelion D1",
     title: "Panoramic terrace, generous spaces and Panorama Pool access",
     shortDescription:
-      "A spacious three-bedroom house for up to 8 guests, with a panoramic terrace, generous living spaces and access to the Panorama Pool from June 15, 2026.",
+      "D1 is the most spacious, air-conditioned house among the Dandelion guesthouses, for up to 8 guests. It has 3 bedrooms, a living room, a comfortable terrace, grilling option and beautiful views toward Csobánc, Tóti Hill, Gulács and Badacsony.\n\nThe Panorama Pool shown in the main photo can be used by guests of Dandelion D1, D2 and Fügeház.",
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
     },
     longDescription: [
-      "One of D1's strongest features is its spacious layout: several bedrooms, usable shared areas and a terrace that gives the group a comfortable place to spend time together.",
-      "From the living room terrace, guests can enjoy views toward Csobánc, Tóti Hill, Gulács and Badacsony. The outdoor dining set and grill option make shared meals outside simple and comfortable.",
-      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool for D1, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
-      "On the lower level, the house has a well-equipped living-kitchen-dining area with refrigerator and freezer. The shared space includes a round dining table for six and a sofa bed where two guests can sleep comfortably. Two bedrooms and two bathrooms with showers are also on the lower level.",
-      "Wooden stairs lead to the upper level, where two bedrooms, a shower cabin and a separate toilet are located. The larger bedroom faces Szent György Hill and has two 90 cm beds that can be used together or separately. The smaller bedroom has a balcony with views toward Gulács and Csobánc.",
-      "Dandelion D1 is for guests looking for a spacious, comfortable, nature-close house where the group can stay together while everyone still has their own space. Lake Balaton, Szent György Hill, Badacsony, Szigliget, Csobánc and local wineries are all within a short drive."
+      "D1 is the most spacious, air-conditioned house among the Dandelion guesthouses, a comfortable choice for larger families or groups of friends. The house has 3 bedrooms and a living room, so it also works well as a comfortable stay for larger groups.",
+      "The living room is the central part of the house, connected to a large, fully equipped kitchen and dining area. From here you can step out onto the terrace, where morning coffee, shared dinners or evening conversations have their own atmosphere in good weather. From the terrace, you can see Csobánc, Tóti Hill, Gulács and Badacsony. Outdoor dining furniture and a grilling option are also available.",
+      "The spacious layout, 3 separate bedrooms, living room, two shower bathroom areas and separate toilet make the stay comfortable for groups as well.",
+      "D1 is a good choice for guests looking for a spacious, comfortable house for exploring the Balaton Uplands while also getting away from everyday life. Lake Balaton, Szent György Hill, Badacsony, Szigliget, Csobánc and local wineries are all within a short drive. Guests of D1 can also use the Panorama Pool, which is available for guests of D1, D2 and Fügeház."
     ],
     moreLabel: "More about Dandelion D1",
     ctaLabel: "Check availability"

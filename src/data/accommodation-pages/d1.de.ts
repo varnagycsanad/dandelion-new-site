@@ -10,13 +10,14 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   region: "Balaton-Oberland - Szent György-hegy",
   guests: "6-8 Gäste",
   character: "Großes Ferienhaus mit Garten und Terrasse",
-  shortDescription: "Großzügiges Ferienhaus für Familien und Freundesgruppen nahe Szent György-hegy.",
+  shortDescription: "D1 ist das geräumigste, klimatisierte Haus der Dandelion Gästehäuser, für bis zu 8 Gäste. Es erwartet Sie mit 3 Schlafzimmern, Wohnzimmer, bequemer Terrasse, Grillmöglichkeit und schönem Blick Richtung Csobánc, Tóti-hegy, Gulács und Badacsony.\n\nDen auf dem Hauptbild sichtbaren Panorama Pool können Gäste von Dandelion D1, D2 und Fügeház nutzen.",
   lead:
     "Dandelion D1 bietet viel Platz, drei Schlafzimmer, einen großen Garten und eine entspannte Lage für Tage zwischen Balaton, Weinbergen und ruhigen Abenden auf der Terrasse.",
   longDescription: [
-    "Das Haus eignet sich für Gäste, die zusammen reisen, aber trotzdem genug Raum im Alltag brauchen. Wohnbereich, Küche und Terrasse verbinden sich zu einem unkomplizierten Ferienrhythmus.",
-    "Der Garten und die Außenbereiche machen D1 besonders angenehm für Familien. Tagsüber sind Ausflüge an den Balaton, Wanderungen am Szent György-hegy und Besuche bei Weingütern gut erreichbar.",
-    "Der Panorama Pool gehört zum nahe gelegenen D1-D2-Fügeház Bereich und ist ab 15. Juni 2026 für die passenden Unterkünfte vorgesehen."
+    "D1 ist das geräumigste, klimatisierte Haus der Dandelion Gästehäuser und eine bequeme Wahl für größere Familien oder Freundesgruppen. Das Haus hat 3 Schlafzimmer und ein Wohnzimmer und eignet sich dadurch auch für Aufenthalte mit mehreren Gästen.",
+    "Das Wohnzimmer ist der zentrale Teil des Hauses. Daran schließen sich eine große, voll ausgestattete Küche und ein Essbereich an. Von hier gelangt man auf die Terrasse, wo der Morgenkaffee, ein gemeinsames Abendessen oder Gespräche am Abend bei gutem Wetter eine besondere Stimmung bekommen. Von der Terrasse öffnet sich der Blick Richtung Csobánc, Tóti-hegy, Gulács und Badacsony. Gartenmöbel zum Essen im Freien und eine Grillmöglichkeit stehen ebenfalls zur Verfügung.",
+    "Die großzügige Aufteilung, die 3 getrennten Schlafzimmer, das Wohnzimmer, zwei Duschbad-Bereiche und ein separates WC machen den Aufenthalt auch für Gruppen angenehm.",
+    "D1 ist eine gute Wahl für alle, die ein geräumiges, bequemes Haus suchen, um das Balaton-Oberland zu entdecken und zugleich aus dem Alltag herauszukommen. Balaton, Szent György-hegy, Badacsony, Szigliget, Csobánc und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Gäste von D1 können auch den Panorama Pool nutzen, der Gästen von D1, D2 und Fügeház zur Verfügung steht."
   ],
   facts: [
     ["Gäste", "6-8 Gäste"],

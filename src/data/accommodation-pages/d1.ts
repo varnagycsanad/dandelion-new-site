@@ -100,14 +100,12 @@ export const d1PageData: AccommodationPageData = {
     kicker: "Dandelion D1",
     title: "Panorámás terasz, nagy közösségi terek és Panorama Pool élmény egy helyen",
     shortDescription:
-      "Akár 8 főre kényelmes, 3 hálószobás ház panorámás terasszal, nagy közösségi terekkel és 2026. június 15-től Panorama Pool használattal.",
+      "A D1 a Dandelion Vendégházak legtágasabb, klimatizált háza, akár 8 fő részére. 3 hálóval, nappalival, kényelmes terasszal, grillezési lehetőséggel és gyönyörű kilátással vár a Csobánc, a Tóti-hegy, a Gulács és a Badacsony felé.\n\nA főképen látható Panorama Pool medencét a Dandelion D1, D2 és Fügeház vendégei használhatják.",
     longDescription: [
-      "A D1 egyik legnagyobb előnye a tágas elrendezés: több hálószoba, jól használható közös terek és olyan terasz, ahol a társas együttlétnek is kényelmes kerete van.",
-      "A nappaliból nyíló hangulatos teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványa tárul a vendégek elé. A panoráma minden napszakban más arcát mutatja: reggel nyugodt és tiszta, este pedig különösen hangulatos. A kültéri étkezőszett és a grillezési lehetőség kényelmessé teszi a kinti együttléteket.",
-      "2026. június 15-től a D1 vendégei számára Panorama Pool élmény is elérhető, amelyet a D1, a D2 és a Fügeház vendégei használhatnak. A dombon kialakított medence és pihenőtér a nyári pihenés egyik legerősebb élménye: fürdés, játék, napozás és tanúhegy panoráma egy helyen.",
-      "A ház alsó szintjén jól felszerelt nappali-konyha-étkező található hűtőszekrénnyel és fagyasztóval. A közösségi térben hatszemélyes kör alakú étkezőasztal és kinyitható kanapé kapott helyet, amelyen két fő kényelmesen alhat. Az alsó szinten két hálószoba és két zuhanyzós fürdőszoba is segíti a kényelmes elhelyezést.",
-      "Az emeletre falépcső vezet fel. Itt két hálószoba, egy zuhanyfülkés tusoló és külön WC található. A nagyobb hálószoba a Szent György-hegy felé néz, két 90 cm-es ággyal, amelyek összetolva és különálló ágyként is használhatók. A kisebbik hálószobához erkély tartozik, ahonnan szép kilátás nyílik a Gulács és a Csobánc irányába.",
-      "A D1 azoknak való, akik tágas, kényelmes, természetközeli házat keresnek, ahol együtt lehet lenni, de mindenkinek jut saját tér is. A Balaton, a Szent György-hegy, Badacsony, Szigliget, a Csobánc és a környék borászatai rövid autóúttal elérhetők."
+      "A D1 a Dandelion Vendégházak legtágasabb, klimatizált háza, kényelmes választás nagyobb családoknak vagy baráti társaságoknak. A házban 3 hálószoba és nappali található, így nagyobb létszám esetén is jól használható, kényelmes szállás.",
+      "A nappali a ház központi része, amelyhez nagy méretű, mindennel felszerelt konyha és étkező kapcsolódik. Innen nyílik a terasz, ahol jó időben a reggeli kávé, a közös vacsora vagy az esti beszélgetés is külön hangulatot kap. A teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványa tárul elétek. Kültéri étkezőszett és grillezési lehetőség is rendelkezésre áll.",
+      "A ház tágas elrendezése, a 3 külön hálószoba, a nappali, a két zuhanyzós fürdőrész és a külön WC kényelmessé teszi a pihenést többfős társaságok számára is.",
+      "A D1 jó választás azoknak, akik tágas, kényelmes házat keresnek a Balaton-felvidék felfedezéséhez, és közben szeretnének kiszakadni a hétköznapokból is. Innen rövid autóúttal elérhető a Balaton, a Szent György-hegy, Badacsony, Szigliget, a Csobánc és a környék borászatai. A D1 vendégei a Panorama Pool medencét is használhatják, amely a D1, D2 és Fügeház vendégei számára elérhető."
     ],
     moreLabel: "Bővebben a D1-ről",
     ctaLabel: "Árak és foglalás"

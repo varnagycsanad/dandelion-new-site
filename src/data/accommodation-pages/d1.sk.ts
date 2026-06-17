@@ -9,12 +9,13 @@ export const d1SlovakPageData = createSlovakAccommodationPage(d1EnglishPageData,
   region: "Balatonská vrchovina - Tapolcai-medence",
   guests: "6-8 hostí",
   character: "PRIESTRANNÝ DOM PRE RODINY A PRIATEĽOV",
-  shortDescription: "Priestranný dom pre väčšiu rodinu alebo partiu priateľov, so záhradou, terasou a pokojnou polohou pri Szent György-hegy.",
+  shortDescription: "D1 je najpriestrannejší klimatizovaný dom medzi ubytovaniami Dandelion, až pre 8 hostí. Má 3 spálne, obývačku, pohodlnú terasu, možnosť grilovania a krásny výhľad smerom na Csobánc, Tóti-hegy, Gulács a Badacsony.\n\nPanorama Pool, ktorý je vidieť na hlavnej fotografii, môžu využívať hostia Dandelion D1, D2 a Fügeház.",
   lead: "Dandelion D1 je dobrá voľba na spoločný pobyt, keď je dôležitý priestor, záhrada a jednoduché zázemie na výlety po Balatonskej vrchovine.",
   longDescription: [
-    "Dom má veľkorysejšie usporiadanie a dobre funguje pre rodiny alebo skupinu priateľov. Hodí sa na spoločné raňajky, pomalé večery aj dni, keď niekto zostane v záhrade a niekto vyrazí na výlet.",
-    "Okolie Kisapáti a Szent György-hegy prináša tiché cesty, vinice, vyhliadky a krátke presuny k Balatonu.",
-    "Panorama Pool patrí k pobytom D1, D2 a Fügeház od 15. júna 2026."
+    "D1 je najpriestrannejší klimatizovaný dom medzi ubytovaniami Dandelion a pohodlná voľba pre väčšie rodiny alebo skupiny priateľov. V dome sú 3 spálne a obývačka, takže dobre funguje aj pri pobyte viacerých hostí.",
+    "Obývačka je hlavnou časťou domu a nadväzuje na veľkú, plne vybavenú kuchyňu a jedáleň. Odtiaľ sa vychádza na terasu, kde má ranná káva, spoločná večera alebo večerný rozhovor za dobrého počasia vlastnú atmosféru. Z terasy sa otvára výhľad na Csobánc, Tóti-hegy, Gulács a Badacsony. K dispozícii je vonkajší jedálenský set a možnosť grilovania.",
+    "Priestranné usporiadanie domu, 3 samostatné spálne, obývačka, dve sprchové kúpeľňové časti a samostatné WC zabezpečujú pohodlie aj pre skupiny.",
+    "D1 je dobrá voľba pre tých, ktorí hľadajú priestranný a pohodlný dom na objavovanie Balatonskej vrchoviny a zároveň si chcú oddýchnuť od všedných dní. Balaton, Szent György-hegy, Badacsony, Szigliget, Csobánc a vinárstva v okolí sú dostupné krátkou jazdou autom. Hostia D1 môžu využívať aj Panorama Pool, ktorý je k dispozícii hosťom D1, D2 a Fügeház."
   ],
   facts: [["Hostia", "6-8 hostí"], ["Spálne", "3 spálne"], ["Kúpeľne", "2 kúpeľne"], ["Exteriér", "záhrada a terasa"]],
   experienceFacts: [["Panorama Pool", "Panorama Pool od 15. júna 2026"], ["Pre skupiny", "viac priestoru na spoločný čas"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "pokojné dni v prírode"]],
