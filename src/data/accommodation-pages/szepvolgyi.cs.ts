@@ -10,10 +10,10 @@ export const szepvolgyiCzechPageData = createCzechAccommodationPage(szepvolgyiEn
   guests: "až 8 hostů",
   character: "VELKÝ DŮM S BALATONSKÝM PANORAMATEM",
   shortDescription: "Prostorný dům u Badacsonyörs až pro 8 hostů, s výhledem na Balaton a dobrým zázemím pro rodiny.",
-  lead: "Szépvölgyi je pro větší rodinu nebo skupinu, která chce být blízko Balatonu, Badacsonye a mít dost prostoru pro společný pobyt.",
+  lead: "Szépvölgyi je pro větší rodinu nebo skupinu, která chce být blízko Balatonu, Badacsony a mít dost prostoru pro společný pobyt.",
   longDescription: [
     "Dům nabízí více ložnic, zahradu a praktické zázemí pro delší pobyt. Výhled na Balaton dává pobytu silný letní charakter.",
-    "Poloha u Badacsonyörs je dobrá pro pláže, večerní programy v Badacsonyi, Folly Arboretum i výlety směrem Szigliget.",
+    "Poloha u Badacsonyörs je dobrá pro pláže, večerní programy v Badacsony, Folly Arboretum i výlety směrem Szigliget.",
     "Szépvölgyi dobře funguje, když chcete kombinovat vodu, víno, výhled a společný čas ve větším domě."
   ],
   facts: [["Hosté", "až 8 hostů"], ["Ložnice", "4 ložnice"], ["Koupelny", "2 koupelny"], ["Poloha", "Badacsonyörs / Balaton"]],
@@ -35,7 +35,7 @@ export const szepvolgyiCzechPageData = createCzechAccommodationPage(szepvolgyiEn
       {
         question: "Pro koho je Szépvölgyi vhodný?",
         answer:
-          "Pro větší rodiny a skupiny přátel, které hledají v Badacsonyörs prostorný dům s vlastní zahradou a výhledem na Balaton, blízko pláže, přístavu a programů v Badacsonyi."
+          "Pro větší rodiny a skupiny přátel, které hledají v Badacsonyörs prostorný dům s vlastní zahradou a výhledem na Balaton, blízko pláže, přístavu a programů v Badacsony."
       },
       {
         question: "Pro kolik hostů je Szépvölgyi pohodlný?",
@@ -55,7 +55,7 @@ export const szepvolgyiCzechPageData = createCzechAccommodationPage(szepvolgyiEn
       {
         question: "Jaké programy jsou poblíž?",
         answer:
-          "Pláž, přístav a cyklostezka jsou snadno dostupné. Folly Arboretum, hrad Szigliget, vinařské trasy v Badacsonyi, gastroprogramy a festivaly jsou dobré cíle v okolí."
+          "Pláž, přístav a cyklostezka jsou snadno dostupné. Folly Arboretum, hrad Szigliget, vinařské trasy v Badacsony, gastroprogramy a festivaly jsou dobré cíle v okolí."
       },
       {
         question: "Čím se liší od apartmánového pobytu u Balatonu?",
@@ -65,6 +65,6 @@ export const szepvolgyiCzechPageData = createCzechAccommodationPage(szepvolgyiEn
     ],
     amenitiesTitle: "Co je v Szépvölgyi důležité"
   },
-  mapBody: "Szépvölgyi leží v Badacsonyörs, odkud je blízko k Balatonu, Badacsonyi, plážím, vínům i rodinným programům.",
+  mapBody: "Szépvölgyi leží v Badacsonyörs, odkud je blízko k Balatonu, Badacsony, plážím, vínům i rodinným programům.",
   mapBenefits: [{ label: "Balaton poblíž", icon: "balaton" }, { label: "Badacsony a víno", icon: "grapes" }, { label: "Pro větší rodiny", icon: "users" }]
 });

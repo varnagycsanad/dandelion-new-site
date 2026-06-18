@@ -10,7 +10,7 @@ export const SITE_DEFAULT_DESCRIPTION_EN =
 export const SITE_DEFAULT_DESCRIPTION_DE =
   "Naturverbundene Gästehäuser im Balaton-Oberland, nahe Szent György-hegy, Badacsony, Balaton und Káli-Becken.";
 export const SITE_DEFAULT_DESCRIPTION_CS =
-  "Klidné penziony a apartmány v okolí Balatonu, u Szent György-hegy, Badacsonye, Keszthelye a v oblasti Káli.";
+  "Klidné penziony a apartmány v okolí Balatonu, u Szent György-hegy, Badacsony, Keszthely a v oblasti Káli.";
 export const SITE_DEFAULT_DESCRIPTION_SK =
   "Pokojné penzióny a apartmány pri Balatone, v okolí Szent György-hegy, Badacsonyu, Keszthelyu a v oblasti Káli.";
 export const SITE_DEFAULT_OG_IMAGE = d2DefaultOgImage.src;

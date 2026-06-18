@@ -10,8 +10,8 @@ export const royalHomesCzechPageData = createCzechAccommodationPage(royalHomesEn
   region: "Keszthely - Balaton",
   guests: "4-6 hostů",
   character: "PRÉMIOVÝ APARTMÁN S MOLEM A STŘEŠNÍ VÍŘIVKOU",
-  shortDescription: "Prémiový apartmán v Keszthelyi s velkou terasou, molem rezidence a společnou střešní vířivkou.",
-  lead: "Royal Homes je dobrá volba pro hosty, kteří chtějí být blízko Balatonu, Keszthelye a programů u vody, ale zůstat v klidném zázemí.",
+  shortDescription: "Prémiový apartmán v Keszthely s velkou terasou, molem rezidence a společnou střešní vířivkou.",
+  lead: "Royal Homes je dobrá volba pro hosty, kteří chtějí být blízko Balatonu, Keszthely a programů u vody, ale zůstat v klidném zázemí.",
   longDescription: [
     "Apartmán spojuje pohodlné ubytování s balatonskou polohou. Hodí se pro rodinu nebo pár, který chce trávit čas u vody a mít vše prakticky blízko.",
     "Rezidence má vlastní molo, sluneční terasu a společnou vířivku na střešní terase. Tyto prvky dávají pobytu prémiový balatonský charakter.",
@@ -30,14 +30,14 @@ export const royalHomesCzechPageData = createCzechAccommodationPage(royalHomesEn
   amenities: ["Wi-Fi", "Kuchyně", "Klimatizace", "Velká terasa", "Molo rezidence", "Střešní vířivka", "Topení", "Parkování"],
   geoDecision: {
     kicker: "Royal Homes rychlé odpovědi",
-    title: "Dandelion Royal Homes je dobrá volba, pokud hledáte moderní apartmán v Keszthelyi, blízko Balatonu a městských programů",
+    title: "Dandelion Royal Homes je dobrá volba, pokud hledáte moderní apartmán v Keszthely, blízko Balatonu a městských programů",
     lead:
-      "Royal Homes je kvalitní apartmán se 2 ložnicemi a obývacím pokojem v balatonské rezidenční části Keszthelye, s velkou terasou, širokým balkonem, vlastním molem rezidence a společnou střešní vířivkou.",
+      "Royal Homes je kvalitní apartmán se 2 ložnicemi a obývacím pokojem v balatonské rezidenční části Keszthely, s velkou terasou, širokým balkonem, vlastním molem rezidence a společnou střešní vířivkou.",
     questions: [
       {
         question: "Pro koho je Dandelion Royal Homes vhodný?",
         answer:
-          "Pro rodiny, páry a přátele, kteří hledají moderní, kvalitní apartmán v Keszthelyi, blízko Balatonu, promenády, přístavu a městských programů."
+          "Pro rodiny, páry a přátele, kteří hledají moderní, kvalitní apartmán v Keszthely, blízko Balatonu, promenády, přístavu a městských programů."
       },
       {
         question: "Jak blízko je Royal Homes k Balatonu?",
@@ -62,11 +62,11 @@ export const royalHomesCzechPageData = createCzechAccommodationPage(royalHomesEn
       {
         question: "Na jaké programy je Keszthely dobrým výchozím bodem?",
         answer:
-          "Poloha se hodí pro balatonské pláže, promenádu, přístav, cyklistiku, programy v Keszthelyi i výlety v západní části Balatonu. Centrum města je přibližně 10 minut pěšky."
+          "Poloha se hodí pro balatonské pláže, promenádu, přístav, cyklistiku, programy v Keszthely i výlety v západní části Balatonu. Centrum města je přibližně 10 minut pěšky."
       }
     ],
     amenitiesTitle: "Co je v Royal Homes důležité"
   },
-  mapBody: "Royal Homes leží v Keszthelyi, v dobré poloze pro balatonské pláže, promenády, restaurace a výlety v západní části jezera.",
+  mapBody: "Royal Homes leží v Keszthely, v dobré poloze pro balatonské pláže, promenády, restaurace a výlety v západní části jezera.",
   mapBenefits: [{ label: "Balaton poblíž", icon: "balaton" }, { label: "Keszthely programy", icon: "route" }, { label: "Pohodlný apartmán", icon: "home" }]
 });

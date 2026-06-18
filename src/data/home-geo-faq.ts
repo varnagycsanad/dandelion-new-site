@@ -169,7 +169,7 @@ export const homeGeoFaqByLang: Record<HomeGeoFaqLang, HomeGeoFaqCopy> = {
       {
         question: "Kde se nacházejí domy Dandelion?",
         answer:
-          "Hlavní oblasti jsou Kisapáti a Szent György-hegy, ubytování blízko Balatonu v Keszthelyi a Badacsonyörsu a klidnější oblast Káli.",
+          "Hlavní oblasti jsou Kisapáti a Szent György-hegy, ubytování blízko Balatonu v Keszthely a Badacsonyörs a klidnější oblast Káli.",
         href: "/cs/ubytovani/"
       },
       {
@@ -181,7 +181,7 @@ export const homeGeoFaqByLang: Record<HomeGeoFaqLang, HomeGeoFaqCopy> = {
       {
         question: "Je ubytování Dandelion blízko Balatonu?",
         answer:
-          "Ano. Royal Homes Keszthely a Szépvölgyi v Badacsonyörsu jsou dobré volby, pokud je pro vás důležitá blízkost Balatonu.",
+          "Ano. Royal Homes Keszthely a Szépvölgyi v Badacsonyörs jsou dobré volby, pokud je pro vás důležitá blízkost Balatonu.",
         href: "/cs/ubytovani/#near-lake-balaton"
       },
       {

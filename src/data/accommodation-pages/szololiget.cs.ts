@@ -66,6 +66,6 @@ export const szololigetCzechPageData = createCzechAccommodationPage(szololigetEn
     ],
     amenitiesTitle: "Co je ve Szőlőligetu důležité"
   },
-  mapBody: "Szőlőliget je v oblasti Kisapáti a Szent György-hegy, s dobrou dostupností vinic, vyhlídek, Balatonu a Badacsonye.",
+  mapBody: "Szőlőliget je v oblasti Kisapáti a Szent György-hegy, s dobrou dostupností vinic, vyhlídek, Balatonu a Badacsony.",
   mapBenefits: [{ label: "Vinice poblíž", icon: "grapes" }, { label: "Výhledy a trasy", icon: "trail" }, { label: "Balaton dostupný autem", icon: "route" }]
 });
