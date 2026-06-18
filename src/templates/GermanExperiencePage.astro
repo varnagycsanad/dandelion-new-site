@@ -29,9 +29,12 @@ interface Props {
   eyebrow: string;
   heading: string;
   lead: string[];
-  heroImage: ImageMetadata;
+  heroImage: ImageMetadata | string;
   heroAlt: string;
-  supportImage?: ImageMetadata;
+  heroVideoDesktopSrc?: string;
+  heroVideoMobileSrc?: string;
+  heroPosterSrc?: string;
+  supportImage?: ImageMetadata | string;
   supportAlt?: string;
   supportTitle?: string;
   supportText?: string;
@@ -51,6 +54,9 @@ const {
   lead,
   heroImage,
   heroAlt,
+  heroVideoDesktopSrc,
+  heroVideoMobileSrc,
+  heroPosterSrc,
   supportImage,
   supportAlt = "",
   supportTitle,
@@ -99,7 +105,25 @@ const structuredData = [
           )}
         </div>
         <figure class="de-topic__media">
-          <Image src={heroImage} alt={heroAlt} width={1400} loading="eager" decoding="async" />
+          {heroVideoDesktopSrc ? (
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              webkit-playsinline
+              preload="metadata"
+              poster={heroPosterSrc}
+              aria-label={heroAlt}
+            >
+              {heroVideoMobileSrc && <source src={heroVideoMobileSrc} media="(max-width: 767px)" type="video/mp4" />}
+              <source src={heroVideoDesktopSrc} type="video/mp4" />
+            </video>
+          ) : typeof heroImage === "string" ? (
+            <img src={heroImage} alt={heroAlt} width="1400" loading="eager" decoding="async" />
+          ) : (
+            <Image src={heroImage} alt={heroAlt} width={1400} loading="eager" decoding="async" />
+          )}
         </figure>
       </section>
 
@@ -111,7 +135,11 @@ const structuredData = [
             <p>{supportText}</p>
           </article>
           <figure class="de-topic__support-card de-topic__support-card--image">
-            <Image src={supportImage} alt={supportAlt} width={1000} loading="lazy" decoding="async" />
+            {typeof supportImage === "string" ? (
+              <img src={supportImage} alt={supportAlt} width="1000" loading="lazy" decoding="async" />
+            ) : (
+              <Image src={supportImage} alt={supportAlt} width={1000} loading="lazy" decoding="async" />
+            )}
           </figure>
         </section>
       )}
@@ -269,6 +297,7 @@ const structuredData = [
 
   .de-topic__media :global(picture),
   .de-topic__media :global(img),
+  .de-topic__media :global(video),
   .de-topic__support-card--image :global(picture),
   .de-topic__support-card--image :global(img) {
     display: block;
@@ -277,6 +306,7 @@ const structuredData = [
   }
 
   .de-topic__media :global(img),
+  .de-topic__media :global(video),
   .de-topic__support-card--image :global(img) {
     object-fit: cover;
   }

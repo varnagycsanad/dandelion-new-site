@@ -1,7 +1,10 @@
 ---
 import GermanExperiencePage from "../../templates/GermanExperiencePage.astro";
-import heroImage from "../../assets/experiences/szent-gyorgy-hegy-szolo.jpg";
-import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512.jpg";
+
+const heroVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura.mp4?v=20260520-faststart";
+const heroMobileVideo = "/videos/elmenyek/kerekpar/balaton-felvideki-bicikli-tura-mobile-lite.mp4?v=20260606-mobile-lite";
+const desktopImage = "/images/bicikli/balaton-felvidek-bicikli-desktop.webp";
+const mobileImage = "/images/bicikli/balaton-felvidek-bicikli-mobile.webp";
 ---
 
 <GermanExperiencePage
@@ -12,13 +15,16 @@ import supportImage from "../../assets/experiences/tanuhegyek-drone-dji-20260512
   eyebrow="Balaton-Oberland auf zwei Rädern"
   heading="Langsamer und freier durch die Landschaft."
   lead={[
-    "Radfahren bringt die Umgebung näher: ruhige Dörfer, Weinbergstrassen, Aussichtspunkte und kleine Stopps, bei denen kein Tempo nötig ist.",
+    "Radfahren bringt die Umgebung näher: ruhige Dörfer, Weinbergstraßen, Aussichtspunkte und kleine Stopps, bei denen kein Tempo nötig ist.",
     "Sie können eine kurze Nachmittagsrunde oder einen ganzen Tag planen. E-Bikes sind besonders angenehm für hügeligere Abschnitte rund um Szent György-hegy."
   ]}
-  heroImage={heroImage}
-  heroAlt="Weinberge und Radstimmung im Balaton-Oberland"
-  supportImage={supportImage}
-  supportAlt="Zeugenberge und Tapolca-Becken aus der Luft"
+  heroImage={desktopImage}
+  heroAlt="Radfahren im Balaton-Oberland zwischen Weinbergen und Zeugenbergen"
+  heroVideoDesktopSrc={heroVideo}
+  heroVideoMobileSrc={heroMobileVideo}
+  heroPosterSrc={desktopImage}
+  supportImage={mobileImage}
+  supportAlt="Fahrradstimmung im Balaton-Oberland"
   supportTitle="Erst die Art des Tages wählen."
   supportText="Manche Routen sind kurz und panoramisch, andere führen Richtung Balaton, Weingüter oder Káli-Becken."
   highlights={["4 normale Erwachsenenräder", "2 E-Bikes", "1 Kinderfahrrad nach Absprache", "Abholung und Rückgabe nach vorheriger Abstimmung"]}

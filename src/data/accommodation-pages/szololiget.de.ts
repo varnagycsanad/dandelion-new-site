@@ -43,7 +43,7 @@ export const szololigetGermanPageData = createGermanAccommodationPage(szololiget
   amenities: ["WLAN", "Küche", "Klimaanlage", "Heizung", "Große Terrasse", "Schön bepflanzter Garten", "180-Grad-Panorama", "Zustellbett"],
   geoDecision: {
     kicker: "Szőlőliget schnelle Antworten",
-    title: "Szőlőliget ist eine gute Wahl, wenn ihr ein separates Panoramahaus mit schönem Garten am Szent György-hegy sucht",
+    title: "Szőlőliget ist eine gute Wahl, wenn Sie ein separates Panoramahaus mit schönem Garten am Szent György-hegy suchen",
     lead:
       "Szőlőliget bietet 4 Gästen plus Zustellbett einen ruhigen zweistöckigen Rückzugsort mit großer Terrasse, schön bepflanztem Garten, 180-Grad-Zeugenberg-Panorama und Sonnenaufgang vom Bett.",
     questions: [

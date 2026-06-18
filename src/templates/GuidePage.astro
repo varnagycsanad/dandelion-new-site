@@ -6,6 +6,9 @@ const { guide } = Astro.props as { guide: GuideContent };
 const locales: GuideLocale[] = ["hu", "en", "cs", "de"];
 const pageTitle = `${guide.content.hu.title} | ${guide.houseName}`;
 const description = guide.content.hu.intro;
+const localizedPageTitles: Record<GuideLocale, string> = Object.fromEntries(
+  locales.map((locale) => [locale, `${guide.content[locale].title} | ${guide.houseName}`])
+) as Record<GuideLocale, string>;
 const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ", de: "DE" };
 const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte" };
 const tocLabels: Record<GuideLocale, string> = { hu: "Ugr\u00e1s a ponthoz", en: "Jump to section", cs: "P\u0159ej\u00edt na sekci", de: "Zum Abschnitt springen" };
@@ -35,7 +38,19 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
       </a>
 
       <header class="guide-hero">
-        <p class="guide-eyebrow">QR vendégútmutató · {guide.houseName}</p>
+        <p
+          class="guide-eyebrow"
+          data-guide-title-hu={localizedPageTitles.hu}
+          data-guide-title-en={localizedPageTitles.en}
+          data-guide-title-cs={localizedPageTitles.cs}
+          data-guide-title-de={localizedPageTitles.de}
+          data-guide-description-hu={guide.content.hu.intro}
+          data-guide-description-en={guide.content.en.intro}
+          data-guide-description-cs={guide.content.cs.intro}
+          data-guide-description-de={guide.content.de.intro}
+        >
+          QR vendégútmutató · {guide.houseName}
+        </p>
         <div class="guide-language" aria-label="Guide language selector">
           {locales.map((locale) => (
             <button
@@ -47,7 +62,6 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
               {languageLabels[locale]}
             </button>
           ))}
-          <span class="guide-language__pending" aria-disabled="true" title={guide.dePreparedTitle}>DE</span>
         </div>
 
         {locales.map((locale) => (
@@ -118,6 +132,8 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
       const buttons = root.querySelectorAll("[data-guide-lang-button]");
       const panels = root.querySelectorAll("[data-guide-lang-panel]");
       const tocSelects = root.querySelectorAll("[data-guide-toc-select]");
+      const metaSource = root.querySelector(".guide-eyebrow");
+      const descriptionMeta = document.querySelector("meta[name='description']");
       const backLink = root.querySelector("[data-guide-label='back']");
       const backLabels = {
         hu: backLink?.getAttribute("data-back-label-hu") || "",
@@ -140,6 +156,13 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
 
         if (backLink) {
           backLink.textContent = backLabels[nextLanguage] || backLabels.hu;
+        }
+
+        const localizedTitle = metaSource?.getAttribute(`data-guide-title-${nextLanguage}`);
+        const localizedDescription = metaSource?.getAttribute(`data-guide-description-${nextLanguage}`);
+        if (localizedTitle) document.title = localizedTitle;
+        if (descriptionMeta && localizedDescription) {
+          descriptionMeta.setAttribute("content", localizedDescription);
         }
 
         tocSelects.forEach((select) => {
@@ -230,8 +253,7 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
     width: 100%;
   }
 
-  .guide-language__button,
-  .guide-language__pending {
+  .guide-language__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -251,10 +273,6 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
     border-color: #d99e2b;
     background: #d99e2b;
     color: #1b140f;
-  }
-
-  .guide-language__pending {
-    opacity: 0.45;
   }
 
   .guide-hero h1 {
