@@ -14,7 +14,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
       "koveskal",
       "gallery",
       "dandelion-koveskal-source-001.webp",
-      "Dandelion Koveskal English mobile hero"
+      "Dandelion Köveskál English mobile hero"
     ),
     fallbackAlt: "Dandelion Köveskál guesthouse in a quiet part of the Káli Basin",
     kicker: "Káli Basin · Köveskál",
@@ -287,7 +287,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
             "royal_homes",
             "gallery",
             "dandelion-royal-homes-source-001.webp",
-            "Koveskal English related Royal Homes"
+            "Köveskál English related Royal Homes"
           ),
           alt: "Exterior view of Dandelion Royal Homes"
         }

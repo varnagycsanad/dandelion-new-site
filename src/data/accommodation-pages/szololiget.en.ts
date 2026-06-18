@@ -14,7 +14,7 @@ export const szololigetEnglishPageData: AccommodationPageData = {
       "szololiget",
       "gallery",
       "dandelion-szololiget-source-001.webp",
-      "Szololiget English mobile hero"
+      "Szőlőliget English mobile hero"
     ),
     fallbackAlt: "Szőlőliget Vendégház countryside guesthouse near Szent György Hill",
     kicker: "Kisapáti · Szent György Hill",
@@ -277,7 +277,7 @@ export const szololigetEnglishPageData: AccommodationPageData = {
             "royal_homes",
             "gallery",
             "dandelion-royal-homes-source-001.webp",
-            "Szololiget English related Royal Homes"
+            "Szőlőliget English related Royal Homes"
           ),
           alt: "Exterior view of Dandelion Royal Homes"
         }

@@ -227,7 +227,7 @@ const d2AszfSectionsEn: GuideSection[] = [
       "Before using the pool, the guest must read the Pool Rules and must comply with them during pool use.",
       "The operator may restrict or temporarily suspend pool use due to weather, maintenance, water treatment, technical fault, safety reasons, or breach of the Pool Rules.",
       "The Panorama Pool area may be covered by camera surveillance. Camera surveillance serves property protection, accident prevention, safety and rule compliance purposes, but it does not replace a lifeguard, personal supervision or adult supervision of children.",
-      "Guests use the pool at their own responsibility. Children may use the pool only under adult supervision. The accompanying adult is always responsible for the safety of children.",
+      "Guests use the pool at their own risk. Children may use the pool only under adult supervision. The accompanying adult is always responsible for the safety of children.",
       "The operator accepts no liability for accidents, injuries, damage or additional costs resulting from breach of the Pool Rules. In case of intentional or negligent damage, the guest is responsible for the cost of restoration."
     ],
     bullets: ["Dandelion D2 Pool Rules: /guide/d2/medence/"]
@@ -248,7 +248,7 @@ const d2AszfSectionsEn: GuideSection[] = [
     paragraphs: [
       "To finalize the booking, 30% of the accommodation fee must be paid by bank transfer within 5 working days after booking. The booking becomes guaranteed when the deposit is received.",
       "The remaining accommodation fee is payable on arrival in cash or by bank transfer.",
-      "Please include the booker's name and arrival date in the transfer reference. If the booker is not the arriving guest, please also include the arriving guest's name."
+      "Please include the name of the person making the booking and the arrival date in the transfer reference. If this person is not the arriving guest, please also include the arriving guest's name."
     ]
   },
   {
@@ -688,7 +688,7 @@ const contentEn = buildContent(
   [
     "By submitting and confirming a booking, the guest accepts these terms.",
     "By using Panorama Pool, the guest accepts the Pool Rules.",
-    "Pool use is at the guest's own responsibility, and children may use it only under adult supervision.",
+    "Pool use is at the guest's own risk, and children may use it only under adult supervision.",
     "Completing online check-in may be a condition of occupying the accommodation."
   ],
   "Back to the Dandelion D2 guide",

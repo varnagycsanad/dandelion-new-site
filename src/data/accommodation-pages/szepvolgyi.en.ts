@@ -14,7 +14,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
       "szepvolgyi",
       "gallery",
       "dandelion-szepvolgyi-source-001.webp",
-      "Szepvolgyi English mobile hero"
+      "Szépvölgyi English mobile hero"
     ),
     fallbackAlt: "Szépvölgyi Vendégház in Badacsonyörs with a terrace and Lake Balaton view",
     kicker: "Badacsonyörs · Szépvölgyi út",
@@ -277,7 +277,7 @@ export const szepvolgyiEnglishPageData: AccommodationPageData = {
             "royal_homes",
             "gallery",
             "dandelion-royal-homes-source-001.webp",
-            "Szepvolgyi English related Royal Homes"
+            "Szépvölgyi English related Royal Homes"
           ),
           alt: "Exterior view of Dandelion Royal Homes"
         }

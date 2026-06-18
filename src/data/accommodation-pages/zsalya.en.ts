@@ -14,7 +14,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
       "zsalya",
       "gallery",
       "dandelion-zsalya-source-001.webp",
-      "Zsalya English mobile hero"
+      "Zsálya English mobile hero"
     ),
     fallbackAlt: "Zsálya Vendégház countryside guesthouse near Szent György Hill",
     kicker: "Szent György Hill · Kisapáti",
@@ -276,7 +276,7 @@ export const zsalyaEnglishPageData: AccommodationPageData = {
             "royal_homes",
             "gallery",
             "dandelion-royal-homes-source-001.webp",
-            "Zsalya English related Royal Homes"
+            "Zsálya English related Royal Homes"
           ),
           alt: "Exterior view of Dandelion Royal Homes"
         }

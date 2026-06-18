@@ -554,7 +554,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
         "Effective date: 24 May 2026. Modified: 25 May 2026. Panorama Pool may be used by Dandelion guests during the bathing season.",
       keyPoints: [
         "Opening hours during the bathing season: daily from 10:00 to 21:00.",
-        "Guests use the pool at their own responsibility. There is no lifeguard on duty.",
+        "Guests use the pool at their own risk. There is no lifeguard on duty.",
         "Children may use the pool only under adult supervision.",
         "The Panorama Pool area is covered by camera surveillance.",
         "After the last evening use, the pool cover must be pulled back over the pool."
@@ -582,7 +582,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           id: "pool-use",
           title: "2. Use of the pool",
           paragraphs: [
-            "Guests use the pool at their own responsibility.",
+            "Guests use the pool at their own risk.",
             "There is no lifeguard on duty at the pool.",
             "The water depth is approximately 1.30 m. The pool is not a diving pool, so diving head first, jumping into the water, pushing others, jumping in from the pool edge and running around the pool are prohibited.",
             "Each guest may use the pool only according to their own swimming ability, health condition and physical condition.",
@@ -687,7 +687,7 @@ const createPoolGuide = ({ houseSlug, houseName }: PoolGuideHouse): GuideContent
           id: "liability",
           title: "12. Liability",
           paragraphs: [
-            "Guests use the pool at their own responsibility.",
+            "Guests use the pool at their own risk.",
             "The operator does not accept liability for accidents, injuries, damage or additional costs resulting from failure to follow the rules.",
             "In the case of children, the parent or accompanying adult is responsible for the child's safety throughout pool use.",
             "In case of intentional or negligent damage, the cost of repair, restoration or replacement shall be borne by the guest who caused the damage."
