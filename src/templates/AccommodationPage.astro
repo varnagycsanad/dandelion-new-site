@@ -334,6 +334,17 @@ const czechAccommodationHrefBySlug: Record<string, string> = {
   "vintage-vendeghaz": "/cs/dandelion-vintage/",
   "zsalya-vendeghaz": "/cs/dandelion-zsalya/"
 };
+const slovakAccommodationHrefBySlug: Record<string, string> = {
+  "dandelion-d1": "/sk/dandelion-d1/",
+  "dandelion-d2": "/sk/dandelion-d2/",
+  "dandelion-koveskal": "/sk/dandelion-koveskal/",
+  fugehaz: "/sk/dandelion-fugehaz/",
+  "royal-homes": "/sk/royal/",
+  "szepvolgyi-vendeghaz": "/sk/szepvolgyi/",
+  "szololiget-vendeghaz": "/sk/szololiget/",
+  "vintage-vendeghaz": "/sk/dandelion-vintage/",
+  "zsalya-vendeghaz": "/sk/dandelion-zsalya/"
+};
 const czechAccommodationRelatedTextBySlug: Record<string, { name: string; meta: string; alt: string }> = {
   "dandelion-d1": {
     name: "Dandelion D1",
@@ -381,6 +392,67 @@ const czechAccommodationRelatedTextBySlug: Record<string, { name: string; meta: 
     alt: "Dandelion Zsálya ubytování Dandelion"
   }
 };
+const slovakAccommodationRelatedTextBySlug: Record<string, { name: string; meta: string; alt: string }> = {
+  "dandelion-d1": {
+    name: "Dandelion D1",
+    meta: "6-8 hostí - záhrada - rodinný čas",
+    alt: "Dandelion D1 ubytovanie so záhradou v Kisapáti"
+  },
+  "dandelion-d2": {
+    name: "Dandelion D2",
+    meta: "4-6 hostí - terasa - Panorama Pool",
+    alt: "Dandelion D2 ubytovanie s terasou a záhradou v Kisapáti"
+  },
+  "dandelion-koveskal": {
+    name: "Dandelion Köveskál",
+    meta: "oblasť Káli - dedinská atmosféra",
+    alt: "Dandelion Köveskál ubytovanie v oblasti Káli"
+  },
+  fugehaz: {
+    name: "Dandelion Fügeház",
+    meta: "4-6 hostí - panoráma - pokojná poloha",
+    alt: "Dandelion Fügeház ubytovanie s terasou v Balatonskej vrchovine"
+  },
+  "royal-homes": {
+    name: "Dandelion Royal Homes",
+    meta: "Keszthely - apartmán - Balaton",
+    alt: "Dandelion Royal Homes apartmánový dom v Keszthely"
+  },
+  "szepvolgyi-vendeghaz": {
+    name: "Dandelion Szépvölgyi",
+    meta: "až 8 hostí - panoráma Balatonu",
+    alt: "Dandelion Szépvölgyi ubytovanie so záhradou"
+  },
+  "szololiget-vendeghaz": {
+    name: "Dandelion Szőlőliget",
+    meta: "4 hostia + prístelka - vinice - výhľad",
+    alt: "Dandelion Szőlőliget ubytovanie medzi vinicami"
+  },
+  "vintage-vendeghaz": {
+    name: "Dandelion Vintage",
+    meta: "Nemesgulács - dvor - pokojné dni",
+    alt: "Dandelion Vintage ubytovanie s pokojným dvorom"
+  },
+  "zsalya-vendeghaz": {
+    name: "Dandelion Zsálya",
+    meta: "4 hostia - terasa - príroda",
+    alt: "Dandelion Zsálya ubytovanie s krytou terasou"
+  }
+};
+const accommodationSchemaLanguageByLocale: Record<AccommodationPageLocale, string> = {
+  hu: "hu-HU",
+  en: "en-US",
+  de: "de-DE",
+  cs: "cs-CZ",
+  sk: "sk-SK"
+};
+const accommodationOgLocaleByLocale: Record<AccommodationPageLocale, string> = {
+  hu: "hu_HU",
+  en: "en_US",
+  de: "de_DE",
+  cs: "cs_CZ",
+  sk: "sk_SK"
+};
 
 function normalizeRelatedStayPath(href: string) {
   const path = href.startsWith("http") ? new URL(href).pathname : href;
@@ -403,6 +475,10 @@ function resolveAccommodationHrefForLocale(slug: string, url: string) {
     return czechAccommodationHrefBySlug[slug] || "/cs/ubytovani/";
   }
 
+  if (lang === "sk") {
+    return slovakAccommodationHrefBySlug[slug] || "/sk/ubytovanie/";
+  }
+
   return url;
 }
 
@@ -420,16 +496,21 @@ function buildSupplementedRelatedStays(items: AccommodationPageRelatedStay[]) {
     if (normalizedHref === currentPath || usedPaths.has(normalizedHref)) continue;
 
     usedPaths.add(normalizedHref);
-    const czechText = lang === "cs" ? czechAccommodationRelatedTextBySlug[accommodation.slug] : undefined;
+    const localizedText =
+      lang === "cs"
+        ? czechAccommodationRelatedTextBySlug[accommodation.slug]
+        : lang === "sk"
+          ? slovakAccommodationRelatedTextBySlug[accommodation.slug]
+          : undefined;
 
     supplementedItems.push({
-      name: czechText?.name || accommodation.name,
-      meta: czechText?.meta || accommodation.location,
+      name: localizedText?.name || accommodation.name,
+      meta: localizedText?.meta || accommodation.location,
       href,
       image: {
         type: "mapping",
         slot: accommodation.imageSlot,
-        alt: czechText?.alt
+        alt: localizedText?.alt
       }
     });
   }
@@ -635,19 +716,23 @@ const mobileReviewGridMoreItems = mobileReviewGridItems.slice(2);
 const mobileReviewGridAriaLabel =
   lang === "cs"
     ? "Mobilní zobrazení hodnocení hostů"
-    : lang === "de"
-      ? "Gästebewertungen mobile Ansicht"
-      : lang === "en"
-        ? "Guest reviews mobile grid"
-        : "Vendégértékelések mobil rács";
+    : lang === "sk"
+      ? "Mobilné zobrazenie hodnotení hostí"
+      : lang === "de"
+        ? "Gästebewertungen mobile Ansicht"
+        : lang === "en"
+          ? "Guest reviews mobile grid"
+          : "Vendégértékelések mobil rács";
 const mobileReviewGridMoreLabel =
   lang === "cs"
     ? "Zobrazit další hodnocení"
-    : lang === "de"
-      ? "Weitere Bewertungen anzeigen"
-      : lang === "en"
-        ? "Show more reviews"
-        : "További értékelések";
+    : lang === "sk"
+      ? "Zobraziť ďalšie hodnotenia"
+      : lang === "de"
+        ? "Weitere Bewertungen anzeigen"
+        : lang === "en"
+          ? "Show more reviews"
+          : "További értékelések";
 
 const galleryItems = buildGalleryImages({
   gallery: imageSet.gallery || [],
@@ -709,7 +794,7 @@ const detailsLongDescription = (pageData.details.longDescription || [])
   });
 const accommodationListingHref =
   accommodationListingHrefOverride ||
-  `${baseHref}${lang === "cs" ? "cs/ubytovani/" : lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
+  `${baseHref}${lang === "cs" ? "cs/ubytovani/" : lang === "sk" ? "sk/ubytovanie/" : lang === "de" ? "de/unterkuenfte/" : lang === "en" ? "en/szallasok/" : "szallasok/"}`;
 const accommodationName = pageData.seo.title.split("|")[0]?.trim() || `${pageData.hero.title} ${pageData.hero.titleAccent}`.trim();
 const resolvedCanonicalPath = canonicalPath ?? getCanonicalPath(Astro.url.pathname);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
@@ -733,7 +818,7 @@ const accommodationVideoStructuredData = heroVideoContentUrl
       contentUrl: heroVideoContentUrl,
       thumbnailUrl: heroVideoThumbnail,
       uploadDate: heroVideo?.uploadDate || "2026-05-20T00:00:00+02:00",
-      inLanguage: lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "hu-HU"
+      inLanguage: accommodationSchemaLanguageByLocale[lang]
     })
   : null;
 const accommodationFaqStructuredData =
@@ -742,7 +827,7 @@ const accommodationFaqStructuredData =
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "@id": `${canonicalUrl}#faq`,
-        inLanguage: lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "hu-HU",
+        inLanguage: accommodationSchemaLanguageByLocale[lang],
         mainEntity: geoDecisionQuestions.map((item) => ({
           "@type": "Question",
           name: item.question,
@@ -800,7 +885,7 @@ const accommodationStructuredData = [
   description={pageData.seo.description}
   canonicalPath={resolvedCanonicalPath}
   lang={lang}
-  ogLocale={lang === "de" ? "de_DE" : lang === "en" ? "en_US" : lang === "cs" ? "cs_CZ" : "hu_HU"}
+  ogLocale={accommodationOgLocaleByLocale[lang]}
   ogImage={fallbackOgImage}
   ogImageAlt={initialHeroImage.alt}
   structuredData={accommodationStructuredData}

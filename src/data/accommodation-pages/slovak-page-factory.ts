@@ -201,7 +201,7 @@ export function createSlovakAccommodationPage(
       intro: "Porovnajte ďalšie domy a oblasti okolo Balatonu.",
       items: relatedStays
         .filter((stay) => stay.href !== profile.route)
-        .slice(0, 5)
+        .slice(0, 6)
         .map((stay) => ({
           name: stay.name,
           meta: stay.meta,
