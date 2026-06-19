@@ -8,6 +8,8 @@ import GoogleRegionMap from "../sections/GoogleRegionMap.astro";
 import NewsletterSignup from "../sections/NewsletterSignup.astro";
 import HomeGeoFaq from "../sections/HomeGeoFaq.astro";
 import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
+import homeHeroPosterImage from "../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
+import homeHeroPosterMobileImage from "../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
 import { toAbsoluteUrl } from "../data/site-seo";
 import { buildVideoObject } from "../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../data/home-geo-faq";
@@ -64,7 +66,9 @@ const homepageOgImageAlt = "Napfelkelte a Szent György-hegyről a Tapolcai-mede
 // [CHANGE 2026-05-29 00:00] Homepage hero video now has poster and VideoObject data for Google indexing.
 const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
 const homepageHeroMobileVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21-mobile-lite.mp4?v=20260606-mobile-lite";
-const homepageHeroPoster = homeRegionOgImage.src;
+const homepageHeroPoster = homeHeroPosterImage.src;
+const homepageHeroMobilePoster = homeHeroPosterMobileImage.src;
+const homepageHeroPosterAlt = "Balaton-felvidéki panoráma tanúhegyekkel, Badacsonnyal és a Balatonnal";
 const homepageStructuredData = [
   {
     "@context": "https://schema.org",
@@ -101,7 +105,8 @@ const homepageStructuredData = [
     videoDesktopSrc={homepageHeroVideo}
     videoMobileSrc={homepageHeroMobileVideo}
     posterSrc={homepageHeroPoster}
-    posterAlt={homepageOgImageAlt}
+    posterMobileSrc={homepageHeroMobilePoster}
+    posterAlt={homepageHeroPosterAlt}
   />
   <PanoramaPoolHighlight />
   <section class="d2-reviews dnd-section" aria-labelledby="homepage-reviews-title">

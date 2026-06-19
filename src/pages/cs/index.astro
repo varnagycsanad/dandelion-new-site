@@ -15,6 +15,8 @@ import balatonImage from "../../assets/home/experiences/dandelion-home-experienc
 import mountainsImage from "../../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
 import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
+import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
+import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
@@ -27,7 +29,9 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
 // [CHANGE 2026-05-29 00:00] Czech homepage hero video now has poster and VideoObject data for Google indexing.
 const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
 const homepageHeroMobileVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21-mobile-lite.mp4?v=20260606-mobile-lite";
-const homepageHeroPoster = kisapatiStoryImage.src;
+const homepageHeroPoster = homeHeroPosterImage.src;
+const homepageHeroMobilePoster = homeHeroPosterMobileImage.src;
+const homepageHeroPosterAlt = "Panorama Balatonské vrchoviny se svědeckými horami, Badacsony a Balatonem";
 const homepageVideoStructuredData = buildVideoObject({
   id: "/cs/#homepage-hero-video",
   name: "Dandelion ubytování úvodní video",
@@ -127,7 +131,8 @@ const czechExperiences = [
     videoDesktopSrc={homepageHeroVideo}
     videoMobileSrc={homepageHeroMobileVideo}
     posterSrc={homepageHeroPoster}
-    posterAlt="Kisapáti a svědecké hory v Balatonské vrchovině"
+    posterMobileSrc={homepageHeroMobilePoster}
+    posterAlt={homepageHeroPosterAlt}
     videoFallbackText="Váš prohlížeč nepodporuje přehrávání videa na pozadí."
   />
 
