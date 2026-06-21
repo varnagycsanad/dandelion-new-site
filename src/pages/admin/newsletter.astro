@@ -35,7 +35,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
       </div>
     </div>
 
-    <div class="admin-newsletter__shell" hidden>
+    <div class="admin-newsletter__shell">
       <header class="admin-newsletter__hero">
         <div class="admin-newsletter__hero-copy">
           <p class="admin-newsletter__eyebrow">Dandelion admin</p>
@@ -103,12 +103,6 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
       }
     };
 
-    const hideGate = () => {
-      if (gate instanceof HTMLElement) {
-        gate.hidden = true;
-      }
-    };
-
     const checkConnection = async () => {
       if (!apiBase) {
         showGate("A newsletter service címe nincs beállítva. Ellenőrizd a PUBLIC_NEWSLETTER_API_URL vagy NEWSLETTER_PUBLIC_BASE_URL értékét.", "warning");
@@ -137,17 +131,12 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
       const connectionOk = await checkConnection();
 
       if (localAdminMode && connectionOk) {
-        if (shell instanceof HTMLElement) {
-          shell.hidden = false;
-        }
-        hideGate();
+        showGate("A newsletter service elérhető, az admin használható.", "success");
         return;
       }
 
       if (!adminPassword) {
-        if (shell instanceof HTMLElement) {
-          shell.hidden = true;
-        }
+        showGate("Lépj be az /admin/ oldalon, aztán ide visszatérve látni fogod a modulokat is.", "warning");
         return;
       }
 
@@ -163,23 +152,14 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           throw new Error(result?.message || "auth_failed");
         }
 
-        if (shell instanceof HTMLElement) {
-          shell.hidden = false;
-        }
-        hideGate();
+        showGate("Belépés rendben, a modulok használhatók.", "success");
       } catch {
         if (localAdminMode && connectionOk) {
-          if (shell instanceof HTMLElement) {
-            shell.hidden = false;
-          }
-          hideGate();
+          showGate("Helyi admin mód aktív, a newsletter service most nem érhető el.", "warning");
           return;
         }
 
         clearStoredAdminAuth();
-        if (shell instanceof HTMLElement) {
-          shell.hidden = true;
-        }
         showGate("Az admin belépés vagy a newsletter service nincs kész. Nyisd meg az /admin/ oldalt, majd onnan jelentkezz be.", "warning");
       }
     };
@@ -197,6 +177,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     position: relative;
     min-height: 100vh;
     padding: 36px 18px 56px;
+    isolation: isolate;
     background:
       radial-gradient(circle at top left, rgba(212, 173, 89, 0.18), transparent 25%),
       radial-gradient(circle at 85% 10%, rgba(104, 137, 108, 0.14), transparent 24%),
@@ -205,11 +186,12 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
 
   .admin-newsletter__gate {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     width: min(1120px, 100%);
     margin: 0 auto 18px;
     display: grid;
     place-items: center;
+    pointer-events: auto;
   }
 
   .admin-newsletter__gate[hidden] {
@@ -225,6 +207,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     box-shadow: 0 16px 40px rgba(79, 60, 34, 0.08);
     display: grid;
     gap: 14px;
+    pointer-events: auto;
   }
 
   .admin-newsletter__backdrop {
@@ -323,6 +306,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    pointer-events: auto;
   }
 
   .admin-newsletter__hero-actions {
@@ -348,6 +332,10 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     background: linear-gradient(135deg, #272218 0%, #6c5130 100%);
     box-shadow: 0 18px 28px rgba(63, 47, 26, 0.2);
     font-weight: 700;
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 6;
   }
 
   .admin-newsletter__button--ghost {
