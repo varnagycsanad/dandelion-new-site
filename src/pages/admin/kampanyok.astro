@@ -690,7 +690,7 @@ const pageDescription =
     position: relative;
     min-height: 100vh;
     overflow: hidden;
-    padding: 34px 18px 56px;
+    padding: 34px 0 56px;
     background:
       radial-gradient(circle at top left, rgba(217, 183, 103, 0.18), transparent 25%),
       radial-gradient(circle at 82% 10%, rgba(110, 146, 108, 0.15), transparent 24%),
@@ -725,8 +725,10 @@ const pageDescription =
   .newsletter-campaigns__shell {
     position: relative;
     z-index: 1;
-    width: min(1420px, calc(100vw - 36px));
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
+    padding-right: 18px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
     gap: 20px;
