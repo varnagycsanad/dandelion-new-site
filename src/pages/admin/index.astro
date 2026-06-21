@@ -1,13 +1,46 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
 const pageTitle = "Dandelion admin";
 const pageDescription = "Központi belépési pont a hírlevél admin eszközökhöz.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
-  <section class="admin-home">
-    <div class="admin-home__shell">
+  <section class="admin-home" data-admin-home data-api-base={newsletterApiUrl}>
+    <div class="admin-home__auth" data-auth-panel>
+      <div class="admin-home__auth-card">
+        <p class="admin-home__eyebrow">Admin belépés</p>
+        <h2>Jelszó szükséges</h2>
+        <form class="admin-home__auth-form" data-auth-form>
+          <label class="admin-home__field">
+            <span>Admin jelszó</span>
+            <div class="admin-home__password-field">
+              <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+              <button
+                class="admin-home__password-toggle"
+                type="button"
+                aria-label="Jelszó megjelenítése"
+                aria-pressed="false"
+                data-password-toggle
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 5c5.5 0 9.7 4.1 11 7-1.3 2.9-5.5 7-11 7S2.3 14.9 1 12c1.3-2.9 5.5-7 11-7Zm0 2C7.7 7 4.2 9.8 3 12c1.2 2.2 4.7 5 9 5s7.8-2.8 9-5c-1.2-2.2-4.7-5-9-5Zm0 1.8A3.2 3.2 0 1 1 12 16a3.2 3.2 0 0 1 0-6.2Zm0 2A1.2 1.2 0 1 0 12 13.6 1.2 1.2 0 0 0 12 10.8Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </label>
+          <div class="admin-home__actions">
+            <button class="admin-home__button admin-home__button--primary" type="submit">Belépés</button>
+          </div>
+        </form>
+        <p class="admin-home__status" data-auth-status aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="admin-home__shell" aria-hidden="true">
       <p class="admin-home__eyebrow">Dandelion belső eszközök</p>
       <h1>{pageTitle}</h1>
       <p class="admin-home__lead">
@@ -31,14 +64,197 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
   </section>
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-admin-home]");
+    if (!(root instanceof HTMLElement)) return;
+
+    const apiBase = root.dataset.apiBase?.trim() || "";
+    const authPanel = root.querySelector("[data-auth-panel]");
+    const authForm = root.querySelector("[data-auth-form]");
+    const authInput = root.querySelector("[data-auth-input]");
+    const passwordToggle = root.querySelector("[data-password-toggle]");
+    const authStatus = root.querySelector("[data-auth-status]");
+    const authStorageKey = "dandelion-newsletter-admin-password";
+    const shell = root.querySelector(".admin-home__shell");
+
+    let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
+
+    const updateLockState = (locked) => {
+      root.classList.toggle("is-locked", locked);
+      if (authPanel instanceof HTMLElement) {
+        authPanel.hidden = !locked;
+      }
+      if (shell instanceof HTMLElement) {
+        shell.hidden = locked;
+      }
+    };
+
+    const setAuthStatus = (message, tone = "info") => {
+      if (!(authStatus instanceof HTMLElement)) return;
+      authStatus.textContent = message;
+      authStatus.dataset.tone = tone;
+    };
+
+    const setPasswordVisible = (visible) => {
+      if (!(authInput instanceof HTMLInputElement) || !(passwordToggle instanceof HTMLButtonElement)) return;
+      authInput.type = visible ? "text" : "password";
+      passwordToggle.setAttribute("aria-pressed", String(visible));
+      passwordToggle.setAttribute("aria-label", visible ? "Jelszó elrejtése" : "Jelszó megjelenítése");
+    };
+
+    const validateStoredPassword = async () => {
+      if (!apiBase || !adminPassword) {
+        updateLockState(true);
+        setAuthStatus(apiBase ? "Add meg az admin jelszót a folytatáshoz." : "A newsletter API nincs beállítva.", apiBase ? "info" : "warning");
+        return;
+      }
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "X-Newsletter-Admin-Password": adminPassword,
+          },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+      } catch {
+        adminPassword = "";
+        sessionStorage.removeItem(authStorageKey);
+        updateLockState(true);
+        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+      }
+    };
+
+    authForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const password = authInput instanceof HTMLInputElement ? authInput.value.trim() : "";
+      if (!password) {
+        setAuthStatus("Adj meg egy jelszót.", "warning");
+        return;
+      }
+
+      if (!apiBase) {
+        setAuthStatus("A newsletter API nincs beállítva.", "warning");
+        return;
+      }
+
+      setAuthStatus("Beléptetés folyamatban...", "info");
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Newsletter-Admin-Password": password,
+            Accept: "application/json",
+          },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        adminPassword = password;
+        sessionStorage.setItem(authStorageKey, password);
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+      } catch (error) {
+        console.error("[admin-home-auth]", error);
+        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+      }
+    });
+
+    passwordToggle?.addEventListener("click", () => {
+      if (!(authInput instanceof HTMLInputElement)) return;
+      setPasswordVisible(authInput.type === "password");
+      authInput.focus();
+    });
+
+    updateLockState(true);
+    setPasswordVisible(false);
+    validateStoredPassword();
+  })();
+</script>
+
 <style>
   .admin-home {
+    position: relative;
     min-height: 100vh;
     padding: 36px 18px 56px;
     background:
       radial-gradient(circle at top left, rgba(212, 173, 89, 0.18), transparent 25%),
       radial-gradient(circle at 85% 10%, rgba(104, 137, 108, 0.14), transparent 24%),
       linear-gradient(180deg, #f8f2e6 0%, #f4efdf 100%);
+  }
+
+  .admin-home.is-locked .admin-home__shell {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .admin-home__auth {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(30, 23, 16, 0.45);
+    backdrop-filter: blur(8px);
+  }
+
+  .admin-home__auth[hidden] {
+    display: none;
+  }
+
+  .admin-home__auth-card {
+    width: min(520px, 100%);
+    padding: 26px;
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.96);
+    box-shadow: 0 30px 80px rgba(30, 23, 16, 0.28);
+    display: grid;
+    gap: 14px;
+  }
+
+  .admin-home__auth-card h2 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  }
+
+  .admin-home__auth-form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .admin-home__actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .admin-home__password-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    border: 1px solid rgba(90, 71, 42, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
   }
 
   .admin-home__shell {
@@ -71,6 +287,75 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
     color: rgba(69, 55, 38, 0.88);
     line-height: 1.7;
     font-size: 1.05rem;
+  }
+
+  .admin-home__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .admin-home__field span {
+    color: rgba(82, 67, 45, 0.82);
+    font-weight: 600;
+  }
+
+  .admin-home__field input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #2a231b;
+    font: inherit;
+  }
+
+  .admin-home__password-toggle {
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: rgba(71, 54, 31, 0.78);
+    cursor: pointer;
+  }
+
+  .admin-home__password-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .admin-home__button {
+    min-height: 46px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .admin-home__button--primary {
+    color: #fff9ef;
+    background: linear-gradient(135deg, #272218 0%, #6c5130 100%);
+    box-shadow: 0 18px 28px rgba(63, 47, 26, 0.2);
+  }
+
+  .admin-home__status {
+    min-height: 24px;
+    font-weight: 600;
+  }
+
+  .admin-home__status[data-tone="success"] {
+    color: #1d6b37;
+  }
+
+  .admin-home__status[data-tone="warning"] {
+    color: #8a5a00;
+  }
+
+  .admin-home__status[data-tone="error"] {
+    color: #9b2c2c;
   }
 
   .admin-home__grid {

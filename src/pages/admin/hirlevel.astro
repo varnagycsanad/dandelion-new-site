@@ -16,13 +16,25 @@ const pageDescription =
       <div class="newsletter-admin__auth-card">
         <p class="newsletter-admin__eyebrow">Admin belépés</p>
         <h2>Jelszó szükséges</h2>
-        <p class="newsletter-admin__panel-note">
-          Ez az admin jelszó a böngésző sessionjében marad, és a newsletter service ellenőrzi.
-        </p>
         <form class="newsletter-admin__auth-form" data-auth-form>
           <label class="newsletter-admin__field newsletter-admin__field--full">
             <span>Admin jelszó</span>
-            <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+            <div class="newsletter-admin__password-field">
+              <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+              <button
+                class="newsletter-admin__password-toggle"
+                type="button"
+                aria-label="Jelszó megjelenítése"
+                aria-pressed="false"
+                data-password-toggle
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 5c5.5 0 9.7 4.1 11 7-1.3 2.9-5.5 7-11 7S2.3 14.9 1 12c1.3-2.9 5.5-7 11-7Zm0 2C7.7 7 4.2 9.8 3 12c1.2 2.2 4.7 5 9 5s7.8-2.8 9-5c-1.2-2.2-4.7-5-9-5Zm0 1.8A3.2 3.2 0 1 1 12 16a3.2 3.2 0 0 1 0-6.2Zm0 2A1.2 1.2 0 1 0 12 13.6 1.2 1.2 0 0 0 12 10.8Z"
+                  />
+                </svg>
+              </button>
+            </div>
           </label>
           <div class="newsletter-admin__actions">
             <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Belépés</button>
@@ -228,6 +240,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const authPanel = root.querySelector("[data-auth-panel]");
     const authForm = root.querySelector("[data-auth-form]");
     const authInput = root.querySelector("[data-auth-input]");
+    const passwordToggle = root.querySelector("[data-password-toggle]");
     const authStatus = root.querySelector("[data-auth-status]");
     const authStorageKey = "dandelion-newsletter-admin-password";
 
@@ -247,6 +260,13 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       if (!(authStatus instanceof HTMLElement)) return;
       authStatus.textContent = message;
       authStatus.dataset.tone = tone;
+    };
+
+    const setPasswordVisible = (visible) => {
+      if (!(authInput instanceof HTMLInputElement) || !(passwordToggle instanceof HTMLButtonElement)) return;
+      authInput.type = visible ? "text" : "password";
+      passwordToggle.setAttribute("aria-pressed", String(visible));
+      passwordToggle.setAttribute("aria-label", visible ? "Jelszó elrejtése" : "Jelszó megjelenítése");
     };
 
     const formatDate = (value) => {
@@ -592,6 +612,12 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       }
     });
 
+    passwordToggle?.addEventListener("click", () => {
+      if (!(authInput instanceof HTMLInputElement)) return;
+      setPasswordVisible(authInput.type === "password");
+      authInput.focus();
+    });
+
     const exportCsv = () => {
       const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
       const columns = ["name", "email", "status", "lang", "source", "createdAt", "updatedAt", "unsubscribeToken"];
@@ -713,6 +739,8 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
       closeImport();
     }
+
+    setPasswordVisible(false);
   })();
 </script>
 
@@ -815,6 +843,15 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     flex-wrap: wrap;
     gap: 12px;
     justify-content: flex-start;
+  }
+
+  .newsletter-admin__password-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    border: 1px solid rgba(90, 71, 42, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
   }
 
   .newsletter-admin__hero,
@@ -1012,11 +1049,26 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     width: 100%;
     min-height: 48px;
     padding: 0 14px;
-    border: 1px solid rgba(90, 71, 42, 0.16);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.9);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: #2a231b;
     font: inherit;
+  }
+
+  .newsletter-admin__password-toggle {
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: rgba(71, 54, 31, 0.78);
+    cursor: pointer;
+  }
+
+  .newsletter-admin__password-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
   }
 
   .newsletter-admin__field textarea {
