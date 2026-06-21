@@ -51,7 +51,7 @@ const pageDescription =
       <nav class="newsletter-admin__tabs" aria-label="Feliratkozó nézetek">
         <a class="newsletter-admin__tab is-active" href="/admin/hirlevel/" aria-current="page">Minden feliratkozó</a>
         <button class="newsletter-admin__tab" type="button" disabled>Szegmensek</button>
-        <button class="newsletter-admin__tab" type="button" disabled>Csoportok</button>
+        <button class="newsletter-admin__tab" type="button" data-open-groups-panel>Csoportok</button>
         <button class="newsletter-admin__tab" type="button" disabled>Mezők</button>
         <button class="newsletter-admin__tab" type="button" disabled>Statisztika</button>
         <button class="newsletter-admin__tab" type="button" disabled>Inaktívak tisztítása</button>
@@ -77,12 +77,67 @@ const pageDescription =
           <span>Műveletek</span>
           <div class="newsletter-admin__menu-row">
             <button class="newsletter-admin__menu-chip" type="button" data-open-manual-panel>Feliratkozó felvitele</button>
-            <button class="newsletter-admin__menu-chip" type="button" data-open-groups-panel>Csoportok</button>
             <button class="newsletter-admin__menu-chip" type="button" data-open-import>CSV import</button>
             <button class="newsletter-admin__menu-chip" type="button" data-refresh>Frissítés</button>
           </div>
         </div>
       </div>
+
+      <section class="newsletter-admin__panel newsletter-admin__panel--compact is-hidden newsletter-admin__groups-panel" data-groups-panel hidden>
+        <div class="newsletter-admin__panel-head">
+          <div>
+            <p class="newsletter-admin__panel-kicker">Csoportok</p>
+            <h2>Létrehozott csoportok</h2>
+          </div>
+          <p class="newsletter-admin__panel-note">
+            Itt tudsz csoportot létrehozni, és itt látszik az összes meglévő csoport akkor is, ha még nincs benne feliratkozó.
+          </p>
+        </div>
+
+        <div class="newsletter-admin__group-bar">
+          <div class="newsletter-admin__group-bar-info">
+            <strong data-group-count>0</strong>
+            <span>Létrehozott csoport</span>
+          </div>
+
+          <div class="newsletter-admin__group-bar-actions">
+            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-reset-group-form>
+              Űrlap ürítése
+            </button>
+            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-close-groups-panel>
+              Panel bezárása
+            </button>
+          </div>
+        </div>
+
+        <div class="newsletter-admin__group-layout">
+          <form class="newsletter-admin__group-form" data-group-form>
+            <label class="newsletter-admin__field">
+              <span>Név</span>
+              <input type="text" name="name" maxlength="120" placeholder="Például: Nyári vendégek" data-group-name />
+            </label>
+
+            <label class="newsletter-admin__field">
+              <span>Azonosító</span>
+              <input type="text" name="key" maxlength="120" placeholder="Például: nyari-vendegek" data-group-key />
+            </label>
+
+            <label class="newsletter-admin__field newsletter-admin__field--full">
+              <span>Leírás</span>
+              <textarea rows="3" name="description" maxlength="240" placeholder="Rövid megjegyzés a csoportról" data-group-description></textarea>
+            </label>
+
+            <div class="newsletter-admin__actions">
+              <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Csoport létrehozása</button>
+              <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-reset-group-form>Törlés</button>
+            </div>
+          </form>
+
+          <div class="newsletter-admin__group-list" data-group-list>
+            <div class="newsletter-admin__empty">Még nincs létrehozott csoport.</div>
+          </div>
+        </div>
+      </section>
 
       <div class="newsletter-admin__statusbar">
         <div class="newsletter-admin__status" data-status>
@@ -260,44 +315,6 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         </form>
       </section>
 
-      <section class="newsletter-admin__panel newsletter-admin__panel--compact is-hidden" data-groups-panel hidden>
-        <div class="newsletter-admin__panel-head">
-          <div>
-            <p class="newsletter-admin__panel-kicker">Csoportok</p>
-            <h2>Csoport létrehozása</h2>
-          </div>
-          <p class="newsletter-admin__panel-note">
-            A csoportokat később kampányokhoz tudjuk kötni, és így a feliratkozók válaszai vagy kampánykapcsolatai is visszakereshetők lesznek.
-          </p>
-        </div>
-
-        <form class="newsletter-admin__group-form" data-group-form>
-          <label class="newsletter-admin__field">
-            <span>Név</span>
-            <input type="text" name="name" maxlength="120" placeholder="Például: Nyári vendégek" data-group-name />
-          </label>
-
-          <label class="newsletter-admin__field">
-            <span>Azonosító</span>
-            <input type="text" name="key" maxlength="120" placeholder="Például: nyari-vendegek" data-group-key />
-          </label>
-
-          <label class="newsletter-admin__field newsletter-admin__field--full">
-            <span>Leírás</span>
-            <textarea rows="3" name="description" maxlength="240" placeholder="Rövid megjegyzés a csoportról" data-group-description></textarea>
-          </label>
-
-          <div class="newsletter-admin__actions">
-            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Csoport létrehozása</button>
-            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-reset-group-form>Törlés</button>
-          </div>
-        </form>
-
-        <div class="newsletter-admin__group-list" data-group-list>
-          <div class="newsletter-admin__empty">Még nincs létrehozott csoport.</div>
-        </div>
-      </section>
-
       <section class="newsletter-admin__panel">
         <div class="newsletter-admin__panel-head">
           <div>
@@ -344,9 +361,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   import {
     buildAdminHeaders,
     clearStoredAdminAuth,
-    getStoredAdminPassword,
     getStoredAdminSessionToken,
-    isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
   import {
     NEWSLETTER_LISTS,
@@ -387,12 +402,14 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const closeImportButton = root.querySelector("[data-close-import]");
     const manualPanel = root.querySelector("[data-manual-panel]");
     const groupsPanel = root.querySelector("[data-groups-panel]");
+    const closeGroupsPanelButton = root.querySelector("[data-close-groups-panel]");
     const groupForm = root.querySelector("[data-group-form]");
     const groupNameInput = root.querySelector("[data-group-name]");
     const groupKeyInput = root.querySelector("[data-group-key]");
     const groupDescriptionInput = root.querySelector("[data-group-description]");
     const resetGroupFormButton = root.querySelector("[data-reset-group-form]");
     const groupListNode = root.querySelector("[data-group-list]");
+    const groupCountNode = root.querySelector("[data-group-count]");
     const openManualPanelButton = root.querySelector("[data-open-manual-panel]");
     const openGroupsPanelButton = root.querySelector("[data-open-groups-panel]");
     const quickStatusButtons = root.querySelectorAll("[data-quick-filter-status]");
@@ -409,8 +426,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     let sourceValues = [];
     let listValues = [];
     let sortState = { key: "createdAt", direction: "desc" };
-    let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
-    const localAdminMode = isLocalAdminSessionToken(adminPassword);
+    let adminPassword = getStoredAdminSessionToken();
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -431,12 +447,24 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const closeAuxPanels = () => {
       setPanelVisibility(manualPanel, false);
       setPanelVisibility(groupsPanel, false);
+      openGroupsPanelButton?.classList.remove("is-active");
     };
 
     const openPanel = (panel) => {
       closeAuxPanels();
       setPanelVisibility(panel, true);
       panel?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    };
+
+    const toggleGroupsPanel = () => {
+      if (!(groupsPanel instanceof HTMLElement)) return;
+      const shouldOpen = groupsPanel.hidden;
+      closeAuxPanels();
+      setPanelVisibility(groupsPanel, shouldOpen);
+      openGroupsPanelButton?.classList.toggle("is-active", shouldOpen);
+      if (shouldOpen) {
+        groupsPanel.scrollIntoView?.({ behavior: "smooth", block: "start" });
+      }
     };
 
     const formatDate = (value) => {
@@ -757,6 +785,9 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
     const renderGroups = () => {
       if (!(groupListNode instanceof HTMLElement)) return;
+      if (groupCountNode instanceof HTMLElement) {
+        groupCountNode.textContent = String(groups.length);
+      }
       if (!groups.length) {
         groupListNode.innerHTML = `<div class="newsletter-admin__empty">Még nincs létrehozott csoport.</div>`;
         return;
@@ -932,7 +963,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     };
 
     const updateSubscriberStatus = async (subscriberId, action) => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         setStatus("A módosítás jelenleg nem érhető el.", "error");
         return;
       }
@@ -943,7 +974,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           headers: { Accept: "application/json" },
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -964,10 +995,11 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     };
 
     const loadSubscribers = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         if (apiLabel instanceof HTMLElement) {
-          apiLabel.textContent = localAdminMode ? `${apiBase.replace(/\/$/, "")} (helyi mód)` : "—";
+          apiLabel.textContent = "—";
         }
+        setStatus("A newsletter API nem érhető el.", "error");
         return;
       }
 
@@ -978,7 +1010,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           headers: { Accept: "application/json" },
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -999,21 +1031,13 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         render();
         setStatus(`Betöltve: ${subscribers.length} feliratkozó.`, "success");
       } catch (error) {
-        if (localAdminMode) {
-          if (apiLabel instanceof HTMLElement) {
-            apiLabel.textContent = `${apiBase.replace(/\/$/, "")} (helyi mód)`;
-          }
-          setStatus("Helyi admin mód aktív. A newsletter service most nem érhető el.", "warning");
-          return;
-        }
-
         console.error("[newsletter-admin]", error);
         setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
       }
     };
 
     const loadGroups = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         syncGroupSelect();
         renderGroups();
         return;
@@ -1024,7 +1048,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           headers: { Accept: "application/json" },
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -1089,7 +1113,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     };
 
     const importCsvFile = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         setStatus("Az import jelenleg nem érhető el.", "error");
         return;
       }
@@ -1121,7 +1145,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           body: JSON.stringify({ rows, listKey: targetListKey }),
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -1138,18 +1162,13 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         closeImport();
         await loadSubscribers();
       } catch (error) {
-        if (localAdminMode) {
-          setStatus("A CSV import csak akkor működik, ha a newsletter service is elérhető.", "warning");
-          return;
-        }
-
         console.error("[newsletter-admin-import]", error);
         setStatus("A CSV import nem sikerült.", "error");
       }
     };
 
     const addGroup = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         setStatus("A csoport létrehozása jelenleg nem érhető el.", "error");
         return;
       }
@@ -1175,7 +1194,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           body: JSON.stringify({ name, key, description }),
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -1201,7 +1220,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     };
 
     const addManualSubscriber = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         setStatus("A kézi felvitel jelenleg nem érhető el.", "error");
         return;
       }
@@ -1240,7 +1259,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           }),
         });
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -1310,7 +1329,11 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     openImportButton?.addEventListener("click", openImport);
     closeImportButton?.addEventListener("click", closeImport);
     openManualPanelButton?.addEventListener("click", () => openPanel(manualPanel));
-    openGroupsPanelButton?.addEventListener("click", () => openPanel(groupsPanel));
+    openGroupsPanelButton?.addEventListener("click", toggleGroupsPanel);
+    closeGroupsPanelButton?.addEventListener("click", () => {
+      setPanelVisibility(groupsPanel, false);
+      openGroupsPanelButton?.classList.remove("is-active");
+    });
     importForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       await importCsvFile();
@@ -1795,14 +1818,72 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     padding: 24px;
   }
 
+  .newsletter-admin__groups-panel {
+    display: grid;
+    gap: 16px;
+  }
+
+  .newsletter-admin__group-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 0 0 1px rgba(95, 72, 41, 0.08);
+  }
+
+  .newsletter-admin__group-bar-info {
+    display: grid;
+    gap: 2px;
+  }
+
+  .newsletter-admin__group-bar-info strong {
+    color: #2b241c;
+    font-family: var(--dnd-font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .newsletter-admin__group-bar-info span {
+    color: rgba(82, 67, 45, 0.72);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .newsletter-admin__group-bar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .newsletter-admin__group-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
   .newsletter-admin__group-form {
     display: grid;
     gap: 14px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: inset 0 0 0 1px rgba(95, 72, 41, 0.08);
   }
 
   .newsletter-admin__group-list {
     display: grid;
     gap: 10px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: inset 0 0 0 1px rgba(95, 72, 41, 0.08);
   }
 
   .newsletter-admin__group-card {
@@ -1842,6 +1923,13 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     gap: 10px;
     color: rgba(82, 67, 45, 0.72);
     font-size: 0.8rem;
+  }
+
+  .newsletter-admin__group-list .newsletter-admin__empty {
+    min-height: 120px;
+    display: grid;
+    place-items: center;
+    text-align: center;
   }
 
   .newsletter-admin__panel-head {
