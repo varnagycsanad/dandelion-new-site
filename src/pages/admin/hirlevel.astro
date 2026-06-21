@@ -158,6 +158,62 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         </form>
       </section>
 
+      <section class="newsletter-admin__panel newsletter-admin__panel--compact">
+        <div class="newsletter-admin__panel-head">
+          <div>
+            <p class="newsletter-admin__panel-kicker">Kézi felvitel</p>
+            <h2>Feliratkozó hozzáadása</h2>
+          </div>
+          <p class="newsletter-admin__panel-note">
+            Egy korábbi vendéget vagy manuálisan rögzített címet itt tudsz közvetlenül hozzáadni a megfelelő listához.
+          </p>
+        </div>
+
+        <form class="newsletter-admin__manual-form" data-manual-form>
+          <label class="newsletter-admin__field">
+            <span>Név</span>
+            <input type="text" name="name" maxlength="120" placeholder="Például: Kiss Anna" data-manual-name />
+          </label>
+
+          <label class="newsletter-admin__field">
+            <span>E-mail</span>
+            <input type="email" name="email" maxlength="180" required placeholder="pelda@domain.hu" data-manual-email />
+          </label>
+
+          <label class="newsletter-admin__field">
+            <span>Lista</span>
+            <select name="listKey" data-manual-list>
+              {NEWSLETTER_LISTS.map((list) => <option value={list.key}>{list.name}</option>)}
+            </select>
+          </label>
+
+          <label class="newsletter-admin__field">
+            <span>Nyelv</span>
+            <select name="lang" data-manual-lang>
+              <option value="hu">HU</option>
+              <option value="en">EN</option>
+              <option value="de">DE</option>
+              <option value="cs">CS</option>
+              <option value="sk">SK</option>
+            </select>
+          </label>
+
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>Forrás</span>
+            <input type="text" name="source" maxlength="120" placeholder="Például: 2025 / admin" data-manual-source />
+          </label>
+
+          <div class="newsletter-admin__actions">
+            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">
+              Hozzáadás
+            </button>
+            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-manual-reset>
+              Törlés
+            </button>
+          </div>
+        </form>
+      </section>
+
       <section class="newsletter-admin__panel">
         <div class="newsletter-admin__panel-head">
           <div>
@@ -235,6 +291,13 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const importForm = root.querySelector("[data-import-form]");
     const importFileInput = root.querySelector("[data-import-file]");
     const importListSelect = root.querySelector("[data-import-list]");
+    const manualForm = root.querySelector("[data-manual-form]");
+    const manualNameInput = root.querySelector("[data-manual-name]");
+    const manualEmailInput = root.querySelector("[data-manual-email]");
+    const manualListSelect = root.querySelector("[data-manual-list]");
+    const manualLangSelect = root.querySelector("[data-manual-lang]");
+    const manualSourceInput = root.querySelector("[data-manual-source]");
+    const manualResetButton = root.querySelector("[data-manual-reset]");
     const closeImportButton = root.querySelector("[data-close-import]");
     const statTotal = root.querySelector("[data-stat-total]");
     const statActive = root.querySelector("[data-stat-active]");
@@ -868,6 +931,72 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       }
     };
 
+    const addManualSubscriber = async () => {
+      if (!apiBase || localAdminMode) {
+        setStatus("A kézi felvitel jelenleg nem érhető el.", "error");
+        return;
+      }
+
+      const name = manualNameInput instanceof HTMLInputElement ? manualNameInput.value.trim() : "";
+      const email = manualEmailInput instanceof HTMLInputElement ? manualEmailInput.value.trim() : "";
+      const listKey = normalizeNewsletterListKey(
+        manualListSelect instanceof HTMLSelectElement ? manualListSelect.value : "hirlevel_feliratkozok"
+      );
+      const lang = manualLangSelect instanceof HTMLSelectElement ? manualLangSelect.value.trim() : "hu";
+      const source = manualSourceInput instanceof HTMLInputElement ? manualSourceInput.value.trim() : "kézi admin";
+
+      if (!email) {
+        setStatus("Adj meg egy e-mail címet.", "warning");
+        return;
+      }
+
+      setStatus("Feliratkozó hozzáadása folyamatban...", "info");
+
+      try {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            lang,
+            source,
+            listKey,
+            consent: true,
+          }),
+        });
+
+        if (response.status === 401 && !localAdminMode) {
+          adminPassword = "";
+          clearStoredAdminAuth();
+          window.location.replace("/admin/");
+          return;
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "manual_add_failed");
+        }
+
+        if (manualForm instanceof HTMLFormElement) {
+          manualForm.reset();
+          if (manualListSelect instanceof HTMLSelectElement) {
+            manualListSelect.value = listKey;
+          }
+        }
+
+        await loadSubscribers();
+        setStatus(result?.message || "Feliratkozó hozzáadva.", "success");
+      } catch (error) {
+        console.error("[newsletter-admin-manual]", error);
+        setStatus("Nem sikerült hozzáadni a feliratkozót.", "error");
+      }
+    };
+
     searchInput?.addEventListener("input", render);
     statusFilter?.addEventListener("change", render);
     langFilter?.addEventListener("change", render);
@@ -894,6 +1023,17 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     importForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       await importCsvFile();
+    });
+
+    manualForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await addManualSubscriber();
+    });
+
+    manualResetButton?.addEventListener("click", () => {
+      if (manualForm instanceof HTMLFormElement) {
+        manualForm.reset();
+      }
     });
 
     syncSortIndicators();
