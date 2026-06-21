@@ -53,7 +53,13 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
 </BaseLayout>
 
 <script type="module">
-  import { buildAdminFetch, clearStoredAdminAuth, getStoredAdminPassword, getStoredAdminSessionToken } from "../../scripts/newsletterAdminAuth";
+  import {
+    buildAdminFetch,
+    clearStoredAdminAuth,
+    getStoredAdminPassword,
+    getStoredAdminSessionToken,
+    isLocalAdminSessionToken,
+  } from "../../scripts/newsletterAdminAuth";
 
   (() => {
     const root = document.querySelector("[data-admin-newsletter]");
@@ -62,6 +68,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     const apiBase = root.dataset.apiBase?.trim() || "";
     const shell = root.querySelector(".admin-newsletter__shell");
     const adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
+    const localAdminMode = isLocalAdminSessionToken(adminPassword);
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -69,7 +76,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     }
 
     const validateStoredAuth = async () => {
-      if (!apiBase) {
+      if (!apiBase || localAdminMode) {
         if (shell instanceof HTMLElement) {
           shell.hidden = false;
         }
@@ -92,6 +99,13 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           shell.hidden = false;
         }
       } catch {
+        if (localAdminMode) {
+          if (shell instanceof HTMLElement) {
+            shell.hidden = false;
+          }
+          return;
+        }
+
         clearStoredAdminAuth();
         window.location.replace("/admin/");
       }

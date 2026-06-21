@@ -187,6 +187,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     clearStoredAdminAuth,
     getStoredAdminPassword,
     getStoredAdminSessionToken,
+    isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
 
   (() => {
@@ -219,6 +220,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     let filteredSubscribers = [];
     let sourceValues = [];
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
+    const localAdminMode = isLocalAdminSessionToken(adminPassword);
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -486,9 +488,9 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     };
 
     const loadSubscribers = async () => {
-      if (!apiBase) {
+      if (!apiBase || localAdminMode) {
         if (apiLabel instanceof HTMLElement) {
-          apiLabel.textContent = "—";
+          apiLabel.textContent = localAdminMode ? `${apiBase.replace(/\/$/, "")} (helyi mód)` : "—";
         }
         return;
       }
@@ -500,7 +502,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
           headers: { Accept: "application/json" },
         });
 
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -518,6 +520,14 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         render();
         setStatus(`Betöltve: ${subscribers.length} feliratkozó.`, "success");
       } catch (error) {
+        if (localAdminMode) {
+          if (apiLabel instanceof HTMLElement) {
+            apiLabel.textContent = `${apiBase.replace(/\/$/, "")} (helyi mód)`;
+          }
+          setStatus("Helyi admin mód aktív. A newsletter service most nem érhető el.", "warning");
+          return;
+        }
+
         console.error("[newsletter-admin]", error);
         setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
       }
@@ -567,7 +577,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     };
 
     const importCsvFile = async () => {
-      if (!apiBase) {
+      if (!apiBase || localAdminMode) {
         setStatus("Az import jelenleg nem érhető el.", "error");
         return;
       }
@@ -598,7 +608,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
           body: JSON.stringify({ rows }),
         });
 
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -615,6 +625,11 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         closeImport();
         await loadSubscribers();
       } catch (error) {
+        if (localAdminMode) {
+          setStatus("A CSV import csak akkor működik, ha a newsletter service is elérhető.", "warning");
+          return;
+        }
+
         console.error("[newsletter-admin-import]", error);
         setStatus("A CSV import nem sikerült.", "error");
       }

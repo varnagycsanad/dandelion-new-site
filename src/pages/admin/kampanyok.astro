@@ -210,6 +210,7 @@ const pageDescription =
     clearStoredAdminAuth,
     getStoredAdminPassword,
     getStoredAdminSessionToken,
+    isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
 
   (() => {
@@ -246,6 +247,7 @@ const pageDescription =
     let campaigns = [];
     let activeSubscribers = 0;
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
+    const localAdminMode = isLocalAdminSessionToken(adminPassword);
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -254,7 +256,7 @@ const pageDescription =
 
     const shell = root.querySelector(".newsletter-campaigns__shell");
     const validateStoredAuth = async () => {
-      if (!apiBase) {
+      if (!apiBase || localAdminMode) {
         if (shell instanceof HTMLElement) {
           shell.hidden = false;
         }
@@ -277,6 +279,13 @@ const pageDescription =
           shell.hidden = false;
         }
       } catch {
+        if (localAdminMode) {
+          if (shell instanceof HTMLElement) {
+            shell.hidden = false;
+          }
+          return;
+        }
+
         adminPassword = "";
         clearStoredAdminAuth();
         window.location.replace("/admin/");
@@ -456,7 +465,7 @@ const pageDescription =
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -511,7 +520,7 @@ const pageDescription =
           body: JSON.stringify(payload),
         });
         const result = await response.json();
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -547,7 +556,7 @@ const pageDescription =
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -590,7 +599,7 @@ const pageDescription =
           body: JSON.stringify({ to, subject, text }),
         });
         const result = await response.json();
-        if (response.status === 401) {
+        if (response.status === 401 && !localAdminMode) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");

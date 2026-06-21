@@ -1,16 +1,20 @@
 ---
+import { createHash } from "node:crypto";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
   Astro.url.origin;
+const adminPasswordHash = import.meta.env.NEWSLETTER_ADMIN_PASSWORD
+  ? createHash("sha256").update(import.meta.env.NEWSLETTER_ADMIN_PASSWORD).digest("hex")
+  : "";
 const pageTitle = "Dandelion admin";
 const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
-  <section class="admin-home" data-admin-home data-api-base={newsletterApiUrl}>
+  <section class="admin-home" data-admin-home data-api-base={newsletterApiUrl} data-admin-password-hash={adminPasswordHash}>
     <div class="admin-home__auth" data-auth-panel>
       <div class="admin-home__auth-card">
         <p class="admin-home__eyebrow">Admin belépés</p>
@@ -94,11 +98,14 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
   import {
     buildAdminFetch,
     clearStoredAdminAuth,
+    createLocalAdminSessionToken,
     getStoredAdminPassword,
     getStoredAdminSessionToken,
     isWebAuthnAvailable,
     loginWithAdminPassword,
     loginWithPasskey as loginWithPasskeyFlow,
+    isLocalAdminSessionToken,
+    passwordMatchesHash,
     registerPasskey as registerPasskeyFlow,
   } from "../../scripts/newsletterAdminAuth";
 
@@ -119,6 +126,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const passkeyRegisterButton = root.querySelector("[data-passkey-register]");
     const authStatus = root.querySelector("[data-auth-status]");
     const shell = root.querySelector(".admin-home__shell");
+    const adminPasswordHash = root.dataset.adminPasswordHash?.trim() || "";
 
     let adminToken = getStoredAdminSessionToken() || getStoredAdminPassword();
     const prefersPasskey =
@@ -168,6 +176,12 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     };
 
     const validateStoredAuth = async () => {
+      if (isLocalAdminSessionToken(adminToken)) {
+        updateLockState(false);
+        setAuthStatus("Helyi admin mód aktív. A newsletter service most nem érhető el.", "warning");
+        return;
+      }
+
       if (!apiBase) {
         updateLockState(false);
         setAuthStatus("Belépés sikeres.", "success");
@@ -203,6 +217,15 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
         updateLockState(false);
         setAuthStatus("Belépés sikeres.", "success");
       } catch {
+        if (adminPasswordHash && (await passwordMatchesHash(adminToken, adminPasswordHash))) {
+          adminToken = createLocalAdminSessionToken(adminPasswordHash);
+          sessionStorage.setItem("dandelion-newsletter-admin-session", adminToken);
+          sessionStorage.removeItem("dandelion-newsletter-admin-password");
+          updateLockState(false);
+          setAuthStatus("Helyi admin mód aktív. A newsletter service most nem érhető el.", "warning");
+          return;
+        }
+
         clearAuthState();
         updateLockState(true);
         setAuthStatus("Hibás jelszó.", "error");
@@ -266,12 +289,15 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       setAuthStatus("Beléptetés folyamatban...", "info");
 
       try {
-        const result = await loginWithAdminPassword(apiBase, password);
+        const result = await loginWithAdminPassword(apiBase, password, adminPasswordHash);
         if (result?.sessionToken) {
           adminToken = result.sessionToken;
         }
         updateLockState(false);
-        setAuthStatus("Belépés sikeres.", "success");
+        setAuthStatus(
+          result?.localOnly ? "Belépés sikeres. Helyi admin mód aktív, a newsletter service most nem érhető el." : "Belépés sikeres.",
+          result?.localOnly ? "warning" : "success"
+        );
       } catch (error) {
         console.error("[admin-home-auth]", error);
         setAuthStatus("Hibás jelszó.", "error");
