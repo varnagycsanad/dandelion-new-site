@@ -77,7 +77,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
         <section class="admin-home__card admin-home__card--setup" data-passkey-setup-card hidden>
           <span class="admin-home__card-label">Passkey setup</span>
           <strong>Telefon rögzítése</strong>
-          <p>PC-n bejelentkezve innen indíthatod a Face ID / passkey regisztrációt a telefonodhoz.</p>
+          <p>PC-n bejelentkezve innen indíthatod a Face ID / passkey regisztrációt, majd a böngészőben a telefonos / másik eszközös opciót válaszd.</p>
           <button class="admin-home__button admin-home__button--primary" type="button" data-passkey-register>
             Telefon regisztrálása
           </button>
@@ -246,7 +246,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
         } else if (message === "api_unavailable") {
           setAuthStatus("A passkey regisztrációhoz kell az admin API.", "warning");
         } else {
-          setAuthStatus("A passkey regisztráció nem sikerült. Próbáld újra.", "error");
+          setAuthStatus("A passkey regisztráció nem sikerült. A böngészőben válaszd a telefonos vagy másik eszközös opciót.", "error");
         }
       }
     };

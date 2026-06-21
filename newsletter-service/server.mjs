@@ -873,7 +873,7 @@ async function handleRequest(req, res) {
         residentKey: "preferred",
         userVerification: "required",
       },
-      preferredAuthenticatorType: "localDevice",
+      preferredAuthenticatorType: "remoteDevice",
     });
 
     challenge.challenge = options.challenge;
