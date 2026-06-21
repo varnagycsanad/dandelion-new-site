@@ -77,6 +77,7 @@ const CHALLENGE_TTL_MS = 1000 * 5 * 60;
 const DEFAULT_STATE = {
   subscribers: [],
   campaigns: [],
+  groups: [],
   deliveries: [],
   auth: {
     credentials: [],
@@ -103,6 +104,7 @@ async function readState() {
     return {
       subscribers: Array.isArray(parsed.subscribers) ? parsed.subscribers.map(normalizeSubscriberRecord).filter(Boolean) : [],
       campaigns: Array.isArray(parsed.campaigns) ? parsed.campaigns.map(normalizeCampaignRecord).filter(Boolean) : [],
+      groups: Array.isArray(parsed.groups) ? parsed.groups.map(normalizeGroupRecord).filter(Boolean) : [],
       deliveries: Array.isArray(parsed.deliveries) ? parsed.deliveries : [],
       auth,
     };
@@ -283,6 +285,9 @@ function normalizeSubscriberRecord(subscriber) {
       source: String(subscriber.source ?? "csv-import").trim().slice(0, 120) || "csv-import",
       listKey,
       listName: String(subscriber.listName ?? list?.name ?? "Hírlevél feliratkozók"),
+      groupKeys: Array.isArray(subscriber.groupKeys)
+        ? subscriber.groupKeys.map((item) => normalizeGroupKey(item)).filter(Boolean)
+        : [],
       status: ["active", "pending", "unsubscribed"].includes(String(subscriber.status ?? "").toLowerCase())
         ? String(subscriber.status).toLowerCase()
         : "active",
@@ -311,9 +316,40 @@ function normalizeCampaignRecord(campaign) {
     text: String(campaign.text ?? ""),
     audience: Array.isArray(campaign.audience) ? campaign.audience.map((item) => String(item).trim()).filter(Boolean) : [],
     targetListKey: normalizeNewsletterListKey(campaign.targetListKey ?? campaign.listKey ?? campaign.audienceListKey),
+    targetGroupKey: normalizeGroupKey(campaign.targetGroupKey ?? campaign.groupKey ?? campaign.audienceGroupKey),
     createdAt: String(campaign.createdAt ?? nowIso()),
     updatedAt: String(campaign.updatedAt ?? nowIso()),
     sentAt: campaign.sentAt ? String(campaign.sentAt) : undefined,
+  };
+}
+
+function normalizeGroupKey(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function normalizeGroupRecord(group) {
+  if (!group || typeof group !== "object") {
+    return null;
+  }
+
+  const name = String(group.name ?? "").trim().slice(0, 120);
+  const key = normalizeGroupKey(group.key ?? group.id ?? name);
+  if (!key || !name) {
+    return null;
+  }
+
+  return {
+    id: String(group.id ?? randomUUID()),
+    key,
+    name,
+    description: String(group.description ?? "").trim().slice(0, 240),
+    createdAt: String(group.createdAt ?? nowIso()),
+    updatedAt: String(group.updatedAt ?? nowIso()),
   };
 }
 
@@ -404,6 +440,12 @@ function buildSubscriberLists(state) {
   }
 
   return Array.from(counts.values());
+}
+
+function buildSubscriberGroups(state) {
+  return Array.isArray(state.groups)
+    ? state.groups.map((group) => normalizeGroupRecord(group)).filter(Boolean)
+    : [];
 }
 
 function findSubscriberById(state, subscriberId) {
@@ -820,6 +862,7 @@ async function handleRequest(req, res) {
       counts: {
         subscribers: state.subscribers.length,
         lists: buildSubscriberLists(state).length,
+        groups: buildSubscriberGroups(state).length,
         campaigns: state.campaigns.length,
         deliveries: state.deliveries.length,
       },
@@ -839,6 +882,18 @@ async function handleRequest(req, res) {
     return;
   }
 
+  if (req.method === "GET" && url.pathname === "/groups") {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    jsonResponse(res, 200, {
+      ok: true,
+      groups: buildSubscriberGroups(state),
+    });
+    return;
+  }
+
   if (req.method === "GET" && url.pathname === "/subscribers") {
     if (!requireAdminAuth(state, req, res)) {
       return;
@@ -850,7 +905,54 @@ async function handleRequest(req, res) {
       ? state.subscribers.filter((subscriber) => normalizeNewsletterListKey(subscriber.listKey) === requestedListKey)
       : state.subscribers;
 
-    jsonResponse(res, 200, { ok: true, subscribers, lists: buildSubscriberLists(state) });
+    jsonResponse(res, 200, { ok: true, subscribers, lists: buildSubscriberLists(state), groups: buildSubscriberGroups(state) });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/groups") {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    try {
+      const body = await readJsonBody(req);
+      const name = String(body.name ?? "").trim().slice(0, 120);
+      const description = String(body.description ?? "").trim().slice(0, 240);
+      const key = normalizeGroupKey(body.key ?? name);
+
+      if (!name) {
+        jsonResponse(res, 400, { ok: false, message: "Group name is required." });
+        return;
+      }
+
+      const existing = state.groups.find((group) => normalizeGroupKey(group.key) === key);
+      const timestamp = nowIso();
+
+      if (existing) {
+        existing.name = name;
+        existing.description = description;
+        existing.updatedAt = timestamp;
+        await writeState(state);
+        jsonResponse(res, 200, { ok: true, message: "Csoport frissítve.", group: existing });
+        return;
+      }
+
+      const group = {
+        id: randomUUID(),
+        key,
+        name,
+        description,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      };
+
+      state.groups.push(group);
+      await writeState(state);
+
+      jsonResponse(res, 201, { ok: true, message: "Csoport létrehozva.", group });
+    } catch (error) {
+      jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "Invalid group." });
+    }
     return;
   }
 
@@ -910,6 +1012,11 @@ async function handleRequest(req, res) {
       const source = String(body.source ?? "newsletter-signup").trim().slice(0, 120) || "newsletter-signup";
       const listKey = normalizeNewsletterListKey(body.listKey ?? body.list ?? guessNewsletterListKeyFromSource(source));
       const listName = getNewsletterListName(listKey);
+      const groupKeys = Array.isArray(body.groupKeys)
+        ? body.groupKeys.map((item) => normalizeGroupKey(item)).filter(Boolean)
+        : body.groupKey
+          ? [normalizeGroupKey(body.groupKey)].filter(Boolean)
+          : [];
       const consent = body.consent === true || body.consent === "true" || body.consent === "on";
 
       if (!consent) {
@@ -926,6 +1033,7 @@ async function handleRequest(req, res) {
         existing.source = source;
         existing.listKey = listKey;
         existing.listName = listName;
+        existing.groupKeys = groupKeys.length ? Array.from(new Set([...(existing.groupKeys || []), ...groupKeys])) : existing.groupKeys || [];
         existing.status = "active";
         existing.updatedAt = timestamp;
         existing.consentUpdatedAt = timestamp;
@@ -949,6 +1057,7 @@ async function handleRequest(req, res) {
         source,
         listKey,
         listName,
+        groupKeys,
         status: "active",
         consentAccepted: true,
         consentCreatedAt: timestamp,
@@ -1335,6 +1444,7 @@ async function handleRequest(req, res) {
       const text = String(body.text ?? "").trim().slice(0, 200000);
       const audience = Array.isArray(body.audience) ? body.audience.map((item) => String(item).trim()).filter(Boolean) : [];
       const targetListKey = normalizeNewsletterListKey(body.targetListKey ?? body.listKey ?? body.audienceListKey);
+      const targetGroupKey = normalizeGroupKey(body.targetGroupKey ?? body.groupKey ?? body.audienceGroupKey);
       const campaign = {
         id: randomUUID(),
         subject,
@@ -1342,6 +1452,7 @@ async function handleRequest(req, res) {
         text,
         audience,
         targetListKey,
+        targetGroupKey,
         status: "draft",
         createdAt: nowIso(),
         updatedAt: nowIso(),
@@ -1375,9 +1486,13 @@ async function handleRequest(req, res) {
     }
 
     const targetListKey = normalizeNewsletterListKey(campaign.targetListKey ?? campaign.listKey ?? campaign.audienceListKey);
-    const activeSubscribers = state.subscribers.filter(
-      (subscriber) => subscriber.status === "active" && normalizeNewsletterListKey(subscriber.listKey) === targetListKey
-    );
+    const targetGroupKey = normalizeGroupKey(campaign.targetGroupKey ?? campaign.groupKey ?? campaign.audienceGroupKey);
+    const activeSubscribers = state.subscribers.filter((subscriber) => {
+      const matchesList = normalizeNewsletterListKey(subscriber.listKey) === targetListKey;
+      const groupKeys = Array.isArray(subscriber.groupKeys) ? subscriber.groupKeys.map((item) => normalizeGroupKey(item)) : [];
+      const matchesGroup = !targetGroupKey || groupKeys.includes(targetGroupKey);
+      return subscriber.status === "active" && matchesList && matchesGroup;
+    });
     const timestamp = nowIso();
     const deliveries = [];
 

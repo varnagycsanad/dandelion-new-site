@@ -58,6 +58,32 @@ const pageDescription =
         <button class="newsletter-admin__tab" type="button" disabled>Előzmények</button>
       </nav>
 
+      <div class="newsletter-admin__menu" aria-label="Gyors műveletek">
+        <div class="newsletter-admin__menu-group">
+          <span>Gyors szűrők</span>
+          <div class="newsletter-admin__menu-row">
+            <button class="newsletter-admin__menu-chip is-active" type="button" data-quick-filter-status="all">Összes</button>
+            <button class="newsletter-admin__menu-chip" type="button" data-quick-filter-status="active">Aktív</button>
+            <button class="newsletter-admin__menu-chip" type="button" data-quick-filter-status="unsubscribed">Leiratkozott</button>
+            {NEWSLETTER_LISTS.map((list) => (
+              <button class="newsletter-admin__menu-chip" type="button" data-quick-filter-list={list.key}>
+                {list.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="newsletter-admin__menu-group">
+          <span>Műveletek</span>
+          <div class="newsletter-admin__menu-row">
+            <button class="newsletter-admin__menu-chip" type="button" data-open-manual-panel>Feliratkozó felvitele</button>
+            <button class="newsletter-admin__menu-chip" type="button" data-open-groups-panel>Csoportok</button>
+            <button class="newsletter-admin__menu-chip" type="button" data-open-import>CSV import</button>
+            <button class="newsletter-admin__menu-chip" type="button" data-refresh>Frissítés</button>
+          </div>
+        </div>
+      </div>
+
       <div class="newsletter-admin__statusbar">
         <div class="newsletter-admin__status" data-status>
           Betöltés...
@@ -171,7 +197,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         </form>
       </section>
 
-      <section class="newsletter-admin__panel newsletter-admin__panel--compact">
+      <section class="newsletter-admin__panel newsletter-admin__panel--compact is-hidden" data-manual-panel hidden>
         <div class="newsletter-admin__panel-head">
           <div>
             <p class="newsletter-admin__panel-kicker">Kézi felvitel</p>
@@ -201,13 +227,20 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           </label>
 
           <label class="newsletter-admin__field">
+            <span>Csoport</span>
+            <select name="groupKey" data-manual-group>
+              <option value="">Nincs csoport</option>
+            </select>
+          </label>
+
+          <label class="newsletter-admin__field">
             <span>Nyelv</span>
             <select name="lang" data-manual-lang>
-              <option value="hu">HU</option>
-              <option value="en">EN</option>
-              <option value="de">DE</option>
-              <option value="cs">CS</option>
-              <option value="sk">SK</option>
+              <option value="hu">Magyar</option>
+              <option value="en">Angol</option>
+              <option value="de">Német</option>
+              <option value="cs">Cseh</option>
+              <option value="sk">Szlovák</option>
             </select>
           </label>
 
@@ -225,6 +258,44 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
             </button>
           </div>
         </form>
+      </section>
+
+      <section class="newsletter-admin__panel newsletter-admin__panel--compact is-hidden" data-groups-panel hidden>
+        <div class="newsletter-admin__panel-head">
+          <div>
+            <p class="newsletter-admin__panel-kicker">Csoportok</p>
+            <h2>Csoport létrehozása</h2>
+          </div>
+          <p class="newsletter-admin__panel-note">
+            A csoportokat később kampányokhoz tudjuk kötni, és így a feliratkozók válaszai vagy kampánykapcsolatai is visszakereshetők lesznek.
+          </p>
+        </div>
+
+        <form class="newsletter-admin__group-form" data-group-form>
+          <label class="newsletter-admin__field">
+            <span>Név</span>
+            <input type="text" name="name" maxlength="120" placeholder="Például: Nyári vendégek" data-group-name />
+          </label>
+
+          <label class="newsletter-admin__field">
+            <span>Azonosító</span>
+            <input type="text" name="key" maxlength="120" placeholder="Például: nyari-vendegek" data-group-key />
+          </label>
+
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>Leírás</span>
+            <textarea rows="3" name="description" maxlength="240" placeholder="Rövid megjegyzés a csoportról" data-group-description></textarea>
+          </label>
+
+          <div class="newsletter-admin__actions">
+            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Csoport létrehozása</button>
+            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-reset-group-form>Törlés</button>
+          </div>
+        </form>
+
+        <div class="newsletter-admin__group-list" data-group-list>
+          <div class="newsletter-admin__empty">Még nincs létrehozott csoport.</div>
+        </div>
       </section>
 
       <section class="newsletter-admin__panel">
@@ -309,10 +380,23 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const manualNameInput = root.querySelector("[data-manual-name]");
     const manualEmailInput = root.querySelector("[data-manual-email]");
     const manualListSelect = root.querySelector("[data-manual-list]");
+    const manualGroupSelect = root.querySelector("[data-manual-group]");
     const manualLangSelect = root.querySelector("[data-manual-lang]");
     const manualSourceInput = root.querySelector("[data-manual-source]");
     const manualResetButton = root.querySelector("[data-manual-reset]");
     const closeImportButton = root.querySelector("[data-close-import]");
+    const manualPanel = root.querySelector("[data-manual-panel]");
+    const groupsPanel = root.querySelector("[data-groups-panel]");
+    const groupForm = root.querySelector("[data-group-form]");
+    const groupNameInput = root.querySelector("[data-group-name]");
+    const groupKeyInput = root.querySelector("[data-group-key]");
+    const groupDescriptionInput = root.querySelector("[data-group-description]");
+    const resetGroupFormButton = root.querySelector("[data-reset-group-form]");
+    const groupListNode = root.querySelector("[data-group-list]");
+    const openManualPanelButton = root.querySelector("[data-open-manual-panel]");
+    const openGroupsPanelButton = root.querySelector("[data-open-groups-panel]");
+    const quickStatusButtons = root.querySelectorAll("[data-quick-filter-status]");
+    const quickListButtons = root.querySelectorAll("[data-quick-filter-list]");
     const statTotal = root.querySelector("[data-stat-total]");
     const statActive = root.querySelector("[data-stat-active]");
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
@@ -321,6 +405,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const sortButtons = root.querySelectorAll("[data-sort-key]");
     let subscribers = [];
     let filteredSubscribers = [];
+    let groups = [];
     let sourceValues = [];
     let listValues = [];
     let sortState = { key: "createdAt", direction: "desc" };
@@ -336,6 +421,23 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     if (shell instanceof HTMLElement) {
       shell.hidden = false;
     }
+
+    const setPanelVisibility = (panel, visible) => {
+      if (!(panel instanceof HTMLElement)) return;
+      panel.hidden = !visible;
+      panel.classList.toggle("is-hidden", !visible);
+    };
+
+    const closeAuxPanels = () => {
+      setPanelVisibility(manualPanel, false);
+      setPanelVisibility(groupsPanel, false);
+    };
+
+    const openPanel = (panel) => {
+      closeAuxPanels();
+      setPanelVisibility(panel, true);
+      panel?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    };
 
     const formatDate = (value) => {
       if (!value) return "—";
@@ -621,6 +723,70 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           listFilter.value = current;
         }
       }
+
+      syncMenuState();
+    };
+
+    const syncMenuState = () => {
+      const statusValue = getFilterValue(statusFilter);
+      const listValue = getFilterValue(listFilter);
+
+      quickStatusButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.classList.toggle("is-active", (button.dataset.quickFilterStatus || "all") === statusValue);
+      });
+
+      quickListButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.classList.toggle("is-active", (button.dataset.quickFilterList || "all") === listValue);
+      });
+    };
+
+    const syncGroupSelect = () => {
+      if (!(manualGroupSelect instanceof HTMLSelectElement)) return;
+      const current = manualGroupSelect.value;
+      const options = [
+        "<option value=\"\">Nincs csoport</option>",
+        ...groups.map((group) => `<option value="${escapeHtml(group.key)}">${escapeHtml(group.name)}</option>`),
+      ].join("");
+      manualGroupSelect.innerHTML = options;
+      if (groups.some((group) => group.key === current)) {
+        manualGroupSelect.value = current;
+      }
+    };
+
+    const renderGroups = () => {
+      if (!(groupListNode instanceof HTMLElement)) return;
+      if (!groups.length) {
+        groupListNode.innerHTML = `<div class="newsletter-admin__empty">Még nincs létrehozott csoport.</div>`;
+        return;
+      }
+
+      const groupStats = groups.map((group) => {
+        const groupKey = normalizeGroupKey(group.key);
+        const memberCount = subscribers.filter((subscriber) =>
+          Array.isArray(subscriber.groupKeys) ? subscriber.groupKeys.map((item) => normalizeGroupKey(item)).includes(groupKey) : false
+        ).length;
+        return { ...group, memberCount };
+      });
+
+      groupListNode.innerHTML = groupStats
+        .map(
+          (group) => `
+            <article class="newsletter-admin__group-card">
+              <div>
+                <p class="newsletter-admin__group-key">${escapeHtml(group.key)}</p>
+                <h3>${escapeHtml(group.name)}</h3>
+                <p>${escapeHtml(group.description || "Nincs leírás.")}</p>
+              </div>
+              <div class="newsletter-admin__group-meta">
+                <span>${escapeHtml(String(group.memberCount))} tag</span>
+                <span>${escapeHtml(formatDate(group.updatedAt))}</span>
+              </div>
+            </article>
+          `
+        )
+        .join("");
     };
 
     const render = () => {
@@ -629,6 +795,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       const langValue = getFilterValue(langFilter);
       const listValue = getFilterValue(listFilter);
       const sourceValue = getFilterValue(sourceFilter);
+      syncMenuState();
 
       filteredSubscribers = subscribers.filter((subscriber) => {
         const haystack = normalize(
@@ -678,7 +845,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           return `
             <tr>
               <td>
-                <strong>${escapeHtml(displayName)}</strong>
+                <span class="newsletter-admin__row-name">${escapeHtml(displayName)}</span>
               </td>
               <td>
                 <a href="mailto:${escapeHtml(subscriber.email)}">${escapeHtml(subscriber.email)}</a>
@@ -825,7 +992,10 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         }
 
         subscribers = Array.isArray(result.subscribers) ? result.subscribers : [];
+        groups = Array.isArray(result.groups) ? result.groups : groups;
         updateStats();
+        syncGroupSelect();
+        renderGroups();
         render();
         setStatus(`Betöltve: ${subscribers.length} feliratkozó.`, "success");
       } catch (error) {
@@ -839,6 +1009,39 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
         console.error("[newsletter-admin]", error);
         setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
+      }
+    };
+
+    const loadGroups = async () => {
+      if (!apiBase || localAdminMode) {
+        syncGroupSelect();
+        renderGroups();
+        return;
+      }
+
+      try {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/groups`, {
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.status === 401 && !localAdminMode) {
+          adminPassword = "";
+          clearStoredAdminAuth();
+          window.location.replace("/admin/");
+          return;
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "load_groups_failed");
+        }
+
+        groups = Array.isArray(result.groups) ? result.groups : [];
+        syncGroupSelect();
+        renderGroups();
+      } catch (error) {
+        console.error("[newsletter-admin-groups]", error);
       }
     };
 
@@ -945,6 +1148,58 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       }
     };
 
+    const addGroup = async () => {
+      if (!apiBase || localAdminMode) {
+        setStatus("A csoport létrehozása jelenleg nem érhető el.", "error");
+        return;
+      }
+
+      const name = groupNameInput instanceof HTMLInputElement ? groupNameInput.value.trim() : "";
+      const key = groupKeyInput instanceof HTMLInputElement ? groupKeyInput.value.trim() : "";
+      const description = groupDescriptionInput instanceof HTMLTextAreaElement ? groupDescriptionInput.value.trim() : "";
+
+      if (!name) {
+        setStatus("Adj meg egy csoportnevet.", "warning");
+        return;
+      }
+
+      setStatus("Csoport létrehozása folyamatban...", "info");
+
+      try {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/groups`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ name, key, description }),
+        });
+
+        if (response.status === 401 && !localAdminMode) {
+          adminPassword = "";
+          clearStoredAdminAuth();
+          window.location.replace("/admin/");
+          return;
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "group_create_failed");
+        }
+
+        if (groupForm instanceof HTMLFormElement) {
+          groupForm.reset();
+        }
+
+        await loadGroups();
+        setStatus(result?.message || "Csoport létrehozva.", "success");
+      } catch (error) {
+        console.error("[newsletter-admin-group]", error);
+        setStatus("Nem sikerült létrehozni a csoportot.", "error");
+      }
+    };
+
     const addManualSubscriber = async () => {
       if (!apiBase || localAdminMode) {
         setStatus("A kézi felvitel jelenleg nem érhető el.", "error");
@@ -956,6 +1211,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       const listKey = normalizeNewsletterListKey(
         manualListSelect instanceof HTMLSelectElement ? manualListSelect.value : "hirlevel_feliratkozok"
       );
+      const groupKey = manualGroupSelect instanceof HTMLSelectElement ? manualGroupSelect.value.trim() : "";
       const lang = manualLangSelect instanceof HTMLSelectElement ? manualLangSelect.value.trim() : "hu";
       const source = manualSourceInput instanceof HTMLInputElement ? manualSourceInput.value.trim() : "kézi admin";
 
@@ -979,6 +1235,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
             lang,
             source,
             listKey,
+            groupKey,
             consent: true,
           }),
         });
@@ -1016,6 +1273,24 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     langFilter?.addEventListener("change", render);
     sourceFilter?.addEventListener("change", render);
     listFilter?.addEventListener("change", render);
+    quickStatusButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      button.addEventListener("click", () => {
+        if (statusFilter instanceof HTMLSelectElement) {
+          statusFilter.value = button.dataset.quickFilterStatus || "all";
+          statusFilter.dispatchEvent(new Event("change"));
+        }
+      });
+    });
+    quickListButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      button.addEventListener("click", () => {
+        if (listFilter instanceof HTMLSelectElement) {
+          listFilter.value = button.dataset.quickFilterList || "all";
+          listFilter.dispatchEvent(new Event("change"));
+        }
+      });
+    });
     sortButtons.forEach((button) => {
       if (!(button instanceof HTMLButtonElement)) return;
       button.dataset.baseLabel = button.textContent?.trim() || "";
@@ -1034,6 +1309,8 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     copyAllButton?.addEventListener("click", copyAllEmails);
     openImportButton?.addEventListener("click", openImport);
     closeImportButton?.addEventListener("click", closeImport);
+    openManualPanelButton?.addEventListener("click", () => openPanel(manualPanel));
+    openGroupsPanelButton?.addEventListener("click", () => openPanel(groupsPanel));
     importForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       await importCsvFile();
@@ -1050,8 +1327,20 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       }
     });
 
+    groupForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await addGroup();
+    });
+
+    resetGroupFormButton?.addEventListener("click", () => {
+      if (groupForm instanceof HTMLFormElement) {
+        groupForm.reset();
+      }
+    });
+
     syncSortIndicators();
     loadSubscribers();
+    loadGroups();
   })();
 </script>
 
@@ -1244,6 +1533,54 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     gap: 6px;
     padding: 4px 0 2px;
     border-bottom: 1px solid rgba(82, 63, 36, 0.1);
+  }
+
+  .newsletter-admin__menu {
+    display: grid;
+    gap: 12px;
+  }
+
+  .newsletter-admin__menu-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  .newsletter-admin__menu-group > span {
+    color: rgba(82, 67, 45, 0.72);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .newsletter-admin__menu-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .newsletter-admin__menu-chip {
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid rgba(90, 71, 42, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #4a3823;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .newsletter-admin__menu-chip.is-active {
+    background: rgba(76, 57, 31, 0.12);
+    border-color: rgba(76, 57, 31, 0.2);
+    color: #302418;
+  }
+
+  .newsletter-admin__menu-chip:disabled {
+    opacity: 0.75;
+    cursor: default;
   }
 
   .newsletter-admin__tab {
@@ -1458,6 +1795,55 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     padding: 24px;
   }
 
+  .newsletter-admin__group-form {
+    display: grid;
+    gap: 14px;
+  }
+
+  .newsletter-admin__group-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .newsletter-admin__group-card {
+    display: grid;
+    gap: 10px;
+    padding: 16px 18px;
+    border: 1px solid rgba(90, 71, 42, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .newsletter-admin__group-card h3 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  .newsletter-admin__group-card p {
+    margin: 0;
+    color: rgba(82, 67, 45, 0.82);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .newsletter-admin__group-key {
+    color: rgba(122, 95, 52, 0.7);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .newsletter-admin__group-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: rgba(82, 67, 45, 0.72);
+    font-size: 0.8rem;
+  }
+
   .newsletter-admin__panel-head {
     display: flex;
     justify-content: space-between;
@@ -1500,7 +1886,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     text-align: left;
     border-bottom: 1px solid rgba(95, 72, 41, 0.08);
     vertical-align: middle;
-    font-size: 0.9rem;
+    font-size: 0.84rem;
   }
 
   .newsletter-admin__table th {
@@ -1526,6 +1912,11 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   .newsletter-admin__table a {
     color: #73552e;
     text-decoration: none;
+    font-weight: 400;
+  }
+
+  .newsletter-admin__table strong {
+    font-weight: 400;
   }
 
   .newsletter-admin__table a:hover {
@@ -1545,6 +1936,11 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     letter-spacing: inherit;
     text-transform: none;
     cursor: pointer;
+  }
+
+  .newsletter-admin__row-name {
+    color: #2d241b;
+    font-weight: 400;
   }
 
   .newsletter-admin__sort-button[data-active="true"] {
@@ -1602,6 +1998,12 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     background: rgba(244, 238, 226, 0.96);
     color: #3f301e;
     box-shadow: inset 0 0 0 1px rgba(96, 73, 41, 0.12);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .newsletter-admin__panel.is-hidden {
+    display: none;
   }
 
   .newsletter-admin__empty {

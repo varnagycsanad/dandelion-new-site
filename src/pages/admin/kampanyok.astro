@@ -127,6 +127,13 @@ const pageDescription =
               </select>
             </label>
 
+            <label class="newsletter-campaigns__field">
+              <span>Cél csoport</span>
+              <select name="targetGroupKey" data-campaign-target-group>
+                <option value="">Összes csoport</option>
+              </select>
+            </label>
+
             <label class="newsletter-campaigns__field newsletter-campaigns__field--full">
               <span>Szegmens tagok</span>
               <textarea
@@ -251,6 +258,7 @@ const pageDescription =
     const audienceLabelInput = root.querySelector("[data-campaign-audience-label]");
     const testToInput = root.querySelector("[data-test-to]");
     const targetListSelect = root.querySelector("[data-campaign-target-list]");
+    const targetGroupSelect = root.querySelector("[data-campaign-target-group]");
     const previewSubject = root.querySelector("[data-preview-subject]");
     const previewBody = root.querySelector("[data-preview-body]");
     const statCampaigns = root.querySelector("[data-stat-campaigns]");
@@ -264,6 +272,7 @@ const pageDescription =
     const testButton = root.querySelector("[data-send-test]");
 
     let campaigns = [];
+    let groups = [];
     let activeSubscribers = 0;
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
@@ -272,12 +281,50 @@ const pageDescription =
       targetListSelect.value = NEWSLETTER_DEFAULT_LIST_KEY;
     }
 
+    const syncGroupSelect = () => {
+      if (!(targetGroupSelect instanceof HTMLSelectElement)) return;
+      const current = targetGroupSelect.value;
+      targetGroupSelect.innerHTML = [
+        '<option value="">Összes csoport</option>',
+        ...groups.map((group) => `<option value="${escapeHtml(group.key)}">${escapeHtml(group.name)}</option>`),
+      ].join("");
+      if (groups.some((group) => group.key === current)) {
+        targetGroupSelect.value = current;
+      }
+    };
+
     if (!adminPassword) {
       window.location.replace("/admin/");
       return;
     }
 
     const shell = root.querySelector(".newsletter-campaigns__shell");
+    const loadGroups = async () => {
+      if (!apiBase || localAdminMode) {
+        syncGroupSelect();
+        return;
+      }
+
+      try {
+        const response = await buildAdminFetch(apiBase, "/groups", {
+          headers: { Accept: "application/json" },
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (response.status === 401 && !localAdminMode) {
+          return;
+        }
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "groups_failed");
+        }
+
+        groups = Array.isArray(result.groups) ? result.groups : [];
+        syncGroupSelect();
+      } catch (error) {
+        console.error("[newsletter-campaigns-groups]", error);
+      }
+    };
+
     const validateStoredAuth = async () => {
       if (!apiBase || localAdminMode) {
         if (shell instanceof HTMLElement) {
@@ -470,6 +517,9 @@ const pageDescription =
           if (targetListSelect instanceof HTMLSelectElement) {
             targetListSelect.value = normalizeNewsletterListKey(campaign.targetListKey);
           }
+          if (targetGroupSelect instanceof HTMLSelectElement) {
+            targetGroupSelect.value = String(campaign.targetGroupKey ?? "");
+          }
           if (editorTitle instanceof HTMLElement) editorTitle.textContent = `Kampány betöltve: ${campaign.subject || "Névtelen"}`;
           syncPreview();
           loadSubscribersCount(campaign.targetListKey);
@@ -509,6 +559,7 @@ const pageDescription =
         }
 
         campaigns = Array.isArray(result.campaigns) ? result.campaigns : [];
+        await loadGroups();
         await loadSubscribersCount(targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY);
         renderCampaignRows();
         setStatus(`Betöltve: ${campaigns.length} kampány.`, "success");
@@ -532,12 +583,14 @@ const pageDescription =
       const targetListKey = normalizeNewsletterListKey(
         targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY
       );
+      const targetGroupKey = String(targetGroupSelect instanceof HTMLSelectElement ? targetGroupSelect.value : "").trim();
       const payload = {
         subject,
         html,
         text,
         audience: audienceLabel ? [audienceLabel, ...audience] : audience,
         targetListKey,
+        targetGroupKey,
       };
 
       if (!subject || !html) {
@@ -571,6 +624,7 @@ const pageDescription =
         campaigns = [savedCampaign, ...campaigns.filter((item) => item.id !== savedCampaign.id)];
         if (campaignIdInput instanceof HTMLInputElement) campaignIdInput.value = savedCampaign.id;
         if (targetListSelect instanceof HTMLSelectElement) targetListSelect.value = normalizeNewsletterListKey(savedCampaign.targetListKey);
+        if (targetGroupSelect instanceof HTMLSelectElement) targetGroupSelect.value = String(savedCampaign.targetGroupKey ?? "");
         if (editorTitle instanceof HTMLElement) editorTitle.textContent = `Draft mentve: ${savedCampaign.subject}`;
         renderCampaignRows();
         await loadSubscribersCount(savedCampaign.targetListKey);
@@ -660,6 +714,7 @@ const pageDescription =
     targetListSelect?.addEventListener("change", async () => {
       await loadSubscribersCount(targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY);
     });
+    targetGroupSelect?.addEventListener("change", syncPreview);
 
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -681,6 +736,7 @@ const pageDescription =
 
     syncPreview();
     validateStoredAuth();
+    loadGroups();
     loadCampaigns();
   })();
 </script>
