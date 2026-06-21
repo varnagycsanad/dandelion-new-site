@@ -1,12 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const newsletterApiUrl =
+  import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
+  import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
+  Astro.url.origin;
 const pageTitle = "Newsletter";
 const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a kampányokhoz.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
-  <section class="admin-newsletter" data-admin-newsletter>
+  <section class="admin-newsletter" data-admin-newsletter data-api-base={newsletterApiUrl}>
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--gold"></div>
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--sage"></div>
 

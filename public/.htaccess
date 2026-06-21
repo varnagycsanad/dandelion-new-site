@@ -56,6 +56,21 @@ Options -MultiViews
   RewriteEngine On
   RewriteBase /
 
+  # Proxy newsletter/admin API calls to the local Node service on the host.
+  RewriteRule ^admin/auth/?$ http://127.0.0.1:3876/admin/auth [P,L]
+  RewriteRule ^admin/passkey/register/options/?$ http://127.0.0.1:3876/admin/passkey/register/options [P,L]
+  RewriteRule ^admin/passkey/register/verify/?$ http://127.0.0.1:3876/admin/passkey/register/verify [P,L]
+  RewriteRule ^admin/passkey/auth/options/?$ http://127.0.0.1:3876/admin/passkey/auth/options [P,L]
+  RewriteRule ^admin/passkey/auth/verify/?$ http://127.0.0.1:3876/admin/passkey/auth/verify [P,L]
+  RewriteRule ^subscribers/import/?$ http://127.0.0.1:3876/subscribers/import [P,L]
+  RewriteRule ^subscribers/?$ http://127.0.0.1:3876/subscribers [P,L]
+  RewriteRule ^campaigns/([^/]+)/send/?$ http://127.0.0.1:3876/campaigns/$1/send [P,L]
+  RewriteRule ^campaigns/([^/]+)/?$ http://127.0.0.1:3876/campaigns/$1 [P,L]
+  RewriteRule ^campaigns/?$ http://127.0.0.1:3876/campaigns [P,L]
+  RewriteRule ^smtp/status/?$ http://127.0.0.1:3876/smtp/status [P,L]
+  RewriteRule ^smtp/test/?$ http://127.0.0.1:3876/smtp/test [P,L]
+  RewriteRule ^unsubscribe/([^/]+)/?$ http://127.0.0.1:3876/unsubscribe/$1 [P,L]
+
   # Canonicalize the public host to the apex domain to avoid split cache/docroot behavior.
   RewriteCond %{HTTP_HOST} ^www\.dandelionhouse\.hu$ [NC]
   RewriteRule ^ https://dandelionhouse.hu%{REQUEST_URI} [L,R=301]

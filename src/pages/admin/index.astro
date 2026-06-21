@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  "";
+  Astro.url.origin;
 const pageTitle = "Dandelion admin";
 const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 ---

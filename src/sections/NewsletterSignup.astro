@@ -7,7 +7,7 @@ const { lang = "hu" } = Astro.props as Props;
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  "";
+  Astro.url.origin;
 const copyByLang = {
   hu: {
     kicker: "Dandelion hírlevél",
