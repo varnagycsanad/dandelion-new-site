@@ -1,0 +1,786 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
+const pageTitle = "Hírlevél admin";
+const pageDescription =
+  "Saját hírlevél admin felület feliratkozók listájához, kereséshez, státuszszűréshez és CSV exporthoz.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
+  <section class="newsletter-admin" data-newsletter-admin data-api-base={newsletterApiUrl} data-admin-route="/admin/hirlevel">
+    <div class="newsletter-admin__backdrop newsletter-admin__backdrop--gold"></div>
+    <div class="newsletter-admin__backdrop newsletter-admin__backdrop--sage"></div>
+
+    <div class="newsletter-admin__shell">
+      <header class="newsletter-admin__hero">
+        <div class="newsletter-admin__hero-copy">
+          <p class="newsletter-admin__eyebrow">Dandelion hírlevél</p>
+          <h1>{pageTitle}</h1>
+          <p class="newsletter-admin__lead">
+            Itt látod az aktív feliratkozókat, a leiratkozott címeket, a forrásokat és az utolsó frissítés idejét.
+            Ez az első, könnyen használható admin nézet a saját, szolgáltató-független hírlevélhez.
+          </p>
+        </div>
+
+        <div class="newsletter-admin__hero-actions">
+          <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-refresh>
+            Frissítés
+          </button>
+          <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-export>
+            CSV export
+          </button>
+          <button class="newsletter-admin__button newsletter-admin__button--primary" type="button" data-copy-all>
+            E-mail címek másolása
+          </button>
+        </div>
+      </header>
+
+      <div class="newsletter-admin__statusbar">
+        <div class="newsletter-admin__status" data-status>
+          Betöltés...
+        </div>
+        <div class="newsletter-admin__hint">
+          API: <span data-api-label>{newsletterApiUrl || "nincs beállítva"}</span>
+        </div>
+      </div>
+
+      <section class="newsletter-admin__stats" aria-label="Feliratkozó statisztikák">
+        <article class="newsletter-admin__stat">
+          <span class="newsletter-admin__stat-label">Összes</span>
+          <strong data-stat-total>0</strong>
+        </article>
+        <article class="newsletter-admin__stat">
+          <span class="newsletter-admin__stat-label">Aktív</span>
+          <strong data-stat-active>0</strong>
+        </article>
+        <article class="newsletter-admin__stat">
+          <span class="newsletter-admin__stat-label">Leiratkozott</span>
+          <strong data-stat-unsubscribed>0</strong>
+        </article>
+        <article class="newsletter-admin__stat">
+          <span class="newsletter-admin__stat-label">Források</span>
+          <strong data-stat-sources>0</strong>
+        </article>
+      </section>
+
+      <section class="newsletter-admin__tools" aria-label="Szűrés és keresés">
+        <label class="newsletter-admin__field">
+          <span>Keresés</span>
+          <input type="search" placeholder="Név, e-mail, forrás, nyelv" data-search />
+        </label>
+
+        <label class="newsletter-admin__field">
+          <span>Státusz</span>
+          <select data-filter-status>
+            <option value="all">Összes</option>
+            <option value="active">Aktív</option>
+            <option value="pending">Pending</option>
+            <option value="unsubscribed">Leiratkozott</option>
+          </select>
+        </label>
+
+        <label class="newsletter-admin__field">
+          <span>Nyelv</span>
+          <select data-filter-lang>
+            <option value="all">Összes</option>
+            <option value="hu">HU</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="cs">CS</option>
+            <option value="sk">SK</option>
+          </select>
+        </label>
+
+        <label class="newsletter-admin__field">
+          <span>Forrás</span>
+          <select data-filter-source>
+            <option value="all">Összes</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="newsletter-admin__panel">
+        <div class="newsletter-admin__panel-head">
+          <div>
+            <p class="newsletter-admin__panel-kicker">Feliratkozók</p>
+            <h2>Lista és gyors áttekintés</h2>
+          </div>
+          <p class="newsletter-admin__panel-note">
+            A lista a saját newsletter service-ből töltődik be, ezért ez az admin akkor is használható, ha nincs külső platform.
+          </p>
+        </div>
+
+        <div class="newsletter-admin__table-wrap">
+          <table class="newsletter-admin__table">
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>E-mail</th>
+                <th>Státusz</th>
+                <th>Nyelv</th>
+                <th>Forrás</th>
+                <th>Feliratkozás</th>
+                <th>Leiratkozás</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody data-subscriber-rows>
+              <tr>
+                <td colspan="8" class="newsletter-admin__empty">
+                  A lista még töltés alatt van.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-newsletter-admin]");
+    if (!(root instanceof HTMLElement)) {
+      return;
+    }
+
+    const apiBase = root.dataset.apiBase?.trim() || "";
+    const statusNode = root.querySelector("[data-status]");
+    const rowsNode = root.querySelector("[data-subscriber-rows]");
+    const searchInput = root.querySelector("[data-search]");
+    const statusFilter = root.querySelector("[data-filter-status]");
+    const langFilter = root.querySelector("[data-filter-lang]");
+    const sourceFilter = root.querySelector("[data-filter-source]");
+    const refreshButton = root.querySelector("[data-refresh]");
+    const exportButton = root.querySelector("[data-export]");
+    const copyAllButton = root.querySelector("[data-copy-all]");
+    const statTotal = root.querySelector("[data-stat-total]");
+    const statActive = root.querySelector("[data-stat-active]");
+    const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
+    const statSources = root.querySelector("[data-stat-sources]");
+    const apiLabel = root.querySelector("[data-api-label]");
+
+    let subscribers = [];
+    let filteredSubscribers = [];
+    let sourceValues = [];
+
+    const formatDate = (value) => {
+      if (!value) return "—";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return String(value);
+      return new Intl.DateTimeFormat("hu-HU", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(date);
+    };
+
+    const escapeHtml = (value) =>
+      String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+
+    const normalize = (value) =>
+      String(value ?? "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    const setStatus = (message, tone = "info") => {
+      if (!(statusNode instanceof HTMLElement)) return;
+      statusNode.textContent = message;
+      statusNode.dataset.tone = tone;
+    };
+
+    const getFilterValue = (node) => (node instanceof HTMLInputElement || node instanceof HTMLSelectElement ? node.value : "all");
+
+    const updateStats = () => {
+      const counts = subscribers.reduce(
+        (acc, subscriber) => {
+          acc.total += 1;
+          acc[subscriber.status] = (acc[subscriber.status] ?? 0) + 1;
+          acc.sources.add(subscriber.source || "ismeretlen");
+          return acc;
+        },
+        { total: 0, active: 0, unsubscribed: 0, pending: 0, sources: new Set() }
+      );
+
+      if (statTotal) statTotal.textContent = String(counts.total);
+      if (statActive) statActive.textContent = String(counts.active);
+      if (statUnsubscribed) statUnsubscribed.textContent = String(counts.unsubscribed);
+      if (statSources) statSources.textContent = String(counts.sources.size);
+
+      sourceValues = Array.from(counts.sources).sort((a, b) => a.localeCompare(b, "hu"));
+      if (sourceFilter instanceof HTMLSelectElement) {
+        const current = sourceFilter.value;
+        const options = ["<option value=\"all\">Összes</option>"]
+          .concat(sourceValues.map((source) => `<option value="${escapeHtml(source)}">${escapeHtml(source)}</option>`))
+          .join("");
+        sourceFilter.innerHTML = options;
+        if (sourceValues.includes(current)) {
+          sourceFilter.value = current;
+        }
+      }
+    };
+
+    const render = () => {
+      const query = normalize(searchInput instanceof HTMLInputElement ? searchInput.value : "");
+      const statusValue = getFilterValue(statusFilter);
+      const langValue = getFilterValue(langFilter);
+      const sourceValue = getFilterValue(sourceFilter);
+
+      filteredSubscribers = subscribers.filter((subscriber) => {
+        const haystack = normalize(
+          [subscriber.name, subscriber.email, subscriber.source, subscriber.lang, subscriber.status].filter(Boolean).join(" ")
+        );
+
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesStatus = statusValue === "all" || subscriber.status === statusValue;
+        const matchesLang = langValue === "all" || normalize(subscriber.lang) === normalize(langValue);
+        const matchesSource = sourceValue === "all" || subscriber.source === sourceValue;
+        return matchesQuery && matchesStatus && matchesLang && matchesSource;
+      });
+
+      if (!(rowsNode instanceof HTMLElement)) return;
+
+      if (!filteredSubscribers.length) {
+        rowsNode.innerHTML = `
+          <tr>
+            <td colspan="8" class="newsletter-admin__empty">
+              Nincs a szűrőknek megfelelő feliratkozó.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      rowsNode.innerHTML = filteredSubscribers
+        .map((subscriber) => {
+          const statusClass = `is-${subscriber.status || "unknown"}`;
+          const displayName = subscriber.name || "Névtelen";
+          const unsubUrl = subscriber.unsubscribeToken ? `${apiBase.replace(/\/$/, "")}/unsubscribe/${subscriber.unsubscribeToken}` : "—";
+          return `
+            <tr>
+              <td>
+                <strong>${escapeHtml(displayName)}</strong>
+              </td>
+              <td>
+                <a href="mailto:${escapeHtml(subscriber.email)}">${escapeHtml(subscriber.email)}</a>
+              </td>
+              <td><span class="newsletter-admin__badge ${statusClass}">${escapeHtml(subscriber.status || "unknown")}</span></td>
+              <td>${escapeHtml(subscriber.lang || "—")}</td>
+              <td>${escapeHtml(subscriber.source || "—")}</td>
+              <td>${escapeHtml(formatDate(subscriber.createdAt))}</td>
+              <td>${subscriber.unsubscribeToken ? `<a href="${escapeHtml(unsubUrl)}" target="_blank" rel="noreferrer">Link</a>` : "—"}</td>
+              <td>
+                <button type="button" class="newsletter-admin__inline-button" data-copy-email="${escapeHtml(subscriber.email)}">
+                  Másolás
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      rowsNode.querySelectorAll("[data-copy-email]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const email = button.getAttribute("data-copy-email") || "";
+          try {
+            await navigator.clipboard.writeText(email);
+            setStatus(`Kimásolva: ${email}`, "success");
+          } catch {
+            setStatus("Nem sikerült a vágólapra másolni.", "error");
+          }
+        });
+      });
+    };
+
+    const loadSubscribers = async () => {
+      if (!apiBase) {
+        setStatus("A newsletter API nincs beállítva.", "warning");
+        if (apiLabel instanceof HTMLElement) {
+          apiLabel.textContent = "nincs beállítva";
+        }
+        return;
+      }
+
+      setStatus("Feliratkozók betöltése...", "info");
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "load_failed");
+        }
+
+        subscribers = Array.isArray(result.subscribers) ? result.subscribers : [];
+        updateStats();
+        render();
+        setStatus(`Betöltve: ${subscribers.length} feliratkozó.`, "success");
+      } catch (error) {
+        console.error("[newsletter-admin]", error);
+        setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
+      }
+    };
+
+    const exportCsv = () => {
+      const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
+      const columns = ["name", "email", "status", "lang", "source", "createdAt", "updatedAt", "unsubscribeToken"];
+      const csv = [
+        columns.join(","),
+        ...rows.map((subscriber) =>
+          columns
+            .map((column) => {
+              const value = String(subscriber[column] ?? "");
+              return `"${value.replaceAll('"', '""')}"`;
+            })
+            .join(",")
+        ),
+      ].join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `dandelion-newsletter-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+      setStatus("CSV export kész.", "success");
+    };
+
+    const copyAllEmails = async () => {
+      const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
+      const emails = rows.map((subscriber) => subscriber.email).filter(Boolean).join(", ");
+      if (!emails) {
+        setStatus("Nincs másolható e-mail cím.", "warning");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(emails);
+        setStatus("Az e-mail címek a vágólapra kerültek.", "success");
+      } catch {
+        setStatus("Nem sikerült a vágólapra másolni.", "error");
+      }
+    };
+
+    searchInput?.addEventListener("input", render);
+    statusFilter?.addEventListener("change", render);
+    langFilter?.addEventListener("change", render);
+    sourceFilter?.addEventListener("change", render);
+    refreshButton?.addEventListener("click", loadSubscribers);
+    exportButton?.addEventListener("click", exportCsv);
+    copyAllButton?.addEventListener("click", copyAllEmails);
+
+    loadSubscribers();
+  })();
+</script>
+
+<style>
+  .newsletter-admin {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 34px 18px 56px;
+    background:
+      radial-gradient(circle at top left, rgba(214, 171, 90, 0.18), transparent 26%),
+      radial-gradient(circle at 85% 8%, rgba(104, 137, 108, 0.14), transparent 22%),
+      linear-gradient(180deg, #f8f2e6 0%, #f4efe4 100%);
+    color: #2b241c;
+  }
+
+  .newsletter-admin__backdrop {
+    position: absolute;
+    inset: auto;
+    border-radius: 999px;
+    filter: blur(18px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .newsletter-admin__backdrop--gold {
+    top: 32px;
+    right: -120px;
+    width: 320px;
+    height: 320px;
+    background: rgba(224, 176, 74, 0.25);
+  }
+
+  .newsletter-admin__backdrop--sage {
+    left: -80px;
+    bottom: 120px;
+    width: 260px;
+    height: 260px;
+    background: rgba(126, 155, 122, 0.2);
+  }
+
+  .newsletter-admin__shell {
+    position: relative;
+    z-index: 1;
+    width: min(1360px, calc(100vw - 36px));
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+  }
+
+  .newsletter-admin__hero,
+  .newsletter-admin__panel,
+  .newsletter-admin__stats,
+  .newsletter-admin__tools,
+  .newsletter-admin__statusbar {
+    border: 1px solid rgba(82, 63, 36, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.84);
+    box-shadow: 0 16px 40px rgba(79, 60, 34, 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .newsletter-admin__hero {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px;
+  }
+
+  .newsletter-admin__hero-copy {
+    max-width: 760px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .newsletter-admin__eyebrow,
+  .newsletter-admin__panel-kicker {
+    margin: 0;
+    color: rgba(122, 95, 52, 0.86);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .newsletter-admin h1 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .newsletter-admin__lead {
+    margin: 0;
+    max-width: 68ch;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(69, 55, 38, 0.88);
+  }
+
+  .newsletter-admin__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-self: center;
+  }
+
+  .newsletter-admin__button,
+  .newsletter-admin__inline-button {
+    border: 0;
+    border-radius: 999px;
+    font: inherit;
+    cursor: pointer;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .newsletter-admin__button:hover,
+  .newsletter-admin__inline-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .newsletter-admin__button {
+    min-height: 46px;
+    padding: 0 18px;
+    font-weight: 700;
+  }
+
+  .newsletter-admin__button--ghost {
+    color: #47361f;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 0 1px rgba(89, 68, 40, 0.12);
+  }
+
+  .newsletter-admin__button--primary {
+    color: #fff9ef;
+    background: linear-gradient(135deg, #272218 0%, #6c5130 100%);
+    box-shadow: 0 18px 28px rgba(63, 47, 26, 0.2);
+  }
+
+  .newsletter-admin__statusbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    align-items: center;
+  }
+
+  .newsletter-admin__status {
+    min-height: 24px;
+    font-weight: 600;
+  }
+
+  .newsletter-admin__status[data-tone="success"] {
+    color: #1d6b37;
+  }
+
+  .newsletter-admin__status[data-tone="warning"] {
+    color: #8a5a00;
+  }
+
+  .newsletter-admin__status[data-tone="error"] {
+    color: #9b2c2c;
+  }
+
+  .newsletter-admin__hint {
+    color: rgba(83, 68, 49, 0.72);
+    font-size: 0.92rem;
+  }
+
+  .newsletter-admin__stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .newsletter-admin__stat {
+    border-radius: 22px;
+    padding: 18px 18px 16px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 240, 224, 0.95));
+    box-shadow: inset 0 0 0 1px rgba(92, 67, 37, 0.08);
+  }
+
+  .newsletter-admin__stat-label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(101, 79, 47, 0.74);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .newsletter-admin__stat strong {
+    display: block;
+    font-size: clamp(1.8rem, 2vw, 2.4rem);
+    line-height: 1;
+  }
+
+  .newsletter-admin__tools {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .newsletter-admin__field {
+    display: grid;
+    gap: 8px;
+    font-size: 0.95rem;
+  }
+
+  .newsletter-admin__field span {
+    color: rgba(82, 67, 45, 0.82);
+    font-weight: 600;
+  }
+
+  .newsletter-admin__field input,
+  .newsletter-admin__field select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid rgba(90, 71, 42, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2a231b;
+    font: inherit;
+  }
+
+  .newsletter-admin__panel {
+    padding: 24px;
+  }
+
+  .newsletter-admin__panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: end;
+    margin-bottom: 18px;
+  }
+
+  .newsletter-admin__panel h2 {
+    margin: 6px 0 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.7rem, 2vw, 2.3rem);
+  }
+
+  .newsletter-admin__panel-note {
+    margin: 0;
+    max-width: 52ch;
+    color: rgba(82, 67, 45, 0.78);
+    line-height: 1.6;
+  }
+
+  .newsletter-admin__table-wrap {
+    overflow: auto;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(95, 72, 41, 0.08);
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .newsletter-admin__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 980px;
+  }
+
+  .newsletter-admin__table th,
+  .newsletter-admin__table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(95, 72, 41, 0.08);
+    vertical-align: middle;
+  }
+
+  .newsletter-admin__table th {
+    position: sticky;
+    top: 0;
+    background: rgba(248, 242, 232, 0.98);
+    color: rgba(77, 59, 34, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    z-index: 1;
+  }
+
+  .newsletter-admin__table tbody tr:nth-child(even) {
+    background: rgba(250, 246, 238, 0.76);
+  }
+
+  .newsletter-admin__table tbody tr:hover {
+    background: rgba(244, 233, 211, 0.72);
+  }
+
+  .newsletter-admin__table a {
+    color: #73552e;
+    text-decoration: none;
+  }
+
+  .newsletter-admin__table a:hover {
+    text-decoration: underline;
+  }
+
+  .newsletter-admin__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(91, 70, 42, 0.08);
+    color: #4e3b23;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .newsletter-admin__badge.is-active {
+    background: rgba(57, 123, 73, 0.14);
+    color: #1f6b39;
+  }
+
+  .newsletter-admin__badge.is-unsubscribed {
+    background: rgba(129, 78, 78, 0.14);
+    color: #8d3434;
+  }
+
+  .newsletter-admin__badge.is-pending {
+    background: rgba(163, 124, 32, 0.14);
+    color: #8c640a;
+  }
+
+  .newsletter-admin__inline-button {
+    padding: 10px 14px;
+    background: rgba(244, 238, 226, 0.96);
+    color: #3f301e;
+    box-shadow: inset 0 0 0 1px rgba(96, 73, 41, 0.12);
+  }
+
+  .newsletter-admin__empty {
+    padding: 28px 16px !important;
+    color: rgba(86, 70, 50, 0.78);
+    text-align: center !important;
+  }
+
+  @media (max-width: 1100px) {
+    .newsletter-admin__hero,
+    .newsletter-admin__panel-head,
+    .newsletter-admin__statusbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .newsletter-admin__stats,
+    .newsletter-admin__tools {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .newsletter-admin {
+      padding: 18px 12px 28px;
+    }
+
+    .newsletter-admin__shell {
+      width: min(100%, 100vw - 24px);
+    }
+
+    .newsletter-admin__hero,
+    .newsletter-admin__panel,
+    .newsletter-admin__stats,
+    .newsletter-admin__tools,
+    .newsletter-admin__statusbar {
+      border-radius: 22px;
+    }
+
+    .newsletter-admin__hero,
+    .newsletter-admin__panel {
+      padding: 18px;
+    }
+
+    .newsletter-admin__stats,
+    .newsletter-admin__tools {
+      grid-template-columns: 1fr;
+      padding: 14px;
+    }
+
+    .newsletter-admin__table {
+      min-width: 860px;
+    }
+  }
+</style>

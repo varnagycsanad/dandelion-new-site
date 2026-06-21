@@ -111,8 +111,8 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 - Statusz: reszben teljesult
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a helyzet: a lista kezeleshez mar van service es SMTP kuldesi reteg.
-- Kovetkezo konkret lepes: admin lista, CSV export, kampany szerkesztes es tesztkuldes felulet meg epites alatt.
+- Mi a helyzet: a lista kezeleshez mar van service, SMTP kuldesi reteg es az `admin/hirlevel` listaoldal is elkészült kereséssel, szűréssel és CSV exporttal.
+- Kovetkezo konkret lepes: kampany szerkesztes, tesztkuldes felulet es jogosultsagi vedelem meg epites alatt.
 
 ## P2 - minoseg, tartalom, paritas
 
