@@ -11,6 +11,8 @@ Ez a mappa tartalmazza a sajat, szolgaltato-fuggetlen hírlevél MVP backend sca
 - kampanykezelo oldal: `/admin/kampanyok`
 - admin lista felulet: `/admin/hirlevel`
 - admin kezdooldal: `/admin`
+- admin jelszavas vedelem
+- CSV subscriber import az admin lista oldalon
 
 ## Futtatas
 
@@ -37,3 +39,4 @@ npm run start
 ## MVP megjegyzes
 
 Az SMTP kuldes most mar be van kotve, de a valos kuldeshez a fenti env mezoket ki kell tolteni. A test endpoint: `POST /smtp/test`.
+Az admin felulet jelszavas vedelemmel mukodik, a listaoldalon pedig CSV importtal lehet feliratkozokat betolteni.

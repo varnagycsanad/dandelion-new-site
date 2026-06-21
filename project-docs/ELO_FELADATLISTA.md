@@ -111,8 +111,15 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 - Statusz: reszben teljesult
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a helyzet: a lista kezeleshez mar van service, SMTP kuldesi reteg, az `admin/hirlevel` listaoldal, az `admin/kampanyok` szerkesztooldal es az `admin` kezdooldal is elkészült.
-- Kovetkezo konkret lepes: jogosultsagi vedelem, CSV import es finomabb deliverability / naplozasi hardening meg epites alatt.
+- Mi a helyzet: a lista kezeleshez mar van service, SMTP kuldesi reteg, az `admin/hirlevel` listaoldal, az `admin/kampanyok` szerkesztooldal, az `admin` kezdooldal, a jelszavas admin vedelem es a CSV import is elkészült.
+- Kovetkezo konkret lepes: naplozasi/deliverability hardening, majd ha kell, finomabb szerepkor vagy audit trail.
+
+### P1-10 - Email marketing MVP QA es stabilizalas
+
+- Statusz: nyitott
+- Forras: `project-docs/email-marketing-mvp-plan.md`
+- Mi a gond: az MVP mar mukodik, de kell vegigteszteles, hibakezelesi ellenorzes, deliverability QA es uzemi simitas.
+- Kovetkezo konkret lepes: end-to-end teszt a signup, unsubscribe, CSV import, admin login, campaign send flow-kon, majd az eredmenyek alapjan javitasok.
 
 ## P2 - minoseg, tartalom, paritas
 
