@@ -22,10 +22,14 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           Ez a központi belépési pont a hírlevél modulokhoz. Itt látszik először, ha a külön newsletter service nincs elindítva.
         </p>
 
+        <div class="admin-newsletter__connection-flag" data-connection-flag aria-live="polite">
+          A kapcsolat állapota még ellenőrzés alatt.
+        </div>
+
         <div class="admin-newsletter__gate-actions">
           <a class="admin-newsletter__button admin-newsletter__button--ghost" href="/admin/">Vissza az adminhoz</a>
           <button class="admin-newsletter__button" type="button" data-check-connection>
-            Kapcsolat ellenőrzése
+            Újraellenőrzés
           </button>
         </div>
 
@@ -89,6 +93,7 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     const apiBase = root.dataset.apiBase?.trim() || "";
     const gate = root.querySelector("[data-gate]");
     const gateStatus = root.querySelector("[data-gate-status]");
+    const connectionFlag = root.querySelector("[data-connection-flag]");
     const checkConnectionButton = root.querySelector("[data-check-connection]");
     const shell = root.querySelector(".admin-newsletter__shell");
     const adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
@@ -100,6 +105,16 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
       if (gateStatus instanceof HTMLElement) {
         gateStatus.textContent = message;
         gateStatus.dataset.tone = tone;
+      }
+      if (connectionFlag instanceof HTMLElement) {
+        connectionFlag.textContent = tone === "success"
+          ? "A newsletter service fut."
+          : tone === "warning"
+            ? "A newsletter service most nem látszik."
+            : tone === "error"
+              ? "A newsletter service nem érhető el."
+              : "Kapcsolat ellenőrzése...";
+        connectionFlag.dataset.tone = tone;
       }
     };
 
@@ -208,6 +223,39 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     display: grid;
     gap: 14px;
     pointer-events: auto;
+  }
+
+  .admin-newsletter__connection-flag {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(92, 67, 37, 0.12);
+    background: rgba(255, 252, 247, 0.96);
+    color: #5b4a39;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .admin-newsletter__connection-flag[data-tone="success"] {
+    border-color: rgba(57, 123, 73, 0.18);
+    background: rgba(231, 247, 232, 0.96);
+    color: #1d6b37;
+  }
+
+  .admin-newsletter__connection-flag[data-tone="warning"] {
+    border-color: rgba(201, 156, 59, 0.2);
+    background: rgba(255, 245, 224, 0.96);
+    color: #8a5a00;
+  }
+
+  .admin-newsletter__connection-flag[data-tone="error"] {
+    border-color: rgba(196, 94, 94, 0.2);
+    background: rgba(255, 236, 236, 0.96);
+    color: #9b2c2c;
   }
 
   .admin-newsletter__backdrop {
