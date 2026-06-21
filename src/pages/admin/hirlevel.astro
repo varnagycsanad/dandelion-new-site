@@ -12,39 +12,7 @@ const pageDescription =
     <div class="newsletter-admin__backdrop newsletter-admin__backdrop--gold"></div>
     <div class="newsletter-admin__backdrop newsletter-admin__backdrop--sage"></div>
 
-    <div class="newsletter-admin__auth" data-auth-panel>
-      <div class="newsletter-admin__auth-card">
-        <p class="newsletter-admin__eyebrow">Admin belépés</p>
-        <h2>Jelszó szükséges</h2>
-        <form class="newsletter-admin__auth-form" data-auth-form>
-          <label class="newsletter-admin__field newsletter-admin__field--full">
-            <span>Admin jelszó</span>
-            <div class="newsletter-admin__password-field">
-              <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
-              <button
-                class="newsletter-admin__password-toggle"
-                type="button"
-                aria-label="Jelszó megjelenítése"
-                aria-pressed="false"
-                data-password-toggle
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 5c5.5 0 9.7 4.1 11 7-1.3 2.9-5.5 7-11 7S2.3 14.9 1 12c1.3-2.9 5.5-7 11-7Zm0 2C7.7 7 4.2 9.8 3 12c1.2 2.2 4.7 5 9 5s7.8-2.8 9-5c-1.2-2.2-4.7-5-9-5Zm0 1.8A3.2 3.2 0 1 1 12 16a3.2 3.2 0 0 1 0-6.2Zm0 2A1.2 1.2 0 1 0 12 13.6 1.2 1.2 0 0 0 12 10.8Z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </label>
-          <div class="newsletter-admin__actions">
-            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Belépés</button>
-          </div>
-        </form>
-        <p class="newsletter-admin__status" data-auth-status aria-live="polite"></p>
-      </div>
-    </div>
-
-    <div class="newsletter-admin__shell">
+    <div class="newsletter-admin__shell" hidden>
       <header class="newsletter-admin__hero">
         <div class="newsletter-admin__hero-copy">
           <p class="newsletter-admin__eyebrow">Dandelion hírlevél</p>
@@ -237,11 +205,6 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
     const statSources = root.querySelector("[data-stat-sources]");
     const apiLabel = root.querySelector("[data-api-label]");
-    const authPanel = root.querySelector("[data-auth-panel]");
-    const authForm = root.querySelector("[data-auth-form]");
-    const authInput = root.querySelector("[data-auth-input]");
-    const passwordToggle = root.querySelector("[data-password-toggle]");
-    const authStatus = root.querySelector("[data-auth-status]");
     const authStorageKey = "dandelion-newsletter-admin-password";
 
     let subscribers = [];
@@ -249,25 +212,15 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     let sourceValues = [];
     let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
 
-    const updateLockState = (locked) => {
-      root.classList.toggle("is-locked", locked);
-      if (authPanel instanceof HTMLElement) {
-        authPanel.hidden = !locked;
-      }
-    };
+    if (!adminPassword) {
+      window.location.replace("/admin/");
+      return;
+    }
 
-    const setAuthStatus = (message, tone = "info") => {
-      if (!(authStatus instanceof HTMLElement)) return;
-      authStatus.textContent = message;
-      authStatus.dataset.tone = tone;
-    };
-
-    const setPasswordVisible = (visible) => {
-      if (!(authInput instanceof HTMLInputElement) || !(passwordToggle instanceof HTMLButtonElement)) return;
-      authInput.type = visible ? "text" : "password";
-      passwordToggle.setAttribute("aria-pressed", String(visible));
-      passwordToggle.setAttribute("aria-label", visible ? "Jelszó elrejtése" : "Jelszó megjelenítése");
-    };
+    const shell = root.querySelector(".newsletter-admin__shell");
+    if (shell instanceof HTMLElement) {
+      shell.hidden = false;
+    }
 
     const formatDate = (value) => {
       if (!value) return "—";
@@ -551,9 +504,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         if (response.status === 401) {
           adminPassword = "";
           sessionStorage.removeItem(authStorageKey);
-          updateLockState(true);
-          setAuthStatus("Hibás admin jelszó.", "error");
-          setStatus("Belépés szükséges.", "warning");
+          window.location.replace("/admin/");
           return;
         }
 
@@ -572,51 +523,6 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
       }
     };
-
-    authForm?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const password = authInput instanceof HTMLInputElement ? authInput.value.trim() : "";
-      if (!password) {
-        setAuthStatus("Adj meg egy jelszót.", "warning");
-        return;
-      }
-
-      setAuthStatus("Beléptetés folyamatban...", "info");
-
-      try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Newsletter-Admin-Password": password,
-            Accept: "application/json",
-          },
-          body: "{}",
-        });
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok || !result?.ok) {
-          throw new Error(result?.message || "auth_failed");
-        }
-
-        adminPassword = password;
-        sessionStorage.setItem(authStorageKey, password);
-        updateLockState(false);
-        setAuthStatus("Belépés sikeres.", "success");
-        setStatus("Admin feloldva.", "success");
-        await loadSubscribers();
-      } catch (error) {
-        console.error("[newsletter-admin-auth]", error);
-        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
-      }
-    });
-
-    passwordToggle?.addEventListener("click", () => {
-      if (!(authInput instanceof HTMLInputElement)) return;
-      setPasswordVisible(authInput.type === "password");
-      authInput.focus();
-    });
 
     const exportCsv = () => {
       const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
@@ -696,9 +602,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         if (response.status === 401) {
           adminPassword = "";
           sessionStorage.removeItem(authStorageKey);
-          updateLockState(true);
-          setAuthStatus("Hibás admin jelszó.", "error");
-          setStatus("Belépés szükséges.", "warning");
+          window.location.replace("/admin/");
           return;
         }
 
@@ -731,16 +635,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       await importCsvFile();
     });
 
-    updateLockState(!adminPassword);
-    if (adminPassword) {
-      loadSubscribers();
-    } else {
-      setStatus("Belépés szükséges az adminhoz.", "warning");
-      setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
-      closeImport();
-    }
-
-    setPasswordVisible(false);
+    loadSubscribers();
   })();
 </script>
 
