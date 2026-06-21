@@ -175,7 +175,7 @@ Rovid statuszmegjegyzes kerult a kovetkezo fajlok elejere:
 ## 2026-06-03 frissites
 
 - Letrejott a kozponti dokumentacios belepesi pont: `project-docs/INDEX.md`.
-- Letrejott az elo feladatlista: `project-docs/ACTIVE_BACKLOG.md`.
+- Letrejott az elo feladatlista: `project-docs/ELO_FELADATLISTA.md`.
 - Letrejott az archiválási dontesi lista: `project-docs/archive-decision-list-2026-06-03.md`.
 - Minden MD fajl kapott egységes `Status`, `Last checked`, `Use for`, `Do not use for` blokkot.
 - Aktualis MD darabszam: 66.

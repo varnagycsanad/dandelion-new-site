@@ -15,7 +15,7 @@ A Facebook oldal publikus alapadatai rendben vannak: nev, kategoria, cim, telefo
 ## Felhasznalt forrasok
 
 - Kozvetlen Meta Marketing API: helyi `scripts/meta/meta-ads.mjs` read-only parancsok.
-- Projekt dokumentacio: `project-docs/META_ADS_CODEX_INTEGRATION.md`, `project-docs/ACTIVE_BACKLOG.md`.
+- Projekt dokumentacio: `project-docs/META_ADS_CODEX_INTEGRATION.md`, `project-docs/ELO_FELADATLISTA.md`.
 - Facebook oldal: `https://www.facebook.com/DandelionVendeghaz/`.
 - Weboldal es lokalis forras: `src/data/accommodations.ts`, `src/pages/szallasok.astro`, `src/pages/kisapati-medences-szallas.astro`, `src/pages/panorama-pool.astro`.
 - Meta hivatalos segedanyagok: kampanycelok, Advantage+ Audience, Lead Ads Instant Form, Pixel es Conversions API.
@@ -383,4 +383,3 @@ Most ne a regi kampanyok optimalizalasaval kezdjunk. A fiokban nincs friss telje
 3. elso 2026-os kampanyterv a Panorama Pool + szallasvalaszto tengelyen,
 4. meres es UTM rendbetetele,
 5. kis budgetes kontrollalt inditas.
-

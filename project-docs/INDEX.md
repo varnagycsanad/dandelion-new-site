@@ -49,7 +49,7 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 4. `project-docs/INDEX.md`
    - dokumentacios navigacio es aktualis prioritas
 
-5. `project-docs/ACTIVE_BACKLOG.md`
+5. `project-docs/ELO_FELADATLISTA.md`
    - egyetlen elo feladatlista; a regi auditok feladatai csak akkor aktivak, ha itt is szerepelnek
 
 6. `project-docs/md-file-audit-2026-06-02.md`
@@ -66,7 +66,7 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 Ezek friss vagy meg hasznalhato allapotjelentesek, de mindig ellenorizni kell a datumot:
 
 - `project-docs/md-file-audit-2026-06-02.md`
-- `project-docs/ACTIVE_BACKLOG.md`
+- `project-docs/ELO_FELADATLISTA.md`
 - `project-docs/archive-decision-list-2026-06-03.md`
 - `project-docs/server-wp-audit-latest.md`
 - `project-docs/wp-uploads-replacement-audit.md`
@@ -197,7 +197,7 @@ ebben a sorrendben kell donteni.
 
 Az elso rendrakasi kor kesz: minden MD fajl statuszolt, van kozponti index, es letrejott az elo feladatlista.
 
-Kovetkezo biztonsagos lepes: a `project-docs/ACTIVE_BACKLOG.md` alapjan egyetlen P0 vagy P1 feladat kivalasztasa, majd annak friss repoellenorzessel es szuk keresztmetszetu implementacioval torteno lezárasa.
+Kovetkezo biztonsagos lepes: a `project-docs/ELO_FELADATLISTA.md` alapjan egyetlen P0 vagy P1 feladat kivalasztasa, majd annak friss repoellenorzessel es szuk keresztmetszetu implementacioval torteno lezárasa.
 
 Archiválást csak akkor erdemes folytatni, ha mar nem zavarja az elo feladatok koveteset.
 

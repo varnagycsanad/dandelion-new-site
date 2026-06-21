@@ -70,6 +70,8 @@ Nem a `dist` a szerkesztési forrás.
 
 A projekt mesterverziója a helyi Astro projektmappa.
 
+[CHANGE 2026-06-21 00:00] A szolgaltato-fuggetlen email-marketing MVP nyomonkovetesi alapja a `project-docs/email-marketing-mvp-plan.md`; a progress logot es a fazisokat ott kell vezetni.
+
 Ez a forrás:
 - `src/`
 - `public/`

@@ -4,46 +4,82 @@ interface Props {
 }
 
 const { lang = "hu" } = Astro.props as Props;
+const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
 const copyByLang = {
   hu: {
     kicker: "Dandelion hírlevél",
     title: "Akciók és szabad dátumok",
-    lead: "Szezonális ajánlatok és felszabaduló időpontok e-mailben.",
-    aria: "Hírlevél popup megnyitása",
-    button: "Értesítést kérek",
-    note: "Egy rövid felugró ablakban tudsz feliratkozni."
+    lead: "Szezonális ajánlatok és felszabaduló időpontok e-mailben, most már saját feliratkozó űrlapon keresztül.",
+    aria: "Hírlevél feliratkozó űrlap",
+    name: "Név",
+    email: "E-mail cím",
+    consent:
+      "Elfogadom, hogy a Dandelion időnként e-mailben hírt küldjön nekem, és a hozzájárulásomat bármikor visszavonhatom.",
+    button: "Feliratkozom",
+    note: "A feliratkozás a saját rendszerre kerül, nem külső popupba.",
+    missingEndpoint: "A feliratkozó rendszer még előkészítés alatt van.",
+    success: "Köszönjük, a feliratkozás fogadásra került.",
+    error: "Sajnos most nem sikerült a feliratkozás.",
   },
   en: {
     kicker: "Dandelion newsletter",
     title: "Offers, special dates and newly available stays by e-mail.",
-    lead: "Quiet updates about seasonal offers, direct booking opportunities and free dates.",
-    aria: "Open newsletter signup popup",
-    button: "Send me updates",
-    note: "You can subscribe in a short popup window."
+    lead: "Quiet updates about seasonal offers, direct booking opportunities and free dates through our own signup form.",
+    aria: "Newsletter signup form",
+    name: "Name",
+    email: "E-mail address",
+    consent:
+      "I agree that Dandelion may send me occasional e-mails and that I can withdraw my consent at any time.",
+    button: "Sign me up",
+    note: "This signup will go to our own system instead of a third-party popup.",
+    missingEndpoint: "The signup system is still being prepared.",
+    success: "Thanks, your signup was received.",
+    error: "Sorry, we could not complete the signup right now.",
   },
   de: {
     kicker: "Dandelion Newsletter",
     title: "Angebote, besondere Termine und freie Zeiträume per E-Mail.",
-    lead: "Diskrete Hinweise zu saisonalen Angeboten, Direktbuchung und frei gewordenen Terminen.",
-    aria: "Newsletter-Popup öffnen",
-    button: "Updates erhalten",
-    note: "Die Anmeldung öffnet sich in einem kurzen Popup-Fenster."
+    lead: "Diskrete Hinweise zu saisonalen Angeboten, Direktbuchung und frei gewordenen Terminen über unser eigenes Formular.",
+    aria: "Newsletter-Anmeldeformular",
+    name: "Name",
+    email: "E-Mail-Adresse",
+    consent:
+      "Ich stimme zu, dass Dandelion mir gelegentlich E-Mails senden darf und dass ich meine Einwilligung jederzeit widerrufen kann.",
+    button: "Anmelden",
+    note: "Die Anmeldung läuft über unser eigenes System, nicht über ein externes Popup.",
+    missingEndpoint: "Das Anmeldesystem wird noch vorbereitet.",
+    success: "Vielen Dank, Ihre Anmeldung wurde übernommen.",
+    error: "Die Anmeldung konnte gerade leider nicht abgeschlossen werden.",
   },
   cs: {
     kicker: "Newsletter Dandelion",
     title: "Nabídky, speciální termíny a uvolněné pobyty e-mailem.",
-    lead: "Nenápadné novinky o sezónních nabídkách, přímé rezervaci a volných termínech.",
-    aria: "Otevřít přihlášení k newsletteru",
+    lead: "Nenápadné novinky o sezónních nabídkách, přímé rezervaci a volných termínech přes vlastní formulář.",
+    aria: "Formulář pro přihlášení k newsletteru",
+    name: "Jméno",
+    email: "E-mailová adresa",
+    consent:
+      "Souhlasím s tím, že mi Dandelion může čas od času posílat e-maily a že svůj souhlas mohu kdykoli odvolat.",
     button: "Chci novinky",
-    note: "Přihlášení se otevře v krátkém vyskakovacím okně."
+    note: "Přihlášení jde do našeho vlastního systému, ne do cizího popupu.",
+    missingEndpoint: "Přihlašovací systém je ještě ve fázi přípravy.",
+    success: "Děkujeme, přihlášení bylo přijato.",
+    error: "Přihlášení se teď bohužel nepodařilo dokončit.",
   },
   sk: {
     kicker: "Newsletter Dandelion",
     title: "Ponuky, špeciálne termíny a uvoľnené pobyty e-mailom.",
-    lead: "Nenápadné novinky o sezónnych ponukách, priamej rezervácii a voľných termínoch.",
-    aria: "Otvoriť prihlásenie k newsletteru",
+    lead: "Nenápadné novinky o sezónnych ponukách, priamej rezervácii a voľných termínoch cez vlastný formulár.",
+    aria: "Formulár na prihlásenie k newsletteru",
+    name: "Meno",
+    email: "E-mailová adresa",
+    consent:
+      "Súhlasím s tým, aby mi Dandelion mohol občas poslať e-mail a aby som svoj súhlas mohol kedykoľvek odvolať.",
     button: "Chcem novinky",
-    note: "Prihlásenie sa otvorí v krátkom vyskakovacom okne."
+    note: "Prihlásenie ide do nášho vlastného systému, nie do cudzieho popupu.",
+    missingEndpoint: "Prihlasovací systém je ešte vo fáze prípravy.",
+    success: "Ďakujeme, prihlásenie bolo prijaté.",
+    error: "Prihlásenie sa teraz, žiaľ, nepodarilo dokončiť.",
   }
 } as const;
 const copy = copyByLang[lang];
@@ -59,17 +95,39 @@ const copy = copyByLang[lang];
           <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
         </div>
 
-        <div class="dnd-newsletter-signup__form" role="group" aria-label={copy.aria}>
-          <button
-            type="button"
-            class="dnd-btn dnd-btn--primary dnd-newsletter-signup__trigger"
-            data-dnd-mailerlite-trigger
-            data-dnd-mailerlite-form="4eQILc"
-          >
-            {copy.button}
-          </button>
-          <p class="dnd-newsletter-signup__note">{copy.note}</p>
-        </div>
+        <form class="dnd-newsletter-signup__form" data-dnd-newsletter-form aria-label={copy.aria}>
+          <input type="hidden" name="lang" value={lang} />
+          <input type="hidden" name="source" value="newsletter-signup" />
+
+          <label class="dnd-newsletter-signup__field">
+            <span>{copy.name}</span>
+            <input name="name" type="text" autocomplete="name" maxlength="120" placeholder={copy.name} />
+          </label>
+
+          <label class="dnd-newsletter-signup__field">
+            <span>{copy.email}</span>
+            <input name="email" type="email" autocomplete="email" required maxlength="180" placeholder="pelda@domain.hu" />
+          </label>
+
+          <label class="dnd-newsletter-signup__checkbox">
+            <input name="consent" type="checkbox" required />
+            <span>{copy.consent}</span>
+          </label>
+
+          <div class="dnd-newsletter-signup__actions">
+            <button
+              type="submit"
+              class="dnd-btn dnd-btn--primary dnd-newsletter-signup__trigger"
+              data-dnd-newsletter-submit
+              data-endpoint={newsletterApiUrl}
+            >
+              {copy.button}
+            </button>
+            <p class="dnd-newsletter-signup__note">{copy.note}</p>
+          </div>
+
+          <p class="dnd-newsletter-signup__status" data-dnd-newsletter-status aria-live="polite" hidden></p>
+        </form>
       </div>
     </div>
   </div>
@@ -77,38 +135,80 @@ const copy = copyByLang[lang];
 
 <script is:inline>
   (() => {
-    const scriptUrl = "https://assets.mailerlite.com/js/universal.js";
-    const accountId = "2003610";
-    let isLoading = false;
-    let isAccountQueued = false;
+    const forms = document.querySelectorAll("[data-dnd-newsletter-form]");
 
-    window.ml =
-      window.ml ||
-      function () {
-        (window.ml.q = window.ml.q || []).push(arguments);
+    forms.forEach((form) => {
+      const submitButton = form.querySelector("[data-dnd-newsletter-submit]");
+      const statusNode = form.querySelector("[data-dnd-newsletter-status]");
+      const endpoint = submitButton?.dataset.endpoint?.trim() || "";
+
+      const setStatus = (message, state = "info") => {
+        if (!statusNode) return;
+        statusNode.hidden = !message;
+        statusNode.textContent = message;
+        statusNode.dataset.state = state;
       };
 
-    const loadMailerLite = () => {
-      if (isLoading || document.querySelector(`script[src="${scriptUrl}"]`)) {
-        return;
+      if (!endpoint) {
+        setStatus("A feliratkozo rendszer meg elokeszites alatt van.", "warning");
       }
 
-      isLoading = true;
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = scriptUrl;
-      document.head.appendChild(script);
-    };
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    document.querySelectorAll("[data-dnd-mailerlite-trigger]").forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        if (!isAccountQueued) {
-          window.ml("account", accountId);
-          isAccountQueued = true;
+        if (!endpoint) {
+          setStatus("A feliratkozo rendszer meg elokeszites alatt van.", "warning");
+          return;
         }
 
-        window.ml("show", trigger.dataset.dndMailerliteForm, true);
-        loadMailerLite();
+        if (!(form instanceof HTMLFormElement) || !form.reportValidity()) {
+          return;
+        }
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const email = String(payload.email || "").trim();
+
+        if (!email) {
+          setStatus("Adj meg egy ervenyes e-mail cimet.", "warning");
+          return;
+        }
+
+        const originalLabel = submitButton?.textContent || "";
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = true;
+          submitButton.textContent = "Küldés...";
+        }
+
+        setStatus("Küldés folyamatban...", "info");
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(result?.message || "request_failed");
+          }
+
+          form.reset();
+          setStatus(result?.message || "Koszonjuk, a feliratkozas fogadasra kerult.", "success");
+        } catch (error) {
+          setStatus("Sajnos most nem sikerult a feliratkozas.", "error");
+          console.error("[newsletter-signup]", error);
+        } finally {
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalLabel;
+          }
+        }
       });
     });
   })();
@@ -172,14 +272,58 @@ const copy = copyByLang[lang];
 
   .dnd-newsletter-signup__form {
     display: grid;
-    gap: 10px;
+    gap: 14px;
     flex: 0 0 auto;
-    justify-items: end;
-    text-align: right;
+    width: min(100%, 420px);
+  }
+
+  .dnd-newsletter-signup__field {
+    display: grid;
+    gap: 6px;
+  }
+
+  .dnd-newsletter-signup__field span,
+  .dnd-newsletter-signup__checkbox span {
+    color: rgba(39, 32, 24, 0.72);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.35;
+  }
+
+  .dnd-newsletter-signup__field input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid rgba(91, 70, 42, 0.18);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    color: rgba(39, 32, 24, 0.94);
+    font: inherit;
+  }
+
+  .dnd-newsletter-signup__field input:focus {
+    outline: 2px solid rgba(201, 156, 59, 0.35);
+    outline-offset: 2px;
+    border-color: rgba(201, 156, 59, 0.45);
+  }
+
+  .dnd-newsletter-signup__checkbox {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+  }
+
+  .dnd-newsletter-signup__checkbox input {
+    margin-top: 3px;
+  }
+
+  .dnd-newsletter-signup__actions {
+    display: grid;
+    gap: 10px;
   }
 
   .dnd-newsletter-signup__trigger {
-    width: auto;
+    width: fit-content;
     min-width: 172px;
     min-height: 50px;
     padding: 0 24px;
@@ -189,11 +333,39 @@ const copy = copyByLang[lang];
 
   .dnd-newsletter-signup__note {
     margin: 0;
-    max-width: 26ch;
+    max-width: 38ch;
     color: rgba(39, 32, 24, 0.58);
     font-size: var(--dnd-text-xs);
     line-height: 1.35;
-    text-align: right;
+  }
+
+  .dnd-newsletter-signup__status {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: var(--dnd-text-xs);
+    line-height: 1.35;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    color: rgba(39, 32, 24, 0.72);
+  }
+
+  .dnd-newsletter-signup__status[data-state="success"] {
+    background: rgba(231, 247, 232, 0.92);
+    border-color: rgba(91, 156, 108, 0.22);
+    color: rgba(32, 87, 50, 0.92);
+  }
+
+  .dnd-newsletter-signup__status[data-state="warning"] {
+    background: rgba(255, 245, 224, 0.95);
+    border-color: rgba(201, 156, 59, 0.28);
+    color: rgba(112, 81, 16, 0.92);
+  }
+
+  .dnd-newsletter-signup__status[data-state="error"] {
+    background: rgba(255, 236, 236, 0.94);
+    border-color: rgba(196, 94, 94, 0.28);
+    color: rgba(131, 43, 43, 0.94);
   }
 
   @media (max-width: 900px) {
@@ -214,13 +386,13 @@ const copy = copyByLang[lang];
       display: grid;
       gap: 14px;
       justify-items: center;
-      text-align: center;
     }
 
     .dnd-newsletter-signup__intro {
       justify-items: center;
       gap: 8px;
       max-width: 30ch;
+      text-align: center;
     }
 
     .dnd-newsletter-signup__kicker {
@@ -240,13 +412,11 @@ const copy = copyByLang[lang];
 
     .dnd-newsletter-signup__form {
       width: 100%;
-      gap: 8px;
-      justify-items: center;
-      text-align: center;
+      gap: 12px;
     }
 
     .dnd-newsletter-signup__trigger {
-      width: fit-content;
+      width: 100%;
       min-width: 0;
       min-height: 42px;
       padding: 0 24px;
@@ -257,7 +427,6 @@ const copy = copyByLang[lang];
       max-width: 30ch;
       font-size: var(--dnd-text-2xs);
       text-align: center;
-      display: none;
     }
   }
 </style>
