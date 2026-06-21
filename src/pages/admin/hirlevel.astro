@@ -46,6 +46,9 @@ const pageDescription =
         <div class="newsletter-admin__hero-actions">
           <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/">Admin home</a>
           <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/kampanyok/">Kampányok</a>
+          <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-open-import>
+            CSV import
+          </button>
           <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-refresh>
             Frissítés
           </button>
@@ -122,6 +125,40 @@ const pageDescription =
         </label>
       </section>
 
+      <section class="newsletter-admin__import-panel is-hidden" aria-label="CSV import" data-import-panel>
+        <div class="newsletter-admin__panel-head">
+          <div>
+            <p class="newsletter-admin__panel-kicker">CSV import</p>
+            <h2>Feliratkozók betöltése fájlból</h2>
+          </div>
+          <p class="newsletter-admin__panel-note">
+            A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status.
+          </p>
+        </div>
+
+        <form class="newsletter-admin__import-form" data-import-form>
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>CSV fájl</span>
+            <input type="file" accept=".csv,text/csv" data-import-file />
+          </label>
+
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>Példa formátum</span>
+            <textarea rows="5" readonly>email,name,lang,source,status
+pelda@example.com,Példa Név,hu,landing,active</textarea>
+          </label>
+
+          <div class="newsletter-admin__actions">
+            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">
+              Importálás
+            </button>
+            <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-close-import>
+              Mégse
+            </button>
+          </div>
+        </form>
+      </section>
+
       <section class="newsletter-admin__panel">
         <div class="newsletter-admin__panel-head">
           <div>
@@ -178,6 +215,11 @@ const pageDescription =
     const refreshButton = root.querySelector("[data-refresh]");
     const exportButton = root.querySelector("[data-export]");
     const copyAllButton = root.querySelector("[data-copy-all]");
+    const openImportButton = root.querySelector("[data-open-import]");
+    const importPanel = root.querySelector("[data-import-panel]");
+    const importForm = root.querySelector("[data-import-form]");
+    const importFileInput = root.querySelector("[data-import-file]");
+    const closeImportButton = root.querySelector("[data-close-import]");
     const statTotal = root.querySelector("[data-stat-total]");
     const statActive = root.querySelector("[data-stat-active]");
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
@@ -254,6 +296,118 @@ const pageDescription =
         ...options,
         headers: adminHeaders(options.headers || {}),
       });
+
+    const openImport = () => {
+      if (importPanel instanceof HTMLElement) {
+        importPanel.classList.remove("is-hidden");
+      }
+    };
+
+    const closeImport = () => {
+      if (importPanel instanceof HTMLElement) {
+        importPanel.classList.add("is-hidden");
+      }
+      if (importForm instanceof HTMLFormElement) {
+        importForm.reset();
+      }
+    };
+
+    const parseCsvText = (text) => {
+      const rows = [];
+      const input = String(text ?? "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+      let current = "";
+      let row = [];
+      let inQuotes = false;
+
+      for (let i = 0; i < input.length; i += 1) {
+        const char = input[i];
+        const next = input[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            current += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+          continue;
+        }
+
+        if (char === "," && !inQuotes) {
+          row.push(current);
+          current = "";
+          continue;
+        }
+
+        if (char === "\n" && !inQuotes) {
+          row.push(current);
+          if (row.some((cell) => String(cell).trim() !== "")) {
+            rows.push(row);
+          }
+          row = [];
+          current = "";
+          continue;
+        }
+
+        current += char;
+      }
+
+      row.push(current);
+      if (row.some((cell) => String(cell).trim() !== "")) {
+        rows.push(row);
+      }
+
+      return rows;
+    };
+
+    const normalizeHeader = (value) =>
+      normalize(value)
+        .replace(/[^a-z0-9]+/g, "")
+        .trim();
+
+    const parseImportRows = (csvText) => {
+      const parsed = parseCsvText(csvText);
+      if (!parsed.length) {
+        return [];
+      }
+
+      const headerCandidates = parsed[0].map((cell) => normalizeHeader(cell));
+      const hasHeader = headerCandidates.some((value) => ["email", "name", "lang", "source", "status", "staus"].includes(value));
+      const startIndex = hasHeader ? 1 : 0;
+      const headerMap = hasHeader ? headerCandidates : [];
+
+      return parsed
+        .slice(startIndex)
+        .map((row) => {
+          if (!row.length) return null;
+          const record = {};
+
+          if (hasHeader) {
+            row.forEach((cell, index) => {
+              const key = headerMap[index] || `col${index}`;
+              record[key] = cell;
+            });
+          } else {
+            record.email = row[0];
+            record.name = row[1] ?? "";
+            record.lang = row[2] ?? "hu";
+            record.source = row[3] ?? "csv-import";
+            record.status = row[4] ?? "active";
+          }
+
+          const email = String(record.email ?? record.e_mail ?? record["e-mail"] ?? "").trim();
+          if (!email) return null;
+
+          return {
+            email,
+            name: String(record.name ?? record.nev ?? record.fullname ?? "").trim(),
+            lang: String(record.lang ?? record.language ?? "hu").trim(),
+            source: String(record.source ?? record.forras ?? "csv-import").trim(),
+            status: String(record.status ?? "active").trim().toLowerCase(),
+          };
+        })
+        .filter(Boolean);
+    };
 
     const getFilterValue = (node) => (node instanceof HTMLInputElement || node instanceof HTMLSelectElement ? node.value : "all");
 
@@ -481,6 +635,62 @@ const pageDescription =
       }
     };
 
+    const importCsvFile = async () => {
+      if (!apiBase) {
+        setStatus("A newsletter API nincs beállítva.", "warning");
+        return;
+      }
+
+      const file = importFileInput instanceof HTMLInputElement ? importFileInput.files?.[0] : null;
+      if (!file) {
+        setStatus("Válassz egy CSV fájlt.", "warning");
+        return;
+      }
+
+      const csvText = await file.text();
+      const rows = parseImportRows(csvText);
+
+      if (!rows.length) {
+        setStatus("Nem találtam importálható sort a CSV-ben.", "warning");
+        return;
+      }
+
+      setStatus(`Importálás folyamatban: ${rows.length} sor.`, "info");
+
+      try {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers/import`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ rows }),
+        });
+
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "import_failed");
+        }
+
+        setStatus(result?.message || "CSV import kész.", "success");
+        closeImport();
+        await loadSubscribers();
+      } catch (error) {
+        console.error("[newsletter-admin-import]", error);
+        setStatus("A CSV import nem sikerült.", "error");
+      }
+    };
+
     searchInput?.addEventListener("input", render);
     statusFilter?.addEventListener("change", render);
     langFilter?.addEventListener("change", render);
@@ -488,6 +698,12 @@ const pageDescription =
     refreshButton?.addEventListener("click", loadSubscribers);
     exportButton?.addEventListener("click", exportCsv);
     copyAllButton?.addEventListener("click", copyAllEmails);
+    openImportButton?.addEventListener("click", openImport);
+    closeImportButton?.addEventListener("click", closeImport);
+    importForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await importCsvFile();
+    });
 
     updateLockState(!adminPassword);
     if (adminPassword) {
@@ -495,6 +711,7 @@ const pageDescription =
     } else {
       setStatus("Belépés szükséges az adminhoz.", "warning");
       setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
+      closeImport();
     }
   })();
 </script>
@@ -582,6 +799,18 @@ const pageDescription =
   .newsletter-admin__auth-form {
     display: grid;
     gap: 16px;
+  }
+
+  .newsletter-admin__import-form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .newsletter-admin__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
   }
 
   .newsletter-admin__hero,
@@ -756,6 +985,19 @@ const pageDescription =
     font-size: 0.95rem;
   }
 
+  .newsletter-admin__import-panel {
+    border-radius: 28px;
+    padding: 22px;
+    border: 1px solid rgba(82, 63, 36, 0.12);
+    background: rgba(255, 252, 247, 0.84);
+    box-shadow: 0 16px 40px rgba(79, 60, 34, 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .newsletter-admin__import-panel.is-hidden {
+    display: none;
+  }
+
   .newsletter-admin__field span {
     color: rgba(82, 67, 45, 0.82);
     font-weight: 600;
@@ -771,6 +1013,17 @@ const pageDescription =
     background: rgba(255, 255, 255, 0.9);
     color: #2a231b;
     font: inherit;
+  }
+
+  .newsletter-admin__field textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(90, 71, 42, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2a231b;
+    font: inherit;
+    resize: vertical;
   }
 
   .newsletter-admin__panel {

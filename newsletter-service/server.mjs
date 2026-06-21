@@ -92,6 +92,117 @@ async function readJsonBody(req) {
   return JSON.parse(raw);
 }
 
+function parseCsv(text) {
+  const rows = [];
+  const input = String(text ?? "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  let current = "";
+  let row = [];
+  let inQuotes = false;
+
+  for (let i = 0; i < input.length; i += 1) {
+    const char = input[i];
+    const next = input[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      row.push(current);
+      current = "";
+      continue;
+    }
+
+    if (char === "\n" && !inQuotes) {
+      row.push(current);
+      if (row.some((cell) => String(cell).trim() !== "")) {
+        rows.push(row);
+      }
+      row = [];
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  row.push(current);
+  if (row.some((cell) => String(cell).trim() !== "")) {
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+function parseSubscriberImportRows(rows) {
+  if (!Array.isArray(rows) || !rows.length) {
+    throw new Error("CSV rows are required.");
+  }
+
+  const normalizedRows = [];
+
+  for (const row of rows) {
+    if (!row || typeof row !== "object") {
+      continue;
+    }
+
+    try {
+      const email = validateEmail(row.email ?? row.e_mail ?? row["e-mail"] ?? row["email address"]);
+      const name = String(row.name ?? row.nev ?? row["név"] ?? row.fullName ?? "").trim().slice(0, 120);
+      const lang = String(row.lang ?? row.language ?? row.nyelv ?? "hu").trim().slice(0, 12) || "hu";
+      const source = String(row.source ?? row.forras ?? row["forrás"] ?? "csv-import").trim().slice(0, 120) || "csv-import";
+      const statusRaw = String(row.status ?? row.stausz ?? row["státusz"] ?? "active").trim().toLowerCase();
+      const status = ["active", "pending", "unsubscribed"].includes(statusRaw) ? statusRaw : "active";
+      normalizedRows.push({ email, name, lang, source, status });
+    } catch {
+      // Skip malformed rows so one bad record does not abort the whole import.
+    }
+  }
+
+  return normalizedRows;
+}
+
+function upsertImportedSubscriber(state, row) {
+  const existing = findSubscriber(state, row.email);
+  const timestamp = nowIso();
+
+  if (existing) {
+    existing.name = row.name || existing.name;
+    existing.lang = row.lang || existing.lang || "hu";
+    existing.source = row.source || existing.source || "csv-import";
+    existing.status = row.status || existing.status || "active";
+    existing.updatedAt = timestamp;
+    existing.consentUpdatedAt = existing.consentUpdatedAt || timestamp;
+    existing.consentAccepted = true;
+    existing.unsubscribeToken = existing.unsubscribeToken || randomUUID();
+    return { mode: "updated", subscriber: existing };
+  }
+
+  const subscriber = {
+    id: randomUUID(),
+    email: row.email,
+    name: row.name,
+    lang: row.lang || "hu",
+    source: row.source || "csv-import",
+    status: row.status || "active",
+    consentAccepted: true,
+    consentCreatedAt: timestamp,
+    consentUpdatedAt: timestamp,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    unsubscribeToken: randomUUID(),
+  };
+
+  state.subscribers.push(subscriber);
+  return { mode: "created", subscriber };
+}
+
 function normalizeEmail(email) {
   return String(email ?? "").trim().toLowerCase();
 }
@@ -248,6 +359,50 @@ async function handleRequest(req, res) {
       return;
     }
     jsonResponse(res, 200, { ok: true, subscribers: state.subscribers });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/subscribers/import") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
+
+    try {
+      const body = await readJsonBody(req);
+      const rows = Array.isArray(body.rows) ? body.rows : [];
+      const parsedRows = parseSubscriberImportRows(rows);
+
+      if (!parsedRows.length) {
+        jsonResponse(res, 400, { ok: false, message: "CSV import requires at least one valid row." });
+        return;
+      }
+
+      const result = {
+        totalRows: rows.length,
+        created: 0,
+        updated: 0,
+        skipped: rows.length - parsedRows.length,
+      };
+
+      for (const row of parsedRows) {
+        try {
+          const outcome = upsertImportedSubscriber(state, row);
+          result[outcome.mode] += 1;
+        } catch {
+          result.skipped += 1;
+        }
+      }
+
+      await writeState(state);
+
+      jsonResponse(res, 200, {
+        ok: true,
+        message: `CSV import kész: ${result.created} új, ${result.updated} frissített, ${result.skipped} kihagyott.`,
+        result,
+      });
+    } catch (error) {
+      jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "CSV import failed." });
+    }
     return;
   }
 
