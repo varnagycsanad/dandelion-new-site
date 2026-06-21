@@ -178,7 +178,14 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
   </section>
 </BaseLayout>
 
-<script is:inline>
+<script type="module">
+  import {
+    buildAdminHeaders,
+    clearStoredAdminAuth,
+    getStoredAdminPassword,
+    getStoredAdminSessionToken,
+  } from "../../scripts/newsletterAdminAuth";
+
   (() => {
     const root = document.querySelector("[data-newsletter-admin]");
     if (!(root instanceof HTMLElement)) {
@@ -205,12 +212,12 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
     const statSources = root.querySelector("[data-stat-sources]");
     const apiLabel = root.querySelector("[data-api-label]");
-    const authStorageKey = "dandelion-newsletter-admin-password";
+    const authStorageKey = "dandelion-newsletter-admin-session";
 
     let subscribers = [];
     let filteredSubscribers = [];
     let sourceValues = [];
-    let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
+    let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -253,15 +260,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     };
 
     const adminHeaders = (extra = {}) => {
-      const headers = {
-        ...extra,
-      };
-
-      if (adminPassword) {
-        headers["X-Newsletter-Admin-Password"] = adminPassword;
-      }
-
-      return headers;
+      return buildAdminHeaders(extra);
     };
 
     const adminFetch = (url, options = {}) =>
@@ -502,7 +501,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
 
         if (response.status === 401) {
           adminPassword = "";
-          sessionStorage.removeItem(authStorageKey);
+          clearStoredAdminAuth();
           window.location.replace("/admin/");
           return;
         }
@@ -600,7 +599,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
 
         if (response.status === 401) {
           adminPassword = "";
-          sessionStorage.removeItem(authStorageKey);
+          clearStoredAdminAuth();
           window.location.replace("/admin/");
           return;
         }

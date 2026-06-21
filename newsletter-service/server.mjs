@@ -4,6 +4,12 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
 import nodemailer from "nodemailer";
+import {
+  generateAuthenticationOptions,
+  generateRegistrationOptions,
+  verifyAuthenticationResponse,
+  verifyRegistrationResponse,
+} from "@simplewebauthn/server";
 
 function loadEnvFile(filePath) {
   if (!existsSync(filePath)) {
@@ -51,11 +57,22 @@ const SMTP_PASSWORD = process.env.NEWSLETTER_SMTP_PASSWORD ?? "";
 const SMTP_FROM = process.env.NEWSLETTER_SMTP_FROM ?? "\"Dandelion hírlevél\" <newsletter@dandelionhouse.hu>";
 const SMTP_REPLY_TO = process.env.NEWSLETTER_SMTP_REPLY_TO ?? "hello@dandelionhouse.hu";
 const ADMIN_PASSWORD = process.env.NEWSLETTER_ADMIN_PASSWORD ?? "";
+const ADMIN_RP_NAME = "Dandelion admin";
+const ADMIN_USER_ID = fromUtf8("dandelion-admin");
+const ADMIN_USER_NAME = "dandelion-admin";
+const ADMIN_USER_DISPLAY_NAME = "Dandelion admin";
+const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
+const CHALLENGE_TTL_MS = 1000 * 5 * 60;
 
 const DEFAULT_STATE = {
   subscribers: [],
   campaigns: [],
   deliveries: [],
+  auth: {
+    credentials: [],
+    sessions: [],
+    challenges: [],
+  },
 };
 
 const smtpTransport = nodemailer.createTransport({
@@ -72,10 +89,12 @@ async function readState() {
   try {
     const raw = await readFile(STORAGE_PATH, "utf8");
     const parsed = JSON.parse(raw);
+    const auth = normalizeAuthState(parsed.auth);
     return {
       subscribers: Array.isArray(parsed.subscribers) ? parsed.subscribers : [],
       campaigns: Array.isArray(parsed.campaigns) ? parsed.campaigns : [],
       deliveries: Array.isArray(parsed.deliveries) ? parsed.deliveries : [],
+      auth,
     };
   } catch {
     return structuredClone(DEFAULT_STATE);
@@ -93,7 +112,7 @@ function jsonResponse(res, statusCode, body) {
     "Content-Type": "application/json; charset=utf-8",
     "Content-Length": Buffer.byteLength(payload),
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password, X-Newsletter-Admin-Session",
     "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
   });
   res.end(payload);
@@ -103,7 +122,7 @@ function textResponse(res, statusCode, body) {
   res.writeHead(statusCode, {
     "Content-Type": "text/plain; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password, X-Newsletter-Admin-Session",
     "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
   });
   res.end(body);
@@ -246,6 +265,244 @@ function nowIso() {
   return new Date().toISOString();
 }
 
+function nowMs() {
+  return Date.now();
+}
+
+function fromUtf8(value) {
+  return Buffer.from(String(value), "utf8").toString("base64url");
+}
+
+function toUtf8(base64urlValue) {
+  return Buffer.from(String(base64urlValue ?? ""), "base64url").toString("utf8");
+}
+
+function toBase64Url(buffer) {
+  if (buffer instanceof Uint8Array) {
+    return Buffer.from(buffer).toString("base64url");
+  }
+
+  if (Array.isArray(buffer)) {
+    return Buffer.from(buffer).toString("base64url");
+  }
+
+  return Buffer.from(buffer ?? []).toString("base64url");
+}
+
+function fromBase64Url(value) {
+  return Buffer.from(String(value ?? ""), "base64url");
+}
+
+function normalizeAuthState(auth) {
+  const source = auth && typeof auth === "object" ? auth : {};
+  const credentials = Array.isArray(source.credentials) ? source.credentials : [];
+  const sessions = Array.isArray(source.sessions) ? source.sessions : [];
+  const challenges = Array.isArray(source.challenges) ? source.challenges : [];
+  const timestamp = nowMs();
+
+  return {
+    credentials: credentials
+      .map((credential) => {
+        if (!credential || typeof credential !== "object") {
+          return null;
+        }
+
+        const id = String(credential.id ?? "").trim();
+        const publicKey = String(credential.publicKey ?? "").trim();
+        if (!id || !publicKey) {
+          return null;
+        }
+
+        return {
+          id,
+          publicKey,
+          counter: Number.isFinite(Number(credential.counter)) ? Number(credential.counter) : 0,
+          transports: Array.isArray(credential.transports) ? credential.transports : [],
+          createdAt: String(credential.createdAt ?? nowIso()),
+          lastUsedAt: String(credential.lastUsedAt ?? credential.createdAt ?? nowIso()),
+        };
+      })
+      .filter(Boolean),
+    sessions: sessions
+      .map((session) => {
+        if (!session || typeof session !== "object") {
+          return null;
+        }
+
+        const token = String(session.token ?? "").trim();
+        const expiresAt = Number(session.expiresAt ?? 0);
+        if (!token || !Number.isFinite(expiresAt) || expiresAt <= timestamp) {
+          return null;
+        }
+
+        return {
+          token,
+          createdAt: String(session.createdAt ?? nowIso()),
+          expiresAt,
+          lastUsedAt: String(session.lastUsedAt ?? session.createdAt ?? nowIso()),
+          method: String(session.method ?? "password"),
+          credentialId: String(session.credentialId ?? ""),
+        };
+      })
+      .filter(Boolean),
+    challenges: challenges
+      .map((challenge) => {
+        if (!challenge || typeof challenge !== "object") {
+          return null;
+        }
+
+        const id = String(challenge.id ?? "").trim();
+        const challengeValue = String(challenge.challenge ?? "").trim();
+        const type = String(challenge.type ?? "").trim();
+        const origin = String(challenge.origin ?? "").trim();
+        const rpID = String(challenge.rpID ?? "").trim();
+        const expiresAt = Number(challenge.expiresAt ?? 0);
+        if (!id || !challengeValue || !type || !origin || !rpID || !Number.isFinite(expiresAt) || expiresAt <= timestamp) {
+          return null;
+        }
+
+        return {
+          id,
+          type,
+          challenge: challengeValue,
+          origin,
+          rpID,
+          expiresAt,
+          createdAt: String(challenge.createdAt ?? nowIso()),
+        };
+      })
+      .filter(Boolean),
+  };
+}
+
+function getRequestOrigin(req) {
+  const origin = String(req.headers.origin ?? "").trim();
+  if (origin) {
+    return origin.replace(/\/$/, "");
+  }
+
+  const host = String(req.headers.host ?? "").trim();
+  if (!host) {
+    return "";
+  }
+
+  return `http://${host}`.replace(/\/$/, "");
+}
+
+function getRequestRpId(req) {
+  const origin = getRequestOrigin(req);
+  if (!origin) {
+    return "localhost";
+  }
+
+  try {
+    return new URL(origin).hostname;
+  } catch {
+    return "localhost";
+  }
+}
+
+function pruneExpiredAuthState(state) {
+  const auth = normalizeAuthState(state.auth);
+  state.auth = auth;
+  return state;
+}
+
+function hasAuthSessions(state) {
+  return Array.isArray(state.auth?.sessions) && state.auth.sessions.length > 0;
+}
+
+function issueAdminSession(state, method, credentialId = "") {
+  state.auth.sessions = state.auth.sessions.filter((entry) => Number(entry.expiresAt ?? 0) > nowMs()).slice(-9);
+  const token = randomUUID();
+  const timestamp = nowMs();
+  const session = {
+    token,
+    createdAt: nowIso(),
+    lastUsedAt: nowIso(),
+    expiresAt: timestamp + SESSION_TTL_MS,
+    method,
+    credentialId,
+  };
+
+  state.auth.sessions.push(session);
+  return session;
+}
+
+function consumeChallenge(state, requestId, type) {
+  const index = state.auth.challenges.findIndex((item) => item.id === requestId && item.type === type);
+  if (index < 0) {
+    return null;
+  }
+
+  const [challenge] = state.auth.challenges.splice(index, 1);
+  return challenge;
+}
+
+function getChallengeResponseOrigin(req, challenge) {
+  const origin = getRequestOrigin(req);
+  if (origin) {
+    return origin;
+  }
+
+  return challenge?.origin ?? "";
+}
+
+function getAuthCredentialById(state, credentialId) {
+  return state.auth.credentials.find((credential) => credential.id === credentialId);
+}
+
+function storeAdminCredential(state, credentialRecord) {
+  const existingIndex = state.auth.credentials.findIndex((credential) => credential.id === credentialRecord.id);
+  if (existingIndex >= 0) {
+    state.auth.credentials[existingIndex] = credentialRecord;
+    return;
+  }
+
+  state.auth.credentials.push(credentialRecord);
+}
+
+function hasRegisteredPasskey(state) {
+  return Array.isArray(state.auth?.credentials) && state.auth.credentials.length > 0;
+}
+
+function createAdminChallenge(state, type, origin, rpID) {
+  const requestId = randomUUID();
+  const challenge = randomUUID().replaceAll("-", "");
+  const record = {
+    id: requestId,
+    type,
+    challenge,
+    origin,
+    rpID,
+    createdAt: nowIso(),
+    expiresAt: nowMs() + CHALLENGE_TTL_MS,
+  };
+
+  state.auth.challenges.push(record);
+  return record;
+}
+
+function serializeCredential(credential) {
+  return {
+    id: credential.id,
+    publicKey: toBase64Url(credential.publicKey),
+    counter: Number(credential.counter ?? 0),
+    transports: Array.isArray(credential.transports) ? credential.transports : [],
+    createdAt: credential.createdAt ?? nowIso(),
+    lastUsedAt: credential.lastUsedAt ?? credential.createdAt ?? nowIso(),
+  };
+}
+
+function buildVerifiedSessionResponse(session, extra = {}) {
+  return {
+    ok: true,
+    sessionToken: session.token,
+    expiresAt: session.expiresAt,
+    ...extra,
+  };
+}
+
 function publicCampaignUrl(id) {
   return `${PUBLIC_BASE_URL.replace(/\/$/, "")}/campaigns/${id}`;
 }
@@ -288,16 +545,40 @@ function hasAdminCredentials() {
   return Boolean(ADMIN_PASSWORD);
 }
 
-function isAdminAuthorized(req) {
-  if (!hasAdminCredentials()) {
-    return true;
-  }
-
-  return String(req.headers["x-newsletter-admin-password"] ?? "") === ADMIN_PASSWORD;
+function getAdminSessionToken(req) {
+  return String(req.headers["x-newsletter-admin-session"] ?? "").trim();
 }
 
-function requireAdminAuth(req, res) {
-  if (isAdminAuthorized(req)) {
+function isSessionAuthorized(state, req) {
+  const token = getAdminSessionToken(req);
+  if (!token || !Array.isArray(state.auth?.sessions)) {
+    return false;
+  }
+
+  const session = state.auth.sessions.find((entry) => entry.token === token);
+  if (!session) {
+    return false;
+  }
+
+  if (Number(session.expiresAt ?? 0) <= nowMs()) {
+    return false;
+  }
+
+  session.lastUsedAt = nowIso();
+  return true;
+}
+
+function isAdminAuthorized(state, req) {
+  if (!hasAdminCredentials()) {
+    return isSessionAuthorized(state, req);
+  }
+
+  const passwordAuthorized = String(req.headers["x-newsletter-admin-password"] ?? "") === ADMIN_PASSWORD;
+  return passwordAuthorized || isSessionAuthorized(state, req);
+}
+
+function requireAdminAuth(state, req, res) {
+  if (isAdminAuthorized(state, req)) {
     return true;
   }
 
@@ -357,7 +638,7 @@ async function handleRequest(req, res) {
   if (req.method === "OPTIONS") {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password, X-Newsletter-Admin-Session",
       "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
     });
     res.end();
@@ -390,7 +671,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname === "/subscribers") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     jsonResponse(res, 200, { ok: true, subscribers: state.subscribers });
@@ -398,7 +679,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/subscribers/import") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
 
@@ -538,7 +819,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname === "/campaigns") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     jsonResponse(res, 200, { ok: true, campaigns: state.campaigns });
@@ -546,16 +827,215 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/admin/auth") {
-    if (!hasAdminCredentials() || isAdminAuthorized(req)) {
-      jsonResponse(res, 200, { ok: true, message: "Admin authorized.", protected: hasAdminCredentials() });
+    if (isAdminAuthorized(state, req)) {
+      const session = issueAdminSession(state, "password");
+      await writeState(state);
+      jsonResponse(res, 200, {
+        ok: true,
+        message: "Admin authorized.",
+        protected: hasAdminCredentials(),
+        sessionToken: session.token,
+        expiresAt: session.expiresAt,
+      });
     } else {
       jsonResponse(res, 401, { ok: false, message: "Invalid admin password." });
     }
     return;
   }
 
+  if (req.method === "POST" && url.pathname === "/admin/passkey/register/options") {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    const origin = getRequestOrigin(req);
+    if (!origin) {
+      jsonResponse(res, 400, { ok: false, message: "A böngésző origin fejlécét nem kaptam meg." });
+      return;
+    }
+
+    const rpID = getRequestRpId(req);
+    const challenge = createAdminChallenge(state, "register", origin, rpID);
+    const options = await generateRegistrationOptions({
+      rpName: ADMIN_RP_NAME,
+      rpID,
+      userName: ADMIN_USER_NAME,
+      userDisplayName: ADMIN_USER_DISPLAY_NAME,
+      userID: fromBase64Url(ADMIN_USER_ID),
+      challenge: challenge.challenge,
+      timeout: 60000,
+      attestationType: "none",
+      excludeCredentials: state.auth.credentials.map((credential) => ({
+        id: credential.id,
+        transports: Array.isArray(credential.transports) ? credential.transports : undefined,
+      })),
+      authenticatorSelection: {
+        residentKey: "preferred",
+        userVerification: "required",
+      },
+      preferredAuthenticatorType: "localDevice",
+    });
+
+    challenge.challenge = options.challenge;
+    await writeState(state);
+
+    jsonResponse(res, 200, {
+      ok: true,
+      requestId: challenge.id,
+      options,
+    });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/admin/passkey/register/verify") {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    try {
+      const body = await readJsonBody(req);
+      const requestId = String(body.requestId ?? "").trim();
+      const response = body.response;
+      const challenge = consumeChallenge(state, requestId, "register");
+
+      if (!challenge) {
+        jsonResponse(res, 400, { ok: false, message: "A Face ID kérés lejárt." });
+        return;
+      }
+
+      const verification = await verifyRegistrationResponse({
+        response,
+        expectedChallenge: challenge.challenge,
+        expectedOrigin: challenge.origin,
+        expectedRPID: challenge.rpID,
+      });
+
+      if (!verification.verified || !verification.registrationInfo) {
+        jsonResponse(res, 400, { ok: false, message: "A Face ID regisztráció nem sikerült." });
+        return;
+      }
+
+      const credential = verification.registrationInfo.credential;
+      const record = {
+        id: credential.id,
+        publicKey: toBase64Url(credential.publicKey),
+        counter: credential.counter,
+        transports: Array.isArray(response?.response?.transports)
+          ? response.response.transports
+          : Array.isArray(credential.transports)
+            ? credential.transports
+            : [],
+        createdAt: nowIso(),
+        lastUsedAt: nowIso(),
+      };
+
+      storeAdminCredential(state, record);
+      const session = issueAdminSession(state, "passkey", record.id);
+      await writeState(state);
+
+      jsonResponse(res, 200, {
+        ...buildVerifiedSessionResponse(session, {
+          message: "Passkey registered.",
+          credentialId: record.id,
+        }),
+      });
+    } catch (error) {
+      jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "Passkey registration failed." });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/admin/passkey/auth/options") {
+    const origin = getRequestOrigin(req);
+    if (!origin) {
+      jsonResponse(res, 400, { ok: false, message: "A böngésző origin fejlécét nem kaptam meg." });
+      return;
+    }
+
+    if (!hasRegisteredPasskey(state)) {
+      jsonResponse(res, 400, { ok: false, message: "Még nincs regisztrált Face ID / passkey." });
+      return;
+    }
+
+    const rpID = getRequestRpId(req);
+    const challenge = createAdminChallenge(state, "auth", origin, rpID);
+    const options = await generateAuthenticationOptions({
+      rpID,
+      allowCredentials: state.auth.credentials.map((credential) => ({
+        id: credential.id,
+        transports: Array.isArray(credential.transports) ? credential.transports : undefined,
+      })),
+      challenge: challenge.challenge,
+      timeout: 60000,
+      userVerification: "required",
+    });
+
+    challenge.challenge = options.challenge;
+    await writeState(state);
+
+    jsonResponse(res, 200, {
+      ok: true,
+      requestId: challenge.id,
+      options,
+    });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/admin/passkey/auth/verify") {
+    try {
+      const body = await readJsonBody(req);
+      const requestId = String(body.requestId ?? "").trim();
+      const response = body.response;
+      const challenge = consumeChallenge(state, requestId, "auth");
+
+      if (!challenge) {
+        jsonResponse(res, 400, { ok: false, message: "A Face ID kérés lejárt." });
+        return;
+      }
+
+      const credential = getAuthCredentialById(state, String(response?.id ?? "").trim());
+      if (!credential) {
+        jsonResponse(res, 400, { ok: false, message: "Ismeretlen passkey." });
+        return;
+      }
+
+      const verification = await verifyAuthenticationResponse({
+        response,
+        expectedChallenge: challenge.challenge,
+        expectedOrigin: challenge.origin,
+        expectedRPID: challenge.rpID,
+        credential: {
+          id: credential.id,
+          publicKey: fromBase64Url(credential.publicKey),
+          counter: Number(credential.counter ?? 0),
+          transports: Array.isArray(credential.transports) ? credential.transports : [],
+        },
+      });
+
+      if (!verification.verified) {
+        jsonResponse(res, 401, { ok: false, message: "A Face ID azonosítás nem sikerült." });
+        return;
+      }
+
+      credential.counter = verification.authenticationInfo.newCounter;
+      credential.lastUsedAt = nowIso();
+      const session = issueAdminSession(state, "passkey", credential.id);
+      await writeState(state);
+
+      jsonResponse(res, 200, {
+        ...buildVerifiedSessionResponse(session, {
+          message: "Passkey authorized.",
+          credentialId: credential.id,
+        }),
+      });
+    } catch (error) {
+      jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "Passkey authorization failed." });
+    }
+    return;
+  }
+
   if (req.method === "GET" && url.pathname === "/smtp/status") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     jsonResponse(res, 200, {
@@ -572,7 +1052,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/smtp/test") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     try {
@@ -603,7 +1083,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname.match(/^\/campaigns\/[^/]+$/)) {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     const campaignId = url.pathname.split("/")[2];
@@ -619,7 +1099,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/campaigns") {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     try {
@@ -650,7 +1130,7 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname.match(/^\/campaigns\/[^/]+\/send$/)) {
-    if (!requireAdminAuth(req, res)) {
+    if (!requireAdminAuth(state, req, res)) {
       return;
     }
     const campaignId = url.pathname.split("/")[2];

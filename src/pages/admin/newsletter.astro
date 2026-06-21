@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Newsletter";
 const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a kampányokhoz.";
-const authStorageKey = "dandelion-newsletter-admin-password";
+const authStorageKey = "dandelion-newsletter-admin-session";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -49,13 +49,14 @@ const authStorageKey = "dandelion-newsletter-admin-password";
   </section>
 </BaseLayout>
 
-<script is:inline>
+<script type="module">
   (() => {
     const root = document.querySelector("[data-admin-newsletter]");
     if (!(root instanceof HTMLElement)) return;
 
     const shell = root.querySelector(".admin-newsletter__shell");
-    const adminPassword = sessionStorage.getItem("dandelion-newsletter-admin-password") ?? "";
+    const adminPassword =
+      sessionStorage.getItem("dandelion-newsletter-admin-session") ?? sessionStorage.getItem("dandelion-newsletter-admin-password") ?? "";
 
     if (!adminPassword) {
       window.location.replace("/admin/");

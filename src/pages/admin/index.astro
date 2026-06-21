@@ -34,6 +34,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
           </label>
           <div class="admin-home__actions">
             <button class="admin-home__button admin-home__button--primary" type="submit">Belépés</button>
+            <button class="admin-home__button admin-home__button--ghost" type="button" data-passkey-login>Face ID / Passkey</button>
           </div>
         </form>
         <p class="admin-home__status" data-auth-status aria-live="polite"></p>
@@ -53,12 +54,32 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
           <strong>Hírlevél admin</strong>
           <p>feliratkozók, CSV import, draftok, tesztküldés és kiküldés</p>
         </a>
+
+        <div class="admin-home__card">
+          <span class="admin-home__card-label">Face ID</span>
+          <strong>Passkey ezen az eszközön</strong>
+          <p>Jelszó után tedd hozzá az iPhone Face ID belépést, hogy legközelebb elég legyen egy érintés.</p>
+          <button class="admin-home__button admin-home__button--ghost admin-home__card-button" type="button" data-register-passkey>
+            Face ID hozzáadása
+          </button>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<script is:inline>
+<script type="module">
+  import {
+    buildAdminFetch,
+    clearStoredAdminAuth,
+    getStoredAdminPassword,
+    getStoredAdminSessionToken,
+    isWebAuthnAvailable,
+    loginWithAdminPassword,
+    loginWithPasskey,
+    registerPasskey,
+  } from "../../scripts/newsletterAdminAuth";
+
   (() => {
     const root = document.querySelector("[data-admin-home]");
     if (!(root instanceof HTMLElement)) return;
@@ -69,10 +90,11 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const authInput = root.querySelector("[data-auth-input]");
     const passwordToggle = root.querySelector("[data-password-toggle]");
     const authStatus = root.querySelector("[data-auth-status]");
-    const authStorageKey = "dandelion-newsletter-admin-password";
+    const passkeyLoginButton = root.querySelector("[data-passkey-login]");
+    const registerPasskeyButton = root.querySelector("[data-register-passkey]");
     const shell = root.querySelector(".admin-home__shell");
 
-    let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
+    let adminToken = getStoredAdminSessionToken() || getStoredAdminPassword();
 
     const updateLockState = (locked) => {
       root.classList.toggle("is-locked", locked);
@@ -81,6 +103,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       }
       if (shell instanceof HTMLElement) {
         shell.hidden = locked;
+        shell.setAttribute("aria-hidden", String(locked));
       }
     };
 
@@ -90,6 +113,23 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       authStatus.dataset.tone = tone;
     };
 
+    const clearAuthState = () => {
+      clearStoredAdminAuth();
+      adminToken = "";
+    };
+
+    const getFriendlyAuthError = (error, fallback) => {
+      if (error instanceof Error) {
+        if (error.name === "NotAllowedError" || error.name === "AbortError") {
+          return "Az azonosítás megszakítva.";
+        }
+
+        return error.message || fallback;
+      }
+
+      return fallback;
+    };
+
     const setPasswordVisible = (visible) => {
       if (!(authInput instanceof HTMLInputElement) || !(passwordToggle instanceof HTMLButtonElement)) return;
       authInput.type = visible ? "text" : "password";
@@ -97,26 +137,24 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       passwordToggle.setAttribute("aria-label", visible ? "Jelszó elrejtése" : "Jelszó megjelenítése");
     };
 
-    const validateStoredPassword = async () => {
-      if (!adminPassword) {
+    const validateStoredAuth = async () => {
+      if (!apiBase) {
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+        return;
+      }
+
+      if (!adminToken) {
         updateLockState(true);
         setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
         return;
       }
 
       try {
-        if (!apiBase) {
-          updateLockState(false);
-          setAuthStatus("Belépés sikeres.", "success");
-          return;
-        }
-
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
+        const response = await buildAdminFetch(apiBase, "/admin/auth", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
             Accept: "application/json",
-            "X-Newsletter-Admin-Password": adminPassword,
           },
           body: "{}",
         });
@@ -126,11 +164,16 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
           throw new Error(result?.message || "auth_failed");
         }
 
+        if (typeof result.sessionToken === "string" && result.sessionToken) {
+          adminToken = result.sessionToken;
+          sessionStorage.setItem("dandelion-newsletter-admin-session", result.sessionToken);
+          sessionStorage.removeItem("dandelion-newsletter-admin-password");
+        }
+
         updateLockState(false);
         setAuthStatus("Belépés sikeres.", "success");
       } catch {
-        adminPassword = "";
-        sessionStorage.removeItem(authStorageKey);
+        clearAuthState();
         updateLockState(true);
         setAuthStatus("Hibás jelszó.", "error");
       }
@@ -148,36 +191,35 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       setAuthStatus("Beléptetés folyamatban...", "info");
 
       try {
-        if (!apiBase) {
-          adminPassword = password;
-          sessionStorage.setItem(authStorageKey, password);
-          updateLockState(false);
-          setAuthStatus("Belépés sikeres.", "success");
-          return;
+        const result = await loginWithAdminPassword(apiBase, password);
+        if (result?.sessionToken) {
+          adminToken = result.sessionToken;
         }
-
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Newsletter-Admin-Password": password,
-            Accept: "application/json",
-          },
-          body: "{}",
-        });
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok || !result?.ok) {
-          throw new Error(result?.message || "auth_failed");
-        }
-
-        adminPassword = password;
-        sessionStorage.setItem(authStorageKey, password);
         updateLockState(false);
         setAuthStatus("Belépés sikeres.", "success");
       } catch (error) {
         console.error("[admin-home-auth]", error);
         setAuthStatus("Hibás jelszó.", "error");
+      }
+    });
+
+    passkeyLoginButton?.addEventListener("click", async () => {
+      if (!isWebAuthnAvailable()) {
+        setAuthStatus("Ezen a böngészőn nem elérhető a Face ID belépés.", "warning");
+        return;
+      }
+
+      setAuthStatus("Face ID azonosítás folyamatban...", "info");
+      try {
+        const result = await loginWithPasskey(apiBase);
+        if (result?.sessionToken) {
+          adminToken = result.sessionToken;
+        }
+        updateLockState(false);
+        setAuthStatus("Face ID belépés sikeres.", "success");
+      } catch (error) {
+        console.error("[admin-home-passkey]", error);
+        setAuthStatus(getFriendlyAuthError(error, "A Face ID belépés nem sikerült."), "error");
       }
     });
 
@@ -187,9 +229,29 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       authInput.focus();
     });
 
+    registerPasskeyButton?.addEventListener("click", async () => {
+      if (!isWebAuthnAvailable()) {
+        setAuthStatus("Ezen a böngészőn nem elérhető a Face ID regisztráció.", "warning");
+        return;
+      }
+
+      setAuthStatus("Face ID regisztrálása folyamatban...", "info");
+      try {
+        const result = await registerPasskey(apiBase);
+        if (result?.sessionToken) {
+          adminToken = result.sessionToken;
+        }
+        updateLockState(false);
+        setAuthStatus("Face ID hozzáadva ehhez az eszközhöz.", "success");
+      } catch (error) {
+        console.error("[admin-home-register-passkey]", error);
+        setAuthStatus(getFriendlyAuthError(error, "A Face ID hozzáadás nem sikerült."), "error");
+      }
+    });
+
     updateLockState(true);
     setPasswordVisible(false);
-    validateStoredPassword();
+    validateStoredAuth();
   })();
 </script>
 
@@ -342,6 +404,16 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     color: #fff9ef;
     background: linear-gradient(135deg, #272218 0%, #6c5130 100%);
     box-shadow: 0 18px 28px rgba(63, 47, 26, 0.2);
+  }
+
+  .admin-home__button--ghost {
+    color: #3f3124;
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: inset 0 0 0 1px rgba(92, 67, 37, 0.12);
+  }
+
+  .admin-home__card-button {
+    justify-self: start;
   }
 
   .admin-home__status {
