@@ -95,7 +95,9 @@ export function buildAdminHeaders(extra = {}) {
 
   if (sessionToken) {
     headers["X-Newsletter-Admin-Session"] = sessionToken;
-  } else if (password) {
+  }
+
+  if (password) {
     headers["X-Newsletter-Admin-Password"] = password;
   }
 
@@ -122,6 +124,10 @@ async function parseJsonResponse(response) {
     throw new Error(result?.message || "request_failed");
   }
   return result;
+}
+
+function isUnauthorizedResponse(response) {
+  return Number(response?.status ?? 0) === 401;
 }
 
 export async function loginWithAdminPassword(apiBase, password, localPasswordHash = "") {
@@ -158,14 +164,14 @@ export async function loginWithAdminPassword(apiBase, password, localPasswordHas
       }
 
       setStoredAdminSessionToken(result.sessionToken);
-      setStoredAdminPassword("");
+      setStoredAdminPassword(cleanPassword);
       return result;
     }
 
     if (isAuthGatewayUnavailable(response) && cleanHash && (await passwordMatchesHash(cleanPassword, cleanHash))) {
       const sessionToken = createLocalAdminSessionToken(cleanHash);
       setStoredAdminSessionToken(sessionToken);
-      setStoredAdminPassword("");
+      setStoredAdminPassword(cleanPassword);
       return { ok: true, sessionToken, localOnly: true };
     }
 
@@ -175,7 +181,7 @@ export async function loginWithAdminPassword(apiBase, password, localPasswordHas
     if (cleanHash && (await passwordMatchesHash(cleanPassword, cleanHash))) {
       const sessionToken = createLocalAdminSessionToken(cleanHash);
       setStoredAdminSessionToken(sessionToken);
-      setStoredAdminPassword("");
+      setStoredAdminPassword(cleanPassword);
       return { ok: true, sessionToken, localOnly: true };
     }
 
@@ -209,6 +215,18 @@ export async function refreshAdminSession(apiBase) {
   return result;
 }
 
+async function ensureRemoteAdminSession(apiBase) {
+  const base = getApiBase(apiBase);
+  const password = getStoredAdminPassword();
+
+  if (!base || !password) {
+    return null;
+  }
+
+  const result = await loginWithAdminPassword(base, password);
+  return result?.sessionToken || null;
+}
+
 export async function registerPasskey(apiBase) {
   const base = getApiBase(apiBase);
   if (!base) {
@@ -223,7 +241,21 @@ export async function registerPasskey(apiBase) {
     method: "POST",
     headers: { Accept: "application/json" },
   });
-  const optionsResult = await parseJsonResponse(optionsResponse);
+  let optionsResult;
+
+  try {
+    optionsResult = await parseJsonResponse(optionsResponse);
+  } catch (error) {
+    if (isUnauthorizedResponse(optionsResponse) && (await ensureRemoteAdminSession(base))) {
+      const retriedOptionsResponse = await buildAdminFetch(base, "/admin/passkey/register/options", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+      });
+      optionsResult = await parseJsonResponse(retriedOptionsResponse);
+    } else {
+      throw error;
+    }
+  }
   const registrationResponse = await startRegistration({ optionsJSON: optionsResult.options });
 
   const verifyResponse = await buildAdminFetch(base, "/admin/passkey/register/verify", {
@@ -261,7 +293,21 @@ export async function loginWithPasskey(apiBase) {
     method: "POST",
     headers: { Accept: "application/json" },
   });
-  const optionsResult = await parseJsonResponse(optionsResponse);
+  let optionsResult;
+
+  try {
+    optionsResult = await parseJsonResponse(optionsResponse);
+  } catch (error) {
+    if (isUnauthorizedResponse(optionsResponse) && (await ensureRemoteAdminSession(base))) {
+      const retriedOptionsResponse = await buildAdminFetch(base, "/admin/passkey/auth/options", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+      });
+      optionsResult = await parseJsonResponse(retriedOptionsResponse);
+    } else {
+      throw error;
+    }
+  }
   const authenticationResponse = await startAuthentication({ optionsJSON: optionsResult.options });
 
   const verifyResponse = await buildAdminFetch(base, "/admin/passkey/auth/verify", {

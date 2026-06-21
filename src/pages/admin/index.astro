@@ -179,6 +179,28 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 
     const validateStoredAuth = async () => {
       if (isLocalAdminSessionToken(adminToken)) {
+        const storedPassword = getStoredAdminPassword();
+        if (apiBase && storedPassword) {
+          try {
+            const result = await loginWithAdminPassword(apiBase, storedPassword, adminPasswordHash);
+            if (result?.sessionToken) {
+              adminToken = result.sessionToken;
+            }
+            updateLockState(false);
+            setAuthStatus("Belépés sikeres.", "success");
+            return;
+          } catch {
+            clearAuthState();
+          }
+        }
+
+        if (apiBase) {
+          clearAuthState();
+          updateLockState(true);
+          setAuthStatus("Írd be újra az admin jelszót a telefon regisztrációhoz.", "info");
+          return;
+        }
+
         updateLockState(false);
         setAuthStatus("Helyi admin mód aktív. A newsletter service most nem érhető el.", "warning");
         return;
@@ -273,6 +295,11 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
           setAuthStatus("Ezen az eszközön nem elérhető a passkey regisztráció.", "warning");
         } else if (message === "api_unavailable") {
           setAuthStatus("A passkey regisztrációhoz kell az admin API.", "warning");
+        } else if (message === "Admin authorization required.") {
+          clearAuthState();
+          updateLockState(true);
+          updateMode("password");
+          setAuthStatus("A telefon regisztrációhoz újra be kell jelentkezned az admin jelszóval.", "warning");
         } else {
           setAuthStatus("A passkey regisztráció nem sikerült. A böngészőben válaszd a telefonos vagy másik eszközös opciót.", "error");
         }
