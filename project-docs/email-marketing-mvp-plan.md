@@ -194,7 +194,7 @@ Kimenet:
 | 2026-06-21 | Phase 3: admin list | done | Elkészült az `admin/hirlevel` listaoldal kereséssel, státusz- és nyelvszűrővel, CSV exporttal és másolás gyorsművelettel. |
 | 2026-06-21 | Phase 4: campaign send | done | Elkészült az `admin/kampanyok` kampányszerkesztő, a tesztküldés és az éles SMTP kiküldés. |
 | 2026-06-21 | Phase 5: CSV import and hardening | in progress | Elkészült a feliratkozó CSV import az admin listán, a védelem és a stabilizálás finomhangolása még nyitott. |
-| TBD | Phase 5 follow-up: production QA | pending | Vegigteszteles, naplozas, deliverability rehearsal, uzemi simitas. |
+| 2026-06-21 | Phase 5 follow-up: production QA | in progress | Elkészült az éles runbook, a `/newsletter-api` proxy-séma és a systemd/nginx sablonok. |
 
 ## Definition of done for MVP
 

@@ -151,6 +151,8 @@ async function readJsonBody(req) {
 function parseCsv(text) {
   const rows = [];
   const input = String(text ?? "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  const firstLine = input.split("\n", 1)[0] ?? "";
+  const delimiter = (firstLine.match(/\t/g) || []).length > (firstLine.match(/,/g) || []).length ? "\t" : ",";
   let current = "";
   let row = [];
   let inQuotes = false;
@@ -169,7 +171,7 @@ function parseCsv(text) {
       continue;
     }
 
-    if (char === "," && !inQuotes) {
+    if (char === delimiter && !inQuotes) {
       row.push(current);
       current = "";
       continue;
@@ -209,11 +211,28 @@ function parseSubscriberImportRows(rows) {
     }
 
     try {
-      const email = validateEmail(row.email ?? row.e_mail ?? row["e-mail"] ?? row["email address"]);
-      const name = String(row.name ?? row.nev ?? row["név"] ?? row.fullName ?? "").trim().slice(0, 120);
-      const lang = String(row.lang ?? row.language ?? row.nyelv ?? "hu").trim().slice(0, 12) || "hu";
-      const source = String(row.source ?? row.forras ?? row["forrás"] ?? "csv-import").trim().slice(0, 120) || "csv-import";
-      const statusRaw = String(row.status ?? row.stausz ?? row["státusz"] ?? "active").trim().toLowerCase();
+      const email = validateEmail(
+        row.email ??
+          row.e_mail ??
+          row["e-mail"] ??
+          row["email address"] ??
+          row["E-mail"] ??
+          row["E-Mail"]
+      );
+      const name = String(
+        row.name ?? row.nev ?? row["név"] ?? row.fullName ?? row["full name"] ?? row["Név"] ?? ""
+      )
+        .trim()
+        .slice(0, 120);
+      const lang = String(row.lang ?? row.language ?? row.nyelv ?? row["nyelv"] ?? "hu").trim().slice(0, 12) || "hu";
+      const source = String(
+        row.source ?? row.forras ?? row["forrás"] ?? row.haz ?? row["ház"] ?? row.house ?? "csv-import"
+      )
+        .trim()
+        .slice(0, 120) || "csv-import";
+      const statusRaw = String(row.status ?? row.stausz ?? row["státusz"] ?? row.allapot ?? row["állapot"] ?? "active")
+        .trim()
+        .toLowerCase();
       const status = ["active", "pending", "unsubscribed"].includes(statusRaw) ? statusRaw : "active";
       normalizedRows.push({ email, name, lang, source, status });
     } catch {

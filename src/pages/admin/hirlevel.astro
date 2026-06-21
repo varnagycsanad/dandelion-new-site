@@ -4,8 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  Astro.site?.origin ??
-  "https://dandelionhouse.hu";
+  "/newsletter-api";
 const pageTitle = "Feliratkozók kezelése";
 const pageDescription =
   "Feliratkozók listája, keresés, státuszszűrés, CSV import és export a Dandelion adminon belül.";
@@ -113,17 +112,17 @@ const pageDescription =
         <div class="newsletter-admin__panel-head">
           <div>
             <p class="newsletter-admin__panel-kicker">Feliratkozó import</p>
-            <h2>Lista és CSV import</h2>
+            <h2>Lista és CSV/TSV import</h2>
           </div>
           <p class="newsletter-admin__panel-note">
-            A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status.
+            A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status, valamint a vendéglista magyar mezői.
           </p>
         </div>
 
         <form class="newsletter-admin__import-form" data-import-form>
           <label class="newsletter-admin__field newsletter-admin__field--full">
             <span>CSV fájl</span>
-            <input type="file" accept=".csv,text/csv" data-import-file />
+            <input type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" data-import-file />
           </label>
 
           <label class="newsletter-admin__field newsletter-admin__field--full">
@@ -291,6 +290,8 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const parseCsvText = (text) => {
       const rows = [];
       const input = String(text ?? "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+      const firstLine = input.split("\n", 1)[0] ?? "";
+      const delimiter = (firstLine.match(/\t/g) || []).length > (firstLine.match(/,/g) || []).length ? "\t" : ",";
       let current = "";
       let row = [];
       let inQuotes = false;
@@ -309,7 +310,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
           continue;
         }
 
-        if (char === "," && !inQuotes) {
+        if (char === delimiter && !inQuotes) {
           row.push(current);
           current = "";
           continue;
@@ -371,14 +372,16 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
             record.status = row[4] ?? "active";
           }
 
-          const email = String(record.email ?? record.e_mail ?? record["e-mail"] ?? "").trim();
+          const email = String(
+            record.email ?? record.e_mail ?? record["e-mail"] ?? record["E-mail"] ?? record["E-Mail"] ?? ""
+          ).trim();
           if (!email) return null;
 
           return {
             email,
-            name: String(record.name ?? record.nev ?? record.fullname ?? "").trim(),
-            lang: String(record.lang ?? record.language ?? "hu").trim(),
-            source: String(record.source ?? record.forras ?? "csv-import").trim(),
+            name: String(record.name ?? record.nev ?? record.fullname ?? record["név"] ?? record["Név"] ?? "").trim(),
+            lang: String(record.lang ?? record.language ?? record.nyelv ?? record["nyelv"] ?? "hu").trim(),
+            source: String(record.source ?? record.forras ?? record["forrás"] ?? record.haz ?? record["ház"] ?? "csv-import").trim(),
             status: String(record.status ?? "active").trim().toLowerCase(),
           };
         })

@@ -1,0 +1,17 @@
+[Unit]
+Description=Dandelion newsletter service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/dandelion-new-site/newsletter-service
+EnvironmentFile=/etc/dandelion/newsletter-service.env
+ExecStart=/usr/bin/node /var/www/dandelion-new-site/newsletter-service/server.mjs
+Restart=always
+RestartSec=5
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

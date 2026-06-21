@@ -165,6 +165,7 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 - `project-docs/GA4_CODEX_ANALYTICS.md`
 - `project-docs/DANDELION_GEO_API_SETUP.md`
 - `project-docs/DANDELION_GEO_AGENT_SPEC.md`
+- `project-docs/newsletter-production-runbook.md`
 
 Megjegyzes: a Meta Ads dokumentum jelenleg kampanyinditas elotti technikai elokeszites. Nem heti riportolasi source of truth, amig nincs aktiv Facebook kampany.
 

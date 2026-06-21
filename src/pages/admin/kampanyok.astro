@@ -4,8 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  Astro.site?.origin ??
-  "https://dandelionhouse.hu";
+  "/newsletter-api";
 const pageTitle = "Kampányok kezelése";
 const pageDescription =
   "Kampány draftok, tesztküldés és éles kiküldés a Dandelion adminon belül.";

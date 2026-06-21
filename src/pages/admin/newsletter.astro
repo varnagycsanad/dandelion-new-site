@@ -4,8 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  Astro.site?.origin ??
-  "https://dandelionhouse.hu";
+  "/newsletter-api";
 const pageTitle = "Newsletter";
 const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a kampányokhoz.";
 ---
@@ -14,6 +13,27 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
   <section class="admin-newsletter" data-admin-newsletter data-api-base={newsletterApiUrl}>
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--gold"></div>
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--sage"></div>
+
+    <div class="admin-newsletter__gate" data-gate>
+      <div class="admin-newsletter__gate-card">
+        <p class="admin-newsletter__eyebrow">Newsletter hub</p>
+        <h1>{pageTitle}</h1>
+        <p class="admin-newsletter__lead">
+          Ez a központi belépési pont a hírlevél modulokhoz. Itt látszik először, ha a külön newsletter service nincs elindítva.
+        </p>
+
+        <div class="admin-newsletter__gate-actions">
+          <a class="admin-newsletter__button admin-newsletter__button--ghost" href="/admin/">Vissza az adminhoz</a>
+          <button class="admin-newsletter__button" type="button" data-check-connection>
+            Kapcsolat ellenőrzése
+          </button>
+        </div>
+
+        <p class="admin-newsletter__gate-status" data-gate-status aria-live="polite">
+          A kapcsolódás még nincs ellenőrizve.
+        </p>
+      </div>
+    </div>
 
     <div class="admin-newsletter__shell" hidden>
       <header class="admin-newsletter__hero">
@@ -67,19 +87,66 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     if (!(root instanceof HTMLElement)) return;
 
     const apiBase = root.dataset.apiBase?.trim() || "";
+    const gate = root.querySelector("[data-gate]");
+    const gateStatus = root.querySelector("[data-gate-status]");
+    const checkConnectionButton = root.querySelector("[data-check-connection]");
     const shell = root.querySelector(".admin-newsletter__shell");
     const adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
+    const showGate = (message, tone = "info") => {
+      if (gate instanceof HTMLElement) {
+        gate.hidden = false;
+      }
+      if (gateStatus instanceof HTMLElement) {
+        gateStatus.textContent = message;
+        gateStatus.dataset.tone = tone;
+      }
+    };
 
-    if (!adminPassword) {
-      window.location.replace("/admin/");
-      return;
-    }
+    const hideGate = () => {
+      if (gate instanceof HTMLElement) {
+        gate.hidden = true;
+      }
+    };
+
+    const checkConnection = async () => {
+      if (!apiBase) {
+        showGate("A newsletter service címe nincs beállítva. Ellenőrizd a PUBLIC_NEWSLETTER_API_URL vagy NEWSLETTER_PUBLIC_BASE_URL értékét.", "warning");
+        return false;
+      }
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/health`, {
+          headers: { Accept: "application/json" },
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "health_failed");
+        }
+
+        showGate(`A newsletter service elérhető: ${result?.service ?? "rendben"}.`, "success");
+        return true;
+      } catch {
+        showGate("A newsletter service most nem érhető el. Valószínűleg külön el kell indítani a newsletter-service processzt.", "error");
+        return false;
+      }
+    };
 
     const validateStoredAuth = async () => {
-      if (!apiBase || localAdminMode) {
+      const connectionOk = await checkConnection();
+
+      if (localAdminMode && connectionOk) {
         if (shell instanceof HTMLElement) {
           shell.hidden = false;
+        }
+        hideGate();
+        return;
+      }
+
+      if (!adminPassword) {
+        if (shell instanceof HTMLElement) {
+          shell.hidden = true;
         }
         return;
       }
@@ -99,18 +166,27 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
         if (shell instanceof HTMLElement) {
           shell.hidden = false;
         }
+        hideGate();
       } catch {
-        if (localAdminMode) {
+        if (localAdminMode && connectionOk) {
           if (shell instanceof HTMLElement) {
             shell.hidden = false;
           }
+          hideGate();
           return;
         }
 
         clearStoredAdminAuth();
-        window.location.replace("/admin/");
+        if (shell instanceof HTMLElement) {
+          shell.hidden = true;
+        }
+        showGate("Az admin belépés vagy a newsletter service nincs kész. Nyisd meg az /admin/ oldalt, majd onnan jelentkezz be.", "warning");
       }
     };
+
+    checkConnectionButton?.addEventListener("click", async () => {
+      await checkConnection();
+    });
 
     validateStoredAuth();
   })();
@@ -124,7 +200,31 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     background:
       radial-gradient(circle at top left, rgba(212, 173, 89, 0.18), transparent 25%),
       radial-gradient(circle at 85% 10%, rgba(104, 137, 108, 0.14), transparent 24%),
-      linear-gradient(180deg, #f8f2e6 0%, #f4efdf 100%);
+    linear-gradient(180deg, #f8f2e6 0%, #f4efdf 100%);
+  }
+
+  .admin-newsletter__gate {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, 100%);
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+  }
+
+  .admin-newsletter__gate[hidden] {
+    display: none;
+  }
+
+  .admin-newsletter__gate-card {
+    width: min(760px, 100%);
+    padding: 28px;
+    border-radius: 28px;
+    border: 1px solid rgba(92, 67, 37, 0.12);
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 16px 40px rgba(79, 60, 34, 0.08);
+    display: grid;
+    gap: 14px;
   }
 
   .admin-newsletter__backdrop {
@@ -189,6 +289,40 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     color: #5b4a39;
     font-size: 1.08rem;
     line-height: 1.7;
+  }
+
+  .admin-newsletter__gate-status {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.82);
+    color: #4c3d2e;
+    border: 1px solid rgba(92, 67, 37, 0.1);
+    line-height: 1.5;
+  }
+
+  .admin-newsletter__gate-status[data-tone="success"] {
+    color: #1d6b37;
+    border-color: rgba(57, 123, 73, 0.18);
+    background: rgba(231, 247, 232, 0.94);
+  }
+
+  .admin-newsletter__gate-status[data-tone="warning"] {
+    color: #8a5a00;
+    border-color: rgba(201, 156, 59, 0.2);
+    background: rgba(255, 245, 224, 0.96);
+  }
+
+  .admin-newsletter__gate-status[data-tone="error"] {
+    color: #9b2c2c;
+    border-color: rgba(196, 94, 94, 0.2);
+    background: rgba(255, 236, 236, 0.96);
+  }
+
+  .admin-newsletter__gate-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .admin-newsletter__hero-actions {
