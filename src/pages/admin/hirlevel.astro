@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NEWSLETTER_LISTS } from "../../scripts/newsletterLists";
 
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
@@ -67,8 +68,8 @@ const pageDescription =
           <strong data-stat-unsubscribed>0</strong>
         </article>
         <article class="newsletter-admin__stat">
-          <span class="newsletter-admin__stat-label">Források</span>
-          <strong data-stat-sources>0</strong>
+          <span class="newsletter-admin__stat-label">Listák</span>
+          <strong data-stat-lists>0</strong>
         </article>
       </section>
 
@@ -101,6 +102,14 @@ const pageDescription =
         </label>
 
         <label class="newsletter-admin__field">
+          <span>Lista</span>
+          <select data-filter-list>
+            <option value="all">Összes</option>
+            {NEWSLETTER_LISTS.map((list) => <option value={list.key}>{list.name}</option>)}
+          </select>
+        </label>
+
+        <label class="newsletter-admin__field">
           <span>Forrás</span>
           <select data-filter-source>
             <option value="all">Összes</option>
@@ -115,11 +124,18 @@ const pageDescription =
             <h2>Lista és CSV/TSV import</h2>
           </div>
           <p class="newsletter-admin__panel-note">
-            A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status, valamint a vendéglista magyar mezői.
+            A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status, listKey, valamint a vendéglista magyar mezői.
           </p>
         </div>
 
         <form class="newsletter-admin__import-form" data-import-form>
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>Lista célja</span>
+            <select data-import-list>
+              {NEWSLETTER_LISTS.map((list) => <option value={list.key}>{list.name}</option>)}
+            </select>
+          </label>
+
           <label class="newsletter-admin__field newsletter-admin__field--full">
             <span>CSV fájl</span>
             <input type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" data-import-file />
@@ -127,8 +143,8 @@ const pageDescription =
 
           <label class="newsletter-admin__field newsletter-admin__field--full">
             <span>Példa formátum</span>
-            <textarea rows="5" readonly>email,name,lang,source,status
-pelda@example.com,Példa Név,hu,landing,active</textarea>
+            <textarea rows="5" readonly>email,name,lang,source,status,listKey
+pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           </label>
 
           <div class="newsletter-admin__actions">
@@ -161,6 +177,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
                 <th>E-mail</th>
                 <th>Státusz</th>
                 <th>Nyelv</th>
+                <th>Lista</th>
                 <th>Forrás</th>
                 <th>Feliratkozás</th>
                 <th>Leiratkozás</th>
@@ -169,7 +186,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
             </thead>
             <tbody data-subscriber-rows>
               <tr>
-                <td colspan="8" class="newsletter-admin__empty">
+                <td colspan="9" class="newsletter-admin__empty">
                   A lista még töltés alatt van.
                 </td>
               </tr>
@@ -189,6 +206,11 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     getStoredAdminSessionToken,
     isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
+  import {
+    NEWSLETTER_LISTS,
+    getNewsletterListName,
+    normalizeNewsletterListKey,
+  } from "../../scripts/newsletterLists";
 
   (() => {
     const root = document.querySelector("[data-newsletter-admin]");
@@ -202,6 +224,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const searchInput = root.querySelector("[data-search]");
     const statusFilter = root.querySelector("[data-filter-status]");
     const langFilter = root.querySelector("[data-filter-lang]");
+    const listFilter = root.querySelector("[data-filter-list]");
     const sourceFilter = root.querySelector("[data-filter-source]");
     const refreshButton = root.querySelector("[data-refresh]");
     const exportButton = root.querySelector("[data-export]");
@@ -210,15 +233,17 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const importPanel = root.querySelector("[data-import-panel]");
     const importForm = root.querySelector("[data-import-form]");
     const importFileInput = root.querySelector("[data-import-file]");
+    const importListSelect = root.querySelector("[data-import-list]");
     const closeImportButton = root.querySelector("[data-close-import]");
     const statTotal = root.querySelector("[data-stat-total]");
     const statActive = root.querySelector("[data-stat-active]");
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
-    const statSources = root.querySelector("[data-stat-sources]");
+    const statLists = root.querySelector("[data-stat-lists]");
     const apiLabel = root.querySelector("[data-api-label]");
     let subscribers = [];
     let filteredSubscribers = [];
     let sourceValues = [];
+    let listValues = [];
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
 
@@ -349,7 +374,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       }
 
       const headerCandidates = parsed[0].map((cell) => normalizeHeader(cell));
-      const hasHeader = headerCandidates.some((value) => ["email", "name", "lang", "source", "status", "staus"].includes(value));
+      const hasHeader = headerCandidates.some((value) => ["email", "name", "lang", "source", "status", "staus", "listkey", "list", "lista"].includes(value));
       const startIndex = hasHeader ? 1 : 0;
       const headerMap = hasHeader ? headerCandidates : [];
 
@@ -370,6 +395,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
             record.lang = row[2] ?? "hu";
             record.source = row[3] ?? "csv-import";
             record.status = row[4] ?? "active";
+            record.listkey = row[5] ?? "";
           }
 
           const email = String(
@@ -383,6 +409,9 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
             lang: String(record.lang ?? record.language ?? record.nyelv ?? record["nyelv"] ?? "hu").trim(),
             source: String(record.source ?? record.forras ?? record["forrás"] ?? record.haz ?? record["ház"] ?? "csv-import").trim(),
             status: String(record.status ?? "active").trim().toLowerCase(),
+            listKey: normalizeNewsletterListKey(
+              record.listKey ?? record.listkey ?? record.lista ?? record.list ?? record.listName ?? record["lista név"] ?? ""
+            ),
           };
         })
         .filter(Boolean);
@@ -393,18 +422,40 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     const updateStats = () => {
       const counts = subscribers.reduce(
         (acc, subscriber) => {
+          const listKey = normalizeNewsletterListKey(subscriber.listKey);
+          const listName = subscriber.listName || getNewsletterListName(listKey);
           acc.total += 1;
           acc[subscriber.status] = (acc[subscriber.status] ?? 0) + 1;
           acc.sources.add(subscriber.source || "ismeretlen");
+          if (!acc.lists.has(listKey)) {
+            acc.lists.set(listKey, { key: listKey, name: listName, total: 0 });
+          }
+          acc.lists.get(listKey).total += 1;
           return acc;
         },
-        { total: 0, active: 0, unsubscribed: 0, pending: 0, sources: new Set() }
+        {
+          total: 0,
+          active: 0,
+          unsubscribed: 0,
+          pending: 0,
+          sources: new Set(),
+          lists: new Map(
+            NEWSLETTER_LISTS.map((item) => [
+              item.key,
+              {
+                key: item.key,
+                name: item.name,
+                total: 0,
+              },
+            ])
+          ),
+        }
       );
 
       if (statTotal) statTotal.textContent = String(counts.total);
       if (statActive) statActive.textContent = String(counts.active);
       if (statUnsubscribed) statUnsubscribed.textContent = String(counts.unsubscribed);
-      if (statSources) statSources.textContent = String(counts.sources.size);
+      if (statLists) statLists.textContent = String(counts.lists.size);
 
       sourceValues = Array.from(counts.sources).sort((a, b) => a.localeCompare(b, "hu"));
       if (sourceFilter instanceof HTMLSelectElement) {
@@ -417,24 +468,48 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
           sourceFilter.value = current;
         }
       }
+
+      listValues = Array.from(counts.lists.values()).sort((a, b) => a.name.localeCompare(b.name, "hu"));
+      if (listFilter instanceof HTMLSelectElement) {
+        const current = listFilter.value;
+        const options = ["<option value=\"all\">Összes</option>"]
+          .concat(listValues.map((list) => `<option value="${escapeHtml(list.key)}">${escapeHtml(list.name)}</option>`))
+          .join("");
+        listFilter.innerHTML = options;
+        if (listValues.some((list) => list.key === current)) {
+          listFilter.value = current;
+        }
+      }
     };
 
     const render = () => {
       const query = normalize(searchInput instanceof HTMLInputElement ? searchInput.value : "");
       const statusValue = getFilterValue(statusFilter);
       const langValue = getFilterValue(langFilter);
+      const listValue = getFilterValue(listFilter);
       const sourceValue = getFilterValue(sourceFilter);
 
       filteredSubscribers = subscribers.filter((subscriber) => {
         const haystack = normalize(
-          [subscriber.name, subscriber.email, subscriber.source, subscriber.lang, subscriber.status].filter(Boolean).join(" ")
+          [
+            subscriber.name,
+            subscriber.email,
+            subscriber.source,
+            subscriber.lang,
+            subscriber.status,
+            subscriber.listName,
+            subscriber.listKey,
+          ]
+            .filter(Boolean)
+            .join(" ")
         );
 
         const matchesQuery = !query || haystack.includes(query);
         const matchesStatus = statusValue === "all" || subscriber.status === statusValue;
         const matchesLang = langValue === "all" || normalize(subscriber.lang) === normalize(langValue);
+        const matchesList = listValue === "all" || normalizeNewsletterListKey(subscriber.listKey) === normalizeNewsletterListKey(listValue);
         const matchesSource = sourceValue === "all" || subscriber.source === sourceValue;
-        return matchesQuery && matchesStatus && matchesLang && matchesSource;
+        return matchesQuery && matchesStatus && matchesLang && matchesList && matchesSource;
       });
 
       if (!(rowsNode instanceof HTMLElement)) return;
@@ -442,7 +517,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
       if (!filteredSubscribers.length) {
         rowsNode.innerHTML = `
           <tr>
-            <td colspan="8" class="newsletter-admin__empty">
+            <td colspan="9" class="newsletter-admin__empty">
               Nincs a szűrőknek megfelelő feliratkozó.
             </td>
           </tr>
@@ -455,6 +530,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
           const statusClass = `is-${subscriber.status || "unknown"}`;
           const displayName = subscriber.name || "Névtelen";
           const unsubUrl = subscriber.unsubscribeToken ? `${apiBase.replace(/\/$/, "")}/unsubscribe/${subscriber.unsubscribeToken}` : "—";
+          const listName = subscriber.listName || getNewsletterListName(subscriber.listKey);
           return `
             <tr>
               <td>
@@ -465,6 +541,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
               </td>
               <td><span class="newsletter-admin__badge ${statusClass}">${escapeHtml(subscriber.status || "unknown")}</span></td>
               <td>${escapeHtml(subscriber.lang || "—")}</td>
+              <td>${escapeHtml(listName)}</td>
               <td>${escapeHtml(subscriber.source || "—")}</td>
               <td>${escapeHtml(formatDate(subscriber.createdAt))}</td>
               <td>${subscriber.unsubscribeToken ? `<a href="${escapeHtml(unsubUrl)}" target="_blank" rel="noreferrer">Link</a>` : "—"}</td>
@@ -539,7 +616,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
 
     const exportCsv = () => {
       const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
-      const columns = ["name", "email", "status", "lang", "source", "createdAt", "updatedAt", "unsubscribeToken"];
+      const columns = ["name", "email", "status", "lang", "listKey", "listName", "source", "createdAt", "updatedAt", "unsubscribeToken"];
       const csv = [
         columns.join(","),
         ...rows.map((subscriber) =>
@@ -592,6 +669,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         return;
       }
 
+      const targetListKey = normalizeNewsletterListKey(importListSelect instanceof HTMLSelectElement ? importListSelect.value : "hirlevel_feliratkozok");
       const csvText = await file.text();
       const rows = parseImportRows(csvText);
 
@@ -609,7 +687,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify({ rows }),
+          body: JSON.stringify({ rows, listKey: targetListKey }),
         });
 
         if (response.status === 401 && !localAdminMode) {
@@ -643,6 +721,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
     statusFilter?.addEventListener("change", render);
     langFilter?.addEventListener("change", render);
     sourceFilter?.addEventListener("change", render);
+    listFilter?.addEventListener("change", render);
     refreshButton?.addEventListener("click", loadSubscribers);
     exportButton?.addEventListener("click", exportCsv);
     copyAllButton?.addEventListener("click", copyAllEmails);

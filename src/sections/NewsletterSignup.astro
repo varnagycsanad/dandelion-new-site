@@ -2,6 +2,7 @@
 interface Props {
   lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
+import { NEWSLETTER_DEFAULT_LIST_KEY } from "../scripts/newsletterLists";
 
 const { lang = "hu" } = Astro.props as Props;
 const newsletterApiUrl =
@@ -101,6 +102,7 @@ const copy = copyByLang[lang];
         <form class="dnd-newsletter-signup__form" data-dnd-newsletter-form aria-label={copy.aria}>
           <input type="hidden" name="lang" value={lang} />
           <input type="hidden" name="source" value="newsletter-signup" />
+          <input type="hidden" name="listKey" value={NEWSLETTER_DEFAULT_LIST_KEY} />
 
           <label class="dnd-newsletter-signup__field">
             <span>{copy.name}</span>

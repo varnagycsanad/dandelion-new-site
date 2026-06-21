@@ -10,6 +10,14 @@ import {
   verifyAuthenticationResponse,
   verifyRegistrationResponse,
 } from "@simplewebauthn/server";
+import {
+  NEWSLETTER_DEFAULT_LIST_KEY,
+  NEWSLETTER_LISTS,
+  getNewsletterList,
+  getNewsletterListName,
+  guessNewsletterListKeyFromSource,
+  normalizeNewsletterListKey,
+} from "../src/scripts/newsletterLists.js";
 
 function loadEnvFile(filePath) {
   if (!existsSync(filePath)) {
@@ -93,8 +101,8 @@ async function readState() {
     const parsed = JSON.parse(raw);
     const auth = normalizeAuthState(parsed.auth);
     return {
-      subscribers: Array.isArray(parsed.subscribers) ? parsed.subscribers : [],
-      campaigns: Array.isArray(parsed.campaigns) ? parsed.campaigns : [],
+      subscribers: Array.isArray(parsed.subscribers) ? parsed.subscribers.map(normalizeSubscriberRecord).filter(Boolean) : [],
+      campaigns: Array.isArray(parsed.campaigns) ? parsed.campaigns.map(normalizeCampaignRecord).filter(Boolean) : [],
       deliveries: Array.isArray(parsed.deliveries) ? parsed.deliveries : [],
       auth,
     };
@@ -230,11 +238,23 @@ function parseSubscriberImportRows(rows) {
       )
         .trim()
         .slice(0, 120) || "csv-import";
+      const listKey = normalizeNewsletterListKey(
+        row.listKey ??
+          row.listkey ??
+          row.listaKulcs ??
+          row["lista kulcs"] ??
+          row.list ??
+          row.lista ??
+          row.listName ??
+          row["lista név"] ??
+          row["lista"] ??
+          ""
+      );
       const statusRaw = String(row.status ?? row.stausz ?? row["státusz"] ?? row.allapot ?? row["állapot"] ?? "active")
         .trim()
         .toLowerCase();
       const status = ["active", "pending", "unsubscribed"].includes(statusRaw) ? statusRaw : "active";
-      normalizedRows.push({ email, name, lang, source, status });
+      normalizedRows.push({ email, name, lang, source, status, listKey });
     } catch {
       // Skip malformed rows so one bad record does not abort the whole import.
     }
@@ -243,8 +263,63 @@ function parseSubscriberImportRows(rows) {
   return normalizedRows;
 }
 
-function upsertImportedSubscriber(state, row) {
-  const existing = findSubscriber(state, row.email);
+function normalizeSubscriberRecord(subscriber) {
+  if (!subscriber || typeof subscriber !== "object") {
+    return null;
+  }
+
+  try {
+    const email = validateEmail(subscriber.email);
+    const listKey = normalizeNewsletterListKey(
+      subscriber.listKey ?? subscriber.listkey ?? guessNewsletterListKeyFromSource(subscriber.source)
+    );
+    const list = getNewsletterList(listKey);
+
+    return {
+      id: String(subscriber.id ?? randomUUID()),
+      email,
+      name: String(subscriber.name ?? "").trim().slice(0, 120),
+      lang: String(subscriber.lang ?? "hu").trim().slice(0, 12) || "hu",
+      source: String(subscriber.source ?? "csv-import").trim().slice(0, 120) || "csv-import",
+      listKey,
+      listName: String(subscriber.listName ?? list?.name ?? "Hírlevél feliratkozók"),
+      status: ["active", "pending", "unsubscribed"].includes(String(subscriber.status ?? "").toLowerCase())
+        ? String(subscriber.status).toLowerCase()
+        : "active",
+      consentAccepted: subscriber.consentAccepted === true || subscriber.consentAccepted === "true",
+      consentCreatedAt: subscriber.consentCreatedAt ? String(subscriber.consentCreatedAt) : nowIso(),
+      consentUpdatedAt: subscriber.consentUpdatedAt ? String(subscriber.consentUpdatedAt) : nowIso(),
+      createdAt: subscriber.createdAt ? String(subscriber.createdAt) : nowIso(),
+      updatedAt: subscriber.updatedAt ? String(subscriber.updatedAt) : nowIso(),
+      unsubscribeToken: String(subscriber.unsubscribeToken ?? randomUUID()),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function normalizeCampaignRecord(campaign) {
+  if (!campaign || typeof campaign !== "object") {
+    return null;
+  }
+
+  return {
+    ...campaign,
+    id: String(campaign.id ?? randomUUID()),
+    subject: String(campaign.subject ?? "").trim().slice(0, 160),
+    html: String(campaign.html ?? ""),
+    text: String(campaign.text ?? ""),
+    audience: Array.isArray(campaign.audience) ? campaign.audience.map((item) => String(item).trim()).filter(Boolean) : [],
+    targetListKey: normalizeNewsletterListKey(campaign.targetListKey ?? campaign.listKey ?? campaign.audienceListKey),
+    createdAt: String(campaign.createdAt ?? nowIso()),
+    updatedAt: String(campaign.updatedAt ?? nowIso()),
+    sentAt: campaign.sentAt ? String(campaign.sentAt) : undefined,
+  };
+}
+
+function upsertImportedSubscriber(state, row, targetListKey = NEWSLETTER_DEFAULT_LIST_KEY) {
+  const listKey = normalizeNewsletterListKey(row.listKey ?? targetListKey);
+  const existing = findSubscriber(state, row.email, listKey);
   const timestamp = nowIso();
 
   if (existing) {
@@ -252,6 +327,8 @@ function upsertImportedSubscriber(state, row) {
     existing.lang = row.lang || existing.lang || "hu";
     existing.source = row.source || existing.source || "csv-import";
     existing.status = row.status || existing.status || "active";
+    existing.listKey = listKey;
+    existing.listName = getNewsletterListName(listKey);
     existing.updatedAt = timestamp;
     existing.consentUpdatedAt = existing.consentUpdatedAt || timestamp;
     existing.consentAccepted = true;
@@ -265,6 +342,8 @@ function upsertImportedSubscriber(state, row) {
     name: row.name,
     lang: row.lang || "hu",
     source: row.source || "csv-import",
+    listKey,
+    listName: getNewsletterListName(listKey),
     status: row.status || "active",
     consentAccepted: true,
     consentCreatedAt: timestamp,
@@ -280,6 +359,51 @@ function upsertImportedSubscriber(state, row) {
 
 function normalizeEmail(email) {
   return String(email ?? "").trim().toLowerCase();
+}
+
+function findSubscriber(state, email, listKey = NEWSLETTER_DEFAULT_LIST_KEY) {
+  const normalized = normalizeEmail(email);
+  const normalizedListKey = normalizeNewsletterListKey(listKey);
+  return state.subscribers.find((subscriber) => normalizeEmail(subscriber.email) === normalized && normalizeNewsletterListKey(subscriber.listKey) === normalizedListKey);
+}
+
+function buildSubscriberLists(state) {
+  const counts = new Map(
+    NEWSLETTER_LISTS.map((item) => [
+      item.key,
+      {
+        key: item.key,
+        name: item.name,
+        description: item.description,
+        total: 0,
+        active: 0,
+        pending: 0,
+        unsubscribed: 0,
+      },
+    ])
+  );
+
+  for (const subscriber of state.subscribers) {
+    const listKey = normalizeNewsletterListKey(subscriber.listKey);
+    if (!counts.has(listKey)) {
+      const list = getNewsletterList(listKey);
+      counts.set(listKey, {
+        key: listKey,
+        name: list?.name ?? listKey,
+        description: list?.description ?? "",
+        total: 0,
+        active: 0,
+        pending: 0,
+        unsubscribed: 0,
+      });
+    }
+
+    const bucket = counts.get(listKey);
+    bucket.total += 1;
+    bucket[subscriber.status] = (bucket[subscriber.status] ?? 0) + 1;
+  }
+
+  return Array.from(counts.values());
 }
 
 function nowIso() {
@@ -532,11 +656,6 @@ function publicUnsubscribeUrl(token) {
   return `${PUBLIC_BASE_URL.replace(/\/$/, "")}/unsubscribe/${token}`;
 }
 
-function findSubscriber(state, email) {
-  const normalized = normalizeEmail(email);
-  return state.subscribers.find((subscriber) => subscriber.email === normalized);
-}
-
 function ensureString(value, label, minLength = 1, maxLength = 200) {
   const normalized = String(value ?? "").trim();
   if (normalized.length < minLength) {
@@ -691,9 +810,22 @@ async function handleRequest(req, res) {
       },
       counts: {
         subscribers: state.subscribers.length,
+        lists: buildSubscriberLists(state).length,
         campaigns: state.campaigns.length,
         deliveries: state.deliveries.length,
       },
+    });
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/lists") {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    jsonResponse(res, 200, {
+      ok: true,
+      lists: buildSubscriberLists(state),
     });
     return;
   }
@@ -702,7 +834,14 @@ async function handleRequest(req, res) {
     if (!requireAdminAuth(state, req, res)) {
       return;
     }
-    jsonResponse(res, 200, { ok: true, subscribers: state.subscribers });
+
+    const requestedListKeyRaw = url.searchParams.get("listKey");
+    const requestedListKey = requestedListKeyRaw ? normalizeNewsletterListKey(requestedListKeyRaw) : "";
+    const subscribers = requestedListKey
+      ? state.subscribers.filter((subscriber) => normalizeNewsletterListKey(subscriber.listKey) === requestedListKey)
+      : state.subscribers;
+
+    jsonResponse(res, 200, { ok: true, subscribers, lists: buildSubscriberLists(state) });
     return;
   }
 
@@ -714,6 +853,7 @@ async function handleRequest(req, res) {
     try {
       const body = await readJsonBody(req);
       const rows = Array.isArray(body.rows) ? body.rows : [];
+      const targetListKey = normalizeNewsletterListKey(body.listKey ?? body.list ?? body.targetListKey);
       const parsedRows = parseSubscriberImportRows(rows);
 
       if (!parsedRows.length) {
@@ -730,7 +870,7 @@ async function handleRequest(req, res) {
 
       for (const row of parsedRows) {
         try {
-          const outcome = upsertImportedSubscriber(state, row);
+          const outcome = upsertImportedSubscriber(state, row, targetListKey);
           result[outcome.mode] += 1;
         } catch {
           result.skipped += 1;
@@ -743,6 +883,8 @@ async function handleRequest(req, res) {
         ok: true,
         message: `CSV import kész: ${result.created} új, ${result.updated} frissített, ${result.skipped} kihagyott.`,
         result,
+        listKey: targetListKey,
+        listName: getNewsletterListName(targetListKey),
       });
     } catch (error) {
       jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "CSV import failed." });
@@ -757,6 +899,8 @@ async function handleRequest(req, res) {
       const name = String(body.name ?? "").trim().slice(0, 120);
       const lang = String(body.lang ?? "hu").trim().slice(0, 12) || "hu";
       const source = String(body.source ?? "newsletter-signup").trim().slice(0, 120) || "newsletter-signup";
+      const listKey = normalizeNewsletterListKey(body.listKey ?? body.list ?? guessNewsletterListKeyFromSource(source));
+      const listName = getNewsletterListName(listKey);
       const consent = body.consent === true || body.consent === "true" || body.consent === "on";
 
       if (!consent) {
@@ -764,13 +908,15 @@ async function handleRequest(req, res) {
         return;
       }
 
-      const existing = findSubscriber(state, email);
+      const existing = findSubscriber(state, email, listKey);
       const timestamp = nowIso();
 
       if (existing) {
         existing.name = name || existing.name;
         existing.lang = lang;
         existing.source = source;
+        existing.listKey = listKey;
+        existing.listName = listName;
         existing.status = "active";
         existing.updatedAt = timestamp;
         existing.consentUpdatedAt = timestamp;
@@ -792,6 +938,8 @@ async function handleRequest(req, res) {
         name,
         lang,
         source,
+        listKey,
+        listName,
         status: "active",
         consentAccepted: true,
         consentCreatedAt: timestamp,
@@ -1136,12 +1284,14 @@ async function handleRequest(req, res) {
       const html = ensureString(body.html, "html", 1, 200000);
       const text = String(body.text ?? "").trim().slice(0, 200000);
       const audience = Array.isArray(body.audience) ? body.audience.map((item) => String(item).trim()).filter(Boolean) : [];
+      const targetListKey = normalizeNewsletterListKey(body.targetListKey ?? body.listKey ?? body.audienceListKey);
       const campaign = {
         id: randomUUID(),
         subject,
         html,
         text,
         audience,
+        targetListKey,
         status: "draft",
         createdAt: nowIso(),
         updatedAt: nowIso(),
@@ -1174,7 +1324,10 @@ async function handleRequest(req, res) {
       return;
     }
 
-    const activeSubscribers = state.subscribers.filter((subscriber) => subscriber.status === "active");
+    const targetListKey = normalizeNewsletterListKey(campaign.targetListKey ?? campaign.listKey ?? campaign.audienceListKey);
+    const activeSubscribers = state.subscribers.filter(
+      (subscriber) => subscriber.status === "active" && normalizeNewsletterListKey(subscriber.listKey) === targetListKey
+    );
     const timestamp = nowIso();
     const deliveries = [];
 

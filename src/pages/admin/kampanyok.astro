@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NEWSLETTER_LISTS } from "../../scripts/newsletterLists";
 
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
@@ -116,6 +117,13 @@ const pageDescription =
               <input name="testTo" type="email" placeholder="cvarnagy@gmail.com" data-test-to />
             </label>
 
+            <label class="newsletter-campaigns__field">
+              <span>Cél lista</span>
+              <select name="targetListKey" data-campaign-target-list>
+                {NEWSLETTER_LISTS.map((list) => <option value={list.key}>{list.name}</option>)}
+              </select>
+            </label>
+
             <label class="newsletter-campaigns__field newsletter-campaigns__field--full">
               <span>Szegmens tagok</span>
               <textarea
@@ -185,7 +193,8 @@ const pageDescription =
               <tr>
                 <th>Tárgy</th>
                 <th>Státusz</th>
-                <th>Audience</th>
+                <th>Lista</th>
+                <th>Szegmens</th>
                 <th>Létrehozva</th>
                 <th>Kiküldve</th>
                 <th></th>
@@ -193,7 +202,7 @@ const pageDescription =
             </thead>
             <tbody data-campaign-rows>
               <tr>
-                <td colspan="6" class="newsletter-campaigns__empty">A kampánylista betöltése folyamatban...</td>
+                <td colspan="7" class="newsletter-campaigns__empty">A kampánylista betöltése folyamatban...</td>
               </tr>
             </tbody>
           </table>
@@ -212,6 +221,11 @@ const pageDescription =
     getStoredAdminSessionToken,
     isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
+  import {
+    NEWSLETTER_DEFAULT_LIST_KEY,
+    getNewsletterListName,
+    normalizeNewsletterListKey,
+  } from "../../scripts/newsletterLists";
 
   (() => {
     const root = document.querySelector("[data-newsletter-campaigns]");
@@ -232,6 +246,7 @@ const pageDescription =
     const audienceInput = root.querySelector("[data-campaign-audience]");
     const audienceLabelInput = root.querySelector("[data-campaign-audience-label]");
     const testToInput = root.querySelector("[data-test-to]");
+    const targetListSelect = root.querySelector("[data-campaign-target-list]");
     const previewSubject = root.querySelector("[data-preview-subject]");
     const previewBody = root.querySelector("[data-preview-body]");
     const statCampaigns = root.querySelector("[data-stat-campaigns]");
@@ -248,6 +263,10 @@ const pageDescription =
     let activeSubscribers = 0;
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
+
+    if (targetListSelect instanceof HTMLSelectElement) {
+      targetListSelect.value = NEWSLETTER_DEFAULT_LIST_KEY;
+    }
 
     if (!adminPassword) {
       window.location.replace("/admin/");
@@ -345,6 +364,7 @@ const pageDescription =
       if (audienceInput instanceof HTMLTextAreaElement) audienceInput.value = "";
       if (audienceLabelInput instanceof HTMLInputElement) audienceLabelInput.value = "";
       if (testToInput instanceof HTMLInputElement) testToInput.value = "";
+      if (targetListSelect instanceof HTMLSelectElement) targetListSelect.value = NEWSLETTER_DEFAULT_LIST_KEY;
       if (editorTitle instanceof HTMLElement) editorTitle.textContent = "Új kampány";
       syncPreview();
     };
@@ -357,15 +377,18 @@ const pageDescription =
         .filter(Boolean);
     };
 
-    const loadSubscribersCount = async () => {
+    const loadSubscribersCount = async (listKey = NEWSLETTER_DEFAULT_LIST_KEY) => {
       if (!apiBase) {
         return;
       }
 
       try {
-        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
-          headers: { Accept: "application/json" },
-        });
+        const response = await adminFetch(
+          `${apiBase.replace(/\/$/, "")}/subscribers?listKey=${encodeURIComponent(normalizeNewsletterListKey(listKey))}`,
+          {
+            headers: { Accept: "application/json" },
+          }
+        );
         const result = await response.json();
         if (response.status === 401) {
           return;
@@ -400,7 +423,7 @@ const pageDescription =
       if (!campaigns.length) {
         campaignRows.innerHTML = `
           <tr>
-            <td colspan="6" class="newsletter-campaigns__empty">Még nincs mentett kampány.</td>
+            <td colspan="7" class="newsletter-campaigns__empty">Még nincs mentett kampány.</td>
           </tr>
         `;
         return;
@@ -409,12 +432,14 @@ const pageDescription =
       campaignRows.innerHTML = campaigns
         .map((campaign) => {
           const audienceCount = Array.isArray(campaign.audience) ? campaign.audience.length : 0;
+          const targetListName = getNewsletterListName(campaign.targetListKey);
           return `
             <tr>
               <td>
                 <strong>${escapeHtml(campaign.subject || "Névtelen kampány")}</strong>
               </td>
               <td><span class="newsletter-campaigns__badge is-${escapeHtml(campaign.status || "draft")}">${escapeHtml(campaign.status || "draft")}</span></td>
+              <td>${escapeHtml(targetListName)}</td>
               <td>${audienceCount ? `${audienceCount} elem` : "Összes aktív"}</td>
               <td>${escapeHtml(formatDate(campaign.createdAt))}</td>
               <td>${campaign.sentAt ? escapeHtml(formatDate(campaign.sentAt)) : "—"}</td>
@@ -438,8 +463,12 @@ const pageDescription =
           if (textInput instanceof HTMLTextAreaElement) textInput.value = campaign.text || "";
           if (htmlInput instanceof HTMLTextAreaElement) htmlInput.value = campaign.html || "";
           if (audienceInput instanceof HTMLTextAreaElement) audienceInput.value = Array.isArray(campaign.audience) ? campaign.audience.join("\n") : "";
+          if (targetListSelect instanceof HTMLSelectElement) {
+            targetListSelect.value = normalizeNewsletterListKey(campaign.targetListKey);
+          }
           if (editorTitle instanceof HTMLElement) editorTitle.textContent = `Kampány betöltve: ${campaign.subject || "Névtelen"}`;
           syncPreview();
+          loadSubscribersCount(campaign.targetListKey);
           setStatus(`Kampány betöltve: ${campaign.subject || "Névtelen kampány"}.`, "success");
         });
       });
@@ -476,7 +505,7 @@ const pageDescription =
         }
 
         campaigns = Array.isArray(result.campaigns) ? result.campaigns : [];
-        await loadSubscribersCount();
+        await loadSubscribersCount(targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY);
         renderCampaignRows();
         setStatus(`Betöltve: ${campaigns.length} kampány.`, "success");
       } catch (error) {
@@ -496,11 +525,15 @@ const pageDescription =
       const text = textInput instanceof HTMLTextAreaElement ? textInput.value.trim() : "";
       const audience = normalizeAudience();
       const audienceLabel = audienceLabelInput instanceof HTMLInputElement ? audienceLabelInput.value.trim() : "";
+      const targetListKey = normalizeNewsletterListKey(
+        targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY
+      );
       const payload = {
         subject,
         html,
         text,
         audience: audienceLabel ? [audienceLabel, ...audience] : audience,
+        targetListKey,
       };
 
       if (!subject || !html) {
@@ -533,8 +566,10 @@ const pageDescription =
         const savedCampaign = result.campaign;
         campaigns = [savedCampaign, ...campaigns.filter((item) => item.id !== savedCampaign.id)];
         if (campaignIdInput instanceof HTMLInputElement) campaignIdInput.value = savedCampaign.id;
+        if (targetListSelect instanceof HTMLSelectElement) targetListSelect.value = normalizeNewsletterListKey(savedCampaign.targetListKey);
         if (editorTitle instanceof HTMLElement) editorTitle.textContent = `Draft mentve: ${savedCampaign.subject}`;
         renderCampaignRows();
+        await loadSubscribersCount(savedCampaign.targetListKey);
         setStatus(`Draft mentve: ${savedCampaign.subject}`, "success");
       } catch (error) {
         console.error("[newsletter-campaigns]", error);
@@ -618,6 +653,9 @@ const pageDescription =
     subjectInput?.addEventListener("input", syncPreview);
     textInput?.addEventListener("input", syncPreview);
     htmlInput?.addEventListener("input", syncPreview);
+    targetListSelect?.addEventListener("change", async () => {
+      await loadSubscribersCount(targetListSelect instanceof HTMLSelectElement ? targetListSelect.value : NEWSLETTER_DEFAULT_LIST_KEY);
+    });
 
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -960,6 +998,7 @@ const pageDescription =
   }
 
   .newsletter-campaigns__field input,
+  .newsletter-campaigns__field select,
   .newsletter-campaigns__field textarea {
     width: 100%;
     padding: 14px;
