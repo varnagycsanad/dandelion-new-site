@@ -5,7 +5,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
-  Astro.url.origin;
+  Astro.site?.origin ??
+  "https://dandelionhouse.hu";
 const fallbackAdminPasswordHash = "9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a";
 const adminPasswordHash = import.meta.env.NEWSLETTER_ADMIN_PASSWORD
   ? createHash("sha256").update(import.meta.env.NEWSLETTER_ADMIN_PASSWORD).digest("hex")
@@ -114,7 +115,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const root = document.querySelector("[data-admin-home]");
     if (!(root instanceof HTMLElement)) return;
 
-    const apiBase = root.dataset.apiBase?.trim() || "";
+    const apiBase = root.dataset.apiBase?.trim() || window.location.origin;
     const authPanel = root.querySelector("[data-auth-panel]");
     const authForm = root.querySelector("[data-auth-form]");
     const authInput = root.querySelector("[data-auth-input]");
