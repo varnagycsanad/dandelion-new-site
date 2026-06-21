@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import nodemailer from "nodemailer";
 import {
   generateAuthenticationOptions,
@@ -57,6 +57,8 @@ const SMTP_PASSWORD = process.env.NEWSLETTER_SMTP_PASSWORD ?? "";
 const SMTP_FROM = process.env.NEWSLETTER_SMTP_FROM ?? "\"Dandelion hírlevél\" <newsletter@dandelionhouse.hu>";
 const SMTP_REPLY_TO = process.env.NEWSLETTER_SMTP_REPLY_TO ?? "hello@dandelionhouse.hu";
 const ADMIN_PASSWORD = process.env.NEWSLETTER_ADMIN_PASSWORD ?? "";
+const ADMIN_PASSWORD_HASH =
+  process.env.NEWSLETTER_ADMIN_PASSWORD_HASH ?? "9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a";
 const ADMIN_RP_NAME = "Dandelion admin";
 const ADMIN_USER_ID = fromUtf8("dandelion-admin");
 const ADMIN_USER_NAME = "dandelion-admin";
@@ -541,8 +543,12 @@ function hasSmtpCredentials() {
   return Boolean(SMTP_HOST && SMTP_USER && SMTP_PASSWORD);
 }
 
+function sha256Hex(value) {
+  return createHash("sha256").update(String(value ?? ""), "utf8").digest("hex");
+}
+
 function hasAdminCredentials() {
-  return Boolean(ADMIN_PASSWORD);
+  return Boolean(ADMIN_PASSWORD || ADMIN_PASSWORD_HASH);
 }
 
 function getAdminSessionToken(req) {
@@ -573,7 +579,10 @@ function isAdminAuthorized(state, req) {
     return isSessionAuthorized(state, req);
   }
 
-  const passwordAuthorized = String(req.headers["x-newsletter-admin-password"] ?? "") === ADMIN_PASSWORD;
+  const providedPassword = String(req.headers["x-newsletter-admin-password"] ?? "");
+  const passwordAuthorized = ADMIN_PASSWORD
+    ? providedPassword === ADMIN_PASSWORD
+    : sha256Hex(providedPassword) === ADMIN_PASSWORD_HASH;
   return passwordAuthorized || isSessionAuthorized(state, req);
 }
 
