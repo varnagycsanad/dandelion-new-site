@@ -15,6 +15,7 @@ const SMTP_USER = process.env.NEWSLETTER_SMTP_USER ?? "newsletter@dandelionhouse
 const SMTP_PASSWORD = process.env.NEWSLETTER_SMTP_PASSWORD ?? "";
 const SMTP_FROM = process.env.NEWSLETTER_SMTP_FROM ?? "\"Dandelion hírlevél\" <newsletter@dandelionhouse.hu>";
 const SMTP_REPLY_TO = process.env.NEWSLETTER_SMTP_REPLY_TO ?? "hello@dandelionhouse.hu";
+const ADMIN_PASSWORD = process.env.NEWSLETTER_ADMIN_PASSWORD ?? "";
 
 const DEFAULT_STATE = {
   subscribers: [],
@@ -57,7 +58,7 @@ function jsonResponse(res, statusCode, body) {
     "Content-Type": "application/json; charset=utf-8",
     "Content-Length": Buffer.byteLength(payload),
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
     "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
   });
   res.end(payload);
@@ -67,7 +68,7 @@ function textResponse(res, statusCode, body) {
   res.writeHead(statusCode, {
     "Content-Type": "text/plain; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
     "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
   });
   res.end(body);
@@ -137,6 +138,27 @@ function hasSmtpCredentials() {
   return Boolean(SMTP_HOST && SMTP_USER && SMTP_PASSWORD);
 }
 
+function hasAdminCredentials() {
+  return Boolean(ADMIN_PASSWORD);
+}
+
+function isAdminAuthorized(req) {
+  if (!hasAdminCredentials()) {
+    return true;
+  }
+
+  return String(req.headers["x-newsletter-admin-password"] ?? "") === ADMIN_PASSWORD;
+}
+
+function requireAdminAuth(req, res) {
+  if (isAdminAuthorized(req)) {
+    return true;
+  }
+
+  jsonResponse(res, 401, { ok: false, message: "Admin authorization required." });
+  return false;
+}
+
 function buildHtmlEmail(campaign, subscriber) {
   const unsubscribeUrl = publicUnsubscribeUrl(subscriber.unsubscribeToken);
   return `<!doctype html>
@@ -189,7 +211,7 @@ async function handleRequest(req, res) {
   if (req.method === "OPTIONS") {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Newsletter-Admin-Password",
       "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
     });
     res.end();
@@ -222,6 +244,9 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname === "/subscribers") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     jsonResponse(res, 200, { ok: true, subscribers: state.subscribers });
     return;
   }
@@ -323,11 +348,26 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname === "/campaigns") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     jsonResponse(res, 200, { ok: true, campaigns: state.campaigns });
     return;
   }
 
+  if (req.method === "POST" && url.pathname === "/admin/auth") {
+    if (!hasAdminCredentials() || isAdminAuthorized(req)) {
+      jsonResponse(res, 200, { ok: true, message: "Admin authorized.", protected: hasAdminCredentials() });
+    } else {
+      jsonResponse(res, 401, { ok: false, message: "Invalid admin password." });
+    }
+    return;
+  }
+
   if (req.method === "GET" && url.pathname === "/smtp/status") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     jsonResponse(res, 200, {
       ok: true,
       smtp: {
@@ -342,6 +382,9 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/smtp/test") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     try {
       const body = await readJsonBody(req);
       const to = validateEmail(body.to ?? SMTP_USER);
@@ -370,6 +413,9 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "GET" && url.pathname.match(/^\/campaigns\/[^/]+$/)) {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     const campaignId = url.pathname.split("/")[2];
     const campaign = state.campaigns.find((entry) => entry.id === campaignId);
 
@@ -383,6 +429,9 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname === "/campaigns") {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     try {
       const body = await readJsonBody(req);
       const subject = ensureString(body.subject, "subject", 3, 160);
@@ -411,6 +460,9 @@ async function handleRequest(req, res) {
   }
 
   if (req.method === "POST" && url.pathname.match(/^\/campaigns\/[^/]+\/send$/)) {
+    if (!requireAdminAuth(req, res)) {
+      return;
+    }
     const campaignId = url.pathname.split("/")[2];
     const campaign = state.campaigns.find((entry) => entry.id === campaignId);
 

@@ -12,6 +12,26 @@ const pageDescription =
     <div class="newsletter-admin__backdrop newsletter-admin__backdrop--gold"></div>
     <div class="newsletter-admin__backdrop newsletter-admin__backdrop--sage"></div>
 
+    <div class="newsletter-admin__auth" data-auth-panel>
+      <div class="newsletter-admin__auth-card">
+        <p class="newsletter-admin__eyebrow">Admin belépés</p>
+        <h2>Jelszó szükséges</h2>
+        <p class="newsletter-admin__panel-note">
+          Ez az admin jelszó a böngésző sessionjében marad, és a newsletter service ellenőrzi.
+        </p>
+        <form class="newsletter-admin__auth-form" data-auth-form>
+          <label class="newsletter-admin__field newsletter-admin__field--full">
+            <span>Admin jelszó</span>
+            <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+          </label>
+          <div class="newsletter-admin__actions">
+            <button class="newsletter-admin__button newsletter-admin__button--primary" type="submit">Belépés</button>
+          </div>
+        </form>
+        <p class="newsletter-admin__status" data-auth-status aria-live="polite"></p>
+      </div>
+    </div>
+
     <div class="newsletter-admin__shell">
       <header class="newsletter-admin__hero">
         <div class="newsletter-admin__hero-copy">
@@ -163,10 +183,29 @@ const pageDescription =
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
     const statSources = root.querySelector("[data-stat-sources]");
     const apiLabel = root.querySelector("[data-api-label]");
+    const authPanel = root.querySelector("[data-auth-panel]");
+    const authForm = root.querySelector("[data-auth-form]");
+    const authInput = root.querySelector("[data-auth-input]");
+    const authStatus = root.querySelector("[data-auth-status]");
+    const authStorageKey = "dandelion-newsletter-admin-password";
 
     let subscribers = [];
     let filteredSubscribers = [];
     let sourceValues = [];
+    let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
+
+    const updateLockState = (locked) => {
+      root.classList.toggle("is-locked", locked);
+      if (authPanel instanceof HTMLElement) {
+        authPanel.hidden = !locked;
+      }
+    };
+
+    const setAuthStatus = (message, tone = "info") => {
+      if (!(authStatus instanceof HTMLElement)) return;
+      authStatus.textContent = message;
+      authStatus.dataset.tone = tone;
+    };
 
     const formatDate = (value) => {
       if (!value) return "—";
@@ -197,6 +236,24 @@ const pageDescription =
       statusNode.textContent = message;
       statusNode.dataset.tone = tone;
     };
+
+    const adminHeaders = (extra = {}) => {
+      const headers = {
+        ...extra,
+      };
+
+      if (adminPassword) {
+        headers["X-Newsletter-Admin-Password"] = adminPassword;
+      }
+
+      return headers;
+    };
+
+    const adminFetch = (url, options = {}) =>
+      fetch(url, {
+        ...options,
+        headers: adminHeaders(options.headers || {}),
+      });
 
     const getFilterValue = (node) => (node instanceof HTMLInputElement || node instanceof HTMLSelectElement ? node.value : "all");
 
@@ -313,11 +370,18 @@ const pageDescription =
       setStatus("Feliratkozók betöltése...", "info");
 
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
-          headers: {
-            Accept: "application/json",
-          },
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
+          headers: { Accept: "application/json" },
         });
+
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
 
         const result = await response.json();
 
@@ -334,6 +398,45 @@ const pageDescription =
         setStatus("Nem sikerült betölteni a listát a newsletter service-ből.", "error");
       }
     };
+
+    authForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const password = authInput instanceof HTMLInputElement ? authInput.value.trim() : "";
+      if (!password) {
+        setAuthStatus("Adj meg egy jelszót.", "warning");
+        return;
+      }
+
+      setAuthStatus("Beléptetés folyamatban...", "info");
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Newsletter-Admin-Password": password,
+            Accept: "application/json",
+          },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        adminPassword = password;
+        sessionStorage.setItem(authStorageKey, password);
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+        setStatus("Admin feloldva.", "success");
+        await loadSubscribers();
+      } catch (error) {
+        console.error("[newsletter-admin-auth]", error);
+        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+      }
+    });
 
     const exportCsv = () => {
       const rows = filteredSubscribers.length ? filteredSubscribers : subscribers;
@@ -386,7 +489,13 @@ const pageDescription =
     exportButton?.addEventListener("click", exportCsv);
     copyAllButton?.addEventListener("click", copyAllEmails);
 
-    loadSubscribers();
+    updateLockState(!adminPassword);
+    if (adminPassword) {
+      loadSubscribers();
+    } else {
+      setStatus("Belépés szükséges az adminhoz.", "warning");
+      setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
+    }
   })();
 </script>
 
@@ -435,6 +544,44 @@ const pageDescription =
     margin: 0 auto;
     display: grid;
     gap: 20px;
+  }
+
+  .newsletter-admin.is-locked .newsletter-admin__shell {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .newsletter-admin__auth {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(30, 23, 16, 0.45);
+    backdrop-filter: blur(8px);
+  }
+
+  .newsletter-admin__auth-card {
+    width: min(520px, 100%);
+    padding: 26px;
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.96);
+    box-shadow: 0 30px 80px rgba(30, 23, 16, 0.28);
+    display: grid;
+    gap: 14px;
+  }
+
+  .newsletter-admin__auth-card h2 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  }
+
+  .newsletter-admin__auth-form {
+    display: grid;
+    gap: 16px;
   }
 
   .newsletter-admin__hero,

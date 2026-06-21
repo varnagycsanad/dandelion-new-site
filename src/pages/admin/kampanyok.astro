@@ -12,6 +12,26 @@ const pageDescription =
     <div class="newsletter-campaigns__orb newsletter-campaigns__orb--amber"></div>
     <div class="newsletter-campaigns__orb newsletter-campaigns__orb--green"></div>
 
+    <div class="newsletter-campaigns__auth" data-auth-panel>
+      <div class="newsletter-campaigns__auth-card">
+        <p class="newsletter-campaigns__eyebrow">Admin belépés</p>
+        <h2>Jelszó szükséges</h2>
+        <p class="newsletter-campaigns__panel-note">
+          A kampányok betöltéséhez, mentéséhez és küldéséhez add meg az admin jelszót.
+        </p>
+        <form class="newsletter-campaigns__auth-form" data-auth-form>
+          <label class="newsletter-campaigns__field newsletter-campaigns__field--full">
+            <span>Admin jelszó</span>
+            <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+          </label>
+          <div class="newsletter-campaigns__actions">
+            <button class="newsletter-campaigns__button newsletter-campaigns__button--primary" type="submit">Belépés</button>
+          </div>
+        </form>
+        <p class="newsletter-campaigns__status" data-auth-status aria-live="polite"></p>
+      </div>
+    </div>
+
     <div class="newsletter-campaigns__shell">
       <header class="newsletter-campaigns__hero">
         <div class="newsletter-campaigns__hero-copy">
@@ -231,9 +251,15 @@ const pageDescription =
     const saveButton = root.querySelector("[data-save-campaign]");
     const sendButton = root.querySelector("[data-send-campaign]");
     const testButton = root.querySelector("[data-send-test]");
+    const authPanel = root.querySelector("[data-auth-panel]");
+    const authForm = root.querySelector("[data-auth-form]");
+    const authInput = root.querySelector("[data-auth-input]");
+    const authStatus = root.querySelector("[data-auth-status]");
+    const authStorageKey = "dandelion-newsletter-admin-password";
 
     let campaigns = [];
     let activeSubscribers = 0;
+    let adminPassword = sessionStorage.getItem(authStorageKey) ?? "";
 
     const escapeHtml = (value) =>
       String(value ?? "")
@@ -258,6 +284,37 @@ const pageDescription =
       statusNode.textContent = message;
       statusNode.dataset.tone = tone;
     };
+
+    const updateLockState = (locked) => {
+      root.classList.toggle("is-locked", locked);
+      if (authPanel instanceof HTMLElement) {
+        authPanel.hidden = !locked;
+      }
+    };
+
+    const setAuthStatus = (message, tone = "info") => {
+      if (!(authStatus instanceof HTMLElement)) return;
+      authStatus.textContent = message;
+      authStatus.dataset.tone = tone;
+    };
+
+    const adminHeaders = (extra = {}) => {
+      const headers = {
+        ...extra,
+      };
+
+      if (adminPassword) {
+        headers["X-Newsletter-Admin-Password"] = adminPassword;
+      }
+
+      return headers;
+    };
+
+    const adminFetch = (url, options = {}) =>
+      fetch(url, {
+        ...options,
+        headers: adminHeaders(options.headers || {}),
+      });
 
     const syncPreview = () => {
       const subject = subjectInput instanceof HTMLInputElement ? subjectInput.value.trim() : "";
@@ -296,10 +353,13 @@ const pageDescription =
       }
 
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers`, {
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
+        if (response.status === 401) {
+          return;
+        }
         if (!response.ok || !result?.ok) {
           throw new Error(result?.message || "load_failed");
         }
@@ -392,10 +452,18 @@ const pageDescription =
 
       setStatus("Kampányok betöltése...", "info");
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/campaigns`, {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/campaigns`, {
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
         if (!response.ok || !result?.ok) {
           throw new Error(result?.message || "campaigns_load_failed");
         }
@@ -436,7 +504,7 @@ const pageDescription =
       setStatus("Draft mentése folyamatban...", "info");
 
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/campaigns`, {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/campaigns`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -445,6 +513,14 @@ const pageDescription =
           body: JSON.stringify(payload),
         });
         const result = await response.json();
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
         if (!response.ok || !result?.ok) {
           throw new Error(result?.message || "save_failed");
         }
@@ -470,11 +546,19 @@ const pageDescription =
       setStatus("Kiküldés előkészítése...", "info");
 
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/campaigns/${campaignId}/send`, {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/campaigns/${campaignId}/send`, {
           method: "POST",
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
         if (!response.ok || !result?.ok) {
           throw new Error(result?.message || "send_failed");
         }
@@ -503,7 +587,7 @@ const pageDescription =
       setStatus(`Tesztküldés: ${to}`, "info");
 
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/smtp/test`, {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/smtp/test`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -512,6 +596,14 @@ const pageDescription =
           body: JSON.stringify({ to, subject, text }),
         });
         const result = await response.json();
+        if (response.status === 401) {
+          adminPassword = "";
+          sessionStorage.removeItem(authStorageKey);
+          updateLockState(true);
+          setAuthStatus("Hibás admin jelszó.", "error");
+          setStatus("Belépés szükséges.", "warning");
+          return;
+        }
         if (!response.ok || !result?.ok) {
           throw new Error(result?.message || "smtp_test_failed");
         }
@@ -525,6 +617,45 @@ const pageDescription =
     subjectInput?.addEventListener("input", syncPreview);
     textInput?.addEventListener("input", syncPreview);
     htmlInput?.addEventListener("input", syncPreview);
+
+    authForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const password = authInput instanceof HTMLInputElement ? authInput.value.trim() : "";
+      if (!password) {
+        setAuthStatus("Adj meg egy jelszót.", "warning");
+        return;
+      }
+
+      setAuthStatus("Beléptetés folyamatban...", "info");
+
+      try {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Newsletter-Admin-Password": password,
+            Accept: "application/json",
+          },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        adminPassword = password;
+        sessionStorage.setItem(authStorageKey, password);
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+        setStatus("Admin feloldva.", "success");
+        await loadCampaigns();
+      } catch (error) {
+        console.error("[newsletter-campaigns-auth]", error);
+        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+      }
+    });
 
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -545,7 +676,13 @@ const pageDescription =
     testButton?.addEventListener("click", sendTest);
 
     syncPreview();
-    loadCampaigns();
+    updateLockState(!adminPassword);
+    if (adminPassword) {
+      loadCampaigns();
+    } else {
+      setStatus("Belépés szükséges az adminhoz.", "warning");
+      setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
+    }
   })();
 </script>
 
@@ -593,6 +730,44 @@ const pageDescription =
     margin: 0 auto;
     display: grid;
     gap: 20px;
+  }
+
+  .newsletter-campaigns.is-locked .newsletter-campaigns__shell {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .newsletter-campaigns__auth {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(30, 23, 16, 0.45);
+    backdrop-filter: blur(8px);
+  }
+
+  .newsletter-campaigns__auth-card {
+    width: min(520px, 100%);
+    padding: 26px;
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.96);
+    box-shadow: 0 30px 80px rgba(30, 23, 16, 0.28);
+    display: grid;
+    gap: 14px;
+  }
+
+  .newsletter-campaigns__auth-card h2 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  }
+
+  .newsletter-campaigns__auth-form {
+    display: grid;
+    gap: 16px;
   }
 
   .newsletter-campaigns__hero,
