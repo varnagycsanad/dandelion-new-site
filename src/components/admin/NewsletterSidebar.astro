@@ -1,0 +1,256 @@
+---
+interface Props {
+  activeSection?: "dashboard" | "subscribers" | "campaigns" | "automations" | "forms" | "templates";
+}
+
+const { activeSection = "dashboard" } = Astro.props as Props;
+
+const items = [
+  {
+    key: "dashboard",
+    label: "Dashboard",
+    href: "/admin/newsletter/",
+    description: "Központi áttekintés",
+    icon: "D",
+    soon: false,
+  },
+  {
+    key: "subscribers",
+    label: "Feliratkozók",
+    href: "/admin/hirlevel/",
+    description: "Lista, import, kézi felvitel",
+    icon: "F",
+    soon: false,
+  },
+  {
+    key: "campaigns",
+    label: "Kampányok",
+    href: "/admin/kampanyok/",
+    description: "Draftok és kiküldés",
+    icon: "K",
+    soon: false,
+  },
+  {
+    key: "automations",
+    label: "Automatizációk",
+    href: null,
+    description: "Hamarosan",
+    icon: "A",
+    soon: true,
+  },
+  {
+    key: "forms",
+    label: "Formok",
+    href: null,
+    description: "Hamarosan",
+    icon: "Fo",
+    soon: true,
+  },
+  {
+    key: "templates",
+    label: "Templates",
+    href: null,
+    description: "Hamarosan",
+    icon: "T",
+    soon: true,
+  },
+] as const;
+---
+
+<aside class="newsletter-sidebar" aria-label="Newsletter menü">
+  <div class="newsletter-sidebar__brand">
+    <div class="newsletter-sidebar__brand-mark">D</div>
+    <div>
+      <p class="newsletter-sidebar__eyebrow">Dandelion</p>
+      <h2>Newsletter Hub</h2>
+      <p class="newsletter-sidebar__brand-copy">Oldalsó admin menü a hírlevél modulokhoz.</p>
+    </div>
+  </div>
+
+  <nav class="newsletter-sidebar__nav">
+    {items.map((item) => {
+      const isActive = item.key === activeSection;
+      if (item.href) {
+        return (
+          <a class:list={["newsletter-sidebar__item", isActive && "is-active"]} href={item.href} aria-current={isActive ? "page" : undefined}>
+            <span class="newsletter-sidebar__item-icon">{item.icon}</span>
+            <span class="newsletter-sidebar__item-copy">
+              <strong>{item.label}</strong>
+              <small>{item.description}</small>
+            </span>
+          </a>
+        );
+      }
+
+      return (
+        <div class:list={["newsletter-sidebar__item", "is-disabled"]} aria-disabled="true">
+          <span class="newsletter-sidebar__item-icon">{item.icon}</span>
+          <span class="newsletter-sidebar__item-copy">
+            <strong>{item.label}</strong>
+            <small>{item.description}</small>
+          </span>
+          <span class="newsletter-sidebar__soon">Hamarosan</span>
+        </div>
+      );
+    })}
+  </nav>
+
+  <div class="newsletter-sidebar__footer">
+    <a class="newsletter-sidebar__link" href="/admin/">Admin home</a>
+    <p>Új blokkokat ide később könnyen hozzá tudunk adni.</p>
+  </div>
+</aside>
+
+<style>
+  .newsletter-sidebar {
+    position: sticky;
+    top: 18px;
+    align-self: start;
+    display: grid;
+    gap: 18px;
+    padding: 18px;
+    border: 1px solid rgba(84, 63, 36, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.9);
+    box-shadow: 0 18px 42px rgba(70, 52, 29, 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .newsletter-sidebar__brand {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+  }
+
+  .newsletter-sidebar__brand-mark {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #2d2419, #6b4c27);
+    color: #fff8ef;
+    font-family: var(--dnd-font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .newsletter-sidebar__eyebrow {
+    margin: 0 0 4px;
+    color: rgba(116, 90, 53, 0.82);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .newsletter-sidebar h2 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: 1.55rem;
+  }
+
+  .newsletter-sidebar__brand-copy,
+  .newsletter-sidebar__footer p {
+    margin: 4px 0 0;
+    color: rgba(88, 68, 44, 0.76);
+    line-height: 1.5;
+    font-size: 0.92rem;
+  }
+
+  .newsletter-sidebar__nav {
+    display: grid;
+    gap: 8px;
+  }
+
+  .newsletter-sidebar__item {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 12px;
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid transparent;
+    transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+  }
+
+  .newsletter-sidebar__item:hover {
+    background: rgba(247, 239, 226, 0.82);
+    transform: translateX(2px);
+  }
+
+  .newsletter-sidebar__item.is-active {
+    background: rgba(235, 225, 208, 0.94);
+    border-color: rgba(110, 84, 47, 0.14);
+    box-shadow: inset 3px 0 0 #4e3a22;
+  }
+
+  .newsletter-sidebar__item.is-disabled {
+    opacity: 0.72;
+  }
+
+  .newsletter-sidebar__item-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: rgba(92, 68, 39, 0.09);
+    color: #4d3922;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .newsletter-sidebar__item-copy {
+    display: grid;
+    gap: 2px;
+  }
+
+  .newsletter-sidebar__item-copy strong {
+    font-size: 0.98rem;
+    font-weight: 700;
+  }
+
+  .newsletter-sidebar__item-copy small {
+    color: rgba(100, 78, 51, 0.74);
+    font-size: 0.8rem;
+  }
+
+  .newsletter-sidebar__soon {
+    justify-self: end;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(104, 137, 108, 0.14);
+    color: #50684e;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .newsletter-sidebar__footer {
+    display: grid;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(90, 71, 42, 0.12);
+  }
+
+  .newsletter-sidebar__link {
+    color: #71522b;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .newsletter-sidebar__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 980px) {
+    .newsletter-sidebar {
+      position: static;
+    }
+  }
+</style>
