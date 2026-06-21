@@ -23,10 +23,28 @@ npm run start
 
 ## Hasznos env valtozok
 
-- `NEWSLETTER_PORT`
-- `NEWSLETTER_HOST`
-- `NEWSLETTER_STORAGE_PATH`
-- `NEWSLETTER_PUBLIC_BASE_URL`
+### Minimum indulashoz
+
+Ezekkel mar el lehet indulni fejleszteshez:
+
+- `PUBLIC_NEWSLETTER_API_URL`
+- `NEWSLETTER_ADMIN_PASSWORD`
+
+### Helyi `.env.local` minta
+
+```env
+PUBLIC_NEWSLETTER_API_URL=http://127.0.0.1:3876
+NEWSLETTER_PORT=3876
+NEWSLETTER_HOST=127.0.0.1
+NEWSLETTER_STORAGE_PATH=.secrets/newsletter-db.json
+NEWSLETTER_PUBLIC_BASE_URL=http://127.0.0.1:3876
+NEWSLETTER_ADMIN_PASSWORD=ide_jon_egy_sajat_jelszo
+```
+
+### SMTP kuldeshez
+
+Ha teszt- vagy elevelest is kuldeni akarsz, ezeket is meg kell adni:
+
 - `NEWSLETTER_SMTP_HOST`
 - `NEWSLETTER_SMTP_PORT`
 - `NEWSLETTER_SMTP_SECURE`
@@ -34,9 +52,8 @@ npm run start
 - `NEWSLETTER_SMTP_PASSWORD`
 - `NEWSLETTER_SMTP_FROM`
 - `NEWSLETTER_SMTP_REPLY_TO`
-- `NEWSLETTER_ADMIN_PASSWORD`
 
 ## MVP megjegyzes
 
-Az SMTP kuldes most mar be van kotve, de a valos kuldeshez a fenti env mezoket ki kell tolteni. A test endpoint: `POST /smtp/test`.
+Az SMTP kuldes most mar be van kotve, de a valos kuldeshez a fenti SMTP env mezoket ki kell tolteni. A test endpoint: `POST /smtp/test`.
 Az admin felulet jelszavas vedelemmel mukodik, a listaoldalon pedig CSV importtal lehet feliratkozokat betolteni.
