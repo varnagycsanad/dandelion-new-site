@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
 const pageTitle = "Dandelion admin";
-const pageDescription = "Központi belépési pont a hírlevél admin eszközökhöz.";
+const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -44,20 +44,14 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
       <p class="admin-home__eyebrow">Dandelion belső eszközök</p>
       <h1>{pageTitle}</h1>
       <p class="admin-home__lead">
-        Innen éred el a hírlevél listát és a kampánykezelőt. Ez a központi, szolgáltató-független admin belépő.
+        Innen nyílik a központi admin felület. Most egyetlen modul van benne, később ide jöhetnek további admin blokkok is.
       </p>
 
       <div class="admin-home__grid">
-        <a class="admin-home__card" href="/admin/hirlevel/">
-          <span class="admin-home__card-label">Lista</span>
-          <strong>Feliratkozók és export</strong>
-          <p>keresés, státuszok, CSV és gyors másolás</p>
-        </a>
-
-        <a class="admin-home__card" href="/admin/kampanyok/">
-          <span class="admin-home__card-label">Kampányok</span>
-          <strong>Draft, teszt, kiküldés</strong>
-          <p>kampány létrehozás, SMTP teszt és éles küldés</p>
+        <a class="admin-home__card admin-home__card--primary" href="/admin/newsletter/">
+          <span class="admin-home__card-label">Newsletter</span>
+          <strong>Hírlevél admin</strong>
+          <p>feliratkozók, CSV import, draftok, tesztküldés és kiküldés</p>
         </a>
       </div>
     </div>
@@ -369,9 +363,10 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
 
   .admin-home__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
     margin-top: 8px;
+    max-width: 560px;
   }
 
   .admin-home__card {
@@ -388,6 +383,10 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
     transition:
       transform 160ms ease,
       box-shadow 160ms ease;
+  }
+
+  .admin-home__card--primary {
+    width: min(100%, 560px);
   }
 
   .admin-home__card:hover {

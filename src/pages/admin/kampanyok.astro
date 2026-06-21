@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
-const pageTitle = "Hírlevél kampányok";
+const pageTitle = "Kampányok kezelése";
 const pageDescription =
-  "Saját newsletter kampányok létrehozása, tesztelése és SMTP-n keresztüli kiküldése a Dandelion rendszerben.";
+  "Kampány draftok, tesztküldés és éles kiküldés a Dandelion adminon belül.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -15,7 +15,7 @@ const pageDescription =
     <div class="newsletter-campaigns__shell" hidden>
       <header class="newsletter-campaigns__hero">
         <div class="newsletter-campaigns__hero-copy">
-          <p class="newsletter-campaigns__eyebrow">Dandelion newsletter</p>
+          <p class="newsletter-campaigns__eyebrow">Newsletter admin</p>
           <h1>{pageTitle}</h1>
           <p class="newsletter-campaigns__lead">
             Itt készülnek a hírlevelek: tárgy, rövid szöveg, HTML tartalom, tesztküldés és éles SMTP kiküldés.
@@ -24,8 +24,8 @@ const pageDescription =
         </div>
 
         <div class="newsletter-campaigns__hero-actions">
+          <a class="newsletter-campaigns__button newsletter-campaigns__button--ghost" href="/admin/newsletter/">Newsletter</a>
           <a class="newsletter-campaigns__button newsletter-campaigns__button--ghost" href="/admin/">Admin home</a>
-          <a class="newsletter-campaigns__button newsletter-campaigns__button--ghost" href="/admin/hirlevel/">Lista</a>
           <button class="newsletter-campaigns__button newsletter-campaigns__button--ghost" type="button" data-load-campaigns>
             Frissítés
           </button>
@@ -66,8 +66,8 @@ const pageDescription =
         <div class="newsletter-campaigns__editor">
           <div class="newsletter-campaigns__panel-head">
             <div>
-              <p class="newsletter-campaigns__panel-kicker">Kampány szerkesztő</p>
-              <h2 data-editor-title>Új kampány</h2>
+              <p class="newsletter-campaigns__panel-kicker">Kampány draft</p>
+              <h2 data-editor-title>Új draft</h2>
             </div>
             <p class="newsletter-campaigns__panel-note">
               A HTML mezőből készül a végső e-mail. A szöveges változat opcionális, de ajánlott, mert jobb kézbesítést és fallbacket ad.
@@ -168,7 +168,7 @@ const pageDescription =
       <section class="newsletter-campaigns__panel">
         <div class="newsletter-campaigns__panel-head">
           <div>
-            <p class="newsletter-campaigns__panel-kicker">Kampány lista</p>
+            <p class="newsletter-campaigns__panel-kicker">Kampány archívum</p>
             <h2>Mentett draftok és kiküldött levelek</h2>
           </div>
           <p class="newsletter-campaigns__panel-note">

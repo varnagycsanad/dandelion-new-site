@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const newsletterApiUrl = import.meta.env.PUBLIC_NEWSLETTER_API_URL ?? "";
-const pageTitle = "Hírlevél admin";
+const pageTitle = "Feliratkozók kezelése";
 const pageDescription =
-  "Saját hírlevél admin felület feliratkozók listájához, kereséshez, státuszszűréshez és CSV exporthoz.";
+  "Feliratkozók listája, keresés, státuszszűrés, CSV import és export a Dandelion adminon belül.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -15,7 +15,7 @@ const pageDescription =
     <div class="newsletter-admin__shell" hidden>
       <header class="newsletter-admin__hero">
         <div class="newsletter-admin__hero-copy">
-          <p class="newsletter-admin__eyebrow">Dandelion hírlevél</p>
+          <p class="newsletter-admin__eyebrow">Newsletter admin</p>
           <h1>{pageTitle}</h1>
           <p class="newsletter-admin__lead">
             Itt látod az aktív feliratkozókat, a leiratkozott címeket, a forrásokat és az utolsó frissítés idejét.
@@ -24,8 +24,8 @@ const pageDescription =
         </div>
 
         <div class="newsletter-admin__hero-actions">
+          <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/newsletter/">Newsletter</a>
           <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/">Admin home</a>
-          <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/kampanyok/">Kampányok</a>
           <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-open-import>
             CSV import
           </button>
@@ -108,8 +108,8 @@ const pageDescription =
       <section class="newsletter-admin__import-panel is-hidden" aria-label="CSV import" data-import-panel>
         <div class="newsletter-admin__panel-head">
           <div>
-            <p class="newsletter-admin__panel-kicker">CSV import</p>
-            <h2>Feliratkozók betöltése fájlból</h2>
+            <p class="newsletter-admin__panel-kicker">Feliratkozó import</p>
+            <h2>Lista és CSV import</h2>
           </div>
           <p class="newsletter-admin__panel-note">
             A fájl első sora lehet fejléc. Támogatott oszlopok: email, name, lang, source, status.
@@ -143,7 +143,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
         <div class="newsletter-admin__panel-head">
           <div>
             <p class="newsletter-admin__panel-kicker">Feliratkozók</p>
-            <h2>Lista és gyors áttekintés</h2>
+            <h2>Feliratkozók listája</h2>
           </div>
           <p class="newsletter-admin__panel-note">
             A lista a saját newsletter service-ből töltődik be, ezért ez az admin akkor is használható, ha nincs külső platform.
