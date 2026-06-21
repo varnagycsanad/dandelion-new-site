@@ -3,7 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Newsletter";
 const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a kampányokhoz.";
-const authStorageKey = "dandelion-newsletter-admin-session";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -50,22 +49,51 @@ const authStorageKey = "dandelion-newsletter-admin-session";
 </BaseLayout>
 
 <script type="module">
+  import { buildAdminFetch, clearStoredAdminAuth, getStoredAdminPassword, getStoredAdminSessionToken } from "../../scripts/newsletterAdminAuth";
+
   (() => {
     const root = document.querySelector("[data-admin-newsletter]");
     if (!(root instanceof HTMLElement)) return;
 
+    const apiBase = root.dataset.apiBase?.trim() || "";
     const shell = root.querySelector(".admin-newsletter__shell");
-    const adminPassword =
-      sessionStorage.getItem("dandelion-newsletter-admin-session") ?? sessionStorage.getItem("dandelion-newsletter-admin-password") ?? "";
+    const adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
 
     if (!adminPassword) {
       window.location.replace("/admin/");
       return;
     }
 
-    if (shell instanceof HTMLElement) {
-      shell.hidden = false;
-    }
+    const validateStoredAuth = async () => {
+      if (!apiBase) {
+        if (shell instanceof HTMLElement) {
+          shell.hidden = false;
+        }
+        return;
+      }
+
+      try {
+        const response = await buildAdminFetch(apiBase, "/admin/auth", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        if (shell instanceof HTMLElement) {
+          shell.hidden = false;
+        }
+      } catch {
+        clearStoredAdminAuth();
+        window.location.replace("/admin/");
+      }
+    };
+
+    validateStoredAuth();
   })();
 </script>
 

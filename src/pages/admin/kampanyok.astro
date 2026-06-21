@@ -202,6 +202,7 @@ const pageDescription =
 
 <script>
   import {
+    buildAdminFetch,
     buildAdminHeaders,
     clearStoredAdminAuth,
     getStoredAdminPassword,
@@ -238,7 +239,6 @@ const pageDescription =
     const saveButton = root.querySelector("[data-save-campaign]");
     const sendButton = root.querySelector("[data-send-campaign]");
     const testButton = root.querySelector("[data-send-test]");
-    const authStorageKey = "dandelion-newsletter-admin-session";
 
     let campaigns = [];
     let activeSubscribers = 0;
@@ -250,9 +250,35 @@ const pageDescription =
     }
 
     const shell = root.querySelector(".newsletter-campaigns__shell");
-    if (shell instanceof HTMLElement) {
-      shell.hidden = false;
-    }
+    const validateStoredAuth = async () => {
+      if (!apiBase) {
+        if (shell instanceof HTMLElement) {
+          shell.hidden = false;
+        }
+        return;
+      }
+
+      try {
+        const response = await buildAdminFetch(apiBase, "/admin/auth", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: "{}",
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "auth_failed");
+        }
+
+        if (shell instanceof HTMLElement) {
+          shell.hidden = false;
+        }
+      } catch {
+        adminPassword = "";
+        clearStoredAdminAuth();
+        window.location.replace("/admin/");
+      }
+    };
 
     const escapeHtml = (value) =>
       String(value ?? "")
@@ -600,6 +626,7 @@ const pageDescription =
     testButton?.addEventListener("click", sendTest);
 
     syncPreview();
+    validateStoredAuth();
     loadCampaigns();
   })();
 </script>

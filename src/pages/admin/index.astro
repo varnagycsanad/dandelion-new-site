@@ -11,31 +11,51 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     <div class="admin-home__auth" data-auth-panel>
       <div class="admin-home__auth-card">
         <p class="admin-home__eyebrow">Admin belépés</p>
-        <h2>Jelszó szükséges</h2>
-        <form class="admin-home__auth-form" data-auth-form>
-          <label class="admin-home__field">
-            <span>Admin jelszó</span>
-            <div class="admin-home__password-field">
-              <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
-              <button
-                class="admin-home__password-toggle"
-                type="button"
-                aria-label="Jelszó megjelenítése"
-                aria-pressed="false"
-                data-password-toggle
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 5c5.5 0 9.7 4.1 11 7-1.3 2.9-5.5 7-11 7S2.3 14.9 1 12c1.3-2.9 5.5-7 11-7Zm0 2C7.7 7 4.2 9.8 3 12c1.2 2.2 4.7 5 9 5s7.8-2.8 9-5c-1.2-2.2-4.7-5-9-5Zm0 1.8A3.2 3.2 0 1 1 12 16a3.2 3.2 0 0 1 0-6.2Zm0 2A1.2 1.2 0 1 0 12 13.6 1.2 1.2 0 0 0 12 10.8Z"
-                  />
-                </svg>
+        <div class="admin-home__login-modes">
+          <section class="admin-home__passkey-panel" data-passkey-panel hidden>
+            <p class="admin-home__panel-kicker">Telefonos belépés</p>
+            <h2>Face ID / passkey</h2>
+            <p class="admin-home__panel-copy">
+              Ha ezen az eszközön már van regisztrált passkey, egy érintéssel be tudsz lépni.
+            </p>
+            <div class="admin-home__actions">
+              <button class="admin-home__button admin-home__button--primary" type="button" data-passkey-login>
+                Belépés Face ID-val
+              </button>
+              <button class="admin-home__button admin-home__button--ghost" type="button" data-show-password>
+                Jelszavas belépés
               </button>
             </div>
-          </label>
-          <div class="admin-home__actions">
-            <button class="admin-home__button admin-home__button--primary" type="submit">Belépés</button>
-          </div>
-        </form>
+          </section>
+
+          <section class="admin-home__password-panel" data-password-panel>
+            <h2>Jelszó szükséges</h2>
+            <form class="admin-home__auth-form" data-auth-form>
+              <label class="admin-home__field">
+                <span>Admin jelszó</span>
+                <div class="admin-home__password-field">
+                  <input type="password" autocomplete="current-password" placeholder="Írd be az admin jelszót" data-auth-input />
+                  <button
+                    class="admin-home__password-toggle"
+                    type="button"
+                    aria-label="Jelszó megjelenítése"
+                    aria-pressed="false"
+                    data-password-toggle
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c5.5 0 9.7 4.1 11 7-1.3 2.9-5.5 7-11 7S2.3 14.9 1 12c1.3-2.9 5.5-7 11-7Zm0 2C7.7 7 4.2 9.8 3 12c1.2 2.2 4.7 5 9 5s7.8-2.8 9-5c-1.2-2.2-4.7-5-9-5Zm0 1.8A3.2 3.2 0 1 1 12 16a3.2 3.2 0 0 1 0-6.2Zm0 2A1.2 1.2 0 1 0 12 13.6 1.2 1.2 0 0 0 12 10.8Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </label>
+              <div class="admin-home__actions">
+                <button class="admin-home__button admin-home__button--primary" type="submit">Belépés</button>
+              </div>
+            </form>
+          </section>
+        </div>
         <p class="admin-home__status" data-auth-status aria-live="polite"></p>
       </div>
     </div>
@@ -64,7 +84,9 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     clearStoredAdminAuth,
     getStoredAdminPassword,
     getStoredAdminSessionToken,
+    isWebAuthnAvailable,
     loginWithAdminPassword,
+    loginWithPasskey as loginWithPasskeyFlow,
   } from "../../scripts/newsletterAdminAuth";
 
   (() => {
@@ -76,10 +98,17 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const authForm = root.querySelector("[data-auth-form]");
     const authInput = root.querySelector("[data-auth-input]");
     const passwordToggle = root.querySelector("[data-password-toggle]");
+    const passkeyPanel = root.querySelector("[data-passkey-panel]");
+    const passwordPanel = root.querySelector("[data-password-panel]");
+    const passkeyButton = root.querySelector("[data-passkey-login]");
+    const showPasswordButton = root.querySelector("[data-show-password]");
     const authStatus = root.querySelector("[data-auth-status]");
     const shell = root.querySelector(".admin-home__shell");
 
     let adminToken = getStoredAdminSessionToken() || getStoredAdminPassword();
+    const prefersPasskey =
+      window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 760px)").matches;
+    const passkeySupported = isWebAuthnAvailable();
 
     const updateLockState = (locked) => {
       root.classList.toggle("is-locked", locked);
@@ -89,6 +118,18 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       if (shell instanceof HTMLElement) {
         shell.hidden = locked;
         shell.setAttribute("aria-hidden", String(locked));
+      }
+    };
+
+    const updateMode = (mode) => {
+      const usePasskey = mode === "passkey";
+      root.dataset.loginMode = usePasskey ? "passkey" : "password";
+
+      if (passkeyPanel instanceof HTMLElement) {
+        passkeyPanel.hidden = !usePasskey;
+      }
+      if (passwordPanel instanceof HTMLElement) {
+        passwordPanel.hidden = usePasskey;
       }
     };
 
@@ -152,6 +193,28 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       }
     };
 
+    const startPasskeyLogin = async () => {
+      setAuthStatus("Face ID ellenőrzés indul...", "info");
+
+      try {
+        const result = await loginWithPasskeyFlow(apiBase);
+        if (result?.sessionToken) {
+          adminToken = result.sessionToken;
+        }
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres.", "success");
+      } catch (error) {
+        console.error("[admin-home-passkey]", error);
+        const message = String(error?.message ?? error);
+        if (message === "webauthn_unavailable") {
+          setAuthStatus("Ezen az eszközön nincs elérhető Face ID / passkey.", "warning");
+        } else {
+          setAuthStatus("A Face ID belépés nem sikerült. Próbáld jelszóval.", "warning");
+        }
+        updateMode("password");
+      }
+    };
+
     authForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -176,6 +239,18 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       }
     });
 
+    passkeyButton?.addEventListener("click", async () => {
+      await startPasskeyLogin();
+    });
+
+    showPasswordButton?.addEventListener("click", () => {
+      updateMode("password");
+      setAuthStatus("A jelszavas belépés fallbackként elérhető marad.", "info");
+      if (authInput instanceof HTMLInputElement) {
+        authInput.focus();
+      }
+    });
+
     passwordToggle?.addEventListener("click", () => {
       if (!(authInput instanceof HTMLInputElement)) return;
       setPasswordVisible(authInput.type === "password");
@@ -184,6 +259,7 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 
     updateLockState(true);
     setPasswordVisible(false);
+    updateMode(prefersPasskey && passkeySupported ? "passkey" : "password");
     validateStoredAuth();
   })();
 </script>
@@ -239,6 +315,32 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
   .admin-home__auth-form {
     display: grid;
     gap: 16px;
+  }
+
+  .admin-home__login-modes {
+    display: grid;
+    gap: 18px;
+  }
+
+  .admin-home__passkey-panel,
+  .admin-home__password-panel {
+    display: grid;
+    gap: 12px;
+  }
+
+  .admin-home__panel-kicker {
+    margin: 0;
+    color: #a57d37;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .admin-home__panel-copy {
+    margin: 0;
+    color: #5b4a39;
+    line-height: 1.65;
   }
 
   .admin-home__actions {
@@ -348,6 +450,13 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     box-shadow: inset 0 0 0 1px rgba(92, 67, 37, 0.12);
   }
 
+  .admin-home[data-login-mode="password"] .admin-home__passkey-panel[hidden],
+  .admin-home[data-login-mode="password"] .admin-home__password-panel[hidden],
+  .admin-home[data-login-mode="passkey"] .admin-home__passkey-panel[hidden],
+  .admin-home[data-login-mode="passkey"] .admin-home__password-panel[hidden] {
+    display: none;
+  }
+
   .admin-home__status {
     min-height: 24px;
     font-weight: 600;
@@ -363,6 +472,12 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
 
   .admin-home__status[data-tone="error"] {
     color: #9b2c2c;
+  }
+
+  @media (pointer: fine) {
+    .admin-home__passkey-panel {
+      display: none;
+    }
   }
 
   .admin-home__grid {
