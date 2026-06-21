@@ -406,6 +406,15 @@ function buildSubscriberLists(state) {
   return Array.from(counts.values());
 }
 
+function findSubscriberById(state, subscriberId) {
+  const normalized = String(subscriberId ?? "").trim();
+  if (!normalized) {
+    return null;
+  }
+
+  return state.subscribers.find((subscriber) => String(subscriber.id ?? "") === normalized);
+}
+
 function nowIso() {
   return new Date().toISOString();
 }
@@ -991,6 +1000,47 @@ async function handleRequest(req, res) {
     }
 
     jsonResponse(res, 200, { ok: true, message: "Leiratkozas sikeres.", subscriber });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname.match(/^\/subscribers\/[^/]+\/unsubscribe$/)) {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    const subscriberId = url.pathname.split("/")[2];
+    const subscriber = findSubscriberById(state, subscriberId);
+    if (!subscriber) {
+      jsonResponse(res, 404, { ok: false, message: "Subscriber not found." });
+      return;
+    }
+
+    subscriber.status = "unsubscribed";
+    subscriber.updatedAt = nowIso();
+    await writeState(state);
+
+    jsonResponse(res, 200, { ok: true, message: "Leiratkoztatva.", subscriber });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname.match(/^\/subscribers\/[^/]+\/restore$/)) {
+    if (!requireAdminAuth(state, req, res)) {
+      return;
+    }
+
+    const subscriberId = url.pathname.split("/")[2];
+    const subscriber = findSubscriberById(state, subscriberId);
+    if (!subscriber) {
+      jsonResponse(res, 404, { ok: false, message: "Subscriber not found." });
+      return;
+    }
+
+    subscriber.status = "active";
+    subscriber.updatedAt = nowIso();
+    subscriber.consentUpdatedAt = nowIso();
+    await writeState(state);
+
+    jsonResponse(res, 200, { ok: true, message: "Feliratkozó visszaállítva.", subscriber });
     return;
   }
 

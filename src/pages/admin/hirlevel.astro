@@ -173,20 +173,21 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           <table class="newsletter-admin__table">
             <thead>
               <tr>
-                <th>Név</th>
-                <th>E-mail</th>
-                <th>Státusz</th>
-                <th>Nyelv</th>
-                <th>Lista</th>
-                <th>Forrás</th>
-                <th>Feliratkozás</th>
-                <th>Leiratkozás</th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="name">Név</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="email">E-mail</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="status">Státusz</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="lang">Nyelv</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="listName">Lista</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="source">Forrás</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="createdAt">Feliratkozás</button></th>
+                <th><button type="button" class="newsletter-admin__sort-button" data-sort-key="updatedAt">Frissítés</button></th>
+                <th>Állapot</th>
                 <th></th>
               </tr>
             </thead>
             <tbody data-subscriber-rows>
               <tr>
-                <td colspan="9" class="newsletter-admin__empty">
+                <td colspan="10" class="newsletter-admin__empty">
                   A lista még töltés alatt van.
                 </td>
               </tr>
@@ -240,10 +241,12 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     const statUnsubscribed = root.querySelector("[data-stat-unsubscribed]");
     const statLists = root.querySelector("[data-stat-lists]");
     const apiLabel = root.querySelector("[data-api-label]");
+    const sortButtons = root.querySelectorAll("[data-sort-key]");
     let subscribers = [];
     let filteredSubscribers = [];
     let sourceValues = [];
     let listValues = [];
+    let sortState = { key: "createdAt", direction: "desc" };
     let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
 
@@ -419,6 +422,67 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
     const getFilterValue = (node) => (node instanceof HTMLInputElement || node instanceof HTMLSelectElement ? node.value : "all");
 
+    const getSortableValue = (subscriber, key) => {
+      switch (key) {
+        case "name":
+          return String(subscriber.name ?? "").trim();
+        case "email":
+          return String(subscriber.email ?? "").trim();
+        case "status":
+          return String(subscriber.status ?? "").trim();
+        case "lang":
+          return String(subscriber.lang ?? "").trim();
+        case "listName":
+          return String(subscriber.listName ?? getNewsletterListName(subscriber.listKey) ?? "").trim();
+        case "source":
+          return String(subscriber.source ?? "").trim();
+        case "updatedAt":
+        case "createdAt":
+          return new Date(subscriber[key] ?? 0).getTime() || 0;
+        default:
+          return String(subscriber[key] ?? "").trim();
+      }
+    };
+
+    const compareSubscribers = (left, right) => {
+      const { key, direction } = sortState;
+      const factor = direction === "desc" ? -1 : 1;
+
+      if (key === "createdAt" || key === "updatedAt") {
+        return ((getSortableValue(left, key) || 0) - (getSortableValue(right, key) || 0)) * factor;
+      }
+
+      if (key === "status") {
+        const order = { active: 0, pending: 1, unsubscribed: 2 };
+        const leftValue = order[String(left.status ?? "").toLowerCase()] ?? 99;
+        const rightValue = order[String(right.status ?? "").toLowerCase()] ?? 99;
+        return (leftValue - rightValue) * factor;
+      }
+
+      return String(getSortableValue(left, key)).localeCompare(String(getSortableValue(right, key)), "hu", {
+        numeric: true,
+        sensitivity: "base",
+      }) * factor;
+    };
+
+    const applySort = (rows) => rows.slice().sort(compareSubscribers);
+
+    const defaultDirectionForKey = (key) => (key === "createdAt" || key === "updatedAt" ? "desc" : "asc");
+
+    const syncSortIndicators = () => {
+      sortButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const key = button.dataset.sortKey || "";
+        const isActive = key === sortState.key;
+        const label = button.dataset.baseLabel || button.textContent?.replace(/[ ↑↓]+$/, "") || "";
+        button.dataset.baseLabel = label;
+        const arrow = isActive ? (sortState.direction === "asc" ? " ↑" : " ↓") : "";
+        button.textContent = `${label}${arrow}`;
+        button.dataset.active = String(isActive);
+        button.closest("th")?.setAttribute("aria-sort", isActive ? (sortState.direction === "asc" ? "ascending" : "descending") : "none");
+      });
+    };
+
     const updateStats = () => {
       const counts = subscribers.reduce(
         (acc, subscriber) => {
@@ -514,10 +578,12 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
       if (!(rowsNode instanceof HTMLElement)) return;
 
-      if (!filteredSubscribers.length) {
+      const rowsToRender = applySort(filteredSubscribers);
+
+      if (!rowsToRender.length) {
         rowsNode.innerHTML = `
           <tr>
-            <td colspan="9" class="newsletter-admin__empty">
+            <td colspan="10" class="newsletter-admin__empty">
               Nincs a szűrőknek megfelelő feliratkozó.
             </td>
           </tr>
@@ -525,12 +591,13 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
         return;
       }
 
-      rowsNode.innerHTML = filteredSubscribers
+      rowsNode.innerHTML = rowsToRender
         .map((subscriber) => {
           const statusClass = `is-${subscriber.status || "unknown"}`;
           const displayName = subscriber.name || "Névtelen";
-          const unsubUrl = subscriber.unsubscribeToken ? `${apiBase.replace(/\/$/, "")}/unsubscribe/${subscriber.unsubscribeToken}` : "—";
           const listName = subscriber.listName || getNewsletterListName(subscriber.listKey);
+          const source = subscriber.source || "—";
+          const isUnsubscribed = String(subscriber.status || "").toLowerCase() === "unsubscribed";
           return `
             <tr>
               <td>
@@ -542,9 +609,22 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
               <td><span class="newsletter-admin__badge ${statusClass}">${escapeHtml(subscriber.status || "unknown")}</span></td>
               <td>${escapeHtml(subscriber.lang || "—")}</td>
               <td>${escapeHtml(listName)}</td>
-              <td>${escapeHtml(subscriber.source || "—")}</td>
+              <td>
+                ${
+                  source !== "—"
+                    ? `<button type="button" class="newsletter-admin__source-pill" data-filter-source-value="${escapeHtml(source)}">${escapeHtml(source)}</button>`
+                    : "—"
+                }
+              </td>
               <td>${escapeHtml(formatDate(subscriber.createdAt))}</td>
-              <td>${subscriber.unsubscribeToken ? `<a href="${escapeHtml(unsubUrl)}" target="_blank" rel="noreferrer">Link</a>` : "—"}</td>
+              <td>${escapeHtml(formatDate(subscriber.updatedAt))}</td>
+              <td>
+                ${
+                  isUnsubscribed
+                    ? `<button type="button" class="newsletter-admin__inline-button" data-restore-subscriber="${escapeHtml(subscriber.id)}">Visszaállítás</button>`
+                    : `<button type="button" class="newsletter-admin__inline-button" data-unsubscribe-subscriber="${escapeHtml(subscriber.id)}">Leiratkoztatás</button>`
+                }
+              </td>
               <td>
                 <button type="button" class="newsletter-admin__inline-button" data-copy-email="${escapeHtml(subscriber.email)}">
                   Másolás
@@ -554,6 +634,8 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           `;
         })
         .join("");
+
+      syncSortIndicators();
 
       rowsNode.querySelectorAll("[data-copy-email]").forEach((button) => {
         button.addEventListener("click", async () => {
@@ -566,6 +648,75 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
           }
         });
       });
+
+      rowsNode.querySelectorAll("[data-filter-source-value]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const value = button.getAttribute("data-filter-source-value") || "all";
+          if (sourceFilter instanceof HTMLSelectElement) {
+            sourceFilter.value = value;
+          }
+          render();
+          setStatus(`Forrás szűrve: ${value}`, "success");
+        });
+      });
+
+      rowsNode.querySelectorAll("[data-unsubscribe-subscriber]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const subscriberId = button.getAttribute("data-unsubscribe-subscriber") || "";
+          const subscriber = subscribers.find((item) => item.id === subscriberId);
+          const label = subscriber?.email || "ezt a feliratkozót";
+          if (!subscriberId) return;
+          if (!window.confirm(`Biztosan leiratkoztatod: ${label}?`)) {
+            return;
+          }
+          await updateSubscriberStatus(subscriberId, "unsubscribe");
+        });
+      });
+
+      rowsNode.querySelectorAll("[data-restore-subscriber]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const subscriberId = button.getAttribute("data-restore-subscriber") || "";
+          const subscriber = subscribers.find((item) => item.id === subscriberId);
+          const label = subscriber?.email || "ezt a feliratkozót";
+          if (!subscriberId) return;
+          if (!window.confirm(`Biztosan visszaállítod aktívra: ${label}?`)) {
+            return;
+          }
+          await updateSubscriberStatus(subscriberId, "restore");
+        });
+      });
+    };
+
+    const updateSubscriberStatus = async (subscriberId, action) => {
+      if (!apiBase || localAdminMode) {
+        setStatus("A módosítás jelenleg nem érhető el.", "error");
+        return;
+      }
+
+      try {
+        const response = await adminFetch(`${apiBase.replace(/\/$/, "")}/subscribers/${subscriberId}/${action}`, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.status === 401 && !localAdminMode) {
+          adminPassword = "";
+          clearStoredAdminAuth();
+          window.location.replace("/admin/");
+          return;
+        }
+
+        const result = await response.json();
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "status_update_failed");
+        }
+
+        await loadSubscribers();
+        setStatus(result?.message || "Állapot frissítve.", "success");
+      } catch (error) {
+        console.error("[newsletter-admin-status]", error);
+        setStatus("Nem sikerült frissíteni az állapotot.", "error");
+      }
     };
 
     const loadSubscribers = async () => {
@@ -722,6 +873,19 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     langFilter?.addEventListener("change", render);
     sourceFilter?.addEventListener("change", render);
     listFilter?.addEventListener("change", render);
+    sortButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      button.dataset.baseLabel = button.textContent?.trim() || "";
+      button.addEventListener("click", () => {
+        const key = button.dataset.sortKey || "createdAt";
+        sortState = {
+          key,
+          direction: sortState.key === key ? (sortState.direction === "asc" ? "desc" : "asc") : defaultDirectionForKey(key),
+        };
+        syncSortIndicators();
+        render();
+      });
+    });
     refreshButton?.addEventListener("click", loadSubscribers);
     exportButton?.addEventListener("click", exportCsv);
     copyAllButton?.addEventListener("click", copyAllEmails);
@@ -732,6 +896,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
       await importCsvFile();
     });
 
+    syncSortIndicators();
     loadSubscribers();
   })();
 </script>
@@ -1129,6 +1294,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     letter-spacing: 0.12em;
     font-size: 0.72rem;
     z-index: 1;
+    white-space: nowrap;
   }
 
   .newsletter-admin__table tbody tr:nth-child(even) {
@@ -1146,6 +1312,41 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
   .newsletter-admin__table a:hover {
     text-decoration: underline;
+  }
+
+  .newsletter-admin__sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+  }
+
+  .newsletter-admin__sort-button[data-active="true"] {
+    color: #4e3a22;
+  }
+
+  .newsletter-admin__source-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: 1px solid rgba(90, 71, 42, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #4a3823;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .newsletter-admin__source-pill:hover {
+    background: rgba(244, 231, 209, 0.92);
   }
 
   .newsletter-admin__badge {
