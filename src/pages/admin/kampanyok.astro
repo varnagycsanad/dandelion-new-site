@@ -228,9 +228,7 @@ const pageDescription =
     buildAdminFetch,
     buildAdminHeaders,
     clearStoredAdminAuth,
-    getStoredAdminPassword,
     getStoredAdminSessionToken,
-    isLocalAdminSessionToken,
   } from "../../scripts/newsletterAdminAuth";
   import {
     NEWSLETTER_DEFAULT_LIST_KEY,
@@ -274,8 +272,7 @@ const pageDescription =
     let campaigns = [];
     let groups = [];
     let activeSubscribers = 0;
-    let adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
-    const localAdminMode = isLocalAdminSessionToken(adminPassword);
+    let adminPassword = getStoredAdminSessionToken();
 
     if (targetListSelect instanceof HTMLSelectElement) {
       targetListSelect.value = NEWSLETTER_DEFAULT_LIST_KEY;
@@ -300,7 +297,7 @@ const pageDescription =
 
     const shell = root.querySelector(".newsletter-campaigns__shell");
     const loadGroups = async () => {
-      if (!apiBase || localAdminMode) {
+      if (!apiBase) {
         syncGroupSelect();
         return;
       }
@@ -311,7 +308,7 @@ const pageDescription =
         });
         const result = await response.json().catch(() => ({}));
 
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           return;
         }
         if (!response.ok || !result?.ok) {
@@ -326,10 +323,8 @@ const pageDescription =
     };
 
     const validateStoredAuth = async () => {
-      if (!apiBase || localAdminMode) {
-        if (shell instanceof HTMLElement) {
-          shell.hidden = false;
-        }
+      if (!apiBase) {
+        setStatus("A newsletter API nem érhető el.", "error");
         return;
       }
 
@@ -349,13 +344,6 @@ const pageDescription =
           shell.hidden = false;
         }
       } catch {
-        if (localAdminMode) {
-          if (shell instanceof HTMLElement) {
-            shell.hidden = false;
-          }
-          return;
-        }
-
         adminPassword = "";
         clearStoredAdminAuth();
         window.location.replace("/admin/");
@@ -428,7 +416,7 @@ const pageDescription =
         .filter(Boolean);
     };
 
-    const loadSubscribersCount = async (listKey = NEWSLETTER_DEFAULT_LIST_KEY) => {
+      const loadSubscribersCount = async (listKey = NEWSLETTER_DEFAULT_LIST_KEY) => {
       if (!apiBase) {
         return;
       }
@@ -548,7 +536,7 @@ const pageDescription =
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -610,7 +598,7 @@ const pageDescription =
           body: JSON.stringify(payload),
         });
         const result = await response.json();
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -649,7 +637,7 @@ const pageDescription =
           headers: { Accept: "application/json" },
         });
         const result = await response.json();
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");
@@ -692,7 +680,7 @@ const pageDescription =
           body: JSON.stringify({ to, subject, text }),
         });
         const result = await response.json();
-        if (response.status === 401 && !localAdminMode) {
+        if (response.status === 401) {
           adminPassword = "";
           clearStoredAdminAuth();
           window.location.replace("/admin/");

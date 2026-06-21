@@ -1,8 +1,6 @@
 import { startAuthentication, startRegistration } from "@simplewebauthn/browser";
 
 export const ADMIN_SESSION_STORAGE_KEY = "dandelion-newsletter-admin-session";
-export const ADMIN_PASSWORD_STORAGE_KEY = "dandelion-newsletter-admin-password";
-export const LOCAL_ADMIN_SESSION_PREFIX = "local:";
 
 export function getStoredAdminSessionToken() {
   if (typeof sessionStorage === "undefined") {
@@ -10,14 +8,6 @@ export function getStoredAdminSessionToken() {
   }
 
   return sessionStorage.getItem(ADMIN_SESSION_STORAGE_KEY) ?? "";
-}
-
-export function getStoredAdminPassword() {
-  if (typeof sessionStorage === "undefined") {
-    return "";
-  }
-
-  return sessionStorage.getItem(ADMIN_PASSWORD_STORAGE_KEY) ?? "";
 }
 
 export function setStoredAdminSessionToken(token) {
@@ -32,25 +22,12 @@ export function setStoredAdminSessionToken(token) {
   }
 }
 
-export function setStoredAdminPassword(password) {
-  if (typeof sessionStorage === "undefined") {
-    return;
-  }
-
-  if (password) {
-    sessionStorage.setItem(ADMIN_PASSWORD_STORAGE_KEY, password);
-  } else {
-    sessionStorage.removeItem(ADMIN_PASSWORD_STORAGE_KEY);
-  }
-}
-
 export function clearStoredAdminAuth() {
   if (typeof sessionStorage === "undefined") {
     return;
   }
 
   sessionStorage.removeItem(ADMIN_SESSION_STORAGE_KEY);
-  sessionStorage.removeItem(ADMIN_PASSWORD_STORAGE_KEY);
 }
 
 export function isWebAuthnAvailable() {
@@ -61,51 +38,15 @@ export function getApiBase(apiBase) {
   return String(apiBase ?? "").trim().replace(/\/$/, "");
 }
 
-export function isLocalAdminSessionToken(token) {
-  return String(token ?? "").startsWith(LOCAL_ADMIN_SESSION_PREFIX);
-}
-
-export function createLocalAdminSessionToken(passwordHash) {
-  return `${LOCAL_ADMIN_SESSION_PREFIX}${String(passwordHash ?? "").trim()}`;
-}
-
-export async function hashPasswordSha256Hex(password) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(String(password ?? ""));
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-export async function passwordMatchesHash(password, passwordHash) {
-  const cleanHash = String(passwordHash ?? "").trim().toLowerCase();
-  if (!cleanHash) {
-    return false;
-  }
-
-  const passwordHashValue = await hashPasswordSha256Hex(password);
-  return passwordHashValue === cleanHash;
-}
-
 export function buildAdminHeaders(extra = {}) {
   const headers = { ...extra };
   const sessionToken = getStoredAdminSessionToken();
-  const password = getStoredAdminPassword();
 
   if (sessionToken) {
     headers["X-Newsletter-Admin-Session"] = sessionToken;
   }
 
-  if (password) {
-    headers["X-Newsletter-Admin-Password"] = password;
-  }
-
   return headers;
-}
-
-function isAuthGatewayUnavailable(response) {
-  return response && [502, 503, 504].includes(Number(response.status ?? 0));
 }
 
 export function buildAdminFetch(apiBase, path, options = {}) {
@@ -130,74 +71,46 @@ function isUnauthorizedResponse(response) {
   return Number(response?.status ?? 0) === 401;
 }
 
-export async function loginWithAdminPassword(apiBase, password, localPasswordHash = "") {
+export async function loginWithAdminPassword(apiBase, password) {
   const base = getApiBase(apiBase);
   const cleanPassword = String(password ?? "").trim();
-  const cleanHash = String(localPasswordHash ?? "").trim().toLowerCase();
 
   if (!cleanPassword) {
     throw new Error("password_required");
   }
 
   if (!base) {
-    const sessionToken = cleanHash ? createLocalAdminSessionToken(cleanHash) : cleanPassword;
-    setStoredAdminSessionToken(sessionToken);
-    setStoredAdminPassword("");
-    return { ok: true, sessionToken, localOnly: true };
+    throw new Error("api_unavailable");
   }
 
-  try {
-    const response = await fetch(`${base}/admin/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-Newsletter-Admin-Password": cleanPassword,
-      },
-      body: "{}",
-    });
+  const response = await fetch(`${base}/admin/auth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-Newsletter-Admin-Password": cleanPassword,
+    },
+    body: "{}",
+  });
 
-    if (response.ok) {
-      const result = await parseJsonResponse(response);
-      if (typeof result.sessionToken !== "string" || !result.sessionToken) {
-        throw new Error("session_missing");
-      }
-
-      setStoredAdminSessionToken(result.sessionToken);
-      setStoredAdminPassword(cleanPassword);
-      return result;
-    }
-
-    if (isAuthGatewayUnavailable(response) && cleanHash && (await passwordMatchesHash(cleanPassword, cleanHash))) {
-      const sessionToken = createLocalAdminSessionToken(cleanHash);
-      setStoredAdminSessionToken(sessionToken);
-      setStoredAdminPassword(cleanPassword);
-      return { ok: true, sessionToken, localOnly: true };
-    }
-
+  if (!response.ok) {
     const result = await response.json().catch(() => ({}));
     throw new Error(result?.message || "request_failed");
-  } catch (error) {
-    if (cleanHash && (await passwordMatchesHash(cleanPassword, cleanHash))) {
-      const sessionToken = createLocalAdminSessionToken(cleanHash);
-      setStoredAdminSessionToken(sessionToken);
-      setStoredAdminPassword(cleanPassword);
-      return { ok: true, sessionToken, localOnly: true };
-    }
-
-    throw error instanceof Error ? error : new Error("request_failed");
   }
+
+  const result = await parseJsonResponse(response);
+  if (typeof result.sessionToken !== "string" || !result.sessionToken) {
+    throw new Error("session_missing");
+  }
+
+  setStoredAdminSessionToken(result.sessionToken);
+  return result;
 }
 
 export async function refreshAdminSession(apiBase) {
   const base = getApiBase(apiBase);
   if (!base) {
-    return { ok: true, localOnly: true };
-  }
-
-  const sessionToken = getStoredAdminSessionToken();
-  if (isLocalAdminSessionToken(sessionToken)) {
-    return { ok: true, localOnly: true, sessionToken };
+    throw new Error("api_unavailable");
   }
 
   const response = await buildAdminFetch(base, "/admin/auth", {
@@ -209,22 +122,9 @@ export async function refreshAdminSession(apiBase) {
 
   if (typeof result.sessionToken === "string" && result.sessionToken) {
     setStoredAdminSessionToken(result.sessionToken);
-    setStoredAdminPassword("");
   }
 
   return result;
-}
-
-async function ensureRemoteAdminSession(apiBase) {
-  const base = getApiBase(apiBase);
-  const password = getStoredAdminPassword();
-
-  if (!base || !password) {
-    return null;
-  }
-
-  const result = await loginWithAdminPassword(base, password);
-  return result?.sessionToken || null;
 }
 
 export async function registerPasskey(apiBase) {
@@ -246,15 +146,10 @@ export async function registerPasskey(apiBase) {
   try {
     optionsResult = await parseJsonResponse(optionsResponse);
   } catch (error) {
-    if (isUnauthorizedResponse(optionsResponse) && (await ensureRemoteAdminSession(base))) {
-      const retriedOptionsResponse = await buildAdminFetch(base, "/admin/passkey/register/options", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-      });
-      optionsResult = await parseJsonResponse(retriedOptionsResponse);
-    } else {
-      throw error;
+    if (isUnauthorizedResponse(optionsResponse)) {
+      clearStoredAdminAuth();
     }
+    throw error;
   }
   const registrationResponse = await startRegistration({ optionsJSON: optionsResult.options });
 
@@ -273,7 +168,6 @@ export async function registerPasskey(apiBase) {
 
   if (typeof verifyResult.sessionToken === "string" && verifyResult.sessionToken) {
     setStoredAdminSessionToken(verifyResult.sessionToken);
-    setStoredAdminPassword("");
   }
 
   return verifyResult;
@@ -298,15 +192,10 @@ export async function loginWithPasskey(apiBase) {
   try {
     optionsResult = await parseJsonResponse(optionsResponse);
   } catch (error) {
-    if (isUnauthorizedResponse(optionsResponse) && (await ensureRemoteAdminSession(base))) {
-      const retriedOptionsResponse = await buildAdminFetch(base, "/admin/passkey/auth/options", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-      });
-      optionsResult = await parseJsonResponse(retriedOptionsResponse);
-    } else {
-      throw error;
+    if (isUnauthorizedResponse(optionsResponse)) {
+      clearStoredAdminAuth();
     }
+    throw error;
   }
   const authenticationResponse = await startAuthentication({ optionsJSON: optionsResult.options });
 
@@ -325,7 +214,6 @@ export async function loginWithPasskey(apiBase) {
 
   if (typeof verifyResult.sessionToken === "string" && verifyResult.sessionToken) {
     setStoredAdminSessionToken(verifyResult.sessionToken);
-    setStoredAdminPassword("");
   }
 
   return verifyResult;

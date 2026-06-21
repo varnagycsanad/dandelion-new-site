@@ -620,7 +620,7 @@ jobs:
               printf '%s\n' 'NEWSLETTER_HOST=127.0.0.1'
               printf '%s\n' 'NEWSLETTER_PUBLIC_BASE_URL=https://dandelionhouse.hu'
               printf '%s\n' 'NEWSLETTER_STORAGE_PATH=data/newsletter-db.json'
-              printf '%s\n' 'NEWSLETTER_ADMIN_PASSWORD_HASH=9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a'
+              printf '%s\n' "NEWSLETTER_ADMIN_PASSWORD_HASH=${{ secrets.NEWSLETTER_ADMIN_PASSWORD_HASH }}"
               printf '%s\n' 'NEWSLETTER_SMTP_HOST=mail.dandelionhouse.hu'
               printf '%s\n' 'NEWSLETTER_SMTP_PORT=587'
               printf '%s\n' 'NEWSLETTER_SMTP_SECURE=false'

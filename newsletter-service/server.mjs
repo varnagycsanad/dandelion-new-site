@@ -65,8 +65,7 @@ const SMTP_PASSWORD = process.env.NEWSLETTER_SMTP_PASSWORD ?? "";
 const SMTP_FROM = process.env.NEWSLETTER_SMTP_FROM ?? "\"Dandelion hírlevél\" <newsletter@dandelionhouse.hu>";
 const SMTP_REPLY_TO = process.env.NEWSLETTER_SMTP_REPLY_TO ?? "hello@dandelionhouse.hu";
 const ADMIN_PASSWORD = process.env.NEWSLETTER_ADMIN_PASSWORD ?? "";
-const ADMIN_PASSWORD_HASH =
-  process.env.NEWSLETTER_ADMIN_PASSWORD_HASH ?? "9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a";
+const ADMIN_PASSWORD_HASH = process.env.NEWSLETTER_ADMIN_PASSWORD_HASH ?? "";
 const ADMIN_RP_NAME = "Dandelion admin";
 const ADMIN_USER_ID = fromUtf8("dandelion-admin");
 const ADMIN_USER_NAME = "dandelion-admin";
@@ -847,26 +846,26 @@ async function handleRequest(req, res) {
   const state = await readState();
 
   if (req.method === "GET" && url.pathname === "/health") {
-    jsonResponse(res, 200, {
+    const health = {
       ok: true,
       service: "dandelion-newsletter-service",
-      storagePath: STORAGE_PATH,
-      publicBaseUrl: PUBLIC_BASE_URL,
-      smtp: {
-        host: SMTP_HOST,
-        port: SMTP_PORT,
-        secure: SMTP_SECURE,
-        user: SMTP_USER,
-        configured: hasSmtpCredentials(),
-      },
-      counts: {
+    };
+
+    if (isAdminAuthorized(state, req)) {
+      health.counts = {
         subscribers: state.subscribers.length,
         lists: buildSubscriberLists(state).length,
         groups: buildSubscriberGroups(state).length,
         campaigns: state.campaigns.length,
         deliveries: state.deliveries.length,
-      },
-    });
+      };
+      health.publicBaseUrl = PUBLIC_BASE_URL;
+      health.smtp = {
+        configured: hasSmtpCredentials(),
+      };
+    }
+
+    jsonResponse(res, 200, health);
     return;
   }
 

@@ -6,73 +6,8 @@ const newsletterApiUrl =
   import.meta.env.PUBLIC_NEWSLETTER_API_URL ??
   import.meta.env.NEWSLETTER_PUBLIC_BASE_URL ??
   "/newsletter-api";
-const adminPassword = import.meta.env.NEWSLETTER_ADMIN_PASSWORD ?? "";
 const pageTitle = "Áttekintés";
 const pageDescription = "Hírlevél admin dashboard a feliratkozók, listák, csoportok és kampányok gyors áttekintéséhez.";
-
-const apiBase = String(newsletterApiUrl ?? "").trim().replace(/\/$/, "");
-const dashboardCounts = {
-  subscribers: 0,
-  active: 0,
-  pending: 0,
-  unsubscribed: 0,
-  lists: 0,
-  groups: 0,
-  campaigns: 0,
-  deliveries: 0,
-};
-let dashboardLists = [];
-let dashboardMessage = "A kapcsolódás még nincs ellenőrizve.";
-let dashboardTone = "neutral";
-
-const formatCount = (value) => Number(value ?? 0).toLocaleString("hu-HU");
-
-if (apiBase) {
-  try {
-    const healthResponse = await fetch(`${apiBase}/health`, {
-      headers: { Accept: "application/json" },
-    });
-    const healthResult = await healthResponse.json().catch(() => ({}));
-
-    if (healthResponse.ok && healthResult?.ok) {
-      const counts = healthResult.counts ?? {};
-      dashboardCounts.subscribers = Number(counts.subscribers ?? 0);
-      dashboardCounts.lists = Number(counts.lists ?? 0);
-      dashboardCounts.groups = Number(counts.groups ?? 0);
-      dashboardCounts.campaigns = Number(counts.campaigns ?? 0);
-      dashboardCounts.deliveries = Number(counts.deliveries ?? 0);
-      dashboardCounts.active = dashboardCounts.subscribers;
-      dashboardMessage = `A newsletter service elérhető, ${formatCount(dashboardCounts.subscribers)} cím betöltve.`;
-      dashboardTone = "success";
-
-      if (adminPassword) {
-        const listsResponse = await fetch(`${apiBase}/lists`, {
-          headers: {
-            Accept: "application/json",
-            "X-Newsletter-Admin-Password": adminPassword,
-          },
-        });
-        const listsResult = await listsResponse.json().catch(() => ({}));
-
-        if (listsResponse.ok && listsResult?.ok && Array.isArray(listsResult.lists)) {
-          dashboardLists = listsResult.lists;
-          dashboardCounts.active = dashboardLists.reduce((sum, item) => sum + Number(item?.active ?? 0), 0);
-          dashboardCounts.pending = dashboardLists.reduce((sum, item) => sum + Number(item?.pending ?? 0), 0);
-          dashboardCounts.unsubscribed = dashboardLists.reduce((sum, item) => sum + Number(item?.unsubscribed ?? 0), 0);
-        }
-      }
-    } else {
-      dashboardMessage = "A newsletter service nem ad vissza elérhető állapotot.";
-      dashboardTone = "warning";
-    }
-  } catch {
-    dashboardMessage = "A newsletter service most nem érhető el. A szerveroldali adatok nem tudtak betöltődni.";
-    dashboardTone = "error";
-  }
-} else {
-  dashboardMessage = "A newsletter service címe nincs beállítva.";
-  dashboardTone = "warning";
-}
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
@@ -80,7 +15,7 @@ if (apiBase) {
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--gold"></div>
     <div class="admin-newsletter__backdrop admin-newsletter__backdrop--sage"></div>
 
-    <div class="admin-newsletter__gate" data-gate hidden={dashboardTone === "success"}>
+    <div class="admin-newsletter__gate" data-gate>
       <div class="admin-newsletter__gate-card">
         <div class="admin-newsletter__gate-head">
           <div>
@@ -110,19 +45,19 @@ if (apiBase) {
         </div>
 
         <div class="admin-newsletter__gate-actions">
-          <a class="admin-newsletter__button admin-newsletter__button--ghost" href="/admin/newsletter/" data-check-connection>
+          <button class="admin-newsletter__button admin-newsletter__button--ghost" type="button" data-check-connection>
             Újraellenőrzés
-          </a>
+          </button>
           <a class="admin-newsletter__button" href="/admin/">Vissza az adminhoz</a>
         </div>
 
         <p class="admin-newsletter__gate-status" data-gate-status aria-live="polite">
-          {dashboardMessage}
+          Belépés és kapcsolat ellenőrzése folyamatban...
         </p>
       </div>
     </div>
 
-    <div class="admin-newsletter__shell">
+    <div class="admin-newsletter__shell" hidden>
       <NewsletterSidebar activeSection="dashboard" />
 
       <div class="admin-newsletter__content">
@@ -143,58 +78,58 @@ if (apiBase) {
             <a class="admin-newsletter__button admin-newsletter__button--ghost" href="/admin/kampanyok/">
               Kampányok
             </a>
-            <a class="admin-newsletter__button" href="/admin/newsletter/" data-refresh-dashboard>
+            <button class="admin-newsletter__button" type="button" data-refresh-dashboard>
               Adatok frissítése
-            </a>
+            </button>
           </div>
         </header>
 
         <section class="admin-newsletter__summary" aria-label="Fő statisztikák">
           <article class="admin-newsletter__metric">
             <span>Összes feliratkozó</span>
-            <strong data-dashboard-stat="subscribers">{formatCount(dashboardCounts.subscribers)}</strong>
+            <strong data-dashboard-stat="subscribers">0</strong>
             <p>Az összes betöltött cím a service-ből.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Aktív címek</span>
-            <strong data-dashboard-stat="active">{formatCount(dashboardCounts.active)}</strong>
+            <strong data-dashboard-stat="active">0</strong>
             <p>Kiknek lehet most levelet küldeni.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Függőben</span>
-            <strong data-dashboard-stat="pending">{formatCount(dashboardCounts.pending)}</strong>
+            <strong data-dashboard-stat="pending">0</strong>
             <p>Folyamatban lévő feliratkozások.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Leiratkozott</span>
-            <strong data-dashboard-stat="unsubscribed">{formatCount(dashboardCounts.unsubscribed)}</strong>
+            <strong data-dashboard-stat="unsubscribed">0</strong>
             <p>Jelenleg kizárt címek.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Listák</span>
-            <strong data-dashboard-stat="lists">{formatCount(dashboardCounts.lists)}</strong>
+            <strong data-dashboard-stat="lists">0</strong>
             <p>Hírlevél, korábbi vendégek és egyéb listák.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Csoportok</span>
-            <strong data-dashboard-stat="groups">{formatCount(dashboardCounts.groups)}</strong>
+            <strong data-dashboard-stat="groups">0</strong>
             <p>Későbbi kampánycélzásokhoz.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Kampányok</span>
-            <strong data-dashboard-stat="campaigns">{formatCount(dashboardCounts.campaigns)}</strong>
+            <strong data-dashboard-stat="campaigns">0</strong>
             <p>Összes nyilvántartott kampány.</p>
           </article>
 
           <article class="admin-newsletter__metric">
             <span>Küldések</span>
-            <strong data-dashboard-stat="deliveries">{formatCount(dashboardCounts.deliveries)}</strong>
+            <strong data-dashboard-stat="deliveries">0</strong>
             <p>Naplózott levelezési események.</p>
           </article>
         </section>
@@ -211,43 +146,12 @@ if (apiBase) {
           </div>
 
           <div class="admin-newsletter__list-grid" data-list-grid aria-live="polite">
-            {dashboardLists.length ? (
-              dashboardLists.map((item) => (
-                <article class="admin-newsletter__list-card">
-                  <div class="admin-newsletter__list-card-head">
-                    <div>
-                      <p class="admin-newsletter__list-key">{String(item.key ?? "").replaceAll("-", " ")}</p>
-                      <h3>{String(item.name ?? item.key ?? "Ismeretlen lista")}</h3>
-                    </div>
-                    <strong>{formatCount(item.total ?? 0)}</strong>
-                  </div>
-                  {String(item.description ?? "").trim() ? (
-                    <p class="admin-newsletter__list-description">{String(item.description ?? "").trim()}</p>
-                  ) : null}
-                  <div class="admin-newsletter__list-stats">
-                    <span>
-                      <strong>{formatCount(item.active ?? 0)}</strong>
-                      aktív
-                    </span>
-                    <span>
-                      <strong>{formatCount(item.pending ?? 0)}</strong>
-                      függőben
-                    </span>
-                    <span>
-                      <strong>{formatCount(item.unsubscribed ?? 0)}</strong>
-                      leiratkozott
-                    </span>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <div class="admin-newsletter__empty-state">
-                <strong>Nincs listaadat</strong>
-                <p>
-                  A lista-bontás csak akkor jelenik meg, ha a newsletter service eléri a listák részleteit.
-                </p>
-              </div>
-            )}
+            <div class="admin-newsletter__empty-state">
+              <strong>Nincs listaadat</strong>
+              <p>
+                A lista-bontás belépés után töltődik be a newsletter service-ből.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -274,6 +178,212 @@ if (apiBase) {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import {
+    buildAdminFetch,
+    clearStoredAdminAuth,
+    getStoredAdminSessionToken,
+  } from "../../scripts/newsletterAdminAuth";
+
+  (() => {
+    const root = document.querySelector("[data-admin-newsletter]");
+    if (!(root instanceof HTMLElement)) return;
+
+    const apiBase = root.dataset.apiBase?.trim() || "";
+    const gate = root.querySelector("[data-gate]");
+    const shell = root.querySelector(".admin-newsletter__shell");
+    const gateStatus = root.querySelector("[data-gate-status]");
+    const connectionFlag = root.querySelector("[data-connection-flag]");
+    const diagnostics = {
+      health: root.querySelector('[data-diagnostic-step="health"]'),
+      auth: root.querySelector('[data-diagnostic-step="auth"]'),
+      data: root.querySelector('[data-diagnostic-step="data"]'),
+    };
+    const checkButton = root.querySelector("[data-check-connection]");
+    const refreshButton = root.querySelector("[data-refresh-dashboard]");
+    const listGrid = root.querySelector("[data-list-grid]");
+    const statNodes = {
+      subscribers: root.querySelector('[data-dashboard-stat="subscribers"]'),
+      active: root.querySelector('[data-dashboard-stat="active"]'),
+      pending: root.querySelector('[data-dashboard-stat="pending"]'),
+      unsubscribed: root.querySelector('[data-dashboard-stat="unsubscribed"]'),
+      lists: root.querySelector('[data-dashboard-stat="lists"]'),
+      groups: root.querySelector('[data-dashboard-stat="groups"]'),
+      campaigns: root.querySelector('[data-dashboard-stat="campaigns"]'),
+      deliveries: root.querySelector('[data-dashboard-stat="deliveries"]'),
+    };
+
+    const formatCount = (value) => Number(value ?? 0).toLocaleString("hu-HU");
+
+    const setTone = (node, tone, text) => {
+      if (!(node instanceof HTMLElement)) return;
+      node.dataset.tone = tone;
+      node.textContent = text;
+    };
+
+    const setGateStatus = (message, tone = "info") => {
+      setTone(gateStatus, tone, message);
+    };
+
+    const setConnectionFlag = (message, tone = "info") => {
+      setTone(connectionFlag, tone, message);
+    };
+
+    const setStep = (step, message, tone = "info") => {
+      setTone(diagnostics[step], tone, message);
+    };
+
+    const setLocked = (locked) => {
+      if (gate instanceof HTMLElement) {
+        gate.hidden = !locked;
+      }
+      if (shell instanceof HTMLElement) {
+        shell.hidden = locked;
+      }
+    };
+
+    const renderLists = (lists) => {
+      if (!(listGrid instanceof HTMLElement)) return;
+
+      if (!Array.isArray(lists) || !lists.length) {
+        listGrid.innerHTML = `
+          <div class="admin-newsletter__empty-state">
+            <strong>Nincs listaadat</strong>
+            <p>A lista-bontás csak akkor jelenik meg, ha a newsletter service eléri a listák részleteit.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listGrid.innerHTML = lists
+        .map(
+          (item) => `
+            <article class="admin-newsletter__list-card">
+              <div class="admin-newsletter__list-card-head">
+                <div>
+                  <p class="admin-newsletter__list-key">${String(item?.key ?? "").replaceAll("-", " ")}</p>
+                  <h3>${String(item?.name ?? item?.key ?? "Ismeretlen lista")}</h3>
+                </div>
+                <strong>${formatCount(item?.total ?? 0)}</strong>
+              </div>
+              ${String(item?.description ?? "").trim() ? `<p class="admin-newsletter__list-description">${String(item.description).trim()}</p>` : ""}
+              <div class="admin-newsletter__list-stats">
+                <span><strong>${formatCount(item?.active ?? 0)}</strong>aktív</span>
+                <span><strong>${formatCount(item?.pending ?? 0)}</strong>függőben</span>
+                <span><strong>${formatCount(item?.unsubscribed ?? 0)}</strong>leiratkozott</span>
+              </div>
+            </article>
+          `
+        )
+        .join("");
+    };
+
+    const updateStats = (counts, lists) => {
+      const nextCounts = {
+        subscribers: Number(counts?.subscribers ?? 0),
+        active: Array.isArray(lists) ? lists.reduce((sum, item) => sum + Number(item?.active ?? 0), 0) : 0,
+        pending: Array.isArray(lists) ? lists.reduce((sum, item) => sum + Number(item?.pending ?? 0), 0) : 0,
+        unsubscribed: Array.isArray(lists) ? lists.reduce((sum, item) => sum + Number(item?.unsubscribed ?? 0), 0) : 0,
+        lists: Number(counts?.lists ?? 0),
+        groups: Number(counts?.groups ?? 0),
+        campaigns: Number(counts?.campaigns ?? 0),
+        deliveries: Number(counts?.deliveries ?? 0),
+      };
+
+      Object.entries(statNodes).forEach(([key, node]) => {
+        if (node instanceof HTMLElement) {
+          node.textContent = formatCount(nextCounts[key]);
+        }
+      });
+    };
+
+    const loadDashboard = async () => {
+      const sessionToken = getStoredAdminSessionToken();
+      if (!sessionToken) {
+        window.location.replace("/admin/");
+        return;
+      }
+
+      if (!apiBase) {
+        setLocked(true);
+        setConnectionFlag("API hiányzik", "error");
+        setStep("health", "Nincs cím", "error");
+        setStep("auth", "Nem ellenőrizhető", "warning");
+        setStep("data", "Nem tölthető", "warning");
+        setGateStatus("A newsletter API címe nincs beállítva.", "error");
+        return;
+      }
+
+      setLocked(true);
+      setConnectionFlag("Ellenőrzés...", "info");
+      setStep("health", "Kapcsolódás...", "info");
+      setStep("auth", "Session ellenőrzés...", "info");
+      setStep("data", "Adatok várnak", "info");
+      setGateStatus("Belépés és kapcsolat ellenőrzése folyamatban...", "info");
+
+      try {
+        const authResponse = await buildAdminFetch(apiBase, "/admin/auth", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: "{}",
+        });
+        const authResult = await authResponse.json().catch(() => ({}));
+
+        if (!authResponse.ok || !authResult?.ok) {
+          throw new Error(authResult?.message || "auth_failed");
+        }
+
+        setStep("auth", "Belépve", "success");
+
+        const [healthResponse, listsResponse] = await Promise.all([
+          buildAdminFetch(apiBase, "/health", {
+            headers: { Accept: "application/json" },
+          }),
+          buildAdminFetch(apiBase, "/lists", {
+            headers: { Accept: "application/json" },
+          }),
+        ]);
+
+        const healthResult = await healthResponse.json().catch(() => ({}));
+        const listsResult = await listsResponse.json().catch(() => ({}));
+
+        if (!healthResponse.ok || !healthResult?.ok) {
+          throw new Error("health_failed");
+        }
+        setStep("health", "API elérhető", "success");
+
+        if (!listsResponse.ok || !listsResult?.ok) {
+          throw new Error(listsResult?.message || "lists_failed");
+        }
+        setStep("data", "Adatok betöltve", "success");
+
+        updateStats(healthResult.counts ?? {}, listsResult.lists ?? []);
+        renderLists(listsResult.lists ?? []);
+        setConnectionFlag("Admin aktív", "success");
+        setGateStatus("A newsletter dashboard biztonságosan betöltve.", "success");
+        setLocked(false);
+      } catch (error) {
+        console.error("[admin-newsletter-dashboard]", error);
+        clearStoredAdminAuth();
+        setLocked(true);
+        setConnectionFlag("Hiba", "error");
+        setStep("auth", "Belépés lejárt", "error");
+        setStep("health", "API hiba", "warning");
+        setStep("data", "Nincs adat", "warning");
+        setGateStatus("A dashboard csak érvényes admin sessionnel érhető el. Jelentkezz be újra.", "error");
+        window.setTimeout(() => {
+          window.location.replace("/admin/");
+        }, 1200);
+      }
+    };
+
+    checkButton?.addEventListener("click", loadDashboard);
+    refreshButton?.addEventListener("click", loadDashboard);
+
+    loadDashboard();
+  })();
+</script>
 
 <style>
   .admin-newsletter {
