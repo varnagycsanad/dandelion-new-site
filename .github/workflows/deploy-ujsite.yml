@@ -610,41 +610,41 @@ jobs:
           rsync -az --delete -e "ssh ${ssh_options[*]}" deploy-newsletter-service/ "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}:$remote_service_path/"
 
           ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "REMOTE_SERVICE_PATH=$remote_service_path_quoted bash -s" <<'REMOTE_SERVICE'
-          set -euo pipefail
+            set -euo pipefail
 
-          cd "$REMOTE_SERVICE_PATH"
-          mkdir -p data logs run
+            cd "$REMOTE_SERVICE_PATH"
+            mkdir -p data logs run
 
-          cat > .env.local <<'EOF'
-NEWSLETTER_PORT=3876
-NEWSLETTER_HOST=127.0.0.1
-NEWSLETTER_PUBLIC_BASE_URL=https://dandelionhouse.hu
-NEWSLETTER_STORAGE_PATH=data/newsletter-db.json
-NEWSLETTER_ADMIN_PASSWORD_HASH=9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a
-NEWSLETTER_SMTP_HOST=mail.dandelionhouse.hu
-NEWSLETTER_SMTP_PORT=587
-NEWSLETTER_SMTP_SECURE=false
-NEWSLETTER_SMTP_USER=newsletter@dandelionhouse.hu
-NEWSLETTER_SMTP_FROM="Dandelion hírlevél <newsletter@dandelionhouse.hu>"
-NEWSLETTER_SMTP_REPLY_TO=hello@dandelionhouse.hu
-EOF
+            {
+              printf '%s\n' 'NEWSLETTER_PORT=3876'
+              printf '%s\n' 'NEWSLETTER_HOST=127.0.0.1'
+              printf '%s\n' 'NEWSLETTER_PUBLIC_BASE_URL=https://dandelionhouse.hu'
+              printf '%s\n' 'NEWSLETTER_STORAGE_PATH=data/newsletter-db.json'
+              printf '%s\n' 'NEWSLETTER_ADMIN_PASSWORD_HASH=9ff69e683a9cc5424f7246fa514a1bd488b5b51ab40fd1c9321cb1634b09ea1a'
+              printf '%s\n' 'NEWSLETTER_SMTP_HOST=mail.dandelionhouse.hu'
+              printf '%s\n' 'NEWSLETTER_SMTP_PORT=587'
+              printf '%s\n' 'NEWSLETTER_SMTP_SECURE=false'
+              printf '%s\n' 'NEWSLETTER_SMTP_USER=newsletter@dandelionhouse.hu'
+              printf '%s\n' 'NEWSLETTER_SMTP_FROM=Dandelion hírlevél <newsletter@dandelionhouse.hu>'
+              printf '%s\n' 'NEWSLETTER_SMTP_REPLY_TO=hello@dandelionhouse.hu'
+            } > .env.local
 
-          npm ci --omit=dev --no-audit --no-fund
+            npm ci --omit=dev --no-audit --no-fund
 
-          if [ -f run/newsletter-service.pid ]; then
-            old_pid="$(cat run/newsletter-service.pid || true)"
-            if [ -n "${old_pid:-}" ] && kill -0 "$old_pid" 2>/dev/null; then
-              kill "$old_pid" || true
-              sleep 2
+            if [ -f run/newsletter-service.pid ]; then
+              old_pid="$(cat run/newsletter-service.pid || true)"
+              if [ -n "${old_pid:-}" ] && kill -0 "$old_pid" 2>/dev/null; then
+                kill "$old_pid" || true
+                sleep 2
+              fi
             fi
-          fi
 
-          pkill -f 'newsletter-service/server.mjs' || true
+            pkill -f 'newsletter-service/server.mjs' || true
 
-          nohup env NODE_ENV=production node server.mjs > logs/newsletter-service.log 2>&1 &
-          echo $! > run/newsletter-service.pid
-          sleep 4
-          curl -fsS http://127.0.0.1:3876/health >/dev/null
+            nohup env NODE_ENV=production node server.mjs > logs/newsletter-service.log 2>&1 &
+            echo $! > run/newsletter-service.pid
+            sleep 4
+            curl -fsS http://127.0.0.1:3876/health >/dev/null
           REMOTE_SERVICE
 
       - name: Verify newsletter service endpoint
