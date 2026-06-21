@@ -1,8 +1,43 @@
 import { createServer } from "node:http";
+import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
 import nodemailer from "nodemailer";
+
+function loadEnvFile(filePath) {
+  if (!existsSync(filePath)) {
+    return;
+  }
+
+  const raw = readFileSync(filePath, "utf8");
+  for (const line of raw.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) {
+      continue;
+    }
+
+    const equalsIndex = trimmed.indexOf("=");
+    if (equalsIndex <= 0) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, equalsIndex).trim();
+    if (!key || process.env[key] !== undefined) {
+      continue;
+    }
+
+    let value = trimmed.slice(equalsIndex + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+
+    process.env[key] = value;
+  }
+}
+
+loadEnvFile(join(process.cwd(), ".env"));
+loadEnvFile(join(process.cwd(), ".env.local"));
 
 const PORT = Number.parseInt(process.env.NEWSLETTER_PORT ?? "3876", 10);
 const HOST = process.env.NEWSLETTER_HOST ?? "127.0.0.1";
