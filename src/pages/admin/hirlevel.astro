@@ -22,7 +22,7 @@ const pageDescription =
       <div class="newsletter-admin__content">
       <header class="newsletter-admin__hero">
         <div class="newsletter-admin__hero-copy">
-          <p class="newsletter-admin__eyebrow">Newsletter admin</p>
+          <p class="newsletter-admin__eyebrow">Hírlevél admin</p>
           <h1>{pageTitle}</h1>
           <p class="newsletter-admin__lead">
             Itt látod az aktív feliratkozókat, a leiratkozott címeket, a forrásokat és az utolsó frissítés idejét.
@@ -47,6 +47,16 @@ const pageDescription =
           </button>
         </div>
       </header>
+
+      <nav class="newsletter-admin__tabs" aria-label="Feliratkozó nézetek">
+        <a class="newsletter-admin__tab is-active" href="/admin/hirlevel/" aria-current="page">Minden feliratkozó</a>
+        <button class="newsletter-admin__tab" type="button" disabled>Szegmensek</button>
+        <button class="newsletter-admin__tab" type="button" disabled>Csoportok</button>
+        <button class="newsletter-admin__tab" type="button" disabled>Mezők</button>
+        <button class="newsletter-admin__tab" type="button" disabled>Statisztika</button>
+        <button class="newsletter-admin__tab" type="button" disabled>Inaktívak tisztítása</button>
+        <button class="newsletter-admin__tab" type="button" disabled>Előzmények</button>
+      </nav>
 
       <div class="newsletter-admin__statusbar">
         <div class="newsletter-admin__status" data-status>
@@ -79,7 +89,7 @@ const pageDescription =
       <section class="newsletter-admin__tools" aria-label="Szűrés és keresés">
         <label class="newsletter-admin__field">
           <span>Keresés</span>
-          <input type="search" placeholder="Név, e-mail, forrás, nyelv" data-search />
+          <input type="search" placeholder="Név, e-mail, forrás vagy nyelv" data-search />
         </label>
 
         <label class="newsletter-admin__field">
@@ -87,7 +97,7 @@ const pageDescription =
           <select data-filter-status>
             <option value="all">Összes</option>
             <option value="active">Aktív</option>
-            <option value="pending">Pending</option>
+            <option value="pending">Függőben</option>
             <option value="unsubscribed">Leiratkozott</option>
           </select>
         </label>
@@ -96,18 +106,18 @@ const pageDescription =
           <span>Nyelv</span>
           <select data-filter-lang>
             <option value="all">Összes</option>
-            <option value="hu">HU</option>
-            <option value="en">EN</option>
-            <option value="de">DE</option>
-            <option value="cs">CS</option>
-            <option value="sk">SK</option>
+            <option value="hu">Magyar</option>
+            <option value="en">Angol</option>
+            <option value="de">Német</option>
+            <option value="cs">Cseh</option>
+            <option value="sk">Szlovák</option>
           </select>
         </label>
 
         <label class="newsletter-admin__field">
           <span>Lista</span>
           <select data-filter-list>
-            <option value="all">Összes</option>
+            <option value="all">Összes lista</option>
             {NEWSLETTER_LISTS.map((list) => <option value={list.key}>{list.name}</option>)}
           </select>
         </label>
@@ -115,7 +125,7 @@ const pageDescription =
         <label class="newsletter-admin__field">
           <span>Forrás</span>
           <select data-filter-source>
-            <option value="all">Összes</option>
+            <option value="all">Összes forrás</option>
           </select>
         </label>
       </section>
@@ -1198,32 +1208,70 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   .newsletter-admin__hero-copy {
     max-width: 760px;
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .newsletter-admin__eyebrow,
   .newsletter-admin__panel-kicker {
     margin: 0;
     color: rgba(122, 95, 52, 0.86);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
   .newsletter-admin h1 {
     margin: 0;
     font-family: var(--dnd-font-display);
-    font-size: clamp(2.4rem, 4vw, 4rem);
-    line-height: 0.98;
+    font-size: clamp(1.9rem, 3.1vw, 2.9rem);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
 
   .newsletter-admin__lead {
     margin: 0;
     max-width: 68ch;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 0.95rem;
+    line-height: 1.65;
     color: rgba(69, 55, 38, 0.88);
+  }
+
+  .newsletter-admin__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px 0 2px;
+    border-bottom: 1px solid rgba(82, 63, 36, 0.1);
+  }
+
+  .newsletter-admin__tab {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: rgba(79, 60, 34, 0.74);
+    text-decoration: none;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 11px 4px 13px;
+    border-bottom: 1px solid transparent;
+    cursor: default;
+  }
+
+  .newsletter-admin__tab:not(:disabled) {
+    cursor: pointer;
+  }
+
+  .newsletter-admin__tab.is-active,
+  .newsletter-admin__tab[aria-current="page"] {
+    color: #2f2419;
+    border-bottom-color: #2f2419;
+  }
+
+  .newsletter-admin__tab:disabled {
+    opacity: 0.52;
   }
 
   .newsletter-admin__hero-actions {
@@ -1258,7 +1306,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   .newsletter-admin__button {
     min-height: 46px;
     padding: 0 18px;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .newsletter-admin__button--ghost {
@@ -1283,7 +1331,8 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
   .newsletter-admin__status {
     min-height: 24px;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9rem;
   }
 
   .newsletter-admin__status[data-tone="success"] {
@@ -1300,7 +1349,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
   .newsletter-admin__hint {
     color: rgba(83, 68, 49, 0.72);
-    font-size: 0.92rem;
+    font-size: 0.84rem;
   }
 
   .newsletter-admin__stats {
@@ -1324,14 +1373,15 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     color: rgba(101, 79, 47, 0.74);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 500;
   }
 
   .newsletter-admin__stat strong {
     display: block;
-    font-size: clamp(1.8rem, 2vw, 2.4rem);
+    font-size: clamp(1.5rem, 1.8vw, 2rem);
     line-height: 1;
+    font-weight: 500;
   }
 
   .newsletter-admin__tools {
@@ -1344,7 +1394,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   .newsletter-admin__field {
     display: grid;
     gap: 8px;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
 
   .newsletter-admin__import-panel {
@@ -1362,19 +1412,20 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
 
   .newsletter-admin__field span {
     color: rgba(82, 67, 45, 0.82);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .newsletter-admin__field input,
   .newsletter-admin__field select {
     width: 100%;
-    min-height: 48px;
-    padding: 0 14px;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid rgba(90, 71, 42, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.76);
     color: #2a231b;
     font: inherit;
+    font-size: 0.9rem;
   }
 
   .newsletter-admin__password-toggle {
@@ -1418,7 +1469,8 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
   .newsletter-admin__panel h2 {
     margin: 6px 0 0;
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.7rem, 2vw, 2.3rem);
+    font-size: clamp(1.3rem, 1.7vw, 1.8rem);
+    font-weight: 400;
   }
 
   .newsletter-admin__panel-note {
@@ -1426,6 +1478,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     max-width: 52ch;
     color: rgba(82, 67, 45, 0.78);
     line-height: 1.6;
+    font-size: 0.88rem;
   }
 
   .newsletter-admin__table-wrap {
@@ -1447,6 +1500,7 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     text-align: left;
     border-bottom: 1px solid rgba(95, 72, 41, 0.08);
     vertical-align: middle;
+    font-size: 0.9rem;
   }
 
   .newsletter-admin__table th {
@@ -1454,9 +1508,9 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     top: 0;
     background: rgba(248, 242, 232, 0.98);
     color: rgba(77, 59, 34, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.72rem;
+    text-transform: none;
+    letter-spacing: 0.03em;
+    font-size: 0.8rem;
     z-index: 1;
     white-space: nowrap;
   }
@@ -1487,9 +1541,9 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     background: transparent;
     color: inherit;
     font: inherit;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: inherit;
-    text-transform: inherit;
+    text-transform: none;
     cursor: pointer;
   }
 
@@ -1517,15 +1571,15 @@ pelda@example.com,Példa Név,hu,landing,active,korabbi_vendegek</textarea>
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 30px;
-    padding: 0 12px;
+    min-height: 28px;
+    padding: 0 10px;
     border-radius: 999px;
     background: rgba(91, 70, 42, 0.08);
     color: #4e3b23;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-size: 0.76rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.03em;
   }
 
   .newsletter-admin__badge.is-active {
