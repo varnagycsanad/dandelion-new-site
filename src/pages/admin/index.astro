@@ -32,13 +32,9 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
               </button>
             </div>
           </label>
-          <p class="admin-home__helper">
-            A belépés jelszóval megy. Ha ezen az eszközön már van passkey, akkor lentebb tudod hozzáadni vagy használni.
-          </p>
           <div class="admin-home__actions">
             <button class="admin-home__button admin-home__button--primary" type="submit">Belépés</button>
           </div>
-          <button class="admin-home__button admin-home__button--link" type="button" data-passkey-login>Passkey használata</button>
         </form>
         <p class="admin-home__status" data-auth-status aria-live="polite"></p>
       </div>
@@ -57,30 +53,18 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
           <strong>Hírlevél admin</strong>
           <p>feliratkozók, CSV import, draftok, tesztküldés és kiküldés</p>
         </a>
-
-        <div class="admin-home__card">
-          <span class="admin-home__card-label">Opcionális belépés</span>
-          <strong>Passkey a telefonon</strong>
-          <p>Ha szeretnéd, hozzáadhatsz passkey belépést is, de a jelszó marad az elsődleges út.</p>
-          <button class="admin-home__button admin-home__button--ghost admin-home__card-button" type="button" data-register-passkey>
-            Passkey hozzáadása
-          </button>
-        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<script type="module">
+<script>
   import {
     buildAdminFetch,
     clearStoredAdminAuth,
     getStoredAdminPassword,
     getStoredAdminSessionToken,
-    isWebAuthnAvailable,
     loginWithAdminPassword,
-    loginWithPasskey,
-    registerPasskey,
   } from "../../scripts/newsletterAdminAuth";
 
   (() => {
@@ -93,8 +77,6 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const authInput = root.querySelector("[data-auth-input]");
     const passwordToggle = root.querySelector("[data-password-toggle]");
     const authStatus = root.querySelector("[data-auth-status]");
-    const passkeyLoginButton = root.querySelector("[data-passkey-login]");
-    const registerPasskeyButton = root.querySelector("[data-register-passkey]");
     const shell = root.querySelector(".admin-home__shell");
 
     let adminToken = getStoredAdminSessionToken() || getStoredAdminPassword();
@@ -119,18 +101,6 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     const clearAuthState = () => {
       clearStoredAdminAuth();
       adminToken = "";
-    };
-
-    const getFriendlyAuthError = (error, fallback) => {
-      if (error instanceof Error) {
-        if (error.name === "NotAllowedError" || error.name === "AbortError") {
-          return "Az azonosítás megszakítva.";
-        }
-
-        return error.message || fallback;
-      }
-
-      return fallback;
     };
 
     const setPasswordVisible = (visible) => {
@@ -206,50 +176,10 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
       }
     });
 
-    passkeyLoginButton?.addEventListener("click", async () => {
-      if (!isWebAuthnAvailable()) {
-        setAuthStatus("Ezen a böngészőn nem elérhető a passkey belépés.", "warning");
-        return;
-      }
-
-      setAuthStatus("Passkey azonosítás folyamatban...", "info");
-      try {
-        const result = await loginWithPasskey(apiBase);
-        if (result?.sessionToken) {
-          adminToken = result.sessionToken;
-        }
-        updateLockState(false);
-        setAuthStatus("Passkey belépés sikeres.", "success");
-      } catch (error) {
-        console.error("[admin-home-passkey]", error);
-        setAuthStatus(getFriendlyAuthError(error, "A passkey belépés nem sikerült."), "error");
-      }
-    });
-
     passwordToggle?.addEventListener("click", () => {
       if (!(authInput instanceof HTMLInputElement)) return;
       setPasswordVisible(authInput.type === "password");
       authInput.focus();
-    });
-
-    registerPasskeyButton?.addEventListener("click", async () => {
-      if (!isWebAuthnAvailable()) {
-        setAuthStatus("Ezen a böngészőn nem elérhető a passkey regisztráció.", "warning");
-        return;
-      }
-
-      setAuthStatus("Passkey regisztrálása folyamatban...", "info");
-      try {
-        const result = await registerPasskey(apiBase);
-        if (result?.sessionToken) {
-          adminToken = result.sessionToken;
-        }
-        updateLockState(false);
-        setAuthStatus("Passkey hozzáadva ehhez az eszközhöz.", "success");
-      } catch (error) {
-        console.error("[admin-home-register-passkey]", error);
-        setAuthStatus(getFriendlyAuthError(error, "A passkey hozzáadás nem sikerült."), "error");
-      }
     });
 
     updateLockState(true);
@@ -416,30 +346,6 @@ const pageDescription = "Központi belépési pont az admin eszközökhöz.";
     color: #3f3124;
     background: rgba(255, 252, 247, 0.92);
     box-shadow: inset 0 0 0 1px rgba(92, 67, 37, 0.12);
-  }
-
-  .admin-home__button--link {
-    min-height: auto;
-    padding: 0;
-    align-self: start;
-    border-radius: 0;
-    color: #725226;
-    background: transparent;
-    box-shadow: none;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    font-weight: 600;
-  }
-
-  .admin-home__card-button {
-    justify-self: start;
-  }
-
-  .admin-home__helper {
-    margin: -2px 0 0;
-    color: rgba(69, 55, 38, 0.72);
-    line-height: 1.55;
-    font-size: 0.96rem;
   }
 
   .admin-home__status {
