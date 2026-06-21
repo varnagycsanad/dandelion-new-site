@@ -40,7 +40,7 @@ const pageDescription =
 
       <div class="newsletter-campaigns__statusbar">
         <div class="newsletter-campaigns__status" data-status>Betöltés...</div>
-        <div class="newsletter-campaigns__hint">API: <span data-api-label>{newsletterApiUrl || "nincs beállítva"}</span></div>
+        <div class="newsletter-campaigns__hint">API: <span data-api-label>{newsletterApiUrl || "—"}</span></div>
       </div>
 
       <section class="newsletter-campaigns__stats" aria-label="Kampány statisztikák">
@@ -418,8 +418,7 @@ const pageDescription =
 
     const loadCampaigns = async () => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
-        if (apiLabel instanceof HTMLElement) apiLabel.textContent = "nincs beállítva";
+        if (apiLabel instanceof HTMLElement) apiLabel.textContent = "—";
         return;
       }
 
@@ -451,7 +450,7 @@ const pageDescription =
 
     const saveCampaign = async () => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
+        setStatus("A funkció jelenleg nem érhető el.", "error");
         return;
       }
 
@@ -508,7 +507,7 @@ const pageDescription =
 
     const sendCampaign = async (campaignId) => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
+        setStatus("A funkció jelenleg nem érhető el.", "error");
         return;
       }
 
@@ -543,7 +542,7 @@ const pageDescription =
 
     const sendTest = async () => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
+        setStatus("A funkció jelenleg nem érhető el.", "error");
         return;
       }
 

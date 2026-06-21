@@ -110,13 +110,13 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
         return;
       }
 
-      if (!apiBase) {
-        updateLockState(false);
-        setAuthStatus("Belépés sikeres. A newsletter API nincs beállítva, ezért a hírlevél funkciók korlátozottak.", "warning");
-        return;
-      }
-
       try {
+        if (!apiBase) {
+          updateLockState(false);
+          setAuthStatus("Belépés sikeres.", "success");
+          return;
+        }
+
         const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
           method: "POST",
           headers: {
@@ -138,7 +138,7 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
         adminPassword = "";
         sessionStorage.removeItem(authStorageKey);
         updateLockState(true);
-        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+        setAuthStatus("Hibás jelszó.", "error");
       }
     };
 
@@ -151,17 +151,17 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
         return;
       }
 
-      if (!apiBase) {
-        adminPassword = password;
-        sessionStorage.setItem(authStorageKey, password);
-        updateLockState(false);
-        setAuthStatus("Belépés sikeres. A newsletter API nincs beállítva, ezért a hírlevél funkciók korlátozottak.", "warning");
-        return;
-      }
-
       setAuthStatus("Beléptetés folyamatban...", "info");
 
       try {
+        if (!apiBase) {
+          adminPassword = password;
+          sessionStorage.setItem(authStorageKey, password);
+          updateLockState(false);
+          setAuthStatus("Belépés sikeres.", "success");
+          return;
+        }
+
         const response = await fetch(`${apiBase.replace(/\/$/, "")}/admin/auth`, {
           method: "POST",
           headers: {
@@ -183,7 +183,7 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
         setAuthStatus("Belépés sikeres.", "success");
       } catch (error) {
         console.error("[admin-home-auth]", error);
-        setAuthStatus("Hibás jelszó vagy elérhetetlen API.", "error");
+        setAuthStatus("Hibás jelszó.", "error");
       }
     });
 

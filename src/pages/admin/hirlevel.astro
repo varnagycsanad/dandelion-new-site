@@ -46,7 +46,7 @@ const pageDescription =
           Betöltés...
         </div>
         <div class="newsletter-admin__hint">
-          API: <span data-api-label>{newsletterApiUrl || "nincs beállítva"}</span>
+          API: <span data-api-label>{newsletterApiUrl || "—"}</span>
         </div>
       </div>
 
@@ -487,9 +487,8 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
 
     const loadSubscribers = async () => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
         if (apiLabel instanceof HTMLElement) {
-          apiLabel.textContent = "nincs beállítva";
+          apiLabel.textContent = "—";
         }
         return;
       }
@@ -569,7 +568,7 @@ pelda@example.com,Példa Név,hu,landing,active</textarea>
 
     const importCsvFile = async () => {
       if (!apiBase) {
-        setStatus("A newsletter API nincs beállítva.", "warning");
+        setStatus("Az import jelenleg nem érhető el.", "error");
         return;
       }
 
