@@ -24,6 +24,8 @@ const pageDescription =
         </div>
 
         <div class="newsletter-admin__hero-actions">
+          <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/">Admin home</a>
+          <a class="newsletter-admin__button newsletter-admin__button--ghost" href="/admin/kampanyok/">Kampányok</a>
           <button class="newsletter-admin__button newsletter-admin__button--ghost" type="button" data-refresh>
             Frissítés
           </button>
@@ -495,6 +497,10 @@ const pageDescription =
 
   .newsletter-admin__button,
   .newsletter-admin__inline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     border: 0;
     border-radius: 999px;
     font: inherit;

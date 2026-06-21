@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Dandelion admin";
+const pageDescription = "Központi belépési pont a hírlevél admin eszközökhöz.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} hideHeader={true} hideFooter={true} noindex={true}>
+  <section class="admin-home">
+    <div class="admin-home__shell">
+      <p class="admin-home__eyebrow">Dandelion belső eszközök</p>
+      <h1>{pageTitle}</h1>
+      <p class="admin-home__lead">
+        Innen éred el a hírlevél listát és a kampánykezelőt. Ez a központi, szolgáltató-független admin belépő.
+      </p>
+
+      <div class="admin-home__grid">
+        <a class="admin-home__card" href="/admin/hirlevel/">
+          <span class="admin-home__card-label">Lista</span>
+          <strong>Feliratkozók és export</strong>
+          <p>keresés, státuszok, CSV és gyors másolás</p>
+        </a>
+
+        <a class="admin-home__card" href="/admin/kampanyok/">
+          <span class="admin-home__card-label">Kampányok</span>
+          <strong>Draft, teszt, kiküldés</strong>
+          <p>kampány létrehozás, SMTP teszt és éles küldés</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .admin-home {
+    min-height: 100vh;
+    padding: 36px 18px 56px;
+    background:
+      radial-gradient(circle at top left, rgba(212, 173, 89, 0.18), transparent 25%),
+      radial-gradient(circle at 85% 10%, rgba(104, 137, 108, 0.14), transparent 24%),
+      linear-gradient(180deg, #f8f2e6 0%, #f4efdf 100%);
+  }
+
+  .admin-home__shell {
+    width: min(1040px, calc(100vw - 36px));
+    margin: 0 auto;
+    display: grid;
+    gap: 18px;
+  }
+
+  .admin-home__eyebrow {
+    margin: 0;
+    color: rgba(122, 95, 52, 0.86);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .admin-home h1 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    line-height: 0.98;
+    color: #2b241c;
+  }
+
+  .admin-home__lead {
+    margin: 0;
+    max-width: 70ch;
+    color: rgba(69, 55, 38, 0.88);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  .admin-home__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .admin-home__card {
+    display: grid;
+    gap: 10px;
+    padding: 22px;
+    border-radius: 24px;
+    background: rgba(255, 252, 247, 0.88);
+    color: #2b241c;
+    text-decoration: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(92, 67, 37, 0.08),
+      0 16px 40px rgba(79, 60, 34, 0.08);
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .admin-home__card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 0 0 1px rgba(92, 67, 37, 0.12),
+      0 20px 44px rgba(79, 60, 34, 0.1);
+  }
+
+  .admin-home__card-label {
+    color: rgba(122, 95, 52, 0.86);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .admin-home__card strong {
+    font-family: var(--dnd-font-display);
+    font-size: 1.8rem;
+  }
+
+  .admin-home__card p {
+    margin: 0;
+    color: rgba(69, 55, 38, 0.82);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 780px) {
+    .admin-home {
+      padding: 20px 12px 28px;
+    }
+
+    .admin-home__shell {
+      width: min(100%, 100vw - 24px);
+    }
+
+    .admin-home__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

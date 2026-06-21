@@ -8,7 +8,9 @@ Ez a mappa tartalmazza a sajat, szolgaltato-fuggetlen hírlevél MVP backend sca
 - unsubscribe token kezeles
 - kampany draft es SMTP kuldes
 - JSON file alapu tarolas
+- kampanykezelo oldal: `/admin/kampanyok`
 - admin lista felulet: `/admin/hirlevel`
+- admin kezdooldal: `/admin`
 
 ## Futtatas
 
