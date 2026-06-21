@@ -104,9 +104,15 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
     };
 
     const validateStoredPassword = async () => {
-      if (!apiBase || !adminPassword) {
+      if (!adminPassword) {
         updateLockState(true);
-        setAuthStatus(apiBase ? "Add meg az admin jelszót a folytatáshoz." : "A newsletter API nincs beállítva.", apiBase ? "info" : "warning");
+        setAuthStatus("Add meg az admin jelszót a folytatáshoz.", "info");
+        return;
+      }
+
+      if (!apiBase) {
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres. A newsletter API nincs beállítva, ezért a hírlevél funkciók korlátozottak.", "warning");
         return;
       }
 
@@ -146,7 +152,10 @@ const pageDescription = "Központi belépési pont a hírlevél admin eszközök
       }
 
       if (!apiBase) {
-        setAuthStatus("A newsletter API nincs beállítva.", "warning");
+        adminPassword = password;
+        sessionStorage.setItem(authStorageKey, password);
+        updateLockState(false);
+        setAuthStatus("Belépés sikeres. A newsletter API nincs beállítva, ezért a hírlevél funkciók korlátozottak.", "warning");
         return;
       }
 
