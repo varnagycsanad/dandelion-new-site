@@ -6,7 +6,7 @@ Ez a mappa tartalmazza a sajat, szolgaltato-fuggetlen hírlevél MVP backend sca
 
 - feliratkozo API endpoint
 - unsubscribe token kezeles
-- kampany draft es mock kuldes
+- kampany draft es SMTP kuldes
 - JSON file alapu tarolas
 
 ## Futtatas
@@ -22,7 +22,14 @@ npm run start
 - `NEWSLETTER_HOST`
 - `NEWSLETTER_STORAGE_PATH`
 - `NEWSLETTER_PUBLIC_BASE_URL`
+- `NEWSLETTER_SMTP_HOST`
+- `NEWSLETTER_SMTP_PORT`
+- `NEWSLETTER_SMTP_SECURE`
+- `NEWSLETTER_SMTP_USER`
+- `NEWSLETTER_SMTP_PASSWORD`
+- `NEWSLETTER_SMTP_FROM`
+- `NEWSLETTER_SMTP_REPLY_TO`
 
 ## MVP megjegyzes
 
-Ez meg nem vegleges SMTP kuldesi engine. A jelenlegi verzio a feliratkozas es a lista-kezeles alapjat adja meg, a valodi kuldesi integracio a kovetkezo kor.
+Az SMTP kuldes most mar be van kotve, de a valos kuldeshez a fenti env mezoket ki kell tolteni. A test endpoint: `POST /smtp/test`.

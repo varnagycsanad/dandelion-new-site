@@ -2,17 +2,35 @@ import { createServer } from "node:http";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
+import nodemailer from "nodemailer";
 
 const PORT = Number.parseInt(process.env.NEWSLETTER_PORT ?? "3876", 10);
 const HOST = process.env.NEWSLETTER_HOST ?? "127.0.0.1";
 const STORAGE_PATH = process.env.NEWSLETTER_STORAGE_PATH ?? join("data", "newsletter-db.json");
 const PUBLIC_BASE_URL = process.env.NEWSLETTER_PUBLIC_BASE_URL ?? "http://localhost:3876";
+const SMTP_HOST = process.env.NEWSLETTER_SMTP_HOST ?? "mail.dandelionhouse.hu";
+const SMTP_PORT = Number.parseInt(process.env.NEWSLETTER_SMTP_PORT ?? "587", 10);
+const SMTP_SECURE = String(process.env.NEWSLETTER_SMTP_SECURE ?? "false").toLowerCase() === "true";
+const SMTP_USER = process.env.NEWSLETTER_SMTP_USER ?? "newsletter@dandelionhouse.hu";
+const SMTP_PASSWORD = process.env.NEWSLETTER_SMTP_PASSWORD ?? "";
+const SMTP_FROM = process.env.NEWSLETTER_SMTP_FROM ?? "\"Dandelion hírlevél\" <newsletter@dandelionhouse.hu>";
+const SMTP_REPLY_TO = process.env.NEWSLETTER_SMTP_REPLY_TO ?? "hello@dandelionhouse.hu";
 
 const DEFAULT_STATE = {
   subscribers: [],
   campaigns: [],
   deliveries: [],
 };
+
+const smtpTransport = nodemailer.createTransport({
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  secure: SMTP_SECURE,
+  auth: {
+    user: SMTP_USER,
+    pass: SMTP_PASSWORD,
+  },
+});
 
 async function readState() {
   try {
@@ -85,6 +103,10 @@ function publicCampaignUrl(id) {
   return `${PUBLIC_BASE_URL.replace(/\/$/, "")}/campaigns/${id}`;
 }
 
+function publicUnsubscribeUrl(token) {
+  return `${PUBLIC_BASE_URL.replace(/\/$/, "")}/unsubscribe/${token}`;
+}
+
 function findSubscriber(state, email) {
   const normalized = normalizeEmail(email);
   return state.subscribers.find((subscriber) => subscriber.email === normalized);
@@ -111,6 +133,58 @@ function validateEmail(email) {
   return normalized;
 }
 
+function hasSmtpCredentials() {
+  return Boolean(SMTP_HOST && SMTP_USER && SMTP_PASSWORD);
+}
+
+function buildHtmlEmail(campaign, subscriber) {
+  const unsubscribeUrl = publicUnsubscribeUrl(subscriber.unsubscribeToken);
+  return `<!doctype html>
+<html lang=\"hu\">
+  <body style=\"font-family:Arial,sans-serif;line-height:1.5;color:#2b241c;\">
+    <h1 style=\"font-size:22px;\">${escapeHtml(campaign.subject)}</h1>
+    <div>${campaign.html}</div>
+    <hr />
+    <p style=\"font-size:12px;color:#6b6258;\">Ha nem szeretnél több levelet kapni, itt tudsz leiratkozni: <a href=\"${unsubscribeUrl}\">${unsubscribeUrl}</a></p>
+  </body>
+</html>`;
+}
+
+function escapeHtml(input) {
+  return String(input)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+async function sendCampaignEmail(campaign, subscriber) {
+  if (!hasSmtpCredentials()) {
+    throw new Error("SMTP configuration is missing.");
+  }
+
+  const message = await smtpTransport.sendMail({
+    from: SMTP_FROM,
+    to: subscriber.email,
+    replyTo: SMTP_REPLY_TO,
+    subject: campaign.subject,
+    text: campaign.text || stripHtml(campaign.html),
+    html: buildHtmlEmail(campaign, subscriber),
+  });
+
+  return message;
+}
+
+function stripHtml(html) {
+  return String(html)
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function handleRequest(req, res) {
   if (req.method === "OPTIONS") {
     res.writeHead(204, {
@@ -131,6 +205,13 @@ async function handleRequest(req, res) {
       service: "dandelion-newsletter-service",
       storagePath: STORAGE_PATH,
       publicBaseUrl: PUBLIC_BASE_URL,
+      smtp: {
+        host: SMTP_HOST,
+        port: SMTP_PORT,
+        secure: SMTP_SECURE,
+        user: SMTP_USER,
+        configured: hasSmtpCredentials(),
+      },
       counts: {
         subscribers: state.subscribers.length,
         campaigns: state.campaigns.length,
@@ -246,6 +327,48 @@ async function handleRequest(req, res) {
     return;
   }
 
+  if (req.method === "GET" && url.pathname === "/smtp/status") {
+    jsonResponse(res, 200, {
+      ok: true,
+      smtp: {
+        host: SMTP_HOST,
+        port: SMTP_PORT,
+        secure: SMTP_SECURE,
+        user: SMTP_USER,
+        configured: hasSmtpCredentials(),
+      },
+    });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/smtp/test") {
+    try {
+      const body = await readJsonBody(req);
+      const to = validateEmail(body.to ?? SMTP_USER);
+      const subject = ensureString(body.subject ?? "Dandelion SMTP teszt", "subject", 3, 160);
+      const text = String(body.text ?? "Ez egy SMTP teszt a Dandelion newsletter service-bol.").trim();
+
+      if (!hasSmtpCredentials()) {
+        jsonResponse(res, 400, { ok: false, message: "SMTP configuration is missing." });
+        return;
+      }
+
+      const info = await smtpTransport.sendMail({
+        from: SMTP_FROM,
+        to,
+        replyTo: SMTP_REPLY_TO,
+        subject,
+        text,
+        html: `<p>${escapeHtml(text)}</p>`,
+      });
+
+      jsonResponse(res, 200, { ok: true, message: "SMTP test sent.", messageId: info.messageId });
+    } catch (error) {
+      jsonResponse(res, 400, { ok: false, message: error instanceof Error ? error.message : "SMTP test failed." });
+    }
+    return;
+  }
+
   if (req.method === "GET" && url.pathname.match(/^\/campaigns\/[^/]+$/)) {
     const campaignId = url.pathname.split("/")[2];
     const campaign = state.campaigns.find((entry) => entry.id === campaignId);
@@ -296,20 +419,45 @@ async function handleRequest(req, res) {
       return;
     }
 
+    if (!hasSmtpCredentials()) {
+      jsonResponse(res, 400, { ok: false, message: "SMTP configuration is missing." });
+      return;
+    }
+
     const activeSubscribers = state.subscribers.filter((subscriber) => subscriber.status === "active");
     const timestamp = nowIso();
+    const deliveries = [];
 
     for (const subscriber of activeSubscribers) {
-      state.deliveries.push({
-        id: randomUUID(),
-        campaignId: campaign.id,
-        subscriberId: subscriber.id,
-        email: subscriber.email,
-        deliveryMode: "mock",
-        status: "queued",
-        createdAt: timestamp,
-      });
+      try {
+        const info = await sendCampaignEmail(campaign, subscriber);
+        deliveries.push({
+          id: randomUUID(),
+          campaignId: campaign.id,
+          subscriberId: subscriber.id,
+          email: subscriber.email,
+          deliveryMode: "smtp",
+          status: "sent",
+          messageId: info.messageId ?? null,
+          createdAt: timestamp,
+          sentAt: nowIso(),
+        });
+      } catch (error) {
+        deliveries.push({
+          id: randomUUID(),
+          campaignId: campaign.id,
+          subscriberId: subscriber.id,
+          email: subscriber.email,
+          deliveryMode: "smtp",
+          status: "failed",
+          error: error instanceof Error ? error.message : "Unknown SMTP error",
+          createdAt: timestamp,
+          sentAt: nowIso(),
+        });
+      }
     }
+
+    state.deliveries.push(...deliveries);
 
     campaign.status = "sent";
     campaign.sentAt = timestamp;
@@ -319,10 +467,12 @@ async function handleRequest(req, res) {
 
     jsonResponse(res, 200, {
       ok: true,
-      message: "Campaign queued.",
+      message: "Campaign processed via SMTP.",
       campaign,
       recipientCount: activeSubscribers.length,
-      deliveryMode: "mock",
+      deliveryMode: "smtp",
+      sentCount: deliveries.filter((delivery) => delivery.status === "sent").length,
+      failedCount: deliveries.filter((delivery) => delivery.status === "failed").length,
     });
     return;
   }

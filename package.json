@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/postbuild-copy-static-files.mjs",
+    "newsletter:dev": "node newsletter-service/server.mjs",
+    "newsletter:start": "node newsletter-service/server.mjs",
     "check:root": "node scripts/check-ujsite-deploy.mjs",
     "check:ujsite": "node scripts/check-ujsite-deploy.mjs",
     "geo:check-auth": "node scripts/geo/check-geo-auth-env.mjs",
@@ -35,6 +37,7 @@
   },
   "dependencies": {
     "astro": "^6.1.5",
+    "nodemailer": "^9.0.1",
     "sharp": "^0.34.5"
   },
   "devDependencies": {

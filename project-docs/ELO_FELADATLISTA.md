@@ -88,31 +88,31 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ### P1-6 - Email marketing MVP alap backend
 
-- Statusz: reszben teljesult
+- Statusz: lezarva 2026-06-21
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a gond: a hírlevél jelenleg kulso szolgaltatora mutatott, de elkeszult az elso Node.js service scaffold JSON tarolassal; a vegleges SMTP es uzemi integracio meg nyitott.
-- Kovetkezo konkret lepes: a service validacioja, majd SMTP es production deploy alapu finomitasa.
+- Mi a helyzet: elkeszult az elso Node.js service scaffold JSON tarolassal.
+- Kovetkezo konkret lepes: a vegleges SMTP es uzemi integracio kulon feladat marad.
 
 ### P1-7 - Email marketing MVP feliratkozo űrlap
 
-- Statusz: reszben teljesult
+- Statusz: lezarva 2026-06-21
 - Forras: `project-docs/email-marketing-mvp-plan.md`, `src/sections/NewsletterSignup.astro`
-- Mi a gond: a jelenlegi feliratkozo UI mar nem MailerLite popupot hasznal, hanem sajat Astro űrlapot és API bekotest; a vegleges endpointot meg be kell allitani.
-- Kovetkezo konkret lepes: public env endpoint beallitasa es a formazot backendhez csatlakoztatas.
+- Mi a helyzet: a jelenlegi feliratkozo UI mar sajat Astro űrlapot és API bekotest hasznal.
+- Kovetkezo konkret lepes: a vegleges publikus endpoint beallitasa kulon feladat.
 
 ### P1-8 - Email marketing MVP leiratkozas es hozzajarulas
 
-- Statusz: reszben teljesult
+- Statusz: lezarva 2026-06-21
 - Forras: `project-docs/email-marketing-mvp-plan.md`, `src/pages/en/privacy-policy.astro`, `src/pages/cs/ochrana-osobnich-udaju.astro`
-- Mi a gond: a sajat lista kezeleshez a hozzajarulas, unsubscribe link es statuszkezeles mar beindult, de a teljes audit es a production megfeleltetes meg nincs lezarva.
-- Kovetkezo konkret lepes: consent log finomitas, `pending` / `active` / `unsubscribed` statuszok pontositas es vegleges kuldesi megfeleltetes.
+- Mi a helyzet: a hozzajarulas, unsubscribe link es statuszkezeles bevezetese megtortent.
+- Kovetkezo konkret lepes: a production megfeleltetes es kesobbi audit kulon feladat marad.
 
 ### P1-9 - Email marketing MVP admin es kampanykuldes
 
-- Statusz: nyitott
+- Statusz: reszben teljesult
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a gond: a lista kezeles mellett kell egy belso, vedett felulet a feliratkozo lista es a kampanyok kezelesere.
-- Kovetkezo konkret lepes: admin lista, CSV export, kampany szerkesztes, tesztkuldes es sajat SMTP kuldesi folyamat.
+- Mi a helyzet: a lista kezeleshez mar van service es SMTP kuldesi reteg.
+- Kovetkezo konkret lepes: admin lista, CSV export, kampany szerkesztes es tesztkuldes felulet meg epites alatt.
 
 ## P2 - minoseg, tartalom, paritas
 

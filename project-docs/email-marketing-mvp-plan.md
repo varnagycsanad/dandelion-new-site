@@ -192,7 +192,7 @@ Kimenet:
 | 2026-06-21 | Phase 1: signup API | done | Elkészült a saját Astro feliratkozo form és a Node.js service scaffold JSON tarolassal. |
 | 2026-06-21 | Phase 2: consent + unsubscribe | done | A form hozzajarulast kezel, a service leiratkozas tokeneket es statuszt is kezel. |
 | TBD | Phase 3: admin list | pending | Lista, search, export. |
-| TBD | Phase 4: campaign send | pending | Egyszeru kampanykuldes es valodi SMTP kuldes. |
+| 2026-06-21 | Phase 4: campaign send | done | A service mar SMTP-n keresztul is tud kuldeni, test endpointtal egyutt. |
 | TBD | Phase 5: QA and hardening | pending | Teszteles, naplozas, deliverability. |
 
 ## Definition of done for MVP
