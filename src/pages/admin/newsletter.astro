@@ -22,8 +22,24 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           Ez a központi belépési pont a hírlevél modulokhoz. Itt látszik először, ha a külön newsletter service nincs elindítva.
         </p>
 
-        <div class="admin-newsletter__connection-flag" data-connection-flag aria-live="polite">
-          A kapcsolat állapota még ellenőrzés alatt.
+        <div class="admin-newsletter__diagnostics" aria-label="Ellenőrzési állapot">
+          <div class="admin-newsletter__connection-flag" data-connection-flag aria-live="polite">
+            Ellenőrzés indul...
+          </div>
+          <div class="admin-newsletter__diagnostic-row">
+            <div class="admin-newsletter__diagnostic">
+              <span>API</span>
+              <strong data-diagnostic-step="health">Várakozás</strong>
+            </div>
+            <div class="admin-newsletter__diagnostic">
+              <span>Admin</span>
+              <strong data-diagnostic-step="auth">Várakozás</strong>
+            </div>
+            <div class="admin-newsletter__diagnostic">
+              <span>Lista</span>
+              <strong data-diagnostic-step="data">Várakozás</strong>
+            </div>
+          </div>
         </div>
 
         <div class="admin-newsletter__gate-actions">
@@ -94,10 +110,21 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     const gate = root.querySelector("[data-gate]");
     const gateStatus = root.querySelector("[data-gate-status]");
     const connectionFlag = root.querySelector("[data-connection-flag]");
+    const diagnosticSteps = {
+      health: root.querySelector('[data-diagnostic-step="health"]'),
+      auth: root.querySelector('[data-diagnostic-step="auth"]'),
+      data: root.querySelector('[data-diagnostic-step="data"]'),
+    };
     const checkConnectionButton = root.querySelector("[data-check-connection]");
     const shell = root.querySelector(".admin-newsletter__shell");
     const adminPassword = getStoredAdminSessionToken() || getStoredAdminPassword();
     const localAdminMode = isLocalAdminSessionToken(adminPassword);
+    const setDiagnosticStep = (step, label, tone = "neutral") => {
+      const node = diagnosticSteps[step];
+      if (!(node instanceof HTMLElement)) return;
+      node.textContent = label;
+      node.dataset.tone = tone;
+    };
     const showGate = (message, tone = "info") => {
       if (gate instanceof HTMLElement) {
         gate.hidden = false;
@@ -107,19 +134,25 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
         gateStatus.dataset.tone = tone;
       }
       if (connectionFlag instanceof HTMLElement) {
-        connectionFlag.textContent = tone === "success"
-          ? "A newsletter service fut."
-          : tone === "warning"
-            ? "A newsletter service most nem látszik."
-            : tone === "error"
-              ? "A newsletter service nem érhető el."
-              : "Kapcsolat ellenőrzése...";
+        connectionFlag.textContent =
+          tone === "success"
+            ? "A newsletter service fut."
+            : tone === "warning"
+              ? "A newsletter service most nem látszik."
+              : tone === "error"
+                ? "A newsletter service nem érhető el."
+                : "Ellenőrzés indul...";
         connectionFlag.dataset.tone = tone;
       }
     };
 
     const checkConnection = async () => {
+      setDiagnosticStep("health", "Ellenőrzés...", "info");
+      setDiagnosticStep("auth", "Várakozás", "neutral");
+      setDiagnosticStep("data", "Várakozás", "neutral");
+
       if (!apiBase) {
+        setDiagnosticStep("health", "Nincs cím", "error");
         showGate("A newsletter service címe nincs beállítva. Ellenőrizd a PUBLIC_NEWSLETTER_API_URL vagy NEWSLETTER_PUBLIC_BASE_URL értékét.", "warning");
         return false;
       }
@@ -134,9 +167,15 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           throw new Error(result?.message || "health_failed");
         }
 
+        setDiagnosticStep("health", "Rendben", "success");
+        setDiagnosticStep("auth", adminPassword ? "Mentett jelszó van" : "Nincs mentett belépés", adminPassword ? "warning" : "neutral");
+        setDiagnosticStep("data", typeof result?.counts?.subscribers === "number" ? `${result.counts.subscribers} cím` : "Elérhető", "success");
         showGate(`A newsletter service elérhető: ${result?.service ?? "rendben"}.`, "success");
         return true;
       } catch {
+        setDiagnosticStep("health", "Nem elérhető", "error");
+        setDiagnosticStep("auth", "Nem ellenőrizhető", "error");
+        setDiagnosticStep("data", "Nem ellenőrizhető", "error");
         showGate("A newsletter service most nem érhető el. Valószínűleg külön el kell indítani a newsletter-service processzt.", "error");
         return false;
       }
@@ -167,13 +206,16 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
           throw new Error(result?.message || "auth_failed");
         }
 
+        setDiagnosticStep("auth", "Belépve", "success");
         showGate("Belépés rendben, a modulok használhatók.", "success");
       } catch {
         if (localAdminMode && connectionOk) {
+          setDiagnosticStep("auth", "Helyi mód", "warning");
           showGate("Helyi admin mód aktív, a newsletter service most nem érhető el.", "warning");
           return;
         }
 
+        setDiagnosticStep("auth", "Sikertelen", "error");
         clearStoredAdminAuth();
         showGate("Az admin belépés vagy a newsletter service nincs kész. Nyisd meg az /admin/ oldalt, majd onnan jelentkezz be.", "warning");
       }
@@ -225,6 +267,11 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     pointer-events: auto;
   }
 
+  .admin-newsletter__diagnostics {
+    display: grid;
+    gap: 10px;
+  }
+
   .admin-newsletter__connection-flag {
     display: inline-flex;
     width: fit-content;
@@ -238,6 +285,50 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     font-size: 0.92rem;
     font-weight: 700;
     line-height: 1;
+  }
+
+  .admin-newsletter__diagnostic-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .admin-newsletter__diagnostic {
+    display: grid;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(92, 67, 37, 0.1);
+    background: rgba(255, 255, 255, 0.76);
+  }
+
+  .admin-newsletter__diagnostic span {
+    color: rgba(102, 78, 42, 0.78);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .admin-newsletter__diagnostic strong {
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  .admin-newsletter__diagnostic strong[data-tone="success"] {
+    color: #1d6b37;
+  }
+
+  .admin-newsletter__diagnostic strong[data-tone="warning"] {
+    color: #8a5a00;
+  }
+
+  .admin-newsletter__diagnostic strong[data-tone="error"] {
+    color: #9b2c2c;
+  }
+
+  .admin-newsletter__diagnostic strong[data-tone="info"] {
+    color: #5b4a39;
   }
 
   .admin-newsletter__connection-flag[data-tone="success"] {
@@ -469,6 +560,10 @@ const pageDescription = "Központi newsletter admin hub a feliratkozókhoz és a
     }
 
     .admin-newsletter__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .admin-newsletter__diagnostic-row {
       grid-template-columns: 1fr;
     }
   }
