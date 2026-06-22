@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/postbuild-copy-static-files.mjs",
+    "build": "node scripts/clean-build-output.mjs && astro build && node scripts/postbuild-copy-static-files.mjs",
     "newsletter:dev": "node newsletter-service/server.mjs",
     "newsletter:start": "node newsletter-service/server.mjs",
     "check:root": "node scripts/check-ujsite-deploy.mjs",
