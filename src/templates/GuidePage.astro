@@ -2,18 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { GuideContent, GuideLocale } from "../data/guides/types";
 
-const { guide } = Astro.props as { guide: GuideContent };
-const locales: GuideLocale[] = ["hu", "en", "cs", "de", "sk"];
+const { guide, enabledLocales = ["hu", "en", "cs", "de", "sk"] } = Astro.props as {
+  guide: GuideContent;
+  enabledLocales?: GuideLocale[];
+};
+const locales: GuideLocale[] = enabledLocales;
+const allLocales: GuideLocale[] = ["hu", "en", "cs", "de", "sk"];
 const resolveContent = (locale: GuideLocale) =>
   guide.content[locale] ?? guide.content.en ?? guide.content.cs ?? guide.content.de ?? guide.content.hu;
-const localeContents = Object.fromEntries(locales.map((locale) => [locale, resolveContent(locale)])) as Record<
+const localeContents = Object.fromEntries(allLocales.map((locale) => [locale, resolveContent(locale)])) as Record<
   GuideLocale,
   NonNullable<ReturnType<typeof resolveContent>>
 >;
 const pageTitle = `${resolveContent("hu")?.title ?? guide.houseName} | ${guide.houseName}`;
 const description = resolveContent("hu")?.intro ?? "";
 const localizedPageTitles: Record<GuideLocale, string> = Object.fromEntries(
-  locales.map((locale) => [locale, `${resolveContent(locale)?.title ?? guide.houseName} | ${guide.houseName}`])
+  allLocales.map((locale) => [locale, `${resolveContent(locale)?.title ?? guide.houseName} | ${guide.houseName}`])
 ) as Record<GuideLocale, string>;
 const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ", de: "DE", sk: "SK" };
 const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte", sk: "Dôležité body" };
@@ -258,6 +262,7 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
   .guide-language {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
   }

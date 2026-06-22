@@ -1,9 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { GuideContent } from "../data/guides/types";
+import type { GuideContent, GuideLocale } from "../data/guides/types";
 
 interface GuideIndexItem {
   guide: GuideContent;
+  eyebrowHu?: string;
+  eyebrowEn?: string;
+  eyebrowCs?: string;
+  eyebrowDe?: string;
+  eyebrowSk?: string;
   titleHu: string;
   titleEn: string;
   titleCs: string;
@@ -36,6 +41,7 @@ interface Props {
   introDe: string;
   introSk?: string;
   items: GuideIndexItem[];
+  enabledLocales?: GuideLocale[];
   accordion?: boolean;
   quickInfoItems?: GuideQuickInfoItem[];
   heroImageSrc?: string;
@@ -55,12 +61,14 @@ const {
   introDe,
   introSk,
   items,
+  enabledLocales = ["hu", "en", "cs", "de", "sk"],
   accordion = false,
   quickInfoItems = [],
   heroImageSrc,
   heroImageAlt
 } = Astro.props;
 const guideLocales = ["hu", "en", "cs", "de", "sk"] as const;
+const activeLocales = enabledLocales;
 const localeHeadings = {
   hu: `${houseName} útmutató`,
   en: `${houseName} guide`,
@@ -103,6 +111,14 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
 
   return item.labelSk ?? item.labelEn;
 };
+const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return item.eyebrowHu;
+  if (locale === "en") return item.eyebrowEn;
+  if (locale === "cs") return item.eyebrowCs;
+  if (locale === "de") return item.eyebrowDe;
+
+  return item.eyebrowSk ?? item.eyebrowEn;
+};
 ---
 
 <BaseLayout
@@ -123,14 +139,19 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
         )}
         <p class="guide-index__eyebrow">QR vendégútmutató · {houseName}</p>
         <div class="guide-language" aria-label="Guide language selector">
-          <button class="guide-language__button" type="button" data-guide-lang-button="hu" aria-pressed="true">HU</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="en" aria-pressed="false">EN</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="cs" aria-pressed="false">CZ</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="de" aria-pressed="false">DE</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="sk" aria-pressed="false">SK</button>
+          {activeLocales.map((locale) => (
+            <button
+              class="guide-language__button"
+              type="button"
+              data-guide-lang-button={locale}
+              aria-pressed={locale === "hu" ? "true" : "false"}
+            >
+              {locale === "hu" ? "HU" : locale === "en" ? "EN" : locale === "cs" ? "CZ" : locale === "de" ? "DE" : "SK"}
+            </button>
+          ))}
         </div>
 
-        {guideLocales.map((locale) => (
+        {activeLocales.map((locale) => (
           <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
             <h1>{localeHeadings[locale]}</h1>
             <p>{localeIntros[locale]}</p>
@@ -142,7 +163,7 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
         <section class="guide-index__quick-info" aria-label="Gyors információk">
           {quickInfoItems.map((item) => (
             <article class="guide-index__quick-info-item">
-              {guideLocales.map((locale) => (
+              {activeLocales.map((locale) => (
                 <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{resolveQuickInfoLabel(item, locale)}</span>
               ))}
               <strong>{item.value}</strong>
@@ -163,10 +184,12 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
                   aria-controls={panelId}
                   data-guide-accordion-button
                 >
-                {guideLocales.map((locale) => {
+                {activeLocales.map((locale) => {
                   const copy = resolveIndexCopy(item, locale);
+                  const eyebrow = resolveEyebrow(item, locale);
                   return (
                     <>
+                      {eyebrow && <em data-guide-lang-panel={locale} hidden={locale !== "hu"}>{eyebrow}</em>}
                       <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.title}</span>
                       <small data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.description}</small>
                     </>
@@ -174,7 +197,7 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
                 })}
               </button>
               <div class="guide-index__panel" id={panelId} hidden data-guide-accordion-panel>
-                {guideLocales.map((locale) => {
+                {activeLocales.map((locale) => {
                   const localizedGuide = resolveGuideContent(item.guide, locale);
                   return (
                   <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
@@ -219,10 +242,12 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
             </section>
           ) : (
             <a class="guide-index__item" href={item.guide.path}>
-              {guideLocales.map((locale) => {
+              {activeLocales.map((locale) => {
                 const copy = resolveIndexCopy(item, locale);
+                const eyebrow = resolveEyebrow(item, locale);
                 return (
                   <>
+                    {eyebrow && <em data-guide-lang-panel={locale} hidden={locale !== "hu"}>{eyebrow}</em>}
                     <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.title}</span>
                     <small data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.description}</small>
                   </>
@@ -351,6 +376,7 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
 
   .guide-language {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
@@ -458,6 +484,15 @@ const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLo
     font-size: var(--dnd-heading-xs);
     font-weight: 700;
     line-height: 1.2;
+  }
+
+  .guide-index__item em {
+    color: #9a6a1e;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .guide-index__item small {

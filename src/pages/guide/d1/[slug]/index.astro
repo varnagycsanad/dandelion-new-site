@@ -1,0 +1,17 @@
+---
+import { d1GuideBySlug, d1GuideEnabledLocales, d1GuidesForDynamicRoutes } from "../../../../data/guides/d1-guide-registry";
+import GuidePage from "../../../../templates/GuidePage.astro";
+
+export function getStaticPaths() {
+  return d1GuidesForDynamicRoutes.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide }
+  }));
+}
+
+const { guide } = Astro.props as {
+  guide: (typeof d1GuideBySlug)[string];
+};
+---
+
+<GuidePage guide={guide} enabledLocales={d1GuideEnabledLocales} />

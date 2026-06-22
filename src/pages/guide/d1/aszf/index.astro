@@ -1,8 +1,9 @@
 ---
 import { d1AszfGuide } from "../../../../data/guides/d1-aszf";
+import { d1GuideEnabledLocales } from "../../../../data/guides/d1-guide-registry";
 import GuidePage from "../../../../templates/GuidePage.astro";
 
 // [CHANGE 2026-06-22 21:20] D1 ASZF es hasznalati szabalyok guide route letrehozva.
 ---
 
-<GuidePage guide={d1AszfGuide} />
+<GuidePage guide={d1AszfGuide} enabledLocales={d1GuideEnabledLocales} />
