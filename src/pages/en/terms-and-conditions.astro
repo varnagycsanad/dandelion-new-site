@@ -70,40 +70,43 @@ const sections = [
     number: "5",
     title: "Payment terms",
     paragraphs: [
-      "To finalize the booking, 30% of the accommodation fee must be paid by bank transfer within 5 working days after booking. The booking becomes guaranteed when the deposit is received.",
-      "The remaining accommodation fee is payable on arrival in cash or by bank transfer.",
-      "Please include the name of the person making the booking and the arrival date in the transfer reference. If this person is not the arriving guest, please also include the arriving guest's name."
+      "To finalize the booking, 30% of the total booking value must be paid as a deposit.",
+      "The deposit can be paid during the booking process either online by bank card through the SabeePay system or by bank transfer.",
+      "In the case of online card payment, the deposit is charged when the booking is finalized. The remaining amount must be settled according to the accommodation provider's payment policy, at the latest on arrival or during the stay.",
+      "If bank transfer is chosen, please send the deposit immediately after booking, but no later than within 1 working day. The booking is considered guaranteed after the deposit has been received.",
+      "Please include the booking name and the arrival date in the transfer reference. If the person making the payment is not the arriving guest, please also include the arriving guest's name.",
+      "For OTA bookings, for example through Booking.com or Airbnb, the payment and cancellation terms of the relevant sales channel always apply."
     ]
   },
   {
     number: "6",
     title: "Bank transfer details",
     paragraphs: [
-      "Please use the bank details belonging to the booked accommodation. For Hungarian bookings, HUF transfer is recommended; EUR transfer is also possible from abroad. The exact payable amount and selected currency are always stated in the booking confirmation."
+      "If bank transfer is chosen, please always use the transfer details assigned to the booked accommodation."
     ],
     groups: [
       {
-        title: "Dandelion D1 / D2 / Fügeház",
-        lines: ["Beneficiary: Ilona Varnagy", "Revolut", "OTP HUF", "Account number / IBAN", "OTP EUR", "Account number / IBAN", "BIC / SWIFT"]
+        title: "Dandelion D1 / Dandelion D2 / Fügeház",
+        lines: ["Beneficiary: Ilona Varnagy", "Revolut: @ilonai62b", "Account number / IBAN: LT17 3250 0224 2786 2232", "SWIFT/BIC: REVOLT21"]
       },
       {
-        title: "Dandelion Zsálya / Szőlőliget / Royal Homes / Szépvölgyi",
-        lines: ["Beneficiary: Dandelion Vendégházak Kft.", "OTP HUF", "Account number / IBAN", "OTP EUR", "Account number / IBAN", "BIC / SWIFT"]
+        title: "Dandelion Szőlőliget / Dandelion Zsálya / Dandelion Vintage / Dandelion Köveskál / Dandelion Royal Homes",
+        lines: ["Beneficiary: Dandelion Vendégházak Kft.", "Account number: 11748052-24862910", "IBAN: HU08117480522486291000000000", "SWIFT/BIC: OTPVHUHB"]
       }
     ],
-    note: "Tip: on mobile, the fields can be copied easily by long pressing them."
+    note: "Please include the booking name and the arrival date in the transfer reference. For Szépvölgyi Vendégház bookings, the transfer details are included in the booking confirmation."
   },
   {
     number: "7",
     title: "Cancellation terms",
     bullets: [
-      "Free cancellation: if cancelled 30 days or more before arrival, the deposit is refunded.",
-      "Cancellation within 30 days: the deposit is non-refundable; the cancellation fee is 30% of the booking.",
-      "In case of no-show or cancellation on the day of arrival, 100% of the accommodation fee is payable."
+      "Free cancellation: if cancelled at least 30 days before arrival, the paid deposit is refunded.",
+      "Cancellation within 30 days: the paid 30% deposit is non-refundable.",
+      "In case of no-show or cancellation on the day of arrival, the full booking amount is payable."
     ],
     paragraphs: [
       "Cancellation is valid when sent by the guest in writing by e-mail, or officially cancelled through the booking system or the sales channel. The time of cancellation is the time when it is received.",
-      "If the deposit is refundable based on the cancellation, we will transfer it back within 5 working days to the bank account from which the deposit was received, or to another account provided by the guest in writing."
+      "If the deposit is refundable, we will transfer it back within 5 working days to the bank account from which the deposit was received, or to another account provided by the guest in writing."
     ]
   },
   {
@@ -137,8 +140,8 @@ const sections = [
     title: "House rules, smoking and pets",
     bullets: [
       "Furniture, equipment and fittings must be used properly, and fire safety and accident prevention rules must be followed.",
-      "Smoking: all accommodations are non-smoking. Indoor smoking results in an extra cleaning fee of HUF 30,000.",
-      "We cannot accept pets."
+      "Smoking: smoking is prohibited indoors in all accommodations. Outdoors, smoking is allowed only in suitable designated areas, and cigarette butts must not be thrown away. Indoor smoking results in an extra cleaning fee of HUF 30,000.",
+      "Pets are allowed only at designated accommodations. Currently, pet-friendly accommodations are Dandelion D1, Dandelion D2 and Fügeház. Prior arrangement is required for bookings with pets."
     ]
   },
   {
@@ -185,7 +188,7 @@ const sections = [
   introBlocks={[
     {
       label: "Validity",
-      lines: ["Valid from: 1 February 2026", "Modified: 25 May 2026"]
+      lines: ["Valid from: 1 February 2026", "Modified: 22 June 2026"]
     },
     {
       label: "Contact",

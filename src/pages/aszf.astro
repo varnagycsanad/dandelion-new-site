@@ -76,55 +76,53 @@ const sections = [
     number: "5",
     title: "Fizetési feltételek",
     paragraphs: [
-      "A foglalás véglegesítéséhez a szállásdíj 30%-át kérjük banki átutalással megfizetni a foglalást követő 5 munkanapon belül. A foglalás az előleg beérkezésével válik garantálttá.",
-      "A fennmaradó szállásdíj beköltözéskor fizetendő készpénzben vagy banki átutalással.",
-      "A közleményben kérjük feltüntetni a foglaló nevét és az érkezés dátumát. Ha a foglaló nem az érkező vendég, akkor az érkező vendég neve is szerepeljen."
+      "A foglalás véglegesítéséhez a foglalás értékének 30%-a előlegként fizetendő.",
+      "Az előleg a foglalási folyamat során online bankkártyás fizetéssel, SabeePay rendszeren keresztül, vagy banki átutalással fizethető.",
+      "Online bankkártyás fizetés esetén az előleg a foglalás véglegesítésekor kerül megterhelésre. A fennmaradó összeg a szállásadó fizetési szabályzata szerint, legkésőbb az érkezéskor / tartózkodás során rendezendő.",
+      "Banki átutalás választása esetén az előleget a foglalást követően azonnal, de legkésőbb 1 munkanapon belül kérjük elutalni. A foglalás az előleg beérkezése után tekinthető garantáltnak.",
+      "A közleményben kérjük feltüntetni a foglalási nevet és az érkezési dátumot. Ha a foglaló nem az érkező vendég, akkor az érkező vendég neve is szerepeljen.",
+      "OTA foglalás, például Booking.com vagy Airbnb esetén mindig az adott értékesítési csatorna saját fizetési és lemondási feltételei az irányadók."
     ]
   },
   {
     number: "6",
     title: "Utalási adatok",
     paragraphs: [
-      "Az előleg utalásához kérjük a foglalt szálláshelyhez tartozó számlaadatokat használd. Magyarországi foglalás esetén javasolt HUF-ban utalni, külföldről történő utalásnál EUR utalás is lehetséges. A pontos fizetendő összeg és a választott pénznem minden esetben a foglalás visszaigazolásában szerepel."
+      "Banki átutalás választása esetén kérjük, mindig a foglalt szálláshelyhez tartozó utalási adatokat használd."
     ],
     groups: [
       {
-        title: "Dandelion D1 / D2 / Fügeház",
+        title: "Dandelion D1 / Dandelion D2 / Fügeház",
         lines: [
           "Kedvezményezett: Várnagy Ilona",
-          "Revolut",
-          "OTP HUF",
-          "Számlaszám / IBAN",
-          "OTP EUR",
-          "Számlaszám / IBAN",
-          "BIC / SWIFT"
+          "Revolut: @ilonai62b",
+          "Számlaszám / IBAN: LT17 3250 0224 2786 2232",
+          "SWIFT/BIC: REVOLT21"
         ]
       },
       {
-        title: "Dandelion Zsálya / Szőlőliget / Royal Homes / Szépvölgyi",
+        title: "Dandelion Szőlőliget / Dandelion Zsálya / Dandelion Vintage / Dandelion Köveskál / Dandelion Royal Homes",
         lines: [
           "Kedvezményezett: Dandelion Vendégházak Kft.",
-          "OTP HUF",
-          "Számlaszám / IBAN",
-          "OTP EUR",
-          "Számlaszám / IBAN",
-          "BIC / SWIFT"
+          "Számlaszám: 11748052-24862910",
+          "IBAN: HU08117480522486291000000000",
+          "SWIFT/BIC: OTPVHUHB"
         ]
       }
     ],
-    note: "Tipp: mobilon a mezők hosszan érintve egyszerűen másolhatók."
+    note: "A közleményben kérjük feltüntetni a foglalási nevet és az érkezési dátumot. Szépvölgyi Vendégház foglalás esetén az utalási adatokat a visszaigazolás tartalmazza."
   },
   {
     number: "7",
     title: "Lemondási feltételek",
     bullets: [
-      "Díjmentes lemondás: érkezés előtt 30 nappal vagy korábban lemondva az előleg visszajár.",
-      "30 napon belüli lemondás: az előleg nem visszatérítendő, a lemondási díj a foglalás 30%-a.",
-      "No-show vagy érkezés napján történő lemondás esetén a szállásdíj 100%-a fizetendő."
+      "Díjmentes lemondás: érkezés előtt legalább 30 nappal történő lemondás esetén a befizetett előleg visszajár.",
+      "30 napon belüli lemondás: a befizetett 30% előleg nem visszatérítendő.",
+      "No-show vagy érkezés napján történő lemondás esetén a foglalás teljes összege fizetendő."
     ],
     paragraphs: [
       "A lemondás akkor érvényes, ha azt a vendég írásban, e-mailben megküldi, vagy a foglalási rendszeren, illetve az értékesítési csatornán keresztül hivatalosan lemondja. A lemondás időpontjának a beérkezés időpontja számít.",
-      "Ha a lemondás alapján az előleg visszajár, azt legkésőbb 5 munkanapon belül visszautaljuk arra a bankszámlára, ahonnan az előleg érkezett, vagy amelyet a vendég írásban megad."
+      "Ha az előleg visszajár, azt legkésőbb 5 munkanapon belül visszautaljuk arra a bankszámlára, ahonnan az előleg érkezett, vagy amelyet a vendég írásban megad."
     ]
   },
   {
@@ -158,8 +156,8 @@ const sections = [
     title: "Házirend, dohányzás, kisállatok",
     bullets: [
       "A berendezést rendeltetésszerűen kell használni, a tűz- és balesetvédelmi szabályok betartása kötelező.",
-      "Dohányzás: minden szálláshely nemdohányzó. Beltéri dohányzás esetén 30.000 Ft extra takarítási díjat számítunk fel.",
-      "Kisállatot nem tudunk fogadni."
+      "Dohányzás: minden szálláshely beltéren nemdohányzó. Kültéren dohányozni csak az erre alkalmas helyeken megengedett, csikket eldobni tilos. Beltéri dohányzás esetén 30.000 Ft extra takarítási díjat számítunk fel.",
+      "Kisállat csak az erre kijelölt szálláshelyeken hozható. Jelenleg kisállat fogadására alkalmas szállásaink: Dandelion D1, Dandelion D2 és Fügeház. Kisállattal érkező foglalás esetén előzetes egyeztetés szükséges."
     ]
   },
   {
@@ -219,7 +217,7 @@ const sectionId = (section: { number: string }) => `aszf-${section.number}`;
         <div>
           <span class="legal-page__meta-label">Érvényesség</span>
           <strong>Érvényes: 2026. február 01-től</strong>
-          <strong>Módosítva: 2026. május 25.</strong>
+          <strong>Módosítva: 2026. június 22.</strong>
         </div>
         <div>
           <span class="legal-page__meta-label">Kapcsolat</span>
