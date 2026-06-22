@@ -1,4 +1,4 @@
-export type GuideLocale = "hu" | "en" | "cs" | "de";
+export type GuideLocale = "hu" | "en" | "cs" | "de" | "sk";
 
 export interface GuideSection {
   id: string;
@@ -25,5 +25,5 @@ export interface GuideContent {
   path: string;
   qrTarget: string;
   dePreparedTitle: string;
-  content: Record<GuideLocale, GuideLocaleContent>;
+  content: Partial<Record<GuideLocale, GuideLocaleContent>>;
 }

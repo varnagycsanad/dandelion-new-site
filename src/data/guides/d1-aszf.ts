@@ -3,11 +3,13 @@ import { d2AszfGuide } from "./d2-aszf";
 
 // [CHANGE 2026-06-22 21:20] D1 hasznalati es ASZF guide letrehozva a friss legal oldalakhoz igazitott tartalommal.
 
+type D1GuideBaseLocale = Exclude<GuideLocale, "sk">;
+
 const replaceCommon = (value: string) =>
   value.replaceAll("Dandelion D2", "Dandelion D1").replaceAll("/guide/d2/medence/", "/guide/d1/medence/");
 
-const mapSections = (locale: GuideLocale, overrides: Partial<Record<string, Partial<GuideSection>>>) =>
-  d2AszfGuide.content[locale].sections.map((section) => {
+const mapSections = (locale: D1GuideBaseLocale, overrides: Partial<Record<string, Partial<GuideSection>>>) =>
+  d2AszfGuide.content[locale]!.sections.map((section) => {
     const override = overrides[section.id];
 
     return {
@@ -173,7 +175,7 @@ const petsBulletsDe = [
 ];
 
 const buildContent = (
-  locale: GuideLocale,
+  locale: D1GuideBaseLocale,
   title: string,
   subtitle: string,
   intro: string,
