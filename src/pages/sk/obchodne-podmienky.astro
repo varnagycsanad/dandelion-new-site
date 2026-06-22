@@ -47,21 +47,57 @@ const sections = [
     number: "5",
     title: "Platba",
     paragraphs: [
-      "Na potvrdenie rezervácie je zvyčajne potrebné uhradiť zálohu vo výške 30 % ceny ubytovania bankovým prevodom do 5 pracovných dní.",
-      "Doplatok ceny ubytovania je splatný pri príchode v hotovosti alebo bankovým prevodom."
+      "Na dokončenie rezervácie je potrebné uhradiť zálohu vo výške 30 % z celkovej hodnoty rezervácie.",
+      "Zálohu je možné počas rezervačného procesu uhradiť online platobnou kartou cez systém SabeePay alebo bankovým prevodom.",
+      "Pri online platbe kartou sa záloha zaúčtuje pri dokončení rezervácie. Zostávajúca suma sa uhrádza podľa platobných pravidiel ubytovateľa, najneskôr pri príchode alebo počas pobytu.",
+      "Ak si zvolíte bankový prevod, prosíme o zaslanie zálohy ihneď po rezervácii, najneskôr však do 1 pracovného dňa. Rezervácia sa považuje za garantovanú po prijatí zálohy.",
+      "Do poznámky k platbe prosíme uveďte meno rezervácie a dátum príchodu. Ak platbu vykonáva iná osoba ako prichádzajúci hosť, uveďte aj meno prichádzajúceho hosťa.",
+      "Pri OTA rezerváciách, napríklad cez Booking.com alebo Airbnb, sa vždy riadia platobné a storno podmienky daného predajného kanála."
     ]
   },
   {
     number: "6",
-    title: "Storno podmienky",
-    bullets: [
-      "Bezplatné storno: pri zrušení 30 a viac dní pred príchodom sa záloha vracia.",
-      "Storno do 30 dní pred príchodom: záloha je nevratná.",
-      "V prípade nepríchodu alebo zrušenia v deň príchodu môže byť účtovaná celá cena ubytovania."
-    ]
+    title: "Údaje pre bankový prevod",
+    paragraphs: [
+      "Ak si zvolíte bankový prevod, vždy použite platobné údaje priradené k rezervovanému ubytovaniu."
+    ],
+    groups: [
+      {
+        title: "Dandelion D1 / Dandelion D2 / Fügeház",
+        lines: [
+          "Príjemca: Várnagy Ilona",
+          "Revolut: @ilonai62b",
+          "Číslo účtu / IBAN: LT17 3250 0224 2786 2232",
+          "SWIFT/BIC: REVOLT21"
+        ]
+      },
+      {
+        title: "Dandelion Szőlőliget / Dandelion Zsálya / Dandelion Vintage / Dandelion Köveskál / Dandelion Royal Homes",
+        lines: [
+          "Príjemca: Dandelion Vendégházak Kft.",
+          "Číslo účtu: 11748052-24862910",
+          "IBAN: HU08117480522486291000000000",
+          "SWIFT/BIC: OTPVHUHB"
+        ]
+      }
+    ],
+    note: "Do poznámky k platbe prosíme uveďte meno rezervácie a dátum príchodu. Pri rezerváciách pre Szépvölgyi Vendégház sú platobné údaje uvedené v potvrdení rezervácie."
   },
   {
     number: "7",
+    title: "Storno podmienky",
+    bullets: [
+      "Bezplatné storno: pri zrušení aspoň 30 dní pred príchodom sa uhradená záloha vracia.",
+      "Zrušenie do 30 dní pred príchodom: uhradená záloha vo výške 30 % je nevratná.",
+      "V prípade nepríchodu alebo zrušenia v deň príchodu je splatná celá suma rezervácie."
+    ],
+    paragraphs: [
+      "Storno je platné, ak ho hosť zašle písomne e-mailom alebo ho oficiálne zruší cez rezervačný systém či predajný kanál. Rozhodujúci je okamih doručenia storna.",
+      "Ak je záloha vratná, vrátime ju najneskôr do 5 pracovných dní na bankový účet, z ktorého bola záloha prijatá, alebo na účet, ktorý hosť písomne uvedie."
+    ]
+  },
+  {
+    number: "8",
     title: "Príchod a odchod",
     bullets: [
       "Check-in: zvyčajne 15:00-19:00",
@@ -71,16 +107,16 @@ const sections = [
     ]
   },
   {
-    number: "8",
+    number: "9",
     title: "Domový poriadok, fajčenie a domáce zvieratá",
     bullets: [
       "Vybavenie ubytovania je potrebné používať riadne a šetrne.",
-      "Všetky ubytovania sú nefajčiarske.",
-      "Domáce zvieratá aktuálne neprijímame."
+      "Fajčenie: vo všetkých ubytovaniach je fajčenie v interiéri zakázané. Vonku je fajčenie povolené len na vhodných miestach a ohorky sa nesmú odhadzovať.",
+      "Domáce zvieratá sú povolené len vo vybraných ubytovaniach. Aktuálne sú na pobyt so zvieraťom vhodné Dandelion D1, Dandelion D2 a Fügeház. Rezerváciu s domácim zvieraťom je potrebné vopred dohodnúť."
     ]
   },
   {
-    number: "9",
+    number: "10",
     title: "Zodpovednosť",
     paragraphs: [
       "Hosť zodpovedá za škodu spôsobenú na ubytovaní, vybavení alebo okolí ubytovania.",
@@ -88,7 +124,7 @@ const sections = [
     ]
   },
   {
-    number: "10",
+    number: "11",
     title: "Kontakt",
     paragraphs: ["V prípade otázok k rezervácii, platbe, príchodu alebo ubytovaniu nás kontaktujte."],
     contacts: [
@@ -108,7 +144,7 @@ const sections = [
   heading="Obchodné podmienky"
   lead="Tieto obchodné podmienky upravujú rezerváciu a pobyt v ubytovaniach Dandelion. Odoslaním a potvrdením rezervácie hosť tieto podmienky prijíma."
   introBlocks={[
-    { label: "Platnosť", lines: ["Platné od: 1. februára 2026", "Aktualizované: 25. mája 2026"] },
+    { label: "Platnosť", lines: ["Platné od: 1. februára 2026", "Aktualizované: 22. júna 2026"] },
     {
       label: "Kontakt",
       lines: [],

@@ -62,38 +62,43 @@ const sections = [
     number: "5",
     title: "Zahlungsbedingungen",
     paragraphs: [
-      "Zur Finalisierung der Buchung sind 30% des Unterkunftspreises innerhalb von 5 Werktagen nach Buchung per Banküberweisung zu zahlen.",
-      "Die Buchung gilt als garantiert, sobald die Anzahlung eingegangen ist.",
-      "Der Restbetrag ist bei Anreise in bar oder per Banküberweisung zahlbar."
+      "Zur Finalisierung der Buchung sind 30% des Buchungswerts als Anzahlung zu leisten.",
+      "Die Anzahlung kann während des Buchungsprozesses entweder online per Bankkarte über das SabeePay-System oder per Banküberweisung bezahlt werden.",
+      "Bei Online-Kartenzahlung wird die Anzahlung bei Finalisierung der Buchung belastet. Der Restbetrag ist gemäß der Zahlungsregelung des Unterkunftgebers spätestens bei Anreise oder während des Aufenthalts zu begleichen.",
+      "Wenn Banküberweisung gewählt wird, bitten wir darum, die Anzahlung sofort nach der Buchung, spätestens jedoch innerhalb von 1 Werktag zu überweisen. Die Buchung gilt nach Eingang der Anzahlung als garantiert.",
+      "Bitte geben Sie im Verwendungszweck den Buchungsnamen und das Anreisedatum an. Wenn die zahlende Person nicht der anreisende Gast ist, geben Sie bitte auch den Namen des anreisenden Gastes an.",
+      "Bei OTA-Buchungen, zum Beispiel über Booking.com oder Airbnb, gelten immer die Zahlungs- und Stornierungsbedingungen des jeweiligen Vertriebskanals."
     ]
   },
   {
     number: "6",
     title: "Bankdaten",
     paragraphs: [
-      "Bitte verwenden Sie die Bankdaten der gebuchten Unterkunft. Der genaue Betrag und die ausgewählte Währung stehen immer in der Buchungsbestätigung."
+      "Wenn Banküberweisung gewählt wird, verwenden Sie bitte immer die zur gebuchten Unterkunft gehörenden Überweisungsdaten."
     ],
     groups: [
       {
-        title: "Dandelion D1 / D2 / Fügeház",
-        lines: ["Begünstigte: Ilona Varnagy", "Revolut", "OTP HUF", "Kontonummer / IBAN", "OTP EUR", "Kontonummer / IBAN", "BIC / SWIFT"]
+        title: "Dandelion D1 / Dandelion D2 / Fügeház",
+        lines: ["Begünstigte: Ilona Varnagy", "Revolut: @ilonai62b", "Kontonummer / IBAN: LT17 3250 0224 2786 2232", "SWIFT/BIC: REVOLT21"]
       },
       {
-        title: "Dandelion Zsálya / Szőlőliget / Royal Homes / Szépvölgyi",
-        lines: ["Begünstigte: Dandelion Vendégházak Kft.", "OTP HUF", "Kontonummer / IBAN", "OTP EUR", "Kontonummer / IBAN", "BIC / SWIFT"]
+        title: "Dandelion Szőlőliget / Dandelion Zsálya / Dandelion Vintage / Dandelion Köveskál / Dandelion Royal Homes",
+        lines: ["Begünstigte: Dandelion Vendégházak Kft.", "Kontonummer: 11748052-24862910", "IBAN: HU08117480522486291000000000", "SWIFT/BIC: OTPVHUHB"]
       }
-    ]
+    ],
+    note: "Bitte geben Sie im Verwendungszweck den Buchungsnamen und das Anreisedatum an. Bei Buchungen für das Szépvölgyi Vendégház stehen die Überweisungsdaten in der Buchungsbestätigung."
   },
   {
     number: "7",
     title: "Stornierungsbedingungen",
     bullets: [
-      "Kostenfreie Stornierung: bei Stornierung mindestens 30 Tage vor Anreise wird die Anzahlung erstattet.",
-      "Stornierung innerhalb von 30 Tagen: die Anzahlung ist nicht erstattbar; die Stornogebühr beträgt 30% der Buchung.",
-      "Bei Nichtanreise oder Stornierung am Anreisetag sind 100% des Unterkunftspreises zahlbar."
+      "Kostenfreie Stornierung: bei einer Stornierung mindestens 30 Tage vor Anreise wird die gezahlte Anzahlung zurückerstattet.",
+      "Stornierung innerhalb von 30 Tagen: die gezahlte Anzahlung von 30% ist nicht erstattbar.",
+      "Bei Nichtanreise oder Stornierung am Anreisetag ist der vollständige Buchungsbetrag zahlbar."
     ],
     paragraphs: [
-      "Eine Stornierung ist gültig, wenn sie schriftlich per E-Mail gesendet oder über das Buchungssystem beziehungsweise den Vertriebskanal offiziell storniert wurde."
+      "Eine Stornierung ist gültig, wenn sie vom Gast schriftlich per E-Mail mitgeteilt oder über das Buchungssystem beziehungsweise den Vertriebskanal offiziell storniert wird. Maßgeblich ist der Zeitpunkt des Eingangs der Stornierung.",
+      "Wenn die Anzahlung zurückzuzahlen ist, überweisen wir sie spätestens innerhalb von 5 Werktagen auf das Konto zurück, von dem die Anzahlung eingegangen ist, oder auf ein anderes vom Gast schriftlich angegebenes Konto."
     ]
   },
   {
@@ -121,8 +126,8 @@ const sections = [
     title: "Hausregeln, Rauchen und Haustiere",
     bullets: [
       "Möbel, Ausstattung und Einrichtungen sind sachgemäß zu nutzen.",
-      "Alle Unterkünfte sind Nichtraucher-Unterkünfte. Rauchen im Innenbereich führt zu einer zusätzlichen Reinigungsgebühr.",
-      "Haustiere können wir nicht akzeptieren."
+      "Rauchen: In allen Unterkünften ist Rauchen in Innenräumen verboten. Im Außenbereich ist Rauchen nur an dafür geeigneten Stellen erlaubt; Zigarettenstummel dürfen nicht weggeworfen werden. Rauchen im Innenbereich führt zu einer zusätzlichen Reinigungsgebühr.",
+      "Haustiere sind nur in dafür vorgesehenen Unterkünften erlaubt. Derzeit sind Dandelion D1, Dandelion D2 und Fügeház haustierfreundlich. Bei Buchungen mit Haustier ist eine vorherige Abstimmung erforderlich."
     ]
   },
   {
@@ -167,7 +172,7 @@ const sections = [
   heading="Allgemeine Geschäftsbedingungen"
   lead="Die Buchungs- und Aufenthaltsbedingungen der Dandelion Unterkünfte gelten wie unten beschrieben. Mit Absenden und Bestätigung einer Buchung akzeptiert der Gast diese Bedingungen."
   introBlocks={[
-    { label: "Gültigkeit", lines: ["Gültig ab: 1. Februar 2026", "Geändert: 25. Mai 2026"] },
+    { label: "Gültigkeit", lines: ["Gültig ab: 1. Februar 2026", "Geändert: 22. Juni 2026"] },
     {
       label: "Kontakt",
       lines: [],
