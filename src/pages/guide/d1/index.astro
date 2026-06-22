@@ -1,8 +1,10 @@
 ---
+import { d1AszfGuide } from "../../../data/guides/d1-aszf";
 import { d1PoolGuide } from "../../../data/guides/panorama-pool";
 import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
 
 // [CHANGE 2026-05-24 00:00] D1 QR guide index letrehozva medencehasznalati guide linkkel.
+// [CHANGE 2026-06-22 21:20] D1 hasznalati es ASZF guide link hozzaadva a guide indexhez.
 ---
 
 <GuideHouseIndexPage
@@ -15,6 +17,17 @@ import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
   introCs="Vyberte, kterého místního průvodce chcete otevřít."
   introDe="W\u00e4hlen Sie den Guide aus, den Sie vor Ort \u00f6ffnen m\u00f6chten."
   items={[
+    {
+      guide: d1AszfGuide,
+      titleHu: "ÁSZF és használati szabályok",
+      titleEn: "Terms and House Rules",
+      titleCs: "Obchodní podmínky a pravidla",
+      titleDe: "AGB und Nutzungsregeln",
+      descriptionHu: "Foglalás, fizetés, érkezés, házirend, kisállat és D1-et érintő használati feltételek.",
+      descriptionEn: "Booking, payment, arrival, house rules, pets and D1 stay conditions.",
+      descriptionCs: "Rezervace, platba, příjezd, pravidla domu, domácí mazlíčci a podmínky pobytu D1.",
+      descriptionDe: "Buchung, Zahlung, Anreise, Hausregeln, Haustiere und Bedingungen für D1."
+    },
     {
       guide: d1PoolGuide,
       titleHu: "Medencehasználati útmutató",
