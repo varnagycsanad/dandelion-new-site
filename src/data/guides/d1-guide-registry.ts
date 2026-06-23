@@ -1048,12 +1048,12 @@ const mapEntryToIndexItem = (entry: D1GuideCardEntry) => ({
   titleEn: entry.card.title.en,
   titleCs: entry.card.title.cs,
   titleDe: entry.card.title.de,
-  titleSk: entry.card.title.cs,
+  titleSk: entry.guide.content.sk?.title ?? entry.card.title.en,
   descriptionHu: entry.card.description.hu,
   descriptionEn: entry.card.description.en,
   descriptionCs: entry.card.description.cs,
   descriptionDe: entry.card.description.de,
-  descriptionSk: entry.card.description.cs
+  descriptionSk: entry.guide.content.sk?.intro ?? entry.card.description.en
 });
 
 export const d1GuideIndexItems = [...d1GuideGuestPriorityEntries, ...d1GuideAdditionalEntries].map(mapEntryToIndexItem);
@@ -1175,4 +1175,4 @@ export const d1GuideBySlug = Object.fromEntries(
   d1GuidesForDynamicRoutes.map((guide) => [guide.slug, guide])
 ) as Record<string, GuideContent>;
 
-export const d1GuideEnabledLocales: GuideLocale[] = ["hu", "en", "cs", "de", "sk"];
+export const d1GuideEnabledLocales: GuideLocale[] = ["hu", "en", "cs", "sk", "de"];
