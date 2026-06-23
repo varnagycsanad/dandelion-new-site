@@ -1,0 +1,312 @@
+---
+import type { PoolRulesContent } from "../data/pool-rules";
+
+type Props = {
+  content: PoolRulesContent;
+};
+
+const { content } = Astro.props;
+---
+
+<section id="medencehasznalati-szabalyok" class="pool-section pool-section--rules">
+  <div class="dnd-container pool-shell">
+    <div class="dnd-pool-rules">
+      <div class="dnd-pool-rules__header">
+        <span class="pool-eyebrow">Panorama Pool</span>
+        <h2>{content.title}</h2>
+        <p>{content.intro}</p>
+      </div>
+
+      <ul class="dnd-pool-rules__summary" aria-label={content.title}>
+        {content.summaryPoints.map((point) => (
+          <li>{point}</li>
+        ))}
+      </ul>
+
+      <details class="dnd-pool-rules__details">
+        <summary>{content.detailsLabel}</summary>
+
+        <div class="dnd-pool-rules__body">
+          <div class="dnd-pool-rules__meta">
+            <h3>{content.fullTitle}</h3>
+            <p>
+              <strong>{content.effectiveLabel}:</strong> {content.effectiveDate}
+            </p>
+            <p>
+              <strong>{content.updatedLabel}:</strong> {content.updatedDate}
+            </p>
+          </div>
+
+          <div class="dnd-pool-rules__sections">
+            {content.sections.map((section) => (
+              <section class="dnd-pool-rules__section">
+                <h4>{section.title}</h4>
+                {section.paragraphs.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                {section.bullets && (
+                  <ul>
+                    {section.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
+                {section.important && <p class="dnd-pool-rules__important">{section.important}</p>}
+              </section>
+            ))}
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const anchorId = "medencehasznalati-szabalyok";
+    const jumpToRules = () => {
+      if (window.location.hash !== `#${anchorId}`) return;
+      const target = document.getElementById(anchorId);
+      if (!target) return;
+
+      target.scrollIntoView({ block: "start", behavior: "auto" });
+    };
+
+    const scheduleJump = () => {
+      window.requestAnimationFrame(() => {
+        jumpToRules();
+        window.setTimeout(jumpToRules, 180);
+        window.setTimeout(jumpToRules, 720);
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", scheduleJump, { once: true });
+    } else {
+      scheduleJump();
+    }
+
+    window.addEventListener("hashchange", jumpToRules);
+  })();
+</script>
+
+<style>
+  .pool-section--rules {
+    padding-top: 42px;
+    padding-bottom: 30px;
+    scroll-margin-top: 144px;
+  }
+
+  .dnd-pool-rules {
+    display: grid;
+    gap: 24px;
+    padding: clamp(22px, 3vw, 34px);
+    border: 1px solid rgba(90, 67, 41, 0.12);
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 244, 237, 0.94)),
+      #fff;
+    box-shadow: 0 22px 50px rgba(64, 45, 27, 0.08);
+  }
+
+  .dnd-pool-rules__header {
+    display: grid;
+    gap: 12px;
+    max-width: 760px;
+  }
+
+  .dnd-pool-rules__header h2,
+  .dnd-pool-rules__meta h3,
+  .dnd-pool-rules__section h4 {
+    margin: 0;
+    color: #2a2017;
+    font-family: var(--dnd-font-display);
+  }
+
+  .dnd-pool-rules__header h2 {
+    font-size: clamp(1.45rem, 2vw, 2.12rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .dnd-pool-rules__header p,
+  .dnd-pool-rules__meta p,
+  .dnd-pool-rules__section p,
+  .dnd-pool-rules__section li {
+    margin: 0;
+    color: rgba(46, 36, 27, 0.8);
+    font-size: var(--dnd-text-body);
+    line-height: 1.72;
+  }
+
+  .dnd-pool-rules__summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dnd-pool-rules__summary li {
+    min-height: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(90, 67, 41, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 252, 246, 0.86);
+    color: #453528;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .dnd-pool-rules__details {
+    border-top: 1px solid rgba(90, 67, 41, 0.12);
+    padding-top: 8px;
+  }
+
+  .dnd-pool-rules__details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    color: #8b6318;
+    font-size: var(--dnd-text-xs);
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .dnd-pool-rules__details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .dnd-pool-rules__details summary::after {
+    content: "+";
+    flex: 0 0 auto;
+    color: #6f573b;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .dnd-pool-rules__details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .dnd-pool-rules__body {
+    display: grid;
+    gap: 24px;
+    padding-top: 8px;
+  }
+
+  .dnd-pool-rules__meta {
+    display: grid;
+    gap: 6px;
+    padding: 18px 18px 0;
+    border-left: 2px solid rgba(156, 122, 52, 0.28);
+  }
+
+  .dnd-pool-rules__meta h3 {
+    font-size: clamp(1.1rem, 1.5vw, 1.34rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .dnd-pool-rules__sections {
+    display: grid;
+    gap: 20px;
+  }
+
+  .dnd-pool-rules__section {
+    display: grid;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(90, 67, 41, 0.1);
+  }
+
+  .dnd-pool-rules__section:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .dnd-pool-rules__section h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+  }
+
+  .dnd-pool-rules__section ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .dnd-pool-rules__important {
+    color: #2f251c;
+    font-weight: 600;
+  }
+
+  @media (max-width: 767px) {
+    .pool-section--rules {
+      padding-top: 26px;
+      padding-bottom: 18px;
+      scroll-margin-top: 124px;
+    }
+
+    .dnd-pool-rules {
+      gap: 18px;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    .dnd-pool-rules__header h2 {
+      font-size: clamp(1.18rem, 5.2vw, 1.42rem);
+      line-height: 1.22;
+      letter-spacing: 0.05em;
+    }
+
+    .dnd-pool-rules__summary {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .dnd-pool-rules__summary li {
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.52;
+    }
+
+    .dnd-pool-rules__details summary {
+      padding: 12px 0;
+      font-size: 0.76rem;
+      letter-spacing: 0.03em;
+      text-transform: none;
+    }
+
+    .dnd-pool-rules__meta {
+      padding: 14px 14px 0;
+    }
+
+    .dnd-pool-rules__section h4 {
+      font-size: 0.96rem;
+      line-height: 1.36;
+    }
+
+    .dnd-pool-rules__section p,
+    .dnd-pool-rules__section li,
+    .dnd-pool-rules__header p,
+    .dnd-pool-rules__meta p {
+      font-size: 0.94rem;
+      line-height: 1.62;
+    }
+  }
+</style>

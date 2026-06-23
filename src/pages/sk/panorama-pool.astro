@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PoolGalleryLightbox from "../../components/PoolGalleryLightbox.astro";
+import PoolRulesSection from "../../components/PoolRulesSection.astro";
 import Hero from "../../sections/Hero.astro";
 import { panoramaPoolHero, panoramaPoolImages } from "../../data/images/panorama-pool-images";
 import { d1SlovakPageData } from "../../data/accommodation-pages/d1.sk";
 import { d2SlovakPageData } from "../../data/accommodation-pages/d2.sk";
 import { fugehazSlovakPageData } from "../../data/accommodation-pages/fugehaz.sk";
+import { getPoolRulesContent } from "../../data/pool-rules";
 import { buildVideoObject } from "../../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -95,6 +97,7 @@ const poolTemperatureFallback = "Čoskoro";
 const poolLiveWidgetSrc = import.meta.env.DEV
   ? "http://127.0.0.1:8091/api/pool-live-widget.php"
   : "/api/pool-live-widget.php";
+const poolRulesContent = getPoolRulesContent("sk");
 ---
 
 <BaseLayout
@@ -209,6 +212,7 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     </section>
 
     <PoolGalleryLightbox images={galleryImages} locale="sk" ariaLabel="Galéria Panorama Pool" />
+    <PoolRulesSection content={poolRulesContent} />
 
     <section class="pool-section pool-section--closing">
       <div class="dnd-container pool-shell">

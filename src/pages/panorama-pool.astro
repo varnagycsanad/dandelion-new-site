@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PoolGalleryLightbox from "../components/PoolGalleryLightbox.astro";
+import PoolRulesSection from "../components/PoolRulesSection.astro";
 import Hero from "../sections/Hero.astro";
 import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
 import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
+import { getPoolRulesContent } from "../data/pool-rules";
 import { buildVideoObject } from "../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -96,6 +98,7 @@ const poolTemperatureFallback = "Hamarosan";
 const poolLiveWidgetSrc = import.meta.env.DEV
   ? "http://127.0.0.1:8091/api/pool-live-widget.php"
   : "/api/pool-live-widget.php";
+const poolRulesContent = getPoolRulesContent("hu");
 ---
 
 <BaseLayout
@@ -209,6 +212,7 @@ const poolLiveWidgetSrc = import.meta.env.DEV
     </section>
 
     <PoolGalleryLightbox images={galleryImages} locale="hu" ariaLabel="Panorama Pool galéria" />
+    <PoolRulesSection content={poolRulesContent} />
 
     <section class="pool-section pool-section--closing">
       <div class="dnd-container pool-shell">
