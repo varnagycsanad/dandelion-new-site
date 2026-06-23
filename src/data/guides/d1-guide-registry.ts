@@ -1015,21 +1015,12 @@ const contactCardEntry = toCardEntry(contactGuide, {
     }
   });
 
-const d1GuideGuestPriorityEntries = [
-  arrivalCardEntry,
-  wifiCardEntry,
-  climateCardEntry,
-  boilerCardEntry,
-  dishwasherCardEntry,
-  contactCardEntry,
-  departureCardEntry
-];
+const d1GuideGuestPriorityEntries = [arrivalCardEntry, climateCardEntry, boilerCardEntry, dishwasherCardEntry, contactCardEntry, departureCardEntry];
 
 const d1GuideAdditionalEntries = [
   kitchenCardEntry,
   washerCardEntry,
   tvCardEntry,
-  waterCardEntry,
   terraceCardEntry,
   wasteCardEntry,
   poolCardEntry,
@@ -1084,11 +1075,11 @@ export const d1GuideQuickInfoItems = [
     titleCs: "Wi-Fi",
     titleDe: "WLAN",
     titleSk: "Wi‑Fi",
-    linesHu: ["Hálózat: Dandelion", "Jelszó: [PLACEHOLDER – később kitöltendő]"],
-    linesEn: ["Network: Dandelion", "Password: [PLACEHOLDER - to be filled later]"],
-    linesCs: ["Síť: Dandelion", "Heslo: [PLACEHOLDER - doplní se později]"],
-    linesDe: ["Netzwerk: Dandelion", "Passwort: [PLACEHOLDER - wird später ergänzt]"],
-    linesSk: ["Sieť: Dandelion", "Heslo: [PLACEHOLDER - doplní sa neskôr]"]
+    linesHu: ["Hálózat: Dandelion", "Jelszó: Stgyorgy"],
+    linesEn: ["Network: Dandelion", "Password: Stgyorgy"],
+    linesCs: ["Síť: Dandelion", "Heslo: Stgyorgy"],
+    linesDe: ["Netzwerk: Dandelion", "Passwort: Stgyorgy"],
+    linesSk: ["Sieť: Dandelion", "Heslo: Stgyorgy"]
   },
   {
     titleHu: "Parkolás",
@@ -1096,11 +1087,11 @@ export const d1GuideQuickInfoItems = [
     titleCs: "Parkování",
     titleDe: "Parken",
     titleSk: "Parkovanie",
-    linesHu: ["[PLACEHOLDER – parkolási információ később kitöltendő]"],
-    linesEn: ["[PLACEHOLDER - parking information will be added later]"],
-    linesCs: ["[PLACEHOLDER - informace o parkování budou doplněny později]"],
-    linesDe: ["[PLACEHOLDER - Parkhinweis wird später ergänzt]"],
-    linesSk: ["[PLACEHOLDER - informácia o parkovaní bude doplnená neskôr]"]
+    linesHu: ["A ház előtti parkolóban 2 autó számára van hely."],
+    linesEn: ["There is space for 2 cars in the parking area in front of the house."],
+    linesCs: ["Na parkovišti před domem je místo pro 2 auta."],
+    linesDe: ["Auf dem Parkplatz vor dem Haus gibt es Platz für 2 Autos."],
+    linesSk: ["Na parkovisku pred domom je miesto pre 2 autá."]
   },
   {
     titleHu: "Ivóvíz",
@@ -1132,11 +1123,31 @@ export const d1GuideQuickInfoItems = [
     titleCs: "Klimatizace",
     titleDe: "Klimaanlage",
     titleSk: "Klimatizácia",
-    linesHu: ["Csukott ajtó és ablak mellett használd.", "Ajánlott hőfok: 24–26 °C."],
-    linesEn: ["Use it with doors and windows closed.", "Recommended temperature: 24-26 °C."],
-    linesCs: ["Používej při zavřených dveřích a oknech.", "Doporučená teplota: 24-26 °C."],
-    linesDe: ["Bitte nur bei geschlossenen Türen und Fenstern verwenden.", "Empfohlene Temperatur: 24-26 °C."],
-    linesSk: ["Používaj pri zatvorených dverách a oknách.", "Odporúčaná teplota: 24-26 °C."]
+    linesHu: [
+      "A D1 házban a földszinten és az emeleten is van klíma.",
+      "Kérjük, csukott ajtó és ablak mellett használd.",
+      "Az ablakokon nyitásérzékelő van, ezért a klíma lekapcsolhat, ha nyitott ablak mellett üzemel."
+    ],
+    linesEn: [
+      "There is air conditioning both downstairs and upstairs in D1.",
+      "Please use it with doors and windows closed.",
+      "The windows have opening sensors, so the AC may switch off if it is used with an open window."
+    ],
+    linesCs: [
+      "V domě D1 je klimatizace jak v přízemí, tak v patře.",
+      "Používejte ji prosím při zavřených dveřích a oknech.",
+      "Na oknech jsou čidla otevření, takže při otevřeném okně se může klimatizace vypnout."
+    ],
+    linesDe: [
+      "Im D1 gibt es sowohl im Erdgeschoss als auch im Obergeschoss eine Klimaanlage.",
+      "Bitte nur bei geschlossenen Türen und Fenstern verwenden.",
+      "An den Fenstern sind Öffnungssensoren, daher kann sich die Klimaanlage bei offenem Fenster ausschalten."
+    ],
+    linesSk: [
+      "V dome D1 je klimatizácia na prízemí aj na poschodí.",
+      "Používajte ju, prosím, pri zatvorených dverách a oknách.",
+      "Na oknách sú snímače otvorenia, preto sa klimatizácia môže vypnúť, ak beží pri otvorenom okne."
+    ]
   },
   {
     titleHu: "Segítség",
@@ -1144,11 +1155,11 @@ export const d1GuideQuickInfoItems = [
     titleCs: "Pomoc",
     titleDe: "Hilfe",
     titleSk: "Pomoc",
-    linesHu: ["Ha valami nem működik, jelezd a szállásadónak."],
-    linesEn: ["If something is not working, please contact the host."],
-    linesCs: ["Pokud něco nefunguje, dej vědět ubytovateli."],
-    linesDe: ["Wenn etwas nicht funktioniert, gib bitte dem Gastgeber Bescheid."],
-    linesSk: ["Ak niečo nefunguje, daj vedieť ubytovateľovi."]
+    linesHu: ["Telefon: +36 20 773 0807", { text: "E-mail: hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" }],
+    linesEn: ["Phone: +36 20 773 0807", { text: "E-mail: hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" }],
+    linesCs: ["Telefon: +36 20 773 0807", { text: "E-mail: hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" }],
+    linesDe: ["Telefon: +36 20 773 0807", { text: "E-Mail: hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" }],
+    linesSk: ["Telefón: +36 20 773 0807", { text: "E-mail: hello@dandelionhouse.hu", href: "mailto:hello@dandelionhouse.hu" }]
   }
 ];
 

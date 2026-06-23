@@ -150,6 +150,42 @@
   line-height: 1.5;
 }
 
+.guide-index__quick-info-item a,
+.guide-index__info-card a {
+  color: #8a5b12;
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+}
+
+.guide-index__info-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 20px 18px;
+  border: 1px solid rgba(94, 65, 39, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 249, 239, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%);
+  box-shadow: 0 16px 38px rgba(49, 36, 22, 0.07);
+}
+
+.guide-index__info-card-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 4vw, 1.28rem);
+  line-height: 1.2;
+}
+
+.guide-index__info-card [data-guide-lang-panel]:not([hidden]) {
+  display: grid;
+  gap: 0;
+}
+
+.guide-index__info-card p {
+  margin: 12px 0 0;
+  color: rgba(38, 29, 22, 0.8);
+  font-size: var(--dnd-text-sm);
+  line-height: 1.65;
+}
+
 .guide-index__group {
   display: grid;
   gap: 14px;

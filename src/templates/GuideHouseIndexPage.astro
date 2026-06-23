@@ -37,14 +37,15 @@ interface GuideQuickInfoDetailedItem {
   titleCs: string;
   titleDe: string;
   titleSk?: string;
-  linesHu: string[];
-  linesEn: string[];
-  linesCs: string[];
-  linesDe: string[];
-  linesSk?: string[];
+  linesHu: GuideQuickInfoLine[];
+  linesEn: GuideQuickInfoLine[];
+  linesCs: GuideQuickInfoLine[];
+  linesDe: GuideQuickInfoLine[];
+  linesSk?: GuideQuickInfoLine[];
 }
 
 type GuideQuickInfoItem = GuideQuickInfoLegacyItem | GuideQuickInfoDetailedItem;
+type GuideQuickInfoLine = string | { text: string; href: string };
 
 interface GuideIndexGroup {
   titleHu: string;
@@ -74,6 +75,16 @@ interface Props {
   quickInfoTitleDe?: string;
   quickInfoTitleSk?: string;
   quickInfoItems?: GuideQuickInfoItem[];
+  infoBlockTitleHu?: string;
+  infoBlockTitleEn?: string;
+  infoBlockTitleCs?: string;
+  infoBlockTitleDe?: string;
+  infoBlockTitleSk?: string;
+  infoBlockParagraphsHu?: string[];
+  infoBlockParagraphsEn?: string[];
+  infoBlockParagraphsCs?: string[];
+  infoBlockParagraphsDe?: string[];
+  infoBlockParagraphsSk?: string[];
   itemGroups?: GuideIndexGroup[];
   heroImageSrc?: string;
   heroImageAlt?: string;
@@ -101,6 +112,16 @@ const {
   quickInfoTitleDe,
   quickInfoTitleSk,
   quickInfoItems = [],
+  infoBlockTitleHu,
+  infoBlockTitleEn,
+  infoBlockTitleCs,
+  infoBlockTitleDe,
+  infoBlockTitleSk,
+  infoBlockParagraphsHu,
+  infoBlockParagraphsEn,
+  infoBlockParagraphsCs,
+  infoBlockParagraphsDe,
+  infoBlockParagraphsSk,
   itemGroups,
   heroImageSrc,
   heroImageAlt
@@ -186,6 +207,22 @@ const resolveQuickInfoTitle = (locale: (typeof guideLocales)[number]) => {
 
   return quickInfoTitleSk ?? quickInfoTitleEn;
 };
+const resolveInfoBlockTitle = (locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return infoBlockTitleHu;
+  if (locale === "en") return infoBlockTitleEn;
+  if (locale === "cs") return infoBlockTitleCs;
+  if (locale === "de") return infoBlockTitleDe;
+
+  return infoBlockTitleSk ?? infoBlockTitleEn;
+};
+const resolveInfoBlockParagraphs = (locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return infoBlockParagraphsHu;
+  if (locale === "en") return infoBlockParagraphsEn;
+  if (locale === "cs") return infoBlockParagraphsCs;
+  if (locale === "de") return infoBlockParagraphsDe;
+
+  return infoBlockParagraphsSk ?? infoBlockParagraphsEn;
+};
 const resolveGroupTitle = (group: GuideIndexGroup, locale: (typeof guideLocales)[number]) => {
   if (locale === "hu") return group.titleHu;
   if (locale === "en") return group.titleEn;
@@ -257,7 +294,7 @@ const groupedItems = itemGroups?.length
                     <h3>{resolveQuickInfoLabel(item, locale)}</h3>
                     <div class="guide-index__quick-info-lines">
                       {resolveQuickInfoLines(item, locale).map((line) => (
-                        <p>{line}</p>
+                        <p>{typeof line === "string" ? line : <a href={line.href}>{line.text}</a>}</p>
                       ))}
                     </div>
                   </div>
@@ -265,6 +302,22 @@ const groupedItems = itemGroups?.length
               </article>
             ))}
           </div>
+        </section>
+      )}
+
+      {(infoBlockTitleHu || infoBlockTitleEn || infoBlockTitleCs || infoBlockTitleDe || infoBlockTitleSk) && (
+        <section class="guide-index__info-card" aria-label="Közlekedési információ">
+          {activeLocales.map((locale) => {
+            const infoBlockTitle = resolveInfoBlockTitle(locale);
+            const infoBlockParagraphs = resolveInfoBlockParagraphs(locale);
+
+            return (
+              <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
+                {infoBlockTitle && <h2 class="guide-index__info-card-title">{infoBlockTitle}</h2>}
+                {infoBlockParagraphs?.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            );
+          })}
         </section>
       )}
 
