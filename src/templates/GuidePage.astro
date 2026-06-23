@@ -269,9 +269,10 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
 
   .guide-language__button {
     display: inline-flex;
+    flex: 1 1 0;
     align-items: center;
     justify-content: center;
-    min-width: 54px;
+    min-width: 0;
     min-height: 42px;
     border: 1px solid rgba(94, 65, 39, 0.18);
     border-radius: 8px;
@@ -431,6 +432,11 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
 
     .guide-language {
       justify-content: flex-end;
+    }
+
+    .guide-language__button {
+      flex: 0 0 auto;
+      min-width: 54px;
     }
 
     .guide-hero [data-guide-lang-panel] {

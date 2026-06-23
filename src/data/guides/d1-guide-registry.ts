@@ -844,8 +844,7 @@ const contactGuide = createGuide({
 
 const toCardEntry = (guide: GuideContent, card: LocalizedCardCopy): D1GuideCardEntry => ({ guide, card });
 
-const placeholderEntries = [
-  toCardEntry(wifiGuide, {
+const wifiCardEntry = toCardEntry(wifiGuide, {
     eyebrow: { hu: "Gyors segítség", en: "Quick help", cs: "Rychlá pomoc", de: "Schnelle Hilfe" },
     title: { hu: "Wi-Fi belépés", en: "Wi-Fi access", cs: "Wi-Fi přístup", de: "WLAN-Zugang" },
     description: {
@@ -854,8 +853,8 @@ const placeholderEntries = [
       cs: "Název sítě, heslo a rychlá pomoc, pokud internet nefunguje.",
       de: "Netzwerkname, Passwort und schnelle Hilfe, wenn das Internet nicht funktioniert."
     }
-  }),
-  toCardEntry(arrivalGuide, {
+  });
+const arrivalCardEntry = toCardEntry(arrivalGuide, {
     eyebrow: { hu: "Gyors segítség", en: "Quick help", cs: "Rychlá pomoc", de: "Schnelle Hilfe" },
     title: {
       hu: "Érkezés, parkolás, bejutás",
@@ -869,8 +868,8 @@ const placeholderEntries = [
       cs: "Adresa, parkování, předání klíčů a informace k příjezdu.",
       de: "Adresse, Parken, Schlüsselübergabe und Hinweise zur Anreise."
     }
-  }),
-  toCardEntry(boilerGuide, {
+  });
+const boilerCardEntry = toCardEntry(boilerGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "Melegvíz és bojler", en: "Hot water and boiler", cs: "Teplá voda a bojler", de: "Warmwasser und Boiler" },
     description: {
@@ -879,8 +878,8 @@ const placeholderEntries = [
       cs: "Používání 150litrového bojleru a informace o teplé vodě.",
       de: "Nutzung des 150-Liter-Boilers und Warmwasser-Hinweise."
     }
-  }),
-  toCardEntry(climateGuide, {
+  });
+const climateCardEntry = toCardEntry(climateGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: {
       hu: "Légkondicionáló és fűtés",
@@ -894,8 +893,8 @@ const placeholderEntries = [
       cs: "Používání klimatizace, doporučené teploty a úsporný provoz.",
       de: "Klimanutzung, empfohlene Temperaturen und energiesparender Betrieb."
     }
-  }),
-  toCardEntry(kitchenGuide, {
+  });
+const kitchenCardEntry = toCardEntry(kitchenGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "Konyha és gépek", en: "Kitchen and appliances", cs: "Kuchyně a spotřebiče", de: "Küche und Geräte" },
     description: {
@@ -904,8 +903,8 @@ const placeholderEntries = [
       cs: "Varná deska, trouba, lednice, mikrovlnka a základní kuchyňské vybavení.",
       de: "Kochfeld, Ofen, Kühlschrank, Mikrowelle und Küchengrundausstattung."
     }
-  }),
-  toCardEntry(d1DishwasherGuide, {
+  });
+const dishwasherCardEntry = toCardEntry(d1DishwasherGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "Mosogatógép használata", en: "Dishwasher guide", cs: "Návod k myčce", de: "Geschirrspüler-Guide" },
     description: {
@@ -914,8 +913,8 @@ const placeholderEntries = [
       cs: "Rychlý návod k myčce Whirlpool WIO 3O540 PELG.",
       de: "Kurzanleitung für den Geschirrspüler Whirlpool WIO 3O540 PELG."
     }
-  }),
-  toCardEntry(washerGuide, {
+  });
+const washerCardEntry = toCardEntry(washerGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "Mosógép használata", en: "Washing machine guide", cs: "Návod k pračce", de: "Waschmaschinen-Guide" },
     description: {
@@ -924,8 +923,8 @@ const placeholderEntries = [
       cs: "Základní informace o praní a pravidla používání pro hosty.",
       de: "Grundlegende Waschhinweise und gästeorientierte Nutzungsregeln."
     }
-  }),
-  toCardEntry(tvGuide, {
+  });
+const tvCardEntry = toCardEntry(tvGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "TV használata", en: "TV guide", cs: "Použití TV", de: "TV-Nutzung" },
     description: {
@@ -934,8 +933,8 @@ const placeholderEntries = [
       cs: "Ovladač, kanály, chytré funkce a základní řešení problémů.",
       de: "Fernbedienung, Sender, Smart-Funktionen und einfache Fehlerhilfe."
     }
-  }),
-  toCardEntry(waterGuide, {
+  });
+const waterCardEntry = toCardEntry(waterGuide, {
     eyebrow: { hu: "A ház használata", en: "Using the house", cs: "Používání domu", de: "Hausnutzung" },
     title: { hu: "Ivóvíz", en: "Drinking water", cs: "Pitná voda", de: "Trinkwasser" },
     description: {
@@ -944,8 +943,8 @@ const placeholderEntries = [
       cs: "Informace o pitnosti vody z kohoutku a používání vody.",
       de: "Hinweise zur Trinkbarkeit des Leitungswassers und zur Wassernutzung."
     }
-  }),
-  toCardEntry(terraceGuide, {
+  });
+const terraceCardEntry = toCardEntry(terraceGuide, {
     eyebrow: { hu: "Kültér és medence", en: "Outdoor and pool", cs: "Exteriér a bazén", de: "Außenbereich und Pool" },
     title: { hu: "Terasz, kert és grill", en: "Terrace, garden and grill", cs: "Terasa, zahrada a gril", de: "Terrasse, Garten und Grill" },
     description: {
@@ -954,8 +953,8 @@ const placeholderEntries = [
       cs: "Venkovní používání, gril, zahradní nábytek a večerní klid.",
       de: "Außennutzung, Grill, Gartenmöbel und Abendruhe."
     }
-  }),
-  toCardEntry(wasteGuide, {
+  });
+const wasteCardEntry = toCardEntry(wasteGuide, {
     eyebrow: { hu: "Kültér és medence", en: "Outdoor and pool", cs: "Exteriér a bazén", de: "Außenbereich und Pool" },
     title: { hu: "Szemétkezelés", en: "Waste disposal", cs: "Nakládání s odpadem", de: "Müllentsorgung" },
     description: {
@@ -964,8 +963,8 @@ const placeholderEntries = [
       cs: "Směsný odpad, třídění a úkoly před odjezdem.",
       de: "Restmüll, Recycling und Hinweise vor der Abreise."
     }
-  }),
-  toCardEntry(d1PoolGuide, {
+  });
+const poolCardEntry = toCardEntry(d1PoolGuide, {
     eyebrow: { hu: "Kültér és medence", en: "Outdoor and pool", cs: "Exteriér a bazén", de: "Außenbereich und Pool" },
     title: { hu: "Medencehasználati útmutató", en: "Pool user guide", cs: "Návod k používání bazénu", de: "Poolnutzungs-Guide" },
     description: {
@@ -974,8 +973,8 @@ const placeholderEntries = [
       cs: "Bezpečnost, hygiena, dohled nad dětmi a pravidla bazénu.",
       de: "Sicherheit, Hygiene, Kinderaufsicht und Poolregeln."
     }
-  }),
-  toCardEntry(houseRulesGuide, {
+  });
+const houseRulesCardEntry = toCardEntry(houseRulesGuide, {
     eyebrow: { hu: "Szabályok és távozás", en: "Rules and departure", cs: "Pravidla a odjezd", de: "Regeln und Abreise" },
     title: { hu: "Alap házirend", en: "House rules", cs: "Základní domovní pravidla", de: "Grundregeln des Hauses" },
     description: {
@@ -984,8 +983,8 @@ const placeholderEntries = [
       cs: "Krátká a přehledná pravidla pro používání domu.",
       de: "Kurze, gästeorientierte Regeln für die Hausnutzung."
     }
-  }),
-  toCardEntry(d1AszfGuide, {
+  });
+const aszfCardEntry = toCardEntry(d1AszfGuide, {
     eyebrow: { hu: "Szabályok és távozás", en: "Rules and departure", cs: "Pravidla a odjezd", de: "Regeln und Abreise" },
     title: { hu: "ÁSZF és használati szabályok", en: "Terms and house rules", cs: "Obchodní podmínky a pravidla", de: "AGB und Nutzungsregeln" },
     description: {
@@ -994,8 +993,8 @@ const placeholderEntries = [
       cs: "Rezervace, platba, příjezd, pravidla domu, zvířata a podmínky pobytu D1.",
       de: "Buchung, Zahlung, Anreise, Hausregeln, Haustiere und Bedingungen für D1."
     }
-  }),
-  toCardEntry(departureGuide, {
+  });
+const departureCardEntry = toCardEntry(departureGuide, {
     eyebrow: { hu: "Szabályok és távozás", en: "Rules and departure", cs: "Pravidla a odjezd", de: "Regeln und Abreise" },
     title: { hu: "Távozás előtti teendők", en: "Before departure", cs: "Co udělat před odjezdem", de: "Vor der Abreise" },
     description: {
@@ -1004,8 +1003,8 @@ const placeholderEntries = [
       cs: "Klíče, odpad, okna, klimatizace, myčka a odhlášení.",
       de: "Schlüssel, Müll, Fenster, Klima, Geschirrspüler und Check-out."
     }
-  }),
-  toCardEntry(contactGuide, {
+  });
+const contactCardEntry = toCardEntry(contactGuide, {
     eyebrow: { hu: "Gyors segítség", en: "Quick help", cs: "Rychlá pomoc", de: "Schnelle Hilfe" },
     title: { hu: "Hiba esetén / kapcsolat", en: "Problem help / contact", cs: "Při problému / kontakt", de: "Bei Problemen / Kontakt" },
     description: {
@@ -1014,10 +1013,31 @@ const placeholderEntries = [
       cs: "Co má host udělat, když něco nefunguje.",
       de: "Was Gäste tun sollen, wenn etwas nicht funktioniert."
     }
-  })
+  });
+
+const d1GuideGuestPriorityEntries = [
+  arrivalCardEntry,
+  wifiCardEntry,
+  climateCardEntry,
+  boilerCardEntry,
+  dishwasherCardEntry,
+  contactCardEntry,
+  departureCardEntry
 ];
 
-export const d1GuideIndexItems = placeholderEntries.map((entry) => ({
+const d1GuideAdditionalEntries = [
+  kitchenCardEntry,
+  washerCardEntry,
+  tvCardEntry,
+  waterCardEntry,
+  terraceCardEntry,
+  wasteCardEntry,
+  poolCardEntry,
+  houseRulesCardEntry,
+  aszfCardEntry
+];
+
+const mapEntryToIndexItem = (entry: D1GuideCardEntry) => ({
   guide: entry.guide,
   eyebrowHu: entry.card.eyebrow.hu,
   eyebrowEn: entry.card.eyebrow.en,
@@ -1034,7 +1054,103 @@ export const d1GuideIndexItems = placeholderEntries.map((entry) => ({
   descriptionCs: entry.card.description.cs,
   descriptionDe: entry.card.description.de,
   descriptionSk: entry.card.description.cs
-}));
+});
+
+export const d1GuideIndexItems = [...d1GuideGuestPriorityEntries, ...d1GuideAdditionalEntries].map(mapEntryToIndexItem);
+
+export const d1GuideIndexGroups = [
+  {
+    titleHu: "Gyakran használt útmutatók",
+    titleEn: "Frequently used guides",
+    titleCs: "Často používané návody",
+    titleDe: "Häufig genutzte Anleitungen",
+    titleSk: "Často používané návody",
+    items: d1GuideGuestPriorityEntries.map(mapEntryToIndexItem)
+  },
+  {
+    titleHu: "További tudnivalók",
+    titleEn: "Additional information",
+    titleCs: "Další informace",
+    titleDe: "Weitere Hinweise",
+    titleSk: "Ďalšie informácie",
+    items: d1GuideAdditionalEntries.map(mapEntryToIndexItem)
+  }
+];
+
+export const d1GuideQuickInfoItems = [
+  {
+    titleHu: "Wi-Fi",
+    titleEn: "Wi-Fi",
+    titleCs: "Wi-Fi",
+    titleDe: "WLAN",
+    titleSk: "Wi‑Fi",
+    linesHu: ["Hálózat: Dandelion", "Jelszó: [PLACEHOLDER – később kitöltendő]"],
+    linesEn: ["Network: Dandelion", "Password: [PLACEHOLDER - to be filled later]"],
+    linesCs: ["Síť: Dandelion", "Heslo: [PLACEHOLDER - doplní se později]"],
+    linesDe: ["Netzwerk: Dandelion", "Passwort: [PLACEHOLDER - wird später ergänzt]"],
+    linesSk: ["Sieť: Dandelion", "Heslo: [PLACEHOLDER - doplní sa neskôr]"]
+  },
+  {
+    titleHu: "Parkolás",
+    titleEn: "Parking",
+    titleCs: "Parkování",
+    titleDe: "Parken",
+    titleSk: "Parkovanie",
+    linesHu: ["[PLACEHOLDER – parkolási információ később kitöltendő]"],
+    linesEn: ["[PLACEHOLDER - parking information will be added later]"],
+    linesCs: ["[PLACEHOLDER - informace o parkování budou doplněny později]"],
+    linesDe: ["[PLACEHOLDER - Parkhinweis wird später ergänzt]"],
+    linesSk: ["[PLACEHOLDER - informácia o parkovaní bude doplnená neskôr]"]
+  },
+  {
+    titleHu: "Ivóvíz",
+    titleEn: "Drinking water",
+    titleCs: "Pitná voda",
+    titleDe: "Trinkwasser",
+    titleSk: "Pitná voda",
+    linesHu: ["A csapvíz iható."],
+    linesEn: ["Tap water is safe to drink."],
+    linesCs: ["Voda z kohoutku je pitná."],
+    linesDe: ["Leitungswasser ist trinkbar."],
+    linesSk: ["Voda z kohútika je pitná."]
+  },
+  {
+    titleHu: "Melegvíz",
+    titleEn: "Hot water",
+    titleCs: "Teplá voda",
+    titleDe: "Warmwasser",
+    titleSk: "Teplá voda",
+    linesHu: ["150 literes bojler van, nagyobb társaságnál érdemes figyelni a zuhanyzásra."],
+    linesEn: ["There is a 150-litre boiler, so larger groups should pay attention to shower timing."],
+    linesCs: ["K dispozici je 150litrový bojler, takže u větší skupiny je dobré hlídat sprchování."],
+    linesDe: ["Es gibt einen 150-Liter-Boiler, daher sollten größere Gruppen auf die Duschzeiten achten."],
+    linesSk: ["K dispozícii je 150-litrový bojler, preto sa pri väčšej skupine oplatí sledovať sprchovanie."]
+  },
+  {
+    titleHu: "Klíma",
+    titleEn: "Air conditioning",
+    titleCs: "Klimatizace",
+    titleDe: "Klimaanlage",
+    titleSk: "Klimatizácia",
+    linesHu: ["Csukott ajtó és ablak mellett használd.", "Ajánlott hőfok: 24–26 °C."],
+    linesEn: ["Use it with doors and windows closed.", "Recommended temperature: 24-26 °C."],
+    linesCs: ["Používej při zavřených dveřích a oknech.", "Doporučená teplota: 24-26 °C."],
+    linesDe: ["Bitte nur bei geschlossenen Türen und Fenstern verwenden.", "Empfohlene Temperatur: 24-26 °C."],
+    linesSk: ["Používaj pri zatvorených dverách a oknách.", "Odporúčaná teplota: 24-26 °C."]
+  },
+  {
+    titleHu: "Segítség",
+    titleEn: "Help",
+    titleCs: "Pomoc",
+    titleDe: "Hilfe",
+    titleSk: "Pomoc",
+    linesHu: ["Ha valami nem működik, jelezd a szállásadónak."],
+    linesEn: ["If something is not working, please contact the host."],
+    linesCs: ["Pokud něco nefunguje, dej vědět ubytovateli."],
+    linesDe: ["Wenn etwas nicht funktioniert, gib bitte dem Gastgeber Bescheid."],
+    linesSk: ["Ak niečo nefunguje, daj vedieť ubytovateľovi."]
+  }
+];
 
 export const d1GuidesForDynamicRoutes = [
   wifiGuide,
@@ -1048,7 +1164,9 @@ export const d1GuidesForDynamicRoutes = [
   waterGuide,
   terraceGuide,
   wasteGuide,
+  d1PoolGuide,
   houseRulesGuide,
+  d1AszfGuide,
   departureGuide,
   contactGuide
 ];

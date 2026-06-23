@@ -1,5 +1,10 @@
 ---
-import { d1GuideEnabledLocales, d1GuideIndexItems } from "../../../data/guides/d1-guide-registry";
+import {
+  d1GuideEnabledLocales,
+  d1GuideIndexGroups,
+  d1GuideIndexItems,
+  d1GuideQuickInfoItems
+} from "../../../data/guides/d1-guide-registry";
 import { requireAccommodationLocalAssetPath } from "../../../data/images/astro-local-assets";
 import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
 
@@ -25,7 +30,14 @@ const d1GuideHeroSrc = requireAccommodationLocalAssetPath(
   introDe="Hier finden Sie die wichtigsten Informationen zur Nutzung des D1-Hauses: WLAN, Anreise, Geräte, Klima, Warmwasser, Pool und Hausregeln."
   introSk="Tu nájdeš najdôležitejšie informácie k používaniu domu D1: Wi‑Fi, príchod, spotrebiče, klíma, teplá voda, bazén a domové pravidlá."
   enabledLocales={d1GuideEnabledLocales}
+  quickInfoTitleHu="Gyors infók a D1 házhoz"
+  quickInfoTitleEn="Quick info for the D1 house"
+  quickInfoTitleCs="Rychlé informace k domu D1"
+  quickInfoTitleDe="Schnellinfos zum D1-Haus"
+  quickInfoTitleSk="Rýchle informácie k domu D1"
+  quickInfoItems={d1GuideQuickInfoItems}
   heroImageSrc={d1GuideHeroSrc}
   heroImageAlt="Dandelion D1 panorámás hero képe"
   items={d1GuideIndexItems}
+  itemGroups={d1GuideIndexGroups}
 />
