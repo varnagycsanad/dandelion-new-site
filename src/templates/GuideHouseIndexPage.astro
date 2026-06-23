@@ -172,7 +172,7 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
         </section>
       )}
 
-      <div class="guide-index__list">
+      <div class:list={["guide-index__list", accordion ? "guide-index__list--accordion" : "guide-index__list--cards"]}>
         {items.map((item, itemIndex) => {
           const panelId = `guide-index-panel-${itemIndex}`;
           return accordion ? (
@@ -326,7 +326,7 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
   }
 
   .guide-index__shell {
-    width: min(100% - 28px, 720px);
+    width: min(100% - 24px, 980px);
     margin: 0 auto;
   }
 
@@ -413,6 +413,15 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
     margin-top: 24px;
   }
 
+  .guide-index__list--cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .guide-index__list--accordion {
+    grid-template-columns: 1fr;
+  }
+
   .guide-index__quick-info {
     display: flex;
     flex-wrap: wrap;
@@ -449,6 +458,7 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
     display: grid;
     gap: 8px;
     width: 100%;
+    min-height: 100%;
     padding: 18px;
     border: 1px solid rgba(94, 65, 39, 0.16);
     border-radius: 8px;
@@ -572,6 +582,10 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
       padding-top: 36px;
     }
 
+    .guide-index__shell {
+      width: min(100% - 48px, 1180px);
+    }
+
     .guide-index__header {
       grid-template-columns: 1fr auto;
       align-items: start;
@@ -581,5 +595,22 @@ const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[numb
       grid-column: 1 / -1;
     }
 
+    .guide-index__list--cards {
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .guide-index__item {
+      padding: 22px;
+      border-radius: 16px;
+    }
+
+    .guide-index__item span {
+      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+    }
+
+    .guide-index__item small {
+      font-size: var(--dnd-text-base);
+    }
   }
 </style>
