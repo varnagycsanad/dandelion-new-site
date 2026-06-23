@@ -1,8 +1,17 @@
 ---
-import { d1PoolGuide } from "../../../data/guides/panorama-pool";
+import { d1GuideEnabledLocales, d1GuideIndexItems } from "../../../data/guides/d1-guide-registry";
+import { requireAccommodationLocalAssetPath } from "../../../data/images/astro-local-assets";
 import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
 
 // [CHANGE 2026-05-24 00:00] D1 QR guide index letrehozva medencehasznalati guide linkkel.
+// [CHANGE 2026-06-22 21:20] D1 hasznalati es ASZF guide link hozzaadva a guide indexhez.
+// [CHANGE 2026-06-22 22:40] D1 teljes vendegutmutato kezdooldal szerkezet es placeholder aloldalak elokeszitve.
+const d1GuideHeroSrc = requireAccommodationLocalAssetPath(
+  "d1",
+  "hero",
+  "dandelion-d1-hero-desktop-01.webp",
+  "D1 guide hero"
+);
 ---
 
 <GuideHouseIndexPage
@@ -10,21 +19,13 @@ import GuideHouseIndexPage from "../../../templates/GuideHouseIndexPage.astro";
   canonicalPath="/guide/d1/"
   title="Dandelion D1 vendégútmutató | Dandelion"
   description="QR-kóddal megnyitható Dandelion D1 vendégútmutató a helyszíni használati információkhoz."
-  introHu="Válaszd ki, melyik helyszíni használati útmutatót szeretnéd megnyitni."
-  introEn="Choose the on-site user guide you would like to open."
-  introCs="Vyberte, kterého místního průvodce chcete otevřít."
-  introDe="W\u00e4hlen Sie den Guide aus, den Sie vor Ort \u00f6ffnen m\u00f6chten."
-  items={[
-    {
-      guide: d1PoolGuide,
-      titleHu: "Medencehasználati útmutató",
-      titleEn: "Pool User Guide",
-      titleCs: "Návod k používání bazénu",
-      titleDe: "Poolnutzungs-Guide",
-      descriptionHu: "Biztonság, higiénia, gyermekfelügyelet és közös használat.",
-      descriptionEn: "Safety, hygiene, child supervision and pool access.",
-      descriptionCs: "Bezpečnost, hygiena, dohled nad dětmi a přístup k bazénu.",
-      descriptionDe: "Sicherheit, Hygiene, Kinderaufsicht und Poolzugang."
-    }
-  ]}
+  introHu="Itt találod a D1 ház használatához szükséges legfontosabb információkat: Wi-Fi, érkezés, gépek, klíma, melegvíz, medence és házirend."
+  introEn="Here you will find the most important D1 house-use information: Wi-Fi, arrival, appliances, AC, hot water, pool and house rules."
+  introCs="Zde najdete nejdůležitější informace k používání domu D1: Wi-Fi, příjezd, spotřebiče, klimatizace, teplá voda, bazén a pravidla domu."
+  introDe="Hier finden Sie die wichtigsten Informationen zur Nutzung des D1-Hauses: WLAN, Anreise, Geräte, Klima, Warmwasser, Pool und Hausregeln."
+  introSk="Tu nájdeš najdôležitejšie informácie k používaniu domu D1: Wi‑Fi, príchod, spotrebiče, klíma, teplá voda, bazén a domové pravidlá."
+  enabledLocales={d1GuideEnabledLocales}
+  heroImageSrc={d1GuideHeroSrc}
+  heroImageAlt="Dandelion D1 panorámás hero képe"
+  items={d1GuideIndexItems}
 />

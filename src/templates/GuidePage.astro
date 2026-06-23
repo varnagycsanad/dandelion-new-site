@@ -2,17 +2,27 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { GuideContent, GuideLocale } from "../data/guides/types";
 
-const { guide } = Astro.props as { guide: GuideContent };
-const locales: GuideLocale[] = ["hu", "en", "cs", "de"];
-const pageTitle = `${guide.content.hu.title} | ${guide.houseName}`;
-const description = guide.content.hu.intro;
+const { guide, enabledLocales = ["hu", "en", "cs", "de", "sk"] } = Astro.props as {
+  guide: GuideContent;
+  enabledLocales?: GuideLocale[];
+};
+const locales: GuideLocale[] = enabledLocales;
+const allLocales: GuideLocale[] = ["hu", "en", "cs", "de", "sk"];
+const resolveContent = (locale: GuideLocale) =>
+  guide.content[locale] ?? guide.content.en ?? guide.content.cs ?? guide.content.de ?? guide.content.hu;
+const localeContents = Object.fromEntries(allLocales.map((locale) => [locale, resolveContent(locale)])) as Record<
+  GuideLocale,
+  NonNullable<ReturnType<typeof resolveContent>>
+>;
+const pageTitle = `${resolveContent("hu")?.title ?? guide.houseName} | ${guide.houseName}`;
+const description = resolveContent("hu")?.intro ?? "";
 const localizedPageTitles: Record<GuideLocale, string> = Object.fromEntries(
-  locales.map((locale) => [locale, `${guide.content[locale].title} | ${guide.houseName}`])
+  allLocales.map((locale) => [locale, `${resolveContent(locale)?.title ?? guide.houseName} | ${guide.houseName}`])
 ) as Record<GuideLocale, string>;
-const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ", de: "DE" };
-const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte" };
-const tocLabels: Record<GuideLocale, string> = { hu: "Ugr\u00e1s a ponthoz", en: "Jump to section", cs: "P\u0159ej\u00edt na sekci", de: "Zum Abschnitt springen" };
-const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz pontot", en: "Choose a section", cs: "Vyberte sekci", de: "Abschnitt w\u00e4hlen" };
+const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "CZ", de: "DE", sk: "SK" };
+const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte", sk: "Dôležité body" };
+const tocLabels: Record<GuideLocale, string> = { hu: "Ugr\u00e1s a ponthoz", en: "Jump to section", cs: "P\u0159ej\u00edt na sekci", de: "Zum Abschnitt springen", sk: "Prejsť na sekciu" };
+const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz pontot", en: "Choose a section", cs: "Vyberte sekci", de: "Abschnitt w\u00e4hlen", sk: "Vyber sekciu" };
 ---
 
 <BaseLayout
@@ -29,12 +39,13 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
         class="guide-back"
         href={`/guide/${guide.houseSlug}/`}
         data-guide-label="back"
-        data-back-label-hu={guide.content.hu.backLabel}
-        data-back-label-en={guide.content.en.backLabel}
-        data-back-label-cs={guide.content.cs.backLabel}
-        data-back-label-de={guide.content.de.backLabel}
+        data-back-label-hu={resolveContent("hu")?.backLabel ?? ""}
+        data-back-label-en={resolveContent("en")?.backLabel ?? ""}
+        data-back-label-cs={resolveContent("cs")?.backLabel ?? ""}
+        data-back-label-de={resolveContent("de")?.backLabel ?? ""}
+        data-back-label-sk={resolveContent("sk")?.backLabel ?? ""}
       >
-        {guide.content.hu.backLabel}
+        {resolveContent("hu")?.backLabel}
       </a>
 
       <header class="guide-hero">
@@ -44,10 +55,11 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
           data-guide-title-en={localizedPageTitles.en}
           data-guide-title-cs={localizedPageTitles.cs}
           data-guide-title-de={localizedPageTitles.de}
-          data-guide-description-hu={guide.content.hu.intro}
-          data-guide-description-en={guide.content.en.intro}
-          data-guide-description-cs={guide.content.cs.intro}
-          data-guide-description-de={guide.content.de.intro}
+          data-guide-description-hu={resolveContent("hu")?.intro ?? ""}
+          data-guide-description-en={resolveContent("en")?.intro ?? ""}
+          data-guide-description-cs={resolveContent("cs")?.intro ?? ""}
+          data-guide-description-de={resolveContent("de")?.intro ?? ""}
+          data-guide-description-sk={resolveContent("sk")?.intro ?? ""}
         >
           QR vendégútmutató · {guide.houseName}
         </p>
@@ -66,8 +78,8 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
 
         {locales.map((locale) => (
           <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
-            <h1>{guide.content[locale].title}</h1>
-            <p>{guide.content[locale].intro}</p>
+            <h1>{localeContents[locale]?.title}</h1>
+            <p>{localeContents[locale]?.intro}</p>
           </div>
         ))}
       </header>
@@ -77,7 +89,7 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
           <section class="guide-important" aria-label={importantLabels[locale]}>
             <h2>{importantLabels[locale]}</h2>
             <ul>
-              {guide.content[locale].keyPoints.map((point) => (
+              {localeContents[locale]?.keyPoints.map((point) => (
                 <li>{point}</li>
               ))}
             </ul>
@@ -87,15 +99,15 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
             <label for={`guide-toc-${locale}`}>{tocLabels[locale]}</label>
             <select id={`guide-toc-${locale}`} data-guide-toc-select={locale}>
               <option value="">{tocPlaceholderLabels[locale]}</option>
-              {guide.content[locale].sections.map((section) => (
+              {localeContents[locale]?.sections.map((section) => (
                 <option value={`${locale}-${section.id}`}>{section.title}</option>
               ))}
             </select>
           </div>
 
           <article class="guide-content">
-            <h2>{guide.content[locale].subtitle}</h2>
-            {guide.content[locale].sections.map((section) => (
+            <h2>{localeContents[locale]?.subtitle}</h2>
+            {localeContents[locale]?.sections.map((section) => (
               <section class="guide-section" id={`${locale}-${section.id}`}>
                 <h3>{section.title}</h3>
                 {section.paragraphs.map((paragraph) => (
@@ -139,7 +151,8 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
         hu: backLink?.getAttribute("data-back-label-hu") || "",
         en: backLink?.getAttribute("data-back-label-en") || "",
         cs: backLink?.getAttribute("data-back-label-cs") || "",
-        de: backLink?.getAttribute("data-back-label-de") || ""
+        de: backLink?.getAttribute("data-back-label-de") || "",
+        sk: backLink?.getAttribute("data-back-label-sk") || ""
       };
 
       const setLanguage = (nextLanguage) => {
@@ -249,6 +262,7 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
   .guide-language {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
   }

@@ -1,17 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { GuideContent } from "../data/guides/types";
+import type { GuideContent, GuideLocale } from "../data/guides/types";
 
 interface GuideIndexItem {
   guide: GuideContent;
+  eyebrowHu?: string;
+  eyebrowEn?: string;
+  eyebrowCs?: string;
+  eyebrowDe?: string;
+  eyebrowSk?: string;
   titleHu: string;
   titleEn: string;
   titleCs: string;
   titleDe: string;
+  titleSk?: string;
   descriptionHu: string;
   descriptionEn: string;
   descriptionCs: string;
   descriptionDe: string;
+  descriptionSk?: string;
 }
 
 interface GuideQuickInfoItem {
@@ -19,6 +26,7 @@ interface GuideQuickInfoItem {
   labelEn: string;
   labelCs: string;
   labelDe: string;
+  labelSk?: string;
   value: string;
 }
 
@@ -31,9 +39,13 @@ interface Props {
   introEn: string;
   introCs: string;
   introDe: string;
+  introSk?: string;
   items: GuideIndexItem[];
+  enabledLocales?: GuideLocale[];
   accordion?: boolean;
   quickInfoItems?: GuideQuickInfoItem[];
+  heroImageSrc?: string;
+  heroImageAlt?: string;
 }
 
 // [CHANGE 2026-05-24 00:00] Kozos QR guide index sablon letrehozva uj hazankenti guide oldalakhoz.
@@ -47,11 +59,66 @@ const {
   introEn,
   introCs,
   introDe,
+  introSk,
   items,
+  enabledLocales = ["hu", "en", "cs", "de", "sk"],
   accordion = false,
-  quickInfoItems = []
+  quickInfoItems = [],
+  heroImageSrc,
+  heroImageAlt
 } = Astro.props;
-const guideLocales = ["hu", "en", "cs", "de"] as const;
+const guideLocales = ["hu", "en", "cs", "de", "sk"] as const;
+const activeLocales = enabledLocales;
+const localeHeadings = {
+  hu: `${houseName} útmutató`,
+  en: `${houseName} guide`,
+  cs: `${houseName} průvodce`,
+  de: `${houseName} Guide`,
+  sk: `${houseName} sprievodca`
+} as const;
+const localeIntros = {
+  hu: introHu,
+  en: introEn,
+  cs: introCs,
+  de: introDe,
+  sk: introSk ?? introEn
+} as const;
+const sectionLabels = {
+  hu: "Fontos pontok",
+  en: "Key points",
+  cs: "Důležité body",
+  de: "Wichtige Punkte",
+  sk: "Dôležité body"
+} as const;
+const resolveGuideContent = (guide: GuideContent, locale: (typeof guideLocales)[number]) =>
+  guide.content[locale] ?? guide.content.en ?? guide.content.cs ?? guide.content.de ?? guide.content.hu;
+const resolveIndexCopy = (item: GuideIndexItem, locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return { title: item.titleHu, description: item.descriptionHu };
+  if (locale === "en") return { title: item.titleEn, description: item.descriptionEn };
+  if (locale === "cs") return { title: item.titleCs, description: item.descriptionCs };
+  if (locale === "de") return { title: item.titleDe, description: item.descriptionDe };
+
+  return {
+    title: item.titleSk ?? item.titleEn,
+    description: item.descriptionSk ?? item.descriptionEn
+  };
+};
+const resolveQuickInfoLabel = (item: GuideQuickInfoItem, locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return item.labelHu;
+  if (locale === "en") return item.labelEn;
+  if (locale === "cs") return item.labelCs;
+  if (locale === "de") return item.labelDe;
+
+  return item.labelSk ?? item.labelEn;
+};
+const resolveEyebrow = (item: GuideIndexItem, locale: (typeof guideLocales)[number]) => {
+  if (locale === "hu") return item.eyebrowHu;
+  if (locale === "en") return item.eyebrowEn;
+  if (locale === "cs") return item.eyebrowCs;
+  if (locale === "de") return item.eyebrowDe;
+
+  return item.eyebrowSk ?? item.eyebrowEn;
+};
 ---
 
 <BaseLayout
@@ -65,40 +132,40 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
   <section class="guide-index" data-guide-index>
     <div class="guide-index__shell">
       <header class="guide-index__header">
+        {heroImageSrc && (
+          <div class="guide-index__hero-media">
+            <img src={heroImageSrc} alt={heroImageAlt ?? `${houseName} guide hero`} loading="eager" />
+          </div>
+        )}
         <p class="guide-index__eyebrow">QR vendégútmutató · {houseName}</p>
         <div class="guide-language" aria-label="Guide language selector">
-          <button class="guide-language__button" type="button" data-guide-lang-button="hu" aria-pressed="true">HU</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="en" aria-pressed="false">EN</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="cs" aria-pressed="false">CZ</button>
-          <button class="guide-language__button" type="button" data-guide-lang-button="de" aria-pressed="false">DE</button>
+          {activeLocales.map((locale) => (
+            <button
+              class="guide-language__button"
+              type="button"
+              data-guide-lang-button={locale}
+              aria-pressed={locale === "hu" ? "true" : "false"}
+            >
+              {locale === "hu" ? "HU" : locale === "en" ? "EN" : locale === "cs" ? "CZ" : locale === "de" ? "DE" : "SK"}
+            </button>
+          ))}
         </div>
 
-        <div data-guide-lang-panel="hu">
-          <h1>{houseName} útmutató</h1>
-          <p>{introHu}</p>
-        </div>
-        <div data-guide-lang-panel="en" hidden>
-          <h1>{houseName} guide</h1>
-          <p>{introEn}</p>
-        </div>
-        <div data-guide-lang-panel="cs" hidden>
-          <h1>{houseName} průvodce</h1>
-          <p>{introCs}</p>
-        </div>
-        <div data-guide-lang-panel="de" hidden>
-          <h1>{houseName} Guide</h1>
-          <p>{introDe}</p>
-        </div>
+        {activeLocales.map((locale) => (
+          <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
+            <h1>{localeHeadings[locale]}</h1>
+            <p>{localeIntros[locale]}</p>
+          </div>
+        ))}
       </header>
 
       {quickInfoItems.length > 0 && (
         <section class="guide-index__quick-info" aria-label="Gyors információk">
           {quickInfoItems.map((item) => (
             <article class="guide-index__quick-info-item">
-              <span data-guide-lang-panel="hu">{item.labelHu}</span>
-              <span data-guide-lang-panel="en" hidden>{item.labelEn}</span>
-              <span data-guide-lang-panel="cs" hidden>{item.labelCs}</span>
-              <span data-guide-lang-panel="de" hidden>{item.labelDe}</span>
+              {activeLocales.map((locale) => (
+                <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{resolveQuickInfoLabel(item, locale)}</span>
+              ))}
               <strong>{item.value}</strong>
             </article>
           ))}
@@ -113,34 +180,39 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
               <button
                 class="guide-index__item guide-index__item--button"
                 type="button"
-                aria-expanded="false"
-                aria-controls={panelId}
-                data-guide-accordion-button
-              >
-                <span data-guide-lang-panel="hu">{item.titleHu}</span>
-                <span data-guide-lang-panel="en" hidden>{item.titleEn}</span>
-                <span data-guide-lang-panel="cs" hidden>{item.titleCs}</span>
-                <span data-guide-lang-panel="de" hidden>{item.titleDe}</span>
-                <small data-guide-lang-panel="hu">{item.descriptionHu}</small>
-                <small data-guide-lang-panel="en" hidden>{item.descriptionEn}</small>
-                <small data-guide-lang-panel="cs" hidden>{item.descriptionCs}</small>
-                <small data-guide-lang-panel="de" hidden>{item.descriptionDe}</small>
+                  aria-expanded="false"
+                  aria-controls={panelId}
+                  data-guide-accordion-button
+                >
+                {activeLocales.map((locale) => {
+                  const copy = resolveIndexCopy(item, locale);
+                  const eyebrow = resolveEyebrow(item, locale);
+                  return (
+                    <>
+                      {eyebrow && <em data-guide-lang-panel={locale} hidden={locale !== "hu"}>{eyebrow}</em>}
+                      <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.title}</span>
+                      <small data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.description}</small>
+                    </>
+                  );
+                })}
               </button>
               <div class="guide-index__panel" id={panelId} hidden data-guide-accordion-panel>
-                {guideLocales.map((locale) => (
+                {activeLocales.map((locale) => {
+                  const localizedGuide = resolveGuideContent(item.guide, locale);
+                  return (
                   <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
-                    <h2>{item.guide.content[locale].subtitle}</h2>
-                    <p>{item.guide.content[locale].intro}</p>
+                    <h2>{localizedGuide?.subtitle}</h2>
+                    <p>{localizedGuide?.intro}</p>
                     <section class="guide-index__important">
-                      <h3>{locale === "hu" ? "Fontos pontok" : locale === "en" ? "Key points" : locale === "cs" ? "Důležité body" : "Wichtige Punkte"}</h3>
+                      <h3>{sectionLabels[locale]}</h3>
                       <ul>
-                        {item.guide.content[locale].keyPoints.map((point) => (
+                        {localizedGuide?.keyPoints.map((point) => (
                           <li>{point}</li>
                         ))}
                       </ul>
                     </section>
                     <div class="guide-index__sections">
-                      {item.guide.content[locale].sections.map((section) => (
+                      {localizedGuide?.sections.map((section) => (
                         <section class="guide-index__section">
                           <h3>{section.title}</h3>
                           {section.paragraphs.map((paragraph) => (
@@ -165,19 +237,22 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
                       ))}
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             </section>
           ) : (
             <a class="guide-index__item" href={item.guide.path}>
-              <span data-guide-lang-panel="hu">{item.titleHu}</span>
-              <span data-guide-lang-panel="en" hidden>{item.titleEn}</span>
-              <span data-guide-lang-panel="cs" hidden>{item.titleCs}</span>
-              <span data-guide-lang-panel="de" hidden>{item.titleDe}</span>
-              <small data-guide-lang-panel="hu">{item.descriptionHu}</small>
-              <small data-guide-lang-panel="en" hidden>{item.descriptionEn}</small>
-              <small data-guide-lang-panel="cs" hidden>{item.descriptionCs}</small>
-              <small data-guide-lang-panel="de" hidden>{item.descriptionDe}</small>
+              {activeLocales.map((locale) => {
+                const copy = resolveIndexCopy(item, locale);
+                const eyebrow = resolveEyebrow(item, locale);
+                return (
+                  <>
+                    {eyebrow && <em data-guide-lang-panel={locale} hidden={locale !== "hu"}>{eyebrow}</em>}
+                    <span data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.title}</span>
+                    <small data-guide-lang-panel={locale} hidden={locale !== "hu"}>{copy.description}</small>
+                  </>
+                );
+              })}
             </a>
           );
         })}
@@ -262,6 +337,19 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
     border-bottom: 1px solid rgba(94, 65, 39, 0.16);
   }
 
+  .guide-index__hero-media {
+    overflow: hidden;
+    border-radius: 18px;
+    aspect-ratio: 16 / 8.5;
+    box-shadow: 0 24px 50px rgba(49, 36, 22, 0.16);
+  }
+
+  .guide-index__hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .guide-index__eyebrow {
     margin: 0;
     color: #9a6a1e;
@@ -288,6 +376,7 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
 
   .guide-language {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
@@ -395,6 +484,15 @@ const guideLocales = ["hu", "en", "cs", "de"] as const;
     font-size: var(--dnd-heading-xs);
     font-weight: 700;
     line-height: 1.2;
+  }
+
+  .guide-index__item em {
+    color: #9a6a1e;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .guide-index__item small {
