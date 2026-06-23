@@ -477,199 +477,77 @@ const kitchenGuide = createGuide({
   }
 });
 
-export const d1DishwasherGuide = createGuide({
+export const d1DishwasherGuide: GuideContent = {
   slug: "mosogatogep",
-  titles: {
-    hu: "Mosogatógép használata",
-    en: "Dishwasher guide",
-    cs: "Návod k myčce",
-    de: "Geschirrspüler-Guide"
-  },
-  category: {
-    hu: "A ház használata",
-    en: "Using the house",
-    cs: "Používání domu",
-    de: "Hausnutzung"
-  },
-  summary: {
-    hu: "Előkészített hely a Whirlpool WIO 3O540 PELG beépíthető mosogatógép későbbi gyors vendégútmutatójához.",
-    en: "Prepared placeholder for the future quick guest guide of the built-in Whirlpool WIO 3O540 PELG dishwasher.",
-    cs: "Připravené místo pro budoucí rychlý návod k vestavné myčce Whirlpool WIO 3O540 PELG.",
-    de: "Vorbereiteter Platz für den späteren Kurz-Guide zum Einbau-Geschirrspüler Whirlpool WIO 3O540 PELG."
-  },
-  keyPointSubject: {
-    hu: "mosogatógép",
-    en: "dishwasher",
-    cs: "myčka",
-    de: "Geschirrspüler"
-  },
-  quickBullets: {
-    hu: [
-      "Külön route készült a D1 mosogatógépéhez.",
-      "A Whirlpool WIO 3O540 PELG tartalmi blokkjai már elő vannak készítve.",
-      "A gyári PDF és a képes programtáblázat helye külön szerepel az oldalon."
-    ],
-    en: [
-      "A dedicated route is prepared for the D1 dishwasher.",
-      "The Whirlpool WIO 3O540 PELG content blocks are already in place.",
-      "The factory PDF and visual program chart have reserved slots on the page."
-    ],
-    cs: [
-      "Pro myčku v D1 je připravena samostatná cesta.",
-      "Obsahové bloky pro Whirlpool WIO 3O540 PELG jsou už nachystané.",
-      "Na stránce je rezervované místo pro PDF i obrázkovou tabulku programů."
-    ],
-    de: [
-      "Für den Geschirrspüler in D1 ist eine eigene Route vorbereitet.",
-      "Die Inhaltsblöcke für den Whirlpool WIO 3O540 PELG stehen bereits bereit.",
-      "Für PDF und Bild-Programmtabelle gibt es reservierte Plätze auf der Seite."
-    ]
-  },
-  customSections: {
-    hu: [
-      {
-        id: "gyors-inditas",
-        title: "1. Gyors indítás",
-        paragraphs: [
-          "Ide kerül majd a vendégeknek szóló rövid, 3-5 lépéses indítási útmutató.",
-          "A cél a gyors mobilos használhatóság, nem a teljes gyári leírás átmásolása."
-        ]
-      },
-      {
-        id: "programok",
-        title: "2. Programok",
-        paragraphs: [
-          "Ez a blokk a legfontosabb programok rövid, vendégbarát magyarázatának helye lesz."
-        ]
-      },
-      {
-        id: "kezelopanel",
-        title: "3. Kezelőpanel",
-        paragraphs: [
-          "Itt lehet majd röviden bemutatni a fő gombokat, visszajelzőket és a napi használathoz szükséges alapokat."
-        ]
-      },
-      {
-        id: "adalekok",
-        title: "4. Tabletta / só / öblítőszer",
-        paragraphs: [
-          "Ez a rész a szükséges mosogatószer-tudnivalók helye lesz, vendégszintű magyarázattal."
-        ]
-      },
-      {
-        id: "mit-ne",
-        title: "5. Mit ne tegyenek bele",
-        paragraphs: [
-          "Ide kerülhetnek a legfontosabb tiltások és kímélendő eszközök rövid listában."
-        ]
-      },
-      {
-        id: "hiba",
-        title: "6. Hiba esetén",
-        paragraphs: [
-          "Ez a blokk a gyors ellenőrzési pontok és az esetleges kapcsolatfelvételi irány helye lesz."
-        ]
-      },
-      {
-        id: "pdf-helye",
-        title: "7. Gyári használati útmutató link helye",
-        paragraphs: [
-          "A gyári PDF most még nincs beépítve. Ezen a helyen később külön link vagy letöltés jelenhet meg."
-        ],
-        important: "Most csak a helye van előkészítve."
-      },
-      {
-        id: "programtabla-helye",
-        title: "8. Képes programtáblázat helye",
-        paragraphs: [
-          "A vizuális programtáblázat később külön blokkban vagy képként jelenhet meg ezen a helyen."
-        ],
-        important: "Most csak a helye van előkészítve."
-      }
-    ],
-    en: [
-      {
-        id: "quick-start",
-        title: "1. Quick start",
-        paragraphs: [
-          "A short 3-5 step startup flow for guests will be added here later.",
-          "The goal is fast mobile use, not a copy of the full factory manual."
-        ]
-      },
-      { id: "programs", title: "2. Programs", paragraphs: ["This block will later explain the main programs in a guest-friendly way."] },
-      { id: "panel", title: "3. Control panel", paragraphs: ["This is the planned place for the main buttons, indicators and everyday controls."] },
-      { id: "detergent", title: "4. Tablet / salt / rinse aid", paragraphs: ["This section is reserved for the essential detergent and refill notes."] },
-      { id: "dont-put", title: "5. What not to put inside", paragraphs: ["This block will later hold the short list of restricted or delicate items."] },
-      { id: "error", title: "6. In case of a problem", paragraphs: ["Quick checks and contact directions can be added here later."] },
-      {
-        id: "manual-slot",
-        title: "7. Factory manual link slot",
-        paragraphs: ["The factory PDF is not embedded yet. A dedicated link or download can be added here later."],
-        important: "Only the placeholder slot is prepared right now."
-      },
-      {
-        id: "chart-slot",
-        title: "8. Visual program chart slot",
-        paragraphs: ["The visual program chart can later appear here as its own block or image."],
-        important: "Only the placeholder slot is prepared right now."
-      }
-    ],
-    cs: [
-      {
-        id: "rychly-start",
-        title: "1. Rychlý start",
-        paragraphs: [
-          "Sem se později doplní krátký startovací návod pro hosty v 3-5 krocích.",
-          "Cílem je rychlé mobilní použití, ne přepis celého výrobního manuálu."
-        ]
-      },
-      { id: "programy", title: "2. Programy", paragraphs: ["Tento blok bude později obsahovat stručné vysvětlení hlavních programů."] },
-      { id: "panel", title: "3. Ovládací panel", paragraphs: ["Sem lze později doplnit hlavní tlačítka, kontrolky a základní ovládání."] },
-      { id: "doplnky", title: "4. Tableta / sůl / leštidlo", paragraphs: ["Tato část je připravena pro základní informace o mycích prostředcích."] },
-      { id: "nevkladat", title: "5. Co dovnitř nedávat", paragraphs: ["Později zde může být krátký seznam nevhodných nebo citlivých předmětů."] },
-      { id: "chyba", title: "6. V případě problému", paragraphs: ["Sem lze doplnit rychlé kontroly a směr pro kontakt."] },
-      {
-        id: "manual-slot",
-        title: "7. Místo pro odkaz na výrobní návod",
-        paragraphs: ["Výrobní PDF zatím není vloženo. Později zde může být samostatný odkaz nebo stažení."],
-        important: "Zatím je připraveno pouze místo."
-      },
-      {
-        id: "chart-slot",
-        title: "8. Místo pro obrázkovou tabulku programů",
-        paragraphs: ["Obrázková tabulka programů se může později zobrazit zde jako samostatný blok nebo obrázek."],
-        important: "Zatím je připraveno pouze místo."
-      }
-    ],
-    de: [
-      {
-        id: "schnellstart",
-        title: "1. Schnellstart",
-        paragraphs: [
-          "Hier wird später eine kurze 3-5-Schritte-Startanleitung für Gäste ergänzt.",
-          "Ziel ist die schnelle mobile Nutzung, nicht das Kopieren der vollständigen Werksanleitung."
-        ]
-      },
-      { id: "programme", title: "2. Programme", paragraphs: ["Dieser Block ist für die spätere kurze Erklärung der wichtigsten Programme vorgesehen."] },
-      { id: "panel", title: "3. Bedienfeld", paragraphs: ["Hier können später die wichtigsten Tasten, Anzeigen und Alltagsfunktionen erklärt werden."] },
-      { id: "zusatz", title: "4. Tab / Salz / Klarspüler", paragraphs: ["Dieser Bereich ist für die wichtigsten Hinweise zu Reinigungsmitteln reserviert."] },
-      { id: "nicht-einlegen", title: "5. Was nicht hineingehört", paragraphs: ["Später kann hier eine kurze Liste empfindlicher oder ungeeigneter Gegenstände ergänzt werden."] },
-      { id: "problem", title: "6. Bei Problemen", paragraphs: ["Hier können später Schnellchecks und Kontaktwege ergänzt werden."] },
-      {
-        id: "manual-slot",
-        title: "7. Platz für Werksanleitungs-Link",
-        paragraphs: ["Das Werks-PDF ist noch nicht eingebunden. Später kann hier ein eigener Link oder Download erscheinen."],
-        important: "Aktuell ist nur der Platz vorbereitet."
-      },
-      {
-        id: "chart-slot",
-        title: "8. Platz für Bild-Programmtabelle",
-        paragraphs: ["Die visuelle Programmtabelle kann später hier als eigener Block oder als Bild erscheinen."],
-        important: "Aktuell ist nur der Platz vorbereitet."
-      }
-    ]
+  houseSlug: "d1",
+  houseName: "Dandelion D1",
+  path: "/guide/d1/mosogatogep/",
+  qrTarget: "https://dandelionhouse.hu/guide/d1/mosogatogep/",
+  dePreparedTitle: "Dishwasher user manual",
+  content: {
+    hu: {
+      title: "Mosogatógép használati útmutató",
+      subtitle: "Mosogatógép használati útmutató",
+      intro: "Ez a D1 ház Whirlpool WIO 3O540 PELG beépíthető mosogatógépének használati útmutatója.",
+      keyPoints: [],
+      backLabel: "Vissza a Dandelion D1 útmutatóhoz",
+      sections: [],
+      manualImageSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_HU_magyar.webp",
+      manualPdfSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_HU_magyar.pdf",
+      manualImageAlt: "Whirlpool WIO 3O540 PELG programtáblázat",
+      manualButtonLabel: "PDF megnyitása"
+    },
+    en: {
+      title: "Dishwasher user manual",
+      subtitle: "Dishwasher user manual",
+      intro: "This is the user manual for the Whirlpool WIO 3O540 PELG built-in dishwasher in D1.",
+      keyPoints: [],
+      backLabel: "Back to the Dandelion D1 guide",
+      sections: [],
+      manualImageSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_EN_angol.webp",
+      manualPdfSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_EN_angol.pdf",
+      manualImageAlt: "Whirlpool WIO 3O540 PELG programs table",
+      manualButtonLabel: "Open PDF"
+    },
+    cs: {
+      title: "Návod k použití myčky",
+      subtitle: "Návod k použití myčky",
+      intro: "Toto je návod k použití vestavné myčky Whirlpool WIO 3O540 PELG v domě D1.",
+      keyPoints: [],
+      backLabel: "Zpět na průvodce Dandelion D1",
+      sections: [],
+      manualImageSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_CS_cseh.webp",
+      manualPdfSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_CS_cseh.pdf",
+      manualImageAlt: "Tabulka programů Whirlpool WIO 3O540 PELG",
+      manualButtonLabel: "Otevřít PDF"
+    },
+    sk: {
+      title: "Návod na použitie umývačky riadu",
+      subtitle: "Návod na použitie umývačky riadu",
+      intro: "Toto je návod na použitie vstavanej umývačky riadu Whirlpool WIO 3O540 PELG v dome D1.",
+      keyPoints: [],
+      backLabel: "Späť na sprievodcu Dandelion D1",
+      sections: [],
+      manualImageSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_SK_szlovak.webp",
+      manualPdfSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_SK_szlovak.pdf",
+      manualImageAlt: "Tabuľka programov Whirlpool WIO 3O540 PELG",
+      manualButtonLabel: "Otvoriť PDF"
+    },
+    de: {
+      title: "Dishwasher user manual",
+      subtitle: "Dishwasher user manual",
+      intro: "This is the user manual for the Whirlpool WIO 3O540 PELG built-in dishwasher in D1.",
+      keyPoints: [],
+      backLabel: "Zurück zum Dandelion D1 Guide",
+      sections: [],
+      manualImageSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_EN_angol.webp",
+      manualPdfSrc: "/docs/guides/d1/dishwasher/whirlpool_wio_3o540_pelg_programok_EN_angol.pdf",
+      manualImageAlt: "Whirlpool WIO 3O540 PELG programs table",
+      manualButtonLabel: "Open PDF",
+      manualFallbackNote: "English manual"
+    }
   }
-});
+};
 
 const wifiGuide = createGuide({
   slug: "wifi",

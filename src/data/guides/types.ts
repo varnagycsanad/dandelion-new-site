@@ -16,6 +16,11 @@ export interface GuideLocaleContent {
   keyPoints: string[];
   backLabel: string;
   sections: GuideSection[];
+  manualImageSrc?: string;
+  manualPdfSrc?: string;
+  manualImageAlt?: string;
+  manualButtonLabel?: string;
+  manualFallbackNote?: string;
 }
 
 export interface GuideContent {

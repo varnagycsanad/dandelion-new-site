@@ -162,6 +162,62 @@
   gap: 12px;
 }
 
+.guide-manual {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.guide-manual__actions {
+  display: grid;
+  gap: 10px;
+}
+
+.guide-manual__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(94, 65, 39, 0.18);
+  border-radius: 10px;
+  background: #fff7e5;
+  color: #4d341d;
+  font-size: var(--dnd-text-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.guide-manual__note {
+  margin: 0;
+  color: rgba(38, 29, 22, 0.72);
+  font-size: var(--dnd-text-xs);
+  line-height: 1.5;
+}
+
+.guide-manual__figure {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid rgba(94, 65, 39, 0.14);
+  border-radius: 16px;
+  background: #fffefb;
+  box-shadow: 0 18px 36px rgba(49, 36, 22, 0.08);
+}
+
+.guide-manual__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.guide-manual__figure figcaption {
+  margin-top: 10px;
+  color: rgba(38, 29, 22, 0.68);
+  font-size: var(--dnd-text-xs);
+  line-height: 1.45;
+}
+
 .guide-section {
   padding: 18px 0;
   border-top: 1px solid rgba(94, 65, 39, 0.14);
@@ -227,5 +283,10 @@
 
   .guide-hero [data-guide-lang-panel] {
     grid-column: 1 / -1;
+  }
+
+  .guide-manual__button {
+    width: fit-content;
+    min-width: 170px;
   }
 }

@@ -24,6 +24,13 @@ const languageLabels: Record<GuideLocale, string> = { hu: "HU", en: "EN", cs: "C
 const importantLabels: Record<GuideLocale, string> = { hu: "Fontos pontok", en: "Key points", cs: "D\u016fle\u017eit\u00e9 body", de: "Wichtige Punkte", sk: "Dôležité body" };
 const tocLabels: Record<GuideLocale, string> = { hu: "Ugr\u00e1s a ponthoz", en: "Jump to section", cs: "P\u0159ej\u00edt na sekci", de: "Zum Abschnitt springen", sk: "Prejsť na sekciu" };
 const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz pontot", en: "Choose a section", cs: "Vyberte sekci", de: "Abschnitt w\u00e4hlen", sk: "Vyber sekciu" };
+const manualCaptionLabels: Record<GuideLocale, string> = {
+  hu: "Whirlpool WIO 3O540 PELG programtáblázat",
+  en: "Whirlpool WIO 3O540 PELG programs table",
+  cs: "Tabulka programů Whirlpool WIO 3O540 PELG",
+  de: "Whirlpool WIO 3O540 PELG programs table",
+  sk: "Tabuľka programov Whirlpool WIO 3O540 PELG"
+};
 ---
 
 <BaseLayout
@@ -88,51 +95,80 @@ const tocPlaceholderLabels: Record<GuideLocale, string> = { hu: "V\u00e1lassz po
 
       {locales.map((locale) => (
         <div data-guide-lang-panel={locale} hidden={locale !== "hu"}>
-          <section class="guide-important" aria-label={importantLabels[locale]}>
-            <h2>{importantLabels[locale]}</h2>
-            <ul>
-              {localeContents[locale]?.keyPoints.map((point) => (
-                <li>{point}</li>
-              ))}
-            </ul>
-          </section>
-
-          <div class="guide-toc" aria-label={locale === "hu" ? "Tartalom" : locale === "en" ? "Contents" : "Obsah"}>
-            <label for={`guide-toc-${locale}`}>{tocLabels[locale]}</label>
-            <select id={`guide-toc-${locale}`} data-guide-toc-select={locale}>
-              <option value="">{tocPlaceholderLabels[locale]}</option>
-              {localeContents[locale]?.sections.map((section) => (
-                <option value={`${locale}-${section.id}`}>{section.title}</option>
-              ))}
-            </select>
-          </div>
-
-          <article class="guide-content">
-            <h2>{localeContents[locale]?.subtitle}</h2>
-            {localeContents[locale]?.sections.map((section) => (
-              <section class="guide-section" id={`${locale}-${section.id}`}>
-                <h3>{section.title}</h3>
-                {section.paragraphs.map((paragraph) => (
-                  <p>{paragraph}</p>
-                ))}
-                {section.bullets && (
-                  <ul>
-                    {section.bullets.map((bullet) => (
-                      <li>{bullet}</li>
-                    ))}
-                  </ul>
+          {localeContents[locale]?.manualImageSrc ? (
+            <article class="guide-manual">
+              <div class="guide-manual__actions">
+                <a
+                  class="guide-manual__button"
+                  href={localeContents[locale]?.manualPdfSrc}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {localeContents[locale]?.manualButtonLabel}
+                </a>
+                {localeContents[locale]?.manualFallbackNote && (
+                  <p class="guide-manual__note">{localeContents[locale]?.manualFallbackNote}</p>
                 )}
-                {section.steps && (
-                  <ol>
-                    {section.steps.map((step) => (
-                      <li>{step}</li>
-                    ))}
-                  </ol>
-                )}
-                {section.important && <p class="guide-note">{section.important}</p>}
+              </div>
+              <figure class="guide-manual__figure">
+                <img
+                  class="guide-manual__image"
+                  src={localeContents[locale]?.manualImageSrc}
+                  alt={localeContents[locale]?.manualImageAlt ?? manualCaptionLabels[locale]}
+                  loading="eager"
+                />
+                <figcaption>{manualCaptionLabels[locale]}</figcaption>
+              </figure>
+            </article>
+          ) : (
+            <>
+              <section class="guide-important" aria-label={importantLabels[locale]}>
+                <h2>{importantLabels[locale]}</h2>
+                <ul>
+                  {localeContents[locale]?.keyPoints.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
               </section>
-            ))}
-          </article>
+
+              <div class="guide-toc" aria-label={locale === "hu" ? "Tartalom" : locale === "en" ? "Contents" : "Obsah"}>
+                <label for={`guide-toc-${locale}`}>{tocLabels[locale]}</label>
+                <select id={`guide-toc-${locale}`} data-guide-toc-select={locale}>
+                  <option value="">{tocPlaceholderLabels[locale]}</option>
+                  {localeContents[locale]?.sections.map((section) => (
+                    <option value={`${locale}-${section.id}`}>{section.title}</option>
+                  ))}
+                </select>
+              </div>
+
+              <article class="guide-content">
+                <h2>{localeContents[locale]?.subtitle}</h2>
+                {localeContents[locale]?.sections.map((section) => (
+                  <section class="guide-section" id={`${locale}-${section.id}`}>
+                    <h3>{section.title}</h3>
+                    {section.paragraphs.map((paragraph) => (
+                      <p>{paragraph}</p>
+                    ))}
+                    {section.bullets && (
+                      <ul>
+                        {section.bullets.map((bullet) => (
+                          <li>{bullet}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {section.steps && (
+                      <ol>
+                        {section.steps.map((step) => (
+                          <li>{step}</li>
+                        ))}
+                      </ol>
+                    )}
+                    {section.important && <p class="guide-note">{section.important}</p>}
+                  </section>
+                ))}
+              </article>
+            </>
+          )}
         </div>
       ))}
     </div>
