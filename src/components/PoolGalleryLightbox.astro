@@ -85,7 +85,7 @@ const lightboxImages = galleryItems.map((image) => ({
 ---
 
 <section class="pool-section">
-  <div class="dnd-container pool-shell pool-section-shell">
+  <div class="dnd-container pool-shell pool-section-shell pool-gallery-shell">
     <div class="pool-gallery-heading">
       <h2>{galleryText.heading}</h2>
     </div>
@@ -135,7 +135,6 @@ const lightboxImages = galleryItems.map((image) => ({
         data-pool-lightbox-image
       />
       <figcaption class="pool-lightbox__meta">
-        <span data-pool-lightbox-caption></span>
         <span class="pool-lightbox__counter" data-pool-lightbox-counter></span>
       </figcaption>
     </figure>
@@ -148,7 +147,6 @@ const lightboxImages = galleryItems.map((image) => ({
     const lightbox = document.querySelector("[data-pool-lightbox]");
     const lightboxImage = document.querySelector("[data-pool-lightbox-image]");
     const lightboxCounter = document.querySelector("[data-pool-lightbox-counter]");
-    const lightboxCaption = document.querySelector("[data-pool-lightbox-caption]");
     const triggers = Array.from(document.querySelectorAll("[data-pool-gallery-trigger]"));
     const closeButtons = Array.from(document.querySelectorAll("[data-pool-lightbox-close]"));
     const prevButton = document.querySelector("[data-pool-lightbox-prev]");
@@ -172,9 +170,6 @@ const lightboxImages = galleryItems.map((image) => ({
       lightboxImage.alt = currentImage.alt;
       lightboxCounter.textContent = `${activeIndex + 1} / ${lightboxImages.length}`;
 
-      if (lightboxCaption) {
-        lightboxCaption.textContent = currentImage.caption || currentImage.title || "";
-      }
     };
 
     const openLightbox = (index) => {
@@ -240,12 +235,12 @@ const lightboxImages = galleryItems.map((image) => ({
 </script>
 
 <style>
-  .pool-shell {
-    max-width: 1120px;
-  }
-
   .pool-section {
     padding: 72px 0;
+  }
+
+  .pool-shell {
+    max-width: none;
   }
 
   .pool-section-shell {
@@ -253,9 +248,12 @@ const lightboxImages = galleryItems.map((image) => ({
     gap: 24px;
   }
 
+  .pool-section-shell.pool-gallery-shell {
+    width: min(100% - 16px, 1900px);
+  }
+
   .pool-gallery-heading {
-    display: grid;
-    justify-items: center;
+    margin-bottom: 24px;
     text-align: center;
   }
 
@@ -272,21 +270,19 @@ const lightboxImages = galleryItems.map((image) => ({
 
   .pool-gallery {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
-    background: #fff;
   }
 
   .pool-gallery-card {
-    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.04);
   }
 
   .pool-gallery-card__media {
-    overflow: hidden;
     margin: 0;
-    border-radius: 0;
-    border: 0;
-    background: #ddd5c8;
   }
 
   .pool-gallery-card__trigger {
@@ -296,7 +292,8 @@ const lightboxImages = galleryItems.map((image) => ({
     padding: 0;
     border: 0;
     background: transparent;
-    cursor: zoom-in;
+    cursor: pointer;
+    overflow: hidden;
   }
 
   .pool-gallery-card__trigger picture,
@@ -307,26 +304,32 @@ const lightboxImages = galleryItems.map((image) => ({
   }
 
   .pool-gallery-card__trigger img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
-    transition: transform 0.32s ease, filter 0.32s ease;
+    transform: scale(1);
+    transition: transform 0.42s ease, filter 0.28s ease;
   }
 
   .pool-gallery-card__hover-label {
     position: absolute;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%) translateY(8px);
-    opacity: 0;
-    padding: 8px 14px;
+    left: 14px;
+    bottom: 14px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: 1px solid rgba(253, 251, 247, 0.16);
     border-radius: 999px;
-    background: rgba(19, 12, 7, 0.68);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    background: rgba(17, 12, 9, 0.44);
+    color: rgba(253, 251, 247, 0.94);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
     text-transform: uppercase;
-    transition: opacity 0.24s ease, transform 0.24s ease;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.24s ease, transform 0.24s ease, background 0.24s ease;
     pointer-events: none;
   }
 
@@ -334,13 +337,13 @@ const lightboxImages = galleryItems.map((image) => ({
     .pool-gallery-card__trigger:hover img,
     .pool-gallery-card__trigger:focus-visible img {
       transform: scale(1.035);
-      filter: saturate(1.04);
+      filter: saturate(1.02);
     }
 
     .pool-gallery-card__trigger:hover .pool-gallery-card__hover-label,
     .pool-gallery-card__trigger:focus-visible .pool-gallery-card__hover-label {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
   }
 
@@ -382,7 +385,7 @@ const lightboxImages = galleryItems.map((image) => ({
     overflow: hidden;
     border-radius: 12px;
     background: transparent;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
   }
 
   .pool-lightbox__image {
@@ -398,25 +401,18 @@ const lightboxImages = galleryItems.map((image) => ({
     position: absolute;
     right: 16px;
     bottom: 16px;
-    left: 16px;
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
+    display: inline-flex;
+    justify-content: flex-end;
+    padding: 7px 11px;
     border: 1px solid rgba(253, 251, 247, 0.14);
     border-radius: 999px;
-    background: rgba(17, 12, 9, 0.46);
-    color: rgba(253, 251, 247, 0.92);
+    background: rgba(17, 12, 9, 0.42);
+    color: rgba(253, 251, 247, 0.88);
     font-size: var(--dnd-text-sm);
-    line-height: 1.35;
-    backdrop-filter: blur(8px);
-  }
-
-  .pool-lightbox__counter {
-    flex: 0 0 auto;
     letter-spacing: 0.08em;
+    line-height: 1.5;
     text-transform: uppercase;
+    backdrop-filter: blur(8px);
   }
 
   .pool-lightbox__close,
@@ -446,8 +442,8 @@ const lightboxImages = galleryItems.map((image) => ({
   .pool-lightbox__close:focus-visible,
   .pool-lightbox__nav:hover,
   .pool-lightbox__nav:focus-visible {
-    background: rgba(253, 251, 247, 0.15);
-    border-color: rgba(253, 251, 247, 0.28);
+    background: rgba(253, 251, 247, 0.14);
+    border-color: rgba(253, 251, 247, 0.26);
   }
 
   .pool-lightbox__close:hover,
@@ -483,6 +479,18 @@ const lightboxImages = galleryItems.map((image) => ({
     overflow: hidden;
   }
 
+  @media (max-width: 959px) {
+    .pool-gallery {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .pool-lightbox__dialog {
+      width: min(100%, 980px);
+      padding: 0 54px;
+    }
+  }
+
   @media (max-width: 767px) {
     .pool-section {
       padding: 8px 0 52px;
@@ -490,15 +498,11 @@ const lightboxImages = galleryItems.map((image) => ({
 
     .pool-gallery {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 6px;
     }
 
-    .pool-gallery-card__media {
-      border-radius: 8px;
-    }
-
-    .pool-gallery-card__trigger img {
-      aspect-ratio: 1 / 1;
+    .pool-gallery-card__hover-label {
+      display: none;
     }
 
     .pool-lightbox {
@@ -544,11 +548,10 @@ const lightboxImages = galleryItems.map((image) => ({
     }
 
     .pool-lightbox__meta {
-      right: 10px;
-      bottom: 10px;
-      left: 10px;
-      border-radius: 12px;
-      font-size: 0.74rem;
+      bottom: 12px;
+      right: 12px;
+      padding: 6px 10px;
+      font-size: var(--dnd-text-2xs);
     }
   }
 </style>
