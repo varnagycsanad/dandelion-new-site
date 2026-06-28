@@ -8,10 +8,10 @@ interface Props {
 const { lang = "hu" } = Astro.props as Props;
 const poolHighlightImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
 const poolHighlightSrcSet = [
-  "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-480-q72.webp 480w",
-  "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-640-q72.webp 640w",
-  "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-960-q72.webp 960w",
-  "/images/panorama-pool/responsive/dandelion-panorama-pool-hero-1280-q72.webp 1280w"
+  "/images/panorama-pool/responsive/panorama-pool-hero-desktop-480-2026-06-28.webp 480w",
+  "/images/panorama-pool/responsive/panorama-pool-hero-desktop-640-2026-06-28.webp 640w",
+  "/images/panorama-pool/responsive/panorama-pool-hero-desktop-960-2026-06-28.webp 960w",
+  "/images/panorama-pool/responsive/panorama-pool-hero-desktop-1280-2026-06-28.webp 1280w"
 ].join(", ");
 const poolHighlightSizes = "(max-width: 767px) calc(100vw - 72px), (max-width: 959px) calc(100vw - 96px), 46vw";
 const copyByLang = {
@@ -98,18 +98,24 @@ const copy = copyByLang[lang];
       </div>
 
       <figure class="pool-highlight__visual">
-        <img
-          src="/images/panorama-pool/responsive/dandelion-panorama-pool-hero-960-q72.webp"
-          srcset={poolHighlightSrcSet}
-          sizes={poolHighlightSizes}
-          alt={copy.imageAlt}
-          title={copy.imageTitle}
-          width="960"
-          height="720"
-          class="pool-highlight__image"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcset="/images/panorama-pool/responsive/panorama-pool-hero-mobile-960-2026-06-28.webp"
+          />
+          <img
+            src="/images/panorama-pool/responsive/panorama-pool-hero-desktop-960-2026-06-28.webp"
+            srcset={poolHighlightSrcSet}
+            sizes={poolHighlightSizes}
+            alt={copy.imageAlt}
+            title={copy.imageTitle}
+            width="960"
+            height="640"
+            class="pool-highlight__image"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="pool-highlight__visual-badge">
           <span class="pool-highlight__visual-kicker">Panorama Pool</span>
           <p>{copy.imageTitle}</p>

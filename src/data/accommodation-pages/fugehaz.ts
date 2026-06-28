@@ -163,6 +163,7 @@ export const fugehazPageData: AccommodationPageData = {
       image: fugehazPanoramaPoolHeroImage
         ? {
             src: fugehazPanoramaPoolHeroImage.src,
+            mobileSrc: fugehazPanoramaPoolHeroImage.mobileSrc,
             alt: fugehazPanoramaPoolHeroImage.altHu,
             width: 1800,
             height: 1350

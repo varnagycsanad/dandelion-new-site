@@ -159,8 +159,9 @@ export const d2GermanPageData: AccommodationPageData = {
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {
-            src: d2PanoramaPoolHeroImage.src,
-            alt: "Panorama Pool im Balaton-Oberland mit Blick auf die Hügel",
+              src: d2PanoramaPoolHeroImage.src,
+              mobileSrc: d2PanoramaPoolHeroImage.mobileSrc,
+              alt: "Panorama Pool im Balaton-Oberland mit Blick auf die Hügel",
             width: 1800,
             height: 1350
           }

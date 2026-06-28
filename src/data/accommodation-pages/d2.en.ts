@@ -161,6 +161,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       image: d2PanoramaPoolHeroImage
         ? {
             src: d2PanoramaPoolHeroImage.src,
+            mobileSrc: d2PanoramaPoolHeroImage.mobileSrc,
             alt: d2PanoramaPoolHeroImage.altEn,
             width: 1800,
             height: 1350

@@ -531,14 +531,15 @@ function resolveDecisionPanelImage(
       : never
     : never
 ) {
-  if (experience?.image) {
-    return {
-      astroSrc: null,
-      src: experience.image.src,
-      alt: experience.image.alt,
-      width: experience.image.width ?? 1600,
-      height: experience.image.height ?? 1200
-    };
+    if (experience?.image) {
+      return {
+        astroSrc: null,
+        src: experience.image.src,
+        mobileSrc: experience.image.mobileSrc,
+        alt: experience.image.alt,
+        width: experience.image.width ?? 1600,
+        height: experience.image.height ?? 1200
+      };
   }
 
   const imageKey = experience?.imageKey;
@@ -1404,25 +1405,30 @@ const accommodationStructuredData = [
               <p>{geoDecision?.lead ?? visibleDetailsSummary}</p>
               {featuredExperience && (
                 <div class="d2-decision-feature" aria-label={featuredExperience.label ?? featuredExperience.title}>
-                  {featuredExperienceImage && (
-                    <div class="d2-decision-feature__media">
-                      {featuredExperienceImage.astroSrc ? (
-                        <Image
+                    {featuredExperienceImage && (
+                      <div class="d2-decision-feature__media">
+                        {featuredExperienceImage.astroSrc ? (
+                          <Image
                           src={featuredExperienceImage.astroSrc}
                           alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
                           loading="lazy"
                         />
-                      ) : (
-                        <img
-                          src={featuredExperienceImage.src}
-                          alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
-                          width={featuredExperienceImage.width}
-                          height={featuredExperienceImage.height}
-                          loading="lazy"
-                        />
-                      )}
-                    </div>
-                  )}
+                        ) : (
+                          <picture>
+                            {"mobileSrc" in featuredExperienceImage && featuredExperienceImage.mobileSrc && (
+                              <source media="(max-width: 767px)" srcset={featuredExperienceImage.mobileSrc} />
+                            )}
+                            <img
+                              src={featuredExperienceImage.src}
+                              alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
+                              width={featuredExperienceImage.width}
+                              height={featuredExperienceImage.height}
+                              loading="lazy"
+                            />
+                          </picture>
+                        )}
+                      </div>
+                    )}
                   <div class="d2-decision-feature__copy">
                     {featuredExperience.label && <span>{featuredExperience.label}</span>}
                     <strong>{featuredExperience.title}</strong>

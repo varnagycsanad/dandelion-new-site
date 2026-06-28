@@ -162,6 +162,7 @@ export const d1PageData: AccommodationPageData = {
       image: d1PanoramaPoolHeroImage
         ? {
             src: d1PanoramaPoolHeroImage.src,
+            mobileSrc: d1PanoramaPoolHeroImage.mobileSrc,
             alt: d1PanoramaPoolHeroImage.altHu,
             width: 1800,
             height: 1350
