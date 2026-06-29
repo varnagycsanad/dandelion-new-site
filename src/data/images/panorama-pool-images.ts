@@ -557,7 +557,7 @@ const panoramaPoolImageBlueprints: Array<{
     mobileSrc: "/images/panorama-pool/mobile/panorama-pool-gallery-2026-06-28-15-mobile.webp",
     thumb: "/images/panorama-pool/thumbs/panorama-pool-gallery-2026-06-28-15-thumb.webp",
     usageHint: "gallery",
-    includeInGallery: true,
+    includeInGallery: false,
     sortOrder: 150,
     copy: {
       hu: {
