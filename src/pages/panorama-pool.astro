@@ -7,6 +7,7 @@ import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-po
 import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
+import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
 import { getPoolRulesContent } from "../data/pool-rules";
 import { buildVideoObject } from "../data/video-seo";
 
@@ -34,6 +35,21 @@ const poolVideoStructuredData = buildVideoObject({
 });
 
 const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
+  if (key === "d2") {
+    const d2CardImage = requireAccommodationLocalAssetPath(
+      "d2",
+      "card",
+      "dandelion-d2-kisapati-card-01.webp",
+      "panorama pool D2 stay card image"
+    );
+
+    return {
+      desktopSrc: d2CardImage,
+      mobileSrc: d2CardImage,
+      altHu: "Dandelion D2 fedett terasza sárga székekkel és kertkapcsolattal Kisapátiban",
+      titleHu: "Dandelion D2 terasz"
+    };
+  }
   const pageDataMap = {
     d1: d1PageData,
     d2: d2PageData,
