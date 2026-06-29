@@ -388,8 +388,8 @@ $waterLevel = level_percent($water, 15, 35);
 
     @media (max-width: 560px) {
       .dashboard {
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.92fr);
-        gap: 5px;
+        grid-template-columns: 1fr;
+        gap: 6px;
         align-items: stretch;
       }
 
@@ -398,9 +398,9 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .water-card {
-        min-height: 62px;
-        gap: 8px;
-        padding: 8px 9px;
+        min-height: 72px;
+        gap: 10px;
+        padding: 10px 11px;
         border-radius: 11px;
       }
 
@@ -415,25 +415,25 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .water-copy {
-        gap: 3px;
+        gap: 4px;
       }
 
       .water-card .label {
-        font-size: 0.5rem;
+        font-size: 0.54rem;
       }
 
       .water-card .value {
-        font-size: 1.24rem;
+        font-size: 1.42rem;
       }
 
       .note {
-        font-size: 0.54rem;
-        line-height: 1.1;
+        font-size: 0.58rem;
+        line-height: 1.15;
       }
 
       .metric-stack {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 5px;
+        gap: 6px;
       }
 
       body.is-guide .metric-stack {
@@ -441,9 +441,9 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .metric-card {
-        min-height: 62px;
-        gap: 4px;
-        padding: 6px 5px;
+        min-height: 68px;
+        gap: 5px;
+        padding: 8px 7px;
         border-radius: 11px;
       }
 
@@ -474,26 +474,26 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .metric-head {
-        min-height: 46px;
-        gap: 4px;
+        min-height: 52px;
+        gap: 5px;
       }
 
       .label {
-        font-size: 0.43rem;
+        font-size: 0.48rem;
         letter-spacing: 0.02em;
       }
 
       .metric-card .value {
-        font-size: 0.76rem;
+        font-size: 0.88rem;
       }
 
       body.is-guide .metric-card .value {
-        font-size: 0.82rem;
+        font-size: 0.88rem;
       }
 
       .metric-note {
         min-height: 1.6em;
-        font-size: 0.43rem;
+        font-size: 0.46rem;
       }
 
       .metric-head .label {
