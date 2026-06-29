@@ -5,6 +5,7 @@ import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
 import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
 import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
@@ -32,8 +33,13 @@ const stays = [
     name: "Dandelion D2",
     href: "/dandelion-d2/",
     bookingHref: d2PageData.bookingLink,
-    image: d2PageData.hero.mobileImagePath,
-    imageAlt: d2PageData.hero.fallbackAlt,
+    image: requireAccommodationLocalAssetPath(
+      "d2",
+      "card",
+      "dandelion-d2-kisapati-card-01.webp",
+      "kisapati pool landing D2 card image"
+    ),
+    imageAlt: "Dandelion D2 fedett terasza sárga székekkel és kertkapcsolattal Kisapátiban",
     label: "4-6 fő",
     title: "Családbarát vendégház nagy kerttel és fedett terasszal",
     text:
