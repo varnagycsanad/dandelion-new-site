@@ -8,6 +8,7 @@ header('Pragma: no-cache');
 $dataPath = __DIR__ . '/pool-temperature.json';
 $data = [];
 $isGuideMode = ($_GET['mode'] ?? '') === 'guide';
+$isCompactMode = ($_GET['compact'] ?? '') === '1' && !$isGuideMode;
 
 if (is_file($dataPath)) {
     $decoded = json_decode((string) file_get_contents($dataPath), true);
@@ -100,7 +101,7 @@ if ($updatedAtRaw !== '') {
 
 $metrics = [
     [
-        'label' => 'Levegő hőmérséklete',
+        'label' => 'Levegő hőfok',
         'value' => format_number($air, 1),
         'unit' => $air === null ? '' : $airUnit,
         'level' => level_percent($air, 0, 40),
@@ -118,6 +119,12 @@ $metrics = [
         'level' => level_percent($pressure, 980, 1040),
     ],
 ];
+
+if ($isCompactMode) {
+    $metrics = array_slice($metrics, 0, 2);
+    $metrics[0]['label'] = 'levegő';
+    $metrics[1]['label'] = 'páratartalom';
+}
 
 if ($isGuideMode) {
     $metrics = array_merge($metrics, [
@@ -245,6 +252,16 @@ $waterLevel = level_percent($water, 15, 35);
 
     body.is-guide .metric-stack {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.is-compact .dashboard {
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.8fr) minmax(0, 0.8fr);
+      gap: 6px;
+    }
+
+    body.is-compact .metric-stack {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
     }
 
     .metric-card {
@@ -386,6 +403,75 @@ $waterLevel = level_percent($water, 15, 35);
       min-height: 2.84em;
     }
 
+    body.is-compact .water-card,
+    body.is-compact .metric-card {
+      min-height: 60px;
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+
+    body.is-compact .water-card {
+      gap: 10px;
+    }
+
+    body.is-compact .water-gauge {
+      flex-basis: 28px;
+      width: 28px;
+    }
+
+    body.is-compact .water-gauge::after {
+      width: 5px;
+      box-shadow: 0 0 0 2px rgba(125, 236, 255, 0.14), 0 0 6px rgba(47, 214, 255, 0.8);
+    }
+
+    body.is-compact .water-copy,
+    body.is-compact .metric-head {
+      gap: 2px;
+    }
+
+    body.is-compact .water-copy {
+      min-width: 0;
+    }
+
+    body.is-compact .label {
+      font-size: 0.48rem;
+      font-weight: 760;
+      letter-spacing: 0.01em;
+      line-height: 1.02;
+      text-transform: none;
+    }
+
+    body.is-compact .water-card .label {
+      font-size: 0.5rem;
+    }
+
+    body.is-compact .water-card .value {
+      font-size: 1rem;
+    }
+
+    body.is-compact .metric-card .value {
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    body.is-compact .metric-head {
+      min-height: 0;
+    }
+
+    body.is-compact .metric-head .label,
+    body.is-compact .metric-card:first-child .label {
+      max-width: none;
+      min-height: 0;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.05;
+    }
+
+    body.is-compact .note,
+    body.is-compact .metric-note {
+      display: none;
+    }
+
     @media (max-width: 560px) {
       .dashboard {
         grid-template-columns: 1fr;
@@ -398,15 +484,17 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .water-card {
-        min-height: 72px;
-        gap: 10px;
-        padding: 10px 11px;
+        min-height: 98px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 14px;
         border-radius: 11px;
       }
 
       .water-gauge {
-        flex-basis: 34px;
-        width: 34px;
+        flex-basis: 30px;
+        width: 30px;
       }
 
       .water-gauge::after {
@@ -416,10 +504,13 @@ $waterLevel = level_percent($water, 15, 35);
 
       .water-copy {
         gap: 4px;
+        justify-items: center;
+        text-align: center;
       }
 
       .water-card .label {
         font-size: 0.54rem;
+        line-height: 1;
       }
 
       .water-card .value {
@@ -427,8 +518,7 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .note {
-        font-size: 0.58rem;
-        line-height: 1.15;
+        display: none;
       }
 
       .metric-stack {
@@ -441,9 +531,9 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .metric-card {
-        min-height: 68px;
-        gap: 5px;
-        padding: 8px 7px;
+        min-height: 78px;
+        gap: 6px;
+        padding: 10px 9px;
         border-radius: 11px;
       }
 
@@ -474,17 +564,19 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .metric-head {
-        min-height: 52px;
-        gap: 5px;
+        min-height: 58px;
+        gap: 6px;
       }
 
       .label {
-        font-size: 0.48rem;
-        letter-spacing: 0.02em;
+        font-size: 0.53rem;
+        letter-spacing: 0.015em;
+        line-height: 1.12;
       }
 
       .metric-card .value {
-        font-size: 0.88rem;
+        font-size: 1.08rem;
+        line-height: 1;
       }
 
       body.is-guide .metric-card .value {
@@ -497,23 +589,61 @@ $waterLevel = level_percent($water, 15, 35);
       }
 
       .metric-head .label {
-        max-width: 11ch;
+        max-width: none;
         min-height: 2.24em;
+        align-items: center;
       }
 
       .metric-card:first-child .label {
-        line-height: 1.28;
-        min-height: 2.56em;
+        line-height: 1.12;
+        min-height: 2.24em;
+      }
+
+      body.is-compact .dashboard {
+        grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.82fr) minmax(0, 0.82fr);
+        gap: 5px;
+      }
+
+      body.is-compact .metric-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      body.is-compact .water-card,
+      body.is-compact .metric-card {
+        min-height: 56px;
+        padding: 7px 8px;
+      }
+
+      body.is-compact .water-card {
+        gap: 8px;
+      }
+
+      body.is-compact .water-gauge {
+        flex-basis: 24px;
+        width: 24px;
+      }
+
+      body.is-compact .label {
+        font-size: 0.42rem;
+      }
+
+      body.is-compact .water-card .value {
+        font-size: 0.9rem;
+      }
+
+      body.is-compact .metric-card .value {
+        font-size: 0.8rem;
       }
     }
   </style>
 </head>
-<body class="<?= $isGuideMode ? 'is-guide' : ''; ?>">
+<body class="<?= trim(($isGuideMode ? 'is-guide ' : '') . ($isCompactMode ? 'is-compact' : '')); ?>">
   <div class="dashboard" aria-label="Panorama Pool aktuális mérések">
     <article class="water-card">
       <span class="water-gauge" style="--level: <?= h((string) $waterLevel); ?>%;" aria-hidden="true"></span>
       <div class="water-copy">
-        <span class="label">Medencevíz</span>
+        <span class="label"><?= $isCompactMode ? 'víz hőmérséklet' : 'Medencevíz'; ?></span>
         <strong class="value">
           <?= h(format_number($water, 1)); ?><?php if ($water !== null): ?><span class="unit"><?= h($waterUnit); ?></span><?php endif; ?>
         </strong>

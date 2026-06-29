@@ -50,6 +50,7 @@ const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
       titleHu: "Dandelion D2 terasz"
     };
   }
+
   const pageDataMap = {
     d1: d1PageData,
     d2: d2PageData,
@@ -75,19 +76,25 @@ const stays = [
     title: "Dandelion D1",
     href: resolveHref("/dandelion-d1/"),
     image: getStayImage("d1"),
-    description: "3 hálószoba + nappali, akár 8 fő. Légkondicionált, pergola, 2 fürdőszoba."
+    description: "3 hálószoba + nappali, akár 8 fő. Légkondicionált, pergola, 2 fürdőszoba.",
+    location: "Kisapáti / Balaton-felvidék",
+    highlights: ["6-8 fő", "3 szoba + nappali"]
   },
   {
     title: "Dandelion D2",
     href: resolveHref("/dandelion-d2/"),
     image: getStayImage("d2"),
-    description: "4-6 főnek kényelmes. Légkondicionált, nagy terasz és udvar."
+    description: "4-6 főnek kényelmes. Légkondicionált, nagy terasz és udvar.",
+    location: "Kisapáti / Balaton-felvidék",
+    highlights: ["4-6 fő", "2 háló + nappali"]
   },
   {
     title: "Fügeház",
     href: resolveHref("/fuge/"),
     image: getStayImage("fugehaz"),
-    description: "4 főre kényelmes, pótággyal akár 6 fő. Légkondicionált, terasz a tanúhegyekre."
+    description: "4 főre kényelmes, pótággyal akár 6 fő. Légkondicionált, terasz a tanúhegyekre.",
+    location: "Szent György-hegy közelében",
+    highlights: ["4-6 fő", "2 szint / 2 szoba"]
   }
 ];
 
@@ -164,10 +171,27 @@ const poolRulesContent = getPoolRulesContent("hu");
           <iframe
             class="pool-live-frame"
             src={poolLiveWidgetSrc}
+            data-src-default={poolLiveWidgetSrc}
+            data-src-compact={`${poolLiveWidgetSrc}${poolLiveWidgetSrc.includes("?") ? "&" : "?"}compact=1`}
             title="Panorama Pool aktuális mérések"
             loading="lazy"
             scrolling="no"
           ></iframe>
+
+          <div class="pool-live-compact" aria-hidden="true">
+            <div class="pool-live-compact__item pool-live-compact__item--water">
+              <span class="pool-live-compact__label">víz hőmérséklet</span>
+              <strong data-pool-compact-value="temperature">Hamarosan</strong>
+            </div>
+            <div class="pool-live-compact__item">
+              <span class="pool-live-compact__label">levegő</span>
+              <strong data-pool-compact-value="air">Hamarosan</strong>
+            </div>
+            <div class="pool-live-compact__item">
+              <span class="pool-live-compact__label">páratartalom</span>
+              <strong data-pool-compact-value="humidity">Hamarosan</strong>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -188,10 +212,13 @@ const poolRulesContent = getPoolRulesContent("hu");
           <h2 id="pool-geo-faq-title">Amit a Panorama Poolról érdemes tudni.</h2>
           <div class="pool-geo-faq__list">
             {poolGeoFaqItems.map((item) => (
-              <article class="pool-geo-faq__item">
-                <h3>{item.question}</h3>
+              <details class="pool-geo-faq__item">
+                <summary>
+                  <h3>{item.question}</h3>
+                  <span class="pool-geo-faq__toggle">Válasz</span>
+                </summary>
                 <p>{item.answer}</p>
-              </article>
+              </details>
             ))}
           </div>
         </aside>
@@ -219,7 +246,14 @@ const poolRulesContent = getPoolRulesContent("hu");
               </figure>
               <div class="pool-stay-card__body">
                 <h3>{stay.title}</h3>
+                <span class="pool-stay-card__location">{stay.location}</span>
+                <div class="pool-stay-card__highlights" aria-label={`${stay.title} jellemzői`}>
+                  {stay.highlights.map((highlight) => (
+                    <span class="pool-stay-card__chip">{highlight}</span>
+                  ))}
+                </div>
                 <p>{stay.description}</p>
+                <span class="pool-stay-card__cta">Részletek megtekintése</span>
               </div>
             </a>
           ))}
@@ -251,6 +285,18 @@ const poolRulesContent = getPoolRulesContent("hu");
         }
       };
 
+      const applyPoolLiveCompactState = () => {
+        const liveSection = document.querySelector(".pool-section--live");
+        const liveFrame = liveSection ? liveSection.querySelector(".pool-live-frame") : null;
+        const heroSection = document.querySelector(".pool-page .dnd-hero");
+        if (!liveSection || !liveFrame) return;
+
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom : Number.POSITIVE_INFINITY;
+        const shouldCompact = isMobile && heroBottom <= 72;
+        liveSection.classList.toggle("is-compact", shouldCompact);
+      };
+
       const refreshIntervalMs = 5 * 60 * 1000;
 
       const updatePoolTemperature = async () => {
@@ -258,6 +304,9 @@ const poolRulesContent = getPoolRulesContent("hu");
         const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
         const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature]") : null;
         const updatedNode = widget ? widget.querySelector("[data-pool-temperature-updated]") : null;
+        const compactTemperatureNode = document.querySelector("[data-pool-compact-value='temperature']");
+        const compactAirNode = document.querySelector("[data-pool-compact-value='air']");
+        const compactHumidityNode = document.querySelector("[data-pool-compact-value='humidity']");
         const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
         const fallbackText = "Hamarosan";
         const buildEndpointUrl = () => {
@@ -318,6 +367,9 @@ const poolRulesContent = getPoolRulesContent("hu");
           if (valueNode) {
             valueNode.textContent = `${formattedTemperature} ${unit}`;
           }
+          if (compactTemperatureNode) {
+            compactTemperatureNode.textContent = `${formattedTemperature} ${unit}`;
+          }
           if (Number.isFinite(airTemperature)) {
             if (widget) {
               widget.classList.add("has-air-temperature");
@@ -326,6 +378,9 @@ const poolRulesContent = getPoolRulesContent("hu");
               airValueNode.textContent = `Levegő: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
             }
+            if (compactAirNode) {
+              compactAirNode.textContent = `${formattedAirTemperature} ${airUnit}`;
+            }
           } else {
             if (widget) {
               widget.classList.remove("has-air-temperature");
@@ -333,6 +388,19 @@ const poolRulesContent = getPoolRulesContent("hu");
             if (airValueNode) {
               airValueNode.setAttribute("hidden", "");
             }
+            if (compactAirNode) {
+              compactAirNode.textContent = fallbackText;
+            }
+          }
+
+          const rawHumidity = data.humidity;
+          const humidity =
+            typeof rawHumidity === "number" || typeof rawHumidity === "string" ? Number(rawHumidity) : Number.NaN;
+          const humidityUnit = typeof data.humidityUnit === "string" && data.humidityUnit.trim() ? data.humidityUnit.trim() : "%";
+          if (compactHumidityNode) {
+            compactHumidityNode.textContent = Number.isFinite(humidity)
+              ? `${formatMeasurement(humidity, "hu-HU", { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ${humidityUnit}`
+              : fallbackText;
           }
 
           if (updatedNode) {
@@ -353,9 +421,12 @@ const poolRulesContent = getPoolRulesContent("hu");
             widget.classList.remove("has-air-temperature");
           }
           if (valueNode) valueNode.textContent = fallbackText;
+          if (compactTemperatureNode) compactTemperatureNode.textContent = fallbackText;
           if (airValueNode) {
             airValueNode.setAttribute("hidden", "");
           }
+          if (compactAirNode) compactAirNode.textContent = fallbackText;
+          if (compactHumidityNode) compactHumidityNode.textContent = fallbackText;
           if (updatedNode) {
             updatedNode.setAttribute("hidden", "");
           }
@@ -367,17 +438,23 @@ const poolRulesContent = getPoolRulesContent("hu");
           "DOMContentLoaded",
           () => {
             applyPoolHeaderState();
+            applyPoolLiveCompactState();
             updatePoolTemperature();
             window.setInterval(updatePoolTemperature, refreshIntervalMs);
             window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
+            window.addEventListener("scroll", applyPoolLiveCompactState, { passive: true });
+            window.addEventListener("resize", applyPoolLiveCompactState, { passive: true });
           },
           { once: true }
         );
       } else {
         applyPoolHeaderState();
+        applyPoolLiveCompactState();
         updatePoolTemperature();
         window.setInterval(updatePoolTemperature, refreshIntervalMs);
         window.addEventListener("scroll", applyPoolHeaderState, { passive: true });
+        window.addEventListener("scroll", applyPoolLiveCompactState, { passive: true });
+        window.addEventListener("resize", applyPoolLiveCompactState, { passive: true });
       }
     })();
   </script>
@@ -723,6 +800,16 @@ const poolRulesContent = getPoolRulesContent("hu");
     height: 96px;
     border: 0;
     background: transparent;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transform-origin: top center;
+    transition:
+      opacity 0.24s ease,
+      transform 0.28s ease;
+  }
+
+  .pool-live-compact {
+    display: none;
   }
 
   .pool-section--faq {
@@ -763,8 +850,28 @@ const poolRulesContent = getPoolRulesContent("hu");
   }
 
   .pool-geo-faq__item {
-    padding-top: 14px;
-    border-top: 1px solid rgba(90, 67, 41, 0.12);
+    overflow: hidden;
+    border: 1px solid rgba(36, 122, 131, 0.1);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 6px 14px rgba(36, 122, 131, 0.035);
+  }
+
+  .pool-geo-faq__item summary {
+    display: grid;
+    gap: 9px;
+    padding: 13px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .pool-geo-faq__item summary::marker {
+    display: none;
+    content: "";
+  }
+
+  .pool-geo-faq__item summary::-webkit-details-marker {
+    display: none;
   }
 
   .pool-geo-faq__item h3 {
@@ -775,8 +882,30 @@ const poolRulesContent = getPoolRulesContent("hu");
     line-height: 1.25;
   }
 
+  .pool-geo-faq__toggle {
+    display: flex;
+    min-height: 18px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: rgba(36, 122, 131, 0.09);
+    color: rgba(36, 122, 131, 0.74);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+
+  .pool-geo-faq__item[open] .pool-geo-faq__toggle {
+    background: rgba(36, 122, 131, 0.14);
+    color: rgba(26, 89, 96, 0.9);
+  }
+
   .pool-geo-faq__item p {
-    margin: 6px 0 0;
+    margin: 0;
+    padding: 0 13px 13px;
     color: rgba(68, 53, 39, 0.78);
     font-size: var(--dnd-text-sm);
     line-height: 1.45;
@@ -891,6 +1020,47 @@ const poolRulesContent = getPoolRulesContent("hu");
     line-height: 1.24;
     letter-spacing: 0.07em;
     text-transform: uppercase;
+  }
+
+  .pool-stay-card__location {
+    color: #7b6f63;
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .pool-stay-card__highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pool-stay-card__chip {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(246, 240, 228, 0.92);
+    color: #4b5563;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  .pool-stay-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #b06200;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .pool-stay-card__cta::after {
+    content: "→";
+    font-size: var(--dnd-text-body);
+    line-height: 1;
   }
 
   .pool-gallery {
@@ -1093,11 +1263,132 @@ const poolRulesContent = getPoolRulesContent("hu");
     }
 
     .pool-live-frame {
-      height: 150px;
+      height: 186px;
+    }
+
+    .pool-section--live.is-compact {
+      padding: 4px 0 8px;
+    }
+
+    .pool-section--live.is-compact .pool-live-panel {
+      gap: 5px;
+      padding: 8px;
+    }
+
+    .pool-section--live.is-compact .pool-live-panel .pool-eyebrow {
+      font-size: 0.56rem;
+    }
+
+    .pool-section--live.is-compact .pool-live-frame {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.985);
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    .pool-section--live.is-compact .pool-live-compact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr));
+      gap: 5px;
+      animation: poolLiveCompactIn 0.28s ease;
+    }
+
+    .pool-live-compact__item {
+      display: grid;
+      min-height: 56px;
+      gap: 2px;
+      align-content: center;
+      justify-items: center;
+      padding: 7px 8px;
+      border: 1px solid rgba(75, 183, 255, 0.22);
+      border-radius: 10px;
+      background:
+        linear-gradient(180deg, rgba(8, 39, 65, 0.96), rgba(5, 24, 42, 0.96)),
+        #061827;
+      box-shadow: inset 0 0 0 1px rgba(116, 207, 255, 0.06);
+      text-align: center;
+    }
+
+    .pool-live-compact__item--water {
+      justify-items: start;
+      padding-inline: 10px;
+      text-align: left;
+    }
+
+    .pool-live-compact__label {
+      color: #79cfff;
+      font-size: 0.42rem;
+      font-weight: 760;
+      letter-spacing: 0.01em;
+      line-height: 1.04;
+      text-transform: none;
+    }
+
+    .pool-live-compact__item strong {
+      color: #f4fbff;
+      font-size: 0.8rem;
+      font-weight: 820;
+      line-height: 1;
     }
 
     .pool-geo-faq h2 {
-      font-size: 1.36rem;
+      font-size: 1.18rem;
+      line-height: 1.16;
+    }
+
+    .pool-info-layout .pool-geo-faq {
+      gap: 8px;
+      padding: 9px;
+      border-radius: 10px;
+    }
+
+    .pool-geo-faq__list {
+      display: grid !important;
+      gap: 8px;
+      margin-top: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .pool-geo-faq__item {
+      display: block;
+      min-height: 0;
+    }
+
+    .pool-geo-faq__item summary {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 62px;
+      gap: 7px;
+      padding: 10px 11px;
+      align-content: start;
+    }
+
+    .pool-geo-faq__item h3 {
+      font-size: 0.76rem;
+      line-height: 1.22;
+    }
+
+    .pool-geo-faq__item p {
+      padding: 0 11px 12px;
+      font-size: 0.76rem;
+      line-height: 1.42;
+    }
+
+    .pool-geo-faq__toggle {
+      display: flex;
+      width: 100%;
+      min-height: 17px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      background: rgba(36, 122, 131, 0.09);
+      color: rgba(36, 122, 131, 0.74);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
     }
 
     .pool-section {
@@ -1109,11 +1400,11 @@ const poolRulesContent = getPoolRulesContent("hu");
     }
 
     .pool-section.pool-section--live {
-      padding: 6px 0;
+      padding: 6px 0 14px;
     }
 
     .pool-section--intro {
-      padding-top: 46px;
+      padding-top: 64px;
     }
 
     .pool-section--intro .pool-shell {
@@ -1203,6 +1494,19 @@ const poolRulesContent = getPoolRulesContent("hu");
       aspect-ratio: 1 / 1;
     }
 
+    .pool-stays {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pool-stay-card:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .pool-stay-card:first-child .pool-stay-card__media img {
+      aspect-ratio: 16 / 8.5;
+    }
+
     .pool-stay-card,
     .pool-closing {
       padding: 20px;
@@ -1215,24 +1519,67 @@ const poolRulesContent = getPoolRulesContent("hu");
     .pool-stay-card__body {
       min-height: auto;
       gap: 6px;
-      justify-items: center;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .pool-stay-card:first-child .pool-stay-card__body {
       padding: 12px 12px 14px;
+      justify-items: center;
       text-align: center;
+    }
+
+    .pool-stay-card:first-child h3,
+    .pool-stay-card:first-child .pool-stay-card__location,
+    .pool-stay-card:first-child .pool-stay-card__cta {
+      text-align: center;
+      justify-self: center;
+    }
+
+    .pool-stay-card:first-child .pool-stay-card__highlights {
+      justify-content: center;
     }
 
     .pool-stay-card h3 {
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      line-height: 1.18;
-      text-align: center;
+      font-family: var(--dnd-font-body);
+      font-size: var(--dnd-text-sm);
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.22;
+      text-transform: none;
+      text-align: left;
     }
 
-    .pool-stay-card p {
-      max-width: 28ch;
-      margin-inline: auto;
-      font-size: 0.86rem;
-      line-height: 1.5;
-      text-align: center;
+    .pool-stay-card .pool-stay-card__location {
+      overflow: hidden;
+      font-size: var(--dnd-text-2xs);
+      line-height: 1.25;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pool-stay-card .pool-stay-card__highlights {
+      gap: 5px;
+    }
+
+    .pool-stay-card .pool-stay-card__chip {
+      padding: 4px 6px;
+      font-size: var(--dnd-text-2xs);
+    }
+
+    .pool-stay-card .pool-stay-card__body > p {
+      display: none;
+    }
+
+    .pool-stay-card .pool-stay-card__cta {
+      display: inline-flex;
+      margin-top: 2px;
+      color: #b06200;
+      font-size: var(--dnd-text-2xs);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+      text-transform: uppercase;
     }
   }
 
@@ -1242,7 +1589,23 @@ const poolRulesContent = getPoolRulesContent("hu");
     }
 
     .pool-live-frame {
-      height: 144px;
+      height: 180px;
+    }
+
+    .pool-section--live.is-compact .pool-live-compact {
+      grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 0.92fr));
+    }
+
+    @keyframes poolLiveCompactIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px) scale(0.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
   }
 </style>
