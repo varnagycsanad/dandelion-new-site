@@ -1,0 +1,413 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PoolRulesSection from "../components/PoolRulesSection.astro";
+import { getPoolRulesContent } from "../data/pool-rules";
+
+const pageTitle = "Panorama Pool - vendéginformációk | Dandelion";
+const description =
+  "QR-kóddal megnyitható medenceoldal: aktuális vízhőmérséklet, használati segítségek, rövid szabályok és teljes medencehasználati szabályzat.";
+const poolLiveWidgetSrc = import.meta.env.DEV
+  ? "http://127.0.0.1:8091/api/pool-live-widget.php?mode=guide"
+  : "/api/pool-live-widget.php?mode=guide";
+const rulesContent = getPoolRulesContent("hu");
+
+const quickRules = [
+  "Nyitvatartás: minden nap 10:00-21:00.",
+  "A medence használata saját felelősségre történik, úszómester nincs.",
+  "Gyermek csak felnőtt felügyelete mellett lehet a medencénél.",
+  "Zuhanyzás használat előtt kötelező.",
+  "Ugrálni, fejest ugrani, futni és lökdösődni tilos.",
+  "Üveget, ételt és törékeny tárgyat ne vigyetek a medence közelébe.",
+  "Vihar, villámlás vagy erős szél esetén a medencét azonnal hagyjátok el.",
+  "Utolsó esti használat után a medencefedést vissza kell húzni."
+];
+
+const helpSteps = [
+  {
+    title: "Fürdés előtt",
+    text:
+      "Nézzétek meg a vízhőmérsékletet, zuhanyozzatok le, és ellenőrizzétek, hogy az időjárás biztonságos-e."
+  },
+  {
+    title: "Fürdés közben",
+    text:
+      "Figyeljetek egymásra, gyereket ne hagyjatok felügyelet nélkül, és kerüljétek a csúszós, rohanós mozgást."
+  },
+  {
+    title: "Ha valami gond van",
+    text:
+      "Szennyeződés, sérülés, rosszullét vagy hibás medencefedés esetén azonnal szóljatok a szállásadónak."
+  },
+  {
+    title: "Távozás előtt",
+    text:
+      "Vigyétek magatokkal a saját holmikatokat, hagyjatok rendet, és utolsó esti használat után húzzátok vissza a fedést."
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  canonicalPath="/medence/"
+  noindex={true}
+  hideHeader={true}
+  hideFooter={true}
+>
+  <main class="pool-qr-page">
+    <section class="pool-qr-hero">
+      <picture class="pool-qr-hero__media">
+        <source
+          media="(max-width: 640px)"
+          srcset="/images/panorama-pool/responsive/panorama-pool-hero-mobile-960-2026-06-28.webp"
+        />
+        <img
+          src="/images/panorama-pool/responsive/panorama-pool-hero-desktop-1280-2026-06-28.webp"
+          alt="Panorama Pool medence a Dandelion vendégek számára"
+          width="1280"
+          height="853"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+
+      <div class="pool-qr-hero__overlay"></div>
+
+      <div class="pool-qr-hero__content">
+        <p class="pool-qr-eyebrow">Dandelion vendégoldal</p>
+        <h1>Panorama Pool</h1>
+        <p class="pool-qr-hero__lead">
+          Minden fontos információ egy helyen: aktuális adatok, rövid szabályok, használati segítség
+          és a teljes medence ÁSZF.
+        </p>
+        <div class="pool-qr-hero__chips" aria-label="Medence gyors információk">
+          <span>10:00-21:00</span>
+          <span>kb. 130 cm mély</span>
+          <span>D1 · D2 · Fügeház vendégeknek</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section pool-qr-section--live" aria-labelledby="pool-live-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">Aktuális adatok</p>
+          <h2 id="pool-live-title">Medence- és időjárásadatok most</h2>
+          <p>Víz, levegő, páratartalom és egyéb friss mérések a fürdés előtti gyors döntéshez.</p>
+        </div>
+
+        <div class="pool-qr-live-card">
+          <iframe
+            class="pool-qr-live-frame"
+            src={poolLiveWidgetSrc}
+            title="Panorama Pool aktuális mérések"
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-summary-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">Röviden</p>
+          <h2 id="pool-summary-title">Medence ÁSZF kivonat</h2>
+          <p>A legfontosabb szabályok, amiket érdemes gyorsan átfutni fürdés előtt.</p>
+        </div>
+
+        <ul class="pool-qr-summary-list">
+          {quickRules.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-help-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">Használati segítség</p>
+          <h2 id="pool-help-title">Mit érdemes csinálni lépésről lépésre?</h2>
+          <p>Egyszerű segítség ahhoz, hogy a medencehasználat kényelmes és biztonságos maradjon.</p>
+        </div>
+
+        <div class="pool-qr-help-grid">
+          {helpSteps.map((step, index) => (
+            <article class="pool-qr-help-card">
+              <span class="pool-qr-help-card__index">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-practical-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">Gyakorlati tudnivalók</p>
+          <h2 id="pool-practical-title">Amit még jó tudni a medencénél</h2>
+        </div>
+
+        <div class="pool-qr-practical-grid">
+          <article>
+            <h3>Ki használhatja?</h3>
+            <p>A Panorama Pool a Dandelion D1, Dandelion D2 és Fügeház vendégei számára elérhető a szezonban.</p>
+          </article>
+          <article>
+            <h3>Biztonság</h3>
+            <p>A medence nem ugrómedence. Gyermekekért mindig a velük érkező felnőtt felel.</p>
+          </article>
+          <article>
+            <h3>Időjárás</h3>
+            <p>Villámlás, vihar vagy erős szél esetén a medencét ne használjátok, a napernyőt pedig csukjátok le.</p>
+          </article>
+          <article>
+            <h3>Medencefedés</h3>
+            <p>Ha a fedés akad vagy nem mozog rendesen, ne erőltessétek, hanem szóljatok a szállásadónak.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <PoolRulesSection content={rulesContent} />
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    background:
+      radial-gradient(circle at top, rgba(150, 210, 222, 0.34), transparent 34%),
+      linear-gradient(180deg, #eef7f7 0%, #f8f4ec 52%, #ffffff 100%);
+  }
+
+  .pool-qr-page {
+    min-height: 100vh;
+    color: #1f2f2c;
+    padding-bottom: 44px;
+  }
+
+  .pool-qr-hero {
+    position: relative;
+    min-height: 460px;
+    overflow: hidden;
+    background: #133238;
+    color: #fffdf8;
+  }
+
+  .pool-qr-hero__media,
+  .pool-qr-hero__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pool-qr-hero__media img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .pool-qr-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(6, 24, 28, 0.24), rgba(6, 24, 28, 0.62)),
+      linear-gradient(120deg, rgba(15, 81, 95, 0.4), transparent 54%);
+  }
+
+  .pool-qr-hero__content,
+  .pool-qr-shell {
+    width: min(100% - 28px, 860px);
+    margin: 0 auto;
+  }
+
+  .pool-qr-hero__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 14px;
+    padding: 84px 0 64px;
+  }
+
+  .pool-qr-eyebrow {
+    margin: 0;
+    color: #4b8d98;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-hero .pool-qr-eyebrow {
+    color: #98dcea;
+  }
+
+  .pool-qr-hero h1,
+  .pool-qr-section-head h2,
+  .pool-qr-help-card h3,
+  .pool-qr-practical-grid h3 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+  }
+
+  .pool-qr-hero h1 {
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    line-height: 0.94;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-hero__lead,
+  .pool-qr-section-head p,
+  .pool-qr-help-card p,
+  .pool-qr-practical-grid p,
+  .pool-qr-summary-list li {
+    margin: 0;
+    font-size: var(--dnd-text-base);
+    line-height: 1.65;
+  }
+
+  .pool-qr-hero__lead {
+    max-width: 680px;
+    color: rgba(255, 252, 246, 0.9);
+  }
+
+  .pool-qr-hero__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pool-qr-hero__chips span {
+    padding: 9px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fffdf8;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.3;
+    backdrop-filter: blur(8px);
+  }
+
+  .pool-qr-section {
+    padding-top: 28px;
+  }
+
+  .pool-qr-section-head {
+    display: grid;
+    gap: 10px;
+    max-width: 700px;
+    margin-bottom: 18px;
+  }
+
+  .pool-qr-section-head h2 {
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    line-height: 1.08;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1f2a24;
+  }
+
+  .pool-qr-section-head p {
+    color: rgba(31, 47, 44, 0.76);
+  }
+
+  .pool-qr-live-card,
+  .pool-qr-summary-list li,
+  .pool-qr-help-card,
+  .pool-qr-practical-grid article {
+    border: 1px solid rgba(70, 100, 93, 0.12);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 244, 238, 0.96)),
+      #fff;
+    box-shadow: 0 18px 40px rgba(35, 45, 39, 0.08);
+  }
+
+  .pool-qr-live-card {
+    padding: 10px;
+    background:
+      radial-gradient(circle at top left, rgba(58, 171, 224, 0.18), transparent 28%),
+      linear-gradient(135deg, rgba(10, 32, 43, 0.98), rgba(9, 46, 68, 0.96));
+    border-color: rgba(122, 198, 255, 0.18);
+  }
+
+  .pool-qr-live-frame {
+    display: block;
+    width: 100%;
+    height: 660px;
+    border: 0;
+    background: transparent;
+  }
+
+  .pool-qr-summary-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pool-qr-summary-list li {
+    padding: 16px 18px;
+    color: #2f3933;
+    font-size: var(--dnd-text-sm);
+  }
+
+  .pool-qr-help-grid,
+  .pool-qr-practical-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pool-qr-help-card,
+  .pool-qr-practical-grid article {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .pool-qr-help-card__index {
+    color: #c28f2d;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .pool-qr-help-card h3,
+  .pool-qr-practical-grid h3 {
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    color: #28332d;
+  }
+
+  .pool-qr-help-card p,
+  .pool-qr-practical-grid p {
+    color: rgba(31, 47, 44, 0.78);
+    font-size: var(--dnd-text-sm);
+  }
+
+  @media (max-width: 767px) {
+    .pool-qr-hero {
+      min-height: 400px;
+    }
+
+    .pool-qr-hero__content {
+      padding: 68px 0 46px;
+    }
+
+    .pool-qr-live-frame {
+      height: 500px;
+    }
+
+    .pool-qr-help-grid,
+    .pool-qr-practical-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
