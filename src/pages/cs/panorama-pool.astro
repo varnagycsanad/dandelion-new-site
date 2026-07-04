@@ -1,11 +1,5 @@
 ---
-import PoolGuidePage from "../../components/PoolGuidePage.astro";
-import { getPoolRulesContent } from "../../data/pool-rules";
-import { poolGuideContentByLocale } from "../../data/pool-guide-content";
-
-const locale = "cs";
-const content = poolGuideContentByLocale[locale];
-const rulesContent = getPoolRulesContent(locale);
+import PanoramaPoolPage from "../panorama-pool.astro";
 ---
 
-<PoolGuidePage content={content} rulesContent={rulesContent} />
+<PanoramaPoolPage />

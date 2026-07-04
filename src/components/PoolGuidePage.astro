@@ -48,21 +48,13 @@ type PoolGuideContent = {
   stormFallbackText: string;
   radarEyebrow: string;
   radarTitle: string;
-  radarText: string;
-  radarAction: string;
+  forecastTitle: string;
+  forecastLoadingText: string;
   whatsappAlt: string;
   googleAlt: string;
   safetyCardLabel: string;
   safetyValue: string;
   safetyMeta: string;
-  primaryActionLabel: string;
-  secondaryActionLabel: string;
-  heroNoteStrong: string;
-  heroNoteText: string;
-  liveEyebrow: string;
-  liveTitle: string;
-  liveText: string;
-  liveFrameTitle: string;
   summaryEyebrow: string;
   summaryTitle: string;
   summaryText: string;
@@ -100,14 +92,15 @@ const {
   rulesContent: unknown;
 } = Astro.props;
 
-const poolLiveWidgetSrc = import.meta.env.DEV
-  ? "http://127.0.0.1:8091/api/pool-live-widget.php?mode=guide"
-  : "/api/pool-live-widget.php?mode=guide";
-const kisapatiLatitude = "46.8662";
-const kisapatiLongitude = "17.4583";
+const tapolcaLatitude = "46.8826";
+const tapolcaLongitude = "17.4412";
 const whatsappHref = "https://wa.me/36207730807";
 const googleReviewHref = "https://g.page/r/CeSF0sgReF3QEBM/review";
-const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapatiLongitude},10`;
+const radarEmbedSrc =
+  `https://embed.windy.com/embed2.html?lat=${tapolcaLatitude}&lon=${tapolcaLongitude}` +
+  "&zoom=10&level=surface&overlay=radar&product=radar&menu=&message=&marker=&calendar=now" +
+  `&location=coordinates&detail=&detailLat=${tapolcaLatitude}&detailLon=${tapolcaLongitude}` +
+  "&metricWind=default&metricTemp=default&radarRange=-1";
 ---
 
 <BaseLayout
@@ -159,7 +152,7 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
 
         <p class="pool-qr-hero__lead">{content.lead}</p>
 
-        <div class="pool-qr-hero__facts" aria-label="Legfontosabb medence információk">
+        <div class="pool-qr-hero__facts">
           <article
             class="pool-qr-hero-card pool-qr-hero-card--temperature"
             data-pool-temperature
@@ -213,19 +206,6 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
                 </span>
               </div>
             </div>
-            <div class="pool-qr-radar-card">
-              <span class="pool-qr-weather-alert__eyebrow">{content.radarEyebrow}</span>
-              <strong class="pool-qr-radar-card__title">{content.radarTitle}</strong>
-              <p class="pool-qr-radar-card__text">{content.radarText}</p>
-              <a
-                href={radarMapHref}
-                class="pool-qr-radar-card__action"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {content.radarAction}
-              </a>
-            </div>
             <div class="pool-qr-quick-links">
               <a
                 href={whatsappHref}
@@ -275,39 +255,25 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
           </article>
         </div>
 
-        <div class="pool-qr-hero__actions">
-          <a href="#pool-live-title" class="pool-qr-hero__action pool-qr-hero__action--primary">
-            {content.primaryActionLabel}
-          </a>
-          <a href="#medencehasznalati-szabalyok" class="pool-qr-hero__action">
-            {content.secondaryActionLabel}
-          </a>
+        <div class="pool-qr-radar-card">
+          <span class="pool-qr-weather-alert__eyebrow">{content.radarEyebrow}</span>
+          <strong class="pool-qr-radar-card__title">{content.radarTitle}</strong>
+          <div class="pool-qr-radar-card__embed">
+            <iframe
+              src={radarEmbedSrc}
+              title={content.radarTitle}
+              loading="lazy"
+              class="pool-qr-radar-card__frame"
+            ></iframe>
+          </div>
+          <div class="pool-qr-radar-card__forecast">
+            <strong class="pool-qr-radar-card__forecast-title">{content.forecastTitle}</strong>
+            <div class="pool-qr-forecast-strip" data-pool-hourly-forecast aria-live="polite">
+              <div class="pool-qr-forecast-loading">{content.forecastLoadingText}</div>
+            </div>
+          </div>
         </div>
 
-        <div class="pool-qr-hero__note">
-          <strong>{content.heroNoteStrong}</strong>
-          <span>{content.heroNoteText}</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="pool-qr-section pool-qr-section--live" aria-labelledby="pool-live-title">
-      <div class="pool-qr-shell">
-        <div class="pool-qr-section-head">
-          <p class="pool-qr-eyebrow">{content.liveEyebrow}</p>
-          <h2 id="pool-live-title">{content.liveTitle}</h2>
-          <p>{content.liveText}</p>
-        </div>
-
-        <div class="pool-qr-live-card">
-          <iframe
-            class="pool-qr-live-frame"
-            src={poolLiveWidgetSrc}
-            title={content.liveFrameTitle}
-            loading="lazy"
-            scrolling="no"
-          ></iframe>
-        </div>
       </div>
     </section>
 
@@ -391,10 +357,71 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
       windUnavailableText: content.weatherWindUnavailableText,
       stormUnavailableTitle: content.weatherStormUnavailableTitle,
       stormUnavailableText: content.weatherStormUnavailableText
-    }
+    },
+    forecastLoadingText: content.forecastLoadingText
   }}
 >
   (() => {
+    const getWeatherIcon = (code) => {
+      if ([95, 96, 99].includes(code)) return "⛈";
+      if ([80, 81, 82, 61, 63, 65].includes(code)) return "🌧";
+      if ([51, 53, 55, 56, 57].includes(code)) return "🌦";
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄";
+      if ([45, 48].includes(code)) return "🌫";
+      if ([1, 2, 3].includes(code)) return "⛅";
+      if (code === 0) return "☀";
+      return "•";
+    };
+
+    const renderHourlyForecast = (hourly, startIndex) => {
+      const forecastNode = document.querySelector("[data-pool-hourly-forecast]");
+      if (!forecastNode) return;
+
+      const hourlyTimes = Array.isArray(hourly.time) ? hourly.time : [];
+      const hourlyTemperatures = Array.isArray(hourly.temperature_2m) ? hourly.temperature_2m : [];
+      const precipitationValues = Array.isArray(hourly.precipitation_probability) ? hourly.precipitation_probability : [];
+      const hourlyCodes = Array.isArray(hourly.weather_code) ? hourly.weather_code : [];
+      const endIndex = Math.min(startIndex + 8, hourlyTimes.length);
+
+      if (!hourlyTimes.length || startIndex >= endIndex) {
+        forecastNode.innerHTML = `<div class="pool-qr-forecast-loading">${forecastLoadingText}</div>`;
+        return;
+      }
+
+      const formatter = new Intl.DateTimeFormat(numberLocale, {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      const items = [];
+      for (let index = startIndex; index < endIndex; index += 1) {
+        const timeValue = hourlyTimes[index];
+        const parsedDate = typeof timeValue === "string" ? new Date(timeValue) : null;
+        const formattedTime =
+          parsedDate && !Number.isNaN(parsedDate.getTime()) ? formatter.format(parsedDate) : "--:--";
+        const temperatureValue = Number(hourlyTemperatures[index]);
+        const precipitationValue = Number(precipitationValues[index]);
+        const codeValue = Number(hourlyCodes[index]);
+
+        items.push(`
+          <article class="pool-qr-forecast-item">
+            <span class="pool-qr-forecast-item__time">${formattedTime}</span>
+            <span class="pool-qr-forecast-item__icon" aria-hidden="true">${getWeatherIcon(codeValue)}</span>
+            <strong class="pool-qr-forecast-item__temp">${
+              Number.isFinite(temperatureValue)
+                ? `${Math.round(temperatureValue).toLocaleString(numberLocale)}°`
+                : "--"
+            }</strong>
+            <span class="pool-qr-forecast-item__rain">${
+              Number.isFinite(precipitationValue) ? `${Math.round(precipitationValue)}%` : "--"
+            }</span>
+          </article>
+        `);
+      }
+
+      forecastNode.innerHTML = items.join("");
+    };
+
     const updatePoolTemperature = async () => {
       const widget = document.querySelector("[data-pool-temperature]");
       const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
@@ -473,8 +500,8 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
         url.searchParams.set("latitude", "46.8662");
         url.searchParams.set("longitude", "17.4583");
         url.searchParams.set("current", "weather_code,wind_speed_10m,wind_gusts_10m");
-        url.searchParams.set("hourly", "precipitation_probability,weather_code,wind_gusts_10m,precipitation");
-        url.searchParams.set("forecast_days", "1");
+        url.searchParams.set("hourly", "temperature_2m,precipitation_probability,weather_code,wind_gusts_10m,precipitation");
+        url.searchParams.set("forecast_days", "2");
         url.searchParams.set("timezone", "auto");
 
         const response = await fetch(url.toString(), {
@@ -490,6 +517,7 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
         const current = data.current ?? {};
         const hourly = data.hourly ?? {};
         const hourlyTimes = Array.isArray(hourly.time) ? hourly.time : [];
+        const forecastTemperatures = Array.isArray(hourly.temperature_2m) ? hourly.temperature_2m : [];
         const precipitationValues = Array.isArray(hourly.precipitation_probability) ? hourly.precipitation_probability : [];
         const precipitationAmounts = Array.isArray(hourly.precipitation) ? hourly.precipitation : [];
         const hourlyCodes = Array.isArray(hourly.weather_code) ? hourly.weather_code : [];
@@ -503,6 +531,15 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
           typeof current.time === "string" && hourlyTimes.includes(current.time)
             ? hourlyTimes.indexOf(current.time)
             : 0;
+        renderHourlyForecast(
+          {
+            time: hourlyTimes,
+            temperature_2m: forecastTemperatures,
+            precipitation_probability: precipitationValues,
+            weather_code: hourlyCodes
+          },
+          startIndex
+        );
         const windowEnd = Math.min(startIndex + 3, hourlyTimes.length || 3);
         const upcomingCodes = hourlyCodes.slice(startIndex, windowEnd).map((value) => Number(value));
         const upcomingPrecipitation = precipitationValues.slice(startIndex, windowEnd).map((value) => Number(value));
@@ -583,6 +620,7 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
           );
         }
       } catch {
+        renderHourlyForecast({}, 0);
         setAlertState(
           windNode,
           windTitleNode,
@@ -940,17 +978,90 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
 
   .pool-qr-radar-card {
     display: grid;
-    gap: 8px;
-    margin-top: 10px;
-    padding: 14px 14px 16px;
+    gap: 12px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 18px 16px 20px;
     border: 1px solid rgba(23, 49, 58, 0.1);
-    border-radius: 18px;
+    border-radius: 24px;
     background:
       radial-gradient(circle at top right, rgba(152, 220, 234, 0.42), transparent 34%),
       radial-gradient(circle at bottom left, rgba(255, 230, 193, 0.42), transparent 30%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 244, 236, 0.96));
     box-shadow: 0 14px 28px rgba(24, 53, 59, 0.08);
     text-align: center;
+  }
+
+  .pool-qr-radar-card__forecast {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pool-qr-radar-card__forecast-title {
+    color: #17313a;
+    font-size: 0.98rem;
+    line-height: 1.25;
+    text-align: left;
+  }
+
+  .pool-qr-forecast-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82px, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    padding: 2px 0 6px;
+    scroll-snap-type: x proximity;
+  }
+
+  .pool-qr-forecast-item {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    padding: 12px 10px;
+    border: 1px solid rgba(23, 49, 58, 0.1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 22px rgba(24, 53, 59, 0.06);
+    justify-items: center;
+    scroll-snap-align: start;
+  }
+
+  .pool-qr-forecast-loading {
+    display: grid;
+    place-items: center;
+    min-height: 92px;
+    border: 1px dashed rgba(23, 49, 58, 0.16);
+    border-radius: 18px;
+    color: rgba(23, 49, 58, 0.72);
+    font-size: 0.84rem;
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  .pool-qr-forecast-item__time {
+    color: rgba(23, 49, 58, 0.76);
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .pool-qr-forecast-item__icon {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .pool-qr-forecast-item__temp {
+    color: #17313a;
+    font-size: 1.02rem;
+    line-height: 1.1;
+  }
+
+  .pool-qr-forecast-item__rain {
+    color: #3f7f89;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.1;
   }
 
   .pool-qr-quick-links {
@@ -984,7 +1095,7 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
 
   .pool-qr-radar-card__title {
     color: #17313a;
-    font-size: 0.94rem;
+    font-size: 1rem;
     line-height: 1.3;
   }
 
@@ -993,6 +1104,23 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
     color: rgba(23, 49, 58, 0.74);
     font-size: 0.8rem;
     line-height: 1.45;
+    text-align: center;
+  }
+
+  .pool-qr-radar-card__embed {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(23, 49, 58, 0.12);
+    border-radius: 20px;
+    background: #dce8ec;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .pool-qr-radar-card__frame {
+    display: block;
+    width: 100%;
+    height: 430px;
+    border: 0;
   }
 
   .pool-qr-radar-card__action {
@@ -1002,6 +1130,7 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
     align-items: center;
     justify-content: center;
     justify-self: center;
+    max-width: 100%;
     border-radius: 999px;
     background: #17313a;
     color: #fffdf8;
@@ -1009,48 +1138,6 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
     font-weight: 700;
     text-decoration: none;
     box-shadow: 0 12px 26px rgba(24, 53, 59, 0.12);
-  }
-
-  .pool-qr-hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .pool-qr-hero__action {
-    display: inline-flex;
-    min-height: 44px;
-    padding: 0 16px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(23, 49, 58, 0.16);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
-    color: #17313a;
-    font-size: var(--dnd-text-sm);
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .pool-qr-hero__action--primary {
-    background: #17313a;
-    border-color: #17313a;
-    color: #fffdf8;
-  }
-
-  .pool-qr-hero__note {
-    display: grid;
-    gap: 2px;
-    color: rgba(23, 49, 58, 0.72);
-    font-size: 0.82rem;
-    line-height: 1.4;
-    justify-items: center;
-  }
-
-  .pool-qr-hero__note strong {
-    color: #17313a;
-    font-size: 0.84rem;
   }
 
   .pool-qr-section {
@@ -1077,7 +1164,6 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
     color: rgba(31, 47, 44, 0.76);
   }
 
-  .pool-qr-live-card,
   .pool-qr-summary-list li,
   .pool-qr-help-card,
   .pool-qr-practical-grid article {
@@ -1087,22 +1173,6 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
       linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 244, 238, 0.96)),
       #fff;
     box-shadow: 0 18px 40px rgba(35, 45, 39, 0.08);
-  }
-
-  .pool-qr-live-card {
-    padding: 10px;
-    background:
-      radial-gradient(circle at top left, rgba(58, 171, 224, 0.18), transparent 28%),
-      linear-gradient(135deg, rgba(10, 32, 43, 0.98), rgba(9, 46, 68, 0.96));
-    border-color: rgba(122, 198, 255, 0.18);
-  }
-
-  .pool-qr-live-frame {
-    display: block;
-    width: 100%;
-    height: 660px;
-    border: 0;
-    background: transparent;
   }
 
   .pool-qr-summary-list {
@@ -1229,27 +1299,20 @@ const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapat
       gap: 14px;
     }
 
-    .pool-qr-hero__actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .pool-qr-hero__action {
-      min-height: 42px;
-      padding: 0 12px;
-      font-size: 0.82rem;
-    }
-
-    .pool-qr-live-frame {
-      height: 500px;
-    }
-
     .pool-qr-section-head h2 {
       font-size: clamp(1.35rem, 7vw, 1.95rem);
     }
 
     .pool-qr-quick-links {
       gap: 10px;
+    }
+
+    .pool-qr-radar-card__frame {
+      height: 400px;
+    }
+
+    .pool-qr-radar-card {
+      padding: 16px 12px 18px;
     }
 
     .pool-qr-help-grid,
