@@ -8,12 +8,18 @@ import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
 import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
-import { getPoolRulesContent } from "../data/pool-rules";
+import { getPoolRulesContent, type PoolRulesLocale } from "../data/pool-rules";
 import { buildVideoObject } from "../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
-const poolLandingHref = resolveHref("/kisapati-medences-szallas/");
+const localeByPathPrefix: Record<string, PoolRulesLocale> = {
+  "/en/": "en",
+  "/de/": "de",
+  "/cs/": "cs",
+  "/sk/": "sk"
+};
+const locale = (Object.entries(localeByPathPrefix).find(([prefix]) => Astro.url.pathname.startsWith(prefix))?.[1] ?? "hu") as PoolRulesLocale;
 
 const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
 const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
@@ -23,18 +29,374 @@ const poolHeroVideos = {
   desktop: "/videos/medence/HERO/PC%20video/dandelion-panorama-pool-hero-desktop-20260628.mp4?v=20260628",
   mobile: "/videos/medence/HERO/Phone%20video/dandelion-panorama-pool-hero-mobile-20260628.mp4?v=20260628"
 };
-// [CHANGE 2026-05-29 00:00] Panorama Pool video exposes a thumbnail URL through VideoObject data.
+
+const poolPageText = {
+  hu: {
+    canonicalPath: "/panorama-pool/",
+    lang: "hu" as const,
+    ogLocale: "hu_HU",
+    schemaLanguage: "hu-HU",
+    pageTitle: "Dandelion Panorama Pool | Panorámás medence a Balaton-felvidéken",
+    pageDescription:
+      "2026. június 15-től panorámás domboldali medence várja a Dandelion D1, D2 és Fügeház vendégeit Kisapátiban, a Balaton-felvidéken.",
+    videoName: "Dandelion Panorama Pool videó",
+    videoDescription: "Panorama Pool hero videó a Dandelion medence és a balatoni-felvidéki kilátás bemutatásához.",
+    heroTitle: "Panorámás medence a Szent György-hegy oldalában",
+    heroDescription: "2026. június 15-től a D1, D2 és Fügeház vendégei használhatják.",
+    ctaPrimary: "Szállások megtekintése",
+    ctaSecondary: "Megnézem a házakat",
+    waterLabel: "Medencevíz",
+    liveTitle: "Aktuális mérések.",
+    liveFrameTitle: "Panorama Pool aktuális mérések",
+    compactWater: "víz hőmérséklet",
+    compactAir: "levegő",
+    compactHumidity: "páratartalom",
+    introEyebrow: "Nyári élmény",
+    introTitle: "Medence a D1, D2 és Fügeház vendégeinek.",
+    introBody:
+      "A Panorama Pool a D1, D2 és Fügeház vendégeinek érhető el a nyári szezonban. A medence a házak melletti dombon található, kilátással a tanúhegyekre – napközben hűsöléshez, este nyugodt levezetéshez.",
+    introCta: "Medencés házak megtekintése",
+    faqEyebrow: "Gyakori kérdések",
+    faqTitle: "Amit a Panorama Poolról érdemes tudni.",
+    faqToggle: "Válasz",
+    stayCta: "Részletek megtekintése",
+    stayHighlightsAriaSuffix: "jellemzői",
+    galleryAria: "Panorama Pool galéria",
+    closingEyebrow: "Nyári pihenés",
+    closingTitle: "Foglalj nyári pihenést medencehasználattal.",
+    closingBody: "D1, D2 és Fügeház vendégeként 2026. június 15-től a Panorama Pool is a nyári napok része lehet.",
+    closingCta: "Szállások megtekintése",
+    fallbackText: "Hamarosan",
+    airPrefix: "Levegő",
+    updatedPrefix: "Frissítve",
+    poolLandingHref: resolveHref("/kisapati-medences-szallas/"),
+    faqItems: [
+      {
+        question: "Kik használhatják a Panorama Poolt?",
+        answer: "A medencét a Dandelion D1, Dandelion D2 és a Fügeház vendégei használhatják."
+      },
+      {
+        question: "Hol található a medence?",
+        answer: "Kisapátiban, a Szent György-hegy lábánál, a házak melletti dombon."
+      },
+      {
+        question: "Milyen kilátás nyílik a medencétől?",
+        answer: "A medence környékéről a Balaton-felvidék tanúhegyei látszanak."
+      },
+      {
+        question: "Mekkora és milyen mély a medence?",
+        answer: "A medence 8 x 4 méteres, körülbelül 130 cm mély, és fedéssel is rendelkezik. Gyerekek csak felnőtt felügyelettel használhatják."
+      }
+    ]
+  },
+  en: {
+    canonicalPath: "/en/panorama-pool/",
+    lang: "en" as const,
+    ogLocale: "en_US",
+    schemaLanguage: "en-US",
+    pageTitle: "Dandelion Panorama Pool | Panoramic pool in the Balaton Uplands",
+    pageDescription:
+      "From 15 June 2026, a panoramic hillside pool awaits Dandelion D1, D2 and Fügeház guests in Kisapáti, in the Balaton Uplands.",
+    videoName: "Dandelion Panorama Pool video",
+    videoDescription: "Hero video of Panorama Pool showing the Dandelion pool and the Balaton Uplands view.",
+    heroTitle: "Panoramic pool on the side of Szent György Hill",
+    heroDescription: "Available from 15 June 2026 for guests of D1, D2 and Fügeház.",
+    ctaPrimary: "View accommodations",
+    ctaSecondary: "See the houses",
+    waterLabel: "Pool water",
+    liveTitle: "Current measurements.",
+    liveFrameTitle: "Panorama Pool current measurements",
+    compactWater: "water temperature",
+    compactAir: "air",
+    compactHumidity: "humidity",
+    introEyebrow: "Summer experience",
+    introTitle: "Pool for guests of D1, D2 and Fügeház.",
+    introBody:
+      "Panorama Pool is available to guests of D1, D2 and Fügeház during the summer season. The pool is located on the hill beside the houses, with views of the witness hills - for cooling off during the day and winding down quietly in the evening.",
+    introCta: "View pool-access houses",
+    faqEyebrow: "Frequently asked questions",
+    faqTitle: "Useful things to know about Panorama Pool.",
+    faqToggle: "Answer",
+    stayCta: "View details",
+    stayHighlightsAriaSuffix: "highlights",
+    galleryAria: "Panorama Pool gallery",
+    closingEyebrow: "Summer stays",
+    closingTitle: "Book a summer stay with pool access.",
+    closingBody: "As a guest of D1, D2 or Fügeház, Panorama Pool can become part of your summer days from 15 June 2026.",
+    closingCta: "View accommodations",
+    fallbackText: "Soon",
+    airPrefix: "Air",
+    updatedPrefix: "Updated",
+    poolLandingHref: resolveHref("/en/szallasok/"),
+    faqItems: [
+      {
+        question: "Who can use Panorama Pool?",
+        answer: "The pool can be used by guests of Dandelion D1, Dandelion D2 and Fügeház."
+      },
+      {
+        question: "Where is the pool located?",
+        answer: "In Kisapáti, at the foot of Szent György Hill, on the hill beside the houses."
+      },
+      {
+        question: "What view does the pool have?",
+        answer: "The witness hills of the Balaton Uplands are visible from around the pool."
+      },
+      {
+        question: "How large and how deep is the pool?",
+        answer: "The pool is 8 x 4 metres, about 130 cm deep, and it also has a cover. Children may use it only with adult supervision."
+      }
+    ]
+  },
+  de: {
+    canonicalPath: "/de/panorama-pool/",
+    lang: "de" as const,
+    ogLocale: "de_DE",
+    schemaLanguage: "de-DE",
+    pageTitle: "Dandelion Panorama Pool | Panoramapool im Balaton-Oberland",
+    pageDescription:
+      "Ab dem 15. Juni 2026 erwartet Dandelion D1-, D2- und Fügeház-Gäste in Kisapáti ein Panorama-Hangpool im Balaton-Oberland.",
+    videoName: "Dandelion Panorama Pool Video",
+    videoDescription: "Hero-Video des Panorama Pools mit Dandelion Pool und Blick auf das Balaton-Oberland.",
+    heroTitle: "Panoramapool am Hang des Szent György-hegy",
+    heroDescription: "Ab dem 15. Juni 2026 für Gäste von D1, D2 und Fügeház verfügbar.",
+    ctaPrimary: "Unterkünfte ansehen",
+    ctaSecondary: "Häuser ansehen",
+    waterLabel: "Poolwasser",
+    liveTitle: "Aktuelle Messwerte.",
+    liveFrameTitle: "Panorama Pool aktuelle Messwerte",
+    compactWater: "Wassertemperatur",
+    compactAir: "Luft",
+    compactHumidity: "Luftfeuchtigkeit",
+    introEyebrow: "Sommererlebnis",
+    introTitle: "Pool für Gäste von D1, D2 und Fügeház.",
+    introBody:
+      "Der Panorama Pool steht Gästen von D1, D2 und Fügeház in der Sommersaison zur Verfügung. Der Pool liegt auf dem Hügel neben den Häusern, mit Blick auf die Zeugenberge - zum Abkühlen tagsüber und zum ruhigen Ausklang am Abend.",
+    introCta: "Häuser mit Poolzugang ansehen",
+    faqEyebrow: "Häufige Fragen",
+    faqTitle: "Wissenswertes über den Panorama Pool.",
+    faqToggle: "Antwort",
+    stayCta: "Details ansehen",
+    stayHighlightsAriaSuffix: "Merkmale",
+    galleryAria: "Panorama Pool Galerie",
+    closingEyebrow: "Sommeraufenthalt",
+    closingTitle: "Sommeraufenthalt mit Poolzugang buchen.",
+    closingBody: "Als Gast von D1, D2 oder Fügeház kann der Panorama Pool ab dem 15. Juni 2026 Teil eurer Sommertage sein.",
+    closingCta: "Unterkünfte ansehen",
+    fallbackText: "Bald",
+    airPrefix: "Luft",
+    updatedPrefix: "Aktualisiert",
+    poolLandingHref: resolveHref("/de/unterkuenfte/"),
+    faqItems: [
+      {
+        question: "Wer kann den Panorama Pool nutzen?",
+        answer: "Der Pool kann von Gästen von Dandelion D1, Dandelion D2 und Fügeház genutzt werden."
+      },
+      {
+        question: "Wo befindet sich der Pool?",
+        answer: "In Kisapáti, am Fuß des Szent György-hegy, auf dem Hügel neben den Häusern."
+      },
+      {
+        question: "Welche Aussicht hat man vom Pool?",
+        answer: "Rund um den Pool sieht man die Zeugenberge des Balaton-Oberlands."
+      },
+      {
+        question: "Wie groß und wie tief ist der Pool?",
+        answer: "Der Pool ist 8 x 4 Meter groß, etwa 130 cm tief und hat eine Abdeckung. Kinder dürfen ihn nur unter Aufsicht von Erwachsenen benutzen."
+      }
+    ]
+  },
+  cs: {
+    canonicalPath: "/cs/panorama-pool/",
+    lang: "cs" as const,
+    ogLocale: "cs_CZ",
+    schemaLanguage: "cs-CZ",
+    pageTitle: "Dandelion Panorama Pool | Panoramatický bazén v Balatonské vrchovině",
+    pageDescription:
+      "Od 15. června 2026 čeká hosty Dandelion D1, D2 a Fügeház v Kisapáti panoramatický bazén na svahu v Balatonské vrchovině.",
+    videoName: "Video Dandelion Panorama Pool",
+    videoDescription: "Hero video Panorama Pool představující bazén Dandelion a výhled na Balatonskou vrchovinu.",
+    heroTitle: "Panoramatický bazén na svahu Szent György-hegy",
+    heroDescription: "Od 15. června 2026 k dispozici hostům D1, D2 a Fügeház.",
+    ctaPrimary: "Zobrazit ubytování",
+    ctaSecondary: "Podívat se na domy",
+    waterLabel: "Voda v bazénu",
+    liveTitle: "Aktuální měření.",
+    liveFrameTitle: "Aktuální měření Panorama Pool",
+    compactWater: "teplota vody",
+    compactAir: "vzduch",
+    compactHumidity: "vlhkost",
+    introEyebrow: "Letní zážitek",
+    introTitle: "Bazén pro hosty D1, D2 a Fügeház.",
+    introBody:
+      "Panorama Pool je v letní sezoně k dispozici hostům D1, D2 a Fügeház. Bazén se nachází na kopci vedle domů, s výhledem na svědecké hory - pro osvěžení během dne i klidné zakončení večera.",
+    introCta: "Zobrazit domy s přístupem k bazénu",
+    faqEyebrow: "Časté dotazy",
+    faqTitle: "Co je dobré vědět o Panorama Pool.",
+    faqToggle: "Odpověď",
+    stayCta: "Zobrazit detail",
+    stayHighlightsAriaSuffix: "vlastnosti",
+    galleryAria: "Galerie Panorama Pool",
+    closingEyebrow: "Letní pobyt",
+    closingTitle: "Rezervujte letní pobyt s přístupem k bazénu.",
+    closingBody: "Jako host D1, D2 nebo Fügeház můžete mít od 15. června 2026 Panorama Pool jako součást svých letních dnů.",
+    closingCta: "Zobrazit ubytování",
+    fallbackText: "Brzy",
+    airPrefix: "Vzduch",
+    updatedPrefix: "Aktualizováno",
+    poolLandingHref: resolveHref("/cs/ubytovani/"),
+    faqItems: [
+      {
+        question: "Kdo může používat Panorama Pool?",
+        answer: "Bazén mohou používat hosté Dandelion D1, Dandelion D2 a Fügeház."
+      },
+      {
+        question: "Kde se bazén nachází?",
+        answer: "V Kisapáti, na úpatí Szent György-hegy, na kopci vedle domů."
+      },
+      {
+        question: "Jaký je od bazénu výhled?",
+        answer: "Z okolí bazénu jsou vidět svědecké hory Balatonské vrchoviny."
+      },
+      {
+        question: "Jak je bazén velký a hluboký?",
+        answer: "Bazén má rozměry 8 x 4 metry, hloubku přibližně 130 cm a má i zastřešení. Děti ho mohou používat jen pod dohledem dospělých."
+      }
+    ]
+  },
+  sk: {
+    canonicalPath: "/sk/panorama-pool/",
+    lang: "sk" as const,
+    ogLocale: "sk_SK",
+    schemaLanguage: "sk-SK",
+    pageTitle: "Dandelion Panorama Pool | Panoramatický bazén v Balatonskej vrchovine",
+    pageDescription:
+      "Od 15. júna 2026 čaká hostí Dandelion D1, D2 a Fügeház v Kisapáti panoramatický bazén na svahu v Balatonskej vrchovine.",
+    videoName: "Video Dandelion Panorama Pool",
+    videoDescription: "Hero video Panorama Pool predstavujúce bazén Dandelion a výhľad na Balatonskú vrchovinu.",
+    heroTitle: "Panoramatický bazén na svahu Szent György-hegy",
+    heroDescription: "Od 15. júna 2026 k dispozícii hosťom D1, D2 a Fügeház.",
+    ctaPrimary: "Zobraziť ubytovanie",
+    ctaSecondary: "Pozrieť si domy",
+    waterLabel: "Voda v bazéne",
+    liveTitle: "Aktuálne merania.",
+    liveFrameTitle: "Aktuálne merania Panorama Pool",
+    compactWater: "teplota vody",
+    compactAir: "vzduch",
+    compactHumidity: "vlhkosť",
+    introEyebrow: "Letný zážitok",
+    introTitle: "Bazén pre hostí D1, D2 a Fügeház.",
+    introBody:
+      "Panorama Pool je v letnej sezóne k dispozícii hosťom D1, D2 a Fügeház. Bazén sa nachádza na kopci vedľa domov, s výhľadom na svedecké vrchy - na osvieženie počas dňa aj pokojné zakončenie večera.",
+    introCta: "Zobraziť domy s prístupom k bazénu",
+    faqEyebrow: "Časté otázky",
+    faqTitle: "Čo je dobré vedieť o Panorama Pool.",
+    faqToggle: "Odpoveď",
+    stayCta: "Zobraziť detail",
+    stayHighlightsAriaSuffix: "vlastnosti",
+    galleryAria: "Galéria Panorama Pool",
+    closingEyebrow: "Letný pobyt",
+    closingTitle: "Rezervujte si letný pobyt s prístupom k bazénu.",
+    closingBody: "Ako hosť D1, D2 alebo Fügeház môžete mať od 15. júna 2026 Panorama Pool ako súčasť svojich letných dní.",
+    closingCta: "Zobraziť ubytovanie",
+    fallbackText: "Čoskoro",
+    airPrefix: "Vzduch",
+    updatedPrefix: "Aktualizované",
+    poolLandingHref: resolveHref("/sk/ubytovanie/"),
+    faqItems: [
+      {
+        question: "Kto môže používať Panorama Pool?",
+        answer: "Bazén môžu používať hostia Dandelion D1, Dandelion D2 a Fügeház."
+      },
+      {
+        question: "Kde sa bazén nachádza?",
+        answer: "V Kisapáti, na úpätí Szent György-hegy, na kopci vedľa domov."
+      },
+      {
+        question: "Aký výhľad je od bazéna?",
+        answer: "Z okolia bazéna vidno svedecké vrchy Balatonskej vrchoviny."
+      },
+      {
+        question: "Aký veľký a hlboký je bazén?",
+        answer: "Bazén má rozmery 8 x 4 metre, hĺbku približne 130 cm a má aj zastrešenie. Deti ho môžu používať len pod dohľadom dospelých."
+      }
+    ]
+  }
+} satisfies Record<PoolRulesLocale, {
+  canonicalPath: string;
+  lang: "hu" | "en" | "de" | "cs" | "sk";
+  ogLocale: string;
+  schemaLanguage: string;
+  pageTitle: string;
+  pageDescription: string;
+  videoName: string;
+  videoDescription: string;
+  heroTitle: string;
+  heroDescription: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  waterLabel: string;
+  liveTitle: string;
+  liveFrameTitle: string;
+  compactWater: string;
+  compactAir: string;
+  compactHumidity: string;
+  introEyebrow: string;
+  introTitle: string;
+  introBody: string;
+  introCta: string;
+  faqEyebrow: string;
+  faqTitle: string;
+  faqToggle: string;
+  stayCta: string;
+  stayHighlightsAriaSuffix: string;
+  galleryAria: string;
+  closingEyebrow: string;
+  closingTitle: string;
+  closingBody: string;
+  closingCta: string;
+  fallbackText: string;
+  airPrefix: string;
+  updatedPrefix: string;
+  poolLandingHref: string;
+  faqItems: Array<{ question: string; answer: string }>;
+}>;
+const pageText = poolPageText[locale];
+
+// [CHANGE 2026-07-04] Panorama Pool page now localizes metadata and content from the current route locale.
 const poolVideoStructuredData = buildVideoObject({
-  id: "/panorama-pool/#hero-video",
-  name: "Dandelion Panorama Pool videó",
-  description: "Panorama Pool hero videó a Dandelion medence és a balatoni-felvidéki kilátás bemutatásához.",
+  id: `${pageText.canonicalPath}#hero-video`,
+  name: pageText.videoName,
+  description: pageText.videoDescription,
   contentUrl: poolHeroVideos.desktop,
   thumbnailUrl: panoramaPoolHero.desktop,
   uploadDate: "2026-06-28T00:00:00+02:00",
-  inLanguage: "hu-HU"
+  inLanguage: pageText.schemaLanguage
 });
 
 const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
+  const localizedD2CardCopy = {
+    hu: {
+      alt: "Dandelion D2 fedett terasza sárga székekkel és kertkapcsolattal Kisapátiban",
+      title: "Dandelion D2 terasz"
+    },
+    en: {
+      alt: "Covered terrace of Dandelion D2 with yellow chairs and direct garden access in Kisapáti",
+      title: "Dandelion D2 terrace"
+    },
+    de: {
+      alt: "Überdachte Terrasse von Dandelion D2 mit gelben Stühlen und Gartenzugang in Kisapáti",
+      title: "Dandelion D2 Terrasse"
+    },
+    cs: {
+      alt: "Krytá terasa Dandelion D2 se žlutými židlemi a vstupem do zahrady v Kisapáti",
+      title: "Terasa Dandelion D2"
+    },
+    sk: {
+      alt: "Krytá terasa Dandelion D2 so žltými stoličkami a priamym vstupom do záhrady v Kisapáti",
+      title: "Terasa Dandelion D2"
+    }
+  } satisfies Record<PoolRulesLocale, { alt: string; title: string }>;
+
   if (key === "d2") {
     const d2CardImage = requireAccommodationLocalAssetPath(
       "d2",
@@ -46,8 +408,8 @@ const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
     return {
       desktopSrc: d2CardImage,
       mobileSrc: d2CardImage,
-      altHu: "Dandelion D2 fedett terasza sárga székekkel és kertkapcsolattal Kisapátiban",
-      titleHu: "Dandelion D2 terasz"
+      alt: localizedD2CardCopy[locale].alt,
+      title: localizedD2CardCopy[locale].title
     };
   }
 
@@ -58,93 +420,226 @@ const getStayImage = (key: "d1" | "d2" | "fugehaz") => {
   } as const;
   const pageData = pageDataMap[key];
   const fallbackTitleMap = {
-    d1: "Dandelion D1 hero",
-    d2: "Dandelion D2 hero",
-    fugehaz: "Fügeház hero"
+    hu: {
+      d1: "Dandelion D1",
+      d2: "Dandelion D2",
+      fugehaz: "Fügeház"
+    },
+    en: {
+      d1: "Dandelion D1",
+      d2: "Dandelion D2",
+      fugehaz: "Fugehaz"
+    },
+    de: {
+      d1: "Dandelion D1",
+      d2: "Dandelion D2",
+      fugehaz: "Fügeház"
+    },
+    cs: {
+      d1: "Dandelion D1",
+      d2: "Dandelion D2",
+      fugehaz: "Fügeház"
+    },
+    sk: {
+      d1: "Dandelion D1",
+      d2: "Dandelion D2",
+      fugehaz: "Fügeház"
+    }
+  } as const;
+  const localizedAltKey = {
+    hu: "altHu",
+    en: "altEn",
+    de: "altDe",
+    cs: "altCs",
+    sk: "altSk"
   } as const;
 
   return {
     desktopSrc: pageData.hero.mobileImagePath,
     mobileSrc: pageData.hero.mobileImagePath,
-    altHu: pageData.hero.fallbackAlt,
-    titleHu: fallbackTitleMap[key]
+    alt: heroImage[localizedAltKey[locale]],
+    title: fallbackTitleMap[locale][key]
   };
 };
 
-const stays = [
-  {
-    title: "Dandelion D1",
-    href: resolveHref("/dandelion-d1/"),
-    image: getStayImage("d1"),
-    description: "3 hálószoba + nappali, akár 8 fő. Légkondicionált, pergola, 2 fürdőszoba.",
-    location: "Kisapáti / Balaton-felvidék",
-    highlights: ["6-8 fő", "3 szoba + nappali"]
-  },
-  {
-    title: "Dandelion D2",
-    href: resolveHref("/dandelion-d2/"),
-    image: getStayImage("d2"),
-    description: "4-6 főnek kényelmes. Légkondicionált, nagy terasz és udvar.",
-    location: "Kisapáti / Balaton-felvidék",
-    highlights: ["4-6 fő", "2 háló + nappali"]
-  },
-  {
-    title: "Fügeház",
-    href: resolveHref("/fuge/"),
-    image: getStayImage("fugehaz"),
-    description: "4 főre kényelmes, pótággyal akár 6 fő. Légkondicionált, terasz a tanúhegyekre.",
-    location: "Szent György-hegy közelében",
-    highlights: ["4-6 fő", "2 szint / 2 szoba"]
-  }
-];
+const staysByLocale = {
+  hu: [
+    {
+      title: "Dandelion D1",
+      href: resolveHref("/dandelion-d1/"),
+      image: getStayImage("d1"),
+      description: "3 hálószoba + nappali, akár 8 fő. Légkondicionált, pergola, 2 fürdőszoba.",
+      location: "Kisapáti / Balaton-felvidék",
+      highlights: ["6-8 fő", "3 szoba + nappali"]
+    },
+    {
+      title: "Dandelion D2",
+      href: resolveHref("/dandelion-d2/"),
+      image: getStayImage("d2"),
+      description: "4-6 főnek kényelmes. Légkondicionált, nagy terasz és udvar.",
+      location: "Kisapáti / Balaton-felvidék",
+      highlights: ["4-6 fő", "2 háló + nappali"]
+    },
+    {
+      title: "Fügeház",
+      href: resolveHref("/fuge/"),
+      image: getStayImage("fugehaz"),
+      description: "4 főre kényelmes, pótággyal akár 6 fő. Légkondicionált, terasz a tanúhegyekre.",
+      location: "Szent György-hegy közelében",
+      highlights: ["4-6 fő", "2 szint / 2 szoba"]
+    }
+  ],
+  en: [
+    {
+      title: "Dandelion D1",
+      href: resolveHref("/en/dandelion-d1/"),
+      image: getStayImage("d1"),
+      description: "3 bedrooms + living room, up to 8 guests. Air-conditioned, pergola, 2 bathrooms.",
+      location: "Kisapáti / Balaton Uplands",
+      highlights: ["6-8 guests", "3 bedrooms + living room"]
+    },
+    {
+      title: "Dandelion D2",
+      href: resolveHref("/en/dandelion-d2/"),
+      image: getStayImage("d2"),
+      description: "Comfortable for 4-6 guests. Air-conditioned, large terrace and garden.",
+      location: "Kisapáti / Balaton Uplands",
+      highlights: ["4-6 guests", "2 bedrooms + living room"]
+    },
+    {
+      title: "Fügeház",
+      href: resolveHref("/en/dandelion-fugehaz/"),
+      image: getStayImage("fugehaz"),
+      description: "Comfortable for 4 guests, extendable up to 6 with an extra bed. Air-conditioned, terrace facing the witness hills.",
+      location: "Near Szent György Hill",
+      highlights: ["4-6 guests", "2 levels / 2 rooms"]
+    }
+  ],
+  de: [
+    {
+      title: "Dandelion D1",
+      href: resolveHref("/de/dandelion-d1/"),
+      image: getStayImage("d1"),
+      description: "3 Schlafzimmer + Wohnzimmer, bis zu 8 Gäste. Klimaanlage, Pergola, 2 Badezimmer.",
+      location: "Kisapáti / Balaton-Oberland",
+      highlights: ["6-8 Gäste", "3 Schlafzimmer + Wohnzimmer"]
+    },
+    {
+      title: "Dandelion D2",
+      href: resolveHref("/de/dandelion-d2/"),
+      image: getStayImage("d2"),
+      description: "Bequem für 4-6 Gäste. Klimaanlage, große Terrasse und Garten.",
+      location: "Kisapáti / Balaton-Oberland",
+      highlights: ["4-6 Gäste", "2 Schlafzimmer + Wohnzimmer"]
+    },
+    {
+      title: "Fügeház",
+      href: resolveHref("/de/dandelion-fugehaz/"),
+      image: getStayImage("fugehaz"),
+      description: "Bequem für 4 Gäste, mit Zusatzbett bis zu 6. Klimaanlage, Terrasse mit Blick auf die Zeugenberge.",
+      location: "Nahe dem Szent György-hegy",
+      highlights: ["4-6 Gäste", "2 Ebenen / 2 Zimmer"]
+    }
+  ],
+  cs: [
+    {
+      title: "Dandelion D1",
+      href: resolveHref("/cs/dandelion-d1/"),
+      image: getStayImage("d1"),
+      description: "3 ložnice + obývací pokoj, až pro 8 hostů. Klimatizace, pergola, 2 koupelny.",
+      location: "Kisapáti / Balatonská vrchovina",
+      highlights: ["6-8 hostů", "3 ložnice + obývací pokoj"]
+    },
+    {
+      title: "Dandelion D2",
+      href: resolveHref("/cs/dandelion-d2/"),
+      image: getStayImage("d2"),
+      description: "Pohodlné pro 4-6 hostů. Klimatizace, velká terasa a zahrada.",
+      location: "Kisapáti / Balatonská vrchovina",
+      highlights: ["4-6 hostů", "2 ložnice + obývací pokoj"]
+    },
+    {
+      title: "Fügeház",
+      href: resolveHref("/cs/dandelion-fugehaz/"),
+      image: getStayImage("fugehaz"),
+      description: "Pohodlné pro 4 hosty, s přistýlkou až pro 6. Klimatizace, terasa směrem ke svědeckým horám.",
+      location: "Blízko Szent György-hegy",
+      highlights: ["4-6 hostů", "2 podlaží / 2 pokoje"]
+    }
+  ],
+  sk: [
+    {
+      title: "Dandelion D1",
+      href: resolveHref("/sk/dandelion-d1/"),
+      image: getStayImage("d1"),
+      description: "3 spálne + obývačka, až pre 8 hostí. Klimatizácia, pergola, 2 kúpeľne.",
+      location: "Kisapáti / Balatonská vrchovina",
+      highlights: ["6-8 hostí", "3 spálne + obývačka"]
+    },
+    {
+      title: "Dandelion D2",
+      href: resolveHref("/sk/dandelion-d2/"),
+      image: getStayImage("d2"),
+      description: "Pohodlné pre 4-6 hostí. Klimatizácia, veľká terasa a záhrada.",
+      location: "Kisapáti / Balatonská vrchovina",
+      highlights: ["4-6 hostí", "2 spálne + obývačka"]
+    },
+    {
+      title: "Fügeház",
+      href: resolveHref("/sk/dandelion-fugehaz/"),
+      image: getStayImage("fugehaz"),
+      description: "Pohodlné pre 4 hostí, s prístelkou až pre 6. Klimatizácia, terasa smerom k svedeckým vrchom.",
+      location: "Blízko Szent György-hegy",
+      highlights: ["4-6 hostí", "2 podlažia / 2 izby"]
+    }
+  ]
+};
+const stays = staysByLocale[locale];
 
-const poolGeoFaqItems = [
-  {
-    question: "Kik használhatják a Panorama Poolt?",
-    answer: "A medencét a Dandelion D1, Dandelion D2 és a Fügeház vendégei használhatják."
-  },
-  {
-    question: "Hol található a medence?",
-    answer: "Kisapátiban, a Szent György-hegy lábánál, a házak melletti dombon."
-  },
-  {
-    question: "Milyen kilátás nyílik a medencétől?",
-    answer: "A medence környékéről a Balaton-felvidék tanúhegyei látszanak."
-  },
-  {
-    question: "Mekkora és milyen mély a medence?",
-    answer: "A medence 8 x 4 méteres, körülbelül 130 cm mély, és fedéssel is rendelkezik. Gyerekek csak felnőtt felügyelettel használhatják."
-  }
-];
-
-const poolTemperatureFallback = "Hamarosan";
+const localizedAltKey = {
+  hu: "altHu",
+  en: "altEn",
+  de: "altDe",
+  cs: "altCs",
+  sk: "altSk"
+} as const;
+const localizedHeroAlt = heroImage[localizedAltKey[locale]];
+const poolTemperatureFallback = pageText.fallbackText;
 const poolLiveWidgetSrc = import.meta.env.DEV
   ? "http://127.0.0.1:8091/api/pool-live-widget.php"
   : "/api/pool-live-widget.php";
-const poolRulesContent = getPoolRulesContent("hu");
+const poolRulesContent = getPoolRulesContent(locale);
+const poolClientText = {
+  fallbackText: pageText.fallbackText,
+  airPrefix: pageText.airPrefix,
+  updatedPrefix: pageText.updatedPrefix,
+  localeCode: pageText.schemaLanguage
+};
 ---
 
 <BaseLayout
-  title="Dandelion Panorama Pool | Panorámás medence a Balaton-felvidéken"
-  description="2026. június 15-től panorámás domboldali medence várja a Dandelion D1, D2 és Fügeház vendégeit Kisapátiban, a Balaton-felvidéken."
-  canonicalPath="/panorama-pool/"
+  title={pageText.pageTitle}
+  description={pageText.pageDescription}
+  canonicalPath={pageText.canonicalPath}
   ogImage={panoramaPoolHero.desktop}
-  ogImageAlt={heroImage.altHu}
+  ogImageAlt={localizedHeroAlt}
   structuredData={poolVideoStructuredData}
+  lang={pageText.lang}
+  ogLocale={pageText.ogLocale}
 >
-  <section class="pool-page" data-page="panorama-pool" data-deploy-retry="english-html-alias">
+  <section class="pool-page" data-page="panorama-pool" data-locale={locale}>
     <Hero
       kicker="Panorama Pool"
-      title="Panorámás medence a Szent György-hegy oldalában"
-      description="2026. június 15-től a D1, D2 és Fügeház vendégei használhatják."
-      ctas={[{ label: "Szállások megtekintése", href: "#pool-stays" }]}
-      secondaryCtas={[{ label: "Megnézem a házakat", href: "#pool-stays" }]}
+      title={pageText.heroTitle}
+      description={pageText.heroDescription}
+      ctas={[{ label: pageText.ctaPrimary, href: "#pool-stays" }]}
+      secondaryCtas={[{ label: pageText.ctaSecondary, href: "#pool-stays" }]}
       videoSrc=""
       videoDesktopSrc={poolHeroVideos.desktop}
       videoMobileSrc={poolHeroVideos.mobile}
       posterDesktopSrc={panoramaPoolHero.desktop}
       posterMobileSrc={panoramaPoolHero.mobile}
-      posterAlt={heroImage.altHu}
+      posterAlt={localizedHeroAlt}
     >
       <aside
         slot="aside"
@@ -153,7 +648,7 @@ const poolRulesContent = getPoolRulesContent("hu");
         data-endpoint="/api/pool-temperature.json"
         aria-live="polite"
       >
-        <span class="pool-temperature__label">Medencevíz</span>
+        <span class="pool-temperature__label">{pageText.waterLabel}</span>
         <p class="pool-temperature__value" data-pool-temperature-value>{poolTemperatureFallback}</p>
         <p class="pool-temperature__air" data-pool-air-temperature hidden></p>
         <p class="pool-temperature__updated" data-pool-temperature-updated hidden></p>
@@ -165,7 +660,7 @@ const poolRulesContent = getPoolRulesContent("hu");
         <div class="pool-live-panel" aria-live="polite">
           <div class="pool-section-heading pool-live-panel__heading">
             <span class="pool-eyebrow">Panorama Pool</span>
-            <h2>Aktuális mérések.</h2>
+            <h2>{pageText.liveTitle}</h2>
           </div>
 
           <iframe
@@ -173,23 +668,23 @@ const poolRulesContent = getPoolRulesContent("hu");
             src={poolLiveWidgetSrc}
             data-src-default={poolLiveWidgetSrc}
             data-src-compact={`${poolLiveWidgetSrc}${poolLiveWidgetSrc.includes("?") ? "&" : "?"}compact=1`}
-            title="Panorama Pool aktuális mérések"
+            title={pageText.liveFrameTitle}
             loading="lazy"
             scrolling="no"
           ></iframe>
 
           <div class="pool-live-compact" aria-hidden="true">
             <div class="pool-live-compact__item pool-live-compact__item--water">
-              <span class="pool-live-compact__label">víz hőmérséklet</span>
-              <strong data-pool-compact-value="temperature">Hamarosan</strong>
+              <span class="pool-live-compact__label">{pageText.compactWater}</span>
+              <strong data-pool-compact-value="temperature">{poolTemperatureFallback}</strong>
             </div>
             <div class="pool-live-compact__item">
-              <span class="pool-live-compact__label">levegő</span>
-              <strong data-pool-compact-value="air">Hamarosan</strong>
+              <span class="pool-live-compact__label">{pageText.compactAir}</span>
+              <strong data-pool-compact-value="air">{poolTemperatureFallback}</strong>
             </div>
             <div class="pool-live-compact__item">
-              <span class="pool-live-compact__label">páratartalom</span>
-              <strong data-pool-compact-value="humidity">Hamarosan</strong>
+              <span class="pool-live-compact__label">{pageText.compactHumidity}</span>
+              <strong data-pool-compact-value="humidity">{poolTemperatureFallback}</strong>
             </div>
           </div>
         </div>
@@ -199,23 +694,20 @@ const poolRulesContent = getPoolRulesContent("hu");
     <section class="pool-section pool-section--intro pool-section--info">
       <div class="dnd-container pool-shell pool-info-layout">
         <div class="pool-intro">
-          <span class="pool-eyebrow">Nyári élmény</span>
-          <h2>Medence a D1, D2 és Fügeház vendégeinek.</h2>
-          <p>
-            A Panorama Pool a D1, D2 és Fügeház vendégeinek érhető el a nyári szezonban. A medence a házak
-            melletti dombon található, kilátással a tanúhegyekre – napközben hűsöléshez, este nyugodt levezetéshez.
-          </p>
-          <a class="pool-text-link pool-intro__cta" href={poolLandingHref}>Medencés házak megtekintése</a>
+          <span class="pool-eyebrow">{pageText.introEyebrow}</span>
+          <h2>{pageText.introTitle}</h2>
+          <p>{pageText.introBody}</p>
+          <a class="pool-text-link pool-intro__cta" href={pageText.poolLandingHref}>{pageText.introCta}</a>
         </div>
         <aside class="pool-geo-faq" aria-labelledby="pool-geo-faq-title">
-          <span class="pool-eyebrow">Gyakori kérdések</span>
-          <h2 id="pool-geo-faq-title">Amit a Panorama Poolról érdemes tudni.</h2>
+          <span class="pool-eyebrow">{pageText.faqEyebrow}</span>
+          <h2 id="pool-geo-faq-title">{pageText.faqTitle}</h2>
           <div class="pool-geo-faq__list">
-            {poolGeoFaqItems.map((item) => (
+            {pageText.faqItems.map((item) => (
               <details class="pool-geo-faq__item">
                 <summary>
                   <h3>{item.question}</h3>
-                  <span class="pool-geo-faq__toggle">Válasz</span>
+                  <span class="pool-geo-faq__toggle">{pageText.faqToggle}</span>
                 </summary>
                 <p>{item.answer}</p>
               </details>
@@ -235,8 +727,8 @@ const poolRulesContent = getPoolRulesContent("hu");
                   {stay.image.mobileSrc && <source media="(max-width: 767px)" srcset={stay.image.mobileSrc} />}
                   <img
                     src={stay.image.desktopSrc}
-                    alt={stay.image.altHu}
-                    title={stay.image.titleHu}
+                    alt={stay.image.alt}
+                    title={stay.image.title}
                     width="1600"
                     height="1200"
                     loading="lazy"
@@ -247,13 +739,13 @@ const poolRulesContent = getPoolRulesContent("hu");
               <div class="pool-stay-card__body">
                 <h3>{stay.title}</h3>
                 <span class="pool-stay-card__location">{stay.location}</span>
-                <div class="pool-stay-card__highlights" aria-label={`${stay.title} jellemzői`}>
+                <div class="pool-stay-card__highlights" aria-label={`${stay.title} ${pageText.stayHighlightsAriaSuffix}`}>
                   {stay.highlights.map((highlight) => (
                     <span class="pool-stay-card__chip">{highlight}</span>
                   ))}
                 </div>
                 <p>{stay.description}</p>
-                <span class="pool-stay-card__cta">Részletek megtekintése</span>
+                <span class="pool-stay-card__cta">{pageText.stayCta}</span>
               </div>
             </a>
           ))}
@@ -261,22 +753,22 @@ const poolRulesContent = getPoolRulesContent("hu");
       </div>
     </section>
 
-    <PoolGalleryLightbox images={galleryImages} locale="hu" ariaLabel="Panorama Pool galéria" />
+    <PoolGalleryLightbox images={galleryImages} locale={locale} ariaLabel={pageText.galleryAria} />
     <PoolRulesSection content={poolRulesContent} />
 
     <section class="pool-section pool-section--closing">
       <div class="dnd-container pool-shell">
         <div class="pool-closing">
-          <span class="pool-eyebrow">Nyári pihenés</span>
-          <h2>Foglalj nyári pihenést medencehasználattal.</h2>
-          <p>D1, D2 és Fügeház vendégeként 2026. június 15-től a Panorama Pool is a nyári napok része lehet.</p>
-          <a href="#pool-stays" class="pool-button">Szállások megtekintése</a>
+          <span class="pool-eyebrow">{pageText.closingEyebrow}</span>
+          <h2>{pageText.closingTitle}</h2>
+          <p>{pageText.closingBody}</p>
+          <a href="#pool-stays" class="pool-button">{pageText.closingCta}</a>
         </div>
       </div>
     </section>
   </section>
 
-  <script is:inline>
+  <script define:vars={{ poolClientText }}>
     (() => {
       const applyPoolHeaderState = () => {
         const header = document.querySelector("[data-dnd-header]");
@@ -308,7 +800,8 @@ const poolRulesContent = getPoolRulesContent("hu");
         const compactAirNode = document.querySelector("[data-pool-compact-value='air']");
         const compactHumidityNode = document.querySelector("[data-pool-compact-value='humidity']");
         const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
-        const fallbackText = "Hamarosan";
+        const fallbackText = poolClientText.fallbackText;
+        const localeCode = poolClientText.localeCode;
         const buildEndpointUrl = () => {
           const url = new URL(endpoint, window.location.href);
           url.searchParams.set("refresh", Date.now().toString());
@@ -356,8 +849,8 @@ const poolRulesContent = getPoolRulesContent("hu");
               ? Number(rawAirTemperature)
               : Number.NaN;
           const airUnit = typeof data.airUnit === "string" && data.airUnit.trim() ? data.airUnit.trim() : unit;
-          const formattedTemperature = formatMeasurement(temperature, "hu-HU");
-          const formattedAirTemperature = formatMeasurement(airTemperature, "hu-HU");
+          const formattedTemperature = formatMeasurement(temperature, localeCode);
+          const formattedAirTemperature = formatMeasurement(airTemperature, localeCode);
           const updatedAt = typeof data.updatedAt === "string" ? new Date(data.updatedAt) : null;
           const hasValidUpdatedAt = Boolean(updatedAt && !Number.isNaN(updatedAt.getTime()));
 
@@ -375,7 +868,7 @@ const poolRulesContent = getPoolRulesContent("hu");
               widget.classList.add("has-air-temperature");
             }
             if (airValueNode) {
-              airValueNode.textContent = `Levegő: ${formattedAirTemperature} ${airUnit}`;
+              airValueNode.textContent = `${poolClientText.airPrefix}: ${formattedAirTemperature} ${airUnit}`;
               airValueNode.removeAttribute("hidden");
             }
             if (compactAirNode) {
@@ -399,13 +892,13 @@ const poolRulesContent = getPoolRulesContent("hu");
           const humidityUnit = typeof data.humidityUnit === "string" && data.humidityUnit.trim() ? data.humidityUnit.trim() : "%";
           if (compactHumidityNode) {
             compactHumidityNode.textContent = Number.isFinite(humidity)
-              ? `${formatMeasurement(humidity, "hu-HU", { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ${humidityUnit}`
+              ? `${formatMeasurement(humidity, localeCode, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ${humidityUnit}`
               : fallbackText;
           }
 
           if (updatedNode) {
             if (hasValidUpdatedAt) {
-              const updatedText = `Frissítve: ${updatedAt.toLocaleTimeString("hu-HU", {
+              const updatedText = `${poolClientText.updatedPrefix}: ${updatedAt.toLocaleTimeString(localeCode, {
                 hour: "2-digit",
                 minute: "2-digit"
               })}`;
