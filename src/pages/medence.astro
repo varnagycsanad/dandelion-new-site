@@ -14,6 +14,8 @@ const poolTemperatureFallback = "Hamarosan";
 const airTemperatureFallback = "Hamarosan";
 const kisapatiLatitude = "46.8662";
 const kisapatiLongitude = "17.4583";
+const whatsappHref = "https://wa.me/36207730807";
+const googleReviewHref = "https://g.page/r/CeSF0sgReF3QEBM/review";
 const windAlertFallbackTitle = "Szél állapot betöltése...";
 const windAlertFallbackText = "Röviden jelezzük, ha a szél miatt teendő van a medencénél.";
 const stormAlertFallbackTitle = "Eső / vihar állapot betöltése...";
@@ -159,6 +161,39 @@ const helpSteps = [
                 rel="noreferrer noopener"
               >
                 Radar megnyitása
+              </a>
+            </div>
+            <div class="pool-qr-quick-links">
+              <a
+                href={whatsappHref}
+                class="pool-qr-quick-link pool-qr-quick-link--whatsapp"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <span class="pool-qr-quick-link__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4.2 20 5.4 16.5A8.2 8.2 0 1 1 8 19l-3.8 1Z" />
+                    <path d="M9.1 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.5.6c-.1.1-.1.3 0 .5.5.9 1.3 1.7 2.2 2.2.2.1.4.1.5 0l.7-.6c.2-.1.4-.2.6-.1l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1.2.5-1.9.4-3.4-.5-6.1-3.2-6.6-6.6-.1-.7.1-1.3.4-1.8Z" />
+                  </svg>
+                </span>
+                <span class="pool-qr-quick-link__eyebrow">Kérdésed van?</span>
+                <strong class="pool-qr-quick-link__title">WhatsApp</strong>
+                <span class="pool-qr-quick-link__text">Írj üzenetet nekünk</span>
+              </a>
+              <a
+                href={googleReviewHref}
+                class="pool-qr-quick-link pool-qr-quick-link--review"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <span class="pool-qr-quick-link__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2.4 14.96 8.4l6.62.96-4.79 4.67 1.13 6.58L12 17.5l-5.92 3.11 1.13-6.58L2.42 9.36l6.62-.96L12 2.4Z" />
+                  </svg>
+                </span>
+                <span class="pool-qr-quick-link__eyebrow">Tetszett a medence?</span>
+                <strong class="pool-qr-quick-link__title">Google</strong>
+                <span class="pool-qr-quick-link__text">Adj egy véleményt</span>
               </a>
             </div>
           </article>
@@ -427,7 +462,7 @@ const helpSteps = [
             "Kérlek húzzátok be a napernyőket."
           );
         } else {
-          setAlertState(windNode, windTitleNode, windTextNode, "is-calm", "Szél: rendben", "Jelenleg nincs teendő.");
+          setAlertState(windNode, windTitleNode, windTextNode, "is-calm", "Szél: rendben", "Nincs teendő.");
         }
 
         if (immediateStormRisk) {
@@ -454,8 +489,8 @@ const helpSteps = [
             stormTitleNode,
             stormTextNode,
             "is-calm",
-            "Eső / vihar: rendben",
-            "1-2 órán belül nem látszik közeli eső vagy vihar."
+            "Eső / vihar: nem várható",
+            "Közelben nincs csapadék."
           );
         }
       } catch {
@@ -668,6 +703,7 @@ const helpSteps = [
 
   .pool-qr-weather-alert-stack {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-top: 6px;
   }
@@ -675,7 +711,7 @@ const helpSteps = [
   .pool-qr-weather-alert {
     display: grid;
     gap: 4px;
-    padding: 11px 12px;
+    padding: 10px 10px;
     border-radius: 14px;
     border: 1px solid rgba(23, 49, 58, 0.1);
     background: rgba(255, 255, 255, 0.74);
@@ -703,7 +739,7 @@ const helpSteps = [
 
   .pool-qr-weather-alert__eyebrow {
     color: #3f7f89;
-    font-size: 0.7rem;
+    font-size: 0.64rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     line-height: 1.1;
@@ -712,14 +748,14 @@ const helpSteps = [
 
   .pool-qr-weather-alert__title {
     color: #17313a;
-    font-size: 0.94rem;
-    line-height: 1.3;
+    font-size: 0.88rem;
+    line-height: 1.22;
   }
 
   .pool-qr-weather-alert__text {
     color: rgba(23, 49, 58, 0.74);
-    font-size: 0.78rem;
-    line-height: 1.4;
+    font-size: 0.72rem;
+    line-height: 1.3;
   }
 
   .pool-qr-radar-card {
@@ -733,6 +769,83 @@ const helpSteps = [
       radial-gradient(circle at top right, rgba(152, 220, 234, 0.34), transparent 32%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 244, 236, 0.96));
     text-align: center;
+  }
+
+  .pool-qr-quick-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .pool-qr-quick-link {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+    padding: 12px 10px;
+    border: 1px solid rgba(23, 49, 58, 0.1);
+    border-radius: 14px;
+    color: #17313a;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .pool-qr-quick-link--whatsapp {
+    background:
+      radial-gradient(circle at top left, rgba(191, 235, 214, 0.52), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 251, 246, 0.96));
+  }
+
+  .pool-qr-quick-link--review {
+    background:
+      radial-gradient(circle at top right, rgba(255, 226, 174, 0.48), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(252, 247, 236, 0.96));
+  }
+
+  .pool-qr-quick-link__icon {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    margin: 0 auto 2px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 8px 20px rgba(24, 53, 59, 0.08);
+  }
+
+  .pool-qr-quick-link__icon svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .pool-qr-quick-link--whatsapp .pool-qr-quick-link__icon {
+    color: #128c7e;
+  }
+
+  .pool-qr-quick-link--review .pool-qr-quick-link__icon {
+    color: #d19a1a;
+  }
+
+  .pool-qr-quick-link__eyebrow {
+    color: #3f7f89;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-quick-link__title {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .pool-qr-quick-link__text {
+    color: rgba(23, 49, 58, 0.74);
+    font-size: 0.76rem;
+    line-height: 1.35;
   }
 
   .pool-qr-radar-card__title {
@@ -985,6 +1098,10 @@ const helpSteps = [
       height: 500px;
     }
 
+    .pool-qr-quick-links {
+      gap: 10px;
+    }
+
     .pool-qr-help-grid,
     .pool-qr-practical-grid {
       grid-template-columns: 1fr;
@@ -1012,6 +1129,18 @@ const helpSteps = [
 
     .pool-qr-temperature-item__title {
       font-size: 0.82rem;
+    }
+
+    .pool-qr-quick-link {
+      padding: 11px 8px 12px;
+    }
+
+    .pool-qr-quick-link__title {
+      font-size: 0.94rem;
+    }
+
+    .pool-qr-quick-link__text {
+      font-size: 0.73rem;
     }
   }
 </style>
