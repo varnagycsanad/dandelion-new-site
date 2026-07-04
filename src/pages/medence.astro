@@ -88,10 +88,29 @@ const helpSteps = [
         </nav>
 
         <p class="pool-qr-eyebrow">Dandelion vendégoldal</p>
-        <h1>Panorama Pool</h1>
+
+        <figure class="pool-qr-hero__photo">
+          <picture>
+            <source
+              media="(min-width: 700px)"
+              srcset="/images/panorama-pool/responsive/panorama-pool-hero-desktop-960-2026-06-28.webp"
+              type="image/webp"
+            />
+            <img
+              src="/images/panorama-pool/hero/panorama-pool-hero-mobile-2026-06-28.webp"
+              alt="Panorama Pool medence panorámával és napozóterasszal"
+              width="1920"
+              height="1280"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </picture>
+          <figcaption class="pool-qr-hero__photo-title">Panorama Pool</figcaption>
+        </figure>
+
         <p class="pool-qr-hero__lead">
-          Ez az oldal gyors segítség a medence használatához. Itt találjátok egy helyen a legfontosabb
-          tudnivalókat, az aktuális hőmérsékleteket és a rövid szabályokat is.
+          gyors segítség a medence használatához, az aktuális hőmérsékletekhez és a fontos tudnivalókhoz
         </p>
 
         <div class="pool-qr-hero__facts" aria-label="Legfontosabb medence információk">
@@ -116,7 +135,7 @@ const helpSteps = [
             </div>
           </article>
 
-          <article class="pool-qr-hero-card">
+          <article class="pool-qr-hero-card pool-qr-hero-card--daily">
             <span class="pool-qr-hero-card__label">Használat ma</span>
             <div class="pool-qr-temperature-grid">
               <div class="pool-qr-temperature-item">
@@ -170,15 +189,18 @@ const helpSteps = [
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                <span class="pool-qr-quick-link__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M4.2 20 5.4 16.5A8.2 8.2 0 1 1 8 19l-3.8 1Z" />
-                    <path d="M9.1 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.5.6c-.1.1-.1.3 0 .5.5.9 1.3 1.7 2.2 2.2.2.1.4.1.5 0l.7-.6c.2-.1.4-.2.6-.1l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1.2.5-1.9.4-3.4-.5-6.1-3.2-6.6-6.6-.1-.7.1-1.3.4-1.8Z" />
-                  </svg>
-                </span>
-                <span class="pool-qr-quick-link__eyebrow">Kérdésed van?</span>
-                <strong class="pool-qr-quick-link__title">WhatsApp</strong>
-                <span class="pool-qr-quick-link__text">Írj üzenetet nekünk</span>
+                <picture>
+                  <source srcset="/images/medence-cta/whatsapp-cta.webp" type="image/webp" />
+                  <img
+                    src="/images/medence-cta/whatsapp-cta.png"
+                    alt="Kérdésed van? WhatsApp - írj üzenetet nekünk"
+                    class="pool-qr-quick-link__image"
+                    width="560"
+                    height="577"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </a>
               <a
                 href={googleReviewHref}
@@ -186,19 +208,23 @@ const helpSteps = [
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                <span class="pool-qr-quick-link__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M12 2.4 14.96 8.4l6.62.96-4.79 4.67 1.13 6.58L12 17.5l-5.92 3.11 1.13-6.58L2.42 9.36l6.62-.96L12 2.4Z" />
-                  </svg>
-                </span>
-                <span class="pool-qr-quick-link__eyebrow">Tetszett a medence?</span>
-                <strong class="pool-qr-quick-link__title">Google</strong>
-                <span class="pool-qr-quick-link__text">Adj egy véleményt</span>
+                <picture>
+                  <source srcset="/images/medence-cta/google-review-cta.webp" type="image/webp" />
+                  <img
+                    src="/images/medence-cta/google-review-cta.png"
+                    alt="Tetszett a medence? Írj Google értékelést"
+                    class="pool-qr-quick-link__image"
+                    width="560"
+                    height="577"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </a>
             </div>
           </article>
 
-          <article class="pool-qr-hero-card">
+          <article class="pool-qr-hero-card pool-qr-hero-card--safety">
             <span class="pool-qr-hero-card__label">Belépés előtt</span>
             <strong class="pool-qr-hero-card__value">Gyerek csak felügyelettel</strong>
             <span class="pool-qr-hero-card__meta">Viharban azonnal hagyjátok el</span>
@@ -607,13 +633,6 @@ const helpSteps = [
     font-family: var(--dnd-font-display);
   }
 
-  .pool-qr-hero h1 {
-    font-size: clamp(2.8rem, 10vw, 5rem);
-    line-height: 0.94;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
   .pool-qr-hero__lead,
   .pool-qr-section-head p,
   .pool-qr-help-card p,
@@ -630,23 +649,114 @@ const helpSteps = [
     text-align: center;
   }
 
+  .pool-qr-hero__photo {
+    position: relative;
+    width: 100%;
+    margin: 18px 0 4px;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 24px 44px rgba(24, 53, 59, 0.16);
+  }
+
+  .pool-qr-hero__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 240px;
+    object-fit: cover;
+  }
+
+  .pool-qr-hero__photo-title {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    right: 24px;
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.95rem, 8vw, 3.1rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+  }
+
   .pool-qr-hero__facts {
     display: grid;
     width: 100%;
-    gap: 10px;
+    gap: 14px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .pool-qr-hero-card {
+    position: relative;
     display: grid;
     width: 100%;
-    gap: 6px;
-    padding: 14px 15px;
-    border: 1px solid rgba(53, 110, 118, 0.12);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 16px 34px rgba(24, 53, 59, 0.08);
+    overflow: hidden;
+    gap: 8px;
+    padding: 15px 15px 16px;
+    border: 1px solid rgba(53, 110, 118, 0.14);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 245, 239, 0.92)),
+      rgba(255, 255, 255, 0.86);
+    box-shadow:
+      0 18px 36px rgba(24, 53, 59, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
     text-align: center;
+  }
+
+  .pool-qr-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+    border-radius: 22px 22px 0 0;
+    background: linear-gradient(90deg, rgba(77, 166, 183, 0.9), rgba(232, 193, 110, 0.85));
+  }
+
+  .pool-qr-hero-card::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    right: -38px;
+    top: -40px;
+    border-radius: 999px;
+    background: rgba(155, 214, 225, 0.18);
+    pointer-events: none;
+  }
+
+  .pool-qr-hero-card--temperature {
+    background:
+      radial-gradient(circle at top left, rgba(145, 219, 234, 0.36), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 251, 252, 0.92));
+  }
+
+  .pool-qr-hero-card--temperature::before {
+    background: linear-gradient(90deg, #4aa6bb, #89d8e2);
+  }
+
+  .pool-qr-hero-card--daily {
+    background:
+      radial-gradient(circle at top right, rgba(255, 227, 173, 0.34), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(252, 247, 237, 0.92));
+  }
+
+  .pool-qr-hero-card--daily::before {
+    background: linear-gradient(90deg, #d7a74f, #f0cf8d);
+  }
+
+  .pool-qr-hero-card--safety {
+    background:
+      radial-gradient(circle at top left, rgba(199, 232, 205, 0.34), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 251, 246, 0.93));
+  }
+
+  .pool-qr-hero-card--safety::before {
+    background: linear-gradient(90deg, #6eaf82, #a7d3b3);
   }
 
   .pool-qr-hero-card__label {
@@ -713,8 +823,8 @@ const helpSteps = [
     gap: 4px;
     padding: 10px 10px;
     border-radius: 14px;
-    border: 1px solid rgba(23, 49, 58, 0.1);
-    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(23, 49, 58, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
     text-align: center;
   }
 
@@ -761,91 +871,45 @@ const helpSteps = [
   .pool-qr-radar-card {
     display: grid;
     gap: 8px;
-    margin-top: 8px;
+    margin-top: 10px;
     padding: 14px 14px 16px;
     border: 1px solid rgba(23, 49, 58, 0.1);
-    border-radius: 14px;
+    border-radius: 18px;
     background:
-      radial-gradient(circle at top right, rgba(152, 220, 234, 0.34), transparent 32%),
+      radial-gradient(circle at top right, rgba(152, 220, 234, 0.42), transparent 34%),
+      radial-gradient(circle at bottom left, rgba(255, 230, 193, 0.42), transparent 30%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 244, 236, 0.96));
+    box-shadow: 0 14px 28px rgba(24, 53, 59, 0.08);
     text-align: center;
   }
 
   .pool-qr-quick-links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: 8px;
+    gap: 10px;
+    margin-top: 10px;
   }
 
   .pool-qr-quick-link {
-    display: grid;
-    gap: 4px;
+    display: block;
     min-width: 0;
-    padding: 12px 10px;
-    border: 1px solid rgba(23, 49, 58, 0.1);
-    border-radius: 14px;
-    color: #17313a;
-    text-align: center;
+    padding: 0;
+    border: 0;
+    border-radius: 24px;
     text-decoration: none;
+    transition: opacity 180ms ease;
   }
 
-  .pool-qr-quick-link--whatsapp {
-    background:
-      radial-gradient(circle at top left, rgba(191, 235, 214, 0.52), transparent 34%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 251, 246, 0.96));
+  .pool-qr-quick-link__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
   }
 
-  .pool-qr-quick-link--review {
-    background:
-      radial-gradient(circle at top right, rgba(255, 226, 174, 0.48), transparent 34%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(252, 247, 236, 0.96));
-  }
-
-  .pool-qr-quick-link__icon {
-    display: inline-flex;
-    width: 34px;
-    height: 34px;
-    margin: 0 auto 2px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.86);
-    box-shadow: 0 8px 20px rgba(24, 53, 59, 0.08);
-  }
-
-  .pool-qr-quick-link__icon svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  .pool-qr-quick-link--whatsapp .pool-qr-quick-link__icon {
-    color: #128c7e;
-  }
-
-  .pool-qr-quick-link--review .pool-qr-quick-link__icon {
-    color: #d19a1a;
-  }
-
-  .pool-qr-quick-link__eyebrow {
-    color: #3f7f89;
-    font-size: 0.66rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1.15;
-    text-transform: uppercase;
-  }
-
-  .pool-qr-quick-link__title {
-    font-size: 1rem;
-    line-height: 1.2;
-  }
-
-  .pool-qr-quick-link__text {
-    color: rgba(23, 49, 58, 0.74);
-    font-size: 0.76rem;
-    line-height: 1.35;
+  .pool-qr-quick-link:hover,
+  .pool-qr-quick-link:focus-visible {
+    opacity: 0.94;
   }
 
   .pool-qr-radar-card__title {
@@ -1061,13 +1125,25 @@ const helpSteps = [
       gap: 6px;
     }
 
-    .pool-qr-hero h1 {
-      font-size: clamp(2.1rem, 11vw, 3rem);
-    }
-
     .pool-qr-hero__lead {
       font-size: var(--dnd-text-sm);
       line-height: 1.55;
+    }
+
+    .pool-qr-hero__photo {
+      margin-top: 14px;
+      border-radius: 24px;
+    }
+
+    .pool-qr-hero__photo img {
+      min-height: 220px;
+    }
+
+    .pool-qr-hero__photo-title {
+      top: 18px;
+      left: 16px;
+      right: 16px;
+      font-size: clamp(1.7rem, 9vw, 2.35rem);
     }
 
     .pool-qr-hero__facts {
@@ -1132,15 +1208,7 @@ const helpSteps = [
     }
 
     .pool-qr-quick-link {
-      padding: 11px 8px 12px;
-    }
-
-    .pool-qr-quick-link__title {
-      font-size: 0.94rem;
-    }
-
-    .pool-qr-quick-link__text {
-      font-size: 0.73rem;
+      border-radius: 22px;
     }
   }
 </style>
