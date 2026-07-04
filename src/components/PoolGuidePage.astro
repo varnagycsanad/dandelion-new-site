@@ -1,0 +1,1284 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PoolRulesSection from "./PoolRulesSection.astro";
+
+type LanguageLink = {
+  label: string;
+  href: string;
+  isActive?: boolean;
+};
+
+type HelpStep = {
+  title: string;
+  text: string;
+};
+
+type PracticalItem = {
+  title: string;
+  text: string;
+};
+
+type PoolGuideContent = {
+  pageTitle: string;
+  description: string;
+  canonicalPath: string;
+  lang?: string;
+  ogLocale?: string;
+  numberLocale: string;
+  languageSwitchLabel: string;
+  languageLinks: LanguageLink[];
+  topEyebrow: string;
+  photoAlt: string;
+  photoTitle: string;
+  lead: string;
+  temperatureCardLabel: string;
+  waterNowLabel: string;
+  airLabel: string;
+  fallbackText: string;
+  usageCardLabel: string;
+  everyDayLabel: string;
+  hoursValue: string;
+  depthLabel: string;
+  depthValue: string;
+  windEyebrow: string;
+  windFallbackTitle: string;
+  windFallbackText: string;
+  stormEyebrow: string;
+  stormFallbackTitle: string;
+  stormFallbackText: string;
+  radarEyebrow: string;
+  radarTitle: string;
+  radarText: string;
+  radarAction: string;
+  whatsappAlt: string;
+  googleAlt: string;
+  safetyCardLabel: string;
+  safetyValue: string;
+  safetyMeta: string;
+  primaryActionLabel: string;
+  secondaryActionLabel: string;
+  heroNoteStrong: string;
+  heroNoteText: string;
+  liveEyebrow: string;
+  liveTitle: string;
+  liveText: string;
+  liveFrameTitle: string;
+  summaryEyebrow: string;
+  summaryTitle: string;
+  summaryText: string;
+  quickRules: string[];
+  helpEyebrow: string;
+  helpTitle: string;
+  helpText: string;
+  helpSteps: HelpStep[];
+  practicalEyebrow: string;
+  practicalTitle: string;
+  practicalItems: PracticalItem[];
+  weatherWindWarningTitle: string;
+  weatherWindWarningText: string;
+  weatherWindCautionTitle: string;
+  weatherWindCautionText: string;
+  weatherWindCalmTitle: string;
+  weatherWindCalmText: string;
+  weatherStormWarningTitle: string;
+  weatherStormWarningText: string;
+  weatherStormCautionTitle: string;
+  weatherStormCautionText: string;
+  weatherStormCalmTitle: string;
+  weatherStormCalmText: string;
+  weatherWindUnavailableTitle: string;
+  weatherWindUnavailableText: string;
+  weatherStormUnavailableTitle: string;
+  weatherStormUnavailableText: string;
+};
+
+const {
+  content,
+  rulesContent
+}: {
+  content: PoolGuideContent;
+  rulesContent: unknown;
+} = Astro.props;
+
+const poolLiveWidgetSrc = import.meta.env.DEV
+  ? "http://127.0.0.1:8091/api/pool-live-widget.php?mode=guide"
+  : "/api/pool-live-widget.php?mode=guide";
+const kisapatiLatitude = "46.8662";
+const kisapatiLongitude = "17.4583";
+const whatsappHref = "https://wa.me/36207730807";
+const googleReviewHref = "https://g.page/r/CeSF0sgReF3QEBM/review";
+const radarMapHref = `https://www.windy.com/?radar,${kisapatiLatitude},${kisapatiLongitude},10`;
+---
+
+<BaseLayout
+  title={content.pageTitle}
+  description={content.description}
+  canonicalPath={content.canonicalPath}
+  lang={content.lang}
+  ogLocale={content.ogLocale}
+  noindex={true}
+  hideHeader={true}
+  hideFooter={true}
+>
+  <main class="pool-qr-page">
+    <section class="pool-qr-hero">
+      <div class="pool-qr-hero__content">
+        <nav class="pool-qr-language-switch" aria-label={content.languageSwitchLabel}>
+          {content.languageLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={["pool-qr-language-switch__link", { "is-active": link.isActive }]}
+              aria-current={link.isActive ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <p class="pool-qr-eyebrow">{content.topEyebrow}</p>
+
+        <figure class="pool-qr-hero__photo">
+          <picture>
+            <source
+              media="(min-width: 700px)"
+              srcset="/images/panorama-pool/responsive/panorama-pool-hero-desktop-960-2026-06-28.webp"
+              type="image/webp"
+            />
+            <img
+              src="/images/panorama-pool/hero/panorama-pool-hero-mobile-2026-06-28.webp"
+              alt={content.photoAlt}
+              width="1920"
+              height="1280"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </picture>
+          <figcaption class="pool-qr-hero__photo-title">{content.photoTitle}</figcaption>
+        </figure>
+
+        <p class="pool-qr-hero__lead">{content.lead}</p>
+
+        <div class="pool-qr-hero__facts" aria-label="Legfontosabb medence információk">
+          <article
+            class="pool-qr-hero-card pool-qr-hero-card--temperature"
+            data-pool-temperature
+            data-endpoint="/api/pool-temperature.json"
+            aria-live="polite"
+          >
+            <span class="pool-qr-hero-card__label">{content.temperatureCardLabel}</span>
+            <div class="pool-qr-temperature-grid">
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">{content.waterNowLabel}</span>
+                <strong class="pool-qr-hero-card__value" data-pool-temperature-value>{content.fallbackText}</strong>
+              </div>
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">{content.airLabel}</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air" data-pool-air-temperature-value>
+                  {content.fallbackText}
+                </strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="pool-qr-hero-card pool-qr-hero-card--daily">
+            <span class="pool-qr-hero-card__label">{content.usageCardLabel}</span>
+            <div class="pool-qr-temperature-grid">
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">{content.everyDayLabel}</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">{content.hoursValue}</strong>
+              </div>
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">{content.depthLabel}</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">{content.depthValue}</strong>
+              </div>
+            </div>
+            <div class="pool-qr-weather-alert-stack" aria-live="polite">
+              <div class="pool-qr-weather-alert is-loading" data-pool-wind-alert>
+                <span class="pool-qr-weather-alert__eyebrow">{content.windEyebrow}</span>
+                <strong class="pool-qr-weather-alert__title" data-pool-wind-alert-title>
+                  {content.windFallbackTitle}
+                </strong>
+                <span class="pool-qr-weather-alert__text" data-pool-wind-alert-text>
+                  {content.windFallbackText}
+                </span>
+              </div>
+              <div class="pool-qr-weather-alert is-loading" data-pool-storm-alert>
+                <span class="pool-qr-weather-alert__eyebrow">{content.stormEyebrow}</span>
+                <strong class="pool-qr-weather-alert__title" data-pool-storm-alert-title>
+                  {content.stormFallbackTitle}
+                </strong>
+                <span class="pool-qr-weather-alert__text" data-pool-storm-alert-text>
+                  {content.stormFallbackText}
+                </span>
+              </div>
+            </div>
+            <div class="pool-qr-radar-card">
+              <span class="pool-qr-weather-alert__eyebrow">{content.radarEyebrow}</span>
+              <strong class="pool-qr-radar-card__title">{content.radarTitle}</strong>
+              <p class="pool-qr-radar-card__text">{content.radarText}</p>
+              <a
+                href={radarMapHref}
+                class="pool-qr-radar-card__action"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {content.radarAction}
+              </a>
+            </div>
+            <div class="pool-qr-quick-links">
+              <a
+                href={whatsappHref}
+                class="pool-qr-quick-link pool-qr-quick-link--whatsapp"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <picture>
+                  <source srcset="/images/medence-cta/whatsapp-cta.webp" type="image/webp" />
+                  <img
+                    src="/images/medence-cta/whatsapp-cta.png"
+                    alt={content.whatsappAlt}
+                    class="pool-qr-quick-link__image"
+                    width="560"
+                    height="577"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </a>
+              <a
+                href={googleReviewHref}
+                class="pool-qr-quick-link pool-qr-quick-link--review"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <picture>
+                  <source srcset="/images/medence-cta/google-review-cta.webp" type="image/webp" />
+                  <img
+                    src="/images/medence-cta/google-review-cta.png"
+                    alt={content.googleAlt}
+                    class="pool-qr-quick-link__image"
+                    width="560"
+                    height="577"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </a>
+            </div>
+          </article>
+
+          <article class="pool-qr-hero-card pool-qr-hero-card--safety">
+            <span class="pool-qr-hero-card__label">{content.safetyCardLabel}</span>
+            <strong class="pool-qr-hero-card__value">{content.safetyValue}</strong>
+            <span class="pool-qr-hero-card__meta">{content.safetyMeta}</span>
+          </article>
+        </div>
+
+        <div class="pool-qr-hero__actions">
+          <a href="#pool-live-title" class="pool-qr-hero__action pool-qr-hero__action--primary">
+            {content.primaryActionLabel}
+          </a>
+          <a href="#medencehasznalati-szabalyok" class="pool-qr-hero__action">
+            {content.secondaryActionLabel}
+          </a>
+        </div>
+
+        <div class="pool-qr-hero__note">
+          <strong>{content.heroNoteStrong}</strong>
+          <span>{content.heroNoteText}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section pool-qr-section--live" aria-labelledby="pool-live-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">{content.liveEyebrow}</p>
+          <h2 id="pool-live-title">{content.liveTitle}</h2>
+          <p>{content.liveText}</p>
+        </div>
+
+        <div class="pool-qr-live-card">
+          <iframe
+            class="pool-qr-live-frame"
+            src={poolLiveWidgetSrc}
+            title={content.liveFrameTitle}
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-summary-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">{content.summaryEyebrow}</p>
+          <h2 id="pool-summary-title">{content.summaryTitle}</h2>
+          <p>{content.summaryText}</p>
+        </div>
+
+        <ul class="pool-qr-summary-list">
+          {content.quickRules.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-help-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">{content.helpEyebrow}</p>
+          <h2 id="pool-help-title">{content.helpTitle}</h2>
+          <p>{content.helpText}</p>
+        </div>
+
+        <div class="pool-qr-help-grid">
+          {content.helpSteps.map((step, index) => (
+            <article class="pool-qr-help-card">
+              <span class="pool-qr-help-card__index">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-qr-section" aria-labelledby="pool-practical-title">
+      <div class="pool-qr-shell">
+        <div class="pool-qr-section-head">
+          <p class="pool-qr-eyebrow">{content.practicalEyebrow}</p>
+          <h2 id="pool-practical-title">{content.practicalTitle}</h2>
+        </div>
+
+        <div class="pool-qr-practical-grid">
+          {content.practicalItems.map((item) => (
+            <article>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <PoolRulesSection content={rulesContent} />
+  </main>
+</BaseLayout>
+
+<script
+  is:inline
+  define:vars={{
+    fallbackText: content.fallbackText,
+    numberLocale: content.numberLocale,
+    weatherCopy: {
+      windWarningTitle: content.weatherWindWarningTitle,
+      windWarningText: content.weatherWindWarningText,
+      windCautionTitle: content.weatherWindCautionTitle,
+      windCautionText: content.weatherWindCautionText,
+      windCalmTitle: content.weatherWindCalmTitle,
+      windCalmText: content.weatherWindCalmText,
+      stormWarningTitle: content.weatherStormWarningTitle,
+      stormWarningText: content.weatherStormWarningText,
+      stormCautionTitle: content.weatherStormCautionTitle,
+      stormCautionText: content.weatherStormCautionText,
+      stormCalmTitle: content.weatherStormCalmTitle,
+      stormCalmText: content.weatherStormCalmText,
+      windUnavailableTitle: content.weatherWindUnavailableTitle,
+      windUnavailableText: content.weatherWindUnavailableText,
+      stormUnavailableTitle: content.weatherStormUnavailableTitle,
+      stormUnavailableText: content.weatherStormUnavailableText
+    }
+  }}
+>
+  (() => {
+    const updatePoolTemperature = async () => {
+      const widget = document.querySelector("[data-pool-temperature]");
+      const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
+      const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature-value]") : null;
+      const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
+      if (!widget || !valueNode) return;
+
+      try {
+        const url = new URL(endpoint, window.location.href);
+        url.searchParams.set("refresh", Date.now().toString());
+
+        const response = await fetch(url.toString(), {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Pool temperature is unavailable.");
+        }
+
+        const data = await response.json();
+        const temperature = Number(data.temperature);
+
+        if (!Number.isFinite(temperature)) {
+          throw new Error("Pool temperature is invalid.");
+        }
+
+        const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "°C";
+        valueNode.textContent = `${temperature.toLocaleString(numberLocale, {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        })} ${unit}`;
+
+        const rawAirTemperature =
+          data.airTemperature !== undefined && data.airTemperature !== null
+            ? data.airTemperature
+            : data.air_temperature !== undefined && data.air_temperature !== null
+              ? data.air_temperature
+              : data.outdoorTemperature;
+        const airTemperature = Number(rawAirTemperature);
+        if (airValueNode && Number.isFinite(airTemperature)) {
+          airValueNode.textContent = `${airTemperature.toLocaleString(numberLocale, {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          })} ${unit}`;
+        } else if (airValueNode) {
+          airValueNode.textContent = fallbackText;
+        }
+      } catch {
+        valueNode.textContent = fallbackText;
+        if (airValueNode) {
+          airValueNode.textContent = fallbackText;
+        }
+      }
+    };
+
+    const updateWeatherAlert = async () => {
+      const windNode = document.querySelector("[data-pool-wind-alert]");
+      const windTitleNode = windNode ? windNode.querySelector("[data-pool-wind-alert-title]") : null;
+      const windTextNode = windNode ? windNode.querySelector("[data-pool-wind-alert-text]") : null;
+      const stormNode = document.querySelector("[data-pool-storm-alert]");
+      const stormTitleNode = stormNode ? stormNode.querySelector("[data-pool-storm-alert-title]") : null;
+      const stormTextNode = stormNode ? stormNode.querySelector("[data-pool-storm-alert-text]") : null;
+
+      if (!windNode || !windTitleNode || !windTextNode || !stormNode || !stormTitleNode || !stormTextNode) return;
+
+      const setAlertState = (node, titleNode, textNode, state, title, text) => {
+        node.classList.remove("is-loading", "is-calm", "is-caution", "is-warning");
+        node.classList.add(state);
+        titleNode.textContent = title;
+        textNode.textContent = text;
+      };
+
+      try {
+        const url = new URL("https://api.open-meteo.com/v1/forecast");
+        url.searchParams.set("latitude", "46.8662");
+        url.searchParams.set("longitude", "17.4583");
+        url.searchParams.set("current", "weather_code,wind_speed_10m,wind_gusts_10m");
+        url.searchParams.set("hourly", "precipitation_probability,weather_code,wind_gusts_10m,precipitation");
+        url.searchParams.set("forecast_days", "1");
+        url.searchParams.set("timezone", "auto");
+
+        const response = await fetch(url.toString(), {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Weather alert is unavailable.");
+        }
+
+        const data = await response.json();
+        const current = data.current ?? {};
+        const hourly = data.hourly ?? {};
+        const hourlyTimes = Array.isArray(hourly.time) ? hourly.time : [];
+        const precipitationValues = Array.isArray(hourly.precipitation_probability) ? hourly.precipitation_probability : [];
+        const precipitationAmounts = Array.isArray(hourly.precipitation) ? hourly.precipitation : [];
+        const hourlyCodes = Array.isArray(hourly.weather_code) ? hourly.weather_code : [];
+        const hourlyGusts = Array.isArray(hourly.wind_gusts_10m) ? hourly.wind_gusts_10m : [];
+        const thunderstormCodes = new Set([95, 96, 99]);
+        const rainCodes = new Set([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82]);
+        const currentCode = Number(current.weather_code);
+        const currentWindGust = Number(current.wind_gusts_10m);
+        const currentWindSpeed = Number(current.wind_speed_10m);
+        const startIndex =
+          typeof current.time === "string" && hourlyTimes.includes(current.time)
+            ? hourlyTimes.indexOf(current.time)
+            : 0;
+        const windowEnd = Math.min(startIndex + 3, hourlyTimes.length || 3);
+        const upcomingCodes = hourlyCodes.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingPrecipitation = precipitationValues.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingAmounts = precipitationAmounts.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingGusts = hourlyGusts.slice(startIndex, windowEnd).map((value) => Number(value));
+        const maxUpcomingPrecipitation = upcomingPrecipitation.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          0
+        );
+        const maxUpcomingRainAmount = upcomingAmounts.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          0
+        );
+        const maxUpcomingGust = upcomingGusts.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          Number.isFinite(currentWindGust) ? currentWindGust : 0
+        );
+        const hasThunderstorm = thunderstormCodes.has(currentCode) || upcomingCodes.some((code) => thunderstormCodes.has(code));
+        const hasRainRisk = rainCodes.has(currentCode) || upcomingCodes.some((code) => rainCodes.has(code));
+        const immediateStormRisk = hasThunderstorm;
+        const nearRainRisk = maxUpcomingPrecipitation >= 50 || maxUpcomingRainAmount >= 1 || hasRainRisk;
+
+        if (maxUpcomingGust >= 45) {
+          setAlertState(
+            windNode,
+            windTitleNode,
+            windTextNode,
+            "is-warning",
+            weatherCopy.windWarningTitle,
+            weatherCopy.windWarningText
+          );
+        } else if (maxUpcomingGust >= 25 || currentWindSpeed >= 25) {
+          setAlertState(
+            windNode,
+            windTitleNode,
+            windTextNode,
+            "is-caution",
+            weatherCopy.windCautionTitle,
+            weatherCopy.windCautionText
+          );
+        } else {
+          setAlertState(
+            windNode,
+            windTitleNode,
+            windTextNode,
+            "is-calm",
+            weatherCopy.windCalmTitle,
+            weatherCopy.windCalmText
+          );
+        }
+
+        if (immediateStormRisk) {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-warning",
+            weatherCopy.stormWarningTitle,
+            weatherCopy.stormWarningText
+          );
+        } else if (nearRainRisk) {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-caution",
+            weatherCopy.stormCautionTitle,
+            weatherCopy.stormCautionText
+          );
+        } else {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-calm",
+            weatherCopy.stormCalmTitle,
+            weatherCopy.stormCalmText
+          );
+        }
+      } catch {
+        setAlertState(
+          windNode,
+          windTitleNode,
+          windTextNode,
+          "is-caution",
+          weatherCopy.windUnavailableTitle,
+          weatherCopy.windUnavailableText
+        );
+        setAlertState(
+          stormNode,
+          stormTitleNode,
+          stormTextNode,
+          "is-caution",
+          weatherCopy.stormUnavailableTitle,
+          weatherCopy.stormUnavailableText
+        );
+      }
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+          updatePoolTemperature();
+          updateWeatherAlert();
+        },
+        { once: true }
+      );
+    } else {
+      updatePoolTemperature();
+      updateWeatherAlert();
+    }
+  })();
+</script>
+
+<style>
+  :global(body) {
+    background:
+      radial-gradient(circle at top, rgba(150, 210, 222, 0.34), transparent 34%),
+      linear-gradient(180deg, #eef7f7 0%, #f8f4ec 52%, #ffffff 100%);
+  }
+
+  .pool-qr-page {
+    min-height: 100vh;
+    color: #1f2f2c;
+    padding-bottom: 44px;
+    text-align: center;
+  }
+
+  .pool-qr-hero {
+    position: relative;
+    min-height: 380px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top left, rgba(152, 220, 234, 0.52), transparent 30%),
+      radial-gradient(circle at right 20%, rgba(255, 231, 185, 0.75), transparent 24%),
+      linear-gradient(180deg, #f8fffe 0%, #eef7f7 48%, #f8f4ec 100%);
+    color: #17313a;
+  }
+
+  .pool-qr-hero__content,
+  .pool-qr-shell {
+    width: min(100% - 28px, 860px);
+    margin: 0 auto;
+  }
+
+  .pool-qr-hero__content {
+    position: relative;
+    display: grid;
+    gap: 16px;
+    padding: 60px 0 40px;
+    justify-items: center;
+  }
+
+  .pool-qr-language-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pool-qr-language-switch__link {
+    display: inline-flex;
+    min-width: 48px;
+    min-height: 36px;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(23, 49, 58, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #17313a;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  .pool-qr-language-switch__link.is-active {
+    background: #17313a;
+    border-color: #17313a;
+    color: #fffdf8;
+  }
+
+  .pool-qr-eyebrow {
+    margin: 0;
+    color: #4b8d98;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pool-qr-hero h1,
+  .pool-qr-section-head h2,
+  .pool-qr-help-card h3,
+  .pool-qr-practical-grid h3 {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+  }
+
+  .pool-qr-hero__lead,
+  .pool-qr-section-head p,
+  .pool-qr-help-card p,
+  .pool-qr-practical-grid p,
+  .pool-qr-summary-list li {
+    margin: 0;
+    font-size: var(--dnd-text-base);
+    line-height: 1.65;
+  }
+
+  .pool-qr-hero__lead {
+    max-width: 34rem;
+    color: rgba(23, 49, 58, 0.78);
+    text-align: center;
+  }
+
+  .pool-qr-hero__photo {
+    position: relative;
+    width: 100%;
+    margin: 18px 0 4px;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 24px 44px rgba(24, 53, 59, 0.16);
+  }
+
+  .pool-qr-hero__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 240px;
+    object-fit: cover;
+  }
+
+  .pool-qr-hero__photo-title {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    right: 24px;
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.95rem, 8vw, 3.1rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+  }
+
+  .pool-qr-hero__facts {
+    display: grid;
+    width: 100%;
+    gap: 14px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pool-qr-hero-card {
+    position: relative;
+    display: grid;
+    width: 100%;
+    overflow: hidden;
+    gap: 8px;
+    padding: 15px 15px 16px;
+    border: 1px solid rgba(53, 110, 118, 0.14);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 245, 239, 0.92)),
+      rgba(255, 255, 255, 0.86);
+    box-shadow:
+      0 18px 36px rgba(24, 53, 59, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    text-align: center;
+  }
+
+  .pool-qr-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+    border-radius: 22px 22px 0 0;
+    background: linear-gradient(90deg, rgba(77, 166, 183, 0.9), rgba(232, 193, 110, 0.85));
+  }
+
+  .pool-qr-hero-card::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    right: -38px;
+    top: -40px;
+    border-radius: 999px;
+    background: rgba(155, 214, 225, 0.18);
+    pointer-events: none;
+  }
+
+  .pool-qr-hero-card--temperature {
+    background:
+      radial-gradient(circle at top left, rgba(145, 219, 234, 0.36), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 251, 252, 0.92));
+  }
+
+  .pool-qr-hero-card--temperature::before {
+    background: linear-gradient(90deg, #4aa6bb, #89d8e2);
+  }
+
+  .pool-qr-hero-card--daily {
+    background:
+      radial-gradient(circle at top right, rgba(255, 227, 173, 0.34), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(252, 247, 237, 0.92));
+  }
+
+  .pool-qr-hero-card--daily::before {
+    background: linear-gradient(90deg, #d7a74f, #f0cf8d);
+  }
+
+  .pool-qr-hero-card--safety {
+    background:
+      radial-gradient(circle at top left, rgba(199, 232, 205, 0.34), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 251, 246, 0.93));
+  }
+
+  .pool-qr-hero-card--safety::before {
+    background: linear-gradient(90deg, #6eaf82, #a7d3b3);
+  }
+
+  .pool-qr-hero-card__label {
+    color: #3f7f89;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-hero-card__value {
+    color: #17313a;
+    font-family: var(--dnd-font-display);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: 0.02em;
+  }
+
+  .pool-qr-hero-card--temperature .pool-qr-hero-card__value {
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+  }
+
+  .pool-qr-hero-card__value--air {
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  }
+
+  .pool-qr-temperature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pool-qr-temperature-item {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+    justify-items: center;
+  }
+
+  .pool-qr-temperature-item__title {
+    color: rgba(23, 49, 58, 0.68);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .pool-qr-hero-card__meta {
+    color: rgba(23, 49, 58, 0.68);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .pool-qr-weather-alert-stack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .pool-qr-weather-alert {
+    display: grid;
+    gap: 4px;
+    padding: 10px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(23, 49, 58, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    text-align: center;
+  }
+
+  .pool-qr-weather-alert.is-loading {
+    background: rgba(255, 255, 255, 0.74);
+  }
+
+  .pool-qr-weather-alert.is-calm {
+    border-color: rgba(84, 134, 104, 0.18);
+    background: rgba(234, 246, 236, 0.92);
+  }
+
+  .pool-qr-weather-alert.is-caution {
+    border-color: rgba(202, 146, 58, 0.24);
+    background: rgba(255, 246, 224, 0.94);
+  }
+
+  .pool-qr-weather-alert.is-warning {
+    border-color: rgba(194, 88, 64, 0.24);
+    background: rgba(255, 235, 228, 0.96);
+  }
+
+  .pool-qr-weather-alert__eyebrow {
+    color: #3f7f89;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-weather-alert__title {
+    color: #17313a;
+    font-size: 0.88rem;
+    line-height: 1.22;
+  }
+
+  .pool-qr-weather-alert__text {
+    color: rgba(23, 49, 58, 0.74);
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .pool-qr-radar-card {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 14px 14px 16px;
+    border: 1px solid rgba(23, 49, 58, 0.1);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at top right, rgba(152, 220, 234, 0.42), transparent 34%),
+      radial-gradient(circle at bottom left, rgba(255, 230, 193, 0.42), transparent 30%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 244, 236, 0.96));
+    box-shadow: 0 14px 28px rgba(24, 53, 59, 0.08);
+    text-align: center;
+  }
+
+  .pool-qr-quick-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .pool-qr-quick-link {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: opacity 180ms ease;
+  }
+
+  .pool-qr-quick-link__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+  }
+
+  .pool-qr-quick-link:hover,
+  .pool-qr-quick-link:focus-visible {
+    opacity: 0.94;
+  }
+
+  .pool-qr-radar-card__title {
+    color: #17313a;
+    font-size: 0.94rem;
+    line-height: 1.3;
+  }
+
+  .pool-qr-radar-card__text {
+    margin: 0;
+    color: rgba(23, 49, 58, 0.74);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .pool-qr-radar-card__action {
+    display: inline-flex;
+    min-height: 42px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    border-radius: 999px;
+    background: #17313a;
+    color: #fffdf8;
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(24, 53, 59, 0.12);
+  }
+
+  .pool-qr-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .pool-qr-hero__action {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(23, 49, 58, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #17313a;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .pool-qr-hero__action--primary {
+    background: #17313a;
+    border-color: #17313a;
+    color: #fffdf8;
+  }
+
+  .pool-qr-hero__note {
+    display: grid;
+    gap: 2px;
+    color: rgba(23, 49, 58, 0.72);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    justify-items: center;
+  }
+
+  .pool-qr-hero__note strong {
+    color: #17313a;
+    font-size: 0.84rem;
+  }
+
+  .pool-qr-section {
+    padding-top: 28px;
+  }
+
+  .pool-qr-section-head {
+    display: grid;
+    gap: 10px;
+    max-width: 700px;
+    margin-bottom: 18px;
+    justify-items: center;
+  }
+
+  .pool-qr-section-head h2 {
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    line-height: 1.08;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1f2a24;
+  }
+
+  .pool-qr-section-head p {
+    color: rgba(31, 47, 44, 0.76);
+  }
+
+  .pool-qr-live-card,
+  .pool-qr-summary-list li,
+  .pool-qr-help-card,
+  .pool-qr-practical-grid article {
+    border: 1px solid rgba(70, 100, 93, 0.12);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 244, 238, 0.96)),
+      #fff;
+    box-shadow: 0 18px 40px rgba(35, 45, 39, 0.08);
+  }
+
+  .pool-qr-live-card {
+    padding: 10px;
+    background:
+      radial-gradient(circle at top left, rgba(58, 171, 224, 0.18), transparent 28%),
+      linear-gradient(135deg, rgba(10, 32, 43, 0.98), rgba(9, 46, 68, 0.96));
+    border-color: rgba(122, 198, 255, 0.18);
+  }
+
+  .pool-qr-live-frame {
+    display: block;
+    width: 100%;
+    height: 660px;
+    border: 0;
+    background: transparent;
+  }
+
+  .pool-qr-summary-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pool-qr-summary-list li {
+    padding: 16px 18px;
+    color: #2f3933;
+    font-size: var(--dnd-text-sm);
+    text-align: center;
+  }
+
+  .pool-qr-help-grid,
+  .pool-qr-practical-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pool-qr-help-card,
+  .pool-qr-practical-grid article {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pool-qr-help-card__index {
+    color: #c28f2d;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .pool-qr-help-card h3,
+  .pool-qr-practical-grid h3 {
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    color: #28332d;
+  }
+
+  .pool-qr-help-card p,
+  .pool-qr-practical-grid p {
+    color: rgba(31, 47, 44, 0.78);
+    font-size: var(--dnd-text-sm);
+  }
+
+  .pool-qr-page :global(.dnd-pool-rules),
+  .pool-qr-page :global(.dnd-pool-rules__header),
+  .pool-qr-page :global(.dnd-pool-rules__meta),
+  .pool-qr-page :global(.dnd-pool-rules__section),
+  .pool-qr-page :global(.dnd-pool-rules__details summary) {
+    text-align: center;
+  }
+
+  .pool-qr-page :global(.dnd-pool-rules__header),
+  .pool-qr-page :global(.dnd-pool-rules__meta),
+  .pool-qr-page :global(.dnd-pool-rules__section) {
+    justify-items: center;
+  }
+
+  .pool-qr-page :global(.dnd-pool-rules__section ul) {
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  @media (max-width: 767px) {
+    .pool-qr-hero__content,
+    .pool-qr-shell {
+      width: min(100% - 16px, 860px);
+    }
+
+    .pool-qr-hero {
+      min-height: 340px;
+    }
+
+    .pool-qr-hero__content {
+      gap: 14px;
+      padding: 34px 0 28px;
+    }
+
+    .pool-qr-language-switch {
+      gap: 6px;
+    }
+
+    .pool-qr-hero__lead {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.55;
+    }
+
+    .pool-qr-hero__photo {
+      margin-top: 14px;
+      border-radius: 24px;
+    }
+
+    .pool-qr-hero__photo img {
+      min-height: 220px;
+    }
+
+    .pool-qr-hero__photo-title {
+      top: 18px;
+      left: 16px;
+      right: 16px;
+      font-size: clamp(1.7rem, 9vw, 2.35rem);
+    }
+
+    .pool-qr-hero__facts {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .pool-qr-hero-card {
+      padding: 14px 18px;
+    }
+
+    .pool-qr-temperature-grid {
+      gap: 14px;
+    }
+
+    .pool-qr-hero__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pool-qr-hero__action {
+      min-height: 42px;
+      padding: 0 12px;
+      font-size: 0.82rem;
+    }
+
+    .pool-qr-live-frame {
+      height: 500px;
+    }
+
+    .pool-qr-quick-links {
+      gap: 10px;
+    }
+
+    .pool-qr-help-grid,
+    .pool-qr-practical-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .pool-qr-hero__content,
+    .pool-qr-shell {
+      width: min(100% - 10px, 860px);
+    }
+
+    .pool-qr-hero__facts {
+      gap: 14px;
+    }
+
+    .pool-qr-hero-card {
+      padding: 16px 20px;
+      border-radius: 18px;
+    }
+
+    .pool-qr-temperature-grid {
+      gap: 18px;
+    }
+
+    .pool-qr-temperature-item__title {
+      font-size: 0.82rem;
+    }
+
+    .pool-qr-quick-link {
+      border-radius: 22px;
+    }
+  }
+</style>
