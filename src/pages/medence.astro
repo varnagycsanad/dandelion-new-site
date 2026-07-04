@@ -10,6 +10,15 @@ const poolLiveWidgetSrc = import.meta.env.DEV
   ? "http://127.0.0.1:8091/api/pool-live-widget.php?mode=guide"
   : "/api/pool-live-widget.php?mode=guide";
 const rulesContent = getPoolRulesContent("hu");
+const poolTemperatureFallback = "Hamarosan";
+const airTemperatureFallback = "Hamarosan";
+const languageLinks = [
+  { label: "HU", href: "/medence/", isActive: true },
+  { label: "EN", href: "/en/panorama-pool/" },
+  { label: "DE", href: "/de/panorama-pool/" },
+  { label: "CS", href: "/cs/panorama-pool/" },
+  { label: "SK", href: "/sk/panorama-pool/" }
+];
 
 const quickRules = [
   "Nyitvatartás: minden nap 10:00-21:00.",
@@ -56,34 +65,81 @@ const helpSteps = [
 >
   <main class="pool-qr-page">
     <section class="pool-qr-hero">
-      <picture class="pool-qr-hero__media">
-        <source
-          media="(max-width: 640px)"
-          srcset="/images/panorama-pool/responsive/panorama-pool-hero-mobile-960-2026-06-28.webp"
-        />
-        <img
-          src="/images/panorama-pool/responsive/panorama-pool-hero-desktop-1280-2026-06-28.webp"
-          alt="Panorama Pool medence a Dandelion vendégek számára"
-          width="1280"
-          height="853"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </picture>
-
-      <div class="pool-qr-hero__overlay"></div>
-
       <div class="pool-qr-hero__content">
+        <nav class="pool-qr-language-switch" aria-label="Nyelvválasztó">
+          {languageLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={["pool-qr-language-switch__link", { "is-active": link.isActive }]}
+              aria-current={link.isActive ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
         <p class="pool-qr-eyebrow">Dandelion vendégoldal</p>
         <h1>Panorama Pool</h1>
         <p class="pool-qr-hero__lead">
-          Minden fontos információ egy helyen: aktuális adatok, rövid szabályok, használati segítség
-          és a teljes medence ÁSZF.
+          Ez az oldal gyors segítség a medence használatához. Itt találjátok egy helyen a legfontosabb
+          tudnivalókat, az aktuális hőmérsékleteket és a rövid szabályokat is.
         </p>
-        <div class="pool-qr-hero__chips" aria-label="Medence gyors információk">
-          <span>10:00-21:00</span>
-          <span>kb. 130 cm mély</span>
-          <span>D1 · D2 · Fügeház vendégeknek</span>
+
+        <div class="pool-qr-hero__facts" aria-label="Legfontosabb medence információk">
+          <article
+            class="pool-qr-hero-card pool-qr-hero-card--temperature"
+            data-pool-temperature
+            data-endpoint="/api/pool-temperature.json"
+            aria-live="polite"
+          >
+            <span class="pool-qr-hero-card__label">Aktuális hőmérsékletek</span>
+            <div class="pool-qr-temperature-grid">
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">Víz most</span>
+                <strong class="pool-qr-hero-card__value" data-pool-temperature-value>{poolTemperatureFallback}</strong>
+              </div>
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">Levegő</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air" data-pool-air-temperature-value>
+                  {airTemperatureFallback}
+                </strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="pool-qr-hero-card">
+            <span class="pool-qr-hero-card__label">Nyitvatartás</span>
+            <div class="pool-qr-temperature-grid">
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">Minden nap</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">10:00-21:00</strong>
+              </div>
+              <div class="pool-qr-temperature-item">
+                <span class="pool-qr-temperature-item__title">Mélység</span>
+                <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">125 cm</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="pool-qr-hero-card">
+            <span class="pool-qr-hero-card__label">Belépés előtt</span>
+            <strong class="pool-qr-hero-card__value">Gyerek csak felügyelettel</strong>
+            <span class="pool-qr-hero-card__meta">Viharban azonnal hagyjátok el</span>
+          </article>
+        </div>
+
+        <div class="pool-qr-hero__actions">
+          <a href="#pool-live-title" class="pool-qr-hero__action pool-qr-hero__action--primary">
+            Aktuális adatok
+          </a>
+          <a href="#medencehasznalati-szabalyok" class="pool-qr-hero__action">
+            Szabályzat
+          </a>
+        </div>
+
+        <div class="pool-qr-hero__note">
+          <strong>Csak D1, D2 és Fügeház vendégeknek.</strong>
+          <span>Gyors tájékozódáshoz készült, kifejezetten telefonos megnyitásra.</span>
         </div>
       </div>
     </section>
@@ -176,6 +232,74 @@ const helpSteps = [
   </main>
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const updatePoolTemperature = async () => {
+      const widget = document.querySelector("[data-pool-temperature]");
+      const valueNode = widget ? widget.querySelector("[data-pool-temperature-value]") : null;
+      const airValueNode = widget ? widget.querySelector("[data-pool-air-temperature-value]") : null;
+      const endpoint = widget ? widget.getAttribute("data-endpoint") || "/api/pool-temperature.json" : "/api/pool-temperature.json";
+      const fallbackText = "Hamarosan";
+
+      if (!widget || !valueNode) return;
+
+      try {
+        const url = new URL(endpoint, window.location.href);
+        url.searchParams.set("refresh", Date.now().toString());
+
+        const response = await fetch(url.toString(), {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Pool temperature is unavailable.");
+        }
+
+        const data = await response.json();
+        const temperature = Number(data.temperature);
+
+        if (!Number.isFinite(temperature)) {
+          throw new Error("Pool temperature is invalid.");
+        }
+
+        const unit = typeof data.unit === "string" && data.unit.trim() ? data.unit.trim() : "°C";
+        valueNode.textContent = `${temperature.toLocaleString("hu-HU", {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        })} ${unit}`;
+
+        const rawAirTemperature =
+          data.airTemperature !== undefined && data.airTemperature !== null
+            ? data.airTemperature
+            : data.air_temperature !== undefined && data.air_temperature !== null
+              ? data.air_temperature
+              : data.outdoorTemperature;
+        const airTemperature = Number(rawAirTemperature);
+        if (airValueNode && Number.isFinite(airTemperature)) {
+          airValueNode.textContent = `${airTemperature.toLocaleString("hu-HU", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          })} ${unit}`;
+        } else if (airValueNode) {
+          airValueNode.textContent = fallbackText;
+        }
+      } catch {
+        valueNode.textContent = fallbackText;
+        if (airValueNode) {
+          airValueNode.textContent = fallbackText;
+        }
+      }
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", updatePoolTemperature, { once: true });
+    } else {
+      updatePoolTemperature();
+    }
+  })();
+</script>
+
 <style>
   :global(body) {
     background:
@@ -187,35 +311,18 @@ const helpSteps = [
     min-height: 100vh;
     color: #1f2f2c;
     padding-bottom: 44px;
+    text-align: center;
   }
 
   .pool-qr-hero {
     position: relative;
-    min-height: 460px;
+    min-height: 380px;
     overflow: hidden;
-    background: #133238;
-    color: #fffdf8;
-  }
-
-  .pool-qr-hero__media,
-  .pool-qr-hero__media img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .pool-qr-hero__media img {
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .pool-qr-hero__overlay {
-    position: absolute;
-    inset: 0;
     background:
-      linear-gradient(180deg, rgba(6, 24, 28, 0.24), rgba(6, 24, 28, 0.62)),
-      linear-gradient(120deg, rgba(15, 81, 95, 0.4), transparent 54%);
+      radial-gradient(circle at top left, rgba(152, 220, 234, 0.52), transparent 30%),
+      radial-gradient(circle at right 20%, rgba(255, 231, 185, 0.75), transparent 24%),
+      linear-gradient(180deg, #f8fffe 0%, #eef7f7 48%, #f8f4ec 100%);
+    color: #17313a;
   }
 
   .pool-qr-hero__content,
@@ -226,10 +333,40 @@ const helpSteps = [
 
   .pool-qr-hero__content {
     position: relative;
-    z-index: 1;
     display: grid;
-    gap: 14px;
-    padding: 84px 0 64px;
+    gap: 16px;
+    padding: 60px 0 40px;
+    justify-items: center;
+  }
+
+  .pool-qr-language-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pool-qr-language-switch__link {
+    display: inline-flex;
+    min-width: 48px;
+    min-height: 36px;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(23, 49, 58, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #17313a;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  .pool-qr-language-switch__link.is-active {
+    background: #17313a;
+    border-color: #17313a;
+    color: #fffdf8;
   }
 
   .pool-qr-eyebrow {
@@ -240,11 +377,6 @@ const helpSteps = [
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-
-  .pool-qr-hero .pool-qr-eyebrow {
-    color: #98dcea;
-  }
-
   .pool-qr-hero h1,
   .pool-qr-section-head h2,
   .pool-qr-help-card h3,
@@ -271,25 +403,120 @@ const helpSteps = [
   }
 
   .pool-qr-hero__lead {
-    max-width: 680px;
-    color: rgba(255, 252, 246, 0.9);
+    max-width: 34rem;
+    color: rgba(23, 49, 58, 0.78);
+    text-align: center;
   }
 
-  .pool-qr-hero__chips {
-    display: flex;
-    flex-wrap: wrap;
+  .pool-qr-hero__facts {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pool-qr-hero-card {
+    display: grid;
+    gap: 6px;
+    padding: 14px 15px;
+    border: 1px solid rgba(53, 110, 118, 0.12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 16px 34px rgba(24, 53, 59, 0.08);
+    text-align: center;
+  }
+
+  .pool-qr-hero-card__label {
+    color: #3f7f89;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-hero-card__value {
+    color: #17313a;
+    font-family: var(--dnd-font-display);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: 0.02em;
+  }
+
+  .pool-qr-hero-card--temperature .pool-qr-hero-card__value {
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+  }
+
+  .pool-qr-hero-card__value--air {
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  }
+
+  .pool-qr-temperature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
-  .pool-qr-hero__chips span {
-    padding: 9px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
+  .pool-qr-temperature-item {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+    justify-items: center;
+  }
+
+  .pool-qr-temperature-item__title {
+    color: rgba(23, 49, 58, 0.68);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .pool-qr-hero-card__meta {
+    color: rgba(23, 49, 58, 0.68);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .pool-qr-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .pool-qr-hero__action {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(23, 49, 58, 0.16);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    color: #fffdf8;
+    background: rgba(255, 255, 255, 0.72);
+    color: #17313a;
     font-size: var(--dnd-text-sm);
-    line-height: 1.3;
-    backdrop-filter: blur(8px);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .pool-qr-hero__action--primary {
+    background: #17313a;
+    border-color: #17313a;
+    color: #fffdf8;
+  }
+
+  .pool-qr-hero__note {
+    display: grid;
+    gap: 2px;
+    color: rgba(23, 49, 58, 0.72);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    justify-items: center;
+  }
+
+  .pool-qr-hero__note strong {
+    color: #17313a;
+    font-size: 0.84rem;
   }
 
   .pool-qr-section {
@@ -301,6 +528,7 @@ const helpSteps = [
     gap: 10px;
     max-width: 700px;
     margin-bottom: 18px;
+    justify-items: center;
   }
 
   .pool-qr-section-head h2 {
@@ -355,6 +583,7 @@ const helpSteps = [
     padding: 16px 18px;
     color: #2f3933;
     font-size: var(--dnd-text-sm);
+    text-align: center;
   }
 
   .pool-qr-help-grid,
@@ -369,6 +598,8 @@ const helpSteps = [
     display: grid;
     gap: 10px;
     padding: 18px;
+    justify-items: center;
+    text-align: center;
   }
 
   .pool-qr-help-card__index {
@@ -392,13 +623,69 @@ const helpSteps = [
     font-size: var(--dnd-text-sm);
   }
 
+  .pool-qr-page :global(.dnd-pool-rules),
+  .pool-qr-page :global(.dnd-pool-rules__header),
+  .pool-qr-page :global(.dnd-pool-rules__meta),
+  .pool-qr-page :global(.dnd-pool-rules__section),
+  .pool-qr-page :global(.dnd-pool-rules__details summary) {
+    text-align: center;
+  }
+
+  .pool-qr-page :global(.dnd-pool-rules__header),
+  .pool-qr-page :global(.dnd-pool-rules__meta),
+  .pool-qr-page :global(.dnd-pool-rules__section) {
+    justify-items: center;
+  }
+
+  .pool-qr-page :global(.dnd-pool-rules__section ul) {
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
   @media (max-width: 767px) {
     .pool-qr-hero {
-      min-height: 400px;
+      min-height: 340px;
     }
 
     .pool-qr-hero__content {
-      padding: 68px 0 46px;
+      gap: 14px;
+      padding: 34px 0 28px;
+    }
+
+    .pool-qr-language-switch {
+      gap: 6px;
+    }
+
+    .pool-qr-hero h1 {
+      font-size: clamp(2.1rem, 11vw, 3rem);
+    }
+
+    .pool-qr-hero__lead {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.55;
+    }
+
+    .pool-qr-hero__facts {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-qr-hero-card {
+      padding: 12px 14px;
+    }
+
+    .pool-qr-temperature-grid {
+      gap: 8px;
+    }
+
+    .pool-qr-hero__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pool-qr-hero__action {
+      min-height: 42px;
+      padding: 0 12px;
+      font-size: 0.82rem;
     }
 
     .pool-qr-live-frame {
