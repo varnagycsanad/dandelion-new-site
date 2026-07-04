@@ -26,6 +26,7 @@ export const LOCALIZED_ROUTE_PAIRS = [
   { hu: "/elmenyek/balaton/", en: "/en/lake-balaton/", de: "/de/balaton/", cs: "/cs/balaton/", sk: "/sk/balaton/" },
   { hu: "/elmenyek/tanuhegyek/", en: "/en/witness-hills/", de: "/de/zeugenberge/", cs: "/cs/svedecne-hory/", sk: "/sk/svedecke-vrchy/" },
   { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/", sk: "/sk/panorama-pool/" },
+  { hu: "/medence/", en: "/en/medence/", de: "/de/medence/", cs: "/cs/medence/", sk: "/sk/medence/" },
   { hu: "/dandelion-d2/", en: "/en/dandelion-d2/", de: "/de/dandelion-d2/", cs: "/cs/dandelion-d2/", sk: "/sk/dandelion-d2/" },
   { hu: "/fuge/", en: "/en/dandelion-fugehaz/", de: "/de/dandelion-fugehaz/", cs: "/cs/dandelion-fugehaz/", sk: "/sk/dandelion-fugehaz/" },
   { hu: "/dandelion-d1/", en: "/en/dandelion-d1/", de: "/de/dandelion-d1/", cs: "/cs/dandelion-d1/", sk: "/sk/dandelion-d1/" },

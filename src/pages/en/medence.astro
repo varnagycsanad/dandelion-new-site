@@ -1,0 +1,11 @@
+---
+import PoolGuidePage from "../../components/PoolGuidePage.astro";
+import { getPoolRulesContent } from "../../data/pool-rules";
+import { poolGuideContentByLocale } from "../../data/pool-guide-content";
+
+const locale = "en";
+const content = poolGuideContentByLocale[locale];
+const rulesContent = getPoolRulesContent(locale);
+---
+
+<PoolGuidePage content={content} rulesContent={rulesContent} />
