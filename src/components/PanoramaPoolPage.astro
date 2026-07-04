@@ -13,13 +13,7 @@ import { buildVideoObject } from "../data/video-seo";
 
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolveHref = (path: string) => `${baseHref}${path.replace(/^\/+/, "")}`;
-const localeByPathPrefix: Record<string, PoolRulesLocale> = {
-  "/en/": "en",
-  "/de/": "de",
-  "/cs/": "cs",
-  "/sk/": "sk"
-};
-const locale = (Object.entries(localeByPathPrefix).find(([prefix]) => Astro.url.pathname.startsWith(prefix))?.[1] ?? "hu") as PoolRulesLocale;
+const { locale = "hu" } = Astro.props as { locale?: PoolRulesLocale };
 
 const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
 const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
