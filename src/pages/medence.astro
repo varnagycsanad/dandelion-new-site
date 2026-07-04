@@ -12,6 +12,13 @@ const poolLiveWidgetSrc = import.meta.env.DEV
 const rulesContent = getPoolRulesContent("hu");
 const poolTemperatureFallback = "Hamarosan";
 const airTemperatureFallback = "Hamarosan";
+const kisapatiLatitude = "46.8662";
+const kisapatiLongitude = "17.4583";
+const windAlertFallbackTitle = "Szél állapot betöltése...";
+const windAlertFallbackText = "Röviden jelezzük, ha a szél miatt teendő van a medencénél.";
+const stormAlertFallbackTitle = "Eső / vihar állapot betöltése...";
+const stormAlertFallbackText = "Röviden jelezzük, ha a következő órákban eső vagy vihar közeleg.";
+const radarEmbedSrc = `https://embed.windy.com/embed2.html?lat=${kisapatiLatitude}&lon=${kisapatiLongitude}&detailLat=${kisapatiLatitude}&detailLon=${kisapatiLongitude}&width=360&height=240&zoom=10&level=surface&overlay=radar&product=radar&menu=&message=true&marker=true&calendar=now&pressure=false&type=map&location=coordinates&detail=true&metricWind=km%2Fh&metricTemp=%C2%B0C`;
 const languageLinks = [
   { label: "HU", href: "/medence/", isActive: true },
   { label: "EN", href: "/en/panorama-pool/" },
@@ -108,16 +115,47 @@ const helpSteps = [
           </article>
 
           <article class="pool-qr-hero-card">
-            <span class="pool-qr-hero-card__label">Nyitvatartás</span>
+            <span class="pool-qr-hero-card__label">Használat ma</span>
             <div class="pool-qr-temperature-grid">
               <div class="pool-qr-temperature-item">
                 <span class="pool-qr-temperature-item__title">Minden nap</span>
                 <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">10:00-21:00</strong>
               </div>
               <div class="pool-qr-temperature-item">
-                <span class="pool-qr-temperature-item__title">Mélység</span>
+                <span class="pool-qr-temperature-item__title">Vízmélység</span>
                 <strong class="pool-qr-hero-card__value pool-qr-hero-card__value--air">125 cm</strong>
               </div>
+            </div>
+            <div class="pool-qr-weather-alert-stack" aria-live="polite">
+              <div class="pool-qr-weather-alert is-loading" data-pool-wind-alert>
+                <span class="pool-qr-weather-alert__eyebrow">Szél</span>
+                <strong class="pool-qr-weather-alert__title" data-pool-wind-alert-title>
+                  {windAlertFallbackTitle}
+                </strong>
+                <span class="pool-qr-weather-alert__text" data-pool-wind-alert-text>
+                  {windAlertFallbackText}
+                </span>
+              </div>
+              <div class="pool-qr-weather-alert is-loading" data-pool-storm-alert>
+                <span class="pool-qr-weather-alert__eyebrow">Eső / vihar</span>
+                <strong class="pool-qr-weather-alert__title" data-pool-storm-alert-title>
+                  {stormAlertFallbackTitle}
+                </strong>
+                <span class="pool-qr-weather-alert__text" data-pool-storm-alert-text>
+                  {stormAlertFallbackText}
+                </span>
+              </div>
+            </div>
+            <div class="pool-qr-radar-card">
+              <span class="pool-qr-weather-alert__eyebrow">Radar térkép</span>
+              <strong class="pool-qr-radar-card__title">Kisapáti környéke most</strong>
+              <iframe
+                class="pool-qr-radar-frame"
+                src={radarEmbedSrc}
+                title="Kisapáti radar térkép"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </article>
 
@@ -292,10 +330,155 @@ const helpSteps = [
       }
     };
 
+    const updateWeatherAlert = async () => {
+      const windNode = document.querySelector("[data-pool-wind-alert]");
+      const windTitleNode = windNode ? windNode.querySelector("[data-pool-wind-alert-title]") : null;
+      const windTextNode = windNode ? windNode.querySelector("[data-pool-wind-alert-text]") : null;
+      const stormNode = document.querySelector("[data-pool-storm-alert]");
+      const stormTitleNode = stormNode ? stormNode.querySelector("[data-pool-storm-alert-title]") : null;
+      const stormTextNode = stormNode ? stormNode.querySelector("[data-pool-storm-alert-text]") : null;
+
+      if (!windNode || !windTitleNode || !windTextNode || !stormNode || !stormTitleNode || !stormTextNode) return;
+
+      const setAlertState = (node, titleNode, textNode, state, title, text) => {
+        node.classList.remove("is-loading", "is-calm", "is-caution", "is-warning");
+        node.classList.add(state);
+        titleNode.textContent = title;
+        textNode.textContent = text;
+      };
+
+      try {
+        const url = new URL("https://api.open-meteo.com/v1/forecast");
+        url.searchParams.set("latitude", "46.8662");
+        url.searchParams.set("longitude", "17.4583");
+        url.searchParams.set("current", "weather_code,wind_speed_10m,wind_gusts_10m");
+        url.searchParams.set("hourly", "precipitation_probability,weather_code,wind_gusts_10m,precipitation");
+        url.searchParams.set("forecast_days", "1");
+        url.searchParams.set("timezone", "auto");
+
+        const response = await fetch(url.toString(), {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Weather alert is unavailable.");
+        }
+
+        const data = await response.json();
+        const current = data.current ?? {};
+        const hourly = data.hourly ?? {};
+        const hourlyTimes = Array.isArray(hourly.time) ? hourly.time : [];
+        const precipitationValues = Array.isArray(hourly.precipitation_probability) ? hourly.precipitation_probability : [];
+        const precipitationAmounts = Array.isArray(hourly.precipitation) ? hourly.precipitation : [];
+        const hourlyCodes = Array.isArray(hourly.weather_code) ? hourly.weather_code : [];
+        const hourlyGusts = Array.isArray(hourly.wind_gusts_10m) ? hourly.wind_gusts_10m : [];
+        const thunderstormCodes = new Set([95, 96, 99]);
+        const rainCodes = new Set([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82]);
+        const currentCode = Number(current.weather_code);
+        const currentWindGust = Number(current.wind_gusts_10m);
+        const currentWindSpeed = Number(current.wind_speed_10m);
+        const startIndex =
+          typeof current.time === "string" && hourlyTimes.includes(current.time)
+            ? hourlyTimes.indexOf(current.time)
+            : 0;
+        const windowEnd = Math.min(startIndex + 3, hourlyTimes.length || 3);
+        const upcomingCodes = hourlyCodes.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingPrecipitation = precipitationValues.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingAmounts = precipitationAmounts.slice(startIndex, windowEnd).map((value) => Number(value));
+        const upcomingGusts = hourlyGusts.slice(startIndex, windowEnd).map((value) => Number(value));
+        const maxUpcomingPrecipitation = upcomingPrecipitation.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          0
+        );
+        const maxUpcomingRainAmount = upcomingAmounts.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          0
+        );
+        const maxUpcomingGust = upcomingGusts.reduce(
+          (max, value) => (Number.isFinite(value) ? Math.max(max, value) : max),
+          Number.isFinite(currentWindGust) ? currentWindGust : 0
+        );
+        const hasThunderstorm = thunderstormCodes.has(currentCode) || upcomingCodes.some((code) => thunderstormCodes.has(code));
+        const hasRainRisk = rainCodes.has(currentCode) || upcomingCodes.some((code) => rainCodes.has(code));
+        const immediateStormRisk = hasThunderstorm;
+        const nearRainRisk = maxUpcomingPrecipitation >= 50 || maxUpcomingRainAmount >= 1 || hasRainRisk;
+
+        if (maxUpcomingGust >= 45) {
+          setAlertState(
+            windNode,
+            windTitleNode,
+            windTextNode,
+            "is-warning",
+            "Erős szél közeleg",
+            "Húzzátok vissza a medence tetejét, és ne használjátok a medencét."
+          );
+        } else if (maxUpcomingGust >= 25 || currentWindSpeed >= 25) {
+          setAlertState(
+            windNode,
+            windTitleNode,
+            windTextNode,
+            "is-caution",
+            "Szelesebb idő jöhet",
+            "Kérlek húzzátok be a napernyőket."
+          );
+        } else {
+          setAlertState(windNode, windTitleNode, windTextNode, "is-calm", "Szél: rendben", "Jelenleg nincs teendő.");
+        }
+
+        if (immediateStormRisk) {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-warning",
+            "Vihar közeleg",
+            "Hagyjátok el a medencét, és tegyetek mindent biztonságos helyre."
+          );
+        } else if (nearRainRisk) {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-caution",
+            "Eső vagy vihar jöhet",
+            "Készítsétek elő a kinti dolgokat, és figyeljétek az időt."
+          );
+        } else {
+          setAlertState(
+            stormNode,
+            stormTitleNode,
+            stormTextNode,
+            "is-calm",
+            "Eső / vihar: rendben",
+            "1-2 órán belül nem látszik közeli eső vagy vihar."
+          );
+        }
+      } catch {
+        setAlertState(windNode, windTitleNode, windTextNode, "is-caution", "Szél adat nincs", "Nézzetek rá külön az időjárásra.");
+        setAlertState(
+          stormNode,
+          stormTitleNode,
+          stormTextNode,
+          "is-caution",
+          "Eső / vihar adat nincs",
+          "Nézzetek rá külön az időjárásra."
+        );
+      }
+    };
+
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", updatePoolTemperature, { once: true });
+      document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+          updatePoolTemperature();
+          updateWeatherAlert();
+        },
+        { once: true }
+      );
     } else {
       updatePoolTemperature();
+      updateWeatherAlert();
     }
   })();
 </script>
@@ -410,12 +593,14 @@ const helpSteps = [
 
   .pool-qr-hero__facts {
     display: grid;
+    width: 100%;
     gap: 10px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .pool-qr-hero-card {
     display: grid;
+    width: 100%;
     gap: 6px;
     padding: 14px 15px;
     border: 1px solid rgba(53, 110, 118, 0.12);
@@ -475,6 +660,88 @@ const helpSteps = [
     color: rgba(23, 49, 58, 0.68);
     font-size: 0.78rem;
     line-height: 1.35;
+  }
+
+  .pool-qr-weather-alert-stack {
+    display: grid;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .pool-qr-weather-alert {
+    display: grid;
+    gap: 4px;
+    padding: 11px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(23, 49, 58, 0.1);
+    background: rgba(255, 255, 255, 0.74);
+    text-align: center;
+  }
+
+  .pool-qr-weather-alert.is-loading {
+    background: rgba(255, 255, 255, 0.74);
+  }
+
+  .pool-qr-weather-alert.is-calm {
+    border-color: rgba(84, 134, 104, 0.18);
+    background: rgba(234, 246, 236, 0.92);
+  }
+
+  .pool-qr-weather-alert.is-caution {
+    border-color: rgba(202, 146, 58, 0.24);
+    background: rgba(255, 246, 224, 0.94);
+  }
+
+  .pool-qr-weather-alert.is-warning {
+    border-color: rgba(194, 88, 64, 0.24);
+    background: rgba(255, 235, 228, 0.96);
+  }
+
+  .pool-qr-weather-alert__eyebrow {
+    color: #3f7f89;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .pool-qr-weather-alert__title {
+    color: #17313a;
+    font-size: 0.94rem;
+    line-height: 1.3;
+  }
+
+  .pool-qr-weather-alert__text {
+    color: rgba(23, 49, 58, 0.74);
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .pool-qr-radar-card {
+    display: grid;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 12px;
+    border: 1px solid rgba(23, 49, 58, 0.1);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.74);
+    text-align: center;
+  }
+
+  .pool-qr-radar-card__title {
+    color: #17313a;
+    font-size: 0.94rem;
+    line-height: 1.3;
+  }
+
+  .pool-qr-radar-frame {
+    display: block;
+    width: 100%;
+    height: 240px;
+    border: 0;
+    border-radius: 12px;
+    background: #dbe7ea;
   }
 
   .pool-qr-hero__actions {
@@ -643,6 +910,11 @@ const helpSteps = [
   }
 
   @media (max-width: 767px) {
+    .pool-qr-hero__content,
+    .pool-qr-shell {
+      width: min(100% - 16px, 860px);
+    }
+
     .pool-qr-hero {
       min-height: 340px;
     }
@@ -667,14 +939,15 @@ const helpSteps = [
 
     .pool-qr-hero__facts {
       grid-template-columns: 1fr;
+      gap: 12px;
     }
 
     .pool-qr-hero-card {
-      padding: 12px 14px;
+      padding: 14px 18px;
     }
 
     .pool-qr-temperature-grid {
-      gap: 8px;
+      gap: 14px;
     }
 
     .pool-qr-hero__actions {
@@ -695,6 +968,30 @@ const helpSteps = [
     .pool-qr-help-grid,
     .pool-qr-practical-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .pool-qr-hero__content,
+    .pool-qr-shell {
+      width: min(100% - 10px, 860px);
+    }
+
+    .pool-qr-hero__facts {
+      gap: 14px;
+    }
+
+    .pool-qr-hero-card {
+      padding: 16px 20px;
+      border-radius: 18px;
+    }
+
+    .pool-qr-temperature-grid {
+      gap: 18px;
+    }
+
+    .pool-qr-temperature-item__title {
+      font-size: 0.82rem;
     }
   }
 </style>
