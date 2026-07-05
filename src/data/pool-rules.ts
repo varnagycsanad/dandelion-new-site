@@ -196,7 +196,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
       "The pool may not be used during storms, lightning, strong wind or dangerous weather conditions.",
       "In windy weather, the sun umbrella must be closed, and in strong wind it must not be left open.",
       "After the last use in the evening, the pool cover must be pulled back over the pool.",
-      "The Panorama Pool area may be covered by camera surveillance."
+      "The Panorama Pool area may be monitored by CCTV."
     ],
     detailsLabel: "Open full pool rules",
     fullTitle: "Panorama Pool - Pool rules",
@@ -312,7 +312,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
       {
         title: "10. Camera surveillance",
         paragraphs: [
-          "The Panorama Pool area may be covered by camera surveillance.",
+          "The Panorama Pool area may be monitored by CCTV.",
           "The purpose of camera surveillance is to protect guests and the accommodation, protect property, prevent damage and breaches of rules, and clarify complaints, accidents or damage events.",
           "Camera surveillance does not constitute lifeguard service or continuous personal supervision, and it does not replace adult supervision of children.",
           "Detailed rules on camera-related data processing are set out in the Dandelion Guesthouses Privacy Policy."
@@ -507,7 +507,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
   cs: {
     title: "Pravidla používání bazénu",
     intro:
-      "Během koupací sezóny je Panorama Pool k dispozici hostům ubytování Dandelion D1, Dandelion D2 a Fügeház. Použitím bazénu host přijímá pravidla používání bazénu.",
+      "Během koupací sezóny je Panorama Pool k dispozici hostům ubytovaným v Dandelion D1, Dandelion D2 a Fügeház. Použitím bazénu host přijímá pravidla používání bazénu.",
     summaryPoints: [
       "Bazén lze používat denně od 10:00 do 21:00.",
       "Používání bazénu je na vlastní odpovědnost a není zde plavčík.",
@@ -530,7 +530,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
       {
         title: "Přijetí pravidel",
         paragraphs: [
-          "Během koupací sezóny je Panorama Pool k dispozici hostům ubytování Dandelion D1, Dandelion D2 a Fügeház.",
+          "Během koupací sezóny je Panorama Pool k dispozici hostům ubytovaným v Dandelion D1, Dandelion D2 a Fügeház.",
           "Použitím bazénu host přijímá tato pravidla a zavazuje se používat bazén pouze podle nich."
         ]
       },
@@ -668,7 +668,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
   sk: {
     title: "Pravidlá používania bazéna",
     intro:
-      "Počas kúpacej sezóny je Panorama Pool k dispozícii hosťom ubytovaní Dandelion D1, Dandelion D2 a Fügeház. Používaním bazéna hosť prijíma pravidlá používania bazéna.",
+      "Počas kúpacej sezóny je Panorama Pool k dispozícii hosťom ubytovaným v Dandelion D1, Dandelion D2 a Fügeház. Používaním bazéna hosť prijíma pravidlá používania bazéna.",
     summaryPoints: [
       "Bazén je možné využívať denne od 10:00 do 21:00.",
       "Používanie bazéna je na vlastnú zodpovednosť a pri bazéne nie je plavčík.",
@@ -691,7 +691,7 @@ const poolRulesByLocale: Record<PoolRulesLocale, PoolRulesContent> = {
       {
         title: "Prijatie pravidiel",
         paragraphs: [
-          "Počas kúpacej sezóny je Panorama Pool k dispozícii hosťom ubytovaní Dandelion D1, Dandelion D2 a Fügeház.",
+          "Počas kúpacej sezóny je Panorama Pool k dispozícii hosťom ubytovaným v Dandelion D1, Dandelion D2 a Fügeház.",
           "Používaním bazéna hosť prijíma tieto pravidlá a zaväzuje sa používať bazén iba podľa nich."
         ]
       },

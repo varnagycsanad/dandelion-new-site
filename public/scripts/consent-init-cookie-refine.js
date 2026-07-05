@@ -126,6 +126,15 @@
   };
 
   function ensureCookieDetailsLink() {
+    const language = (document.documentElement.lang || "hu").slice(0, 2).toLowerCase();
+    const localizedCookieLink = {
+      hu: { href: "/adatkezelesi-tajekoztato/", label: "Bővebben" },
+      en: { href: "/en/privacy-policy/", label: "Learn more" },
+      de: { href: "/de/datenschutz/", label: "Mehr erfahren" },
+      cs: { href: "/cs/ochrana-osobnich-udaju/", label: "Zjistit více" },
+      sk: { href: "/sk/ochrana-osobnych-udajov/", label: "Zistiť viac" }
+    };
+    const linkCopy = localizedCookieLink[language] || localizedCookieLink.hu;
     const modalHeader = document.querySelector("#dnd-klaro .cm-header");
     const modalDescription = modalHeader?.querySelector("p");
 
@@ -135,9 +144,8 @@
 
     const detailsLink = document.createElement("a");
     detailsLink.className = "dnd-cookie-more-link";
-    detailsLink.href = "/docs/dandelion-suti-tajekoztato.pdf";
-    detailsLink.download = "dandelion-suti-tajekoztato.pdf";
-    detailsLink.textContent = "B\u0151vebben";
+    detailsLink.href = linkCopy.href;
+    detailsLink.textContent = linkCopy.label;
 
     if (modalDescription) {
       modalDescription.append(" ");

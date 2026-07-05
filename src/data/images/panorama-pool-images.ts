@@ -422,24 +422,24 @@ const panoramaPoolImageBlueprints: Array<{
         caption: "Gyep felőli nézet a medencére és a környező tanúhegyekre."
       },
       en: {
-        alt: "Lawn-side view of Panorama Pool with the pool and the witness hills beyond.",
+        alt: "Lawn-side view of Panorama Pool with the pool and the surrounding hills beyond.",
         title: "Panorama Pool panorama",
-        caption: "A lawn-side view of the pool with the surrounding witness hills."
+        caption: "A lawn-side view of the pool with the surrounding hills."
       },
       de: {
-        alt: "Blick vom Rasen auf den Panorama Pool mit den Zeugenbergen im Hintergrund.",
+        alt: "Blick vom Rasen auf den Panorama Pool mit den umliegenden Hügeln im Hintergrund.",
         title: "Panorama Pool Panorama",
-        caption: "Blick von der Rasenfläche auf den Pool und die umliegenden Zeugenberge."
+        caption: "Blick von der Rasenfläche auf den Pool und die umliegenden Hügel."
       },
       cs: {
-        alt: "Pohled od trávníku na Panorama Pool s okolními svědeckými horami.",
+        alt: "Pohled od trávníku na Panorama Pool s okolními kopci v pozadí.",
         title: "Panorama Panorama Pool",
-        caption: "Pohled od trávníku na bazén a okolní svědecké hory."
+        caption: "Pohled od trávníku na bazén a okolní kopce."
       },
       sk: {
-        alt: "Pohľad od trávnika na Panorama Pool s okolitými svedeckými vrchmi.",
+        alt: "Pohľad od trávnika na Panorama Pool s okolitými kopcami v pozadí.",
         title: "Panoráma Panorama Pool",
-        caption: "Pohľad od trávnika na bazén a okolité svedecké vrchy."
+        caption: "Pohľad od trávnika na bazén a okolité kopce."
       }
     }
   },
