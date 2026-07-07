@@ -17,7 +17,7 @@ import {
   getNewsletterListName,
   guessNewsletterListKeyFromSource,
   normalizeNewsletterListKey,
-} from "../src/scripts/newsletterLists.js";
+} from "./newsletterLists.js";
 
 function loadEnvFile(filePath) {
   if (!existsSync(filePath)) {
