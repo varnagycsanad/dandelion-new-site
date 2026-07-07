@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Zsalya content added for the shared accommodation template.
 export const zsalyaEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Zsálya Vendégház near Szent György Hill | Covered terrace and hill views",
+    title: "Zsálya Vendégház | Hillside stay in Kisapáti",
     description:
       "Zsálya Vendégház is a separate hillside guesthouse near Szent György Hill, with a covered glass terrace, private grounds and witness-hill views."
   },

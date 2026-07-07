@@ -30,7 +30,11 @@ type SlovakAccommodationProfile = {
 
 function buildSlovakSeoTitle(profile: SlovakAccommodationProfile) {
   const stayName = `${profile.title} ${profile.titleAccent}`.replace(/\s+/g, " ").trim();
-  return `${stayName} - ${profile.location} | Dandelion ubytovanie`;
+  const primaryLocation = profile.location.split("/")[0]?.trim() || profile.location;
+  const locationPhrase = primaryLocation.includes("Szent György-hegy")
+    ? `pri ${primaryLocation}`
+    : `v ${primaryLocation}`;
+  return `${stayName} ${locationPhrase} | Dandelion ubytovanie`;
 }
 
 const defaultReviews = [

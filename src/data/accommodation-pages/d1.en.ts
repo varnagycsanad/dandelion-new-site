@@ -7,7 +7,7 @@ const d1PanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHi
 
 export const d1EnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D1 near Szent György Hill | Spacious countryside stay for families",
+    title: "Dandelion D1 Kisapáti | Family stay with Panorama Pool",
     description:
       "Dandelion D1 is a spacious countryside accommodation near Szent György Hill and Lake Balaton, ideal for families and groups, with access to the Panorama Pool."
   },

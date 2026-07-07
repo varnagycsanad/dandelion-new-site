@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Royal Homes content added for the shared accommodation template.
 export const royalHomesEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes in Keszthely | Comfortable apartments near Lake Balaton",
+    title: "Dandelion Royal Homes | Apartments near Lake Balaton",
     description:
       "Dandelion Royal Homes offers comfortable apartments in Keszthely, close to Lake Balaton, ideal for a convenient stay near the lake and the town centre."
   },

@@ -9,7 +9,7 @@ export const d1SlovakPageData = createSlovakAccommodationPage(d1EnglishPageData,
   region: "Balatonská vrchovina - Tapolcai-medence",
   guests: "6-8 hostí",
   character: "PRIESTRANNÝ DOM PRE RODINY A PRIATEĽOV",
-  shortDescription: "D1 je najpriestrannejší klimatizovaný dom medzi ubytovaniami Dandelion, až pre 8 hostí. Má 3 spálne, obývačku, pohodlnú terasu, možnosť grilovania a krásny výhľad smerom na Csobánc, Tóti-hegy, Gulács a Badacsony.\n\nPanorama Pool, ktorý je vidieť na hlavnej fotografii, môžu využívať hostia Dandelion D1, D2 a Fügeház.",
+  shortDescription: "Priestranný klimatizovaný dom v Kisapáti až pre 8 hostí, s 3 spálňami, terasou, grilom a sezónnym prístupom k Panorama Pool.",
   lead: "Dandelion D1 je dobrá voľba na spoločný pobyt, keď je dôležitý priestor, záhrada a jednoduché zázemie na výlety po Balatonskej vrchovine.",
   longDescription: [
     "D1 je najpriestrannejší klimatizovaný dom medzi ubytovaniami Dandelion a pohodlná voľba pre väčšie rodiny alebo skupiny priateľov. V dome sú 3 spálne a obývačka, takže dobre funguje aj pri pobyte viacerých hostí.",

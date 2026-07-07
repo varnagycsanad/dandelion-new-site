@@ -7,7 +7,7 @@ const d2PanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHi
 
 export const d2EnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D2 near Szent György Hill | Family-friendly countryside stay",
+    title: "Dandelion D2 Kisapáti | Family house with Panorama Pool",
     description:
       "Dandelion D2 is a family-friendly house near Szent György Hill, with a large garden, covered terrace and seasonal access to the Panorama Pool."
   },

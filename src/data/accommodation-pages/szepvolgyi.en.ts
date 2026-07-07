@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Szepvolgyi content added for the shared accommodation template.
 export const szepvolgyiEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Szépvölgyi Vendégház in Badacsonyörs | Peaceful stay near Lake Balaton",
+    title: "Szépvölgyi Vendégház | Stay near Lake Balaton",
     description:
       "Szépvölgyi Vendégház is a peaceful guesthouse in Badacsonyörs, close to Lake Balaton and the Badacsony area, ideal for a relaxed countryside stay."
   },

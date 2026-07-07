@@ -4,7 +4,7 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Dandelion Vintage content added for the shared accommodation template.
 export const vintageEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Vintage Vendégház | Private garden stay near Lake Balaton",
+    title: "Dandelion Vintage | Guesthouse near Lake Balaton",
     description:
       "Dandelion Vintage Vendégház is a characterful guesthouse with a private garden, close to Lake Balaton and Balaton Uplands day trips."
   },

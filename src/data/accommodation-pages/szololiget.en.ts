@@ -4,9 +4,9 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Szololiget content added for the shared accommodation template.
 export const szololigetEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Szőlőliget Vendégház near Szent György Hill | Vineyard-area countryside stay",
+    title: "Szőlőliget Vendégház | Vineyard stay in Kisapáti",
     description:
-      "Szőlőliget Vendégház is a peaceful countryside guesthouse in the Balaton Uplands, with a vineyard atmosphere, quiet surroundings and easy access to Szent György Hill."
+      "Szőlőliget Vendégház is a quiet Kisapáti guesthouse with a large terrace, vineyard atmosphere and easy access to Szent György Hill."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=e30c4b62d7324b3f&lang=En",
   hero: {

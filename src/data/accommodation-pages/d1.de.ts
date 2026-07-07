@@ -10,7 +10,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   region: "Balaton-Oberland - Szent György-hegy",
   guests: "6-8 Gäste",
   character: "Großes Ferienhaus mit Garten und Terrasse",
-  shortDescription: "D1 ist das geräumigste, klimatisierte Haus der Dandelion Gästehäuser, für bis zu 8 Gäste. Es erwartet Sie mit 3 Schlafzimmern, Wohnzimmer, bequemer Terrasse, Grillmöglichkeit und schönem Blick Richtung Csobánc, Tóti-hegy, Gulács und Badacsony.\n\nDen auf dem Hauptbild sichtbaren Panorama Pool können Gäste von Dandelion D1, D2 und Fügeház nutzen.",
+  shortDescription: "Geräumiges, klimatisiertes Ferienhaus für bis zu 8 Gäste in Kisapáti mit 3 Schlafzimmern, Terrasse, Grill und saisonalem Zugang zum Panorama Pool.",
   lead:
     "Dandelion D1 bietet viel Platz, drei Schlafzimmer, einen großen Garten und eine entspannte Lage für Tage zwischen Balaton, Weinbergen und ruhigen Abenden auf der Terrasse.",
   longDescription: [

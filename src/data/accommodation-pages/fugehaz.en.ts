@@ -7,7 +7,7 @@ const fugehazPanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.us
 
 export const fugehazEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Fügeház near Szent György Hill | Countryside guesthouse with Panorama Pool",
+    title: "Fügeház Kisapáti | Guesthouse with Panorama Pool",
     description:
       "Fügeház is a terraced guesthouse near Szent György Hill and the Balaton Uplands, with garden seating and seasonal access to the Panorama Pool."
   },
