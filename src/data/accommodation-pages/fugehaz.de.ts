@@ -11,7 +11,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   region: "Balaton-Oberland - Panorama",
   guests: "4-6 Gäste",
   character: "Panoramahaus mit Terrassen und ruhiger Lage",
-  shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste nahe Szent György-hegy.",
+  shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste bei Szent György-hegy, mit Terrassen und Zugang zum Panorama Pool.",
   lead:
     "Dandelion Fügeház ist für Gäste gemacht, die Aussicht, Terrassenzeit und einen ruhigen Rückzugsort im Balaton-Oberland suchen.",
   longDescription: [

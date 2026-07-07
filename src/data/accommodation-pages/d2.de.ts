@@ -6,7 +6,7 @@ const d2PanoramaPoolHeroImage = panoramaPoolImages.find((image) => image.usageHi
 
 export const d2GermanPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion D2 bei Szent György-hegy | Familienfreundliches Ferienhaus",
+    title: "Dandelion D2 Kisapáti | Familienhaus mit Panorama Pool",
     description:
       "Dandelion D2 ist eine ruhige, familienfreundliche Unterkunft im Balaton-Oberland mit Garten, Terrasse und Zugang zum Panorama Pool."
   },

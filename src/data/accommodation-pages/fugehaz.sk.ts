@@ -10,7 +10,7 @@ export const fugehazSlovakPageData = createSlovakAccommodationPage(fugehazEnglis
   region: "Szent György-hegy - Balatonská vrchovina",
   guests: "4-6 hostí",
   character: "PANORAMATICKÝ DOM NA POKOJNÝ RODINNÝ POBYT",
-  shortDescription: "Panoramatický dom s terasami, prírodnou atmosférou a dobrou polohou na pomalé dni pri Szent György-hegy.",
+  shortDescription: "Panoramatický dom s terasami a pokojnou polohou pri Szent György-hegy.",
   lead: "Fügeház je pre hostí, ktorí chcú výhľady, terasy, pokoj a cítiť krajinu okolo seba. Dobre funguje pre rodinu aj menšiu skupinu.",
   longDescription: [
     "Dom má niekoľko vonkajších miest, kde sa dá raňajkovať, oddychovať alebo večer sedieť s výhľadom. Atmosféra je prírodná a neformálna.",
