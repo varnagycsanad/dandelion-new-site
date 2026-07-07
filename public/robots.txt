@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api/pool-temperature-update.php
+Disallow: /api/pool-temperature.json
 Disallow: /wp-admin/
 Disallow: /wp-json/
 Disallow: /wp-content/

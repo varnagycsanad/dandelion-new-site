@@ -4,6 +4,7 @@ declare(strict_types=1);
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
+header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet');
 
 $dataPath = __DIR__ . '/pool-temperature.json';
 $data = [];
@@ -171,6 +172,7 @@ $waterLevel = level_percent($water, 15, 35);
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta http-equiv="refresh" content="300">
   <style>
     :root {
