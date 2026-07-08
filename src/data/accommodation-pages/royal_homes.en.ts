@@ -4,9 +4,9 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Royal Homes content added for the shared accommodation template.
 export const royalHomesEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes | Apartments near Lake Balaton",
+    title: "Dandelion Royal Homes Keszthely | Apartment near Lake Balaton with jacuzzi",
     description:
-      "Dandelion Royal Homes offers comfortable apartments in Keszthely, close to Lake Balaton, ideal for a convenient stay near the lake and the town centre."
+      "Modern apartment in Keszthely near Lake Balaton for 4-6 guests, with a large terrace, waterfront pier for the building and shared rooftop jacuzzi. Ideal for couples, families and lake-plus-town stays."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=En",
   hero: {
@@ -17,11 +17,11 @@ export const royalHomesEnglishPageData: AccommodationPageData = {
       "Royal Homes English mobile hero"
     ),
     fallbackAlt: "Dandelion Royal Homes apartment in Keszthely near Lake Balaton",
-    kicker: "Keszthely · near Lake Balaton",
+    kicker: "Keszthely · apartment near Lake Balaton",
     title: "Dandelion",
     titleAccent: "Royal Homes",
-    subtitle: "COMFORTABLE APARTMENT NEAR LAKE BALATON",
-    lead: "A comfortable, high-quality apartment in Keszthely, where Lake Balaton, the waterfront and the town centre are all easy to reach.",
+    subtitle: "KESZTHELY APARTMENT NEAR LAKE BALATON",
+    lead: "Royal Homes is a modern two-bedroom apartment in Keszthely, not a standalone guesthouse. It suits guests who want to stay near Lake Balaton with a large terrace and a shared rooftop jacuzzi.",
     primaryCtaLabel: "Book now",
     secondaryCtaLabel: "View photos"
   },
@@ -62,15 +62,21 @@ export const royalHomesEnglishPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Comfortable apartment · lake nearby · town convenience",
-    title: "A high-quality apartment stay in Keszthely",
-    lead: "Dandelion Royal Homes is a good choice if you want a modern apartment close to Lake Balaton and Keszthely's town programmes, while still keeping the stay calm and comfortable."
+    kicker: "apartment, not guesthouse · lake nearby · town convenience",
+    title: "A Keszthely apartment stay for guests who want lake and town together",
+    lead: "Dandelion Royal Homes is a good choice if you want a modern apartment in Keszthely rather than a detached guesthouse, with quick access to the waterfront, harbour and town programmes."
   },
   details: {
     kicker: "Dandelion Royal Homes",
-    title: "A comfortable Keszthely apartment with a large terrace and lakeside convenience",
+    title: "An apartment in Keszthely near Lake Balaton, with terrace, pier and shared jacuzzi",
     shortDescription:
-      "A two-bedroom apartment with living room, large terrace, wide balcony, private waterfront pier for the building and a rooftop jacuzzi in the residential complex.",
+      "A two-bedroom apartment for 4-6 guests in Keszthely, with a large terrace, waterfront pier for the building and a shared rooftop jacuzzi in the residential complex.",
+    highlights: [
+      "Apartment, not standalone guesthouse: a modern stay in a residential complex in Keszthely.",
+      "Near Lake Balaton: the promenade, harbour and cycling route are easy to reach, and the building has its own waterfront pier.",
+      "Good for couples and families: 2 bedrooms plus living room for up to 6 guests.",
+      "Best for guests who prefer waterfront programmes and town convenience over a detached countryside house."
+    ],
     supportingLink: {
       label: "Explore all English Dandelion accommodations.",
       href: "/en/szallasok/"
@@ -132,65 +138,86 @@ export const royalHomesEnglishPageData: AccommodationPageData = {
       { iconKey: "spark", title: "Rooftop jacuzzi", text: "Shared highlight" },
       { iconKey: "sun", title: "Heating and air conditioning", text: "Comfort" }
     ],
+    featuredExperience: {
+      label: "Why choose Keszthely?",
+      title: "Keszthely is a strong base if you want Lake Balaton and town comfort in one trip",
+      text: "Beach days, promenade walks, harbour atmosphere, restaurants and town programmes are all part of the same stay, so you do not need to choose between lakeside mood and urban convenience.",
+      note: "Royal Homes turns that Keszthely advantage into a modern apartment stay.",
+      iconKey: "balaton",
+      imageKey: "hero-desktop"
+    },
+    experienceCta: {
+      eyebrow: "Royal Homes or another Dandelion stay?",
+      title: "Royal Homes is the Balaton apartment option",
+      text: "Choose it if you want to stay in Keszthely near the lake. Another Dandelion stay may fit better if you want a detached guesthouse, a bigger garden or a quieter vineyard setting.",
+      href: "/en/szallasok/",
+      ctaLabel: "Compare Dandelion stays",
+      image: {
+        src: "/images/home/region-stories/dandelion-home-balaton-story-01.webp",
+        alt: "Lake Balaton atmosphere near Keszthely",
+        width: 1800,
+        height: 1350
+      }
+    },
     reasonsTitle: "Why you will love it",
     reasons: [
       {
         iconKey: "balaton",
         title: "Lake and town together",
-        text: "Harbour, promenade, centre"
+        text: "promenade, harbour, restaurants, centre"
       },
       {
         iconKey: "spark",
-        title: "High-quality apartment feel",
-        text: "Thoughtful interiors"
-      },
-      {
-        iconKey: "terrace",
-        title: "Strong outdoor space",
-        text: "Terrace and sun area"
+        title: "Jacuzzi plus terrace",
+        text: "more than just a place to sleep"
       },
       {
         iconKey: "home",
-        title: "Comfortable for longer stays",
-        text: "Practical layout"
+        title: "Clearly an apartment stay",
+        text: "modern complex, not guesthouse"
+      },
+      {
+        iconKey: "users",
+        title: "Works for couples and families",
+        text: "2 bedrooms plus living room"
       }
     ]
   },
   geoDecision: {
     kicker: "Royal Homes quick answers",
-    title: "Dandelion Royal Homes is a good choice if you want a modern Keszthely apartment close to Lake Balaton and convenient for town programmes",
+    title: "Dandelion Royal Homes is a Keszthely apartment near Lake Balaton, not a standalone guesthouse",
     lead:
-      "Royal Homes is a high-quality two-bedroom apartment with living room in Keszthely's lakeside residential area, with a large terrace, wide balcony, waterfront pier for the building and a shared rooftop jacuzzi.",
+      "Royal Homes is a two-bedroom apartment with living room in Keszthely's lakeside residential area, with a large terrace, waterfront pier for the building and a shared rooftop jacuzzi. It is best for guests who want the lake, the promenade and town convenience close by.",
     questions: [
       {
-        question: "Who is Dandelion Royal Homes best for?",
+        question: "Apartment or guesthouse?",
         answer:
-          "It works well for families, couples and friends looking for a modern, high-quality apartment in Keszthely, close to Lake Balaton, the promenade, the harbour and town programmes."
+          "Royal Homes is an apartment, not a standalone guesthouse. It is in a modern residential complex in Keszthely, so it fits guests who want a practical lake-and-town base rather than a detached house."
       },
       {
-        question: "How close is it to Lake Balaton?",
+        question: "Balaton accommodation near the lake in Keszthely?",
         answer:
-          "Royal Homes is in a lakeside residential area. The promenade, sailing harbour and cycling route are easy to reach, and the building has its own waterfront pier and sun terrace."
+          "Yes. Royal Homes is in Keszthely's lakeside residential area near the promenade, harbour and cycling route, and the building has its own waterfront pier and sun terrace."
       },
       {
-        question: "How many guests is Royal Homes comfortable for?",
+        question: "Is there accommodation with jacuzzi in Keszthely?",
         answer:
-          "The apartment has 2 bedrooms and a living room and can serve as a comfortable Lake Balaton base for up to 6 guests. One bedroom has a double bed, while the other has a pull-out sofa."
+          "Yes. Royal Homes includes access to a shared rooftop jacuzzi in the residential complex. It is not a private in-apartment jacuzzi, but a shared premium feature of the building."
       },
       {
-        question: "Is there a jacuzzi at Royal Homes?",
+        question: "Is it better for couples or families?",
         answer:
-          "Yes, the residential complex has a shared rooftop jacuzzi. It is not a private in-apartment jacuzzi, but a shared premium comfort feature of the building."
+          "It can work for both. Couples like the modern feel and quick access to the waterfront, while families benefit from the two-bedroom layout, the living room and the 4-6 guest capacity."
       },
       {
-        question: "What is the outdoor space like?",
+        question: "How long does it take to reach the shore?",
         answer:
-          "One of the strongest parts of the apartment is the large terrace and wide balcony. The building's sun terrace and waterfront pier add to the Lake Balaton holiday feeling."
+          "The waterfront feeling starts almost immediately: the residential complex has its own pier, and the promenade and harbour are within an easy short walk."
       },
       {
-        question: "What programmes is Keszthely good for?",
+        question: "Why choose this over another Dandelion stay?",
         answer:
-          "It is a good base for Lake Balaton beach days, the promenade, the harbour, cycling, Keszthely town programmes and West Balaton trips. The town centre is around a 10-minute walk away."
+          "Royal Homes is the stronger choice if staying close to Lake Balaton, restaurants and town programmes matters more to you than having a detached guesthouse, a bigger garden or a quieter vineyard setting."
       }
     ],
     amenitiesTitle: "What matters at Royal Homes"

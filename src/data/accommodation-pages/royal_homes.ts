@@ -4,15 +4,15 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-16 18:35] Royal Homes megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes Keszthely | Prémium apartman",
+    title: "Dandelion Royal Homes Keszthely | Balaton közeli apartman jacuzzival",
     description:
-      "Prémium apartman Keszthelyen, a Balaton közelében, saját parti mólóval, nagy terasszal, tetőteraszos jakuzzival és 2 hálószobás elrendezéssel."
+      "Balaton közeli apartman Keszthelyen 4-6 főre, nagy terasszal, saját parti mólóval és közös tetőteraszos jacuzzival. Ideális családoknak, pároknak és város + part pihenéshez."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=Hu",
   positioning: {
-    shortCharacter: "Kényelmes városi apartman családi pihenéshez.",
-    goodFor: ["családoknak", "modern apartmant keresőknek", "Keszthely környéki programokhoz", "Balaton-part közeli pihenéshez"],
-    strengths: ["jakuzzi", "nagy terasz", "családbarát", "wifi", "légkondi"],
+    shortCharacter: "Modern apartman Keszthelyen, nem önálló vendégház.",
+    goodFor: ["családoknak", "pároknak", "modern apartmant keresőknek", "Balaton-part közeli pihenéshez", "Keszthely városi programjaihoz"],
+    strengths: ["Balaton-közeli elhelyezkedés", "tetőteraszos jakuzzi", "nagy terasz", "családbarát elrendezés", "légkondi"],
     keyFacts: [
       "férőhely: 6 fő",
       "fürdőszoba: 1",
@@ -24,7 +24,7 @@ export const royalHomesPageData: AccommodationPageData = {
       "medence: nincs",
       "booking státusz: online foglalási link van"
     ],
-    betterAlternativeNote: "ha inkább önálló vendégházat kerestek."
+    betterAlternativeNote: "ha inkább önálló vendégházat, nagyobb kertet vagy dombvidéki nyugalmat kerestek."
   },
   hero: {
     mobileImagePath: requireAccommodationLocalAssetPath(
@@ -33,12 +33,12 @@ export const royalHomesPageData: AccommodationPageData = {
       "dandelion-royal-homes-source-001.webp",
       "royal homes mobile hero"
     ),
-    fallbackAlt: "Dandelion Royal Homes Apartman Keszthelyen, prémium balatoni környezetben",
-    kicker: "Keszthely · Balaton-parti üdülőövezet",
+    fallbackAlt: "Dandelion Royal Homes balaton közeli apartman Keszthelyen",
+    kicker: "Keszthely · Balatonhoz közeli apartman",
     title: "Dandelion",
     titleAccent: "Royal Homes",
-    subtitle: "PRÉMIUM APARTMAN A BALATON KÖZELÉBEN",
-    lead: "Prémium apartman Keszthelyen, ahol a balatoni közelség és a városi kényelem magas minőségű, nyugodt környezetben találkozik.",
+    subtitle: "KESZTHELYI APARTMAN A BALATON KÖZELÉBEN",
+    lead: "A Royal Homes egy modern, 2 hálószobás apartman Keszthelyen, nem önálló vendégház: azoknak jó, akik a Balaton közelében, nagy terasszal és közös tetőteraszos jacuzzival szeretnének megszállni.",
     primaryCtaLabel: "Árak és foglalás",
     secondaryCtaLabel: "Képek megtekintése"
   },
@@ -79,15 +79,21 @@ export const royalHomesPageData: AccommodationPageData = {
     ]
   },
   intro: {
-    kicker: "Prémium apartmanhangulat · balatoni közelség · városi kényelem",
-    title: "Új építésű, magas minőségű apartman Keszthelyen",
-    lead: "A Royal Homes akkor jó választás, ha modern, igényes apartmanban pihennél, közel a parthoz és a városi programokhoz, mégis nyugodt közegben."
+    kicker: "apartman, nem vendégház · Balaton-közelség · keszthelyi bázis",
+    title: "Keszthelyi apartman 4-6 főre, ha a part és a város is számít",
+    lead: "A Royal Homes akkor jó választás, ha nem egy eldugott vendégházat, hanem kényelmes, jól felszerelt apartmant keresel Keszthelyen, ahonnan a Balaton-part, a kikötő és a városi programok is gyorsan elérhetők."
   },
   details: {
     kicker: "Dandelion Royal Homes Apartman",
-    title: "Saját parti móló, nagy terasz és prémium belső terek egy helyen",
+    title: "Apartman Keszthelyen saját parti mólóval, nagy terasszal és közös jacuzzival",
     shortDescription:
-      "2 hálószobás, nagy teraszos prémium apartman saját parti mólóval és a lakópark tetőteraszán elérhető jakuzzival.",
+      "2 hálószobás apartman 4-6 főre Keszthelyen, nagy terasszal, saját parti mólóval és a lakópark közös tetőteraszos jacuzzijával.",
+    highlights: [
+      "Apartman, nem önálló vendégház: modern lakóparkos elhelyezkedés Keszthelyen.",
+      "Balaton-közeli szállás: a part, a sétány és a kikötő gyalog is gyorsan elérhető, a lakóparknak saját parti mólója van.",
+      "Pároknak és családoknak is jó: 2 hálószoba + nappali, legfeljebb 6 főre.",
+      "Akkor erős választás, ha a vízparti programok, éttermek és városi kényelem fontosabb, mint az elvonult, kertes házélmény."
+    ],
     longDescription: [
       "A lakópark saját parti mólója, napozóterasza és közös tetőteraszos jacuzzija már érkezéskor megadja azt a prémium balatoni környezetet, amire ez a szállás épül.",
       "A társasház saját parti mólóval, napozóterasszal és tetőteraszon található jakuzzival rendelkezik. A kerékpárút, a vitorlás kikötő és a parti sétány közvetlenül a lakópark mellett található, a városközpont és Keszthely főbb látnivalói pedig körülbelül 10 perces sétával elérhetők.",
@@ -145,65 +151,86 @@ export const royalHomesPageData: AccommodationPageData = {
       { iconKey: "spark", title: "Tetőteraszos jakuzzi", text: "Kiemelés" },
       { iconKey: "sun", title: "Padlófűtés és klíma", text: "Komfort" }
     ],
+    featuredExperience: {
+      label: "Miért válaszd Keszthelyt?",
+      title: "Keszthely akkor jó választás, ha a Balaton-partot és a városi kényelmet együtt szeretnétek",
+      text: "Strand, sétány, kikötő, éttermek és programok egy helyen, így nem kell választani a vízparti hangulat és a kényelmes városi bázis között.",
+      note: "A Royal Homes ezt a keszthelyi előnyt adja hozzá modern apartmanos környezetben.",
+      iconKey: "balaton",
+      imageKey: "hero-desktop"
+    },
+    experienceCta: {
+      eyebrow: "Royal Homes vagy más Dandelion szállás?",
+      title: "A Royal Homes a balatoni apartmanos opció",
+      text: "Ezt válaszd, ha Keszthelyen, a parthoz közel maradnátok. Más Dandelion ház jobb lehet, ha önálló vendégházat, nagy kertet vagy szőlőhegyi nyugalmat kerestek.",
+      href: "/szallasok/",
+      ctaLabel: "Összes Dandelion szállás összevetése",
+      image: {
+        src: "/images/home/region-stories/dandelion-home-balaton-story-01.webp",
+        alt: "Balaton-parti hangulat Keszthely környékén",
+        width: 1800,
+        height: 1350
+      }
+    },
     reasonsTitle: "Amiért szeretni fogod",
     reasons: [
       {
         iconKey: "balaton",
         title: "Part és város együtt",
-        text: "Kikötő, sétány, központ"
+        text: "strand, kikötő, éttermek, központ"
       },
       {
         iconKey: "spark",
-        title: "Prémium apartmanhangulat",
-        text: "Igényes belső terek"
+        title: "Jacuzzi + terasz",
+        text: "nem csak alvóhely, hanem pihenős bázis"
       },
       {
         iconKey: "terrace",
-        title: "Kinti pihenésre is erős",
-        text: "Terasz és napozótér"
+        title: "Tiszta apartmanpozíció",
+        text: "modern lakópark, nem vendégház"
       },
       {
         iconKey: "home",
-        title: "Kényelmes hosszabb időre is",
-        text: "Átgondolt elrendezés"
+        title: "Jó pároknak és családoknak",
+        text: "2 hálószoba + nappali, 4-6 főre"
       }
     ]
   },
   geoDecision: {
     kicker: "Royal Homes gyors válaszok",
-    title: "A Dandelion Royal Homes akkor jó választás, ha modern keszthelyi apartmant kerestek Balaton-közeli, városi programokhoz is kényelmes helyen",
+    title: "A Dandelion Royal Homes egy Balaton-közeli keszthelyi apartman, nem önálló vendégház",
     lead:
-      "A Royal Homes 2 hálószobás + nappalis prémium apartman Keszthely Balaton-parti üdülőövezetében, nagy terasszal, széles erkéllyel, saját parti mólóval és közös tetőteraszos jakuzzival.",
+      "A Royal Homes 2 hálószobás + nappalis apartman Keszthely Balaton-parti üdülőövezetében, nagy terasszal, saját parti mólóval és közös tetőteraszos jacuzzival. Kifejezetten jó választás, ha a part, a kikötő és a városi programok közelsége fontos.",
     questions: [
       {
-        question: "Kinek jó választás a Dandelion Royal Homes?",
+        question: "Apartman vagy vendégház a Royal Homes?",
         answer:
-          "Családoknak, pároknak és barátoknak, akik modern, igényes apartmant keresnek Keszthelyen, közel a Balatonhoz, a parti sétányhoz, a kikötőhöz és a városi programokhoz."
+          "A Royal Homes apartman, nem önálló vendégház. Egy modern lakóparkban található keszthelyi szállás, ezért annak jó, aki kényelmes városi-balatoni bázist keres, nem pedig külön kertesház élményt."
       },
       {
-        question: "Mennyire van közel a Balatonhoz?",
+        question: "Balatonhoz közeli szállás Keszthelyen?",
         answer:
-          "A Royal Homes Balaton-parti üdülőövezetben található. A parti sétány, a vitorlás kikötő és a kerékpárút könnyen elérhető, a lakóparkhoz pedig saját parti móló és napozóterasz tartozik."
+          "Igen. A Royal Homes Keszthely Balaton-parti üdülőövezetében van, a sétány, a kikötő és a kerékpárút közelében, ráadásul a lakóparkhoz saját parti móló és napozóterasz is tartozik."
       },
       {
-        question: "Hány főnek kényelmes a Royal Homes?",
+        question: "Van jacuzzis szállás Keszthelyen?",
         answer:
-          "Az apartman 2 hálószobás + nappalis elrendezésű, legfeljebb 6 főnek ad kényelmes balatoni bázist. Az egyik hálóban franciaágy, a másikban kihúzható kanapé található."
+          "Igen, a Royal Homesnál van közös tetőteraszos jacuzzi a lakóparkban. Fontos, hogy ez nem privát, apartmanon belüli jacuzzi, hanem az épület közös prémium kényelmi eleme."
       },
       {
-        question: "Van jakuzzi a Royal Homesnál?",
+        question: "Pároknak vagy családoknak jobb?",
         answer:
-          "Igen, a lakópark közös tetőteraszos jakuzzival rendelkezik. Ez nem privát apartmanon belüli jakuzzi, hanem a társasház közös prémium kényelmi eleme."
+          "Mindkettőnek jó lehet. Pároknak azért erős, mert kényelmes, modern és közel van a parthoz; családoknak pedig a 2 hálószoba + nappali, a nagy terasz és a 4-6 fős elrendezés miatt."
       },
       {
-        question: "Milyen a kinti pihenőtér?",
+        question: "Mennyi idő a part?",
         answer:
-          "Az apartman egyik legerősebb része a nagy terasz és a széles erkély. A lakópark napozóterasza és parti mólója tovább erősíti a balatoni pihenés hangulatát."
+          "A vízparti hangulat gyakorlatilag azonnal jelen van: a lakópark saját parti mólóval rendelkezik, a sétány és a kikötő pedig gyalog is gyorsan elérhető."
       },
       {
-        question: "Milyen programokhoz jó bázis Keszthelyen?",
+        question: "Miért jobb ez Keszthelyen, mint más Dandelion opciók?",
         answer:
-          "Jó választás balatoni strandoláshoz, sétányhoz, kikötőhöz, kerékpározáshoz, keszthelyi városi programokhoz és a nyugat-balatoni kirándulásokhoz. A városközpont körülbelül 10 perc sétával elérhető."
+          "A Royal Homes akkor jobb választás, ha a Balaton-part közelsége, a városi programok, az éttermek és a könnyű elérhetőség fontosabb, mint a különálló ház, a nagy kert vagy a szőlőhegyi elvonulás."
       }
     ],
     amenitiesTitle: "Ami a Royal Homesban fontos"
