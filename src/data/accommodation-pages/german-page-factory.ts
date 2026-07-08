@@ -36,7 +36,7 @@ function buildGermanSeoTitle(profile: GermanAccommodationProfile) {
   const locationPhrase = primaryLocation.includes("Szent György-hegy")
     ? `bei ${primaryLocation}`
     : `in ${primaryLocation}`;
-  return `${stayName} ${locationPhrase} | Dandelion Unterkunft`;
+  return `${stayName} ${locationPhrase} | Dandelion`;
 }
 
 const defaultReviews = [

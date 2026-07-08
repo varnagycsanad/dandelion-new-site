@@ -285,6 +285,33 @@ Ha a task adminra szól:
 
 ---
 
+## GUEST GUIDE / POOL EXCEPTIONS
+
+[CHANGE 2026-07-08 00:00] Vendeg-guide es Panorama Pool technikai kivetelek rogzitve, hogy ne kelljen ujra egyeztetni.
+
+A `src/pages/guide/**` alatti oldalak vendegoldalak.
+
+Jelenlegi uzleti logika:
+- a vendeg a szallasban kihelyezett QR-kodrol nyitja meg
+- a guide fooldalrol azon belul navigal
+- ezek az oldalak lehetnek jelszavasak vagy kesobb kozvetlenul elerhetok, ez nem automatikus hiba
+- a `/guide/d1/medence/`, `/guide/d2/medence/`, `/guide/fugehaz/medence/` jellegu oldalak nem klasszikus publikus SEO landingek
+- ha crawl reportban 401-kent jelennek meg, az onmagaban nem bug es nem kotelezo javitani, ha ez szandekos vedelmi allapot
+
+Kovetkezmeny:
+- ilyen guide URL-re ne nyisson automatikusan SEO hibajegyet csak a 401 vagy auth miatt
+- ezeknel a route-oknal a felhasznaloi helyszini hasznalat fontosabb, mint az indexelhetoseg
+- Home Assistant kapcsolok, medence info es egyeb helyszini vendegfunkciok ide tartozhatnak
+
+A `pool-live-widget.php` egy technikai meresi vegpont.
+
+Kotelezo kezeles:
+- maradhat `200` + `noindex`
+- nem kell title, meta description, H1 vagy canonical SEO oldalmodra
+- nem kell ujra felvetni problemakent, ha a funkcioja a honlapon a medence aktualis adatainak kiirasa
+
+---
+
 ## STATIC DEPLOY RULE
 
 Publikus tasknál a Codexnek mindig figyelembe kell vennie, hogy a site jelenleg root célra deployolódik.

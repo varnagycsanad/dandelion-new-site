@@ -34,7 +34,7 @@ function buildSlovakSeoTitle(profile: SlovakAccommodationProfile) {
   const locationPhrase = primaryLocation.includes("Szent György-hegy")
     ? `pri ${primaryLocation}`
     : `v ${primaryLocation}`;
-  return `${stayName} ${locationPhrase} | Dandelion ubytovanie`;
+  return `${stayName} ${locationPhrase} | Dandelion`;
 }
 
 const defaultReviews = [
