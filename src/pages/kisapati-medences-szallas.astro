@@ -60,7 +60,105 @@ const stays = [
   }
 ];
 
+const audienceItems = [
+  {
+    title: "Nagyobb családoknak vagy baráti társaságnak",
+    answer: "A D1 a legerősebb választás, ha 6-8 főre, több hálóra és nagyobb közös terekre van szükségetek."
+  },
+  {
+    title: "4-6 fős családos pihenéshez",
+    answer: "A D2 a legkényelmesebb, ha fontos a nagy kert, a fedett terasz és a családbarát, nyugodt ritmus."
+  },
+  {
+    title: "Csendesebb, panorámás kikapcsolódáshoz",
+    answer: "A Fügeház akkor jó, ha intimebb házat, teraszos estét és tanúhegyes kilátást kerestek."
+  }
+];
+
+const quickAnswerItems = [
+  {
+    question: "Hol érdemes megszállni Kisapátiban?",
+    answer:
+      "Kisapátiban a D1, a D2 és a Fügeház jó választás, ha a Szent György-hegy közelében, nyugodt környezetben és medencehasználattal keresnétek szállást."
+  },
+  {
+    question: "Van medencés szállás Kisapátiban?",
+    answer:
+      "Igen. A Dandelion D1, D2 és Fügeház vendégei a szezonban használhatják a Panorama Pool medencét."
+  },
+  {
+    question: "Melyik ház jó családoknak?",
+    answer:
+      "A D2 általában a legjobb első választás családoknak, a D1 pedig akkor jobb, ha nagyobb családdal vagy több generációval érkeztek."
+  },
+  {
+    question: "Melyik ház a legjobb panorámához?",
+    answer:
+      "A Fügeház a legerősebb panorámás, teraszos hangulatban, de a D1 teraszáról is szép rálátás nyílik a környező tanúhegyekre."
+  },
+  {
+    question: "Miért jó Kisapátiban megszállni?",
+    answer:
+      "Kisapáti jó bázis a Szent György-hegyhez, a Tapolcai-medencéhez, Badacsonyhoz és a balatoni programokhoz, miközben nyugodtabb, kevésbé zsúfolt környezetet ad."
+  },
+  {
+    question: "Melyik házat válasszam Kisapátiban?",
+    answer:
+      "Ha sokan jöttök, D1. Ha családos, kertes pihenést kerestek, D2. Ha csendesebb, intimebb, panorámás házat szeretnétek, Fügeház."
+  }
+];
+
+const comparisonRows = [
+  {
+    label: "Kinek a legjobb",
+    d1: "nagyobb családoknak, baráti társaságoknak",
+    d2: "családoknak, 4-6 fős pihenéshez",
+    fugehaz: "pároknak, kisebb családoknak, nyugodtabb kikapcsolódáshoz"
+  },
+  {
+    label: "Férőhely",
+    d1: "akár 8 fő",
+    d2: "4-6 fő",
+    fugehaz: "4 fő, pótággyal akár 6 fő"
+  },
+  {
+    label: "Fő hangulat",
+    d1: "tágas, közösségi, panorámás",
+    d2: "kertes, családias, kényelmes",
+    fugehaz: "teraszos, intimebb, panorámás"
+  },
+  {
+    label: "Erős pont",
+    d1: "3 háló + 2 fürdő",
+    d2: "nagy kert + fedett terasz",
+    fugehaz: "panorámás teraszok + csendes ritmus"
+  },
+  {
+    label: "Medencekapcsolat",
+    d1: "Panorama Pool",
+    d2: "Panorama Pool",
+    fugehaz: "Panorama Pool"
+  }
+];
+
+const reasonsToStayItems = [
+  "A Szent György-hegy és a tanúhegyek programjai közel vannak.",
+  "A Balaton, Badacsony és Tapolca rövid autóúttal elérhető.",
+  "Nyugodtabb a ritmusa, mint a forgalmasabb balatoni településeknek.",
+  "A D1, D2 és Fügeház között különböző utazástípusokra is van jó opció."
+];
+
 const faqItems = [
+  {
+    question: "Hol érdemes megszállni Kisapátiban?",
+    answer:
+      "Ha medencés kisapáti szállást kerestek, a Dandelion D1, D2 és Fügeház a három fő opció. A választásnál a létszám, a kertigény és a kívánt hangulat dönt leginkább."
+  },
+  {
+    question: "Van medencés szállás Kisapátiban?",
+    answer:
+      "Igen. A D1, D2 és Fügeház vendégei a szezonban használhatják a Panorama Pool medencét Kisapátiban."
+  },
   {
     question: "Melyik Dandelion házak kapcsolódnak a Panorama Poolhoz?",
     answer:
@@ -95,6 +193,16 @@ const faqItems = [
     question: "Melyik ház jó nagyobb társaságnak?",
     answer:
       "Nagyobb családnak vagy baráti társaságnak elsőként a D1-et érdemes megnézni, mert ez a legtágasabb a három ház közül."
+  },
+  {
+    question: "Melyik ház jó családoknak?",
+    answer:
+      "Családoknak általában a D2 a legkényelmesebb első választás. Nagyobb családnál vagy több generáció együtt utazásánál a D1 is erős opció."
+  },
+  {
+    question: "Melyik ház a legjobb panorámához?",
+    answer:
+      "A Fügeház a leginkább panorámás, teraszos hangulatú ház, míg a D1 is jó választás, ha a kilátás mellé több belső tér is fontos."
   },
   {
     question: "4 fős családnak melyik ház jó?",
@@ -168,8 +276,8 @@ const structuredData = [
 ---
 
 <BaseLayout
-  title="Kisapáti medencés szállás | D1, D2 és Fügeház | Dandelion"
-  description="Kisapáti medencés szállás Dandelion hangulatban: D1, D2 és Fügeház a Szent György-hegy lábánál, szezonális Panorama Pool használattal."
+  title="Kisapáti szállás medencével | D1, D2 és Fügeház | Dandelion"
+  description="Kisapáti szállás medencével a Szent György-hegy közelében: hasonlítsd össze a D1, D2 és Fügeház házakat, és nézd meg, melyik jó családoknak, panorámához vagy nyári medencés pihenéshez."
   canonicalPath={pagePath}
   ogImage={panoramaPoolHero.desktop}
   ogImageAlt={heroImage.altHu}
@@ -194,10 +302,11 @@ const structuredData = [
       <div class="pool-landing-hero__content">
         <div class="dnd-container pool-landing-hero__inner">
           <p class="pool-landing__eyebrow">Kisapáti - Szent György-hegy - Panorama Pool</p>
-          <h1>Kisapáti szállások medencehasználattal</h1>
+          <h1>Kisapáti szállás medencével, D1, D2 és Fügeház összehasonlítással</h1>
           <p>
-            Dandelion D1, D2 és Fügeház a Szent György-hegy lábánál. Három külön ház,
-            nyári Panorama Pool használattal és nyugodt balatoni-felvidéki környezettel.
+            Medencés szállás Kisapátiban a Szent György-hegy közelében: itt gyorsan átlátjátok,
+            melyik ház jó nagyobb társaságnak, melyik családoknak, és melyik a legjobb panorámás,
+            csendes pihenéshez.
           </p>
           <div class="pool-landing-hero__actions">
             <a href="#hazak" class="pool-landing__button pool-landing__button--primary">Házak megnézése</a>
@@ -213,18 +322,37 @@ const structuredData = [
       <div class="dnd-container pool-landing-intro__layout">
         <div>
           <p class="pool-landing__eyebrow">Mikor jó választás?</p>
-          <h2>Ha Kisapátiban kerestek házat, és a medence is fontos szempont.</h2>
+          <h2>Ha kisapáti szállást kerestek, és a medence, a környék meg a háztípus is fontos.</h2>
         </div>
         <div class="pool-landing-intro__text">
           <p>
-            Ez az oldal a Dandelion három, Panorama Poolhoz kapcsolódó kisapáti házát fogja össze.
-            Nem saját, házanként külön medencéről van szó: a medence a házak melletti dombon
-            helyezkedik el, ahonnan a tanúhegyek látszanak.
+            Ez az oldal a Dandelion három kisapáti, Panorama Poolhoz kapcsolódó házát fogja össze.
+            Nem külön privát medencékről van szó: a D1, D2 és Fügeház vendégei a közös Panorama Poolt
+            használhatják a szezonban, a házak melletti dombon.
           </p>
           <p>
-            A három ház más-más utazáshoz passzol: a D1 nagyobb társaságoknak, a D2 családos
-            pihenéshez, a Fügeház pedig csendesebb, teraszos napokhoz illik.
+            A három ház három eltérő igényre válaszol: a D1 nagyobb társaságoknak jó, a D2
+            családbarátabb, a Fügeház pedig panorámásabb és csendesebb. Ezért itt nem csak házakat,
+            hanem döntési rövidítést is kaptok.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-audience" aria-labelledby="kinek-valo-cim">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">Kinek való?</p>
+          <h2 id="kinek-valo-cim">Gyors döntés: melyik kisapáti ház milyen utazáshoz jó?</h2>
+          <p>Ez az a blokk, amit 30 másodperc alatt át lehet futni, ha csak a lényeg érdekel.</p>
+        </div>
+        <div class="pool-landing-audience__grid">
+          {audienceItems.map((item) => (
+            <article>
+              <h3>{item.title}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -246,6 +374,24 @@ const structuredData = [
           <h2>Kisapáti bázis</h2>
           <p>Szent György-hegy, Tapolcai-medence, borászatok és balatoni programok rövid autóútra.</p>
         </article>
+      </div>
+    </section>
+
+    <section class="pool-landing-answers" aria-labelledby="gyors-valaszok-cim">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">GEO válaszblokkok</p>
+          <h2 id="gyors-valaszok-cim">Rövid válaszok a legfontosabb kisapáti szállás kérdésekre</h2>
+          <p>Olyan egyértelmű válaszok, amikből Google AI, ChatGPT vagy Perplexity is könnyebben tud idézni.</p>
+        </div>
+        <div class="pool-landing-answers__grid">
+          {quickAnswerItems.map((item) => (
+            <article>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -284,6 +430,38 @@ const structuredData = [
       </div>
     </section>
 
+    <section class="pool-landing-compare" aria-labelledby="haz-osszehasonlitas-cim">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">Melyik házat válasszam Kisapátiban?</p>
+          <h2 id="haz-osszehasonlitas-cim">D1, D2 és Fügeház összehasonlítása egy helyen</h2>
+          <p>Ha gyorsan szeretnétek dönteni, ez a táblázat mutatja meg a három ház közötti fő különbségeket.</p>
+        </div>
+        <div class="pool-landing-compare__table-wrap">
+          <table class="pool-landing-compare__table">
+            <thead>
+              <tr>
+                <th>Szempont</th>
+                <th>D1</th>
+                <th>D2</th>
+                <th>Fügeház</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr>
+                  <th>{row.label}</th>
+                  <td>{row.d1}</td>
+                  <td>{row.d2}</td>
+                  <td>{row.fugehaz}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <section class="pool-landing-pool">
       <div class="dnd-container pool-landing-pool__layout">
         <div class="pool-landing-pool__copy">
@@ -304,6 +482,22 @@ const structuredData = [
                 <img src={image.src} alt={image.altHu} loading="lazy" decoding="async" width="1200" height="900" />
               </picture>
             </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-reasons" aria-labelledby="miert-jo-kisapatiban-cim">
+      <div class="dnd-container pool-landing-reasons__layout">
+        <div>
+          <p class="pool-landing__eyebrow">Miért jó Kisapátiban megszállni?</p>
+          <h2 id="miert-jo-kisapatiban-cim">Nyugodtabb balatoni bázis, erős kirándulós környékkel</h2>
+        </div>
+        <div class="pool-landing-reasons__grid">
+          {reasonsToStayItems.map((item) => (
+            <article>
+              <p>{item}</p>
+            </article>
           ))}
         </div>
       </div>
@@ -451,9 +645,13 @@ const structuredData = [
   }
 
   .pool-landing-intro,
+  .pool-landing-audience,
   .pool-landing-facts,
+  .pool-landing-answers,
   .pool-landing-stays,
+  .pool-landing-compare,
   .pool-landing-pool,
+  .pool-landing-reasons,
   .pool-landing-faq,
   .pool-landing-closing {
     padding: 82px 0;
@@ -509,6 +707,9 @@ const structuredData = [
   }
 
   .pool-landing-facts article,
+  .pool-landing-audience article,
+  .pool-landing-answers article,
+  .pool-landing-reasons__grid article,
   .pool-landing-faq article,
   .pool-landing-stay-card {
     border: 1px solid rgba(121, 93, 48, 0.12);
@@ -530,6 +731,8 @@ const structuredData = [
   }
 
   .pool-landing-facts h2,
+  .pool-landing-audience h3,
+  .pool-landing-answers h3,
   .pool-landing-stay-card h3,
   .pool-landing-faq h3 {
     margin: 0;
@@ -546,6 +749,36 @@ const structuredData = [
     line-height: 1.55;
   }
 
+  .pool-landing-audience {
+    padding-top: 30px;
+  }
+
+  .pool-landing-audience__grid,
+  .pool-landing-answers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pool-landing-audience article,
+  .pool-landing-answers article,
+  .pool-landing-reasons__grid article {
+    padding: 20px;
+  }
+
+  .pool-landing-audience article p,
+  .pool-landing-answers article p,
+  .pool-landing-reasons__grid article p {
+    margin: 10px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.6;
+  }
+
+  .pool-landing-answers {
+    background: #fcf7ee;
+  }
+
   .pool-landing-section-head {
     max-width: 760px;
     margin-bottom: 28px;
@@ -559,6 +792,50 @@ const structuredData = [
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
+  }
+
+  .pool-landing-compare__table-wrap {
+    overflow-x: auto;
+    border: 1px solid rgba(121, 93, 48, 0.12);
+    border-radius: 8px;
+    background: #fffefb;
+    box-shadow: 0 12px 28px rgba(80, 57, 31, 0.05);
+  }
+
+  .pool-landing-compare__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+  }
+
+  .pool-landing-compare__table th,
+  .pool-landing-compare__table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(121, 93, 48, 0.12);
+    text-align: left;
+    vertical-align: top;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .pool-landing-compare__table thead th {
+    color: #1f2937;
+    background: #f7f2e7;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-compare__table tbody th {
+    color: #3d3428;
+    font-weight: 700;
+    background: rgba(243, 239, 230, 0.45);
+  }
+
+  .pool-landing-compare__table tbody tr:last-child th,
+  .pool-landing-compare__table tbody tr:last-child td {
+    border-bottom: 0;
   }
 
   .pool-landing-stay-card {
@@ -730,6 +1007,23 @@ const structuredData = [
     line-height: 1.5;
   }
 
+  .pool-landing-reasons {
+    background: #f6f1e8;
+  }
+
+  .pool-landing-reasons__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .pool-landing-reasons__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
   .pool-landing-closing {
     padding-top: 20px;
   }
@@ -754,13 +1048,17 @@ const structuredData = [
 
   @media (max-width: 980px) {
     .pool-landing-intro__layout,
+    .pool-landing-reasons__layout,
     .pool-landing-pool__layout,
     .pool-landing-faq__layout {
       grid-template-columns: 1fr;
     }
 
+    .pool-landing-audience__grid,
+    .pool-landing-answers__grid,
     .pool-landing-facts__grid,
-    .pool-landing-stays__grid {
+    .pool-landing-stays__grid,
+    .pool-landing-reasons__grid {
       grid-template-columns: 1fr;
     }
 
@@ -814,9 +1112,13 @@ const structuredData = [
     }
 
     .pool-landing-intro,
+    .pool-landing-audience,
     .pool-landing-facts,
+    .pool-landing-answers,
     .pool-landing-stays,
+    .pool-landing-compare,
     .pool-landing-pool,
+    .pool-landing-reasons,
     .pool-landing-faq,
     .pool-landing-closing {
       padding: 56px 0;
@@ -832,6 +1134,9 @@ const structuredData = [
     }
 
     .pool-landing-facts article,
+    .pool-landing-audience article,
+    .pool-landing-answers article,
+    .pool-landing-reasons__grid article,
     .pool-landing-stay-card__body,
     .pool-landing-faq article {
       padding: 15px;
