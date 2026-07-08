@@ -1,41 +1,163 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+
 const contactItems = [
   {
     label: "Telefón",
     value: "+36 20 773 0807",
-    href: "tel:+36207730807"
+    href: "tel:+36207730807",
+    note: "Najlepšie pre rýchle otázky k príchodu, dostupnosti alebo pri rozhodovaní medzi viacerými domami.",
+    cta: "Zavolať"
   },
   {
     label: "E-mail",
     value: "hello@dandelionhouse.hu",
-    href: "mailto:hello@dandelionhouse.hu"
+    href: "mailto:hello@dandelionhouse.hu",
+    note: "Vhodné, ak chcete porovnať viac domov alebo viac termínov pobytu.",
+    cta: "Napísať e-mail"
   },
   {
     label: "WhatsApp",
     value: "Napísať priamo",
-    href: "https://wa.me/36207730807"
+    href: "https://wa.me/36207730807",
+    note: "Dobrá možnosť na krátke a rýchle správy, keď potrebujete rýchlu odpoveď.",
+    cta: "Otvoriť WhatsApp"
   }
 ];
-const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+
+const reasonsToWrite = [
+  "ak sa chcete poradiť pred rezerváciou a nie je jasné, ktorý dom je pre vás najlepší",
+  "ak cestujete so zvieraťom a chcete vybrať vhodné ubytovanie",
+  "ak hľadáte ubytovanie s bazénom alebo s príjemným vonkajším oddychom",
+  "ak si chcete vopred ujasniť príchod, parkovanie alebo check-in",
+  "ak sa rozhodujete skôr podľa atmosféry a regiónu než len podľa dátumu"
+];
+
+const planningSteps = [
+  {
+    title: "1. Napíšte, čo hľadáte",
+    text: "Stačí krátko napísať, koľko hostí príde, či chcete byť bližšie pri Balatone alebo skôr v pokojnejšom prostredí, a či je dôležitý bazén alebo cestovanie so zvieraťom."
+  },
+  {
+    title: "2. Pomôžeme zúžiť výber",
+    text: "Odporučíme, ktoré domy alebo ktorý región môžu byť pre vás najvhodnejšie, aby ste nemuseli všetko porovnávať sami."
+  },
+  {
+    title: "3. Potom je rezervácia jednoduchšia",
+    text: "Keď už bude správna možnosť jasnejšia, nasmerujeme vás na ďalší krok bez zbytočnej neistoty."
+  }
+];
+
+const messageChecklist = [
+  "koľko hostí príde a na aký termín",
+  "či hľadáte skôr ubytovanie blízko Balatonu alebo pokojnejšiu kopcovitú oblasť",
+  "či je dôležitý bazén, záhrada, panoráma alebo súkromný vonkajší priestor",
+  "či cestujete so zvieraťom",
+  "či už máte 2-3 favoritov a potrebujete pomoc s výberom"
+];
+
+const regionGuides = [
+  {
+    title: "Ubytovanie pri Balatone",
+    text: "Dobrá voľba, ak je pre vás dôležitá blízkosť pláže, vody a ľahko plánovateľný pobyt pri Balatone.",
+    href: "/sk/royal/",
+    cta: "Možnosti pri Balatone"
+  },
+  {
+    title: "Tapolčianska kotlina a Kisapáti",
+    text: "Ideálne, ak hľadáte pokojnejšie prostredie, kopce, výhľady, vinársku atmosféru a pomalší oddych.",
+    href: "/kisapati-medences-szallas/",
+    cta: "Kisapáti a okolie"
+  },
+  {
+    title: "Oblasť Káli-medence",
+    text: "Vhodná pre tých, ktorí majú radi charakteristické dediny, gastronómiu a výraznejšiu regionálnu atmosféru.",
+    href: "/sk/dandelion-koveskal/",
+    cta: "Možnosť v Káli-medence"
+  }
+];
+
+const quickFacts = [
+  "Táto stránka nemá byť len kontakt, ale aj pomoc pri rozhodovaní.",
+  "Môžete napísať aj pred rezerváciou, aj keď ešte nemáte úplne jasno.",
+  "Témy ako zviera, bazén, príchod alebo výber domu sa tu oplatí riešiť vopred."
+];
+
+const faqs = [
+  {
+    question: "S akými otázkami sa oplatí napísať?",
+    answer:
+      "Najčastejšie riešime výber správneho domu, cestovanie so zvieraťom, možnosti s bazénom, príchod, rozdiely medzi oblasťami a nejasnosti pred rezerváciou."
+  },
+  {
+    question: "Pomôžete, ak nevieme, ktorý dom vybrať?",
+    answer:
+      "Áno. Ak napíšete, koľko vás príde a čo je pre vás najdôležitejšie, pomôžeme zúžiť najlepšie možnosti."
+  },
+  {
+    question: "Môžeme sa pýtať ešte pred rezerváciou?",
+    answer:
+      "Áno, a často je to najlepší prvý krok. Krátka dohoda môže výrazne uľahčiť konečné rozhodnutie."
+  },
+  {
+    question: "Pomôžete aj s otázkami ohľadom zvieraťa?",
+    answer:
+      "Áno. Ak cestujete so zvieraťom, je dobré to vopred prebrať, aby vybraný dom naozaj vyhovoval."
+  },
+  {
+    question: "Ak hľadáme ubytovanie s bazénom, máme písať sem?",
+    answer:
+      "Áno. Môžeme pomôcť lepšie porovnať, ktorá možnosť je vhodnejšia, ak je pre vás bazén, záhrada, súkromie alebo okolie dôležité."
+  },
+  {
+    question: "Aká je najrýchlejšia cesta k rezervácii?",
+    answer:
+      "Ak už viete, ktoré ubytovanie chcete, môžete rovno skontrolovať dostupnosť. Ak si ešte nie ste istí, napíšte alebo zavolajte najskôr nám."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
   title="Kontakt | Dandelion ubytovanie"
-  description="Kontakt na Dandelion ubytovanie telefónom, e-mailom alebo cez WhatsApp. Pomôžeme s výberom domu, termínom aj rezerváciou."
+  description="Kontakt a pomoc pred rezerváciou v Dandelion: výber domu, zviera, bazén, príchod, orientácia podľa regiónu a priame kontaktné možnosti."
   canonicalPath="/sk/kontakt/"
   lang="sk"
   ogLocale="sk_SK"
+  structuredData={faqSchema}
 >
   <section class="info-page">
     <div class="dnd-container info-page__inner">
       <div class="info-page__hero">
         <span class="info-page__eyebrow">Kontakt</span>
-        <h1>Pomôžeme vám vybrať vhodné ubytovanie Dandelion.</h1>
+        <h1>Nielen kontakt, ale aj pomoc s výberom správneho ubytovania.</h1>
         <p>
-          Ak máte otázky k domom, voľným termínom alebo rezervácii, tu nás zastihnete najrýchlejšie.
+          Ak nehľadáte len telefónne číslo, ale aj pomoc s rozhodnutím, ktorý dom a ktorý región je pre vás
+          vhodnejší, ste tu správne.
         </p>
+      </div>
+
+      <div class="info-page__highlights" aria-label="Rýchle zhrnutie kontaktnej stránky">
+        {quickFacts.map((fact) => (
+          <div class="info-page__highlight">
+            <span></span>
+            <p>{fact}</p>
+          </div>
+        ))}
       </div>
 
       <div class="info-page__grid">
@@ -43,18 +165,133 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
           <a class="info-card" href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}>
             <span class="info-card__label">{item.label}</span>
             <strong>{item.value}</strong>
+            <p>{item.note}</p>
+            <span class="info-card__cta">{item.cta}</span>
           </a>
         ))}
       </div>
 
-      <div class="info-page__note">
-        <h2>Rezervácia</h2>
-        <p>
-          Rezervačný systém sa otvorí v angličtine. Ak budete potrebovať pomoc, môžete nám napísať e-mail,
-          zavolať alebo poslať správu cez WhatsApp.
-        </p>
-        <a class="info-page__cta" href={englishBookingHref} target="_blank" rel="noopener noreferrer">Overiť dostupnosť</a>
+      <div class="info-page__content-grid">
+        <section class="info-page__panel">
+          <span class="info-page__section-label">Kedy sa oplatí napísať?</span>
+          <h2>S čím vám tu vieme pomôcť?</h2>
+          <ul class="info-page__list">
+            {reasonsToWrite.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="info-page__panel info-page__panel--accent">
+          <span class="info-page__section-label">Pred rezerváciou</span>
+          <h2>Pomôžeme vybrať správne ubytovanie.</h2>
+          <p>
+            Ak ešte nie je jasné, ktorý dom je pre vás najlepší, nemusíte prechádzať všetky možnosti sami.
+            Napíšte pár základných informácií a pomôžeme výber zúžiť.
+          </p>
+          <div class="info-page__steps">
+            {planningSteps.map((step) => (
+              <div class="info-page__step">
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
+
+      <section class="info-page__panel info-page__panel--soft">
+        <span class="info-page__section-label">Pre rýchlejšiu odpoveď</span>
+        <h2>Čo je dobré napísať do správy?</h2>
+        <p>
+          Nemusíte písať dlhý e-mail. Už pár konkrétnych údajov stačí, aby sme lepšie odporučili vhodný dom alebo oblasť.
+        </p>
+        <div class="info-page__checklist-wrap">
+          <ul class="info-page__list">
+            {messageChecklist.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <div class="info-page__message-example">
+            <span class="info-page__message-kicker">Príklad</span>
+            <p>
+              „2 dospelí a 1 dieťa na 3 noci. Hľadáme pokojnejšie prostredie, bazén by bol výborný a ešte nevieme,
+              či je pre nás lepšie Kisapáti alebo ubytovanie bližšie pri Balatone.“
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-page__region-block">
+        <div class="info-page__region-head">
+          <span class="info-page__section-label">Rozhodovanie podľa oblasti</span>
+          <h2>Ktorý región sa hodí pre aký typ pobytu?</h2>
+          <p>
+            Ak vaše rozhodnutie viac závisí od okolia než od jedného konkrétneho domu, pomôžeme aj s tým.
+          </p>
+        </div>
+
+        <div class="info-page__region-grid">
+          {regionGuides.map((region) => (
+            <article class="info-page__region-card">
+              <h3>{region.title}</h3>
+              <p>{region.text}</p>
+              <a class="info-page__region-link" href={region.href}>{region.cta}</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="info-page__booking">
+        <div class="info-page__booking-copy">
+          <span class="info-page__section-label">Rýchla cesta k rezervácii</span>
+          <h2>Ak už viete, čo hľadáte</h2>
+          <p>
+            Rezervačný systém sa otvorí v angličtine. Ak už máte vhodné ubytovanie vybrané, môžete tam rovno
+            skontrolovať dostupnosť. Ak si ešte nie ste istí, napíšte alebo zavolajte najskôr nám.
+          </p>
+        </div>
+
+        <a
+          class="info-page__cta"
+          href={englishBookingHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Overiť dostupnosť
+        </a>
+      </section>
+
+      <section class="info-page__faq">
+        <div class="info-page__faq-head">
+          <span class="info-page__section-label">Mini FAQ</span>
+          <h2>Krátke odpovede na časté otázky</h2>
+        </div>
+
+        <div class="info-page__faq-list">
+          {faqs.map((item) => (
+            <details class="info-page__faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="info-page__closing">
+        <div>
+          <span class="info-page__section-label">Ešte váhate?</span>
+          <h2>Napíšte aj vtedy, keď ešte nemáte konečné rozhodnutie.</h2>
+          <p>
+            Presne na to táto stránka slúži: nielen ukázať kontakt, ale pomôcť posunúť sa k lepšiemu výberu.
+            Aj keď zatiaľ viete len to, že si chcete dobre oddýchnuť, vieme začať od toho.
+          </p>
+        </div>
+        <div class="info-page__closing-actions">
+          <a class="info-page__cta info-page__cta--secondary" href="mailto:hello@dandelionhouse.hu">Poslať e-mail</a>
+          <a class="info-page__cta" href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer">Napísať na WhatsApp</a>
+        </div>
+      </section>
     </div>
   </section>
 </BaseLayout>
@@ -62,7 +299,9 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
 <style>
   .info-page {
     padding: 132px 0 88px;
-    background: linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
+    background:
+      radial-gradient(circle at top left, rgba(217, 158, 43, 0.12), transparent 24%),
+      linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
   }
 
   .info-page__inner {
@@ -71,12 +310,12 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
   }
 
   .info-page__hero {
-    max-width: 760px;
+    max-width: 860px;
   }
 
-  .info-page__eyebrow {
+  .info-page__eyebrow,
+  .info-page__section-label {
     display: inline-block;
-    margin-bottom: 10px;
     color: #b67b20;
     font-size: var(--dnd-text-2xs);
     font-weight: 700;
@@ -84,43 +323,120 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
     text-transform: uppercase;
   }
 
-  .info-page h1 {
+  .info-page__eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .info-page__section-label {
+    margin-bottom: 12px;
+  }
+
+  .info-page h1,
+  .info-page h2,
+  .info-page h3 {
     margin: 0;
     color: #261d16;
+  }
+
+  .info-page h1 {
     font-family: var(--dnd-font-display);
     font-size: clamp(2.2rem, 4vw, 3.8rem);
     font-weight: 500;
     line-height: 1.05;
   }
 
-  .info-page__hero p,
-  .info-page__note p {
-    margin: 14px 0 0;
+  .info-page h2 {
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.14;
+  }
+
+  .info-page h3 {
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .info-page p,
+  .info-page li {
     color: rgba(38, 29, 22, 0.76);
     font-size: var(--dnd-text-body);
     line-height: 1.72;
   }
 
-  .info-page__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+  .info-page__hero p,
+  .info-page__region-head p,
+  .info-page__booking-copy p,
+  .info-page__faq-item p,
+  .info-page__panel > p,
+  .info-page__closing p {
+    margin: 14px 0 0;
   }
 
+  .info-page__highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .info-page__highlight,
   .info-card,
-  .info-page__note {
-    padding: 24px;
+  .info-page__panel,
+  .info-page__region-card,
+  .info-page__booking,
+  .info-page__faq-item,
+  .info-page__closing {
     border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 8px;
+    border-radius: 22px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
   }
 
+  .info-page__highlight {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 18px 20px;
+    align-items: start;
+  }
+
+  .info-page__highlight span {
+    width: 10px;
+    height: 10px;
+    margin-top: 9px;
+    border-radius: 999px;
+    background: #d99e2b;
+    box-shadow: 0 0 0 6px rgba(217, 158, 43, 0.14);
+  }
+
+  .info-page__highlight p {
+    margin: 0;
+  }
+
+  .info-page__grid,
+  .info-page__content-grid,
+  .info-page__region-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .info-card {
     display: grid;
-    gap: 8px;
+    gap: 10px;
+    padding: 24px;
     color: #261d16;
     text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .info-card:hover,
+  .info-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 54px rgba(48, 34, 20, 0.1);
   }
 
   .info-card__label {
@@ -132,40 +448,288 @@ const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégháza
   }
 
   .info-card strong {
-    font-size: 1.15rem;
+    font-size: var(--dnd-text-lead);
+    line-height: 1.45;
   }
 
-  .info-page__note {
+  .info-card p {
+    margin: 0;
+  }
+
+  .info-card__cta {
+    margin-top: 6px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .info-page__content-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .info-page__panel,
+  .info-page__region-card,
+  .info-page__booking {
+    padding: 28px;
+  }
+
+  .info-page__panel--accent {
+    background: linear-gradient(145deg, rgba(255, 249, 240, 0.96), rgba(246, 236, 216, 0.92));
+  }
+
+  .info-page__panel--soft {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 245, 237, 0.96));
+  }
+
+  .info-page__list {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
     display: grid;
     gap: 14px;
+  }
+
+  .info-page__list li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .info-page__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #d99e2b;
+  }
+
+  .info-page__steps {
+    display: grid;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .info-page__step {
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .info-page__step p {
+    margin: 8px 0 0;
+  }
+
+  .info-page__checklist-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    gap: 18px;
+    margin-top: 22px;
+    align-items: start;
+  }
+
+  .info-page__message-example {
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .info-page__message-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .info-page__message-example p {
+    margin: 0;
+  }
+
+  .info-page__region-block {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__region-head,
+  .info-page__faq-head,
+  .info-page__booking-copy {
     max-width: 760px;
   }
 
-  .info-page__note h2 {
-    margin: 0;
-    color: #261d16;
-    font-family: var(--dnd-font-display);
-    font-size: 2rem;
-    font-weight: 500;
+  .info-page__region-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .info-page__region-card p {
+    margin: 10px 0 0;
+  }
+
+  .info-page__region-link {
+    display: inline-flex;
+    margin-top: 18px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .info-page__booking {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: linear-gradient(135deg, #17120f, #2a2219);
+  }
+
+  .info-page__booking h2,
+  .info-page__booking p,
+  .info-page__booking .info-page__section-label {
+    color: #fff;
+  }
+
+  .info-page__booking p {
+    color: rgba(255, 255, 255, 0.78);
   }
 
   .info-page__cta {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    width: fit-content;
-    min-height: 44px;
-    padding: 0 20px;
+    min-height: 48px;
+    padding: 0 22px;
     border-radius: 999px;
     background: #d99e2b;
     color: #1b140f;
+    font-size: var(--dnd-text-md);
     font-weight: 700;
     text-decoration: none;
   }
 
-  @media (max-width: 780px) {
-    .info-page__grid {
+  .info-page__cta--secondary {
+    background: rgba(255, 255, 255, 0.96);
+    color: #261d16;
+  }
+
+  .info-page__faq {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__faq-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .info-page__faq-item {
+    padding: 0 24px;
+  }
+
+  .info-page__faq-item summary {
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    color: #261d16;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .info-page__faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .info-page__faq-item p {
+    margin: 0 0 20px;
+    padding-top: 2px;
+  }
+
+  .info-page__closing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 30px 32px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 240, 228, 0.96));
+  }
+
+  .info-page__closing-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 12px;
+    align-items: center;
+  }
+
+  @media (max-width: 1100px) {
+    .info-page__highlights,
+    .info-page__region-grid,
+    .info-page__grid,
+    .info-page__content-grid,
+    .info-page__checklist-wrap {
       grid-template-columns: 1fr;
+    }
+
+    .info-page__booking,
+    .info-page__closing {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .info-page {
+      padding: 110px 0 64px;
+    }
+
+    .info-page__highlight,
+    .info-card,
+    .info-page__panel,
+    .info-page__region-card,
+    .info-page__booking,
+    .info-page__faq-item,
+    .info-page__closing {
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 18px;
+    }
+
+    .info-page__panel,
+    .info-page__region-card,
+    .info-page__booking {
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .info-page__faq-item summary {
+      padding: 18px 0;
+    }
+
+    .info-page__faq-item p {
+      margin-bottom: 18px;
+    }
+
+    .info-page__closing {
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .info-page__cta,
+    .info-page__closing-actions {
+      width: 100%;
+    }
+
+    .info-page__closing-actions {
+      display: grid;
     }
   }
 </style>

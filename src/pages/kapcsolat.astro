@@ -5,35 +5,155 @@ const contactItems = [
   {
     label: "Telefon",
     value: "+36 20 773 0807",
-    href: "tel:+36207730807"
+    href: "tel:+36207730807",
+    note: "Ha gyors egyeztetés kell érkezésről, elérhetőségről vagy választásról.",
+    cta: "Hívás indítása"
   },
   {
     label: "E-mail",
     value: "hello@dandelionhouse.hu",
-    href: "mailto:hello@dandelionhouse.hu"
+    href: "mailto:hello@dandelionhouse.hu",
+    note: "Részletesebb kérdésekhez, ha több szállást vagy több időpontot is összehasonlítanál.",
+    cta: "E-mail írása"
   },
   {
     label: "WhatsApp",
     value: "Írj közvetlenül",
-    href: "https://wa.me/36207730807"
+    href: "https://wa.me/36207730807",
+    note: "Rövid, gyors üzenethez, ha útközben vagy és gyors visszajelzésre van szükséged.",
+    cta: "WhatsApp megnyitása"
   }
 ];
+
+const reasonsToWrite = [
+  "foglalás előtti egyeztetés, ha nem egyértelmű, melyik ház lenne a legjobb",
+  "kisállattal érkeznétek, és szeretnétek biztosan jó helyet választani",
+  "medencés szállást kerestek, vagy fontos a privát kültéri pihenés",
+  "segítség kell az érkezés, parkolás vagy a check-in menetének megértésében",
+  "nem csak dátum alapján döntenétek, hanem hangulat, környék vagy elhelyezkedés szerint"
+];
+
+const planningSteps = [
+  {
+    title: "1. Mondd el, mire van szükségetek",
+    text: "Írd meg, hányan érkeztek, inkább Balaton-közeli vagy csendesebb vidéki házat kerestek, és fontos-e például a medence vagy a kisállat."
+  },
+  {
+    title: "2. Segítünk szűkíteni",
+    text: "Megírjuk, melyik ház vagy régió passzolhat legjobban hozzátok, hogy ne kelljen az összes szállást külön végignézni."
+  },
+  {
+    title: "3. Ezután jöhet a foglalás",
+    text: "Ha megvan a megfelelő opció, küldünk egyértelmű irányt az online foglaláshoz vagy a következő lépéshez."
+  }
+];
+
+const messageChecklist = [
+  "hány fő érkezik és mikor",
+  "inkább Balaton-közeli vagy csendesebb, hegyvidéki környezetet kerestek",
+  "fontos-e a medence, kert, panoráma vagy privát kültéri pihenés",
+  "érkeztek-e kisállattal",
+  "van-e 2-3 szimpatikus ház, ami között nehéz dönteni"
+];
+
+const regionGuides = [
+  {
+    title: "Balaton melletti szállás",
+    text: "Akkor jó választás, ha közel lennétek a strandokhoz, vízparthoz, nyári programokhoz és egy könnyen tervezhető balatoni pihenéshez.",
+    href: "/royal/",
+    cta: "Balaton közeli opciók"
+  },
+  {
+    title: "Tapolcai-medence és Kisapáti",
+    text: "Akkor ideális, ha csendesebb környezetet, hegyeket, panorámát, borvidéki hangulatot és lassabb kikapcsolódást kerestek.",
+    href: "/kisapati-medences-szallas/",
+    cta: "Kisapáti és környéke"
+  },
+  {
+    title: "Káli-medence környéke",
+    text: "Azoknak jó, akik karakteres falvakat, gasztronómiát, nyugodtabb környezetet és különlegesebb régiós hangulatot szeretnének.",
+    href: "/dandelion-koveskal/",
+    cta: "Káli-medence opció"
+  }
+];
+
+const quickFacts = [
+  "Segítünk kiválasztani, melyik ház illik jobban a pihenésetekhez.",
+  "Foglalás előtt is lehet írni vagy hívni, nem kell rögtön véglegesíteni.",
+  "Kisállat, medence, érkezés és házválasztás témában is érdemes egyeztetni."
+];
+
+const faqs = [
+  {
+    question: "Milyen kérdésekkel érdemes írni?",
+    answer:
+      "A leggyakoribb témák: melyik ház kinek való, kisállattal érkezés, medencés opciók, érkezési részletek, régióválasztás és foglalás előtti bizonytalanságok."
+  },
+  {
+    question: "Tudtok segíteni, ha nem tudjuk, melyik házat válasszuk?",
+    answer:
+      "Igen. Ha megírod, hányan jöttök, mi fontos nektek, és milyen környezetet kerestek, segítünk leszűkíteni a legjobb lehetőségeket."
+  },
+  {
+    question: "Foglalás előtt is kérdezhetünk?",
+    answer:
+      "Igen, kifejezetten érdemes. Sokszor egy rövid egyeztetés megkönnyíti a döntést, és gyorsabban kiderül, melyik szállás illik hozzátok."
+  },
+  {
+    question: "Kisállattal kapcsolatban is tudtok segíteni?",
+    answer:
+      "Igen, írjatok nyugodtan. Érdemes előre egyeztetni, hogy a választott ház és az utazás típusa biztosan megfelelő legyen."
+  },
+  {
+    question: "Ha medencés szállást keresünk, itt érdemes érdeklődni?",
+    answer:
+      "Igen. Meg tudjuk írni, melyik opció lehet jobb, ha a medence, a kert, a privát pihenés vagy a környék hangulata elsődleges."
+  },
+  {
+    question: "Mi a leggyorsabb út a foglaláshoz?",
+    answer:
+      "Ha már tudod, melyik szállást keresed, az online foglalási felületen tudod ellenőrizni az elérhetőséget. Ha még bizonytalan vagy, előbb írj vagy hívj minket."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
   title="Kapcsolat | Dandelion Vendégházak"
-  description="Kapcsolatfelvétel a Dandelion Vendégházakkal: telefon, e-mail, WhatsApp és közvetlen foglalási elérhetőség."
+  description="Kapcsolat és foglalás előtti segítség a Dandelion Vendégházaknál: házválasztás, kisállat, medence, érkezés, régiók és közvetlen elérhetőségek."
   canonicalPath="/kapcsolat/"
+  structuredData={faqSchema}
 >
   <section class="info-page">
     <div class="dnd-container info-page__inner">
       <div class="info-page__hero">
         <span class="info-page__eyebrow">Kapcsolat</span>
-        <h1>Segítünk megtalálni a hozzád illő szállást.</h1>
+        <h1>Nem csak elérhetőség, hanem segítség a jó szállás kiválasztásához.</h1>
         <p>
-          Ha kérdésed van a szállásokkal, a foglalással vagy az elérhető időpontokkal kapcsolatban,
-          itt tudsz a leggyorsabban elérni minket.
+          Ha nem csak egy telefonszámot keresel, hanem szeretnéd gyorsabban eldönteni, melyik ház és melyik
+          régió illik hozzátok, itt tudunk a legtöbbet segíteni.
         </p>
+      </div>
+
+      <div class="info-page__highlights" aria-label="Kapcsolat oldal gyors összefoglaló">
+        {quickFacts.map((fact) => (
+          <div class="info-page__highlight">
+            <span></span>
+            <p>{fact}</p>
+          </div>
+        ))}
       </div>
 
       <div class="info-page__grid">
@@ -41,16 +161,94 @@ const contactItems = [
           <a class="info-card" href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}>
             <span class="info-card__label">{item.label}</span>
             <strong>{item.value}</strong>
+            <p>{item.note}</p>
+            <span class="info-card__cta">{item.cta}</span>
           </a>
         ))}
       </div>
 
-      <div class="info-page__note">
-        <h2>Foglalás</h2>
+      <div class="info-page__content-grid">
+        <section class="info-page__panel">
+          <span class="info-page__section-label">Mikor érdemes írni?</span>
+          <h2>Milyen típusú kérdésekkel tudunk segíteni?</h2>
+          <ul class="info-page__list">
+            {reasonsToWrite.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="info-page__panel info-page__panel--accent">
+          <span class="info-page__section-label">Foglalás előtt</span>
+          <h2>Segítünk kiválasztani a megfelelő szállást.</h2>
+          <p>
+            Ha még nem világos, melyik ház lenne a legjobb, nem kell egyedül végigmenni az összes opción.
+            Írj pár sort arról, mire vágytok, és segítünk a rövidebb listában.
+          </p>
+          <div class="info-page__steps">
+            {planningSteps.map((step) => (
+              <div class="info-page__step">
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <section class="info-page__panel info-page__panel--soft">
+        <span class="info-page__section-label">Gyorsabb válaszhoz</span>
+        <h2>Mit érdemes beleírni az üzenetbe?</h2>
         <p>
-          Az online foglalás a hivatalos foglalási felületen történik. Ha előbb egyeztetnél, írj vagy hívj
-          minket, és segítünk a megfelelő ház kiválasztásában.
+          Nem kell hosszú levelet írni. Már néhány konkrétum is elég ahhoz, hogy sokkal pontosabban tudjunk
+          ajánlani megfelelő házat vagy régiót.
         </p>
+        <div class="info-page__checklist-wrap">
+          <ul class="info-page__list">
+            {messageChecklist.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <div class="info-page__message-example">
+            <span class="info-page__message-kicker">Példa</span>
+            <p>
+              „2 felnőtt és 1 kisgyerek érkezne 3 éjszakára. Fontos a nyugodt környezet, jó lenne medence,
+              és még nem tudjuk, Kisapáti vagy Balaton-közeli szállás lenne jobb.”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-page__region-block">
+        <div class="info-page__region-head">
+          <span class="info-page__section-label">Régióválasztás</span>
+          <h2>Melyik régió melyik igényre jó?</h2>
+          <p>
+            Ha a döntés inkább a környéken múlik, mint egy konkrét házon, ebben is tudunk irányt adni.
+          </p>
+        </div>
+
+        <div class="info-page__region-grid">
+          {regionGuides.map((region) => (
+            <article class="info-page__region-card">
+              <h3>{region.title}</h3>
+              <p>{region.text}</p>
+              <a class="info-page__region-link" href={region.href}>{region.cta}</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="info-page__booking">
+        <div class="info-page__booking-copy">
+          <span class="info-page__section-label">Gyors foglalási út</span>
+          <h2>Ha már tudod, mit keresel</h2>
+          <p>
+            Az online foglalás a hivatalos felületen történik. Ha a választás már megvan, ott gyorsan le tudod
+            ellenőrizni az elérhetőséget. Ha még nem biztos a ház vagy a régió, előbb írj vagy hívj minket.
+          </p>
+        </div>
+
         <a
           class="info-page__cta"
           href="https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu"
@@ -59,7 +257,38 @@ const contactItems = [
         >
           Elérhetőség ellenőrzése
         </a>
-      </div>
+      </section>
+
+      <section class="info-page__faq">
+        <div class="info-page__faq-head">
+          <span class="info-page__section-label">Mini FAQ</span>
+          <h2>Rövid válaszok a leggyakoribb kérdésekre</h2>
+        </div>
+
+        <div class="info-page__faq-list">
+          {faqs.map((item) => (
+            <details class="info-page__faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="info-page__closing">
+        <div>
+          <span class="info-page__section-label">Bizonytalan vagy?</span>
+          <h2>Írj akkor is, ha még nincs kész döntés.</h2>
+          <p>
+            A kapcsolat oldal célja pont ez: ne csak elérhetőséget adjon, hanem segítsen közelebb jutni a jó
+            választáshoz. Ha csak annyi biztos, hogy pihenni szeretnétek, onnan is el tudunk indulni.
+          </p>
+        </div>
+        <div class="info-page__closing-actions">
+          <a class="info-page__cta info-page__cta--secondary" href="mailto:hello@dandelionhouse.hu">E-mail küldése</a>
+          <a class="info-page__cta" href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer">WhatsApp írás</a>
+        </div>
+      </section>
     </div>
   </section>
 </BaseLayout>
@@ -67,7 +296,9 @@ const contactItems = [
 <style>
   .info-page {
     padding: 132px 0 88px;
-    background: linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
+    background:
+      radial-gradient(circle at top left, rgba(217, 158, 43, 0.12), transparent 24%),
+      linear-gradient(180deg, #f7f2ea 0%, #fcfbf8 100%);
   }
 
   .info-page__inner {
@@ -76,12 +307,12 @@ const contactItems = [
   }
 
   .info-page__hero {
-    max-width: 760px;
+    max-width: 860px;
   }
 
-  .info-page__eyebrow {
+  .info-page__eyebrow,
+  .info-page__section-label {
     display: inline-block;
-    margin-bottom: 10px;
     color: #b67b20;
     font-size: var(--dnd-text-2xs);
     font-weight: 700;
@@ -89,43 +320,118 @@ const contactItems = [
     text-transform: uppercase;
   }
 
-  .info-page h1 {
+  .info-page__eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .info-page__section-label {
+    margin-bottom: 12px;
+  }
+
+  .info-page h1,
+  .info-page h2,
+  .info-page h3 {
     margin: 0;
     color: #261d16;
+  }
+
+  .info-page h1 {
     font-family: var(--dnd-font-display);
     font-size: clamp(2.2rem, 4vw, 3.8rem);
     font-weight: 500;
     line-height: 1.05;
   }
 
-  .info-page__hero p,
-  .info-page__note p {
-    margin: 14px 0 0;
+  .info-page h2 {
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.14;
+  }
+
+  .info-page h3 {
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .info-page p,
+  .info-page li {
     color: rgba(38, 29, 22, 0.76);
     font-size: var(--dnd-text-body);
     line-height: 1.72;
   }
 
-  .info-page__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+  .info-page__hero p,
+  .info-page__region-head p,
+  .info-page__booking-copy p,
+  .info-page__faq-item p,
+  .info-page__panel > p {
+    margin: 14px 0 0;
   }
 
+  .info-page__highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .info-page__highlight,
   .info-card,
-  .info-page__note {
-    padding: 24px;
+  .info-page__panel,
+  .info-page__region-card,
+  .info-page__booking,
+  .info-page__faq-item {
     border: 1px solid rgba(88, 63, 38, 0.12);
-    border-radius: 18px;
+    border-radius: 22px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
   }
 
+  .info-page__highlight {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 18px 20px;
+    align-items: start;
+  }
+
+  .info-page__highlight span {
+    width: 10px;
+    height: 10px;
+    margin-top: 9px;
+    border-radius: 999px;
+    background: #d99e2b;
+    box-shadow: 0 0 0 6px rgba(217, 158, 43, 0.14);
+  }
+
+  .info-page__highlight p {
+    margin: 0;
+  }
+
+  .info-page__grid,
+  .info-page__content-grid,
+  .info-page__region-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .info-card {
     display: grid;
-    gap: 8px;
+    gap: 10px;
+    padding: 24px;
     color: #261d16;
     text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .info-card:hover,
+  .info-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 54px rgba(48, 34, 20, 0.1);
   }
 
   .info-card__label {
@@ -138,26 +444,166 @@ const contactItems = [
 
   .info-card strong {
     font-size: var(--dnd-text-lead);
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
-  .info-page__note {
+  .info-card p {
+    margin: 0;
+  }
+
+  .info-card__cta {
+    margin-top: 6px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .info-page__content-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .info-page__panel,
+  .info-page__region-card,
+  .info-page__booking {
+    padding: 28px;
+  }
+
+  .info-page__panel--accent {
+    background: linear-gradient(145deg, rgba(255, 249, 240, 0.96), rgba(246, 236, 216, 0.92));
+  }
+
+  .info-page__panel--soft {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 245, 237, 0.96));
+  }
+
+  .info-page__list {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 14px;
+  }
+
+  .info-page__list li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .info-page__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #d99e2b;
+  }
+
+  .info-page__steps {
+    display: grid;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .info-page__checklist-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    gap: 18px;
+    margin-top: 22px;
+    align-items: start;
+  }
+
+  .info-page__message-example {
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .info-page__message-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .info-page__message-example p {
+    margin: 0;
+  }
+
+  .info-page__step {
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(88, 63, 38, 0.1);
+  }
+
+  .info-page__step p {
+    margin: 8px 0 0;
+  }
+
+  .info-page__region-block {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__region-head {
     max-width: 760px;
   }
 
-  .info-page__note h2 {
-    margin: 0;
-    color: #261d16;
-    font-size: 1.2rem;
-    line-height: 1.3;
+  .info-page__region-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .info-page__region-card p {
+    margin: 10px 0 0;
+  }
+
+  .info-page__region-link {
+    display: inline-flex;
+    margin-top: 18px;
+    color: #7f5517;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .info-page__booking {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: linear-gradient(135deg, #17120f, #2a2219);
+  }
+
+  .info-page__booking h2,
+  .info-page__booking p,
+  .info-page__booking .info-page__section-label {
+    color: #fff;
+  }
+
+  .info-page__booking p {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .info-page__booking-copy {
+    max-width: 760px;
   }
 
   .info-page__cta {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    min-height: 46px;
-    margin-top: 22px;
+    min-height: 48px;
     padding: 0 22px;
     border-radius: 999px;
     background: #d99e2b;
@@ -167,9 +613,90 @@ const contactItems = [
     text-decoration: none;
   }
 
-  @media (max-width: 900px) {
-    .info-page__grid {
+  .info-page__cta--secondary {
+    background: rgba(255, 255, 255, 0.96);
+    color: #261d16;
+  }
+
+  .info-page__faq {
+    display: grid;
+    gap: 18px;
+  }
+
+  .info-page__faq-head {
+    max-width: 760px;
+  }
+
+  .info-page__faq-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .info-page__faq-item {
+    padding: 0 24px;
+  }
+
+  .info-page__faq-item summary {
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    color: #261d16;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .info-page__faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .info-page__faq-item p {
+    margin: 0 0 20px;
+    padding-top: 2px;
+  }
+
+  .info-page__closing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 30px 32px;
+    border: 1px solid rgba(88, 63, 38, 0.12);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 240, 228, 0.96));
+    box-shadow: 0 18px 48px rgba(48, 34, 20, 0.06);
+  }
+
+  .info-page__closing p {
+    margin: 14px 0 0;
+    max-width: 760px;
+  }
+
+  .info-page__closing-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 12px;
+    align-items: center;
+  }
+
+  @media (max-width: 1100px) {
+    .info-page__highlights,
+    .info-page__region-grid,
+    .info-page__grid,
+    .info-page__content-grid {
       grid-template-columns: 1fr;
+    }
+
+    .info-page__checklist-wrap,
+    .info-page__closing {
+      grid-template-columns: 1fr;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .info-page__booking {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
@@ -178,10 +705,44 @@ const contactItems = [
       padding: 110px 0 64px;
     }
 
+    .info-page__highlight,
     .info-card,
-    .info-page__note {
-      padding: 20px;
-      border-radius: 16px;
+    .info-page__panel,
+    .info-page__region-card,
+    .info-page__booking,
+    .info-page__faq-item {
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 18px;
+    }
+
+    .info-page__panel,
+    .info-page__region-card,
+    .info-page__booking {
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .info-page__faq-item summary {
+      padding: 18px 0;
+    }
+
+    .info-page__faq-item p {
+      margin-bottom: 18px;
+    }
+
+    .info-page__cta,
+    .info-page__closing-actions {
+      width: 100%;
+    }
+
+    .info-page__closing {
+      padding: 22px 20px;
+      border-radius: 18px;
+    }
+
+    .info-page__closing-actions {
+      display: grid;
     }
   }
 </style>
