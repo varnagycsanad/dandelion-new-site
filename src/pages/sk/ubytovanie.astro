@@ -35,6 +35,7 @@ const accommodationsTransitionImageTitle =
 const imageMapping = await readHomepageImageMapping();
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
+const poolLandingHref = `${baseHref}kisapati-medences-szallas/`;
 
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
@@ -197,20 +198,20 @@ const accommodationFaqItems = [
   {
     question: "Ktoré domy Dandelion majú prístup k bazénu?",
     answer:
-      "Dandelion D1, Dandelion D2 a Fügeház sú hlavné možnosti s prístupom k Panorama Pool pri Szent György-hegy.",
-    href: "#balaton-uplands"
+      "Pre ubytovanie s bazénom v Kisapáti sú Dandelion D1, Dandelion D2 a Fügeház tri hlavné možnosti. Všetky tri majú v sezóne prístup k Panorama Pool.",
+    href: poolLandingHref
   },
   {
     question: "Kde sa ubytovať v Kisapáti?",
     answer:
-      "V Kisapáti sú hlavnou voľbou D1, D2, Zsálya a Szőlőliget. D1 je pre väčšie skupiny, D2 pre rodiny, Zsálya a Szőlőliget pre pokojnejší pobyt vo svahu.",
-    href: "#balaton-uplands"
+      "Ak je dôležitý bazén, v Kisapáti sú najsilnejšou trojicou D1, D2 a Fügeház. D1 je pre väčšie skupiny, D2 pre rodiny a Fügeház pre pokojnejší panoramatický pobyt.",
+    href: poolLandingHref
   },
   {
     question: "Ktoré ubytovanie Dandelion je vhodné pre rodiny?",
     answer:
-      "Pre rodiny je zvyčajne prvou voľbou D2. Pre väčšie rodiny je praktickejší D1, menšie rodiny môžu porovnať Zsálya alebo Szőlőliget.",
-    href: "#balaton-uplands"
+      "Pre rodiny býva najlepšou prvou voľbou D2. Väčšie rodiny by mali porovnať D1, menšie skupiny hľadajúce pokojnejší panoramatický dom môžu zvážiť aj Fügeház.",
+    href: poolLandingHref
   },
   {
     question: "Ktoré ubytovanie je najbližšie k Balatonu?",
@@ -280,7 +281,7 @@ const accommodationFaqStructuredData = {
 
 <BaseLayout
   title={title}
-  description={description}
+  description="Vyberte si ubytovanie v Balatonskej vrchovine podľa oblasti a štýlu pobytu: Kisapáti, Szent György-hegy, Balaton alebo Káli, s rodinnými, panoramatickými a bazénovými možnosťami."
   canonicalPath="/sk/ubytovanie/"
   lang="sk"
   ogLocale="sk_SK"
@@ -365,7 +366,10 @@ const accommodationFaqStructuredData = {
         </picture>
         <div class="dnd-accommodations-transition__content">
           <p class="dnd-accommodations-transition__eyebrow">Panorama Pool</p>
-          <h2 id="ubytovanie-pool-title">Dni pri bazéne pod Szent György-hegy</h2>
+          <h2 id="ubytovanie-pool-title">Ubytovanie s bazénom v Kisapáti pod Szent György-hegy</h2>
+          <a class="dnd-accommodations-transition__link" href={poolLandingHref}>
+            Porovnať D1, D2 a Fügeház s prístupom k Panorama Pool
+          </a>
         </div>
       </div>
     </div>

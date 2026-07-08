@@ -36,6 +36,7 @@ const accommodationsTransitionImageTitle =
 const imageMapping = await readHomepageImageMapping();
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const contactHref = `${baseHref}en/contact/`;
+const poolLandingHref = `${baseHref}kisapati-medences-szallas/`;
 
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
@@ -198,20 +199,20 @@ const accommodationFaqItems = [
   {
     question: "Which Dandelion houses have pool access?",
     answer:
-      "Dandelion D1, Dandelion D2 and Fügeház are the main options with Panorama Pool access near Szent György Hill.",
-    href: "#balaton-uplands"
+      "For a pool stay in Kisapáti, Dandelion D1, Dandelion D2 and Fügeház are the three main options. All three include Panorama Pool access in season.",
+    href: poolLandingHref
   },
   {
     question: "Where should I stay in Kisapáti?",
     answer:
-      "In Kisapáti, D1, D2, Zsálya and Szőlőliget are the main choices. D1 fits larger groups, D2 works well for families, while Zsálya and Szőlőliget are quieter hillside stays.",
-    href: "#balaton-uplands"
+      "If pool access matters, D1, D2 and Fügeház are the strongest three Kisapáti options. D1 fits larger groups, D2 works well for families, while Fügeház is better for a quieter panoramic stay.",
+    href: poolLandingHref
   },
   {
     question: "Which Dandelion stay is best for families?",
     answer:
-      "For families, D2 is usually the first house to check. Larger families should compare D1, while smaller families may prefer Zsálya or Szőlőliget.",
-    href: "#balaton-uplands"
+      "For families, D2 is usually the first house to check. Larger families should compare D1, while smaller groups looking for a quieter panoramic house can also consider Fügeház.",
+    href: poolLandingHref
   },
   {
     question: "Which stay is closest to Lake Balaton?",
@@ -281,7 +282,7 @@ const accommodationFaqStructuredData = {
 
 <BaseLayout
   title={title}
-  description={description}
+  description="Choose a stay in the Balaton Uplands by region and travel style: Kisapáti, Szent György Hill, Lake Balaton or the Káli Basin, with family-friendly, panoramic and pool-access options."
   canonicalPath="/en/szallasok/"
   lang="en"
   ogLocale="en_US"
@@ -367,7 +368,10 @@ const accommodationFaqStructuredData = {
         </picture>
         <div class="dnd-accommodations-transition__content">
           <p class="dnd-accommodations-transition__eyebrow">Panorama Pool</p>
-          <h2 id="accommodation-pool-title">Pool days below Szent György Hill</h2>
+          <h2 id="accommodation-pool-title">Pool stays in Kisapáti below Szent György Hill</h2>
+          <a class="dnd-accommodations-transition__link" href={poolLandingHref}>
+            Compare D1, D2 and Fügeház with Panorama Pool access
+          </a>
         </div>
       </div>
     </div>

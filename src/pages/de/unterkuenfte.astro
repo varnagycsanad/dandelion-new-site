@@ -18,6 +18,8 @@ const accommodationsTransitionImageAlt =
   "Dandelion Panorama Pool mit blauem Wasser, Liegen und Panorama im Balaton-Oberland";
 const accommodationsTransitionImageTitle =
   "Panorama Pool mit Sonnenterrasse und Blick auf die Zeugenberge";
+const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const poolLandingHref = `${baseHref}kisapati-medences-szallas/`;
 
 const sectionCopy = {
   upland: {
@@ -200,20 +202,20 @@ const accommodationFaqItems = [
   {
     question: "Welche Dandelion Häuser haben Poolnutzung?",
     answer:
-      "Dandelion D1, Dandelion D2 und Fügeház sind die wichtigsten Optionen mit Zugang zum Panorama Pool nahe dem Szent György-hegy.",
-    href: "#zeugenberge"
+      "Für eine Unterkunft mit Pool in Kisapáti sind Dandelion D1, Dandelion D2 und Fügeház die drei wichtigsten Optionen. Bei allen ist der Panorama Pool in der Saison dabei.",
+    href: poolLandingHref
   },
   {
     question: "Wo sollte man in Kisapáti übernachten?",
     answer:
-      "In Kisapáti sind D1, D2, Zsálya und Szőlőliget die Hauptoptionen. D1 passt zu größeren Gruppen, D2 zu Familien, Zsálya und Szőlőliget eher zu ruhigerer Erholung am Hang.",
-    href: "#zeugenberge"
+      "Wenn Poolnutzung wichtig ist, sind D1, D2 und Fügeház die stärksten drei Häuser in Kisapáti. D1 passt zu größeren Gruppen, D2 zu Familien und Fügeház eher zu einem ruhigeren Panorama-Aufenthalt.",
+    href: poolLandingHref
   },
   {
     question: "Welche Dandelion Unterkunft passt für Familien?",
     answer:
-      "Für Familien ist D2 meist der erste Blick wert. Für größere Familien ist D1 praktischer, kleinere Familien können Zsálya oder Szőlőliget vergleichen.",
-    href: "#zeugenberge"
+      "Für Familien ist D2 meist die beste erste Wahl. Größere Familien sollten D1 vergleichen, kleinere Gruppen mit Wunsch nach ruhigerem Panorama können auch Fügeház ansehen.",
+    href: poolLandingHref
   },
   {
     question: "Welche Unterkunft liegt näher am Balaton?",
@@ -283,7 +285,7 @@ const accommodationFaqStructuredData = {
 
 <BaseLayout
   title="Unterkünfte am Balaton | Dandelion Gästehäuser"
-  description="Wählen Sie zuerst die Region und finden Sie dann das passende Dandelion Gästehaus bei den Zeugenbergen, am Balaton oder im Káli-Becken."
+  description="Wählen Sie eine Unterkunft im Balaton-Oberland nach Region und Reiseart: Kisapáti, Szent György-hegy, Balaton oder Káli-Becken, mit familienfreundlichen, panoramischen und Pool-Optionen."
   canonicalPath="/de/unterkuenfte/"
   lang="de"
   ogLocale="de_DE"
@@ -368,7 +370,10 @@ const accommodationFaqStructuredData = {
         </picture>
         <div class="dnd-accommodations-transition__content">
           <p class="dnd-accommodations-transition__eyebrow">Panorama Pool</p>
-          <h2 id="unterkuenfte-pool-title">Pooltage unterhalb des Szent György-hegy</h2>
+          <h2 id="unterkuenfte-pool-title">Unterkunft mit Pool in Kisapáti am Fuß des Szent György-hegy</h2>
+          <a class="dnd-accommodations-transition__link" href={poolLandingHref}>
+            D1, D2 und Fügeház mit Panorama Pool vergleichen
+          </a>
         </div>
       </div>
     </div>
