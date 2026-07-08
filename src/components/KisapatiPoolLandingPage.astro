@@ -1,0 +1,1933 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { d1EnglishPageData } from "../data/accommodation-pages/d1.en";
+import { d1GermanPageData } from "../data/accommodation-pages/d1.de";
+import { d1CzechPageData } from "../data/accommodation-pages/d1.cs";
+import { d1SlovakPageData } from "../data/accommodation-pages/d1.sk";
+import { d2EnglishPageData } from "../data/accommodation-pages/d2.en";
+import { d2GermanPageData } from "../data/accommodation-pages/d2.de";
+import { d2CzechPageData } from "../data/accommodation-pages/d2.cs";
+import { d2SlovakPageData } from "../data/accommodation-pages/d2.sk";
+import { fugehazEnglishPageData } from "../data/accommodation-pages/fugehaz.en";
+import { fugehazGermanPageData } from "../data/accommodation-pages/fugehaz.de";
+import { fugehazCzechPageData } from "../data/accommodation-pages/fugehaz.cs";
+import { fugehazSlovakPageData } from "../data/accommodation-pages/fugehaz.sk";
+import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
+import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
+
+type LandingLocale = "en" | "de" | "cs" | "sk";
+
+const { locale } = Astro.props as { locale: LandingLocale };
+
+const heroImage = panoramaPoolImages.find((image) => image.usageHint === "hero") ?? panoramaPoolImages[0];
+const teaserImages = panoramaPoolImages
+  .filter((image) => image.usageHint === "teaser")
+  .sort((a, b) => a.sortOrder - b.sortOrder)
+  .slice(0, 3);
+
+const localeImageAltKey = {
+  en: "altEn",
+  de: "altDe",
+  cs: "altCs",
+  sk: "altSk"
+} as const;
+
+const getPoolImageAlt = (image: (typeof panoramaPoolImages)[number]) => image[localeImageAltKey[locale]];
+const bookingHrefByLocale = {
+  en: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vend%C3%A9gh%C3%A1zak?p=3970b30e1042d58f&lang=En",
+  de: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vend%C3%A9gh%C3%A1zak?p=3970b30e1042d58f&lang=En",
+  cs: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vend%C3%A9gh%C3%A1zak?p=3970b30e1042d58f&lang=En",
+  sk: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vend%C3%A9gh%C3%A1zak?p=3970b30e1042d58f&lang=En"
+} as const;
+
+const pageText = {
+  en: {
+    lang: "en" as const,
+    ogLocale: "en_US",
+    schemaLanguage: "en-US",
+    homePath: "/en/",
+    pagePath: "/en/kisapati-pool-stays/",
+    panoramaPoolPath: "/en/panorama-pool/",
+    title: "Kisapáti pool stays | D1, D2 and Fügeház | Dandelion",
+    description:
+      "Pool stays in Kisapáti near Szent György Hill: compare D1, D2 and Fügeház and see which house fits families, panoramic views or summer pool days best.",
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Kisapáti pool stays",
+    collectionName: "Kisapáti pool stays at Dandelion",
+    collectionDescription: "Dandelion D1, D2 and Fügeház in Kisapáti with Panorama Pool access for summer stays.",
+    about: ["Kisapáti stay", "pool stay", "Panorama Pool", "Szent György Hill"],
+    heroEyebrow: "Kisapáti · Szent György Hill · Panorama Pool",
+    heroTitle: "Kisapáti pool stays with a clear D1, D2 and Fügeház comparison",
+    heroLead:
+      "If you want a pool stay in Kisapáti, this page helps you quickly compare which house fits larger groups, which works best for families and which gives the calmest panoramic stay.",
+    primaryCta: "Compare the houses",
+    secondaryCta: "Booking / prices",
+    detailsCta: "Details",
+    stayFactsLabelSuffix: "key features",
+    introEyebrow: "When is it the right fit?",
+    introTitle: "If you want a stay in Kisapáti and both the pool, the area and the house type matter.",
+    introBodyOne:
+      "This page brings together Dandelion's three Kisapáti houses connected to Panorama Pool. These are not three separate private pools: guests of D1, D2 and Fügeház use the shared Panorama Pool in season on the hillside beside the houses.",
+    introBodyTwo:
+      "The three houses answer three different travel styles: D1 works best for larger groups, D2 is more family-friendly and Fügeház is calmer and more panoramic. So this page is designed as a fast decision shortcut, not only as a list of houses.",
+    audienceEyebrow: "Who is it for?",
+    audienceTitle: "Quick choice: which Kisapáti house fits which kind of trip?",
+    audienceLead: "This is the part you can scan in half a minute when you just want the short answer.",
+    audienceItems: [
+      {
+        title: "For larger families or groups of friends",
+        answer: "D1 is the strongest option if you need 6-8 guest capacity, more bedrooms and larger shared spaces."
+      },
+      {
+        title: "For 4-6 guest family stays",
+        answer: "D2 is the easiest fit if a large garden, covered terrace and family-friendly rhythm matter most."
+      },
+      {
+        title: "For calmer panoramic stays",
+        answer: "Fügeház works best if you want a more intimate house, terrace evenings and open views towards the witness hills."
+      }
+    ],
+    factsAria: "Quick overview of Kisapáti pool stays",
+    facts: [
+      {
+        number: "01",
+        title: "D1, D2 and Fügeház",
+        text: "Three different houses with different size and mood, all connected to the same seasonal pool access."
+      },
+      {
+        number: "02",
+        title: "Panorama Pool",
+        text: "A shared pool on the hillside beside the houses, with open views towards the witness hills."
+      },
+      {
+        number: "03",
+        title: "Kisapáti base",
+        text: "Szent György Hill, the Tapolca Basin, wineries and Balaton programmes are all a short drive away."
+      }
+    ],
+    answersEyebrow: "GEO answer blocks",
+    answersTitle: "Short answers to the main Kisapáti accommodation questions",
+    answersLead: "These are written as clean answer blocks that Google AI, ChatGPT or Perplexity can quote more easily.",
+    quickAnswerItems: [
+      {
+        question: "Where should I stay in Kisapáti?",
+        answer: "D1, D2 and Fügeház are the main choices if you want a quiet Kisapáti stay near Szent György Hill with pool access."
+      },
+      {
+        question: "Is there a pool stay in Kisapáti?",
+        answer: "Yes. Guests of Dandelion D1, D2 and Fügeház can use Panorama Pool in season."
+      },
+      {
+        question: "Which house is best for families?",
+        answer: "D2 is usually the best first option for families, while D1 is better when a larger family or several generations travel together."
+      },
+      {
+        question: "Which house is best for views?",
+        answer: "Fügeház has the strongest terrace-and-panorama mood, while D1 is also a good fit if you want views plus more interior space."
+      },
+      {
+        question: "Why stay in Kisapáti?",
+        answer: "Kisapáti is a strong base for Szent György Hill, the Tapolca Basin, Badacsony and Balaton programmes, while still feeling calmer than busier lakeside towns."
+      },
+      {
+        question: "Which house should I choose in Kisapáti?",
+        answer: "Choose D1 for bigger groups, D2 for family stays with a garden, and Fügeház for a quieter and more panoramic house."
+      }
+    ],
+    staysEyebrow: "The three houses",
+    staysTitle: "Which Dandelion house fits your trip best?",
+    staysLead: "The fastest way to choose is by group size and mood: larger group, family rhythm or quieter terrace-based days.",
+    compareEyebrow: "Which house should I choose in Kisapáti?",
+    compareTitle: "D1, D2 and Fügeház compared in one place",
+    compareLead: "If you want to decide quickly, this table shows the clearest differences between the three houses.",
+    compareColumns: ["Criteria", "D1", "D2", "Fügeház"],
+    comparisonRows: [
+      {
+        label: "Best for",
+        d1: "larger families and groups of friends",
+        d2: "families and 4-6 guest stays",
+        fugehaz: "couples, smaller families and quieter stays"
+      },
+      {
+        label: "Guest capacity",
+        d1: "up to 8 guests",
+        d2: "4-6 guests",
+        fugehaz: "4 guests, up to 6 with extra bed"
+      },
+      {
+        label: "Main mood",
+        d1: "spacious, social, panoramic",
+        d2: "garden-based, family-friendly, easy",
+        fugehaz: "terrace-based, more intimate, panoramic"
+      },
+      {
+        label: "Strong point",
+        d1: "3 bedrooms + 2 bathrooms",
+        d2: "large garden + covered terrace",
+        fugehaz: "panoramic terraces + quieter rhythm"
+      },
+      {
+        label: "Pool connection",
+        d1: "Panorama Pool",
+        d2: "Panorama Pool",
+        fugehaz: "Panorama Pool"
+      }
+    ],
+    poolEyebrow: "Panorama Pool",
+    poolTitle: "Summer pool days with hillside views.",
+    poolBody:
+      "Panorama Pool sits on the hill beside the houses and is available in season for guests of D1, D2 and Fügeház. The witness hills are visible from the pool area, and the terrace shapes the whole summer atmosphere.",
+    poolCta: "Open Panorama Pool page",
+    reasonsEyebrow: "Why stay in Kisapáti?",
+    reasonsTitle: "A calmer Balaton base with strong hiking and wine-country access",
+    reasons: [
+      "Szent György Hill and the witness-hill programmes are close by.",
+      "Lake Balaton, Badacsony and Tapolca are all easy to reach by car.",
+      "The rhythm is calmer than in the busier lakeside towns.",
+      "D1, D2 and Fügeház cover noticeably different travel needs in one area."
+    ],
+    faqEyebrow: "Quick answers",
+    faqTitle: "Frequently asked questions about pool stays in Kisapáti",
+    faqLead: "Short answers about D1, D2, Fügeház and Panorama Pool.",
+    faqItems: [
+      {
+        question: "Where should I stay in Kisapáti?",
+        answer: "If you want a pool stay in Kisapáti, Dandelion D1, D2 and Fügeház are the three main options. Group size, outdoor space and the kind of atmosphere you want are the main deciding factors."
+      },
+      {
+        question: "Is there a pool stay in Kisapáti?",
+        answer: "Yes. Guests of D1, D2 and Fügeház can use Panorama Pool in season in Kisapáti."
+      },
+      {
+        question: "Which Dandelion houses are connected to Panorama Pool?",
+        answer: "Panorama Pool is available in season for guests staying at Dandelion D1, Dandelion D2 and Dandelion Fügeház."
+      },
+      {
+        question: "Where are these pool stays located?",
+        answer: "All three houses are in Kisapáti, at the foot of Szent György Hill, in the calmer part of the Balaton Uplands."
+      },
+      {
+        question: "Do the houses have private pools?",
+        answer: "No. The houses do not each have their own separate pool. Guests of D1, D2 and Fügeház use the pool on the hillside beside the houses."
+      },
+      {
+        question: "When can guests use the pool?",
+        answer: "The pool is planned to be available for guests of D1, D2 and Fügeház after 15 June 2026."
+      },
+      {
+        question: "How deep is the pool?",
+        answer: "The pool is around 130 cm deep, so it works well for family use too, with adult supervision."
+      },
+      {
+        question: "Are there toys for children near the pool?",
+        answer: "Yes. There are children's toys around the pool area, which makes pool time easier with kids."
+      },
+      {
+        question: "Which house is best for larger groups?",
+        answer: "For larger families or groups of friends, D1 is the strongest first option because it is the most spacious of the three houses."
+      },
+      {
+        question: "Which house is best for families?",
+        answer: "For families, D2 is usually the easiest first choice. D1 also works well for larger families or multi-generation trips."
+      },
+      {
+        question: "Which house is best for panoramic views?",
+        answer: "Fügeház has the strongest panoramic terrace mood, while D1 is also a good option if you want more interior space alongside the view."
+      },
+      {
+        question: "Which house is good for a family of four?",
+        answer: "For a family of four, both D1 and D2 can work well. D2 is the easier garden-based family stay, while D1 is stronger if you want more space."
+      }
+    ],
+    closingEyebrow: "Next step",
+    closingTitle: "Pick the house, then check the available dates.",
+    closingBody:
+      "If pool access is an important part of your summer stay, start by comparing D1, D2 and Fügeház. Once the house is clear, the booking page shows current prices and available dates.",
+    closingPrimary: "Compare the houses",
+    closingSecondary: "Booking / prices",
+    stays: [
+      {
+        name: "Dandelion D1",
+        href: "/en/dandelion-d1/",
+        bookingHref: d1EnglishPageData.bookingLink,
+        image: d1EnglishPageData.hero.mobileImagePath,
+        imageAlt: d1EnglishPageData.hero.fallbackAlt,
+        label: "up to 8 guests",
+        title: "Spacious house for larger families and groups",
+        text: "D1 is the best fit when you want more bedrooms, larger shared spaces and seasonal pool access in one stay.",
+        facts: ["3 bedrooms", "2 bathrooms", "Panorama Pool access"]
+      },
+      {
+        name: "Dandelion D2",
+        href: "/en/dandelion-d2/",
+        bookingHref: d2EnglishPageData.bookingLink,
+        image: requireAccommodationLocalAssetPath("d2", "card", "dandelion-d2-kisapati-card-01.webp", "en kisapati pool landing D2 card image"),
+        imageAlt: "Covered terrace of Dandelion D2 with yellow chairs and direct garden access in Kisapáti",
+        label: "4-6 guests",
+        title: "Family-friendly house with a large garden and covered terrace",
+        text: "D2 is the easy family option: large outdoor space, covered terrace and Panorama Pool access in season.",
+        facts: ["large garden", "covered terrace", "Panorama Pool access"]
+      },
+      {
+        name: "Dandelion Fügeház",
+        href: "/en/dandelion-fugehaz/",
+        bookingHref: fugehazEnglishPageData.bookingLink,
+        image: fugehazEnglishPageData.hero.mobileImagePath,
+        imageAlt: fugehazEnglishPageData.hero.fallbackAlt,
+        label: "4 guests, extendable with extra bed",
+        title: "Calmer terrace stay with witness-hill views",
+        text: "Fügeház fits quieter panoramic stays best, with terrace time and Panorama Pool giving the summer layer.",
+        facts: ["terrace stay", "panorama", "Panorama Pool access"]
+      }
+    ]
+  },
+  de: {
+    lang: "de" as const,
+    ogLocale: "de_DE",
+    schemaLanguage: "de-DE",
+    homePath: "/de/",
+    pagePath: "/de/kisapati-unterkunft-mit-pool/",
+    panoramaPoolPath: "/de/panorama-pool/",
+    title: "Kisapáti Unterkunft mit Pool | D1, D2 und Fügeház | Dandelion",
+    description:
+      "Unterkunft mit Pool in Kisapáti nahe Szent György-hegy: Vergleichen Sie D1, D2 und Fügeház und sehen Sie schnell, welches Haus zu Familien, Panorama oder Sommer-Pooltagen passt.",
+    breadcrumbHome: "Startseite",
+    breadcrumbCurrent: "Kisapáti Unterkunft mit Pool",
+    collectionName: "Kisapáti Unterkünfte mit Pool bei Dandelion",
+    collectionDescription: "Dandelion D1, D2 und Fügeház in Kisapáti mit Panorama Pool Nutzung für Sommeraufenthalte.",
+    about: ["Unterkunft in Kisapáti", "Unterkunft mit Pool", "Panorama Pool", "Szent György-hegy"],
+    heroEyebrow: "Kisapáti · Szent György-hegy · Panorama Pool",
+    heroTitle: "Kisapáti Unterkunft mit Pool und klarem Vergleich von D1, D2 und Fügeház",
+    heroLead:
+      "Wenn Sie eine Unterkunft mit Pool in Kisapáti suchen, sehen Sie hier schnell, welches Haus für größere Gruppen passt, welches für Familien am besten funktioniert und welches die ruhigste Panorama-Stimmung bietet.",
+    primaryCta: "Häuser vergleichen",
+    secondaryCta: "Buchung / Preise",
+    detailsCta: "Details",
+    stayFactsLabelSuffix: "Merkmale",
+    introEyebrow: "Wann ist es die richtige Wahl?",
+    introTitle: "Wenn bei einer Unterkunft in Kisapáti Pool, Lage und Haustyp gleichzeitig wichtig sind.",
+    introBodyOne:
+      "Diese Seite bündelt die drei Kisapáti Häuser von Dandelion mit Verbindung zum Panorama Pool. Es geht nicht um drei private Einzelpools: Gäste von D1, D2 und Fügeház nutzen den gemeinsamen Panorama Pool in der Saison am Hang neben den Häusern.",
+    introBodyTwo:
+      "Die drei Häuser passen zu drei unterschiedlichen Reiseformen: D1 für größere Gruppen, D2 für Familien und Fügeház für ruhigere Panorama-Tage. Diese Seite ist deshalb als schnelle Entscheidungshilfe aufgebaut.",
+    audienceEyebrow: "Für wen passt es?",
+    audienceTitle: "Schnellwahl: welches Kisapáti Haus passt zu welcher Reise?",
+    audienceLead: "Dieser Block ist dafür da, in weniger als einer Minute die Richtung zu sehen.",
+    audienceItems: [
+      {
+        title: "Für größere Familien oder Freundesgruppen",
+        answer: "D1 ist die stärkste Wahl, wenn Sie Platz für 6-8 Gäste, mehr Schlafzimmer und größere Gemeinschaftsbereiche brauchen."
+      },
+      {
+        title: "Für Familienaufenthalte mit 4-6 Gästen",
+        answer: "D2 passt am leichtesten, wenn großer Garten, überdachte Terrasse und ein familienfreundlicher Rhythmus wichtig sind."
+      },
+      {
+        title: "Für ruhigere Panorama-Aufenthalte",
+        answer: "Fügeház ist ideal, wenn Sie ein intimeres Haus, Terrassenabende und offene Ausblicke zu den Zeugenbergen möchten."
+      }
+    ],
+    factsAria: "Schneller Überblick über Unterkünfte mit Pool in Kisapáti",
+    facts: [
+      {
+        number: "01",
+        title: "D1, D2 und Fügeház",
+        text: "Drei unterschiedliche Häuser mit verschiedener Größe und Stimmung, verbunden durch dieselbe saisonale Poolnutzung."
+      },
+      {
+        number: "02",
+        title: "Panorama Pool",
+        text: "Ein gemeinsamer Pool am Hang neben den Häusern mit offenem Blick auf die Zeugenberge."
+      },
+      {
+        number: "03",
+        title: "Kisapáti als Basis",
+        text: "Szent György-hegy, Tapolca-Becken, Weingüter und Balaton-Programme sind schnell erreichbar."
+      }
+    ],
+    answersEyebrow: "GEO Antwortblöcke",
+    answersTitle: "Kurze Antworten auf die wichtigsten Fragen zu Unterkünften in Kisapáti",
+    answersLead: "Die Antworten sind so formuliert, dass Google AI, ChatGPT oder Perplexity sie leichter zitieren können.",
+    quickAnswerItems: [
+      {
+        question: "Wo sollte man in Kisapáti übernachten?",
+        answer: "D1, D2 und Fügeház sind die Hauptoptionen, wenn Sie in Kisapáti ruhig, nahe bei Szent György-hegy und mit Poolnutzung wohnen möchten."
+      },
+      {
+        question: "Gibt es Unterkünfte mit Pool in Kisapáti?",
+        answer: "Ja. Gäste von Dandelion D1, D2 und Fügeház können in der Saison den Panorama Pool nutzen."
+      },
+      {
+        question: "Welches Haus passt am besten zu Familien?",
+        answer: "D2 ist meist die beste erste Wahl für Familien, während D1 besser passt, wenn eine größere Familie oder mehrere Generationen zusammen reisen."
+      },
+      {
+        question: "Welches Haus ist am besten für Panorama?",
+        answer: "Fügeház hat die stärkste Terrassen-und-Panorama-Stimmung, während D1 ebenfalls gut passt, wenn Sie zur Aussicht mehr Innenraum möchten."
+      },
+      {
+        question: "Warum in Kisapáti übernachten?",
+        answer: "Kisapáti ist eine starke Basis für Szent György-hegy, Tapolca-Becken, Badacsony und Balaton-Programme, wirkt aber ruhiger als viele belebtere Orte am See."
+      },
+      {
+        question: "Welches Haus sollte ich in Kisapáti wählen?",
+        answer: "D1 für größere Gruppen, D2 für Familienaufenthalte mit Garten und Fügeház für ein ruhigeres, panoramischeres Haus."
+      }
+    ],
+    staysEyebrow: "Die drei Häuser",
+    staysTitle: "Welches Dandelion Haus passt am besten zu Ihrer Reise?",
+    staysLead: "Am schnellsten entscheiden Sie nach Gruppengröße und Stimmung: größere Gruppe, Familienrhythmus oder ruhigere Terrassentage.",
+    compareEyebrow: "Welches Haus soll ich in Kisapáti wählen?",
+    compareTitle: "D1, D2 und Fügeház an einem Ort verglichen",
+    compareLead: "Wenn Sie schnell entscheiden möchten, zeigt diese Tabelle die klarsten Unterschiede zwischen den drei Häusern.",
+    compareColumns: ["Kriterium", "D1", "D2", "Fügeház"],
+    comparisonRows: [
+      {
+        label: "Am besten für",
+        d1: "größere Familien und Freundesgruppen",
+        d2: "Familien und Aufenthalte mit 4-6 Gästen",
+        fugehaz: "Paare, kleinere Familien und ruhigere Aufenthalte"
+      },
+      {
+        label: "Kapazität",
+        d1: "bis zu 8 Gäste",
+        d2: "4-6 Gäste",
+        fugehaz: "4 Gäste, mit Zustellbett bis 6"
+      },
+      {
+        label: "Stimmung",
+        d1: "großzügig, gemeinschaftlich, panoramisch",
+        d2: "gartenbezogen, familienfreundlich, unkompliziert",
+        fugehaz: "terrassenbezogen, intimer, panoramisch"
+      },
+      {
+        label: "Starker Punkt",
+        d1: "3 Schlafzimmer + 2 Bäder",
+        d2: "großer Garten + überdachte Terrasse",
+        fugehaz: "Panorama-Terrassen + ruhigerer Rhythmus"
+      },
+      {
+        label: "Poolbezug",
+        d1: "Panorama Pool",
+        d2: "Panorama Pool",
+        fugehaz: "Panorama Pool"
+      }
+    ],
+    poolEyebrow: "Panorama Pool",
+    poolTitle: "Sommerliche Pooltage mit Blick in die Hügellandschaft.",
+    poolBody:
+      "Der Panorama Pool liegt am Hang neben den Häusern und ist in der Saison für Gäste von D1, D2 und Fügeház verfügbar. Die Zeugenberge sind von dort sichtbar, und die Terrasse prägt die ganze Sommerstimmung.",
+    poolCta: "Panorama Pool Seite öffnen",
+    reasonsEyebrow: "Warum in Kisapáti übernachten?",
+    reasonsTitle: "Ruhigere Balaton-Basis mit starker Nähe zu Wanderungen und Weingütern",
+    reasons: [
+      "Szent György-hegy und die Programme rund um die Zeugenberge liegen nah.",
+      "Balaton, Badacsony und Tapolca sind mit dem Auto schnell erreichbar.",
+      "Der Rhythmus ist ruhiger als in den belebteren Orten direkt am See.",
+      "D1, D2 und Fügeház decken in derselben Gegend deutlich unterschiedliche Reisebedürfnisse ab."
+    ],
+    faqEyebrow: "Schnelle Antworten",
+    faqTitle: "Häufige Fragen zu Unterkünften mit Pool in Kisapáti",
+    faqLead: "Kurze Antworten zu D1, D2, Fügeház und Panorama Pool.",
+    faqItems: [
+      {
+        question: "Wo sollte man in Kisapáti übernachten?",
+        answer: "Wenn Sie eine Unterkunft mit Pool in Kisapáti suchen, sind Dandelion D1, D2 und Fügeház die drei Hauptoptionen. Gruppengröße, Außenbereich und gewünschte Atmosphäre sind die wichtigsten Entscheidungsfaktoren."
+      },
+      {
+        question: "Gibt es Unterkünfte mit Pool in Kisapáti?",
+        answer: "Ja. Gäste von D1, D2 und Fügeház können in der Saison den Panorama Pool in Kisapáti nutzen."
+      },
+      {
+        question: "Welche Dandelion Häuser sind mit dem Panorama Pool verbunden?",
+        answer: "Der Panorama Pool steht in der Saison Gästen von Dandelion D1, Dandelion D2 und Dandelion Fügeház zur Verfügung."
+      },
+      {
+        question: "Wo liegen diese Unterkünfte mit Pool?",
+        answer: "Alle drei Häuser liegen in Kisapáti am Fuß des Szent György-hegy, im ruhigeren Teil des Balaton-Oberlands."
+      },
+      {
+        question: "Haben die Häuser eigene private Pools?",
+        answer: "Nein. Die Häuser haben keine jeweils eigenen Privatpools. Gäste von D1, D2 und Fügeház nutzen den Pool am Hang neben den Häusern."
+      },
+      {
+        question: "Ab wann kann der Pool genutzt werden?",
+        answer: "Der Pool soll nach aktuellem Stand ab dem 15. Juni 2026 für Gäste von D1, D2 und Fügeház nutzbar sein."
+      },
+      {
+        question: "Wie tief ist der Pool?",
+        answer: "Der Pool ist etwa 130 cm tief und funktioniert deshalb auch gut für Familien, immer mit Aufsicht durch Erwachsene."
+      },
+      {
+        question: "Gibt es Spielzeug für Kinder am Pool?",
+        answer: "Ja. Im Poolbereich gibt es auch Kinderspielzeug, was die Zeit dort mit Kindern leichter macht."
+      },
+      {
+        question: "Welches Haus passt am besten für größere Gruppen?",
+        answer: "Für größere Familien oder Freundesgruppen ist D1 die stärkste erste Wahl, weil es das großzügigste der drei Häuser ist."
+      },
+      {
+        question: "Welches Haus passt am besten für Familien?",
+        answer: "Für Familien ist D2 meist die einfachste erste Wahl. D1 funktioniert ebenfalls gut für größere Familien oder Reisen mit mehreren Generationen."
+      },
+      {
+        question: "Welches Haus ist am besten für Panorama?",
+        answer: "Fügeház hat die stärkste Panorama-Terrassen-Stimmung, während D1 ebenfalls gut passt, wenn Sie zur Aussicht mehr Innenraum möchten."
+      },
+      {
+        question: "Welches Haus passt für eine vierköpfige Familie?",
+        answer: "Für eine vierköpfige Familie können sowohl D1 als auch D2 gut funktionieren. D2 ist die unkompliziertere Gartenlösung, D1 ist stärker, wenn mehr Raum wichtig ist."
+      }
+    ],
+    closingEyebrow: "Nächster Schritt",
+    closingTitle: "Wählen Sie zuerst das Haus und prüfen Sie dann die freien Termine.",
+    closingBody:
+      "Wenn Poolnutzung für Ihren Sommeraufenthalt wichtig ist, beginnen Sie mit dem Vergleich von D1, D2 und Fügeház. Danach zeigt die Buchungsseite die aktuellen Preise und freien Zeiträume.",
+    closingPrimary: "Häuser vergleichen",
+    closingSecondary: "Buchung / Preise",
+    stays: [
+      {
+        name: "Dandelion D1",
+        href: "/de/dandelion-d1/",
+        bookingHref: d1GermanPageData.bookingLink,
+        image: d1GermanPageData.hero.mobileImagePath,
+        imageAlt: d1GermanPageData.hero.fallbackAlt,
+        label: "bis zu 8 Gäste",
+        title: "Großzügiges Haus für größere Familien und Gruppen",
+        text: "D1 passt am besten, wenn Sie mehr Schlafzimmer, größere Gemeinschaftsflächen und saisonale Poolnutzung in einem Aufenthalt möchten.",
+        facts: ["3 Schlafzimmer", "2 Badezimmer", "Panorama Pool Nutzung"]
+      },
+      {
+        name: "Dandelion D2",
+        href: "/de/dandelion-d2/",
+        bookingHref: d2GermanPageData.bookingLink,
+        image: requireAccommodationLocalAssetPath("d2", "card", "dandelion-d2-kisapati-card-01.webp", "de kisapati pool landing D2 card image"),
+        imageAlt: "Überdachte Terrasse von Dandelion D2 mit gelben Stühlen und Gartenzugang in Kisapáti",
+        label: "4-6 Gäste",
+        title: "Familienfreundliches Haus mit großem Garten und überdachter Terrasse",
+        text: "D2 ist die einfachste Familienwahl: großer Außenbereich, überdachte Terrasse und Panorama Pool Nutzung in der Saison.",
+        facts: ["großer Garten", "überdachte Terrasse", "Panorama Pool Nutzung"]
+      },
+      {
+        name: "Dandelion Fügeház",
+        href: "/de/dandelion-fugehaz/",
+        bookingHref: fugehazGermanPageData.bookingLink,
+        image: fugehazGermanPageData.hero.mobileImagePath,
+        imageAlt: fugehazGermanPageData.hero.fallbackAlt,
+        label: "4 Gäste, mit Zustellbett erweiterbar",
+        title: "Ruhigerer Terrassenaufenthalt mit Blick auf die Zeugenberge",
+        text: "Fügeház passt am besten zu ruhigen Panorama-Tagen, bei denen Terrassenzeit und Panorama Pool die Sommerstimmung prägen.",
+        facts: ["Terrassenaufenthalt", "Panorama", "Panorama Pool Nutzung"]
+      }
+    ]
+  },
+  cs: {
+    lang: "cs" as const,
+    ogLocale: "cs_CZ",
+    schemaLanguage: "cs-CZ",
+    homePath: "/cs/",
+    pagePath: "/cs/kisapati-ubytovani-s-bazenem/",
+    panoramaPoolPath: "/cs/panorama-pool/",
+    title: "Kisapáti ubytování s bazénem | D1, D2 a Fügeház | Dandelion",
+    description:
+      "Ubytování s bazénem v Kisapáti u Szent György-hegy: porovnejte D1, D2 a Fügeház a rychle zjistěte, který dům je nejlepší pro rodiny, výhledy nebo letní dny u bazénu.",
+    breadcrumbHome: "Úvod",
+    breadcrumbCurrent: "Kisapáti ubytování s bazénem",
+    collectionName: "Kisapáti ubytování s bazénem u Dandelion",
+    collectionDescription: "Dandelion D1, D2 a Fügeház v Kisapáti s přístupem k Panorama Pool pro letní pobyty.",
+    about: ["ubytování v Kisapáti", "ubytování s bazénem", "Panorama Pool", "Szent György-hegy"],
+    heroEyebrow: "Kisapáti · Szent György-hegy · Panorama Pool",
+    heroTitle: "Kisapáti ubytování s bazénem a jasným srovnáním D1, D2 a Fügeház",
+    heroLead:
+      "Pokud hledáte ubytování s bazénem v Kisapáti, tady rychle uvidíte, který dům je pro větší skupiny, který je nejlepší pro rodiny a který má nejklidnější panoramatickou atmosféru.",
+    primaryCta: "Porovnat domy",
+    secondaryCta: "Rezervace / ceny",
+    detailsCta: "Detaily",
+    stayFactsLabelSuffix: "hlavní vlastnosti",
+    introEyebrow: "Kdy je to správná volba?",
+    introTitle: "Když je při pobytu v Kisapáti důležitý bazén, okolí i typ domu.",
+    introBodyOne:
+      "Tato stránka spojuje tři kisapátské domy Dandelion navázané na Panorama Pool. Nejde o tři samostatné soukromé bazény: hosté D1, D2 a Fügeház používají v sezoně společný Panorama Pool na svahu vedle domů.",
+    introBodyTwo:
+      "Tyto tři domy odpovídají třem různým typům cest: D1 je pro větší skupiny, D2 více pro rodiny a Fügeház pro klidnější panoramatické dny. Proto je stránka postavená jako rychlá rozhodovací zkratka.",
+    audienceEyebrow: "Pro koho se hodí?",
+    audienceTitle: "Rychlé rozhodnutí: který dům v Kisapáti se hodí pro jaký typ pobytu?",
+    audienceLead: "Toto je blok, který projdete za půl minuty, když chcete jen stručnou odpověď.",
+    audienceItems: [
+      {
+        title: "Pro větší rodiny nebo skupiny přátel",
+        answer: "D1 je nejsilnější volba, pokud potřebujete kapacitu pro 6-8 hostů, více ložnic a větší společné prostory."
+      },
+      {
+        title: "Pro rodinný pobyt pro 4-6 hostů",
+        answer: "D2 je nejjednodušší volba, pokud je důležitá velká zahrada, krytá terasa a rodinně příjemný rytmus."
+      },
+      {
+        title: "Pro klidnější panoramatický pobyt",
+        answer: "Fügeház se hodí, pokud chcete intimnější dům, večery na terase a otevřené výhledy na svědecké hory."
+      }
+    ],
+    factsAria: "Rychlý přehled ubytování s bazénem v Kisapáti",
+    facts: [
+      {
+        number: "01",
+        title: "D1, D2 a Fügeház",
+        text: "Tři různé domy s odlišnou velikostí a atmosférou, spojené stejným sezonním přístupem k bazénu."
+      },
+      {
+        number: "02",
+        title: "Panorama Pool",
+        text: "Společný bazén na svahu vedle domů s otevřeným výhledem na svědecké hory."
+      },
+      {
+        number: "03",
+        title: "Zázemí v Kisapáti",
+        text: "Szent György-hegy, Tapolcai pánev, vinařství i balatonské programy jsou v krátké dojezdové vzdálenosti."
+      }
+    ],
+    answersEyebrow: "GEO odpovědi",
+    answersTitle: "Krátké odpovědi na hlavní otázky kolem ubytování v Kisapáti",
+    answersLead: "Tyto odpovědi jsou napsané tak, aby je Google AI, ChatGPT nebo Perplexity mohly snadněji citovat.",
+    quickAnswerItems: [
+      {
+        question: "Kde se ubytovat v Kisapáti?",
+        answer: "D1, D2 a Fügeház jsou hlavní volby, pokud chcete klidné ubytování v Kisapáti u Szent György-hegy s přístupem k bazénu."
+      },
+      {
+        question: "Je v Kisapáti ubytování s bazénem?",
+        answer: "Ano. Hosté Dandelion D1, D2 a Fügeház mohou v sezoně využívat Panorama Pool."
+      },
+      {
+        question: "Který dům je nejlepší pro rodiny?",
+        answer: "D2 bývá nejlepší první volbou pro rodiny, zatímco D1 je lepší, když přijíždí větší rodina nebo více generací."
+      },
+      {
+        question: "Který dům je nejlepší kvůli výhledům?",
+        answer: "Fügeház má nejsilnější terasovou a panoramatickou atmosféru, zatímco D1 je dobrý, pokud chcete výhledy i více vnitřního prostoru."
+      },
+      {
+        question: "Proč se ubytovat v Kisapáti?",
+        answer: "Kisapáti je silná základna pro Szent György-hegy, Tapolcai pánev, Badacsony i balatonské programy, ale působí klidněji než rušnější místa u jezera."
+      },
+      {
+        question: "Který dům si v Kisapáti vybrat?",
+        answer: "D1 pro větší skupiny, D2 pro rodinný pobyt se zahradou a Fügeház pro klidnější panoramatický dům."
+      }
+    ],
+    staysEyebrow: "Tři domy",
+    staysTitle: "Který dům Dandelion se hodí pro vaši cestu nejlépe?",
+    staysLead: "Nejrychlejší je vybírat podle velikosti skupiny a atmosféry: větší skupina, rodinný rytmus nebo klidnější dny na terase.",
+    compareEyebrow: "Který dům si vybrat v Kisapáti?",
+    compareTitle: "Srovnání D1, D2 a Fügeház na jednom místě",
+    compareLead: "Pokud se chcete rozhodnout rychle, tato tabulka ukazuje nejjasnější rozdíly mezi třemi domy.",
+    compareColumns: ["Kritérium", "D1", "D2", "Fügeház"],
+    comparisonRows: [
+      {
+        label: "Nejlepší pro",
+        d1: "větší rodiny a skupiny přátel",
+        d2: "rodiny a pobyty pro 4-6 hostů",
+        fugehaz: "páry, menší rodiny a klidnější pobyty"
+      },
+      {
+        label: "Kapacita",
+        d1: "až 8 hostů",
+        d2: "4-6 hostů",
+        fugehaz: "4 hosté, s přistýlkou až 6"
+      },
+      {
+        label: "Hlavní atmosféra",
+        d1: "prostorná, společenská, panoramatická",
+        d2: "zahradní, rodinná, pohodlná",
+        fugehaz: "terasová, intimnější, panoramatická"
+      },
+      {
+        label: "Silná stránka",
+        d1: "3 ložnice + 2 koupelny",
+        d2: "velká zahrada + krytá terasa",
+        fugehaz: "panoramatické terasy + klidnější rytmus"
+      },
+      {
+        label: "Napojení na bazén",
+        d1: "Panorama Pool",
+        d2: "Panorama Pool",
+        fugehaz: "Panorama Pool"
+      }
+    ],
+    poolEyebrow: "Panorama Pool",
+    poolTitle: "Letní dny u bazénu s výhledem do krajiny.",
+    poolBody:
+      "Panorama Pool leží na svahu vedle domů a v sezoně je k dispozici hostům D1, D2 a Fügeház. Ze svědeckých hor vytváří terasa i výhled celý letní dojem.",
+    poolCta: "Otevřít stránku Panorama Pool",
+    reasonsEyebrow: "Proč se ubytovat v Kisapáti?",
+    reasonsTitle: "Klidnější základna u Balatonu se silným napojením na výlety a vinařství",
+    reasons: [
+      "Szent György-hegy a programy mezi svědeckými horami jsou blízko.",
+      "Balaton, Badacsony i Tapolca jsou snadno dostupné autem.",
+      "Tempo je klidnější než v rušnějších městech přímo u jezera.",
+      "D1, D2 a Fügeház pokrývají v jedné oblasti výrazně odlišné potřeby pobytu."
+    ],
+    faqEyebrow: "Rychlé odpovědi",
+    faqTitle: "Časté otázky o ubytování s bazénem v Kisapáti",
+    faqLead: "Krátké odpovědi o D1, D2, Fügeház a Panorama Pool.",
+    faqItems: [
+      {
+        question: "Kde se ubytovat v Kisapáti?",
+        answer: "Pokud hledáte ubytování s bazénem v Kisapáti, Dandelion D1, D2 a Fügeház jsou tři hlavní možnosti. Nejdůležitější je počet hostů, venkovní prostor a atmosféra, kterou chcete."
+      },
+      {
+        question: "Je v Kisapáti ubytování s bazénem?",
+        answer: "Ano. Hosté D1, D2 a Fügeház mohou v sezoně využívat Panorama Pool v Kisapáti."
+      },
+      {
+        question: "Které domy Dandelion jsou propojené s Panorama Pool?",
+        answer: "Panorama Pool je v sezoně k dispozici hostům Dandelion D1, Dandelion D2 a Dandelion Fügeház."
+      },
+      {
+        question: "Kde přesně jsou tato ubytování s bazénem?",
+        answer: "Všechny tři domy jsou v Kisapáti u úpatí Szent György-hegy, v klidnější části Balatonské vrchoviny."
+      },
+      {
+        question: "Mají domy vlastní soukromé bazény?",
+        answer: "Ne. Každý dům nemá vlastní oddělený bazén. Hosté D1, D2 a Fügeház využívají společný bazén na svahu vedle domů."
+      },
+      {
+        question: "Od kdy je možné bazén používat?",
+        answer: "Podle současného plánu mohou hosté D1, D2 a Fügeház využívat bazén po 15. červnu 2026."
+      },
+      {
+        question: "Jak hluboký je bazén?",
+        answer: "Bazén má přibližně 130 cm, takže funguje i pro rodiny s dětmi, vždy ale s dohledem dospělých."
+      },
+      {
+        question: "Jsou u bazénu i hračky pro děti?",
+        answer: "Ano. V prostoru bazénu jsou i dětské hračky, takže pobyt u vody je s dětmi jednodušší."
+      },
+      {
+        question: "Který dům je nejlepší pro větší skupiny?",
+        answer: "Pro větší rodiny nebo skupiny přátel je D1 nejsilnější první volbou, protože je z těch tří domů nejprostornější."
+      },
+      {
+        question: "Který dům je nejlepší pro rodiny?",
+        answer: "Pro rodiny je D2 obvykle nejjednodušší první volba. D1 je také silná možnost pro větší rodiny nebo vícegenerační pobyty."
+      },
+      {
+        question: "Který dům je nejlepší kvůli panoramatu?",
+        answer: "Fügeház má nejsilnější panoramatickou terasovou atmosféru, zatímco D1 je dobrá volba, pokud chcete k výhledu i více vnitřního prostoru."
+      },
+      {
+        question: "Který dům se hodí pro čtyřčlennou rodinu?",
+        answer: "Pro čtyřčlennou rodinu dobře fungují D1 i D2. D2 je jednodušší rodinný pobyt se zahradou, zatímco D1 je silnější, pokud chcete více prostoru."
+      }
+    ],
+    closingEyebrow: "Další krok",
+    closingTitle: "Vyberte dům a potom se podívejte na volné termíny.",
+    closingBody:
+      "Pokud je přístup k bazénu důležitou součástí vašeho letního pobytu, začněte srovnáním D1, D2 a Fügeház. Potom rezervační stránka ukáže aktuální ceny i volné termíny.",
+    closingPrimary: "Porovnat domy",
+    closingSecondary: "Rezervace / ceny",
+    stays: [
+      {
+        name: "Dandelion D1",
+        href: "/cs/dandelion-d1/",
+        bookingHref: d1CzechPageData.bookingLink,
+        image: d1CzechPageData.hero.mobileImagePath,
+        imageAlt: d1CzechPageData.hero.fallbackAlt,
+        label: "až 8 hostů",
+        title: "Prostorný dům pro větší rodiny a skupiny",
+        text: "D1 je nejlepší, když chcete více ložnic, větší společné prostory a sezonní přístup k bazénu v jednom pobytu.",
+        facts: ["3 ložnice", "2 koupelny", "Panorama Pool"]
+      },
+      {
+        name: "Dandelion D2",
+        href: "/cs/dandelion-d2/",
+        bookingHref: d2CzechPageData.bookingLink,
+        image: requireAccommodationLocalAssetPath("d2", "card", "dandelion-d2-kisapati-card-01.webp", "cs kisapati pool landing D2 card image"),
+        imageAlt: "Krytá terasa Dandelion D2 se žlutými židlemi a vstupem do zahrady v Kisapáti",
+        label: "4-6 hostů",
+        title: "Rodinný dům s velkou zahradou a krytou terasou",
+        text: "D2 je nejjednodušší rodinná volba: velký venkovní prostor, krytá terasa a v sezoně Panorama Pool.",
+        facts: ["velká zahrada", "krytá terasa", "Panorama Pool"]
+      },
+      {
+        name: "Dandelion Fügeház",
+        href: "/cs/dandelion-fugehaz/",
+        bookingHref: fugehazCzechPageData.bookingLink,
+        image: fugehazCzechPageData.hero.mobileImagePath,
+        imageAlt: fugehazCzechPageData.hero.fallbackAlt,
+        label: "4 hosté, s přistýlkou rozšiřitelné",
+        title: "Klidnější pobyt na terase s výhledem na svědecké hory",
+        text: "Fügeház se hodí hlavně pro klidné panoramatické dny, kde atmosféru léta tvoří terasa a Panorama Pool.",
+        facts: ["terasový pobyt", "panorama", "Panorama Pool"]
+      }
+    ]
+  },
+  sk: {
+    lang: "sk" as const,
+    ogLocale: "sk_SK",
+    schemaLanguage: "sk-SK",
+    homePath: "/sk/",
+    pagePath: "/sk/kisapati-ubytovanie-s-bazenom/",
+    panoramaPoolPath: "/sk/panorama-pool/",
+    title: "Kisapáti ubytovanie s bazénom | D1, D2 a Fügeház | Dandelion",
+    description:
+      "Ubytovanie s bazénom v Kisapáti pri Szent György-hegy: porovnajte D1, D2 a Fügeház a rýchlo zistite, ktorý dom je najlepší pre rodiny, výhľady alebo letné dni pri bazéne.",
+    breadcrumbHome: "Úvod",
+    breadcrumbCurrent: "Kisapáti ubytovanie s bazénom",
+    collectionName: "Kisapáti ubytovanie s bazénom u Dandelion",
+    collectionDescription: "Dandelion D1, D2 a Fügeház v Kisapáti s prístupom k Panorama Pool na letné pobyty.",
+    about: ["ubytovanie v Kisapáti", "ubytovanie s bazénom", "Panorama Pool", "Szent György-hegy"],
+    heroEyebrow: "Kisapáti · Szent György-hegy · Panorama Pool",
+    heroTitle: "Kisapáti ubytovanie s bazénom a jasným porovnaním D1, D2 a Fügeház",
+    heroLead:
+      "Ak hľadáte ubytovanie s bazénom v Kisapáti, tu rýchlo uvidíte, ktorý dom je pre väčšie skupiny, ktorý funguje najlepšie pre rodiny a ktorý má najpokojnejšiu panoramatickú atmosféru.",
+    primaryCta: "Porovnať domy",
+    secondaryCta: "Rezervácia / ceny",
+    detailsCta: "Detaily",
+    stayFactsLabelSuffix: "hlavné vlastnosti",
+    introEyebrow: "Kedy je to správna voľba?",
+    introTitle: "Keď je pri pobyte v Kisapáti dôležitý bazén, okolie aj typ domu.",
+    introBodyOne:
+      "Táto stránka spája tri kisapátské domy Dandelion naviazané na Panorama Pool. Nejde o tri samostatné súkromné bazény: hostia D1, D2 a Fügeház využívajú v sezóne spoločný Panorama Pool na svahu vedľa domov.",
+    introBodyTwo:
+      "Tieto tri domy zodpovedajú trom rôznym typom ciest: D1 je pre väčšie skupiny, D2 viac pre rodiny a Fügeház pre pokojnejšie panoramatické dni. Preto je stránka postavená ako rýchla rozhodovacia skratka.",
+    audienceEyebrow: "Pre koho sa hodí?",
+    audienceTitle: "Rýchle rozhodnutie: ktorý dom v Kisapáti sa hodí na aký pobyt?",
+    audienceLead: "Toto je blok, ktorý prejdete za pol minúty, keď chcete len stručnú odpoveď.",
+    audienceItems: [
+      {
+        title: "Pre väčšie rodiny alebo skupiny priateľov",
+        answer: "D1 je najsilnejšia voľba, ak potrebujete kapacitu pre 6-8 hostí, viac spální a väčšie spoločné priestory."
+      },
+      {
+        title: "Pre rodinný pobyt pre 4-6 hostí",
+        answer: "D2 je najjednoduchšia voľba, ak je dôležitá veľká záhrada, krytá terasa a rodinne príjemný rytmus."
+      },
+      {
+        title: "Pre pokojnejší panoramatický pobyt",
+        answer: "Fügeház sa hodí, ak chcete intímnejší dom, večery na terase a otvorené výhľady na svedecké vrchy."
+      }
+    ],
+    factsAria: "Rýchly prehľad ubytovania s bazénom v Kisapáti",
+    facts: [
+      {
+        number: "01",
+        title: "D1, D2 a Fügeház",
+        text: "Tri rozdielne domy s odlišnou veľkosťou a atmosférou, spojené rovnakým sezónnym prístupom k bazénu."
+      },
+      {
+        number: "02",
+        title: "Panorama Pool",
+        text: "Spoločný bazén na svahu vedľa domov s otvoreným výhľadom na svedecké vrchy."
+      },
+      {
+        number: "03",
+        title: "Zázemie v Kisapáti",
+        text: "Szent György-hegy, Tapolcai-medence, vinárstva aj balatonské programy sú v krátkej dojazdovej vzdialenosti."
+      }
+    ],
+    answersEyebrow: "GEO odpovede",
+    answersTitle: "Krátke odpovede na hlavné otázky okolo ubytovania v Kisapáti",
+    answersLead: "Tieto odpovede sú písané tak, aby ich Google AI, ChatGPT alebo Perplexity vedeli ľahšie citovať.",
+    quickAnswerItems: [
+      {
+        question: "Kde sa ubytovať v Kisapáti?",
+        answer: "D1, D2 a Fügeház sú hlavné voľby, ak chcete pokojné ubytovanie v Kisapáti pri Szent György-hegy s prístupom k bazénu."
+      },
+      {
+        question: "Je v Kisapáti ubytovanie s bazénom?",
+        answer: "Áno. Hostia Dandelion D1, D2 a Fügeház môžu v sezóne využívať Panorama Pool."
+      },
+      {
+        question: "Ktorý dom je najlepší pre rodiny?",
+        answer: "D2 býva najlepšou prvou voľbou pre rodiny, zatiaľ čo D1 je lepší, keď prichádza väčšia rodina alebo viac generácií."
+      },
+      {
+        question: "Ktorý dom je najlepší kvôli výhľadom?",
+        answer: "Fügeház má najsilnejšiu terasovú a panoramatickú atmosféru, zatiaľ čo D1 je dobrý, ak chcete výhľady aj viac vnútorného priestoru."
+      },
+      {
+        question: "Prečo sa ubytovať v Kisapáti?",
+        answer: "Kisapáti je silná základňa pre Szent György-hegy, Tapolcai-medence, Badacsony aj balatonské programy, no pôsobí pokojnejšie než rušnejšie miesta pri jazere."
+      },
+      {
+        question: "Ktorý dom si v Kisapáti vybrať?",
+        answer: "D1 pre väčšie skupiny, D2 pre rodinný pobyt so záhradou a Fügeház pre pokojnejší panoramatický dom."
+      }
+    ],
+    staysEyebrow: "Tri domy",
+    staysTitle: "Ktorý dom Dandelion sa hodí na vašu cestu najlepšie?",
+    staysLead: "Najrýchlejšie sa rozhodnete podľa veľkosti skupiny a atmosféry: väčšia skupina, rodinný rytmus alebo pokojnejšie dni na terase.",
+    compareEyebrow: "Ktorý dom si vybrať v Kisapáti?",
+    compareTitle: "Porovnanie D1, D2 a Fügeház na jednom mieste",
+    compareLead: "Ak sa chcete rozhodnúť rýchlo, táto tabuľka ukazuje najjasnejšie rozdiely medzi tromi domami.",
+    compareColumns: ["Kritérium", "D1", "D2", "Fügeház"],
+    comparisonRows: [
+      {
+        label: "Najlepšie pre",
+        d1: "väčšie rodiny a skupiny priateľov",
+        d2: "rodiny a pobyty pre 4-6 hostí",
+        fugehaz: "páry, menšie rodiny a pokojnejšie pobyty"
+      },
+      {
+        label: "Kapacita",
+        d1: "až 8 hostí",
+        d2: "4-6 hostí",
+        fugehaz: "4 hostia, s prístelkou až 6"
+      },
+      {
+        label: "Hlavná atmosféra",
+        d1: "priestranná, spoločenská, panoramatická",
+        d2: "záhradná, rodinná, pohodlná",
+        fugehaz: "terasová, intímnejšia, panoramatická"
+      },
+      {
+        label: "Silná stránka",
+        d1: "3 spálne + 2 kúpeľne",
+        d2: "veľká záhrada + krytá terasa",
+        fugehaz: "panoramatické terasy + pokojnejší rytmus"
+      },
+      {
+        label: "Napojenie na bazén",
+        d1: "Panorama Pool",
+        d2: "Panorama Pool",
+        fugehaz: "Panorama Pool"
+      }
+    ],
+    poolEyebrow: "Panorama Pool",
+    poolTitle: "Letné dni pri bazéne s výhľadom do krajiny.",
+    poolBody:
+      "Panorama Pool leží na svahu vedľa domov a v sezóne je k dispozícii hosťom D1, D2 a Fügeház. Výhľad na svedecké vrchy a terasa vytvárajú celú letnú atmosféru.",
+    poolCta: "Otvoriť stránku Panorama Pool",
+    reasonsEyebrow: "Prečo sa ubytovať v Kisapáti?",
+    reasonsTitle: "Pokojnejšia balatonská základňa so silným napojením na výlety a vinárstva",
+    reasons: [
+      "Szent György-hegy a programy medzi svedeckými vrchmi sú blízko.",
+      "Balaton, Badacsony aj Tapolca sú ľahko dostupné autom.",
+      "Tempo je pokojnejšie než v rušnejších mestách priamo pri jazere.",
+      "D1, D2 a Fügeház pokrývajú v jednej oblasti výrazne odlišné potreby pobytu."
+    ],
+    faqEyebrow: "Rýchle odpovede",
+    faqTitle: "Časté otázky o ubytovaní s bazénom v Kisapáti",
+    faqLead: "Krátke odpovede o D1, D2, Fügeház a Panorama Pool.",
+    faqItems: [
+      {
+        question: "Kde sa ubytovať v Kisapáti?",
+        answer: "Ak hľadáte ubytovanie s bazénom v Kisapáti, Dandelion D1, D2 a Fügeház sú tri hlavné možnosti. Najdôležitejší je počet hostí, vonkajší priestor a atmosféra, ktorú chcete."
+      },
+      {
+        question: "Je v Kisapáti ubytovanie s bazénom?",
+        answer: "Áno. Hostia D1, D2 a Fügeház môžu v sezóne využívať Panorama Pool v Kisapáti."
+      },
+      {
+        question: "Ktoré domy Dandelion sú prepojené s Panorama Pool?",
+        answer: "Panorama Pool je v sezóne k dispozícii hosťom Dandelion D1, Dandelion D2 a Dandelion Fügeház."
+      },
+      {
+        question: "Kde presne sú tieto ubytovania s bazénom?",
+        answer: "Všetky tri domy sú v Kisapáti pri úpätí Szent György-hegy, v pokojnejšej časti Balatonskej vrchoviny."
+      },
+      {
+        question: "Majú domy vlastné súkromné bazény?",
+        answer: "Nie. Každý dom nemá svoj vlastný oddelený bazén. Hostia D1, D2 a Fügeház využívajú spoločný bazén na svahu vedľa domov."
+      },
+      {
+        question: "Odkedy je možné bazén používať?",
+        answer: "Podľa súčasného plánu môžu hostia D1, D2 a Fügeház využívať bazén po 15. júni 2026."
+      },
+      {
+        question: "Aká hlboká je voda v bazéne?",
+        answer: "Bazén má približne 130 cm, takže funguje aj pre rodiny s deťmi, vždy však s dohľadom dospelých."
+      },
+      {
+        question: "Sú pri bazéne aj hračky pre deti?",
+        answer: "Áno. V priestore bazéna sú aj detské hračky, takže pobyt pri vode je s deťmi jednoduchší."
+      },
+      {
+        question: "Ktorý dom je najlepší pre väčšie skupiny?",
+        answer: "Pre väčšie rodiny alebo skupiny priateľov je D1 najsilnejšou prvou voľbou, pretože je z tých troch domov najpriestrannejší."
+      },
+      {
+        question: "Ktorý dom je najlepší pre rodiny?",
+        answer: "Pre rodiny je D2 zvyčajne najjednoduchšia prvá voľba. D1 je tiež silná možnosť pre väčšie rodiny alebo viacgeneračné pobyty."
+      },
+      {
+        question: "Ktorý dom je najlepší kvôli panoráme?",
+        answer: "Fügeház má najsilnejšiu panoramatickú terasovú atmosféru, zatiaľ čo D1 je dobrá voľba, ak chcete k výhľadu aj viac vnútorného priestoru."
+      },
+      {
+        question: "Ktorý dom sa hodí pre štvorčlennú rodinu?",
+        answer: "Pre štvorčlennú rodinu dobre fungujú D1 aj D2. D2 je jednoduchší rodinný pobyt so záhradou, zatiaľ čo D1 je silnejší, ak chcete viac priestoru."
+      }
+    ],
+    closingEyebrow: "Ďalší krok",
+    closingTitle: "Vyberte dom a potom si pozrite voľné termíny.",
+    closingBody:
+      "Ak je prístup k bazénu dôležitou súčasťou vášho letného pobytu, začnite porovnaním D1, D2 a Fügeház. Potom rezervačná stránka ukáže aktuálne ceny aj voľné termíny.",
+    closingPrimary: "Porovnať domy",
+    closingSecondary: "Rezervácia / ceny",
+    stays: [
+      {
+        name: "Dandelion D1",
+        href: "/sk/dandelion-d1/",
+        bookingHref: d1SlovakPageData.bookingLink,
+        image: d1SlovakPageData.hero.mobileImagePath,
+        imageAlt: d1SlovakPageData.hero.fallbackAlt,
+        label: "až 8 hostí",
+        title: "Priestranný dom pre väčšie rodiny a skupiny",
+        text: "D1 je najlepší, keď chcete viac spální, väčšie spoločné priestory a sezónny prístup k bazénu v jednom pobyte.",
+        facts: ["3 spálne", "2 kúpeľne", "Panorama Pool"]
+      },
+      {
+        name: "Dandelion D2",
+        href: "/sk/dandelion-d2/",
+        bookingHref: d2SlovakPageData.bookingLink,
+        image: requireAccommodationLocalAssetPath("d2", "card", "dandelion-d2-kisapati-card-01.webp", "sk kisapati pool landing D2 card image"),
+        imageAlt: "Krytá terasa Dandelion D2 so žltými stoličkami a priamym vstupom do záhrady v Kisapáti",
+        label: "4-6 hostí",
+        title: "Rodinný dom s veľkou záhradou a krytou terasou",
+        text: "D2 je najjednoduchšia rodinná voľba: veľký vonkajší priestor, krytá terasa a v sezóne Panorama Pool.",
+        facts: ["veľká záhrada", "krytá terasa", "Panorama Pool"]
+      },
+      {
+        name: "Dandelion Fügeház",
+        href: "/sk/dandelion-fugehaz/",
+        bookingHref: fugehazSlovakPageData.bookingLink,
+        image: fugehazSlovakPageData.hero.mobileImagePath,
+        imageAlt: fugehazSlovakPageData.hero.fallbackAlt,
+        label: "4 hostia, rozšíriteľné prístelkou",
+        title: "Pokojnejší terasový pobyt s výhľadom na svedecké vrchy",
+        text: "Fügeház sa hodí hlavne na pokojné panoramatické dni, kde letnú atmosféru vytvára terasa a Panorama Pool.",
+        facts: ["terasový pobyt", "panoráma", "Panorama Pool"]
+      }
+    ]
+  }
+} as const;
+
+const currentPage = pageText[locale];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: currentPage.breadcrumbHome,
+        item: toAbsoluteUrl(currentPage.homePath)
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: currentPage.breadcrumbCurrent,
+        item: toAbsoluteUrl(currentPage.pagePath)
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${toAbsoluteUrl(currentPage.pagePath)}#collection`,
+    name: currentPage.collectionName,
+    url: toAbsoluteUrl(currentPage.pagePath),
+    inLanguage: currentPage.schemaLanguage,
+    description: currentPage.collectionDescription,
+    isPartOf: {
+      "@id": `${toAbsoluteUrl(currentPage.homePath)}#website`
+    },
+    about: currentPage.about,
+    provider: {
+      "@type": "LodgingBusiness",
+      name: SITE_NAME,
+      url: toAbsoluteUrl(currentPage.homePath)
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: currentPage.stays.map((stay, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: stay.name,
+        url: toAbsoluteUrl(stay.href)
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${toAbsoluteUrl(currentPage.pagePath)}#faq`,
+    inLanguage: currentPage.schemaLanguage,
+    mainEntity: currentPage.faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  }
+];
+---
+
+<BaseLayout
+  title={currentPage.title}
+  description={currentPage.description}
+  canonicalPath={currentPage.pagePath}
+  lang={currentPage.lang}
+  ogLocale={currentPage.ogLocale}
+  ogImage={panoramaPoolHero.desktop}
+  ogImageAlt={getPoolImageAlt(heroImage)}
+  structuredData={structuredData}
+  headerMode="transparent"
+>
+  <div class="pool-landing">
+    <section class="pool-landing-hero">
+      <picture>
+        <source media="(max-width: 767px)" srcset={panoramaPoolHero.mobile} />
+        <img
+          class="pool-landing-hero__image"
+          src={panoramaPoolHero.desktop}
+          alt={getPoolImageAlt(heroImage)}
+          width="1920"
+          height="1280"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+      <div class="pool-landing-hero__overlay" aria-hidden="true"></div>
+      <div class="pool-landing-hero__content">
+        <div class="dnd-container pool-landing-hero__inner">
+          <p class="pool-landing__eyebrow">{currentPage.heroEyebrow}</p>
+          <h1>{currentPage.heroTitle}</h1>
+          <p>{currentPage.heroLead}</p>
+          <div class="pool-landing-hero__actions">
+            <a href="#hazak" class="pool-landing__button pool-landing__button--primary">{currentPage.primaryCta}</a>
+            <a href={bookingHrefByLocale[locale]} class="pool-landing__button pool-landing__button--secondary" target="_blank" rel="noopener noreferrer">
+              {currentPage.secondaryCta}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-intro">
+      <div class="dnd-container pool-landing-intro__layout">
+        <div>
+          <p class="pool-landing__eyebrow">{currentPage.introEyebrow}</p>
+          <h2>{currentPage.introTitle}</h2>
+        </div>
+        <div class="pool-landing-intro__text">
+          <p>{currentPage.introBodyOne}</p>
+          <p>{currentPage.introBodyTwo}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-audience">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">{currentPage.audienceEyebrow}</p>
+          <h2>{currentPage.audienceTitle}</h2>
+          <p>{currentPage.audienceLead}</p>
+        </div>
+        <div class="pool-landing-audience__grid">
+          {currentPage.audienceItems.map((item) => (
+            <article>
+              <h3>{item.title}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-facts" aria-label={currentPage.factsAria}>
+      <div class="dnd-container pool-landing-facts__grid">
+        {currentPage.facts.map((fact) => (
+          <article>
+            <span>{fact.number}</span>
+            <h2>{fact.title}</h2>
+            <p>{fact.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="pool-landing-answers">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">{currentPage.answersEyebrow}</p>
+          <h2>{currentPage.answersTitle}</h2>
+          <p>{currentPage.answersLead}</p>
+        </div>
+        <div class="pool-landing-answers__grid">
+          {currentPage.quickAnswerItems.map((item) => (
+            <article>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="hazak" class="pool-landing-stays">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">{currentPage.staysEyebrow}</p>
+          <h2>{currentPage.staysTitle}</h2>
+          <p>{currentPage.staysLead}</p>
+        </div>
+
+        <div class="pool-landing-stays__grid">
+          {currentPage.stays.map((stay) => (
+            <article class="pool-landing-stay-card">
+              <a href={stay.href} class="pool-landing-stay-card__media" aria-label={stay.name}>
+                <img src={stay.image} alt={stay.imageAlt} loading="lazy" decoding="async" width="1200" height="900" />
+              </a>
+              <div class="pool-landing-stay-card__body">
+                <span>{stay.label}</span>
+                <h3>{stay.name}</h3>
+                <h4>{stay.title}</h4>
+                <p>{stay.text}</p>
+                <ul aria-label={`${stay.name} ${currentPage.stayFactsLabelSuffix}`}>
+                  {stay.facts.map((fact) => (
+                    <li>{fact}</li>
+                  ))}
+                </ul>
+                <div class="pool-landing-stay-card__actions">
+                  <a href={stay.href}>{currentPage.detailsCta}</a>
+                  <a href={stay.bookingHref} target="_blank" rel="noopener noreferrer">{currentPage.secondaryCta}</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-compare">
+      <div class="dnd-container">
+        <div class="pool-landing-section-head">
+          <p class="pool-landing__eyebrow">{currentPage.compareEyebrow}</p>
+          <h2>{currentPage.compareTitle}</h2>
+          <p>{currentPage.compareLead}</p>
+        </div>
+        <div class="pool-landing-compare__table-wrap">
+          <table class="pool-landing-compare__table">
+            <thead>
+              <tr>
+                {currentPage.compareColumns.map((column) => (
+                  <th>{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {currentPage.comparisonRows.map((row) => (
+                <tr>
+                  <th>{row.label}</th>
+                  <td>{row.d1}</td>
+                  <td>{row.d2}</td>
+                  <td>{row.fugehaz}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-pool">
+      <div class="dnd-container pool-landing-pool__layout">
+        <div class="pool-landing-pool__copy">
+          <p class="pool-landing__eyebrow">{currentPage.poolEyebrow}</p>
+          <h2>{currentPage.poolTitle}</h2>
+          <p>{currentPage.poolBody}</p>
+          <a class="pool-landing__text-link" href={currentPage.panoramaPoolPath}>{currentPage.poolCta}</a>
+        </div>
+        <div class="pool-landing-pool__gallery" aria-label="Panorama Pool gallery">
+          {teaserImages.map((image) => (
+            <figure>
+              <picture>
+                {image.mobileSrc && <source media="(max-width: 767px)" srcset={image.mobileSrc} />}
+                <img src={image.src} alt={getPoolImageAlt(image)} loading="lazy" decoding="async" width="1200" height="900" />
+              </picture>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-reasons">
+      <div class="dnd-container pool-landing-reasons__layout">
+        <div>
+          <p class="pool-landing__eyebrow">{currentPage.reasonsEyebrow}</p>
+          <h2>{currentPage.reasonsTitle}</h2>
+        </div>
+        <div class="pool-landing-reasons__grid">
+          {currentPage.reasons.map((item) => (
+            <article>
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="pool-landing-faq">
+      <div class="dnd-container pool-landing-faq__layout">
+        <div class="pool-landing-faq__intro">
+          <p class="pool-landing__eyebrow">{currentPage.faqEyebrow}</p>
+          <h2>{currentPage.faqTitle}</h2>
+          <p>{currentPage.faqLead}</p>
+        </div>
+        <div class="pool-landing-faq__grid">
+          {currentPage.faqItems.map((item) => (
+            <article>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pool-landing-closing">
+      <div class="dnd-container pool-landing-closing__panel">
+        <p class="pool-landing__eyebrow">{currentPage.closingEyebrow}</p>
+        <h2>{currentPage.closingTitle}</h2>
+        <p>{currentPage.closingBody}</p>
+        <div class="pool-landing-closing__actions">
+          <a href="#hazak" class="pool-landing__button pool-landing__button--primary">{currentPage.closingPrimary}</a>
+          <a href={bookingHrefByLocale[locale]} class="pool-landing__button pool-landing__button--secondary" target="_blank" rel="noopener noreferrer">
+            {currentPage.closingSecondary}
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pool-landing {
+    background: #fdfbf7;
+    color: #1f2937;
+  }
+
+  .pool-landing-hero {
+    position: relative;
+    min-height: 720px;
+    height: 92vh;
+    overflow: hidden;
+    background: #15120e;
+  }
+
+  .pool-landing-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pool-landing-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 11, 8, 0.72), rgba(13, 11, 8, 0.24) 58%, rgba(13, 11, 8, 0.16)),
+      linear-gradient(180deg, rgba(13, 11, 8, 0.3), rgba(13, 11, 8, 0.66));
+  }
+
+  .pool-landing-hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    color: #fffaf1;
+  }
+
+  .pool-landing-hero__inner {
+    max-width: 1120px;
+    padding-top: 132px;
+  }
+
+  .pool-landing__eyebrow {
+    margin: 0 0 14px;
+    color: #d99e2b;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-hero h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .pool-landing-hero p:not(.pool-landing__eyebrow) {
+    max-width: 650px;
+    margin: 22px 0 0;
+    color: rgba(255, 250, 241, 0.9);
+    font-size: var(--dnd-text-lead);
+    line-height: 1.65;
+  }
+
+  .pool-landing-hero__actions,
+  .pool-landing-closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .pool-landing__button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .pool-landing__button--primary {
+    background: #d99e2b;
+    color: #18120b;
+  }
+
+  .pool-landing__button--secondary {
+    border-color: rgba(255, 250, 241, 0.52);
+    background: rgba(255, 250, 241, 0.1);
+    color: #fffaf1;
+  }
+
+  .pool-landing-intro,
+  .pool-landing-audience,
+  .pool-landing-facts,
+  .pool-landing-answers,
+  .pool-landing-stays,
+  .pool-landing-compare,
+  .pool-landing-pool,
+  .pool-landing-reasons,
+  .pool-landing-faq,
+  .pool-landing-closing {
+    padding: 82px 0;
+  }
+
+  .pool-landing-intro__layout,
+  .pool-landing-pool__layout,
+  .pool-landing-faq__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .pool-landing-intro h2,
+  .pool-landing-section-head h2,
+  .pool-landing-pool h2,
+  .pool-landing-faq h2,
+  .pool-landing-closing h2,
+  .pool-landing-reasons h2 {
+    margin: 0;
+    color: #1f2937;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.9rem, 3vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  .pool-landing-intro__text {
+    display: grid;
+    gap: 14px;
+  }
+
+  .pool-landing-intro__text p,
+  .pool-landing-section-head p,
+  .pool-landing-pool p,
+  .pool-landing-faq__intro p,
+  .pool-landing-closing p {
+    margin: 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-body);
+    line-height: 1.7;
+  }
+
+  .pool-landing-facts {
+    background: #f3efe6;
+  }
+
+  .pool-landing-facts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pool-landing-facts article,
+  .pool-landing-audience article,
+  .pool-landing-answers article,
+  .pool-landing-reasons__grid article,
+  .pool-landing-faq article,
+  .pool-landing-stay-card {
+    border: 1px solid rgba(121, 93, 48, 0.12);
+    border-radius: 8px;
+    background: #fffefb;
+  }
+
+  .pool-landing-facts article {
+    padding: 22px;
+  }
+
+  .pool-landing-facts span {
+    display: inline-flex;
+    margin-bottom: 14px;
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .pool-landing-facts h2,
+  .pool-landing-audience h3,
+  .pool-landing-answers h3,
+  .pool-landing-stay-card h3,
+  .pool-landing-faq h3 {
+    margin: 0;
+    color: #1f2937;
+    font-size: var(--dnd-heading-card);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .pool-landing-facts p {
+    margin: 10px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .pool-landing-audience {
+    padding-top: 30px;
+  }
+
+  .pool-landing-audience__grid,
+  .pool-landing-answers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pool-landing-audience article,
+  .pool-landing-answers article,
+  .pool-landing-reasons__grid article {
+    padding: 20px;
+  }
+
+  .pool-landing-audience article p,
+  .pool-landing-answers article p,
+  .pool-landing-reasons__grid article p {
+    margin: 10px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.6;
+  }
+
+  .pool-landing-answers {
+    background: #fcf7ee;
+  }
+
+  .pool-landing-section-head {
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .pool-landing-section-head p {
+    margin-top: 14px;
+  }
+
+  .pool-landing-stays__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .pool-landing-compare__table-wrap {
+    overflow-x: auto;
+    border: 1px solid rgba(121, 93, 48, 0.12);
+    border-radius: 8px;
+    background: #fffefb;
+    box-shadow: 0 12px 28px rgba(80, 57, 31, 0.05);
+  }
+
+  .pool-landing-compare__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+  }
+
+  .pool-landing-compare__table th,
+  .pool-landing-compare__table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(121, 93, 48, 0.12);
+    text-align: left;
+    vertical-align: top;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .pool-landing-compare__table thead th {
+    color: #1f2937;
+    background: #f7f2e7;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-compare__table tbody th {
+    color: #3d3428;
+    font-weight: 700;
+    background: rgba(243, 239, 230, 0.45);
+  }
+
+  .pool-landing-compare__table tbody tr:last-child th,
+  .pool-landing-compare__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .pool-landing-stay-card {
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(80, 57, 31, 0.08);
+  }
+
+  .pool-landing-stay-card__media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e9e0d2;
+  }
+
+  .pool-landing-stay-card__media img,
+  .pool-landing-pool__gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+
+  .pool-landing-stay-card__media:hover img,
+  .pool-landing-stay-card__media:focus-visible img {
+    transform: scale(1.025);
+  }
+
+  .pool-landing-stay-card__body {
+    display: grid;
+    gap: 11px;
+    padding: 20px;
+  }
+
+  .pool-landing-stay-card__body > span {
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-stay-card h4 {
+    margin: 0;
+    color: #3d3428;
+    font-size: var(--dnd-text-md);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .pool-landing-stay-card p {
+    margin: 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .pool-landing-stay-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pool-landing-stay-card li {
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(36, 122, 131, 0.1);
+    color: #1f5f65;
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .pool-landing-stay-card__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .pool-landing-stay-card__actions a,
+  .pool-landing__text-link {
+    color: #247a83;
+    font-size: var(--dnd-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .pool-landing-pool {
+    background: #f7f2e7;
+  }
+
+  .pool-landing-pool__copy {
+    position: sticky;
+    top: 118px;
+  }
+
+  .pool-landing-pool__copy p {
+    margin-top: 16px;
+  }
+
+  .pool-landing__text-link {
+    display: inline-flex;
+    margin-top: 18px;
+  }
+
+  .pool-landing-pool__gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .pool-landing-pool__gallery figure {
+    min-height: 220px;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #e9e0d2;
+  }
+
+  .pool-landing-pool__gallery figure:first-child {
+    grid-column: 1 / -1;
+    min-height: 340px;
+  }
+
+  .pool-landing-pool__gallery picture {
+    display: block;
+    height: 100%;
+  }
+
+  .pool-landing-faq__intro {
+    position: sticky;
+    top: 118px;
+    padding: 18px;
+    border: 1px solid rgba(36, 122, 131, 0.16);
+    border-left: 3px solid #247a83;
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(230, 248, 249, 0.72), rgba(255, 250, 241, 0.96) 48%),
+      #fffaf1;
+  }
+
+  .pool-landing-faq__intro p {
+    margin-top: 12px;
+  }
+
+  .pool-landing-faq__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pool-landing-faq article {
+    padding: 16px;
+  }
+
+  .pool-landing-faq article:first-child {
+    border-color: rgba(36, 122, 131, 0.24);
+    background: linear-gradient(180deg, rgba(230, 248, 249, 0.72), #fff);
+  }
+
+  .pool-landing-faq article p {
+    margin: 8px 0 0;
+    color: #4b5563;
+    font-size: var(--dnd-text-sm);
+    line-height: 1.5;
+  }
+
+  .pool-landing-reasons {
+    background: #f6f1e8;
+  }
+
+  .pool-landing-reasons__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .pool-landing-reasons__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .pool-landing-closing {
+    padding-top: 20px;
+  }
+
+  .pool-landing-closing__panel {
+    padding: clamp(28px, 5vw, 52px);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1d1711, #3a2b1e);
+    color: #fffaf1;
+  }
+
+  .pool-landing-closing h2,
+  .pool-landing-closing p {
+    color: #fffaf1;
+  }
+
+  .pool-landing-closing p {
+    max-width: 760px;
+    margin-top: 16px;
+    color: rgba(255, 250, 241, 0.82);
+  }
+
+  @media (max-width: 980px) {
+    .pool-landing-intro__layout,
+    .pool-landing-reasons__layout,
+    .pool-landing-pool__layout,
+    .pool-landing-faq__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-audience__grid,
+    .pool-landing-answers__grid,
+    .pool-landing-facts__grid,
+    .pool-landing-stays__grid,
+    .pool-landing-reasons__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-pool__copy,
+    .pool-landing-faq__intro {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pool-landing-hero {
+      min-height: 680px;
+      height: 88vh;
+    }
+
+    .pool-landing-hero__overlay {
+      background:
+        linear-gradient(180deg, rgba(13, 11, 8, 0.18), rgba(13, 11, 8, 0.78)),
+        linear-gradient(90deg, rgba(13, 11, 8, 0.42), rgba(13, 11, 8, 0.2));
+    }
+
+    .pool-landing-hero__content {
+      align-items: flex-end;
+      padding-bottom: 46px;
+    }
+
+    .pool-landing-hero__inner {
+      padding-top: 124px;
+    }
+
+    .pool-landing-hero h1 {
+      max-width: 11ch;
+      font-size: 2.52rem;
+      line-height: 1.02;
+    }
+
+    .pool-landing-hero p:not(.pool-landing__eyebrow) {
+      max-width: 32ch;
+      font-size: var(--dnd-text-body);
+      line-height: 1.55;
+    }
+
+    .pool-landing-hero__actions,
+    .pool-landing-closing__actions,
+    .pool-landing-stay-card__actions {
+      flex-direction: column;
+    }
+
+    .pool-landing__button {
+      width: 100%;
+    }
+
+    .pool-landing-intro,
+    .pool-landing-audience,
+    .pool-landing-facts,
+    .pool-landing-answers,
+    .pool-landing-stays,
+    .pool-landing-compare,
+    .pool-landing-pool,
+    .pool-landing-reasons,
+    .pool-landing-faq,
+    .pool-landing-closing {
+      padding: 56px 0;
+    }
+
+    .pool-landing-intro h2,
+    .pool-landing-section-head h2,
+    .pool-landing-pool h2,
+    .pool-landing-faq h2,
+    .pool-landing-closing h2,
+    .pool-landing-reasons h2 {
+      font-size: 1.68rem;
+      line-height: 1.12;
+    }
+
+    .pool-landing-facts article,
+    .pool-landing-audience article,
+    .pool-landing-answers article,
+    .pool-landing-reasons__grid article,
+    .pool-landing-stay-card__body,
+    .pool-landing-faq article {
+      padding: 15px;
+    }
+
+    .pool-landing-pool__gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-pool__gallery figure,
+    .pool-landing-pool__gallery figure:first-child {
+      grid-column: auto;
+      min-height: 230px;
+    }
+
+    .pool-landing-faq__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pool-landing-faq__intro {
+      padding: 15px;
+    }
+  }
+</style>

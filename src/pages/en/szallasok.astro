@@ -36,7 +36,7 @@ const accommodationsTransitionImageTitle =
 const imageMapping = await readHomepageImageMapping();
 const baseHref = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const contactHref = `${baseHref}en/contact/`;
-const poolLandingHref = `${baseHref}kisapati-medences-szallas/`;
+const poolLandingHref = `${baseHref}en/kisapati-pool-stays/`;
 
 const resolveStayHref = (href: string) =>
   href.startsWith("/") ? `${baseHref}${href.replace(/^\/+/, "")}` : href;
