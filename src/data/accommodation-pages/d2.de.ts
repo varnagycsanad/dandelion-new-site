@@ -100,7 +100,7 @@ export const d2GermanPageData: AccommodationPageData = {
     longDescription: [
       "Der galerieartige Wohnraum gibt dem Haus einen offenen, unkomplizierten Rhythmus. Die renovierte Küche macht auch längere Aufenthalte angenehm. Der Morgen kann auf der Terrasse beginnen, tagsüber geht es in die Hügel oder an den Balaton, und abends wird es im Garten wieder ruhig.",
       "Die überdachte Terrasse und die Sitzplätze im Freien sind auch nützlich, wenn das Wetter wechselt. Der große Garten gibt Kindern und Erwachsenen Raum zum Spielen, Sitzen, Grillen oder einfach zum Ausruhen.",
-      "Der Panorama Pool ist in der Saison für Gäste von D1, D2 und Fügeház verfügbar. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen Poolbereichs von D1, D2 und Fügeház ab 15. Juni 2026.",
+      "Der Panorama Pool ist in der Saison für Gäste von D1, D2 und Fügeház verfügbar. Er ist kein privater Pool nur für D2, sondern Teil des nahe gelegenen Poolbereichs von D1, D2 und Fügeház.",
       "Rund um das Haus gibt es Tiere, was viele Kinder als kleines Landerlebnis erleben. Das gibt dem Aufenthalt eine warme, dorfliche Stimmung, ohne den Komfort des Hauses zu schmälern.",
       "Der Balaton, die Wanderwege des Szent György-hegy und die Weingüter der Umgebung sind mit kurzer Fahrt erreichbar. Dandelion D2 eignet sich deshalb gut als Ausgangspunkt für unterschiedliche Tage im Balaton-Oberland."
     ],
@@ -121,7 +121,7 @@ export const d2GermanPageData: AccommodationPageData = {
       {
         title: "Erlebnisse",
         items: [
-          ["Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
+          ["Panorama Pool", "für D1, D2 und Fügeház Gäste"],
           ["Draußen kochen", "Grillmöglichkeit im Garten"],
           ["Für Kinder", "Tiere und großer Garten rund um das Haus"],
           ["In der Nähe", "Balaton, Wanderwege und Weingüter"]
@@ -155,7 +155,7 @@ export const d2GermanPageData: AccommodationPageData = {
       label: "Besonderes Erlebnis",
       title: "Panorama Pool",
       text: "Bei Dandelion D2 ist der Zugang zum Panorama Pool ab Sommer im Aufenthalt enthalten.",
-      note: "ab 15. Juni 2026",
+      note: "in der Sommersaison",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {
@@ -194,12 +194,12 @@ export const d2GermanPageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D2 schnelle Antworten",
     title: "Dandelion D2 ist eine gute Wahl, wenn Sie ein familienfreundliches Haus mit Garten in Kisapáti suchen",
-    lead: "D2 ist bequem für 4-6 Gäste, mit großem Garten, überdachter Terrasse, renovierter Küche und Zugang zum Panorama Pool ab 15. Juni 2026.",
+    lead: "D2 ist bequem für 4-6 Gäste, mit großem Garten, überdachter Terrasse, renovierter Küche und Zugang zum Panorama Pool.",
     questions: [
       {
         iconKey: "pool",
         question: "Hat Dandelion D2 Zugang zum Pool?",
-        answer: "Ja. Ab 15. Juni 2026 können D2-Gäste den Panorama Pool zusammen mit den Gästen von D1 und Fügeház nutzen."
+        answer: "Ja. D2-Gäste können den Panorama Pool zusammen mit den Gästen von D1 und Fügeház nutzen."
       },
       {
         iconKey: "family",

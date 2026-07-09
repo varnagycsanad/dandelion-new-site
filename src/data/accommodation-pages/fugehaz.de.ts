@@ -17,7 +17,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   longDescription: [
     "Das Haus hat eine klare, entspannte Aufteilung und eignet sich gut für Familien, Paare oder Freunde, die ein paar ruhige Tage zusammen verbringen möchten.",
     "Die Terrasse und die Aussicht prägen den Aufenthalt: morgens langsam starten, tagsüber die Umgebung erkunden und abends draußen sitzen.",
-    "Fügeház gehört zu den Unterkünften mit Zugang zum Panorama-Poolbereich ab 15. Juni 2026."
+    "Fügeház gehört zu den Unterkünften mit Zugang zum Panorama-Poolbereich."
   ],
   facts: [
     ["Gäste", "4-6 Gäste"],
@@ -29,7 +29,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   experienceFacts: [
     ["Panorama", "Blick in die Hügellandschaft"],
     ["Terrassenzeit", "entspannte Abende draußen"],
-    ["Panorama Pool", "ab 15. Juni 2026"],
+    ["Panorama Pool", "in der Sommersaison"],
     ["Umgebung", "Wein, Wandern und Balaton"]
   ],
   highlights: ["Panorama", "Terrassen", "Grillmöglichkeit", "Panorama Pool", "Ruhige Lage"],
@@ -42,12 +42,12 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   geoDecision: {
     kicker: "Fügeház schnelle Antworten",
     title: "Dandelion Fügeház ist eine gute Wahl, wenn Sie ein ruhiges, terrassenbetontes Panoramahaus nahe Szent György-hegy suchen",
-    lead: "Fügeház ist bequem für 4 Gäste und mit Extrabett bis 6 Gäste erweiterbar. Es ist ein zweistöckiges Haus mit Panoramaterrassen, Grillmöglichkeit und Zugang zum Panorama Pool ab 15. Juni 2026.",
+    lead: "Fügeház ist bequem für 4 Gäste und mit Extrabett bis 6 Gäste erweiterbar. Es ist ein zweistöckiges Haus mit Panoramaterrassen, Grillmöglichkeit und Zugang zum Panorama Pool.",
     questions: [
       {
         iconKey: "pool",
         question: "Hat Fügeház Zugang zum Pool?",
-        answer: "Ja. Ab 15. Juni 2026 können Fügeház-Gäste den Panorama Pool zusammen mit den Gästen von D1 und D2 nutzen."
+        answer: "Ja. Fügeház-Gäste können den Panorama Pool zusammen mit den Gästen von D1 und D2 nutzen."
       },
       {
         iconKey: "family",

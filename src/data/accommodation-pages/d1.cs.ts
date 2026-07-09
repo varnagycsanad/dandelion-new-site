@@ -18,7 +18,7 @@ export const d1CzechPageData = createCzechAccommodationPage(d1EnglishPageData, {
     "D1 je dobrá volba pro ty, kdo hledají prostorný a pohodlný dům pro objevování Balatonské vrchoviny a chtějí si zároveň odpočinout od všedních dnů. Balaton, Szent György-hegy, Badacsony, Szigliget, Csobánc a vinařství v okolí jsou dostupné krátkou jízdou autem. Hosté D1 mohou využívat také Panorama Pool, který je k dispozici hostům D1, D2 a Fügeház."
   ],
   facts: [["Hosté", "6-8 hostů"], ["Ložnice", "3 ložnice"], ["Koupelny", "2 koupelny"], ["Exteriér", "zahrada a terasa"]],
-  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. června 2026"], ["Pro skupiny", "více prostoru pro čas spolu"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
+  experienceFacts: [["Panorama Pool", "Panorama Pool v letní sezóně"], ["Pro skupiny", "více prostoru pro čas spolu"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "klidné dny v přírodě"]],
   highlights: ["Velká zahrada", "Terasa", "3 ložnice", "2 koupelny", "Panorama Pool", "Parkování"],
   reasons: [
     { iconKey: "guests", title: "Prostorný rodinný dům", text: "8 hostů, oddělené pokoje" },
@@ -30,12 +30,12 @@ export const d1CzechPageData = createCzechAccommodationPage(d1EnglishPageData, {
   geoDecision: {
     kicker: "D1 rychlé odpovědi",
     title: "Dandelion D1 je dobrá volba, pokud hledáte prostorný dům v Kisapáti s přístupem k Panorama Pool",
-    lead: "D1 je připravený pro větší rodiny a skupiny přátel: až 8 hostů, panoramatická terasa, prostorné části a Panorama Pool od 15. června 2026.",
+    lead: "D1 je připravený pro větší rodiny a skupiny přátel: až 8 hostů, panoramatická terasa, prostorné části a Panorama Pool v letní sezóně.",
     questions: [
       {
         iconKey: "pool",
         question: "Má Dandelion D1 přístup k bazénu?",
-        answer: "Ano. Od 15. června 2026 mohou hosté D1 využívat Panorama Pool."
+        answer: "Ano. Hosté D1 mohou využívat Panorama Pool."
       },
       {
         iconKey: "pool",

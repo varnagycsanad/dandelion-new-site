@@ -15,10 +15,10 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   longDescription: [
     "Dům má několik venkovních míst, kde se dá snídat, odpočívat nebo večer sedět s výhledem. Atmosféra je přírodní a neformální.",
     "Poloha u Szent György-hegy dává snadný přístup k výletům, vinařstvím a balatonským programům.",
-    "Hosté Fügeház mohou od 15. června 2026 využívat Panorama Pool pro D1, D2 a Fügeház."
+    "Hosté Fügeház mohou využívat Panorama Pool pro D1, D2 a Fügeház."
   ],
   facts: [["Hosté", "4-6 hostů"], ["Charakter", "terasový panoramatický dům"], ["Exteriér", "venkovní posezení"], ["Poloha", "u Szent György-hegy"]],
-  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. června 2026"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
+  experienceFacts: [["Panorama Pool", "Panorama Pool v letní sezóně"], ["Výhledy", "kopce a krajina"], ["Vinařství", "krátké výlety do okolí"], ["Balaton", "dostupný autem"]],
   highlights: ["Panoramatické terasy", "Klidná poloha", "Kuchyně", "Zahradní posezení", "Panorama Pool", "Přírodní atmosféra"],
   reasons: [
     { iconKey: "terrace", title: "Panoramatické terasy", text: "Kopce, večery" },
@@ -29,12 +29,12 @@ export const fugehazCzechPageData = createCzechAccommodationPage(fugehazEnglishP
   geoDecision: {
     kicker: "Fügeház rychlé odpovědi",
     title: "Dandelion Fügeház se hodí, pokud hledáte klidný panoramatický dům s terasami u Szent György-hegy",
-    lead: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů. Je to dvoupatrový dům s panoramatickými terasami, možností grilování a přístupem k Panorama Pool od 15. června 2026.",
+    lead: "Fügeház je pohodlný pro 4 hosty a s přistýlkou až pro 6 hostů. Je to dvoupatrový dům s panoramatickými terasami, možností grilování a přístupem k Panorama Pool v letní sezóně.",
     questions: [
       {
         iconKey: "pool",
         question: "Má Fügeház přístup k bazénu?",
-        answer: "Ano. Od 15. června 2026 mohou hosté Fügeház využívat Panorama Pool spolu s hosty D1 a D2."
+        answer: "Ano. Hosté Fügeház mohou využívat Panorama Pool spolu s hosty D1 a D2."
       },
       {
         iconKey: "family",

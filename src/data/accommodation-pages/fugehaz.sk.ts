@@ -15,10 +15,10 @@ export const fugehazSlovakPageData = createSlovakAccommodationPage(fugehazEnglis
   longDescription: [
     "Dom má niekoľko vonkajších miest, kde sa dá raňajkovať, oddychovať alebo večer sedieť s výhľadom. Atmosféra je prírodná a neformálna.",
     "Poloha pri Szent György-hegy dáva ľahký prístup k výletom, vinárstvam a balatonským programom.",
-    "Hostia Fügeház môžu od 15. júna 2026 využívať Panorama Pool pre D1, D2 a Fügeház."
+    "Hostia Fügeház môžu využívať Panorama Pool pre D1, D2 a Fügeház."
   ],
   facts: [["Hostia", "4-6 hostí"], ["Charakter", "terasový panoramatický dom"], ["Exteriér", "vonkajšie posedenie"], ["Poloha", "pri Szent György-hegy"]],
-  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. júna 2026"], ["Výhľady", "kopce a krajina"], ["Vinárstva", "krátke výlety do okolia"], ["Balaton", "dostupný autom"]],
+  experienceFacts: [["Panorama Pool", "Panorama Pool v letnej sezóne"], ["Výhľady", "kopce a krajina"], ["Vinárstva", "krátke výlety do okolia"], ["Balaton", "dostupný autom"]],
   highlights: ["Panoramatické terasy", "Pokojná poloha", "Kuchyňa", "Záhradné posedenie", "Panorama Pool", "Prírodná atmosféra"],
   reasons: [
     { iconKey: "terrace", title: "Panoramatické terasy", text: "kopce, večery" },
@@ -29,9 +29,9 @@ export const fugehazSlovakPageData = createSlovakAccommodationPage(fugehazEnglis
   geoDecision: {
     kicker: "Fügeház rýchle odpovede",
     title: "Dandelion Fügeház sa hodí, ak hľadáte pokojný panoramatický dom s terasami pri Szent György-hegy",
-    lead: "Fügeház je pohodlný pre 4 hostí a s prístelkou až pre 6 hostí. Je to dvojpodlažný dom s panoramatickými terasami, možnosťou grilovania a prístupom k Panorama Pool od 15. júna 2026.",
+    lead: "Fügeház je pohodlný pre 4 hostí a s prístelkou až pre 6 hostí. Je to dvojpodlažný dom s panoramatickými terasami, možnosťou grilovania a prístupom k Panorama Pool v letnej sezóne.",
     questions: [
-      { iconKey: "pool", question: "Má Fügeház prístup k bazénu?", answer: "Áno. Od 15. júna 2026 môžu hostia Fügeház využívať Panorama Pool spolu s hosťami D1 a D2." },
+      { iconKey: "pool", question: "Má Fügeház prístup k bazénu?", answer: "Áno. Hostia Fügeház môžu využívať Panorama Pool spolu s hosťami D1 a D2." },
       { iconKey: "family", question: "Pre koho je Dandelion Fügeház dobrá voľba?", answer: "Fügeház sa hodí najmä pre páry, menšie rodiny a hostí, ktorí hľadajú pokojnejší pobyt v Balatonskej vrchovine." },
       { iconKey: "guests", question: "Pre koľko hostí je Fügeház pohodlný?", answer: "Fügeház je pohodlný pre 4 hostí a s prístelkou až pre 6 hostí." },
       { iconKey: "home", question: "V čom je Fügeház iný ako D1 alebo D2?", answer: "Fügeház pôsobí intímnejšie, panoramatickejšie a viac sa sústreďuje na terasy. Ak hľadáte väčšie spoločné priestory, lepší smer je D1; ak záhradný rodinný dom, silnejší je D2." },

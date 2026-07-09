@@ -101,7 +101,7 @@ export const d2EnglishPageData: AccommodationPageData = {
     longDescription: [
       "The gallery-style living room gives the house an open feel, and the renovated kitchen makes longer stays comfortable too. Mornings can start on the terrace, days can move toward the hills or Lake Balaton, and evenings can finish in the garden.",
       "The covered terrace and outdoor seating are useful even when the weather changes, while the large garden gives children and adults space to play, sit, grill or simply enjoy the quiet.",
-      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool for D2, but part of the nearby D1-D2-Fügeház pool area from June 15, 2026.",
+      "Panorama Pool is available in season for guests of D1, D2 and Fügeház. It is not a private pool for D2, but part of the nearby D1-D2-Fügeház pool area.",
       "There are animals around the house, which many children enjoy as a small countryside detail. It adds a warmer village feeling without taking anything away from the comfort of the stay.",
       "Lake Balaton, the hiking routes of Szent György Hill and the wineries of the region are all within a short drive, so Dandelion D2 works well for several kinds of Balaton Uplands days."
     ],
@@ -122,7 +122,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       {
         title: "Experiences",
         items: [
-          ["Panorama Pool", "for D1, D2 and Fügeház guests from June 15, 2026"],
+          ["Panorama Pool", "for D1, D2 and Fügeház guests"],
           ["Outdoor cooking", "grill option in the garden"],
           ["For children", "animals and a large garden around the house"],
           ["Nearby", "Lake Balaton, hiking routes and wineries"]
@@ -156,7 +156,7 @@ export const d2EnglishPageData: AccommodationPageData = {
       label: "Featured experience",
       title: "Panorama Pool",
       text: "Book Dandelion D2, and from summer the panoramic pool access is included in the price.",
-      note: "from June 15, 2026",
+      note: "in summer season",
       iconKey: "pool",
       image: d2PanoramaPoolHeroImage
         ? {
@@ -195,12 +195,12 @@ export const d2EnglishPageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D2 quick answers",
     title: "Dandelion D2 is a good choice if you want a garden-based, family-friendly house in Kisapáti",
-    lead: "D2 is comfortable for 4-6 guests, with a large garden, covered terrace, renovated kitchen and Panorama Pool access from June 15, 2026.",
+    lead: "D2 is comfortable for 4-6 guests, with a large garden, covered terrace, renovated kitchen and Panorama Pool access.",
     questions: [
       {
         iconKey: "pool",
         question: "Does Dandelion D2 have pool access?",
-        answer: "Yes. From June 15, 2026, D2 guests can use the Panorama Pool together with guests of D1 and Fügeház."
+        answer: "Yes. D2 guests can use the Panorama Pool together with guests of D1 and Fügeház."
       },
       {
         iconKey: "family",

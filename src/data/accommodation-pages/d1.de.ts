@@ -27,7 +27,7 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
     ["Lage", "Kisapáti, nahe Szent György-hegy"]
   ],
   experienceFacts: [
-    ["Panorama Pool", "für D1, D2 und Fügeház Gäste ab 15. Juni 2026"],
+    ["Panorama Pool", "für D1, D2 und Fügeház Gäste"],
     ["Familienzeit", "viel Platz im Haus und draußen"],
     ["Ausflüge", "Balaton, Wanderwege und Weingüter"],
     ["Direktanfrage", "deutsche Anfrage über Kontaktseite"]
@@ -43,12 +43,12 @@ export const d1GermanPageData = createGermanAccommodationPage(d1EnglishPageData,
   geoDecision: {
     kicker: "D1 schnelle Antworten",
     title: "Dandelion D1 ist eine gute Wahl, wenn Sie ein geräumiges Haus in Kisapáti mit Zugang zum Panorama Pool suchen",
-    lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und Panorama Pool ab 15. Juni 2026.",
+    lead: "D1 ist für größere Familien und Freundesgruppen gedacht: bis zu 8 Gäste, Panoramaterrasse, großzügige Gemeinschaftsbereiche und Panorama Pool.",
     questions: [
       {
         iconKey: "pool",
         question: "Hat Dandelion D1 Zugang zum Pool?",
-        answer: "Ja. Ab 15. Juni 2026 können D1-Gäste den Panorama Pool nutzen."
+        answer: "Ja. D1-Gäste können den Panorama Pool nutzen."
       },
       {
         iconKey: "pool",

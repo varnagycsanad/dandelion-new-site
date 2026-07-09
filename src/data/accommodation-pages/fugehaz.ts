@@ -11,7 +11,7 @@ export const fugehazPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Fügeház | Panorámás vendégház a Balaton-felvidéken",
     description:
-      "Panorámás családi vendégház teraszokkal és 2026. június 15-től Panorama Pool használattal a Balaton-felvidéken, a Szent György-hegy közelében."
+      "Panorámás családi vendégház teraszokkal és Panorama Pool használattal a Balaton-felvidéken, a Szent György-hegy közelében."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=af2fdb8ed2ebb145&lang=Hu",
   positioning: {
@@ -47,7 +47,7 @@ export const fugehazPageData: AccommodationPageData = {
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
-      text: "2026. június 15-től a Fügeház vendégei is használhatják a közeli panoráma medencét.",
+      text: "A Fügeház vendégei is használhatják a közeli panoráma medencét.",
       href: "/panorama-pool/",
       ctaLabel: "Medence oldal megnyitása",
       variant: "strong"
@@ -100,11 +100,11 @@ export const fugehazPageData: AccommodationPageData = {
     kicker: "Fügeház",
     title: "Családi pihenés teraszokkal és panorámás medencével",
     shortDescription:
-      "4 főre kényelmes, pótággyal bővíthető ház panorámás teraszokkal, grillezési lehetőséggel és 2026. június 15-től Panorama Pool használattal.",
+      "4 főre kényelmes, pótággyal bővíthető ház panorámás teraszokkal, grillezési lehetőséggel és Panorama Pool használattal.",
     longDescription: [
       "A Fügeház elsősorban a teraszairól és a kinti hangulatáról marad emlékezetes: reggel a panoráma, este a hosszabb beszélgetések és a csend adják a pihenés ritmusát.",
       "A vendégház 4 fő részére kényelmes, pótággyal akár 6 fő elszállásolására is alkalmas. Az étkezőből nyíló panorámás teraszról a Csobánc, a Tóti-hegy, a Gulács és a Badacsony látványában gyönyörködhetünk, a ház másik oldalán pedig kerti étkező és nyugodt pihenősarok várja a vendégeket, rálátással a Szent György-hegyre.",
-      "2026. június 15-től a Fügeház, a D1 és a D2 vendégei számára Panorama Pool élmény is elérhető. A dombon kialakított medence és pihenőtér különleges nyári élményt ad: napközben fürdés és játék a gyerekeknek, este pedig hegyek, csend és balatoni nyárhangulat.",
+      "A Fügeház, a D1 és a D2 vendégei számára Panorama Pool élmény is elérhető. A dombon kialakított medence és pihenőtér különleges nyári élményt ad: napközben fürdés és játék a gyerekeknek, este pedig hegyek, csend és balatoni nyárhangulat.",
       "A kintlétet teraszok, kerti bútorok és grillezési lehetőség teszik kényelmessé. A ház melletti dombról 360 fokos panoráma nyílik a környező tanúhegyekre, így a naplementék és a csillagos esték is külön élményt jelentenek.",
       "A ház két szinten biztosít kényelmes elhelyezést. Az alsó szinten jól felszerelt konyha, zuhanyzós fürdőszoba, nappali-hálótér és étkező található. Az emeleten egy légterű hálórész kapott helyet franciaággyal és ágyazható kanapéval."
     ],
@@ -119,7 +119,7 @@ export const fugehazPageData: AccommodationPageData = {
           ["Férőhely", "4 fő, pótággyal akár 6 fő"],
           ["Elhelyezkedés", "Szent György-hegy közelében"],
           ["Hangulat", "panorámás, csendes, családbarát"],
-          ["Kiemelés", "Panorama Pool élmény 2026. június 15-től"]
+          ["Kiemelés", "Panorama Pool élmény"]
         ]
       },
       {
@@ -158,7 +158,7 @@ export const fugehazPageData: AccommodationPageData = {
       label: "KIEMELT ÉLMÉNY",
       title: "Panorama Pool",
       text: "Foglald le a Fügeházat, és nyártól a panorámás medencehasználat is benne van az árban.",
-      note: "2026. június 15-től",
+      note: "nyári szezonban",
       iconKey: "pool",
       image: fugehazPanoramaPoolHeroImage
         ? {
@@ -197,12 +197,12 @@ export const fugehazPageData: AccommodationPageData = {
   geoDecision: {
     kicker: "Fügeház gyors válaszok",
     title: "A Dandelion Fügeház akkor jó választás, ha panorámás, teraszos, nyugodt vendégházat kerestek a Szent György-hegy közelében",
-    lead: "A Fügeház 4 főnek kényelmes, pótággyal akár 6 főig bővíthető, két szintes ház panorámás teraszokkal, grillezési lehetőséggel és 2026. június 15-től Panorama Pool használattal.",
+    lead: "A Fügeház 4 főnek kényelmes, pótággyal akár 6 főig bővíthető, két szintes ház panorámás teraszokkal, grillezési lehetőséggel és Panorama Pool használattal.",
     questions: [
       {
         iconKey: "pool",
         question: "Van medence a Fügeházhoz?",
-        answer: "Igen. 2026. június 15-től a Fügeház vendégei használhatják a Panorama Pool medencét a D1 és D2 vendégeivel együtt."
+        answer: "Igen. A Fügeház vendégei használhatják a Panorama Pool medencét a D1 és D2 vendégeivel együtt."
       },
       {
         iconKey: "family",

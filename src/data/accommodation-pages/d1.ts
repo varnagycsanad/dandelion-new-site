@@ -47,7 +47,7 @@ export const d1PageData: AccommodationPageData = {
     poolHighlight: {
       enabled: true,
       label: "Panoráma medence a ház melletti dombon",
-      text: "2026. június 15-től a D1 vendégei is használhatják a közeli panoráma medencét.",
+      text: "A D1 vendégei is használhatják a közeli panoráma medencét.",
       href: "/panorama-pool/",
       ctaLabel: "Medence oldal megnyitása",
       variant: "strong"
@@ -124,7 +124,7 @@ export const d1PageData: AccommodationPageData = {
       {
         title: "Kikapcsolódás",
         items: [
-          ["Medence", "2026. június 15-től Panorama Pool élmény"],
+          ["Medence", "Panorama Pool élmény"],
           ["Kültér", "kültéri étkező és grillezési lehetőség"],
           ["Fürdők", "több zuhanyzós fürdőszoba és külön WC"],
           ["Panoráma", "Csobánc, Tóti-hegy, Gulács és Badacsony"]
@@ -157,7 +157,7 @@ export const d1PageData: AccommodationPageData = {
       label: "KIEMELT ÉLMÉNY",
       title: "Panorama Pool",
       text: "Foglald le a Dandelion D1-et, és nyártól a panorámás medencehasználat is benne van az árban.",
-      note: "2026. június 15-től",
+      note: "nyári szezonban",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {
@@ -196,12 +196,12 @@ export const d1PageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D1 gyors válaszok",
     title: "A Dandelion D1 akkor jó választás, ha tágas kisapáti házat kerestek medencehasználattal",
-    lead: "A D1 nagyobb családoknak és baráti társaságoknak készült: akár 8 fő, panorámás terasz, több közös tér és 2026. június 15-től Panorama Pool használattal.",
+    lead: "A D1 nagyobb családoknak és baráti társaságoknak készült: akár 8 fő, panorámás terasz, több közös tér és Panorama Pool használattal.",
     questions: [
       {
         iconKey: "pool",
         question: "Van medence a Dandelion D1-hez?",
-        answer: "Igen. 2026. június 15-től a D1 vendégei használhatják a Panorama Pool medencét."
+        answer: "Igen. A D1 vendégei használhatják a Panorama Pool medencét."
       },
       {
         iconKey: "pool",

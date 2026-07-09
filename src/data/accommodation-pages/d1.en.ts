@@ -109,7 +109,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       {
         title: "Outdoor time",
         items: [
-          ["Pool", "Panorama Pool from June 15, 2026"],
+          ["Pool", "Panorama Pool access"],
           ["Outdoor space", "outdoor dining and grill option"],
           ["Bathrooms", "multiple bathrooms with showers and a separate toilet"],
           ["Views", "Csobánc, Tóti Hill, Gulács and Badacsony"]
@@ -142,7 +142,7 @@ export const d1EnglishPageData: AccommodationPageData = {
       label: "Featured experience",
       title: "Panorama Pool",
       text: "Book Dandelion D1, and from summer the panoramic pool access is included in the price.",
-      note: "from June 15, 2026",
+      note: "in summer season",
       iconKey: "pool",
       image: d1PanoramaPoolHeroImage
         ? {
@@ -181,12 +181,12 @@ export const d1EnglishPageData: AccommodationPageData = {
   geoDecision: {
     kicker: "D1 quick answers",
     title: "Dandelion D1 is a good choice if you need a spacious Kisapáti house with Panorama Pool access",
-    lead: "D1 is designed for larger families and groups of friends: up to 8 guests, a panoramic terrace, generous living spaces and Panorama Pool access from June 15, 2026.",
+    lead: "D1 is designed for larger families and groups of friends: up to 8 guests, a panoramic terrace, generous living spaces and Panorama Pool access.",
     questions: [
       {
         iconKey: "pool",
         question: "Does Dandelion D1 have pool access?",
-        answer: "Yes. From June 15, 2026, D1 guests can use the Panorama Pool."
+        answer: "Yes. D1 guests can use the Panorama Pool."
       },
       {
         iconKey: "pool",

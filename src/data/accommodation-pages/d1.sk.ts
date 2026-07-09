@@ -18,7 +18,7 @@ export const d1SlovakPageData = createSlovakAccommodationPage(d1EnglishPageData,
     "D1 je dobrá voľba pre tých, ktorí hľadajú priestranný a pohodlný dom na objavovanie Balatonskej vrchoviny a zároveň si chcú oddýchnuť od všedných dní. Balaton, Szent György-hegy, Badacsony, Szigliget, Csobánc a vinárstva v okolí sú dostupné krátkou jazdou autom. Hostia D1 môžu využívať aj Panorama Pool, ktorý je k dispozícii hosťom D1, D2 a Fügeház."
   ],
   facts: [["Hostia", "6-8 hostí"], ["Spálne", "3 spálne"], ["Kúpeľne", "2 kúpeľne"], ["Exteriér", "záhrada a terasa"]],
-  experienceFacts: [["Panorama Pool", "Panorama Pool od 15. júna 2026"], ["Pre skupiny", "viac priestoru na spoločný čas"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "pokojné dni v prírode"]],
+  experienceFacts: [["Panorama Pool", "Panorama Pool v letnej sezóne"], ["Pre skupiny", "viac priestoru na spoločný čas"], ["Výlety", "Szent György-hegy a Balaton"], ["Rytmus", "pokojné dni v prírode"]],
   highlights: ["Veľká záhrada", "Terasa", "3 spálne", "2 kúpeľne", "Panorama Pool", "Parkovanie"],
   reasons: [
     { iconKey: "guests", title: "Priestranný rodinný dom", text: "8 hostí, oddelené izby" },
@@ -30,9 +30,9 @@ export const d1SlovakPageData = createSlovakAccommodationPage(d1EnglishPageData,
   geoDecision: {
     kicker: "D1 rýchle odpovede",
     title: "Dandelion D1 je dobrá voľba, ak hľadáte priestranný dom v Kisapáti s prístupom k Panorama Pool",
-    lead: "D1 je pripravený pre väčšie rodiny a skupiny priateľov: až 8 hostí, panoramatická terasa, priestranné časti a Panorama Pool od 15. júna 2026.",
+    lead: "D1 je pripravený pre väčšie rodiny a skupiny priateľov: až 8 hostí, panoramatická terasa, priestranné časti a Panorama Pool v letnej sezóne.",
     questions: [
-      { iconKey: "pool", question: "Má Dandelion D1 prístup k bazénu?", answer: "Áno. Od 15. júna 2026 môžu hostia D1 využívať Panorama Pool." },
+      { iconKey: "pool", question: "Má Dandelion D1 prístup k bazénu?", answer: "Áno. Hostia D1 môžu využívať Panorama Pool." },
       { iconKey: "pool", question: "Je bazén súkromný iba pre D1?", answer: "Nie. Panorama Pool nie je súkromný bazén iba pre D1; v sezóne je k dispozícii hosťom D1, D2 a Fügeház." },
       { iconKey: "guests", question: "Pre koľko hostí je Dandelion D1 pohodlný?", answer: "Dandelion D1 je pohodlný až pre 8 hostí, s 3 spálňami, obývačkou a viacerými kúpeľňami." },
       { iconKey: "mountain", question: "Na aké výlety je D1 dobrá základňa?", answer: "Z Kisapáti sú krátkou jazdou dostupné Szent György-hegy, Badacsony, Szigliget, Csobánc, Balaton aj miestne vinárstva." },
