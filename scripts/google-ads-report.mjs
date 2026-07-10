@@ -45,6 +45,7 @@ Usage:
   node scripts/google-ads-report.mjs customers [--format md|json|csv]
   node scripts/google-ads-report.mjs campaigns --customer 1234567890 [--login 9988776655] [--limit 50] [--format md|json|csv]
   node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] [--days 30] [--limit 50] [--format md|json|csv]
+  node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] --start 2026-07-10 --end 2026-07-10 [--limit 50] [--format md|json|csv]
   node scripts/google-ads-report.mjs conversions --customer 1234567890 [--login 9988776655] [--limit 100] [--format md|json|csv]
 
 Required env:
@@ -115,6 +116,12 @@ function parseArgs(argv) {
       parsed.help = true;
     } else if (arg === "--days") {
       parsed.days = Number(next);
+      index += 1;
+    } else if (arg === "--start" || arg === "--startDate") {
+      parsed.startDate = next;
+      index += 1;
+    } else if (arg === "--end" || arg === "--endDate") {
+      parsed.endDate = next;
       index += 1;
     } else if (arg === "--limit") {
       parsed.limit = Number(next);
@@ -427,9 +434,10 @@ async function listCampaigns(args) {
 }
 
 async function listPerformance(args) {
-  const days = resolveDays(args.days);
+  const dateClause = resolvePerformanceDateClause(args);
   const rows = await runSearch(args, `
     SELECT
+      segments.date,
       campaign.id,
       campaign.name,
       campaign.status,
@@ -441,12 +449,13 @@ async function listPerformance(args) {
       metrics.conversions,
       metrics.conversions_value
     FROM campaign
-    WHERE segments.date DURING LAST_${days}_DAYS
-    ORDER BY metrics.cost_micros DESC
+    WHERE ${dateClause}
+    ORDER BY segments.date DESC, metrics.cost_micros DESC
     LIMIT ${resolveLimit(args.limit)}
   `);
 
   const performance = rows.map((row) => ({
+    date: row.segments?.date,
     id: row.campaign?.id,
     name: row.campaign?.name,
     status: row.campaign?.status,
@@ -460,6 +469,7 @@ async function listPerformance(args) {
   }));
 
   printRows(performance, args.format, [
+    ["date", "Date"],
     ["id", "ID"],
     ["name", "Name"],
     ["status", "Status"],
@@ -523,6 +533,33 @@ function resolveDays(days) {
     throw new Error("--days must be an integer between 1 and 365.");
   }
   return value;
+}
+
+function resolvePerformanceDateClause(args) {
+  if (args.startDate || args.endDate) {
+    if (!args.startDate || !args.endDate) {
+      throw new Error("Use both --start and --end for exact date queries.");
+    }
+
+    const startDate = normalizeIsoDate(args.startDate, "--start");
+    const endDate = normalizeIsoDate(args.endDate, "--end");
+    if (startDate > endDate) {
+      throw new Error("--start must be on or before --end.");
+    }
+
+    return `segments.date BETWEEN '${startDate}' AND '${endDate}'`;
+  }
+
+  const days = resolveDays(args.days);
+  return `segments.date DURING LAST_${days}_DAYS`;
+}
+
+function normalizeIsoDate(value, label) {
+  const normalized = String(value || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+    throw new Error(`${label} must be in YYYY-MM-DD format.`);
+  }
+  return normalized;
 }
 
 function toNumber(value) {
