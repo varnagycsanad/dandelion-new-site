@@ -114,19 +114,27 @@ function loadServiceAccount(filePath) {
 }
 
 async function resolveAccessToken() {
+  if (process.env.GA_OAUTH_CLIENT_JSON && process.env.GA_OAUTH_TOKEN_JSON) {
+    const client = loadOAuthClient(process.env.GA_OAUTH_CLIENT_JSON);
+    const token = loadOAuthToken(process.env.GA_OAUTH_TOKEN_JSON);
+    return refreshOAuthAccessToken({ client, token });
+  }
+
   if (process.env.GEO_OAUTH_CLIENT_JSON && process.env.GEO_OAUTH_TOKEN_JSON) {
     const client = loadOAuthClient(process.env.GEO_OAUTH_CLIENT_JSON);
     const token = loadOAuthToken(process.env.GEO_OAUTH_TOKEN_JSON);
     return refreshOAuthAccessToken({ client, token });
   }
 
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    console.log("FIGYELEM: GEO_OAUTH_* nincs beállítva, GA4 service account fallback indul.");
-    const credentials = loadServiceAccount(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  if (process.env.GA_SERVICE_ACCOUNT_JSON || process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    console.log("FIGYELEM: nincs mukodo GA4 OAuth token, GA4 service account fallback indul.");
+    const credentials = loadServiceAccount(process.env.GA_SERVICE_ACCOUNT_JSON || process.env.GOOGLE_APPLICATION_CREDENTIALS);
     return getServiceAccountAccessToken(credentials);
   }
 
-  throw new Error("Hiányzó OAuth beállítás: GEO_OAUTH_CLIENT_JSON és GEO_OAUTH_TOKEN_JSON szükséges a GA4 fetchhez.");
+  throw new Error(
+    "Hiányzó GA4 auth beállítás. Használd a GA_OAUTH_CLIENT_JSON + GA_OAUTH_TOKEN_JSON párost, vagy állíts be GA_SERVICE_ACCOUNT_JSON-t."
+  );
 }
 
 function loadOAuthClient(filePath) {
