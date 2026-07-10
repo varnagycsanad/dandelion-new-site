@@ -67,7 +67,16 @@
     const link = getClosestLink(element);
 
     if (link instanceof HTMLAnchorElement) {
-      return link.href || link.getAttribute("href") || null;
+      const rawHref = link.href || link.getAttribute("href") || null;
+      if (
+        rawHref &&
+        typeof window.dndResolveBookingUrl === "function" &&
+        isSabeeUrl(rawHref)
+      ) {
+        return window.dndResolveBookingUrl(rawHref);
+      }
+
+      return rawHref;
     }
 
     return null;
@@ -77,7 +86,16 @@
     const link = getClosestLink(element);
 
     if (link instanceof HTMLAnchorElement) {
-      return link.getAttribute("href") || link.href || "";
+      const rawHref = link.getAttribute("href") || link.href || "";
+      if (
+        rawHref &&
+        typeof window.dndResolveBookingUrl === "function" &&
+        isSabeeUrl(rawHref)
+      ) {
+        return window.dndResolveBookingUrl(rawHref);
+      }
+
+      return rawHref;
     }
 
     return "";

@@ -1799,6 +1799,11 @@ const accommodationStructuredData = [
   <script define:vars={{ bookingLink, hasSabeeBookingLink, galleryImages, desktopHeroImage, desktopHeroAlt }}>
     if (hasSabeeBookingLink && typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
+        if (typeof window.dndOpenBookingUrl === "function") {
+          window.dndOpenBookingUrl(bookingLink, "_blank", "noopener,noreferrer");
+          return;
+        }
+
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
     }

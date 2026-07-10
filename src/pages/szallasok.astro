@@ -392,6 +392,11 @@ const accommodationFaqStructuredData = {
   <script define:vars={{ bookingLink }}>
     if (typeof window.OpenBE !== "function") {
       window.OpenBE = () => {
+        if (typeof window.dndOpenBookingUrl === "function") {
+          window.dndOpenBookingUrl(bookingLink, "_blank", "noopener,noreferrer");
+          return;
+        }
+
         window.open(bookingLink, "_blank", "noopener,noreferrer");
       };
     }
