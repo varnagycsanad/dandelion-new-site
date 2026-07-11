@@ -43,6 +43,15 @@ export const d2LastMinuteOffer = {
     src: "/images/panorama-pool/gallery/panorama-pool-gallery-2026-06-28-02.webp",
     alt: "Panorama Pool medence és terasz napernyőkkel a domboldali kilátás felé."
   },
+  offerImage: {
+    src: requireAccommodationLocalAssetPath(
+      "d2",
+      "gallery",
+      "dandelion-d2-kisapati-gallery-09.webp",
+      "d2 last minute offer image"
+    ),
+    alt: "Dandelion D2 fedett terasza és kertje napos időben, háttérben a környék dombjaival"
+  },
   teaserImages: [
     {
       src: requireAccommodationLocalAssetPath(
