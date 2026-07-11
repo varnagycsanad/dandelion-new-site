@@ -127,6 +127,31 @@
     return (text.trim() || ariaLabel.trim()).replace(/\s+/g, " ").slice(0, 160);
   }
 
+  function readTrackingContext(element) {
+    if (!(element instanceof Element)) {
+      return {};
+    }
+
+    const source =
+      element.closest(
+        "[data-dnd-property], [data-dnd-campaign], [data-dnd-placement], [data-dnd-check-in], [data-dnd-check-out]"
+      ) || element;
+
+    const propertyValue = source.getAttribute("data-dnd-property");
+    const campaignValue = source.getAttribute("data-dnd-campaign");
+    const placementValue = source.getAttribute("data-dnd-placement");
+    const checkInValue = source.getAttribute("data-dnd-check-in");
+    const checkOutValue = source.getAttribute("data-dnd-check-out");
+
+    return {
+      property: propertyValue || undefined,
+      campaign: campaignValue || undefined,
+      placement: placementValue || undefined,
+      check_in: checkInValue || undefined,
+      check_out: checkOutValue || undefined
+    };
+  }
+
   function hasWord(source, words) {
     const normalizedSource = normalize(source);
     return words.some((word) => normalizedSource.includes(normalize(word)));
@@ -239,6 +264,7 @@
       const mailtoUrl = getMailtoUrl(element);
       const text = getText(element);
       const label = text || element.getAttribute("aria-label") || href || null;
+      const trackingContext = readTrackingContext(element);
 
       if (isBookingClick(element, linkUrl, href, text)) {
         const bookingPayload = {
@@ -249,7 +275,12 @@
           page_url: window.location.href,
           link_url: linkUrl,
           cta_text: text,
-          property_slug: inferPropertySlug(linkUrl)
+          property_slug: inferPropertySlug(linkUrl),
+          property: trackingContext.property,
+          campaign: trackingContext.campaign,
+          placement: trackingContext.placement,
+          check_in: trackingContext.check_in,
+          check_out: trackingContext.check_out
         };
 
         pushEvent("dnd_booking_click", {
@@ -260,7 +291,12 @@
           page_url: bookingPayload.page_url,
           link_url: bookingPayload.link_url,
           cta_text: bookingPayload.cta_text,
-          property_slug: bookingPayload.property_slug
+          property_slug: bookingPayload.property_slug,
+          property: bookingPayload.property,
+          campaign: bookingPayload.campaign,
+          placement: bookingPayload.placement,
+          check_in: bookingPayload.check_in,
+          check_out: bookingPayload.check_out
         });
         pushMetaEvent("meta_booking_click", "BookingClick", {
           event_category: bookingPayload.event_category,
@@ -268,7 +304,10 @@
           event_label: bookingPayload.event_label,
           link_url: bookingPayload.link_url,
           cta_text: bookingPayload.cta_text,
-          property_slug: bookingPayload.property_slug
+          property_slug: bookingPayload.property_slug,
+          property: bookingPayload.property,
+          campaign: bookingPayload.campaign,
+          placement: bookingPayload.placement
         });
         pushMetaEvent("meta_initiate_checkout", "InitiateCheckout", {
           content_type: "accommodation",
@@ -276,7 +315,10 @@
           content_ids: bookingPayload.property_slug ? [bookingPayload.property_slug] : undefined,
           link_url: bookingPayload.link_url,
           cta_text: bookingPayload.cta_text,
-          property_slug: bookingPayload.property_slug
+          property_slug: bookingPayload.property_slug,
+          property: bookingPayload.property,
+          campaign: bookingPayload.campaign,
+          placement: bookingPayload.placement
         });
         return;
       }
