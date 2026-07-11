@@ -100,7 +100,7 @@ export const d2LastMinuteOffer = {
   stayHighlights: [
     "4-6 fő részére kényelmes",
     "csendes kisapáti elhelyezkedés",
-    "panoráma a környék tanúhegyire",
+    "panoráma a környék tanúhegyeire",
     "saját udvar és fedett terasz",
     "saját parkoló, klíma és Wi-Fi",
     "felszerelt konyha",
