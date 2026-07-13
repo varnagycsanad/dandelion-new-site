@@ -175,7 +175,7 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 - `project-docs/DANDELION_GEO_AGENT_SPEC.md`
 - `project-docs/newsletter-production-runbook.md`
 
-Megjegyzes: a Meta dokumentacioban most mar benne van a hirdeteskezeles, a Pixel/GTM validacio es a Facebook-oldal posztolasi workflow is. Eles oldalposzt API-hoz jelenleg meg a `pages_manage_posts` a fo nyitott jogosultsag.
+Megjegyzes: a Meta dokumentacioban most mar benne van a hirdeteskezeles, a Pixel/GTM validacio, a Facebook-oldal posztolasi workflow es a kulon `meta-auth` token-helper is. A `pages_manage_posts` app oldalon mar `Ready for testing`, de a projektben hasznalt token ujraengedelyezese tovabbra is nyitott lepes.
 
 ## Egyeb specialis doksik
 

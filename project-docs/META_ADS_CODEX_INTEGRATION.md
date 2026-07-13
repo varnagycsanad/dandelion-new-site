@@ -13,6 +13,8 @@ Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fi
 - `scripts/meta/meta-ads.mjs`
 - `scripts/meta/meta-validate-pixel.mjs`
 - `scripts/meta/gtm-meta-events.mjs`
+- `scripts/meta/meta-auth.mjs`
+- `scripts/meta/meta-pages.mjs`
 - npm parancsok:
   - `npm run meta:check`
   - `npm run meta:permissions`
@@ -35,6 +37,15 @@ Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fi
   - `npm run meta:update-budgets`
   - `npm run meta:validate-pixel`
   - `npm run meta:gtm-events`
+  - `npm run meta:auth:url`
+  - `npm run meta:auth:exchange`
+  - `npm run meta:auth:extend`
+  - `npm run meta:auth:inspect`
+  - `npm run meta:auth:save-token`
+  - `npm run meta:pages:check`
+  - `npm run meta:pages:permissions`
+  - `npm run meta:pages:list`
+  - `npm run meta:pages:create-post`
 
 Az integracio kozvetlenul a Meta Marketing API-t hivja. A Graph API verzio env-bol allithato, alapertelmezetten `v25.0`.
 
@@ -103,6 +114,18 @@ Weboldal oldali allapot:
 - GTM container: `251570065`
 - GTM public ID: `GTM-P75FHKLJ`
 - Meta Pixel ID: `489282852211205`
+- latszik a Facebook-oldal:
+  - `Dandelion Vendégház`
+  - page ID: `100105918439273`
+- a `meta-pages` script dry-run workflowban tud oldalas, kepes posztot elokesziteni
+- a `/me/accounts` valasz page tokent ad az oldalhoz
+- a jelenlegi Pages API jogosultsagoknal latszik:
+  - `pages_show_list`
+  - `pages_read_engagement`
+- a Meta appban a `Manage Pages` use case mar aktiv
+- a `pages_manage_posts` Meta oldalon mar `Ready for testing`
+- a jelenlegi tokenben viszont meg nem latszik:
+  - `pages_manage_posts`
 - `npm run meta:gtm-events -- --execute --format json` sikeresen letrehozta a hianyzo egyedi trigger + Meta tag parokat a repo altal kibocsatott `meta_*` esemenyekhez.
 - A GTM valtozas `Codex Meta Pixel event scaffolding 2026-07-13` nevvel `9`-es verziokent publikalt allapotba kerult.
 - `npm run meta:validate-pixel -- --format json` alapjan:
@@ -112,7 +135,7 @@ Weboldal oldali allapot:
   - az osszes repo-s `meta_*` esemenyhez van megfelelo GTM Meta tag lefedettseg
   - a Pixel utolso bejovo aktivitasa: `2026-07-12T23:12:23+0200`
 
-Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali meresi elokeszites, a GTM tag-kiosztas es a Pixel-azonositas is rendben van. A fo nyitott pont mar legfeljebb egy kulon elo, bongeszos smoke teszt, ha teljes vegponttol vegpontig validacio is kell.
+Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali meresi elokeszites, a GTM tag-kiosztas, a Pixel-azonositas es a Facebook-oldal posztolasi workflow alapja is rendben van. A fo nyitott pont mar az, hogy a friss tokenben is tenylegesen megjelenjen a `pages_manage_posts`, illetve legfeljebb egy kulon elo, bongeszos smoke teszt.
 
 ## Szükséges Meta oldali beallitas
 
@@ -130,8 +153,12 @@ Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali me
 
 ```text
 META_GRAPH_VERSION=v25.0
+META_APP_ID=2809171169448612
+META_APP_SECRET=...
+META_REDIRECT_URI=...
 META_ACCESS_TOKEN=...
 META_AD_ACCOUNT_ID=act_169467498360546
+META_PAGE_ID=100105918439273
 META_SPECIAL_AD_CATEGORIES=[]
 ```
 
@@ -149,6 +176,18 @@ Jogosultsagok ellenorzese:
 
 ```powershell
 npm run meta:permissions
+```
+
+Meta token auth URL generalasa:
+
+```powershell
+npm run meta:auth:url
+```
+
+Meta token ellenorzese:
+
+```powershell
+npm run meta:auth:inspect
 ```
 
 Ad account lista:

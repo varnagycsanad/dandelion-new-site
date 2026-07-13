@@ -16,6 +16,7 @@ A Meta kapcsolat technikailag mukodik, es a Codex mar most is kepes:
 - ad listat lekerdezni
 - creative listat lekerdezni
 - insightokat lekerdezni
+- lathato Facebook-oldalakat lekerdezni
 - uj kampany letrehozasat dry-run modban elokesziteni
 - uj creative letrehozasat dry-run modban elokesziteni sabloncreative alapjan
 - uj ad set letrehozasat dry-run modban elokesziteni sablonalapu klonozassal
@@ -24,6 +25,7 @@ A Meta kapcsolat technikailag mukodik, es a Codex mar most is kepes:
 - ad set budget modositast dry-run modban elokesziteni
 - a Pixel tulajdonjogat es GTM base tag allapotat validalni
 - a repo altal kibocsatott `meta_*` esemenyekhez hianyzo GTM Meta tag-eket automatikusan letrehozni
+- kepes Facebook-oldal posztot dry-run modban elokesziteni
 - uj kampanyt API-val `PAUSED` allapotban letrehozni, ha a tokennek van megfelelo joga es az `--execute` kapcsolot tenylegesen hasznaljuk
 
 Ugyanakkor a Codex jelen allapotban meg nem tekintheto teljes Meta hirdeteskezelo rendszernek. A legfontosabb hianyok:
@@ -32,6 +34,7 @@ Ugyanakkor a Codex jelen allapotban meg nem tekintheto teljes Meta hirdeteskezel
 - nincs teljesen nullarol induló media/upload workflow
 - nincs teljes kampanymodositas
 - nincs Pixel / Events Manager oldali API-integracio
+- nincs megerositett eles Facebook Page post publish a jelenlegi tokennel
 - nincs token-eletciklus automatizalva
 - ebben a korben nem futott vegig kulon bongeszos, valos user-journey smoke teszt
 
@@ -63,6 +66,8 @@ Ellenorzott:
 - `node scripts/meta/meta-ads.mjs create-ad --adset-id 120253622472610628 --name "D2_LastMinute_Ad_HU_TestClone" --from-ad-id 23852933811260627`
 - `npm run meta:validate-pixel -- --format json`
 - `npm run meta:gtm-events -- --execute --format json`
+- `npm run meta:pages:list -- --format json`
+- `npm run meta:pages:create-post -- --message "..." --photo "<kep1>" --photo "<kep2>" --format json`
 
 Eredmeny:
 
@@ -95,6 +100,9 @@ Eredmeny:
   - `251570065`
 - a GTM public ID:
   - `GTM-P75FHKLJ`
+- a lathato Facebook-oldal:
+  - `Dandelion Vendégház`
+  - `100105918439273`
 - a hasznalt Meta Pixel:
   - `489282852211205`
 - a Pixel a Business assetek kozott latszik
@@ -106,6 +114,11 @@ Eredmeny:
   - `9`
 - a Pixel utolso aktivitasa:
   - `2026-07-12T23:12:23+0200`
+- a Page token feloldhato a `me/accounts` valaszbol
+- a kepes Facebook-oldal poszt dry-run workflow mukodik
+- a Meta apphoz a `Manage Pages` use case hozza lett adva
+- a `pages_manage_posts` statusza a Meta fejlesztoi feluleten mar `Ready for testing`
+- a jelenlegi permissions valaszban a projekt .env-beli tokenjere nezve tovabbra sem latszik `pages_manage_posts`
 
 ### 2. Kodoldali kepessegek
 
@@ -136,9 +149,13 @@ Jelenlegi Meta script:
 Kornyezeti valtozok:
 
 - `META_GRAPH_VERSION`
+- `META_APP_ID`
+- `META_APP_SECRET`
+- `META_REDIRECT_URI`
 - `META_ACCESS_TOKEN`
 - `META_AD_ACCOUNT_ID`
 - `META_SPECIAL_AD_CATEGORIES`
+- `META_PAGE_ID`
 
 NPM shortcutok jelenleg:
 
@@ -164,6 +181,15 @@ NPM shortcutok jelenleg:
   - `meta:update-budgets`
   - `meta:validate-pixel`
   - `meta:gtm-events`
+  - `meta:auth:url`
+  - `meta:auth:exchange`
+  - `meta:auth:extend`
+  - `meta:auth:inspect`
+  - `meta:auth:save-token`
+  - `meta:pages:check`
+  - `meta:pages:permissions`
+  - `meta:pages:list`
+  - `meta:pages:create-post`
 - nincs:
   - teljes nullarol induló media/upload workflow
 
@@ -209,6 +235,8 @@ Ez jo alap a mereshez, es a korabbi reskockazatot most mar jelentos reszben lefe
 - a fo Meta jogosultsagokat kilistazni
 - a Pixel es GTM kapcsolati allapotat validalni
 - a repo-esemenyekhez hianyzo GTM Meta trigger/tag scaffoldot elokesziteni vagy letrehozni
+- lathato Facebook-oldalakat es page token jelenletet ellenorizni
+- kepes Facebook-oldal posztot dry-run modban elokesziteni egy vagy tobb keppel
 - uj kampanyt `PAUSED` allapotban letrehozni, ha ezt kulon kerjuk
 
 ### Korlatozottan kepes
@@ -217,6 +245,7 @@ Ez jo alap a mereshez, es a korabbi reskockazatot most mar jelentos reszben lefe
 - ad set letrehozasra mar van sablonalapu alap, de nincs teljes audience / placement / creative workflow
 - ad letrehozasra mar van creative-ujrafelhasznalasi alap
 - creative letrehozasra mar van sablonalapu alap, de nincs teljes media-upload workflow
+- Facebook Page posztolashoz mar van workflow, a `pages_manage_posts` app oldalon mar `Ready for testing`, de a jelenlegi tokennel az eles kozzetetel meg nem bizonyitott
 
 ### Nem kepes jelenleg
 
@@ -225,9 +254,9 @@ Ez jo alap a mereshez, es a korabbi reskockazatot most mar jelentos reszben lefe
 - ad set modositasara teljes koruen
 - media vagy copy feltoltesere teljes workflowban nullarol indulva
 - Pixel, domain verification vagy Events Manager konfiguracio API-s kezelesere
+- biztos, eles Facebook Page post publishra a jelenlegi tokennel
 - Instagram account / Page / Pixel / ad account asset-kapcsolatok auditjara scriptelt formaban
-- automatikus token-frissitesre vagy expiralas-kezelesre
-- scope-ellenorzesre tenylegesen kulon diagnosztikai paranccsal
+- teljesen automatikus token-frissitesre vagy expiralas-kezelesre
 
 ## Mi kell meg ahhoz, hogy a Codex tenylegesen kezelni tudja a Meta hirdeteseket
 
@@ -292,6 +321,7 @@ Ez jo alap a mereshez, es a korabbi reskockazatot most mar jelentos reszben lefe
 2. Token eletciklus kezeles
    - manualis rotacios szabaly
    - vagy hosszabb eletu token beszerzesi runbook
+   - 2026-07-13 allapot: van mar kulon auth helper az OAuth URL generalasra, code exchange-re, token hosszabbitasra, inspectre es `.env` mentesre
 
 3. Irasi muveletek vedelme
    - explicit dry-run alapertelmezett mod minden mutacios parancsnal
@@ -308,6 +338,7 @@ Ezekrol a repo onmagaban nem ad eleg bizonyossagot:
 - a Facebook Page es az ad account kapcsolata
 - az Instagram account kapcsolata, ha Meta kampanyhoz szukseges
 - a kampany celjatol fuggo conversion location es event mapping
+- a `pages_manage_posts` megszerzese ugyanazon app/token folyamathoz
 
 ## Kockazatok
 
@@ -339,6 +370,7 @@ Ha a "kezelni" azt jelenti, hogy:
 - uj kampanyt, creative-ot, ad setet vagy adot elokesziteni dry-run modban
 - alap statusz- es budgetmuveleteket dry-run modban ellenorizni
 - a Pixel/GTM oldali allapotot validalni
+- Facebook-oldal posztot dry-run modban elokesziteni
 
 akkor a valasz: igen, ez nagyreszt mar most is megvan.
 
@@ -348,6 +380,7 @@ Ha a "kezelni" azt jelenti, hogy:
 - ad set + ad + creative kezeles
 - budget es statuszmenedzsment
 - teljes media/upload workflow
+- biztos Facebook-oldal API-s kozzetetel
 - valos, bongeszos vegponttol vegpontig smoke teszt
 - uzembiztos, napi operativ workflow
 
@@ -359,6 +392,7 @@ akkor a valasz: meg nem, ehhez tovabbi tooling es nehany Meta oldali ellenorzes 
    - teljes creative/media upload
    - teljes ad set mezoszerkesztes
    - kampanyszintu budget/status ergonomia
+   - pages_manage_posts beszerzesi runbook
 
 2. Futtassunk kulon bongeszos smoke tesztet a GTM + Meta Events Manager meresi lanc vegponttol vegpontig ellenorzesere, ha uzemi bizonyossag kell.
 
