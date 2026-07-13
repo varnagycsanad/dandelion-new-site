@@ -1,6 +1,6 @@
 # Google Stack API Setup
 
-Status: AKTUALIS 2026-07-10
+Status: AKTUALIS 2026-07-13
 
 Cel: stabil, kulon kezelt Google API-hozzaferes a Dandelion workspace-ben, hogy a meres, SEO, Ads es tageles egyarant lekerdezheto legyen.
 
@@ -75,6 +75,8 @@ Parancsok:
 - `npm run ads:campaigns`
 - `npm run ads:performance`
 - `npm run ads:conversions`
+- `npm run ads:search-terms`
+- `npm run ads:keywords:audit`
 
 Javasolt env:
 
@@ -125,8 +127,16 @@ Megjegyzes:
 ### P2
 
 1. GTM trigger-tag osszerendelesek celzott auditja `dnd_booking_click` es booking completion oldalra
-2. Search terms es keyword szintu Google Ads bovitmeny
+2. kulcsszo-audit CSV/export es mutacios workflow bovites
 3. booking completion meresi lanc vegigellenorzese
+   - reszben igazolt 2026-07-13:
+   - a site kuldi a `dnd_booking_click` esemenyt,
+   - a booking linkek atviszik a `gclid` es UTM parametereket,
+   - a GA4-ben latszik `dnd_booking_click` es `dnd_booking_confirmation`,
+   - a GA4 property ossze van kotve a Google Ads fiokkal,
+   - az Ads-ben a `dnd_booking_click` aktiv fo konverziokent latszik,
+   - a `dnd_booking_confirmation` jelenleg csak hidden / masodlagos jel,
+   - a pontos forrasoldali bekotes tovabbra sem latszik a repo-bol, ezert GTM vagy kulso booking oldali ellenorzes meg kell.
 
 ### P3
 

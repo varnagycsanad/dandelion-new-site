@@ -1,16 +1,20 @@
 # Google Ads Codex Integration
 
-Status: AKTUALIS 2026-07-10
+Status: AKTUALIS 2026-07-13
 
 Cel: helyi Google Ads API kapcsolat a Dandelion workspace-ben, hogy kampanyok, teljesitmeny es konverzios muveletek lekerdezhetok legyenek.
 
-Rovid tenyallas 2026-07-10:
+Rovid tenyallas 2026-07-13:
 
 - a helyi Ads API workflow mukodik,
 - az elerheto customer lista visszaolvashato,
 - a kampanylista visszaolvashato,
 - a 30 napos kampanyteljesitmeny visszaolvashato,
-- a conversion action lista visszaolvashato.
+- a conversion action lista visszaolvashato,
+- a search terms riport visszaolvashato,
+- a kulcsszo-szintu audit visszaolvashato,
+- a `dnd_booking_click` Ads oldalon aktiv fo konverziokent latszik,
+- a `dnd_booking_confirmation` Ads oldalon jelenleg hidden / nem primary jel.
 
 ## Mi keszult el
 
@@ -26,6 +30,12 @@ Elso koros parancsok:
 - `npm run ads:campaigns`
 - `npm run ads:performance`
 - `npm run ads:conversions`
+- `npm run ads:search-terms`
+- `npm run ads:pause-campaigns`
+- `npm run ads:enable-campaigns`
+- `npm run ads:keywords:audit`
+- `npm run google-stack:healthcheck`
+- `npm run google-stack:booking-chain`
 
 ## Miert nem volt eddig
 
@@ -159,6 +169,36 @@ Az utolso `N` nap kampanyszintu fo mutatoi:
 - primary for goal
 - benne van-e a conversions metricben
 
+### `search-terms`
+
+- keresesi kifejezes riport
+- kampany es ad group bontas
+- koltes, kattintas, megjelenes, CTR, atlag CPC
+- konverzio es konverzios ertek
+- opcionális szures `--campaign` vagy `--campaign-id` alapjan
+
+### `pause-campaigns` es `enable-campaigns`
+
+- kampanyszintu statuszmutacio
+- mukodik `--campaign-id` vagy `--campaign` szurovel
+- tamogatja a `--validate-only` modot
+- kontrollalt, szukitett irasi felulet operativ beavatkozashoz
+
+Peldak:
+
+```bash
+npm run ads:pause-campaigns -- --campaign-id 24021120680 --validate-only
+npm run ads:enable-campaigns -- --campaign "Dandelion - Medencés szállás - HU" --validate-only
+```
+
+### `keywords:audit`
+
+- kulcsszo-szintu audit JSON kimenettel
+- kampany, ad group, kulcsszo, match type, statusz
+- impressions, clicks, CTR, atlag CPC, koltes
+- konverziok, konverzios ertek
+- kapcsolt search terms lista es kampanyszintu negativ kulcsszavak
+
 ## Biztonsag
 
 - A `.secrets/` mappat tovabbra sem szabad commitolni.
@@ -171,12 +211,38 @@ Az utolso `N` nap kampanyszintu fo mutatoi:
 Ha ez a minimum workflow mar mukodik, a kovetkezo bovitmenyek eri meg:
 
 1. keresesi kifejezesek riport
-2. kulcsszo riport
+2. kulcsszo mutációs terv vagy CSV export
 3. asset / ad szintu riport
 4. heti automatikus Ads + GA4 osszefoglalo
 
+## Uj healthcheck reteg
+
+2026-07-13-tol van kulon kozos Google stack ellenorzes is:
+
+- `npm run google-stack:healthcheck`
+- `npm run google-stack:booking-chain`
+
+Mit nez:
+
+- Ads customer / campaign / conversion lathatosag
+- GA4 Ads linkek es key eventek
+- GTM account / container / workspace / tag / trigger lathatosag
+- booking meresi lanc jelei frontend, GTM, GA4 es Ads oldalon
+
+Ez nem valtoztat a fiókokon, csak auditjellegu ellenorzes.
+
+## Keyword Planner allapot frissites
+
+Fontos datumpontos megjegyzes:
+
+- 2026-07-10-en a dokumentalt blokkolo ok meg `DEVELOPER_TOKEN_NOT_APPROVED` es Explorer access / 403 volt.
+- 2026-07-13-an ujraellenorizve a Keyword Planner workflow mar `429 Resource has been exhausted` hibara futott.
+
+Ez azt jelenti, hogy a Keyword Planner oldal jelenleg tovabbra sem tekintheto stabilan hasznalhatonak, csak a hiba jellege valtozott a korabbi dokumentalt allapothoz kepest.
+
 ## Jelenlegi korlatok
 
-- A script jelenleg kampanyszintu riportot ad, nem ad group, keyword vagy search terms szintet.
+- A script mar ad kampany-, conversion-, search terms- es kulcsszo-szintu auditot is.
 - A script nem bizonyitja onmagaban, hogy a GTM-ben pontosan milyen Google Ads tag vagy trigger dolgozik.
-- A `dnd_booking_click` Ads oldali conversion action mar latszik, de a teljes booking-zaras ellenorzesehez tovabbi GA4/GTM validalas kell.
+- A `dnd_booking_click` Ads oldali conversion action mar latszik, es a GA4 oldalon mar a booking click es a booking confirmation is visszaolvashato.
+- A teljes booking-zaras technikai bizonyitasahoz viszont tovabbra is GTM vagy kulso booking oldali validalas kell.

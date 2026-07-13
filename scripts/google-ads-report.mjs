@@ -28,6 +28,12 @@ try {
     await listPerformance(args);
   } else if (args.command === "conversions") {
     await listConversions(args);
+  } else if (args.command === "search-terms") {
+    await listSearchTerms(args);
+  } else if (args.command === "pause-campaigns") {
+    await updateCampaignStatus(args, "PAUSED");
+  } else if (args.command === "enable-campaigns") {
+    await updateCampaignStatus(args, "ENABLED");
   } else {
     throw new Error(`Unknown command: ${args.command}`);
   }
@@ -47,6 +53,9 @@ Usage:
   node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] [--days 30] [--limit 50] [--format md|json|csv]
   node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] --start 2026-07-10 --end 2026-07-10 [--limit 50] [--format md|json|csv]
   node scripts/google-ads-report.mjs conversions --customer 1234567890 [--login 9988776655] [--limit 100] [--format md|json|csv]
+  node scripts/google-ads-report.mjs search-terms --customer 1234567890 [--login 9988776655] [--days 30] [--campaign "Campaign A"] [--campaign-id 123456789] [--limit 50] [--format md|json|csv]
+  node scripts/google-ads-report.mjs pause-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
+  node scripts/google-ads-report.mjs enable-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
 
 Required env:
   GOOGLE_ADS_DEVELOPER_TOKEN
@@ -62,6 +71,7 @@ Notes:
   - Use the 10-digit customer IDs without hyphens.
   - If you access a client account through a manager account, set --login or GOOGLE_ADS_LOGIN_CUSTOMER_ID.
   - auth uses OAuth user consent with the Google Ads scope.
+  - pause-campaigns and enable-campaigns require at least one --campaign-id or --campaign filter.
 `);
 }
 
@@ -99,7 +109,9 @@ function parseArgs(argv) {
     format: "md",
     tokenPath: process.env.GOOGLE_ADS_OAUTH_TOKEN_JSON || DEFAULT_OAUTH_TOKEN_PATH,
     customerId: process.env.GOOGLE_ADS_CUSTOMER_ID,
-    loginCustomerId: process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID
+    loginCustomerId: process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID,
+    campaigns: [],
+    campaignIds: []
   };
 
   if (parsed.command === "--help" || parsed.command === "-h") {
@@ -135,9 +147,17 @@ function parseArgs(argv) {
     } else if (arg === "--login") {
       parsed.loginCustomerId = next;
       index += 1;
+    } else if (arg === "--campaign") {
+      parsed.campaigns.push(next);
+      index += 1;
+    } else if (arg === "--campaign-id") {
+      parsed.campaignIds.push(next);
+      index += 1;
     } else if (arg === "--token") {
       parsed.tokenPath = next;
       index += 1;
+    } else if (arg === "--validate-only") {
+      parsed.validateOnly = true;
     } else {
       throw new Error(`Unknown option: ${arg}`);
     }
@@ -340,6 +360,19 @@ async function runSearch(args, gaql) {
   return result.results || [];
 }
 
+async function mutate(resourcePath, operations, args) {
+  const customerId = resolveTargetCustomerId(args);
+  return adsRequest(`customers/${customerId}/${resourcePath}:mutate`, {
+    method: "POST",
+    query: {
+      operations,
+      partialFailure: false,
+      validateOnly: Boolean(args.validateOnly)
+    },
+    args
+  });
+}
+
 async function checkAuth(args) {
   const customers = await fetchAccessibleCustomers(args);
   console.log("Google Ads OAuth and developer token look usable.");
@@ -519,6 +552,123 @@ async function listConversions(args) {
   ]);
 }
 
+async function listSearchTerms(args) {
+  const dateClause = resolvePerformanceDateClause(args);
+  const campaignFilter = buildCampaignFilter(args);
+  const whereParts = [dateClause];
+  if (campaignFilter) {
+    whereParts.push(campaignFilter);
+  }
+
+  const rows = await runSearch(args, `
+    SELECT
+      segments.date,
+      campaign.id,
+      campaign.name,
+      ad_group.id,
+      ad_group.name,
+      search_term_view.search_term,
+      metrics.impressions,
+      metrics.clicks,
+      metrics.ctr,
+      metrics.average_cpc,
+      metrics.cost_micros,
+      metrics.conversions,
+      metrics.conversions_value
+    FROM search_term_view
+    WHERE ${whereParts.join("\n      AND ")}
+    ORDER BY metrics.clicks DESC, metrics.cost_micros DESC, search_term_view.search_term
+    LIMIT ${resolveLimit(args.limit, 100)}
+  `);
+
+  const searchTerms = rows.map((row) => ({
+    date: row.segments?.date,
+    campaign_id: row.campaign?.id,
+    campaign_name: row.campaign?.name,
+    ad_group_id: row.adGroup?.id,
+    ad_group_name: row.adGroup?.name,
+    search_term: row.searchTermView?.searchTerm,
+    impressions: toNumber(row.metrics?.impressions),
+    clicks: toNumber(row.metrics?.clicks),
+    ctr: toPercent(row.metrics?.ctr),
+    average_cpc: microsToCurrency(row.metrics?.averageCpc),
+    cost: microsToCurrency(row.metrics?.costMicros),
+    conversions: toNumber(row.metrics?.conversions),
+    conversion_value: toNumber(row.metrics?.conversionsValue)
+  }));
+
+  printRows(searchTerms, args.format, [
+    ["date", "Date"],
+    ["campaign_name", "Campaign"],
+    ["ad_group_name", "Ad group"],
+    ["search_term", "Search term"],
+    ["cost", "Cost"],
+    ["impressions", "Impr."],
+    ["clicks", "Clicks"],
+    ["ctr", "CTR"],
+    ["average_cpc", "Avg CPC"],
+    ["conversions", "Conversions"],
+    ["conversion_value", "Conv. value"]
+  ]);
+}
+
+async function updateCampaignStatus(args, status) {
+  if (!args.campaignIds.length && !args.campaigns.length) {
+    throw new Error(`Provide at least one --campaign-id or --campaign for ${args.command}.`);
+  }
+
+  const rows = await runSearch(
+    args,
+    `
+      SELECT
+        campaign.id,
+        campaign.name,
+        campaign.status
+      FROM campaign
+      WHERE ${buildCampaignFilter(args)}
+      ORDER BY campaign.id
+      LIMIT ${resolveLimit(args.limit, 200)}
+    `
+  );
+
+  const campaigns = rows.map((row) => ({
+    id: row.campaign?.id,
+    name: row.campaign?.name,
+    previous_status: row.campaign?.status
+  }));
+
+  if (!campaigns.length) {
+    throw new Error("No campaigns matched the requested filter.");
+  }
+
+  const operations = campaigns.map((campaign) => ({
+    update: {
+      resourceName: buildCampaignResourceName(args, campaign.id),
+      status
+    },
+    updateMask: "status"
+  }));
+
+  const result = await mutate("campaigns", operations, args);
+  const payload = campaigns.map((campaign, index) => ({
+    id: campaign.id,
+    name: campaign.name,
+    previous_status: campaign.previous_status,
+    requested_status: status,
+    validate_only: Boolean(args.validateOnly),
+    result_resource_name: result.results?.[index]?.resourceName || buildCampaignResourceName(args, campaign.id)
+  }));
+
+  printRows(payload, args.format, [
+    ["id", "ID"],
+    ["name", "Name"],
+    ["previous_status", "Previous"],
+    ["requested_status", "Requested"],
+    ["validate_only", "Validate only"],
+    ["result_resource_name", "Resource"]
+  ]);
+}
+
 function resolveLimit(limit, fallback = 50) {
   const value = Number(limit);
   if (!Number.isInteger(value) || value < 1) {
@@ -550,14 +700,69 @@ function resolvePerformanceDateClause(args) {
     return `segments.date BETWEEN '${startDate}' AND '${endDate}'`;
   }
 
-  const days = resolveDays(args.days);
-  return `segments.date DURING LAST_${days}_DAYS`;
+  const { startDate, endDate } = resolveRelativeDateRange(resolveDays(args.days));
+  return `segments.date BETWEEN '${startDate}' AND '${endDate}'`;
 }
 
 function normalizeIsoDate(value, label) {
   const normalized = String(value || "").trim();
   if (!/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
     throw new Error(`${label} must be in YYYY-MM-DD format.`);
+  }
+  return normalized;
+}
+
+function resolveRelativeDateRange(days) {
+  const endDate = new Date();
+  const startDate = new Date(endDate);
+  startDate.setDate(startDate.getDate() - (days - 1));
+  return {
+    startDate: formatIsoDate(startDate),
+    endDate: formatIsoDate(endDate)
+  };
+}
+
+function formatIsoDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function buildCampaignFilter(args) {
+  const parts = [];
+
+  if (args.campaigns?.length) {
+    parts.push(`campaign.name IN (${args.campaigns.map((name) => `'${escapeGaqlString(name)}'`).join(", ")})`);
+  }
+
+  if (args.campaignIds?.length) {
+    parts.push(`campaign.id IN (${args.campaignIds.map((id) => normalizeDigits(id, "campaignId")).join(", ")})`);
+  }
+
+  if (!parts.length) {
+    return "";
+  }
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+
+  return `(${parts.join(" OR ")})`;
+}
+
+function buildCampaignResourceName(args, campaignId) {
+  return `customers/${resolveTargetCustomerId(args)}/campaigns/${normalizeDigits(campaignId, "campaignId")}`;
+}
+
+function escapeGaqlString(value) {
+  return String(value).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+}
+
+function normalizeDigits(value, label) {
+  const normalized = String(value || "").trim();
+  if (!/^\d+$/.test(normalized)) {
+    throw new Error(`${label} must be numeric.`);
   }
   return normalized;
 }

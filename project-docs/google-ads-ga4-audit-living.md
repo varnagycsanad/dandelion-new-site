@@ -1,7 +1,7 @@
 # Dandelion Google Ads + Konverziomeres Living Audit
 
 Status: ELO AUDIT, KEZZEL FRISSITHETO
-Last updated: 2026-07-10
+Last updated: 2026-07-13
 Tulajdonos: Codex + Dandelion csapat
 Cél: egy folyamatosan bovitheto, javithato allapotkep a Google Ads, GA4, konverziomeres, kulcsszavak es landing oldalak jelenlegi helyzeterol.
 
@@ -23,20 +23,23 @@ Felhasznalt forrasok:
 - Legutolso helyi GA4 event export: `data/geo/raw/ga4_events_2026-06-04.json`
 - Elozo belso jegyzetek: `project-docs/geo-reports/DANDELION_GEO_REPORT_2026-06-04.md`, `project-docs/GA4_CODEX_ANALYTICS.md`
 - 2026-07-10-en lefuttatott helyi Ads API ellenorzesek: `ads:check`, `ads:customers`, `ads:campaigns`, `ads:performance`, `ads:conversions`
+- 2026-07-13-an lefuttatott helyi Ads API ellenorzes: `ads:search-terms`
+- 2026-07-13-an lefuttatott helyi Ads API ellenorzesek: `ads:keywords:audit` a fo kampanyokra
 
 Fontos korlat:
 
 - A GTM container valos belso tag-, trigger- es conversion linker beallitasai nem latszanak a repositoryban.
-- A Google Ads API kapcsolat most mar elerheto ebben a workspace-ben, de a repo tovabbra sem tartalmaz GTM exportot, search terms riportot vagy teljes kulcsszo-szintu historikus exportot.
-- Emiatt a Google Ads oldalt mar nem vakon, hanem kampany- es conversion-szinten lehet auditálni, de a teljes melyseghez tovabbi feluleti exportok is kellenek.
+- A Google Ads API kapcsolat most mar elerheto ebben a workspace-ben, es mar van helyi search terms riport es kulcsszo-szintu audit is, de a repo tovabbra sem tartalmaz GTM exportot.
+- A GA4 Data API friss visszaolvasasa 2026-07-13-an mar sikerult, de a `dnd_booking_confirmation` forrasoldali bekotese tovabbra sem latszik helyi kodbol.
+- Emiatt a Google Ads oldalt mar nem vakon, hanem kampany-, conversion-, search terms- es kulcsszo-szinten lehet auditálni, a booking completion lanc pedig nagysagrendekkel jobban igazolt, de a teljes GTM-melyseghez tovabbi feluleti exportok is kellenek.
 
 ## 2. Vezetoi osszkep
 
 A weboldal oldalarol nezve a Google/GTM meresi alapok reszben rendben vannak: a GTM container betolt, a Consent Mode v2 default `denied` allapotban indul, a foglalasi linkek megorzik a `gclid` es UTM parametereket, es a site kulon dataLayer esemenyeket kuld a booking, telefon, email, WhatsApp es kapcsolat jellegu kattintasokrol.
 
-A fo problema nem az, hogy nincs meresi gondolkodas, hanem az, hogy jelenleg nincs bizonyitottan stabil, friss es teljes adatvisszaolvasas. A GA4 friss lekerese most nem mukodott: az OAuth token hibara futott, a service account pedig 403 jogosultsagi hibat adott. Ez azt jelenti, hogy a meres technikailag reszben elo van keszitve, de az ellenorzeshez es riportolashoz szukseges hozzaferesi lanc jelenleg nincs rendben.
+A fo problema mar nem az, hogy nincs adatvisszaolvasas, hanem az, hogy a meresi lanc egyes reszei nem egyforman atlathatoak. A GA4 friss lekerese 2026-07-13-an mar sikerult, es a kulcs bookinghoz kotheto esemenyek is latszanak. A bizonytalansag most inkabb ott maradt meg, hogy a booking completion pontos technikai bekotese nem latszik a repositoryban, igy a teljes zaras tovabbra sem csak kodszinten bizonyithato.
 
-Google Ads oldalrol a helyzet jobb lett: a helyi Ads API workflow mukodik, a customer lista, a kampanyok, a kampanyteljesitmeny es a conversion actionok is lekerdezhetok. Ettol fuggetlenul tovabbra sincs helyi search terms export, teljes kulcsszo-szintu riport vagy GTM-bol kozvetlen bizonyitek az osszes tag-hozzarendelesrol. Ezert a Google Ads oldal mar reszben bizonyithato, de meg nem teljesen zarhato le.
+Google Ads oldalrol a helyzet szinten jobb lett: a helyi Ads API workflow mukodik, a customer lista, a kampanyok, a kampanyteljesitmeny, a conversion actionok, a search term adatok es a kulcsszo-szintu audit is lekerdezheto. A GA4 Admin API oldalon az Ads-link is latszik, es a booking click conversion action aktiv fo konverziokent jelenik meg. Ettol fuggetlenul tovabbra sincs GTM-bol kozvetlen bizonyitek az osszes tag-hozzarendelesrol. Ezert a Google Ads oldal mar joval jobban bizonyithato, de meg nem teljesen zarhato le.
 
 ## 3. Mi latszik biztosan a jelenlegi meresi beallitasokbol
 
@@ -121,40 +124,28 @@ Ez azert fontos, mert ha Google Ads indul vagy fut, jo esely van ra, hogy ezekre
 
 ## 5. Mi nem igazolt vagy nem mukodik rendesen
 
-### 5.1 Friss GA4 adatvisszaolvasas jelenleg hibas
+### 5.1 A booking completion lanc mar reszben igazolt, de nem teljesen atlathato
 
-A mostani ellenorzes soran:
+A 2026-07-13-an futtatott helyi ellenorzesek alapjan mar bizonyithato:
 
-- a GA4 OAuth token frissites `400 Bad Request` hibara futott,
-- a service account fallback `403 insufficient permissions` hibat adott.
+- a site kuldi a `dnd_booking_click` esemenyt,
+- a booking linkek atviszik a `gclid`, `gbraid`, `wbraid`, `gad_source` es UTM parametereket,
+- a GA4 key event listaban szerepel a `dnd_booking_click` es a `dnd_booking_confirmation`,
+- a friss GA4 event lekerdezesben latszik `dnd_booking_click = 99` es `dnd_booking_confirmation = 7` a 2026-06-13 - 2026-07-12 idoszakban,
+- a GA4 property ossze van kotve a `8709363152` Google Ads fiokkal,
+- az Ads-ben a `Dandelion - GA4 (web) dnd_booking_click` aktiv, primary es benne van a conversions metricben.
+
+Ez mar egy valos, tobb ponton igazolt booking intent / booking completion lancot mutat.
+
+Ami tovabbra sem latszik teljes bizonyossaggal:
+
+- a `dnd_booking_confirmation` pontos technikai forrasa nincs jelen a repo kodjaban,
+- emiatt nem bizonyithato csak helyi kodolvasasbol, hogy GTM-ben, kulso booking folyamatban vagy mas integracios ponton zarul a confirmation.
 
 Kovetkezmeny:
 
-- a jelenlegi GA4 riport workflow nem stabil,
-- nincs friss, bizonyithato, 2026-07-10 koruli GA4 snapshot,
-- a living riport jelenleg a 2026-06-04-es GA4 raw fajlra kenytelen tamaszkodni.
-
-Ez jelenleg P1-es meresi problema.
-
-### 5.2 A sajat konverzios esemenyek nincsenek bizonyitva GA4 oldalon
-
-A helyi GA4 event raw fajlban csak ez az 5 esemeny latszik:
-
-- `page_view`
-- `user_engagement`
-- `session_start`
-- `first_visit`
-- `ads_conversion_El_fizet_s_1`
-
-Nem latszik benne:
-
-- `dnd_booking_click`
-- `dnd_phone_click`
-- `dnd_email_click`
-- `dnd_contact_click`
-- `dnd_pool_cta_click`
-
-Ez nem bizonyitja onmagaban, hogy nem mukodnek, de jelen allapotban nincs ra bizonyitek, hogy tenylegesen beernek GA4-be es konverziokent jol vannak-e kezelve.
+- a meresi lanc mar nem vakfolt,
+- de a vegso technikai zarast tovabbra is GTM vagy kulso booking oldali ellenorzessel kell lezarni.
 
 ### 5.3 Google Ads oldal reszben mar auditálhato, de nem teljes melysegben
 
@@ -169,15 +160,13 @@ Biztosan latszik:
 
 Jelenlegi hianyok:
 
-- nincs kulcsszoexport,
-- nincs search terms export,
 - nincs bizonyithato `AW-` azonosito a kodban,
 - a GTM container tenyleges Google Ads tagjei nem latszanak a repo-bol.
 
 Kovetkezmeny:
 
-- a jelenlegi Google Ads kampanyokrol mar allithato, hogy futnak-e, mennyit koltenek es milyen conversion actionok vannak bekotve,
-- de kulcsszo- es search terms-szinten meg nem teljes a lathatosag.
+- a jelenlegi Google Ads kampanyokrol mar allithato, hogy futnak-e, mennyit koltenek, milyen conversion actionok vannak bekotve, milyen kulcsszavak mennek, es milyen keresesi kifejezesek jonnek vissza,
+- de a GTM-hez kotott vegso meresi bizonyitas tovabbra sem teljes.
 
 ## 6. Jelenlegi Google Ads allapot roviden
 
@@ -188,13 +177,14 @@ Kovetkezmeny:
 | Latszik GTM/Google meresi elokeszites a site-ban? | Igen |
 | Latszik Google Ads specifikus kattintas-attribucio? | Igen, `gclid` es UTM megörzes szintjen |
 | Latszik jelenlegi Google Ads kampanylista a helyi API-bol? | Igen |
-| Latszik jelenlegi Google Ads kulcsszolista a repo-bol vagy API-bol? | Jelenleg nem |
+| Latszik jelenlegi Google Ads search terms lista a helyi API-bol? | Igen |
+| Latszik jelenlegi Google Ads kulcsszolista a repo-bol vagy API-bol? | Igen |
 | Latszik bizonyitott Google Ads konverziobeallitas a feluletrol vagy API-bol? | Igen, reszben |
-| Latszik bizonyitott GA4 oldali sajat konverzio? | Jelenleg nem |
+| Latszik bizonyitott GA4 oldali sajat konverzio? | Igen, a booking click es a booking confirmation szintjen |
 
 ### 6.2 Jelenlegi kovetkeztetes
 
-A weboldal technikailag el van kezdve ugy felepulni, hogy Google Ads es GA4 kampanymeresre alkalmas legyen. A Google Ads oldal mar nem teljesen vak: vannak bizonyitottan futtathato API-lekerdezesek, latszanak aktiv kampanyok es latszik legalabb egy aktiv `dnd_booking_click` alapu conversion action is. A teljesen zarodo meresi lanc viszont tovabbra sincs teljesen igazolva, foleg a GA4 es GTM ellenorzesek hianya miatt.
+A weboldal technikailag el van kezdve ugy felepulni, hogy Google Ads es GA4 kampanymeresre alkalmas legyen. A Google Ads oldal mar nem teljesen vak: vannak bizonyitottan futtathato API-lekerdezesek, latszanak aktiv kampanyok, search termek, kulcsszo-adatok, es latszik aktiv `dnd_booking_click` alapu conversion action is. A booking completion lanc mar nagyreszt igazolt, de a teljes technikai zaras tovabbra sem teljes, mert a confirmation forraspontja nincs helyi kodbol egyertelmuen bizonyitva.
 
 ## 7. Search Console alapjan lathato keresleti kep
 
@@ -256,38 +246,34 @@ Ez nem Google Ads export, de jelenleg ez a legjobb helyi jel arra, milyen keresl
 
 ## 9. GA4 snapshot: mit latunk es mit nem
 
-### 9.1 Elérhető GA4 snapshot
+### 9.1 Friss GA4 event-kep
 
-Megjegyzes: ez a resz NEM friss, hanem a 2026-06-04-es utolso helyi raw fajlra epul.
+A 2026-07-13-an futtatott `ga4:events` lekerdezes a 2026-06-13 - 2026-07-12 idoszakra mar friss event-kepet adott.
 
-Top oldalak active users alapjan:
+Legfontosabb esemenyek:
 
-| Oldal | Aktiv felhasznalo | Session | Page view | Event count |
-|---|---:|---:|---:|---:|
-| `/` | 68 | 86 | 114 | 348 |
-| `/szepvolgyi/` | 11 | 12 | 14 | 42 |
-| `/dandelion-d2/` | 10 | 12 | 15 | 35 |
-| `/szallasok/` | 8 | 9 | 11 | 30 |
-| `/dandelion-koveskal/` | 6 | 6 | 13 | 30 |
-| `/fuge/` | 4 | 5 | 6 | 18 |
-| `/szololiget/` | 4 | 5 | 5 | 17 |
-| `/royal/` | 3 | 5 | 7 | 25 |
+| Esemeny | Event count | Active users | Megjegyzes |
+|---|---:|---:|---|
+| `dnd_booking_click` | 99 | 89 | Bizonyitott booking intent esemeny |
+| `dnd_pool_cta_click` | 73 | - | Mikro-konverzios jel |
+| `dnd_booking_confirmation` | 7 | 5 | Booking completion jellegu esemeny |
+| `dnd_contact_click` | 4 | - | Alacsony volumen, de latszik |
+| `ads_conversion_El_fizet_s_1` | 3 | - | Tovabbra is tisztazando jelentessel |
 
-### 9.2 Mit nem latunk
+### 9.2 Mit nem latunk teljes bizonyossaggal
 
-- friss GA4 adatot,
-- forras/medium bontast a mostani auditban,
-- bizonyitott `dnd_booking_click` beerkezest,
-- bizonyitott Google Ads -> GA4 konverzios zarast,
-- egyertelmu booking vagy lead konverziot.
+- forras/medium bontast ebben a mostani auditkorben,
+- a `dnd_booking_confirmation` pontos bekotesi pontjat helyi kodszinten,
+- a teljes GTM tag-trigger hozzarendelest export vagy feluleti ellenorzes nelkul.
 
-### 9.3 Kulon figyelendo esemeny
+### 9.3 Kulon figyelendo esemenyek
 
-Az egyetlen konverzio-szeru esemény a raw exportban:
+Mar nem csak egyetlen konverzio-szeru jel latszik, hanem legalabb ket fontos sajat esemeny is:
 
-- `ads_conversion_El_fizet_s_1` = 7
+- `dnd_booking_click`
+- `dnd_booking_confirmation`
 
-Ennek jelentese jelenleg tisztazatlan. Nem nevezheto felelosen bookingnak vagy leadnek addig, amig a GTM/GA4 oldali nev-es hozzarendeles nincs ellenorizve.
+Az `ads_conversion_El_fizet_s_1` jelentese tovabbra is tisztazatlan. Ezert ezt meg mindig nem szabad automatikusan bookingnak nevezni.
 
 ## 10. Jelenlegi Google Ads kampanyok
 
@@ -449,7 +435,7 @@ Megjegyzes:
 
 ### 12.3 Elso negativ kulcsszo-gondolkodas
 
-Ezt tenyleges Search Terms export nelkul csak ovatosan lehet javasolni. Első jelölt figyelési csoportok:
+Ezt tovabbra is ovatosan kell kezelni, de a helyi Search Terms riport es a kulcsszo-audit mar ad hozza alapot. Első jelölt figyelési csoportok:
 
 - tul altalanos strandos keresések,
 - tisztan turisztikai info intent, ha nem visz bookinghoz,
@@ -464,7 +450,7 @@ Ezt tenyleges Search Terms export nelkul csak ovatosan lehet javasolni. Első je
 | Meresi architektura | Van logika, nem nullarol indul a rendszer. |
 | GTM + Consent | Modern, jo alap. |
 | Booking attribucio | Kifejezetten eros, hasznos megoldas. |
-| Google Ads API lathatosag | Mar mukodik customer, campaign, performance es conversion szinten. |
+| Google Ads API lathatosag | Mar mukodik customer, campaign, performance, conversion, search terms es keyword audit szinten. |
 | Organikus keresleti jelek | Vilagosan latszanak, jo kampanyalapot adnak. |
 | Brand kereses | Jelenleg a legerosebb. |
 
@@ -475,7 +461,7 @@ Ezt tenyleges Search Terms export nelkul csak ovatosan lehet javasolni. Első je
 | Friss GA4 visszaolvasas | Most hibas. |
 | GA4 jogosultsagi lanc | Nem stabil. |
 | Sajat konverzios esemenyek bizonyitasa | Jelenleg nincs meg. |
-| Google Ads kulcsszo- es search terms-atlathatosag | Jelenleg nincs helyi keyword/search terms export. |
+| Google Ads kulcsszo-atlathatosag | A helyi kulcsszo-audit mar mukodik. |
 | Domain-konszolidacio | `http` es `www` variansok kulon latszanak. |
 | Néhány nagy lathatosagu landing CTR-je | Gyenge. |
 
@@ -515,26 +501,29 @@ Ahhoz, hogy a kovetkezo verzio mar tenyleg teljes Google Ads audit legyen, ezek 
    - Google Ads conversion tag
    - conversion linker
    - trigger hozzarendelesek
+   - booking confirmationhoz kotott tag vagy trigger
 4. Friss GA4 event export
    - kulon szurten a `dnd_*` esemenyekre
+   - lehetoseg szerint forras/medium es campaign bontassal
 
 ## 16. Kovetkezo dokumentumfrissiteshez checklista
 
-- [ ] Friss GA4 fetch sikerult
+- [x] Friss GA4 fetch sikerult
 - [ ] Friss GSC fetch sikerult
 - [x] Google Ads kampanylista bekerult
 - [x] Conversion actions bekerultek
-- [ ] `dnd_booking_click` bizonyitottan latszik GA4-ben
+- [x] `dnd_booking_click` bizonyitottan latszik GA4-ben
+- [x] `dnd_booking_confirmation` bizonyitottan latszik GA4-ben
 - [x] `dnd_booking_click` bizonyitottan latszik Ads-ben conversion action szinten
 - [ ] `szallasok/` landing felulvizsgalva
 - [ ] `royal/` landing felulvizsgalva
 
 ## 17. Gyors kovetkeztetes
 
-Jelen allapotban nem az a fo problema, hogy nincs mire epiteni, hanem az, hogy a meres es az Ads-athatolhatosag felepitese egyenetlenul keszult el. A site oldali alapok biztatoak, a keresleti jelek jok, es a Google Ads API oldal mar hasznalhato. A fo bizonytalansag most inkabb a GA4/GTM zarasban, valamint a keyword- es search terms-szintu lathatosagban van.
+Jelen allapotban nem az a fo problema, hogy nincs mire epiteni, hanem az, hogy a meres es az Ads-athatolhatosag felepitese egyenetlenul keszult el. A site oldali alapok biztatoak, a keresleti jelek jok, a Google Ads API oldal hasznalhato, es a GA4-ben mar tenyszeruen latszik a booking click es booking confirmation is. A fo bizonytalansag most mar szukebben a GTM / kulso booking oldali vegso zaras technikai bizonyitasaban van.
 
 Ezert a helyes sorrend:
 
-1. meresi lanc helyreallitas,
-2. GA4/GTM oldali conversion-ellenorzes lezárasa,
+1. GTM vagy kulso booking oldali confirmation-bekotes ellenorzese,
+2. GA4/GTM oldali conversion-ellenorzes vegso lezárasa,
 3. utana Search kampanystrukturak tudatos ujraepitese a brand + Kisapati + Royal Homes + Káli-medence tengelyen.
