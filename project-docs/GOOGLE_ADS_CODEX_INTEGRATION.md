@@ -31,11 +31,31 @@ Elso koros parancsok:
 - `npm run ads:performance`
 - `npm run ads:conversions`
 - `npm run ads:search-terms`
+- `npm run ads:budgets`
+- `npm run ads:ad-groups`
+- `npm run ads:create-ad-group`
+- `npm run ads:update-ad-groups`
+- `npm run ads:rsa-ads`
+- `npm run ads:create-rsa-ad`
+- `npm run ads:update-rsa-ads`
+- `npm run ads:targets`
+- `npm run ads:lookup-locations`
+- `npm run ads:lookup-languages`
+- `npm run ads:add-location-targets`
+- `npm run ads:remove-location-targets`
+- `npm run ads:add-language-targets`
+- `npm run ads:remove-language-targets`
+- `npm run ads:update-geo-target-type`
+- `npm run ads:export-campaign-state`
+- `npm run ads:apply-campaign-change-set`
 - `npm run ads:pause-campaigns`
 - `npm run ads:enable-campaigns`
+- `npm run ads:update-budgets`
 - `npm run ads:keywords:audit`
 - `npm run google-stack:healthcheck`
 - `npm run google-stack:booking-chain`
+- `npm run google-stack:weekly-report`
+- `npm run google-stack:snapshot`
 
 ## Miert nem volt eddig
 
@@ -191,6 +211,166 @@ npm run ads:pause-campaigns -- --campaign-id 24021120680 --validate-only
 npm run ads:enable-campaigns -- --campaign "Dandelion - Medencés szállás - HU" --validate-only
 ```
 
+### `budgets`
+
+- kampanyhoz kotott budget lista
+- latszik a campaign budget ID, budget nev es aktualis osszeg
+- szurheto `--campaign-id`, `--campaign` vagy `--campaign-budget-id` alapon
+
+### `update-budgets`
+
+- kampanybudget osszeg modositas
+- mukodik `--campaign-budget-id` vagy kampanyszuro alapon
+- tamogatja a `--amount` es `--amount-micros` formatumot
+- tamogatja a `--validate-only` modot
+
+Peldak:
+
+```bash
+npm run ads:budgets -- --campaign "Dandelion - Medencés szállás - HU"
+npm run ads:update-budgets -- --campaign-budget-id 15617288769 --amount 3500 --validate-only
+```
+
+### `ad-groups`
+
+- hirdetéscsoport lista kampanyon belul
+- latszik az ad group ID, nev, statusz, tipus es CPC licit
+- szurheto `--campaign-id`, `--campaign`, `--ad-group-id` vagy `--ad-group-name` alapon
+
+### `create-ad-group`
+
+- uj hirdetéscsoport letrehozasa egyetlen kampanyon belul
+- kotelezo a celkampany es az `--ad-group-name`
+- opcionális `--status`, `--type`, `--cpc-bid`, `--cpc-bid-micros`
+- tamogatja a `--validate-only` modot
+
+### `update-ad-groups`
+
+- meglevo hirdetéscsoport frissitese
+- tamogatott mezok:
+  - uj nev
+  - statusz
+  - CPC licit
+- tamogatja a `--validate-only` modot
+
+Peldak:
+
+```bash
+npm run ads:ad-groups -- --campaign "Dandelion - Medencés szállás - HU"
+npm run ads:create-ad-group -- --campaign "Dandelion - Medencés szállás - HU" --ad-group-name "Teszt csoport" --validate-only
+npm run ads:update-ad-groups -- --ad-group-id 198423090433 --status PAUSED --validate-only
+```
+
+### `rsa-ads`
+
+- responsive search hirdetes lista
+- latszik a hirdetes ID, statusz, final URL, headline es description darabszam
+- szurheto kampany, ad group vagy ad ID alapjan
+
+### `create-rsa-ad`
+
+- uj responsive search hirdetes letrehozasa egyetlen ad groupon belul
+- kotelezo:
+  - egyedi ad group cel
+  - `--final-url`
+  - legalabb 3 `--headline`
+  - legalabb 2 `--description`
+- opcionális:
+  - `--path1`
+  - `--path2`
+  - `--status`
+- tamogatja a `--validate-only` modot
+
+### `update-rsa-ads`
+
+- meglevo responsive search hirdetes frissitese
+- tamogatott mezok:
+  - statusz
+  - final URL
+  - path1 / path2
+  - headline lista
+  - description lista
+- tartalmi frissites csak egyedi hirdetescelen engedelyezett
+- tamogatja a `--validate-only` modot
+
+Peldak:
+
+```bash
+npm run ads:rsa-ads -- --ad-group-id 195476876062
+npm run ads:create-rsa-ad -- --ad-group-id 195476876062 --final-url https://dandelionhouse.hu/kisapati-medences-szallas/ --headline "Medencés szállás Kisapátiban" --headline "Panorama Pool élmény" --headline "Foglalj közvetlenül" --description "Panorámás medencés pihenés a Balaton-felvidéken." --description "Nézd meg a Dandelion medencés szállásait." --validate-only
+npm run ads:update-rsa-ads -- --ad-group-id 195476876062 --ad-id 752236024922 --status PAUSED --validate-only
+```
+
+### `targets`
+
+- kampanyszintu location / language criteria lista
+- latszik a pozitiv es negativ geo target setting is
+
+### `lookup-locations`
+
+- geo target constant kereso
+- mukodik `--location-name` vagy `--location-resource` alapon
+
+### `lookup-languages`
+
+- language constant kereso
+- mukodik `--language-name`, `--language-code` vagy `--language-resource` alapon
+
+### `add-location-targets` es `remove-location-targets`
+
+- location target hozzaadasa vagy eltavolitasa egyedi kampanyon
+- csak explicit `geoTargetConstants/...` eroforrasokkal dolgozik
+- tamogatja a `--validate-only` modot
+
+### `add-language-targets` es `remove-language-targets`
+
+- language target hozzaadasa vagy eltavolitasa egyedi kampanyon
+- csak explicit `languageConstants/...` eroforrasokkal dolgozik
+- tamogatja a `--validate-only` modot
+
+### `update-geo-target-type`
+
+- kampanyszintu geo target behavior modositas
+- tamogatott ertekek:
+  - `PRESENCE`
+  - `PRESENCE_OR_INTEREST`
+  - `SEARCH_INTEREST`
+- tamogatja a `--validate-only` modot
+
+### `export-campaign-state`
+
+- strukturalt JSON snapshot egy vagy tobb kampany kampanyszintu allapotarol
+- tartalmazza:
+  - statusz
+  - budget
+  - geo target setting
+  - location/language criteria
+  - ad groupok
+  - RSA hirdetesek
+
+### `apply-campaign-change-set`
+
+- strukturalt JSON valtozaslista futtatasa
+- jelenleg tamogatott muveletek:
+  - kampany pause / enable
+  - budget update
+  - location target add / remove
+  - language target add / remove
+  - geo target type update
+- tamogatja a `--validate-only` modot
+
+Peldak:
+
+```bash
+npm run ads:targets -- --campaign "Dandelion - Medencés szállás - HU"
+npm run ads:lookup-locations -- --location-name Budapest
+npm run ads:lookup-languages -- --language-name Hungarian
+npm run ads:add-location-targets -- --campaign "Dandelion - Medencés szállás - HU" --location-resource geoTargetConstants/1007633 --validate-only
+npm run ads:update-geo-target-type -- --campaign "Dandelion - Medencés szállás - HU" --positive-geo-target-type PRESENCE_OR_INTEREST --validate-only
+npm run ads:export-campaign-state -- --campaign "Dandelion - Medencés szállás - HU" --output tmp/campaign-state-medences.json
+npm run ads:apply-campaign-change-set -- --input tmp/campaign-change-set-test.json --validate-only
+```
+
 ### `keywords:audit`
 
 - kulcsszo-szintu audit JSON kimenettel
@@ -221,6 +401,8 @@ Ha ez a minimum workflow mar mukodik, a kovetkezo bovitmenyek eri meg:
 
 - `npm run google-stack:healthcheck`
 - `npm run google-stack:booking-chain`
+- `npm run google-stack:weekly-report`
+- `npm run google-stack:snapshot`
 
 Mit nez:
 
@@ -228,6 +410,8 @@ Mit nez:
 - GA4 Ads linkek es key eventek
 - GTM account / container / workspace / tag / trigger lathatosag
 - booking meresi lanc jelei frontend, GTM, GA4 es Ads oldalon
+- heti, olvashato operations osszefoglalot
+- szabvanyos JSON snapshotokat a kritikus feluletekrol
 
 Ez nem valtoztat a fiókokon, csak auditjellegu ellenorzes.
 
@@ -246,3 +430,13 @@ Ez azt jelenti, hogy a Keyword Planner oldal jelenleg tovabbra sem tekintheto st
 - A script nem bizonyitja onmagaban, hogy a GTM-ben pontosan milyen Google Ads tag vagy trigger dolgozik.
 - A `dnd_booking_click` Ads oldali conversion action mar latszik, es a GA4 oldalon mar a booking click es a booking confirmation is visszaolvashato.
 - A teljes booking-zaras technikai bizonyitasahoz viszont tovabbra is GTM vagy kulso booking oldali validalas kell.
+
+## Google Ads conversion tag pontositas
+
+- 2026-07-13-i ujraellenorzes alapjan a jelenlegi setupban nincs kulon, explicit `AW-` alapu GTM Ads conversion tag.
+- Ettol meg a Google Ads konverzios meres mukodik, mert a bizonyitott lanc most:
+  - GTM GA4 event tag
+  - GA4 key event
+  - GA4 <-> Google Ads link
+  - Ads-ben lathato importalt conversion action
+- Emiatt a healthcheck mar nem hibakent kezeli a kulon AW-tag hianyat, ha a teljes GA4 importos Ads-konverzios ut igazolt.

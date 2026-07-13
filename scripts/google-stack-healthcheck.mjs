@@ -392,6 +392,13 @@ function buildBookingChainSummary({ frontendFilePath, adsConversions, ga4AdsLink
   const tagRows = gtm.tag_rows || [];
   const triggerRows = gtm.trigger_rows || [];
   const tagDetails = gtm.tag_details.rows || [];
+  const hasDirectAdsTag = tagDetails.some(isDirectGoogleAdsTag);
+  const hasImportedGa4AdsConversionPath = hasWorkingGa4ImportChain({
+    adsConversions,
+    ga4AdsLinks,
+    ga4KeyEvents,
+    tagRows
+  });
 
   const checks = [
     {
@@ -458,9 +465,12 @@ function buildBookingChainSummary({ frontendFilePath, adsConversions, ga4AdsLink
     },
     {
       key: "gtm_direct_ads_conversion_tag",
-      label: "Direct Google Ads conversion tag in GTM",
-      ok: tagDetails.some(isDirectGoogleAdsTag),
-      evidence: findDirectAdsTagEvidence(tagDetails) || "No explicit direct Ads conversion tag detected in GTM."
+      label: "Google Ads conversion path verified",
+      ok: hasDirectAdsTag || hasImportedGa4AdsConversionPath,
+      evidence:
+        findDirectAdsTagEvidence(tagDetails) ||
+        findGa4ImportEvidence({ adsConversions, ga4AdsLinks, ga4KeyEvents, tagRows }) ||
+        "No explicit direct Ads tag or verified GA4 import chain detected."
     }
   ];
 
@@ -509,6 +519,51 @@ function findFirstEvidence(rows, needle) {
 function findDirectAdsTagEvidence(tagDetails) {
   const match = tagDetails.find(isDirectGoogleAdsTag);
   return match?.name || "";
+}
+
+function hasWorkingGa4ImportChain({ adsConversions, ga4AdsLinks, ga4KeyEvents, tagRows }) {
+  const hasAdsLink = ga4AdsLinks.length > 0;
+  const hasGa4BookingClickEvent = ga4KeyEvents.some((row) => row.eventName === "dnd_booking_click");
+  const hasGa4BookingConfirmationEvent = ga4KeyEvents.some((row) => row.eventName === "dnd_booking_confirmation");
+  const hasImportedBookingClickConversion = adsConversions.some(
+    (row) => includesNormalized(row.name, "dnd_booking_click") && String(row.type || "").startsWith("GOOGLE_ANALYTICS_4")
+  );
+  const hasImportedBookingConfirmationConversion = adsConversions.some(
+    (row) =>
+      includesNormalized(row.name, "dnd_booking_confirmation") &&
+      String(row.type || "").startsWith("GOOGLE_ANALYTICS_4")
+  );
+  const hasGtmBookingClickTag = tagRows.some((row) => includesNormalized(row.name, "dnd_booking_click"));
+  const hasGtmBookingConfirmationTag = tagRows.some((row) => includesNormalized(row.name, "dnd_booking_confirmation"));
+
+  return (
+    hasAdsLink &&
+    hasGa4BookingClickEvent &&
+    hasGa4BookingConfirmationEvent &&
+    hasImportedBookingClickConversion &&
+    hasImportedBookingConfirmationConversion &&
+    hasGtmBookingClickTag &&
+    hasGtmBookingConfirmationTag
+  );
+}
+
+function findGa4ImportEvidence({ adsConversions, ga4AdsLinks, ga4KeyEvents, tagRows }) {
+  if (!hasWorkingGa4ImportChain({ adsConversions, ga4AdsLinks, ga4KeyEvents, tagRows })) {
+    return "";
+  }
+
+  const linkedCustomerIds = ga4AdsLinks.map((row) => row.customerId).filter(Boolean).join(", ");
+  const importedConversions = adsConversions
+    .filter(
+      (row) =>
+        (includesNormalized(row.name, "dnd_booking_click") || includesNormalized(row.name, "dnd_booking_confirmation")) &&
+        String(row.type || "").startsWith("GOOGLE_ANALYTICS_4")
+    )
+    .map((row) => row.name)
+    .filter(Boolean)
+    .join(" + ");
+
+  return `GA4 import chain active (${linkedCustomerIds}; ${importedConversions})`;
 }
 
 function buildResultSummary(result, summarize) {

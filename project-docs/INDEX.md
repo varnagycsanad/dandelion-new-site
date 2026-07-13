@@ -1,7 +1,7 @@
 # Dandelion Project Docs Index
 
 Status: AKTUALIS
-Last checked: 2026-06-03
+Last checked: 2026-07-13
 Use for: dokumentacio navigacio, source-of-truth gyors eligazodas, regi auditok ertelmezese
 
 ## Cel
@@ -52,13 +52,16 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 5. `project-docs/ELO_FELADATLISTA.md`
    - egyetlen elo feladatlista; a regi auditok feladatai csak akkor aktivak, ha itt is szerepelnek
 
-6. `project-docs/md-file-audit-2026-06-02.md`
+6. `project-docs/GOOGLE_STACK_DAILY_OPERATIONS.md`
+   - Google Ads + GTM + GA4 napi uzemeltetesi gyujtodoksi
+
+7. `project-docs/md-file-audit-2026-06-02.md`
    - legfrissebb MD audit, elavult doksik es frissitendo pontok
 
-7. `project-docs/DANDELION_TRANSLATION_RULES.md`
+8. `project-docs/DANDELION_TRANSLATION_RULES.md`
    - forditasi, lokalizacios es nyelvi szabalyok
 
-8. `project-docs/12-astro-only-kepkezelesi-javitasi-terv.md`
+9. `project-docs/12-astro-only-kepkezelesi-javitasi-terv.md`
    - kepkezeles celarchitektura, de csak a 2026-06-02-es statuszfrissitessel egyutt olvasva
 
 ## Aktualis auditok es allapotfajlok
@@ -75,6 +78,9 @@ Ezek friss vagy meg hasznalhato allapotjelentesek, de mindig ellenorizni kell a 
 - `project-docs/character-encoding-audit-and-rules-2026-05-25.md`
 - `project-docs/archive/localization/german-umlaut-audit-2026-05-25.md`
 - `project-docs/typography-size-audit-2026-05-18.md`
+- `project-docs/google-ads-codex-tooling-audit-2026-07-13.md`
+- `project-docs/GOOGLE_ADS_CODEX_INTEGRATION.md`
+- `project-docs/GOOGLE_STACK_DAILY_OPERATIONS.md`
 
 Fontos: ha egy audit elejen `Statuszfrissites` vagy `Status update` van, az felulirja a regebbi megallapitasokat.
 
@@ -162,12 +168,14 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 ## Marketing / Ads / Analytics
 
 - `project-docs/META_ADS_CODEX_INTEGRATION.md`
+- `project-docs/META_PAGE_POSTING_CODEX_INTEGRATION.md`
+- `project-docs/meta-codex-kezelhetosegi-audit-2026-07-13.md`
 - `project-docs/GA4_CODEX_ANALYTICS.md`
 - `project-docs/DANDELION_GEO_API_SETUP.md`
 - `project-docs/DANDELION_GEO_AGENT_SPEC.md`
 - `project-docs/newsletter-production-runbook.md`
 
-Megjegyzes: a Meta Ads dokumentum jelenleg kampanyinditas elotti technikai elokeszites. Nem heti riportolasi source of truth, amig nincs aktiv Facebook kampany.
+Megjegyzes: a Meta dokumentacioban most mar benne van a hirdeteskezeles, a Pixel/GTM validacio es a Facebook-oldal posztolasi workflow is. Eles oldalposzt API-hoz jelenleg meg a `pages_manage_posts` a fo nyitott jogosultsag.
 
 ## Egyeb specialis doksik
 
