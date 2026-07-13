@@ -137,10 +137,10 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ### P2-0 - Meta Ads elso kampany elokeszitese
 
-- Statusz: elokeszitve, kampany meg nem fut
-- Forras: `META_ADS_CODEX_INTEGRATION.md`
-- Mi a gond: a Meta Marketing API kapcsolat mukodik es a Dandelion Vendeghaz hirdetesi fiok lathato, de uj Facebook kampany meg nincs elinditva. Ezert most nincs mit heti riportolasi mezokkel dokumentalni.
-- Kovetkezo konkret lepes: elso Facebook kampanyterv keszitese celzassal, kreativ iranyokkal, budgettel es landing oldalakkal; kampany letrehozasa csak kulon jovahagyas utan, `PAUSED` allapotban.
+- Statusz: nagyrészt teljesult, kampany fut, opcionális elo smoke teszt maradt
+- Forras: `META_ADS_CODEX_INTEGRATION.md`, `d2-last-minute-kampany-plan-2026-07-11.md`
+- Mi a helyzet: a Meta Marketing API kapcsolat mukodik, a Dandelion Vendeghaz hirdetesi fiok lathato, a kampany/ad set/ad/creative tooling kibovult, a Pixel ID (`489282852211205`) es a GTM container (`GTM-P75FHKLJ`) validalva lett, a hianyzo `meta_*` GTM Meta tag-ek felkerultek es az eles GTM verzio `9`-kent publikálva van.
+- Kovetkezo konkret lepes: csak akkor kell uj taskkent folytatni, ha kulon uzemi bizonyossag kell bongeszos smoke teszttel, vagy ha teljes creative/media upload workflow-t is akarunk Codexbol kezelni.
 
 ### P2-1 - Google AI schema kovetkezo kore
 

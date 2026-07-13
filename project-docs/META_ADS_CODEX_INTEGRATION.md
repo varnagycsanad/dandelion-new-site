@@ -1,21 +1,40 @@
 # Meta Ads Codex integracio
 
 Status: AKTUALIS
-Last checked: 2026-06-13
-Use for: Meta Marketing API bekotese Codex ellenorzeshez es kesobbi kontrollalt kampanyelokesziteshez
+Last checked: 2026-07-13
+Use for: Meta Marketing API bekotese Codex ellenorzeshez, kontrollalt mutacios workflow-hoz, valamint Pixel es GTM allapot validalasahoz
 
-Cel: Codex helyi scriptbol tudja ellenorizni a Dandelion Meta/Facebook hirdetesi fiokot, kampanylistat kerjen le, es kesobb kulon jovahagyott sablonbol PAUSED kampanyt hozzon letre.
+Cel: Codex helyi scriptbol tudja ellenorizni a Dandelion Meta/Facebook hirdetesi fiokot, kampany/ad set/ad/creative adatokat lekerdezni, kontrollalt dry-run muveleteket elokesziteni, es a Pixel/GTM oldali allapotot is ellenorizni.
 
-Fontos jelenlegi allapot: Facebook/Meta hirdetesek meg nincsenek aktivan inditva a Dandelion uj kampanyaihoz, ezert ez a dokumentum nem heti riportolasi workflow. A riportolasi menetet csak akkor kell boviteni, ha mar futnak Meta kampanyok es van ertelmezheto koltes/teljesitmenyadat.
+Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fiok elerheto, a kampany/ad set/ad/creative lekerdezes megy, a Pixel/GTM audit script elkeszult, a hianyzo `meta_*` GTM tag-ek felmentek, es a valtozas eles GTM verzio `9`-kent publikalt allapotban van. A fo nyitott pont mar nem a bekotes, hanem legfeljebb egy kulon elo, bongeszos smoke teszt es a teljes creative/media workflow tovabbi bovitese.
 
 ## Mi keszult
 
 - `scripts/meta/meta-ads.mjs`
+- `scripts/meta/meta-validate-pixel.mjs`
+- `scripts/meta/gtm-meta-events.mjs`
 - npm parancsok:
   - `npm run meta:check`
+  - `npm run meta:permissions`
   - `npm run meta:accounts`
   - `npm run meta:campaigns`
+  - `npm run meta:adsets`
+  - `npm run meta:ads`
+  - `npm run meta:creatives`
   - `npm run meta:insights`
+  - `npm run meta:create-campaign`
+  - `npm run meta:create-creative`
+  - `npm run meta:create-adset`
+  - `npm run meta:create-ad`
+  - `npm run meta:pause-campaigns`
+  - `npm run meta:enable-campaigns`
+  - `npm run meta:pause-adsets`
+  - `npm run meta:enable-adsets`
+  - `npm run meta:pause-ads`
+  - `npm run meta:enable-ads`
+  - `npm run meta:update-budgets`
+  - `npm run meta:validate-pixel`
+  - `npm run meta:gtm-events`
 
 Az integracio kozvetlenul a Meta Marketing API-t hivja. A Graph API verzio env-bol allithato, alapertelmezetten `v25.0`.
 
@@ -32,6 +51,68 @@ Eredmeny:
 - Az elmult 30 napra nincs insight sor, tehat jelenleg nincs friss riportolando Meta hirdetesi teljesitmeny.
 
 Kovetkeztetes: az API kapcsolat elokeszitve, de kampanyinditas meg nem tortent. A kovetkezo szakmai lepes nem riportolas, hanem elso Facebook kampanyterv, kreativok, celzas es csak utana PAUSED kampany letrehozasa emberi ellenorzesre.
+
+## 2026-07-13 allapotfrissites
+
+Eredmeny:
+
+- `npm run meta:check` sikeres.
+- `npm run meta:permissions` sikeres.
+- A token felhasznaloja: `Ilona Várnagy`.
+- Tovabbra is latszik a `Dandelion Vendégház` hirdetesi fiok: `act_169467498360546`.
+- Legalabb ezek a fo jogosultsagok granted allapotban latszanak:
+  - `ads_management`
+  - `ads_read`
+  - `business_management`
+- A projekt `.env` allomanya erre a fiokra mutat:
+  - `META_AD_ACCOUNT_ID=act_169467498360546`
+- `npm run meta:campaigns -- --limit 10` sikeres.
+- `npm run meta:adsets -- --limit 10` sikeres.
+- `npm run meta:ads -- --limit 10` sikeres.
+- `npm run meta:creatives -- --limit 10` sikeres.
+- creative create dry-run mukodik:
+  - `npm run meta:create-creative -- --name "D2_LastMinute_Creative_Test" --from-creative-id 23850220292700627 --link "https://dandelionhouse.hu/last-minute-d2/?utm_source=meta&utm_medium=cpc&utm_campaign=d2_last_minute" --headline "D2 last minute" --message "10% kedvezmeny legalabb 4 ejszakara." --description "D2 ajanlat"`
+- kampany statusz dry-run update mukodik:
+  - `npm run meta:pause-campaigns -- --campaign-id 120253622390020628`
+- ad set statusz dry-run update mukodik:
+  - `npm run meta:pause-adsets -- --adset-id 120253622472610628`
+  - `npm run meta:enable-adsets -- --adset-id 120253622472610628`
+- ad statusz dry-run update mukodik:
+  - `npm run meta:pause-ads -- --ad-id 23852933811260627`
+  - `npm run meta:enable-ads -- --ad-id 23852933811260627`
+- ad set budget dry-run update mukodik:
+  - `npm run meta:update-budgets -- --adset-id 120253622472610628 --daily-budget 55`
+- sablonalapu ad set create dry-run mukodik:
+  - `npm run meta:create-adset -- --campaign-id 120253622390020628 --name "D2_LastMinute_AdSet_HU_TestClone" --from-adset-id 120253622472610628 --daily-budget 60`
+- sablonalapu ad create dry-run mukodik:
+  - `npm run meta:create-ad -- --adset-id 120253622472610628 --name "D2_LastMinute_Ad_HU_TestClone" --from-ad-id 23852933811260627`
+- Aktiv kampany latszik:
+  - `D2_LastMinute_2026-07-19`
+
+Weboldal oldali allapot:
+
+- A cookie hozzajarulas kezelesben mar szerepel a `Meta Pixel`.
+- A consent bridge kezeli a marketing hozzajarulast.
+- A site GTM-kompatibilis Meta esemenyeket keszit elo:
+  - `ViewContent`
+  - `BookingClick`
+  - `InitiateCheckout`
+  - `Contact`
+  - `Lead`
+- GTM account: `6353760449`
+- GTM container: `251570065`
+- GTM public ID: `GTM-P75FHKLJ`
+- Meta Pixel ID: `489282852211205`
+- `npm run meta:gtm-events -- --execute --format json` sikeresen letrehozta a hianyzo egyedi trigger + Meta tag parokat a repo altal kibocsatott `meta_*` esemenyekhez.
+- A GTM valtozas `Codex Meta Pixel event scaffolding 2026-07-13` nevvel `9`-es verziokent publikalt allapotba kerult.
+- `npm run meta:validate-pixel -- --format json` alapjan:
+  - a Pixel a Meta Business assetek kozott latszik
+  - a base tag pixelazonositoja `489282852211205`
+  - a base tag trigger esemenye `dnd_marketing_granted`
+  - az osszes repo-s `meta_*` esemenyhez van megfelelo GTM Meta tag lefedettseg
+  - a Pixel utolso bejovo aktivitasa: `2026-07-12T23:12:23+0200`
+
+Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali meresi elokeszites, a GTM tag-kiosztas es a Pixel-azonositas is rendben van. A fo nyitott pont mar legfeljebb egy kulon elo, bongeszos smoke teszt, ha teljes vegponttol vegpontig validacio is kell.
 
 ## Szükséges Meta oldali beallitas
 
@@ -64,6 +145,12 @@ Auth es lathato hirdetesi fiokok ellenorzese:
 npm run meta:check
 ```
 
+Jogosultsagok ellenorzese:
+
+```powershell
+npm run meta:permissions
+```
+
 Ad account lista:
 
 ```powershell
@@ -74,6 +161,51 @@ Kampanylista:
 
 ```powershell
 npm run meta:campaigns -- --limit 100
+```
+
+Ad set lista:
+
+```powershell
+npm run meta:adsets -- --limit 100
+```
+
+Ad lista:
+
+```powershell
+npm run meta:ads -- --limit 100
+```
+
+Creative lista:
+
+```powershell
+npm run meta:creatives -- --limit 100
+```
+
+Creative letrehozas meglevo creative sablon alapjan:
+
+```powershell
+npm run meta:create-creative -- --name "Uj creative" --from-creative-id 23850220292700627 --link "https://dandelionhouse.hu/last-minute-d2/" --headline "D2 last minute" --message "10% kedvezmeny legalabb 4 ejszakara."
+```
+
+Ad set letrehozas sablon alapjan:
+
+```powershell
+npm run meta:create-adset -- --campaign-id 120253622390020628 --name "Uj ad set" --from-adset-id 120253622472610628 --daily-budget 60
+```
+
+Ad letrehozas meglevo creative ujrafelhasznalasaval:
+
+```powershell
+npm run meta:create-ad -- --adset-id 120253622472610628 --name "Uj hirdetes" --from-ad-id 23852933811260627
+```
+
+Ad set es ad statusz ellenorzott dry-run workflow:
+
+```powershell
+npm run meta:pause-adsets -- --adset-id 120253622472610628
+npm run meta:enable-adsets -- --adset-id 120253622472610628
+npm run meta:pause-ads -- --ad-id 23852933811260627
+npm run meta:enable-ads -- --ad-id 23852933811260627
 ```
 
 Kampanyszintu insightok az elmult 30 napra:
@@ -109,13 +241,33 @@ Eles letrehozas csak kulon kapcsoloval tortenik, es a kampany `PAUSED` allapotba
 node scripts/meta/meta-ads.mjs create-campaign --name "Dandelion teszt kampany" --objective OUTCOME_LEADS --execute
 ```
 
+Kampany statusz modositas alapbol csak dry-run:
+
+```powershell
+npm run meta:pause-campaigns -- --campaign-id 120253622390020628
+npm run meta:enable-campaigns -- --campaign-id 120253622390020628
+```
+
+Ad set budget modositas alapbol csak dry-run:
+
+```powershell
+npm run meta:update-budgets -- --adset-id 120253622472610628 --daily-budget 55
+```
+
+Pixel es GTM validacio:
+
+```powershell
+npm run meta:validate-pixel -- --format md
+npm run meta:gtm-events -- --format md
+```
+
 ## Kovetkezo biztonsagos lepesek
 
 1. Eloszor csak `meta:check`, `meta:accounts`, `meta:campaigns`, `meta:insights`.
 2. Elso Facebook kampany elott keszuljon kampanyterv: cel, kozonseg, budget, kreativ, landing.
 3. Teljes kampanyinditas elott legyen kulon JSON sablon kampany/adset/ad szerkezettel.
 4. Uj hirdetes letrehozasa csak `PAUSED` allapotban tortenjen, Ads Managerben emberi ellenorzessel.
-5. Meta Ads riportolasi mezoket csak akkor kell dokumentalni, ha mar fut kampany es van adat.
+5. Ha kell teljes vegponttol vegpontig bizonyossag, fusson egy kulon bongeszos smoke teszt, ahol hozzajarulas utan valodi oldallatogatasbol is visszaellenorizzuk a Pixel-esemenyeket.
 
 ## Forrasok
 
