@@ -141,8 +141,9 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 - Forras: `META_ADS_CODEX_INTEGRATION.md`, `d2-last-minute-kampany-plan-2026-07-11.md`
 - Mi a helyzet: a Meta Marketing API kapcsolat mukodik, a Dandelion Vendeghaz hirdetesi fiok lathato, a kampany/ad set/ad/creative tooling kibovult, a Pixel ID (`489282852211205`) es a GTM container (`GTM-P75FHKLJ`) validalva lett, a hianyzo `meta_*` GTM Meta tag-ek felkerultek es az eles GTM verzio `9`-kent publikálva van.
 - 2026-07-13 frissites: a Facebook-oldal (`Dandelion Vendégház`, page ID `100105918439273`) lathato a Pages API-bol, a kepes oldalposzt dry-run workflow is elkeszult, a `Manage Pages` use case aktiv, es a `pages_manage_posts` Meta oldalon mar `Ready for testing`.
+- 2026-07-14 frissites: a Facebook Login for Business jovahagyas vegigfutott, a hozzaferes a jelenlegi es jovobeli `Oldalak` es `Vallalkozasok` objektumokra lett megadva, es a projekt `META_ACCESS_TOKEN` mar tartalmazza a `pages_manage_posts` jogot.
 - 2026-07-13 frissites: kulon `meta-auth` helper keszult az OAuth URL generalashoz, code exchange-hez, token hosszabbitashoz, inspecthez es `.env` menteshez.
-- Kovetkezo konkret lepes: csak akkor kell uj taskkent folytatni, ha a friss token tenyleges ujraengedelyezeset es `.env` cseret is vegig kell vinni, ha kulon uzemi bizonyossag kell bongeszos smoke teszttel, vagy ha teljes creative/media upload workflow-t is akarunk Codexbol kezelni.
+- Kovetkezo konkret lepes: csak akkor kell uj taskkent folytatni, ha az elso valos Facebook-oldal posztot is ki kell tenni API-val, ha kulon uzemi bizonyossag kell bongeszos smoke teszttel, vagy ha teljes creative/media upload workflow-t is akarunk Codexbol kezelni.
 
 ### P2-1 - Google AI schema kovetkezo kore
 

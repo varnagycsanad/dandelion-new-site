@@ -118,7 +118,9 @@ Eredmeny:
 - a kepes Facebook-oldal poszt dry-run workflow mukodik
 - a Meta apphoz a `Manage Pages` use case hozza lett adva
 - a `pages_manage_posts` statusza a Meta fejlesztoi feluleten mar `Ready for testing`
-- a jelenlegi permissions valaszban a projekt .env-beli tokenjere nezve tovabbra sem latszik `pages_manage_posts`
+- a Facebook Login for Business jovahagyo flow vegigfutott
+- a hozzaferes a jelenlegi es jovobeli `Oldalak` es `Vallalkozasok` objektumokra lett megadva
+- a projekt .env-beli tokenjere nezve mar latszik `pages_manage_posts`
 
 ### 2. Kodoldali kepessegek
 
@@ -245,7 +247,7 @@ Ez jo alap a mereshez, es a korabbi reskockazatot most mar jelentos reszben lefe
 - ad set letrehozasra mar van sablonalapu alap, de nincs teljes audience / placement / creative workflow
 - ad letrehozasra mar van creative-ujrafelhasznalasi alap
 - creative letrehozasra mar van sablonalapu alap, de nincs teljes media-upload workflow
-- Facebook Page posztolashoz mar van workflow, a `pages_manage_posts` app oldalon mar `Ready for testing`, de a jelenlegi tokennel az eles kozzetetel meg nem bizonyitott
+- Facebook Page posztolashoz mar van workflow, a `pages_manage_posts` app oldalon es a jelenlegi tokenben is rendben van, de az elso eles kozzetetel meg nem bizonyitott
 
 ### Nem kepes jelenleg
 

@@ -42,10 +42,10 @@ Eredmeny:
   - `pages_read_engagement`
 - a Meta appban a `Manage Pages` use case mar hozza van adva
 - a `pages_manage_posts` app oldalon mar `Ready for testing` allapotba kerult
-- a jelenlegi .env-beli tokenben ettol fuggetlenul meg nem latszik:
+- a projekt aktualis `META_ACCESS_TOKEN` ertekeben mar latszik:
   - `pages_manage_posts`
 
-Kovetkeztetes: a posztolasi workflow technikailag elkeszult, az oldal lathato, a Page token feloldhato, a kepes poszt payload eloallitasa kesz. A Meta app oldali elofeltetel mar rendben van, de az eles API-s kozzetetelhez friss user token kell, amelyben tenylegesen benne van a `pages_manage_posts`.
+Kovetkeztetes: a posztolasi workflow technikailag elkeszult, az oldal lathato, a Page token feloldhato, a kepes poszt payload eloallitasa kesz. A Meta app oldali elofeltetel es a projektben hasznalt token jogosultsaga is rendben van. A kovetkezo lepes mar csak az elso tudatos, eles oldalposzt API-s probaja.
 
 ## Pages manage posts statusz - 2026-07-13
 
@@ -54,8 +54,12 @@ Kovetkeztetes: a posztolasi workflow technikailag elkeszult, az oldal lathato, a
 - a `Manage Pages` use case hozza lett adva
 - a `pages_manage_posts` statusza a Meta fejlesztoi feluleten: `Ready for testing`
 - Graph API Explorerben a permission mar kivalaszthato
-- a jovahagyo Facebook popup account-switch lepesig eljutott
-- a projekt jelenlegi `META_ACCESS_TOKEN` erteke viszont meg nem lett ujrairva olyan tokenre, amely ezt a scope-ot tenylegesen tartalmazza
+- a Facebook Login for Business jovahagyas vegigfutott
+- a hozzaferes a jelenlegi es jovobeli `Oldalak` es `Vallalkozasok` objektumokra lett megadva
+- a projekt `META_ACCESS_TOKEN` erteke ujra lett irva olyan tokenre, amely tenylegesen tartalmazza a `pages_manage_posts` scope-ot
+- a helyi ellenorzes eredmenye:
+  - `npm run meta:pages:permissions -- --format json`
+  - `pages_manage_posts = granted`
 
 ## Hasznalat
 
@@ -111,6 +115,4 @@ META_PAGE_ID=100105918439273
 
 ## Nyitott pont
 
-- a tokenben tenylegesen meg kell jelennie a `pages_manage_posts` joganak
-- a Facebook jovahagyo popup account-switch lepeset egyszer vegig kell vinni, vagy ugyanennek megfelelo OAuth flow-bol uj token kell
 - eles kozzetetelt kulon, tudatos probaval erdemes eloszor kiprobalni

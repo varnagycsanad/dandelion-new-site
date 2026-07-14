@@ -122,10 +122,12 @@ Weboldal oldali allapot:
 - a jelenlegi Pages API jogosultsagoknal latszik:
   - `pages_show_list`
   - `pages_read_engagement`
+- a jelenlegi Pages API jogosultsagoknal mar latszik:
+  - `pages_manage_posts`
 - a Meta appban a `Manage Pages` use case mar aktiv
 - a `pages_manage_posts` Meta oldalon mar `Ready for testing`
-- a jelenlegi tokenben viszont meg nem latszik:
-  - `pages_manage_posts`
+- a Facebook Login for Business jovahagyas vegigfutott
+- a hozzaferes a jelenlegi es jovobeli `Oldalak` es `Vallalkozasok` objektumokra lett megadva
 - `npm run meta:gtm-events -- --execute --format json` sikeresen letrehozta a hianyzo egyedi trigger + Meta tag parokat a repo altal kibocsatott `meta_*` esemenyekhez.
 - A GTM valtozas `Codex Meta Pixel event scaffolding 2026-07-13` nevvel `9`-es verziokent publikalt allapotba kerult.
 - `npm run meta:validate-pixel -- --format json` alapjan:
@@ -135,7 +137,7 @@ Weboldal oldali allapot:
   - az osszes repo-s `meta_*` esemenyhez van megfelelo GTM Meta tag lefedettseg
   - a Pixel utolso bejovo aktivitasa: `2026-07-12T23:12:23+0200`
 
-Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali meresi elokeszites, a GTM tag-kiosztas, a Pixel-azonositas es a Facebook-oldal posztolasi workflow alapja is rendben van. A fo nyitott pont mar az, hogy a friss tokenben is tenylegesen megjelenjen a `pages_manage_posts`, illetve legfeljebb egy kulon elo, bongeszos smoke teszt.
+Friss kovetkeztetes: a Meta oldali jogosultsag, az API kapcsolat, a kodoldali meresi elokeszites, a GTM tag-kiosztas, a Pixel-azonositas es a Facebook-oldal posztolasi workflow alapja is rendben van. A `pages_manage_posts` mar tenylegesen granted a projekt tokenjeben is. A fo nyitott pont mar csak az elso tudatos eles oldalposzt, illetve legfeljebb egy kulon elo, bongeszos smoke teszt.
 
 ## Szükséges Meta oldali beallitas
 
