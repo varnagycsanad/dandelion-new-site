@@ -1,7 +1,9 @@
-import { existsSync, readFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 
 const DEFAULT_VERSION = "v25.0";
 const GRAPH_HOST = "https://graph.facebook.com";
+const DEFAULT_META_CHANGE_LOG_PATH = ".secrets/meta-change-log.jsonl";
 
 await loadEnv();
 
@@ -28,12 +30,20 @@ try {
     await getInsights(args);
   } else if (args.command === "create-campaign") {
     await createCampaign(args);
+  } else if (args.command === "update-campaigns") {
+    await updateCampaigns(args);
   } else if (args.command === "create-creative") {
     await createCreative(args);
+  } else if (args.command === "upload-image") {
+    await uploadImageAsset(args);
+  } else if (args.command === "upload-video") {
+    await uploadVideoAsset(args);
   } else if (args.command === "create-adset") {
     await createAdSet(args);
   } else if (args.command === "create-ad") {
     await createAd(args);
+  } else if (args.command === "update-ads") {
+    await updateAds(args);
   } else if (args.command === "pause-campaigns") {
     await updateCampaignStatus(args, "PAUSED");
   } else if (args.command === "enable-campaigns") {
@@ -48,6 +58,8 @@ try {
     await updateAdStatus(args, "ACTIVE");
   } else if (args.command === "update-budgets") {
     await updateAdSetBudgets(args);
+  } else if (args.command === "update-adsets") {
+    await updateAdSets(args);
   } else {
     throw new Error(`Unknown command: ${args.command}`);
   }
@@ -69,9 +81,13 @@ Usage:
   node scripts/meta/meta-ads.mjs creatives [--limit 50] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs insights [--days 30] [--level campaign|adset|ad] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs create-campaign --name "Campaign name" --objective OUTCOME_LEADS [--execute]
-  node scripts/meta/meta-ads.mjs create-creative --name "Creative name" [--from-creative-id 789] [--page-id 123] [--instagram-user-id 456] [--link https://example.com] [--message "Primary text"] [--headline "Title"] [--description "Desc"] [--image-hash HASH] [--call-to-action LEARN_MORE] [--execute] [--format md|json|csv]
-  node scripts/meta/meta-ads.mjs create-adset --campaign-id 123 --name "Ad set name" [--from-adset-id 456] [--daily-budget 5000] [--lifetime-budget 10000] [--status PAUSED] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs update-campaigns --campaign-id 123 [--campaign "Campaign name"] [--name "New campaign name"] [--objective OUTCOME_LEADS] [--daily-budget 5000] [--lifetime-budget 10000] [--status ACTIVE|PAUSED] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs upload-image --image-path ./asset.jpg [--name "Asset name"] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs upload-video --video-path ./asset.mp4 [--name "Asset name"] [--description "Video description"] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs create-creative --name "Creative name" [--from-creative-id 789] [--page-id 123] [--instagram-user-id 456] [--link https://example.com] [--message "Primary text"] [--headline "Title"] [--description "Desc"] [--image-hash HASH] [--image-path ./asset.jpg] [--video-id 123] [--video-path ./asset.mp4] [--thumbnail-url https://example.com/thumb.jpg] [--call-to-action LEARN_MORE] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs create-adset --campaign-id 123 --name "Ad set name" [--from-adset-id 456] [--daily-budget 5000] [--lifetime-budget 10000] [--status PAUSED] [--billing-event IMPRESSIONS] [--optimization-goal LANDING_PAGE_VIEWS] [--destination-type WEBSITE] [--targeting-json @targeting.json] [--geo-json '{"countries":["HU"]}'] [--audience-json '{"custom_audiences":[{"id":"123"}]}' ] [--country HU] [--age-min 28] [--age-max 55] [--publisher-platform facebook] [--facebook-position feed] [--custom-audience-id 123] [--excluded-custom-audience-id 456] [--promoted-object-json @promoted-object.json] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs create-ad --adset-id 456 --name "Ad name" [--creative-id 789] [--from-ad-id 987] [--status PAUSED] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs update-ads --ad-id 789 [--adset-id 456] [--campaign-id 123] [--name "New ad name"] [--status ACTIVE|PAUSED] [--creative-id 987] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs pause-campaigns --campaign-id 123 [--campaign "Campaign name"] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs enable-campaigns --campaign-id 123 [--campaign "Campaign name"] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs pause-adsets --adset-id 456 [--campaign-id 123] [--execute] [--format md|json|csv]
@@ -79,6 +95,7 @@ Usage:
   node scripts/meta/meta-ads.mjs pause-ads --ad-id 789 [--adset-id 456] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs enable-ads --ad-id 789 [--adset-id 456] [--execute] [--format md|json|csv]
   node scripts/meta/meta-ads.mjs update-budgets --adset-id 456 [--daily-budget 5000] [--lifetime-budget 10000] [--execute] [--format md|json|csv]
+  node scripts/meta/meta-ads.mjs update-adsets --adset-id 456 [--campaign-id 123] [--status ACTIVE|PAUSED] [--daily-budget 5000] [--lifetime-budget 10000] [--billing-event IMPRESSIONS] [--optimization-goal LANDING_PAGE_VIEWS] [--destination-type WEBSITE] [--targeting-json @targeting.json] [--geo-json '{"countries":["HU"]}'] [--audience-json '{"custom_audiences":[{"id":"123"}]}' ] [--country HU] [--age-min 28] [--age-max 55] [--publisher-platform facebook] [--facebook-position feed] [--instagram-position story] [--custom-audience-id 123] [--excluded-custom-audience-id 456] [--promoted-object-json @promoted-object.json] [--attribution-spec-json @attribution.json] [--execute] [--format md|json|csv]
 
 Required env:
   META_ACCESS_TOKEN
@@ -91,18 +108,22 @@ Optional env:
 Notes:
   create-campaign is a dry run unless --execute is present.
   New campaigns are created PAUSED by default.
+  update-campaigns supports controlled campaign field edits including budget and objective changes.
+  upload-image and upload-video prepare or upload fresh media assets for later creative creation.
   create-creative is dry run unless --execute is present and can clone a template creative with selective overrides.
-  create-adset is dry run unless --execute is present and supports cloning from an existing ad set.
+  create-adset is dry run unless --execute is present and supports cloning plus targeting, geo, age, placement and conversion overrides.
   create-ad is dry run unless --execute is present and supports cloning the creative from an existing ad.
+  update-ads supports ad-level status, name and creative reassignment changes.
   pause-campaigns, enable-campaigns, pause-adsets, enable-adsets, pause-ads and enable-ads are also dry-run unless --execute is present.
   update-budgets updates ad set budgets and is dry-run unless --execute is present.
+  update-adsets performs full ad set field updates and is dry-run unless --execute is present.
 `);
 }
 
 async function loadEnv() {
   try {
     const dotenv = await import("dotenv");
-    dotenv.config();
+    dotenv.config({ override: true });
     return;
   } catch {
     loadDotEnvFallback(".env");
@@ -127,10 +148,6 @@ function loadDotEnvFallback(filePath) {
     }
 
     const [, key, rawValue] = match;
-    if (process.env[key] !== undefined) {
-      continue;
-    }
-
     process.env[key] = rawValue.replace(/^["']|["']$/g, "");
   }
 }
@@ -146,7 +163,17 @@ function parseArgs(argv) {
     campaigns: [],
     campaignIds: [],
     adsetIds: [],
-    adIds: []
+    adIds: [],
+    countries: [],
+    publisherPlatforms: [],
+    facebookPositions: [],
+    instagramPositions: [],
+    messengerPositions: [],
+    audienceNetworkPositions: [],
+    devicePlatforms: [],
+    customAudienceIds: [],
+    excludedCustomAudienceIds: [],
+    genders: []
   };
 
   if (parsed.command === "--help" || parsed.command === "-h") {
@@ -206,6 +233,69 @@ function parseArgs(argv) {
     } else if (arg === "--status") {
       parsed.status = next;
       index += 1;
+    } else if (arg === "--billing-event") {
+      parsed.billingEvent = next;
+      index += 1;
+    } else if (arg === "--optimization-goal") {
+      parsed.optimizationGoal = next;
+      index += 1;
+    } else if (arg === "--bid-strategy") {
+      parsed.bidStrategy = next;
+      index += 1;
+    } else if (arg === "--destination-type") {
+      parsed.destinationType = next;
+      index += 1;
+    } else if (arg === "--targeting-json") {
+      parsed.targetingJson = next;
+      index += 1;
+    } else if (arg === "--geo-json") {
+      parsed.geoJson = next;
+      index += 1;
+    } else if (arg === "--audience-json") {
+      parsed.audienceJson = next;
+      index += 1;
+    } else if (arg === "--promoted-object-json") {
+      parsed.promotedObjectJson = next;
+      index += 1;
+    } else if (arg === "--attribution-spec-json") {
+      parsed.attributionSpecJson = next;
+      index += 1;
+    } else if (arg === "--age-min") {
+      parsed.ageMin = next;
+      index += 1;
+    } else if (arg === "--age-max") {
+      parsed.ageMax = next;
+      index += 1;
+    } else if (arg === "--country") {
+      parsed.countries.push(next);
+      index += 1;
+    } else if (arg === "--publisher-platform") {
+      parsed.publisherPlatforms.push(next);
+      index += 1;
+    } else if (arg === "--facebook-position") {
+      parsed.facebookPositions.push(next);
+      index += 1;
+    } else if (arg === "--instagram-position") {
+      parsed.instagramPositions.push(next);
+      index += 1;
+    } else if (arg === "--messenger-position") {
+      parsed.messengerPositions.push(next);
+      index += 1;
+    } else if (arg === "--audience-network-position") {
+      parsed.audienceNetworkPositions.push(next);
+      index += 1;
+    } else if (arg === "--device-platform") {
+      parsed.devicePlatforms.push(next);
+      index += 1;
+    } else if (arg === "--custom-audience-id") {
+      parsed.customAudienceIds.push(next);
+      index += 1;
+    } else if (arg === "--excluded-custom-audience-id") {
+      parsed.excludedCustomAudienceIds.push(next);
+      index += 1;
+    } else if (arg === "--gender") {
+      parsed.genders.push(next);
+      index += 1;
     } else if (arg === "--creative-id") {
       parsed.creativeId = next;
       index += 1;
@@ -235,6 +325,18 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === "--image-hash") {
       parsed.imageHash = next;
+      index += 1;
+    } else if (arg === "--image-path") {
+      parsed.imagePath = next;
+      index += 1;
+    } else if (arg === "--video-id") {
+      parsed.videoId = next;
+      index += 1;
+    } else if (arg === "--video-path") {
+      parsed.videoPath = next;
+      index += 1;
+    } else if (arg === "--thumbnail-url") {
+      parsed.thumbnailUrl = next;
       index += 1;
     } else if (arg === "--call-to-action") {
       parsed.callToAction = next;
@@ -305,6 +407,32 @@ async function graphRequest(pathname, { method = "GET", query = {}, body = undef
     const detail = metaError?.message || response.statusText;
     throw new Error(`Meta API ${response.status}: ${detail}`);
   }
+  return data;
+}
+
+async function graphMultipartRequest(pathname, { method = "POST", query = {}, formData } = {}) {
+  const url = new URL(`${GRAPH_HOST}/${getVersion()}/${pathname.replace(/^\/+/, "")}`);
+  const token = getAccessToken();
+
+  for (const [key, value] of Object.entries(query)) {
+    if (value !== undefined && value !== null && value !== "") {
+      url.searchParams.set(key, String(value));
+    }
+  }
+
+  formData.set("access_token", token);
+  const response = await fetch(url, {
+    method,
+    body: formData
+  });
+
+  const data = await response.json();
+  if (!response.ok || data.error) {
+    const metaError = data.error;
+    const detail = metaError?.message || response.statusText;
+    throw new Error(`Meta API ${response.status}: ${detail}`);
+  }
+
   return data;
 }
 
@@ -612,9 +740,82 @@ async function createCampaign(args) {
     method: "POST",
     body: payload
   });
+  appendMetaChangeLog({
+    operation: "create_campaign",
+    entity_type: "campaign",
+    entity_id: result.id || "",
+    entity_name: payload.name,
+    request: payload,
+    response: result
+  });
 
   console.log("Campaign created in PAUSED status.");
   console.log(JSON.stringify(result, null, 2));
+}
+
+async function updateCampaigns(args) {
+  const campaigns = await resolveCampaignTargets(args);
+  const body = buildCampaignMutationPayload(args);
+
+  if (!Object.keys(body).length) {
+    throw new Error("Provide at least one campaign field to update.");
+  }
+
+  const rows = campaigns.map((campaign) => ({
+    campaign_id: campaign.id,
+    campaign_name: campaign.name,
+    requested_name: body.name || "",
+    requested_objective: body.objective || "",
+    requested_status: body.status || "",
+    requested_daily_budget: formatMinorCurrency(body.daily_budget),
+    requested_lifetime_budget: formatMinorCurrency(body.lifetime_budget),
+    changed_fields: Object.keys(body).join(", "),
+    success: ""
+  }));
+
+  if (!args.execute) {
+    console.log(`Dry run. Add --execute to update ${campaigns.length} campaign(s).`);
+    printRows(rows, args.format, [
+      ["campaign_id", "Campaign ID"],
+      ["campaign_name", "Campaign"],
+      ["requested_name", "Requested name"],
+      ["requested_objective", "Objective"],
+      ["requested_status", "Status"],
+      ["requested_daily_budget", "Daily budget"],
+      ["requested_lifetime_budget", "Lifetime budget"],
+      ["changed_fields", "Changed fields"],
+      ["success", "Success"]
+    ]);
+    return;
+  }
+
+  for (const row of rows) {
+    const result = await graphRequest(`/${row.campaign_id}`, {
+      method: "POST",
+      body
+    });
+    row.success = result.success === true ? "true" : String(result.success ?? "");
+    appendMetaChangeLog({
+      operation: "update_campaign",
+      entity_type: "campaign",
+      entity_id: row.campaign_id,
+      entity_name: row.campaign_name,
+      request: body,
+      response: result
+    });
+  }
+
+  printRows(rows, args.format, [
+    ["campaign_id", "Campaign ID"],
+    ["campaign_name", "Campaign"],
+    ["requested_name", "Requested name"],
+    ["requested_objective", "Objective"],
+    ["requested_status", "Status"],
+    ["requested_daily_budget", "Daily budget"],
+    ["requested_lifetime_budget", "Lifetime budget"],
+    ["changed_fields", "Changed fields"],
+    ["success", "Success"]
+  ]);
 }
 
 async function createCreative(args) {
@@ -623,7 +824,8 @@ async function createCreative(args) {
   }
 
   const template = args.fromCreativeId ? await fetchCreativeTemplate(args.fromCreativeId) : null;
-  const payload = buildCreativePayload(args, template);
+  const preparedMedia = await prepareCreativeMedia(args);
+  const payload = buildCreativePayload(args, template, preparedMedia);
 
   if (!args.execute) {
     console.log("Dry run. Add --execute to create this creative in Meta Ads.");
@@ -638,6 +840,7 @@ async function createCreative(args) {
           headline: extractCreativeHeadline(payload),
           has_body: extractCreativeMessage(payload) ? "true" : "false",
           has_image_hash: extractCreativeImageHash(payload) ? "true" : "false",
+          has_video_id: extractCreativeVideoId(payload) ? "true" : "false",
           call_to_action: extractCreativeCallToAction(payload)
         }
       ],
@@ -651,6 +854,7 @@ async function createCreative(args) {
         ["headline", "Headline"],
         ["has_body", "Has body"],
         ["has_image_hash", "Has image hash"],
+        ["has_video_id", "Has video ID"],
         ["call_to_action", "CTA"]
       ]
     );
@@ -662,9 +866,126 @@ async function createCreative(args) {
     method: "POST",
     body: payload
   });
+  appendMetaChangeLog({
+    operation: "create_creative",
+    entity_type: "creative",
+    entity_id: result.id || "",
+    entity_name: payload.name,
+    request: payload,
+    response: result
+  });
 
   console.log("Creative created in Meta Ads.");
   console.log(JSON.stringify(result, null, 2));
+}
+
+async function uploadImageAsset(args) {
+  if (!args.imagePath) {
+    throw new Error("Provide --image-path for upload-image.");
+  }
+
+  if (!args.execute) {
+    console.log("Dry run. Add --execute to upload this image asset to Meta Ads.");
+    printRows(
+      [
+        {
+          image_path: args.imagePath,
+          asset_name: args.name || "",
+          execute: "false"
+        }
+      ],
+      args.format,
+      [
+        ["image_path", "Image path"],
+        ["asset_name", "Asset name"],
+        ["execute", "Execute"]
+      ]
+    );
+    return;
+  }
+
+  const result = await uploadImageAssetFile(args.imagePath, args.name);
+  const uploaded = Object.values(result.images || {})[0] || {};
+  appendMetaChangeLog({
+    operation: "upload_image_asset",
+    entity_type: "image_asset",
+    entity_id: uploaded.hash || "",
+    entity_name: args.name || args.imagePath,
+    request: { image_path: args.imagePath, name: args.name || "" },
+    response: result
+  });
+  printRows(
+    [
+      {
+        image_path: args.imagePath,
+        asset_name: args.name || "",
+        image_hash: uploaded.hash || "",
+        image_url: uploaded.url || ""
+      }
+    ],
+    args.format,
+    [
+      ["image_path", "Image path"],
+      ["asset_name", "Asset name"],
+      ["image_hash", "Image hash"],
+      ["image_url", "Image URL"]
+    ]
+  );
+}
+
+async function uploadVideoAsset(args) {
+  if (!args.videoPath) {
+    throw new Error("Provide --video-path for upload-video.");
+  }
+
+  if (!args.execute) {
+    console.log("Dry run. Add --execute to upload this video asset to Meta Ads.");
+    printRows(
+      [
+        {
+          video_path: args.videoPath,
+          asset_name: args.name || "",
+          description: args.description || "",
+          execute: "false"
+        }
+      ],
+      args.format,
+      [
+        ["video_path", "Video path"],
+        ["asset_name", "Asset name"],
+        ["description", "Description"],
+        ["execute", "Execute"]
+      ]
+    );
+    return;
+  }
+
+  const result = await uploadVideoAssetFile(args.videoPath, args.name, args.description);
+  appendMetaChangeLog({
+    operation: "upload_video_asset",
+    entity_type: "video_asset",
+    entity_id: result.id || "",
+    entity_name: args.name || args.videoPath,
+    request: { video_path: args.videoPath, name: args.name || "", description: args.description || "" },
+    response: result
+  });
+  printRows(
+    [
+      {
+        video_path: args.videoPath,
+        asset_name: args.name || "",
+        video_id: result.id || "",
+        success: result.success === true ? "true" : String(result.success ?? "")
+      }
+    ],
+    args.format,
+    [
+      ["video_path", "Video path"],
+      ["asset_name", "Asset name"],
+      ["video_id", "Video ID"],
+      ["success", "Success"]
+    ]
+  );
 }
 
 async function createAdSet(args) {
@@ -682,35 +1003,18 @@ async function createAdSet(args) {
   const template = args.fromAdsetId ? await fetchAdSetTemplate(args.fromAdsetId) : null;
   const status = normalizeMetaStatus(args.status || "PAUSED");
   const budgetPayload = resolveAdSetBudgetPayload(args, template);
+  const adSetFieldPayload = buildAdSetFieldPayload(args, template, { copyFromTemplate: true });
   const payload = {
     campaign_id: campaignId,
     name: args.name,
     status,
-    ...budgetPayload
+    ...budgetPayload,
+    ...adSetFieldPayload
   };
-
-  if (template?.billing_event) {
-    payload.billing_event = template.billing_event;
-  }
-  if (template?.optimization_goal) {
-    payload.optimization_goal = template.optimization_goal;
-  }
-  if (template?.bid_strategy) {
-    payload.bid_strategy = template.bid_strategy;
-  }
-  if (template?.targeting) {
-    payload.targeting = template.targeting;
-  }
-  if (template?.promoted_object) {
-    payload.promoted_object = template.promoted_object;
-  }
-  if (template?.attribution_spec) {
-    payload.attribution_spec = template.attribution_spec;
-  }
 
   if (!payload.billing_event || !payload.optimization_goal) {
     throw new Error(
-      "create-adset currently requires --from-adset-id with a reusable template that provides billing_event and optimization_goal."
+      "create-adset requires billing_event and optimization_goal, either from --from-adset-id or explicit flags."
     );
   }
 
@@ -726,9 +1030,11 @@ async function createAdSet(args) {
           lifetime_budget: formatMinorCurrency(payload.lifetime_budget),
           billing_event: payload.billing_event,
           optimization_goal: payload.optimization_goal,
+          destination_type: payload.destination_type || "",
           template_adset_id: args.fromAdsetId || "",
           has_targeting: payload.targeting ? "true" : "false",
-          has_promoted_object: payload.promoted_object ? "true" : "false"
+          has_promoted_object: payload.promoted_object ? "true" : "false",
+          targeting_summary: summarizeTargeting(payload.targeting)
         }
       ],
       args.format,
@@ -740,9 +1046,11 @@ async function createAdSet(args) {
         ["lifetime_budget", "Lifetime budget"],
         ["billing_event", "Billing"],
         ["optimization_goal", "Optimization"],
+        ["destination_type", "Destination"],
         ["template_adset_id", "Template ad set"],
         ["has_targeting", "Has targeting"],
-        ["has_promoted_object", "Has promoted object"]
+        ["has_promoted_object", "Has promoted object"],
+        ["targeting_summary", "Targeting summary"]
       ]
     );
     return;
@@ -752,6 +1060,14 @@ async function createAdSet(args) {
   const result = await graphRequest(`/${accountId}/adsets`, {
     method: "POST",
     body: payload
+  });
+  appendMetaChangeLog({
+    operation: "create_adset",
+    entity_type: "adset",
+    entity_id: result.id || "",
+    entity_name: payload.name,
+    request: payload,
+    response: result
   });
 
   console.log("Ad set created in Meta Ads.");
@@ -822,9 +1138,76 @@ async function createAd(args) {
     method: "POST",
     body: payload
   });
+  appendMetaChangeLog({
+    operation: "create_ad",
+    entity_type: "ad",
+    entity_id: result.id || "",
+    entity_name: payload.name,
+    request: payload,
+    response: result
+  });
 
   console.log("Ad created in Meta Ads.");
   console.log(JSON.stringify(result, null, 2));
+}
+
+async function updateAds(args) {
+  const ads = await resolveAdTargets(args);
+  const body = buildAdMutationPayload(args);
+
+  if (!Object.keys(body).length) {
+    throw new Error("Provide at least one ad field to update.");
+  }
+
+  const rows = ads.map((ad) => ({
+    ad_id: ad.id,
+    ad_name: ad.name,
+    requested_name: body.name || "",
+    requested_status: body.status || "",
+    creative_id: body.creative?.creative_id || "",
+    changed_fields: Object.keys(body).join(", "),
+    success: ""
+  }));
+
+  if (!args.execute) {
+    console.log(`Dry run. Add --execute to update ${ads.length} ad(s).`);
+    printRows(rows, args.format, [
+      ["ad_id", "Ad ID"],
+      ["ad_name", "Ad"],
+      ["requested_name", "Requested name"],
+      ["requested_status", "Status"],
+      ["creative_id", "Creative ID"],
+      ["changed_fields", "Changed fields"],
+      ["success", "Success"]
+    ]);
+    return;
+  }
+
+  for (const row of rows) {
+    const result = await graphRequest(`/${row.ad_id}`, {
+      method: "POST",
+      body
+    });
+    row.success = result.success === true ? "true" : String(result.success ?? "");
+    appendMetaChangeLog({
+      operation: "update_ad",
+      entity_type: "ad",
+      entity_id: row.ad_id,
+      entity_name: row.ad_name,
+      request: body,
+      response: result
+    });
+  }
+
+  printRows(rows, args.format, [
+    ["ad_id", "Ad ID"],
+    ["ad_name", "Ad"],
+    ["requested_name", "Requested name"],
+    ["requested_status", "Status"],
+    ["creative_id", "Creative ID"],
+    ["changed_fields", "Changed fields"],
+    ["success", "Success"]
+  ]);
 }
 
 async function updateCampaignStatus(args, targetStatus) {
@@ -865,6 +1248,14 @@ async function updateCampaignStatus(args, targetStatus) {
       previous_effective_status: campaign.effective_status,
       requested_status: targetStatus,
       success: result.success === true ? "true" : String(result.success ?? "")
+    });
+    appendMetaChangeLog({
+      operation: targetStatus === "PAUSED" ? "pause_campaign" : "enable_campaign",
+      entity_type: "campaign",
+      entity_id: campaign.id,
+      entity_name: campaign.name,
+      request: { status: targetStatus },
+      response: result
     });
   }
 
@@ -918,6 +1309,14 @@ async function updateAdSetBudgets(args) {
       method: "POST",
       body
     });
+    appendMetaChangeLog({
+      operation: "update_adset_budget",
+      entity_type: "adset",
+      entity_id: adset.id,
+      entity_name: adset.name,
+      request: body,
+      response: result
+    });
 
     rows.push({
       adset_id: adset.id,
@@ -937,6 +1336,70 @@ async function updateAdSetBudgets(args) {
     ["previous_lifetime_budget", "Previous lifetime"],
     ["requested_daily_budget", "Requested daily"],
     ["requested_lifetime_budget", "Requested lifetime"],
+    ["success", "Success"]
+  ]);
+}
+
+async function updateAdSets(args) {
+  const adsets = await resolveAdSetTargets(args, { includeDetails: true });
+  const rows = [];
+
+  for (const adset of adsets) {
+    const budgetPayload = resolveAdSetBudgetPayload(args, adset);
+    const fieldPayload = buildAdSetFieldPayload(args, adset, { copyFromTemplate: false });
+    const body = {
+      ...budgetPayload,
+      ...fieldPayload
+    };
+
+    if (args.status) {
+      body.status = normalizeMetaStatus(args.status);
+    }
+
+    if (!Object.keys(body).length) {
+      throw new Error("Provide at least one ad set field to update.");
+    }
+
+    const previewRow = buildAdSetUpdatePreviewRow(adset, body);
+    rows.push(previewRow);
+
+    if (!args.execute) {
+      continue;
+    }
+
+    const result = await graphRequest(`/${adset.id}`, {
+      method: "POST",
+      body
+    });
+
+    previewRow.success = result.success === true ? "true" : String(result.success ?? "");
+    appendMetaChangeLog({
+      operation: "update_adset",
+      entity_type: "adset",
+      entity_id: adset.id,
+      entity_name: adset.name,
+      request: body,
+      response: result
+    });
+  }
+
+  if (!args.execute) {
+    console.log(`Dry run. Add --execute to update ${adsets.length} ad set(s).`);
+  }
+
+  printRows(rows, args.format, [
+    ["adset_id", "Ad set ID"],
+    ["adset_name", "Ad set"],
+    ["requested_status", "Status"],
+    ["daily_budget", "Daily budget"],
+    ["lifetime_budget", "Lifetime budget"],
+    ["billing_event", "Billing"],
+    ["optimization_goal", "Optimization"],
+    ["destination_type", "Destination"],
+    ["has_targeting", "Has targeting"],
+    ["has_promoted_object", "Has promoted object"],
+    ["targeting_summary", "Targeting summary"],
+    ["changed_fields", "Changed fields"],
     ["success", "Success"]
   ]);
 }
@@ -968,6 +1431,14 @@ async function updateAdSetStatus(args, targetStatus) {
     const result = await graphRequest(`/${adset.id}`, {
       method: "POST",
       body: { status: targetStatus }
+    });
+    appendMetaChangeLog({
+      operation: targetStatus === "PAUSED" ? "pause_adset" : "enable_adset",
+      entity_type: "adset",
+      entity_id: adset.id,
+      entity_name: adset.name,
+      request: { status: targetStatus },
+      response: result
     });
 
     rows.push({
@@ -1017,6 +1488,14 @@ async function updateAdStatus(args, targetStatus) {
     const result = await graphRequest(`/${ad.id}`, {
       method: "POST",
       body: { status: targetStatus }
+    });
+    appendMetaChangeLog({
+      operation: targetStatus === "PAUSED" ? "pause_ad" : "enable_ad",
+      entity_type: "ad",
+      entity_id: ad.id,
+      entity_name: ad.name,
+      request: { status: targetStatus },
+      response: result
     });
 
     rows.push({
@@ -1074,7 +1553,7 @@ async function resolveCampaignTargets(args) {
   return rows;
 }
 
-async function resolveAdSetTargets(args) {
+async function resolveAdSetTargets(args, options = {}) {
   if (!args.adsetIds.length && !args.campaignIds.length && !args.campaigns.length) {
     throw new Error("Provide at least one --adset-id, --campaign-id or --campaign for ad set budget updates.");
   }
@@ -1082,8 +1561,9 @@ async function resolveAdSetTargets(args) {
   const accountId = getAdAccountId();
   const result = await graphRequest(`/${accountId}/adsets`, {
     query: {
-      fields:
-        "id,name,status,effective_status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,start_time,end_time,updated_time",
+      fields: options.includeDetails
+        ? "id,name,status,effective_status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,bid_strategy,destination_type,targeting,promoted_object,attribution_spec,start_time,end_time,updated_time"
+        : "id,name,status,effective_status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,start_time,end_time,updated_time",
       limit: Math.max(args.limit, 200),
       filtering: buildAdSetFiltering(args)
     }
@@ -1132,7 +1612,7 @@ async function fetchAdSetTemplate(adsetId) {
   const result = await graphRequest(`/${normalizedId}`, {
     query: {
       fields:
-        "id,name,status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,bid_strategy,targeting,promoted_object,attribution_spec"
+        "id,name,status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,bid_strategy,destination_type,targeting,promoted_object,attribution_spec"
     }
   });
 
@@ -1157,10 +1637,40 @@ async function fetchCreativeTemplate(creativeId) {
   });
 }
 
-function buildCreativePayload(args, template) {
+async function prepareCreativeMedia(args) {
+  let imageHash = args.imageHash || "";
+  let videoId = args.videoId || "";
+
+  if (args.imagePath && args.videoPath) {
+    throw new Error("Use either --image-path or --video-path for a single creative workflow.");
+  }
+
+  if (args.execute && args.imagePath && !imageHash) {
+    const uploadResult = await uploadImageAssetFile(args.imagePath, args.name);
+    const uploaded = Object.values(uploadResult.images || {})[0] || {};
+    imageHash = uploaded.hash || "";
+    if (!imageHash) {
+      throw new Error("Meta image upload did not return an image hash.");
+    }
+  }
+
+  if (args.execute && args.videoPath && !videoId) {
+    const uploadResult = await uploadVideoAssetFile(args.videoPath, args.name, args.description);
+    videoId = uploadResult.id || "";
+    if (!videoId) {
+      throw new Error("Meta video upload did not return a video ID.");
+    }
+  }
+
+  return { imageHash, videoId };
+}
+
+function buildCreativePayload(args, template, media = {}) {
   const payload = {
     name: args.name
   };
+  const resolvedImageHash = media.imageHash || args.imageHash || "";
+  const resolvedVideoId = media.videoId || args.videoId || "";
 
   if (template?.asset_feed_spec) {
     const spec = JSON.parse(JSON.stringify(template.asset_feed_spec));
@@ -1178,6 +1688,9 @@ function buildCreativePayload(args, template) {
     }
     if (args.callToAction && Array.isArray(spec.call_to_action_types) && spec.call_to_action_types.length) {
       spec.call_to_action_types = [String(args.callToAction).toUpperCase()];
+    }
+    if (resolvedImageHash && Array.isArray(spec.images) && spec.images[0]) {
+      spec.images[0].hash = resolvedImageHash;
     }
     payload.asset_feed_spec = spec;
 
@@ -1205,40 +1718,63 @@ function buildCreativePayload(args, template) {
     storySpec.instagram_user_id = normalizeDigits(args.instagramUserId, "instagram user ID");
   }
 
-  const linkData = storySpec.link_data ? JSON.parse(JSON.stringify(storySpec.link_data)) : {};
-  if (args.link) {
-    linkData.link = args.link;
-  }
-  if (args.message) {
-    linkData.message = args.message;
-  }
-  if (args.headline) {
-    linkData.name = args.headline;
-  }
-  if (args.description) {
-    linkData.description = args.description;
-  }
-  if (args.imageHash) {
-    linkData.image_hash = args.imageHash;
-  }
-  if (args.callToAction) {
-    linkData.call_to_action = {
-      type: String(args.callToAction).toUpperCase(),
-      value: {
-        link: args.link || linkData.link || ""
-      }
-    };
-  }
-
   if (!storySpec.page_id) {
     throw new Error("create-creative requires --from-creative-id or at least --page-id.");
   }
-  if (!linkData.link) {
-    throw new Error("create-creative requires a destination --link or a template creative with link_data.link.");
-  }
 
-  if (Object.keys(linkData).length) {
-    storySpec.link_data = linkData;
+  if (resolvedVideoId) {
+    const videoData = storySpec.video_data ? JSON.parse(JSON.stringify(storySpec.video_data)) : {};
+    videoData.video_id = normalizeDigits(resolvedVideoId, "video ID");
+    if (args.message) {
+      videoData.message = args.message;
+    }
+    if (args.headline) {
+      videoData.title = args.headline;
+    }
+    if (args.link) {
+      videoData.link_description = args.description || videoData.link_description || "";
+      videoData.call_to_action = {
+        type: String(args.callToAction || "LEARN_MORE").toUpperCase(),
+        value: { link: args.link }
+      };
+    }
+    if (args.thumbnailUrl) {
+      videoData.image_url = args.thumbnailUrl;
+    }
+    storySpec.video_data = videoData;
+  } else {
+    const linkData = storySpec.link_data ? JSON.parse(JSON.stringify(storySpec.link_data)) : {};
+    if (args.link) {
+      linkData.link = args.link;
+    }
+    if (args.message) {
+      linkData.message = args.message;
+    }
+    if (args.headline) {
+      linkData.name = args.headline;
+    }
+    if (args.description) {
+      linkData.description = args.description;
+    }
+    if (resolvedImageHash) {
+      linkData.image_hash = resolvedImageHash;
+    }
+    if (args.callToAction) {
+      linkData.call_to_action = {
+        type: String(args.callToAction).toUpperCase(),
+        value: {
+          link: args.link || linkData.link || ""
+        }
+      };
+    }
+
+    if (!linkData.link) {
+      throw new Error("create-creative requires a destination --link or a template creative with link_data.link.");
+    }
+
+    if (Object.keys(linkData).length) {
+      storySpec.link_data = linkData;
+    }
   }
 
   payload.object_story_spec = storySpec;
@@ -1246,6 +1782,31 @@ function buildCreativePayload(args, template) {
     payload.url_tags = template.url_tags;
   }
   return payload;
+}
+
+async function uploadImageAssetFile(imagePath, assetName) {
+  const formData = new FormData();
+  formData.set("filename", new Blob([readBinaryFile(imagePath)], { type: guessMimeType(imagePath) }), assetName || imagePath);
+  if (assetName) {
+    formData.set("name", assetName);
+  }
+
+  const accountId = getAdAccountId();
+  return graphMultipartRequest(`/${accountId}/adimages`, { formData });
+}
+
+async function uploadVideoAssetFile(videoPath, assetName, description) {
+  const formData = new FormData();
+  formData.set("source", new Blob([readBinaryFile(videoPath)], { type: guessMimeType(videoPath) }), assetName || videoPath);
+  if (assetName) {
+    formData.set("name", assetName);
+  }
+  if (description) {
+    formData.set("description", description);
+  }
+
+  const accountId = getAdAccountId();
+  return graphMultipartRequest(`/${accountId}/advideos`, { formData });
 }
 
 function extractCreativePageId(payload) {
@@ -1270,6 +1831,10 @@ function extractCreativeMessage(payload) {
 
 function extractCreativeImageHash(payload) {
   return payload.object_story_spec?.link_data?.image_hash || payload.asset_feed_spec?.images?.[0]?.hash || "";
+}
+
+function extractCreativeVideoId(payload) {
+  return payload.object_story_spec?.video_data?.video_id || "";
 }
 
 function extractCreativeCallToAction(payload) {
@@ -1401,6 +1966,11 @@ function mapAdSetRow(adset) {
     lifetime_budget: formatMinorCurrency(adset.lifetime_budget),
     billing_event: adset.billing_event,
     optimization_goal: adset.optimization_goal,
+    bid_strategy: adset.bid_strategy,
+    destination_type: adset.destination_type,
+    targeting: adset.targeting,
+    promoted_object: adset.promoted_object,
+    attribution_spec: adset.attribution_spec,
     start_time: adset.start_time,
     end_time: adset.end_time,
     updated_time: adset.updated_time
@@ -1430,6 +2000,405 @@ function resolveAdSetBudgetPayload(args, template, options = {}) {
     payload.lifetime_budget = String(lifetimeBudget);
   }
   return payload;
+}
+
+function buildAdSetFieldPayload(args, template, options = {}) {
+  const copyFromTemplate = Boolean(options.copyFromTemplate);
+  const payload = {};
+
+  const billingEvent = normalizeOptionalUpperValue(args.billingEvent, template?.billing_event, copyFromTemplate);
+  if (billingEvent) {
+    payload.billing_event = billingEvent;
+  }
+
+  const optimizationGoal = normalizeOptionalUpperValue(
+    args.optimizationGoal,
+    template?.optimization_goal,
+    copyFromTemplate
+  );
+  if (optimizationGoal) {
+    payload.optimization_goal = optimizationGoal;
+  }
+
+  const bidStrategy = normalizeOptionalUpperValue(args.bidStrategy, template?.bid_strategy, copyFromTemplate);
+  if (bidStrategy) {
+    payload.bid_strategy = bidStrategy;
+  }
+
+  const destinationType = normalizeOptionalUpperValue(args.destinationType, template?.destination_type, copyFromTemplate);
+  if (destinationType) {
+    payload.destination_type = destinationType;
+  }
+
+  const targeting = buildTargetingPayload(args, template?.targeting, { copyFromTemplate });
+  if (targeting) {
+    payload.targeting = targeting;
+  }
+
+  const promotedObject = resolveOptionalJsonOverride(args.promotedObjectJson, template?.promoted_object, {
+    label: "promoted object",
+    copyFromTemplate
+  });
+  if (promotedObject) {
+    payload.promoted_object = promotedObject;
+  }
+
+  const attributionSpec = resolveOptionalJsonOverride(args.attributionSpecJson, template?.attribution_spec, {
+    label: "attribution spec",
+    copyFromTemplate
+  });
+  if (attributionSpec) {
+    payload.attribution_spec = attributionSpec;
+  }
+
+  return payload;
+}
+
+function buildTargetingPayload(args, templateTargeting, options = {}) {
+  const copyFromTemplate = Boolean(options.copyFromTemplate);
+  const hasOverrides = Boolean(
+    args.targetingJson ||
+      args.geoJson ||
+      args.audienceJson ||
+      args.ageMin ||
+      args.ageMax ||
+      args.countries.length ||
+      args.publisherPlatforms.length ||
+      args.facebookPositions.length ||
+      args.instagramPositions.length ||
+      args.messengerPositions.length ||
+      args.audienceNetworkPositions.length ||
+      args.devicePlatforms.length ||
+      args.customAudienceIds.length ||
+      args.excludedCustomAudienceIds.length ||
+      args.genders.length
+  );
+
+  if (!copyFromTemplate && !hasOverrides) {
+    return undefined;
+  }
+
+  let targeting = cloneValue(templateTargeting) || {};
+
+  if (args.targetingJson) {
+    targeting = mergeObjects(targeting, parseJsonInput(args.targetingJson, "targeting JSON"));
+  }
+
+  if (args.geoJson) {
+    targeting.geo_locations = mergeObjects(
+      cloneValue(targeting.geo_locations) || {},
+      parseJsonInput(args.geoJson, "geo JSON")
+    );
+  }
+
+  if (args.audienceJson) {
+    targeting = mergeObjects(targeting, parseJsonInput(args.audienceJson, "audience JSON"));
+  }
+
+  if (args.ageMin) {
+    targeting.age_min = normalizePositiveInteger(args.ageMin, "age min");
+  }
+  if (args.ageMax) {
+    targeting.age_max = normalizePositiveInteger(args.ageMax, "age max");
+  }
+  if (targeting.age_min && targeting.age_max && targeting.age_min > targeting.age_max) {
+    throw new Error("age min cannot be greater than age max.");
+  }
+
+  if (args.countries.length) {
+    targeting.geo_locations = {
+      ...(cloneValue(targeting.geo_locations) || {}),
+      countries: uniqueStrings(args.countries).map((country) => country.toUpperCase())
+    };
+  }
+
+  if (args.publisherPlatforms.length) {
+    targeting.publisher_platforms = uniqueStrings(args.publisherPlatforms);
+  }
+  if (args.facebookPositions.length) {
+    targeting.facebook_positions = uniqueStrings(args.facebookPositions);
+  }
+  if (args.instagramPositions.length) {
+    targeting.instagram_positions = uniqueStrings(args.instagramPositions);
+  }
+  if (args.messengerPositions.length) {
+    targeting.messenger_positions = uniqueStrings(args.messengerPositions);
+  }
+  if (args.audienceNetworkPositions.length) {
+    targeting.audience_network_positions = uniqueStrings(args.audienceNetworkPositions);
+  }
+  if (args.devicePlatforms.length) {
+    targeting.device_platforms = uniqueStrings(args.devicePlatforms);
+  }
+
+  if (args.customAudienceIds.length) {
+    targeting.custom_audiences = uniqueStrings(args.customAudienceIds).map((id) => ({
+      id: normalizeDigits(id, "custom audience ID")
+    }));
+  }
+  if (args.excludedCustomAudienceIds.length) {
+    targeting.excluded_custom_audiences = uniqueStrings(args.excludedCustomAudienceIds).map((id) => ({
+      id: normalizeDigits(id, "excluded custom audience ID")
+    }));
+  }
+
+  if (args.genders.length) {
+    const normalizedGenders = normalizeGenderTargeting(args.genders);
+    if (normalizedGenders) {
+      targeting.genders = normalizedGenders;
+    } else {
+      delete targeting.genders;
+    }
+  }
+
+  return Object.keys(targeting).length ? targeting : undefined;
+}
+
+function buildAdSetUpdatePreviewRow(adset, payload) {
+  return {
+    adset_id: adset.id,
+    adset_name: adset.name,
+    requested_status: payload.status || "",
+    daily_budget: formatMinorCurrency(payload.daily_budget),
+    lifetime_budget: formatMinorCurrency(payload.lifetime_budget),
+    billing_event: payload.billing_event || "",
+    optimization_goal: payload.optimization_goal || "",
+    destination_type: payload.destination_type || "",
+    has_targeting: payload.targeting ? "true" : "false",
+    has_promoted_object: payload.promoted_object ? "true" : "false",
+    targeting_summary: summarizeTargeting(payload.targeting),
+    changed_fields: Object.keys(payload).join(", "),
+    success: ""
+  };
+}
+
+function summarizeTargeting(targeting) {
+  if (!targeting || typeof targeting !== "object") {
+    return "";
+  }
+
+  const parts = [];
+  if (targeting.geo_locations?.countries?.length) {
+    parts.push(`countries:${targeting.geo_locations.countries.join("/")}`);
+  }
+  if (targeting.age_min || targeting.age_max) {
+    parts.push(`age:${targeting.age_min || "?"}-${targeting.age_max || "?"}`);
+  }
+  if (targeting.publisher_platforms?.length) {
+    parts.push(`platforms:${targeting.publisher_platforms.join("/")}`);
+  }
+  if (targeting.custom_audiences?.length) {
+    parts.push(`custom_audiences:${targeting.custom_audiences.length}`);
+  }
+  if (targeting.excluded_custom_audiences?.length) {
+    parts.push(`excluded_custom_audiences:${targeting.excluded_custom_audiences.length}`);
+  }
+  return parts.join("; ");
+}
+
+function parseJsonInput(rawValue, label) {
+  const value = String(rawValue || "").trim();
+  if (!value) {
+    throw new Error(`${label} cannot be empty.`);
+  }
+
+  const jsonText = value.startsWith("@") ? readJsonFile(value.slice(1), label) : value;
+
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonText);
+  } catch (error) {
+    throw new Error(`Invalid ${label}: ${error.message}`);
+  }
+
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(`${label} must be a JSON object.`);
+  }
+
+  return parsed;
+}
+
+function readJsonFile(filePath, label) {
+  if (!existsSync(filePath)) {
+    throw new Error(`${label} file not found: ${filePath}`);
+  }
+  return readFileSync(filePath, "utf8");
+}
+
+function resolveOptionalJsonOverride(rawValue, fallbackValue, options = {}) {
+  if (rawValue) {
+    return parseJsonInput(rawValue, options.label || "JSON override");
+  }
+  if (options.copyFromTemplate && fallbackValue) {
+    return cloneValue(fallbackValue);
+  }
+  return undefined;
+}
+
+function mergeObjects(baseValue, overrideValue) {
+  const base = cloneValue(baseValue);
+  const override = cloneValue(overrideValue);
+
+  if (Array.isArray(override) || typeof override !== "object" || !override) {
+    return override;
+  }
+
+  const output = typeof base === "object" && base && !Array.isArray(base) ? base : {};
+  for (const [key, value] of Object.entries(override)) {
+    if (value === null) {
+      delete output[key];
+      continue;
+    }
+    if (Array.isArray(value)) {
+      output[key] = value;
+      continue;
+    }
+    if (typeof value === "object") {
+      output[key] = mergeObjects(output[key], value);
+      continue;
+    }
+    output[key] = value;
+  }
+
+  return output;
+}
+
+function cloneValue(value) {
+  if (value === undefined || value === null) {
+    return value;
+  }
+  return JSON.parse(JSON.stringify(value));
+}
+
+function normalizeOptionalUpperValue(rawValue, fallbackValue, copyFromTemplate) {
+  if (rawValue) {
+    return String(rawValue).trim().toUpperCase();
+  }
+  if (copyFromTemplate && fallbackValue) {
+    return String(fallbackValue).trim().toUpperCase();
+  }
+  return undefined;
+}
+
+function normalizePositiveInteger(value, label) {
+  const numeric = Number(value);
+  if (!Number.isInteger(numeric) || numeric <= 0) {
+    throw new Error(`${label} must be a positive integer.`);
+  }
+  return numeric;
+}
+
+function uniqueStrings(values) {
+  return [...new Set(values.map((value) => String(value).trim()).filter(Boolean))];
+}
+
+function normalizeGenderTargeting(values) {
+  const normalized = uniqueStrings(values).map((value) => value.toLowerCase());
+  if (!normalized.length) {
+    return undefined;
+  }
+  if (normalized.includes("all")) {
+    return undefined;
+  }
+
+  const genders = [];
+  for (const value of normalized) {
+    if (value === "male" || value === "men") {
+      genders.push(1);
+    } else if (value === "female" || value === "women") {
+      genders.push(2);
+    } else {
+      throw new Error("--gender must be male, female, or all.");
+    }
+  }
+
+  const unique = [...new Set(genders)];
+  if (unique.length === 2) {
+    return undefined;
+  }
+  return unique;
+}
+
+function buildCampaignMutationPayload(args) {
+  const body = {};
+  if (args.name) {
+    body.name = args.name;
+  }
+  if (args.objective) {
+    body.objective = String(args.objective).trim().toUpperCase();
+  }
+  if (args.status) {
+    body.status = normalizeMetaStatus(args.status);
+  }
+
+  const budgetPayload = resolveAdSetBudgetPayload(args, null);
+  if (budgetPayload.daily_budget) {
+    body.daily_budget = budgetPayload.daily_budget;
+  }
+  if (budgetPayload.lifetime_budget) {
+    body.lifetime_budget = budgetPayload.lifetime_budget;
+  }
+
+  return body;
+}
+
+function buildAdMutationPayload(args) {
+  const body = {};
+  if (args.name) {
+    body.name = args.name;
+  }
+  if (args.status) {
+    body.status = normalizeMetaStatus(args.status);
+  }
+  if (args.creativeId) {
+    body.creative = {
+      creative_id: normalizeDigits(args.creativeId, "creative ID")
+    };
+  }
+  return body;
+}
+
+function readBinaryFile(filePath) {
+  if (!existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+  return readFileSync(filePath);
+}
+
+function guessMimeType(filePath) {
+  const normalized = String(filePath).toLowerCase();
+  if (normalized.endsWith(".png")) {
+    return "image/png";
+  }
+  if (normalized.endsWith(".webp")) {
+    return "image/webp";
+  }
+  if (normalized.endsWith(".gif")) {
+    return "image/gif";
+  }
+  if (normalized.endsWith(".mp4")) {
+    return "video/mp4";
+  }
+  if (normalized.endsWith(".mov")) {
+    return "video/quicktime";
+  }
+  if (normalized.endsWith(".webm")) {
+    return "video/webm";
+  }
+  return normalized.endsWith(".jpg") || normalized.endsWith(".jpeg") ? "image/jpeg" : "application/octet-stream";
+}
+
+function getMetaChangeLogPath() {
+  return process.env.META_CHANGE_LOG_PATH || DEFAULT_META_CHANGE_LOG_PATH;
+}
+
+function appendMetaChangeLog(entry) {
+  const resolvedPath = path.resolve(getMetaChangeLogPath());
+  mkdirSync(path.dirname(resolvedPath), { recursive: true });
+  appendFileSync(resolvedPath, `${JSON.stringify({
+    logged_at: new Date().toISOString(),
+    ...entry
+  })}\n`, "utf8");
 }
 
 function normalizeDigits(value, label) {

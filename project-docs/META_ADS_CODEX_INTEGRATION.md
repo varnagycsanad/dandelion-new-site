@@ -25,9 +25,13 @@ Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fi
   - `npm run meta:creatives`
   - `npm run meta:insights`
   - `npm run meta:create-campaign`
+  - `npm run meta:update-campaigns`
+  - `npm run meta:upload-image`
+  - `npm run meta:upload-video`
   - `npm run meta:create-creative`
   - `npm run meta:create-adset`
   - `npm run meta:create-ad`
+  - `npm run meta:update-ads`
   - `npm run meta:pause-campaigns`
   - `npm run meta:enable-campaigns`
   - `npm run meta:pause-adsets`
@@ -35,12 +39,17 @@ Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fi
   - `npm run meta:pause-ads`
   - `npm run meta:enable-ads`
   - `npm run meta:update-budgets`
+  - `npm run meta:update-adsets`
+  - `npm run meta:asset-check`
+  - `npm run meta:permissions-diagnostics`
+  - `npm run meta:smoke-checklist`
   - `npm run meta:validate-pixel`
   - `npm run meta:gtm-events`
   - `npm run meta:auth:url`
   - `npm run meta:auth:exchange`
   - `npm run meta:auth:extend`
   - `npm run meta:auth:inspect`
+  - `npm run meta:auth:ensure`
   - `npm run meta:auth:save-token`
   - `npm run meta:pages:check`
   - `npm run meta:pages:permissions`
@@ -228,16 +237,36 @@ Creative letrehozas meglevo creative sablon alapjan:
 npm run meta:create-creative -- --name "Uj creative" --from-creative-id 23850220292700627 --link "https://dandelionhouse.hu/last-minute-d2/" --headline "D2 last minute" --message "10% kedvezmeny legalabb 4 ejszakara."
 ```
 
+Creative letrehozas uj kepfeltoltesi workflowval:
+
+```powershell
+npm run meta:upload-image -- --image-path .\tmp\meta-last-minute.jpg --name "D2 last minute hero"
+npm run meta:create-creative -- --name "D2 last minute image creative" --page-id 100105918439273 --link "https://dandelionhouse.hu/last-minute-d2/" --headline "D2 last minute" --message "10% kedvezmeny legalabb 4 ejszakara." --image-path .\tmp\meta-last-minute.jpg --call-to-action LEARN_MORE
+```
+
 Ad set letrehozas sablon alapjan:
 
 ```powershell
 npm run meta:create-adset -- --campaign-id 120253622390020628 --name "Uj ad set" --from-adset-id 120253622472610628 --daily-budget 60
 ```
 
+Ad set celzasi mezo szerkesztessel:
+
+```powershell
+npm run meta:update-adsets -- --adset-id 120253622472610628 --age-min 28 --age-max 55 --country HU --publisher-platform facebook --facebook-position feed --optimization-goal LANDING_PAGE_VIEWS --destination-type WEBSITE
+```
+
 Ad letrehozas meglevo creative ujrafelhasznalasaval:
 
 ```powershell
 npm run meta:create-ad -- --adset-id 120253622472610628 --name "Uj hirdetes" --from-ad-id 23852933811260627
+```
+
+Kampany es ad mezo szerkesztes:
+
+```powershell
+npm run meta:update-campaigns -- --campaign-id 120253622390020628 --name "D2 Last Minute 2026 frissitett" --status PAUSED
+npm run meta:update-ads -- --ad-id 23852933811260627 --creative-id 23850220292700627 --status PAUSED
 ```
 
 Ad set es ad statusz ellenorzott dry-run workflow:
@@ -294,6 +323,28 @@ Ad set budget modositas alapbol csak dry-run:
 ```powershell
 npm run meta:update-budgets -- --adset-id 120253622472610628 --daily-budget 55
 ```
+
+Token elettartam ellenorzes es automatikus hosszabbitasi kiserlet:
+
+```powershell
+npm run meta:auth:ensure -- --min-valid-days 7 --health-file .secrets/meta-token-health.json
+```
+
+Asset / domain / permission diagnosztika:
+
+```powershell
+npm run meta:asset-check -- --format json
+npm run meta:permissions-diagnostics -- --format json
+npm run meta:smoke-checklist -- --format md
+```
+
+Valtozasnaplo:
+
+```text
+.secrets/meta-change-log.jsonl
+```
+
+Az eles `create-*`, `update-*`, `pause-*`, `enable-*` es `meta:pages:create-post -- --execute` workflowk ide irnak strukturalt naplobe.
 
 Pixel es GTM validacio:
 

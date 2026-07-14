@@ -1,8 +1,10 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
 
 const DEFAULT_VERSION = "v25.0";
 const OAUTH_DIALOG_URL = "https://www.facebook.com";
 const GRAPH_HOST = "https://graph.facebook.com";
+const DEFAULT_TOKEN_HEALTH_PATH = ".secrets/meta-token-health.json";
 const DEFAULT_SCOPES = [
   "pages_show_list",
   "pages_read_engagement",
@@ -28,6 +30,8 @@ try {
     await extendToken(args);
   } else if (args.command === "inspect-token") {
     await inspectToken(args);
+  } else if (args.command === "ensure-token") {
+    await ensureToken(args);
   } else if (args.command === "save-token") {
     saveTokenToEnv(args);
   } else {
@@ -46,6 +50,7 @@ Usage:
   node scripts/meta/meta-auth.mjs exchange-code --code "..." [--app-id 123] [--app-secret "..."] [--redirect-uri "https://..."] [--format md|json]
   node scripts/meta/meta-auth.mjs extend-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
   node scripts/meta/meta-auth.mjs inspect-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
+  node scripts/meta/meta-auth.mjs ensure-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--env-file ".env"] [--min-valid-days 7] [--health-file ".secrets/meta-token-health.json"] [--format md|json]
   node scripts/meta/meta-auth.mjs save-token --access-token "..." [--env-file ".env"] [--page-id 1234567890]
 
 Required env for auth-url:
@@ -64,13 +69,14 @@ Optional env:
 Notes:
   auth-url defaults to a code flow because that is the cleanest path to exchanging and extending the token.
   The default scope set includes pages_manage_posts for Facebook Page posting.
+  ensure-token inspects the current token, extends it when it is close to expiry, and writes a local health snapshot.
 `);
 }
 
 async function loadEnv() {
   try {
     const dotenv = await import("dotenv");
-    dotenv.config();
+    dotenv.config({ override: true });
     return;
   } catch {
     loadDotEnvFallback(".env");
@@ -95,10 +101,6 @@ function loadDotEnvFallback(filePath) {
     }
 
     const [, key, rawValue] = match;
-    if (process.env[key] !== undefined) {
-      continue;
-    }
-
     process.env[key] = rawValue.replace(/^["']|["']$/g, "");
   }
 }
@@ -151,6 +153,12 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === "--env-file") {
       parsed.envFile = next;
+      index += 1;
+    } else if (arg === "--min-valid-days") {
+      parsed.minValidDays = Number(next);
+      index += 1;
+    } else if (arg === "--health-file") {
+      parsed.healthFile = next;
       index += 1;
     } else if (arg === "--page-id") {
       parsed.pageId = next;
@@ -279,35 +287,8 @@ async function extendToken(args) {
 }
 
 async function inspectToken(args) {
-  const accessToken = getAccessToken(args);
-  if (!accessToken) {
-    throw new Error("Missing --access-token and META_ACCESS_TOKEN is not set.");
-  }
-
-  const debugUrl = new URL(`${GRAPH_HOST}/${getVersion()}/debug_token`);
-  debugUrl.searchParams.set("input_token", accessToken);
-  debugUrl.searchParams.set("access_token", `${getAppId(args)}|${getAppSecret(args)}`);
-
-  const debugPayload = await fetchJson(debugUrl);
-  const permissionUrl = new URL(`${GRAPH_HOST}/${getVersion()}/me/permissions`);
-  permissionUrl.searchParams.set("limit", "500");
-  permissionUrl.searchParams.set("access_token", accessToken);
-
-  const profileUrl = new URL(`${GRAPH_HOST}/${getVersion()}/me`);
-  profileUrl.searchParams.set("fields", "id,name");
-  profileUrl.searchParams.set("access_token", accessToken);
-
-  const [permissionsPayload, profilePayload] = await Promise.all([
-    fetchJson(permissionUrl),
-    fetchJson(profileUrl)
-  ]);
-
-  const grantedPermissions = (permissionsPayload.data || [])
-    .filter((item) => item.status === "granted")
-    .map((item) => item.permission)
-    .sort();
-
-  const scopes = Array.isArray(debugPayload.data?.scopes) ? debugPayload.data.scopes.slice().sort() : [];
+  const inspection = await inspectTokenState(args);
+  const { debugPayload, profilePayload, grantedPermissions, scopes } = inspection;
 
   printRows(
     [
@@ -332,6 +313,66 @@ async function inspectToken(args) {
       ["is_valid", "Is valid"],
       ["granted_permissions", "Granted permissions"],
       ["debug_scopes", "Debug scopes"]
+    ]
+  );
+}
+
+async function ensureToken(args) {
+  const minValidDays = Number.isFinite(args.minValidDays) && args.minValidDays > 0 ? args.minValidDays : 7;
+  const envFile = args.envFile || ".env";
+  const healthFile = args.healthFile || DEFAULT_TOKEN_HEALTH_PATH;
+  const inspection = await inspectTokenState(args);
+  const expiresAt = Number(inspection.debugPayload.data?.expires_at || 0);
+  const secondsRemaining = expiresAt > 0 ? Math.max(0, expiresAt - Math.floor(Date.now() / 1000)) : 0;
+  const daysRemaining = secondsRemaining / 86400;
+  const needsExtend = inspection.debugPayload.data?.is_valid && daysRemaining <= minValidDays;
+
+  let finalToken = getAccessToken(args);
+  let action = "noop";
+  let finalInspection = inspection;
+
+  if (!inspection.debugPayload.data?.is_valid) {
+    action = "reauth_required";
+  } else if (needsExtend) {
+    const extendPayload = await extendTokenSilently(args);
+    finalToken = extendPayload.access_token || finalToken;
+    saveTokenToEnv({ ...args, accessToken: finalToken, envFile });
+    finalInspection = await inspectTokenState({ ...args, accessToken: finalToken });
+    action = "extended";
+  }
+
+  writeTokenHealthSnapshot(healthFile, {
+    checked_at: new Date().toISOString(),
+    action,
+    env_file: envFile,
+    is_valid: Boolean(finalInspection.debugPayload.data?.is_valid),
+    expires_at: formatUnixTimestamp(finalInspection.debugPayload.data?.expires_at),
+    data_access_expires_at: formatUnixTimestamp(finalInspection.debugPayload.data?.data_access_expires_at),
+    user_id: String(finalInspection.debugPayload.data?.user_id || finalInspection.profilePayload.id || ""),
+    user_name: finalInspection.profilePayload.name || "",
+    granted_permissions: finalInspection.grantedPermissions,
+    scopes: finalInspection.scopes
+  });
+
+  printRows(
+    [
+      {
+        action,
+        is_valid: String(Boolean(finalInspection.debugPayload.data?.is_valid)),
+        expires_at: formatUnixTimestamp(finalInspection.debugPayload.data?.expires_at),
+        data_access_expires_at: formatUnixTimestamp(finalInspection.debugPayload.data?.data_access_expires_at),
+        env_file: envFile,
+        health_file: healthFile
+      }
+    ],
+    args.format,
+    [
+      ["action", "Action"],
+      ["is_valid", "Is valid"],
+      ["expires_at", "Expires at"],
+      ["data_access_expires_at", "Data access expires"],
+      ["env_file", "Env file"],
+      ["health_file", "Health file"]
     ]
   );
 }
@@ -372,6 +413,64 @@ function saveTokenToEnv(args) {
       ["meta_page_id", "META_PAGE_ID"]
     ]
   );
+}
+
+function writeTokenHealthSnapshot(filePath, payload) {
+  const resolvedPath = path.resolve(filePath);
+  mkdirSync(path.dirname(resolvedPath), { recursive: true });
+  writeFileSync(resolvedPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+}
+
+async function inspectTokenState(args) {
+  const accessToken = getAccessToken(args);
+  if (!accessToken) {
+    throw new Error("Missing --access-token and META_ACCESS_TOKEN is not set.");
+  }
+
+  const debugUrl = new URL(`${GRAPH_HOST}/${getVersion()}/debug_token`);
+  debugUrl.searchParams.set("input_token", accessToken);
+  debugUrl.searchParams.set("access_token", `${getAppId(args)}|${getAppSecret(args)}`);
+
+  const debugPayload = await fetchJson(debugUrl);
+  const permissionUrl = new URL(`${GRAPH_HOST}/${getVersion()}/me/permissions`);
+  permissionUrl.searchParams.set("limit", "500");
+  permissionUrl.searchParams.set("access_token", accessToken);
+
+  const profileUrl = new URL(`${GRAPH_HOST}/${getVersion()}/me`);
+  profileUrl.searchParams.set("fields", "id,name");
+  profileUrl.searchParams.set("access_token", accessToken);
+
+  const [permissionsPayload, profilePayload] = await Promise.all([fetchJson(permissionUrl), fetchJson(profileUrl)]);
+
+  const grantedPermissions = (permissionsPayload.data || [])
+    .filter((item) => item.status === "granted")
+    .map((item) => item.permission)
+    .sort();
+
+  const scopes = Array.isArray(debugPayload.data?.scopes) ? debugPayload.data.scopes.slice().sort() : [];
+
+  return {
+    debugPayload,
+    permissionsPayload,
+    profilePayload,
+    grantedPermissions,
+    scopes
+  };
+}
+
+async function extendTokenSilently(args) {
+  const accessToken = getAccessToken(args);
+  if (!accessToken) {
+    throw new Error("Missing --access-token and META_ACCESS_TOKEN is not set.");
+  }
+
+  const url = new URL(`${GRAPH_HOST}/${getVersion()}/oauth/access_token`);
+  url.searchParams.set("grant_type", "fb_exchange_token");
+  url.searchParams.set("client_id", getAppId(args));
+  url.searchParams.set("client_secret", getAppSecret(args));
+  url.searchParams.set("fb_exchange_token", accessToken);
+
+  return fetchJson(url);
 }
 
 function upsertEnvValue(content, key, value) {

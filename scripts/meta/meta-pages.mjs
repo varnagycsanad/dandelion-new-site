@@ -1,8 +1,9 @@
-import { existsSync, readFileSync } from "node:fs";
-import { basename, resolve } from "node:path";
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { basename, dirname, resolve } from "node:path";
 
 const DEFAULT_VERSION = "v25.0";
 const GRAPH_HOST = "https://graph.facebook.com";
+const DEFAULT_META_CHANGE_LOG_PATH = ".secrets/meta-change-log.jsonl";
 
 await loadEnv();
 
@@ -53,7 +54,7 @@ Notes:
 async function loadEnv() {
   try {
     const dotenv = await import("dotenv");
-    dotenv.config();
+    dotenv.config({ override: true });
     return;
   } catch {
     loadDotEnvFallback(".env");
@@ -78,10 +79,6 @@ function loadDotEnvFallback(filePath) {
     }
 
     const [, key, rawValue] = match;
-    if (process.env[key] !== undefined) {
-      continue;
-    }
-
     process.env[key] = rawValue.replace(/^["']|["']$/g, "");
   }
 }
@@ -161,6 +158,12 @@ function getConfiguredPageId(args) {
     return "";
   }
   return normalizeDigits(raw, "page ID");
+}
+
+function appendMetaChangeLog(entry) {
+  const resolvedPath = resolve(process.env.META_CHANGE_LOG_PATH || DEFAULT_META_CHANGE_LOG_PATH);
+  mkdirSync(dirname(resolvedPath), { recursive: true });
+  appendFileSync(resolvedPath, `${JSON.stringify({ logged_at: new Date().toISOString(), ...entry })}\n`, "utf8");
 }
 
 async function graphRequest(pathname, { method = "GET", query = {}, body = undefined, accessToken } = {}) {
@@ -419,6 +422,20 @@ async function createPagePost(args) {
       published: args.published ? "true" : "false"
     }
   ];
+
+  appendMetaChangeLog({
+    operation: "create_page_post",
+    entity_type: "page_post",
+    entity_id: result.post_id || result.id || "",
+    entity_name: context.pageName,
+    request: {
+      page_id: context.pageId,
+      published: args.published,
+      photo_count: normalizedPhotos.length,
+      message_preview: truncateText(args.message, 140)
+    },
+    response: result
+  });
 
   printRows(rows, args.format, [
     ["page_id", "Page ID"],

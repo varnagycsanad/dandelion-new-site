@@ -71,7 +71,7 @@ function parseArgs(argv) {
 async function loadEnv() {
   try {
     const dotenv = await import("dotenv");
-    dotenv.config();
+    dotenv.config({ override: true });
     return;
   } catch {
     loadDotEnvFallback(".env");
@@ -96,10 +96,6 @@ function loadDotEnvFallback(filePath) {
     }
 
     const [, key, rawValue] = match;
-    if (process.env[key] !== undefined) {
-      continue;
-    }
-
     process.env[key] = rawValue.replace(/^["']|["']$/g, "");
   }
 }
