@@ -5,8 +5,10 @@ import balatonStoryImage from "../assets/home/region-stories/dandelion-home-bala
 import kaliStoryImage from "../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import stickyBackgroundImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-mountains-cutout.webp";
 
+const regionStoryWidths = [414, 640, 828, 1040, 1600];
 const regionStorySizes =
   "(max-width: 767px) 100vw, (max-width: 1100px) calc(100vw - 48px), 1040px";
+const stickyImageWidths = [768, 1280, 1600];
 const stickyImageSizes = "100vw";
 
 // [CHANGE 2026-05-16 11:45] Homepage region copy rövidítve és konkrétabbá téve.
@@ -98,6 +100,7 @@ const {
             src={stickyBackgroundImage}
             alt={stickyBackgroundAlt}
             loading="lazy"
+            widths={stickyImageWidths}
             width={1600}
             sizes={stickyImageSizes}
           />
@@ -111,6 +114,7 @@ const {
               src={story.image}
               alt={story.imageAlt}
               loading="lazy"
+              widths={regionStoryWidths}
               width={1600}
               sizes={regionStorySizes}
             />
