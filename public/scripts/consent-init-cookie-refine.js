@@ -42,6 +42,10 @@
     if (marketingGranted) {
       pushEvent("dnd_marketing_granted");
     }
+
+    if ((analyticsGranted || marketingGranted) && typeof window.dndLoadGtm === "function") {
+      window.dndLoadGtm();
+    }
   }
 
   window.dndSetConsentDefaults = function dndSetConsentDefaults() {
@@ -179,6 +183,40 @@
     document.addEventListener("DOMContentLoaded", watchCookieModal);
   } else {
     watchCookieModal();
+  }
+
+  function scheduleKlaroLoad() {
+    if (typeof window.dndLoadKlaro !== "function") {
+      return;
+    }
+
+    const loadKlaro = function () {
+      window.dndLoadKlaro().then(function () {
+        if (typeof window.dndApplyStoredConsent === "function") {
+          window.dndApplyStoredConsent();
+        }
+      }).catch(function () {});
+    };
+
+    const loadSoon = function () {
+      window.setTimeout(loadKlaro, 1200);
+    };
+
+    window.addEventListener("pointerdown", loadKlaro, { once: true, passive: true });
+    window.addEventListener("keydown", loadKlaro, { once: true });
+    window.addEventListener("scroll", loadKlaro, { once: true, passive: true });
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadSoon, { timeout: 2500 });
+    } else {
+      window.setTimeout(loadSoon, 1800);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleKlaroLoad, { once: true });
+  } else {
+    scheduleKlaroLoad();
   }
 
   // Defaults are sent inline in BaseLayout before GTM loads.

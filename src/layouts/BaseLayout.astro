@@ -806,16 +806,67 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
       window.gtag("set", "ads_data_redaction", true);
     </script>
     <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-P75FHKLJ');
+      window.dndLoadGtm = window.dndLoadGtm || (function () {
+        let loaded = false;
+
+        return function dndLoadGtm() {
+          if (loaded) {
+            return;
+          }
+
+          loaded = true;
+          window.dataLayer.push({
+            "gtm.start": new Date().getTime(),
+            event: "gtm.js"
+          });
+
+          var firstScript = document.getElementsByTagName("script")[0];
+          var script = document.createElement("script");
+          script.async = true;
+          script.src = "https://www.googletagmanager.com/gtm.js?id=GTM-P75FHKLJ";
+          firstScript.parentNode.insertBefore(script, firstScript);
+        };
+      })();
     </script>
-    <link rel="stylesheet" href="/vendor/klaro/klaro.min.css" />
     <script defer src="/scripts/consent-init-cookie-refine.js"></script>
-    <script defer src="/scripts/klaro-config-cookie-refine.js"></script>
-    <script defer src="/vendor/klaro/klaro-no-css.js"></script>
+    <script is:inline>
+      window.dndLoadKlaro = window.dndLoadKlaro || (function () {
+        let loadPromise;
+
+        function loadScript(src) {
+          return new Promise(function (resolve, reject) {
+            var script = document.createElement("script");
+            script.src = src;
+            script.defer = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        }
+
+        return function dndLoadKlaro() {
+          if (loadPromise) {
+            return loadPromise;
+          }
+
+          loadPromise = new Promise(function (resolve, reject) {
+            var css = document.createElement("link");
+            css.rel = "stylesheet";
+            css.href = "/vendor/klaro/klaro.min.css";
+            document.head.appendChild(css);
+
+            loadScript("/scripts/klaro-config-cookie-refine.js")
+              .then(function () {
+                return loadScript("/vendor/klaro/klaro-no-css.js");
+              })
+              .then(resolve)
+              .catch(reject);
+          });
+
+          return loadPromise;
+        };
+      })();
+    </script>
     <script defer src="/scripts/dnd-booking-attribution.js"></script>
     <!-- [CHANGE 2026-05-26 00:00] Load delegated CTA dataLayer events after existing consent scripts. -->
     <script defer src="/scripts/dnd-ads-events.js"></script>
@@ -825,14 +876,6 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
     <slot name="head" />
   </head>
   <body>
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-P75FHKLJ"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"
-      ></iframe>
-    </noscript>
     <!--email_off-->
     {!hideHeader && <header class={`dnd-header ${isTransparentHeaderStart ? "dnd-header--transparent-start" : "dnd-header--solid-start"}`} data-dnd-header>
       <div class="dnd-container dnd-header__desktop">
