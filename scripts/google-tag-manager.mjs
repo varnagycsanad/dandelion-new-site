@@ -28,6 +28,8 @@ try {
     await listContainers(args);
   } else if (args.command === "workspaces") {
     await listWorkspaces(args);
+  } else if (args.command === "workspace-status") {
+    await getWorkspaceStatus(args);
   } else if (args.command === "tags") {
     await listTags(args);
   } else if (args.command === "tag") {
@@ -44,6 +46,10 @@ try {
     await getLatestVersion(args);
   } else if (args.command === "add-firing-trigger") {
     await addFiringTrigger(args);
+  } else if (args.command === "remove-firing-trigger") {
+    await removeFiringTrigger(args);
+  } else if (args.command === "create-ga4-event-tag") {
+    await createGa4EventTag(args);
   } else if (args.command === "create-version") {
     await createVersion(args);
   } else if (args.command === "publish-version") {
@@ -64,6 +70,7 @@ Usage:
   node scripts/google-tag-manager.mjs accounts [--format md|json|csv]
   node scripts/google-tag-manager.mjs containers --account 123456 [--format md|json|csv]
   node scripts/google-tag-manager.mjs workspaces --account 123456 --container 654321 [--format md|json|csv]
+  node scripts/google-tag-manager.mjs workspace-status --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
   node scripts/google-tag-manager.mjs tags --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
   node scripts/google-tag-manager.mjs tag --account 123456 --container 654321 --workspace 1 --tag 9 [--format md|json|csv]
   node scripts/google-tag-manager.mjs triggers --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
@@ -72,6 +79,8 @@ Usage:
   node scripts/google-tag-manager.mjs built-ins --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
   node scripts/google-tag-manager.mjs latest-version --account 123456 --container 654321 [--format md|json|csv]
   node scripts/google-tag-manager.mjs add-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 20 [--format md|json|csv]
+  node scripts/google-tag-manager.mjs remove-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 22 [--format md|json|csv]
+  node scripts/google-tag-manager.mjs create-ga4-event-tag --account 123456 --container 654321 --workspace 1 --name "GA4 - purchase" --event-name purchase --measurement-id G-XXXX --trigger 22 [--format md|json|csv]
   node scripts/google-tag-manager.mjs create-version --account 123456 --container 654321 --workspace 1 [--name "Version name"] [--notes "Notes"] [--format md|json|csv]
   node scripts/google-tag-manager.mjs publish-version --account 123456 --container 654321 --version 12 [--format md|json|csv]
 
@@ -122,6 +131,8 @@ function parseArgs(argv) {
     versionId: process.env.GTM_VERSION_ID,
     versionName: undefined,
     notes: undefined,
+    eventName: undefined,
+    measurementId: undefined,
     tokenPath: process.env.GTM_OAUTH_TOKEN_JSON || DEFAULT_TOKEN_PATH
   };
 
@@ -163,6 +174,12 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === "--notes") {
       parsed.notes = next;
+      index += 1;
+    } else if (arg === "--event-name") {
+      parsed.eventName = next;
+      index += 1;
+    } else if (arg === "--measurement-id") {
+      parsed.measurementId = next;
       index += 1;
     } else if (arg === "--token") {
       parsed.tokenPath = next;
@@ -400,6 +417,16 @@ async function listWorkspaces(args) {
   ]);
 }
 
+async function getWorkspaceStatus(args) {
+  const result = await gtmRequest(`${resolveWorkspaceParent(args)}/status`, args);
+  if (args.format === "json") {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  printRows([flattenEntity(result)], args.format, entityColumns());
+}
+
 async function listTags(args) {
   const result = await gtmRequest(`${resolveWorkspaceParent(args)}/tags`, args);
   const rows = (result.tag || []).map((tag) => ({
@@ -532,6 +559,83 @@ async function addFiringTrigger(args) {
     [
       ["tagId", "Tag ID"],
       ["name", "Name"],
+      ["firingTriggerId", "Firing triggers"]
+    ]
+  );
+}
+
+async function removeFiringTrigger(args) {
+  const tagId = requireArg(args.tagId, "GTM tag ID");
+  const triggerId = requireArg(args.triggerId, "GTM trigger ID");
+  const tagPath = `${resolveWorkspaceParent(args)}/tags/${tagId}`;
+  const tag = await gtmRequest(tagPath, args);
+  const currentTriggers = Array.isArray(tag.firingTriggerId) ? tag.firingTriggerId.map(String) : [];
+  const nextTriggers = currentTriggers.filter((id) => id !== String(triggerId));
+
+  if (nextTriggers.length === currentTriggers.length) {
+    throw new Error(`Tag ${tagId} is not fired by trigger ${triggerId}.`);
+  }
+
+  if (nextTriggers.length === 0) {
+    throw new Error(`Refusing to remove the only firing trigger from tag ${tagId}.`);
+  }
+
+  tag.firingTriggerId = nextTriggers;
+  const updated = await gtmRequest(tagPath, args, {
+    method: "PUT",
+    query: { fingerprint: tag.fingerprint },
+    body: tag
+  });
+
+  printRows(
+    [{
+      tagId: updated.tagId,
+      name: updated.name,
+      firingTriggerId: Array.isArray(updated.firingTriggerId) ? updated.firingTriggerId.join(",") : ""
+    }],
+    args.format,
+    [
+      ["tagId", "Tag ID"],
+      ["name", "Name"],
+      ["firingTriggerId", "Firing triggers"]
+    ]
+  );
+}
+
+async function createGa4EventTag(args) {
+  const name = requireArg(args.versionName || process.argv[process.argv.indexOf("--name") + 1], "GTM tag name");
+  const eventName = requireArg(args.eventName, "GA4 event name");
+  const measurementId = requireArg(args.measurementId, "GA4 measurement ID");
+  const triggerId = requireArg(args.triggerId, "GTM trigger ID");
+  const workspacePath = resolveWorkspaceParent(args);
+
+  const created = await gtmRequest(`${workspacePath}/tags`, args, {
+    method: "POST",
+    body: {
+      name,
+      type: "gaawe",
+      parameter: [
+        { type: "boolean", key: "sendEcommerceData", value: "false" },
+        { type: "template", key: "eventName", value: eventName },
+        { type: "template", key: "measurementIdOverride", value: measurementId }
+      ],
+      firingTriggerId: [triggerId],
+      tagFiringOption: "oncePerEvent"
+    }
+  });
+
+  printRows(
+    [{
+      tagId: created.tagId,
+      name: created.name,
+      type: created.type,
+      firingTriggerId: Array.isArray(created.firingTriggerId) ? created.firingTriggerId.join(",") : ""
+    }],
+    args.format,
+    [
+      ["tagId", "Tag ID"],
+      ["name", "Name"],
+      ["type", "Type"],
       ["firingTriggerId", "Firing triggers"]
     ]
   );

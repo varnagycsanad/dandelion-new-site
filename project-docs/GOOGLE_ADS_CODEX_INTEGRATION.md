@@ -56,6 +56,8 @@ Elso koros parancsok:
 - `npm run google-stack:booking-chain`
 - `npm run google-stack:weekly-report`
 - `npm run google-stack:snapshot`
+- `npm run google-stack:bigquery:setup`
+- `npm run google-stack:bigquery-export`
 
 ## Miert nem volt eddig
 
@@ -403,6 +405,7 @@ Ha ez a minimum workflow mar mukodik, a kovetkezo bovitmenyek eri meg:
 - `npm run google-stack:booking-chain`
 - `npm run google-stack:weekly-report`
 - `npm run google-stack:snapshot`
+- `npm run google-stack:bigquery-export`
 
 Mit nez:
 
@@ -412,6 +415,7 @@ Mit nez:
 - booking meresi lanc jelei frontend, GTM, GA4 es Ads oldalon
 - heti, olvashato operations osszefoglalot
 - szabvanyos JSON snapshotokat a kritikus feluletekrol
+- opcionális BigQuery exportot a snapshotok es heti riport kulso tarolasahoz
 
 Ez nem valtoztat a fiókokon, csak auditjellegu ellenorzes.
 

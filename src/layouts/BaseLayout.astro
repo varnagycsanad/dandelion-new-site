@@ -827,6 +827,9 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
           firstScript.parentNode.insertBefore(script, firstScript);
         };
       })();
+      // Load the GTM container immediately, while Consent Mode defaults stay denied
+      // until the visitor updates their preferences.
+      window.dndLoadGtm();
     </script>
     <script defer src="/scripts/consent-init-cookie-refine.js"></script>
     <script is:inline>

@@ -66,6 +66,35 @@ Ez a kovetkezo fajlokat irja ki:
 - `ads-performance-30d.json`
 - `ads-conversions.json`
 
+### 5. BigQuery export
+
+Elso hasznalatkor:
+
+```bash
+npm run google-stack:bigquery:setup
+```
+
+Napi vagy heti export:
+
+```bash
+npm run google-stack:bigquery-export
+```
+
+Mit tol fel:
+
+- heti operations riportot
+- `healthcheck.json`
+- `booking-chain.json`
+- `ads-campaigns.json`
+- `ads-performance-30d.json`
+- `ads-conversions.json`
+
+Mire jo:
+
+- kulso, tartos riporttortenet
+- SQL-bol visszakerdezheto snapshotok
+- kesobbi dashboard vagy automatikus riport alap
+
 ## Kampanykezeles
 
 ### Olvasasi parancsok

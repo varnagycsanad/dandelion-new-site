@@ -298,47 +298,6 @@ async function buildGtmSummary(gtmBase) {
   const tags = tagsResult.data || [];
   const triggers = triggersResult.data || [];
 
-  const tagDetails =
-    gtmBase.accountId && gtmBase.containerId && gtmBase.workspaceId
-      ? tags.map((tag) =>
-          runNodeJson("scripts/google-tag-manager.mjs", [
-            "tag",
-            "--account",
-            gtmBase.accountId,
-            "--container",
-            gtmBase.containerId,
-            "--workspace",
-            gtmBase.workspaceId,
-            "--tag",
-            tag.tagId,
-            "--format",
-            "json"
-          ])
-        )
-      : [];
-
-  const triggerDetails =
-    gtmBase.accountId && gtmBase.containerId && gtmBase.workspaceId
-      ? triggers.map((trigger) =>
-          runNodeJson("scripts/google-tag-manager.mjs", [
-            "trigger",
-            "--account",
-            gtmBase.accountId,
-            "--container",
-            gtmBase.containerId,
-            "--workspace",
-            gtmBase.workspaceId,
-            "--trigger",
-            trigger.triggerId,
-            "--format",
-            "json"
-          ])
-        )
-      : [];
-
-  const normalizedTagDetails = tagDetails.flatMap((result) => (result.ok ? result.data : []));
-  const normalizedTriggerDetails = triggerDetails.flatMap((result) => (result.ok ? result.data : []));
-
   return {
     resolved: {
       account_id: gtmBase.accountId || "",
@@ -373,15 +332,19 @@ async function buildGtmSummary(gtmBase) {
       types: Array.from(new Set(rows.map((row) => row.type).filter(Boolean)))
     })),
     tag_details: {
-      ok: normalizedTagDetails.length === tags.length && tags.length > 0,
-      count: normalizedTagDetails.length,
-      rows: normalizedTagDetails
+      ok: false,
+      count: 0,
+      rows: [],
+      skipped: true,
+      reason: "Skipped detailed GTM tag fetch to avoid quota-heavy per-tag requests during healthcheck."
     },
     tag_rows: tags,
     trigger_details: {
-      ok: normalizedTriggerDetails.length === triggers.length && triggers.length > 0,
-      count: normalizedTriggerDetails.length,
-      rows: normalizedTriggerDetails
+      ok: false,
+      count: 0,
+      rows: [],
+      skipped: true,
+      reason: "Skipped detailed GTM trigger fetch to avoid quota-heavy per-trigger requests during healthcheck."
     },
     trigger_rows: triggers
   };

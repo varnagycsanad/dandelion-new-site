@@ -1,6 +1,6 @@
 # Google Ads Codex Tooling Audit
 
-Status: AKTUALIS 2026-07-13
+Status: FRISSITVE 2026-07-14
 
 Cel: annak auditja, hogy a jelenlegi Codex workspace es a kapcsolodo helyi workflow-k mennyire alkalmasak Google Ads kampanyok technikai kezelesere.
 
@@ -12,7 +12,7 @@ Fontos keretezes:
 
 ## 1. Vezetoi osszegzes
 
-Jelen allapotban a Codex **reszben alkalmas** Google Ads kezelesre, de **nem rendelkezik meg minden szukseges eszkozzel a teljes koru, napi szintu kampanymenedzsmenthez**.
+Jelen allapotban a Codex **nagyon nagy reszben alkalmas** Google Ads technikai kezelesre, es a helyi workflow mar lefedi a napi operativ kampanymenedzsment legtobb gyakorlati eszkozigényet.
 
 Mi mar bizonyitottan mukodik:
 
@@ -29,19 +29,17 @@ Mi mar bizonyitottan mukodik:
 - GA4 Admin oldalon key event es Google Ads link lathatosag,
 - site oldali dataLayer booking esemenyek.
 
-Mi nincs meg teljesen:
+Mi marad nyitott vagy csak reszben megoldott:
 
 - nincs natív Google Ads connector a Codexben,
-- nincs teljes kampany-irasi felulet a helyi workflow-ban,
 - a Keyword Planner kutatas jelenleg nem stabilan hasznalhato,
-- nincs egyseges end-to-end healthcheck a teljes Ads -> GTM -> GA4 -> Ads link lancra,
-- nincs bizonyitott, teljes Google Ads conversion tag kezeles GTM oldalon,
-- a hasznalhatosag egy resze ma is helyi Node scriptekre epul.
+- a teljes platform ma is helyi Node scriptekre epul natív connector helyett,
+- opcionálisan meg hianyzik BigQuery vagy mas kulso riportforras bekotese.
 
 Kovetkeztetes:
 
-- auditra es reszleges optimalizaciora a Codex mar hasznalhato,
-- teljes koru operativ kampanykezelesre meg nem eleg eros.
+- auditra, napi ellenorzesre es kontrollalt modositasokra a Codex mar egyertelmuen hasznalhato,
+- a fo nyitott pontok mar nem az alapkezeleshez, hanem a tovabbi riportskalazashoz es platformizalashoz tartoznak.
 
 ## 2. Mi bizonyitottan mukodik
 
@@ -232,24 +230,30 @@ Kovetkezmeny:
 
 - a rendszer mukodik, de inkabb egyedi workflow, mint teljes platformkepesseg.
 
-### 3.2 Nincs teljes Google Ads irasi felulet
+### 3.2 A Google Ads irasi felulet mar jelentosen teljesebb, de nem teljes koru
 
-A jelenlegi repo-ban nem latszik kesz workflow a kovetkezokre:
+A korabbi audit ideje ota a jelenlegi repo-ban mar kesz workflow van a kovetkezokre:
 
-- uj kampany letrehozas,
-- kampany pause / enable teljes workflow,
+- kampany pause / enable,
 - budget modositas,
-- bidding strategia modositas,
 - ad group letrehozas es szerkesztes,
-- RSA hirdetesek letrehozasa vagy szerkesztese,
-- asset kezelese,
+- RSA hirdetesek letrehozasa es szerkesztese,
 - location target beallitasok irasa,
 - language target beallitasok irasa,
-- audience vagy observation kezeles,
-- conversion action kezeles Ads oldalon,
-- bulk import vagy valtozaskezelo pipeline.
+- strukturalt export / import alapu valtozaskezeles.
 
-Ez a legfontosabb funkcionalis hiany.
+Valodi maradek hiany inkabb ezeknel maradt:
+
+- uj kampany letrehozas teljes workflow-ja,
+- bidding strategia modositas,
+- asset kezelese,
+- audience vagy observation kezeles,
+- conversion action kezeles Ads oldalon.
+
+Kovetkeztetes:
+
+- a napi operativ modositasok nagy resze mar lefedett,
+- a hianyok mar inkabb a teljes koru platformszintu kampanyepiteshez tartoznak.
 
 ### 3.3 A Keyword Planner workflow jelenleg nem stabil
 
@@ -293,29 +297,24 @@ Kovetkeztetes:
 - vagyis itt nem egy hianyzo meresrol volt szo, hanem egy tul szigoru ellenorzo feltetelrol,
 - a healthchecket ennek megfeleloen javitani kellett, hogy a mukodo GA4 importos Ads-konverzios utat is `ok` allapotnak vegye.
 
-### 3.5 Nincs egyseges, egygombos healthcheck
+### 3.5 Az egyseges healthcheck mar megvan
 
-Most kulon darabok vannak:
+A korabbi hiany itt mar lezarhato.
 
-- Ads auth es riport,
-- GTM olvasas,
-- GA4 Admin ellenorzes,
-- frontend event kod.
+A repo-ban most mar kulon script ellenorzi:
 
-De nincs olyan egyetlen parancs, amely egyben ellenorizne:
+- az Ads auth es customer elerest,
+- a kampany- es conversion lathatosagot,
+- a GA4 Ads linket es key eventeket,
+- a GTM container / tag / trigger allapotot,
+- a booking meresi lanc fo kapcsolati pontjait.
 
-- tokenek ervenyesseget,
-- Ads customer elerest,
-- kampanyadatok visszaolvashatosagat,
-- conversion action listat,
-- GA4 Ads linket,
-- key eventeket,
-- GTM container / tag / trigger allapotot,
-- booking confirmation meresi lancot.
+Kovetkeztetes:
 
-Ez operativ szinten nagy hiany.
+- ez mar nem nyitott hiany,
+- a tovabbi feladat legfeljebb az idozites vagy kulso archivum iranyaba mutat.
 
-### 3.6 A GTM helper reszben kepesebb, mint amennyire kenyelmesen hasznalhato
+### 3.6 A GTM helper hasznalhatosaga mar rendezetten dokumentalt
 
 A `google-tag-manager.mjs` script tud:
 
@@ -325,9 +324,12 @@ A `google-tag-manager.mjs` script tud:
 - version keszitest,
 - publish muveletet.
 
-De ezekhez nincs teljes npm shortcut keszlet a `package.json`-ban.
+Ezekhez mar tartozik teljesebb npm shortcut keszlet a `package.json`-ban, es a napi hasznalatot kulon doksi is tamogatja.
 
-Ez nem technikai blokkolas, de valos hasznalhatosagi hiany.
+Kovetkeztetes:
+
+- ez a pont mar nem tekintheto aktiv hianynak,
+- a GTM helper ma mar kenyelmesebben operationalizalhato.
 
 ## 4. Mit jelent ez uzemeltetesi szemmel
 
@@ -351,9 +353,9 @@ Jelen allapotban a Codex nem alkalmas meg teljes bizonyossaggal:
 - teljes kampanyeletciklus-kezelesre,
 - rendszeres kampanyepitesre nullarol,
 - teljes hirdetes- es assetmenedzsmentre,
-- komplett bidding es budgetkezelesre,
+- komplett bidding strategia-kezelesre,
 - stabil kulcsszokutatasra Keyword Planner alapon,
-- egyben vegigkovetett, automatikus meresi healthcheckre.
+- kulso riportforrasra vagy BigQuery-alapu osszevont riportozasra.
 
 ## 5. P0 / P1 / P2 akcioterv
 
@@ -370,7 +372,7 @@ Jelen allapotban a Codex nem alkalmas meg teljes bizonyossaggal:
    - `gtm:create-version`
    - `gtm:publish-version`
 
-Megvalositas allapot 2026-07-13:
+Megvalositas allapot 2026-07-14:
 
 - [x] `google-stack:healthcheck`
 - [x] `google-stack:booking-chain`
@@ -387,7 +389,7 @@ Megvalositas allapot 2026-07-13:
 5. Keszuljon location/language target audit + mutate workflow.
 6. Keszuljon strukturalt export/import formatum kampanyvaltozasokhoz.
 
-Megvalositas allapot 2026-07-13:
+Megvalositas allapot 2026-07-14:
 
 - [x] kampanyszintu enable/pause workflow
 - [x] budget update workflow
@@ -403,7 +405,7 @@ Megvalositas allapot 2026-07-13:
 3. Egyetlen living dashboard vagy gyujtodoksi a napi hasznalathoz.
 4. Opcionálisan BigQuery vagy mas riportforras bekotes.
 
-Megvalositas allapot 2026-07-13:
+Megvalositas allapot 2026-07-14:
 
 - [x] heti operations riport script
 - [x] standard JSON snapshot script
@@ -436,7 +438,17 @@ Rovid minosites:
 - Kutatasi kepesseg Keyword Planner oldalon: **gyenge / instabil**
 - Platformszintu keszenlet: **jo**
 
-## 7. Javasolt kovetkezo konkret feladat
+## 7. Nyitott feladatok ujraosszeszedve
+
+Az audit alapjan jelenleg ezek maradtak tenylegesen nyitva:
+
+1. Opcionálisan BigQuery vagy mas kulso riportforras bekotese.
+2. Snapshotok archivuma vagy kulso tarolasa, ha hosszu tavu riporttortenet is kell.
+3. Heti riport idozitett futtatasa, ha ezt nem kezi inditassal akarjuk hasznalni.
+4. Keyword Planner stabilizalasa, ha kulcsszokutatasra is a Codex legyen az elso szamu workflow.
+5. Teljes kampanyepitesi funkciok tovabbitasa, ha a cel mar nem csak kezeles, hanem nullarol epites is.
+
+## 8. Javasolt kovetkezo konkret feladat
 
 Ha a cel az, hogy a Codex tenyleg napi kampanykezelo eszkoz legyen, akkor a legjobb kovetkezo lepes:
 

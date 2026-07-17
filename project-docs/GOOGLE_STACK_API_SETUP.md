@@ -116,6 +116,42 @@ Megjegyzes:
 
 - ehhez kulon `tagmanager.readonly` scope-os token kell.
 
+### 6. BigQuery export
+
+Parancsok:
+
+- `npm run google-stack:bigquery:setup`
+- `npm run google-stack:bigquery-export`
+
+Javasolt env:
+
+```env
+GOOGLE_CLOUD_PROJECT=
+BIGQUERY_PROJECT_ID=
+BIGQUERY_DATASET_ID=dandelion_google_stack
+BIGQUERY_DATASET_LOCATION=EU
+BIGQUERY_TABLE_PREFIX=google_stack
+BIGQUERY_SERVICE_ACCOUNT_JSON=.secrets/dandelion-geo-service-account.json
+```
+
+Mit csinal:
+
+- letrehozza a BigQuery datasetet, ha meg nincs,
+- letrehozza a szukseges tablakat,
+- feltolti a jelenlegi heti operations riportot,
+- feltolti a standard Google stack snapshotokat.
+
+Alap tablák:
+
+- `google_stack_export_runs`
+- `google_stack_weekly_reports`
+- `google_stack_snapshot_items`
+
+Megjegyzes:
+
+- a workflow a mar meglevo `google-stack:weekly-report` es snapshot logikara epul,
+- a feltoltes nyers JSON payloadot is tarol, hogy kesobb SQL-bol is visszafejtheto legyen.
+
 ## Mi hianyzik meg a teljes kephez
 
 ### P1
@@ -140,9 +176,8 @@ Megjegyzes:
 
 ### P3
 
-1. BigQuery export irany
-2. automatikus heti riportok
-3. egységes monitorozó script a teljes Google stackhez
+1. automatikus heti riportok
+2. egységes monitorozó script a teljes Google stackhez
 
 ## Javasolt hasznalati sorrend
 

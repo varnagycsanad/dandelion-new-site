@@ -129,7 +129,7 @@
   }
 
   function decorateBookingAnchors(root) {
-    const scope = root instanceof ParentNode ? root : document;
+    const scope = root && typeof root.querySelectorAll === "function" ? root : document;
     const links = scope.querySelectorAll("a[href]");
 
     for (const link of links) {
@@ -174,7 +174,7 @@
         }
 
         if (node.matches("a[href]")) {
-          decorateBookingAnchors(node.parentNode instanceof ParentNode ? node.parentNode : document);
+          decorateBookingAnchors(node.parentNode && typeof node.parentNode.querySelectorAll === "function" ? node.parentNode : document);
           continue;
         }
 
