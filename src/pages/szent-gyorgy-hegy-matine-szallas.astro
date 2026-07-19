@@ -1,0 +1,548 @@
+---
+// [CHANGE 2026-07-19 00:00] MATINÉ 2026 accommodation landing added with owner-approved stay, pool and booking rules.
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { accommodations } from "../data/accommodations";
+import { d1PageData } from "../data/accommodation-pages/d1";
+import { d2PageData } from "../data/accommodation-pages/d2";
+import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
+import { zsalyaPageData } from "../data/accommodation-pages/zsalya";
+import { szololigetPageData } from "../data/accommodation-pages/szololiget";
+import { vintagePageData } from "../data/accommodation-pages/vintage";
+import type { AccommodationPageData } from "../data/accommodation-pages/types";
+import { accommodationImages } from "../data/images/accommodation-images";
+import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
+import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
+
+const pagePath = "/szent-gyorgy-hegy-matine-szallas/";
+const campaignId = "szent-gyorgy-hegy-matine-2026";
+const generalBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const eventHref = "https://szentgyorgyhegyhajnalig.com/";
+const contactHref = "/kapcsolat/";
+const phoneHref = "tel:+36207730807";
+const emailHref = "mailto:hello@dandelionhouse.hu";
+const imageMapping = await readHomepageImageMapping();
+const heroDesktop = accommodationImages.d1.hero.desktop;
+const heroMobile = accommodationImages.d1.hero.mobile ?? heroDesktop;
+
+type LandingStayDefinition = {
+  slug: string;
+  displayName: string;
+  pageData: AccommodationPageData;
+  poolAccess: boolean;
+};
+
+const stayDefinitions: LandingStayDefinition[] = [
+  { slug: "dandelion-d1", displayName: "Dandelion 1", pageData: d1PageData, poolAccess: true },
+  { slug: "dandelion-d2", displayName: "Dandelion 2", pageData: d2PageData, poolAccess: true },
+  { slug: "fugehaz", displayName: "Fügeház", pageData: fugehazPageData, poolAccess: true },
+  { slug: "zsalya-vendeghaz", displayName: "Zsálya", pageData: zsalyaPageData, poolAccess: false },
+  { slug: "szololiget-vendeghaz", displayName: "Szőlőliget", pageData: szololigetPageData, poolAccess: false },
+  { slug: "vintage-vendeghaz", displayName: "Vintage", pageData: vintagePageData, poolAccess: false }
+];
+
+const getPositioningFact = (pageData: AccommodationPageData, prefix: string) => {
+  const fact = pageData.positioning?.keyFacts.find((item) => item.toLocaleLowerCase("hu-HU").startsWith(prefix));
+  return fact?.split(":").slice(1).join(":").trim() || "Részletek a szállásoldalon";
+};
+
+const stays = stayDefinitions.map((definition) => {
+  const stay = accommodations.find((item) => item.slug === definition.slug);
+
+  if (!stay) {
+    throw new Error(`Missing accommodation data for MATINÉ landing: ${definition.slug}`);
+  }
+
+  return {
+    ...stay,
+    displayName: definition.displayName,
+    capacity: getPositioningFact(definition.pageData, "férőhely:"),
+    advantage: definition.pageData.positioning?.shortCharacter || stay.description,
+    bookingHref: definition.pageData.bookingLink,
+    poolAccess: definition.poolAccess,
+    image: imageMapping[stay.imageSlot]
+  };
+});
+
+const bookingFacts = [
+  { label: "MATINÉ", value: "2026. szeptember 5., szombat", detail: "12:00–20:00" },
+  { label: "Érkezés", value: "szeptember 4., péntek", detail: "A hétvége kezdete" },
+  { label: "Távozás", value: "szeptember 6., vasárnap", detail: "Két éjszaka után" },
+  { label: "Foglalási feltétel", value: "Kötelező 2 éjszaka", detail: "Szombaton nincs be- vagy kiköltözés" }
+];
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Főoldal", item: toAbsoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Szállások", item: toAbsoluteUrl("/szallasok/") },
+    { "@type": "ListItem", position: 3, name: "Szent György-hegy MATINÉ szállás", item: toAbsoluteUrl(pagePath) }
+  ]
+};
+
+const landingStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${toAbsoluteUrl(pagePath)}#page`,
+  name: "Szállás a Szent György-hegy MATINÉ hétvégéjére",
+  url: toAbsoluteUrl(pagePath),
+  inLanguage: "hu-HU",
+  description:
+    "Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére, szeptember 4-i érkezéssel és szeptember 6-i távozással.",
+  isPartOf: { "@id": `${toAbsoluteUrl("/")}#website` },
+  provider: { "@type": "LodgingBusiness", name: SITE_NAME, url: toAbsoluteUrl("/") },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: stays.map((stay, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: stay.displayName,
+      url: toAbsoluteUrl(stay.url)
+    }))
+  }
+};
+
+const heroTrackingAttrs = {
+  "data-dnd-campaign": campaignId,
+  "data-dnd-placement": "hero",
+  "data-dnd-check-in": "2026-09-04",
+  "data-dnd-check-out": "2026-09-06"
+};
+---
+
+<BaseLayout
+  title="Szent György-hegy MATINÉ szállás | Dandelion"
+  description="Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére. Érkezés szeptember 4-én, távozás szeptember 6-án, két éjszakára."
+  canonicalPath={pagePath}
+  ogImage={heroDesktop.src}
+  ogImageAlt="Dandelion vendégház panorámás terasszal a Szent György-hegy térségében"
+  structuredData={[breadcrumbStructuredData, landingStructuredData]}
+  headerMode="transparent"
+>
+  <article class="matine-landing">
+    <section class="matine-hero" aria-labelledby="matine-title">
+      <picture class="matine-hero__media">
+        <source media="(max-width: 640px)" srcset={heroMobile.src} />
+        <img
+          src={heroDesktop.src}
+          alt="Dandelion vendégház panorámás terasza a Balaton-felvidéken"
+          width={heroDesktop.width}
+          height={heroDesktop.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+      <div class="matine-hero__overlay"></div>
+      <div class="dnd-container matine-hero__inner">
+        <nav class="matine-breadcrumb" aria-label="Morzsanavigáció">
+          <a href="/">Főoldal</a><span aria-hidden="true">/</span><a href="/szallasok/">Szállások</a><span aria-hidden="true">/</span><span aria-current="page">MATINÉ 2026</span>
+        </nav>
+        <div class="matine-hero__content">
+          <p class="matine-eyebrow">2026. szeptember 4–6. · 2 éjszaka</p>
+          <h1 id="matine-title">Szállás a Szent György-hegy MATINÉ hétvégéjére</h1>
+          <p class="matine-hero__lead">
+            Érkezzetek pénteken, maradjatok vasárnapig, és válasszatok hat Dandelion ház közül a szeptember 5-i nappali eseményhez.
+          </p>
+          <div class="matine-hero__rule" role="note">
+            <strong>Kötelező 2 éjszakás foglalás</strong>
+            <span>Érkezés: szeptember 4., péntek · Távozás: szeptember 6., vasárnap</span>
+          </div>
+          <div class="matine-actions">
+            <a
+              class="matine-button matine-button--primary"
+              href={generalBookingHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...heroTrackingAttrs}
+            >Elérhetőség és árak</a>
+            <a class="matine-button matine-button--secondary" href={phoneHref} {...heroTrackingAttrs}>Telefon: +36 20 773 0807</a>
+          </div>
+          <p class="matine-hero__legal">A szállásfoglalás nem tartalmaz eseménybelépőt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="matine-facts" aria-labelledby="foglalasi-informaciok">
+      <div class="dnd-container">
+        <div class="matine-section-heading matine-section-heading--center">
+          <p class="matine-eyebrow matine-eyebrow--dark">A hétvége egy pillantásra</p>
+          <h2 id="foglalasi-informaciok">Legfontosabb foglalási információk</h2>
+        </div>
+        <div class="matine-facts__grid">
+          {bookingFacts.map((fact) => (
+            <article class="matine-fact-card">
+              <span>{fact.label}</span>
+              <strong>{fact.value}</strong>
+              <p>{fact.detail}</p>
+            </article>
+          ))}
+        </div>
+        <div class="matine-notice" role="note">
+          <span class="matine-notice__icon" aria-hidden="true">i</span>
+          <p><strong>Fontos:</strong> a foglalás két éjszakára szól, szombaton nincs be- vagy kiköltözés, és a szállás nem tartalmaz MATINÉ-belépőt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="hazak" class="matine-stays" aria-labelledby="szallasok-cim">
+      <div class="dnd-container">
+        <div class="matine-section-heading">
+          <p class="matine-eyebrow matine-eyebrow--dark">Hat választható ház</p>
+          <h2 id="szallasok-cim">Szállások a MATINÉ hétvégéjére</h2>
+          <p>A férőhelyet, az elhelyezkedést és a ház karakterét a meglévő szállásadatokból mutatjuk. Az aktuális árakat a foglalási felület jelzi.</p>
+        </div>
+        <div class="matine-stays__grid">
+          {stays.map((stay) => (
+            <article class="matine-stay-card">
+              <a class="matine-stay-card__image-link" href={stay.url} aria-label={`${stay.displayName} részletei`}>
+                {stay.image?.astroSrc ? (
+                  <Image
+                    src={stay.image.astroSrc}
+                    alt={stay.image.altText || `${stay.displayName} vendégház`}
+                    loading="lazy"
+                    widths={[480, 720]}
+                    sizes="(max-width: 719px) 100vw, (max-width: 1099px) 50vw, 33vw"
+                  />
+                ) : (
+                  <img
+                    src={stay.image?.sourceUrl}
+                    alt={stay.image?.altText || `${stay.displayName} vendégház`}
+                    width={stay.image?.width || 720}
+                    height={stay.image?.height || 480}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                {stay.poolAccess && <span class="matine-stay-card__pool-badge">Panorama Pool</span>}
+              </a>
+              <div class="matine-stay-card__body">
+                <p class="matine-stay-card__location">{stay.location}</p>
+                <h3>{stay.displayName}</h3>
+                <p class="matine-stay-card__capacity"><strong>Férőhely:</strong> {stay.capacity}</p>
+                <p>{stay.advantage}</p>
+                <div class="matine-stay-card__pool-note">
+                  {stay.poolAccess ? (
+                    <><span aria-hidden="true">●</span> Panorama Pool használat szeptember 5-én</>
+                  ) : (
+                    <><span aria-hidden="true">○</span> Ez a ház nem tartalmaz medencehasználatot</>
+                  )}
+                </div>
+                <div class="matine-stay-card__actions">
+                  <a class="matine-text-link" href={stay.url}>Ház részletei</a>
+                  <a
+                    class="matine-button matine-button--card"
+                    href={stay.bookingHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-dnd-property={stay.slug}
+                    data-dnd-campaign={campaignId}
+                    data-dnd-placement="property-card"
+                    data-dnd-check-in="2026-09-04"
+                    data-dnd-check-out="2026-09-06"
+                  >Elérhetőség és árak</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="matine-pool" aria-labelledby="pool-cim">
+      <div class="dnd-container matine-pool__layout">
+        <div class="matine-pool__intro">
+          <p class="matine-eyebrow">Panorama Pool élmény</p>
+          <h2 id="pool-cim">Medencézés szeptember 5-én – három ház vendégeinek</h2>
+          <p>
+            A Panorama Pool 2026. szeptember 5-én működik. Használata kizárólag a Dandelion 1, Dandelion 2 és Fügeház vendégeinek jár ezen a hétvégén.
+          </p>
+          <a class="matine-text-link matine-text-link--light" href="/panorama-pool/">A Panorama Pool bemutatása</a>
+        </div>
+        <div class="matine-pool__groups">
+          <article class="matine-pool-group matine-pool-group--included">
+            <span class="matine-pool-group__label">Medencehasználattal</span>
+            <h3>Panorama Pool élmény</h3>
+            <ul>
+              <li>Dandelion 1</li>
+              <li>Dandelion 2</li>
+              <li>Fügeház</li>
+            </ul>
+            <p>A szezonban elérhető medence szeptember 5-én működik.</p>
+          </article>
+          <article class="matine-pool-group">
+            <span class="matine-pool-group__label">Medenceígéret nélkül</span>
+            <h3>Önálló szállásélmény</h3>
+            <ul>
+              <li>Zsálya</li>
+              <li>Szőlőliget</li>
+              <li>Vintage</li>
+            </ul>
+            <p>E három szálláshoz nem tartozik Panorama Pool használat.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="matine-event" aria-labelledby="esemeny-cim">
+      <div class="dnd-container matine-event__layout">
+        <div class="matine-event__date" aria-hidden="true">
+          <span>SZEPT</span>
+          <strong>05</strong>
+          <small>SZOMBAT</small>
+        </div>
+        <div class="matine-event__copy">
+          <p class="matine-eyebrow matine-eyebrow--dark">Eseményinformáció</p>
+          <h2 id="esemeny-cim">Szent György-hegy MATINÉ</h2>
+          <p class="matine-event__time"><strong>2026. szeptember 5., szombat · 12:00–20:00</strong></p>
+          <p>Nappali esemény a Szent György-hegyhez kapcsolódóan. A teljes programért és az aktuális részletekért nyissátok meg a rendezvény hivatalos oldalát.</p>
+          <a class="matine-button matine-button--outline" href={eventHref} target="_blank" rel="noopener noreferrer">Hivatalos eseményoldal</a>
+          <p class="matine-event__disclaimer"><strong>A Dandelion Vendégházak nem a rendezvény szervezője.</strong> A szállásfoglalás nem tartalmaz eseménybelépőt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="matine-travel" aria-labelledby="kozlekedes-cim">
+      <div class="dnd-container matine-travel__panel">
+        <div class="matine-travel__icon" aria-hidden="true">↔</div>
+        <div>
+          <p class="matine-eyebrow matine-eyebrow--dark">Biztonságos közlekedés</p>
+          <h2 id="kozlekedes-cim">Az oda- és visszajutást tervezzétek meg előre</h2>
+          <p>A hegyi esemény előtt egyeztessétek, hogyan juttok el a programra és vissza a választott szálláshoz. Alkoholfogyasztás után ne vezessetek; válasszatok biztonságos közlekedési megoldást vagy kijelölt sofőrt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="matine-closing" aria-labelledby="zaro-cta-cim">
+      <div class="dnd-container matine-closing__inner">
+        <p class="matine-eyebrow">Szeptember 4–6. · 2 éjszaka</p>
+        <h2 id="zaro-cta-cim">Válasszatok házat a MATINÉ hétvégéjére</h2>
+        <p>Dandelion 1, Dandelion 2, Fügeház, Zsálya, Szőlőliget vagy Vintage – nézzétek meg az aktuális elérhetőséget, vagy kérjetek segítséget a választáshoz.</p>
+        <div class="matine-closing__stays" aria-label="Választható szállások">
+          {stays.map((stay) => <a href={stay.url}>{stay.displayName}</a>)}
+        </div>
+        <div class="matine-actions matine-actions--center">
+          <a
+            class="matine-button matine-button--primary"
+            href={generalBookingHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-dnd-campaign={campaignId}
+            data-dnd-placement="closing"
+            data-dnd-check-in="2026-09-04"
+            data-dnd-check-out="2026-09-06"
+          >Elérhetőség és árak</a>
+          <a
+            class="matine-button matine-button--secondary"
+            href={contactHref}
+            data-dnd-campaign={campaignId}
+            data-dnd-placement="closing-contact"
+          >Ajánlatkérés</a>
+        </div>
+        <div class="matine-closing__contacts">
+          <a href={phoneHref}>+36 20 773 0807</a>
+          <span aria-hidden="true">·</span>
+          <a href={emailHref}>hello@dandelionhouse.hu</a>
+        </div>
+        <p class="matine-closing__note">A foglalás két éjszakára szól, és nem tartalmaz eseménybelépőt.</p>
+      </div>
+    </section>
+
+    <div class="matine-mobile-cta" aria-label="Gyors foglalás">
+      <div>
+        <strong>Szept. 4–6.</strong>
+        <span>2 éjszaka</span>
+      </div>
+      <a
+        href={generalBookingHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-dnd-campaign={campaignId}
+        data-dnd-placement="sticky"
+        data-dnd-check-in="2026-09-04"
+        data-dnd-check-out="2026-09-06"
+      >Időpont ellenőrzése</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .matine-landing {
+    --matine-ink: #1f271f;
+    --matine-forest: #304936;
+    --matine-forest-deep: #1c3125;
+    --matine-gold: #d99e2b;
+    --matine-cream: #fdfbf7;
+    --matine-sand: #f2ecdf;
+    background: var(--matine-cream);
+    color: var(--matine-ink);
+  }
+
+  .matine-hero {
+    position: relative;
+    min-height: 760px;
+    height: 94svh;
+    overflow: hidden;
+    color: #fff;
+    background: var(--matine-forest-deep);
+  }
+
+  .matine-hero__media,
+  .matine-hero__media img,
+  .matine-hero__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .matine-hero__media img { object-fit: cover; }
+  .matine-hero__overlay {
+    background: linear-gradient(90deg, rgba(15, 28, 20, 0.83) 0%, rgba(15, 28, 20, 0.54) 57%, rgba(15, 28, 20, 0.2) 100%), linear-gradient(0deg, rgba(10, 20, 14, 0.45), transparent 50%);
+  }
+
+  .matine-hero__inner { position: relative; z-index: 1; min-height: 100%; padding-top: 152px; padding-bottom: 64px; display: flex; flex-direction: column; }
+  .matine-breadcrumb { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin-bottom: auto; font-size: 0.78rem; }
+  .matine-breadcrumb a { color: inherit; text-decoration: none; }
+  .matine-breadcrumb a:hover { text-decoration: underline; }
+  .matine-breadcrumb span { opacity: 0.76; }
+  .matine-hero__content { max-width: 850px; padding-top: 56px; }
+  .matine-eyebrow { margin: 0 0 0.9rem; color: #f2c66c; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .matine-eyebrow--dark { color: #7b5514; }
+  .matine-hero h1 { max-width: 820px; margin: 0; font-family: "Playfair Display", serif; font-size: clamp(2.65rem, 6.2vw, 5.3rem); font-weight: 500; line-height: 0.98; letter-spacing: var(--dnd-tracking-display-tight, normal); text-wrap: balance; }
+  .matine-hero__lead { max-width: 720px; margin: 1.45rem 0 0; font-size: 1.06rem; line-height: 1.7; }
+  .matine-hero__rule { display: grid; gap: 0.2rem; max-width: 700px; margin-top: 1.45rem; padding: 1rem 1.15rem; border-left: 4px solid var(--matine-gold); background: rgba(15, 28, 20, 0.62); backdrop-filter: blur(5px); }
+  .matine-hero__rule strong { font-size: 1.03rem; }
+  .matine-hero__rule span { font-size: 0.88rem; line-height: 1.55; }
+  .matine-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.45rem; }
+  .matine-button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; padding: 0.82rem 1.3rem; border: 1px solid transparent; border-radius: 5px; font-family: Poppins, sans-serif; font-size: 0.88rem; font-weight: 700; line-height: 1.3; text-align: center; text-decoration: none; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease; }
+  .matine-button:hover { transform: translateY(-1px); }
+  .matine-button:focus-visible, .matine-text-link:focus-visible, .matine-closing__stays a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .matine-button--primary { color: #201a0f; background: var(--matine-gold); }
+  .matine-button--primary:hover { background: #efb84f; }
+  .matine-button--secondary { color: #fff; border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.08); }
+  .matine-button--secondary:hover { background: #fff; color: var(--matine-forest-deep); }
+  .matine-hero__legal { margin: 1rem 0 0; font-size: 0.82rem; opacity: 0.9; }
+
+  .matine-facts, .matine-stays, .matine-event, .matine-travel { padding: 88px 0; }
+  .matine-section-heading { max-width: 760px; margin-bottom: 2.2rem; }
+  .matine-section-heading--center { margin-right: auto; margin-left: auto; text-align: center; }
+  .matine-section-heading h2, .matine-pool h2, .matine-event h2, .matine-travel h2, .matine-closing h2 { margin: 0; font-family: "Playfair Display", serif; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 500; line-height: 1.12; color: var(--matine-forest-deep); text-wrap: balance; }
+  .matine-section-heading > p:last-child { margin: 1rem 0 0; line-height: 1.7; }
+  .matine-facts { background: #fff; }
+  .matine-facts__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid #ded6c7; border-radius: 8px; background: #ded6c7; }
+  .matine-fact-card { min-height: 180px; padding: 1.35rem; background: var(--matine-cream); }
+  .matine-fact-card span { color: #75591f; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .matine-fact-card strong { display: block; margin-top: 0.65rem; font-family: "Playfair Display", serif; font-size: 1.38rem; font-weight: 600; line-height: 1.28; color: var(--matine-forest-deep); }
+  .matine-fact-card p { margin: 0.7rem 0 0; font-size: 0.88rem; line-height: 1.55; }
+  .matine-notice { display: flex; gap: 1rem; align-items: center; max-width: 920px; margin: 1.5rem auto 0; padding: 1rem 1.2rem; border: 1px solid #e4c781; border-radius: 8px; background: #fff8e8; }
+  .matine-notice__icon { flex: 0 0 30px; display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #fff; background: #8d641b; font-weight: 700; }
+  .matine-notice p { margin: 0; font-size: 0.9rem; line-height: 1.55; }
+
+  .matine-stays { background: var(--matine-sand); }
+  .matine-stays__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .matine-stay-card { overflow: hidden; border-radius: 8px; background: #fff; }
+  .matine-stay-card__image-link { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+  .matine-stay-card__image-link img { width: 100%; height: 100%; object-fit: cover; transition: transform 420ms ease; }
+  .matine-stay-card__image-link:hover img { transform: scale(1.025); }
+  .matine-stay-card__pool-badge { position: absolute; top: 0.9rem; left: 0.9rem; padding: 0.42rem 0.68rem; border-radius: 5px; color: #fff; background: var(--matine-forest); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+  .matine-stay-card__body { display: flex; min-height: 350px; flex-direction: column; padding: 1.3rem; }
+  .matine-stay-card__location { margin: 0; color: #786a58; font-size: 0.75rem; font-weight: 600; }
+  .matine-stay-card h3 { margin: 0.35rem 0 0; font-family: "Playfair Display", serif; font-size: 1.65rem; font-weight: 600; color: var(--matine-forest-deep); }
+  .matine-stay-card__capacity { margin: 0.65rem 0 0; font-size: 0.9rem; }
+  .matine-stay-card__body > p:not(.matine-stay-card__location):not(.matine-stay-card__capacity) { margin: 0.65rem 0 0; font-size: 0.9rem; line-height: 1.62; }
+  .matine-stay-card__pool-note { display: flex; gap: 0.5rem; margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee7dc; font-size: 0.8rem; line-height: 1.45; color: #4f5d50; }
+  .matine-stay-card__actions { display: grid; grid-template-columns: 1fr auto; gap: 0.8rem; align-items: center; margin-top: auto; padding-top: 1.1rem; }
+  .matine-text-link { color: var(--matine-forest-deep); font-size: 0.82rem; font-weight: 700; text-underline-offset: 0.2em; }
+  .matine-button--card { min-height: 44px; padding: 0.68rem 0.9rem; color: #fff; background: var(--matine-forest); font-size: 0.8rem; }
+  .matine-button--card:hover { background: var(--matine-forest-deep); }
+
+  .matine-pool { padding: 96px 0; color: #fff; background: var(--matine-forest-deep); }
+  .matine-pool__layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 4rem; align-items: center; }
+  .matine-pool h2 { color: #fff; }
+  .matine-pool__intro > p:not(.matine-eyebrow) { margin: 1.1rem 0; line-height: 1.7; color: rgba(255, 255, 255, 0.86); }
+  .matine-text-link--light { color: #f2c66c; }
+  .matine-pool__groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .matine-pool-group { padding: 1.45rem; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
+  .matine-pool-group--included { border-color: rgba(217, 158, 43, 0.7); background: rgba(217, 158, 43, 0.11); }
+  .matine-pool-group__label { color: #f2c66c; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .matine-pool-group h3 { margin: 0.55rem 0 0; font-family: "Playfair Display", serif; font-size: 1.35rem; }
+  .matine-pool-group ul { margin: 1rem 0; padding-left: 1.15rem; line-height: 1.8; }
+  .matine-pool-group p { margin: 0; color: rgba(255, 255, 255, 0.74); font-size: 0.82rem; line-height: 1.55; }
+
+  .matine-event__layout { display: grid; grid-template-columns: 180px minmax(0, 760px); gap: 3rem; justify-content: center; align-items: center; }
+  .matine-event__date { display: grid; min-height: 220px; place-items: center; align-content: center; border: 1px solid #d5c9b8; border-radius: 8px; background: #fff; }
+  .matine-event__date span, .matine-event__date small { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; }
+  .matine-event__date strong { font-family: "Playfair Display", serif; font-size: 5rem; font-weight: 500; line-height: 1; color: #9a650d; }
+  .matine-event__copy > p:not(.matine-eyebrow) { line-height: 1.7; }
+  .matine-event__time { margin-bottom: 0.4rem; color: #6f5420; }
+  .matine-button--outline { color: var(--matine-forest-deep); border-color: var(--matine-forest); background: transparent; }
+  .matine-button--outline:hover { color: #fff; background: var(--matine-forest); }
+  .matine-event__disclaimer { margin-top: 1.25rem; padding: 1rem; border-left: 3px solid var(--matine-gold); background: var(--matine-sand); font-size: 0.88rem; }
+
+  .matine-travel { padding-top: 0; }
+  .matine-travel__panel { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; padding: 2rem; border-radius: 8px; background: #ebe5d8; }
+  .matine-travel__icon { display: grid; width: 62px; height: 62px; place-items: center; border-radius: 50%; color: #fff; background: var(--matine-forest); font-size: 1.6rem; }
+  .matine-travel h2 { font-size: clamp(1.65rem, 3vw, 2.45rem); }
+  .matine-travel p:last-child { margin: 0.75rem 0 0; line-height: 1.7; }
+
+  .matine-closing { padding: 96px 0 108px; text-align: center; color: #fff; background: var(--matine-forest); }
+  .matine-closing__inner { max-width: 920px; }
+  .matine-closing h2 { color: #fff; }
+  .matine-closing__inner > p:not(.matine-eyebrow):not(.matine-closing__note) { max-width: 760px; margin: 1.1rem auto 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); }
+  .matine-closing__stays { display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center; margin-top: 1.35rem; }
+  .matine-closing__stays a { padding: 0.38rem 0.64rem; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 5px; color: #fff; font-size: 0.78rem; text-decoration: none; }
+  .matine-actions--center { justify-content: center; }
+  .matine-closing__contacts { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 1.15rem; font-size: 0.88rem; }
+  .matine-closing__contacts a { color: #fff; }
+  .matine-closing__note { margin: 1rem 0 0; font-size: 0.78rem; color: rgba(255, 255, 255, 0.72); }
+  .matine-mobile-cta { display: none; }
+
+  @media (max-width: 1020px) {
+    .matine-facts__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .matine-stays__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .matine-pool__layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  @media (max-width: 719px) {
+    .matine-hero { min-height: 760px; height: auto; }
+    .matine-hero__overlay { background: linear-gradient(180deg, rgba(15, 28, 20, 0.45), rgba(15, 28, 20, 0.86) 58%, rgba(15, 28, 20, 0.97)); }
+    .matine-hero__inner { min-height: 760px; padding-top: 116px; padding-bottom: 42px; }
+    .matine-breadcrumb { margin-bottom: 2.2rem; font-size: 0.75rem; }
+    .matine-hero__content { margin-top: auto; padding-top: 0; }
+    .matine-hero h1 { font-size: clamp(2.35rem, 11vw, 3.2rem); line-height: 1.02; }
+    .matine-hero__lead { margin-top: 1rem; font-size: 0.96rem; line-height: 1.62; }
+    .matine-hero__rule { margin-top: 1rem; padding: 0.85rem 0.9rem; }
+    .matine-actions { display: grid; grid-template-columns: 1fr; }
+    .matine-button { width: 100%; }
+    .matine-facts, .matine-stays, .matine-event, .matine-travel { padding: 64px 0; }
+    .matine-facts__grid, .matine-stays__grid, .matine-pool__groups { grid-template-columns: 1fr; }
+    .matine-fact-card { min-height: auto; }
+    .matine-notice { align-items: flex-start; }
+    .matine-stay-card__body { min-height: 340px; }
+    .matine-pool { padding: 72px 0; }
+    .matine-event__layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .matine-event__date { min-height: 150px; grid-template-columns: auto auto auto; gap: 0.7rem; }
+    .matine-event__date strong { font-size: 3.8rem; }
+    .matine-travel { padding-top: 0; }
+    .matine-travel__panel { grid-template-columns: 1fr; padding: 1.35rem; }
+    .matine-closing { padding: 72px 0 118px; }
+    .matine-mobile-cta { position: fixed; z-index: 50; right: 0.65rem; bottom: 0.65rem; left: 0.65rem; display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; padding: 0.65rem; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; color: #fff; background: rgba(28, 49, 37, 0.97); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2); }
+    .matine-mobile-cta div { display: grid; padding-left: 0.25rem; }
+    .matine-mobile-cta strong { font-size: 0.82rem; }
+    .matine-mobile-cta span { font-size: 0.72rem; opacity: 0.78; }
+    .matine-mobile-cta a { min-height: 46px; padding: 0.7rem 0.85rem; border-radius: 5px; color: #211b10; background: var(--matine-gold); font-size: 0.78rem; font-weight: 700; text-align: center; text-decoration: none; }
+  }
+
+  @media (max-width: 390px) {
+    .matine-hero h1 { font-size: 2.18rem; }
+    .matine-eyebrow { font-size: 0.72rem; }
+    .matine-stay-card__actions { grid-template-columns: 1fr; }
+    .matine-button--card { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .matine-button, .matine-stay-card__image-link img { transition: none; }
+  }
+</style>

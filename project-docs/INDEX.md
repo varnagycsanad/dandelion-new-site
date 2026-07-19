@@ -167,6 +167,7 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 
 ## Marketing / Ads / Analytics
 
+- `project-docs/SZENT_GYORGY_HEGY_MATINE_LANDING_2026.md`
 - `project-docs/META_ADS_CODEX_INTEGRATION.md`
 - `project-docs/META_PAGE_POSTING_CODEX_INTEGRATION.md`
 - `project-docs/meta-codex-kezelhetosegi-audit-2026-07-13.md`

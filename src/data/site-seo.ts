@@ -109,6 +109,7 @@ export const SITEMAP_PATHS = [
   "/adatkezelesi-tajekoztato/",
   "/impresszum/",
   "/szallasok/",
+  "/szent-gyorgy-hegy-matine-szallas/",
   "/kisapati-medences-szallas/",
   "/panorama-pool/",
   "/en/panorama-pool/",
