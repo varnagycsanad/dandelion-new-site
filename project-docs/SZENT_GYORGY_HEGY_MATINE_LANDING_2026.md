@@ -22,12 +22,12 @@ Use for: a 2026-os MATINÉ szállás landing implementációja, mérése és pub
 
 ## Hero videó és közlekedési opció – 2026. július 19.
 
-- Forrás: a tulajdonos által átadott `MAtine.mp4`, amely a Szent György-hegyet, virágzó mezőt, szőlőket és lovast mutat.
-- Az eredeti 1920 × 1080-as, 30 fps-es, 30,5 MB-os fájlból két hang nélküli, H.264, fast-start változat készült:
-  - desktop: 1280 × 720, 24 fps, 4,08 MB;
-  - mobil: 540 × 960, 24 fps, 2,04 MB, külön középre komponált 9:16 kivágással.
+- Forrás: a tulajdonos által átadott `Matiné 1.mp4`, amely a Szent György-hegyet, virágzó mezőt, szőlőket és lovast mutat. A videó 11,5 másodperces.
+- Két hang nélküli, H.264, 30 fps-es, fast-start változat készült:
+  - desktop: 1920 × 1080, 18,18 MB; az eredeti videó bitfolyama újratömörítés nélkül került át, ezért nincs minőségvesztés;
+  - mobil: 1280 × 720, 6,31 MB, kb. 4,39 Mbps; a teljes 16:9 képkivágás megmaradt.
 - A videóból külön desktop és mobil poster kép készült. A desktop poster az Open Graph kép és a `VideoObject` thumbnail forrása is.
-- A hero videón nincs fekete vagy sötét színű overlay. Desktopon világos, részben áttetsző szövegpanel biztosít olvashatóságot; mobilon a videó és a világos tartalmi rész egymás alatt jelenik meg.
+- A hero videón nincs fekete vagy sötét színű overlay, és nincs rajta szövegpanel. A teljes videó külön, takarásmentes 16:9 szakaszban jelenik meg; a cím és a foglalási tartalom alatta kapott helyet desktopon és mobilon is.
 - A videó indítható és szüneteltethető. `prefers-reduced-motion` esetén nem indul el automatikusan.
 - Közlekedési opcióként bekerült a tiszta `https://badacsonytaxi.hu/` link, Google Ads click ID és kampányparaméterek nélkül. A szöveg nem állít partnerséget vagy garantált elérhetőséget; közvetlen egyeztetésre hívja fel a figyelmet.
 
@@ -99,8 +99,8 @@ Ellenőrizve 2026. július 19-én:
 
 A hero videós frissítés után:
 
-- Desktop böngészős QA: a 1280 × 720-as videó automatikusan, hang nélkül elindult; a pause/play vezérlő mindkét állapotban működött; sötét overlay nincs.
-- Mobil böngészős QA 390 × 844 és 360 × 800 nézetben: a 540 × 960-as mobil forrás töltődött be a mobil posterrel, nincs vízszintes túlcsordulás, a CTA-k a viewporton belül maradnak.
+- Desktop böngészős QA: az 1920 × 1080-as, újratömörítés nélküli `Matiné 1` videó töltődött be; sem szövegpanel, sem sötét overlay nem takarja.
+- Mobil böngészős QA 390 × 844 nézetben: az 1280 × 720-as mobil forrás töltődött be teljes 16:9 képpel, nincs képkivágás, panelátfedés vagy vízszintes túlcsordulás.
 - A Badacsony Taxi link célja, új lapos működése, külső link attribútumai és kampány/placement kontextusa ellenőrizve.
 - Mobil Lighthouse teljes futások: Performance 59–77, Best Practices 100, SEO 100; a mérés lokális, throttlingolt futások között jelentős szórást mutatott. A jobb futás LCP-je 4,1 s, CLS-e 0,001 volt.
 - Végső, célzott Lighthouse Accessibility ellenőrzés: 100, color contrast audit: sikeres.
