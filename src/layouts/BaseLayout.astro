@@ -33,6 +33,7 @@ interface Props {
   ogLocale?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   headerMode?: "auto" | "transparent" | "solid";
+  bookingHrefOverride?: string;
 }
 
 const {
@@ -45,7 +46,8 @@ const {
   lang = "hu",
   ogLocale,
   structuredData = [],
-  headerMode = "auto"
+  headerMode = "auto",
+  bookingHrefOverride
 } = Astro.props;
 
 const { hideHeader = false, hideFooter = false } = Astro.props;
@@ -268,9 +270,10 @@ const quickContacts = [
 ];
 
 const bookingLanguage = isEnglishPage || isGermanPage || isCzechPage || isSlovakPage ? "En" : "Hu";
-const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
-const bookingTarget = "_blank";
-const bookingRel = "noopener noreferrer";
+const defaultBookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
+const bookingHref = bookingHrefOverride ?? defaultBookingHref;
+const bookingTarget = bookingHref.startsWith("#") ? undefined : "_blank";
+const bookingRel = bookingTarget === "_blank" ? "noopener noreferrer" : undefined;
 const stayLabelOverrides: Record<string, string> = {
   fugehaz: "Dandelion Fügeház",
   "vintage-vendeghaz": "Dandelion Vintage",
@@ -1045,7 +1048,7 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
       <slot />
     </main>
 
-    {!hideFooter && <SiteFooter lang={lang} />}
+    {!hideFooter && <SiteFooter lang={lang} bookingHrefOverride={bookingHrefOverride} />}
 
     {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
       <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>

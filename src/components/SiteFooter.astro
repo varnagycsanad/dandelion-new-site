@@ -4,9 +4,10 @@ import { accommodations } from "../data/accommodations";
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
+  bookingHrefOverride?: string;
 }
 
-const { lang = "hu" } = Astro.props as Props;
+const { lang = "hu", bookingHrefOverride } = Astro.props as Props;
 const isEnglishFooter = lang === "en";
 const isGermanFooter = lang === "de";
 const isCzechFooter = lang === "cs";
@@ -214,7 +215,8 @@ const slovakFooterStayColumns = [
 );
 
 const bookingLanguage = isEnglishFooter || isGermanFooter || isCzechFooter || isSlovakFooter ? "En" : "Hu";
-const bookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
+const defaultBookingHref = `https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=${bookingLanguage}`;
+const bookingHref = bookingHrefOverride ?? defaultBookingHref;
 const resolvedBookingHref = bookingHref;
 const englishFooterNav = [
   { label: "Home", href: `${homeHref}en/` },
