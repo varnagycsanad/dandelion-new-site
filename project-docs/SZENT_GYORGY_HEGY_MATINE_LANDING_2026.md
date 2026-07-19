@@ -33,8 +33,8 @@ Use for: a 2026-os MATINÉ szállás landing implementációja, mérése és pub
 
 ## CTA-k és foglalási linkek
 
-- Hero, záró és mobil sticky foglalás: a projektben használt stabil, magyar SabeeApp booking engine link.
-- Házkártyák: a meglévő ház-adatfájlok igazolt `selectedRooms` linkje.
+- A hero, a záró CTA és a mobil sticky CTA a `#hazak` szakaszhoz visz, ezért a látogató előbb kiválasztja a konkrét szállást.
+- Házkártyák: kizárólag a meglévő ház-adatfájlok igazolt, házspecifikus `selectedRooms` linkje indul el. A közös SabeeApp linket ez a landing nem használja foglalási CTA-ként.
 - Másodlagos CTA-k: telefon, ajánlatkérési oldal és e-mail.
 - A booking linkek az attribúciós segéd meglévő működését használják, így az ismert UTM és click ID paraméterek továbbadhatók.
 - Technikai korlátozás: a projektben nincs igazolt SabeeApp check-in/check-out URL-paraméterezés. Nem került be kitalált dátumparaméter; a dátumok az oldalon és tracking paraméterként jelennek meg.

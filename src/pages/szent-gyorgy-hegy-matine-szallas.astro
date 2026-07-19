@@ -19,7 +19,7 @@ import matineHeroPosterMobile from "../assets/matine/szent-gyorgy-hegy-matine-he
 
 const pagePath = "/szent-gyorgy-hegy-matine-szallas/";
 const campaignId = "szent-gyorgy-hegy-matine-2026";
-const generalBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=Hu";
+const housesHref = "#hazak";
 const eventHref = "https://szentgyorgyhegyhajnalig.com/";
 const taxiHref = "https://badacsonytaxi.hu/";
 const contactHref = "/kapcsolat/";
@@ -178,11 +178,8 @@ const heroTrackingAttrs = {
           <div class="matine-actions">
             <a
               class="matine-button matine-button--primary"
-              href={generalBookingHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              {...heroTrackingAttrs}
-            >Elérhetőség és árak</a>
+              href={housesHref}
+            >Szállások és árak</a>
             <a class="matine-button matine-button--secondary" href={phoneHref} {...heroTrackingAttrs}>Telefon: +36 20 773 0807</a>
           </div>
           <p class="matine-hero__legal">A szállásfoglalás nem tartalmaz eseménybelépőt.</p>
@@ -405,14 +402,8 @@ const heroTrackingAttrs = {
         <div class="matine-actions matine-actions--center">
           <a
             class="matine-button matine-button--primary"
-            href={generalBookingHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-dnd-campaign={campaignId}
-            data-dnd-placement="closing"
-            data-dnd-check-in="2026-09-04"
-            data-dnd-check-out="2026-09-06"
-          >Elérhetőség és árak</a>
+            href={housesHref}
+          >Házankénti árak</a>
           <a
             class="matine-button matine-button--secondary"
             href={contactHref}
@@ -429,20 +420,14 @@ const heroTrackingAttrs = {
       </div>
     </section>
 
-    <div class="matine-mobile-cta" aria-label="Gyors foglalás">
+    <div class="matine-mobile-cta" aria-label="Szállások kiválasztása">
       <div>
         <strong>Szept. 4–6.</strong>
         <span>2 éjszaka</span>
       </div>
       <a
-        href={generalBookingHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-dnd-campaign={campaignId}
-        data-dnd-placement="sticky"
-        data-dnd-check-in="2026-09-04"
-        data-dnd-check-out="2026-09-06"
-      >Időpont ellenőrzése</a>
+        href={housesHref}
+      >Szállások és árak</a>
     </div>
   </article>
 </BaseLayout>
@@ -524,7 +509,7 @@ const heroTrackingAttrs = {
   .matine-notice__icon { flex: 0 0 30px; display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #fff; background: #8d641b; font-weight: 700; }
   .matine-notice p { margin: 0; font-size: 0.9rem; line-height: 1.55; }
 
-  .matine-stays { background: var(--matine-sand); }
+  .matine-stays { scroll-margin-top: 120px; background: var(--matine-sand); }
   .matine-stays__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
   .matine-stay-card { overflow: hidden; border-radius: 8px; background: #fff; }
   .matine-stay-card__image-link { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
