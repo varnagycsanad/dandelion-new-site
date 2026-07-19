@@ -870,7 +870,8 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         };
       })();
     </script>
-    <script defer src="/scripts/dnd-booking-attribution.js"></script>
+    <!-- [CHANGE 2026-07-19 22:05] Cache-bust the fixed booking attribution script after stale CDN delivery. -->
+    <script defer src="/scripts/dnd-booking-attribution.js?v=7e2d488"></script>
     <!-- [CHANGE 2026-05-26 00:00] Load delegated CTA dataLayer events after existing consent scripts. -->
     <script defer src="/scripts/dnd-ads-events.js"></script>
     {schemaScripts.map((item) => (
