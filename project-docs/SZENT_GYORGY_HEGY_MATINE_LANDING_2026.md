@@ -20,6 +20,17 @@ Use for: a 2026-os MATINÉ szállás landing implementációja, mérése és pub
 - Medenceígéret nélkül: Zsálya, Szőlőliget, Vintage.
 - Az oldal nem állítja, hogy minden Dandelion vendég használhatja a medencét.
 
+## Hero videó és közlekedési opció – 2026. július 19.
+
+- Forrás: a tulajdonos által átadott `MAtine.mp4`, amely a Szent György-hegyet, virágzó mezőt, szőlőket és lovast mutat.
+- Az eredeti 1920 × 1080-as, 30 fps-es, 30,5 MB-os fájlból két hang nélküli, H.264, fast-start változat készült:
+  - desktop: 1280 × 720, 24 fps, 4,08 MB;
+  - mobil: 540 × 960, 24 fps, 2,04 MB, külön középre komponált 9:16 kivágással.
+- A videóból külön desktop és mobil poster kép készült. A desktop poster az Open Graph kép és a `VideoObject` thumbnail forrása is.
+- A hero videón nincs fekete vagy sötét színű overlay. Desktopon világos, részben áttetsző szövegpanel biztosít olvashatóságot; mobilon a videó és a világos tartalmi rész egymás alatt jelenik meg.
+- A videó indítható és szüneteltethető. `prefers-reduced-motion` esetén nem indul el automatikusan.
+- Közlekedési opcióként bekerült a tiszta `https://badacsonytaxi.hu/` link, Google Ads click ID és kampányparaméterek nélkül. A szöveg nem állít partnerséget vagy garantált elérhetőséget; közvetlen egyeztetésre hívja fel a figyelmet.
+
 ## CTA-k és foglalási linkek
 
 - Hero, záró és mobil sticky foglalás: a projektben használt stabil, magyar SabeeApp booking engine link.
@@ -85,6 +96,14 @@ Ellenőrizve 2026. július 19-én:
 - Lighthouse mobil: Performance 77, Accessibility 100, Best Practices 100, SEO 100; FCP 1,6 s, LCP 5,1 s, TBT 200 ms, CLS 0,055.
 - Lighthouse desktop: Performance 95, Accessibility 100, Best Practices 100, SEO 100; FCP 0,8 s, LCP 1,3 s, TBT 10 ms, CLS 0,007.
 - A Lighthouse Windows alatt a JSON riport kiírása után átmeneti Chrome-mappa törlési `EPERM` figyelmeztetést adott; a riportok érvényesen elkészültek. A mobil LCP további optimalizálása ajánlott, de nem blokkolja a landing kiadását.
+
+A hero videós frissítés után:
+
+- Desktop böngészős QA: a 1280 × 720-as videó automatikusan, hang nélkül elindult; a pause/play vezérlő mindkét állapotban működött; sötét overlay nincs.
+- Mobil böngészős QA 390 × 844 és 360 × 800 nézetben: a 540 × 960-as mobil forrás töltődött be a mobil posterrel, nincs vízszintes túlcsordulás, a CTA-k a viewporton belül maradnak.
+- A Badacsony Taxi link célja, új lapos működése, külső link attribútumai és kampány/placement kontextusa ellenőrizve.
+- Mobil Lighthouse teljes futások: Performance 59–77, Best Practices 100, SEO 100; a mérés lokális, throttlingolt futások között jelentős szórást mutatott. A jobb futás LCP-je 4,1 s, CLS-e 0,001 volt.
+- Végső, célzott Lighthouse Accessibility ellenőrzés: 100, color contrast audit: sikeres.
 
 ## Production publikálás előtt
 
