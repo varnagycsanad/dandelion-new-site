@@ -439,7 +439,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
       homeCard: "Bővebben"
     },
     homepageCard: {
-      eyebrow: "PÁROKNAK",
+      eyebrow: "",
       title: "Őszi feltöltődés a Balaton-felvidéken",
       text: "Kapcsolódjatok ki a Szent György-hegy lábánál. Borászatok, kandalló, panoráma és nyugodt esték várnak.",
       ctaLabel: "Bővebben"
@@ -720,7 +720,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
       homeCard: "Bővebben"
     },
     homepageCard: {
-      eyebrow: "CSALÁDOKNAK",
+      eyebrow: "",
       title: "Őszi családi kalandok",
       text: "Lassítsatok le együtt a természet közelében. Családi programok, kandalló és közös élmények várnak rátok.",
       ctaLabel: "Bővebben"

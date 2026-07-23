@@ -43,20 +43,12 @@ function pickCampaignVisual(offer: AutumnCampaignOffer) {
 
 function pickCardHighlights(offer: AutumnCampaignOffer) {
   if (offer.audience === "pair") {
-    return [
-      offer.services.items[0],
-      offer.services.items[1],
-      offer.services.items[2],
-      offer.communication.items[5]
-    ].filter(Boolean);
+    return [offer.services.items[0], offer.services.items[1], offer.services.items[2]].filter(Boolean);
   }
 
-  return [
-    offer.services.items[0],
-    offer.services.items[offer.services.items.length - 1],
-    offer.services.items[1],
-    offer.communication.items[2]
-  ].filter(Boolean);
+  return [offer.services.items[0], offer.services.items[offer.services.items.length - 1], offer.services.items[1]].filter(
+    Boolean
+  );
 }
 
 function getAudienceTheme(offer: AutumnCampaignOffer) {
@@ -89,7 +81,7 @@ function getAudienceTheme(offer: AutumnCampaignOffer) {
           <article class:list={["autumn-home-campaigns__card", getAudienceTheme(offer)]}>
             <div class="autumn-home-campaigns__media-shell">
               <div class="autumn-home-campaigns__media-badge">
-                <span>{offer.audience === "pair" ? "Páros őszi útvonal" : "Családi őszi útvonal"}</span>
+                <span>{offer.audience === "pair" ? "Pároknak" : "Családoknak"}</span>
               </div>
               {visualImage ? (
                 <picture class="autumn-home-campaigns__media">
@@ -111,7 +103,7 @@ function getAudienceTheme(offer: AutumnCampaignOffer) {
             <div class="autumn-home-campaigns__content">
               <div class="autumn-home-campaigns__content-accent" aria-hidden="true"></div>
               <div class="autumn-home-campaigns__copy">
-                <p class="autumn-home-campaigns__eyebrow">{offer.homepageCard.eyebrow}</p>
+                {offer.homepageCard.eyebrow && <p class="autumn-home-campaigns__eyebrow">{offer.homepageCard.eyebrow}</p>}
                 <h3 class="autumn-home-campaigns__card-title">{offer.homepageCard.title}</h3>
                 <p class="autumn-home-campaigns__text">{offer.homepageCard.text}</p>
               </div>
