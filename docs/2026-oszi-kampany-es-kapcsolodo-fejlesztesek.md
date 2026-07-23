@@ -1,5 +1,66 @@
 # 2026 őszi kampány és kapcsolódó fejlesztések
 
+## Projekt összefoglaló
+
+- Projekt célja: egy közös, adatvezérelt 2026-os őszi kampányrendszer megvalósítása két ajánlati landing oldallal, egy főoldali kampányblokkal és teljes kampányméréssel, D1 kizárásával.
+- Aktuális állapot: az audit és több alapdöntés már rögzített; a roadmap strukturált, de az implementációs mérföldkövek többsége még nyitott.
+- Következő végrehajtandó feladat: `SAB-001` - D2 és Fügeház őszi SabeeApp-feltételeinek lezárása.
+- Elkészült feladatok száma: `8`
+- Még le nem zárt feladatok száma: `46`
+- Státuszmegoszlás: `43` nincs elkezdve, `1` folyamatban, `2` blokkolt, `8` elkészült, `1` elvetve.
+
+## Mérföldkövek (Milestones)
+
+Az alábbi mérföldkövekhez a dokumentumban szereplő összes feladat hozzá van rendelve elsődleges felelősségi kör szerint.
+
+### M1 - Üzleti döntések lezárása
+
+- Státusz: `[~]`
+- Rövid leírás: a kampány üzleti, tartalmi és jóváhagyási alapjainak lezárása, különösen a szolgáltatáslisták, a kommunikációs állítások és a promóciós irányok rögzítésével.
+- Kapcsolódó feladatok: `AUT-001`, `CNT-001`, `CNT-002`, `CNT-003`, `CNT-004`, `CNT-005`, `CNT-006`, `CNT-009`, `CNT-010`, `CNT-011`
+
+### M2 - SabeeApp előkészítés
+
+- Státusz: `[!]`
+- Rövid leírás: a két kampány foglalási, árképzési és szabályrendszerének SabeeApp-oldali előkészítése és technikai ellenőrzése.
+- Kapcsolódó feladatok: `SAB-001`, `SAB-002`, `SAB-003`, `SAB-004`, `SAB-005`, `SAB-006`, `SAB-007`, `SAB-008`
+
+### M3 - Közös ajánlati adatmodell és sablon
+
+- Státusz: `[~]`
+- Rövid leírás: a közös offer data schema, offer sablon, közvetlen foglalási előnyök és közös SEO-minimum meghatározása a meglévő adatok újrahasználásával.
+- Kapcsolódó feladatok: `AUT-002`, `AUT-003`, `AUT-004`, `AUT-005`, `AUT-006`, `CNT-007`, `CNT-008`, `SEO-001`, `SEO-002`, `SEO-003`
+
+### M4 - Fügeház kampányoldal
+
+- Státusz: `[ ]`
+- Rövid leírás: a Fügeház páros őszi ajánlatának teljes landing-oldal specifikációja és megvalósítása.
+- Kapcsolódó feladatok: `WEB-001`, `WEB-002`, `WEB-003`
+
+### M5 - D2 kampányoldal
+
+- Státusz: `[ ]`
+- Rövid leírás: a D2 családi őszi ajánlatának teljes landing-oldal specifikációja, megvalósítása és landing-szintű QA-ja.
+- Kapcsolódó feladatok: `WEB-004`, `WEB-005`, `WEB-006`, `QA-002`
+
+### M6 - Főoldali kampányblokk
+
+- Státusz: `[~]`
+- Rövid leírás: a kétkártyás főoldali kampányblokk tervezése, bekötése és reszponzív ellenőrzése.
+- Kapcsolódó feladatok: `WEB-007`, `WEB-008`, `WEB-009`, `WEB-010`, `QA-001`, `DEP-001`
+
+### M7 - Kampánymérés
+
+- Státusz: `[~]`
+- Rövid leírás: a teljes kampánymérés, consent-kompatibilis eseménylánc, booking-start és purchase audit, valamint tracking QA lezárása.
+- Kapcsolódó feladatok: `TRK-001`, `TRK-002`, `TRK-003`, `TRK-004`, `TRK-005`, `TRK-006`, `TRK-007`, `TRK-008`, `TRK-009`, `QA-003`
+
+### M8 - Google Ads és Meta kampányok indulása
+
+- Státusz: `[ ]`
+- Rövid leírás: a hirdetési naming, attribúciós út, rollout-sorrend és kampányindítás előkészítése.
+- Kapcsolódó feladatok: `ADS-001`, `ADS-002`, `ADS-003`, `DEP-002`
+
 ## 1. Dokumentum célja
 
 Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és megvalósítási terve. A cél egy olyan, a jelenlegi Astro-alapú projekt tényleges állapotára épülő, lépésenként végrehajtható terv rögzítése, amely:
@@ -7,6 +68,7 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 - nem duplikálja a meglévő accommodation- és image registry adatokat;
 - külön kezeli a technikai, üzleti, tartalmi és mérési függőségeket;
 - csak bizonyított állapotokat jelöl késznek;
+- mérföldkő-alapú roadmapként is működik;
 - a későbbi Codex-taskok számára közös referenciaként szolgál.
 
 ## 2. Rögzített üzleti döntések
@@ -192,12 +254,13 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 
 ## 21. Megvalósítási sorrend
 
-1. `SAB-001`, `CNT-001`, `TRK-001` lezárása, mert ezek adják az üzleti, foglalási es mérési valóságot.
-2. `AUT-003` es `AUT-004` elvégzése, hogy ne külön-külön, duplikált logikával készüljenek a landingek.
-3. `CNT-002`, `CNT-003`, `CNT-004`, `CNT-005` lezárása a végleges tartalmi inputhoz.
-4. `WEB-001`, `WEB-004`, `SEO-001` alapján a két landing összeállítása.
-5. `WEB-008`, `WEB-009`, `WEB-010` alapján a főoldali kampányblokk implementálása.
-6. `TRK-003`, `TRK-004`, `TRK-009`, `QA-001`, `QA-002`, `QA-003`, `DEP-001` lezárása.
+1. `M1` lezárása: üzleti, tartalmi és kommunikációs döntések véglegesítése.
+2. `M2` lezárása: SabeeApp szabályok, árlogika és technikai ár-QA végigvitele.
+3. `M3` lezárása: közös adatmodell, offer sablon és közös SEO-minimum kialakítása.
+4. `M4` és `M5` lezárása: a Fügeház és a D2 kampányoldalak elkészítése.
+5. `M6` lezárása: a főoldali kampányblokk beillesztése és reszponzív QA-ja.
+6. `M7` lezárása: teljes kampánymérés, booking-start/purchase audit és tracking QA.
+7. `M8` lezárása: hirdetési naming, attribúciós út és kampányindítás.
 
 ## 22. Elfogadási feltételek
 
@@ -238,3 +301,4 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 |---|---|---|---|---|---|---|
 | 2026-07-23 | AUT-001 | nincs elkezdve -> elkészült | Projekt-audit, főoldali és landing minták feltérképezése, SabeeApp CTA, tracking, consent, accommodation data és image registry ellenőrzése, a központi kampányterv dokumentum létrehozása | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md`, `src/pages/index.astro`, `src/templates/AccommodationPage.astro`, `src/data/accommodation-pages/d2.ts`, `src/data/accommodation-pages/fugehaz.ts`, `src/data/accommodations.ts`, `src/data/images/accommodation-images.ts`, `src/layouts/BaseLayout.astro`, `public/scripts/dnd-booking-attribution.js`, `public/scripts/dnd-ads-events.js`, `public/scripts/consent-init-cookie-refine.js`, `src/pages/last-minute-d2.astro`, `src/pages/szent-gyorgy-hegy-matine-szallas.astro`, `src/pages/kisapati-medences-szallas.astro`, `src/components/KisapatiPoolLandingPage.astro`, `project-docs/d2-last-minute-kampany-plan-2026-07-11.md`, `project-docs/SZENT_GYORGY_HEGY_MATINE_LANDING_2026.md`, `project-docs/google-ads-ga4-audit-living.md`, `project-docs/06-foglalasi-cta-logika.md`, `project-docs/INDEX.md`, `AGENT.md`, `DANDELION_RULES.md`, `DANDELION_CHATGPT_RULES.md`, `package.json`, `astro.config.mjs` | nem futott | nem |
 | 2026-07-23 | CNT-009, SAB-006, CNT-010, CNT-011, TRK-001 | részben frissítve | A jóváhagyott közvetlenár-döntés, a nyitott technikai ár-QA, a nyitott D2/Fügeház szolgáltatáslisták, a külön promóciók és a kötelező kampánymérési audit státuszainak átvezetése a hivatalos kampánydokumentumba | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
+| 2026-07-23 | M1, M2, M3, M4, M5, M6, M7, M8 | frissítve | Projekt-összefoglaló és mérföldkő-alapú roadmap került a dokumentum elejére, minden meglévő feladat milestone-hoz lett rendelve, és a megvalósítási sorrend milestone-szintre lett egységesítve | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
