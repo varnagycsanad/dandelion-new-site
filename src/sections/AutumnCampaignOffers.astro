@@ -1,6 +1,8 @@
 ---
 import { autumn2026OfferMap } from "../data/offers/autumn-2026";
 import type { AutumnCampaignOffer, AutumnCampaignOfferId } from "../data/offers/types";
+import pairCampaignImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
+import familyCampaignImage from "../assets/accommodations/d2/gallery/dandelion-d2-source-005.webp";
 
 const featuredOfferIds: AutumnCampaignOfferId[] = [
   "fugehaz_oszi_kettesben_2026",
@@ -21,6 +23,24 @@ function pickMobileImage(offer: AutumnCampaignOffer) {
   return offer.media.heroMobile ?? pickCardImage(offer);
 }
 
+function pickCampaignVisual(offer: AutumnCampaignOffer) {
+  if (offer.audience === "pair") {
+    return {
+      src: pairCampaignImage.src,
+      width: pairCampaignImage.width,
+      height: pairCampaignImage.height,
+      alt: "Poharakat koccinto par borral a Balaton-felvidek panoramaja elott."
+    };
+  }
+
+  return {
+    src: familyCampaignImage.src,
+    width: familyCampaignImage.width,
+    height: familyCampaignImage.height,
+    alt: "Csaladi hangulatu oszi piknik a D2 kertjeben, hatterben a hegyekkel."
+  };
+}
+
 function pickCardHighlights(offer: AutumnCampaignOffer) {
   if (offer.audience === "pair") {
     return [
@@ -37,6 +57,10 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
     offer.services.items[1],
     offer.communication.items[2]
   ].filter(Boolean);
+}
+
+function getAudienceTheme(offer: AutumnCampaignOffer) {
+  return offer.audience === "pair" ? "is-pair" : "is-family";
 }
 ---
 
@@ -57,20 +81,24 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
       {offers.map((offer) => {
         const cardImage = pickCardImage(offer);
         const mobileImage = pickMobileImage(offer);
+        const visualImage = pickCampaignVisual(offer);
         const highlights = pickCardHighlights(offer);
-        const imageAlt = cardImage?.alt.hu || mobileImage?.alt.hu || offer.hero.title;
+        const imageAlt = visualImage.alt || cardImage?.alt.hu || mobileImage?.alt.hu || offer.hero.title;
 
         return (
-          <article class="autumn-home-campaigns__card">
+          <article class:list={["autumn-home-campaigns__card", getAudienceTheme(offer)]}>
             <div class="autumn-home-campaigns__media-shell">
-              {cardImage ? (
+              <div class="autumn-home-campaigns__media-badge">
+                <span>{offer.audience === "pair" ? "Páros őszi útvonal" : "Családi őszi útvonal"}</span>
+              </div>
+              {visualImage ? (
                 <picture class="autumn-home-campaigns__media">
-                  {mobileImage?.src && <source media="(max-width: 767px)" srcset={mobileImage.src} />}
+                  {mobileImage?.src && <source media="(max-width: 767px)" srcset={visualImage.src} />}
                   <img
-                    src={cardImage.src}
+                    src={visualImage.src}
                     alt={imageAlt}
-                    width={cardImage.width}
-                    height={cardImage.height}
+                    width={visualImage.width}
+                    height={visualImage.height}
                     loading="lazy"
                     decoding="async"
                   />
@@ -81,6 +109,7 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
             </div>
 
             <div class="autumn-home-campaigns__content">
+              <div class="autumn-home-campaigns__content-accent" aria-hidden="true"></div>
               <div class="autumn-home-campaigns__copy">
                 <p class="autumn-home-campaigns__eyebrow">{offer.homepageCard.eyebrow}</p>
                 <h3 class="autumn-home-campaigns__card-title">{offer.homepageCard.title}</h3>
@@ -89,7 +118,7 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
 
               <ul class="autumn-home-campaigns__highlights" aria-label={`${offer.homepageCard.title} kiemelt előnyök`}>
                 {highlights.map((highlight) => (
-                  <li>{highlight}</li>
+                  <li><span>{highlight}</span></li>
                 ))}
               </ul>
 
@@ -116,12 +145,12 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
 
 <style>
   .autumn-home-campaigns {
-    padding: 24px 0 18px;
+    padding: 28px 0 22px;
   }
 
   .autumn-home-campaigns__intro {
     max-width: 760px;
-    margin: 0 auto 18px;
+    margin: 0 auto 26px;
     text-align: center;
   }
 
@@ -164,31 +193,71 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
   .autumn-home-campaigns__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    gap: 26px;
   }
 
   .autumn-home-campaigns__card {
-    display: grid;
-    grid-template-rows: auto 1fr;
+    position: relative;
     min-width: 0;
-    border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 14px;
-    overflow: clip;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 242, 231, 0.92)),
-      #ffffff;
-    box-shadow: 0 18px 42px rgba(62, 43, 24, 0.08);
+    padding-bottom: 18px;
+  }
+
+  .autumn-home-campaigns__card.is-pair {
+    --campaign-accent: #9c7a34;
+    --campaign-accent-soft: rgba(156, 122, 52, 0.16);
+    --campaign-surface: rgba(255, 248, 238, 0.96);
+    --campaign-shadow: rgba(93, 63, 26, 0.18);
+  }
+
+  .autumn-home-campaigns__card.is-family {
+    --campaign-accent: #315f4b;
+    --campaign-accent-soft: rgba(49, 95, 75, 0.14);
+    --campaign-surface: rgba(246, 250, 247, 0.97);
+    --campaign-shadow: rgba(34, 60, 49, 0.18);
   }
 
   .autumn-home-campaigns__media-shell {
     position: relative;
     min-width: 0;
-    background: #e8e0d3;
+    padding: 0 14px 0 0;
+  }
+
+  .autumn-home-campaigns__media-shell::after {
+    content: "";
+    position: absolute;
+    inset: 14px 0 0 28%;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--campaign-accent-soft), rgba(255, 255, 255, 0));
+    z-index: 0;
+  }
+
+  .autumn-home-campaigns__media-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(17, 22, 18, 0.64);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    font-size: var(--dnd-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .autumn-home-campaigns__media {
     display: block;
-    aspect-ratio: 1.48;
+    position: relative;
+    z-index: 1;
+    aspect-ratio: 1.02;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 28px 48px rgba(39, 27, 16, 0.18);
   }
 
   .autumn-home-campaigns__media img,
@@ -199,12 +268,38 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
     object-fit: cover;
   }
 
+  .autumn-home-campaigns__media::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 42%;
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0), rgba(15, 15, 15, 0.28));
+    pointer-events: none;
+  }
+
   .autumn-home-campaigns__content {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     min-width: 0;
-    padding: 22px 22px 24px;
+    width: min(86%, 460px);
+    margin: -70px 0 0 auto;
+    padding: 22px 22px 22px;
+    border: 1px solid rgba(91, 70, 42, 0.1);
+    border-radius: 24px;
+    background: var(--campaign-surface);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 24px 40px var(--campaign-shadow);
+  }
+
+  .autumn-home-campaigns__content-accent {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    border-radius: 24px 0 0 24px;
+    background: linear-gradient(180deg, var(--campaign-accent), rgba(255, 255, 255, 0));
   }
 
   .autumn-home-campaigns__copy {
@@ -214,7 +309,7 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
 
   .autumn-home-campaigns__eyebrow {
     margin: 0;
-    color: #9c7a34;
+    color: var(--campaign-accent);
     font-size: var(--dnd-text-sm);
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -237,7 +332,8 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
   }
 
   .autumn-home-campaigns__highlights {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin: 0;
     padding: 0;
@@ -245,40 +341,37 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
   }
 
   .autumn-home-campaigns__highlights li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
     min-width: 0;
-    color: rgba(0, 0, 0, 0.78);
-    font-size: var(--dnd-text-sm);
-    line-height: 1.45;
   }
 
-  .autumn-home-campaigns__highlights li::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    margin-top: 0.4rem;
+  .autumn-home-campaigns__highlights li span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 8px 12px;
     border-radius: 999px;
-    flex: 0 0 auto;
-    background: linear-gradient(180deg, #d99e2b, #9c7a34);
-    box-shadow: 0 0 0 4px rgba(217, 158, 43, 0.12);
+    background: var(--campaign-accent-soft);
+    color: rgba(0, 0, 0, 0.78);
+    font-size: var(--dnd-text-xs);
+    font-weight: 600;
+    line-height: 1.3;
   }
 
   .autumn-home-campaigns__footer {
     margin-top: auto;
-    padding-top: 4px;
+    padding-top: 6px;
   }
 
   .autumn-home-campaigns__cta {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 48px;
-    padding: 0 20px;
+    padding: 0 18px;
     border-radius: 999px;
-    background: #1f3b2c;
-    color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.88);
+    color: #111;
     font-size: var(--dnd-text-sm);
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -286,13 +379,22 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
     transition:
       transform 0.2s ease,
       background-color 0.2s ease,
-      box-shadow 0.2s ease;
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .autumn-home-campaigns__cta::after {
+    content: "↗";
+    margin-left: 10px;
+    color: var(--campaign-accent);
+    font-size: 1rem;
   }
 
   .autumn-home-campaigns__cta:hover {
     transform: translateY(-1px);
-    background: #244533;
-    box-shadow: 0 12px 28px rgba(31, 59, 44, 0.18);
+    border-color: var(--campaign-accent-soft);
+    background: #fff;
+    box-shadow: 0 14px 28px rgba(31, 31, 31, 0.1);
   }
 
   .autumn-home-campaigns__cta:focus-visible {
@@ -302,10 +404,12 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
 
   @media (max-width: 960px) {
     .autumn-home-campaigns__grid {
-      gap: 16px;
+      gap: 22px;
     }
 
     .autumn-home-campaigns__content {
+      width: calc(100% - 34px);
+      margin-top: -56px;
       padding: 20px 18px 20px;
     }
   }
@@ -316,11 +420,12 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
     }
 
     .autumn-home-campaigns__grid {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
     .autumn-home-campaigns__intro {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .autumn-home-campaigns__kicker {
@@ -335,7 +440,7 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
     }
 
     .autumn-home-campaigns__title {
-      font-size: 1.68rem;
+      font-size: 1.58rem;
     }
 
     .autumn-home-campaigns__lead {
@@ -343,34 +448,128 @@ function pickCardHighlights(offer: AutumnCampaignOffer) {
       line-height: 1.5;
     }
 
+    .autumn-home-campaigns__card {
+      padding-bottom: 8px;
+    }
+
+    .autumn-home-campaigns__media-shell {
+      padding-right: 6px;
+    }
+
+    .autumn-home-campaigns__media-shell::after {
+      inset: 10px 0 0 18%;
+      border-radius: 22px;
+    }
+
+    .autumn-home-campaigns__media-badge {
+      top: 12px;
+      left: 12px;
+      min-height: 28px;
+      padding: 0 10px;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+    }
+
     .autumn-home-campaigns__media {
-      aspect-ratio: 1.24;
+      aspect-ratio: 0.9;
+      border-radius: 20px;
     }
 
     .autumn-home-campaigns__content {
-      gap: 16px;
+      width: calc(100% - 10px);
+      margin-top: -22px;
+      gap: 10px;
+      padding: 14px 12px 12px;
+      border-radius: 18px;
+      box-shadow: 0 14px 26px rgba(31, 31, 31, 0.12);
     }
 
     .autumn-home-campaigns__card-title {
-      font-size: 1.42rem;
+      font-size: 1.02rem;
+      line-height: 1.15;
+    }
+
+    .autumn-home-campaigns__eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
     }
 
     .autumn-home-campaigns__text {
-      font-size: var(--dnd-text-sm);
-      line-height: 1.5;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .autumn-home-campaigns__highlights {
-      gap: 8px;
+      gap: 6px;
     }
 
-    .autumn-home-campaigns__highlights li {
-      font-size: var(--dnd-text-xs);
-      line-height: 1.42;
+    .autumn-home-campaigns__highlights li:nth-child(n + 3) {
+      display: none;
+    }
+
+    .autumn-home-campaigns__highlights li span {
+      min-height: 26px;
+      padding: 5px 8px;
+      font-size: 0.66rem;
     }
 
     .autumn-home-campaigns__cta {
       width: 100%;
+      min-height: 38px;
+      padding: 0 12px;
+      justify-content: center;
+      font-size: 0.72rem;
+    }
+
+    .autumn-home-campaigns__cta::after {
+      margin-left: 6px;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .autumn-home-campaigns__grid {
+      gap: 10px;
+    }
+
+    .autumn-home-campaigns__title {
+      font-size: 1.46rem;
+    }
+
+    .autumn-home-campaigns__lead {
+      font-size: 0.82rem;
+    }
+
+    .autumn-home-campaigns__media {
+      aspect-ratio: 0.82;
+    }
+
+    .autumn-home-campaigns__content {
+      padding: 12px 10px 10px;
+      gap: 8px;
+    }
+
+    .autumn-home-campaigns__copy {
+      gap: 8px;
+    }
+
+    .autumn-home-campaigns__card-title {
+      font-size: 0.94rem;
+    }
+
+    .autumn-home-campaigns__text {
+      font-size: 0.72rem;
+      -webkit-line-clamp: 2;
+    }
+
+    .autumn-home-campaigns__highlights li span {
+      min-height: 24px;
+      padding: 4px 7px;
+      font-size: 0.62rem;
     }
   }
 </style>
