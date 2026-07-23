@@ -1,0 +1,376 @@
+---
+import { autumn2026OfferMap } from "../data/offers/autumn-2026";
+import type { AutumnCampaignOffer, AutumnCampaignOfferId } from "../data/offers/types";
+
+const featuredOfferIds: AutumnCampaignOfferId[] = [
+  "fugehaz_oszi_kettesben_2026",
+  "d2_oszi_csaladi_pihenes_2026"
+];
+
+const offers = featuredOfferIds.map((offerId) => autumn2026OfferMap[offerId]).filter(Boolean);
+
+if (offers.length !== 2) {
+  throw new Error("Autumn campaign homepage block requires exactly two offers.");
+}
+
+function pickCardImage(offer: AutumnCampaignOffer) {
+  return offer.media.card ?? offer.media.heroDesktop ?? offer.media.galleryPreview[0] ?? null;
+}
+
+function pickMobileImage(offer: AutumnCampaignOffer) {
+  return offer.media.heroMobile ?? pickCardImage(offer);
+}
+
+function pickCardHighlights(offer: AutumnCampaignOffer) {
+  if (offer.audience === "pair") {
+    return [
+      offer.services.items[0],
+      offer.services.items[1],
+      offer.services.items[2],
+      offer.communication.items[5]
+    ].filter(Boolean);
+  }
+
+  return [
+    offer.services.items[0],
+    offer.services.items[offer.services.items.length - 1],
+    offer.services.items[1],
+    offer.communication.items[2]
+  ].filter(Boolean);
+}
+---
+
+<section class="autumn-home-campaigns dnd-section" aria-labelledby="autumn-home-campaigns-title">
+  <div class="dnd-container">
+    <div class="autumn-home-campaigns__intro">
+      <span class="autumn-home-campaigns__kicker">2026-os őszi ajánlatok</span>
+      <h2 id="autumn-home-campaigns-title" class="autumn-home-campaigns__title">
+        Két külön kampány-belépési pont pároknak és családoknak
+      </h2>
+      <p class="autumn-home-campaigns__lead">
+        A főoldali blokk a jóváhagyott őszi offer data rekordokból épül, és közvetlenül a két dedikált landing
+        oldalra vezet tovább.
+      </p>
+    </div>
+
+    <div class="autumn-home-campaigns__grid">
+      {offers.map((offer) => {
+        const cardImage = pickCardImage(offer);
+        const mobileImage = pickMobileImage(offer);
+        const highlights = pickCardHighlights(offer);
+        const imageAlt = cardImage?.alt.hu || mobileImage?.alt.hu || offer.hero.title;
+
+        return (
+          <article class="autumn-home-campaigns__card">
+            <div class="autumn-home-campaigns__media-shell">
+              {cardImage ? (
+                <picture class="autumn-home-campaigns__media">
+                  {mobileImage?.src && <source media="(max-width: 767px)" srcset={mobileImage.src} />}
+                  <img
+                    src={cardImage.src}
+                    alt={imageAlt}
+                    width={cardImage.width}
+                    height={cardImage.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              ) : (
+                <div class="autumn-home-campaigns__media autumn-home-campaigns__media--empty" aria-hidden="true" />
+              )}
+            </div>
+
+            <div class="autumn-home-campaigns__content">
+              <div class="autumn-home-campaigns__copy">
+                <p class="autumn-home-campaigns__eyebrow">{offer.homepageCard.eyebrow}</p>
+                <h3 class="autumn-home-campaigns__card-title">{offer.homepageCard.title}</h3>
+                <p class="autumn-home-campaigns__text">{offer.homepageCard.text}</p>
+              </div>
+
+              <ul class="autumn-home-campaigns__highlights" aria-label={`${offer.homepageCard.title} kiemelt előnyök`}>
+                {highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+
+              <div class="autumn-home-campaigns__footer">
+                <a
+                  href={offer.routePath}
+                  class="autumn-home-campaigns__cta"
+                  data-dnd-offer={offer.tracking.offerId}
+                  data-dnd-property={offer.tracking.property}
+                  data-dnd-campaign={offer.tracking.campaign}
+                  data-dnd-placement="homepage-campaign-card"
+                  data-dnd-cta-type="learn-more"
+                >
+                  {offer.homepageCard.ctaLabel}
+                </a>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .autumn-home-campaigns {
+    padding: 24px 0 18px;
+  }
+
+  .autumn-home-campaigns__intro {
+    max-width: 760px;
+    margin: 0 auto 18px;
+    text-align: center;
+  }
+
+  .autumn-home-campaigns__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #9c7a34;
+    font-family: var(--dnd-font-display);
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .autumn-home-campaigns__kicker::before,
+  .autumn-home-campaigns__kicker::after {
+    content: "";
+    width: 42px;
+    height: 1px;
+    background: rgba(156, 122, 52, 0.32);
+  }
+
+  .autumn-home-campaigns__title {
+    margin: 14px 0 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.9rem, 3.2vw, 2.85rem);
+    line-height: 1.08;
+    font-weight: 500;
+  }
+
+  .autumn-home-campaigns__lead {
+    margin: 10px auto 0;
+    max-width: 620px;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
+  .autumn-home-campaigns__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .autumn-home-campaigns__card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-width: 0;
+    border: 1px solid rgba(91, 70, 42, 0.12);
+    border-radius: 14px;
+    overflow: clip;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 242, 231, 0.92)),
+      #ffffff;
+    box-shadow: 0 18px 42px rgba(62, 43, 24, 0.08);
+  }
+
+  .autumn-home-campaigns__media-shell {
+    position: relative;
+    min-width: 0;
+    background: #e8e0d3;
+  }
+
+  .autumn-home-campaigns__media {
+    display: block;
+    aspect-ratio: 1.48;
+  }
+
+  .autumn-home-campaigns__media img,
+  .autumn-home-campaigns__media--empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .autumn-home-campaigns__content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+    padding: 22px 22px 24px;
+  }
+
+  .autumn-home-campaigns__copy {
+    display: grid;
+    gap: 10px;
+  }
+
+  .autumn-home-campaigns__eyebrow {
+    margin: 0;
+    color: #9c7a34;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .autumn-home-campaigns__card-title {
+    margin: 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.45rem, 2.1vw, 2rem);
+    line-height: 1.12;
+    font-weight: 500;
+  }
+
+  .autumn-home-campaigns__text {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.74);
+    font-size: var(--dnd-text-md);
+    line-height: 1.58;
+  }
+
+  .autumn-home-campaigns__highlights {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .autumn-home-campaigns__highlights li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+    color: rgba(0, 0, 0, 0.78);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
+  }
+
+  .autumn-home-campaigns__highlights li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-top: 0.4rem;
+    border-radius: 999px;
+    flex: 0 0 auto;
+    background: linear-gradient(180deg, #d99e2b, #9c7a34);
+    box-shadow: 0 0 0 4px rgba(217, 158, 43, 0.12);
+  }
+
+  .autumn-home-campaigns__footer {
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .autumn-home-campaigns__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: #1f3b2c;
+    color: #ffffff;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .autumn-home-campaigns__cta:hover {
+    transform: translateY(-1px);
+    background: #244533;
+    box-shadow: 0 12px 28px rgba(31, 59, 44, 0.18);
+  }
+
+  .autumn-home-campaigns__cta:focus-visible {
+    outline: 3px solid rgba(217, 158, 43, 0.72);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 960px) {
+    .autumn-home-campaigns__grid {
+      gap: 16px;
+    }
+
+    .autumn-home-campaigns__content {
+      padding: 20px 18px 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .autumn-home-campaigns {
+      padding: 20px 0 14px;
+    }
+
+    .autumn-home-campaigns__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .autumn-home-campaigns__intro {
+      margin-bottom: 14px;
+    }
+
+    .autumn-home-campaigns__kicker {
+      gap: 8px;
+      font-size: var(--dnd-text-xs);
+      letter-spacing: 0.14em;
+    }
+
+    .autumn-home-campaigns__kicker::before,
+    .autumn-home-campaigns__kicker::after {
+      width: 28px;
+    }
+
+    .autumn-home-campaigns__title {
+      font-size: 1.68rem;
+    }
+
+    .autumn-home-campaigns__lead {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.5;
+    }
+
+    .autumn-home-campaigns__media {
+      aspect-ratio: 1.24;
+    }
+
+    .autumn-home-campaigns__content {
+      gap: 16px;
+    }
+
+    .autumn-home-campaigns__card-title {
+      font-size: 1.42rem;
+    }
+
+    .autumn-home-campaigns__text {
+      font-size: var(--dnd-text-sm);
+      line-height: 1.5;
+    }
+
+    .autumn-home-campaigns__highlights {
+      gap: 8px;
+    }
+
+    .autumn-home-campaigns__highlights li {
+      font-size: var(--dnd-text-xs);
+      line-height: 1.42;
+    }
+
+    .autumn-home-campaigns__cta {
+      width: 100%;
+    }
+  }
+</style>

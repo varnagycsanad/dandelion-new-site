@@ -134,7 +134,7 @@
 
     const source =
       element.closest(
-        "[data-dnd-property], [data-dnd-campaign], [data-dnd-placement], [data-dnd-check-in], [data-dnd-check-out]"
+        "[data-dnd-property], [data-dnd-campaign], [data-dnd-placement], [data-dnd-check-in], [data-dnd-check-out], [data-dnd-offer], [data-dnd-cta-type]"
       ) || element;
 
     const propertyValue = source.getAttribute("data-dnd-property");
@@ -142,14 +142,28 @@
     const placementValue = source.getAttribute("data-dnd-placement");
     const checkInValue = source.getAttribute("data-dnd-check-in");
     const checkOutValue = source.getAttribute("data-dnd-check-out");
+    const offerValue = source.getAttribute("data-dnd-offer");
+    const ctaTypeValue = source.getAttribute("data-dnd-cta-type");
 
     return {
       property: propertyValue || undefined,
       campaign: campaignValue || undefined,
       placement: placementValue || undefined,
+      offer: offerValue || undefined,
+      cta_type: ctaTypeValue || undefined,
       check_in: checkInValue || undefined,
       check_out: checkOutValue || undefined
     };
+  }
+
+  function isCampaignCardClick(href, trackingContext) {
+    const normalizedHref = normalize(href);
+
+    return (
+      normalizedHref.includes("/ajanlatok/") &&
+      Boolean(trackingContext.offer) &&
+      trackingContext.placement === "homepage-campaign-card"
+    );
   }
 
   function hasWord(source, words) {
@@ -319,6 +333,24 @@
           property: bookingPayload.property,
           campaign: bookingPayload.campaign,
           placement: bookingPayload.placement
+        });
+        return;
+      }
+
+      if (isCampaignCardClick(href, trackingContext)) {
+        pushEvent("dnd_campaign_card_click", {
+          event_category: "campaign",
+          event_action: "campaign_card_click",
+          event_label: label,
+          page_path: window.location.pathname,
+          page_url: window.location.href,
+          link_url: linkUrl || href,
+          cta_text: text,
+          property: trackingContext.property,
+          campaign: trackingContext.campaign,
+          placement: trackingContext.placement,
+          offer: trackingContext.offer,
+          cta_type: trackingContext.cta_type
         });
         return;
       }
