@@ -4,10 +4,10 @@
 
 - Projekt célja: egy közös, adatvezérelt 2026-os őszi kampányrendszer megvalósítása két ajánlati landing oldallal, egy főoldali kampányblokkal és teljes kampányméréssel, D1 kizárásával.
 - Aktuális állapot: az audit és több alapdöntés már rögzített; a roadmap strukturált, de az implementációs mérföldkövek többsége még nyitott.
-- Következő végrehajtandó feladat: `CNT-001` - a Fügeház páros és a D2 családi őszi ajánlat üzleti tartalmának véglegesítése.
-- Elkészült feladatok száma: `8`
-- Még le nem zárt feladatok száma: `40`
-- Státuszmegoszlás: `38` nincs elkezdve, `1` folyamatban, `1` blokkolt, `8` elkészült, `1` elvetve.
+- Következő végrehajtandó feladat: `AUT-003` - közös ajánlati adatmodell definiálása.
+- Elkészült feladatok száma: `10`
+- Még le nem zárt feladatok száma: `38`
+- Státuszmegoszlás: `37` nincs elkezdve, `1` folyamatban, `0` blokkolt, `10` elkészült, `1` elvetve.
 
 ## Mérföldkövek (Milestones)
 
@@ -89,12 +89,11 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 - Nem készül rate plan, availability, minimum stay vagy foglalhatósági audit.
 - SabeeApp-fejlesztés jelenleg nem része a kampány scope-jának.
 - Külön SabeeApp-feladat csak akkor jön létre, ha később konkrét promóciós beállítást kell végrehajtani.
-- A D2 kampányban használható végleges szolgáltatáslista még pontosításra vár.
-- A Fügeház kampányban használható végleges szolgáltatáslista még pontosításra vár.
+- A Fügeház és a D2 kampány végleges üzleti tartalma jóváhagyott; a részletes szolgáltatás- és programlista a 10. fejezetben szerepel.
 - A D2 dézsája nem szerepelhet.
 - A Panorama Pool csak olyan időszakhoz kapcsolható, amikor ténylegesen nyitva van.
-- A Fügeház páros őszi ajánlatához külön promóció készül, de a tartalma még nincs eldöntve.
-- A D2 családi őszi ajánlatához külön promóció készül, de a tartalma még nincs eldöntve.
+- A Fügeház páros őszi ajánlatához külön promóció készül; a kommunikáció fő elemei rögzítettek, a konkrét promóciós mechanika még nyitott.
+- A D2 családi őszi ajánlatához külön promóció készül; a kommunikáció fő elemei rögzítettek, a konkrét promóciós mechanika még nyitott.
 - A promóciók hiánya nem akadályozza a `nálunk olcsóbban` kommunikáció használatát.
 - A teljes kampánymérés megvalósítása kötelező, a booking-start/purchase lánc auditja külön nyitott feladat marad.
 - Nem készül teljes ajánlati katalógus vagy adminfelület.
@@ -128,7 +127,7 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 - Kell-e külön SabeeApp audit a kampány indulásához? Nem. A kampány a meglévő élő booking linkekre és az aktuális SabeeApp állapotra támaszkodik; külön audit csak későbbi, konkrét promóciós beállítás esetén indokolt.
 - Milyen accommodation adatok használhatók újra? A listing szintű és detail szintű tartalmak, kulcsjellemzők, feature-ök, related stay kapcsolatok és a booking linkek.
 - Milyen képek és SEO draftok állnak rendelkezésre? A központi image registryből hero, card, gallery és thumbnail képek elérhetők. SEO-szöveg és meta jellegű draftok részben a page data fájlokban és részben a meglévő landing oldalakban látszanak.
-- Mi hiányzik a Fügeház és D2 szolgáltatáslistájából? A kampányoldali végleges szolgáltatáslista üzleti verifikációja hiányzik. Különösen ellenőrizendő a Panorama Pool szezonális elérhetősége, a közvetlen ár-állítás jogossága, a D2 `saját udvar` es `saját parkoló` állítás, valamint a Fügeház `4 fő, pótággyal legfeljebb 6 fő` kommunikáció pontos formája.
+- Mi hiányzik a Fügeház és D2 szolgáltatáslistájából? Az üzleti lista jóváhagyott; a hiányzó lépés a véglegesített tartalom repo-szintű átvezetése, a landing copyhoz szükséges bontás elkészítése, valamint a Panorama Pool szezonális feltételének és a D2/Fügeház kampánycopy megfelelőségének ellenőrzése.
 - Mi hiányzik a purchase mérésből? A repo-ban bizonyított a booking CTA click mérés és az attribúciós paraméterkezelés, de a Sabee booking start és a sikeres purchase teljes, forráskódban is követhető lánca nem látható egyértelműen.
 - Van-e ütközés a jelenlegi accommodation sablonosítási tervvel? Nem szükségszerűen, ha az őszi ajánlati rendszer a meglévő accommodation- és image registryre épül. Ütközés akkor lenne, ha külön, kézzel karbantartott kampány-adatmodellt vezetnénk be.
 - Melyik fejlesztési lépés végezhető el elsőként minimális kockázattal? Az ajánlati adatmodell és közös offer sablon technikai specifikációja, majd annak statikus implementációja a meglévő adatforrások újrahasználásával.
@@ -136,7 +135,7 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 ## 5. Függőségek és blokkoló tényezők
 
 - `AUT-001` `[x]` Feladat: a jelenlegi architektúra auditálása és a kampány state-of-truth dokumentum létrehozása; Függőség: repository olvasási hozzáférés; Várható fájlok vagy rendszer: `AGENT.md`, `DANDELION_RULES.md`, `DANDELION_CHATGPT_RULES.md`, `package.json`, `astro.config.mjs`, `src/pages/index.astro`, `src/templates/AccommodationPage.astro`, `src/data/**`, `public/scripts/**`, `project-docs/**`; Elfogadási feltétel: a dokumentum rögzíti a jelenlegi bizonyított állapotot és a nyitott kérdéseket; Megjegyzés: elkészült 2026-07-23-án.
-- `CNT-001` `[!]` Feladat: Fügeház és D2 szolgáltatáslistájának végleges üzleti jóváhagyása; Függőség: tulajdonosi vagy operatív visszaigazolás; Várható fájlok vagy rendszer: tartalmi brief, szállásoldal-adatok; Elfogadási feltétel: nincs ellentmondás a kampányoldali és a valós szolgáltatáslista között; Megjegyzés: több állítás jelenleg ellenőrzésköteles.
+- `CNT-001` `[x]` Feladat: Fügeház és D2 őszi kampánytartalmának végleges üzleti jóváhagyása; Függőség: tulajdonosi vagy operatív visszaigazolás; Várható fájlok vagy rendszer: tartalmi brief, szállásoldal-adatok, kampány state-of-truth dokumentáció; Elfogadási feltétel: a Fügeház páros és a D2 családi őszi ajánlat szolgáltatáslistája, kommunikációs blokkja, babás kiegészítői és programajánlója jóváhagyott formában rögzítve van; Megjegyzés: a jóváhagyott üzleti lista a 10. fejezetben szerepel, a következő lépés már az implementációs adatmodell és repo-szintű átvezetés.
 - `TRK-001` `[ ]` Feladat: teljes kampánymérés auditja és megvalósítási terve, beleértve a booking-start és purchase lánc ellenőrzését; Függőség: GTM/GA4 hozzáférés vagy dokumentált mérési bizonyíték; Várható fájlok vagy rendszer: GTM, GA4, Sabee, esetleges külső tag/bridge; Elfogadási feltétel: ismert, hogy mely esemény honnan jön, hogyan kap offer/property meta adatot, és mi szükséges a teljes kampánymérés megvalósításához; Megjegyzés: kötelező munkacsomag, jelenleg nyitott.
 
 ## 6. MVP pontos scope-ja
@@ -185,13 +184,32 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 
 ## 10. Tartalmi és szolgáltatási munkacsomag
 
-- `CNT-002` `[ ]` Feladat: Fügeház végleges szolgáltatáslista validálása; Függőség: `CNT-001`; Várható fájlok vagy rendszer: `src/data/accommodation-pages/fugehaz.ts`, üzleti jóváhagyás; Elfogadási feltétel: a kampányoldal csak igazolt szolgáltatásokat említ; Megjegyzés: a `4 fő, pótággyal legfeljebb 6 fő` állítást pontosítani kell.
-- `CNT-003` `[ ]` Feladat: D2 végleges szolgáltatáslista validálása; Függőség: `CNT-001`; Várható fájlok vagy rendszer: `src/data/accommodation-pages/d2.ts`, üzleti jóváhagyás; Elfogadási feltétel: a kampányoldal csak igazolt szolgáltatásokat említ; Megjegyzés: a `saját udvar` es `saját parkoló` jelenleg nem ilyen formában bizonyított a repo-ban.
+Jóváhagyott üzleti tartalom `CNT-001` alapján:
+
+**Fügeház – Őszi kettesben**
+
+- Kampányban használható szolgáltatások: Panorama Pool (csak szezonban), 2 db felnőtt kerékpár díjmentesen, kandalló, grillező, tűzrakóhely, ingyenes tűzifa, ingyenes Wi-Fi, ingyenes parkolás.
+- Kommunikációs blokkok: romantikus őszi kikapcsolódás, borászatok, kerékpártúrák, esti kandallózás, grillezés, csillagos ég, nyugodt környezet.
+- Babával érkezőknek igény esetén biztosítható: babaágy, babakád, etetőszék, fellépő.
+
+**D2 – Őszi családi pihenés**
+
+- Kampányban használható szolgáltatások: Panorama Pool (csak szezonban), kandalló, grillező, tűzrakóhely, ingyenes tűzifa, ingyenes Wi-Fi, ingyenes parkolás, családbarát kialakítás.
+- Kommunikációs blokkok: családi kikapcsolódás, külön hálószoba + nappali, közös programok, esti kandallózás, grillezés.
+- Babával érkezőknek igény esetén biztosítható: babaágy, babakád, etetőszék, fellépő.
+
+**Programajánló**
+
+- Mindkét kampányban használható: Tapolcai-tavasbarlang, Szent György-hegyi túrák, balatoni strandok, közeli borászatok.
+- A családi kampányban ezen felül használható: Kisapáti játszótér, pingpongasztal, kerékpáros ügyességi pálya.
+
+- `CNT-002` `[ ]` Feladat: Fügeház végleges üzleti szolgáltatáslistájának implementációs átvezetése és repo-szintű ellenőrzése; Függőség: `CNT-001`; Várható fájlok vagy rendszer: `src/data/accommodation-pages/fugehaz.ts`, offer data, landing content; Elfogadási feltétel: a repo-beli Fügeház tartalom visszaadja a jóváhagyott kampánylistát, a romantikus pozicionálást, a babás kiegészítőket és a szezonális Panorama Pool megkötést; Megjegyzés: ez már nem tartalmi döntés, hanem implementációs és repo-ellenőrzési feladat.
+- `CNT-003` `[ ]` Feladat: D2 végleges üzleti szolgáltatáslistájának implementációs átvezetése és repo-szintű ellenőrzése; Függőség: `CNT-001`; Várható fájlok vagy rendszer: `src/data/accommodation-pages/d2.ts`, offer data, landing content; Elfogadási feltétel: a repo-beli D2 tartalom visszaadja a jóváhagyott kampánylistát, a családi pozicionálást, a babás kiegészítőket, a családi programblokkokat és a dézsa kizárását; Megjegyzés: ez már nem tartalmi döntés, hanem implementációs és repo-ellenőrzési feladat.
 - `CNT-004` `[ ]` Feladat: Panorama Pool kommunikáció szezonális feltételeinek rögzítése; Függőség: `CNT-001`; Várható fájlok vagy rendszer: üzleti döntés, nyitvatartási szabály; Elfogadási feltétel: a kampányoldalakon csak tényleges nyitvatartási időben jelenik meg; Megjegyzés: ezt a brief kifejezetten megköveteli.
-- `CNT-005` `[ ]` Feladat: páros es családi célcsoport-szöveg jóváhagyása; Függőség: `CNT-002`, `CNT-003`; Várható fájlok vagy rendszer: landing copy brief; Elfogadási feltétel: a Fügeház pozicionálása páros, a D2 pozicionálása családi vonalon koherens es valós; Megjegyzés: ne kerüljön be nem igazolt luxus- vagy árígéret.
-- `CNT-006` `[ ]` Feladat: őszi környékbeli programlista ellenőrzése; Függőség: üzleti vagy tartalmi forrás; Várható fájlok vagy rendszer: existing regional content, külső források; Elfogadási feltétel: a kampányoldali programblokk aktuális es releváns; Megjegyzés: ez tartalmi, nem technikai blokk.
-- `CNT-010` `[ ]` Feladat: Fügeház páros őszi ajánlat külön promóciójának kidolgozása; Függőség: üzleti döntés és tartalmi brief; Várható fájlok vagy rendszer: promóciós brief, későbbi landing copy; Elfogadási feltétel: rögzített promóciós ajánlat vagy kedvezménylogika áll rendelkezésre; Megjegyzés: a promóció hiánya nem akadályozza a `nálunk olcsóbban` kommunikációt.
-- `CNT-011` `[ ]` Feladat: D2 családi őszi ajánlat külön promóciójának kidolgozása; Függőség: üzleti döntés és tartalmi brief; Várható fájlok vagy rendszer: promóciós brief, későbbi landing copy; Elfogadási feltétel: rögzített promóciós ajánlat vagy kedvezménylogika áll rendelkezésre; Megjegyzés: a promóció hiánya nem akadályozza a `nálunk olcsóbban` kommunikációt.
+- `CNT-005` `[x]` Feladat: páros es családi célcsoport-szöveg jóváhagyása; Függőség: `CNT-001`; Várható fájlok vagy rendszer: landing copy brief, kampány state-of-truth dokumentáció; Elfogadási feltétel: a Fügeház pozicionálása páros, a D2 pozicionálása családi irányban jóváhagyott es rögzített; Megjegyzés: a következő lépés ennek landing copy- és offer data-szintű átvezetése, nem újabb üzleti döntés.
+- `CNT-006` `[ ]` Feladat: őszi környékbeli programlista ellenőrzése; Függőség: `CNT-001`; Várható fájlok vagy rendszer: existing regional content, offer data, landing content; Elfogadási feltétel: a kampányoldali programblokk a jóváhagyott példalistára épül, és az érintett kampányoldalakon konzisztensen szerepel; Megjegyzés: jóváhagyott példák: Tapolcai-tavasbarlang, Szent György-hegy, balatoni strandok, borászatok, Kisapáti játszótér, pingpong, kerékpáros ügyességi pálya.
+- `CNT-010` `[ ]` Feladat: Fügeház páros őszi ajánlat külön promóciójának kidolgozása; Függőség: üzleti döntés és tartalmi brief; Várható fájlok vagy rendszer: promóciós brief, későbbi landing copy; Elfogadási feltétel: rögzített promóciós ajánlat vagy kedvezménylogika áll rendelkezésre; Megjegyzés: a promóció hiánya nem akadályozza a `nálunk olcsóbban` kommunikációt; kommunikáció fő elemei: romantikus ősz, kandalló, kerékpár, borászatok, Panorama Pool, grillezés.
+- `CNT-011` `[ ]` Feladat: D2 családi őszi ajánlat külön promóciójának kidolgozása; Függőség: üzleti döntés és tartalmi brief; Várható fájlok vagy rendszer: promóciós brief, későbbi landing copy; Elfogadási feltétel: rögzített promóciós ajánlat vagy kedvezménylogika áll rendelkezésre; Megjegyzés: a promóció hiánya nem akadályozza a `nálunk olcsóbban` kommunikációt; kommunikáció fő elemei: családi kikapcsolódás, Panorama Pool, kandalló, családi programok, grillezés.
 
 ## 11. Közös ajánlati sablon
 
@@ -296,7 +314,7 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 
 ## 24. Döntésre váró kérdések
 
-- Ki tudja hitelesen jóváhagyni a Fügeház es D2 végleges őszi szolgáltatáslistáját?
+- Melyik repo-fájlokban és melyik offer data mezőkben vezetjük át elsőként a jóváhagyott Fügeház- és D2-listát?
 - Használható-e jogszerűen es üzletileg védhetően a `kedvezobb ar` vagy csak puhább direct booking üzenet maradhat?
 - A Panorama Pool mely őszi időszakban kommunikálható ténylegesen?
 - A kampányoldalak indexeltek legyenek, vagy ideiglenesen noindex logikát kapjanak?
@@ -310,3 +328,4 @@ Ez a dokumentum a 2026-os őszi kampány egyetlen hivatalos állapotkövető és
 | 2026-07-23 | CNT-009, SAB-006, CNT-010, CNT-011, TRK-001 | részben frissítve | A jóváhagyott közvetlenár-döntés, a nyitott technikai ár-QA, a nyitott D2/Fügeház szolgáltatáslisták, a külön promóciók és a kötelező kampánymérési audit státuszainak átvezetése a hivatalos kampánydokumentumba | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
 | 2026-07-23 | M1, M2, M3, M4, M5, M6, M7, M8 | frissítve | Projekt-összefoglaló és mérföldkő-alapú roadmap került a dokumentum elejére, minden meglévő feladat milestone-hoz lett rendelve, és a megvalósítási sorrend milestone-szintre lett egységesítve | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
 | 2026-07-23 | CNT-001, SAB-006, SAB-007, M2 | frissítve | A SabeeApp-audit feladat kikerült a roadmapből, a kampány scope rögzítve lett a meglévő élő booking linkek használatára, a SabeeApp-függőségek lazítva lettek, és a következő végrehajtandó feladat `CNT-001` lett | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
+| 2026-07-23 | CNT-001, CNT-002, CNT-003, CNT-005, CNT-006, CNT-010, CNT-011 | frissítve | A Fügeház és D2 végleges üzleti tartalma rögzítésre került, a `CNT-001` lezárult, a kapcsolódó validációs feladatok implementációs/repo-ellenőrzési irányba lettek pontosítva, és a következő végrehajtandó feladat `AUT-003` lett | `docs/2026-oszi-kampany-es-kapcsolodo-fejlesztesek.md` | nem futott | nem |
