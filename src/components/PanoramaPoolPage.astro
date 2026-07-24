@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PoolGalleryLightbox from "./PoolGalleryLightbox.astro";
 import PoolRulesSection from "./PoolRulesSection.astro";
 import Hero from "../sections/Hero.astro";
-import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { panoramaPoolHero, panoramaPoolPageGalleryImages } from "../data/images/panorama-pool-images";
 import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
@@ -17,7 +17,7 @@ const siteOrigin = "https://dandelionhouse.hu";
 const resolveAbsoluteHref = (path: string) => new URL(resolveHref(path), siteOrigin).toString();
 const { locale = "hu" } = Astro.props as { locale?: PoolRulesLocale };
 
-const sortedImages = [...panoramaPoolImages].sort((a, b) => a.sortOrder - b.sortOrder);
+const sortedImages = [...panoramaPoolPageGalleryImages].sort((a, b) => a.sortOrder - b.sortOrder);
 const heroImage = sortedImages.find((image) => image.usageHint === "hero") ?? sortedImages[0];
 const galleryImages = sortedImages;
 
