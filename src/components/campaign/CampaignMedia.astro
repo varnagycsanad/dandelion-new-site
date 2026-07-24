@@ -1,0 +1,104 @@
+---
+import type { AutumnCampaignResponsiveMedia } from "../../data/offers/types";
+
+interface Props {
+  media: AutumnCampaignResponsiveMedia;
+  class?: string;
+  imgClass?: string;
+  fill?: boolean;
+  loading?: "lazy" | "eager";
+  decoding?: "async" | "sync" | "auto";
+  fetchpriority?: "high" | "low" | "auto";
+  replacementLabel?: string;
+}
+
+const {
+  media,
+  class: className,
+  imgClass,
+  fill = false,
+  loading = "lazy",
+  decoding = "async",
+  fetchpriority,
+  replacementLabel
+} = Astro.props as Props;
+
+const desktop = media.desktop;
+const mobile = media.mobile;
+---
+
+<div class:list={["campaign-media", fill && "campaign-media--fill", className]}>
+  <picture class="campaign-media__picture">
+    {mobile && <source media="(max-width: 767px)" srcset={mobile.src} />}
+    <img
+      class:list={["campaign-media__image", imgClass]}
+      src={desktop.src}
+      alt={desktop.alt}
+      width={desktop.width}
+      height={desktop.height}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+    />
+  </picture>
+  {replacementLabel && (
+    <span class="campaign-media__replacement" aria-hidden="true">
+      {replacementLabel}
+    </span>
+  )}
+</div>
+
+<style>
+  .campaign-media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campaign-media--fill {
+    position: absolute;
+    inset: 0;
+  }
+
+  .campaign-media__picture,
+  .campaign-media__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .campaign-media__image {
+    object-fit: cover;
+  }
+
+  .campaign-media__replacement {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(176, 24, 24, 0.94);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 0 8px 18px rgba(91, 10, 10, 0.28);
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .campaign-media__replacement {
+      top: 10px;
+      right: 10px;
+      min-height: 28px;
+      padding: 0 10px;
+      font-size: 0.64rem;
+    }
+  }
+</style>
