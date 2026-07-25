@@ -4,6 +4,10 @@ Status: AKTUALIS
 Last checked: 2026-07-13
 Use for: napi Google Ads + GTM + GA4 uzemeltetesi parancsok, gyors ellenorzes, valtozaskezeles
 
+Ownership update 2026-07-25: this document is kept for historical platform context. Current Ads, GA4 and GTM platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 ## Cel
 
 Ez a gyujtodoksi a napi hasznalathoz.

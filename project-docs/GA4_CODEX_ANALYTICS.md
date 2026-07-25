@@ -5,6 +5,10 @@ Last checked: 2026-06-02
 Use for: GA4 riport script hasznalata es analytics workflow
 Do not use for: aktualis GA4 credential/property allapot bizonyitasara
 
+Ownership update 2026-07-25: this document is kept for historical platform context. Current GA4 reporting and admin ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 
 Cel: a Google Analytics 4 adatok helyi scriptbol legyenek lekerdezhetok, hogy Codex ugyanebben a munkaterben tudja elemezni oket.
 

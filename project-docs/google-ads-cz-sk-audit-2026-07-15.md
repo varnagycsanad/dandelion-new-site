@@ -1,6 +1,10 @@
 # Google Ads audit - Cseh es szlovak piacnyitas
 
 Status: FRISSITVE 2026-07-15  
+Ownership update 2026-07-25: this document is historical platform audit context. Current Ads and GA4 platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Keszult: helyi Google Ads workflow + site source audit alapjan  
 Erintett piacok: Csehorszag, Szlovakia  
 Erintett datumok:

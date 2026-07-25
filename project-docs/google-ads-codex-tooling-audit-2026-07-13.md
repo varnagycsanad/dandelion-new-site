@@ -2,6 +2,10 @@
 
 Status: FRISSITVE 2026-07-14
 
+Ownership update 2026-07-25: this document is historical platform audit context. Current Ads platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Cel: annak auditja, hogy a jelenlegi Codex workspace es a kapcsolodo helyi workflow-k mennyire alkalmasak Google Ads kampanyok technikai kezelesere.
 
 Fontos keretezes:
