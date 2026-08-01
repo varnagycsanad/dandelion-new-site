@@ -86,6 +86,7 @@ const isEnglishPage = lang === "en";
 const isGermanPage = lang === "de";
 const isCzechPage = lang === "cs";
 const isSlovakPage = lang === "sk";
+const isHungarianPage = lang === "hu";
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -514,6 +515,16 @@ const localizedHeaderStayGroups = isCzechPage
     : isGermanPage
       ? germanGroupedStayLinks
       : headerStayGroups;
+const headerOfferLinks = [
+  {
+    label: "Őszi kettesben",
+    href: `${homeHref}ajanlatok/oszi-kettesben/`
+  },
+  {
+    label: "Családi ajánlat",
+    href: `${homeHref}ajanlatok/oszi-csaladi-pihenes/`
+  }
+];
 
 const transparentHeaderPaths = new Set([
   "/",
@@ -960,6 +971,16 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
               ))}
             </div>
           </div>
+          {isHungarianPage && (
+            <div class="dnd-nav__item dnd-nav__item--has-submenu">
+              <a href={headerOfferLinks[0].href}>Ajánlatok</a>
+              <div class="dnd-nav__submenu" aria-label="Ajánlatok almenü">
+                {headerOfferLinks.map((offer) => (
+                  <a href={offer.href}>{offer.label}</a>
+                ))}
+              </div>
+            </div>
+          )}
           <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
           <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
           <a href={bookingHref} target={bookingTarget} rel={bookingRel}>{headerText.bookingLabel}</a>
@@ -1031,6 +1052,16 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
             </div>
           ))}
         </div>
+        {isHungarianPage && (
+          <>
+            <a href={headerOfferLinks[0].href}>Ajánlatok</a>
+            <div class="dnd-mobile-menu__groups dnd-mobile-menu__offer-links" aria-label="Ajánlatok almenü">
+              {headerOfferLinks.map((offer) => (
+                <a href={offer.href} class="dnd-mobile-menu__subitem dnd-mobile-menu__stay-link">{offer.label}</a>
+              ))}
+            </div>
+          </>
+        )}
         <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
         <a href={headerGalleryHref}>{headerText.galleryLabel}</a>
         <a
@@ -1283,6 +1314,10 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
       .dnd-mobile-menu__groups {
         display: grid;
         gap: 18px;
+      }
+
+      .dnd-mobile-menu__offer-links {
+        gap: 6px;
       }
 
       .dnd-mobile-menu__group {
