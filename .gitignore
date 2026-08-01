@@ -39,6 +39,7 @@ tmp/*google*.json
 google-credentials.json
 data/geo/raw/*.json
 data/geo/processed/*.json
+reports/dwa-preflight/
 
 # macOS-specific files
 .DS_Store

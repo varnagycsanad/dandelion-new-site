@@ -181,6 +181,10 @@
     return normalize(value).includes("ibe.sabeeapp.com");
   }
 
+  function isSamePageHashHref(value) {
+    return typeof value === "string" && value.trim().startsWith("#");
+  }
+
   function isWhatsAppUrl(value) {
     const normalizedValue = normalize(value);
     return normalizedValue.includes("wa.me/") || normalizedValue.includes("whatsapp");
@@ -193,6 +197,11 @@
 
     if (isSabeeUrl(source) || inlineClick.includes("OpenBE(")) {
       return true;
+    }
+
+    // [CHANGE 2026-07-25 00:00] In-page landing anchors must not pollute booking micro-conversions.
+    if (isSamePageHashHref(href)) {
+      return false;
     }
 
     return hasWord(source, bookingWords) && hasWord(source, ["booking", "book", "foglal", "arak", "rezerv"]);

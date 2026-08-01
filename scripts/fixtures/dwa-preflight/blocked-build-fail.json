@@ -1,0 +1,29 @@
+{
+  "input": {
+    "generatedAt": "2026-07-25T20:00:00.000Z",
+    "repoPath": "C:/fixture/dandelion-new-site",
+    "gitBranch": "main",
+    "gitCommit": "abc123",
+    "workingTreeRawStatus": " M src/components/SiteFooter.astro",
+    "changedFiles": [
+      {
+        "path": "src/components/SiteFooter.astro",
+        "status": "M",
+        "content": "<footer>Dandelion</footer>"
+      }
+    ],
+    "buildExecution": {
+      "attempted": true,
+      "success": false
+    },
+    "latestSafeSourceMtime": 1785009600000,
+    "distLatestMtime": 1785009898000
+  },
+  "expected": {
+    "status": "BLOCKED_NO_DEFENSIBLE_RELEASE",
+    "build_required": true,
+    "build_status": "FAILED",
+    "dma_validation_required": false,
+    "dsa_validation_required": false
+  }
+}

@@ -3,6 +3,10 @@
 Status: ELO AUDIT, KEZZEL FRISSITHETO
 Last updated: 2026-07-13
 Tulajdonos: Codex + Dandelion csapat
+Ownership update 2026-07-25: this document is kept for historical platform audit context. Current Ads, GA4 and GTM platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Cél: egy folyamatosan bovitheto, javithato allapotkep a Google Ads, GA4, konverziomeres, kulcsszavak es landing oldalak jelenlegi helyzeterol.
 
 ## 1. Mire tamaszkodik ez a dokumentum

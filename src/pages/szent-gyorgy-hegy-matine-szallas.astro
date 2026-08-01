@@ -34,15 +34,17 @@ type LandingStayDefinition = {
   displayName: string;
   pageData: AccommodationPageData;
   poolAccess: boolean;
+  availabilityStatus: "available" | "sold-out";
+  availabilityLabel: string;
 };
 
 const stayDefinitions: LandingStayDefinition[] = [
-  { slug: "dandelion-d1", displayName: "Dandelion 1", pageData: d1PageData, poolAccess: true },
-  { slug: "dandelion-d2", displayName: "Dandelion 2", pageData: d2PageData, poolAccess: true },
-  { slug: "fugehaz", displayName: "Fügeház", pageData: fugehazPageData, poolAccess: true },
-  { slug: "zsalya-vendeghaz", displayName: "Zsálya", pageData: zsalyaPageData, poolAccess: false },
-  { slug: "szololiget-vendeghaz", displayName: "Szőlőliget", pageData: szololigetPageData, poolAccess: false },
-  { slug: "vintage-vendeghaz", displayName: "Vintage", pageData: vintagePageData, poolAccess: false }
+  { slug: "dandelion-d1", displayName: "Dandelion 1", pageData: d1PageData, poolAccess: true, availabilityStatus: "sold-out", availabilityLabel: "Elkelt erre a hétvégére" },
+  { slug: "dandelion-d2", displayName: "Dandelion 2", pageData: d2PageData, poolAccess: true, availabilityStatus: "sold-out", availabilityLabel: "Elkelt erre a hétvégére" },
+  { slug: "fugehaz", displayName: "Fügeház", pageData: fugehazPageData, poolAccess: true, availabilityStatus: "sold-out", availabilityLabel: "Elkelt erre a hétvégére" },
+  { slug: "zsalya-vendeghaz", displayName: "Zsálya", pageData: zsalyaPageData, poolAccess: false, availabilityStatus: "available", availabilityLabel: "Foglalható erre a hétvégére" },
+  { slug: "szololiget-vendeghaz", displayName: "Szőlőliget", pageData: szololigetPageData, poolAccess: false, availabilityStatus: "available", availabilityLabel: "Foglalható erre a hétvégére" },
+  { slug: "vintage-vendeghaz", displayName: "Vintage", pageData: vintagePageData, poolAccess: false, availabilityStatus: "available", availabilityLabel: "Foglalható erre a hétvégére" }
 ];
 
 const getPositioningFact = (pageData: AccommodationPageData, prefix: string) => {
@@ -64,9 +66,14 @@ const stays = stayDefinitions.map((definition) => {
     advantage: definition.pageData.positioning?.shortCharacter || stay.description,
     bookingHref: definition.pageData.bookingLink,
     poolAccess: definition.poolAccess,
+    availabilityStatus: definition.availabilityStatus,
+    availabilityLabel: definition.availabilityLabel,
     image: imageMapping[stay.imageSlot]
   };
 });
+
+const availableStays = stays.filter((stay) => stay.availabilityStatus === "available");
+const soldOutStays = stays.filter((stay) => stay.availabilityStatus === "sold-out");
 
 const bookingFacts = [
   { label: "MATINÉ", value: "2026. szeptember 5., szombat", detail: "12:00–20:00" },
@@ -93,7 +100,7 @@ const landingStructuredData = {
   url: toAbsoluteUrl(pagePath),
   inLanguage: "hu-HU",
   description:
-    "Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére, szeptember 4-i érkezéssel és szeptember 6-i távozással.",
+    "Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére. Jelenleg Zsálya, Szőlőliget és Vintage foglalható, a medencés házak erre a hétvégére elkeltek.",
   isPartOf: { "@id": `${toAbsoluteUrl("/")}#website` },
   provider: { "@type": "LodgingBusiness", name: SITE_NAME, url: toAbsoluteUrl("/") },
   mainEntity: {
@@ -127,7 +134,7 @@ const heroTrackingAttrs = {
 
 <BaseLayout
   title="Szent György-hegy MATINÉ szállás | Dandelion"
-  description="Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére. Érkezés szeptember 4-én, távozás szeptember 6-án, két éjszakára."
+  description="Szállás a 2026. szeptember 5-i Szent György-hegy MATINÉ hétvégéjére. Jelenleg Zsálya, Szőlőliget és Vintage foglalható, a medencés házak erre a hétvégére elkeltek."
   canonicalPath={pagePath}
   ogImage={matineHeroPosterDesktop.src}
   ogImageAlt="Szent György-hegy virágzó mezővel és lovassal"
@@ -170,17 +177,21 @@ const heroTrackingAttrs = {
           <p class="matine-eyebrow">2026. szeptember 4–6. · 2 éjszaka</p>
           <h1 id="matine-title">Szállás a Szent György-hegy MATINÉ hétvégéjére</h1>
           <p class="matine-hero__lead">
-            Érkezzetek pénteken, maradjatok vasárnapig, és válasszatok hat Dandelion ház közül a szeptember 5-i nappali eseményhez.
+            Érkezzetek pénteken, maradjatok vasárnapig: jelenleg Zsálya, Szőlőliget és Vintage foglalható a szeptember 5-i nappali eseményhez, a többi MATINÉ ház erre a hétvégére elkelt.
           </p>
           <div class="matine-hero__rule" role="note">
             <strong>Kötelező 2 éjszakás foglalás</strong>
             <span>Érkezés: szeptember 4., péntek · Távozás: szeptember 6., vasárnap</span>
           </div>
+          <div class="matine-inventory-note" role="note">
+            <strong>Jelenlegi MATINÉ készlet:</strong>
+            <span>Foglalható: Zsálya, Szőlőliget, Vintage. Elkelt erre a hétvégére: Dandelion 1, Dandelion 2, Fügeház.</span>
+          </div>
           <div class="matine-actions">
             <a
               class="matine-button matine-button--primary"
               href={housesHref}
-            >Szállások és árak</a>
+            >Foglalható házak</a>
             <a class="matine-button matine-button--secondary" href={phoneHref} {...heroTrackingAttrs}>Telefon: +36 20 773 0807</a>
           </div>
           <p class="matine-hero__legal">A szállásfoglalás nem tartalmaz eseménybelépőt.</p>
@@ -256,13 +267,13 @@ const heroTrackingAttrs = {
     <section id="hazak" class="matine-stays" aria-labelledby="szallasok-cim">
       <div class="dnd-container">
         <div class="matine-section-heading">
-          <p class="matine-eyebrow matine-eyebrow--dark">Hat választható ház</p>
+          <p class="matine-eyebrow matine-eyebrow--dark">3 foglalható ház · 3 elkelt ház</p>
           <h2 id="szallasok-cim">Szállások a MATINÉ hétvégéjére</h2>
-          <p>A férőhelyet, az elhelyezkedést és a ház karakterét a meglévő szállásadatokból mutatjuk. Az aktuális árakat a foglalási felület jelzi.</p>
+          <p>A férőhelyet, az elhelyezkedést és a ház karakterét a meglévő szállásadatokból mutatjuk. Mind a hat ház látszik, de a nem foglalható hétvégi házak külön elkelt jelölést kapnak.</p>
         </div>
         <div class="matine-stays__grid">
           {stays.map((stay) => (
-            <article class="matine-stay-card">
+            <article class:list={["matine-stay-card", stay.availabilityStatus === "sold-out" && "matine-stay-card--sold-out"]}>
               <a class="matine-stay-card__image-link" href={stay.url} aria-label={`${stay.displayName} részletei`}>
                 {stay.image?.astroSrc ? (
                   <Image
@@ -283,6 +294,16 @@ const heroTrackingAttrs = {
                   />
                 )}
                 {stay.poolAccess && <span class="matine-stay-card__pool-badge">Panorama Pool</span>}
+                <span
+                  class:list={[
+                    "matine-stay-card__status-badge",
+                    stay.availabilityStatus === "sold-out"
+                      ? "matine-stay-card__status-badge--sold-out"
+                      : "matine-stay-card__status-badge--available"
+                  ]}
+                >
+                  {stay.availabilityLabel}
+                </span>
               </a>
               <div class="matine-stay-card__body">
                 <p class="matine-stay-card__location">{stay.location}</p>
@@ -290,25 +311,31 @@ const heroTrackingAttrs = {
                 <p class="matine-stay-card__capacity"><strong>Férőhely:</strong> {stay.capacity}</p>
                 <p>{stay.advantage}</p>
                 <div class="matine-stay-card__pool-note">
-                  {stay.poolAccess ? (
+                  {stay.availabilityStatus === "sold-out" ? (
+                    <><span aria-hidden="true">●</span> Ez a ház elkelt erre a hétvégére, ezért most nem foglalható MATINÉ szállásként.</>
+                  ) : stay.poolAccess ? (
                     <><span aria-hidden="true">●</span> Panorama Pool használat szeptember 5-én</>
                   ) : (
-                    <><span aria-hidden="true">○</span> Ez a ház nem tartalmaz medencehasználatot</>
+                    <><span aria-hidden="true">○</span> Ez a jelenleg foglalható ház nem tartalmaz medencehasználatot</>
                   )}
                 </div>
                 <div class="matine-stay-card__actions">
                   <a class="matine-text-link" href={stay.url}>Ház részletei</a>
-                  <a
-                    class="matine-button matine-button--card"
-                    href={stay.bookingHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-dnd-property={stay.slug}
-                    data-dnd-campaign={campaignId}
-                    data-dnd-placement="property-card"
-                    data-dnd-check-in="2026-09-04"
-                    data-dnd-check-out="2026-09-06"
-                  >Elérhetőség és árak</a>
+                  {stay.availabilityStatus === "available" ? (
+                    <a
+                      class="matine-button matine-button--card"
+                      href={stay.bookingHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-dnd-property={stay.slug}
+                      data-dnd-campaign={campaignId}
+                      data-dnd-placement="property-card"
+                      data-dnd-check-in="2026-09-04"
+                      data-dnd-check-out="2026-09-06"
+                    >Elérhetőség és árak</a>
+                  ) : (
+                    <span class="matine-stay-card__sold-out-copy">Erre a hétvégére elkelt</span>
+                  )}
                 </div>
               </div>
             </article>
@@ -320,33 +347,31 @@ const heroTrackingAttrs = {
     <section class="matine-pool" aria-labelledby="pool-cim">
       <div class="dnd-container matine-pool__layout">
         <div class="matine-pool__intro">
-          <p class="matine-eyebrow">Panorama Pool élmény</p>
-          <h2 id="pool-cim">Medencézés szeptember 5-én – három ház vendégeinek</h2>
+          <p class="matine-eyebrow">Panorama Pool információ</p>
+          <h2 id="pool-cim">A medencés házak erre a hétvégére már elkeltek</h2>
           <p>
-            A Panorama Pool 2026. szeptember 5-én működik. Használata kizárólag a Dandelion 1, Dandelion 2 és Fügeház vendégeinek jár ezen a hétvégén.
+            A Panorama Pool 2026. szeptember 5-én a Dandelion 1, Dandelion 2 és Fügeház vendégeinek tartozna, de ezek a házak most elkelt státuszban vannak a MATINÉ hétvégére.
           </p>
-          <a class="matine-text-link matine-text-link--light" href="/panorama-pool/">A Panorama Pool bemutatása</a>
+          <p>
+            A jelenleg foglalható három ház, vagyis Zsálya, Szőlőliget és Vintage nem medencés ajánlatként szerepel ezen az oldalon.
+          </p>
         </div>
         <div class="matine-pool__groups">
           <article class="matine-pool-group matine-pool-group--included">
-            <span class="matine-pool-group__label">Medencehasználattal</span>
-            <h3>Panorama Pool élmény</h3>
+            <span class="matine-pool-group__label">Elkelt erre a hétvégére</span>
+            <h3>Medencés házak</h3>
             <ul>
-              <li>Dandelion 1</li>
-              <li>Dandelion 2</li>
-              <li>Fügeház</li>
+              {soldOutStays.map((stay) => <li>{stay.displayName}</li>)}
             </ul>
-            <p>A szezonban elérhető medence szeptember 5-én működik.</p>
+            <p>Ezek a házak láthatók az oldalon, de most nem foglalhatók a MATINÉ hétvégére.</p>
           </article>
           <article class="matine-pool-group">
-            <span class="matine-pool-group__label">Medenceígéret nélkül</span>
-            <h3>Önálló szállásélmény</h3>
+            <span class="matine-pool-group__label">Jelenleg foglalható</span>
+            <h3>Pool-ígéret nélküli készlet</h3>
             <ul>
-              <li>Zsálya</li>
-              <li>Szőlőliget</li>
-              <li>Vintage</li>
+              {availableStays.map((stay) => <li>{stay.displayName}</li>)}
             </ul>
-            <p>E három szálláshoz nem tartozik Panorama Pool használat.</p>
+            <p>Erre a hétvégére most ezek felé terelünk, Panorama Pool ígéret nélkül.</p>
           </article>
         </div>
       </div>
@@ -395,16 +420,16 @@ const heroTrackingAttrs = {
     <section class="matine-closing" aria-labelledby="zaro-cta-cim">
       <div class="dnd-container matine-closing__inner">
         <p class="matine-eyebrow">Szeptember 4–6. · 2 éjszaka</p>
-        <h2 id="zaro-cta-cim">Válasszatok házat a MATINÉ hétvégéjére</h2>
-        <p>Dandelion 1, Dandelion 2, Fügeház, Zsálya, Szőlőliget vagy Vintage – nézzétek meg az aktuális elérhetőséget, vagy kérjetek segítséget a választáshoz.</p>
-        <div class="matine-closing__stays" aria-label="Választható szállások">
-          {stays.map((stay) => <a href={stay.url}>{stay.displayName}</a>)}
+        <h2 id="zaro-cta-cim">A három jelenleg foglalható házhoz kérjetek ajánlatot</h2>
+        <p>Zsálya, Szőlőliget és Vintage foglalható jelenleg a MATINÉ hétvégéjére. Ha gyors segítség kell a választáshoz, írjatok vagy hívjatok minket.</p>
+        <div class="matine-closing__stays" aria-label="Jelenleg foglalható szállások">
+          {availableStays.map((stay) => <a href={stay.url}>{stay.displayName}</a>)}
         </div>
         <div class="matine-actions matine-actions--center">
           <a
             class="matine-button matine-button--primary"
             href={housesHref}
-          >Házankénti árak</a>
+          >Foglalható házak</a>
           <a
             class="matine-button matine-button--secondary"
             href={contactHref}
@@ -423,12 +448,12 @@ const heroTrackingAttrs = {
 
     <div class="matine-mobile-cta" aria-label="Szállások kiválasztása">
       <div>
-        <strong>Szept. 4–6.</strong>
-        <span>2 éjszaka</span>
+        <strong>3 foglalható ház</strong>
+        <span>Szept. 4–6.</span>
       </div>
       <a
         href={housesHref}
-      >Szállások és árak</a>
+      >Foglalható házak</a>
     </div>
   </article>
 </BaseLayout>
@@ -479,6 +504,9 @@ const heroTrackingAttrs = {
   .matine-hero__rule { display: grid; gap: 0.2rem; max-width: 700px; margin-top: 1.45rem; padding: 1rem 1.15rem; border-left: 4px solid var(--matine-gold); background: #fff8e8; }
   .matine-hero__rule strong { font-size: 1.03rem; }
   .matine-hero__rule span { font-size: 0.88rem; line-height: 1.55; }
+  .matine-inventory-note { display: grid; gap: 0.3rem; max-width: 780px; margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid #d5c9b8; border-radius: 8px; background: #fff; }
+  .matine-inventory-note strong { font-size: 0.92rem; color: var(--matine-forest-deep); }
+  .matine-inventory-note span { font-size: 0.88rem; line-height: 1.6; }
   .matine-hero__video-toggle { position: absolute; z-index: 2; top: 1rem; right: max(1rem, calc((100vw - 1200px) / 2)); display: inline-flex; min-height: 42px; align-items: center; gap: 0.45rem; padding: 0.55rem 0.75rem; border: 1px solid rgba(48, 73, 54, 0.35); border-radius: 5px; color: var(--matine-forest-deep); background: rgba(253, 251, 247, 0.93); font: 600 0.75rem/1.2 Poppins, sans-serif; cursor: pointer; backdrop-filter: blur(6px); }
   .matine-hero__video-toggle:hover { background: #fff; }
   .matine-hero__video-toggle span:first-child { min-width: 0.8rem; font-size: 0.85rem; }
@@ -513,10 +541,14 @@ const heroTrackingAttrs = {
   .matine-stays { scroll-margin-top: 120px; background: var(--matine-sand); }
   .matine-stays__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
   .matine-stay-card { overflow: hidden; border-radius: 8px; background: #fff; }
+  .matine-stay-card--sold-out { background: #f7f3eb; }
   .matine-stay-card__image-link { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
   .matine-stay-card__image-link img { width: 100%; height: 100%; object-fit: cover; transition: transform 420ms ease; }
   .matine-stay-card__image-link:hover img { transform: scale(1.025); }
   .matine-stay-card__pool-badge { position: absolute; top: 0.9rem; left: 0.9rem; padding: 0.42rem 0.68rem; border-radius: 5px; color: #fff; background: var(--matine-forest); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+  .matine-stay-card__status-badge { position: absolute; right: 0.9rem; bottom: 0.9rem; padding: 0.45rem 0.7rem; border-radius: 5px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+  .matine-stay-card__status-badge--available { color: #17311e; background: rgba(230, 241, 226, 0.96); }
+  .matine-stay-card__status-badge--sold-out { color: #fff; background: rgba(124, 42, 42, 0.96); }
   .matine-stay-card__body { display: flex; min-height: 350px; flex-direction: column; padding: 1.3rem; }
   .matine-stay-card__location { margin: 0; color: #786a58; font-size: 0.75rem; font-weight: 600; }
   .matine-stay-card h3 { margin: 0.35rem 0 0; font-family: "Playfair Display", serif; font-size: 1.65rem; font-weight: 600; color: var(--matine-forest-deep); }
@@ -524,22 +556,22 @@ const heroTrackingAttrs = {
   .matine-stay-card__body > p:not(.matine-stay-card__location):not(.matine-stay-card__capacity) { margin: 0.65rem 0 0; font-size: 0.9rem; line-height: 1.62; }
   .matine-stay-card__pool-note { display: flex; gap: 0.5rem; margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee7dc; font-size: 0.8rem; line-height: 1.45; color: #4f5d50; }
   .matine-stay-card__actions { display: grid; grid-template-columns: 1fr auto; gap: 0.8rem; align-items: center; margin-top: auto; padding-top: 1.1rem; }
+  .matine-stay-card__sold-out-copy { color: #7c2a2a; font-size: 0.82rem; font-weight: 700; text-align: right; }
   .matine-text-link { color: var(--matine-forest-deep); font-size: 0.82rem; font-weight: 700; text-underline-offset: 0.2em; }
   .matine-button--card { min-height: 44px; padding: 0.68rem 0.9rem; color: #fff; background: var(--matine-forest); font-size: 0.8rem; }
   .matine-button--card:hover { background: var(--matine-forest-deep); }
 
-  .matine-pool { padding: 96px 0; color: #fff; background: var(--matine-forest-deep); }
+  .matine-pool { padding: 96px 0; color: var(--matine-ink); background: #f5efe4; }
   .matine-pool__layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 4rem; align-items: center; }
-  .matine-pool h2 { color: #fff; }
-  .matine-pool__intro > p:not(.matine-eyebrow) { margin: 1.1rem 0; line-height: 1.7; color: rgba(255, 255, 255, 0.86); }
-  .matine-text-link--light { color: #f2c66c; }
+  .matine-pool h2 { color: var(--matine-forest-deep); }
+  .matine-pool__intro > p:not(.matine-eyebrow) { margin: 1.1rem 0; line-height: 1.7; color: #445046; }
   .matine-pool__groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-  .matine-pool-group { padding: 1.45rem; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
-  .matine-pool-group--included { border-color: rgba(217, 158, 43, 0.7); background: rgba(217, 158, 43, 0.11); }
-  .matine-pool-group__label { color: #f2c66c; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .matine-pool-group { padding: 1.45rem; border: 1px solid #d7ccb8; border-radius: 8px; background: rgba(255, 255, 255, 0.72); }
+  .matine-pool-group--included { border-color: #d9b16a; background: #fbf2de; }
+  .matine-pool-group__label { color: #8d641b; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
   .matine-pool-group h3 { margin: 0.55rem 0 0; font-family: "Playfair Display", serif; font-size: 1.35rem; }
   .matine-pool-group ul { margin: 1rem 0; padding-left: 1.15rem; line-height: 1.8; }
-  .matine-pool-group p { margin: 0; color: rgba(255, 255, 255, 0.74); font-size: 0.82rem; line-height: 1.55; }
+  .matine-pool-group p { margin: 0; color: #4a544d; font-size: 0.82rem; line-height: 1.55; }
 
   .matine-event__layout { display: grid; grid-template-columns: 180px minmax(0, 760px); gap: 3rem; justify-content: center; align-items: center; }
   .matine-event__date { display: grid; min-height: 220px; place-items: center; align-content: center; border: 1px solid #d5c9b8; border-radius: 8px; background: #fff; }

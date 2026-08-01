@@ -4,6 +4,10 @@ Status: AKTUALIS
 Last checked: 2026-07-13
 Use for: Facebook-oldal posztolasi workflow dokumentalasa Codexbol, kepekkel egyutt
 
+Ownership update 2026-07-25: this document is kept for historical platform context. Current Meta page posting and platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Cel: Codex helyi scriptbol tudja listazni a lathato Facebook-oldalakat, feloldani a Page tokent, es dry-run vagy kesobb eles modban oldalas posztot kesziteni szoveggel es egy vagy tobb keppel.
 
 ## Mi keszult

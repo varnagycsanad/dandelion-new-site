@@ -1,0 +1,31 @@
+{
+  "input": {
+    "generatedAt": "2026-07-25T20:00:00.000Z",
+    "repoPath": "C:/fixture/dandelion-new-site",
+    "gitBranch": "main",
+    "gitCommit": "abc123",
+    "workingTreeRawStatus": " M src/pages/szent-gyorgy-hegy-matine-szallas.astro",
+    "changedFiles": [
+      {
+        "path": "src/pages/szent-gyorgy-hegy-matine-szallas.astro",
+        "status": "M",
+        "content": "<section><h1>Matine oszi pihenes</h1><a href=\"/kapcsolat\">Kapcsolat</a></section>"
+      }
+    ],
+    "buildReceipt": {
+      "generated_at": "2026-07-25T20:05:00.000Z",
+      "git_branch": "main",
+      "git_commit": "abc123",
+      "dist_latest_mtime": "2026-07-25T20:04:58.000Z"
+    },
+    "latestSafeSourceMtime": 1785009600000,
+    "distLatestMtime": 1785009898000
+  },
+  "expected": {
+    "status": "READY",
+    "build_required": true,
+    "build_status": "PASSED",
+    "dma_validation_required": false,
+    "dsa_validation_required": false
+  }
+}

@@ -4,6 +4,10 @@ Status: AKTUALIS
 Last checked: 2026-07-13
 Use for: Meta Marketing API bekotese Codex ellenorzeshez, kontrollalt mutacios workflow-hoz, valamint Pixel es GTM allapot validalasahoz
 
+Ownership update 2026-07-25: this document is kept for historical platform context. Current Meta platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Cel: Codex helyi scriptbol tudja ellenorizni a Dandelion Meta/Facebook hirdetesi fiokot, kampany/ad set/ad/creative adatokat lekerdezni, kontrollalt dry-run muveleteket elokesziteni, es a Pixel/GTM oldali allapotot is ellenorizni.
 
 Fontos jelenlegi allapot: a Meta API kapcsolat mukodik, a Dandelion hirdetesi fiok elerheto, a kampany/ad set/ad/creative lekerdezes megy, a Pixel/GTM audit script elkeszult, a hianyzo `meta_*` GTM tag-ek felmentek, es a valtozas eles GTM verzio `9`-kent publikalt allapotban van. A fo nyitott pont mar nem a bekotes, hanem legfeljebb egy kulon elo, bongeszos smoke teszt es a teljes creative/media workflow tovabbi bovitese.

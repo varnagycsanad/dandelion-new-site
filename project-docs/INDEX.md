@@ -10,6 +10,20 @@ Ez a fajl a `project-docs/` belepesi pontja.
 
 A projektben sok Markdown dokumentum van, de nem mindegyik aktualis szabaly vagy napi munkaforras. Sok fajl torteneti audit, terv, export vagy munkalap. Ezek hasznosak, de nem szabad oket automatikusan aktualis repoallapotnak tekinteni.
 
+## Ownership boundaries 2026-07-25
+
+A DWA repo a website specialist scope-ot tartja:
+
+- DWA = website source, landing, onsite CTA, SEO/GEO source, schema, build evidence
+- DMA = Ads, Meta, GA4 reporting/admin, GTM publish/admin, GSC property/admin, campaign ops
+- DSA = SabeeApp es booking business truth
+- DCA = routing, approval, release supervision
+
+Rovid ownership osszefoglalo:
+
+- `project-docs/DWA-OWNERSHIP-BOUNDARIES.md`
+- `project-docs/DWA-005-marketing-docs-ownership-cleanup-plan.md`
+
 ## Statusz-leltar
 
 2026-06-13-i frissites szerint minden Markdown fajl kapott egységes statuszblokkot:
@@ -52,8 +66,8 @@ Ezeket kell elsokent nezni, ha honlapos vagy dokumentacios task indul:
 5. `project-docs/ELO_FELADATLISTA.md`
    - egyetlen elo feladatlista; a regi auditok feladatai csak akkor aktivak, ha itt is szerepelnek
 
-6. `project-docs/GOOGLE_STACK_DAILY_OPERATIONS.md`
-   - Google Ads + GTM + GA4 napi uzemeltetesi gyujtodoksi
+6. `project-docs/DWA-OWNERSHIP-BOUNDARIES.md`
+   - ownership routing: mi DWA, mi DMA, mi DSA, mi DCA
 
 7. `project-docs/md-file-audit-2026-06-02.md`
    - legfrissebb MD audit, elavult doksik es frissitendo pontok
@@ -176,7 +190,7 @@ Ezeket csak Google AI Readiness tasknal kell elsodlegesen olvasni.
 - `project-docs/DANDELION_GEO_AGENT_SPEC.md`
 - `project-docs/newsletter-production-runbook.md`
 
-Megjegyzes: a Meta dokumentacioban most mar benne van a hirdeteskezeles, a Pixel/GTM validacio, a Facebook-oldal posztolasi workflow es a kulon `meta-auth` token-helper is. A `pages_manage_posts` app oldalon es a projektben hasznalt tokenben is rendben van; a kovetkezo nyitott lepes mar az elso tudatos eles oldalposzt lehet.
+Megjegyzes: ez a blokk mar jellemzoen DMA-owned platform dokumentaciokat tartalmaz. DWA-ban torteneti vagy site-side implementation referencekent maradhatnak, de jelenlegi platform ownershipkent nem.
 
 ## Egyeb specialis doksik
 

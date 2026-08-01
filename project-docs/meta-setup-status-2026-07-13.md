@@ -1,5 +1,9 @@
 # Meta setup status - 2026-07-13
 
+Ownership update 2026-07-25: this document is historical platform status context. Current Meta and GTM platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 ## Allapot
 
 - A Meta hozzaferes aktiv es a projektben hasznalt token mukodik.

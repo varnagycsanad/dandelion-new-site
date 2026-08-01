@@ -4,6 +4,10 @@ Status: AKTUALIS
 Last checked: 2026-07-14
 Use for: annak gyors megitelese, hogy a Meta kapcsolat milyen allapotban van, es mi kell meg ahhoz, hogy a Codex tenylegesen, napi szinten kezelni tudja a Meta hirdeteseket
 
+Ownership update 2026-07-25: this document is historical platform audit context. Current Meta platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 ## Vezetoi osszefoglalo
 
 A Meta kapcsolat hasznalhato. Az alap auth, az ads read + dry-run mutacios tooling, a Pixel / GTM validacio, a Facebook-oldal posztolasi workflow, a `pages_manage_posts` jogosultsag, valamint az elso eles Facebook-oldal poszt is kesz.

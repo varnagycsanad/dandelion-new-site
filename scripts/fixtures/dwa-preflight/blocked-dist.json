@@ -1,0 +1,28 @@
+{
+  "input": {
+    "generatedAt": "2026-07-25T20:00:00.000Z",
+    "repoPath": "C:/fixture/dandelion-new-site",
+    "gitBranch": "main",
+    "gitCommit": "abc123",
+    "workingTreeRawStatus": " M dist/index.html",
+    "changedFiles": [
+      {
+        "path": "dist/index.html",
+        "status": "M",
+        "content": "<html></html>"
+      }
+    ],
+    "latestSafeSourceMtime": 0,
+    "distLatestMtime": 1785009898000
+  },
+  "expected": {
+    "status": "BLOCKED_NO_DEFENSIBLE_RELEASE",
+    "build_required": false,
+    "build_status": "NOT_REQUIRED",
+    "dma_validation_required": false,
+    "dsa_validation_required": false,
+    "required_forbidden_rules": [
+      "dist_or_build_output_touched"
+    ]
+  }
+}

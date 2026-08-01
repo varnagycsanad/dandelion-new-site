@@ -2,6 +2,10 @@
 
 Status: AKTUALIS 2026-07-13
 
+Ownership update 2026-07-25: this document is kept for historical platform context. Current Ads, GA4, GTM and related platform ownership belongs to DMA. DWA only owns site-side implementation details, CTA surfaces, SEO/GEO source, schema and build evidence.
+
+Do not treat this file as approval to perform platform writes from the DWA repo.
+
 Cel: helyi Google Ads API kapcsolat a Dandelion workspace-ben, hogy kampanyok, teljesitmeny es konverzios muveletek lekerdezhetok legyenek.
 
 Rovid tenyallas 2026-07-13:
