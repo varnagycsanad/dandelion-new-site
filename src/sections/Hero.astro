@@ -147,7 +147,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
       <span class="dnd-hero__booking-benefits-kicker">Közvetlen foglalás</span>
       <h2>Megéri itt foglalni</h2>
       <p class="dnd-hero__booking-benefits-lead">A közvetlen foglalás előnyei:</p>
-      <p class="dnd-hero__booking-benefits-summary">A legjobb árakat a honlapon való foglalással éred el.</p>
+      <p class="dnd-hero__booking-benefits-summary">Legjobb árak és azonnali bankkártyás fizetés a honlapon.</p>
       <ul>
         {bookingBenefits.map((benefit) => <li>{benefit}</li>)}
       </ul>
@@ -307,7 +307,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
     bottom: clamp(20px, 4vh, 42px);
     z-index: 3;
     width: min(360px, calc(100% - 32px));
-    padding: 28px 30px;
+    padding: 22px 24px;
     border: 1px solid rgba(244, 218, 157, 0.92);
     background:
       linear-gradient(145deg, rgba(255, 230, 137, 0.98) 0%, rgba(239, 199, 91, 0.97) 56%, rgba(196, 142, 43, 0.96) 100%);
@@ -317,8 +317,8 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
   .dnd-hero__booking-benefits-kicker {
     display: block;
-    margin-bottom: 12px;
-    font-size: 0.68rem;
+    margin-bottom: 8px;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -328,18 +328,18 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
   .dnd-hero__booking-benefits h2 {
     margin: 0;
     font-family: var(--dnd-font-display);
-    font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+    font-size: clamp(1.25rem, 1.7vw, 1.75rem);
     font-weight: 400;
-    line-height: 1.04;
+    line-height: 1;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
 
-    .dnd-hero__booking-benefits-lead {
-      margin: 12px 0 14px;
-      font-size: 0.98rem;
-      line-height: 1.45;
-    }
+  .dnd-hero__booking-benefits-lead {
+    margin: 8px 0 10px;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
 
   .dnd-hero__booking-benefits-summary {
     display: none;
@@ -355,17 +355,17 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
   .dnd-hero__booking-benefits li {
     position: relative;
-    padding: 9px 0 9px 18px;
+    padding: 7px 0 7px 16px;
     border-top: 1px solid rgba(45, 36, 28, 0.16);
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.78rem;
+    line-height: 1.3;
   }
 
   .dnd-hero__booking-benefits li::before {
     content: "✦";
     position: absolute;
     left: 0;
-    top: 9px;
+    top: 7px;
     color: rgba(109, 72, 18, 0.82);
   }
 
