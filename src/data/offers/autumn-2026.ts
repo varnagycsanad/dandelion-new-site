@@ -14,6 +14,7 @@ import type {
   AutumnCampaignResponsiveMedia,
   AutumnCampaignTheme
 } from "./types";
+import { autumnPanoramaHeroVideo } from "../videos/autumn-campaign";
 
 import wineExperienceImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonExperienceImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -733,6 +734,14 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
     }
   }
 ];
+
+export const autumn2026OffersV2: AutumnCampaignOffer[] = autumn2026Offers.map((offer) => ({
+  ...offer,
+  campaignHero: {
+    ...offer.campaignHero,
+    video: autumnPanoramaHeroVideo
+  }
+}));
 
 export const autumn2026OfferMap: Record<AutumnCampaignOfferId, AutumnCampaignOffer> =
   autumn2026Offers.reduce(

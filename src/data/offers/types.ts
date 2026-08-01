@@ -41,6 +41,21 @@ export interface AutumnCampaignRenderableMedia {
   height?: number;
 }
 
+export interface AutumnCampaignVideoAsset {
+  src: string;
+  type: "video/mp4";
+  width: number;
+  height: number;
+}
+
+export interface AutumnCampaignHeroVideo {
+  kind: "video";
+  desktop: AutumnCampaignVideoAsset;
+  mobile?: AutumnCampaignVideoAsset;
+  poster: AutumnCampaignRenderableMedia;
+  posterMobile?: AutumnCampaignRenderableMedia;
+}
+
 export interface AutumnCampaignResponsiveMedia {
   desktop: AutumnCampaignRenderableMedia;
   mobile?: AutumnCampaignRenderableMedia;
@@ -86,6 +101,7 @@ export interface AutumnCampaignHeroBlock {
   descriptionLines: string[];
   ctaNote: string;
   media: AutumnCampaignResponsiveMedia;
+  video?: AutumnCampaignHeroVideo;
 }
 
 export interface AutumnCampaignFeatureItem {

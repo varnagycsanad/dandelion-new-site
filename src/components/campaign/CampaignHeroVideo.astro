@@ -1,0 +1,50 @@
+---
+import type { AutumnCampaignHeroVideo } from "../../data/offers/types";
+
+interface Props {
+  media: AutumnCampaignHeroVideo;
+  class?: string;
+  fill?: boolean;
+}
+
+const { media, class: className, fill = false } = Astro.props as Props;
+---
+
+<div class:list={["campaign-hero-video", fill && "campaign-hero-video--fill", className]}>
+  <video
+    class="campaign-hero-video__element"
+    poster={media.poster.src}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    {media.mobile && <source media="(max-width: 767px)" src={media.mobile.src} type={media.mobile.type} />}
+    <source src={media.desktop.src} type={media.desktop.type} />
+    <picture>
+      {media.posterMobile && <source media="(max-width: 767px)" srcset={media.posterMobile.src} />}
+      <img src={media.poster.src} alt="" width={media.poster.width} height={media.poster.height} />
+    </picture>
+  </video>
+</div>
+
+<style>
+  .campaign-hero-video {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campaign-hero-video--fill {
+    position: absolute;
+    inset: 0;
+  }
+
+  .campaign-hero-video__element {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

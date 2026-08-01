@@ -1,0 +1,444 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { AutumnCampaignFeatureIconKey, AutumnCampaignOffer } from "../data/offers/types";
+import { toAbsoluteUrl } from "../data/site-seo";
+import CampaignMedia from "../components/campaign/CampaignMedia.astro";
+import CampaignHeroVideo from "../components/campaign/CampaignHeroVideo.astro";
+import AutumnCampaignV2Icon from "../components/campaign/AutumnCampaignV2Icon.astro";
+
+const { offer } = Astro.props as { offer: AutumnCampaignOffer };
+const heroImage = offer.campaignHero.media.desktop;
+const featureItems = offer.experienceItems.slice(0, 6);
+const storyTiles = offer.storyTiles.slice(0, 2);
+const wideStoryTile = offer.storyTiles[2];
+const programCards = offer.programsSection.cards.slice(0, 4);
+const tracking = {
+  "data-dnd-property": offer.tracking.property,
+  "data-dnd-campaign": offer.tracking.campaign,
+  "data-dnd-offer": offer.tracking.offerId
+};
+const contactTracking = {
+  ...tracking,
+  "data-dnd-placement": "direct-booking",
+  "data-dnd-cta-type": "contact"
+};
+const whatsappTracking = {
+  ...tracking,
+  "data-dnd-placement": "direct-booking",
+  "data-dnd-cta-type": "whatsapp"
+};
+
+const iconMap: Partial<Record<AutumnCampaignFeatureIconKey, "leaf" | "fire" | "wine" | "pool" | "bike" | "heart">> = {
+  pool: "pool",
+  fireplace: "fire",
+  wine: "wine",
+  firepit: "fire",
+  bike: "bike",
+  romance: "heart",
+  family: "heart",
+  grill: "fire"
+};
+
+const iconForFeature = (icon: AutumnCampaignFeatureIconKey) => iconMap[icon] ?? "leaf";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${toAbsoluteUrl(offer.routePath)}#autumn-v2-preview`,
+    url: toAbsoluteUrl(`/ajanlatok-v2/${offer.slug}/`),
+    name: offer.seo.title,
+    description: offer.seo.description,
+    inLanguage: "hu-HU",
+    isPartOf: { "@id": `${toAbsoluteUrl("/")}#website` }
+  }
+];
+---
+
+<BaseLayout
+  title={`${offer.seo.title} · V2 előnézet`}
+  description={offer.seo.description}
+  canonicalPath={offer.routePath}
+  ogImage={heroImage.src}
+  ogImageAlt={heroImage.alt}
+  noindex={true}
+  structuredData={structuredData}
+  headerMode="transparent"
+  bookingHrefOverride={offer.bookingUrl}
+>
+  <main class="autumn-approved-v2">
+    <section class="autumn-approved-v2__hero" aria-labelledby="autumn-v2-title">
+      {offer.campaignHero.video ? (
+        <CampaignHeroVideo media={offer.campaignHero.video} class="autumn-approved-v2__hero-media" fill={true} />
+      ) : (
+        <CampaignMedia media={offer.campaignHero.media} class="autumn-approved-v2__hero-media" fill={true} loading="eager" fetchpriority="high" />
+      )}
+      <div class="autumn-approved-v2__hero-overlay" aria-hidden="true"></div>
+      <div class="autumn-approved-v2__hero-inner dnd-container">
+        <div class="autumn-approved-v2__hero-copy">
+          <p class="autumn-approved-v2__eyebrow">{offer.campaignHero.kicker}</p>
+          <h1 id="autumn-v2-title">
+            {offer.campaignHero.titleLines.map((line, index) => <span>{line}{index < offer.campaignHero.titleLines.length - 1 ? " " : ""}</span>)}
+          </h1>
+          <div class="autumn-approved-v2__hero-lead">
+            {offer.campaignHero.descriptionLines.map((line) => <p>{line}</p>)}
+          </div>
+          <a href={offer.bookingUrl} class="autumn-approved-v2__button autumn-approved-v2__button--hero" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...tracking}>
+            {offer.ctas.primary}<span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="autumn-approved-v2__hero-proof">
+          <span aria-hidden="true">◌</span>
+          <span>{offer.campaignHero.ctaNote}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="autumn-approved-v2__features" aria-label="A pihenés fő élményei">
+      <div class="dnd-container autumn-approved-v2__features-inner">
+        <h2>{offer.positioning.title}</h2>
+        <div class="autumn-approved-v2__feature-grid">
+          {featureItems.map((item) => (
+            <article class="autumn-approved-v2__feature">
+              <span class="autumn-approved-v2__feature-icon"><AutumnCampaignV2Icon name={iconForFeature(item.icon)} /></span>
+              <h3>{item.title}</h3>
+              <p>{item.details.join(" ")}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="autumn-approved-v2__stories" aria-label="Kiemelt őszi élmények">
+      <div class="autumn-approved-v2__story-grid">
+        {storyTiles.map((tile) => (
+          <article class="autumn-approved-v2__story">
+            <CampaignMedia media={tile.media} class="autumn-approved-v2__story-media" fill={true} />
+            <div class="autumn-approved-v2__story-overlay" aria-hidden="true"></div>
+            <div class="autumn-approved-v2__story-copy">
+              {tile.titleLines.map((line) => <span>{line}</span>)}
+              <span class="autumn-approved-v2__story-link">Részletek <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+        ))}
+      </div>
+      {wideStoryTile && (
+        <article class="autumn-approved-v2__wide-story">
+          <CampaignMedia media={wideStoryTile.media} class="autumn-approved-v2__wide-media" fill={true} />
+          <div class="autumn-approved-v2__story-overlay" aria-hidden="true"></div>
+          <div class="autumn-approved-v2__wide-copy">
+            {wideStoryTile.titleLines.map((line) => <span>{line}</span>)}
+            <span class="autumn-approved-v2__story-link">Részletek <span aria-hidden="true">→</span></span>
+          </div>
+        </article>
+      )}
+    </section>
+
+    <section class="autumn-approved-v2__programs" aria-labelledby="autumn-v2-programs-title">
+      <div class="dnd-container">
+        <div class="autumn-approved-v2__section-heading">
+          <p class="autumn-approved-v2__eyebrow autumn-approved-v2__eyebrow--dark">{offer.programsSection.eyebrow}</p>
+          <h2 id="autumn-v2-programs-title">{offer.programsSection.title}</h2>
+          <p>{offer.programsSection.description}</p>
+        </div>
+        <div class="autumn-approved-v2__program-grid">
+          {programCards.map((card, index) => (
+            <a href={card.href} class="autumn-approved-v2__program">
+              <CampaignMedia media={card.media} class="autumn-approved-v2__program-media" />
+              <span class="autumn-approved-v2__program-icon"><AutumnCampaignV2Icon name={(["wine", "mountain", "lake", "city"] as const)[index]} /></span>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+            </a>
+          ))}
+        </div>
+        <a href={offer.programsSection.ctaHref} class="autumn-approved-v2__outline-button">{offer.programsSection.ctaLabel}<span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="autumn-approved-v2__direct" aria-labelledby="autumn-v2-direct-title">
+      <div class="autumn-approved-v2__direct-panel">
+        {offer.directBooking.media && <CampaignMedia media={offer.directBooking.media} class="autumn-approved-v2__direct-media" fill={true} />}
+        <div class="autumn-approved-v2__direct-overlay" aria-hidden="true"></div>
+        <div class="autumn-approved-v2__direct-content dnd-container">
+          <div class="autumn-approved-v2__direct-copy">
+            <p class="autumn-approved-v2__eyebrow">{offer.directBooking.eyebrow}</p>
+            <h2 id="autumn-v2-direct-title">{offer.directBooking.titleLines.map((line, index) => <span>{line}{index < offer.directBooking.titleLines.length - 1 ? " " : ""}</span>)}</h2>
+          </div>
+          <div class="autumn-approved-v2__direct-offer">
+            <strong>{offer.directBooking.highlightValue}</strong>
+            <span>{offer.directBooking.highlightLines.join(" ")}</span>
+          </div>
+          <ul class="autumn-approved-v2__benefits">
+            {offer.directBooking.benefits.slice(0, 4).map((benefit) => <li><span aria-hidden="true">✓</span>{benefit}</li>)}
+          </ul>
+          <div class="autumn-approved-v2__direct-actions">
+            <a href={offer.bookingUrl} class="autumn-approved-v2__button autumn-approved-v2__button--hero" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...tracking}>
+              {offer.ctas.primary}<span aria-hidden="true">→</span>
+            </a>
+            <a href="/kapcsolat/" class="autumn-approved-v2__direct-contact" {...contactTracking}>Írásban érdeklődöm</a>
+            <a href="https://wa.me/36207730807" class="autumn-approved-v2__direct-contact" target="_blank" rel="noopener noreferrer" {...whatsappTracking}>WhatsApp</a>
+          </div>
+          <p class="autumn-approved-v2__amenities"><strong>{offer.practicalAmenities.title}:</strong> {offer.practicalAmenities.items.join(" · ")}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .autumn-approved-v2 {
+    overflow: hidden;
+    background: #fdfbf7;
+    color: #17130e;
+    font-family: var(--dnd-font-body);
+  }
+
+  .autumn-approved-v2 :global(.dnd-container) {
+    width: min(100% - 56px, 1200px);
+    margin-inline: auto;
+  }
+
+  .autumn-approved-v2__hero,
+  .autumn-approved-v2__story,
+  .autumn-approved-v2__wide-story,
+  .autumn-approved-v2__direct-panel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .autumn-approved-v2__hero {
+    min-height: 700px;
+    color: #fffaf0;
+  }
+
+  .autumn-approved-v2__hero-media,
+  .autumn-approved-v2__hero-media :global(.campaign-media__picture),
+  .autumn-approved-v2__hero-media :global(.campaign-media__image),
+  .autumn-approved-v2__direct-media,
+  .autumn-approved-v2__direct-media :global(.campaign-media__picture),
+  .autumn-approved-v2__direct-media :global(.campaign-media__image) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .autumn-approved-v2__hero-media :global(.campaign-media__image),
+  .autumn-approved-v2__direct-media :global(.campaign-media__image) {
+    object-position: center;
+  }
+
+  .autumn-approved-v2__hero-overlay,
+  .autumn-approved-v2__story-overlay,
+  .autumn-approved-v2__direct-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .autumn-approved-v2__hero-overlay { background: rgba(10, 8, 6, 0.38); }
+  .autumn-approved-v2__story-overlay { background: rgba(10, 8, 6, 0.36); }
+  .autumn-approved-v2__direct-overlay { background: rgba(20, 13, 7, 0.74); }
+
+  .autumn-approved-v2__hero-inner {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 700px;
+    padding-top: 128px;
+    padding-bottom: 34px;
+  }
+
+  .autumn-approved-v2__hero-copy { max-width: 650px; }
+
+  .autumn-approved-v2__eyebrow {
+    margin: 0;
+    color: #f2b83e;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: var(--dnd-tracking-label);
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .autumn-approved-v2__eyebrow--dark { color: #8f6215; }
+
+  .autumn-approved-v2 h1,
+  .autumn-approved-v2 h2,
+  .autumn-approved-v2__story-copy,
+  .autumn-approved-v2__wide-copy {
+    font-family: var(--dnd-font-display);
+    font-weight: 500;
+  }
+
+  .autumn-approved-v2 h1 {
+    display: grid;
+    gap: 3px;
+    margin: 18px 0 0;
+    color: #fffaf0;
+    font-size: 4.8rem;
+    letter-spacing: var(--dnd-tracking-display-tight);
+    line-height: 0.95;
+  }
+
+  .autumn-approved-v2__hero-lead {
+    display: grid;
+    gap: 3px;
+    margin-top: 22px;
+    color: rgba(255, 250, 240, 0.95);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .autumn-approved-v2__hero-lead p,
+  .autumn-approved-v2__program p,
+  .autumn-approved-v2__section-heading p,
+  .autumn-approved-v2__amenities { margin: 0; }
+
+  .autumn-approved-v2__button,
+  .autumn-approved-v2__outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 48px;
+    border: 1px solid transparent;
+    border-radius: var(--dnd-radius-sm);
+    padding: 0 22px;
+    font-size: var(--dnd-text-sm);
+    font-weight: 700;
+    letter-spacing: var(--dnd-tracking-ui);
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .autumn-approved-v2__button--hero {
+    margin-top: 26px;
+    background: #d99e2b;
+    color: #17130e;
+  }
+
+  .autumn-approved-v2__hero-proof {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    color: rgba(255, 250, 240, 0.92);
+    font-size: var(--dnd-text-sm);
+  }
+
+  .autumn-approved-v2__hero-proof span:first-child { font-size: 1.6rem; }
+
+  .autumn-approved-v2__features { background: #fdfbf7; }
+
+  .autumn-approved-v2__features-inner { padding-top: 28px; padding-bottom: 28px; }
+
+  .autumn-approved-v2__features-inner > h2 {
+    margin: 0 0 22px;
+    color: #231c16;
+    font-size: 2.2rem;
+    line-height: 1.08;
+    text-align: center;
+  }
+
+  .autumn-approved-v2__feature-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .autumn-approved-v2__feature { text-align: center; }
+  .autumn-approved-v2__feature-icon,
+  .autumn-approved-v2__program-icon { color: #b97e16; }
+  .autumn-approved-v2__feature-icon { display: inline-flex; margin-bottom: 10px; }
+  .autumn-approved-v2__feature h3,
+  .autumn-approved-v2__program h3 { margin: 0; font-size: var(--dnd-text-sm); font-weight: 700; }
+  .autumn-approved-v2__feature h3 { letter-spacing: var(--dnd-tracking-ui); text-transform: uppercase; }
+  .autumn-approved-v2__feature p { margin: 7px auto 0; max-width: 165px; color: #62574d; font-size: var(--dnd-text-sm); line-height: 1.45; }
+
+  .autumn-approved-v2__stories { background: #17130e; }
+  .autumn-approved-v2__story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
+  .autumn-approved-v2__story { min-height: 340px; }
+  .autumn-approved-v2__story-media,
+  .autumn-approved-v2__story-media :global(.campaign-media__picture),
+  .autumn-approved-v2__story-media :global(.campaign-media__image),
+  .autumn-approved-v2__wide-media,
+  .autumn-approved-v2__wide-media :global(.campaign-media__picture),
+  .autumn-approved-v2__wide-media :global(.campaign-media__image) { width: 100%; height: 100%; }
+  .autumn-approved-v2__story-copy,
+  .autumn-approved-v2__wide-copy { position: absolute; right: 34px; bottom: 30px; left: 34px; z-index: 1; display: grid; gap: 2px; color: #fffaf0; font-size: 2.6rem; line-height: 0.98; }
+  .autumn-approved-v2__story-link { margin-top: 18px; font-family: var(--dnd-font-body); font-size: var(--dnd-text-xs); font-weight: 700; letter-spacing: var(--dnd-tracking-label); text-transform: uppercase; }
+  .autumn-approved-v2__wide-story { min-height: 300px; }
+  .autumn-approved-v2__wide-copy { max-width: 520px; }
+
+  .autumn-approved-v2__programs { padding: 60px 0 70px; background: #fdfbf7; }
+  .autumn-approved-v2__section-heading { max-width: 720px; margin: 0 auto 28px; text-align: center; }
+  .autumn-approved-v2__section-heading h2 { margin: 6px 0 0; color: #231c16; font-size: 2.8rem; line-height: 1.05; }
+  .autumn-approved-v2__section-heading > p:last-child { margin-top: 12px; color: #62574d; font-size: var(--dnd-text-body); line-height: 1.6; }
+  .autumn-approved-v2__program-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .autumn-approved-v2__program { position: relative; min-width: 0; }
+  .autumn-approved-v2__program-media { aspect-ratio: 1.45 / 1; border-radius: var(--dnd-radius-md); }
+  .autumn-approved-v2__program-icon { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; margin: -25px 0 8px 12px; position: relative; border-radius: 50%; background: #3a2a1b; color: #f3d18d; }
+  .autumn-approved-v2__program h3 { font-size: 0.96rem; }
+  .autumn-approved-v2__program p { margin-top: 6px; color: #62574d; font-size: var(--dnd-text-sm); line-height: 1.5; }
+  .autumn-approved-v2__outline-button { margin: 30px auto 0; display: flex; width: fit-content; border-color: #b98a4c; color: #7b531b; background: transparent; }
+
+  .autumn-approved-v2__direct { padding: 0; background: #21170e; }
+  .autumn-approved-v2__direct-panel { min-height: 360px; color: #fffaf0; }
+  .autumn-approved-v2__direct-content { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(130px, 0.35fr) minmax(220px, 0.8fr) minmax(210px, 0.8fr); align-items: center; gap: 30px; min-height: 360px; padding-top: 48px; padding-bottom: 48px; }
+  .autumn-approved-v2__direct-copy h2 { margin: 10px 0 0; font-size: 2.75rem; line-height: 1.04; }
+  .autumn-approved-v2__direct-copy h2 span { display: block; }
+  .autumn-approved-v2__direct-offer { display: grid; gap: 0; }
+  .autumn-approved-v2__direct-offer strong { color: #d99e2b; font-family: var(--dnd-font-display); font-size: 5rem; font-weight: 500; line-height: 0.85; }
+  .autumn-approved-v2__direct-offer span { max-width: 120px; font-size: var(--dnd-text-sm); font-weight: 600; line-height: 1.35; }
+  .autumn-approved-v2__benefits { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; color: rgba(255, 250, 240, 0.92); font-size: var(--dnd-text-sm); line-height: 1.4; }
+  .autumn-approved-v2__benefits li { display: flex; gap: 9px; }
+  .autumn-approved-v2__benefits li span { color: #d99e2b; font-weight: 700; }
+  .autumn-approved-v2__direct-actions { display: grid; gap: 10px; justify-items: start; }
+  .autumn-approved-v2__direct-actions .autumn-approved-v2__button--hero { margin: 0; }
+  .autumn-approved-v2__direct-contact { color: #f3d18d; font-size: var(--dnd-text-xs); font-weight: 700; letter-spacing: var(--dnd-tracking-ui); text-transform: uppercase; }
+  .autumn-approved-v2__amenities { grid-column: 1 / -1; color: rgba(255, 250, 240, 0.76); font-size: var(--dnd-text-xs); line-height: 1.5; }
+  .autumn-approved-v2__amenities strong { color: #f3d18d; }
+
+  @media (max-width: 1000px) {
+    .autumn-approved-v2 h1 { font-size: 4rem; }
+    .autumn-approved-v2__feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 24px; }
+    .autumn-approved-v2__direct-content { grid-template-columns: 1fr 0.5fr 1fr; }
+    .autumn-approved-v2__direct-actions { grid-column: 3; grid-row: 1 / span 2; }
+  }
+
+  @media (max-width: 720px) {
+    .autumn-approved-v2 :global(.dnd-container) { width: min(100% - 36px, 1200px); }
+    .autumn-approved-v2__hero, .autumn-approved-v2__hero-inner { min-height: 680px; }
+    .autumn-approved-v2__hero-inner { display: block; padding-top: 150px; padding-bottom: 28px; }
+    .autumn-approved-v2 h1 { font-size: 3rem; line-height: 0.98; }
+    .autumn-approved-v2__hero-proof { margin: 54px 0 0; }
+    .autumn-approved-v2__features-inner { padding-top: 26px; padding-bottom: 30px; }
+    .autumn-approved-v2__features-inner > h2 { font-size: 2rem; }
+    .autumn-approved-v2__feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+    .autumn-approved-v2__story-grid { grid-template-columns: 1fr; }
+    .autumn-approved-v2__story { min-height: 300px; }
+    .autumn-approved-v2__wide-story { min-height: 270px; }
+    .autumn-approved-v2__story-copy, .autumn-approved-v2__wide-copy { right: 24px; bottom: 24px; left: 24px; font-size: 2.1rem; }
+    .autumn-approved-v2__programs { padding: 46px 0 52px; }
+    .autumn-approved-v2__section-heading h2 { font-size: 2.25rem; }
+    .autumn-approved-v2__program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+    .autumn-approved-v2__program p { font-size: var(--dnd-text-sm); }
+    .autumn-approved-v2__direct-panel { min-height: 0; }
+    .autumn-approved-v2__direct-content { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 18px; min-height: 0; padding-top: 42px; padding-bottom: 42px; }
+    .autumn-approved-v2__direct-copy { grid-column: 1 / -1; }
+    .autumn-approved-v2__direct-copy h2 { font-size: 2.25rem; }
+    .autumn-approved-v2__direct-offer strong { font-size: 4.5rem; }
+    .autumn-approved-v2__direct-actions { grid-column: 1 / -1; grid-row: auto; }
+    .autumn-approved-v2__direct-actions .autumn-approved-v2__button { width: 100%; }
+    .autumn-approved-v2__amenities { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 390px) {
+    .autumn-approved-v2 h1 { font-size: 2.55rem; }
+    .autumn-approved-v2__hero, .autumn-approved-v2__hero-inner { min-height: 640px; }
+    .autumn-approved-v2__hero-proof { margin-top: 42px; }
+    .autumn-approved-v2__feature p { font-size: var(--dnd-text-sm); }
+    .autumn-approved-v2__program-grid { grid-template-columns: 1fr; }
+  }
+</style>

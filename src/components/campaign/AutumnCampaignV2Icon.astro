@@ -1,0 +1,44 @@
+---
+type IconName = "leaf" | "fire" | "wine" | "pool" | "bike" | "heart" | "mountain" | "lake" | "city";
+
+interface Props {
+  name: IconName;
+  label?: string;
+}
+
+const { name, label } = Astro.props as Props;
+const titleId = label ? `autumn-v2-icon-${name}` : undefined;
+---
+
+<svg
+  class="autumn-v2-icon"
+  viewBox="0 0 32 32"
+  role={label ? "img" : "presentation"}
+  aria-hidden={label ? undefined : "true"}
+  aria-labelledby={titleId}
+  focusable="false"
+>
+  {label && <title id={titleId}>{label}</title>}
+  {name === "leaf" && <path d="M25 5C14 5 7 9 7 18c0 4 3 7 7 7 9 0 11-8 11-20Z M7 25c4-6 8-10 14-14" />}
+  {name === "fire" && <path d="M16 27c-4 0-7-3-7-7 0-3 2-5 4-8 1 2 2 3 2 5 2-2 3-4 2-7 4 3 6 6 6 10 0 4-3 7-7 7Z" />}
+  {name === "wine" && <path d="M9 5h14l-1 5c-1 4-3 6-6 6s-5-2-6-6L9 5ZM16 16v8M11 27h10" />}
+  {name === "pool" && <path d="M5 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M5 18c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M11 25h10" />}
+  {name === "bike" && <><circle cx="8" cy="23" r="4" /><circle cx="24" cy="23" r="4" /><path d="M8 23l5-11h5l6 11M13 12l-3-3M14 18h8M18 12l2 5" /></>}
+  {name === "heart" && <path d="M16 27S6 21 6 13c0-4 3-6 6-6 2 0 3 1 4 3 1-2 2-3 5-3 3 0 5 2 5 6 0 8-10 14-10 14Z" />}
+  {name === "mountain" && <path d="m4 25 9-16 5 8 3-5 7 13H4ZM13 9l2-3 3 5" />}
+  {name === "lake" && <path d="m4 12 5-5 4 5 4-5 5 5M5 18c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M5 24c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" />}
+  {name === "city" && <path d="M6 26V12l7-4v18M13 26V6l7 4v16M20 26v-9h6v9M9 16h1M9 20h1M16 12h1M16 16h1M23 21h1" />}
+</svg>
+
+<style>
+  .autumn-v2-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.55;
+  }
+</style>

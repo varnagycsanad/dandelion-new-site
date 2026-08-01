@@ -118,7 +118,6 @@ const copy = copyByLang[lang];
         </picture>
         <div class="pool-highlight__visual-badge">
           <span class="pool-highlight__visual-kicker">Panorama Pool</span>
-          <p>{copy.imageTitle}</p>
         </div>
       </figure>
     </div>
@@ -158,7 +157,7 @@ const copy = copyByLang[lang];
     font-family: var(--dnd-font-display);
     font-size: clamp(1.9rem, 3vw, 2.65rem);
     line-height: 1.08;
-    font-weight: 500;
+    font-weight: 400;
     color: #2f2418;
   }
 
@@ -287,18 +286,11 @@ const copy = copyByLang[lang];
 
   .pool-highlight__visual-kicker {
     display: inline-block;
-    margin-bottom: 8px;
     font-size: var(--dnd-text-2xs);
     font-weight: 600;
     letter-spacing: var(--dnd-tracking-label);
     text-transform: uppercase;
     color: rgba(255, 220, 162, 0.94);
-  }
-
-  .pool-highlight__visual-badge p {
-    margin: 0;
-    font-size: var(--dnd-text-md);
-    line-height: 1.42;
   }
 
   @media (min-width: 960px) {
@@ -310,69 +302,100 @@ const copy = copyByLang[lang];
 
   @media (max-width: 767px) {
     .pool-highlight {
-      padding-top: 20px;
-      padding-bottom: 22px;
+      padding-top: 14px;
+      padding-bottom: 18px;
     }
 
     .pool-highlight__shell {
-      gap: 18px;
-      padding: 22px 18px;
-      border-radius: 18px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 12px;
+      padding: 16px;
+      border-radius: 16px;
     }
 
     .pool-highlight__content {
-      text-align: center;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
     }
 
     .pool-highlight__title {
-      font-size: 1.5rem;
+      font-size: 1.18rem;
       line-height: 1.08;
     }
 
     .pool-highlight__text {
-      margin-right: auto;
-      margin-left: auto;
-      font-size: var(--dnd-text-md);
-      line-height: 1.56;
+      margin-top: 9px;
+      font-size: 0.75rem;
+      line-height: 1.52;
     }
 
     .pool-highlight__cta {
       width: 100%;
       min-width: 0;
-      padding-right: 10px;
+      min-height: 42px;
+      margin-top: 13px;
+      gap: 6px;
+      padding: 0 6px 0 10px;
+      border-color: rgba(47, 36, 24, 0.14);
+      background: #2f2418;
+      color: #fffaf2;
+      box-shadow:
+        0 8px 18px rgba(47, 36, 24, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .pool-highlight__cta:hover,
+    .pool-highlight__cta:focus-visible {
+      border-color: rgba(47, 36, 24, 0.24);
+      background: #3a2b1d;
+      box-shadow:
+        0 12px 22px rgba(47, 36, 24, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .pool-highlight__cta span:first-child {
-      font-size: var(--dnd-text-sm);
+      font-size: 0.7rem;
+      line-height: 1.1;
     }
 
     .pool-highlight__cta-icon {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
+      background: #e6ad35;
+      color: #2f2418;
+      box-shadow: none;
     }
 
     .pool-highlight__visual {
-      min-height: 300px;
-      padding: 14px;
-      border-radius: 22px;
-    }
-
-    .pool-highlight__visual::after {
-      inset: 12px;
+      min-height: 0;
+      aspect-ratio: 0.78;
+      padding: 8px;
       border-radius: 16px;
     }
 
-    .pool-highlight__visual-badge {
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      max-width: none;
-      padding: 12px 14px;
-      border-radius: 14px;
+    .pool-highlight__visual::after {
+      inset: 8px;
+      border-radius: 11px;
     }
 
-    .pool-highlight__visual-badge p {
-      font-size: var(--dnd-text-md);
+    .pool-highlight__visual-badge {
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: center;
+      max-width: none;
+      padding: 9px 10px;
+      border-radius: 11px;
+      text-align: center;
+    }
+
+    .pool-highlight__visual-kicker {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
     }
   }
 </style>

@@ -403,8 +403,20 @@ const {
 
     .dnd-region-story__media {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 2.35 / 1;
       border-radius: 0;
+    }
+
+    .dnd-region-story--1 .dnd-region-story__media :is(img, picture) {
+      object-position: center 54%;
+    }
+
+    .dnd-region-story--2 .dnd-region-story__media :is(img, picture) {
+      object-position: center 46%;
+    }
+
+    .dnd-region-story--3 .dnd-region-story__media :is(img, picture) {
+      object-position: center 52%;
     }
 
     .dnd-region-story__mobile-overlay {

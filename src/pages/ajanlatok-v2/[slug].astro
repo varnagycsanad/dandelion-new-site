@@ -1,0 +1,15 @@
+---
+import AutumnCampaignOfferPageV2Approved from "../../templates/AutumnCampaignOfferPageV2Approved.astro";
+import { autumn2026OffersV2 } from "../../data/offers/autumn-2026";
+
+export function getStaticPaths() {
+  return autumn2026OffersV2.map((offer) => ({
+    params: { slug: offer.slug },
+    props: { offer }
+  }));
+}
+
+const { offer } = Astro.props;
+---
+
+<AutumnCampaignOfferPageV2Approved offer={offer} />
