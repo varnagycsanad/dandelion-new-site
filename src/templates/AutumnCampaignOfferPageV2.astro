@@ -8,6 +8,12 @@ const { offer } = Astro.props as { offer: AutumnCampaignOffer };
 const storyTiles = offer.storyTiles.slice(0, 3);
 const wideStoryTile = offer.storyTiles[3];
 const heroImage = offer.campaignHero.media.desktop;
+const heroBookingBenefits = [
+  "Közvetlenebb ajánlat",
+  "Gyors, átlátható foglalási folyamat",
+  "Közvetlen kapcsolat a szállásadóval",
+  "Rugalmas ügyintézés"
+];
 const bookingTrackingAttrs = {
   "data-dnd-property": offer.tracking.property,
   "data-dnd-campaign": offer.tracking.campaign,
@@ -190,6 +196,15 @@ const structuredData = [
           </a>
           <p class="autumn-v2__hero-note">{offer.campaignHero.ctaNote}</p>
         </div>
+        <aside class="autumn-v2__hero-benefits" aria-label="Közvetlen foglalás előnyei">
+          <span class="autumn-v2__hero-benefits-kicker">Közvetlen foglalás</span>
+          <h2>Megéri itt foglalni</h2>
+          <p class="autumn-v2__hero-benefits-lead">A közvetlen foglalás előnyei:</p>
+          <p class="autumn-v2__hero-benefits-summary">Közvetlen kapcsolat, gyors visszaigazolás és rugalmas ügyintézés.</p>
+          <ul>
+            {heroBookingBenefits.map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </aside>
       </div>
     </section>
 
@@ -358,6 +373,7 @@ const structuredData = [
 
   .autumn-v2__hero-content {
     position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     min-height: min(740px, 82svh);
@@ -367,6 +383,72 @@ const structuredData = [
 
   .autumn-v2__hero-copy {
     max-width: 620px;
+  }
+
+  .autumn-v2__hero-benefits {
+    position: absolute;
+    right: 0;
+    bottom: 28px;
+    z-index: 2;
+    width: min(360px, 100%);
+    padding: 28px 30px;
+    border: 1px solid rgba(244, 218, 157, 0.92);
+    background:
+      linear-gradient(145deg, rgba(255, 230, 137, 0.98) 0%, rgba(239, 199, 91, 0.97) 56%, rgba(196, 142, 43, 0.96) 100%);
+    color: #2d241c;
+    box-shadow: 0 16px 36px rgba(16, 13, 8, 0.32), inset 0 0 0 1px rgba(72, 46, 11, 0.18);
+  }
+
+  .autumn-v2__hero-benefits-kicker {
+    display: block;
+    margin-bottom: 12px;
+    color: rgba(45, 36, 28, 0.68);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .autumn-v2__hero-benefits h2 {
+    margin: 0;
+    font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+    line-height: 1.04;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .autumn-v2__hero-benefits-lead {
+    margin: 12px 0 14px;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .autumn-v2__hero-benefits-summary {
+    display: none;
+  }
+
+  .autumn-v2__hero-benefits ul {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .autumn-v2__hero-benefits li {
+    position: relative;
+    padding: 9px 0 9px 18px;
+    border-top: 1px solid rgba(45, 36, 28, 0.16);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .autumn-v2__hero-benefits li::before {
+    content: "✦";
+    position: absolute;
+    top: 9px;
+    left: 0;
+    color: rgba(109, 72, 18, 0.82);
   }
 
   .autumn-v2__eyebrow {
@@ -826,7 +908,38 @@ const structuredData = [
     .autumn-v2__hero-content {
       align-items: flex-end;
       padding-top: 100px;
-      padding-bottom: 34px;
+      padding-bottom: 204px;
+    }
+
+    .autumn-v2__hero-benefits {
+      right: 0;
+      bottom: 14px;
+      width: min(320px, 100%);
+      padding: 16px 18px;
+    }
+
+    .autumn-v2__hero-benefits-kicker {
+      margin-bottom: 7px;
+      font-size: 0.58rem;
+    }
+
+    .autumn-v2__hero-benefits h2 {
+      font-size: 1.32rem;
+    }
+
+    .autumn-v2__hero-benefits-lead {
+      display: none;
+    }
+
+    .autumn-v2__hero-benefits-summary {
+      display: block;
+      margin: 8px 0 0;
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .autumn-v2__hero-benefits ul {
+      display: none;
     }
 
     .autumn-v2 h1 {
