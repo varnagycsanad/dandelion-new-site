@@ -4,6 +4,7 @@ import type { AutumnCampaignFeatureIconKey, AutumnCampaignOffer } from "../data/
 import type { AutumnCampaignLang } from "../data/offers/autumn-2026-localized";
 import { toAbsoluteUrl } from "../data/site-seo";
 import CampaignMedia from "../components/campaign/CampaignMedia.astro";
+import CampaignHeroVideo from "../components/campaign/CampaignHeroVideo.astro";
 
 const { offer, lang = "hu" } = Astro.props as { offer: AutumnCampaignOffer; lang?: AutumnCampaignLang };
 const storyTiles = offer.storyTiles.slice(0, 3);
@@ -206,14 +207,18 @@ const structuredData = [
 
   <main class="autumn-v2" style={themeStyle}>
     <section class="autumn-v2__hero">
-      <CampaignMedia
-        media={offer.campaignHero.media}
-        class="autumn-v2__hero-media"
-        fill={true}
-        loading="eager"
-        fetchpriority="high"
-        replacementLabel={offer.mediaReplacementLabel}
-      />
+      {offer.campaignHero.video ? (
+        <CampaignHeroVideo media={offer.campaignHero.video} class="autumn-v2__hero-media" fill={true} />
+      ) : (
+        <CampaignMedia
+          media={offer.campaignHero.media}
+          class="autumn-v2__hero-media"
+          fill={true}
+          loading="eager"
+          fetchpriority="high"
+          replacementLabel={offer.mediaReplacementLabel}
+        />
+      )}
       <div class="autumn-v2__hero-shade" aria-hidden="true"></div>
       <div class="autumn-v2__hero-content dnd-container">
         <div class="autumn-v2__hero-copy">

@@ -14,7 +14,7 @@ import type {
   AutumnCampaignResponsiveMedia,
   AutumnCampaignTheme
 } from "./types";
-import { autumnPanoramaHeroVideo } from "../videos/autumn-campaign";
+import { autumnPanoramaHeroVideo, d2FamilyAutumnHeroVideo, fugehazAutumnHeroVideo } from "../videos/autumn-campaign";
 
 import wineExperienceImage from "../../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import balatonExperienceImage from "../../assets/home/experiences/dandelion-home-experience-balaton-01.webp";
@@ -217,6 +217,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "Élvezzétek az ősz minden pillanatát a Fügeházban."
       ],
       ctaNote: "Közvetlen foglalás = 5% kedvezmény",
+      video: fugehazAutumnHeroVideo,
       media: buildHeroMedia(
         fugehazSource.imageSet.hero.desktop,
         fugehazSource.imageSet.hero.mobile,
@@ -489,6 +490,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "A Dandelion D2-ben valóban együtt lehet a család."
       ],
       ctaNote: "Közvetlen foglalás = 5% kedvezmény",
+      video: d2FamilyAutumnHeroVideo,
       media: buildHeroMedia(
         d2Source.imageSet.hero.desktop,
         d2Source.imageSet.hero.mobile,
