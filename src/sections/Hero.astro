@@ -6,6 +6,7 @@
 // [CHANGE 2026-06-11 00:00] Hungarian homepage hero description made more concrete and less generic.
 // [CHANGE 2026-07-15 00:00] Responsive hero video prefers the lighter mobile poster for the initial mobile paint.
 // [CHANGE 2026-08-02 11:00] Restore the compact circular booking badge on the homepage mobile hero.
+// [CHANGE 2026-08-02 11:30] Make the mobile booking badge draggable and remember its position.
 interface HeroCta {
   label: string;
   href: string;
@@ -157,6 +158,115 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
   <span class:list={["dnd-hero__booking-badge", bookingBenefits.length > 0 && "dnd-hero__booking-badge--mobile-only"]}>Megéri nálunk foglalni!</span>
 </section>
 
+<script is:inline>
+  (() => {
+    const setup = () => {
+      const mobileQuery = window.matchMedia("(max-width: 767px)");
+      const badge = document.querySelector(".dnd-hero__booking-badge--mobile-only");
+
+      if (!mobileQuery.matches || !(badge instanceof HTMLElement)) {
+        return;
+      }
+
+      const storageKey = "dnd-home-booking-badge-position-v1";
+      const viewportPadding = 12;
+      let dragState = null;
+
+      const clampPosition = (left, top) => ({
+        left: Math.min(Math.max(left, viewportPadding), Math.max(viewportPadding, window.innerWidth - badge.offsetWidth - viewportPadding)),
+        top: Math.min(Math.max(top, viewportPadding), Math.max(viewportPadding, window.innerHeight - badge.offsetHeight - viewportPadding))
+      });
+
+      const applyPosition = (left, top) => {
+        const position = clampPosition(left, top);
+        badge.style.left = `${position.left}px`;
+        badge.style.top = `${position.top}px`;
+        badge.style.right = "auto";
+        badge.style.bottom = "auto";
+      };
+
+      const savePosition = () => {
+        try {
+          const rect = badge.getBoundingClientRect();
+          localStorage.setItem(storageKey, JSON.stringify({ left: rect.left, top: rect.top }));
+        } catch {
+          // The badge remains draggable if storage is unavailable.
+        }
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+
+        if (saved && Number.isFinite(saved.left) && Number.isFinite(saved.top)) {
+          applyPosition(saved.left, saved.top);
+        }
+      } catch {
+        // Use the default right-bottom position when storage is unavailable or invalid.
+      }
+
+      const finishDrag = (event) => {
+        if (!dragState || event.pointerId !== dragState.pointerId) {
+          return;
+        }
+
+        if (badge.hasPointerCapture?.(event.pointerId)) {
+          badge.releasePointerCapture(event.pointerId);
+        }
+
+        if (dragState.moved) {
+          savePosition();
+        }
+
+        dragState = null;
+        badge.classList.remove("is-dragging");
+      };
+
+      badge.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "mouse" && event.button !== 0) {
+          return;
+        }
+
+        const rect = badge.getBoundingClientRect();
+        dragState = {
+          pointerId: event.pointerId,
+          offsetX: event.clientX - rect.left,
+          offsetY: event.clientY - rect.top,
+          moved: false
+        };
+        badge.setPointerCapture?.(event.pointerId);
+        badge.classList.add("is-dragging");
+        event.preventDefault();
+      });
+
+      badge.addEventListener("pointermove", (event) => {
+        if (!dragState || event.pointerId !== dragState.pointerId) {
+          return;
+        }
+
+        applyPosition(event.clientX - dragState.offsetX, event.clientY - dragState.offsetY);
+        dragState.moved = true;
+        event.preventDefault();
+      });
+
+      badge.addEventListener("pointerup", finishDrag);
+      badge.addEventListener("pointercancel", finishDrag);
+
+      window.addEventListener("resize", () => {
+        if (badge.style.left && badge.style.top) {
+          applyPosition(Number.parseFloat(badge.style.left), Number.parseFloat(badge.style.top));
+          savePosition();
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setup, { once: true });
+    } else {
+      setup();
+    }
+  })();
+</script>
+
 {shouldDeferMobileVideo && (
   <script is:inline>
     (() => {
@@ -294,6 +404,8 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
   .dnd-hero__booking-badge--mobile-only {
     display: none;
+    touch-action: none;
+    user-select: none;
   }
 
   .dnd-hero__booking-badge::before {
@@ -683,6 +795,11 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
     .dnd-hero__booking-badge--mobile-only {
       display: grid;
+      cursor: grab;
+    }
+
+    .dnd-hero__booking-badge--mobile-only.is-dragging {
+      cursor: grabbing;
     }
   }
 </style>
