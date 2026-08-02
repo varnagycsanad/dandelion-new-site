@@ -1,0 +1,16 @@
+---
+import AutumnCampaignOfferPageV2 from "../../../templates/AutumnCampaignOfferPageV2.astro";
+import { autumn2026Offers } from "../../../data/offers/autumn-2026";
+import { localizeAutumnOffer } from "../../../data/offers/autumn-2026-localized";
+
+export function getStaticPaths() {
+  return autumn2026Offers.map((offer) => ({
+    params: { slug: offer.slug === "oszi-kettesben" ? "herbst-zu-zweit" : "herbst-familie" },
+    props: { offer: localizeAutumnOffer(offer, "de") }
+  }));
+}
+
+const { offer } = Astro.props;
+---
+
+<AutumnCampaignOfferPageV2 offer={offer} lang="de" />

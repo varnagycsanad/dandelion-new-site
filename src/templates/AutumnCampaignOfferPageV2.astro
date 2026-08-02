@@ -1,20 +1,52 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { AutumnCampaignFeatureIconKey, AutumnCampaignOffer } from "../data/offers/types";
+import type { AutumnCampaignLang } from "../data/offers/autumn-2026-localized";
 import { toAbsoluteUrl } from "../data/site-seo";
 import CampaignMedia from "../components/campaign/CampaignMedia.astro";
 
-const { offer } = Astro.props as { offer: AutumnCampaignOffer };
+const { offer, lang = "hu" } = Astro.props as { offer: AutumnCampaignOffer; lang?: AutumnCampaignLang };
 const storyTiles = offer.storyTiles.slice(0, 3);
 const wideStoryTile = offer.storyTiles[3];
 const heroImage = offer.campaignHero.media.desktop;
-const heroBookingBenefits = [
-  "A legjobb árakat a honlapon való foglalással éred el",
-  "Azonnali bankkártyás fizetés",
-  "Gyors, átlátható foglalási folyamat",
-  "Közvetlen kapcsolat a szállásadóval",
-  "Rugalmas ügyintézés"
-];
+const pageUiByLang = {
+  hu: {
+    benefitsAria: "Közvetlen foglalás előnyei", benefitsKicker: "Közvetlen foglalás", benefitsTitle: "Megéri itt foglalni", benefitsLead: "A közvetlen foglalás előnyei:", benefitsSummary: "Legjobb árak és azonnali bankkártyás fizetés a honlapon.",
+    heroBenefits: ["A legjobb árakat a honlapon való foglalással éred el", "Azonnali bankkártyás fizetés", "Gyors, átlátható foglalási folyamat", "Közvetlen kapcsolat a szállásadóval", "Rugalmas ügyintézés"],
+    featuresAria: "Szolgáltatások és élmények", storiesAria: "Élmények", featuredAria: "Kiemelt élmény", contactLabel: "ÍRÁSBAN ÉRDEKLŐDÖM", whatsappLabel: "WHATSAPP", homeLabel: "Főoldal"
+  },
+  en: {
+    benefitsAria: "Direct booking benefits", benefitsKicker: "Direct booking", benefitsTitle: "Booking direct is worth it", benefitsLead: "The benefits of booking direct:", benefitsSummary: "Best rates and instant card payment on our website.",
+    heroBenefits: ["You get the best rates when booking on our website", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host", "Flexible assistance"],
+    featuresAria: "Services and experiences", storiesAria: "Experiences", featuredAria: "Featured experience", contactLabel: "ENQUIRE IN WRITING", whatsappLabel: "WHATSAPP", homeLabel: "Home"
+  },
+  de: {
+    benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "Direktbuchung", benefitsTitle: "Direkt buchen lohnt sich", benefitsLead: "Die Vorteile einer Direktbuchung:", benefitsSummary: "Beste Preise und sofortige Kartenzahlung über unsere Website.",
+    heroBenefits: ["Die besten Preise erhalten Sie bei einer Buchung über unsere Website", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt mit dem Gastgeber", "Flexible Abwicklung"],
+    featuresAria: "Services und Erlebnisse", storiesAria: "Erlebnisse", featuredAria: "Hervorgehobenes Erlebnis", contactLabel: "SCHRIFTLICH ANFRAGEN", whatsappLabel: "WHATSAPP", homeLabel: "Startseite"
+  },
+  cs: {
+    benefitsAria: "Výhody přímé rezervace", benefitsKicker: "Přímá rezervace", benefitsTitle: "Přímá rezervace se vyplatí", benefitsLead: "Výhody přímé rezervace:", benefitsSummary: "Nejlepší ceny a okamžitá platba kartou na našem webu.",
+    heroBenefits: ["Nejlepší ceny získáte rezervací přímo na našem webu", "Okamžitá platba kartou", "Rychlý a přehledný rezervační proces", "Přímý kontakt s hostitelem", "Flexibilní vyřízení"],
+    featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Doporučený zážitek", contactLabel: "NAPSAT DOTAZ", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
+  },
+  sk: {
+    benefitsAria: "Výhody priamej rezervácie", benefitsKicker: "Priama rezervácia", benefitsTitle: "Priama rezervácia sa oplatí", benefitsLead: "Výhody priamej rezervácie:", benefitsSummary: "Najlepšie ceny a okamžitá platba kartou na našom webe.",
+    heroBenefits: ["Najlepšie ceny získate rezerváciou na našom webe", "Okamžitá platba kartou", "Rýchly a prehľadný rezervačný proces", "Priamy kontakt s hostiteľom", "Flexibilné vybavenie"],
+    featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Odporúčaný zážitok", contactLabel: "NAPÍSAŤ DOPYT", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
+  }
+} as const;
+const pageUi = pageUiByLang[lang];
+const contactHrefByLang: Record<AutumnCampaignLang, string> = {
+  hu: "/kapcsolat/",
+  en: "/en/contact/",
+  de: "/de/kontakt/",
+  cs: "/cs/kontakt/",
+  sk: "/sk/kontakt/"
+};
+const contactHref = contactHrefByLang[lang];
+const heroBookingBenefits = pageUi.heroBenefits;
+const localizedBookingHref = lang === "hu" ? offer.bookingUrl : offer.bookingUrl.replace(/lang=Hu\b/i, "lang=En");
 const bookingTrackingAttrs = {
   "data-dnd-property": offer.tracking.property,
   "data-dnd-campaign": offer.tracking.campaign,
@@ -135,7 +167,7 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Főoldal", item: toAbsoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: pageUi.homeLabel, item: toAbsoluteUrl(lang === "hu" ? "/" : `/${lang}/`) },
       { "@type": "ListItem", position: 2, name: offer.hero.title, item: toAbsoluteUrl(offer.routePath) }
     ]
   },
@@ -146,7 +178,7 @@ const structuredData = [
     url: toAbsoluteUrl(offer.routePath),
     name: offer.seo.title,
     description: offer.seo.description,
-    inLanguage: "hu-HU",
+    inLanguage: lang === "hu" ? "hu-HU" : lang === "en" ? "en-US" : lang === "de" ? "de-DE" : lang === "cs" ? "cs-CZ" : "sk-SK",
     isPartOf: { "@id": `${toAbsoluteUrl("/")}#website` }
   }
 ];
@@ -161,7 +193,8 @@ const structuredData = [
   noindex={true}
   structuredData={structuredData}
   headerMode="transparent"
-  bookingHrefOverride={offer.bookingUrl}
+  bookingHrefOverride={localizedBookingHref}
+  lang={lang}
 >
   <Fragment slot="head">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" />
@@ -192,16 +225,16 @@ const structuredData = [
           <div class="autumn-v2__hero-lead">
             {offer.campaignHero.descriptionLines.map((line) => <p>{line}</p>)}
           </div>
-          <a href={offer.bookingUrl} class="autumn-v2__button autumn-v2__button--hero" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...bookingTrackingAttrs}>
+          <a href={localizedBookingHref} class="autumn-v2__button autumn-v2__button--hero" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...bookingTrackingAttrs}>
             {offer.ctas.primary}<span aria-hidden="true">→</span>
           </a>
           <p class="autumn-v2__hero-note">{offer.campaignHero.ctaNote}</p>
         </div>
-        <aside class="autumn-v2__hero-benefits" aria-label="Közvetlen foglalás előnyei">
-          <span class="autumn-v2__hero-benefits-kicker">Közvetlen foglalás</span>
-          <h2>Megéri itt foglalni</h2>
-          <p class="autumn-v2__hero-benefits-lead">A közvetlen foglalás előnyei:</p>
-          <p class="autumn-v2__hero-benefits-summary">Legjobb árak és azonnali bankkártyás fizetés a honlapon.</p>
+        <aside class="autumn-v2__hero-benefits" aria-label={pageUi.benefitsAria}>
+          <span class="autumn-v2__hero-benefits-kicker">{pageUi.benefitsKicker}</span>
+          <h2>{pageUi.benefitsTitle}</h2>
+          <p class="autumn-v2__hero-benefits-lead">{pageUi.benefitsLead}</p>
+          <p class="autumn-v2__hero-benefits-summary">{pageUi.benefitsSummary}</p>
           <ul>
             {heroBookingBenefits.map((benefit) => <li>{benefit}</li>)}
           </ul>
@@ -209,7 +242,7 @@ const structuredData = [
       </div>
     </section>
 
-    <section class="autumn-v2__features" aria-label="Szolgáltatások és élmények">
+    <section class="autumn-v2__features" aria-label={pageUi.featuresAria}>
       <div class="autumn-v2__feature-inner dnd-container">
         {offer.experienceItems.map((item) => {
           const icon = icons[item.icon];
@@ -232,7 +265,7 @@ const structuredData = [
       </div>
     </section>
 
-    <section class="autumn-v2__stories" aria-label="Élmények">
+    <section class="autumn-v2__stories" aria-label={pageUi.storiesAria}>
       <div class="autumn-v2__story-grid">
         {storyTiles.map((tile) => (
           <article class="autumn-v2__story">
@@ -245,7 +278,7 @@ const structuredData = [
     </section>
 
     {wideStoryTile && (
-      <section class="autumn-v2__wide-story" aria-label="Kiemelt élmény">
+      <section class="autumn-v2__wide-story" aria-label={pageUi.featuredAria}>
         <CampaignMedia media={wideStoryTile.media} class="autumn-v2__wide-media" fill={true} replacementLabel={offer.mediaReplacementLabel} />
         <div class="autumn-v2__wide-shade" aria-hidden="true"></div>
         <div class="autumn-v2__wide-copy">{wideStoryTile.titleLines.map((line) => <span>{line}</span>)}</div>
@@ -293,12 +326,12 @@ const structuredData = [
           )}
         </div>
         <div class="autumn-v2__closing-ctas">
-          <a href={offer.bookingUrl} class="autumn-v2__button autumn-v2__button--booking" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>
+          <a href={localizedBookingHref} class="autumn-v2__button autumn-v2__button--booking" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>
             {offer.ctas.primary}<span aria-hidden="true">→</span>
           </a>
-          <a href="/kapcsolat/" class="autumn-v2__button autumn-v2__button--secondary" {...contactTrackingAttrs}>ÍRÁSBAN ÉRDEKLŐDÖM</a>
+          <a href={contactHref} class="autumn-v2__button autumn-v2__button--secondary" {...contactTrackingAttrs}>{pageUi.contactLabel}</a>
           <a href="https://wa.me/36207730807" class="autumn-v2__button autumn-v2__button--secondary" target="_blank" rel="noopener noreferrer" {...whatsappTrackingAttrs}>
-            <span class="autumn-v2__whatsapp-icon" aria-hidden="true">◔</span> WHATSAPP
+            <span class="autumn-v2__whatsapp-icon" aria-hidden="true">◔</span> {pageUi.whatsappLabel}
           </a>
         </div>
         <div class="autumn-v2__amenities">

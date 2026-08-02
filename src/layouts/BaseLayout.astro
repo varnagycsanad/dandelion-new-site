@@ -86,7 +86,6 @@ const isEnglishPage = lang === "en";
 const isGermanPage = lang === "de";
 const isCzechPage = lang === "cs";
 const isSlovakPage = lang === "sk";
-const isHungarianPage = lang === "hu";
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -132,9 +131,11 @@ const headerText = isEnglishPage
       mainNavAria: "Main navigation",
       homeLabel: "Home",
       staysLabel: "Accommodations",
+      offersLabel: "Offers",
       experiencesLabel: "Experiences",
       galleryLabel: "Gallery",
       staysSubmenuAria: "Accommodations submenu",
+      offersSubmenuAria: "Offers submenu",
       mobileNavAria: "Mobile navigation",
       mobileStayGroupsAria: "Accommodation groups",
       menuOpenAria: "Open menu",
@@ -153,9 +154,11 @@ const headerText = isEnglishPage
         mainNavAria: "Hauptnavigation",
         homeLabel: "Startseite",
         staysLabel: "Unterkünfte",
+        offersLabel: "Angebote",
         experiencesLabel: "Erlebnisse",
         galleryLabel: "Galerie",
         staysSubmenuAria: "Unterkünfte Untermenü",
+        offersSubmenuAria: "Angebote Untermenü",
         mobileNavAria: "Mobile Navigation",
         mobileStayGroupsAria: "Unterkunftsgruppen",
         menuOpenAria: "Menü öffnen",
@@ -174,9 +177,11 @@ const headerText = isEnglishPage
           mainNavAria: "Hlavní navigace",
           homeLabel: "Úvod",
           staysLabel: "Ubytování",
+          offersLabel: "Nabídky",
           experiencesLabel: "Zážitky",
           galleryLabel: "Galerie",
           staysSubmenuAria: "Podmenu ubytování",
+          offersSubmenuAria: "Podmenu nabídek",
           mobileNavAria: "Mobilní navigace",
           mobileStayGroupsAria: "Skupiny ubytování",
           menuOpenAria: "Otevřít menu",
@@ -195,9 +200,11 @@ const headerText = isEnglishPage
             mainNavAria: "Hlavná navigácia",
             homeLabel: "Úvod",
             staysLabel: "Ubytovanie",
+            offersLabel: "Ponuky",
             experiencesLabel: "Zážitky",
             galleryLabel: "Galéria",
             staysSubmenuAria: "Podmenu ubytovania",
+            offersSubmenuAria: "Podmenu ponúk",
             mobileNavAria: "Mobilná navigácia",
             mobileStayGroupsAria: "Skupiny ubytovania",
             menuOpenAria: "Otvoriť menu",
@@ -215,9 +222,11 @@ const headerText = isEnglishPage
       mainNavAria: "Fő navigáció",
       homeLabel: "Főoldal",
       staysLabel: "Szállások–Házak",
+      offersLabel: "Ajánlatok",
       experiencesLabel: "Élmények",
       galleryLabel: "Galéria",
       staysSubmenuAria: "Szállások almenü",
+      offersSubmenuAria: "Ajánlatok almenü",
       mobileNavAria: "Mobil navigáció",
       mobileStayGroupsAria: "Szálláscsoportok",
       menuOpenAria: "Menü megnyitása",
@@ -516,12 +525,12 @@ const localizedHeaderStayGroups = isCzechPage
       : headerStayGroups;
 const headerOfferLinks = [
   {
-    label: "Őszi kettesben",
-    href: `${homeHref}ajanlatok/oszi-kettesben/`
+    label: isEnglishPage ? "Autumn for two" : isGermanPage ? "Herbst zu zweit" : isCzechPage ? "Podzim ve dvou" : isSlovakPage ? "Jesenný pobyt vo dvojici" : "Őszi kettesben",
+    href: isEnglishPage ? `${homeHref}en/offers/autumn-for-two/` : isGermanPage ? `${homeHref}de/angebote/herbst-zu-zweit/` : isCzechPage ? `${homeHref}cs/nabidky/podzim-ve-dvou/` : isSlovakPage ? `${homeHref}sk/ponuky/jesenny-pobyt-vo-dvojici/` : `${homeHref}ajanlatok/oszi-kettesben/`
   },
   {
-    label: "Családi ajánlat",
-    href: `${homeHref}ajanlatok/oszi-csaladi-pihenes/`
+    label: isEnglishPage ? "Family autumn break" : isGermanPage ? "Herbst mit der Familie" : isCzechPage ? "Podzimní rodinný pobyt" : isSlovakPage ? "Jesenný rodinný pobyt" : "Családi ajánlat",
+    href: isEnglishPage ? `${homeHref}en/offers/autumn-family-break/` : isGermanPage ? `${homeHref}de/angebote/herbst-familie/` : isCzechPage ? `${homeHref}cs/nabidky/podzimni-rodinny-pobyt/` : isSlovakPage ? `${homeHref}sk/ponuky/jesenny-rodinny-pobyt/` : `${homeHref}ajanlatok/oszi-csaladi-pihenes/`
   }
 ];
 
@@ -559,6 +568,16 @@ const transparentHeaderPaths = new Set([
   "/de/panorama-pool/",
   "/cs/panorama-pool/",
   "/sk/panorama-pool/",
+  "/ajanlatok/oszi-kettesben/",
+  "/ajanlatok/oszi-csaladi-pihenes/",
+  "/en/offers/autumn-for-two/",
+  "/en/offers/autumn-family-break/",
+  "/de/angebote/herbst-zu-zweit/",
+  "/de/angebote/herbst-familie/",
+  "/cs/nabidky/podzim-ve-dvou/",
+  "/cs/nabidky/podzimni-rodinny-pobyt/",
+  "/sk/ponuky/jesenny-pobyt-vo-dvojici/",
+  "/sk/ponuky/jesenny-rodinny-pobyt/",
   "/elmenyek/tanuhegyek/",
   "/en/witness-hills/",
   "/de/zeugenberge/",
@@ -707,6 +726,16 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: strin
   "/de/panorama-pool/": { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/", sk: "/sk/panorama-pool/" },
   "/cs/panorama-pool/": { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/", sk: "/sk/panorama-pool/" },
   "/sk/panorama-pool/": { hu: "/panorama-pool/", en: "/en/panorama-pool/", de: "/de/panorama-pool/", cs: "/cs/panorama-pool/", sk: "/sk/panorama-pool/" },
+  "/ajanlatok/oszi-kettesben/": { hu: "/ajanlatok/oszi-kettesben/", en: "/en/offers/autumn-for-two/", de: "/de/angebote/herbst-zu-zweit/", cs: "/cs/nabidky/podzim-ve-dvou/", sk: "/sk/ponuky/jesenny-pobyt-vo-dvojici/" },
+  "/en/offers/autumn-for-two/": { hu: "/ajanlatok/oszi-kettesben/", en: "/en/offers/autumn-for-two/", de: "/de/angebote/herbst-zu-zweit/", cs: "/cs/nabidky/podzim-ve-dvou/", sk: "/sk/ponuky/jesenny-pobyt-vo-dvojici/" },
+  "/de/angebote/herbst-zu-zweit/": { hu: "/ajanlatok/oszi-kettesben/", en: "/en/offers/autumn-for-two/", de: "/de/angebote/herbst-zu-zweit/", cs: "/cs/nabidky/podzim-ve-dvou/", sk: "/sk/ponuky/jesenny-pobyt-vo-dvojici/" },
+  "/cs/nabidky/podzim-ve-dvou/": { hu: "/ajanlatok/oszi-kettesben/", en: "/en/offers/autumn-for-two/", de: "/de/angebote/herbst-zu-zweit/", cs: "/cs/nabidky/podzim-ve-dvou/", sk: "/sk/ponuky/jesenny-pobyt-vo-dvojici/" },
+  "/sk/ponuky/jesenny-pobyt-vo-dvojici/": { hu: "/ajanlatok/oszi-kettesben/", en: "/en/offers/autumn-for-two/", de: "/de/angebote/herbst-zu-zweit/", cs: "/cs/nabidky/podzim-ve-dvou/", sk: "/sk/ponuky/jesenny-pobyt-vo-dvojici/" },
+  "/ajanlatok/oszi-csaladi-pihenes/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
+  "/en/offers/autumn-family-break/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
+  "/de/angebote/herbst-familie/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
+  "/cs/nabidky/podzimni-rodinny-pobyt/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
+  "/sk/ponuky/jesenny-rodinny-pobyt/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
   "/aszf/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
   "/en/terms-and-conditions/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
   "/de/agb/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
@@ -970,16 +999,14 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
               ))}
             </div>
           </div>
-          {isHungarianPage && (
-            <div class="dnd-nav__item dnd-nav__item--has-submenu">
-              <a href={headerOfferLinks[0].href}>Ajánlatok</a>
-              <div class="dnd-nav__submenu" aria-label="Ajánlatok almenü">
-                {headerOfferLinks.map((offer) => (
-                  <a href={offer.href}>{offer.label}</a>
-                ))}
-              </div>
+          <div class="dnd-nav__item dnd-nav__item--has-submenu">
+            <a href={headerOfferLinks[0].href}>{headerText.offersLabel}</a>
+            <div class="dnd-nav__submenu" aria-label={headerText.offersSubmenuAria}>
+              {headerOfferLinks.map((offer) => (
+                <a href={offer.href}>{offer.label}</a>
+              ))}
             </div>
-          )}
+          </div>
           <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
         </nav>
       </div>
@@ -1049,16 +1076,12 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
             </div>
           ))}
         </div>
-        {isHungarianPage && (
-          <>
-            <a href={headerOfferLinks[0].href}>Ajánlatok</a>
-            <div class="dnd-mobile-menu__groups dnd-mobile-menu__offer-links" aria-label="Ajánlatok almenü">
-              {headerOfferLinks.map((offer) => (
-                <a href={offer.href} class="dnd-mobile-menu__subitem dnd-mobile-menu__stay-link">{offer.label}</a>
-              ))}
-            </div>
-          </>
-        )}
+        <a href={headerOfferLinks[0].href}>{headerText.offersLabel}</a>
+        <div class="dnd-mobile-menu__groups dnd-mobile-menu__offer-links" aria-label={headerText.offersSubmenuAria}>
+          {headerOfferLinks.map((offer) => (
+            <a href={offer.href} class="dnd-mobile-menu__subitem dnd-mobile-menu__stay-link">{offer.label}</a>
+          ))}
+        </div>
         <a href={headerExperiencesHref}>{headerText.experiencesLabel}</a>
         <a
           href={bookingHref}

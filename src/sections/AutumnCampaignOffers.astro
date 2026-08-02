@@ -1,5 +1,6 @@
 ---
 import { autumn2026OfferMap } from "../data/offers/autumn-2026";
+import { getAutumnCampaignPath } from "../data/offers/autumn-2026-localized";
 import type { AutumnCampaignOffer, AutumnCampaignOfferId } from "../data/offers/types";
 import pairCampaignImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import familyCampaignImageDesktop from "../assets/campaign/autumn-2026/panorama-hero-poster.webp";
@@ -154,7 +155,7 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
                   {highlights.map((highlight) => <li>{highlight}</li>)}
                 </ul>
                 <a
-                  href={offer.routePath}
+                  href={getAutumnCampaignPath(lang, offer.slug)}
                   class="autumn-home-campaigns__card-cta"
                   data-dnd-offer={offer.tracking.offerId}
                   data-dnd-property={offer.tracking.property}
@@ -173,7 +174,7 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
       <div class="autumn-home-campaigns__mobile-grid">
         {offers.map((offer) => (
           <a
-            href={offer.routePath}
+            href={getAutumnCampaignPath(lang, offer.slug)}
             class="autumn-home-campaigns__mobile-cta"
             data-dnd-offer={offer.tracking.offerId}
             data-dnd-property={offer.tracking.property}
