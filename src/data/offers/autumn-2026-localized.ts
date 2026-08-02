@@ -112,7 +112,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
         kicker: "AUTUMN FOR TWO",
         titleLines: ["An autumn escape", "in the Balaton Uplands"],
         descriptionLines: ["Slow down. Switch off.", "Enjoy every autumn moment at Fügeház."],
-        ctaNote: "Book direct = 5% off",
+        ctaNote: "5% direct booking saving · 8% price advantage vs OTAs",
         heroAlt: "Fügeház guesthouse in the Balaton Uplands",
         heroMobileAlt: "Fügeház guesthouse in the Balaton Uplands"
       },
@@ -174,7 +174,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
         titleLines: ["An autumn family", "escape"],
         supportLine: "in the Balaton Uplands",
         descriptionLines: ["Quality time. Shared experiences.", "At Dandelion D2, the whole family can truly be together."],
-        ctaNote: "Book direct = 5% off",
+        ctaNote: "5% direct booking saving · 8% price advantage vs OTAs",
         heroAlt: "Dandelion D2 guesthouse in the Balaton Uplands",
         heroMobileAlt: "Dandelion D2 guesthouse in the Balaton Uplands"
       },
@@ -231,7 +231,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       heroTitle: "Herbstzeit im Balaton-Oberland",
       heroKicker: "Fügeház · Herbst zu zweit",
       heroLead: "Entschleunigen, abschalten und jeden Herbstmoment im Fügeház genießen.",
-      campaignHero: { kicker: "HERBST ZU ZWEIT", titleLines: ["Herbstzeit", "im Balaton-Oberland"], descriptionLines: ["Langsam werden. Abschalten.", "Genießen Sie jeden Herbstmoment im Fügeház."], ctaNote: "Direkt buchen = 5 % Rabatt", heroAlt: "Fügeház Gästehaus im Balaton-Oberland", heroMobileAlt: "Fügeház Gästehaus im Balaton-Oberland" },
+      campaignHero: { kicker: "HERBST ZU ZWEIT", titleLines: ["Herbstzeit", "im Balaton-Oberland"], descriptionLines: ["Langsam werden. Abschalten.", "Genießen Sie jeden Herbstmoment im Fügeház."], ctaNote: "5 % Vorteil bei Direktbuchung · 8 % Preisvorteil gegenüber OTAs", heroAlt: "Fügeház Gästehaus im Balaton-Oberland", heroMobileAlt: "Fügeház Gästehaus im Balaton-Oberland" },
       positioningTitle: "Romantische Auszeit im Herbst",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ beheizter Pool", "mit atemberaubender Aussicht"], note: "Nur in der Saison" },
@@ -266,7 +266,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       heroTitle: "Herbstliche Familienauszeit",
       heroKicker: "Dandelion D2 · Herbsturlaub mit der Familie",
       heroLead: "Gemeinsame Zeit, Erlebnisse und naturnahe Tage erwarten Sie im Dandelion D2.",
-      campaignHero: { kicker: "HERBSTURLAUB MIT DER FAMILIE", titleLines: ["Herbstliche Familien", "auszeit"], supportLine: "im Balaton-Oberland", descriptionLines: ["Gemeinsame Zeit. Gemeinsame Erlebnisse.", "Im Dandelion D2 kann die ganze Familie wirklich zusammen sein."], ctaNote: "Direkt buchen = 5 % Rabatt", heroAlt: "Dandelion D2 Gästehaus im Balaton-Oberland", heroMobileAlt: "Dandelion D2 Gästehaus im Balaton-Oberland" },
+      campaignHero: { kicker: "HERBSTURLAUB MIT DER FAMILIE", titleLines: ["Herbstliche Familien", "auszeit"], supportLine: "im Balaton-Oberland", descriptionLines: ["Gemeinsame Zeit. Gemeinsame Erlebnisse.", "Im Dandelion D2 kann die ganze Familie wirklich zusammen sein."], ctaNote: "5 % Vorteil bei Direktbuchung · 8 % Preisvorteil gegenüber OTAs", heroAlt: "Dandelion D2 Gästehaus im Balaton-Oberland", heroMobileAlt: "Dandelion D2 Gästehaus im Balaton-Oberland" },
       positioningTitle: "Naturnahe Auszeit im Herbst",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ beheizter Pool", "mit atemberaubender Aussicht"], note: "Nur in der Saison" },
@@ -302,7 +302,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     "oszi-kettesben": {
       seo: { title: "Podzim ve dvou ve Fügeházu | Dandelion ubytování", description: "Romantický podzimní pobyt ve Fügeházu s krbem, vinařstvími, panoramaty a přímou rezervací." },
       heroTitle: "Podzimní odpočinek v Balatonské vrchovině", heroKicker: "Fügeház · Podzim ve dvou", heroLead: "Zpomalte, vypněte a užijte si každý podzimní okamžik ve Fügeházu.",
-      campaignHero: { kicker: "PODZIM VE DVOU", titleLines: ["Podzimní odpočinek", "v Balatonské vrchovině"], descriptionLines: ["Zpomalte. Vypněte.", "Užijte si každý podzimní okamžik ve Fügeházu."], ctaNote: "Přímá rezervace = sleva 5 %", heroAlt: "Penzion Fügeház v Balatonské vrchovině", heroMobileAlt: "Penzion Fügeház v Balatonské vrchovině" },
+      campaignHero: { kicker: "PODZIM VE DVOU", titleLines: ["Podzimní odpočinek", "v Balatonské vrchovině"], descriptionLines: ["Zpomalte. Vypněte.", "Užijte si každý podzimní okamžik ve Fügeházu."], ctaNote: "Úspora 5 % při přímé rezervaci · cenová výhoda 8 % oproti OTA", heroAlt: "Penzion Fügeház v Balatonské vrchovině", heroMobileAlt: "Penzion Fügeház v Balatonské vrchovině" },
       positioningTitle: "Romantický podzimní pobyt",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ vyhřívaný bazén", "s úchvatným výhledem"], note: "Pouze v sezoně" }, { title: "Krb", details: ["Teplý oheň", "pro útulné večery"] }, { title: "Vinařská oblast", details: ["Skvělá vinařství", "jen pár minut odtud"] }, { title: "Ohniště", details: ["Dřevo zdarma", "pod hvězdnou oblohou"] }, { title: "Jízdní kola", details: ["2 kola pro dospělé", "v ceně"] }, { title: "Romantika", details: ["Ideální místo", "pro dva"] }
@@ -319,7 +319,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     "oszi-csaladi-pihenes": {
       seo: { title: "Podzimní rodinný pobyt v D2 | Dandelion ubytování", description: "Rodinný podzimní pobyt v Dandelion D2 s Panorama Poolem, krbem, společnými zážitky a přímou rezervací." },
       heroTitle: "Podzimní rodinný odpočinek", heroKicker: "Dandelion D2 · Podzimní rodinný pobyt", heroLead: "Kvalitní čas, společné zážitky a dny v přírodě čekají v Dandelion D2.",
-      campaignHero: { kicker: "PODZIMNÍ RODINNÝ POBYT", titleLines: ["Podzimní rodinný", "odpočinek"], supportLine: "v Balatonské vrchovině", descriptionLines: ["Kvalitní čas. Společné zážitky.", "V Dandelion D2 může být celá rodina opravdu spolu."], ctaNote: "Přímá rezervace = sleva 5 %", heroAlt: "Penzion Dandelion D2 v Balatonské vrchovině", heroMobileAlt: "Penzion Dandelion D2 v Balatonské vrchovině" },
+      campaignHero: { kicker: "PODZIMNÍ RODINNÝ POBYT", titleLines: ["Podzimní rodinný", "odpočinek"], supportLine: "v Balatonské vrchovině", descriptionLines: ["Kvalitní čas. Společné zážitky.", "V Dandelion D2 může být celá rodina opravdu spolu."], ctaNote: "Úspora 5 % při přímé rezervaci · cenová výhoda 8 % oproti OTA", heroAlt: "Penzion Dandelion D2 v Balatonské vrchovině", heroMobileAlt: "Penzion Dandelion D2 v Balatonské vrchovině" },
       positioningTitle: "Podzimní pobyt v přírodě",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ vyhřívaný bazén", "s úchvatným výhledem"], note: "Pouze v sezoně" }, { title: "Pro rodiny", details: ["Vybavení pro děti", "a společné prostory"] }, { title: "Krb", details: ["Teplý oheň", "pro útulné večery"] }, { title: "Gril", details: ["Grilování venku", "pro společná jídla"] }, { title: "Ohniště", details: ["Dřevo zdarma", "pro společné večery"] }, { title: "Wi-Fi zdarma", details: ["Stabilní připojení", "když je potřeba"] }, { title: "Parkování zdarma", details: ["Pohodlný příjezd", "přímo u domu"] }
@@ -338,7 +338,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     "oszi-kettesben": {
       seo: { title: "Jesenný pobyt vo dvojici vo Fügeháze | Dandelion ubytovanie", description: "Romantický jesenný oddych vo Fügeháze s krbom, vinárstvami, panorámou a priamou rezerváciou." },
       heroTitle: "Jesenný oddych v Balatonskej vrchovine", heroKicker: "Fügeház · Jesenný pobyt vo dvojici", heroLead: "Spomaľte, vypnite a užite si každý jesenný okamih vo Fügeháze.",
-      campaignHero: { kicker: "JESENNÝ POBYT VO DVOJICI", titleLines: ["Jesenný oddych", "v Balatonskej vrchovine"], descriptionLines: ["Spomaľte. Vypnite.", "Užite si každý jesenný okamih vo Fügeháze."], ctaNote: "Priama rezervácia = zľava 5 %", heroAlt: "Penzión Fügeház v Balatonskej vrchovine", heroMobileAlt: "Penzión Fügeház v Balatonskej vrchovine" },
+      campaignHero: { kicker: "JESENNÝ POBYT VO DVOJICI", titleLines: ["Jesenný oddych", "v Balatonskej vrchovine"], descriptionLines: ["Spomaľte. Vypnite.", "Užite si každý jesenný okamih vo Fügeháze."], ctaNote: "Úspora 5 % pri priamej rezervácii · cenová výhoda 8 % oproti OTA", heroAlt: "Penzión Fügeház v Balatonskej vrchovine", heroMobileAlt: "Penzión Fügeház v Balatonskej vrchovine" },
       positioningTitle: "Romantický jesenný pobyt",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ vyhrievaný bazén", "s úchvatným výhľadom"], note: "Len počas sezóny" }, { title: "Krb", details: ["Teplý oheň", "na útulné večery"] }, { title: "Vínna oblasť", details: ["Výborné vinárstva", "len pár minút odtiaľ"] }, { title: "Oh­nisko", details: ["Drevo zdarma", "pod hviezdnou oblohou"] }, { title: "Bicykle", details: ["2 bicykle pre dospelých", "v cene"] }, { title: "Romantika", details: ["Ideálne miesto", "pre dvoch"] }
@@ -355,7 +355,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     "oszi-csaladi-pihenes": {
       seo: { title: "Jesenný rodinný pobyt v D2 | Dandelion ubytovanie", description: "Rodinný jesenný oddych v Dandelion D2 s Panorama Poolom, krbom, spoločnými zážitkami a priamou rezerváciou." },
       heroTitle: "Jesenný rodinný oddych", heroKicker: "Dandelion D2 · Jesenný rodinný pobyt", heroLead: "Kvalitný čas, spoločné zážitky a dni v prírode čakajú v Dandelion D2.",
-      campaignHero: { kicker: "JESENNÝ RODINNÝ POBYT", titleLines: ["Jesenný rodinný", "oddych"], supportLine: "v Balatonskej vrchovine", descriptionLines: ["Kvalitný čas. Spoločné zážitky.", "V Dandelion D2 môže byť celá rodina naozaj spolu."], ctaNote: "Priama rezervácia = zľava 5 %", heroAlt: "Penzión Dandelion D2 v Balatonskej vrchovine", heroMobileAlt: "Penzión Dandelion D2 v Balatonskej vrchovine" },
+      campaignHero: { kicker: "JESENNÝ RODINNÝ POBYT", titleLines: ["Jesenný rodinný", "oddych"], supportLine: "v Balatonskej vrchovine", descriptionLines: ["Kvalitný čas. Spoločné zážitky.", "V Dandelion D2 môže byť celá rodina naozaj spolu."], ctaNote: "Úspora 5 % pri priamej rezervácii · cenová výhoda 8 % oproti OTA", heroAlt: "Penzión Dandelion D2 v Balatonskej vrchovine", heroMobileAlt: "Penzión Dandelion D2 v Balatonskej vrchovine" },
       positioningTitle: "Jesenný pobyt v prírode",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ vyhrievaný bazén", "s úchvatným výhľadom"], note: "Len počas sezóny" }, { title: "Pre rodiny", details: ["Vybavenie pre deti", "a spoločné priestory"] }, { title: "Krb", details: ["Teplý oheň", "na útulné večery"] }, { title: "Gril", details: ["Grilovanie vonku", "na spoločné jedlá"] }, { title: "Oh­nisko", details: ["Drevo zdarma", "na spoločné večery"] }, { title: "Wi-Fi zdarma", details: ["Stabilné pripojenie", "keď ho potrebujete"] }, { title: "Parkovanie zdarma", details: ["Pohodlný príchod", "priamo pri dome"] }

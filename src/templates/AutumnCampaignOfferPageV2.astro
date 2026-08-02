@@ -12,28 +12,33 @@ const wideStoryTile = offer.storyTiles[3];
 const heroImage = offer.campaignHero.media.desktop;
 const pageUiByLang = {
   hu: {
-    benefitsAria: "Közvetlen foglalás előnyei", benefitsKicker: "Közvetlen foglalás", benefitsTitle: "Megéri itt foglalni", benefitsLead: "A közvetlen foglalás előnyei:", benefitsSummary: "Legjobb árak és azonnali bankkártyás fizetés a honlapon.",
-    heroBenefits: ["A legjobb árakat a honlapon való foglalással éred el", "Azonnali bankkártyás fizetés", "Gyors, átlátható foglalási folyamat", "Közvetlen kapcsolat a szállásadóval", "Rugalmas ügyintézés"],
+    benefitsAria: "Közvetlen foglalás előnyei", benefitsKicker: "Közvetlen foglalás", benefitsTitle: "Közvetlenül éri meg", benefitsLead: "Két kézzelfogható előny:", benefitsSummary: "8% ár-előny az OTA-khoz képest és azonnali bankkártyás fizetés a honlapon.",
+    heroBenefits: ["8% ár-előny az OTA-khoz képest", "5% kedvezmény közvetlen foglalásnál", "Azonnali bankkártyás fizetés", "Gyors, átlátható foglalási folyamat", "Közvetlen kapcsolat a szállásadóval"],
+    heroValueAria: "Közvetlen foglalási ár-előnyök", heroDirectSaving: "kedvezmény közvetlen foglalásnál", heroOtaAdvantage: "ár-előny az OTA-khoz képest",
     featuresAria: "Szolgáltatások és élmények", storiesAria: "Élmények", featuredAria: "Kiemelt élmény", contactLabel: "ÍRÁSBAN ÉRDEKLŐDÖM", whatsappLabel: "WHATSAPP", homeLabel: "Főoldal"
   },
   en: {
-    benefitsAria: "Direct booking benefits", benefitsKicker: "Direct booking", benefitsTitle: "Booking direct is worth it", benefitsLead: "The benefits of booking direct:", benefitsSummary: "Best rates and instant card payment on our website.",
-    heroBenefits: ["You get the best rates when booking on our website", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host", "Flexible assistance"],
+    benefitsAria: "Direct booking benefits", benefitsKicker: "Direct booking", benefitsTitle: "Book direct, get more", benefitsLead: "Two clear advantages:", benefitsSummary: "8% price advantage vs OTAs and instant card payment on our website.",
+    heroBenefits: ["8% price advantage vs OTAs", "5% saving when booking direct", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host"],
+    heroValueAria: "Direct booking price advantages", heroDirectSaving: "saving when booking direct", heroOtaAdvantage: "price advantage vs OTAs",
     featuresAria: "Services and experiences", storiesAria: "Experiences", featuredAria: "Featured experience", contactLabel: "ENQUIRE IN WRITING", whatsappLabel: "WHATSAPP", homeLabel: "Home"
   },
   de: {
-    benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "Direktbuchung", benefitsTitle: "Direkt buchen lohnt sich", benefitsLead: "Die Vorteile einer Direktbuchung:", benefitsSummary: "Beste Preise und sofortige Kartenzahlung über unsere Website.",
-    heroBenefits: ["Die besten Preise erhalten Sie bei einer Buchung über unsere Website", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt mit dem Gastgeber", "Flexible Abwicklung"],
+    benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "Direktbuchung", benefitsTitle: "Direkt buchen, mehr bekommen", benefitsLead: "Zwei klare Vorteile:", benefitsSummary: "8 % Preisvorteil gegenüber OTAs und sofortige Kartenzahlung über unsere Website.",
+    heroBenefits: ["8 % Preisvorteil gegenüber OTAs", "5 % Vorteil bei Direktbuchung", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt mit dem Gastgeber"],
+    heroValueAria: "Preisvorteile bei Direktbuchung", heroDirectSaving: "Vorteil bei Direktbuchung", heroOtaAdvantage: "Preisvorteil gegenüber OTAs",
     featuresAria: "Services und Erlebnisse", storiesAria: "Erlebnisse", featuredAria: "Hervorgehobenes Erlebnis", contactLabel: "SCHRIFTLICH ANFRAGEN", whatsappLabel: "WHATSAPP", homeLabel: "Startseite"
   },
   cs: {
-    benefitsAria: "Výhody přímé rezervace", benefitsKicker: "Přímá rezervace", benefitsTitle: "Přímá rezervace se vyplatí", benefitsLead: "Výhody přímé rezervace:", benefitsSummary: "Nejlepší ceny a okamžitá platba kartou na našem webu.",
-    heroBenefits: ["Nejlepší ceny získáte rezervací přímo na našem webu", "Okamžitá platba kartou", "Rychlý a přehledný rezervační proces", "Přímý kontakt s hostitelem", "Flexibilní vyřízení"],
+    benefitsAria: "Výhody přímé rezervace", benefitsKicker: "Přímá rezervace", benefitsTitle: "Rezervujte přímo, získejte více", benefitsLead: "Dvě jasné výhody:", benefitsSummary: "8% cenová výhoda oproti OTA a okamžitá platba kartou na našem webu.",
+    heroBenefits: ["8% cenová výhoda oproti OTA", "Úspora 5 % při přímé rezervaci", "Okamžitá platba kartou", "Rychlý a přehledný rezervační proces", "Přímý kontakt s hostitelem"],
+    heroValueAria: "Cenové výhody přímé rezervace", heroDirectSaving: "úspora při přímé rezervaci", heroOtaAdvantage: "cenová výhoda oproti OTA",
     featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Doporučený zážitek", contactLabel: "NAPSAT DOTAZ", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
   },
   sk: {
-    benefitsAria: "Výhody priamej rezervácie", benefitsKicker: "Priama rezervácia", benefitsTitle: "Priama rezervácia sa oplatí", benefitsLead: "Výhody priamej rezervácie:", benefitsSummary: "Najlepšie ceny a okamžitá platba kartou na našom webe.",
-    heroBenefits: ["Najlepšie ceny získate rezerváciou na našom webe", "Okamžitá platba kartou", "Rýchly a prehľadný rezervačný proces", "Priamy kontakt s hostiteľom", "Flexibilné vybavenie"],
+    benefitsAria: "Výhody priamej rezervácie", benefitsKicker: "Priama rezervácia", benefitsTitle: "Rezervujte priamo, získajte viac", benefitsLead: "Dve jasné výhody:", benefitsSummary: "8 % cenová výhoda oproti OTA a okamžitá platba kartou na našom webe.",
+    heroBenefits: ["8 % cenová výhoda oproti OTA", "Úspora 5 % pri priamej rezervácii", "Okamžitá platba kartou", "Rýchly a prehľadný rezervačný proces", "Priamy kontakt s hostiteľom"],
+    heroValueAria: "Cenové výhody priamej rezervácie", heroDirectSaving: "úspora pri priamej rezervácii", heroOtaAdvantage: "cenová výhoda oproti OTA",
     featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Odporúčaný zážitok", contactLabel: "NAPÍSAŤ DOPYT", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
   }
 } as const;
@@ -233,7 +238,16 @@ const structuredData = [
           <a href={localizedBookingHref} class="autumn-v2__button autumn-v2__button--hero" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...bookingTrackingAttrs}>
             {offer.ctas.primary}<span aria-hidden="true">→</span>
           </a>
-          <p class="autumn-v2__hero-note">{offer.campaignHero.ctaNote}</p>
+          <div class="autumn-v2__hero-value-strip" aria-label={pageUi.heroValueAria}>
+            <div class="autumn-v2__hero-value">
+              <strong>5%</strong>
+              <span>{pageUi.heroDirectSaving}</span>
+            </div>
+            <div class="autumn-v2__hero-value autumn-v2__hero-value--accent">
+              <strong>8%</strong>
+              <span>{pageUi.heroOtaAdvantage}</span>
+            </div>
+          </div>
         </div>
         <aside class="autumn-v2__hero-benefits" aria-label={pageUi.benefitsAria}>
           <span class="autumn-v2__hero-benefits-kicker">{pageUi.benefitsKicker}</span>
@@ -503,13 +517,20 @@ const structuredData = [
   }
 
   .autumn-v2__eyebrow {
+    display: inline-flex;
+    align-items: center;
     margin: 0;
-    color: var(--v2-accent);
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 247, 216, 0.5);
+    border-radius: 999px;
+    background: rgba(24, 29, 20, 0.58);
+    color: #fff7d7;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     line-height: 1.2;
     text-transform: uppercase;
+    box-shadow: 0 8px 22px rgba(16, 13, 8, 0.18);
   }
 
   .autumn-v2 h1,
@@ -579,12 +600,24 @@ const structuredData = [
 
   .autumn-v2__button--hero,
   .autumn-v2__button--booking {
-    background: var(--v2-accent);
-    color: #17130e;
+    border: 1px solid rgba(255, 247, 216, 0.86);
+    background: #fff7d7;
+    color: var(--v2-accent-strong);
+    box-shadow: 0 10px 24px rgba(16, 13, 8, 0.2);
   }
 
   .autumn-v2__button--hero {
     margin-top: 24px;
+    min-height: 54px;
+    border-radius: 999px;
+    padding-right: 26px;
+    padding-left: 26px;
+  }
+
+  .autumn-v2__button--hero:hover,
+  .autumn-v2__button--booking:hover {
+    background: #fffaf0;
+    color: #1e2a1b;
   }
 
   .autumn-v2__hero-note {
@@ -592,6 +625,54 @@ const structuredData = [
     color: rgba(255, 250, 240, 0.9);
     font-size: 0.86rem;
     font-weight: 600;
+  }
+
+  .autumn-v2__hero-value-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 560px;
+    margin-top: 14px;
+  }
+
+  .autumn-v2__hero-value {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 60px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 247, 216, 0.82);
+    border-radius: 14px;
+    background: rgba(255, 250, 240, 0.96);
+    color: #2d241c;
+    box-shadow: 0 10px 24px rgba(16, 13, 8, 0.2);
+  }
+
+  .autumn-v2__hero-value strong {
+    flex: 0 0 auto;
+    color: var(--v2-accent-strong);
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .autumn-v2__hero-value span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .autumn-v2__hero-value--accent {
+    border-color: rgba(255, 247, 216, 0.52);
+    background: var(--v2-accent-strong);
+    color: #fffaf0;
+  }
+
+  .autumn-v2__hero-value--accent strong {
+    color: #fff7d7;
   }
 
   .autumn-v2__features {
@@ -1055,6 +1136,25 @@ const structuredData = [
 
     .autumn-v2__button--hero {
       width: 100%;
+    }
+
+    .autumn-v2__hero-value-strip {
+      max-width: none;
+    }
+
+    .autumn-v2__hero-value {
+      gap: 7px;
+      min-height: 64px;
+      padding: 9px 10px;
+    }
+
+    .autumn-v2__hero-value strong {
+      font-size: 1.45rem;
+    }
+
+    .autumn-v2__hero-value span {
+      font-size: 0.62rem;
+      letter-spacing: 0.025em;
     }
 
     .autumn-v2__feature-inner {

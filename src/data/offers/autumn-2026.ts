@@ -142,7 +142,7 @@ function buildHeroMedia(
 function buildDirectBookingClaims(propertyName: string): AutumnCampaignOfferClaim[] {
   return [
     {
-      text: "A Booking.com és Airbnb felé továbbított szállásár 5%-kal magasabb a közvetlen SabeeApp-árnál.",
+      text: "A Booking.com és Airbnb felé továbbított szállásár 8%-kal magasabb a közvetlen SabeeApp-árnál.",
       status: "approved_business_decision"
     },
     {
@@ -216,7 +216,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "Lassítsatok le. Kapcsoljatok ki.",
         "Élvezzétek az ősz minden pillanatát a Fügeházban."
       ],
-      ctaNote: "Közvetlen foglalás = 5% kedvezmény",
+      ctaNote: "5% közvetlen foglalási kedvezmény · 8% OTA-ár-előny",
       video: fugehazAutumnHeroVideo,
       media: buildHeroMedia(
         fugehazSource.imageSet.hero.desktop,
@@ -489,7 +489,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "Minőségi idő. Közös élmények.",
         "A Dandelion D2-ben valóban együtt lehet a család."
       ],
-      ctaNote: "Közvetlen foglalás = 5% kedvezmény",
+      ctaNote: "5% közvetlen foglalási kedvezmény · 8% OTA-ár-előny",
       video: d2FamilyAutumnHeroVideo,
       media: buildHeroMedia(
         d2Source.imageSet.hero.desktop,
