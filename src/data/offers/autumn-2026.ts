@@ -216,7 +216,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "Lassítsatok le. Kapcsoljatok ki.",
         "Élvezzétek az ősz minden pillanatát a Fügeházban."
       ],
-      ctaNote: "5% közvetlen foglalási kedvezmény · 8% OTA-ár-előny",
+      ctaNote: "8% ár-előny a portálokhoz képest",
       video: fugehazAutumnHeroVideo,
       media: buildHeroMedia(
         fugehazSource.imageSet.hero.desktop,
@@ -407,8 +407,8 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
       claims: buildDirectBookingClaims(fugehazSource.accommodation.name),
       qaFollowUp:
         "Nyitott technikai QA marad: konkrét Fügeház-időpontok teljes végösszegének ellenőrzése SabeeApp, Booking.com és Airbnb csatornák között.",
-      highlightValue: "5%",
-      highlightLines: ["kedvezmény", "a szállás árából"],
+      highlightValue: "8%",
+      highlightLines: ["ár-előny", "a portálokhoz képest"],
       benefits: [
         "Közvetlen kapcsolat a szállásadóval",
         "Gyors visszaigazolás",
@@ -489,7 +489,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
         "Minőségi idő. Közös élmények.",
         "A Dandelion D2-ben valóban együtt lehet a család."
       ],
-      ctaNote: "5% közvetlen foglalási kedvezmény · 8% OTA-ár-előny",
+      ctaNote: "8% ár-előny a portálokhoz képest",
       video: d2FamilyAutumnHeroVideo,
       media: buildHeroMedia(
         d2Source.imageSet.hero.desktop,
@@ -688,8 +688,8 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
       claims: buildDirectBookingClaims(d2Source.accommodation.name),
       qaFollowUp:
         "Nyitott technikai QA marad: konkrét D2-időpontok teljes végösszegének ellenőrzése SabeeApp, Booking.com és Airbnb csatornák között.",
-      highlightValue: "5%",
-      highlightLines: ["kedvezmény", "a szállás árából"],
+      highlightValue: "8%",
+      highlightLines: ["ár-előny", "a portálokhoz képest"],
       benefits: [
         "Közvetlen kapcsolat a szállásadóval",
         "Gyors visszaigazolás",
