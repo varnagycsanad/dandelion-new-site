@@ -33,6 +33,14 @@ interface Props {
   deferMobileVideo?: boolean;
   videoFallbackText?: string;
   bookingBenefits?: string[];
+  bookingBenefitsCopy?: {
+    ariaLabel: string;
+    kicker: string;
+    title: string;
+    lead: string;
+    summary: string;
+    badge: string;
+  };
 }
 
 const {
@@ -53,7 +61,15 @@ const {
   overlay = false,
   deferMobileVideo = true,
   videoFallbackText = "A böngésződ nem támogatja a háttérvideó lejátszását.",
-  bookingBenefits = []
+  bookingBenefits = [],
+  bookingBenefitsCopy = {
+    ariaLabel: "Közvetlen foglalás előnyei",
+    kicker: "Közvetlen foglalás",
+    title: "Megéri itt foglalni",
+    lead: "A közvetlen foglalás előnyei:",
+    summary: "Legjobb árak és azonnali bankkártyás fizetés a honlapon.",
+    badge: "Megéri nálunk foglalni!"
+  }
 } = Astro.props;
 
 const heroVideo = videoSrc ?? "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
@@ -145,17 +161,17 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
   </div>
 
   {bookingBenefits.length > 0 && (
-    <aside class="dnd-hero__booking-benefits" aria-label="Közvetlen foglalás előnyei">
-      <span class="dnd-hero__booking-benefits-kicker">Közvetlen foglalás</span>
-      <h2>Megéri itt foglalni</h2>
-      <p class="dnd-hero__booking-benefits-lead">A közvetlen foglalás előnyei:</p>
-      <p class="dnd-hero__booking-benefits-summary">Legjobb árak és azonnali bankkártyás fizetés a honlapon.</p>
+    <aside class="dnd-hero__booking-benefits" aria-label={bookingBenefitsCopy.ariaLabel}>
+      <span class="dnd-hero__booking-benefits-kicker">{bookingBenefitsCopy.kicker}</span>
+      <h2>{bookingBenefitsCopy.title}</h2>
+      <p class="dnd-hero__booking-benefits-lead">{bookingBenefitsCopy.lead}</p>
+      <p class="dnd-hero__booking-benefits-summary">{bookingBenefitsCopy.summary}</p>
       <ul>
         {bookingBenefits.map((benefit) => <li>{benefit}</li>)}
       </ul>
     </aside>
   )}
-  <span class:list={["dnd-hero__booking-badge", bookingBenefits.length > 0 && "dnd-hero__booking-badge--mobile-only"]}>Megéri nálunk foglalni!</span>
+  <span class:list={["dnd-hero__booking-badge", bookingBenefits.length > 0 && "dnd-hero__booking-badge--mobile-only"]}>{bookingBenefitsCopy.badge}</span>
 </section>
 
 <script is:inline>

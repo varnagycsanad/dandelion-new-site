@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import AutumnCampaignOffers from "../../sections/AutumnCampaignOffers.astro";
 import HomeReviews from "../../sections/HomeReviews.astro";
 import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
@@ -17,6 +18,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
 import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
+import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
@@ -116,6 +118,8 @@ const slovakExperiences = [
   canonicalPath="/sk/"
   lang="sk"
   ogLocale="sk_SK"
+  ogImage={homeRegionOgImage.src}
+  ogImageAlt="Východ slnka nad Szent György-hegy a Tapolcai kotlinou"
   structuredData={homepageStructuredData}
 >
   <Hero
@@ -132,8 +136,24 @@ const slovakExperiences = [
     posterMobileSrc={homepageHeroMobilePoster}
     posterAlt={homepageHeroPosterAlt}
     videoFallbackText="Váš prehliadač nepodporuje prehrávanie videa na pozadí."
+    bookingBenefits={[
+      "Najlepšie ceny získate rezerváciou na našom webe",
+      "Okamžitá platba kartou",
+      "Rýchly a prehľadný rezervačný proces",
+      "Priamy kontakt s hostiteľom",
+      "Flexibilné vybavenie"
+    ]}
+    bookingBenefitsCopy={{
+      ariaLabel: "Výhody priamej rezervácie",
+      kicker: "Priama rezervácia",
+      title: "Priama rezervácia sa oplatí",
+      lead: "Výhody priamej rezervácie:",
+      summary: "Najlepšie ceny a okamžitá platba kartou na našom webe.",
+      badge: "Priama rezervácia sa oplatí!"
+    }}
   />
 
+  <AutumnCampaignOffers lang="sk" />
   <PanoramaPoolHighlight lang="sk" />
   <HomeReviews lang="sk" />
   <HomeRegionGuide lang="sk" />

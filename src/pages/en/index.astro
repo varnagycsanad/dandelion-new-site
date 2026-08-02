@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import AutumnCampaignOffers from "../../sections/AutumnCampaignOffers.astro";
 import HomeReviews from "../../sections/HomeReviews.astro";
 import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
@@ -17,6 +18,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
 import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
+import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
@@ -122,6 +124,8 @@ const englishExperiences = [
   canonicalPath="/en/"
   lang="en"
   ogLocale="en_US"
+  ogImage={homeRegionOgImage.src}
+  ogImageAlt="Sunrise over Szent György Hill and the Tapolca Basin"
   structuredData={homepageStructuredData}
 >
   <Hero
@@ -138,8 +142,24 @@ const englishExperiences = [
     posterMobileSrc={homepageHeroMobilePoster}
     posterAlt={homepageHeroPosterAlt}
     videoFallbackText="Your browser does not support background video playback."
+    bookingBenefits={[
+      "You get the best rates when booking on our website",
+      "Instant card payment",
+      "Fast, transparent booking process",
+      "Direct contact with your host",
+      "Flexible assistance"
+    ]}
+    bookingBenefitsCopy={{
+      ariaLabel: "Direct booking benefits",
+      kicker: "Direct booking",
+      title: "Booking direct is worth it",
+      lead: "The benefits of booking direct:",
+      summary: "Best rates and instant card payment on our website.",
+      badge: "Booking direct pays off!"
+    }}
   />
 
+  <AutumnCampaignOffers lang="en" />
   <PanoramaPoolHighlight lang="en" />
   <HomeReviews lang="en" />
 

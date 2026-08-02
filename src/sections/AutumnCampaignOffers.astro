@@ -5,6 +5,12 @@ import pairCampaignImage from "../assets/home/experiences/dandelion-home-experie
 import familyCampaignImageDesktop from "../assets/campaign/autumn-2026/panorama-hero-poster.webp";
 import familyCampaignImageMobile from "../assets/campaign/autumn-2026/panorama-hero-poster-mobile.webp";
 
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+
 const featuredOfferIds: AutumnCampaignOfferId[] = [
   "fugehaz_oszi_kettesben_2026",
   "d2_oszi_csaladi_pihenes_2026"
@@ -16,43 +22,106 @@ if (offers.length !== 2) {
   throw new Error("Autumn campaign homepage block requires exactly two offers.");
 }
 
+const copyByLang = {
+  hu: {
+    ariaLabel: "Őszi ajánlatok",
+    kicker: "Őszi ajánlatok",
+    title: "Őszi kikapcsolódás kettesben vagy családdal",
+    pairLabel: "Páros pihenés",
+    familyLabel: "Családi kalandok",
+    pairHighlights: ["Tapolcai-tavasbarlang", "Balatoni panoráma a Csobáncról", "Közeli borászatok"],
+    familyHighlights: ["Biciklitúrák a tanúhegyek mellett", "Őszi Balaton", "Családi kirándulások"],
+    pairAlt: "Borospoharak a Balaton-felvidéki szőlősorok és tanúhegyek előtt.",
+    familyAlt: "Balaton-felvidéki őszi panoráma szőlősorokkal és tanúhegyekkel.",
+    cta: "Bővebben"
+  },
+  en: {
+    ariaLabel: "Autumn offers",
+    kicker: "Autumn offers",
+    title: "An autumn escape for two or the whole family",
+    pairLabel: "A getaway for two",
+    familyLabel: "Family adventures",
+    pairHighlights: ["Tapolca Lake Cave", "Lake Balaton panorama from Csobánc", "Nearby wineries"],
+    familyHighlights: ["Bike rides by the witness hills", "Autumn days at Lake Balaton", "Family excursions"],
+    pairAlt: "Wine glasses in front of vineyard rows and witness hills in the Balaton Uplands.",
+    familyAlt: "Autumn panorama in the Balaton Uplands with vineyards and witness hills.",
+    cta: "Learn more"
+  },
+  de: {
+    ariaLabel: "Herbstangebote",
+    kicker: "Herbstangebote",
+    title: "Herbstzeit zu zweit oder mit der Familie",
+    pairLabel: "Auszeit zu zweit",
+    familyLabel: "Familienabenteuer",
+    pairHighlights: ["Höhlensee von Tapolca", "Balaton-Panorama vom Csobánc", "Nahegelegene Weingüter"],
+    familyHighlights: ["Radtouren bei den Zeugenbergen", "Herbsttage am Balaton", "Ausflüge für die ganze Familie"],
+    pairAlt: "Weingläser vor Weinreihen und Zeugenbergen im Balaton-Oberland.",
+    familyAlt: "Herbstpanorama im Balaton-Oberland mit Weinreihen und Zeugenbergen.",
+    cta: "Mehr erfahren"
+  },
+  cs: {
+    ariaLabel: "Podzimní nabídky",
+    kicker: "Podzimní nabídky",
+    title: "Podzimní odpočinek ve dvou nebo s rodinou",
+    pairLabel: "Pobyt ve dvou",
+    familyLabel: "Rodinná dobrodružství",
+    pairHighlights: ["Jeskyně u Tapolce", "Panorama Balatonu z Csobánce", "Blízká vinařství"],
+    familyHighlights: ["Cyklovýlety u svědeckých hor", "Podzimní dny u Balatonu", "Rodinné výlety"],
+    pairAlt: "Sklenky vína před vinicemi a svědeckými horami v Balatonské vrchovině.",
+    familyAlt: "Podzimní panorama Balatonské vrchoviny s vinicemi a svědeckými horami.",
+    cta: "Více informací"
+  },
+  sk: {
+    ariaLabel: "Jesenné ponuky",
+    kicker: "Jesenné ponuky",
+    title: "Jesenný oddych vo dvojici alebo s rodinou",
+    pairLabel: "Pobyt vo dvojici",
+    familyLabel: "Rodinné dobrodružstvá",
+    pairHighlights: ["Jaskyňa pri Tapolci", "Panoráma Balatonu z Csobánca", "Blízke vinárstva"],
+    familyHighlights: ["Cyklovýlety pri svedeckých vrchoch", "Jesenné dni pri Balatone", "Rodinné výlety"],
+    pairAlt: "Poháre vína pred vinicami a svedeckými vrchmi v Balatonskej vrchovine.",
+    familyAlt: "Jesenná panoráma Balatonskej vrchoviny s vinicami a svedeckými vrchmi.",
+    cta: "Zistiť viac"
+  }
+} as const;
+
+const copy = copyByLang[lang];
+
 function getOfferLabel(offer: AutumnCampaignOffer) {
-  return offer.audience === "pair" ? "Páros pihenés" : "Családi kalandok";
+  return offer.audience === "pair" ? copy.pairLabel : copy.familyLabel;
 }
 
 function getHomepageCardTitle(offer: AutumnCampaignOffer) {
-  return offer.audience === "pair" ? "Páros pihenés" : "Családi kalandok";
+  return getOfferLabel(offer);
 }
 
 function getCardHighlights(offer: AutumnCampaignOffer) {
-  return offer.audience === "pair"
-    ? ["Tapolcai-tavasbarlang", "Balatoni panoráma a Csobáncról", "Közeli borászatok"]
-    : ["Biciklitúrák a tanúhegyek mellett", "Őszi Balaton", "Családi kirándulások"];
+  return offer.audience === "pair" ? copy.pairHighlights : copy.familyHighlights;
 }
 
 function getCampaignImage(offer: AutumnCampaignOffer) {
   if (offer.audience === "pair") {
-    return {
-      desktop: pairCampaignImage,
-      mobile: pairCampaignImage,
-      alt: "Borospoharak a Balaton-felvidéki szőlősorok és tanúhegyek előtt."
-    };
+      return {
+        desktop: pairCampaignImage,
+        mobile: pairCampaignImage,
+        alt: copy.pairAlt
+      };
   }
 
   return {
     desktop: familyCampaignImageDesktop,
     mobile: familyCampaignImageMobile,
-    alt: "Balaton-felvidéki őszi panoráma szőlősorokkal és tanúhegyekkel."
+    alt: copy.familyAlt
   };
 }
 ---
 
-<section class="autumn-home-campaigns" aria-label="Őszi ajánlatok">
+<section class="autumn-home-campaigns" aria-label={copy.ariaLabel}>
   <div class="dnd-container">
     <div class="autumn-home-campaigns__desktop">
       <div class="autumn-home-campaigns__intro">
-        <span class="autumn-home-campaigns__kicker">Őszi ajánlatok</span>
-        <h2 class="autumn-home-campaigns__title">Őszi kikapcsolódás kettesben vagy családdal</h2>
+        <span class="autumn-home-campaigns__kicker">{copy.kicker}</span>
+        <h2 class="autumn-home-campaigns__title">{copy.title}</h2>
       </div>
 
       <div class="autumn-home-campaigns__cards">
@@ -92,7 +161,7 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
                   data-dnd-campaign={offer.tracking.campaign}
                   data-dnd-placement="homepage-campaign-card"
                   data-dnd-cta-type="learn-more"
-                >Bővebben</a>
+                >{copy.cta}</a>
               </div>
             </article>
           );

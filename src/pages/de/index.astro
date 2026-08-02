@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import AutumnCampaignOffers from "../../sections/AutumnCampaignOffers.astro";
 import HomeReviews from "../../sections/HomeReviews.astro";
 import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
@@ -17,6 +18,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
 import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
+import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
@@ -118,6 +120,8 @@ const germanExperiences = [
   canonicalPath="/de/"
   lang="de"
   ogLocale="de_DE"
+  ogImage={homeRegionOgImage.src}
+  ogImageAlt="Sonnenaufgang über Szent György-hegy und dem Tapolca-Becken"
   structuredData={homepageStructuredData}
 >
   <Hero
@@ -134,8 +138,24 @@ const germanExperiences = [
     posterMobileSrc={homepageHeroMobilePoster}
     posterAlt={homepageHeroPosterAlt}
     videoFallbackText="Ihr Browser unterstützt keine Hintergrundvideos."
+    bookingBenefits={[
+      "Die besten Preise erhalten Sie bei einer Buchung über unsere Website",
+      "Sofortige Kartenzahlung",
+      "Schneller, transparenter Buchungsablauf",
+      "Direkter Kontakt mit dem Gastgeber",
+      "Flexible Abwicklung"
+    ]}
+    bookingBenefitsCopy={{
+      ariaLabel: "Vorteile der Direktbuchung",
+      kicker: "Direktbuchung",
+      title: "Direkt buchen lohnt sich",
+      lead: "Die Vorteile einer Direktbuchung:",
+      summary: "Beste Preise und sofortige Kartenzahlung über unsere Website.",
+      badge: "Direkt buchen lohnt sich!"
+    }}
   />
 
+  <AutumnCampaignOffers lang="de" />
   <PanoramaPoolHighlight lang="de" />
   <HomeReviews lang="de" />
 

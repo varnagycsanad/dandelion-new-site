@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../sections/Hero.astro";
 import PanoramaPoolHighlight from "../../sections/PanoramaPoolHighlight.astro";
+import AutumnCampaignOffers from "../../sections/AutumnCampaignOffers.astro";
 import HomeReviews from "../../sections/HomeReviews.astro";
 import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
@@ -17,6 +18,7 @@ import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
 import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
 import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
+import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
 import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
@@ -118,6 +120,8 @@ const czechExperiences = [
   canonicalPath="/cs/"
   lang="cs"
   ogLocale="cs_CZ"
+  ogImage={homeRegionOgImage.src}
+  ogImageAlt="Východ slunce nad Szent György-hegy a Tapolcai pánví"
   structuredData={homepageStructuredData}
 >
   <Hero
@@ -134,8 +138,24 @@ const czechExperiences = [
     posterMobileSrc={homepageHeroMobilePoster}
     posterAlt={homepageHeroPosterAlt}
     videoFallbackText="Váš prohlížeč nepodporuje přehrávání videa na pozadí."
+    bookingBenefits={[
+      "Nejlepší ceny získáte rezervací přímo na našem webu",
+      "Okamžitá platba kartou",
+      "Rychlý a přehledný rezervační proces",
+      "Přímý kontakt s hostitelem",
+      "Flexibilní vyřízení"
+    ]}
+    bookingBenefitsCopy={{
+      ariaLabel: "Výhody přímé rezervace",
+      kicker: "Přímá rezervace",
+      title: "Přímá rezervace se vyplatí",
+      lead: "Výhody přímé rezervace:",
+      summary: "Nejlepší ceny a okamžitá platba kartou na našem webu.",
+      badge: "Přímá rezervace se vyplatí!"
+    }}
   />
 
+  <AutumnCampaignOffers lang="cs" />
   <PanoramaPoolHighlight lang="cs" />
   <HomeReviews lang="cs" />
 
