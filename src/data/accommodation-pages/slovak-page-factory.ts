@@ -3,7 +3,7 @@ import type { AccommodationPageData, AccommodationPageGeoDecision } from "./type
 
 const englishSharedBookingLink = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 const resolveSlovakBookingLink = (baseData: AccommodationPageData) =>
-  baseData.bookingLink.includes("ibe.sabeeapp.com") ? englishSharedBookingLink : englishSharedBookingLink;
+  baseData.bookingLink.includes("ibe.sabeeapp.com") ? baseData.bookingLink : englishSharedBookingLink;
 
 type SlovakAccommodationProfile = {
   title: string;
