@@ -230,14 +230,11 @@ const structuredData = [
           <p class="autumn-v2__eyebrow">{offer.campaignHero.kicker}</p>
           <h1>
             {offer.campaignHero.titleLines.map((line) => <span>{line}</span>)}
+            {offer.campaignHero.supportLine && <span class="autumn-v2__hero-support">{offer.campaignHero.supportLine}</span>}
           </h1>
-          {offer.campaignHero.supportLine && <p class="autumn-v2__hero-support">{offer.campaignHero.supportLine}</p>}
           <div class="autumn-v2__hero-lead">
             {offer.campaignHero.descriptionLines.map((line) => <p>{line}</p>)}
           </div>
-          <a href={localizedBookingHref} class="autumn-v2__button autumn-v2__button--hero autumn-v2__hero-mobile-cta" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...bookingTrackingAttrs}>
-            {offer.ctas.primary}<span aria-hidden="true">→</span>
-          </a>
           <div class="autumn-v2__hero-mobile-proof" aria-label={pageUi.heroValueAria}>
             <span aria-hidden="true">◌</span>
             <span>{offer.campaignHero.ctaNote}</span>
@@ -548,7 +545,6 @@ const structuredData = [
     max-width: 620px;
   }
 
-  .autumn-v2__button.autumn-v2__hero-mobile-cta,
   .autumn-v2__hero-mobile-proof,
   .autumn-v2__booking-badge {
     display: none;
@@ -1221,17 +1217,23 @@ const structuredData = [
     }
 
     .autumn-v2 h1 {
-      font-size: 3rem;
-      line-height: 0.98;
+      font-size: clamp(2.55rem, 10.5vw, 2.9rem);
+      line-height: 0.95;
+    }
+
+    .autumn-v2__hero-support {
+      margin: 0;
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .autumn-v2__hero-lead {
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
     .autumn-v2__hero-value-strip {
       display: none;
-    }
-
-    .autumn-v2__button.autumn-v2__hero-mobile-cta {
-      display: inline-flex;
-      width: 100%;
     }
 
     .autumn-v2__hero-mobile-proof {
@@ -1240,7 +1242,7 @@ const structuredData = [
       gap: 10px;
       margin: 54px 0 0;
       color: rgba(255, 250, 240, 0.92);
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       line-height: 1.4;
     }
 
@@ -1313,11 +1315,7 @@ const structuredData = [
     }
 
     .autumn-v2__hero-lead {
-      font-size: 0.94rem;
-    }
-
-    .autumn-v2__button--hero {
-      width: 100%;
+      font-size: 1rem;
     }
 
     .autumn-v2__hero-value-strip {
