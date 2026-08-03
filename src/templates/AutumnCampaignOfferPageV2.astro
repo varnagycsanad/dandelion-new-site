@@ -15,31 +15,31 @@ const pageUiByLang = {
     benefitsAria: "Közvetlen foglalás előnyei", benefitsKicker: "Közvetlen foglalás", benefitsTitle: "Közvetlenül éri meg", benefitsLead: "A közvetlen foglalás előnyei:", benefitsSummary: "8% ár-előny a portálokhoz képest és azonnali bankkártyás fizetés a honlapon.",
     heroBenefits: ["8% ár-előny a portálokhoz képest", "Azonnali bankkártyás fizetés", "Gyors, átlátható foglalási folyamat", "Közvetlen kapcsolat a szállásadóval"],
     heroValueAria: "8% ár-előny a portálokhoz képest", heroPortalAdvantage: "ár-előny a portálokhoz képest",
-    featuresAria: "Szolgáltatások és élmények", storiesAria: "Élmények", featuredAria: "Kiemelt élmény", contactLabel: "ÍRÁSBAN ÉRDEKLŐDÖM", whatsappLabel: "WHATSAPP", homeLabel: "Főoldal"
+    bookingBadge: "Megéri nálunk foglalni!", featuresAria: "Szolgáltatások és élmények", storiesAria: "Élmények", featuredAria: "Kiemelt élmény", contactLabel: "ÍRÁSBAN ÉRDEKLŐDÖM", whatsappLabel: "WHATSAPP", homeLabel: "Főoldal"
   },
   en: {
     benefitsAria: "Direct booking benefits", benefitsKicker: "Direct booking", benefitsTitle: "Book direct, get more", benefitsLead: "Benefits of booking direct:", benefitsSummary: "8% price advantage compared with booking portals and instant card payment on our website.",
     heroBenefits: ["8% price advantage compared with booking portals", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host"],
     heroValueAria: "8% price advantage compared with booking portals", heroPortalAdvantage: "price advantage compared with booking portals",
-    featuresAria: "Services and experiences", storiesAria: "Experiences", featuredAria: "Featured experience", contactLabel: "ENQUIRE IN WRITING", whatsappLabel: "WHATSAPP", homeLabel: "Home"
+    bookingBadge: "Book direct and save!", featuresAria: "Services and experiences", storiesAria: "Experiences", featuredAria: "Featured experience", contactLabel: "ENQUIRE IN WRITING", whatsappLabel: "WHATSAPP", homeLabel: "Home"
   },
   de: {
     benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "Direktbuchung", benefitsTitle: "Direkt buchen, mehr bekommen", benefitsLead: "Vorteile der Direktbuchung:", benefitsSummary: "8 % Preisvorteil gegenüber Buchungsportalen und sofortige Kartenzahlung über unsere Website.",
     heroBenefits: ["8 % Preisvorteil gegenüber Buchungsportalen", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt mit dem Gastgeber"],
     heroValueAria: "8 % Preisvorteil gegenüber Buchungsportalen", heroPortalAdvantage: "Preisvorteil gegenüber Buchungsportalen",
-    featuresAria: "Services und Erlebnisse", storiesAria: "Erlebnisse", featuredAria: "Hervorgehobenes Erlebnis", contactLabel: "SCHRIFTLICH ANFRAGEN", whatsappLabel: "WHATSAPP", homeLabel: "Startseite"
+    bookingBadge: "Direkt buchen und sparen!", featuresAria: "Services und Erlebnisse", storiesAria: "Erlebnisse", featuredAria: "Hervorgehobenes Erlebnis", contactLabel: "SCHRIFTLICH ANFRAGEN", whatsappLabel: "WHATSAPP", homeLabel: "Startseite"
   },
   cs: {
     benefitsAria: "Výhody přímé rezervace", benefitsKicker: "Přímá rezervace", benefitsTitle: "Rezervujte přímo, získejte více", benefitsLead: "Výhody přímé rezervace:", benefitsSummary: "8% cenová výhoda oproti rezervačním portálům a okamžitá platba kartou na našem webu.",
     heroBenefits: ["8% cenová výhoda oproti rezervačním portálům", "Okamžitá platba kartou", "Rychlý a přehledný rezervační proces", "Přímý kontakt s hostitelem"],
     heroValueAria: "8% cenová výhoda oproti rezervačním portálům", heroPortalAdvantage: "cenová výhoda oproti rezervačním portálům",
-    featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Doporučený zážitek", contactLabel: "NAPSAT DOTAZ", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
+    bookingBadge: "Rezervujte přímo a ušetřete!", featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Doporučený zážitek", contactLabel: "NAPSAT DOTAZ", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
   },
   sk: {
     benefitsAria: "Výhody priamej rezervácie", benefitsKicker: "Priama rezervácia", benefitsTitle: "Rezervujte priamo, získajte viac", benefitsLead: "Výhody priamej rezervácie:", benefitsSummary: "8 % cenová výhoda oproti rezervačným portálom a okamžitá platba kartou na našom webe.",
     heroBenefits: ["8 % cenová výhoda oproti rezervačným portálom", "Okamžitá platba kartou", "Rýchly a prehľadný rezervačný proces", "Priamy kontakt s hostiteľom"],
     heroValueAria: "8 % cenová výhoda oproti rezervačným portálom", heroPortalAdvantage: "cenová výhoda oproti rezervačným portálom",
-    featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Odporúčaný zážitok", contactLabel: "NAPÍSAŤ DOPYT", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
+    bookingBadge: "Rezervujte priamo a ušetrite!", featuresAria: "Služby a zážitky", storiesAria: "Zážitky", featuredAria: "Odporúčaný zážitok", contactLabel: "NAPÍSAŤ DOPYT", whatsappLabel: "WHATSAPP", homeLabel: "Úvod"
   }
 } as const;
 const pageUi = pageUiByLang[lang];
@@ -235,6 +235,13 @@ const structuredData = [
           <div class="autumn-v2__hero-lead">
             {offer.campaignHero.descriptionLines.map((line) => <p>{line}</p>)}
           </div>
+          <a href={localizedBookingHref} class="autumn-v2__button autumn-v2__button--hero autumn-v2__hero-mobile-cta" target="_blank" rel="noopener noreferrer" data-dnd-placement="hero" {...bookingTrackingAttrs}>
+            {offer.ctas.primary}<span aria-hidden="true">→</span>
+          </a>
+          <div class="autumn-v2__hero-mobile-proof" aria-label={pageUi.heroValueAria}>
+            <span aria-hidden="true">◌</span>
+            <span>{offer.campaignHero.ctaNote}</span>
+          </div>
           <div class="autumn-v2__hero-value-strip" aria-label={pageUi.heroValueAria}>
             <div class="autumn-v2__hero-value autumn-v2__hero-value--accent">
               <strong>8%</strong>
@@ -252,6 +259,7 @@ const structuredData = [
           </ul>
         </aside>
       </div>
+      <span class="autumn-v2__booking-badge autumn-v2__booking-badge--mobile-only">{pageUi.bookingBadge}</span>
     </section>
 
     <section class="autumn-v2__features" aria-label={pageUi.featuresAria}>
@@ -372,6 +380,115 @@ const structuredData = [
   </main>
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const setup = () => {
+      const mobileQuery = window.matchMedia("(max-width: 800px)");
+      const badge = document.querySelector(".autumn-v2__booking-badge--mobile-only");
+
+      if (!mobileQuery.matches || !(badge instanceof HTMLElement)) {
+        return;
+      }
+
+      const storageKey = "dnd-autumn-booking-badge-position-v1";
+      const viewportPadding = 12;
+      let dragState = null;
+
+      const clampPosition = (left, top) => ({
+        left: Math.min(Math.max(left, viewportPadding), Math.max(viewportPadding, window.innerWidth - badge.offsetWidth - viewportPadding)),
+        top: Math.min(Math.max(top, viewportPadding), Math.max(viewportPadding, window.innerHeight - badge.offsetHeight - viewportPadding))
+      });
+
+      const applyPosition = (left, top) => {
+        const position = clampPosition(left, top);
+        badge.style.left = `${position.left}px`;
+        badge.style.top = `${position.top}px`;
+        badge.style.right = "auto";
+        badge.style.bottom = "auto";
+      };
+
+      const savePosition = () => {
+        try {
+          const rect = badge.getBoundingClientRect();
+          localStorage.setItem(storageKey, JSON.stringify({ left: rect.left, top: rect.top }));
+        } catch {
+          // The badge remains draggable if storage is unavailable.
+        }
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+
+        if (saved && Number.isFinite(saved.left) && Number.isFinite(saved.top)) {
+          applyPosition(saved.left, saved.top);
+        }
+      } catch {
+        // Use the default right-bottom position when storage is unavailable or invalid.
+      }
+
+      const finishDrag = (event) => {
+        if (!dragState || event.pointerId !== dragState.pointerId) {
+          return;
+        }
+
+        if (badge.hasPointerCapture?.(event.pointerId)) {
+          badge.releasePointerCapture(event.pointerId);
+        }
+
+        if (dragState.moved) {
+          savePosition();
+        }
+
+        dragState = null;
+        badge.classList.remove("is-dragging");
+      };
+
+      badge.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "mouse" && event.button !== 0) {
+          return;
+        }
+
+        const rect = badge.getBoundingClientRect();
+        dragState = {
+          pointerId: event.pointerId,
+          offsetX: event.clientX - rect.left,
+          offsetY: event.clientY - rect.top,
+          moved: false
+        };
+        badge.setPointerCapture?.(event.pointerId);
+        badge.classList.add("is-dragging");
+        event.preventDefault();
+      });
+
+      badge.addEventListener("pointermove", (event) => {
+        if (!dragState || event.pointerId !== dragState.pointerId) {
+          return;
+        }
+
+        applyPosition(event.clientX - dragState.offsetX, event.clientY - dragState.offsetY);
+        dragState.moved = true;
+        event.preventDefault();
+      });
+
+      badge.addEventListener("pointerup", finishDrag);
+      badge.addEventListener("pointercancel", finishDrag);
+
+      window.addEventListener("resize", () => {
+        if (badge.style.left && badge.style.top) {
+          applyPosition(Number.parseFloat(badge.style.left), Number.parseFloat(badge.style.top));
+          savePosition();
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setup, { once: true });
+    } else {
+      setup();
+    }
+  })();
+</script>
+
 <style>
   .autumn-v2 {
     --v2-body: "Poppins", sans-serif;
@@ -429,6 +546,46 @@ const structuredData = [
 
   .autumn-v2__hero-copy {
     max-width: 620px;
+  }
+
+  .autumn-v2__button.autumn-v2__hero-mobile-cta,
+  .autumn-v2__hero-mobile-proof,
+  .autumn-v2__booking-badge {
+    display: none;
+  }
+
+  .autumn-v2__booking-badge {
+    position: fixed;
+    right: 16px;
+    bottom: 142px;
+    z-index: 45;
+    place-items: center;
+    width: 96px;
+    aspect-ratio: 1;
+    padding: 14px;
+    border: 1px solid rgba(244, 218, 157, 0.92);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 28%, rgba(255, 242, 192, 0.22), transparent 34%),
+      linear-gradient(145deg, #d3a84d 0%, #ae7d2d 52%, #8d611f 100%);
+    color: #fff8e9;
+    font-family: var(--v2-display);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.16;
+    letter-spacing: 0.015em;
+    text-align: center;
+    text-wrap: balance;
+    box-shadow: 0 14px 32px rgba(16, 13, 8, 0.3), inset 0 0 0 1px rgba(72, 46, 11, 0.3);
+  }
+
+  .autumn-v2__booking-badge::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(255, 242, 192, 0.62);
+    border-radius: 50%;
+    pointer-events: none;
   }
 
   .autumn-v2__hero-benefits {
@@ -1026,20 +1183,17 @@ const structuredData = [
 
     .autumn-v2__hero,
     .autumn-v2__hero-content {
-      min-height: min(720px, 88svh);
+      min-height: 680px;
     }
 
     .autumn-v2__hero-content {
-      align-items: flex-end;
-      padding-top: 100px;
-      padding-bottom: 204px;
+      display: block;
+      padding-top: 150px;
+      padding-bottom: 28px;
     }
 
     .autumn-v2__hero-benefits {
-      right: 0;
-      bottom: 14px;
-      width: min(320px, 100%);
-      padding: 16px 18px;
+      display: none;
     }
 
     .autumn-v2__hero-benefits-kicker {
@@ -1067,7 +1221,43 @@ const structuredData = [
     }
 
     .autumn-v2 h1 {
-      font-size: clamp(3rem, 12vw, 4.4rem);
+      font-size: 3rem;
+      line-height: 0.98;
+    }
+
+    .autumn-v2__hero-value-strip {
+      display: none;
+    }
+
+    .autumn-v2__button.autumn-v2__hero-mobile-cta {
+      display: inline-flex;
+      width: 100%;
+    }
+
+    .autumn-v2__hero-mobile-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 54px 0 0;
+      color: rgba(255, 250, 240, 0.92);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .autumn-v2__hero-mobile-proof span:first-child {
+      flex: 0 0 auto;
+      font-size: 1.6rem;
+    }
+
+    .autumn-v2__booking-badge--mobile-only {
+      display: grid;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .autumn-v2__booking-badge--mobile-only.is-dragging {
+      cursor: grabbing;
     }
 
     .autumn-v2__feature-inner {
@@ -1111,7 +1301,7 @@ const structuredData = [
 
   @media (max-width: 560px) {
     .autumn-v2 :global(.dnd-container) {
-      width: min(100% - 24px, var(--v2-shell));
+      width: min(100% - 36px, var(--v2-shell));
     }
 
     .autumn-v2__hero-shade {
@@ -1212,6 +1402,21 @@ const structuredData = [
 
     .autumn-v2__amenities li {
       font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .autumn-v2__hero,
+    .autumn-v2__hero-content {
+      min-height: 640px;
+    }
+
+    .autumn-v2 h1 {
+      font-size: 2.55rem;
+    }
+
+    .autumn-v2__hero-mobile-proof {
+      margin-top: 42px;
     }
   }
 
