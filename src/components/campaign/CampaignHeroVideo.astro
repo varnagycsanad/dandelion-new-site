@@ -10,15 +10,14 @@ interface Props {
 const { media, class: className, fill = false } = Astro.props as Props;
 ---
 
-<div class:list={["campaign-hero-video", fill && "campaign-hero-video--fill", className]}>
+<div class:list={["campaign-hero-video", fill && "campaign-hero-video--fill", className]} data-smooth-hero-loop>
   <video
-    class="campaign-hero-video__element"
+    class="campaign-hero-video__element campaign-hero-video__element--active"
     poster={media.poster.src}
     autoplay
     muted
-    loop
     playsinline
-    preload="metadata"
+    preload="auto"
     aria-hidden="true"
   >
     {media.mobile && <source media="(max-width: 767px)" src={media.mobile.src} type={media.mobile.type} />}
@@ -27,6 +26,17 @@ const { media, class: className, fill = false } = Astro.props as Props;
       {media.posterMobile && <source media="(max-width: 767px)" srcset={media.posterMobile.src} />}
       <img src={media.poster.src} alt="" width={media.poster.width} height={media.poster.height} />
     </picture>
+  </video>
+  <video
+    class="campaign-hero-video__element"
+    poster={media.poster.src}
+    muted
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  >
+    {media.mobile && <source media="(max-width: 767px)" src={media.mobile.src} type={media.mobile.type} />}
+    <source src={media.desktop.src} type={media.desktop.type} />
   </video>
 </div>
 
@@ -42,9 +52,76 @@ const { media, class: className, fill = false } = Astro.props as Props;
   }
 
   .campaign-hero-video__element {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 720ms ease;
+  }
+
+  .campaign-hero-video__element--active {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .campaign-hero-video__element--fading {
+    z-index: 2;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campaign-hero-video__element {
+      transition-duration: 360ms;
+    }
   }
 </style>
+
+<script>
+  const initSmoothHeroLoops = () => {
+    document.querySelectorAll("[data-smooth-hero-loop]").forEach((container) => {
+      if (container.dataset.smoothHeroLoopReady === "true") return;
+      container.dataset.smoothHeroLoopReady = "true";
+
+      const videos = Array.from(container.querySelectorAll(".campaign-hero-video__element"));
+      if (videos.length < 2) return;
+
+      const fadeDuration = 720;
+      let activeIndex = 0;
+      let transitioning = false;
+
+      const crossfadeToNext = () => {
+        if (transitioning) return;
+
+        const active = videos[activeIndex];
+        const next = videos[1 - activeIndex];
+        if (!Number.isFinite(active.duration) || active.duration <= fadeDuration / 1000) return;
+        if (active.currentTime < active.duration - fadeDuration / 1000) return;
+
+        transitioning = true;
+        next.currentTime = 0;
+        next.classList.add("campaign-hero-video__element--active");
+        active.classList.add("campaign-hero-video__element--fading");
+        next.play().catch(() => {});
+
+        window.setTimeout(() => {
+          active.pause();
+          active.currentTime = 0;
+          active.classList.remove("campaign-hero-video__element--active", "campaign-hero-video__element--fading");
+          activeIndex = 1 - activeIndex;
+          transitioning = false;
+        }, fadeDuration);
+      };
+
+      videos.forEach((video) => video.addEventListener("timeupdate", crossfadeToNext));
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSmoothHeroLoops, { once: true });
+  } else {
+    initSmoothHeroLoops();
+  }
+</script>
