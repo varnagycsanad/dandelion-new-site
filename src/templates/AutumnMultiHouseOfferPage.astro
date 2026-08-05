@@ -1,0 +1,429 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CampaignMedia from "../components/campaign/CampaignMedia.astro";
+import CampaignHeroVideo from "../components/campaign/CampaignHeroVideo.astro";
+import type { AutumnCampaignOffer } from "../data/offers/types";
+import { toAbsoluteUrl } from "../data/site-seo";
+import { autumnMultiHouseByAudience } from "../data/offers/autumn-multihouse";
+
+const { offer } = Astro.props as { offer: AutumnCampaignOffer };
+const audience = offer.tracking.audience === "family" ? "family" : "couple";
+const houses = autumnMultiHouseByAudience[audience];
+const moodImages = offer.storyTiles.slice(0, 3).map((tile) => tile.media.desktop.src);
+const heroImage = offer.campaignHero.media.desktop;
+const bookingHref = offer.bookingUrl;
+const pageTitle = audience === "family"
+  ? "Őszi családi pihenés a Balaton-felvidéken | Dandelion Vendégházak"
+  : "Őszi kettesben a Balaton-felvidéken | Dandelion Vendégházak";
+const pageDescription = audience === "family"
+  ? "Őszi Dandelion-élmény családoknak: közös terek, kert, grillezés és kilenc különböző ház a megfelelő pihenés kiválasztásához."
+  : "Őszi Dandelion-élmény pároknak: panoráma, kandalló, borvidéki lassulás és kilenc különböző ház a hozzátok illő pihenés kiválasztásához.";
+const heroLead = audience === "family"
+  ? ["Minőségi idő. Közös élmények.", "Válasszátok ki a családotokhoz illő Dandelion-házat."]
+  : ["Lassítsatok le. Kapcsoljatok ki.", "Válasszátok ki a hozzátok illő Dandelion-házat."];
+const moodCards = audience === "family"
+  ? [
+      { label: "KÖZÖS RITMUS", title: ["Közös terek,", "közös ritmus."], copy: "Együtt lehet lenni úgy, hogy mindenkinek jut saját helye.", image: moodImages[0] },
+      { label: "ESŐS NAPOK", title: ["A rossz idő", "nem programvége."], copy: "Kandalló, beltéri terek és közös vacsorák.", image: moodImages[1] },
+      { label: "KINT", title: ["Kert, grillezés,", "tűzrakás."], copy: "A gyerekeknek mozgás, a felnőtteknek nyugodt este.", image: moodImages[2] }
+    ]
+  : [
+      { label: "PANORÁMA", title: ["Reggel másképp", "indul a nap."], copy: "Panoráma, terasz, csend.", image: moodImages[0] },
+      { label: "MEGHITTSÉG", title: ["Hideg kint.", "Meleg bent."], copy: "Kandalló, saját tér, meghitt esték.", image: moodImages[1] },
+      { label: "BORVIDÉK", title: ["Egy pohár bor.", "Egy hosszú este."], copy: "Borászatok, lassú délutánok, közös beszélgetések.", image: moodImages[2] }
+    ];
+const selectionBullets = audience === "family"
+  ? [
+      "Nagyobb közös térhez elsőként a Dandelion D2 és a Dandelion Szépvölgyi kártyáit érdemes megnézni.",
+      "A közös beltéri programok ugyanúgy működhetnek, mint a kerti napok — a rossz idő sem állítja meg a pihenést.",
+      "A Köveskál, a Vintage vagy a Szőlőliget jó kiindulópont lehet kirándulásokhoz és csendes családi pihenéshez."
+    ]
+  : [
+      "Borozás: fedezzétek fel a környék helyi borászatait, és kóstoljatok együtt a Balaton-felvidék hangulatában.",
+      "Biciklizés: nálunk biciklit is bérelhettek, és indulhat a kaland a balatoni bicikliúton.",
+      "Kirándulás és aktív időtöltés a Balaton-felvidék tájain.",
+      "Romantikus séta a Tapolcai Malom-tónál.",
+      "Badacsonyi őszi hangulat, panoráma és bor a hegyoldaláról.",
+      "Lazulás a szeptember végéig nyitva tartó medencében.",
+      "Pezsgő- és virágbekészítés kérésre.",
+      "A Szent György-hegy bazaltorgonái.",
+      "Különleges vacsora a Taberna Infinitó balatoni panorámaéttermében, a Szent György-hegyen.",
+      "Csodálatos kilátás a Szent György-hegyről a Balatonra, a Szigligeti-hegyekre és Badacsonyra.",
+      "A Folly Arborétum és a keszthelyi Festetics-kastély felfedezése."
+    ];
+const bookingTrackingAttrs = {
+  "data-dnd-property": offer.tracking.property,
+  "data-dnd-campaign": offer.tracking.campaign,
+  "data-dnd-offer": offer.tracking.offerId
+};
+const contactTrackingAttrs = {
+  "data-dnd-placement": "direct-booking",
+  "data-dnd-cta-type": "contact",
+  ...bookingTrackingAttrs
+};
+const whatsappTrackingAttrs = {
+  "data-dnd-placement": "direct-booking",
+  "data-dnd-cta-type": "whatsapp",
+  ...bookingTrackingAttrs
+};
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Főoldal", item: toAbsoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: pageTitle, item: toAbsoluteUrl(offer.routePath) }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${toAbsoluteUrl(offer.routePath)}#webpage`,
+    url: toAbsoluteUrl(offer.routePath),
+    name: pageTitle,
+    description: pageDescription,
+    inLanguage: "hu-HU",
+    isPartOf: { "@id": `${toAbsoluteUrl("/")}#website` }
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={offer.routePath}
+  ogImage={heroImage.src}
+  ogImageAlt={heroImage.alt.hu}
+  noindex={true}
+  structuredData={structuredData}
+  headerMode="transparent"
+  bookingHrefOverride={bookingHref}
+  lang="hu"
+>
+  <Fragment slot="head">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
+  </Fragment>
+
+  <main class="autumn-multi" data-autumn-audience={audience}>
+    <section class="autumn-multi__hero">
+      {offer.campaignHero.video ? (
+        <CampaignHeroVideo media={offer.campaignHero.video} class="autumn-multi__hero-media" fill={true} />
+      ) : (
+        <CampaignMedia media={offer.campaignHero.media} class="autumn-multi__hero-media" fill={true} loading="eager" fetchpriority="high" />
+      )}
+      <div class="autumn-multi__hero-shade" aria-hidden="true"></div>
+      <div class="autumn-multi__hero-content dnd-container">
+        <div class="autumn-multi__hero-copy">
+          <p class="autumn-multi__eyebrow">{offer.campaignHero.kicker}</p>
+          <h1>
+            {offer.campaignHero.titleLines.map((line) => <span>{line}</span>)}
+            {offer.campaignHero.supportLine && <span class="autumn-multi__hero-support">{offer.campaignHero.supportLine}</span>}
+          </h1>
+          <div class="autumn-multi__hero-lead">
+            {heroLead.map((line) => <p>{line}</p>)}
+          </div>
+          <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label="Mutasd meg, mit jelent a 8% ár-előny">
+            <strong>8%</strong>
+            <span>ár-előny · részletek</span>
+          </div>
+        </div>
+        <aside class="autumn-multi__hero-benefits" aria-label="Közvetlen foglalás előnyei">
+          <span class="autumn-multi__benefits-kicker">KÖZVETLEN FOGLALÁS</span>
+          <h2>Közvetlenül éri meg</h2>
+          <p>A közvetlen foglalás előnyei:</p>
+          <ul>
+            <li>8% ár-előny a portálokhoz képest</li>
+            <li>Azonnali bankkártyás fizetés</li>
+            <li>Gyors, átlátható foglalási folyamat</li>
+            <li>Közvetlen kapcsolat a szállásadóval</li>
+          </ul>
+        </aside>
+        <a class="autumn-multi__hero-booking-badge" href={bookingHref} target="_blank" rel="noopener noreferrer" data-dnd-placement="hero-booking-badge" {...bookingTrackingAttrs}>Megéri itt foglalni!</a>
+      </div>
+    </section>
+
+    <dialog class="autumn-multi__price-dialog" id="autumn-price-dialog" aria-labelledby="autumn-price-dialog-title">
+      <div class="autumn-multi__price-dialog-surface">
+        <div class="autumn-multi__price-dialog-head">
+          <p class="autumn-multi__price-dialog-kicker">KÖZVETLEN FOGLALÁS</p>
+          <button type="button" class="autumn-multi__price-dialog-close" data-close-price-dialog aria-label="Bezárás">×</button>
+        </div>
+        <h2 id="autumn-price-dialog-title">Miért éri meg közvetlenül foglalni?</h2>
+        <p class="autumn-multi__price-dialog-intro">Közvetlen foglaláskor 8% ár-előnyt kaptok a szállásközvetítő portálok áraihoz képest.</p>
+        <ul>
+          <li>8% ár-előny a portálokhoz képest</li>
+          <li>Közvetlen kapcsolat a szállásadóval</li>
+          <li>Gyors visszaigazolás</li>
+          <li>Rugalmas ügyintézés</li>
+        </ul>
+        <a class="autumn-multi__price-dialog-cta" href={bookingHref} target="_blank" rel="noopener noreferrer" data-dnd-placement="hero-price-dialog" {...bookingTrackingAttrs}>Árak és szabad időpontok <span aria-hidden="true">→</span></a>
+      </div>
+    </dialog>
+
+    <section class="autumn-multi__mood" id="autumn-mood" aria-labelledby="autumn-mood-title">
+      <div class="autumn-multi__shell">
+        <div class="autumn-multi__mood-layout">
+          <div class="autumn-multi__mood-copy">
+            <p class="autumn-multi__eyebrow autumn-multi__eyebrow--dark">MIÉRT DANDELION ŐSSZEL?</p>
+            <h2 id="autumn-mood-title">Az ősz itt másképp telik.</h2>
+            <p class="autumn-multi__mood-intro">{audience === "family" ? "Közös terek, kerti programok és olyan házak, ahol a rossz idő sem állítja meg a pihenést." : "Borozás, kirándulások, biciklizés, medencés lazulás és a Balaton-felvidék felfedezése — többféle ház, ugyanaz a Dandelion-élmény."}</p>
+            <div class="autumn-multi__selection-guide" aria-label="Választást segítő tippek">
+              <p class="autumn-multi__selection-kicker">{audience === "family" ? "CSALÁDI ŐSZI ÖTLETEK" : "PÁROS ŐSZI ÖTLETEK"}</p>
+              <ul class="autumn-multi__selection-list">
+                {selectionBullets.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div class="autumn-multi__mood-stack" aria-label="Őszi hangulatok">
+            {moodCards.map((card) => (
+              <article class="autumn-multi__mood-card" style={`--mood-image: url("${card.image}")`}>
+                <p>{card.label}</p>
+                <h3>{card.title.map((line) => <span>{line}</span>)}</h3>
+                <span>{card.copy}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="autumn-multi__picker" aria-labelledby="autumn-picker-title">
+      <div class="autumn-multi__shell">
+        <h2 id="autumn-picker-title">{audience === "family" ? "Melyik ház illik a családotokhoz?" : "Melyik ház illik hozzátok?"}</h2>
+        <p class="autumn-multi__picker-lead">Ezeket a házakat különböző őszi pihenésekhez ajánljuk, de természetesen azt válasszátok, amelyik igazán megtetszik nektek.</p>
+        <div class="autumn-multi__house-grid">
+          {houses.map((house) => (
+            <article class:list={[
+              "autumn-multi__house-card",
+              house.name === "Dandelion D2" && "autumn-multi__house-card--feature-large",
+              ["Dandelion D2", "Fügeház"].includes(house.name) && "autumn-multi__house-card--featured"
+            ]}>
+              <a href={house.href} class="autumn-multi__house-link">
+                <img src={house.image.src} alt={house.image.alt.hu} loading="lazy" width={house.image.width} height={house.image.height} />
+                <div class="autumn-multi__house-copy">
+                  <div class="autumn-multi__house-heading">
+                    <h3>{house.name === "Fügeház" ? "Dandelion Fügeház" : house.name}</h3>
+                    <p class="autumn-multi__house-label">Akkor válasszátok, ha…</p>
+                  </div>
+                  {house.name === "Dandelion D2" ? (
+                    <ul class="autumn-multi__house-feature-bullets">
+                      <li>Őszi estéken a kandalló mellett boroznátok.</li>
+                      <li>Kényelmes, felszerelt konyhában készítenétek vacsorát.</li>
+                      <li>Csendet szeretnétek.</li>
+                      <li>Fontos számotokra a gyors Wi-Fi.</li>
+                      <li>Szeptember végéig használható a medence.</li>
+                    </ul>
+                  ) : house.name === "Fügeház" ? (
+                    <ul class="autumn-multi__house-feature-bullets">
+                      <li>Szeretnétek a Tanúhegyeket nézve kávézni, és a napfelkeltében gyönyörködni.</li>
+                      <li>Fontos számotokra a gyors Wi-Fi.</li>
+                      <li>A kert végéből túra indul a bazaltorgonákhoz.</li>
+                      <li>Saját, ingyenes parkoló áll rendelkezésre.</li>
+                      <li>A kandalló melege vár esténként.</li>
+                      <li>Szeptember végéig használható a medence.</li>
+                    </ul>
+                  ) : (
+                    <p>{house.recommendation}</p>
+                  )}
+                  <span>Megnézem a házat <span aria-hidden="true">→</span></span>
+                </div>
+              </a>
+              <details class="autumn-multi__house-details">
+                <summary>Miért ajánljuk? <span aria-hidden="true">+</span></summary>
+                <div class="autumn-multi__house-details-body">
+                  {house.name === "Dandelion D2" ? (
+                    <ul class="autumn-multi__house-feature-bullets">
+                      <li>Őszi estéken a kandalló mellett boroznátok.</li>
+                      <li>Kényelmes, felszerelt konyhában készítenétek vacsorát.</li>
+                      <li>Csendet szeretnétek.</li>
+                      <li>Fontos számotokra a gyors Wi-Fi.</li>
+                      <li>Szeptember végéig használható a medence.</li>
+                    </ul>
+                  ) : house.name === "Fügeház" ? (
+                    <ul class="autumn-multi__house-feature-bullets">
+                      <li>Szeretnétek a Tanúhegyeket nézve kávézni, és a napfelkeltében gyönyörködni.</li>
+                      <li>Fontos számotokra a gyors Wi-Fi.</li>
+                      <li>A kert végéből túra indul a bazaltorgonákhoz.</li>
+                      <li>Saját, ingyenes parkoló áll rendelkezésre.</li>
+                      <li>A kandalló melege vár esténként.</li>
+                      <li>Szeptember végéig használható a medence.</li>
+                    </ul>
+                  ) : (
+                    <p>{house.recommendation}</p>
+                  )}
+                  <a href={house.href} class="autumn-multi__house-details-link">Megnézem a házat <span aria-hidden="true">→</span></a>
+                </div>
+              </details>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="autumn-multi__booking" id="autumn-booking" aria-labelledby="autumn-booking-title">
+      <div class="autumn-multi__shell">
+        <div class="autumn-multi__booking-layout">
+          <div>
+            <p class="autumn-multi__eyebrow">{offer.directBooking.eyebrow}</p>
+            <h2 id="autumn-booking-title">{offer.directBooking.titleLines.map((line) => <span>{line}</span>)}</h2>
+            <p class="autumn-multi__booking-message">{offer.directBooking.primaryMessage}</p>
+            <div class="autumn-multi__booking-benefits">
+              <div class="autumn-multi__discount"><strong>8%</strong><span>ár-előny a portálokhoz képest</span></div>
+              <ul>
+                <li>Közvetlen kapcsolat a szállásadóval</li>
+                <li>Gyors visszaigazolás</li>
+                <li>Rugalmas ügyintézés</li>
+              </ul>
+            </div>
+          </div>
+          {offer.directBooking.media && <CampaignMedia media={offer.directBooking.media} class="autumn-multi__booking-media" />}
+        </div>
+        <div class="autumn-multi__booking-ctas">
+          <a href={bookingHref} class="autumn-multi__button autumn-multi__button--primary" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>Árak és szabad időpontok <span aria-hidden="true">→</span></a>
+          <a href="/kapcsolat/" class="autumn-multi__button" {...contactTrackingAttrs}>Írásban érdeklődöm</a>
+          <a href="https://wa.me/36207730807" class="autumn-multi__button" target="_blank" rel="noopener noreferrer" {...whatsappTrackingAttrs}>WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .autumn-multi { --multi-ink: #211b17; --multi-cream: #f7f1e7; --multi-paper: #fffdf8; --multi-gold: #c28b27; --multi-line: #d8cbb9; --multi-night: #3d332c; color: var(--multi-ink); background: var(--multi-cream); font-family: "Manrope", system-ui, sans-serif; }
+  .autumn-multi *, .autumn-multi *::before, .autumn-multi *::after { box-sizing: border-box; }
+  .autumn-multi__shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+  .autumn-multi__hero { position: relative; min-height: 720px; overflow: hidden; color: #fffaf0; background: #3a2e25; }
+  .autumn-multi__hero-media, .autumn-multi__hero-shade { position: absolute; inset: 0; }
+  .autumn-multi__hero-shade { background: linear-gradient(90deg, rgba(18, 16, 14, .72), rgba(18, 16, 14, .08) 72%), linear-gradient(180deg, rgba(18, 16, 14, .04) 38%, rgba(18, 16, 14, .76)); }
+  .autumn-multi__hero-content { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 54px; align-items: end; min-height: 720px; padding: 220px 24px 72px; }
+  .autumn-multi__hero-copy { max-width: 700px; }
+  .autumn-multi__eyebrow { margin: 0; color: #e6bd5e; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .autumn-multi__eyebrow--dark { color: #9c7124; }
+  .autumn-multi h1, .autumn-multi h2, .autumn-multi h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 400; }
+  .autumn-multi__hero h1 { max-width: 650px; margin: 18px 0 20px; font-size: clamp(58px, 7vw, 94px); line-height: .86; letter-spacing: -.045em; }
+  .autumn-multi__hero h1 span { display: block; }
+  .autumn-multi__hero h1 .autumn-multi__hero-support { margin-top: 14px; font-size: .54em; line-height: .96; letter-spacing: -.02em; }
+  .autumn-multi__hero-lead p { margin: 0; color: rgba(255, 250, 240, .9); font-size: 15px; line-height: 1.55; }
+  .autumn-multi__hero-value { display: flex; align-items: baseline; gap: 12px; width: fit-content; margin-top: 28px; padding: 13px 22px; border: 1px solid rgba(255, 244, 205, .72); border-radius: 10px; background: rgba(167, 111, 17, .86); }
+  .autumn-multi__hero-value strong { font: 500 39px/1 "Cormorant Garamond", Georgia, serif; }
+  .autumn-multi__hero-value span { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .autumn-multi__hero-benefits { padding: 29px 28px 24px; border: 1px solid rgba(255, 245, 207, .7); border-left: 4px solid #9c7124; border-radius: 18px; background: rgba(246, 217, 128, .96); color: #382b1e; box-shadow: 0 16px 34px rgba(32, 23, 17, .16); }
+  .autumn-multi__benefits-kicker { font-size: 10px; font-weight: 700; letter-spacing: .14em; }
+  .autumn-multi__hero-benefits h2 { margin: 16px 0 7px; font-size: 36px; line-height: .9; }
+  .autumn-multi__hero-benefits > p { margin: 0; font-size: 12px; }
+  .autumn-multi__hero-benefits ul { margin: 17px 0 0; padding: 0; list-style: none; border-top: 1px solid rgba(85, 55, 16, .24); }
+  .autumn-multi__hero-benefits li { padding: 10px 0; border-bottom: 1px solid rgba(85, 55, 16, .24); font-size: 11px; }
+  .autumn-multi__hero-benefits li::before { content: "✦"; margin-right: 9px; color: #7a5717; }
+  .autumn-multi__hero-booking-badge { display: none; }
+  .autumn-multi__mood { padding: 62px 0 58px; background: var(--multi-paper); }
+  .autumn-multi__mood-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 64px; align-items: start; }
+  .autumn-multi__mood-copy h2, .autumn-multi__picker h2, .autumn-multi__booking h2 { margin: 14px 0 0; line-height: .88; letter-spacing: -.035em; }
+  .autumn-multi__mood-copy h2 { font-size: clamp(64px, 7vw, 96px); }
+  .autumn-multi__picker h2, .autumn-multi__booking h2 { font-size: clamp(44px, 5vw, 68px); }
+  .autumn-multi__mood-intro { max-width: 430px; margin: 18px 0 0; color: #756b61; font-size: 13px; }
+  .autumn-multi__selection-guide { margin-top: 31px; border-top: 1px solid var(--multi-line); }
+  .autumn-multi__selection-kicker { margin: 0; padding-top: 14px; color: #9c7124; font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+  .autumn-multi__selection-list { display: grid; gap: 14px; margin: 17px 0 0; padding: 0 0 0 20px; color: #756b61; font-size: 13px; line-height: 1.5; }
+  .autumn-multi__selection-list li { padding-left: 4px; }
+  .autumn-multi__selection-list li::marker { color: #9c7124; font-size: 1.15em; }
+  .autumn-multi__mood-stack { position: sticky; top: 136px; align-self: start; display: grid; gap: 10px; }
+  .autumn-multi__mood-card { display: flex; min-height: 151px; flex-direction: column; justify-content: end; padding: 20px 22px; color: #fffaf0; background: linear-gradient(180deg, rgba(24, 20, 17, .02), rgba(24, 20, 17, .8)), var(--mood-image) center / cover, linear-gradient(135deg, #ae8456, #36463c); }
+  .autumn-multi__mood-card p { margin: 0 0 7px; color: #e5be61; font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+  .autumn-multi__mood-card h3 { display: flex; flex-wrap: wrap; gap: 0 8px; margin: 0; font-size: 31px; line-height: .88; }
+  .autumn-multi__mood-card h3 span { display: inline; }
+  .autumn-multi__mood-card > span { margin-top: 7px; color: rgba(255, 250, 240, .86); font-size: 11px; }
+  .autumn-multi__picker { padding: 68px 0 74px; background: #2c241e; color: #fff7e9; }
+  .autumn-multi__picker h2 { max-width: 700px; }
+  .autumn-multi__picker-lead { max-width: 620px; margin: 16px 0 0; color: #c8b9a7; font-size: 13px; }
+  .autumn-multi__house-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+  .autumn-multi__house-card { min-width: 0; overflow: hidden; border: 1px solid #5f4d40; background: #332922; transition: border-color .28s ease, box-shadow .28s ease, transform .28s ease; }
+  .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { border-color: #e1bb62; transform: translateY(-7px) scale(1.012); box-shadow: 0 18px 30px rgba(20, 13, 8, .28); }
+  .autumn-multi__house-card--featured { border-color: #d6a94c; background: #403126; box-shadow: inset 0 3px 0 #e1bb62; }
+  .autumn-multi__house-link { display: block; height: 100%; color: inherit; text-decoration: none; }
+  .autumn-multi__house-link img { display: block; width: 100%; height: 160px; object-fit: cover; transition: transform .55s cubic-bezier(.2, .75, .25, 1), filter .35s ease; }
+  .autumn-multi__house-card:hover .autumn-multi__house-link img, .autumn-multi__house-card:focus-within .autumn-multi__house-link img { transform: scale(1.08); filter: saturate(1.12) contrast(1.04); }
+  .autumn-multi__house-card--featured .autumn-multi__house-link img { height: 188px; }
+  .autumn-multi__house-copy { padding: 17px 18px 19px; }
+  .autumn-multi__house-card--featured .autumn-multi__house-copy { padding: 20px 20px 21px; }
+  .autumn-multi__house-copy h3 { margin: 0; font-size: 31px; line-height: .88; }
+  .autumn-multi__house-label { margin: 14px 0 3px; color: #e1bb62; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .autumn-multi__house-card--featured .autumn-multi__house-label { color: #f0c96c; }
+  .autumn-multi__house-copy > p:not(.autumn-multi__house-label) { min-height: 33px; margin: 0; color: #d8c8b6; font-size: 12px; }
+  .autumn-multi__house-copy > span { display: inline-block; margin-top: 17px; color: #fff7e9; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .autumn-multi__house-copy > span span { color: #e1bb62; }
+  .autumn-multi__house-details { display: none; }
+  .autumn-multi__booking { padding: 78px 0 72px; background: #f0e5d6; color: #2d241c; }
+  .autumn-multi__booking .autumn-multi__eyebrow { color: #9c7124; }
+  .autumn-multi__booking-layout { display: grid; grid-template-columns: 1fr .9fr; gap: 58px; align-items: center; }
+  .autumn-multi__booking h2 { max-width: 650px; }
+  .autumn-multi__booking h2 span { display: block; }
+  .autumn-multi__booking-message { max-width: 540px; margin: 20px 0 0; color: #5e5147; }
+  .autumn-multi__booking-benefits { display: flex; gap: 28px; margin-top: 29px; }
+  .autumn-multi__discount { width: 145px; flex: 0 0 145px; }
+  .autumn-multi__discount strong { display: block; color: #e4ae2d; font: 500 78px/.72 "Cormorant Garamond", Georgia, serif; }
+  .autumn-multi__discount span { display: block; margin-top: 13px; color: #5e5147; font-size: 11px; line-height: 1.2; }
+  .autumn-multi__booking-benefits ul { margin: 0; padding: 0; list-style: none; color: #4e443b; font-size: 12px; }
+  .autumn-multi__booking-benefits li { margin-bottom: 13px; }
+  .autumn-multi__booking-benefits li::before { content: "✓"; margin-right: 9px; color: #e4ae2d; }
+  .autumn-multi__booking-media { height: 320px; }
+  .autumn-multi__booking-ctas { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 9px; margin-top: 45px; }
+  .autumn-multi__button { display: flex; min-height: 48px; align-items: center; justify-content: center; border: 1px solid #ad9a84; color: #4b3517; text-decoration: none; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .autumn-multi__button--primary { border-color: #d3a83f; background: #fff1c8; color: #4b3517; }
+  @media (min-width: 901px) { .autumn-multi__house-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } .autumn-multi__house-card--feature-large, .autumn-multi__house-card--featured { grid-column: span 3; } .autumn-multi__house-card:not(.autumn-multi__house-card--featured) { grid-column: span 2; } }
+  @media (max-width: 900px) { .autumn-multi__hero-content { grid-template-columns: 1fr 320px; gap: 28px; } .autumn-multi__house-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 700px) { .autumn-multi__shell { width: min(100% - 36px, 560px); } .autumn-multi__hero { min-height: 700px; } .autumn-multi__hero-content { display: block; min-height: 700px; padding: 210px 0 30px; } .autumn-multi__hero h1 { font-size: clamp(54px, 15vw, 78px); } .autumn-multi__hero-benefits { display: none; } .autumn-multi__hero-booking-badge { position: fixed; right: 16px; bottom: 142px; z-index: 45; display: grid; width: 96px; aspect-ratio: 1; align-items: center; justify-content: center; padding: 14px; border: 1px solid rgba(244, 218, 157, .92); border-radius: 50%; background: radial-gradient(circle at 35% 28%, rgba(255, 242, 192, .22), transparent 34%), linear-gradient(145deg, #d3a84d 0%, #ae7d2d 52%, #8d611f 100%); color: #fff8e9; font-family: "Cormorant Garamond", Georgia, serif; font-size: .8rem; line-height: 1.16; text-align: center; text-decoration: none; box-shadow: 0 14px 32px rgba(16, 13, 8, .3), inset 0 0 0 1px rgba(72, 46, 11, .3); } .autumn-multi__hero-booking-badge::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(255, 242, 192, .62); border-radius: 50%; pointer-events: none; } .autumn-multi__hero-value { margin-top: 23px; } .autumn-multi__mood-layout { grid-template-columns: 1fr; gap: 36px; } .autumn-multi__mood-copy h2 { font-size: 53px; } .autumn-multi__mood-stack { position: static; } .autumn-multi__mood-card { min-height: 185px; padding: 18px; } .autumn-multi__mood-card h3 { font-size: 30px; } .autumn-multi__booking-layout { grid-template-columns: 1fr; gap: 28px; } .autumn-multi__booking-media { height: 260px; } .autumn-multi__booking-ctas { grid-template-columns: 1fr; } }
+  @media (max-width: 440px) { .autumn-multi__house-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .autumn-multi__house-card--feature-large { grid-column: span 2; } .autumn-multi__house-link img { height: 130px; } .autumn-multi__house-card--featured .autumn-multi__house-link img { height: 150px; } .autumn-multi__house-copy { padding: 13px 11px 15px; } .autumn-multi__house-card--featured .autumn-multi__house-copy { padding: 15px 13px 16px; } .autumn-multi__house-copy h3 { font-size: 24px; } .autumn-multi__house-label { margin-top: 11px; font-size: 8px; } .autumn-multi__house-copy > p:not(.autumn-multi__house-label) { font-size: 11px; } .autumn-multi__house-copy > span { margin-top: 14px; font-size: 8px; } .autumn-multi__hero-benefits { margin-top: 26px; } .autumn-multi__booking-benefits { gap: 15px; } .autumn-multi__discount { width: 112px; flex-basis: 112px; } }
+  @media (min-width: 901px) { .autumn-multi__house-card { border-color: #d7c4ac; background: #f3eadc; color: #2d241c; box-shadow: 0 8px 18px rgba(39, 26, 16, .09); } .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { border-color: #c28b27; background: #faf3e8; box-shadow: 0 20px 34px rgba(39, 26, 16, .18); } .autumn-multi__house-card--featured { border-color: #c28b27; background: #fffaf2; box-shadow: inset 0 3px 0 #d8a83d, 0 10px 22px rgba(39, 26, 16, .11); } .autumn-multi__house-card--featured:hover, .autumn-multi__house-card--featured:focus-within { border-color: #9c7124; background: #fffdf8; box-shadow: inset 0 3px 0 #e1bb62, 0 22px 38px rgba(39, 26, 16, .2); } .autumn-multi__house-link img { height: 202px; } .autumn-multi__house-card--featured .autumn-multi__house-link img { height: 218px; } .autumn-multi__house-copy { padding: 19px 21px 22px; } .autumn-multi__house-card--featured .autumn-multi__house-copy { padding: 21px 23px 24px; } .autumn-multi__house-copy h3 { color: #2d241c; font-size: clamp(23px, 1.8vw, 29px); line-height: .98; letter-spacing: -.015em; } .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { font-size: clamp(27px, 2.15vw, 34px); } .autumn-multi__house-label { margin-top: 13px; color: #a3731e; font-size: 8px; } .autumn-multi__house-card--featured .autumn-multi__house-label { color: #9c7124; } .autumn-multi__house-copy > p:not(.autumn-multi__house-label) { min-height: 32px; color: #6b5b4c; font-size: 12px; line-height: 1.35; } .autumn-multi__house-copy > span { margin-top: 18px; color: #4c3b2a; font-size: 9px; } .autumn-multi__house-copy > span span { color: #a3731e; } }
+  @media (min-width: 901px) { .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { transform: translateY(-3px) scale(1); box-shadow: 0 12px 22px rgba(39, 26, 16, .14); } .autumn-multi__house-card--featured:hover, .autumn-multi__house-card--featured:focus-within { box-shadow: inset 0 3px 0 #e1bb62, 0 14px 25px rgba(39, 26, 16, .16); } .autumn-multi__house-card:hover .autumn-multi__house-link img, .autumn-multi__house-card:focus-within .autumn-multi__house-link img { transform: scale(1.04); filter: saturate(1.05) contrast(1.02); } .autumn-multi__house-card--feature-large .autumn-multi__house-copy { padding: 17px 19px 18px; } .autumn-multi__house-card--feature-large .autumn-multi__house-heading { display: flex; align-items: baseline; gap: 14px; } .autumn-multi__house-card--feature-large .autumn-multi__house-copy h3 { font-size: 26px; } .autumn-multi__house-card--feature-large .autumn-multi__house-label { margin: 0; font-size: 8px; } .autumn-multi__house-feature-bullets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; row-gap: 4px; margin: 8px 0 0; padding: 0 0 0 16px; color: #6b5b4c; font-size: 11px; line-height: 1.28; } .autumn-multi__house-feature-bullets li::marker { color: #a3731e; font-size: .9em; } }
+  @media (min-width: 901px) { .autumn-multi__house-card--featured .autumn-multi__house-link { display: flex; flex-direction: column; } .autumn-multi__house-card--featured .autumn-multi__house-copy { display: flex; min-height: 0; flex: 1; flex-direction: column; padding: 17px 19px 18px; } .autumn-multi__house-card--featured .autumn-multi__house-heading { display: flex; align-items: baseline; gap: 14px; min-height: 28px; } .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { font-size: 26px; } .autumn-multi__house-card--featured .autumn-multi__house-label { margin: 0; font-size: 8px; } .autumn-multi__house-card--featured .autumn-multi__house-copy > span { margin-top: auto; padding-top: 16px; } }
+  @media (min-width: 901px) { .autumn-multi__house-card { border-radius: 14px; } .autumn-multi__house-card--featured { border-radius: 16px; } }
+  @media (max-width: 700px) { .autumn-multi__mood-copy { text-align: center; } .autumn-multi__mood-copy h2 { font-size: 44px; text-align: center; } .autumn-multi__mood-intro { margin-right: auto; margin-left: auto; } .autumn-multi__selection-kicker { text-align: center; } .autumn-multi__selection-list { padding-left: 0; list-style-position: inside; text-align: center; } }
+  @media (max-width: 700px) { .autumn-multi__hero h1 { margin-top: 14px; margin-bottom: 17px; font-size: clamp(42px, 12.5vw, 62px); line-height: .9; } .autumn-multi__hero-value { position: absolute; left: 0; bottom: 24px; margin-top: 0; padding: 10px 17px; gap: 9px; border-radius: 9px; } .autumn-multi__hero-value strong { font-size: 34px; } .autumn-multi__hero-value span { font-size: 9px; line-height: 1.15; } }
+  @media (max-width: 700px) { .autumn-multi__house-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .autumn-multi__house-card--feature-large { grid-column: span 1; } .autumn-multi__house-card { border-color: #d8cbb9; border-radius: 12px; background: #fffaf2; color: #2d241c; box-shadow: 0 7px 16px rgba(39, 26, 16, .1); } .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { border-color: #c28b27; transform: none; box-shadow: 0 7px 16px rgba(39, 26, 16, .1); } .autumn-multi__house-link { height: auto; } .autumn-multi__house-link img, .autumn-multi__house-card--featured .autumn-multi__house-link img { height: 116px; } .autumn-multi__house-copy, .autumn-multi__house-card--featured .autumn-multi__house-copy { padding: 11px 11px 10px; } .autumn-multi__house-copy h3, .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { color: #2d241c; font-size: clamp(18px, 5.6vw, 24px); line-height: .95; } .autumn-multi__house-label, .autumn-multi__house-copy > p:not(.autumn-multi__house-label), .autumn-multi__house-copy > span, .autumn-multi__house-copy > .autumn-multi__house-feature-bullets { display: none; } .autumn-multi__house-details { display: block; border-top: 1px solid #e0d2c0; background: #f5ecdf; color: #5c4b3c; } .autumn-multi__house-details summary { display: flex; align-items: center; justify-content: space-between; min-height: 34px; padding: 8px 11px; color: #986d20; cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .08em; line-height: 1.1; text-transform: uppercase; list-style: none; } .autumn-multi__house-details summary::-webkit-details-marker { display: none; } .autumn-multi__house-details summary span { font-size: 16px; font-weight: 400; line-height: .7; transition: transform .2s ease; } .autumn-multi__house-details[open] summary span { transform: rotate(45deg); } .autumn-multi__house-details-body { padding: 1px 11px 12px; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets { display: grid; gap: 5px; margin: 0; padding: 0 0 0 14px; color: #67584b; font-size: 10px; line-height: 1.25; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets li::marker { color: #a3731e; } .autumn-multi__house-details-body > p { margin: 0; color: #67584b; font-size: 10px; line-height: 1.3; } .autumn-multi__house-details-link { display: inline-block; margin-top: 10px; color: #8b641d; font-size: 8px; font-weight: 700; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; } .autumn-multi__house-details-link span { color: #b17d1f; } }
+  @media (max-width: 700px) { .autumn-multi__hero-content { padding-top: 250px; } .autumn-multi__hero h1 { margin-top: 12px; margin-bottom: 14px; font-size: clamp(38px, 10.5vw, 50px); line-height: .92; } .autumn-multi__hero-booking-badge { position: absolute; top: 112px; right: auto; bottom: auto; left: 16px; width: 76px; padding: 11px; font-size: .68rem; } .autumn-multi__hero-booking-badge::before { inset: 5px; } }
+  @media (max-width: 700px) { .autumn-multi__house-copy, .autumn-multi__house-card--featured .autumn-multi__house-copy { min-height: 48px; display: flex; align-items: center; padding: 10px 11px; } .autumn-multi__house-copy h3, .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { width: 100%; overflow: hidden; font-size: 17px; line-height: 1; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; } }
+  @media (max-width: 700px) { .autumn-multi__hero-content { padding-top: 370px; } }
+  @media (max-width: 700px) { .autumn-multi__mood-stack { gap: 12px; } .autumn-multi__mood-card { min-height: 168px; padding: 16px 18px; border-radius: 14px; box-shadow: 0 8px 18px rgba(40, 27, 18, .12); } .autumn-multi__mood-card p { margin-bottom: 6px; font-size: 8px; } .autumn-multi__mood-card h3 { font-size: 26px; line-height: .92; } .autumn-multi__mood-card > span { margin-top: 6px; font-size: 10px; line-height: 1.35; } }
+  .autumn-multi__price-dialog { display: none; }
+  @media (max-width: 700px) { .autumn-multi__hero-value { cursor: pointer; } .autumn-multi__price-dialog { position: fixed; z-index: 80; inset: auto 0 0; width: 100%; max-width: none; max-height: min(78vh, 560px); margin: 0; padding: 0; border: 0; border-radius: 22px 22px 0 0; background: #fffaf2; color: #2d241c; box-shadow: 0 -16px 40px rgba(34, 24, 17, .24); } .autumn-multi__price-dialog[open] { display: block; animation: autumn-price-dialog-in .24s ease-out both; } .autumn-multi__price-dialog::backdrop { background: rgba(25, 19, 15, .54); } .autumn-multi__price-dialog-surface { padding: 24px 22px 28px; } .autumn-multi__price-dialog-head { display: flex; align-items: center; justify-content: space-between; } .autumn-multi__price-dialog-kicker { margin: 0; color: #9c7124; font-size: 9px; font-weight: 700; letter-spacing: .14em; } .autumn-multi__price-dialog-close { display: grid; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid #d8cbb9; border-radius: 50%; background: transparent; color: #5c4b3c; font-size: 22px; line-height: 1; } .autumn-multi__price-dialog h2 { max-width: 330px; margin: 16px 0 8px; color: #2d241c; font-size: 34px; line-height: .92; } .autumn-multi__price-dialog-intro { margin: 0; color: #67584b; font-size: 12px; line-height: 1.45; } .autumn-multi__price-dialog ul { display: grid; gap: 9px; margin: 18px 0 0; padding: 15px 0 0 19px; border-top: 1px solid #dfd0be; color: #5c4b3c; font-size: 12px; line-height: 1.3; } .autumn-multi__price-dialog li::marker { color: #b17d1f; } .autumn-multi__price-dialog-cta { display: flex; min-height: 46px; align-items: center; justify-content: center; margin-top: 22px; padding: 10px 15px; border: 1px solid #d3a83f; border-radius: 8px; background: #c18a25; color: #fff8e9; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-align: center; text-decoration: none; text-transform: uppercase; } .autumn-multi__price-dialog-cta span { margin-left: 7px; color: #f8d886; } }
+  @keyframes autumn-price-dialog-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<script>
+  const priceTrigger = document.querySelector(".autumn-multi__hero-value");
+  const priceDialog = document.querySelector("#autumn-price-dialog");
+  const priceDialogClose = priceDialog?.querySelector("[data-close-price-dialog]");
+  const mobilePriceQuery = window.matchMedia("(max-width: 700px)");
+
+  const closePriceDialog = () => {
+    if (!(priceDialog instanceof HTMLDialogElement) || !priceDialog.open) return;
+    priceDialog.close();
+    priceTrigger?.setAttribute("aria-expanded", "false");
+  };
+
+  const openPriceDialog = () => {
+    if (!mobilePriceQuery.matches || !(priceDialog instanceof HTMLDialogElement)) return;
+    priceDialog.showModal();
+    priceTrigger?.setAttribute("aria-expanded", "true");
+  };
+
+  priceTrigger?.addEventListener("click", openPriceDialog);
+  priceTrigger?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    openPriceDialog();
+  });
+  priceDialogClose?.addEventListener("click", closePriceDialog);
+  priceDialog?.addEventListener("click", (event) => {
+    if (event.target === priceDialog) closePriceDialog();
+  });
+  priceDialog?.addEventListener("close", () => {
+    priceTrigger?.setAttribute("aria-expanded", "false");
+  });
+</script>

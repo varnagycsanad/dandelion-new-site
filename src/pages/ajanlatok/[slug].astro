@@ -1,5 +1,5 @@
 ---
-import AutumnCampaignOfferPageV2 from "../../templates/AutumnCampaignOfferPageV2.astro";
+import AutumnMultiHouseOfferPage from "../../templates/AutumnMultiHouseOfferPage.astro";
 import { autumn2026Offers } from "../../data/offers/autumn-2026";
 
 export function getStaticPaths() {
@@ -12,4 +12,4 @@ export function getStaticPaths() {
 const { offer } = Astro.props;
 ---
 
-<AutumnCampaignOfferPageV2 offer={offer} lang="hu" />
+<AutumnMultiHouseOfferPage offer={offer} />
