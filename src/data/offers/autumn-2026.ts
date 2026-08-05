@@ -465,7 +465,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
     seo: {
       title: "Őszi családi pihenés a D2-ben | Dandelion Vendégházak",
       description:
-        "Családi őszi kikapcsolódás a Dandelion D2-ben Panorama Pool-lal, kandallóval, közös programokkal és közvetlen foglalási CTA-val."
+        "Őszi családi pihenés a Balaton-felvidéken: közös terek, kert, grillezés és nyolc különböző Dandelion-ház közül választhattok."
     },
     sourceRefs: d2Source,
     media: {

@@ -61,6 +61,19 @@ function localizeExperiencePath(path: string, lang: AutumnCampaignLang) {
   return experiencePathByLang[lang][path] ?? path;
 }
 
+const sabeeLanguageByLang: Record<AutumnCampaignLang, "Hu" | "En"> = {
+  hu: "Hu",
+  en: "En",
+  de: "En",
+  cs: "En",
+  sk: "En"
+};
+
+function localizeBookingUrl(url: string, lang: AutumnCampaignLang) {
+  if (!url.includes("ibe.sabeeapp.com")) return url;
+  return url.replace(/([?&]lang=)[^&]*/i, `$1${sabeeLanguageByLang[lang]}`);
+}
+
 type Copy = {
   seo: { title: string; description: string };
   heroTitle: string;
@@ -165,7 +178,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     "oszi-csaladi-pihenes": {
       seo: {
         title: "Autumn family break at D2 | Dandelion Guesthouses",
-        description: "A family autumn escape at Dandelion D2 with the Panorama Pool, fireplace, shared experiences and direct booking."
+        description: "An autumn family break in the Balaton Uplands: shared spaces, a garden, grilling and eight different Dandelion houses to choose from."
       },
       heroTitle: "An autumn family escape",
       heroKicker: "Dandelion D2 · Autumn family break",
@@ -263,7 +276,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       primaryCta: "PREISE & VERFÜGBARKEIT"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Herbsturlaub mit der Familie im D2 | Dandelion Gästehäuser", description: "Familienauszeit im Herbst im Dandelion D2 mit Panorama Pool, Kamin, gemeinsamen Erlebnissen und Direktbuchung." },
+      seo: { title: "Herbsturlaub mit der Familie im D2 | Dandelion Gästehäuser", description: "Herbstliche Familienauszeit im Balaton-Oberland: gemeinsame Räume, Garten, Grillen und acht verschiedene Dandelion-Häuser zur Auswahl." },
       heroTitle: "Herbstliche Familienauszeit",
       heroKicker: "Dandelion D2 · Herbsturlaub mit der Familie",
       heroLead: "Gemeinsame Zeit, Erlebnisse und naturnahe Tage erwarten Sie im Dandelion D2.",
@@ -318,7 +331,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       practical: { title: "Vše pro pohodový podzimní pobyt", items: ["Wi-Fi zdarma", "Parkování zdarma", "Klimatizace", "Nekuřácké ubytování", "Domácí mazlíčci vítáni"], supportLabel: "Vybavení pro miminka na vyžádání", supportItems: ["dětská postýlka", "vanička", "jídelní židlička", "stupínek"] }, primaryCta: "CENY A DOSTUPNÉ TERMÍNY"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Podzimní rodinný pobyt v D2 | Dandelion ubytování", description: "Rodinný podzimní pobyt v Dandelion D2 s Panorama Poolem, krbem, společnými zážitky a přímou rezervací." },
+      seo: { title: "Podzimní rodinný pobyt v D2 | Dandelion ubytování", description: "Podzimní rodinný pobyt v Balatonské vrchovině: společné prostory, zahrada, grilování a osm různých domů Dandelion na výběr." },
       heroTitle: "Podzimní rodinný odpočinek", heroKicker: "Dandelion D2 · Podzimní rodinný pobyt", heroLead: "Kvalitní čas, společné zážitky a dny v přírodě čekají v Dandelion D2.",
       campaignHero: { kicker: "PODZIMNÍ RODINNÝ POBYT", titleLines: ["Podzimní rodinný", "odpočinek"], supportLine: "v Balatonské vrchovině", descriptionLines: ["Kvalitní čas. Společné zážitky.", "V Dandelion D2 může být celá rodina opravdu spolu."], ctaNote: "8% cenová výhoda oproti rezervačním portálům", heroAlt: "Penzion Dandelion D2 v Balatonské vrchovině", heroMobileAlt: "Penzion Dandelion D2 v Balatonské vrchovině" },
       positioningTitle: "Podzimní pobyt v přírodě",
@@ -354,7 +367,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       practical: { title: "Všetko pre pohodový jesenný pobyt", items: ["Wi-Fi zdarma", "Parkovanie zdarma", "Klimatizácia", "Nefajčiarske ubytovanie", "Domáce zvieratá vítané"], supportLabel: "Vybavenie pre bábätká na vyžiadanie", supportItems: ["detská postieľka", "vanička", "detská stolička", "stupienok"] }, primaryCta: "CENY A DOSTUPNÉ TERMÍNY"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Jesenný rodinný pobyt v D2 | Dandelion ubytovanie", description: "Rodinný jesenný oddych v Dandelion D2 s Panorama Poolom, krbom, spoločnými zážitkami a priamou rezerváciou." },
+      seo: { title: "Jesenný rodinný pobyt v D2 | Dandelion ubytovanie", description: "Jesenný rodinný pobyt v Balatonskej vrchovine: spoločné priestory, záhrada, grilovanie a osem rôznych domov Dandelion na výber." },
       heroTitle: "Jesenný rodinný oddych", heroKicker: "Dandelion D2 · Jesenný rodinný pobyt", heroLead: "Kvalitný čas, spoločné zážitky a dni v prírode čakajú v Dandelion D2.",
       campaignHero: { kicker: "JESENNÝ RODINNÝ POBYT", titleLines: ["Jesenný rodinný", "oddych"], supportLine: "v Balatonskej vrchovine", descriptionLines: ["Kvalitný čas. Spoločné zážitky.", "V Dandelion D2 môže byť celá rodina naozaj spolu."], ctaNote: "8 % cenová výhoda oproti rezervačným portálom", heroAlt: "Penzión Dandelion D2 v Balatonskej vrchovine", heroMobileAlt: "Penzión Dandelion D2 v Balatonskej vrchovine" },
       positioningTitle: "Jesenný pobyt v prírode",
@@ -390,6 +403,7 @@ export function localizeAutumnOffer(offer: AutumnCampaignOffer, lang: AutumnCamp
   return {
     ...offer,
     routePath: getAutumnCampaignPath(lang, offer.slug),
+    bookingUrl: localizeBookingUrl(offer.bookingUrl, lang),
     seo: copy.seo,
     hero: { ...offer.hero, eyebrow: copy.heroKicker, title: copy.heroTitle, lead: copy.heroLead },
     campaignHero: {
