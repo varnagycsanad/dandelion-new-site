@@ -128,7 +128,8 @@ const structuredData = [
           </div>
           <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label="Mutasd meg, mit jelent a 8% ár-előny">
             <strong>8%</strong>
-            <span>ár-előny · részletek</span>
+            <span class="autumn-multi__hero-value-label">ár-előny · részletek</span>
+            <span class="autumn-multi__hero-value-action">IDE KATTINTS <span aria-hidden="true">→</span></span>
           </div>
         </div>
         <aside class="autumn-multi__hero-benefits" aria-label="Közvetlen foglalás előnyei">
@@ -152,10 +153,10 @@ const structuredData = [
           <p class="autumn-multi__price-dialog-kicker">KÖZVETLEN FOGLALÁS</p>
           <button type="button" class="autumn-multi__price-dialog-close" data-close-price-dialog aria-label="Bezárás">×</button>
         </div>
-        <h2 id="autumn-price-dialog-title">Miért éri meg közvetlenül foglalni?</h2>
-        <p class="autumn-multi__price-dialog-intro">Közvetlen foglaláskor 8% ár-előnyt kaptok a szállásközvetítő portálok áraihoz képest.</p>
+        <h2 id="autumn-price-dialog-title">Közvetlenül éri meg</h2>
+        <p class="autumn-multi__price-dialog-intro">A szabad időpontokat és az árakat közvetlenül a saját foglalási felületünkön nézhetitek meg.</p>
+        <div class="autumn-multi__price-dialog-stat"><strong>8%</strong><span>ár-előny a portálokhoz képest</span></div>
         <ul>
-          <li>8% ár-előny a portálokhoz képest</li>
           <li>Közvetlen kapcsolat a szállásadóval</li>
           <li>Gyors visszaigazolás</li>
           <li>Rugalmas ügyintézés</li>
@@ -313,6 +314,7 @@ const structuredData = [
   .autumn-multi__hero-value { display: flex; align-items: baseline; gap: 12px; width: fit-content; margin-top: 28px; padding: 13px 22px; border: 1px solid rgba(255, 244, 205, .72); border-radius: 10px; background: rgba(167, 111, 17, .86); }
   .autumn-multi__hero-value strong { font: 500 39px/1 "Cormorant Garamond", Georgia, serif; }
   .autumn-multi__hero-value span { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .autumn-multi__hero-value-action { display: none; }
   .autumn-multi__hero-benefits { padding: 29px 28px 24px; border: 1px solid rgba(255, 245, 207, .7); border-left: 4px solid #9c7124; border-radius: 18px; background: rgba(246, 217, 128, .96); color: #382b1e; box-shadow: 0 16px 34px rgba(32, 23, 17, .16); }
   .autumn-multi__benefits-kicker { font-size: 10px; font-weight: 700; letter-spacing: .14em; }
   .autumn-multi__hero-benefits h2 { margin: 16px 0 7px; font-size: 36px; line-height: .9; }
@@ -393,6 +395,11 @@ const structuredData = [
   .autumn-multi__price-dialog { display: none; }
   @media (max-width: 700px) { .autumn-multi__hero-value { cursor: pointer; } .autumn-multi__price-dialog { position: fixed; z-index: 80; inset: auto 0 0; width: 100%; max-width: none; max-height: min(78vh, 560px); margin: 0; padding: 0; border: 0; border-radius: 22px 22px 0 0; background: #fffaf2; color: #2d241c; box-shadow: 0 -16px 40px rgba(34, 24, 17, .24); } .autumn-multi__price-dialog[open] { display: block; animation: autumn-price-dialog-in .24s ease-out both; } .autumn-multi__price-dialog::backdrop { background: rgba(25, 19, 15, .54); } .autumn-multi__price-dialog-surface { padding: 24px 22px 28px; } .autumn-multi__price-dialog-head { display: flex; align-items: center; justify-content: space-between; } .autumn-multi__price-dialog-kicker { margin: 0; color: #9c7124; font-size: 9px; font-weight: 700; letter-spacing: .14em; } .autumn-multi__price-dialog-close { display: grid; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid #d8cbb9; border-radius: 50%; background: transparent; color: #5c4b3c; font-size: 22px; line-height: 1; } .autumn-multi__price-dialog h2 { max-width: 330px; margin: 16px 0 8px; color: #2d241c; font-size: 34px; line-height: .92; } .autumn-multi__price-dialog-intro { margin: 0; color: #67584b; font-size: 12px; line-height: 1.45; } .autumn-multi__price-dialog ul { display: grid; gap: 9px; margin: 18px 0 0; padding: 15px 0 0 19px; border-top: 1px solid #dfd0be; color: #5c4b3c; font-size: 12px; line-height: 1.3; } .autumn-multi__price-dialog li::marker { color: #b17d1f; } .autumn-multi__price-dialog-cta { display: flex; min-height: 46px; align-items: center; justify-content: center; margin-top: 22px; padding: 10px 15px; border: 1px solid #d3a83f; border-radius: 8px; background: #c18a25; color: #fff8e9; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-align: center; text-decoration: none; text-transform: uppercase; } .autumn-multi__price-dialog-cta span { margin-left: 7px; color: #f8d886; } }
   @keyframes autumn-price-dialog-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes autumn-hero-cta-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 8px 18px rgba(25, 17, 8, .25); } 50% { transform: scale(1.025); box-shadow: 0 10px 24px rgba(205, 157, 49, .42), 0 0 0 5px rgba(239, 196, 92, .14); } }
+  .autumn-multi__price-dialog[open] { display: block; position: fixed; z-index: 80; inset: auto 0 0; width: 100%; max-width: none; margin: 0; padding: 0; border: 0; border-left: 4px solid #9c7124; border-radius: 22px 22px 0 0; background: #f6d980; color: #382b1e; box-shadow: 0 -16px 40px rgba(34, 24, 17, .24); }
+  .autumn-multi__price-dialog[open]::backdrop { background: rgba(25, 19, 15, .58); }
+  @media (max-width: 700px) { .autumn-multi__hero-value { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 9px; row-gap: 1px; min-width: 250px; padding: 9px 14px 9px 16px; border-color: rgba(255, 244, 205, .9); background: linear-gradient(135deg, #d3a84d 0%, #ad7921 100%); box-shadow: 0 8px 18px rgba(25, 17, 8, .25); animation: autumn-hero-cta-pulse 2.2s ease-in-out infinite; } .autumn-multi__hero-value strong { grid-row: 1 / span 2; font-size: 35px; } .autumn-multi__hero-value-label { overflow: hidden; font-size: 0 !important; line-height: 1; text-overflow: ellipsis; white-space: nowrap; } .autumn-multi__hero-value-label::after { content: "ÁR-ELŐNY"; font-size: 9px; letter-spacing: .08em; } .autumn-multi__hero-value-action { display: flex; align-items: center; gap: 6px; color: #fff5d9; font-size: 10px !important; font-weight: 800; letter-spacing: .06em !important; line-height: 1.1; text-transform: uppercase; } .autumn-multi__hero-value-action span { font-size: 14px; line-height: .7; } .autumn-multi__hero-value:focus-visible { outline: 2px solid #fff0b9; outline-offset: 3px; } .autumn-multi__price-dialog[open] { max-height: min(82vh, 590px); animation: autumn-price-dialog-in .24s ease-out both; } .autumn-multi__price-dialog-surface { padding: 25px 22px 28px; } .autumn-multi__price-dialog-head { padding-bottom: 1px; } .autumn-multi__price-dialog-kicker { color: #765217; } .autumn-multi__price-dialog-close { border-color: rgba(88, 58, 14, .34); background: rgba(255, 246, 209, .3); color: #5a4015; } .autumn-multi__price-dialog h2 { margin-top: 14px; color: #382b1e; font-size: 38px; } .autumn-multi__price-dialog-intro { color: #5d4828; font-size: 15px; line-height: 1.5; } .autumn-multi__price-dialog-stat { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; padding: 11px 14px; border: 1px solid rgba(255, 247, 207, .88); border-radius: 12px; background: rgba(255, 241, 176, .42); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3); } .autumn-multi__price-dialog-stat strong { color: #6f4c11; font: 500 51px/.72 "Cormorant Garamond", Georgia, serif; } .autumn-multi__price-dialog-stat span { color: #60461e; font-size: 10px; font-weight: 700; letter-spacing: .06em; line-height: 1.15; text-transform: uppercase; } .autumn-multi__price-dialog ul { gap: 9px; margin-top: 17px; padding-top: 15px; border-top-color: rgba(85, 55, 16, .25); color: #5d4828; font-size: 14px; line-height: 1.42; } .autumn-multi__price-dialog li::marker { color: #7a5717; } .autumn-multi__price-dialog-cta { min-height: 50px; margin-top: 21px; border-color: #7b5312; border-radius: 9px; background: #7d5515; box-shadow: 0 7px 14px rgba(69, 43, 9, .18); font-size: 10px; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets { gap: 6px; font-size: 12px; line-height: 1.4; } .autumn-multi__house-details-body > p { font-size: 12px; line-height: 1.4; } }
+  @media (prefers-reduced-motion: reduce) { .autumn-multi__hero-value { animation: none; } }
 </style>
 
 <script>
