@@ -1,5 +1,4 @@
 ---
-import AutumnCampaignOfferPageV2 from "../../../templates/AutumnCampaignOfferPageV2.astro";
 import AutumnMultiHouseOfferPage from "../../../templates/AutumnMultiHouseOfferPage.astro";
 import { autumn2026Offers } from "../../../data/offers/autumn-2026";
 import { localizeAutumnOffer } from "../../../data/offers/autumn-2026-localized";
@@ -14,4 +13,4 @@ export function getStaticPaths() {
 const { offer } = Astro.props;
 ---
 
-{offer.audience === "family" ? <AutumnMultiHouseOfferPage offer={offer} lang="de" /> : <AutumnCampaignOfferPageV2 offer={offer} lang="de" />}
+<AutumnMultiHouseOfferPage offer={offer} lang="de" />

@@ -5,13 +5,14 @@ import CampaignHeroVideo from "../components/campaign/CampaignHeroVideo.astro";
 import type { AutumnCampaignOffer } from "../data/offers/types";
 import type { AutumnCampaignLang } from "../data/offers/autumn-2026-localized";
 import { toAbsoluteUrl } from "../data/site-seo";
-import { autumnMultiHouseByAudience } from "../data/offers/autumn-multihouse";
-import { getAutumnMultiHouseFamilyCopy, getAutumnMultiHousePath, getLocalizedAutumnMultiHouses } from "../data/offers/autumn-multihouse-localized";
+import { getAutumnMultiHouseCoupleCopy, getAutumnMultiHouseFamilyCopy, getAutumnMultiHousePath, getLocalizedAutumnMultiHouses } from "../data/offers/autumn-multihouse-localized";
 
 const { offer, lang = "hu" } = Astro.props as { offer: AutumnCampaignOffer; lang?: AutumnCampaignLang };
 const audience = offer.tracking.audience === "family" ? "family" : "couple";
 const familyCopy = getAutumnMultiHouseFamilyCopy(lang);
-const houses = audience === "family" ? getLocalizedAutumnMultiHouses(lang) : autumnMultiHouseByAudience[audience];
+const coupleCopy = getAutumnMultiHouseCoupleCopy(lang);
+const copy = audience === "family" ? familyCopy : coupleCopy;
+const houses = getLocalizedAutumnMultiHouses(lang, audience);
 const moodImages = offer.storyTiles.slice(0, 3).map((tile) => tile.media.desktop.src);
 const heroImage = offer.campaignHero.media.desktop;
 const bookingHref = offer.bookingUrl;
@@ -19,29 +20,13 @@ const pageTitle = offer.seo.title;
 const pageDescription = offer.seo.description;
 const heroLead = audience === "family"
   ? familyCopy.heroLead
-  : ["Lassítsatok le. Kapcsoljatok ki.", "Válasszátok ki a hozzátok illő Dandelion-házat."];
+  : coupleCopy.heroLead;
 const moodCards = audience === "family"
   ? familyCopy.moodCards.map((card, index) => ({ ...card, image: moodImages[index] }))
-  : [
-      { label: "PANORÁMA", title: ["Reggel másképp", "indul a nap."], copy: "Panoráma, terasz, csend.", image: moodImages[0] },
-      { label: "MEGHITTSÉG", title: ["Hideg kint.", "Meleg bent."], copy: "Kandalló, saját tér, meghitt esték.", image: moodImages[1] },
-      { label: "BORVIDÉK", title: ["Egy pohár bor.", "Egy hosszú este."], copy: "Borászatok, lassú délutánok, közös beszélgetések.", image: moodImages[2] }
-    ];
+  : coupleCopy.moodCards.map((card, index) => ({ ...card, image: moodImages[index] }));
 const selectionBullets = audience === "family"
   ? familyCopy.selectionBullets
-  : [
-      "Borozás: fedezzétek fel a környék helyi borászatait, és kóstoljatok együtt a Balaton-felvidék hangulatában.",
-      "Biciklizés: nálunk biciklit is bérelhettek, és indulhat a kaland a balatoni bicikliúton.",
-      "Kirándulás és aktív időtöltés a Balaton-felvidék tájain.",
-      "Romantikus séta a Tapolcai Malom-tónál.",
-      "Badacsonyi őszi hangulat, panoráma és bor a hegyoldaláról.",
-      "Lazulás a szeptember végéig nyitva tartó medencében.",
-      "Pezsgő- és virágbekészítés kérésre.",
-      "A Szent György-hegy bazaltorgonái.",
-      "Különleges vacsora a Taberna Infinitó balatoni panorámaéttermében, a Szent György-hegyen.",
-      "Csodálatos kilátás a Szent György-hegyről a Balatonra, a Szigligeti-hegyekre és Badacsonyra.",
-      "A Folly Arborétum és a keszthelyi Festetics-kastély felfedezése."
-    ];
+  : coupleCopy.selectionBullets;
 const bookingTrackingAttrs = {
   "data-dnd-property": offer.tracking.property,
   "data-dnd-campaign": offer.tracking.campaign,
@@ -131,37 +116,37 @@ const structuredData = [
           <div class="autumn-multi__hero-lead">
             {heroLead.map((line) => <p>{line}</p>)}
           </div>
-          <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label={audience === "family" ? familyCopy.heroValueAria : "Mutasd meg, mit jelent a 8% ár-előny"}>
+          <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label={copy.heroValueAria}>
             <strong>8%</strong>
-            <span class="autumn-multi__hero-value-label">{audience === "family" ? familyCopy.heroValueLabel : "ár-előny · részletek"}</span>
-            <span class="autumn-multi__hero-value-action">{audience === "family" ? familyCopy.heroValueAction : "IDE KATTINTS"} <span aria-hidden="true">→</span></span>
+            <span class="autumn-multi__hero-value-label">{copy.heroValueLabel}</span>
+            <span class="autumn-multi__hero-value-action">{copy.heroValueAction} <span aria-hidden="true">→</span></span>
           </div>
         </div>
-        <aside class="autumn-multi__hero-benefits" aria-label={audience === "family" ? familyCopy.benefitsAria : "Közvetlen foglalás előnyei"}>
-          <span class="autumn-multi__benefits-kicker">{audience === "family" ? familyCopy.benefitsKicker : "KÖZVETLEN FOGLALÁS"}</span>
-          <h2>{audience === "family" ? familyCopy.benefitsTitle : "Közvetlenül éri meg"}</h2>
-          <p>{audience === "family" ? familyCopy.benefitsLead : "A közvetlen foglalás előnyei:"}</p>
+        <aside class="autumn-multi__hero-benefits" aria-label={copy.benefitsAria}>
+          <span class="autumn-multi__benefits-kicker">{copy.benefitsKicker}</span>
+          <h2>{copy.benefitsTitle}</h2>
+          <p>{copy.benefitsLead}</p>
           <ul>
-            {(audience === "family" ? familyCopy.benefits : ["8% ár-előny a portálokhoz képest", "Azonnali bankkártyás fizetés", "Gyors, átlátható foglalási folyamat", "Közvetlen kapcsolat a szállásadóval"]).map((benefit) => <li>{benefit}</li>)}
+            {copy.benefits.map((benefit) => <li>{benefit}</li>)}
           </ul>
         </aside>
-        <a class="autumn-multi__hero-booking-badge" href={bookingHref} target="_blank" rel="noopener noreferrer" data-draggable-booking-badge data-dnd-placement="hero-booking-badge" {...bookingTrackingAttrs}>{audience === "family" ? familyCopy.bookingBadge : "Megéri itt foglalni!"}</a>
+        <a class="autumn-multi__hero-booking-badge" href={bookingHref} target="_blank" rel="noopener noreferrer" data-draggable-booking-badge data-dnd-placement="hero-booking-badge" {...bookingTrackingAttrs}>{copy.bookingBadge}</a>
       </div>
     </section>
 
     <dialog class="autumn-multi__price-dialog" id="autumn-price-dialog" aria-labelledby="autumn-price-dialog-title">
       <div class="autumn-multi__price-dialog-surface">
         <div class="autumn-multi__price-dialog-head">
-          <p class="autumn-multi__price-dialog-kicker">{audience === "family" ? familyCopy.priceDialogKicker : "KÖZVETLEN FOGLALÁS"}</p>
-          <button type="button" class="autumn-multi__price-dialog-close" data-close-price-dialog aria-label={audience === "family" ? familyCopy.priceDialogClose : "Bezárás"}>×</button>
+          <p class="autumn-multi__price-dialog-kicker">{copy.priceDialogKicker}</p>
+          <button type="button" class="autumn-multi__price-dialog-close" data-close-price-dialog aria-label={copy.priceDialogClose}>×</button>
         </div>
-        <h2 id="autumn-price-dialog-title">{audience === "family" ? familyCopy.priceDialogTitle : "Közvetlenül éri meg"}</h2>
-        <p class="autumn-multi__price-dialog-intro">{audience === "family" ? familyCopy.priceDialogIntro : "A szabad időpontokat és az árakat közvetlenül a saját foglalási felületünkön nézhetitek meg."}</p>
-        <div class="autumn-multi__price-dialog-stat"><strong>8%</strong><span>{audience === "family" ? familyCopy.priceDialogStat : "ár-előny a portálokhoz képest"}</span></div>
+        <h2 id="autumn-price-dialog-title">{copy.priceDialogTitle}</h2>
+        <p class="autumn-multi__price-dialog-intro">{copy.priceDialogIntro}</p>
+        <div class="autumn-multi__price-dialog-stat"><strong>8%</strong><span>{copy.priceDialogStat}</span></div>
         <ul>
-          {(audience === "family" ? familyCopy.priceDialogBenefits : ["Közvetlen kapcsolat a szállásadóval", "Gyors visszaigazolás", "Rugalmas ügyintézés"]).map((benefit) => <li>{benefit}</li>)}
+          {copy.priceDialogBenefits.map((benefit) => <li>{benefit}</li>)}
         </ul>
-        <a class="autumn-multi__price-dialog-cta" href={bookingHref} target="_blank" rel="noopener noreferrer" data-dnd-placement="hero-price-dialog" {...bookingTrackingAttrs}>{audience === "family" ? familyCopy.priceDialogCta : "Árak és szabad időpontok"} <span aria-hidden="true">→</span></a>
+        <a class="autumn-multi__price-dialog-cta" href={bookingHref} target="_blank" rel="noopener noreferrer" data-dnd-placement="hero-price-dialog" {...bookingTrackingAttrs}>{copy.priceDialogCta} <span aria-hidden="true">→</span></a>
       </div>
     </dialog>
 
@@ -169,11 +154,11 @@ const structuredData = [
       <div class="autumn-multi__shell">
         <div class="autumn-multi__mood-layout">
           <div class="autumn-multi__mood-copy">
-            <p class="autumn-multi__eyebrow autumn-multi__eyebrow--dark">{audience === "family" ? familyCopy.moodKicker : "MIÉRT DANDELION ŐSSZEL?"}</p>
-            <h2 id="autumn-mood-title">{audience === "family" ? familyCopy.moodTitle : "Az ősz itt másképp telik."}</h2>
-            <p class="autumn-multi__mood-intro">{audience === "family" ? familyCopy.moodIntro : "Borozás, kirándulások, biciklizés, medencés lazulás és a Balaton-felvidék felfedezése — többféle ház, ugyanaz a Dandelion-élmény."}</p>
-            <div class="autumn-multi__selection-guide" aria-label={audience === "family" ? familyCopy.selectionAria : "Választást segítő tippek"}>
-              <p class="autumn-multi__selection-kicker">{audience === "family" ? familyCopy.selectionKicker : "PÁROS ŐSZI ÖTLETEK"}</p>
+            <p class="autumn-multi__eyebrow autumn-multi__eyebrow--dark">{copy.moodKicker}</p>
+            <h2 id="autumn-mood-title">{copy.moodTitle}</h2>
+            <p class="autumn-multi__mood-intro">{copy.moodIntro}</p>
+            <div class="autumn-multi__selection-guide" aria-label={copy.selectionAria}>
+              <p class="autumn-multi__selection-kicker">{copy.selectionKicker}</p>
               <ul class="autumn-multi__selection-list">
                 {selectionBullets.map((item) => (
                   <li>{item}</li>
@@ -226,8 +211,8 @@ const structuredData = [
 
     <section class="autumn-multi__picker" aria-labelledby="autumn-picker-title">
       <div class="autumn-multi__shell">
-        <h2 id="autumn-picker-title">{audience === "family" ? familyCopy.pickerTitle : "Melyik ház illik hozzátok?"}</h2>
-        <p class="autumn-multi__picker-lead">{audience === "family" ? familyCopy.pickerLead : "Ezeket a házakat különböző őszi pihenésekhez ajánljuk, de természetesen azt válasszátok, amelyik igazán megtetszik nektek."}</p>
+        <h2 id="autumn-picker-title">{copy.pickerTitle}</h2>
+        <p class="autumn-multi__picker-lead">{copy.pickerLead}</p>
         <div class="autumn-multi__house-grid">
           {houses.map((house) => (
             <article class:list={[
@@ -240,29 +225,29 @@ const structuredData = [
                 <div class="autumn-multi__house-copy">
                   <div class="autumn-multi__house-heading">
                     <h3>{house.name === "Fügeház" ? "Dandelion Fügeház" : house.name}</h3>
-                    <p class="autumn-multi__house-label">{audience === "family" ? familyCopy.houseLabel : "Akkor válasszátok, ha…"}</p>
+                    <p class="autumn-multi__house-label">{copy.houseLabel}</p>
                   </div>
-                  {familyCopy.houseBullets[house.key] ? (
+                  {copy.houseBullets[house.key] ? (
                     <ul class="autumn-multi__house-feature-bullets">
-                      {familyCopy.houseBullets[house.key]?.map((bullet) => <li>{bullet}</li>)}
+                      {copy.houseBullets[house.key]?.map((bullet) => <li>{bullet}</li>)}
                     </ul>
                   ) : (
                     <p>{house.recommendation}</p>
                   )}
-                  <span>{audience === "family" ? familyCopy.houseView : "Megnézem a házat"} <span aria-hidden="true">→</span></span>
+                  <span>{copy.houseView} <span aria-hidden="true">→</span></span>
                 </div>
               </a>
               <details class="autumn-multi__house-details">
-                <summary>{audience === "family" ? familyCopy.houseWhy : "Miért ajánljuk?"} <span aria-hidden="true">+</span></summary>
+                <summary>{copy.houseWhy} <span aria-hidden="true">+</span></summary>
                 <div class="autumn-multi__house-details-body">
-                  {familyCopy.houseBullets[house.key] ? (
+                  {copy.houseBullets[house.key] ? (
                     <ul class="autumn-multi__house-feature-bullets">
-                      {familyCopy.houseBullets[house.key]?.map((bullet) => <li>{bullet}</li>)}
+                      {copy.houseBullets[house.key]?.map((bullet) => <li>{bullet}</li>)}
                     </ul>
                   ) : (
                     <p>{house.recommendation}</p>
                   )}
-                  <a href={house.href} class="autumn-multi__house-details-link">{audience === "family" ? familyCopy.houseView : "Megnézem a házat"} <span aria-hidden="true">→</span></a>
+                  <a href={house.href} class="autumn-multi__house-details-link">{copy.houseView} <span aria-hidden="true">→</span></a>
                 </div>
               </details>
             </article>
@@ -279,18 +264,18 @@ const structuredData = [
             <h2 id="autumn-booking-title">{offer.directBooking.titleLines.map((line) => <span>{line}</span>)}</h2>
             <p class="autumn-multi__booking-message">{offer.directBooking.primaryMessage}</p>
             <div class="autumn-multi__booking-benefits">
-              <div class="autumn-multi__discount"><strong>8%</strong><span>{audience === "family" ? familyCopy.directDiscountLabel : "ár-előny a portálokhoz képest"}</span></div>
+              <div class="autumn-multi__discount"><strong>8%</strong><span>{copy.directDiscountLabel}</span></div>
               <ul>
-                {(audience === "family" ? familyCopy.directBenefits : ["Közvetlen kapcsolat a szállásadóval", "Gyors visszaigazolás", "Rugalmas ügyintézés"]).map((benefit) => <li>{benefit}</li>)}
+                {copy.directBenefits.map((benefit) => <li>{benefit}</li>)}
               </ul>
             </div>
           </div>
           {offer.directBooking.media && <CampaignMedia media={offer.directBooking.media} class="autumn-multi__booking-media" />}
         </div>
         <div class="autumn-multi__booking-ctas">
-          <a href={bookingHref} class="autumn-multi__button autumn-multi__button--primary" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>{audience === "family" ? familyCopy.bookingCta : "Árak és szabad időpontok"} <span aria-hidden="true">→</span></a>
-          <a href={contactHref} class="autumn-multi__button" {...contactTrackingAttrs}>{audience === "family" ? familyCopy.contactCta : "Írásban érdeklődöm"}</a>
-          <a href="https://wa.me/36207730807" class="autumn-multi__button" target="_blank" rel="noopener noreferrer" {...whatsappTrackingAttrs}>{audience === "family" ? familyCopy.whatsappCta : "WhatsApp"}</a>
+          <a href={bookingHref} class="autumn-multi__button autumn-multi__button--primary" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>{copy.bookingCta} <span aria-hidden="true">→</span></a>
+          <a href={contactHref} class="autumn-multi__button" {...contactTrackingAttrs}>{copy.contactCta}</a>
+          <a href="https://wa.me/36207730807" class="autumn-multi__button" target="_blank" rel="noopener noreferrer" {...whatsappTrackingAttrs}>{copy.whatsappCta}</a>
         </div>
       </div>
     </section>
