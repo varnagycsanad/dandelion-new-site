@@ -143,7 +143,7 @@ const structuredData = [
             <li>Közvetlen kapcsolat a szállásadóval</li>
           </ul>
         </aside>
-        <a class="autumn-multi__hero-booking-badge" href={bookingHref} target="_blank" rel="noopener noreferrer" data-dnd-placement="hero-booking-badge" {...bookingTrackingAttrs}>Megéri itt foglalni!</a>
+        <a class="autumn-multi__hero-booking-badge" href={bookingHref} target="_blank" rel="noopener noreferrer" data-draggable-booking-badge data-dnd-placement="hero-booking-badge" {...bookingTrackingAttrs}>Megéri itt foglalni!</a>
       </div>
     </section>
 
@@ -400,6 +400,7 @@ const structuredData = [
   .autumn-multi__price-dialog[open]::backdrop { background: rgba(25, 19, 15, .58); }
   @media (max-width: 700px) { .autumn-multi__hero-value { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 9px; row-gap: 1px; min-width: 250px; padding: 9px 14px 9px 16px; border-color: rgba(255, 244, 205, .9); background: linear-gradient(135deg, #d3a84d 0%, #ad7921 100%); box-shadow: 0 8px 18px rgba(25, 17, 8, .25); animation: autumn-hero-cta-pulse 2.2s ease-in-out infinite; } .autumn-multi__hero-value strong { grid-row: 1 / span 2; font-size: 35px; } .autumn-multi__hero-value-label { overflow: hidden; font-size: 0 !important; line-height: 1; text-overflow: ellipsis; white-space: nowrap; } .autumn-multi__hero-value-label::after { content: "ÁR-ELŐNY"; font-size: 9px; letter-spacing: .08em; } .autumn-multi__hero-value-action { display: flex; align-items: center; gap: 6px; color: #fff5d9; font-size: 10px !important; font-weight: 800; letter-spacing: .06em !important; line-height: 1.1; text-transform: uppercase; } .autumn-multi__hero-value-action span { font-size: 14px; line-height: .7; } .autumn-multi__hero-value:focus-visible { outline: 2px solid #fff0b9; outline-offset: 3px; } .autumn-multi__price-dialog[open] { max-height: min(82vh, 590px); animation: autumn-price-dialog-in .24s ease-out both; } .autumn-multi__price-dialog-surface { padding: 25px 22px 28px; } .autumn-multi__price-dialog-head { padding-bottom: 1px; } .autumn-multi__price-dialog-kicker { color: #765217; } .autumn-multi__price-dialog-close { border-color: rgba(88, 58, 14, .34); background: rgba(255, 246, 209, .3); color: #5a4015; } .autumn-multi__price-dialog h2 { margin-top: 14px; color: #382b1e; font-size: 38px; } .autumn-multi__price-dialog-intro { color: #5d4828; font-size: 15px; line-height: 1.5; } .autumn-multi__price-dialog-stat { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; padding: 11px 14px; border: 1px solid rgba(255, 247, 207, .88); border-radius: 12px; background: rgba(255, 241, 176, .42); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3); } .autumn-multi__price-dialog-stat strong { color: #6f4c11; font: 500 51px/.72 "Cormorant Garamond", Georgia, serif; } .autumn-multi__price-dialog-stat span { color: #60461e; font-size: 10px; font-weight: 700; letter-spacing: .06em; line-height: 1.15; text-transform: uppercase; } .autumn-multi__price-dialog ul { gap: 9px; margin-top: 17px; padding-top: 15px; border-top-color: rgba(85, 55, 16, .25); color: #5d4828; font-size: 14px; line-height: 1.42; } .autumn-multi__price-dialog li::marker { color: #7a5717; } .autumn-multi__price-dialog-cta { min-height: 50px; margin-top: 21px; border-color: #7b5312; border-radius: 9px; background: #7d5515; box-shadow: 0 7px 14px rgba(69, 43, 9, .18); font-size: 10px; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets { gap: 6px; font-size: 12px; line-height: 1.4; } .autumn-multi__house-details-body > p { font-size: 12px; line-height: 1.4; } }
   @media (prefers-reduced-motion: reduce) { .autumn-multi__hero-value { animation: none; } }
+  @media (max-width: 700px) { .autumn-multi__hero-booking-badge { touch-action: none; cursor: grab; } .autumn-multi__hero-booking-badge.is-dragging { cursor: grabbing; transition: none; } }
 </style>
 
 <script>
@@ -433,4 +434,65 @@ const structuredData = [
   priceDialog?.addEventListener("close", () => {
     priceTrigger?.setAttribute("aria-expanded", "false");
   });
+
+  const draggableBookingBadge = document.querySelector("[data-draggable-booking-badge]");
+  const draggableBadgeQuery = window.matchMedia("(max-width: 700px)");
+  let badgeDragging = false;
+  let badgeMoved = false;
+  let badgePointerId = null;
+  let badgeOffsetX = 0;
+  let badgeOffsetY = 0;
+  let badgeStartX = 0;
+  let badgeStartY = 0;
+
+  const clampBadgePosition = (value, min, max) => Math.min(Math.max(value, min), Math.max(min, max));
+
+  if (draggableBookingBadge instanceof HTMLAnchorElement) {
+    draggableBookingBadge.addEventListener("pointerdown", (event) => {
+      if (!draggableBadgeQuery.matches || event.button !== 0) return;
+      const badgeRect = draggableBookingBadge.getBoundingClientRect();
+      const containerRect = draggableBookingBadge.offsetParent?.getBoundingClientRect();
+      if (!containerRect) return;
+      badgeDragging = true;
+      badgeMoved = false;
+      badgePointerId = event.pointerId;
+      badgeStartX = event.clientX;
+      badgeStartY = event.clientY;
+      badgeOffsetX = event.clientX - badgeRect.left;
+      badgeOffsetY = event.clientY - badgeRect.top;
+      draggableBookingBadge.classList.add("is-dragging");
+      draggableBookingBadge.setPointerCapture(event.pointerId);
+    });
+
+    draggableBookingBadge.addEventListener("pointermove", (event) => {
+      if (!badgeDragging || event.pointerId !== badgePointerId) return;
+      if (Math.hypot(event.clientX - badgeStartX, event.clientY - badgeStartY) > 4) badgeMoved = true;
+      if (!badgeMoved) return;
+      const containerRect = draggableBookingBadge.offsetParent?.getBoundingClientRect();
+      const badgeRect = draggableBookingBadge.getBoundingClientRect();
+      if (!containerRect) return;
+      const left = clampBadgePosition(event.clientX - containerRect.left - badgeOffsetX, 8, containerRect.width - badgeRect.width - 8);
+      const top = clampBadgePosition(event.clientY - containerRect.top - badgeOffsetY, 8, containerRect.height - badgeRect.height - 8);
+      draggableBookingBadge.style.left = `${left}px`;
+      draggableBookingBadge.style.top = `${top}px`;
+      draggableBookingBadge.style.right = "auto";
+      draggableBookingBadge.style.bottom = "auto";
+    });
+
+    const finishBadgeDrag = (event) => {
+      if (!badgeDragging || event.pointerId !== badgePointerId) return;
+      badgeDragging = false;
+      draggableBookingBadge.classList.remove("is-dragging");
+      if (draggableBookingBadge.hasPointerCapture(event.pointerId)) draggableBookingBadge.releasePointerCapture(event.pointerId);
+    };
+
+    draggableBookingBadge.addEventListener("pointerup", finishBadgeDrag);
+    draggableBookingBadge.addEventListener("pointercancel", finishBadgeDrag);
+    draggableBookingBadge.addEventListener("click", (event) => {
+      if (!badgeMoved) return;
+      event.preventDefault();
+      event.stopPropagation();
+      badgeMoved = false;
+    });
+  }
 </script>
