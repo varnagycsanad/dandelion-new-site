@@ -19,7 +19,7 @@ const pageDescription = audience === "family"
   ? "Őszi Dandelion-élmény családoknak: közös terek, kert, grillezés és kilenc különböző ház a megfelelő pihenés kiválasztásához."
   : "Őszi Dandelion-élmény pároknak: panoráma, kandalló, borvidéki lassulás és kilenc különböző ház a hozzátok illő pihenés kiválasztásához.";
 const heroLead = audience === "family"
-  ? ["Minőségi idő. Közös élmények.", "Válasszátok ki a családotokhoz illő Dandelion-házat."]
+  ? ["Vendégeskedjetek családotokkal a Balaton-felvidéki Dandelion-házakban,", "és legyen örök élmény a közös pihenés!"]
   : ["Lassítsatok le. Kapcsoljatok ki.", "Válasszátok ki a hozzátok illő Dandelion-házat."];
 const moodCards = audience === "family"
   ? [
@@ -170,8 +170,8 @@ const structuredData = [
         <div class="autumn-multi__mood-layout">
           <div class="autumn-multi__mood-copy">
             <p class="autumn-multi__eyebrow autumn-multi__eyebrow--dark">MIÉRT DANDELION ŐSSZEL?</p>
-            <h2 id="autumn-mood-title">Az ősz itt másképp telik.</h2>
-            <p class="autumn-multi__mood-intro">{audience === "family" ? "Közös terek, kerti programok és olyan házak, ahol a rossz idő sem állítja meg a pihenést." : "Borozás, kirándulások, biciklizés, medencés lazulás és a Balaton-felvidék felfedezése — többféle ház, ugyanaz a Dandelion-élmény."}</p>
+            <h2 id="autumn-mood-title">{audience === "family" ? "Ősszel a családdal együtt lenni a legjobb!" : "Az ősz itt másképp telik."}</h2>
+            <p class="autumn-multi__mood-intro">{audience === "family" ? "Közös reggelik, nagy séták, játékos délutánok és meghitt esték – együtt minden nap emlékezetesebb." : "Borozás, kirándulások, biciklizés, medencés lazulás és a Balaton-felvidék felfedezése — többféle ház, ugyanaz a Dandelion-élmény."}</p>
             <div class="autumn-multi__selection-guide" aria-label="Választást segítő tippek">
               <p class="autumn-multi__selection-kicker">{audience === "family" ? "CSALÁDI ŐSZI ÖTLETEK" : "PÁROS ŐSZI ÖTLETEK"}</p>
               <ul class="autumn-multi__selection-list">
@@ -193,6 +193,47 @@ const structuredData = [
         </div>
       </div>
     </section>
+
+    {audience === "family" && (
+      <section class="autumn-multi__family-guide" aria-labelledby="autumn-family-guide-title">
+        <div class="autumn-multi__shell">
+          <p class="autumn-multi__eyebrow autumn-multi__eyebrow--dark">CSALÁDI SZÁLLÁSÖTLETEK</p>
+          <h2 id="autumn-family-guide-title">Milyen házakat ajánlunk a családoknak?</h2>
+          <p class="autumn-multi__family-guide-lead">A család életkorához és a közös pihenés ritmusához igazítva könnyebb megtalálni a hozzátok illő Dandelion-házat.</p>
+          <div class="autumn-multi__family-guide-grid">
+            <article>
+              <h3>Babával érkezőknek</h3>
+              <p><a href="/dandelion-d2/">Dandelion D2</a>, <a href="/fuge/">Dandelion Fügeház</a> és <a href="/royal/">Dandelion Royal Homes</a> – ezekben ingyenesen elérhetők a babafelszerelések.</p>
+            </article>
+            <article>
+              <h3>Nagyobb családoknak</h3>
+              <p>A <a href="/szepvolgyi/">Dandelion Szépvölgyi</a> tágas, négy hálószobás háza mellett a <a href="/royal/">Dandelion Royal Homes</a> két hálószobával és jacuzzival is jó választás – a nagyobb gyerekeknek különösen tetszeni fog.</p>
+            </article>
+            <article>
+              <h3>Kamaszokkal nyaralóknak</h3>
+              <p>A <a href="/dandelion-d2/">Dandelion D2</a>, a <a href="/dandelion-vintage/">Dandelion Vintage</a> és a <a href="/dandelion-zsalya/">Dandelion Zsálya</a> szeparált szobái lehetőséget adnak a kamaszoknak egy kis önállóságra, miközben a család együtt marad.</p>
+            </article>
+          </div>
+          <div class="autumn-multi__family-guide-bottom">
+            <div>
+              <p class="autumn-multi__family-guide-label">BABABARÁT KIEGÉSZÍTŐK</p>
+              <p>A picik kényelmét szolgáló kiságy, babakád és fellépő térítésmentesen kérhető. Ezek nem minden házban érhetők el, ezért kérjük, előre jelezzétek az igényt.</p>
+            </div>
+            <div>
+              <p class="autumn-multi__family-guide-label">CSALÁDI PROGRAMOK</p>
+              <ul>
+                <li>Könnyebb és nehezebb túrák a tanúhegyeken.</li>
+                <li>Nagyszerű játszótér a faluban.</li>
+                <li>Gyönyörű túraútvonalak és aktív pihenés.</li>
+                <li>Biciklibérlési lehetőség – érdeklődjetek nálunk.</li>
+                <li>Barlangtúra a Tapolcai-tavasbarlangban.</li>
+                <li>Családi nap a keszthelyi Festetics-kastélyban.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
 
     <section class="autumn-multi__picker" aria-labelledby="autumn-picker-title">
       <div class="autumn-multi__shell">
@@ -340,6 +381,7 @@ const structuredData = [
   .autumn-multi__mood-card h3 { display: flex; flex-wrap: wrap; gap: 0 8px; margin: 0; font-size: 31px; line-height: .88; }
   .autumn-multi__mood-card h3 span { display: inline; }
   .autumn-multi__mood-card > span { margin-top: 7px; color: rgba(255, 250, 240, .86); font-size: 11px; }
+  .autumn-multi__family-guide { display: none; }
   .autumn-multi__picker { padding: 68px 0 74px; background: #2c241e; color: #fff7e9; }
   .autumn-multi__picker h2 { max-width: 700px; }
   .autumn-multi__picker-lead { max-width: 620px; margin: 16px 0 0; color: #c8b9a7; font-size: 13px; }
@@ -385,6 +427,8 @@ const structuredData = [
   @media (min-width: 901px) { .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { transform: translateY(-3px) scale(1); box-shadow: 0 12px 22px rgba(39, 26, 16, .14); } .autumn-multi__house-card--featured:hover, .autumn-multi__house-card--featured:focus-within { box-shadow: inset 0 3px 0 #e1bb62, 0 14px 25px rgba(39, 26, 16, .16); } .autumn-multi__house-card:hover .autumn-multi__house-link img, .autumn-multi__house-card:focus-within .autumn-multi__house-link img { transform: scale(1.04); filter: saturate(1.05) contrast(1.02); } .autumn-multi__house-card--feature-large .autumn-multi__house-copy { padding: 17px 19px 18px; } .autumn-multi__house-card--feature-large .autumn-multi__house-heading { display: flex; align-items: baseline; gap: 14px; } .autumn-multi__house-card--feature-large .autumn-multi__house-copy h3 { font-size: 26px; } .autumn-multi__house-card--feature-large .autumn-multi__house-label { margin: 0; font-size: 8px; } .autumn-multi__house-feature-bullets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; row-gap: 4px; margin: 8px 0 0; padding: 0 0 0 16px; color: #6b5b4c; font-size: 11px; line-height: 1.28; } .autumn-multi__house-feature-bullets li::marker { color: #a3731e; font-size: .9em; } }
   @media (min-width: 901px) { .autumn-multi__house-card--featured .autumn-multi__house-link { display: flex; flex-direction: column; } .autumn-multi__house-card--featured .autumn-multi__house-copy { display: flex; min-height: 0; flex: 1; flex-direction: column; padding: 17px 19px 18px; } .autumn-multi__house-card--featured .autumn-multi__house-heading { display: flex; align-items: baseline; gap: 14px; min-height: 28px; } .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { font-size: 26px; } .autumn-multi__house-card--featured .autumn-multi__house-label { margin: 0; font-size: 8px; } .autumn-multi__house-card--featured .autumn-multi__house-copy > span { margin-top: auto; padding-top: 16px; } }
   @media (min-width: 901px) { .autumn-multi__house-card { border-radius: 14px; } .autumn-multi__house-card--featured { border-radius: 16px; } }
+  @media (min-width: 901px) { .autumn-multi__family-guide { display: block; padding: 72px 0 78px; background: #f0e5d6; color: #2d241c; } .autumn-multi__family-guide h2 { max-width: 700px; margin: 14px 0 0; font-size: clamp(42px, 4vw, 56px); line-height: .9; letter-spacing: -.035em; } .autumn-multi__family-guide-lead { max-width: 650px; margin: 17px 0 0; color: #6b5b4c; font-size: 14px; line-height: 1.5; } .autumn-multi__family-guide-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 32px; } .autumn-multi__family-guide-grid article { min-height: 205px; padding: 23px 24px 25px; border: 1px solid #d7c4ac; border-radius: 14px; background: #fffaf2; box-shadow: 0 8px 18px rgba(39, 26, 16, .08); } .autumn-multi__family-guide-grid h3 { margin: 0; color: #2d241c; font-size: 28px; line-height: .98; } .autumn-multi__family-guide-grid p { margin: 15px 0 0; color: #5f5146; font-size: 14px; line-height: 1.48; } .autumn-multi__family-guide-grid a { color: #8d651c; font-weight: 700; text-decoration-color: rgba(141, 101, 28, .35); text-underline-offset: 3px; } .autumn-multi__family-guide-grid .autumn-multi__family-guide-note { margin-top: 11px; color: #78695b; font-size: 12px; } .autumn-multi__family-guide-bottom { display: grid; grid-template-columns: .9fr 1.1fr; gap: 14px; margin-top: 14px; } .autumn-multi__family-guide-bottom > div { padding: 20px 24px 22px; border: 1px solid #d7c4ac; border-left: 3px solid #c28b27; border-radius: 12px; background: rgba(255, 250, 242, .76); } .autumn-multi__family-guide-label { margin: 0; color: #9c7124; font-size: 9px; font-weight: 700; letter-spacing: .14em; } .autumn-multi__family-guide-bottom p:not(.autumn-multi__family-guide-label) { margin: 10px 0 0; color: #5f5146; font-size: 13px; line-height: 1.5; } .autumn-multi__family-guide-bottom ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; margin: 10px 0 0; padding: 0 0 0 17px; color: #5f5146; font-size: 13px; line-height: 1.45; } .autumn-multi__family-guide-bottom li::marker { color: #a3731e; } }
+  @media (min-width: 901px) { .autumn-multi[data-autumn-audience="family"] .autumn-multi__mood-copy h2 { max-width: 620px; font-size: clamp(42px, 4vw, 56px); line-height: .9; } }
   @media (max-width: 700px) { .autumn-multi__mood-copy { text-align: center; } .autumn-multi__mood-copy h2 { font-size: 44px; text-align: center; } .autumn-multi__mood-intro { margin-right: auto; margin-left: auto; } .autumn-multi__selection-kicker { text-align: center; } .autumn-multi__selection-list { padding-left: 0; list-style-position: inside; text-align: center; } }
   @media (max-width: 700px) { .autumn-multi__hero h1 { margin-top: 14px; margin-bottom: 17px; font-size: clamp(42px, 12.5vw, 62px); line-height: .9; } .autumn-multi__hero-value { position: absolute; left: 0; bottom: 24px; margin-top: 0; padding: 10px 17px; gap: 9px; border-radius: 9px; } .autumn-multi__hero-value strong { font-size: 34px; } .autumn-multi__hero-value span { font-size: 9px; line-height: 1.15; } }
   @media (max-width: 700px) { .autumn-multi__house-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .autumn-multi__house-card--feature-large { grid-column: span 1; } .autumn-multi__house-card { border-color: #d8cbb9; border-radius: 12px; background: #fffaf2; color: #2d241c; box-shadow: 0 7px 16px rgba(39, 26, 16, .1); } .autumn-multi__house-card:hover, .autumn-multi__house-card:focus-within { border-color: #c28b27; transform: none; box-shadow: 0 7px 16px rgba(39, 26, 16, .1); } .autumn-multi__house-link { height: auto; } .autumn-multi__house-link img, .autumn-multi__house-card--featured .autumn-multi__house-link img { height: 116px; } .autumn-multi__house-copy, .autumn-multi__house-card--featured .autumn-multi__house-copy { padding: 11px 11px 10px; } .autumn-multi__house-copy h3, .autumn-multi__house-card--featured .autumn-multi__house-copy h3 { color: #2d241c; font-size: clamp(18px, 5.6vw, 24px); line-height: .95; } .autumn-multi__house-label, .autumn-multi__house-copy > p:not(.autumn-multi__house-label), .autumn-multi__house-copy > span, .autumn-multi__house-copy > .autumn-multi__house-feature-bullets { display: none; } .autumn-multi__house-details { display: block; border-top: 1px solid #e0d2c0; background: #f5ecdf; color: #5c4b3c; } .autumn-multi__house-details summary { display: flex; align-items: center; justify-content: space-between; min-height: 34px; padding: 8px 11px; color: #986d20; cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .08em; line-height: 1.1; text-transform: uppercase; list-style: none; } .autumn-multi__house-details summary::-webkit-details-marker { display: none; } .autumn-multi__house-details summary span { font-size: 16px; font-weight: 400; line-height: .7; transition: transform .2s ease; } .autumn-multi__house-details[open] summary span { transform: rotate(45deg); } .autumn-multi__house-details-body { padding: 1px 11px 12px; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets { display: grid; gap: 5px; margin: 0; padding: 0 0 0 14px; color: #67584b; font-size: 10px; line-height: 1.25; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets li::marker { color: #a3731e; } .autumn-multi__house-details-body > p { margin: 0; color: #67584b; font-size: 10px; line-height: 1.3; } .autumn-multi__house-details-link { display: inline-block; margin-top: 10px; color: #8b641d; font-size: 8px; font-weight: 700; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; } .autumn-multi__house-details-link span { color: #b17d1f; } }
@@ -402,6 +446,7 @@ const structuredData = [
   @media (prefers-reduced-motion: reduce) { .autumn-multi__hero-value { animation: none; } }
   @media (max-width: 700px) { .autumn-multi__hero-booking-badge { touch-action: none; cursor: grab; } .autumn-multi__hero-booking-badge.is-dragging { cursor: grabbing; transition: none; } }
   @media (max-width: 700px) { .autumn-multi__hero-lead p { font-size: 17px; line-height: 1.5; } .autumn-multi__mood-intro { font-size: 15px; line-height: 1.5; } .autumn-multi__selection-list { font-size: 14px; line-height: 1.55; } .autumn-multi__house-details-body .autumn-multi__house-feature-bullets { font-size: 14px; line-height: 1.45; } .autumn-multi__house-details-body > p { font-size: 14px; line-height: 1.45; } .autumn-multi__price-dialog { overflow: auto; } .autumn-multi__price-dialog-intro { font-size: 16px; line-height: 1.5; } .autumn-multi__price-dialog-stat span { font-size: 11px; } .autumn-multi__price-dialog ul { font-size: 15px; line-height: 1.45; } .autumn-multi__price-dialog-cta { font-size: 11px; } .autumn-multi__hero-booking-badge { user-select: none; -webkit-user-select: none; } }
+  @media (max-width: 700px) { .autumn-multi__family-guide { display: block; padding: 52px 0 56px; background: #f0e5d6; color: #2d241c; } .autumn-multi__family-guide h2 { max-width: 520px; margin: 13px 0 0; font-size: clamp(34px, 10vw, 44px); line-height: .94; letter-spacing: -.03em; } .autumn-multi__family-guide-lead { margin: 16px 0 0; color: #6b5b4c; font-size: 14px; line-height: 1.5; } .autumn-multi__family-guide-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 24px; } .autumn-multi__family-guide-grid article { min-height: 0; padding: 19px 18px 21px; border: 1px solid #d7c4ac; border-radius: 14px; background: #fffaf2; box-shadow: 0 7px 16px rgba(39, 26, 16, .08); } .autumn-multi__family-guide-grid h3 { margin: 0; color: #2d241c; font-size: 25px; line-height: 1; } .autumn-multi__family-guide-grid p { margin: 13px 0 0; color: #5f5146; font-size: 14px; line-height: 1.5; } .autumn-multi__family-guide-grid a { color: #8d651c; font-weight: 700; text-decoration-color: rgba(141, 101, 28, .35); text-underline-offset: 3px; } .autumn-multi__family-guide-bottom { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; } .autumn-multi__family-guide-bottom > div { padding: 18px 18px 20px; border: 1px solid #d7c4ac; border-left: 3px solid #c28b27; border-radius: 12px; background: rgba(255, 250, 242, .82); } .autumn-multi__family-guide-label { margin: 0; color: #9c7124; font-size: 9px; font-weight: 700; letter-spacing: .14em; } .autumn-multi__family-guide-bottom p:not(.autumn-multi__family-guide-label) { margin: 10px 0 0; color: #5f5146; font-size: 14px; line-height: 1.5; } .autumn-multi__family-guide-bottom ul { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0 0; padding: 0 0 0 17px; color: #5f5146; font-size: 14px; line-height: 1.45; } .autumn-multi__family-guide-bottom li::marker { color: #a3731e; } }
 </style>
 
 <script>

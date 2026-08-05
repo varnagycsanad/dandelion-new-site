@@ -482,7 +482,7 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
       lead: "Minőségi idő, közös élmények és természetközeli napok várnak a Dandelion D2-ben."
     },
     campaignHero: {
-      kicker: "ŐSZI CSALÁDI PIHENÉS",
+      kicker: "CSALÁDI PIHENÉS",
       titleLines: ["Őszi családi", "kikapcsolódás"],
       supportLine: "a Balaton-felvidéken",
       descriptionLines: [
