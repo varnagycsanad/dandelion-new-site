@@ -3,6 +3,8 @@ import { accommodations } from "../data/accommodations";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 // [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
+// [CHANGE 2026-08-11 19:30] Footer warmed with a subtle dandelion petal light treatment.
+// [CHANGE 2026-08-11 20:48] Footer newsletter changed to email-first modal signup with Brevo POST handoff.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -48,6 +50,69 @@ const footerNewsletterCopy = {
   }
 } as const;
 const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
+const newsletterFormCopy = {
+  hu: {
+    emailLabel: "E-mail-cím",
+    emailPlaceholder: "E-mail-cím",
+    openLabel: "Feliratkozás folytatása",
+    dialogLead: "Ellenőrizze az e-mail-címét, majd erősítse meg a feliratkozást.",
+    consent: "Hozzájárulok, hogy a Dandelion Vendégházak hírlevelet és marketingkommunikációt küldjön a megadott e-mail-címre.",
+    submit: "Feliratkozom",
+    close: "Bezárás",
+    response: "A feliratkozás visszaigazolása"
+  },
+  en: {
+    emailLabel: "Email address",
+    emailPlaceholder: "Email address",
+    openLabel: "Continue signup",
+    dialogLead: "Check your email address, then confirm your newsletter signup.",
+    consent: "I agree that Dandelion Guesthouses may send newsletters and marketing communications to the email address provided.",
+    submit: "Subscribe",
+    close: "Close",
+    response: "Signup confirmation"
+  },
+  de: {
+    emailLabel: "E-Mail-Adresse",
+    emailPlaceholder: "E-Mail-Adresse",
+    openLabel: "Anmeldung fortsetzen",
+    dialogLead: "Prüfen Sie Ihre E-Mail-Adresse und bestätigen Sie anschließend die Anmeldung.",
+    consent: "Ich stimme zu, dass Dandelion Gästehäuser Newsletter und Marketingmitteilungen an die angegebene E-Mail-Adresse sendet.",
+    submit: "Anmelden",
+    close: "Schließen",
+    response: "Anmeldebestätigung"
+  },
+  cs: {
+    emailLabel: "E-mailová adresa",
+    emailPlaceholder: "E-mailová adresa",
+    openLabel: "Pokračovat v přihlášení",
+    dialogLead: "Zkontrolujte svou e-mailovou adresu a potvrďte přihlášení k newsletteru.",
+    consent: "Souhlasím se zasíláním newsletteru a marketingové komunikace Dandelion Guesthouses na uvedenou e-mailovou adresu.",
+    submit: "Přihlásit se",
+    close: "Zavřít",
+    response: "Potvrzení přihlášení"
+  },
+  sk: {
+    emailLabel: "E-mailová adresa",
+    emailPlaceholder: "E-mailová adresa",
+    openLabel: "Pokračovať v prihlásení",
+    dialogLead: "Skontrolujte svoju e-mailovú adresu a potvrďte prihlásenie na odber newslettera.",
+    consent: "Súhlasím so zasielaním newslettera a marketingovej komunikácie Dandelion Guesthouses na uvedenú e-mailovú adresu.",
+    submit: "Prihlásiť sa",
+    close: "Zavrieť",
+    response: "Potvrdenie prihlásenia"
+  },
+  pl: {
+    emailLabel: "Adres e-mail",
+    emailPlaceholder: "Adres e-mail",
+    openLabel: "Kontynuuj zapis",
+    dialogLead: "Sprawdź swój adres e-mail i potwierdź zapis do newslettera.",
+    consent: "Wyrażam zgodę na otrzymywanie newslettera i komunikacji marketingowej Dandelion Guesthouses na podany adres e-mail.",
+    submit: "Zapisz się",
+    close: "Zamknij",
+    response: "Potwierdzenie zapisu"
+  }
+} as const;
+const newsletterUiCopy = newsletterFormCopy[lang] ?? newsletterFormCopy.hu;
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
@@ -336,7 +401,13 @@ const slovakLegalLinks = [
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
       </div>
-      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
+      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
+      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
+      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
     </div>
 
     <div class="dnd-container dnd-site-footer__inner">
@@ -403,7 +474,13 @@ const slovakLegalLinks = [
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
       </div>
-      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
+      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
+      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
+      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
     </div>
 
     <div class="dnd-container dnd-site-footer__inner">
@@ -470,7 +547,13 @@ const slovakLegalLinks = [
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
       </div>
-      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
+      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
+      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
+      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
     </div>
 
     <div class="dnd-container dnd-site-footer__inner">
@@ -537,7 +620,13 @@ const slovakLegalLinks = [
       <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
       <p>{newsletterCopy.text}</p>
     </div>
-    <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
+      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
+      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
+      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
   </div>
 
   <div class="dnd-container dnd-site-footer__inner">
@@ -634,13 +723,93 @@ const slovakLegalLinks = [
 </footer>
 )}
 
+<dialog class="dnd-newsletter-dialog" data-newsletter-dialog aria-labelledby={`newsletter-dialog-title-${lang}`}>
+  <div class="dnd-newsletter-dialog__panel">
+    <button class="dnd-newsletter-dialog__close" type="button" data-newsletter-close aria-label={newsletterUiCopy.close}>×</button>
+    <span class="dnd-newsletter-signup__kicker">{newsletterCopy.title}</span>
+    <h2 id={`newsletter-dialog-title-${lang}`}>{newsletterCopy.title}</h2>
+    <p class="dnd-newsletter-dialog__lead">{newsletterUiCopy.dialogLead}</p>
+
+    <form
+      class="dnd-newsletter-dialog__form"
+      action={brevoFormUrl}
+      method="POST"
+      target="dnd-newsletter-response"
+      data-newsletter-submit
+    >
+      <label for={`newsletter-dialog-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
+      <input id={`newsletter-dialog-email-${lang}`} name="EMAIL" type="email" autocomplete="email" required data-newsletter-email />
+      <label class="dnd-newsletter-dialog__consent">
+        <input type="checkbox" name="OPT_IN" value="1" required />
+        <span>{newsletterUiCopy.consent}</span>
+      </label>
+      <input type="hidden" name="email_address_check" value="" />
+      <input type="hidden" name="locale" value="en" />
+      <button type="submit">{newsletterUiCopy.submit}</button>
+    </form>
+
+    <iframe
+      class="dnd-newsletter-dialog__response"
+      name="dnd-newsletter-response"
+      title={newsletterUiCopy.response}
+      data-newsletter-response
+      hidden
+    ></iframe>
+  </div>
+</dialog>
+
 <style>
   .dnd-site-footer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     margin-top: 32px;
     padding: 56px 0 22px;
-    background: linear-gradient(180deg, #201913 0%, #17120e 100%);
+    background: linear-gradient(180deg, #2b2118 0%, #1e1711 100%);
     color: rgba(253, 251, 247, 0.88);
     border-top: 1px solid rgba(217, 158, 43, 0.14);
+  }
+
+  .dnd-site-footer::before {
+    position: absolute;
+    top: 54px;
+    right: 5%;
+    width: 330px;
+    height: 270px;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse 6px 24px at 50% 8%, rgba(249, 203, 91, 0.32) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 21px at 68% 17%, rgba(249, 203, 91, 0.24) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 21px at 83% 38%, rgba(249, 203, 91, 0.2) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 20px at 78% 65%, rgba(249, 203, 91, 0.18) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 21px at 60% 83%, rgba(249, 203, 91, 0.16) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 20px at 35% 86%, rgba(249, 203, 91, 0.17) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 21px at 16% 66%, rgba(249, 203, 91, 0.18) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 21px at 10% 40%, rgba(249, 203, 91, 0.2) 0 48%, transparent 58%),
+      radial-gradient(ellipse 5px 22px at 28% 16%, rgba(249, 203, 91, 0.24) 0 48%, transparent 58%),
+      radial-gradient(circle at 50% 49%, rgba(255, 216, 101, 0.62) 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 49%, rgba(249, 203, 91, 0.12), transparent 42%);
+    opacity: 0.72;
+    pointer-events: none;
+    transform: rotate(-12deg);
+    z-index: 0;
+  }
+
+  .dnd-site-footer::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 250px;
+    background: linear-gradient(180deg, rgba(249, 203, 91, 0.08), transparent 82%);
+    content: "";
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dnd-site-footer > * {
+    position: relative;
+    z-index: 1;
   }
 
   .dnd-site-footer__inner {
@@ -651,7 +820,12 @@ const slovakLegalLinks = [
   }
 
   .dnd-site-footer__brand {
+    position: relative;
     max-width: 360px;
+    padding: 10px 18px 14px;
+    border-left: 1px solid rgba(249, 203, 91, 0.24);
+    border-radius: 0 16px 16px 0;
+    background: linear-gradient(135deg, rgba(249, 203, 91, 0.08), rgba(249, 203, 91, 0));
   }
 
   .dnd-site-footer__brand-link {
@@ -754,26 +928,189 @@ const slovakLegalLinks = [
     line-height: 1.55;
   }
 
-  .dnd-site-footer__newsletter-link {
+  .dnd-site-footer__newsletter-form {
     display: inline-flex;
+    align-items: stretch;
     min-height: 48px;
-    align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    padding: 0 24px;
+    width: min(100%, 360px);
+  }
+
+  .dnd-site-footer__newsletter-form input {
+    min-width: 0;
+    flex: 1 1 auto;
+    padding: 0 14px;
+    border: 1px solid rgba(217, 158, 43, 0.78);
+    border-right: 0;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: rgba(255, 252, 245, 0.98);
+    color: #201913;
+    font-size: var(--dnd-text-md);
+    line-height: 1.2;
+  }
+
+  .dnd-site-footer__newsletter-form input::placeholder {
+    color: rgba(32, 25, 19, 0.58);
+  }
+
+  .dnd-site-footer__newsletter-form input:focus-visible,
+  .dnd-site-footer__newsletter-form button:focus-visible {
+    outline: 2px solid #f1bd54;
+    outline-offset: 2px;
+  }
+
+  .dnd-site-footer__newsletter-form button {
+    display: inline-flex;
+    width: 52px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 52px;
+    border: 1px solid #d99e2b;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #d99e2b;
+    color: #201913;
+    cursor: pointer;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .dnd-site-footer__newsletter-form button:hover,
+  .dnd-site-footer__newsletter-form button:focus-visible {
+    background: #f1bd54;
+    color: #201913;
+  }
+
+  .dnd-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .dnd-newsletter-dialog {
+    width: min(92vw, 540px);
+    padding: 0;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    color: #272018;
+  }
+
+  .dnd-newsletter-dialog::backdrop {
+    background: rgba(23, 17, 12, 0.72);
+    backdrop-filter: blur(3px);
+  }
+
+  .dnd-newsletter-dialog__panel {
+    position: relative;
+    padding: 32px;
+    border: 1px solid rgba(217, 158, 43, 0.42);
+    border-radius: 18px;
+    background: #fffdf8;
+    box-shadow: 0 24px 70px rgba(16, 10, 5, 0.3);
+  }
+
+  .dnd-newsletter-dialog__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(39, 32, 24, 0.16);
+    border-radius: 50%;
+    background: transparent;
+    color: rgba(39, 32, 24, 0.72);
+    cursor: pointer;
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .dnd-newsletter-dialog h2 {
+    margin: 8px 42px 8px 0;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .dnd-newsletter-dialog__lead {
+    margin: 0 0 22px;
+    color: rgba(39, 32, 24, 0.7);
+    font-size: var(--dnd-text-md);
+    line-height: 1.5;
+  }
+
+  .dnd-newsletter-dialog__form {
+    display: grid;
+    gap: 10px;
+  }
+
+  .dnd-newsletter-dialog__form > label:first-child {
+    color: rgba(39, 32, 24, 0.8);
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+  }
+
+  .dnd-newsletter-dialog__form input[type="email"] {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid rgba(91, 70, 42, 0.28);
+    border-radius: 6px;
+    background: #fff;
+    color: #272018;
+    font-size: var(--dnd-text-md);
+  }
+
+  .dnd-newsletter-dialog__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    color: rgba(39, 32, 24, 0.7);
+    font-size: var(--dnd-text-xs);
+    line-height: 1.45;
+  }
+
+  .dnd-newsletter-dialog__consent input {
+    flex: 0 0 auto;
+    margin-top: 3px;
+  }
+
+  .dnd-newsletter-dialog__form > button {
+    min-height: 48px;
+    margin-top: 4px;
     border: 1px solid #d99e2b;
     border-radius: 5px;
     background: #d99e2b;
     color: #201913;
+    cursor: pointer;
     font-size: var(--dnd-text-md);
     font-weight: 600;
-    line-height: 1.2;
   }
 
-  .dnd-site-footer__newsletter-link:hover,
-  .dnd-site-footer__newsletter-link:focus-visible {
+  .dnd-newsletter-dialog__form > button:hover,
+  .dnd-newsletter-dialog__form > button:focus-visible {
     background: #f1bd54;
-    color: #201913;
+  }
+
+  .dnd-newsletter-dialog__response {
+    width: 100%;
+    height: 320px;
+    margin-top: 18px;
+    border: 1px solid rgba(91, 70, 42, 0.14);
+    border-radius: 8px;
+    background: #fff;
   }
 
   @media (max-width: 960px) {
@@ -810,6 +1147,17 @@ const slovakLegalLinks = [
       grid-column: 1 / -1;
       text-align: center;
       justify-self: center;
+      border-left: 0;
+      border-radius: 16px;
+      background: radial-gradient(circle at 50% 0, rgba(249, 203, 91, 0.09), transparent 62%);
+    }
+
+    .dnd-site-footer::before {
+      top: 92px;
+      right: -96px;
+      width: 240px;
+      height: 210px;
+      opacity: 0.46;
     }
 
     .dnd-site-footer__group h2 {
@@ -841,8 +1189,51 @@ const slovakLegalLinks = [
       text-align: center;
     }
 
-    .dnd-site-footer__newsletter-link {
+    .dnd-site-footer__newsletter-form {
       width: 100%;
     }
   }
 </style>
+
+<script>
+  const newsletterDialog = document.querySelector("[data-newsletter-dialog]");
+  const newsletterEmail = newsletterDialog?.querySelector("[data-newsletter-email]");
+  const newsletterResponse = newsletterDialog?.querySelector("[data-newsletter-response]");
+
+  if (newsletterDialog instanceof HTMLDialogElement && newsletterEmail instanceof HTMLInputElement) {
+    document.querySelectorAll("[data-newsletter-trigger]").forEach((trigger) => {
+      trigger.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const emailInput = trigger.querySelector('input[name="email"]');
+        if (!(emailInput instanceof HTMLInputElement) || !emailInput.value.trim()) {
+          return;
+        }
+
+        newsletterEmail.value = emailInput.value.trim();
+        if (newsletterResponse instanceof HTMLIFrameElement) {
+          newsletterResponse.hidden = true;
+          newsletterResponse.src = "about:blank";
+        }
+        newsletterDialog.showModal();
+        newsletterEmail.focus();
+      });
+    });
+
+    newsletterDialog.querySelectorAll("[data-newsletter-close]").forEach((closeButton) => {
+      closeButton.addEventListener("click", () => newsletterDialog.close());
+    });
+
+    newsletterDialog.addEventListener("click", (event) => {
+      if (event.target === newsletterDialog) {
+        newsletterDialog.close();
+      }
+    });
+
+    newsletterDialog.querySelector("[data-newsletter-submit]")?.addEventListener("submit", () => {
+      if (newsletterResponse instanceof HTMLIFrameElement) {
+        newsletterResponse.hidden = false;
+      }
+    });
+  }
+</script>
