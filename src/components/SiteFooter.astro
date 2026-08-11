@@ -2,7 +2,7 @@
 import { accommodations } from "../data/accommodations";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
-// [CHANGE 2026-08-11 18:00] Hungarian footer newsletter CTA made explicit and more visible.
+// [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -657,15 +657,18 @@ const slovakLegalLinks = [
   .dnd-site-footer__brand-link {
     display: inline-flex;
     margin-bottom: 14px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    background: #fdfbf7;
+    width: max-content;
+    max-width: 100%;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
   }
 
   .dnd-site-footer__brand-link img {
     display: block;
-    width: min(220px, 100%);
+    width: min(190px, 100%);
     height: auto;
+    filter: brightness(1.28) contrast(1.04);
   }
 
   .dnd-site-footer__brand p {
