@@ -10,40 +10,35 @@ const copyByLang = {
     title: "Merre találod a házakat?",
     text:
       "A Dandelion házak a Tapolcai-medence, a Káli-medence és a Balaton nyugati oldala között helyezkednek el. Egy térképen gyorsan látod, melyik környék áll hozzád közelebb.",
-    iframeTitle: "Dandelion Balaton-felvidék térkép",
-    overlay: "Kattints a térkép aktiválásához"
+    iframeTitle: "Dandelion Balaton-felvidék térkép"
   },
   en: {
     kicker: "Balaton Uplands",
     title: "Where are the houses?",
     text:
       "The Dandelion houses sit between the Tapolca Basin, the Káli Basin and the western side of Lake Balaton. The map makes it easier to compare the areas at a glance.",
-    iframeTitle: "Dandelion Balaton Uplands map",
-    overlay: "Click to activate the map"
+    iframeTitle: "Dandelion Balaton Uplands map"
   },
   de: {
     kicker: "Balaton-Oberland",
     title: "Wo liegen die Häuser?",
     text:
       "Die Dandelion Häuser liegen zwischen Tapolca-Becken, Káli-Becken und der westlichen Seite des Balaton. Auf der Karte lassen sich die Regionen schnell vergleichen.",
-    iframeTitle: "Dandelion Karte Balaton-Oberland",
-    overlay: "Klicken, um die Karte zu aktivieren"
+    iframeTitle: "Dandelion Karte Balaton-Oberland"
   },
   cs: {
     kicker: "Balatonská vrchovina",
     title: "Kde najdete naše domy?",
     text:
       "Domy Dandelion leží mezi Tapolcai pánví, oblastí Káli a západní stranou Balatonu. Na mapě rychle porovnáte, která oblast je pro vás nejvhodnější.",
-    iframeTitle: "Mapa Dandelion v Balatonské vrchovině",
-    overlay: "Kliknutím aktivujete mapu"
+    iframeTitle: "Mapa Dandelion v Balatonské vrchovině"
   },
   sk: {
     kicker: "Balatonská vrchovina",
     title: "Kde nájdete naše domy?",
     text:
       "Domy Dandelion ležia medzi Tapolcai-medence, oblasťou Káli a západnou stranou Balatonu. Na mape rýchlo porovnáte, ktorá oblasť vám sedí najviac.",
-    iframeTitle: "Mapa Dandelion v Balatonskej vrchovine",
-    overlay: "Kliknutím aktivujete mapu"
+    iframeTitle: "Mapa Dandelion v Balatonskej vrchovine"
   }
 } as const;
 const copy = copyByLang[lang];
@@ -59,36 +54,18 @@ const mapSrc = "https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV8
     </div>
 
     <div class="dnd-google-region-map__card">
-      <div class="dnd-google-region-map__frame" data-dnd-map-frame>
+      <div class="dnd-google-region-map__frame">
         <iframe
           class="dnd-google-region-map__canvas"
-          data-dnd-map-src={mapSrc}
+          src={mapSrc}
           title={copy.iframeTitle}
-          loading="lazy"
+          loading="eager"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
-        <button class="dnd-google-region-map__overlay" type="button" data-dnd-map-activate>
-          {copy.overlay}
-        </button>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  document.querySelectorAll("[data-dnd-map-frame]").forEach((frame) => {
-    const activator = frame.querySelector("[data-dnd-map-activate]");
-    const iframe = frame.querySelector("iframe[data-dnd-map-src]");
-
-    activator?.addEventListener("click", () => {
-      if (iframe instanceof HTMLIFrameElement && !iframe.src) {
-        iframe.src = iframe.dataset.dndMapSrc ?? "";
-      }
-
-      frame.classList.add("is-active");
-    });
-  });
-</script>
 
 <style>
   .dnd-google-region-map {
@@ -150,8 +127,7 @@ const mapSrc = "https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV8
     line-height: 1.62;
   }
 
-  .dnd-google-region-map__frame,
-  .dnd-google-region-map__overlay {
+  .dnd-google-region-map__frame {
     position: absolute;
     inset: 0;
   }
@@ -164,34 +140,7 @@ const mapSrc = "https://www.google.com/maps/d/u/0/embed?mid=1dgmhlWMXHWYPWCpzLV8
     width: 100%;
     height: calc(100% + 64px);
     border: 0;
-    pointer-events: none;
-  }
-
-  .dnd-google-region-map__frame.is-active .dnd-google-region-map__canvas {
     pointer-events: auto;
-  }
-
-  .dnd-google-region-map__overlay {
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 0 18px 24px;
-    border: 0;
-    background: linear-gradient(180deg, transparent 42%, rgba(247, 242, 231, 0.78));
-    color: rgba(39, 32, 24, 0.82);
-    font-family: var(--dnd-font-body);
-    font-size: var(--dnd-text-2xs);
-    font-weight: 600;
-    letter-spacing: var(--dnd-tracking-ui);
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.18s ease;
-  }
-
-  .dnd-google-region-map__frame.is-active .dnd-google-region-map__overlay {
-    opacity: 0;
-    pointer-events: none;
   }
 
   @media (max-width: 860px) {
