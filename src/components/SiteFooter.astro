@@ -5,6 +5,7 @@ import { accommodations } from "../data/accommodations";
 // [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
 // [CHANGE 2026-08-11 19:30] Footer warmed with a subtle dandelion petal light treatment.
 // [CHANGE 2026-08-11 20:48] Footer newsletter changed to email-first modal signup with Brevo POST handoff.
+// [CHANGE 2026-08-11 21:02] Newsletter submit response replaced with a readable confirmation state.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -774,46 +775,31 @@ const slovakLegalLinks = [
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    margin-top: 32px;
-    padding: 56px 0 22px;
-    background: linear-gradient(180deg, #2b2118 0%, #1e1711 100%);
-    color: rgba(253, 251, 247, 0.88);
-    border-top: 1px solid rgba(217, 158, 43, 0.14);
+    --footer-cream: #fff7e9;
+    --footer-muted: rgba(255, 247, 233, 0.72);
+    --footer-link: rgba(255, 247, 233, 0.86);
+    margin-top: clamp(28px, 4vw, 48px);
+    padding: clamp(48px, 6vw, 76px) 0 24px;
+    background:
+      radial-gradient(circle at 7% 10%, rgba(190, 182, 162, 0.1), transparent 24%),
+      radial-gradient(circle at 92% 60%, rgba(166, 173, 165, 0.08), transparent 26%),
+      linear-gradient(132deg, #272220 0%, #202625 54%, #1d211f 100%);
+    color: var(--footer-cream);
+    border-top: 1px solid rgba(232, 193, 103, 0.3);
   }
 
   .dnd-site-footer::before {
     position: absolute;
-    top: 54px;
-    right: 5%;
-    width: 330px;
-    height: 270px;
+    top: -150px;
+    left: -110px;
+    width: min(58vw, 680px);
+    height: 390px;
     border-radius: 50%;
     background:
-      radial-gradient(ellipse 6px 24px at 50% 8%, rgba(249, 203, 91, 0.32) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 21px at 68% 17%, rgba(249, 203, 91, 0.24) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 21px at 83% 38%, rgba(249, 203, 91, 0.2) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 20px at 78% 65%, rgba(249, 203, 91, 0.18) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 21px at 60% 83%, rgba(249, 203, 91, 0.16) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 20px at 35% 86%, rgba(249, 203, 91, 0.17) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 21px at 16% 66%, rgba(249, 203, 91, 0.18) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 21px at 10% 40%, rgba(249, 203, 91, 0.2) 0 48%, transparent 58%),
-      radial-gradient(ellipse 5px 22px at 28% 16%, rgba(249, 203, 91, 0.24) 0 48%, transparent 58%),
-      radial-gradient(circle at 50% 49%, rgba(255, 216, 101, 0.62) 0 4px, transparent 5px),
-      radial-gradient(circle at 50% 49%, rgba(249, 203, 91, 0.12), transparent 42%);
-    opacity: 0.72;
-    pointer-events: none;
-    transform: rotate(-12deg);
-    z-index: 0;
-  }
-
-  .dnd-site-footer::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 250px;
-    background: linear-gradient(180deg, rgba(249, 203, 91, 0.08), transparent 82%);
-    content: "";
+      radial-gradient(ellipse at 38% 52%, rgba(190, 182, 162, 0.14), transparent 62%),
+      radial-gradient(ellipse at 72% 52%, rgba(166, 173, 165, 0.1), transparent 58%);
+    filter: blur(12px);
+    opacity: 0.9;
     pointer-events: none;
     z-index: 0;
   }
@@ -826,20 +812,26 @@ const slovakLegalLinks = [
   .dnd-site-footer__inner {
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(0, 0.85fr));
-    gap: clamp(28px, 4vw, 48px);
+    gap: clamp(28px, 4vw, 54px);
     align-items: start;
   }
 
   .dnd-site-footer__brand {
     position: relative;
-    max-width: 360px;
-    padding: 10px 18px 14px;
-    border-left: 1px solid rgba(249, 203, 91, 0.24);
-    border-radius: 0 16px 16px 0;
-    background: linear-gradient(135deg, rgba(249, 203, 91, 0.08), rgba(249, 203, 91, 0));
+    max-width: 390px;
+    padding: 18px 24px 18px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .dnd-site-footer__brand::before {
+    display: none;
+    content: "";
   }
 
   .dnd-site-footer__brand-link {
+    position: relative;
     display: inline-flex;
     margin-bottom: 14px;
     width: max-content;
@@ -857,20 +849,47 @@ const slovakLegalLinks = [
   }
 
   .dnd-site-footer__brand p {
+    position: relative;
     margin: 0;
-    color: rgba(253, 251, 247, 0.72);
+    max-width: 330px;
+    color: var(--footer-muted);
     font-size: var(--dnd-text-md);
     line-height: 1.7;
   }
 
+  .dnd-site-footer__group {
+    --footer-group-accent: #c8b77d;
+    position: relative;
+  }
+
+  .dnd-site-footer__group:nth-child(3) {
+    --footer-group-accent: #aeb7b0;
+  }
+
+  .dnd-site-footer__group:nth-child(4) {
+    --footer-group-accent: #b5aaa2;
+  }
+
   .dnd-site-footer__group h2 {
-    margin: 0 0 14px;
-    color: rgba(217, 158, 43, 0.96);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 16px;
+    color: var(--footer-group-accent);
     font-size: var(--dnd-text-xs);
     font-weight: 700;
     letter-spacing: var(--dnd-tracking-wide);
     line-height: 1.4;
     text-transform: uppercase;
+  }
+
+  .dnd-site-footer__group h2::after {
+    width: 26px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--footer-group-accent);
+    content: "";
+    opacity: 0.82;
   }
 
   .dnd-site-footer__group ul {
@@ -891,50 +910,94 @@ const slovakLegalLinks = [
 
   .dnd-site-footer__group a {
     display: inline-flex;
-    color: rgba(253, 251, 247, 0.82);
+    align-items: baseline;
+    gap: 8px;
+    color: var(--footer-link);
     font-size: var(--dnd-text-md);
     line-height: 1.45;
     transition: color 0.18s ease, transform 0.18s ease;
   }
 
+  .dnd-site-footer__group a::before {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    margin-top: 0.45em;
+    border-radius: 50%;
+    background: var(--footer-group-accent);
+    content: "";
+    opacity: 0.72;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+  }
+
   .dnd-site-footer__group a:hover,
   .dnd-site-footer__group a:focus-visible {
-    color: #fdfbf7;
+    color: var(--footer-cream);
     transform: translateX(1px);
   }
 
+  .dnd-site-footer__group a:hover::before,
+  .dnd-site-footer__group a:focus-visible::before {
+    opacity: 1;
+    transform: scale(1.45);
+  }
+
   .dnd-site-footer__bottom {
-    margin-top: 34px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(253, 251, 247, 0.08);
-    color: rgba(253, 251, 247, 0.58);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 247, 233, 0.16);
+    color: rgba(255, 247, 233, 0.62);
     font-size: var(--dnd-text-xs);
     line-height: 1.45;
   }
 
   .dnd-site-footer__newsletter {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: 34px;
-    padding: 24px clamp(20px, 4vw, 42px);
-    border: 1px solid rgba(217, 158, 43, 0.5);
-    border-radius: 8px;
-    background: rgba(217, 158, 43, 0.1);
+    margin-bottom: clamp(38px, 5vw, 60px);
+    padding: 26px clamp(22px, 4vw, 44px);
+    border: 1px solid rgba(244, 202, 87, 0.48);
+    border-radius: 24px 10px 24px 10px;
+    background: linear-gradient(108deg, rgba(190, 182, 162, 0.17), rgba(166, 173, 165, 0.13) 56%, rgba(200, 183, 125, 0.08));
+    box-shadow: 0 18px 44px rgba(11, 17, 18, 0.16);
+  }
+
+  .dnd-site-footer__newsletter::before {
+    position: absolute;
+    right: 21%;
+    bottom: -76px;
+    width: 240px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 247, 233, 0.16), transparent 68%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .dnd-site-footer__newsletter > * {
+    position: relative;
+    z-index: 1;
   }
 
   .dnd-site-footer__newsletter h2 {
     margin: 0 0 6px;
-    color: rgba(253, 251, 247, 0.92);
-    font-size: clamp(1.08rem, 1.8vw, 1.3rem);
-    font-weight: 600;
+    color: var(--footer-cream);
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 500;
     line-height: 1.3;
   }
 
   .dnd-site-footer__newsletter p {
     margin: 0;
-    color: rgba(253, 251, 247, 0.64);
+    color: rgba(255, 247, 233, 0.78);
     font-size: var(--dnd-text-md);
     line-height: 1.55;
   }
@@ -942,22 +1005,25 @@ const slovakLegalLinks = [
   .dnd-site-footer__newsletter-form {
     display: inline-flex;
     align-items: stretch;
-    min-height: 48px;
+    min-height: 54px;
     justify-content: center;
     flex: 0 0 auto;
-    width: min(100%, 360px);
+    width: min(100%, 390px);
+    padding: 4px;
+    border: 1px solid rgba(255, 247, 233, 0.22);
+    border-radius: 16px;
+    background: rgba(255, 247, 233, 0.12);
   }
 
   .dnd-site-footer__newsletter-form input {
     min-width: 0;
     flex: 1 1 auto;
-    padding: 0 14px;
-    border: 1px solid rgba(217, 158, 43, 0.78);
-    border-right: 0;
-    border-radius: 5px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 12px 0 0 12px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background: rgba(255, 252, 245, 0.98);
+    background: var(--footer-cream);
     color: #201913;
     font-size: var(--dnd-text-md);
     line-height: 1.2;
@@ -969,21 +1035,21 @@ const slovakLegalLinks = [
 
   .dnd-site-footer__newsletter-form input:focus-visible,
   .dnd-site-footer__newsletter-form button:focus-visible {
-    outline: 2px solid #f1bd54;
+    outline: 2px solid var(--footer-cream);
     outline-offset: 2px;
   }
 
   .dnd-site-footer__newsletter-form button {
     display: inline-flex;
-    width: 52px;
+    width: 58px;
     align-items: center;
     justify-content: center;
-    flex: 0 0 52px;
-    border: 1px solid #d99e2b;
-    border-radius: 5px;
+    flex: 0 0 58px;
+    border: 0;
+    border-radius: 12px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background: #d99e2b;
+    background: #f4ca57;
     color: #201913;
     cursor: pointer;
     font-size: 1.35rem;
@@ -993,7 +1059,7 @@ const slovakLegalLinks = [
 
   .dnd-site-footer__newsletter-form button:hover,
   .dnd-site-footer__newsletter-form button:focus-visible {
-    background: #f1bd54;
+    background: #ffe19a;
     color: #201913;
   }
 
@@ -1135,6 +1201,22 @@ const slovakLegalLinks = [
     background: #fff;
   }
 
+  @media (min-width: 961px) {
+    .dnd-site-footer__inner {
+      grid-template-columns: minmax(320px, 1.15fr) minmax(360px, 1.45fr) minmax(170px, 0.72fr) minmax(220px, 0.9fr);
+      gap: clamp(22px, 2.5vw, 32px);
+    }
+
+    .dnd-site-footer__stay-columns {
+      grid-template-columns: repeat(2, max-content);
+      gap: 14px clamp(24px, 2.8vw, 42px);
+    }
+
+    .dnd-site-footer__group--stays a {
+      white-space: nowrap;
+    }
+  }
+
   @media (max-width: 960px) {
     .dnd-site-footer {
       padding: 44px 0 20px;
@@ -1169,13 +1251,14 @@ const slovakLegalLinks = [
       grid-column: 1 / -1;
       text-align: center;
       justify-self: center;
-      border-left: 0;
-      border-radius: 16px;
-      background: radial-gradient(circle at 50% 0, rgba(249, 203, 91, 0.09), transparent 62%);
+      padding-right: 0;
+      border-radius: 0;
+      background: transparent;
     }
 
     .dnd-site-footer::before {
       top: 92px;
+      left: auto;
       right: -96px;
       width: 240px;
       height: 210px;
@@ -1199,6 +1282,8 @@ const slovakLegalLinks = [
     }
 
     .dnd-site-footer__bottom {
+      align-items: flex-start;
+      flex-direction: column;
       margin-top: 26px;
       padding-top: 14px;
     }
