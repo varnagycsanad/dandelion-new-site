@@ -6,6 +6,7 @@ import { accommodations } from "../data/accommodations";
 // [CHANGE 2026-08-11 19:30] Footer warmed with a subtle dandelion petal light treatment.
 // [CHANGE 2026-08-11 20:48] Footer newsletter changed to email-first modal signup with Brevo POST handoff.
 // [CHANGE 2026-08-11 21:02] Newsletter submit response replaced with a readable confirmation state.
+// [CHANGE 2026-08-11 22:05] Hungarian newsletter copy changed from formal to informal address.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -20,9 +21,9 @@ const brevoFormUrl =
   "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
 const footerNewsletterCopy = {
   hu: {
-    title: "Iratkozzon fel a Dandelion hírlevelére",
+    title: "Iratkozz fel a Dandelion hírlevelére",
     text: "Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül e-mailben.",
-    cta: "Feliratkozom a hírlevélre"
+    cta: "Iratkozz fel a hírlevélre"
   },
   en: {
     title: "Subscribe to the Dandelion newsletter",
@@ -56,7 +57,7 @@ const newsletterFormCopy = {
     emailLabel: "E-mail-cím",
     emailPlaceholder: "E-mail-cím",
     openLabel: "Feliratkozás folytatása",
-    dialogLead: "Ellenőrizze az e-mail-címét, majd erősítse meg a feliratkozást.",
+    dialogLead: "Ellenőrizd az e-mail-címed, majd erősítsd meg a feliratkozást.",
     consent: "Hozzájárulok, hogy a Dandelion Vendégházak hírlevelet és marketingkommunikációt küldjön a megadott e-mail-címre.",
     submit: "Feliratkozom",
     close: "Bezárás",
@@ -115,7 +116,7 @@ const newsletterFormCopy = {
 } as const;
 const newsletterUiCopy = newsletterFormCopy[lang] ?? newsletterFormCopy.hu;
 const newsletterSuccessCopy = {
-  hu: "Köszönjük! A feliratkozási kérését elküldtük. Kérjük, ellenőrizze az e-mail-fiókját a további teendőkért.",
+  hu: "Köszönjük! Elküldtük a feliratkozási kérésedet. Ellenőrizd az e-mail-fiókodat a további teendőkért.",
   en: "Thank you! Your signup request has been sent. Please check your inbox for the next steps.",
   de: "Vielen Dank! Ihre Anmeldung wurde gesendet. Bitte prüfen Sie Ihren Posteingang für die nächsten Schritte.",
   cs: "Děkujeme! Vaše žádost o přihlášení byla odeslána. Další kroky najdete ve své e-mailové schránce.",
