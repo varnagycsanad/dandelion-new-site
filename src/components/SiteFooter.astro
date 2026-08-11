@@ -21,11 +21,31 @@ const footerNewsletterCopy = {
     text: "Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül e-mailben.",
     cta: "Feliratkozom a hírlevélre"
   },
-  en: { title: "Newsletter", text: "Offers and newly available dates by e-mail.", cta: "Sign up" },
-  de: { title: "Newsletter", text: "Angebote und freie Termine per E-Mail.", cta: "Anmelden" },
-  cs: { title: "Newsletter", text: "Nabídky a volné termíny e-mailem.", cta: "Přihlásit se" },
-  sk: { title: "Newsletter", text: "Ponuky a voľné termíny e-mailom.", cta: "Prihlásiť sa" },
-  pl: { title: "Newsletter", text: "Oferty i wolne terminy pocztą elektroniczną.", cta: "Zapisz się" }
+  en: {
+    title: "Subscribe to the Dandelion newsletter",
+    text: "Inspiration, special offers and Balaton experiences delivered directly to your inbox.",
+    cta: "Subscribe to the newsletter"
+  },
+  de: {
+    title: "Für den Dandelion-Newsletter anmelden",
+    text: "Inspirationen, besondere Angebote und Erlebnisse am Balaton direkt per E-Mail.",
+    cta: "Zum Newsletter anmelden"
+  },
+  cs: {
+    title: "Přihlaste se k odběru newsletteru Dandelion",
+    text: "Inspirace, speciální nabídky a zážitky u Balatonu přímo e-mailem.",
+    cta: "Přihlásit se k newsletteru"
+  },
+  sk: {
+    title: "Prihláste sa na odber newslettera Dandelion",
+    text: "Inšpirácie, špeciálne ponuky a zážitky pri Balatone priamo e-mailom.",
+    cta: "Prihlásiť sa na newsletter"
+  },
+  pl: {
+    title: "Zapisz się do newslettera Dandelion",
+    text: "Inspiracje, wyjątkowe oferty i atrakcje nad Balatonem bezpośrednio na e-mail.",
+    cta: "Zapisz się do newslettera"
+  }
 } as const;
 const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
 
@@ -310,6 +330,14 @@ const slovakLegalLinks = [
 
 {isSlovakFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    </div>
+
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}sk/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytovanie úvod">
@@ -369,6 +397,14 @@ const slovakLegalLinks = [
 
 {isCzechFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    </div>
+
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}cs/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytování úvod">
@@ -428,6 +464,14 @@ const slovakLegalLinks = [
 
 {isGermanFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    </div>
+
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}de/`} class="dnd-site-footer__brand-link" aria-label="Dandelion Gästehäuser Startseite">
@@ -487,15 +531,13 @@ const slovakLegalLinks = [
 
 {!isGermanFooter && !isCzechFooter && !isSlovakFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
-  {lang === "hu" && (
-    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <div>
-        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
-        <p>{newsletterCopy.text}</p>
-      </div>
-      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+  <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+    <div>
+      <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+      <p>{newsletterCopy.text}</p>
     </div>
-  )}
+    <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+  </div>
 
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">
