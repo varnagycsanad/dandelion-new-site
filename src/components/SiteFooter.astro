@@ -52,6 +52,7 @@ const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+const footerLogoSrc = `${homeHref}images/LOGO/dandelion-logo-footer.svg`;
 
 const resolveLocalHref = (href: string) => {
   if (href.startsWith("http")) {
@@ -341,7 +342,7 @@ const slovakLegalLinks = [
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}sk/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytovanie úvod">
-          Dandelion ubytovanie
+          <img src={footerLogoSrc} alt="Dandelion ubytovanie" width="220" height="134" />
         </a>
         <p id="site-footer-title">Pokojné penzióny a apartmány pri Balatone a v Balatonskej vrchovine.</p>
       </div>
@@ -408,7 +409,7 @@ const slovakLegalLinks = [
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}cs/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytování úvod">
-          Dandelion ubytování
+          <img src={footerLogoSrc} alt="Dandelion ubytování" width="220" height="134" />
         </a>
         <p id="site-footer-title">Klidné penziony a apartmány u Balatonu a v Balatonské vrchovině.</p>
       </div>
@@ -475,7 +476,7 @@ const slovakLegalLinks = [
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}de/`} class="dnd-site-footer__brand-link" aria-label="Dandelion Gästehäuser Startseite">
-          Dandelion Gästehäuser
+          <img src={footerLogoSrc} alt="Dandelion Gästehäuser" width="220" height="134" />
         </a>
         <p id="site-footer-title">Ruhige Gästehäuser und Apartments im Balaton-Oberland.</p>
       </div>
@@ -542,7 +543,7 @@ const slovakLegalLinks = [
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">
       <a href={isEnglishFooter ? `${homeHref}en/` : homeHref} class="dnd-site-footer__brand-link" aria-label={isEnglishFooter ? "Dandelion Guesthouses home" : "Dandelion Vendégházak főoldal"}>
-        {isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"}
+        <img src={footerLogoSrc} alt={isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"} width="220" height="134" />
       </a>
       <p id="site-footer-title">
         {isEnglishFooter
@@ -656,11 +657,15 @@ const slovakLegalLinks = [
   .dnd-site-footer__brand-link {
     display: inline-flex;
     margin-bottom: 14px;
-    color: #fdfbf7;
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.25rem, 1.65vw, 1.55rem);
-    line-height: 1.12;
-    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #fdfbf7;
+  }
+
+  .dnd-site-footer__brand-link img {
+    display: block;
+    width: min(220px, 100%);
+    height: auto;
   }
 
   .dnd-site-footer__brand p {
