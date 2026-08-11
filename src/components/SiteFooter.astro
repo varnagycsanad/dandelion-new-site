@@ -2,6 +2,7 @@
 import { accommodations } from "../data/accommodations";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
+// [CHANGE 2026-08-11 17:20] Compact Brevo newsletter CTA added to the footer.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -12,6 +13,17 @@ const isEnglishFooter = lang === "en";
 const isGermanFooter = lang === "de";
 const isCzechFooter = lang === "cs";
 const isSlovakFooter = lang === "sk";
+const brevoFormUrl =
+  "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
+const footerNewsletterCopy = {
+  hu: { title: "Hírlevél", text: "Ajánlatok és szabad időpontok e-mailben.", cta: "Feliratkozom" },
+  en: { title: "Newsletter", text: "Offers and newly available dates by e-mail.", cta: "Sign up" },
+  de: { title: "Newsletter", text: "Angebote und freie Termine per E-Mail.", cta: "Anmelden" },
+  cs: { title: "Newsletter", text: "Nabídky a volné termíny e-mailem.", cta: "Přihlásit se" },
+  sk: { title: "Newsletter", text: "Ponuky a voľné termíny e-mailom.", cta: "Prihlásiť sa" },
+  pl: { title: "Newsletter", text: "Oferty i wolne terminy pocztą elektroniczną.", cta: "Zapisz się" }
+} as const;
+const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
@@ -345,6 +357,14 @@ const slovakLegalLinks = [
       </nav>
     </div>
 
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    </div>
+
     <div class="dnd-container dnd-site-footer__bottom">
       <span>© Dandelion ubytovanie</span>
     </div>
@@ -404,6 +424,14 @@ const slovakLegalLinks = [
       </nav>
     </div>
 
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+    </div>
+
     <div class="dnd-container dnd-site-footer__bottom">
       <span>© Dandelion ubytování</span>
     </div>
@@ -461,6 +489,14 @@ const slovakLegalLinks = [
           ))}
         </ul>
       </nav>
+    </div>
+
+    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <div>
+        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+        <p>{newsletterCopy.text}</p>
+      </div>
+      <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
     </div>
 
     <div class="dnd-container dnd-site-footer__bottom">
@@ -559,6 +595,14 @@ const slovakLegalLinks = [
     )}
   </div>
 
+  <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+    <div>
+      <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
+      <p>{newsletterCopy.text}</p>
+    </div>
+    <a class="dnd-site-footer__newsletter-link" href={brevoFormUrl} target="_blank" rel="noopener noreferrer">{newsletterCopy.cta}</a>
+  </div>
+
   <div class="dnd-container dnd-site-footer__bottom">
     <span>© {isEnglishFooter ? "Dandelion Guesthouses" : "Dandelion Vendégházak"}</span>
   </div>
@@ -651,6 +695,51 @@ const slovakLegalLinks = [
     line-height: 1.45;
   }
 
+  .dnd-site-footer__newsletter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 30px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(253, 251, 247, 0.08);
+    border-bottom: 1px solid rgba(253, 251, 247, 0.08);
+  }
+
+  .dnd-site-footer__newsletter h2 {
+    margin: 0 0 4px;
+    color: rgba(253, 251, 247, 0.92);
+    font-size: var(--dnd-text-md);
+    font-weight: 600;
+  }
+
+  .dnd-site-footer__newsletter p {
+    margin: 0;
+    color: rgba(253, 251, 247, 0.64);
+    font-size: var(--dnd-text-sm);
+    line-height: 1.45;
+  }
+
+  .dnd-site-footer__newsletter-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 0 18px;
+    border: 1px solid rgba(217, 158, 43, 0.72);
+    border-radius: 5px;
+    color: #fdfbf7;
+    font-size: var(--dnd-text-sm);
+    font-weight: 600;
+  }
+
+  .dnd-site-footer__newsletter-link:hover,
+  .dnd-site-footer__newsletter-link:focus-visible {
+    background: rgba(217, 158, 43, 0.16);
+    color: #fdfbf7;
+  }
+
   @media (max-width: 960px) {
     .dnd-site-footer {
       padding: 44px 0 20px;
@@ -706,6 +795,18 @@ const slovakLegalLinks = [
     .dnd-site-footer__bottom {
       margin-top: 26px;
       padding-top: 14px;
+    }
+
+    .dnd-site-footer__newsletter {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .dnd-site-footer__newsletter-link {
+      width: 100%;
     }
   }
 </style>
