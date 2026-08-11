@@ -88,38 +88,38 @@ A regi auditok es tervek kontextust adnak, de nem mindegyik feladatuk aktiv. Ha 
 
 ### P1-6 - Email marketing MVP alap backend
 
-- Statusz: lezarva 2026-06-21
+- Statusz: kivezetve 2026-08-11
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a helyzet: elkeszult az elso Node.js service scaffold JSON tarolassal.
-- Kovetkezo konkret lepes: a vegleges SMTP es uzemi integracio kulon feladat marad.
+- Mi a helyzet: a saját Node.js service, JSON-tárolás és SMTP-réteg törölve; a publikus küldési rendszer Brevo.
+- Kovetkezo konkret lepes: nincs, a régi MVP nem folytatódik.
 
 ### P1-7 - Email marketing MVP feliratkozo űrlap
 
 - Statusz: lezarva 2026-06-21
 - Forras: `project-docs/email-marketing-mvp-plan.md`, `src/sections/NewsletterSignup.astro`
-- Mi a helyzet: a jelenlegi feliratkozo UI mar sajat Astro űrlapot és API bekotest hasznal.
-- Kovetkezo konkret lepes: a vegleges publikus endpoint beallitasa kulon feladat.
+- Mi a helyzet: a publikus feliratkozó UI Brevo-formot használ; saját API nincs.
+- Kovetkezo konkret lepes: Brevo-form és hozzájárulási beállítások üzemeltetése Brevo-ban.
 
 ### P1-8 - Email marketing MVP leiratkozas es hozzajarulas
 
 - Statusz: lezarva 2026-06-21
 - Forras: `project-docs/email-marketing-mvp-plan.md`, `src/pages/en/privacy-policy.astro`, `src/pages/cs/ochrana-osobnich-udaju.astro`
-- Mi a helyzet: a hozzajarulas, unsubscribe link es statuszkezeles bevezetese megtortent.
-- Kovetkezo konkret lepes: a production megfeleltetes es kesobbi audit kulon feladat marad.
+- Mi a helyzet: a helyi hozzájárulás- és unsubscribe-réteg kivezetve; ezeket a Brevo kezeli.
+- Kovetkezo konkret lepes: Brevo oldali DOI és leiratkozási működés ellenőrzése.
 
 ### P1-9 - Email marketing MVP admin es kampanykuldes
 
-- Statusz: reszben teljesult
+- Statusz: kivezetve 2026-08-11
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a helyzet: a lista kezeleshez mar van service, SMTP kuldesi reteg, az `admin/hirlevel` listaoldal, az `admin/kampanyok` szerkesztooldal, az `admin` kezdooldal, a jelszavas admin vedelem es a CSV import is elkészült.
-- Kovetkezo konkret lepes: naplozasi/deliverability hardening, majd ha kell, finomabb szerepkor vagy audit trail.
+- Mi a helyzet: a saját service, adminoldalak, SMTP-küldés és CSV-import törölve.
+- Kovetkezo konkret lepes: kampánykezelés és listaadminisztráció Brevo-ban.
 
 ### P1-10 - Email marketing MVP QA es stabilizalas
 
-- Statusz: nyitott
+- Statusz: lezárva - nem alkalmazható, mert a saját MVP kivezetve
 - Forras: `project-docs/email-marketing-mvp-plan.md`
-- Mi a gond: az MVP mar mukodik, de kell vegigteszteles, hibakezelesi ellenorzes, deliverability QA es uzemi simitas.
-- Kovetkezo konkret lepes: end-to-end teszt a signup, unsubscribe, CSV import, admin login, campaign send flow-kon, majd az eredmenyek alapjan javitasok.
+- Mi a helyzet: a régi MVP nem üzemel; a Brevo-rendszer külön szolgáltatói ellenőrzési kör.
+- Kovetkezo konkret lepes: nincs helyi implementációs teendő.
 
 ## P2 - minoseg, tartalom, paritas
 

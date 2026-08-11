@@ -1,9 +1,9 @@
 # E-mail lista kezelo es feliratkozo modul - MVP terv
 
-Status: AKTUALIS
-Last checked: 2026-06-21
-Use for: nyomonkovetheto megvalositas, progress log, MVP scope, dontesi pontok
-Do not use for: vegleges architektura-koto rögzítése tovabbi egyeztetes nelkul
+Status: ARCHIVALT - a saját newsletter MVP kivezetve 2026-08-11
+Last checked: 2026-08-11
+Use for: történeti megvalósítási napló és auditnyom; új feliratkozás és küldés már Brevo-ban történik
+Do not use for: jelenlegi newsletter-üzemeltetés vagy architektúra forrásaként
 
 ## Cel
 

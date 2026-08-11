@@ -8,8 +8,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/clean-build-output.mjs && astro build && node scripts/postbuild-copy-static-files.mjs && node scripts/dwa-build-receipt.mjs",
-    "newsletter:dev": "node newsletter-service/server.mjs",
-    "newsletter:start": "node newsletter-service/server.mjs",
     "check": "npm run check:root",
     "check:root": "node scripts/check-ujsite-deploy.mjs",
     "check:ujsite": "node scripts/check-ujsite-deploy.mjs",
@@ -139,7 +137,6 @@
     "@simplewebauthn/browser": "^13.3.0",
     "@simplewebauthn/server": "^13.3.1",
     "astro": "^6.1.5",
-    "nodemailer": "^9.0.1",
     "sharp": "^0.34.5"
   },
   "devDependencies": {

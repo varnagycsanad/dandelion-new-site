@@ -100,7 +100,6 @@ Ezeknel a dokumentumoknal a tartalom nem eleg tisztan egycsapatos ownershipu, va
 | `project-docs/GOOGLE_AI_READINESS_IMPLEMENTATION_PACKAGE_1.md` | site-side implementacio es booking truth dependency vegyes | DWA doc maradhat, de DSA dependency note-tal |
 | `project-docs/SZENT_GYORGY_HEGY_MATINE_LANDING_2026.md` | marketing brief es landing-site scope keveredik | manual dontes: DWA archive vagy DMA brief reference |
 | `project-docs/email-marketing-mvp-plan.md` | marketing ops vs site integration nem egyertelmu | manual routing DMA vagy DCA altal |
-| `project-docs/newsletter-production-runbook.md` | site infra, de marketing delivery celhoz kotott | manual dontes: DWA infra vagy DCA operations |
 
 ## Mely doksik kapnak DMA redirect note-ot most
 
