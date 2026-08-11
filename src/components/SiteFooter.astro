@@ -113,6 +113,15 @@ const newsletterFormCopy = {
   }
 } as const;
 const newsletterUiCopy = newsletterFormCopy[lang] ?? newsletterFormCopy.hu;
+const newsletterSuccessCopy = {
+  hu: "Köszönjük! A feliratkozási kérését elküldtük. Kérjük, ellenőrizze az e-mail-fiókját a további teendőkért.",
+  en: "Thank you! Your signup request has been sent. Please check your inbox for the next steps.",
+  de: "Vielen Dank! Ihre Anmeldung wurde gesendet. Bitte prüfen Sie Ihren Posteingang für die nächsten Schritte.",
+  cs: "Děkujeme! Vaše žádost o přihlášení byla odeslána. Další kroky najdete ve své e-mailové schránce.",
+  sk: "Ďakujeme! Vaša žiadosť o prihlásenie bola odoslaná. Ďalšie kroky nájdete vo svojej e-mailovej schránke.",
+  pl: "Dziękujemy! Zgłoszenie zostało wysłane. Sprawdź swoją skrzynkę e-mail, aby poznać dalsze kroki."
+} as const;
+const newsletterSuccess = newsletterSuccessCopy[lang] ?? newsletterSuccessCopy.hu;
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
@@ -748,6 +757,8 @@ const slovakLegalLinks = [
       <button type="submit">{newsletterUiCopy.submit}</button>
     </form>
 
+    <p class="dnd-newsletter-dialog__success" data-newsletter-success role="status" tabindex="-1" hidden>{newsletterSuccess}</p>
+
     <iframe
       class="dnd-newsletter-dialog__response"
       name="dnd-newsletter-response"
@@ -1051,6 +1062,17 @@ const slovakLegalLinks = [
     line-height: 1.5;
   }
 
+  .dnd-newsletter-dialog__success {
+    margin: 22px 0 0;
+    padding: 18px;
+    border: 1px solid rgba(84, 123, 78, 0.28);
+    border-radius: 8px;
+    background: rgba(226, 241, 220, 0.72);
+    color: #31532e;
+    font-size: var(--dnd-text-md);
+    line-height: 1.55;
+  }
+
   .dnd-newsletter-dialog__form {
     display: grid;
     gap: 10px;
@@ -1198,9 +1220,16 @@ const slovakLegalLinks = [
 <script>
   const newsletterDialog = document.querySelector("[data-newsletter-dialog]");
   const newsletterEmail = newsletterDialog?.querySelector("[data-newsletter-email]");
+  const newsletterForm = newsletterDialog?.querySelector("[data-newsletter-submit]");
+  const newsletterSuccess = newsletterDialog?.querySelector("[data-newsletter-success]");
   const newsletterResponse = newsletterDialog?.querySelector("[data-newsletter-response]");
 
-  if (newsletterDialog instanceof HTMLDialogElement && newsletterEmail instanceof HTMLInputElement) {
+  if (
+    newsletterDialog instanceof HTMLDialogElement &&
+    newsletterEmail instanceof HTMLInputElement &&
+    newsletterForm instanceof HTMLFormElement &&
+    newsletterSuccess instanceof HTMLElement
+  ) {
     document.querySelectorAll("[data-newsletter-trigger]").forEach((trigger) => {
       trigger.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -1210,6 +1239,9 @@ const slovakLegalLinks = [
           return;
         }
 
+        newsletterForm.hidden = false;
+        newsletterSuccess.hidden = true;
+        newsletterForm.reset();
         newsletterEmail.value = emailInput.value.trim();
         if (newsletterResponse instanceof HTMLIFrameElement) {
           newsletterResponse.hidden = true;
@@ -1230,9 +1262,12 @@ const slovakLegalLinks = [
       }
     });
 
-    newsletterDialog.querySelector("[data-newsletter-submit]")?.addEventListener("submit", () => {
+    newsletterForm.addEventListener("submit", () => {
+      newsletterForm.hidden = true;
+      newsletterSuccess.hidden = false;
+      newsletterSuccess.focus();
       if (newsletterResponse instanceof HTMLIFrameElement) {
-        newsletterResponse.hidden = false;
+        newsletterResponse.hidden = true;
       }
     });
   }
