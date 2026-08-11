@@ -1,6 +1,8 @@
 ---
 import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
 
+// [CHANGE 2026-08-11 00:00] Newsletter-Verarbeitung auf Brevo umgestellt.
+
 const sections = [
   {
     number: "1",
@@ -91,13 +93,13 @@ const sections = [
   },
   {
     number: "9",
-    title: "Newsletter und Marketingkommunikation - Dandelion Newsletter-Service",
+    title: "Newsletter und Marketingkommunikation - Brevo",
     bullets: [
-      "Dandelion kann einen selbst gehosteten Newsletter-Service für Newsletter und Marketingkommunikation nutzen.",
+      "Dandelion nutzt Brevo für Newsletter und Marketingkommunikation.",
       "Verarbeitete Daten: Name, E-Mail-Adresse, Zeitpunkt der Anmeldung, Einwilligungsnachweis, Öffnungs- und Klickdaten, Abmeldedaten und freiwillig angegebene weitere Daten.",
       "Zweck: Versand von Newslettern, Angeboten, saisonalen Informationen, Aktionen und Neuigkeiten.",
       "Rechtsgrundlage: freiwillige Einwilligung.",
-      "Auftragsverarbeiter: Dandelion Newsletter-Service",
+      "Auftragsverarbeiter: Brevo",
       "Aufbewahrung: bis zum Widerruf der Einwilligung, also bis zur Abmeldung."
     ],
     note: "Die Abmeldung berührt nicht die Rechtmäßigkeit der Verarbeitung vor dem Widerruf."
@@ -128,7 +130,7 @@ const sections = [
       "Hosting- und Website-Betriebsanbieter,",
       "SabeeApp / thePass Kft. als Buchungs- und Gästeverwaltungssystem,",
       "Google Dienste wie Google Tag Manager und Google Analytics,",
-      "selbst gehosteter Dandelion Newsletter-Service für Newsletter und Marketingautomatisierung,",
+      "Brevo als Anbieter für Newsletter und Marketingautomatisierung,",
       "technische Anbieter für Kamerasysteme,",
       "Bank- und Zahlungsdienstleister,",
       "Buchhaltungs- und Rechnungsanbieter,",
@@ -190,11 +192,11 @@ const sections = [
 <LegalDocumentPage
   lang="de"
   title="Datenschutzerklärung | Dandelion Unterkünfte"
-  description="Datenschutzerklärung von Dandelion zu Buchungsdaten, Gästeverwaltung, Rechnungen, Cookies, dem selbst gehosteten Newsletter-Service und Betroffenenrechten."
+  description="Datenschutzerklärung von Dandelion zu Buchungsdaten, Gästeverwaltung, Rechnungen, Cookies, dem Brevo-Newsletter-Service und Betroffenenrechten."
   canonicalPath="/de/datenschutz/"
   eyebrow="Rechtliche Informationen"
   heading="Datenschutzerklärung"
-  lead="Gültig ab 12. Mai 2026 bis auf Widerruf. Geändert: 25. Mai 2026. Diese Datenschutzerklärung fasst die Datenverarbeitung auf der Dandelion Website sowie in Buchungs- und Gästeverwaltungsprozessen zusammen."
+  lead="Gültig ab 12. Mai 2026 bis auf Widerruf. Geändert: 11. August 2026. Diese Datenschutzerklärung fasst die Datenverarbeitung auf der Dandelion Website sowie in Buchungs- und Gästeverwaltungsprozessen zusammen."
   tocLabel="Zum Abschnitt springen"
   tocPlaceholder="Abschnitt wählen"
   sections={sections}

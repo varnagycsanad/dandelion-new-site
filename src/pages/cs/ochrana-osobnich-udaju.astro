@@ -1,6 +1,8 @@
 ---
 import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
 
+// [CHANGE 2026-08-11 00:00] Zpracování newsletteru převedeno na službu Brevo.
+
 const sections = [
   {
     number: "1",
@@ -79,8 +81,9 @@ const sections = [
     number: "8",
     title: "Newsletter a marketingová komunikace",
     bullets: [
-      "Dandelion ubytování může používat vlastní newsletterový systém pro newslettery a marketingovou komunikaci.",
+      "Dandelion ubytování používá službu Brevo pro newslettery a marketingovou komunikaci.",
       "Zpracovávané údaje: jméno, e-mail, čas přihlášení, důkaz souhlasu, údaje o otevření a kliknutí, odhlášení.",
+      "Zpracovatel: Brevo.",
       "Právní základ: dobrovolný souhlas.",
       "Odhlášení je možné odkazem v newsletteru nebo e-mailem na hello@dandelionhouse.hu."
     ]
@@ -108,7 +111,7 @@ const sections = [
       "poskytovatel hostingu a provozu webu,",
       "SabeeApp / thePass Kft. jako rezervační a hostovský systém,",
       "Google služby, například Google Tag Manager a Google Analytics,",
-      "vlastní newsletterový systém Dandelion jako poskytovatel newsletteru,",
+      "Brevo jako poskytovatel newsletteru a marketingové automatizace,",
       "bankovní, platební, účetní a fakturační poskytovatelé,",
       "úřady a oficiální systémy jednající podle zákona."
     ]
@@ -146,11 +149,11 @@ const sections = [
 <LegalDocumentPage
   lang="cs"
   title="Ochrana osobních údajů | Dandelion ubytování"
-  description="Zásady ochrany osobních údajů Dandelion ubytování: rezervace, fakturace, cookies, vlastní newsletterový systém, kamerový systém a práva hostů."
+  description="Zásady ochrany osobních údajů Dandelion ubytování: rezervace, fakturace, cookies, služba Brevo, kamerový systém a práva hostů."
   canonicalPath="/cs/ochrana-osobnich-udaju/"
   eyebrow="Právní informace"
   heading="Ochrana osobních údajů"
-  lead="Platné od 12. května 2026 do odvolání. Aktualizováno: 25. května 2026. Toto oznámení shrnuje zpracování osobních údajů na webu Dandelion a v procesech rezervace a správy hostů."
+  lead="Platné od 12. května 2026 do odvolání. Aktualizováno: 11. srpna 2026. Toto oznámení shrnuje zpracování osobních údajů na webu Dandelion a v procesech rezervace a správy hostů."
   tocLabel="Přejít na část"
   tocPlaceholder="Vyberte část"
   sections={sections}

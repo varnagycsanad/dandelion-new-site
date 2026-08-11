@@ -3,6 +3,7 @@ import LegalDocumentPage from "../../templates/LegalDocumentPage.astro";
 
 // [CHANGE 2026-05-24 21:05] English Privacy Policy page added from the Hungarian adatkezelesi tajekoztato.
 // [CHANGE 2026-05-25 00:00] Camera surveillance data processing information added.
+// [CHANGE 2026-08-11 00:00] Newsletter processing moved to Brevo.
 
 const sections = [
   {
@@ -96,13 +97,13 @@ const sections = [
   },
   {
     number: "9",
-    title: "Newsletter and marketing communication - Dandelion newsletter service",
+    title: "Newsletter and marketing communication - Brevo",
     bullets: [
-      "Dandelion Guesthouses may use a self-hosted newsletter service for newsletters and marketing communication.",
+      "Dandelion Guesthouses use Brevo for newsletters and marketing communication.",
       "Data processed: name, e-mail address, subscription time, proof of consent, newsletter open and click data, unsubscribe data and any other data voluntarily provided during subscription.",
       "Purpose: sending newsletters, offers, seasonal updates, promotions, guesthouse news and marketing content.",
       "Legal basis: voluntary consent of the data subject.",
-      "Processor: Dandelion newsletter service",
+      "Processor: Brevo",
       "Duration: until consent is withdrawn, i.e. until unsubscribing from the newsletter.",
       "Unsubscribe: through the link at the bottom of newsletters or by writing to hello@dandelionhouse.hu."
     ],
@@ -135,7 +136,7 @@ const sections = [
       "hosting provider and website operation providers,",
       "SabeeApp / thePass Kft. as booking and guest management system,",
       "Google services, such as Google Tag Manager and Google Analytics,",
-      "self-hosted Dandelion newsletter service as newsletter and marketing automation provider,",
+      "Brevo as newsletter and marketing automation provider,",
       "technical provider involved in the operation or maintenance of the camera system,",
       "banking and payment service providers,",
       "accounting and invoicing providers,",
@@ -198,10 +199,10 @@ const sections = [
 <LegalDocumentPage
   lang="en"
   title="Privacy Policy | Dandelion Guesthouses"
-  description="Privacy policy of Dandelion Guesthouses covering booking data, guest management, invoicing, cookies, the self-hosted newsletter service and data subject rights."
+  description="Privacy policy of Dandelion Guesthouses covering booking data, guest management, invoicing, cookies, the Brevo newsletter service and data subject rights."
   canonicalPath="/en/privacy-policy/"
   eyebrow="Legal information"
   heading="Privacy Policy"
-  lead="Effective from 12 May 2026 until withdrawn. Modified: 25 May 2026. This Privacy Policy summarises the data processing carried out on the Dandelion Guesthouses website and in booking and guest management processes."
+  lead="Effective from 12 May 2026 until withdrawn. Modified: 11 August 2026. This Privacy Policy summarises the data processing carried out on the Dandelion Guesthouses website and in booking and guest management processes."
   sections={sections}
 />
