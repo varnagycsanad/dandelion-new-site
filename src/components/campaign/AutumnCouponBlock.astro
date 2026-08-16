@@ -3,6 +3,7 @@ interface Props {
   mode?: "short" | "full";
   placement: "homepage" | "landing-hero" | "landing-booking" | "house";
   showTerms?: boolean;
+  termsOpen?: boolean;
   class?: string;
   lang?: "hu" | "en" | "de" | "cs" | "sk";
 }
@@ -11,6 +12,7 @@ const {
   mode = "short",
   placement,
   showTerms = false,
+  termsOpen = false,
   class: className = "",
   lang = "hu"
 } = Astro.props as Props;
@@ -99,7 +101,7 @@ const copy = copyByLang[lang];
   </div>
 
   {showTerms && (
-    <details class="autumn-coupon__terms">
+    <details class="autumn-coupon__terms" open={termsOpen ? true : undefined}>
       <summary>{copy.termsLabel}</summary>
       <p>{copy.terms}</p>
     </details>

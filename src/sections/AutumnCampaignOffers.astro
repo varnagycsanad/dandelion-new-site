@@ -35,7 +35,11 @@ const copyByLang = {
     familyHighlights: ["Biciklitúrák a tanúhegyek mellett", "Őszi Balaton", "Családi kirándulások"],
     pairAlt: "Borospoharak a Balaton-felvidéki szőlősorok és tanúhegyek előtt.",
     familyAlt: "Balaton-felvidéki őszi panoráma szőlősorokkal és tanúhegyekkel.",
-    cta: "Bővebben"
+    cta: "Bővebben",
+    discountBadge: "5% kedvezmény",
+    discountValue: "5%",
+    discountLabel: "kedvezmény",
+    closeLabel: "Bezárás"
   },
   en: {
     ariaLabel: "Autumn offers",
@@ -47,7 +51,11 @@ const copyByLang = {
     familyHighlights: ["Bike rides by the witness hills", "Autumn days at Lake Balaton", "Family excursions"],
     pairAlt: "Wine glasses in front of vineyard rows and witness hills in the Balaton Uplands.",
     familyAlt: "Autumn panorama in the Balaton Uplands with vineyards and witness hills.",
-    cta: "Learn more"
+    cta: "Learn more",
+    discountBadge: "5% discount",
+    discountValue: "5%",
+    discountLabel: "discount",
+    closeLabel: "Close"
   },
   de: {
     ariaLabel: "Herbstangebote",
@@ -59,7 +67,11 @@ const copyByLang = {
     familyHighlights: ["Radtouren bei den Zeugenbergen", "Herbsttage am Balaton", "Ausflüge für die ganze Familie"],
     pairAlt: "Weingläser vor Weinreihen und Zeugenbergen im Balaton-Oberland.",
     familyAlt: "Herbstpanorama im Balaton-Oberland mit Weinreihen und Zeugenbergen.",
-    cta: "Mehr erfahren"
+    cta: "Mehr erfahren",
+    discountBadge: "5 % Rabatt",
+    discountValue: "5 %",
+    discountLabel: "Rabatt",
+    closeLabel: "Schließen"
   },
   cs: {
     ariaLabel: "Podzimní nabídky",
@@ -71,7 +83,11 @@ const copyByLang = {
     familyHighlights: ["Cyklovýlety u svědeckých hor", "Podzimní dny u Balatonu", "Rodinné výlety"],
     pairAlt: "Sklenky vína před vinicemi a svědeckými horami v Balatonské vrchovině.",
     familyAlt: "Podzimní panorama Balatonské vrchoviny s vinicemi a svědeckými horami.",
-    cta: "Více informací"
+    cta: "Více informací",
+    discountBadge: "Sleva 5 %",
+    discountValue: "5 %",
+    discountLabel: "sleva",
+    closeLabel: "Zavřít"
   },
   sk: {
     ariaLabel: "Jesenné ponuky",
@@ -83,7 +99,11 @@ const copyByLang = {
     familyHighlights: ["Cyklovýlety pri svedeckých vrchoch", "Jesenné dni pri Balatone", "Rodinné výlety"],
     pairAlt: "Poháre vína pred vinicami a svedeckými vrchmi v Balatonskej vrchovine.",
     familyAlt: "Jesenná panoráma Balatonskej vrchoviny s vinicami a svedeckými vrchmi.",
-    cta: "Zistiť viac"
+    cta: "Zistiť viac",
+    discountBadge: "Zľava 5 %",
+    discountValue: "5 %",
+    discountLabel: "zľava",
+    closeLabel: "Zavrieť"
   }
 } as const;
 
@@ -137,6 +157,15 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
 
           return (
             <article class="autumn-home-campaigns__card">
+              <button
+                type="button"
+                class="autumn-home-campaigns__discount-stamp"
+                aria-controls={`autumn-coupon-dialog-${lang}`}
+                aria-expanded="false"
+              >
+                <span class="autumn-home-campaigns__discount-value">{copy.discountValue}</span>
+                <span class="autumn-home-campaigns__discount-label">{copy.discountLabel}</span>
+              </button>
               <div class="autumn-home-campaigns__media-shell">
                 <span class="autumn-home-campaigns__media-badge">
                   {getOfferLabel(offer)}
@@ -159,21 +188,30 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
                 <ul>
                   {highlights.map((highlight) => <li>{highlight}</li>)}
                 </ul>
-                <a
-                  href={getAutumnCampaignPath(lang, offer.slug)}
-                  class="autumn-home-campaigns__card-cta"
-                  data-dnd-offer={offer.tracking.offerId}
-                  data-dnd-property={offer.tracking.property}
-                  data-dnd-campaign={offer.tracking.campaign}
-                  data-dnd-placement="homepage-campaign-card"
-                  data-dnd-cta-type="learn-more"
-                >{copy.cta}</a>
+                <div class="autumn-home-campaigns__cta-wrap">
+                  <a
+                    href={getAutumnCampaignPath(lang, offer.slug)}
+                    class="autumn-home-campaigns__card-cta"
+                    data-dnd-offer={offer.tracking.offerId}
+                    data-dnd-property={offer.tracking.property}
+                    data-dnd-campaign={offer.tracking.campaign}
+                    data-dnd-placement="homepage-campaign-card"
+                    data-dnd-cta-type="learn-more"
+                  >{copy.cta}</a>
+                </div>
               </div>
             </article>
           );
         })}
       </div>
     </div>
+
+    <dialog class="autumn-home-campaigns__coupon-dialog" id={`autumn-coupon-dialog-${lang}`} aria-label={copy.discountBadge}>
+      <div class="autumn-home-campaigns__coupon-dialog-card">
+        <button type="button" class="autumn-home-campaigns__coupon-dialog-close" aria-label={copy.closeLabel}>×</button>
+        <AutumnCouponBlock lang={lang} placement="homepage" mode="full" showTerms={true} termsOpen={true} />
+      </div>
+    </dialog>
 
     <div class="autumn-home-campaigns__mobile">
       <div class="autumn-home-campaigns__mobile-grid">
@@ -188,6 +226,7 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
             data-dnd-cta-type="learn-more"
           >
             <span>{getOfferLabel(offer)}</span>
+            <small>{copy.discountBadge}</small>
             <i aria-hidden="true"></i>
           </a>
         ))}
@@ -248,6 +287,10 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(20px, 2.2vw, 34px);
+  }
+
+  .autumn-home-campaigns__coupon {
+    margin-bottom: clamp(20px, 2.2vw, 32px);
   }
 
   .autumn-home-campaigns__card {
@@ -350,6 +393,131 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
     text-decoration: none;
   }
 
+  .autumn-home-campaigns__cta-wrap {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .autumn-home-campaigns__discount-stamp {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 116px;
+    height: 116px;
+    gap: 3px;
+    padding: 16px 11px 14px;
+    border: 3px solid #fff4cf;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 25%, #ffe99b 0%, #e5ad35 48%, #a9721e 100%);
+    color: #fffaf2;
+    font-family: var(--dnd-font-body, sans-serif);
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+    box-shadow: 0 10px 22px rgba(17, 16, 13, 0.3), inset 0 0 0 2px rgba(112, 75, 18, 0.32);
+    cursor: pointer;
+    appearance: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .autumn-home-campaigns__discount-stamp::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1px solid rgba(255, 247, 214, 0.88);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .autumn-home-campaigns__discount-value,
+  .autumn-home-campaigns__discount-label {
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+
+  .autumn-home-campaigns__discount-value {
+    font-family: var(--dnd-font-display, Georgia, serif);
+    font-size: 1.7rem;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+  }
+
+  .autumn-home-campaigns__discount-label {
+    max-width: none;
+    font-size: 0.58rem;
+    line-height: 1.05;
+    letter-spacing: 0.025em;
+    white-space: nowrap;
+    transform: scaleX(0.88);
+    transform-origin: center;
+  }
+
+  .autumn-home-campaigns__discount-stamp:hover,
+  .autumn-home-campaigns__discount-stamp:focus-visible {
+    outline: 2px solid #fffaf2;
+    outline-offset: 3px;
+    transform: rotate(-4deg) scale(1.04);
+    box-shadow: 0 8px 18px rgba(17, 16, 13, 0.34), inset 0 0 0 2px rgba(112, 75, 18, 0.28);
+  }
+
+  .autumn-home-campaigns__coupon-dialog {
+    width: min(760px, calc(100% - 32px));
+    max-width: calc(100% - 32px);
+    max-height: calc(100% - 32px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .autumn-home-campaigns__coupon-dialog::backdrop {
+    background: rgba(28, 21, 12, 0.58);
+    backdrop-filter: blur(3px);
+  }
+
+  .autumn-home-campaigns__coupon-dialog-card {
+    position: relative;
+    padding: 8px;
+    border: 1px solid rgba(255, 247, 225, 0.78);
+    border-radius: 18px;
+    background: #fffaf1;
+    box-shadow: 0 24px 60px rgba(21, 15, 8, 0.34);
+  }
+
+  .autumn-home-campaigns__coupon-dialog-close {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(45, 36, 28, 0.22);
+    border-radius: 50%;
+    background: rgba(255, 250, 241, 0.78);
+    color: #2d241c;
+    font: 400 1.4rem/1 var(--dnd-font-body);
+    cursor: pointer;
+  }
+
+  .autumn-home-campaigns__coupon-dialog-close:hover,
+  .autumn-home-campaigns__coupon-dialog-close:focus-visible {
+    background: #fff;
+    outline: 2px solid rgba(180, 125, 31, 0.6);
+    outline-offset: 2px;
+  }
+
   .autumn-home-campaigns__card-cta:hover,
   .autumn-home-campaigns__card-cta:focus-visible {
     background: #9c732e;
@@ -386,6 +554,14 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
     line-height: 1.1;
     text-transform: uppercase;
     white-space: nowrap;
+  }
+
+  .autumn-home-campaigns__mobile-cta small {
+    color: #9c6a1c;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .autumn-home-campaigns__mobile-cta i {
@@ -638,6 +814,10 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
       background: #fbf6ee;
     }
 
+    .autumn-home-campaigns__coupon {
+      margin-bottom: 18px;
+    }
+
     .autumn-home-campaigns__desktop {
       display: block;
     }
@@ -658,6 +838,20 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
 
     .autumn-home-campaigns__mobile-cta span {
       font-size: clamp(0.7rem, 3.35vw, 0.92rem);
+    }
+
+    .autumn-home-campaigns__coupon-dialog {
+      width: calc(100% - 20px);
+      max-width: calc(100% - 20px);
+    }
+
+    .autumn-home-campaigns__coupon-dialog-card {
+      padding: 4px;
+    }
+
+    .autumn-home-campaigns__coupon-dialog-close {
+      top: 12px;
+      right: 12px;
     }
   }
 </style>
@@ -685,5 +879,32 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
     } else {
       revealAutumnCampaign();
     }
+  }
+
+  const couponDialog = autumnCampaignSection?.querySelector(".autumn-home-campaigns__coupon-dialog");
+  const couponStamps = autumnCampaignSection?.querySelectorAll(".autumn-home-campaigns__discount-stamp");
+  const couponDialogClose = couponDialog?.querySelector(".autumn-home-campaigns__coupon-dialog-close");
+
+  if (couponDialog instanceof HTMLDialogElement && couponStamps) {
+    const setExpanded = (expanded: boolean) => {
+      couponStamps.forEach((stamp) => stamp.setAttribute("aria-expanded", String(expanded)));
+    };
+
+    const openCouponDialog = () => {
+      if (!couponDialog.open) couponDialog.showModal();
+      setExpanded(true);
+    };
+
+    const closeCouponDialog = () => {
+      if (couponDialog.open) couponDialog.close();
+      setExpanded(false);
+    };
+
+    couponStamps.forEach((stamp) => stamp.addEventListener("click", openCouponDialog));
+    couponDialogClose?.addEventListener("click", closeCouponDialog);
+    couponDialog.addEventListener("click", (event) => {
+      if (event.target === couponDialog) closeCouponDialog();
+    });
+    couponDialog.addEventListener("close", () => setExpanded(false));
   }
 </script>

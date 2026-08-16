@@ -171,22 +171,71 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
       </ul>
     </aside>
   )}
-  <span class:list={["dnd-hero__booking-badge", bookingBenefits.length > 0 && "dnd-hero__booking-badge--mobile-only"]}>{bookingBenefitsCopy.badge}</span>
+  {bookingBenefits.length > 0 && (
+    <>
+      <button
+        type="button"
+        class:list={["dnd-hero__booking-badge", "dnd-hero__booking-badge--mobile-only"]}
+        aria-controls="dnd-hero-booking-dialog"
+        aria-expanded="false"
+      >
+        {bookingBenefitsCopy.badge}
+      </button>
+      <dialog
+        class="dnd-hero__booking-dialog"
+        id="dnd-hero-booking-dialog"
+        aria-labelledby="dnd-hero-booking-dialog-title"
+        aria-describedby="dnd-hero-booking-dialog-lead"
+      >
+        <div class="dnd-hero__booking-dialog-card">
+          <button type="button" class="dnd-hero__booking-dialog-close" aria-label="Bezárás">×</button>
+          <span class="dnd-hero__booking-benefits-kicker">{bookingBenefitsCopy.kicker}</span>
+          <h2 id="dnd-hero-booking-dialog-title">{bookingBenefitsCopy.title}</h2>
+          <p id="dnd-hero-booking-dialog-lead" class="dnd-hero__booking-benefits-lead">{bookingBenefitsCopy.lead}</p>
+          <ul>
+            {bookingBenefits.map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </div>
+      </dialog>
+    </>
+  )}
 </section>
 
 <script is:inline>
   (() => {
     const setup = () => {
       const mobileQuery = window.matchMedia("(max-width: 767px)");
-      const badge = document.querySelector(".dnd-hero__booking-badge--mobile-only");
+      const hero = document.querySelector(".dnd-hero");
+      const badge = hero?.querySelector(".dnd-hero__booking-badge--mobile-only");
+      const dialog = hero?.querySelector(".dnd-hero__booking-dialog");
+      const closeButton = dialog?.querySelector(".dnd-hero__booking-dialog-close");
 
-      if (!mobileQuery.matches || !(badge instanceof HTMLElement)) {
+      if (!mobileQuery.matches || !(badge instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) {
         return;
       }
 
       const storageKey = "dnd-home-booking-badge-position-v1";
       const viewportPadding = 12;
       let dragState = null;
+      let suppressNextClick = false;
+
+      const setDialogState = (isOpen) => {
+        badge.setAttribute("aria-expanded", String(isOpen));
+      };
+
+      const openDialog = () => {
+        if (!dialog.open) {
+          dialog.showModal();
+        }
+        setDialogState(true);
+      };
+
+      const closeDialog = () => {
+        if (dialog.open) {
+          dialog.close();
+        }
+        setDialogState(false);
+      };
 
       const clampPosition = (left, top) => ({
         left: Math.min(Math.max(left, viewportPadding), Math.max(viewportPadding, window.innerWidth - badge.offsetWidth - viewportPadding)),
@@ -231,10 +280,15 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
         if (dragState.moved) {
           savePosition();
+          suppressNextClick = true;
+        } else if (event.type === "pointerup") {
+          suppressNextClick = true;
+          openDialog();
         }
 
         dragState = null;
         badge.classList.remove("is-dragging");
+        event.preventDefault();
       };
 
       badge.addEventListener("pointerdown", (event) => {
@@ -247,7 +301,9 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
           pointerId: event.pointerId,
           offsetX: event.clientX - rect.left,
           offsetY: event.clientY - rect.top,
-          moved: false
+          moved: false,
+          startX: event.clientX,
+          startY: event.clientY
         };
         badge.setPointerCapture?.(event.pointerId);
         badge.classList.add("is-dragging");
@@ -259,6 +315,13 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
           return;
         }
 
+        const movedX = event.clientX - dragState.startX;
+        const movedY = event.clientY - dragState.startY;
+
+        if (!dragState.moved && Math.hypot(movedX, movedY) < 6) {
+          return;
+        }
+
         applyPosition(event.clientX - dragState.offsetX, event.clientY - dragState.offsetY);
         dragState.moved = true;
         event.preventDefault();
@@ -266,6 +329,22 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
       badge.addEventListener("pointerup", finishDrag);
       badge.addEventListener("pointercancel", finishDrag);
+      badge.addEventListener("click", (event) => {
+        if (suppressNextClick) {
+          suppressNextClick = false;
+          event.preventDefault();
+          return;
+        }
+
+        openDialog();
+      });
+      closeButton?.addEventListener("click", closeDialog);
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) {
+          closeDialog();
+        }
+      });
+      dialog.addEventListener("close", () => setDialogState(false));
 
       window.addEventListener("resize", () => {
         if (badge.style.left && badge.style.top) {
@@ -416,6 +495,16 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
     text-align: center;
     text-wrap: balance;
     box-shadow: 0 14px 32px rgba(16, 13, 8, 0.3), inset 0 0 0 1px rgba(72, 46, 11, 0.3);
+    cursor: pointer;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dnd-hero__booking-badge:hover,
+  .dnd-hero__booking-badge:focus-visible {
+    transform: translateY(-2px);
+    outline: none;
+    box-shadow: 0 17px 36px rgba(16, 13, 8, 0.36), inset 0 0 0 1px rgba(72, 46, 11, 0.3);
   }
 
   .dnd-hero__booking-badge--mobile-only {
@@ -431,6 +520,65 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
     border: 1px solid rgba(255, 242, 192, 0.62);
     border-radius: 50%;
     pointer-events: none;
+  }
+
+  .dnd-hero__booking-dialog {
+    width: min(348px, calc(100% - 32px));
+    max-width: calc(100% - 32px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #2d241c;
+  }
+
+  .dnd-hero__booking-dialog::backdrop {
+    background: rgba(20, 16, 10, 0.58);
+    backdrop-filter: blur(3px);
+  }
+
+  .dnd-hero__booking-dialog-card {
+    position: relative;
+    padding: 24px 26px 22px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 247, 216, 0.72);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255, 247, 215, 0.98) 0%, rgba(244, 210, 119, 0.98) 58%, rgba(211, 161, 55, 0.98) 100%);
+    box-shadow: 0 18px 44px rgba(16, 13, 8, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  }
+
+  .dnd-hero__booking-dialog-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: rgba(112, 75, 18, 0.64);
+  }
+
+  .dnd-hero__booking-dialog-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(45, 36, 28, 0.2);
+    border-radius: 50%;
+    background: rgba(255, 247, 215, 0.4);
+    color: #2d241c;
+    font: 400 1.35rem/1 var(--dnd-font-body);
+    cursor: pointer;
+  }
+
+  .dnd-hero__booking-dialog-close:hover,
+  .dnd-hero__booking-dialog-close:focus-visible {
+    background: rgba(255, 247, 215, 0.78);
+    outline: 2px solid rgba(112, 75, 18, 0.48);
+    outline-offset: 2px;
+  }
+
+  .dnd-hero__booking-dialog h2 {
+    padding-right: 28px;
   }
 
   .dnd-hero__booking-benefits {
