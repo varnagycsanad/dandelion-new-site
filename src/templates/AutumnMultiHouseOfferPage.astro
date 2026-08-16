@@ -119,7 +119,7 @@ const structuredData = [
           </div>
           <AutumnCouponBlock lang={lang} placement="landing-hero" />
           <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label={copy.heroValueAria}>
-            <strong>8%</strong>
+            <strong aria-hidden="true">↗</strong>
             <span class="autumn-multi__hero-value-label">{copy.heroValueLabel}</span>
             <span class="autumn-multi__hero-value-action">{copy.heroValueAction} <span aria-hidden="true">→</span></span>
           </div>
@@ -144,7 +144,7 @@ const structuredData = [
         </div>
         <h2 id="autumn-price-dialog-title">{copy.priceDialogTitle}</h2>
         <p class="autumn-multi__price-dialog-intro">{copy.priceDialogIntro}</p>
-        <div class="autumn-multi__price-dialog-stat"><strong>8%</strong><span>{copy.priceDialogStat}</span></div>
+        <div class="autumn-multi__price-dialog-stat"><strong aria-hidden="true">↗</strong><span>{copy.priceDialogStat}</span></div>
         <ul>
           {copy.priceDialogBenefits.map((benefit) => <li>{benefit}</li>)}
         </ul>
@@ -266,7 +266,7 @@ const structuredData = [
             <h2 id="autumn-booking-title">{offer.directBooking.titleLines.map((line) => <span>{line}</span>)}</h2>
             <p class="autumn-multi__booking-message">{offer.directBooking.primaryMessage}</p>
             <div class="autumn-multi__booking-benefits">
-              <div class="autumn-multi__discount"><strong>8%</strong><span>{copy.directDiscountLabel}</span></div>
+              <div class="autumn-multi__discount"><strong aria-hidden="true">↗</strong><span>{copy.directDiscountLabel}</span></div>
               <ul>
                 {copy.directBenefits.map((benefit) => <li>{benefit}</li>)}
               </ul>

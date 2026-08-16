@@ -63,8 +63,8 @@ const familyCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseFamilyCopy> =
       "Vendégeskedjetek családotokkal a Balaton-felvidéki Dandelion-házakban,",
       "és legyen örök élmény a közös pihenés!"
     ],
-    heroValueAria: "Mutasd meg, mit jelent a 8% ár-előny",
-    heroValueLabel: "ár-előny · részletek",
+    heroValueAria: "Mutasd meg az őszi 5% kuponkedvezmény részleteit",
+    heroValueLabel: "őszi 5% kupon · részletek",
     heroValueAction: "IDE KATTINTS",
     bookingBadge: "Megéri itt foglalni!",
     benefitsAria: "Közvetlen foglalás előnyei",
@@ -72,16 +72,16 @@ const familyCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseFamilyCopy> =
     benefitsTitle: "Közvetlenül éri meg",
     benefitsLead: "A közvetlen foglalás előnyei:",
     benefits: [
-      "8% ár-előny a portálokhoz képest",
+      "Őszi 5% kuponkedvezmény közvetlen foglaláskor",
       "Azonnali bankkártyás fizetés",
       "Gyors, átlátható foglalási folyamat",
       "Közvetlen kapcsolat a szállásadóval"
     ],
-    priceDialogKicker: "KÖZVETLEN FOGLALÁS",
+    priceDialogKicker: "ŐSZI KUPON",
     priceDialogClose: "Bezárás",
-    priceDialogTitle: "Közvetlenül éri meg",
-    priceDialogIntro: "A szabad időpontokat és az árakat közvetlenül a saját foglalási felületünkön nézhetitek meg.",
-    priceDialogStat: "ár-előny a portálokhoz képest",
+    priceDialogTitle: "5% kuponkedvezmény",
+    priceDialogIntro: "A 26osz5 kuponkódot közvetlenül a honlapi foglalásnál használhatjátok.",
+    priceDialogStat: "kuponkedvezmény",
     priceDialogBenefits: ["Közvetlen kapcsolat a szállásadóval", "Gyors visszaigazolás", "Rugalmas ügyintézés"],
     priceDialogCta: "Árak és szabad időpontok",
     moodKicker: "MIÉRT DANDELION ŐSSZEL?",
@@ -125,7 +125,7 @@ const familyCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseFamilyCopy> =
       d2: ["Őszi estéken a kandalló mellett boroznátok.", "Kényelmes, felszerelt konyhában készítenétek vacsorát.", "Csendet szeretnétek.", "Fontos számotokra a gyors Wi-Fi.", "Szeptember végéig használható a medence."],
       fugehaz: ["Szeretnétek a Tanúhegyeket nézve kávézni, és a napfelkeltében gyönyörködni.", "Fontos számotokra a gyors Wi-Fi.", "A kert végéből túra indul a bazaltorgonákhoz.", "Saját, ingyenes parkoló áll rendelkezésre.", "A kandalló melege vár esténként.", "Szeptember végéig használható a medence."]
     },
-    directDiscountLabel: "ár-előny a portálokhoz képest",
+    directDiscountLabel: "őszi kuponkedvezmény",
     directBenefits: ["Közvetlen kapcsolat a szállásadóval", "Gyors visszaigazolás", "Rugalmas ügyintézés"],
     bookingCta: "Árak és szabad időpontok",
     contactCta: "Írásban érdeklődöm",
@@ -133,20 +133,20 @@ const familyCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseFamilyCopy> =
   },
   en: {
     heroLead: ["Spend time together in a Dandelion house in the Balaton Uplands,", "and turn your family break into a lasting memory."],
-    heroValueAria: "Show what the 8% price advantage means",
-    heroValueLabel: "price advantage · details",
+    heroValueAria: "See the 5% autumn coupon discount details",
+    heroValueLabel: "5% autumn coupon · details",
     heroValueAction: "SEE DETAILS",
     bookingBadge: "Book direct and save!",
     benefitsAria: "Direct booking benefits",
     benefitsKicker: "DIRECT BOOKING",
     benefitsTitle: "Booking direct pays off",
     benefitsLead: "The benefits of booking direct:",
-    benefits: ["8% price advantage compared with portals", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host"],
-    priceDialogKicker: "DIRECT BOOKING",
+    benefits: ["5% autumn coupon discount for direct bookings", "Instant card payment", "Fast, transparent booking process", "Direct contact with your host"],
+    priceDialogKicker: "AUTUMN COUPON",
     priceDialogClose: "Close",
-    priceDialogTitle: "Booking direct pays off",
-    priceDialogIntro: "Check availability and prices directly on our own booking page.",
-    priceDialogStat: "price advantage vs booking portals",
+    priceDialogTitle: "5% autumn coupon discount",
+    priceDialogIntro: "Use code 26osz5 when booking directly on our website.",
+    priceDialogStat: "coupon discount",
     priceDialogBenefits: ["Direct contact with your host", "Fast confirmation", "Flexible assistance"],
     priceDialogCta: "Prices & availability",
     moodKicker: "WHY DANDELION IN AUTUMN?",
@@ -172,14 +172,14 @@ const familyCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseFamilyCopy> =
     pickerTitle: "Which house fits your family?", pickerLead: "These houses suit different kinds of autumn breaks — choose the one that feels right for you.", houseLabel: "Choose this house if…", houseWhy: "Why we recommend it", houseView: "View the house",
     recommendations: { d2: "family-friendly choice", fugehaz: "for a smaller family", zsalya: "a cosy family break", szololiget: "for a smaller group", vintage: "with a private garden", koveskal: "a quiet base for exploring", royal_homes: "close to Lake Balaton", szepvolgyi: "for larger families" },
     houseBullets: { d2: ["You would like an autumn evening by the fireplace.", "You want to cook together in a comfortable, well-equipped kitchen.", "Peace and quiet matter to you.", "Fast Wi-Fi is important.", "The pool can be used until the end of September."], fugehaz: ["You would like coffee with a view of the witness hills and sunrise.", "Fast Wi-Fi is important.", "A hiking trail to the basalt organs starts at the end of the garden.", "There is private free parking.", "The fireplace keeps evenings warm.", "The pool can be used until the end of September."] },
-    directDiscountLabel: "price advantage vs booking portals", directBenefits: ["Direct contact with your host", "Fast confirmation", "Flexible assistance"], bookingCta: "Prices & availability", contactCta: "Enquire in writing", whatsappCta: "WhatsApp"
+    directDiscountLabel: "autumn coupon discount", directBenefits: ["Direct contact with your host", "Fast confirmation", "Flexible assistance"], bookingCta: "Prices & availability", contactCta: "Enquire in writing", whatsappCta: "WhatsApp"
   },
   de: {
-    heroLead: ["Verbringen Sie gemeinsame Zeit in einem Dandelion-Haus im Balaton-Oberland,", "und machen Sie daraus bleibende Familienmomente."], heroValueAria: "Zeigen Sie, was der Preisvorteil von 8 % bedeutet", heroValueLabel: "Preisvorteil · Details", heroValueAction: "DETAILS ANSEHEN", bookingBadge: "Direkt buchen und sparen!",
-    benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "DIREKTBUCHUNG", benefitsTitle: "Direkt buchen lohnt sich", benefitsLead: "Die Vorteile der Direktbuchung:", benefits: ["8 % Preisvorteil gegenüber Portalen", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt zum Gastgeber"], priceDialogKicker: "DIREKTBUCHUNG", priceDialogClose: "Schließen", priceDialogTitle: "Direkt buchen lohnt sich", priceDialogIntro: "Verfügbarkeit und Preise sehen Sie direkt auf unserer eigenen Buchungsseite.", priceDialogStat: "Preisvorteil gegenüber Buchungsportalen", priceDialogBenefits: ["Direkter Kontakt zum Gastgeber", "Schnelle Bestätigung", "Flexible Abwicklung"], priceDialogCta: "Preise & Verfügbarkeit",
+    heroLead: ["Verbringen Sie gemeinsame Zeit in einem Dandelion-Haus im Balaton-Oberland,", "und machen Sie daraus bleibende Familienmomente."], heroValueAria: "Sehen Sie die Details des 5 % Herbst-Kuponrabatts", heroValueLabel: "5 % Herbstkupon · Details", heroValueAction: "DETAILS ANSEHEN", bookingBadge: "Direkt buchen und sparen!",
+    benefitsAria: "Vorteile der Direktbuchung", benefitsKicker: "DIREKTBUCHUNG", benefitsTitle: "Direkt buchen lohnt sich", benefitsLead: "Die Vorteile der Direktbuchung:", benefits: ["5 % Herbst-Kuponrabatt bei Direktbuchung", "Sofortige Kartenzahlung", "Schneller, transparenter Buchungsablauf", "Direkter Kontakt zum Gastgeber"], priceDialogKicker: "HERBSTKUPON", priceDialogClose: "Schließen", priceDialogTitle: "5 % Herbst-Kuponrabatt", priceDialogIntro: "Verwenden Sie den Code 26osz5 bei der Direktbuchung über unsere Website.", priceDialogStat: "Kuponrabatt", priceDialogBenefits: ["Direkter Kontakt zum Gastgeber", "Schnelle Bestätigung", "Flexible Abwicklung"], priceDialogCta: "Preise & Verfügbarkeit",
     moodKicker: "WARUM DANDELION IM HERBST?", moodTitle: "Gemeinsam ist der Herbst am schönsten.", moodIntro: "Gemeinsame Frühstücke, lange Spaziergänge, spielerische Nachmittage und gemütliche Abende machen jeden Tag besonders.", selectionAria: "Tipps für die Auswahl", selectionKicker: "FAMILIENIDEEN FÜR DEN HERBST", selectionBullets: ["Für mehr gemeinsamen Raum empfehlen wir zuerst die Karten von Dandelion D2 und Dandelion Szépvölgyi.", "Gemeinsame Zeit drinnen funktioniert genauso gut wie Gartentage — Regen muss die Auszeit nicht beenden.", "Köveskál, Vintage und Szőlőliget sind ruhige Ausgangspunkte für Ausflüge mit der Familie."], moodCards: [{ label: "GEMEINSAMER RHYTHMUS", title: ["Gemeinsame Räume,", "gemeinsamer Rhythmus."], copy: "Zusammen sein, ohne dass jemand auf seinen eigenen Platz verzichten muss." }, { label: "REGENTAGE", title: ["Schlechtes Wetter", "ist kein Programmende."], copy: "Kamin, Innenräume und gemeinsame Abendessen." }, { label: "DRAUSSEN", title: ["Garten, Grillen,", "Feuerschein."], copy: "Platz für die Kinder und ein ruhiger Abend für die Erwachsenen." }],
     familyGuide: { eyebrow: "IDEEN FÜR FAMILIEN", title: "Welche Häuser empfehlen wir Familien?", lead: "Wenn Sie das Alter Ihrer Kinder und den gemeinsamen Rhythmus berücksichtigen, finden Sie leichter das passende Dandelion-Haus.", cards: [{ title: "Familien mit Baby", parts: [{ text: "Im " }, { text: "Dandelion D2", houseKey: "d2" }, { text: ", im " }, { text: "Dandelion Fügeház", houseKey: "fugehaz" }, { text: " und in den " }, { text: "Dandelion Royal Homes", houseKey: "royal_homes" }, { text: " steht Babyausstattung kostenlos zur Verfügung." }] }, { title: "Größere Familien", parts: [{ text: "Das geräumige " }, { text: "Dandelion Szépvölgyi", houseKey: "szepvolgyi" }, { text: " mit vier Schlafzimmern und die " }, { text: "Dandelion Royal Homes", houseKey: "royal_homes" }, { text: " mit zwei Schlafzimmern und Jacuzzi sind gute Möglichkeiten." }] }, { title: "Familien mit Teenagern", parts: [{ text: "Separate Zimmer im " }, { text: "Dandelion D2", houseKey: "d2" }, { text: ", im " }, { text: "Dandelion Vintage", houseKey: "vintage" }, { text: " und in der " }, { text: "Dandelion Zsálya", houseKey: "zsalya" }, { text: " geben Teenagern etwas Eigenständigkeit." }] }], babyLabel: "BABYFREUNDLICHE EXTRAS", babyText: "Kinderbett, Babybadewanne und Tritt sind auf Anfrage kostenlos erhältlich. Da sie nicht in jedem Haus vorhanden sind, teilen Sie uns Ihren Wunsch bitte vorher mit.", programsLabel: "FAMILIENPROGRAMME", programs: ["Leichte und anspruchsvollere Wanderungen in den Zeugenbergen.", "Ein toller Spielplatz im Dorf.", "Schöne Wanderwege und aktive Erholung.", "Fahrradverleih — fragen Sie uns gerne.", "Höhlentour in der Seehöhle von Tapolca.", "Familientag im Festetics-Schloss in Keszthely."] },
-    pickerTitle: "Welches Haus passt zu Ihrer Familie?", pickerLead: "Diese Häuser eignen sich für unterschiedliche Herbstauszeiten — wählen Sie einfach das, das Ihnen am besten gefällt.", houseLabel: "Dieses Haus passt, wenn…", houseWhy: "Warum wir es empfehlen", houseView: "Haus ansehen", recommendations: { d2: "familienfreundliche Wahl", fugehaz: "für kleinere Familien", zsalya: "gemütliche Familienauszeit", szololiget: "für kleinere Gruppen", vintage: "mit eigenem Garten", koveskal: "ruhiger Ausgangspunkt", royal_homes: "nah am Balaton", szepvolgyi: "für größere Familien" }, houseBullets: { d2: ["Sie Herbstabende am Kamin verbringen möchten.", "Sie gemeinsam in einer gut ausgestatteten Küche kochen möchten.", "Ruhe und Stille wichtig sind.", "Schnelles WLAN wichtig ist.", "Der Pool bis Ende September genutzt werden kann."], fugehaz: ["Sie mit Blick auf die Zeugenberge Kaffee trinken und den Sonnenaufgang genießen möchten.", "Schnelles WLAN wichtig ist.", "Am Ende des Gartens ein Wanderweg zu den Basaltorgeln beginnt.", "Ein eigener kostenloser Parkplatz vorhanden ist.", "Der Kamin die Abende wärmt.", "Der Pool bis Ende September genutzt werden kann."] }, directDiscountLabel: "Preisvorteil gegenüber Buchungsportalen", directBenefits: ["Direkter Kontakt zum Gastgeber", "Schnelle Bestätigung", "Flexible Abwicklung"], bookingCta: "Preise & Verfügbarkeit", contactCta: "Schriftlich anfragen", whatsappCta: "WhatsApp"
+    pickerTitle: "Welches Haus passt zu Ihrer Familie?", pickerLead: "Diese Häuser eignen sich für unterschiedliche Herbstauszeiten — wählen Sie einfach das, das Ihnen am besten gefällt.", houseLabel: "Dieses Haus passt, wenn…", houseWhy: "Warum wir es empfehlen", houseView: "Haus ansehen", recommendations: { d2: "familienfreundliche Wahl", fugehaz: "für kleinere Familien", zsalya: "gemütliche Familienauszeit", szololiget: "für kleinere Gruppen", vintage: "mit eigenem Garten", koveskal: "ruhiger Ausgangspunkt", royal_homes: "nah am Balaton", szepvolgyi: "für größere Familien" }, houseBullets: { d2: ["Sie Herbstabende am Kamin verbringen möchten.", "Sie gemeinsam in einer gut ausgestatteten Küche kochen möchten.", "Ruhe und Stille wichtig sind.", "Schnelles WLAN wichtig ist.", "Der Pool bis Ende September genutzt werden kann."], fugehaz: ["Sie mit Blick auf die Zeugenberge Kaffee trinken und den Sonnenaufgang genießen möchten.", "Schnelles WLAN wichtig ist.", "Am Ende des Gartens ein Wanderweg zu den Basaltorgeln beginnt.", "Ein eigener kostenloser Parkplatz vorhanden ist.", "Der Kamin die Abende wärmt.", "Der Pool bis Ende September genutzt werden kann."] }, directDiscountLabel: "Herbst-Kuponrabatt", directBenefits: ["Direkter Kontakt zum Gastgeber", "Schnelle Bestätigung", "Flexible Abwicklung"], bookingCta: "Preise & Verfügbarkeit", contactCta: "Schriftlich anfragen", whatsappCta: "WhatsApp"
   },
   cs: {
     heroLead: ["Užijte si společný čas v domě Dandelion v Balatonské vrchovině,", "a proměňte rodinný pobyt v krásnou vzpomínku."], heroValueAria: "Zjistit, co znamená 8% cenová výhoda", heroValueLabel: "cenová výhoda · podrobnosti", heroValueAction: "ZJISTIT VÍCE", bookingBadge: "Rezervujte přímo a ušetřete!", benefitsAria: "Výhody přímé rezervace", benefitsKicker: "PŘÍMÁ REZERVACE", benefitsTitle: "Přímá rezervace se vyplatí", benefitsLead: "Výhody přímé rezervace:", benefits: ["8% cenová výhoda oproti portálům", "Okamžitá platba kartou", "Rychlý a přehledný rezervační proces", "Přímý kontakt s hostitelem"], priceDialogKicker: "PŘÍMÁ REZERVACE", priceDialogClose: "Zavřít", priceDialogTitle: "Přímá rezervace se vyplatí", priceDialogIntro: "Volné termíny a ceny si prohlédnete přímo v našem rezervačním systému.", priceDialogStat: "cenová výhoda oproti portálům", priceDialogBenefits: ["Přímý kontakt s hostitelem", "Rychlé potvrzení", "Flexibilní komunikace"], priceDialogCta: "Ceny a volné termíny",
@@ -244,6 +244,33 @@ const coupleCopyByLang: Record<AutumnCampaignLang, AutumnMultiHouseCoupleCopy> =
   }
 };
 
+const neutralDirectBookingCopyByLang = {
+  hu: { heroValueAria: "Mutasd meg a közvetlen foglalás előnyeit", heroValueLabel: "közvetlen foglalás · részletek", benefit: "Közvetlen foglalás", priceDialogKicker: "KÖZVETLEN FOGLALÁS", priceDialogTitle: "Közvetlen foglalás", priceDialogIntro: "A szabad időpontokat és az árakat közvetlenül a saját foglalási felületünkön nézhetitek meg.", priceDialogStat: "közvetlen foglalási előny", directDiscountLabel: "közvetlen foglalási előnyök" },
+  en: { heroValueAria: "See the benefits of booking direct", heroValueLabel: "booking direct · details", benefit: "Booking direct", priceDialogKicker: "DIRECT BOOKING", priceDialogTitle: "Booking direct", priceDialogIntro: "Check availability and prices directly on our own booking page.", priceDialogStat: "direct-booking benefit", directDiscountLabel: "direct-booking benefits" },
+  de: { heroValueAria: "Sehen Sie die Vorteile der Direktbuchung", heroValueLabel: "Direktbuchung · Details", benefit: "Direktbuchung", priceDialogKicker: "DIREKTBUCHUNG", priceDialogTitle: "Direktbuchung", priceDialogIntro: "Verfügbarkeit und Preise sehen Sie direkt auf unserer eigenen Buchungsseite.", priceDialogStat: "Vorteile der Direktbuchung", directDiscountLabel: "Vorteile der Direktbuchung" },
+  cs: { heroValueAria: "Zjistit výhody přímé rezervace", heroValueLabel: "přímá rezervace · podrobnosti", benefit: "Přímá rezervace", priceDialogKicker: "PŘÍMÁ REZERVACE", priceDialogTitle: "Přímá rezervace", priceDialogIntro: "Volné termíny a ceny si prohlédnete přímo v našem rezervačním systému.", priceDialogStat: "výhody přímé rezervace", directDiscountLabel: "výhody přímé rezervace" },
+  sk: { heroValueAria: "Zistiť výhody priamej rezervácie", heroValueLabel: "priama rezervácia · podrobnosti", benefit: "Priama rezervácia", priceDialogKicker: "PRIAMA REZERVÁCIA", priceDialogTitle: "Priama rezervácia", priceDialogIntro: "Voľné termíny a ceny si pozriete priamo v našom rezervačnom systéme.", priceDialogStat: "výhody priamej rezervácie", directDiscountLabel: "výhody priamej rezervácie" }
+} as const;
+
+function getNeutralDirectBookingCopy(lang: AutumnCampaignLang) {
+  return neutralDirectBookingCopyByLang[lang];
+}
+
+function applyNeutralDirectBookingCopy<T extends AutumnMultiHouseCoupleCopy | AutumnMultiHouseFamilyCopy>(copy: T, lang: AutumnCampaignLang): T {
+  const neutral = getNeutralDirectBookingCopy(lang);
+  return {
+    ...copy,
+    heroValueAria: neutral.heroValueAria,
+    heroValueLabel: neutral.heroValueLabel,
+    benefits: [neutral.benefit, ...copy.benefits.slice(1)],
+    priceDialogKicker: neutral.priceDialogKicker,
+    priceDialogTitle: neutral.priceDialogTitle,
+    priceDialogIntro: neutral.priceDialogIntro,
+    priceDialogStat: neutral.priceDialogStat,
+    directDiscountLabel: neutral.directDiscountLabel
+  };
+}
+
 const housePathByLang: Record<AutumnCampaignLang, Record<AutumnMultiHouseKey, string>> = {
   hu: { d2: "/dandelion-d2/", fugehaz: "/fuge/", zsalya: "/dandelion-zsalya/", szololiget: "/szololiget/", vintage: "/dandelion-vintage/", royal_homes: "/royal/", szepvolgyi: "/szepvolgyi/", koveskal: "/dandelion-koveskal/" },
   en: { d2: "/en/dandelion-d2/", fugehaz: "/en/dandelion-fugehaz/", zsalya: "/en/dandelion-zsalya/", szololiget: "/en/szololiget/", vintage: "/en/dandelion-vintage/", royal_homes: "/en/royal/", szepvolgyi: "/en/szepvolgyi/", koveskal: "/en/dandelion-koveskal/" },
@@ -253,11 +280,11 @@ const housePathByLang: Record<AutumnCampaignLang, Record<AutumnMultiHouseKey, st
 };
 
 export function getAutumnMultiHouseFamilyCopy(lang: AutumnCampaignLang) {
-  return familyCopyByLang[lang];
+  return applyNeutralDirectBookingCopy(familyCopyByLang[lang], lang);
 }
 
 export function getAutumnMultiHouseCoupleCopy(lang: AutumnCampaignLang) {
-  return coupleCopyByLang[lang];
+  return applyNeutralDirectBookingCopy(coupleCopyByLang[lang], lang);
 }
 
 export function getLocalizedAutumnMultiHouses(lang: AutumnCampaignLang, audience: "couple" | "family" = "family") {
