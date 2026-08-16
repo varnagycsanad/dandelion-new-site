@@ -661,15 +661,16 @@ const autumnCouponRoomIds = new Set([
   "cf20da88f046211e",
   "0c9e5eaae0545ee3",
   "c4b8753ec9ad4dc9",
-  "7d46f283f2f5792f"
+  "7d46f283f2f5792f",
+  "e30c4b62d7324b3f"
 ]);
 const autumnCouponRoomId = pageData.bookingLink.match(/[?&]selectedRooms=([^&]+)/i)?.[1]?.toLowerCase();
 const autumnCouponPaths = new Set([
-  "/dandelion-d1/", "/dandelion-d2/", "/fuge/", "/dandelion-zsalya/", "/dandelion-vintage/", "/royal/", "/szepvolgyi/",
-  "/en/dandelion-d1/", "/en/dandelion-d2/", "/en/dandelion-fugehaz/", "/en/dandelion-zsalya/", "/en/dandelion-vintage/", "/en/royal/", "/en/szepvolgyi/",
-  "/de/dandelion-d1/", "/de/dandelion-d2/", "/de/dandelion-fugehaz/", "/de/dandelion-zsalya/", "/de/dandelion-vintage/", "/de/royal/", "/de/szepvolgyi/",
-  "/cs/dandelion-d1/", "/cs/dandelion-d2/", "/cs/dandelion-fugehaz/", "/cs/dandelion-zsalya/", "/cs/dandelion-vintage/", "/cs/royal/", "/cs/szepvolgyi/",
-  "/sk/dandelion-d1/", "/sk/dandelion-d2/", "/sk/dandelion-fugehaz/", "/sk/dandelion-zsalya/", "/sk/dandelion-vintage/", "/sk/royal/", "/sk/szepvolgyi/"
+  "/dandelion-d1/", "/dandelion-d2/", "/fuge/", "/dandelion-zsalya/", "/dandelion-vintage/", "/royal/", "/szepvolgyi/", "/szololiget/",
+  "/en/dandelion-d1/", "/en/dandelion-d2/", "/en/dandelion-fugehaz/", "/en/dandelion-zsalya/", "/en/dandelion-vintage/", "/en/royal/", "/en/szepvolgyi/", "/en/szololiget/",
+  "/de/dandelion-d1/", "/de/dandelion-d2/", "/de/dandelion-fugehaz/", "/de/dandelion-zsalya/", "/de/dandelion-vintage/", "/de/royal/", "/de/szepvolgyi/", "/de/szololiget/",
+  "/cs/dandelion-d1/", "/cs/dandelion-d2/", "/cs/dandelion-fugehaz/", "/cs/dandelion-zsalya/", "/cs/dandelion-vintage/", "/cs/royal/", "/cs/szepvolgyi/", "/cs/szololiget/",
+  "/sk/dandelion-d1/", "/sk/dandelion-d2/", "/sk/dandelion-fugehaz/", "/sk/dandelion-zsalya/", "/sk/dandelion-vintage/", "/sk/royal/", "/sk/szepvolgyi/", "/sk/szololiget/"
 ]);
 const autumnCouponPath = canonicalPath ?? Astro.url.pathname;
 const shouldRenderAutumnCoupon = canRenderBookingCta
