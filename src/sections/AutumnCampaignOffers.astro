@@ -2,6 +2,7 @@
 import { autumn2026OfferMap } from "../data/offers/autumn-2026";
 import { getAutumnCampaignPath } from "../data/offers/autumn-2026-localized";
 import type { AutumnCampaignOffer, AutumnCampaignOfferId } from "../data/offers/types";
+import AutumnCouponBlock from "../components/campaign/AutumnCouponBlock.astro";
 import pairCampaignImage from "../assets/home/experiences/dandelion-home-experience-wine-gastro-01-optimized.webp";
 import familyCampaignImageDesktop from "../assets/campaign/autumn-2026/panorama-hero-poster.webp";
 import familyCampaignImageMobile from "../assets/campaign/autumn-2026/panorama-hero-poster-mobile.webp";
@@ -123,6 +124,10 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
       <div class="autumn-home-campaigns__intro">
         <span class="autumn-home-campaigns__kicker">{copy.kicker}</span>
         <h2 class="autumn-home-campaigns__title">{copy.title}</h2>
+      </div>
+
+      <div class="autumn-home-campaigns__coupon">
+        <AutumnCouponBlock lang={lang} placement="homepage" showTerms={true} />
       </div>
 
       <div class="autumn-home-campaigns__cards">
@@ -634,6 +639,11 @@ function getCampaignImage(offer: AutumnCampaignOffer) {
     }
 
     .autumn-home-campaigns__desktop {
+      display: block;
+    }
+
+    .autumn-home-campaigns__desktop .autumn-home-campaigns__intro,
+    .autumn-home-campaigns__desktop .autumn-home-campaigns__cards {
       display: none;
     }
 

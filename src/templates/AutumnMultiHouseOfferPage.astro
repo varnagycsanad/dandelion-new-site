@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CampaignMedia from "../components/campaign/CampaignMedia.astro";
 import CampaignHeroVideo from "../components/campaign/CampaignHeroVideo.astro";
+import AutumnCouponBlock from "../components/campaign/AutumnCouponBlock.astro";
 import type { AutumnCampaignOffer } from "../data/offers/types";
 import type { AutumnCampaignLang } from "../data/offers/autumn-2026-localized";
 import { toAbsoluteUrl } from "../data/site-seo";
@@ -116,6 +117,7 @@ const structuredData = [
           <div class="autumn-multi__hero-lead">
             {heroLead.map((line) => <p>{line}</p>)}
           </div>
+          <AutumnCouponBlock lang={lang} placement="landing-hero" />
           <div class="autumn-multi__hero-value" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="autumn-price-dialog" aria-label={copy.heroValueAria}>
             <strong>8%</strong>
             <span class="autumn-multi__hero-value-label">{copy.heroValueLabel}</span>
@@ -272,6 +274,7 @@ const structuredData = [
           </div>
           {offer.directBooking.media && <CampaignMedia media={offer.directBooking.media} class="autumn-multi__booking-media" />}
         </div>
+        <AutumnCouponBlock lang={lang} placement="landing-booking" mode="full" showTerms={true} />
         <div class="autumn-multi__booking-ctas">
           <a href={bookingHref} class="autumn-multi__button autumn-multi__button--primary" target="_blank" rel="noopener noreferrer" data-dnd-placement="direct-booking" {...bookingTrackingAttrs}>{copy.bookingCta} <span aria-hidden="true">→</span></a>
           <a href={contactHref} class="autumn-multi__button" {...contactTrackingAttrs}>{copy.contactCta}</a>

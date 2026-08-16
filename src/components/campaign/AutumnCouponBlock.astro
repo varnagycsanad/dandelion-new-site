@@ -1,0 +1,212 @@
+---
+interface Props {
+  mode?: "short" | "full";
+  placement: "homepage" | "landing-hero" | "landing-booking" | "house";
+  showTerms?: boolean;
+  class?: string;
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
+}
+
+const {
+  mode = "short",
+  placement,
+  showTerms = false,
+  class: className = "",
+  lang = "hu"
+} = Astro.props as Props;
+
+const isFull = mode === "full";
+const copyByLang = {
+  hu: {
+    ariaLabel: "Őszi kuponkedvezmény",
+    eyebrow: "ŐSZI KUPON",
+    shortTitle: "Őszi extra 5% kedvezmény közvetlen foglalás esetén",
+    fullTitle: "Őszi extra 5% kedvezmény",
+    shortPrefix: "Használd a",
+    shortSuffix: "kuponkódot a honlapi foglalásnál.",
+    fullPrefix: "Foglalj közvetlenül a honlapunkon, és használd a",
+    fullSuffix: "kuponkódot!",
+    date: "2026. szeptember 1. és november 30. közötti tartózkodásokra érvényes.",
+    termsLabel: "Felhasználási feltételek",
+    terms: "A kupon beváltási határideje: 2026. november 23. Nincs meghatározott éjszakaszám-feltétel. A kupon kizárólag a honlapon, közvetlenül leadott foglalásokra érvényes; telefonos, e-mailes, Booking.com-, Airbnb- vagy más portálos foglalásra nem. Már leadott foglalásra utólag nem alkalmazható."
+  },
+  en: {
+    ariaLabel: "Autumn coupon discount",
+    eyebrow: "AUTUMN COUPON",
+    shortTitle: "Autumn extra 5% discount for direct bookings",
+    fullTitle: "Autumn extra 5% discount",
+    shortPrefix: "Use",
+    shortSuffix: "coupon code when booking on our website.",
+    fullPrefix: "Book directly on our website and use",
+    fullSuffix: "coupon code!",
+    date: "Valid for stays from September 1 to November 30, 2026.",
+    termsLabel: "Terms and conditions",
+    terms: "Coupon redemption deadline: November 23, 2026. No minimum-night requirement. Valid only for bookings placed directly on our website; not valid for phone, email, Booking.com, Airbnb or other portal bookings. Cannot be applied retroactively to an existing booking."
+  },
+  de: {
+    ariaLabel: "Herbstlicher Kuponrabatt",
+    eyebrow: "HERBSTKUPON",
+    shortTitle: "Zusätzliche 5 % Herbstermäßigung bei Direktbuchung",
+    fullTitle: "Zusätzliche 5 % Herbstermäßigung",
+    shortPrefix: "Verwenden Sie den",
+    shortSuffix: "Kuponcode bei der Buchung über unsere Website.",
+    fullPrefix: "Buchen Sie direkt über unsere Website und verwenden Sie den",
+    fullSuffix: "Kuponcode!",
+    date: "Gültig für Aufenthalte vom 1. September bis 30. November 2026.",
+    termsLabel: "Teilnahmebedingungen",
+    terms: "Einlösung bis: 23. November 2026. Keine Mindestanzahl an Nächten. Gültig ausschließlich für direkt über unsere Website getätigte Buchungen; nicht gültig für Buchungen per Telefon, E-Mail, Booking.com, Airbnb oder andere Portale. Nicht nachträglich auf bereits getätigte Buchungen anwendbar."
+  },
+  cs: {
+    ariaLabel: "Podzimní kuponová sleva",
+    eyebrow: "PODZIMNÍ KUPON",
+    shortTitle: "Extra 5% sleva při přímé rezervaci",
+    fullTitle: "Extra 5% podzimní sleva",
+    shortPrefix: "Použijte",
+    shortSuffix: "kupon při rezervaci na našem webu.",
+    fullPrefix: "Rezervujte přímo na našem webu a použijte",
+    fullSuffix: "kupon!",
+    date: "Platí pro pobyty od 1. září do 30. listopadu 2026.",
+    termsLabel: "Podmínky použití",
+    terms: "Lhůta pro uplatnění kuponu: 23. listopadu 2026. Bez podmínky minimálního počtu nocí. Platí pouze pro rezervace zadané přímo na našem webu; nevztahuje se na rezervace telefonem, e-mailem, přes Booking.com, Airbnb ani jiné portály. Nelze uplatnit zpětně na již zadanou rezervaci."
+  },
+  sk: {
+    ariaLabel: "Jesenná kupónová zľava",
+    eyebrow: "JESENNÝ KUPÓN",
+    shortTitle: "Extra 5 % zľava pri priamej rezervácii",
+    fullTitle: "Extra 5 % jesenná zľava",
+    shortPrefix: "Použite",
+    shortSuffix: "kupónový kód pri rezervácii na našom webe.",
+    fullPrefix: "Rezervujte priamo na našom webe a použite",
+    fullSuffix: "kupónový kód!",
+    date: "Zľava platí na pobyty od 1. septembra do 30. novembra 2026.",
+    termsLabel: "Podmienky použitia",
+    terms: "Termín na uplatnenie kupónu: 23. novembra 2026. Bez podmienky minimálneho počtu nocí. Platí iba pre rezervácie zadané priamo na našom webe; nevzťahuje sa na telefonické, e-mailové rezervácie ani rezervácie cez Booking.com, Airbnb či iné portály. Nie je možné uplatniť ho dodatočne na už zadanú rezerváciu."
+  }
+} as const;
+const copy = copyByLang[lang];
+---
+
+<aside class:list={["autumn-coupon", `autumn-coupon--${placement}`, className]} aria-label={copy.ariaLabel}>
+  <div class="autumn-coupon__copy">
+    <p class="autumn-coupon__eyebrow">{copy.eyebrow}</p>
+    <p class="autumn-coupon__title">{isFull ? copy.fullTitle : copy.shortTitle}</p>
+    <p class="autumn-coupon__message">
+      {isFull ? copy.fullPrefix : copy.shortPrefix}
+      <code>26osz5</code>
+      {isFull ? copy.fullSuffix : copy.shortSuffix}
+    </p>
+    <p class="autumn-coupon__date">{copy.date}</p>
+  </div>
+
+  {showTerms && (
+    <details class="autumn-coupon__terms">
+      <summary>{copy.termsLabel}</summary>
+      <p>{copy.terms}</p>
+    </details>
+  )}
+</aside>
+
+<style>
+  .autumn-coupon {
+    display: grid;
+    gap: 12px;
+    padding: 18px 22px;
+    border: 1px solid rgba(160, 116, 45, 0.38);
+    border-left: 4px solid #b47d1f;
+    border-radius: 14px;
+    background: #fffaf1;
+    color: #2d241c;
+    box-shadow: 0 8px 20px rgba(50, 35, 19, 0.1);
+  }
+
+  .autumn-coupon__copy,
+  .autumn-coupon__terms p { margin: 0; }
+
+  .autumn-coupon__eyebrow {
+    margin: 0;
+    color: #95681b;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .autumn-coupon__title {
+    margin: 5px 0 0;
+    color: #2d241c;
+    font-family: var(--dnd-font-display, Georgia, serif);
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    font-weight: 600;
+    line-height: 1.02;
+  }
+
+  .autumn-coupon__message,
+  .autumn-coupon__date,
+  .autumn-coupon__terms {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .autumn-coupon__message { margin: 10px 0 0; }
+  .autumn-coupon__date { margin: 5px 0 0; color: #645548; }
+
+  .autumn-coupon code {
+    display: inline-block;
+    margin: 0 0.28em;
+    padding: 0.12em 0.42em;
+    border-radius: 5px;
+    background: #2d241c;
+    color: #fff7e1;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.92em;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .autumn-coupon__terms {
+    padding-top: 10px;
+    border-top: 1px solid rgba(160, 116, 45, 0.24);
+    color: #645548;
+  }
+
+  .autumn-coupon__terms summary {
+    color: #714f17;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .autumn-coupon__terms p { margin-top: 9px; }
+
+  .autumn-coupon--landing-hero {
+    max-width: 610px;
+    margin-top: 20px;
+  }
+
+  .autumn-coupon--landing-booking {
+    max-width: 760px;
+    margin: 24px 0 0;
+  }
+
+  .autumn-coupon--house {
+    max-width: 560px;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 700px) {
+    .autumn-coupon {
+      gap: 10px;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .autumn-coupon__title { font-size: 1.55rem; }
+    .autumn-coupon__message,
+    .autumn-coupon__date,
+    .autumn-coupon__terms { font-size: 0.88rem; }
+    .autumn-coupon--landing-hero,
+    .autumn-coupon--landing-booking,
+    .autumn-coupon--house { max-width: none; }
+  }
+</style>

@@ -21,6 +21,7 @@ import {
 import { getCanonicalPath, toAbsoluteUrl } from "../data/site-seo";
 import { buildVideoObject } from "../data/video-seo";
 import { readHomepageImageMapping } from "../lib/homepage-image-mapping";
+import AutumnCouponBlock from "../components/campaign/AutumnCouponBlock.astro";
 
 const {
   pageData,
@@ -653,6 +654,17 @@ const bookingLink = pageData.bookingLink;
 const hasSabeeBookingLink = bookingLink.includes("ibe.sabeeapp.com");
 const hasInternalBookingLink = bookingLink.startsWith("/") && !bookingLink.startsWith("//");
 const canRenderBookingCta = hasSabeeBookingLink || hasInternalBookingLink;
+const autumnCouponRoomIds = new Set([
+  "2be20f0b68a1114a",
+  "c64244f6153c3ca1",
+  "af2fdb8ed2ebb145",
+  "cf20da88f046211e",
+  "0c9e5eaae0545ee3",
+  "c4b8753ec9ad4dc9",
+  "7d46f283f2f5792f"
+]);
+const autumnCouponRoomId = pageData.bookingLink.match(/[?&]selectedRooms=([^&]+)/i)?.[1]?.toLowerCase();
+const shouldRenderAutumnCoupon = canRenderBookingCta && Boolean(autumnCouponRoomId && autumnCouponRoomIds.has(autumnCouponRoomId));
 const heroVideo = pageData.hero.video ?? null;
 const isD2Hero = pageData.hero.titleAccent === "D2";
 const hasPoolHighlight = Boolean(pageData.hero.poolHighlight?.enabled);
@@ -1104,6 +1116,7 @@ const accommodationStructuredData = [
               <a href="#accommodation-gallery" class="dnd-btn dnd-btn--secondary" data-accommodation-gallery-jump>{pageData.hero.secondaryCtaLabel}</a>
             )}
           </div>
+          {shouldRenderAutumnCoupon && <AutumnCouponBlock lang={lang} placement="house" mode="full" showTerms={true} />}
         </div>
       </div>
     </div>
