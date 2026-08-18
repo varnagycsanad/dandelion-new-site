@@ -82,34 +82,34 @@ function printHelp() {
   console.log(`Google Ads helper for Dandelion
 
 Usage:
-  node scripts/google-ads-report.mjs auth
-  node scripts/google-ads-report.mjs check-auth
-  node scripts/google-ads-report.mjs customers [--format md|json|csv]
-  node scripts/google-ads-report.mjs campaigns --customer 1234567890 [--login 9988776655] [--limit 50] [--format md|json|csv]
-  node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] [--days 30] [--limit 50] [--format md|json|csv]
-  node scripts/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] --start 2026-07-10 --end 2026-07-10 [--limit 50] [--format md|json|csv]
-  node scripts/google-ads-report.mjs conversions --customer 1234567890 [--login 9988776655] [--limit 100] [--format md|json|csv]
-  node scripts/google-ads-report.mjs search-terms --customer 1234567890 [--login 9988776655] [--days 30] [--campaign "Campaign A"] [--campaign-id 123456789] [--limit 50] [--format md|json|csv]
-  node scripts/google-ads-report.mjs budgets --customer 1234567890 [--campaign-id 123456789] [--format md|json|csv]
-  node scripts/google-ads-report.mjs ad-groups --customer 1234567890 [--campaign-id 123456789] [--format md|json|csv]
-  node scripts/google-ads-report.mjs create-ad-group --customer 1234567890 --campaign-id 123456789 --ad-group-name "New ad group" [--status ENABLED] [--cpc-bid 120] [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs update-ad-groups --customer 1234567890 --ad-group-id 123456789 [--new-name "Updated name"] [--status PAUSED] [--cpc-bid 140] [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs rsa-ads --customer 1234567890 [--campaign-id 123456789] [--ad-group-id 987654321] [--format md|json]
-  node scripts/google-ads-report.mjs create-rsa-ad --customer 1234567890 --ad-group-id 987654321 --final-url https://example.com --headline "Headline 1" --headline "Headline 2" --headline "Headline 3" --description "Description 1" --description "Description 2" [--path1 pool] [--path2 balaton] [--validate-only] [--format md|json]
-  node scripts/google-ads-report.mjs update-rsa-ads --customer 1234567890 --ad-group-id 987654321 --ad-id 111222333 --headline "Headline 1" --headline "Headline 2" --headline "Headline 3" --description "Description 1" --description "Description 2" [--final-url https://example.com] [--status PAUSED] [--validate-only] [--format md|json]
-  node scripts/google-ads-report.mjs targets --customer 1234567890 --campaign-id 123456789 [--format md|json|csv]
-  node scripts/google-ads-report.mjs lookup-locations --customer 1234567890 --location-name "Hungary" [--format md|json|csv]
-  node scripts/google-ads-report.mjs lookup-languages --customer 1234567890 --language-name "Hungarian" [--format md|json|csv]
-  node scripts/google-ads-report.mjs add-location-targets --customer 1234567890 --campaign-id 123456789 --location-resource geoTargetConstants/2384 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs remove-location-targets --customer 1234567890 --campaign-id 123456789 --location-resource geoTargetConstants/2384 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs add-language-targets --customer 1234567890 --campaign-id 123456789 --language-resource languageConstants/1024 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs remove-language-targets --customer 1234567890 --campaign-id 123456789 --language-resource languageConstants/1024 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs update-geo-target-type --customer 1234567890 --campaign-id 123456789 --positive-geo-target-type PRESENCE_OR_INTEREST [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs export-campaign-state --customer 1234567890 --campaign-id 123456789 [--output tmp/campaign-state.json]
-  node scripts/google-ads-report.mjs apply-campaign-change-set --customer 1234567890 --input tmp/campaign-changes.json [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs pause-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs enable-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
-  node scripts/google-ads-report.mjs update-budgets --customer 1234567890 --campaign-budget-id 123456789 --amount 3500 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs auth
+  node scripts/remote-platform/google/google-ads-report.mjs check-auth
+  node scripts/remote-platform/google/google-ads-report.mjs customers [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs campaigns --customer 1234567890 [--login 9988776655] [--limit 50] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] [--days 30] [--limit 50] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs performance --customer 1234567890 [--login 9988776655] --start 2026-07-10 --end 2026-07-10 [--limit 50] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs conversions --customer 1234567890 [--login 9988776655] [--limit 100] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs search-terms --customer 1234567890 [--login 9988776655] [--days 30] [--campaign "Campaign A"] [--campaign-id 123456789] [--limit 50] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs budgets --customer 1234567890 [--campaign-id 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs ad-groups --customer 1234567890 [--campaign-id 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs create-ad-group --customer 1234567890 --campaign-id 123456789 --ad-group-name "New ad group" [--status ENABLED] [--cpc-bid 120] [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs update-ad-groups --customer 1234567890 --ad-group-id 123456789 [--new-name "Updated name"] [--status PAUSED] [--cpc-bid 140] [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs rsa-ads --customer 1234567890 [--campaign-id 123456789] [--ad-group-id 987654321] [--format md|json]
+  node scripts/remote-platform/google/google-ads-report.mjs create-rsa-ad --customer 1234567890 --ad-group-id 987654321 --final-url https://example.com --headline "Headline 1" --headline "Headline 2" --headline "Headline 3" --description "Description 1" --description "Description 2" [--path1 pool] [--path2 balaton] [--validate-only] [--format md|json]
+  node scripts/remote-platform/google/google-ads-report.mjs update-rsa-ads --customer 1234567890 --ad-group-id 987654321 --ad-id 111222333 --headline "Headline 1" --headline "Headline 2" --headline "Headline 3" --description "Description 1" --description "Description 2" [--final-url https://example.com] [--status PAUSED] [--validate-only] [--format md|json]
+  node scripts/remote-platform/google/google-ads-report.mjs targets --customer 1234567890 --campaign-id 123456789 [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs lookup-locations --customer 1234567890 --location-name "Hungary" [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs lookup-languages --customer 1234567890 --language-name "Hungarian" [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs add-location-targets --customer 1234567890 --campaign-id 123456789 --location-resource geoTargetConstants/2384 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs remove-location-targets --customer 1234567890 --campaign-id 123456789 --location-resource geoTargetConstants/2384 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs add-language-targets --customer 1234567890 --campaign-id 123456789 --language-resource languageConstants/1024 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs remove-language-targets --customer 1234567890 --campaign-id 123456789 --language-resource languageConstants/1024 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs update-geo-target-type --customer 1234567890 --campaign-id 123456789 --positive-geo-target-type PRESENCE_OR_INTEREST [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs export-campaign-state --customer 1234567890 --campaign-id 123456789 [--output tmp/campaign-state.json]
+  node scripts/remote-platform/google/google-ads-report.mjs apply-campaign-change-set --customer 1234567890 --input tmp/campaign-changes.json [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs pause-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs enable-campaigns --customer 1234567890 --campaign-id 123456789 [--validate-only] [--format md|json|csv]
+  node scripts/remote-platform/google/google-ads-report.mjs update-budgets --customer 1234567890 --campaign-budget-id 123456789 --amount 3500 [--validate-only] [--format md|json|csv]
 
 Required env:
   GOOGLE_ADS_DEVELOPER_TOKEN
@@ -403,7 +403,7 @@ async function getOAuthAccessToken({ tokenPath }) {
   const client = loadOAuthClient();
   const resolvedTokenPath = path.resolve(tokenPath);
   if (!existsSync(resolvedTokenPath)) {
-    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/google-ads-report.mjs auth`);
+    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/remote-platform/google/google-ads-report.mjs auth`);
   }
 
   const token = JSON.parse(readFileSync(resolvedTokenPath, "utf8"));

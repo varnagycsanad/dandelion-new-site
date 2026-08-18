@@ -46,12 +46,12 @@ function printHelp() {
   console.log(`Meta auth helper for Dandelion
 
 Usage:
-  node scripts/meta/meta-auth.mjs auth-url [--app-id 123] [--scope pages_manage_posts] [--response-type code|token] [--redirect-uri "https://..."] [--state "custom"] [--format md|json]
-  node scripts/meta/meta-auth.mjs exchange-code --code "..." [--app-id 123] [--app-secret "..."] [--redirect-uri "https://..."] [--format md|json]
-  node scripts/meta/meta-auth.mjs extend-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
-  node scripts/meta/meta-auth.mjs inspect-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
-  node scripts/meta/meta-auth.mjs ensure-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--env-file ".env"] [--min-valid-days 7] [--health-file ".secrets/meta-token-health.json"] [--format md|json]
-  node scripts/meta/meta-auth.mjs save-token --access-token "..." [--env-file ".env"] [--page-id 1234567890]
+  node scripts/remote-platform/meta/meta-auth.mjs auth-url [--app-id 123] [--scope pages_manage_posts] [--response-type code|token] [--redirect-uri "https://..."] [--state "custom"] [--format md|json]
+  node scripts/remote-platform/meta/meta-auth.mjs exchange-code --code "..." [--app-id 123] [--app-secret "..."] [--redirect-uri "https://..."] [--format md|json]
+  node scripts/remote-platform/meta/meta-auth.mjs extend-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
+  node scripts/remote-platform/meta/meta-auth.mjs inspect-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--format md|json]
+  node scripts/remote-platform/meta/meta-auth.mjs ensure-token [--access-token "..."] [--app-id 123] [--app-secret "..."] [--env-file ".env"] [--min-valid-days 7] [--health-file ".secrets/meta-token-health.json"] [--format md|json]
+  node scripts/remote-platform/meta/meta-auth.mjs save-token --access-token "..." [--env-file ".env"] [--page-id 1234567890]
 
 Required env for auth-url:
   META_APP_ID

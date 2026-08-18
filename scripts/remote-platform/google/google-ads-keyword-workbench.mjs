@@ -30,14 +30,14 @@ function printHelp() {
   console.log(`Google Ads keyword workbench
 
 Usage:
-  node scripts/google-ads-keyword-workbench.mjs audit --customer 1234567890 --campaign "Campaign A" --campaign "Campaign B" [--days 90] [--format json]
-  node scripts/google-ads-keyword-workbench.mjs query --customer 1234567890 --query-file ./tmp/query.sql [--format json]
-  node scripts/google-ads-keyword-workbench.mjs apply-plan --plan ./tmp/google-ads-keyword-plan.json [--format json]
+  node scripts/remote-platform/google/google-ads-keyword-workbench.mjs audit --customer 1234567890 --campaign "Campaign A" --campaign "Campaign B" [--days 90] [--format json]
+  node scripts/remote-platform/google/google-ads-keyword-workbench.mjs query --customer 1234567890 --query-file ./tmp/query.sql [--format json]
+  node scripts/remote-platform/google/google-ads-keyword-workbench.mjs apply-plan --plan ./tmp/google-ads-keyword-plan.json [--format json]
 
 Required env:
   GOOGLE_ADS_DEVELOPER_TOKEN
   GOOGLE_ADS_OAUTH_CLIENT_JSON
-  plus a token file created with scripts/google-ads-report.mjs auth
+  plus a token file created with scripts/remote-platform/google/google-ads-report.mjs auth
 `);
 }
 

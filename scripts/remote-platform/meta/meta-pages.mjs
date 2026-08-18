@@ -32,10 +32,10 @@ function printHelp() {
   console.log(`Meta Pages helper for Dandelion
 
 Usage:
-  node scripts/meta/meta-pages.mjs check-auth
-  node scripts/meta/meta-pages.mjs permissions [--format md|json|csv]
-  node scripts/meta/meta-pages.mjs pages [--format md|json|csv]
-  node scripts/meta/meta-pages.mjs create-post --message "Post text" [--page-id 123] [--photo "C:\\path\\to\\image.jpg"] [--photo "..."] [--published false] [--execute] [--format md|json|csv]
+  node scripts/remote-platform/meta/meta-pages.mjs check-auth
+  node scripts/remote-platform/meta/meta-pages.mjs permissions [--format md|json|csv]
+  node scripts/remote-platform/meta/meta-pages.mjs pages [--format md|json|csv]
+  node scripts/remote-platform/meta/meta-pages.mjs create-post --message "Post text" [--page-id 123] [--photo "C:\\path\\to\\image.jpg"] [--photo "..."] [--published false] [--execute] [--format md|json|csv]
 
 Required env:
   META_ACCESS_TOKEN

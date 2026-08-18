@@ -42,13 +42,13 @@ function printHelp() {
   console.log(`GA4 Admin API helper
 
 Usage:
-  node scripts/google-analytics-admin.mjs auth
-  node scripts/google-analytics-admin.mjs property [--property 123456789] [--format md|json|csv]
-  node scripts/google-analytics-admin.mjs data-streams [--property 123456789] [--format md|json|csv]
-  node scripts/google-analytics-admin.mjs key-events [--property 123456789] [--format md|json|csv]
-  node scripts/google-analytics-admin.mjs create-key-event --event dnd_booking_confirmation [--property 123456789] [--counting once-per-event|once-per-session] [--format md|json|csv]
-  node scripts/google-analytics-admin.mjs custom-dimensions [--property 123456789] [--format md|json|csv]
-  node scripts/google-analytics-admin.mjs google-ads-links [--property 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs auth
+  node scripts/remote-platform/google/google-analytics-admin.mjs property [--property 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs data-streams [--property 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs key-events [--property 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs create-key-event --event dnd_booking_confirmation [--property 123456789] [--counting once-per-event|once-per-session] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs custom-dimensions [--property 123456789] [--format md|json|csv]
+  node scripts/remote-platform/google/google-analytics-admin.mjs google-ads-links [--property 123456789] [--format md|json|csv]
 
 Required env:
   GA4_PROPERTY_ID or GA_PROPERTY_ID
@@ -235,7 +235,7 @@ async function getOAuthAccessToken({ tokenPath }) {
   const client = loadOAuthClient();
   const resolvedTokenPath = path.resolve(tokenPath);
   if (!existsSync(resolvedTokenPath)) {
-    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/google-analytics-admin.mjs auth`);
+    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/remote-platform/google/google-analytics-admin.mjs auth`);
   }
 
   const token = JSON.parse(readFileSync(resolvedTokenPath, "utf8"));

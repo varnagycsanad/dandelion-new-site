@@ -31,8 +31,8 @@ function printHelp() {
   console.log(`Google stack healthcheck for Dandelion
 
 Usage:
-  node scripts/google-stack-healthcheck.mjs run [--format md|json]
-  node scripts/google-stack-healthcheck.mjs booking-chain [--format md|json]
+  node scripts/remote-platform/google/google-stack-healthcheck.mjs run [--format md|json]
+  node scripts/remote-platform/google/google-stack-healthcheck.mjs booking-chain [--format md|json]
 
 What it checks:
   - local Google Ads env + API read access
@@ -100,9 +100,9 @@ function parseArgs(argv) {
 async function buildHealthcheckReport(args) {
   const environment = inspectEnvironment();
 
-  const adsCustomersResult = runNodeJson("scripts/google-ads-report.mjs", ["customers", "--format", "json"]);
-  const adsCampaignsResult = runNodeJson("scripts/google-ads-report.mjs", ["campaigns", "--format", "json"]);
-  const adsConversionsResult = runNodeJson("scripts/google-ads-report.mjs", ["conversions", "--format", "json"]);
+  const adsCustomersResult = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["customers", "--format", "json"]);
+  const adsCampaignsResult = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["campaigns", "--format", "json"]);
+  const adsConversionsResult = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["conversions", "--format", "json"]);
 
   const ads = {
     customers: buildResultSummary(adsCustomersResult, (rows) => ({
@@ -123,8 +123,8 @@ async function buildHealthcheckReport(args) {
     }))
   };
 
-  const ga4AdsLinksResult = runNodeJson("scripts/google-analytics-admin.mjs", ["google-ads-links", "--format", "json"]);
-  const ga4KeyEventsResult = runNodeJson("scripts/google-analytics-admin.mjs", ["key-events", "--format", "json"]);
+  const ga4AdsLinksResult = runNodeJson("scripts/remote-platform/google/google-analytics-admin.mjs", ["google-ads-links", "--format", "json"]);
+  const ga4KeyEventsResult = runNodeJson("scripts/remote-platform/google/google-analytics-admin.mjs", ["key-events", "--format", "json"]);
 
   const ga4_admin = {
     ads_links: buildResultSummary(ga4AdsLinksResult, (rows) => ({
@@ -206,7 +206,7 @@ function resolveGtmBase() {
   let containerId = process.env.GTM_CONTAINER_ID;
   let workspaceId = process.env.GTM_WORKSPACE_ID;
 
-  const accountsResult = runNodeJson("scripts/google-tag-manager.mjs", ["accounts", "--format", "json"]);
+  const accountsResult = runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", ["accounts", "--format", "json"]);
   const accounts = accountsResult.data || [];
 
   if (!accountId && accounts.length === 1) {
@@ -216,7 +216,7 @@ function resolveGtmBase() {
   let containersResult = { ok: false, data: [], error: "Skipped because GTM account could not be resolved." };
   let containers = [];
   if (accountId) {
-    containersResult = runNodeJson("scripts/google-tag-manager.mjs", ["containers", "--account", accountId, "--format", "json"]);
+    containersResult = runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", ["containers", "--account", accountId, "--format", "json"]);
     containers = containersResult.data || [];
     if (!containerId && containers.length === 1) {
       containerId = containers[0].containerId;
@@ -226,7 +226,7 @@ function resolveGtmBase() {
   let workspacesResult = { ok: false, data: [], error: "Skipped because GTM container could not be resolved." };
   let workspaces = [];
   if (accountId && containerId) {
-    workspacesResult = runNodeJson("scripts/google-tag-manager.mjs", [
+    workspacesResult = runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", [
       "workspaces",
       "--account",
       accountId,
@@ -254,7 +254,7 @@ function resolveGtmBase() {
 async function buildGtmSummary(gtmBase) {
   const latestVersionResult =
     gtmBase.accountId && gtmBase.containerId
-      ? runNodeJson("scripts/google-tag-manager.mjs", [
+      ? runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", [
           "latest-version",
           "--account",
           gtmBase.accountId,
@@ -267,7 +267,7 @@ async function buildGtmSummary(gtmBase) {
 
   const tagsResult =
     gtmBase.accountId && gtmBase.containerId && gtmBase.workspaceId
-      ? runNodeJson("scripts/google-tag-manager.mjs", [
+      ? runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", [
           "tags",
           "--account",
           gtmBase.accountId,
@@ -282,7 +282,7 @@ async function buildGtmSummary(gtmBase) {
 
   const triggersResult =
     gtmBase.accountId && gtmBase.containerId && gtmBase.workspaceId
-      ? runNodeJson("scripts/google-tag-manager.mjs", [
+      ? runNodeJson("scripts/remote-platform/google/google-tag-manager.mjs", [
           "triggers",
           "--account",
           gtmBase.accountId,

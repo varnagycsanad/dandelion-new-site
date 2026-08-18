@@ -1,8 +1,8 @@
 import { spawnSync } from "node:child_process";
 
 const steps = [
-  ["GSC", ["node", "scripts/geo/fetch-gsc-data.mjs"]],
-  ["GA4", ["node", "scripts/geo/fetch-ga4-data.mjs"]]
+  ["GSC", ["node", "scripts/remote-platform/geo/fetch-gsc-data.mjs"]],
+  ["GA4", ["node", "scripts/remote-platform/geo/fetch-ga4-data.mjs"]]
 ];
 
 for (const [label, command] of steps) {

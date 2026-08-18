@@ -61,7 +61,7 @@ A DCA nem váltja ki a DWA-t vagy DMA-t, hanem kontrollálja őket:
 Először csak olvasási/inventory feladat fusson:
 
 - `package.json` marketing scriptek listázása.
-- `scripts/meta/**` és Meta dokumentumok feltárása.
+- `scripts/remote-platform/meta/**` és Meta dokumentumok feltárása.
 - Google Ads, GA4, GTM, GSC és GEO scriptek külön csoportosítása.
 - Annak jelölése, hogy melyik elem DWA, DMA vagy shared ownership.
 - Titkok és `.env` változók mozgatása nélkül csak névszintű dependency map készüljön.
@@ -72,7 +72,7 @@ Kimenet: `project-docs/DWA-001.1-capability-inventory-and-extraction-map.md`.
 
 Elsődleges jelölt a Meta vonal:
 
-- `scripts/meta/**`
+- `scripts/remote-platform/meta/**`
 - `package.json` `meta:*` parancsok
 - `project-docs/META_ADS_CODEX_INTEGRATION.md`
 - `project-docs/META_PAGE_POSTING_CODEX_INTEGRATION.md`
@@ -84,8 +84,8 @@ Ezt nem szabad sima törléssel kezdeni. Előbb DMA oldalon legyen fogadó struk
 
 Második jelölt a Google Ads vonal:
 
-- `scripts/google-ads-report.mjs`
-- `scripts/google-ads-keyword-workbench.mjs`
+- `scripts/remote-platform/google/google-ads-report.mjs`
+- `scripts/remote-platform/google/google-ads-keyword-workbench.mjs`
 - `package.json` `ads:*` parancsok
 - `project-docs/GOOGLE_ADS_CODEX_INTEGRATION.md`
 - `project-docs/GOOGLE_STACK_DAILY_OPERATIONS.md` Ads-részei

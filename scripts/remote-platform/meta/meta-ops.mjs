@@ -32,9 +32,9 @@ function printHelp() {
   console.log(`Meta operations helper for Dandelion
 
 Usage:
-  node scripts/meta/meta-ops.mjs asset-check [--format md|json]
-  node scripts/meta/meta-ops.mjs permissions-diagnostics [--format md|json]
-  node scripts/meta/meta-ops.mjs smoke-checklist [--format md|json]
+  node scripts/remote-platform/meta/meta-ops.mjs asset-check [--format md|json]
+  node scripts/remote-platform/meta/meta-ops.mjs permissions-diagnostics [--format md|json]
+  node scripts/remote-platform/meta/meta-ops.mjs smoke-checklist [--format md|json]
 
 Checks:
   - business / ad account / page / pixel relationship visibility

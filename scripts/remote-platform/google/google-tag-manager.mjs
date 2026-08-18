@@ -66,23 +66,23 @@ function printHelp() {
   console.log(`Google Tag Manager API helper
 
 Usage:
-  node scripts/google-tag-manager.mjs auth
-  node scripts/google-tag-manager.mjs accounts [--format md|json|csv]
-  node scripts/google-tag-manager.mjs containers --account 123456 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs workspaces --account 123456 --container 654321 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs workspace-status --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs tags --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs tag --account 123456 --container 654321 --workspace 1 --tag 9 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs triggers --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs trigger --account 123456 --container 654321 --workspace 1 --trigger 8 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs variables --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs built-ins --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs latest-version --account 123456 --container 654321 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs add-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 20 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs remove-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 22 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs create-ga4-event-tag --account 123456 --container 654321 --workspace 1 --name "GA4 - purchase" --event-name purchase --measurement-id G-XXXX --trigger 22 [--format md|json|csv]
-  node scripts/google-tag-manager.mjs create-version --account 123456 --container 654321 --workspace 1 [--name "Version name"] [--notes "Notes"] [--format md|json|csv]
-  node scripts/google-tag-manager.mjs publish-version --account 123456 --container 654321 --version 12 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs auth
+  node scripts/remote-platform/google/google-tag-manager.mjs accounts [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs containers --account 123456 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs workspaces --account 123456 --container 654321 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs workspace-status --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs tags --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs tag --account 123456 --container 654321 --workspace 1 --tag 9 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs triggers --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs trigger --account 123456 --container 654321 --workspace 1 --trigger 8 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs variables --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs built-ins --account 123456 --container 654321 --workspace 1 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs latest-version --account 123456 --container 654321 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs add-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 20 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs remove-firing-trigger --account 123456 --container 654321 --workspace 1 --tag 21 --trigger 22 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs create-ga4-event-tag --account 123456 --container 654321 --workspace 1 --name "GA4 - purchase" --event-name purchase --measurement-id G-XXXX --trigger 22 [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs create-version --account 123456 --container 654321 --workspace 1 [--name "Version name"] [--notes "Notes"] [--format md|json|csv]
+  node scripts/remote-platform/google/google-tag-manager.mjs publish-version --account 123456 --container 654321 --version 12 [--format md|json|csv]
 
 Required env:
   GTM_OAUTH_CLIENT_JSON or GEO_OAUTH_CLIENT_JSON
@@ -280,7 +280,7 @@ async function getOAuthAccessToken({ tokenPath }) {
   const client = loadOAuthClient();
   const resolvedTokenPath = path.resolve(tokenPath);
   if (!existsSync(resolvedTokenPath)) {
-    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/google-tag-manager.mjs auth`);
+    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/remote-platform/google/google-tag-manager.mjs auth`);
   }
 
   const token = JSON.parse(readFileSync(resolvedTokenPath, "utf8"));

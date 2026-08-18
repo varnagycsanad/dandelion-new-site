@@ -38,8 +38,8 @@ function printHelp() {
   console.log(`Google Stack BigQuery helper
 
 Usage:
-  node scripts/google-stack-bigquery.mjs setup [--format md|json]
-  node scripts/google-stack-bigquery.mjs export [--format md|json] [--skip-weekly-report] [--skip-snapshots]
+  node scripts/remote-platform/google/google-stack-bigquery.mjs setup [--format md|json]
+  node scripts/remote-platform/google/google-stack-bigquery.mjs export [--format md|json] [--skip-weekly-report] [--skip-snapshots]
 
 What it does:
   - setup: creates the dataset and required BigQuery tables if they do not exist
@@ -427,10 +427,10 @@ async function exportGoogleStack({ accessToken, args }) {
 }
 
 function buildWeeklyPayload() {
-  const healthcheck = runNodeJson("scripts/google-stack-healthcheck.mjs", ["run", "--format", "json"]);
-  const campaigns = runNodeJson("scripts/google-ads-report.mjs", ["campaigns", "--format", "json"]);
-  const performance = runNodeJson("scripts/google-ads-report.mjs", ["performance", "--days", "30", "--format", "json"]);
-  const conversions = runNodeJson("scripts/google-ads-report.mjs", ["conversions", "--format", "json"]);
+  const healthcheck = runNodeJson("scripts/remote-platform/google/google-stack-healthcheck.mjs", ["run", "--format", "json"]);
+  const campaigns = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["campaigns", "--format", "json"]);
+  const performance = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["performance", "--days", "30", "--format", "json"]);
+  const conversions = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["conversions", "--format", "json"]);
 
   if (!healthcheck.ok) {
     throw new Error(`Healthcheck failed: ${healthcheck.error}`);
@@ -488,11 +488,11 @@ function buildWeeklyPayload() {
 }
 
 function buildSnapshotPayload() {
-  const healthcheck = runNodeJson("scripts/google-stack-healthcheck.mjs", ["run", "--format", "json"]);
-  const bookingChain = runNodeJson("scripts/google-stack-healthcheck.mjs", ["booking-chain", "--format", "json"]);
-  const campaigns = runNodeJson("scripts/google-ads-report.mjs", ["campaigns", "--format", "json"]);
-  const performance = runNodeJson("scripts/google-ads-report.mjs", ["performance", "--days", "30", "--format", "json"]);
-  const conversions = runNodeJson("scripts/google-ads-report.mjs", ["conversions", "--format", "json"]);
+  const healthcheck = runNodeJson("scripts/remote-platform/google/google-stack-healthcheck.mjs", ["run", "--format", "json"]);
+  const bookingChain = runNodeJson("scripts/remote-platform/google/google-stack-healthcheck.mjs", ["booking-chain", "--format", "json"]);
+  const campaigns = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["campaigns", "--format", "json"]);
+  const performance = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["performance", "--days", "30", "--format", "json"]);
+  const conversions = runNodeJson("scripts/remote-platform/google/google-ads-report.mjs", ["conversions", "--format", "json"]);
 
   const results = { healthcheck, bookingChain, campaigns, performance, conversions };
   for (const [name, result] of Object.entries(results)) {

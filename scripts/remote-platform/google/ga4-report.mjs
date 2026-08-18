@@ -60,8 +60,8 @@ function printHelp() {
   console.log(`GA4 report helper
 
 Usage:
-  node scripts/ga4-report.mjs <report> [options]
-  node scripts/ga4-report.mjs auth
+  node scripts/remote-platform/google/ga4-report.mjs <report> [options]
+  node scripts/remote-platform/google/ga4-report.mjs auth
 
 Reports:
   ${names}
@@ -79,9 +79,9 @@ Required env:
   or GA_OAUTH_CLIENT_JSON plus a token created with the auth command
 
 Examples:
-  node scripts/ga4-report.mjs auth
-  node scripts/ga4-report.mjs overview --days 30
-  node scripts/ga4-report.mjs pages --days 90 --limit 50 --format csv
+  node scripts/remote-platform/google/ga4-report.mjs auth
+  node scripts/remote-platform/google/ga4-report.mjs overview --days 30
+  node scripts/remote-platform/google/ga4-report.mjs pages --days 90 --limit 50 --format csv
 `);
 }
 
@@ -290,7 +290,7 @@ async function getOAuthAccessToken({ tokenPath }) {
   const client = loadOAuthClient();
   const resolvedTokenPath = path.resolve(tokenPath);
   if (!existsSync(resolvedTokenPath)) {
-    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/ga4-report.mjs auth`);
+    throw new Error(`OAuth token not found at ${resolvedTokenPath}. Run: node scripts/remote-platform/google/ga4-report.mjs auth`);
   }
 
   const token = JSON.parse(readFileSync(resolvedTokenPath, "utf8"));

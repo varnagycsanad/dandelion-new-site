@@ -32,7 +32,7 @@ function printHelp() {
   console.log(`Meta GTM event scaffolder
 
 Usage:
-  node scripts/meta/gtm-meta-events.mjs [--format md|json] [--execute]
+  node scripts/remote-platform/meta/gtm-meta-events.mjs [--format md|json] [--execute]
 
 Default behavior:
   - discovers GTM account/container/workspace

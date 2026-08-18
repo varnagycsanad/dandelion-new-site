@@ -113,32 +113,42 @@ async function processTask(task, workerId) {
     method: "POST",
     body: JSON.stringify({ workerId, targetSpecialist: specialist })
   });
-  const execution = await runPreflight();
-  const report = await readPreflightReport();
-  const artifactPath = safeProjectPath(task.request.expectedArtifactPath);
-  const receiptPath = `${artifactPath}.receipt.json`;
-  await mkdir(path.dirname(artifactPath), { recursive: true });
-  await writeFile(artifactPath, renderArtifact(task, execution, report), "utf8");
-  const artifactContent = await readFile(artifactPath);
-  const receipt = {
-    taskId: task.taskId,
-    artifactPath,
-    sourceProjectPath: projectRoot,
-    receivedAt: new Date().toISOString(),
-    noLiveWriteConfirmed: true,
-    validatorVersion: "dca-artifact-semantics/v1",
-    artifactSha256: createHash("sha256").update(artifactContent).digest("hex"),
-    artifactBytes: artifactContent.byteLength,
-    artifactStatus: report?.status || (execution.exitCode === 0 ? "BLOCKED_WORKER_EXECUTION" : "BLOCKED_WORKER_EXECUTION"),
-    evidenceKind: "DWA_PREFLIGHT",
-    summary: `DWA read-only preflight artifact elkészült: ${report?.status || "BLOCKED_WORKER_EXECUTION"}.`
-  };
-  await writeFile(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`, "utf8");
-  await bridgeJson(`/specialist-tasks/${encodeURIComponent(task.taskId)}/artifact`, {
-    method: "POST",
-    body: JSON.stringify(receipt)
-  });
-  return { taskId: task.taskId, artifactPath, status: report?.status || "BLOCKED_WORKER_EXECUTION" };
+  const heartbeat = setInterval(() => {
+    void bridgeJson(`/specialist-tasks/${encodeURIComponent(task.taskId)}/heartbeat`, {
+      method: "POST",
+      body: JSON.stringify({ workerId })
+    }).catch(() => undefined);
+  }, 30_000);
+  try {
+    const execution = await runPreflight();
+    const report = await readPreflightReport();
+    const artifactPath = safeProjectPath(task.request.expectedArtifactPath);
+    const receiptPath = `${artifactPath}.receipt.json`;
+    await mkdir(path.dirname(artifactPath), { recursive: true });
+    await writeFile(artifactPath, renderArtifact(task, execution, report), "utf8");
+    const artifactContent = await readFile(artifactPath);
+    const receipt = {
+      taskId: task.taskId,
+      artifactPath,
+      sourceProjectPath: projectRoot,
+      receivedAt: new Date().toISOString(),
+      noLiveWriteConfirmed: true,
+      validatorVersion: "dca-artifact-semantics/v1",
+      artifactSha256: createHash("sha256").update(artifactContent).digest("hex"),
+      artifactBytes: artifactContent.byteLength,
+      artifactStatus: report?.status || (execution.exitCode === 0 ? "BLOCKED_WORKER_EXECUTION" : "BLOCKED_WORKER_EXECUTION"),
+      evidenceKind: "DWA_PREFLIGHT",
+      summary: `DWA read-only preflight artifact elkészült: ${report?.status || "BLOCKED_WORKER_EXECUTION"}.`
+    };
+    await writeFile(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`, "utf8");
+    await bridgeJson(`/specialist-tasks/${encodeURIComponent(task.taskId)}/artifact`, {
+      method: "POST",
+      body: JSON.stringify(receipt)
+    });
+    return { taskId: task.taskId, artifactPath, status: report?.status || "BLOCKED_WORKER_EXECUTION" };
+  } finally {
+    clearInterval(heartbeat);
+  }
 }
 
 export async function runDwaWorker({ once = true, pollMs = 5000, workerId = `dwa-worker-${process.pid}` } = {}) {

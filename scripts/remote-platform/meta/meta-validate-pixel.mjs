@@ -34,7 +34,7 @@ function printHelp() {
   console.log(`Meta Pixel validation helper
 
 Usage:
-  node scripts/meta/meta-validate-pixel.mjs [--format md|json]
+  node scripts/remote-platform/meta/meta-validate-pixel.mjs [--format md|json]
 
 Checks:
   - Meta business pixels visible to the current token
