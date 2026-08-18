@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { exec } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -81,6 +82,7 @@ function renderArtifact(task, execution, report) {
     `- Thread ID: \`${task.threadId}\``,
     `- Státusz: **${status}**`,
     "- Mód: `READ_ONLY`",
+    "- Evidence kind: `DWA_PREFLIGHT`",
     `- Forrásprojekt: \`${projectRoot}\``,
     `- Ellenőrzés: \`npm run dwa:preflight\``,
     "",
@@ -117,12 +119,18 @@ async function processTask(task, workerId) {
   const receiptPath = `${artifactPath}.receipt.json`;
   await mkdir(path.dirname(artifactPath), { recursive: true });
   await writeFile(artifactPath, renderArtifact(task, execution, report), "utf8");
+  const artifactContent = await readFile(artifactPath);
   const receipt = {
     taskId: task.taskId,
     artifactPath,
     sourceProjectPath: projectRoot,
     receivedAt: new Date().toISOString(),
     noLiveWriteConfirmed: true,
+    validatorVersion: "dca-artifact-semantics/v1",
+    artifactSha256: createHash("sha256").update(artifactContent).digest("hex"),
+    artifactBytes: artifactContent.byteLength,
+    artifactStatus: report?.status || (execution.exitCode === 0 ? "BLOCKED_WORKER_EXECUTION" : "BLOCKED_WORKER_EXECUTION"),
+    evidenceKind: "DWA_PREFLIGHT",
     summary: `DWA read-only preflight artifact elkészült: ${report?.status || "BLOCKED_WORKER_EXECUTION"}.`
   };
   await writeFile(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`, "utf8");
