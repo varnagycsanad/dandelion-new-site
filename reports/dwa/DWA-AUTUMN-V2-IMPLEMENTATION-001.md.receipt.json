@@ -1,0 +1,13 @@
+{
+  "taskId": "DWA-AUTUMN-V2-IMPLEMENTATION-001",
+  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-AUTUMN-V2-IMPLEMENTATION-001.md",
+  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "receivedAt": "2026-08-01T09:54:35.8402852Z",
+  "noLiveWriteConfirmed": true,
+  "routeSwitchExecuted": false,
+  "commitExecuted": false,
+  "pushExecuted": false,
+  "deployExecuted": false,
+  "summary": "DWA őszi V2 specialist handoff elkészült: külön preview route-ok, build- és desktop/mobile QA bizonyíték, CTA/tracking ellenőrzés; DCA-elfogadásra vár.",
+  "referencePath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\docs\\references\\autumn-campaign-approved.png"
+}
