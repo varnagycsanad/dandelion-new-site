@@ -6,7 +6,7 @@ export const koveskalEnglishPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion Köveskál | Countryside stay in the Káli Basin",
     description:
-      "Dandelion Köveskál is a peaceful countryside accommodation in Köveskál, in the Káli Basin and the Balaton Uplands, ideal for a relaxed stay near Lake Balaton."
+      "Dandelion Köveskál in the Káli Basin: peaceful countryside stay near Lake Balaton for guests who value village atmosphere, nature and slow days."
   },
   bookingLink: "/en/contact/",
   hero: {
