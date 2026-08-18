@@ -4,9 +4,9 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-20 00:00] English Royal Homes content added for the shared accommodation template.
 export const royalHomesEnglishPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes Keszthely | Apartment near Lake Balaton with jacuzzi",
+    title: "Royal Homes Keszthely | Apartment near Lake Balaton",
     description:
-      "Modern apartment in Keszthely near Lake Balaton for 4-6 guests, with a large terrace, waterfront pier for the building and shared rooftop jacuzzi. Ideal for couples, families and lake-plus-town stays."
+      "Modern apartment in Keszthely near Lake Balaton for 4-6 guests, with a large terrace, waterfront pier and shared rooftop jacuzzi."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=En",
   hero: {

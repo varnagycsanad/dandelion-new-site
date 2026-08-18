@@ -6,7 +6,7 @@ export const zsalyaPageData: AccommodationPageData = {
   seo: {
     title: "Zsálya Vendégház Kisapáti | Csendes pihenés panorámával",
     description:
-      "Csendes, különálló vendégház Kisapátiban 4 főre, fedett terasszal, tanúhegy panorámával, napfelkeltével és klímával mindkét szinten, a hegyoldalban."
+      "Csendes, különálló vendégház Kisapátiban 4 főre, fedett terasszal, tanúhegy-panorámával és klímával a hegyoldalban."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=cf20da88f046211e&lang=Hu",
   positioning: {

@@ -6,7 +6,7 @@ export const szepvolgyiPageData: AccommodationPageData = {
   seo: {
     title: "Szépvölgyi Vendégház Badacsonyörs | Panorámás nyaraló",
     description:
-      "Tágas, balatoni panorámás nyaraló Badacsonyörsön 4 hálószobával, 2 fürdőszobával, zárt kerttel és kényelmes pihenéssel akár 8 főre, a Balaton közelében."
+      "Tágas, balatoni panorámás nyaraló Badacsonyörsön 4 hálószobával, 2 fürdőszobával, zárt kerttel és férőhellyel akár 8 főre."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=7d46f283f2f5792f&lang=Hu",
   positioning: {

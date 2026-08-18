@@ -4,9 +4,9 @@ import { requireAccommodationLocalAssetPath } from "../images/astro-local-assets
 // [CHANGE 2026-05-16 18:35] Royal Homes megkapta az egységes decisionPanel és amenities adatstruktúrát a shared accommodation blokklogikához.
 export const royalHomesPageData: AccommodationPageData = {
   seo: {
-    title: "Dandelion Royal Homes Keszthely | Balaton közeli apartman jacuzzival",
+    title: "Royal Homes Keszthely | Apartman a Balaton közelében",
     description:
-      "Balaton közeli apartman Keszthelyen 4-6 főre, nagy terasszal, saját parti mólóval és közös tetőteraszos jacuzzival. Ideális családoknak, pároknak és város + part pihenéshez."
+      "Balaton közeli apartman Keszthelyen 4-6 főre, nagy terasszal, parti mólóval és közös tetőteraszos jacuzzival."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=c4b8753ec9ad4dc9&lang=Hu",
   positioning: {
