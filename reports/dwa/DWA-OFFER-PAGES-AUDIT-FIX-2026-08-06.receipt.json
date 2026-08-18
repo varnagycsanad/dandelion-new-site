@@ -1,0 +1,40 @@
+{
+  "artifactId": "DWA-OFFER-PAGES-AUDIT-FIX-2026-08-06",
+  "status": "READY_WITH_WARNINGS",
+  "scope": "source_fix_and_qa_only",
+  "noLiveWriteConfirmed": true,
+  "pushPerformed": false,
+  "deployPerformed": false,
+  "routeSwitchPerformed": false,
+  "changedSourceFiles": [
+    "src/data/offers/autumn-2026.ts",
+    "src/data/offers/autumn-2026-localized.ts"
+  ],
+  "checks": {
+    "npm run build": "PASS - 158 pages",
+    "npm run check": "PASS",
+    "npm run test:tracking": "PASS - 3/3",
+    "git diff --check": "PASS"
+  },
+  "routeQa": {
+    "routes": 10,
+    "robots": "index,follow on all 10",
+    "selfCanonical": "10/10",
+    "hreflang": "6 on all 10",
+    "houseCards": "8 on all 10",
+    "badSabeeLinks": 0,
+    "germanFamilyH1": "Herbstliche Familienauszeit im Balaton-Oberland",
+    "pairSelectedRooms": "af2fdb8ed2ebb145",
+    "familySelectedRooms": "c64244f6153c3ca1",
+    "huLang": "Hu",
+    "localizedLang": "En"
+  },
+  "renderQa": {
+    "desktopViewport": "1440x900",
+    "mobileViewport": "390x844",
+    "proofCount": 20,
+    "directory": "reports/dwa/render-qa/2026-08-06",
+    "mobileDialog": "10/10 open and close",
+    "horizontalOverflow": "0/20"
+  }
+}
