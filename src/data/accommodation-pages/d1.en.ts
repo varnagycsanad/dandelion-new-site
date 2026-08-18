@@ -9,7 +9,7 @@ export const d1EnglishPageData: AccommodationPageData = {
   seo: {
     title: "Dandelion D1 Kisapáti | Family stay with Panorama Pool",
     description:
-      "Dandelion D1 is a spacious countryside accommodation near Szent György Hill and Lake Balaton, ideal for families and groups, with access to the Panorama Pool."
+      "Dandelion D1 near Szent György Hill and Lake Balaton: spacious family accommodation for up to 8 guests with terrace and seasonal Panorama Pool access."
   },
   bookingLink: "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=En",
   hero: {

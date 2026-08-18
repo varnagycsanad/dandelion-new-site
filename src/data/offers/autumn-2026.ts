@@ -191,9 +191,9 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
     fallbackAccommodationPath: fugehazSource.accommodation.url,
     bookingUrl: fugehazSource.pageData.bookingLink,
     seo: {
-      title: "Őszi kettesben a Fügeházban | Dandelion Vendégházak",
+      title: "Őszi kettesben a Balaton-felvidéken | Dandelion Vendégházak",
       description:
-        "Romantikus őszi pihenés a Fügeházban kandallóval, borászatokkal, panorámával és közvetlen foglalási lehetőséggel."
+        "Őszi páros pihenés a Balaton-felvidék nyolc Dandelion-házában: panoráma, borvidéki programok, meghitt esték és közvetlen foglalás."
     },
     sourceRefs: fugehazSource,
     media: {
@@ -463,9 +463,9 @@ export const autumn2026Offers: AutumnCampaignOffer[] = [
     fallbackAccommodationPath: d2Source.accommodation.url,
     bookingUrl: d2Source.pageData.bookingLink,
     seo: {
-      title: "Őszi családi pihenés a D2-ben | Dandelion Vendégházak",
+      title: "Őszi családi pihenés a Balaton-felvidéken | Dandelion Vendégházak",
       description:
-        "Őszi családi pihenés a Balaton-felvidéken: közös terek, kert, grillezés és nyolc különböző Dandelion-ház közül választhattok."
+        "Őszi családi pihenés a Balaton-felvidék nyolc Dandelion-házában: közös terek, kertek, grillezés, kirándulások és közvetlen foglalás."
     },
     sourceRefs: d2Source,
     media: {

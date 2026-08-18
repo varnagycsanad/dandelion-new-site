@@ -94,9 +94,9 @@ const royalHomesGermanBaseData = createGermanAccommodationPage(royalHomesEnglish
 export const royalHomesGermanPageData = {
   ...royalHomesGermanBaseData,
   seo: {
-    title: "Dandelion Royal Homes Keszthely | Apartment nahe am Balaton mit Jacuzzi",
+    title: "Dandelion Royal Homes | Keszthely am Balaton",
     description:
-      "Modernes Apartment in Keszthely nahe am Balaton für 4-6 Gäste, mit großer Terrasse, Ufersteg der Anlage und gemeinsamem Dachterrassen-Jacuzzi. Gut für Paare, Familien und Balaton plus Stadt."
+      "Royal Homes in Keszthely nahe dem Balaton: Apartment für 4-6 Gäste mit großer Terrasse, Ufersteg und gemeinsamem Jacuzzi auf der Dachterrasse."
   },
   hero: {
     ...royalHomesGermanBaseData.hero,
