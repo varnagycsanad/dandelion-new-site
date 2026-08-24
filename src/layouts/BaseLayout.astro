@@ -952,9 +952,18 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
           </div>
 
           <a href={headerHomeHref} class="dnd-logo" aria-label="Dandelion Vendégházak">
-              <img
-              src="/images/LOGO/dandelion-vendeghazak-header-logo-header.png"
+            <img
+              class="dnd-logo__image dnd-logo__image--hero"
+              src="/images/LOGO/dandelion-2026-header.png"
               alt="Dandelion Vendégházak"
+              width="256"
+              height="156"
+            />
+            <img
+              class="dnd-logo__image dnd-logo__image--compact"
+              src="/images/LOGO/dandelion-vendeghazak-header-logo-header.png"
+              alt=""
+              aria-hidden="true"
               width="256"
               height="68"
             />
@@ -1014,10 +1023,19 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
       <div class="dnd-container dnd-header__mobile">
         <a href={headerHomeHref} class="dnd-logo dnd-logo--mobile" aria-label="Dandelion Vendégházak">
           <img
-            src="/images/LOGO/dandelion-vendeghazak-header-logo-header.png"
+            class="dnd-logo__image dnd-logo__image--hero"
+            src="/images/LOGO/dandelion-2026-header-mobile.png"
             alt="Dandelion Vendégházak"
             width="256"
-            height="68"
+            height="129"
+          />
+          <img
+            class="dnd-logo__image dnd-logo__image--compact"
+            src="/images/LOGO/dandelion-2026-header-mobile.png"
+            alt=""
+            aria-hidden="true"
+            width="256"
+            height="129"
           />
         </a>
 
@@ -1437,13 +1455,26 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
       }
 
       @media (max-width: 767px) {
+        .dnd-mobile-language-current {
+          gap: 5px;
+          min-height: 38px;
+          padding-left: 11px;
+          padding-right: 11px;
+          font-size: 10px;
+          letter-spacing: 0.08em;
+        }
+
+        .dnd-mobile-language-current span:last-child {
+          font-size: 9px;
+        }
+
         .dnd-header__mobile {
           position: relative;
           display: grid;
           grid-template-columns: minmax(0, 1fr) auto;
           grid-template-areas:
-            "logo language"
-            "booking menu";
+            "logo menu"
+            "booking language";
           align-items: center;
           min-height: 104px;
           padding-top: 10px;
@@ -1486,8 +1517,8 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         .dnd-header-cta--mobile {
           padding-left: 11px;
           padding-right: 11px;
-          font-size: var(--dnd-text-2xs);
-          letter-spacing: 0.06em;
+          font-size: 10px;
+          letter-spacing: 0.08em;
           white-space: nowrap;
         }
 

@@ -113,6 +113,13 @@ main {
   justify-content: space-between;
   gap: 18px;
   min-height: 76px;
+  transition: min-height 0.28s ease;
+}
+
+.dnd-header.is-scrolled .dnd-header__top,
+.dnd-header.is-menu-open .dnd-header__top,
+.dnd-header.dnd-header--solid-start .dnd-header__top {
+  min-height: 60px;
 }
 
 .dnd-header__contact,
@@ -124,16 +131,63 @@ main {
 }
 
 .dnd-logo {
+  position: relative;
   display: inline-flex;
+  align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  width: 170px;
+  min-height: 72px;
+  transition: min-height 0.72s ease;
 }
 
 .dnd-logo img {
+  display: block;
   width: 170px;
   height: auto;
   filter: brightness(0) invert(1);
-  transition: filter 0.28s ease;
+  transition: filter 0.72s ease;
+}
+
+.dnd-logo__image--hero {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dnd-logo__image--compact {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%);
+  transition: opacity 0s linear, visibility 0s linear, filter 0.72s ease;
+}
+
+.dnd-header.is-scrolled .dnd-logo__image--hero,
+.dnd-header.is-menu-open .dnd-logo__image--hero,
+.dnd-header.dnd-header--solid-start .dnd-logo__image--hero {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%);
+  transition: opacity 0s linear, visibility 0s linear, filter 0.72s ease;
+}
+
+.dnd-header.is-scrolled .dnd-logo__image--compact,
+.dnd-header.is-menu-open .dnd-logo__image--compact,
+.dnd-header.dnd-header--solid-start .dnd-logo__image--compact {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0s linear, visibility 0s linear, filter 0.72s ease;
+}
+
+.dnd-header.is-scrolled .dnd-logo:not(.dnd-logo--mobile),
+.dnd-header.is-menu-open .dnd-logo:not(.dnd-logo--mobile),
+.dnd-header.dnd-header--solid-start .dnd-logo:not(.dnd-logo--mobile) {
+  min-height: 45px;
 }
 
 .dnd-header.is-scrolled .dnd-logo img,
@@ -896,10 +950,61 @@ video[autoplay][muted]::-webkit-media-controls-start-playback-button {
     justify-content: space-between;
     min-height: 66px;
     gap: 10px;
+    transition: min-height 0.72s ease, padding 0.72s ease, gap 0.72s ease, grid-template-columns 0.72s ease;
+  }
+
+  .dnd-logo--mobile {
+    width: clamp(112px, 32vw, 132px);
+    min-height: 64px;
+    justify-self: center;
   }
 
   .dnd-logo--mobile img {
-    width: clamp(96px, 27vw, 118px);
+    width: clamp(100px, 28vw, 116px);
+  }
+
+  .dnd-header:not(.is-scrolled):not(.is-menu-open) .dnd-header__mobile {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-areas:
+      "spacer logo menu"
+      "booking booking language";
+  }
+
+  .dnd-header.is-scrolled .dnd-header__mobile,
+  .dnd-header.dnd-header--solid-start .dnd-header__mobile {
+    grid-template-columns: 104px 104px 48px 38px;
+    grid-template-areas: "logo booking language menu";
+    min-height: 66px;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: space-between;
+    column-gap: 0;
+    row-gap: 0;
+  }
+
+  .dnd-header.is-scrolled .dnd-logo--mobile,
+  .dnd-header.dnd-header--solid-start .dnd-logo--mobile {
+    width: 100%;
+    min-height: 58px;
+    justify-self: start;
+  }
+
+  .dnd-header.is-scrolled .dnd-logo--mobile img,
+  .dnd-header.dnd-header--solid-start .dnd-logo--mobile img {
+    width: clamp(86px, 24vw, 96px);
+  }
+
+  .dnd-header.is-scrolled .dnd-header-cta--mobile,
+  .dnd-header.dnd-header--solid-start .dnd-header-cta--mobile {
+    width: 100%;
+    border-color: rgba(45, 36, 28, 0.16);
+    background: rgba(255, 252, 246, 0.78);
+    color: #2d241c;
+  }
+
+  .dnd-header.is-scrolled .dnd-mobile-menu[data-open="true"],
+  .dnd-header.dnd-header--solid-start .dnd-mobile-menu[data-open="true"] {
+    max-height: calc(100vh - 66px);
   }
 
   .dnd-header__mobile-actions {
@@ -916,10 +1021,10 @@ video[autoplay][muted]::-webkit-media-controls-start-playback-button {
     min-height: 38px;
     padding: 0 12px;
     border-radius: 999px;
-    border-color: rgba(73, 52, 34, 0.16);
-    background: rgba(255, 252, 246, 0.94);
+    border-color: rgba(45, 36, 28, 0.16);
+    background: rgba(255, 252, 246, 0.78);
     color: #2d241c;
-    box-shadow: 0 10px 24px rgba(49, 36, 22, 0.14);
+    box-shadow: 0 8px 22px rgba(49, 36, 22, 0.12);
   }
 
   .dnd-menu-toggle {
