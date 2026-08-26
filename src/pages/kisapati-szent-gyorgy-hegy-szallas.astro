@@ -7,12 +7,15 @@ import { szololigetPageData } from "../data/accommodation-pages/szololiget";
 import { zsalyaPageData } from "../data/accommodation-pages/zsalya";
 import { vintagePageData } from "../data/accommodation-pages/vintage";
 import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
-import { panoramaPoolHero } from "../data/images/panorama-pool-images";
 import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 
 const pagePath = "/kisapati-szent-gyorgy-hegy-szallas/";
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&lang=Hu";
-const heroImage = panoramaPoolHero;
+const heroImage = {
+  desktop: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-desktop.webp",
+  mobile: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-mobile.webp",
+  altHu: "Drónfotó a Szent György-hegyről és a környező balatoni-felvidéki tájról"
+};
 
 const bookingTrackingAttrs = {
   "data-dnd-property": "kisapati-collection",
@@ -164,7 +167,7 @@ const structuredData = [
     <section class="kisapati-campaign__hero">
       <picture>
         <source media="(max-width: 767px)" srcset={heroImage.mobile} />
-        <img src={heroImage.desktop} alt={heroImage.altHu} width="1920" height="1280" fetchpriority="high" decoding="async" />
+        <img src={heroImage.desktop} alt={heroImage.altHu} width="1920" height="1080" fetchpriority="high" decoding="async" />
       </picture>
       <div class="dnd-container kisapati-campaign__hero-content">
         <p class="kisapati-campaign__eyebrow">Kisapáti · Szent György-hegy · Balaton-felvidék</p>
