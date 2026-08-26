@@ -3,7 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { d1PageData } from "../data/accommodation-pages/d1";
 import { d2PageData } from "../data/accommodation-pages/d2";
 import { fugehazPageData } from "../data/accommodation-pages/fugehaz";
-import { panoramaPoolHero, panoramaPoolImages } from "../data/images/panorama-pool-images";
+import { szololigetPageData } from "../data/accommodation-pages/szololiget";
+import { zsalyaPageData } from "../data/accommodation-pages/zsalya";
+import { vintagePageData } from "../data/accommodation-pages/vintage";
+import { requireAccommodationLocalAssetPath } from "../data/images/astro-local-assets";
+import { panoramaPoolHero } from "../data/images/panorama-pool-images";
 import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 
 const pagePath = "/kisapati-szent-gyorgy-hegy-szallas/";
@@ -18,44 +22,72 @@ const bookingTrackingAttrs = {
 
 const stays = [
   {
-    name: "Dandelion D1",
-    capacity: "akár 8 fő",
-    description: "Tágas ház 3 hálószobával, 2 fürdőszobával, panorámás terasszal és nagyobb családoknak vagy baráti társaságoknak.",
-    facts: ["3 hálószoba + nappali", "Panorama Pool a szezonban", "ingyenes parkolás"],
-    href: "/dandelion-d1/",
-    bookingHref: d1PageData.bookingLink,
-    image: d1PageData.hero.mobileImagePath,
-    imageAlt: d1PageData.hero.fallbackAlt,
-    review: d1PageData.reviews.items[0]
-  },
-  {
     name: "Dandelion D2",
     capacity: "4–6 fő",
     description: "Családbarát, galériás ház nagy udvarral és fedett terasszal, nyugodt balatoni-felvidéki pihenéshez.",
-    facts: ["nagy kert + fedett terasz", "Panorama Pool a szezonban", "ingyenes parkolás"],
+    facts: ["nagy kert + fedett terasz", "családbarát kialakítás", "ingyenes parkolás"],
     href: "/dandelion-d2/",
     bookingHref: d2PageData.bookingLink,
-    image: d2PageData.hero.mobileImagePath,
-    imageAlt: d2PageData.hero.fallbackAlt,
+    image: requireAccommodationLocalAssetPath("d2", "gallery", "dandelion-d2-kisapati-gallery-09.webp", "D2 kampánykép"),
+    imageAlt: "Dandelion D2 fedett terasza és kertje Kisapátiban",
     review: d2PageData.reviews.items[0]
   },
   {
     name: "Dandelion Fügeház",
     capacity: "4 fő, pótággyal bővíthető",
     description: "Teraszos, intimebb és panorámás ház pároknak vagy kisebb családoknak, a tanúhegyek közelében.",
-    facts: ["2 franciaágy", "Panorama Pool a szezonban", "ingyenes parkolás"],
+    facts: ["2 franciaágy", "teraszos pihenés", "ingyenes parkolás"],
     href: "/fuge/",
     bookingHref: fugehazPageData.bookingLink,
     image: fugehazPageData.hero.mobileImagePath,
     imageAlt: fugehazPageData.hero.fallbackAlt,
     review: fugehazPageData.reviews.items[0]
+  },
+  {
+    name: "Szőlőliget",
+    capacity: "4 fő + 1 pótágy",
+    description: "Különálló, kétszintes ház nagy terasszal, növényes kerttel és 180°-os tanúhegyi panorámával.",
+    facts: ["nagy terasz", "180°-os panoráma", "ingyenes parkolás"],
+    href: "/szololiget/",
+    bookingHref: szololigetPageData.bookingLink,
+    image: szololigetPageData.hero.mobileImagePath,
+    imageAlt: szololigetPageData.hero.fallbackAlt,
+    review: szololigetPageData.reviews.items[0]
+  },
+  {
+    name: "Zsálya",
+    capacity: "4 fő",
+    description: "Csendes, különálló két szintes kis ház két franciaággyal, részben fedett terasszal és tanúhegyi kilátással.",
+    facts: ["2 fürdőszoba", "részben fedett terasz", "ingyenes parkolás"],
+    href: "/dandelion-zsalya/",
+    bookingHref: zsalyaPageData.bookingLink,
+    image: zsalyaPageData.hero.mobileImagePath,
+    imageAlt: zsalyaPageData.hero.fallbackAlt,
+    review: zsalyaPageData.reviews.items[0]
+  },
+  {
+    name: "Dandelion Vintage",
+    capacity: "4 fő",
+    description: "Otthonos, vintage hangulatú ház saját udvarral, grillezési lehetőséggel és családbarát elrendezéssel.",
+    facts: ["saját udvar", "grillezési lehetőség", "ingyenes parkolás"],
+    href: "/dandelion-vintage/",
+    bookingHref: vintagePageData.bookingLink,
+    image: vintagePageData.hero.mobileImagePath,
+    imageAlt: vintagePageData.hero.fallbackAlt,
+    review: vintagePageData.reviews.items[0]
+  },
+  {
+    name: "Dandelion D1",
+    capacity: "akár 8 fő",
+    description: "Tágas ház 3 hálószobával, 2 fürdőszobával és panorámás terasszal nagyobb családoknak vagy baráti társaságoknak.",
+    facts: ["3 hálószoba + nappali", "panorámás terasz", "ingyenes parkolás"],
+    href: "/dandelion-d1/",
+    bookingHref: d1PageData.bookingLink,
+    image: d1PageData.hero.mobileImagePath,
+    imageAlt: d1PageData.hero.fallbackAlt,
+    review: d1PageData.reviews.items[0]
   }
 ];
-
-const galleryImages = panoramaPoolImages
-  .filter((image) => image.usageHint === "hero" || image.usageHint === "teaser")
-  .sort((a, b) => a.sortOrder - b.sortOrder)
-  .slice(0, 4);
 
 const faqItems = [
   {
@@ -64,7 +96,7 @@ const faqItems = [
   },
   {
     question: "Van medencés szállás Kisapátiban?",
-    answer: "Igen. A Dandelion D1, D2 és Fügeház vendégei a szezonban használhatják a közös Panorama Poolt, amely a házak melletti dombon található."
+    answer: "Igen, egyes Dandelion-házaknál szezonális Panorama Pool-használat érhető el. A kiválasztott ház aktuális szolgáltatásait a foglalás előtt ellenőrizd."
   },
   {
     question: "Mikor és hogyan látom az aktuális árat?",
@@ -91,7 +123,7 @@ const structuredData = [
     "@id": `${toAbsoluteUrl(pagePath)}#collection`,
     url: toAbsoluteUrl(pagePath),
     name: "Kisapáti szállás a Szent György-hegyen",
-    description: "Kisapáti szállás a Szent György-hegy közelében: D1, D2 és Fügeház, szezonális Panorama Pool használattal.",
+    description: "Kisapáti szállás a Szent György-hegy közelében: hat különböző hangulatú Dandelion-ház közvetlen foglalással.",
     inLanguage: "hu-HU",
     provider: { "@type": "LodgingBusiness", name: SITE_NAME, url: toAbsoluteUrl("/") },
     mainEntity: {
@@ -121,7 +153,7 @@ const structuredData = [
 
 <BaseLayout
   title="Kisapáti szállás a Szent György-hegyen | Dandelion"
-  description="Kisapáti szállás a Szent György-hegy közelében: válassz a D1, D2 és Fügeház közül, majd ellenőrizd az aktuális szabad időpontokat és árakat."
+  description="Kisapáti szállás a Szent György-hegy közelében: válassz hat különböző Dandelion-ház közül, majd ellenőrizd az aktuális szabad időpontokat és árakat."
   canonicalPath={pagePath}
   ogImage={heroImage.desktop}
   ogImageAlt={heroImage.altHu}
@@ -134,11 +166,10 @@ const structuredData = [
         <source media="(max-width: 767px)" srcset={heroImage.mobile} />
         <img src={heroImage.desktop} alt={heroImage.altHu} width="1920" height="1280" fetchpriority="high" decoding="async" />
       </picture>
-      <div class="kisapati-campaign__hero-shade" aria-hidden="true"></div>
       <div class="dnd-container kisapati-campaign__hero-content">
         <p class="kisapati-campaign__eyebrow">Kisapáti · Szent György-hegy · Balaton-felvidék</p>
         <h1>Kisapáti szállás a Szent György-hegyen</h1>
-        <p class="kisapati-campaign__hero-lead">Három különböző hangulatú Dandelion-ház, közös panorámás medencehasználattal a szezonban. Válaszd ki, melyik illik hozzátok, és nézd meg az aktuális árakat.</p>
+        <p class="kisapati-campaign__hero-lead">Hat különböző hangulatú Dandelion-ház Kisapátiban és a Szent György-hegy környékén. Válaszd ki, melyik illik hozzátok, és nézd meg az aktuális árakat.</p>
         <div class="kisapati-campaign__hero-actions">
           <a class="kisapati-campaign__button kisapati-campaign__button--primary" href={bookingHref} target="_blank" rel="noopener noreferrer" {...bookingTrackingAttrs}>Szabad időpontok ellenőrzése</a>
           <a class="kisapati-campaign__button kisapati-campaign__button--ghost" href="#szallasok">Szállások és férőhelyek</a>
@@ -149,9 +180,9 @@ const structuredData = [
 
     <section class="kisapati-campaign__trust" aria-label="Kiemelt előnyök">
       <div class="dnd-container kisapati-campaign__trust-grid">
-        <div><strong>3 ház</strong><span>különböző igényekre</span></div>
+        <div><strong>6 ház</strong><span>különböző igényekre</span></div>
         <div><strong>4–8 fő</strong><span>választható férőhely</span></div>
-        <div><strong>Panorama Pool</strong><span>szezonális használat</span></div>
+        <div><strong>Szent György-hegy</strong><span>túrák és borászatok közelében</span></div>
         <div><strong>8% ár-előny</strong><span>jellemzően közvetlen foglalásnál</span></div>
       </div>
     </section>
@@ -161,7 +192,7 @@ const structuredData = [
         <div class="kisapati-campaign__section-heading">
           <p class="kisapati-campaign__eyebrow">Válassz férőhely és hangulat alapján</p>
           <h2>Kisapáti szállások egy helyen</h2>
-          <p>Ha nagyobb társasággal érkeztek, a D1 ad több teret. Családos pihenéshez a D2, intimebb, panorámás kikapcsolódáshoz a Fügeház lehet a jobb irány.</p>
+          <p>Ha nagyobb társasággal érkeztek, a D1 ad több teret. Családos pihenéshez a D2 vagy a Vintage, intimebb, panorámás kikapcsolódáshoz a Fügeház, a Szőlőliget vagy a Zsálya lehet a jó irány.</p>
         </div>
         <div class="kisapati-campaign__stay-grid">
           {stays.map((stay) => (
@@ -197,24 +228,15 @@ const structuredData = [
         <div class="kisapati-campaign__offer-list">
           <div><strong>30%</strong><span>előleg a foglalás véglegesítéséhez</span></div>
           <div><strong>Bankkártya</strong><span>online SabeePay vagy banki átutalás</span></div>
+          <div><strong>SZÉP-kártya</strong><span>egyes házaknál elérhető; a kiválasztott háznál ellenőrizhető</span></div>
           <div><strong>30 nap</strong><span>érkezés előtt díjmentes lemondási határidő</span></div>
         </div>
       </div>
     </section>
 
-    <section class="kisapati-campaign__section kisapati-campaign__section--pool">
-      <div class="dnd-container kisapati-campaign__pool-grid">
-        <div>
-          <p class="kisapati-campaign__eyebrow">Panorama Pool</p>
-          <h2>Medencés szállás Kisapátiban, tanúhegyes panorámával</h2>
-          <p>A D1, D2 és Fügeház vendégei a szezonban használhatják a házak melletti dombon található közös Panorama Poolt. A medence nem privát medence házanként; a használat időjárás, karbantartás és a mindenkori medenceszabályzat szerint lehetséges.</p>
-          <a class="kisapati-campaign__text-link" href="/panorama-pool/">Panorama Pool részletei</a>
-        </div>
-        <div class="kisapati-campaign__gallery" aria-label="Panorama Pool képek">
-          {galleryImages.map((image) => (
-            <img src={image.src} alt={image.altHu} loading="lazy" decoding="async" width="1200" height="900" />
-          ))}
-        </div>
+    <section class="kisapati-campaign__pool-note" aria-label="Medenceinformáció">
+      <div class="dnd-container">
+        <p><strong>Medence:</strong> egyes házaknál szezonális Panorama Pool-használat érhető el; a kiválasztott ház aktuális szolgáltatásait a foglalás előtt ellenőrizd.</p>
       </div>
     </section>
 
@@ -283,9 +305,8 @@ const structuredData = [
 <style>
   .kisapati-campaign { color: #1f2b28; background: #fbfaf6; }
   .kisapati-campaign__hero { position: relative; min-height: min(760px, 86vh); display: grid; align-items: end; overflow: hidden; color: #fff; }
-  .kisapati-campaign__hero picture, .kisapati-campaign__hero img, .kisapati-campaign__hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .kisapati-campaign__hero picture, .kisapati-campaign__hero img { position: absolute; inset: 0; width: 100%; height: 100%; }
   .kisapati-campaign__hero img { object-fit: cover; }
-  .kisapati-campaign__hero-shade { background: linear-gradient(90deg, rgba(16, 31, 27, .82), rgba(16, 31, 27, .2) 72%), linear-gradient(0deg, rgba(16, 31, 27, .7), transparent 55%); }
   .kisapati-campaign__hero-content { position: relative; z-index: 1; padding-top: 180px; padding-bottom: 82px; }
   .kisapati-campaign__eyebrow { margin: 0 0 12px; color: #a85c3a; font-size: .76rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
   .kisapati-campaign__hero .kisapati-campaign__eyebrow { color: #f3c7a8; }
@@ -332,13 +353,9 @@ const structuredData = [
   .kisapati-campaign__offer-list div { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid rgba(36,61,53,.18); border-radius: 14px; }
   .kisapati-campaign__offer-list strong { min-width: 105px; color: #243d35; font-family: Georgia, serif; font-size: 1.35rem; }
   .kisapati-campaign__offer-list span { color: #53605a; font-size: .92rem; }
-  .kisapati-campaign__section--pool { background: #243d35; color: #fff; }
-  .kisapati-campaign__section--pool h2 { color: #fff; }
-  .kisapati-campaign__section--pool .kisapati-campaign__eyebrow { color: #f3c7a8; }
-  .kisapati-campaign__section--pool p { color: rgba(255,255,255,.78); }
-  .kisapati-campaign__section--pool .kisapati-campaign__text-link { display: inline-block; margin-top: 20px; color: #f3c7a8; }
-  .kisapati-campaign__gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .kisapati-campaign__gallery img { width: 100%; aspect-ratio: 1 / 1; border-radius: 14px; object-fit: cover; }
+  .kisapati-campaign__pool-note { padding: 18px 0; background: #f0e9df; color: #53605a; }
+  .kisapati-campaign__pool-note p { margin: 0; font-size: .9rem; line-height: 1.5; }
+  .kisapati-campaign__pool-note strong { color: #243d35; }
   .kisapati-campaign__review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .kisapati-campaign__review-grid figure { margin: 0; padding: 26px; background: #f0e9df; border-radius: 16px; }
   .kisapati-campaign__review-grid blockquote { margin: 0; color: #243d35; font-family: Georgia, serif; font-size: 1.12rem; line-height: 1.5; }
@@ -370,7 +387,6 @@ const structuredData = [
   @media (max-width: 700px) {
     .kisapati-campaign__hero { min-height: 720px; }
     .kisapati-campaign__hero-content { padding-top: 140px; padding-bottom: 72px; }
-    .kisapati-campaign__hero-shade { background: linear-gradient(90deg, rgba(16,31,27,.78), rgba(16,31,27,.22)), linear-gradient(0deg, rgba(16,31,27,.82), transparent 65%); }
     .kisapati-campaign__hero-actions { align-items: stretch; flex-direction: column; }
     .kisapati-campaign__button { width: 100%; }
     .kisapati-campaign__trust-grid { grid-template-columns: 1fr 1fr; }
@@ -380,7 +396,6 @@ const structuredData = [
     .kisapati-campaign__stay-grid, .kisapati-campaign__review-grid, .kisapati-campaign__conditions-grid, .kisapati-campaign__offer-grid, .kisapati-campaign__pool-grid, .kisapati-campaign__area-grid { grid-template-columns: 1fr; }
     .kisapati-campaign__stay-card:last-child, .kisapati-campaign__review-grid figure:last-child { grid-column: auto; }
     .kisapati-campaign__stay-body p:not(.kisapati-campaign__stay-capacity) { min-height: 0; }
-    .kisapati-campaign__gallery { order: -1; }
     .kisapati-campaign__conditions-grid { gap: 12px; }
     .kisapati-campaign__conditions-grid article { padding: 18px; }
     .kisapati-campaign__final-cta { padding-bottom: 130px; }
