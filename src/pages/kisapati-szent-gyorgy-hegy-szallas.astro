@@ -12,8 +12,10 @@ import { SITE_NAME, toAbsoluteUrl } from "../data/site-seo";
 const pagePath = "/kisapati-szent-gyorgy-hegy-szallas/";
 const bookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&lang=Hu";
 const heroImage = {
-  desktop: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-desktop.webp",
-  mobile: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-mobile.webp",
+  video: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero.mp4",
+  mobileVideo: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-mobile.mp4",
+  desktopPoster: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-poster-desktop.jpg",
+  mobilePoster: "/images/kisapati/hero/kisapati-szent-gyorgy-hegy-hero-poster-mobile.jpg",
   altHu: "Drónfotó a Szent György-hegyről és a környező balatoni-felvidéki tájról"
 };
 
@@ -142,6 +144,19 @@ const structuredData = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${toAbsoluteUrl(pagePath)}#hero-video`,
+    name: "Szent György-hegy drónvideó – Kisapáti szállás",
+    description: "Drónvideó a Szent György-hegyről és a környező balatoni-felvidéki tájról.",
+    thumbnailUrl: toAbsoluteUrl(heroImage.desktopPoster),
+    contentUrl: toAbsoluteUrl(heroImage.video),
+    embedUrl: toAbsoluteUrl(pagePath),
+    duration: "PT16.5S",
+    inLanguage: "hu-HU",
+    isPartOf: { "@id": `${toAbsoluteUrl(pagePath)}#collection` }
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${toAbsoluteUrl(pagePath)}#faq`,
     inLanguage: "hu-HU",
@@ -158,17 +173,18 @@ const structuredData = [
   title="Kisapáti szállás a Szent György-hegyen | Dandelion"
   description="Kisapáti szállás a Szent György-hegy közelében: válassz hat különböző Dandelion-ház közül, majd ellenőrizd az aktuális szabad időpontokat és árakat."
   canonicalPath={pagePath}
-  ogImage={heroImage.desktop}
+  ogImage={heroImage.desktopPoster}
   ogImageAlt={heroImage.altHu}
   structuredData={structuredData}
   headerMode="transparent"
 >
   <div class="kisapati-campaign">
     <section class="kisapati-campaign__hero">
-      <picture>
-        <source media="(max-width: 767px)" srcset={heroImage.mobile} />
-        <img src={heroImage.desktop} alt={heroImage.altHu} width="1920" height="1080" fetchpriority="high" decoding="async" />
-      </picture>
+      <video class="kisapati-campaign__hero-video" autoplay muted loop playsinline preload="metadata" poster={heroImage.desktopPoster} aria-hidden="true">
+        <source media="(max-width: 767px)" src={heroImage.mobileVideo} type="video/mp4" />
+        <source src={heroImage.video} type="video/mp4" />
+        <img src={heroImage.desktopPoster} alt="" width="1920" height="1080" decoding="async" />
+      </video>
       <div class="dnd-container kisapati-campaign__hero-content">
         <p class="kisapati-campaign__eyebrow">Kisapáti · Szent György-hegy · Balaton-felvidék</p>
         <h1>Kisapáti szállás a Szent György-hegyen</h1>
@@ -308,8 +324,8 @@ const structuredData = [
 <style>
   .kisapati-campaign { color: #1f2b28; background: #fbfaf6; }
   .kisapati-campaign__hero { position: relative; min-height: min(760px, 86vh); display: grid; align-items: end; overflow: hidden; color: #fff; }
-  .kisapati-campaign__hero picture, .kisapati-campaign__hero img { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .kisapati-campaign__hero img { object-fit: cover; }
+  .kisapati-campaign__hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .kisapati-campaign__hero-video img { width: 100%; height: 100%; object-fit: cover; }
   .kisapati-campaign__hero-content { position: relative; z-index: 1; padding-top: 180px; padding-bottom: 82px; }
   .kisapati-campaign__eyebrow { margin: 0 0 12px; color: #a85c3a; font-size: .76rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
   .kisapati-campaign__hero .kisapati-campaign__eyebrow { color: #f3c7a8; }
