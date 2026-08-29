@@ -1371,6 +1371,8 @@ jobs:
 
           remote_root="${UJSITE_SSH_REMOTE_PATH%/}"
           retired_paths=(
+            "admin/index.html"
+            "admin/newsletter/index.html"
             "images/panorama-pool/gallery/dandelion-panorama-pool-001.webp"
             "images/panorama-pool/gallery/dandelion-panorama-pool-002.webp"
             "images/panorama-pool/gallery/dandelion-panorama-pool-003.webp"
@@ -1425,6 +1427,8 @@ jobs:
           set ftp:passive-mode yes
           set net:timeout 45
           set net:max-retries 4
+          rm -f "${UJSITE_FTP_PATH%/}/admin/index.html"
+          rm -f "${UJSITE_FTP_PATH%/}/admin/newsletter/index.html"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-001.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-002.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-003.webp"
