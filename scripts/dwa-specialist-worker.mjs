@@ -71,6 +71,35 @@ export function isKnowledgeWriteTask(task) {
     && task.request.knowledgeWritePaths.every((value, index) => value === knowledgePaths[index]);
 }
 
+export function isApprovedSourceWriteTask(task) {
+  const capability = task?.request?.requestedCapabilityId || "";
+  return task?.request?.targetSpecialist === specialist
+    && task?.request?.allowedMode === "WRITE"
+    && capability.startsWith("web.write.")
+    && task?.request?.postReadRequired === true
+    && typeof task?.request?.executionManifestPath === "string"
+    && !isKnowledgeWriteTask(task);
+}
+
+async function runApprovedSourceWrite(task) {
+  const manifestPath = safeProjectPath(path.join(projectRoot, task.request.executionManifestPath));
+  const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+  if (manifest.schemaVersion !== "dca-source-write-manifest/v1" || manifest.approvalId !== task.request.approvalId) throw new Error("A DWA source-write manifest schema vagy approval egyezése hibás.");
+  if (!Array.isArray(manifest.allowedPaths) || manifest.allowedPaths.length === 0 || typeof manifest.patchPath !== "string") throw new Error("A DWA source-write manifest patchPath/allowedPaths mezője hiányzik.");
+  const patchPath = safeProjectPath(path.join(projectRoot, manifest.patchPath));
+  const stagedBefore = (await runGit(["diff", "--cached", "--name-only"], true)).stdout.split(/\r?\n/u).filter(Boolean);
+  if (stagedBefore.length > 0) throw new Error(`A DWA source-write worker staged fájllal nem indulhat: ${stagedBefore.join(", ")}`);
+  await runGit(["apply", "--check", "--whitespace=nowarn", patchPath]);
+  const before = (await runGit(["diff", "--name-only"], true)).stdout.split(/\r?\n/u).filter(Boolean);
+  await runGit(["apply", "--whitespace=nowarn", patchPath]);
+  const after = (await runGit(["diff", "--name-only"], true)).stdout.split(/\r?\n/u).filter(Boolean);
+  const allowed = new Set(manifest.allowedPaths.map((value) => String(value).replaceAll("\\", "/")));
+  const newFiles = after.filter((value) => !before.includes(value)).map((value) => value.replaceAll("\\", "/"));
+  if (newFiles.length === 0 || newFiles.some((value) => !allowed.has(value) || value.startsWith("dist/") || value.includes(".env"))) throw new Error("A DWA patch módosított fájljai eltérnek a manifest allowlistjétől.");
+  const build = await execAsync("npm run build", { cwd: projectRoot, windowsHide: true, maxBuffer: 40 * 1024 * 1024 });
+  return { status: "DWA_SOURCE_WRITE_BUILT", changedFiles: newFiles, buildStdout: build.stdout, buildStderr: build.stderr };
+}
+
 function fileHash(content) {
   return createHash("sha256").update(content).digest("hex");
 }
@@ -238,6 +267,20 @@ async function processTask(task, workerId) {
         body: JSON.stringify(receipt)
       });
       return { taskId: task.taskId, artifactPath, status: result.status };
+    }
+    if (isApprovedSourceWriteTask(task)) {
+      const execution = await runApprovedSourceWrite(task);
+      const knowledge = await createKnowledgeWrite(task);
+      const artifactPath = safeProjectPath(task.request.expectedArtifactPath);
+      const receiptPath = `${artifactPath}.receipt.json`;
+      await mkdir(path.dirname(artifactPath), { recursive: true });
+      const artifact = [`# ${task.request.requestId} — DWA source implementation artifact`, "", `- Task ID: \`${task.taskId}\``, `- Státusz: **${execution.status}**`, "- Mód: `WRITE`", "- Evidence kind: `DWA_SOURCE_WRITE_BUILD`", `- Exact capability: \`${task.request.requestedCapabilityId}\``, `- Approval ID: \`${task.request.approvalId}\``, `- Forrásprojekt: \`${projectRoot}\``, "", `- Changed source files: \`${execution.changedFiles.join(", ")}\``, "- Build: `npm run build` PASS", "- Post-read: `git diff` és build receipt ellenőrizve", "- Deploy/live write: nem történt", "", "## Kötelező knowledge delta", "", JSON.stringify(knowledge, null, 2), ""].join("\n");
+      await writeFile(artifactPath, artifact, "utf8");
+      const content = await readFile(artifactPath);
+      const receipt = { taskId: task.taskId, artifactPath, sourceProjectPath: projectRoot, receivedAt: new Date().toISOString(), noLiveWriteConfirmed: true, liveWriteStatus: "NOT_EXECUTED", postReadVerified: true, validatorVersion: "dca-artifact-semantics/v1", artifactSha256: createHash("sha256").update(content).digest("hex"), artifactBytes: content.byteLength, artifactStatus: execution.status, evidenceKind: "DWA_SOURCE_WRITE_BUILD", knowledgeUpdated: true, knowledgeDelta: knowledge.knowledgeDelta, changedFiles: knowledge.changedFiles, knowledgeCommit: knowledge.knowledgeCommit, pushStatus: knowledge.pushStatus, remoteCommitHash: knowledge.remoteCommitHash, stagedFiles: knowledge.stagedFiles, summary: `DWA jóváhagyott source write és build elkészült: ${execution.status}.` };
+      await writeFile(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`, "utf8");
+      await bridgeJson(`/specialist-tasks/${encodeURIComponent(task.taskId)}/artifact`, { method: "POST", body: JSON.stringify(receipt) });
+      return { taskId: task.taskId, artifactPath, status: execution.status };
     }
     const execution = await runPreflight();
     const report = await readPreflightReport();
