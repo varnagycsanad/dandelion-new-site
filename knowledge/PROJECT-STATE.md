@@ -2,7 +2,7 @@
 
 - Specialist: `dandelion-website-agent` / `DWA`
 - Project: `dandelion-web`
-- State reviewed: `2026-08-29T14:45:00.776Z`
+- State reviewed: `2026-08-29T14:47:59.637Z`
 
 ## Canonical boundary
 
