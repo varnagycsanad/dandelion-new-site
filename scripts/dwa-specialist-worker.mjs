@@ -1,15 +1,17 @@
 import { createHash } from "node:crypto";
-import { exec } from "node:child_process";
+import { exec, execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const specialist = "DWA";
 const defaultBridgeBaseUrl = "http://127.0.0.1:4321";
 const knowledgePaths = ["knowledge/KNOWLEDGE-INDEX.json", "knowledge/PROJECT-STATE.md"];
+const knowledgePushRef = process.env.DWA_KNOWLEDGE_PUSH_REF?.trim() || "codex/knowledge-write-dwa";
 const knowledgeSources = [
   ["AGENT.md", "DOMAIN_SOURCE", ["DWA", "ownership", "safety"]],
   ["README.md", "DOMAIN_SOURCE", ["DWA", "workflow"]],
@@ -75,7 +77,7 @@ function fileHash(content) {
 
 async function runGit(args, allowFailure = false) {
   try {
-    const result = await execAsync(`git ${args.join(" ")}`, { cwd: projectRoot, windowsHide: true, maxBuffer: 4 * 1024 * 1024 });
+    const result = await execFileAsync("git", args, { cwd: projectRoot, windowsHide: true, maxBuffer: 4 * 1024 * 1024 });
     return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
   } catch (error) {
     if (!allowFailure) throw error;
@@ -125,8 +127,9 @@ async function createKnowledgeWrite(task) {
   if (staged.length !== knowledgePaths.length || !knowledgePaths.every((value) => staged.includes(value))) throw new Error(`A DWA knowledge-write staged fájllistája hibás: ${staged.join(", ")}`);
   await runGit(["commit", "-m", "docs(knowledge): consolidate DWA canonical state", "--only", "--", ...knowledgePaths]);
   const knowledgeCommit = (await runGit(["rev-parse", "HEAD"])).stdout.trim();
-  const push = await runGit(["push"], true);
-  const remoteCommitHash = push.exitCode === 0 ? (await runGit(["rev-parse", "--verify", "@{upstream}"], true)).stdout.trim() || null : null;
+  const push = await runGit(["push", "origin", `HEAD:refs/heads/${knowledgePushRef}`], true);
+  if (push.exitCode === 0) await runGit(["fetch", "origin", knowledgePushRef], true);
+  const remoteCommitHash = push.exitCode === 0 ? (await runGit(["rev-parse", "--verify", "FETCH_HEAD"], true)).stdout.trim() || null : null;
   const stagedAfter = (await runGit(["diff", "--cached", "--name-only"], true)).stdout.split(/\r?\n/u).filter(Boolean);
   const changedFiles = await Promise.all(knowledgePaths.map(async (relativePath) => {
     const content = await readFile(path.join(projectRoot, relativePath));
