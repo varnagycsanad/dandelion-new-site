@@ -1416,6 +1416,7 @@ jobs:
           done
 
           ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "rm -f ${delete_args[*]}"
+          ssh "${ssh_options[@]}" "$UJSITE_SSH_USER@${{ steps.ssh_setup.outputs.host }}" "rm -rf $(printf '%q' "$remote_root/admin")"
 
       - name: Cleanup retired Panorama Pool media over FTP
         if: env.UJSITE_FTP_HOST != '' && env.UJSITE_FTP_USER != '' && env.UJSITE_FTP_PASSWORD != '' && env.UJSITE_FTP_PATH != '' && steps.ssh_retired_pool_hero_cleanup.outcome != 'success'
@@ -1427,8 +1428,7 @@ jobs:
           set ftp:passive-mode yes
           set net:timeout 45
           set net:max-retries 4
-          rm -f "${UJSITE_FTP_PATH%/}/admin/index.html"
-          rm -f "${UJSITE_FTP_PATH%/}/admin/newsletter/index.html"
+          rm -r -f "${UJSITE_FTP_PATH%/}/admin"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-001.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-002.webp"
           rm -f "${UJSITE_FTP_PATH%/}/images/panorama-pool/gallery/dandelion-panorama-pool-003.webp"
