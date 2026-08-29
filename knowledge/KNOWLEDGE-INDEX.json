@@ -37,8 +37,8 @@
         "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
         "dwa-project-docs-dwa-ownership-boundaries-md"
       ],
-      "contentHash": "1b8053655c7fa6dcffa9afa1f5326373b70f390f1e7e4339c6b368b5a1ff3da3",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "contentHash": "941b335642e7710f7e5924dee0b6879c53fde1384165824f8fa9a9654134b6e5",
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     },
     {
       "documentId": "dwa-agent-md",
@@ -55,7 +55,7 @@
         "dwa-project-state"
       ],
       "contentHash": "33e4f788ce502af1480e47387a883c45ce47b76ad82539f7b3c00bc935f220f0",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     },
     {
       "documentId": "dwa-readme-md",
@@ -71,7 +71,7 @@
         "dwa-project-state"
       ],
       "contentHash": "8e5f72753b378cc1053d301f3d8dbf36b164eeabdb7dc6677fd1617351056172",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-003-2-specialist-capability-contract-md",
@@ -87,7 +87,7 @@
         "dwa-project-state"
       ],
       "contentHash": "0602279f20d4b1c625e78bf4fcd062bc88f878475b176e7ece0f3a2243392280",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
@@ -104,7 +104,7 @@
         "dwa-project-state"
       ],
       "contentHash": "491fb427122a56df71431b8a15cc820142f32e14c305da588512805ded6fff52",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-ownership-boundaries-md",
@@ -121,12 +121,12 @@
         "dwa-project-state"
       ],
       "contentHash": "526ea2b1eef18d16a5266cab47596dfb079b822527ba4bd5d0fef4bfc772c1b1",
-      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+      "lastVerifiedAt": "2026-08-29T14:45:00.776Z"
     }
   ],
-  "lastReviewedAt": "2026-08-29T14:43:57.505Z",
-  "stateHash": "1b8053655c7fa6dcffa9afa1f5326373b70f390f1e7e4339c6b368b5a1ff3da3",
-  "sourceCommit": "68ead71be77712436833587cb6fe70e9fb505598",
+  "lastReviewedAt": "2026-08-29T14:45:00.776Z",
+  "stateHash": "941b335642e7710f7e5924dee0b6879c53fde1384165824f8fa9a9654134b6e5",
+  "sourceCommit": "54ade03867e124829f444e00e63870cbe3445f37",
   "ttlDays": 30,
   "openDcaDependencies": [
     "DCA acceptance must verify schema, exact paths, hashes, commit, push and remote readback.",
