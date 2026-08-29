@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "dca-knowledge-index/v1",
+  "specialistId": "dandelion-website-agent",
+  "specialistKind": "DWA",
+  "owner": "DWA",
+  "projectId": "dandelion-web",
+  "repositoryPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "indexPath": "knowledge/KNOWLEDGE-INDEX.json",
+  "canonicalStatePath": "knowledge/PROJECT-STATE.md",
+  "requiredTopics": [
+    "Astro",
+    "website",
+    "landing",
+    "CTA",
+    "tracking",
+    "SEO",
+    "GEO",
+    "deploy",
+    "decisions"
+  ],
+  "documents": [
+    {
+      "documentId": "dwa-project-state",
+      "path": "knowledge/PROJECT-STATE.md",
+      "role": "CANONICAL_STATE",
+      "topics": [
+        "canonical state",
+        "ownership",
+        "decisions"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-agent-md",
+        "dwa-readme-md",
+        "dwa-project-docs-dwa-003-2-specialist-capability-contract-md",
+        "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
+        "dwa-project-docs-dwa-ownership-boundaries-md"
+      ],
+      "contentHash": "1b8053655c7fa6dcffa9afa1f5326373b70f390f1e7e4339c6b368b5a1ff3da3",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    },
+    {
+      "documentId": "dwa-agent-md",
+      "path": "AGENT.md",
+      "role": "DOMAIN_SOURCE",
+      "topics": [
+        "DWA",
+        "ownership",
+        "safety"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-project-state"
+      ],
+      "contentHash": "33e4f788ce502af1480e47387a883c45ce47b76ad82539f7b3c00bc935f220f0",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    },
+    {
+      "documentId": "dwa-readme-md",
+      "path": "README.md",
+      "role": "DOMAIN_SOURCE",
+      "topics": [
+        "DWA",
+        "workflow"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-project-state"
+      ],
+      "contentHash": "8e5f72753b378cc1053d301f3d8dbf36b164eeabdb7dc6677fd1617351056172",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    },
+    {
+      "documentId": "dwa-project-docs-dwa-003-2-specialist-capability-contract-md",
+      "path": "project-docs/DWA-003.2-specialist-capability-contract.md",
+      "role": "DOMAIN_SOURCE",
+      "topics": [
+        "capabilities",
+        "execution path"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-project-state"
+      ],
+      "contentHash": "0602279f20d4b1c625e78bf4fcd062bc88f878475b176e7ece0f3a2243392280",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    },
+    {
+      "documentId": "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
+      "path": "project-docs/DWA-004-preflight-and-dca-evidence-handoff.md",
+      "role": "EVIDENCE",
+      "topics": [
+        "preflight",
+        "DCA",
+        "handoff"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-project-state"
+      ],
+      "contentHash": "491fb427122a56df71431b8a15cc820142f32e14c305da588512805ded6fff52",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    },
+    {
+      "documentId": "dwa-project-docs-dwa-ownership-boundaries-md",
+      "path": "project-docs/DWA-OWNERSHIP-BOUNDARIES.md",
+      "role": "DOMAIN_SOURCE",
+      "topics": [
+        "ownership",
+        "DMA",
+        "DSA"
+      ],
+      "active": true,
+      "supersedes": [],
+      "relatedDocumentIds": [
+        "dwa-project-state"
+      ],
+      "contentHash": "526ea2b1eef18d16a5266cab47596dfb079b822527ba4bd5d0fef4bfc772c1b1",
+      "lastVerifiedAt": "2026-08-29T14:43:57.505Z"
+    }
+  ],
+  "lastReviewedAt": "2026-08-29T14:43:57.505Z",
+  "stateHash": "1b8053655c7fa6dcffa9afa1f5326373b70f390f1e7e4339c6b368b5a1ff3da3",
+  "sourceCommit": "68ead71be77712436833587cb6fe70e9fb505598",
+  "ttlDays": 30,
+  "openDcaDependencies": [
+    "DCA acceptance must verify schema, exact paths, hashes, commit, push and remote readback.",
+    "External platform and deploy writes remain outside DWA knowledge-write."
+  ],
+  "nextDecisionPoints": [
+    "Confirm explicit site scope before implementation.",
+    "Require DCA release approval and public readback for deploy claims."
+  ]
+}
