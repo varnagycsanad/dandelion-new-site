@@ -12,3 +12,8 @@ The DWA worker validates canonical metadata, creates a non-empty project state,
 checks hash/byte evidence, stages only the two allowlisted files and commits them
 with `--only`. Ads, GA4, GTM, GSC, Meta, SabeeApp and deploy/live writes remain
 outside this capability.
+# System output capability
+
+`specialist.system.output_policy` is a separate clean-worktree capability.
+Raw output is external and canonical knowledge promotion is explicit and
+allowlisted; deploy and remote platform writes remain forbidden.
