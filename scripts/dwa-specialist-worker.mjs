@@ -4,10 +4,13 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import { validateProductChange, taskOutputDirectory } from "./dwa-output-policy.mjs";
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
-const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const projectRoot = process.env.DCA_EXECUTION_WORKTREE_PATH?.trim()
+  ? path.resolve(process.env.DCA_EXECUTION_WORKTREE_PATH)
+  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const specialist = "DWA";
 const defaultBridgeBaseUrl = "http://127.0.0.1:4321";
 const knowledgePaths = ["knowledge/KNOWLEDGE-INDEX.json", "knowledge/PROJECT-STATE.md"];
@@ -59,6 +62,46 @@ function safeProjectPath(candidate) {
     throw new Error("A DWA artifact útvonala nem maradhat a DWA projekten kívül.");
   }
   return resolved;
+}
+
+function isOutputPolicyTask(task) {
+  return task?.request?.targetSpecialist === specialist && task?.request?.allowedMode === "WRITE" && task?.request?.capabilityId === "specialist.system.output_policy";
+}
+
+function safeArtifactPath(candidate, task) {
+  const resolved = path.resolve(candidate);
+  if (isOutputPolicyTask(task)) {
+    const outputRoot = path.resolve(task.request.outputRoot || "");
+    if (!outputRoot || (!resolved.startsWith(`${outputRoot}${path.sep}`) && resolved !== outputRoot)) throw new Error("A DWA artifact nem az explicit külső output root alatt van.");
+    return resolved;
+  }
+  return safeProjectPath(candidate);
+}
+
+async function runOutputPolicyTask(task) {
+  validateProductChange(task.request.productChange, specialist);
+  const implementationPaths = task.request.implementationPaths || [];
+  if (!implementationPaths.length || new Set(implementationPaths).size !== implementationPaths.length) throw new Error("A DWA implementationPaths allowlist hiányos vagy duplikált.");
+  const before = (await runGit(["status", "--porcelain"])).stdout.split(/\r?\n/u).filter(Boolean).map((line) => line.slice(3).replaceAll("\\", "/"));
+  if (before.some((file) => !implementationPaths.includes(file))) throw new Error(`A DWA worktree nem várt dirty fájlt tartalmaz: ${before.join(", ")}.`);
+  await runGit(["add", "--", ...implementationPaths]);
+  const staged = (await runGit(["diff", "--cached", "--name-only"])).stdout.split(/\r?\n/u).filter(Boolean).map((file) => file.replaceAll("\\", "/"));
+  if (staged.length !== implementationPaths.length || !implementationPaths.every((file) => staged.includes(file))) throw new Error(`A DWA staging eltér az implementationPaths allowlisttől: ${staged.join(", ")}.`);
+  await runGit(["commit", "-m", "feat(dwa): establish controlled output policy", "--only", "--", ...implementationPaths]);
+  const commit = (await runGit(["rev-parse", "HEAD"])).stdout.trim();
+  const push = await runGit(["push", "-u", "origin", "HEAD"], true);
+  const remote = push.exitCode === 0 ? (await runGit(["rev-parse", "--verify", "@{upstream}"], true)).stdout.trim() || null : null;
+  const outputRoot = task.request.outputRoot || taskOutputDirectory(task.taskId);
+  const artifactPath = safeArtifactPath(task.request.expectedArtifactPath, task);
+  const artifactStatus = push.exitCode === 0 && remote === commit ? "OUTPUT_POLICY_IMPLEMENTED" : "OUTPUT_POLICY_INCOMPLETE";
+  const artifact = `# ${task.request.requestId} — DWA output policy artifact\n\n- Task ID: \`${task.taskId}\`\n- Status: **${artifactStatus}**\n- Evidence kind: \`SPECIALIST_OUTPUT_POLICY\`\n- Exact capability: \`specialist.system.output_policy\`\n- Source project: \`${projectRoot}\`\n- Execution output root: \`${outputRoot}\`\n- Product change: \`${task.request.productChange.changeId}\`\n- Implementation paths: \`${implementationPaths.join(", ")}\`\n- Commit: \`${commit}\`\n- Push: \`${push.exitCode === 0 ? "PUSHED" : "BLOCKED"}\`\n- Remote readback: \`${remote || "MISSING"}\`\n- Staged after closeout: \`none\`\n\nRepo-relative reports are written only by explicit canonical promotion. No deploy or external platform write occurred.\n`;
+  await mkdir(path.dirname(artifactPath), { recursive: true });
+  await writeFile(artifactPath, artifact, "utf8");
+  const content = await readFile(artifactPath);
+  const receipt = { taskId: task.taskId, artifactPath, sourceProjectPath: projectRoot, receivedAt: new Date().toISOString(), noLiveWriteConfirmed: true, validatorVersion: "dca-artifact-semantics/v1", artifactSha256: fileHash(content), artifactBytes: content.byteLength, artifactStatus, evidenceKind: "SPECIALIST_OUTPUT_POLICY", summary: "DWA output/worktree policy specialist artifact.", productChangeId: task.request.productChange.changeId, implementationPaths, knowledgePromotionPaths: knowledgePaths, commit, pushStatus: push.exitCode === 0 ? "PUSHED" : "BLOCKED", remoteCommitHash: remote, stagedFiles: [] };
+  await writeFile(`${artifactPath}.receipt.json`, `${JSON.stringify(receipt, null, 2)}\n`, "utf8");
+  await bridgeJson(`/specialist-tasks/${encodeURIComponent(task.taskId)}/artifact`, { method: "POST", body: JSON.stringify(receipt) });
+  return { taskId: task.taskId, artifactPath, status: artifactStatus };
 }
 
 export function isKnowledgeWriteTask(task) {
@@ -241,6 +284,7 @@ async function processTask(task, workerId) {
     }
     const execution = await runPreflight();
     const report = await readPreflightReport();
+    if (isOutputPolicyTask(task)) return await runOutputPolicyTask(task);
     const artifactPath = safeProjectPath(task.request.expectedArtifactPath);
     const receiptPath = `${artifactPath}.receipt.json`;
     await mkdir(path.dirname(artifactPath), { recursive: true });
