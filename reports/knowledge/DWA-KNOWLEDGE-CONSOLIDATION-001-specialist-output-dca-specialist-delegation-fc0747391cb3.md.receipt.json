@@ -1,0 +1,58 @@
+{
+  "taskId": "dca-host-task-26203b58-9545-4b88-a2f4-31438a8199f7",
+  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\knowledge\\DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md",
+  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "receivedAt": "2026-08-29T14:45:06.851Z",
+  "noLiveWriteConfirmed": true,
+  "validatorVersion": "dca-artifact-semantics/v1",
+  "artifactSha256": "cacd5fe72f960f7c8c8d1d88b2a27264947c700fa334484da75a0e3b4f1ac533",
+  "artifactBytes": 2318,
+  "artifactStatus": "KNOWLEDGE_UPDATED",
+  "evidenceKind": "SPECIALIST_KNOWLEDGE_WRITE",
+  "knowledgeUpdated": true,
+  "knowledgeDelta": {
+    "knowledgeUpdated": true,
+    "changedTopics": [
+      "Astro",
+      "website",
+      "landing",
+      "CTA",
+      "tracking",
+      "SEO",
+      "GEO",
+      "deploy",
+      "decisions"
+    ],
+    "previousStateHash": null,
+    "newStateHash": "941b335642e7710f7e5924dee0b6879c53fde1384165824f8fa9a9654134b6e5",
+    "newDecisions": [
+      "DWA canonical state separates site source contracts from live release state."
+    ],
+    "newOpenChecks": [
+      "DCA acceptance must verify schema, exact paths, hashes, commit, push and remote readback.",
+      "External platform and deploy writes remain outside DWA knowledge-write."
+    ],
+    "closedOpenChecks": [],
+    "canonicalSourceChanges": [
+      "knowledge/KNOWLEDGE-INDEX.json",
+      "knowledge/PROJECT-STATE.md"
+    ]
+  },
+  "changedFiles": [
+    {
+      "path": "knowledge/KNOWLEDGE-INDEX.json",
+      "sha256": "5579b75fb23f33307bfcd4437eea42db4a6ba8fb9266919734d04eb40391a0da",
+      "bytes": 4240
+    },
+    {
+      "path": "knowledge/PROJECT-STATE.md",
+      "sha256": "941b335642e7710f7e5924dee0b6879c53fde1384165824f8fa9a9654134b6e5",
+      "bytes": 1628
+    }
+  ],
+  "knowledgeCommit": "694214204edd63f7fc77adef76fbf3116ca0b64e",
+  "pushStatus": "PUSHED",
+  "remoteCommitHash": "694214204edd63f7fc77adef76fbf3116ca0b64e",
+  "stagedFiles": [],
+  "summary": "DWA canonical knowledge write artifact elkészült: KNOWLEDGE_UPDATED."
+}

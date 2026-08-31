@@ -1,0 +1,136 @@
+# dca-specialist-delegation-7c24cb564ead — DWA specialist artifact
+
+- Task ID: `dca-host-task-b3e95a05-a8b7-4b24-a53a-c1d5c87fc420`
+- Thread ID: `dca-host-thread-d85fa80a-c5d1-47f7-840b-43748f9a2ba3`
+- Státusz: **READY_WITH_WARNINGS**
+- Mód: `READ_ONLY`
+- Evidence kind: `DWA_PREFLIGHT`
+- Forrásprojekt: `C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site`
+- Ellenőrzés: `npm run dwa:preflight`
+
+## DWA eredmény
+
+A DWA preflight jelentés elkészült; a DCA ezt az artifactot tudja ellenőrizni.
+
+## Futtatási kimenet
+
+- Exit code: `0`
+- stderr: nincs.
+
+## DCA döntési korlát
+
+Deploy, publikálás vagy forráskód-módosítás nem történt. Bármilyen éles deploy külön approvalt igényel.
+
+## Preflight JSON
+
+```json
+{
+  "schema_version": "dwa-preflight/v1",
+  "generated_at": "2026-08-29T20:01:28.767Z",
+  "repo_path": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "git_branch": "codex/scheduler-runtime-recovery",
+  "git_commit": "54aa3dec042749d5120052d6d13c0d67ce4c2e95",
+  "working_tree_status": {
+    "is_clean": false,
+    "changed_count": 6,
+    "entries": [
+      {
+        "path": "reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md",
+        "status": "M"
+      },
+      {
+        "path": "reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md.receipt.json",
+        "status": "M"
+      },
+      {
+        "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md",
+        "status": "?"
+      },
+      {
+        "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md.receipt.json",
+        "status": "?"
+      },
+      {
+        "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md",
+        "status": "?"
+      },
+      {
+        "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md.receipt.json",
+        "status": "?"
+      }
+    ],
+    "raw": "## codex/scheduler-runtime-recovery...origin/codex/knowledge-write-dwa\n M reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md\n M reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md.receipt.json\n?? reports/knowledge/"
+  },
+  "status": "READY_WITH_WARNINGS",
+  "affected_files": [
+    {
+      "path": "reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md",
+      "git_status": "M",
+      "scope": "warning",
+      "category": "unknown"
+    },
+    {
+      "path": "reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md.receipt.json",
+      "git_status": "M",
+      "scope": "warning",
+      "category": "unknown"
+    },
+    {
+      "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md",
+      "git_status": "?",
+      "scope": "warning",
+      "category": "unknown"
+    },
+    {
+      "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md.receipt.json",
+      "git_status": "?",
+      "scope": "warning",
+      "category": "unknown"
+    },
+    {
+      "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md",
+      "git_status": "?",
+      "scope": "warning",
+      "category": "unknown"
+    },
+    {
+      "path": "reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md.receipt.json",
+      "git_status": "?",
+      "scope": "warning",
+      "category": "unknown"
+    }
+  ],
+  "affected_routes": [],
+  "forbidden_scope_findings": [],
+  "warnings": [
+    "Nem katalogizalt path erintett: reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md. Kezi scope-review javasolt.",
+    "Nem katalogizalt path erintett: reports/dwa/DWA-DEPLOY-READINESS-001-specialist-output.md.receipt.json. Kezi scope-review javasolt.",
+    "Nem katalogizalt path erintett: reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md. Kezi scope-review javasolt.",
+    "Nem katalogizalt path erintett: reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-838caa99269f.md.receipt.json. Kezi scope-review javasolt.",
+    "Nem katalogizalt path erintett: reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md. Kezi scope-review javasolt.",
+    "Nem katalogizalt path erintett: reports/knowledge/DWA-KNOWLEDGE-CONSOLIDATION-001-specialist-output-dca-specialist-delegation-fc0747391cb3.md.receipt.json. Kezi scope-review javasolt."
+  ],
+  "build_required": false,
+  "build_command": "npm run build",
+  "build_status": "NOT_REQUIRED",
+  "check_required": false,
+  "check_command": "npm run check",
+  "check_status": "NOT_REQUIRED",
+  "dma_validation_required": false,
+  "dsa_validation_required": false,
+  "dca_approval_required": true,
+  "handoff_notes": [
+    {
+      "source_type": "DWA_VERIFIED_REPO",
+      "note": "A changed file lista es a route-impact git es repo path alapjan lett levezetve."
+    },
+    {
+      "source_type": "DWA_DOCUMENTED_CONTRACT",
+      "note": "Az ownership, statusz es escalation szabalyok a DWA-003.2 es DWA-003.3 contractokkal kompatibilisek."
+    }
+  ],
+  "operator_next_steps": [
+    "A riport DCA-nak atadhato tovabbi blocker nelkul."
+  ]
+}
+```

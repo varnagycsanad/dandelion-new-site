@@ -1,13 +1,13 @@
 {
-  "taskId": "dca-host-task-147877a8-a891-4d9c-9976-016865b4c288",
+  "taskId": "dca-host-task-b4982e4d-ad21-4baf-bf54-8d8ae93dc9c0",
   "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-DEPLOY-READINESS-001-specialist-output.md",
   "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
-  "receivedAt": "2026-08-18T17:03:05.862Z",
+  "receivedAt": "2026-08-29T17:23:08.746Z",
   "noLiveWriteConfirmed": true,
   "validatorVersion": "dca-artifact-semantics/v1",
-  "artifactSha256": "492d69c6f75a838ed93d8433ce0c87b489eb404ccbe3904db6afe756af0df391",
-  "artifactBytes": 37622,
-  "artifactStatus": "HOLD_REVALIDATION_REQUIRED",
+  "artifactSha256": "c304a1d6633577530b8b6ab6fc8c48afb41e3169dc8b65f8dc5cf7349063bce3",
+  "artifactBytes": 5455,
+  "artifactStatus": "READY_WITH_WARNINGS",
   "evidenceKind": "DWA_PREFLIGHT",
-  "summary": "DWA read-only preflight artifact elkészült: HOLD_REVALIDATION_REQUIRED."
+  "summary": "DWA read-only preflight artifact elkészült: READY_WITH_WARNINGS."
 }

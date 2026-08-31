@@ -1,0 +1,13 @@
+{
+  "taskId": "dca-host-task-b3e95a05-a8b7-4b24-a53a-c1d5c87fc420",
+  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-VISUAL-QA-001-structured-artifact-dca-specialist-delegation-7c24cb564ead.json",
+  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "receivedAt": "2026-08-29T20:01:28.859Z",
+  "noLiveWriteConfirmed": true,
+  "validatorVersion": "dca-artifact-semantics/v1",
+  "artifactSha256": "ac0d0955991385ac0be3bc82712f45fcb5db7dbabeb03b51844a08b974a88bb3",
+  "artifactBytes": 5455,
+  "artifactStatus": "READY_WITH_WARNINGS",
+  "evidenceKind": "DWA_PREFLIGHT",
+  "summary": "DWA read-only preflight artifact elkészült: READY_WITH_WARNINGS."
+}

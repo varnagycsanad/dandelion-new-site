@@ -1,5 +1,5 @@
 # dca-specialist-delegation-a277d2e52da7 — DWA specialist artifact
-- Task ID: `dca-host-task-59ce2b16-8233-4d9c-9e34-5f28211ed935`
+- Task ID: `dca-host-task-612a7b70-cdeb-4b76-b8cc-ae90cd424d5f`
 - Státusz: **READY_WITH_WARNINGS**
 - Mód: `READ_ONLY`
 - Evidence kind: `DWA_PREFLIGHT`
