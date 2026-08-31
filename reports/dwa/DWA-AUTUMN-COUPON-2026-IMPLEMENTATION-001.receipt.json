@@ -1,0 +1,35 @@
+{
+  "artifact": "DWA-AUTUMN-COUPON-2026-IMPLEMENTATION-001",
+  "date": "2026-08-16",
+  "status": "complete-local-source-qa",
+  "couponCode": "26osz5",
+  "localOnly": true,
+  "noLiveWriteConfirmed": true,
+  "commit": false,
+  "push": false,
+  "deploy": false,
+  "routeSwitch": false,
+  "localPreview": "http://127.0.0.1:4322",
+  "locales": ["hu", "en", "de", "cs", "sk"],
+  "positiveRouteCount": 50,
+  "excludedRouteCount": 10,
+  "affectedHttpRouteCount": 60,
+  "changedFiles": [
+    "src/components/campaign/AutumnCouponBlock.astro",
+    "src/sections/AutumnCampaignOffers.astro",
+    "src/templates/AutumnMultiHouseOfferPage.astro",
+    "src/templates/AccommodationPage.astro"
+  ],
+  "checks": {
+    "npmRunCheck": "pass",
+    "npmRunBuild": "pass-154-pages",
+    "npmRunTestTracking": "pass-3-of-3",
+    "gitDiffCheck": "pass",
+    "distRouteScan": "pass-50-positive-10-excluded",
+    "localHttpScan": "pass-60x-http-200",
+    "responsiveBrowserQa": "pass-30-representative-checks",
+    "noCombinedDiscountClaim": "pass",
+    "noFixedCouponPosition": "pass"
+  },
+  "remainingExternalGate": "SabeeApp coupon creation/eligibility and redemption verification were not performed."
+}

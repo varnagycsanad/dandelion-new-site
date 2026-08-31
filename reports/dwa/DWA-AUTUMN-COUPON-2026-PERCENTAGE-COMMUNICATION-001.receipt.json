@@ -1,0 +1,51 @@
+{
+  "schema_version": "dwa-autumn-coupon-percentage-receipt/v1",
+  "artifact_id": "DWA-AUTUMN-COUPON-2026-PERCENTAGE-COMMUNICATION-001",
+  "generated_at": "2026-08-16T15:18:00+02:00",
+  "repo_path": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "branch": "main",
+  "head_commit_at_start_observed": "55cdf338c69458e59bc65775f989b2a7139b1965",
+  "head_commit_at_final_readback": "2dcad92",
+  "origin_main_at_final_readback": "2dcad92",
+  "local_only": true,
+  "no_live_write": true,
+  "commit_created_by_this_run": false,
+  "push_command_issued_by_this_run": false,
+  "external_commit_observed": true,
+  "external_commit_boundary_exception": true,
+  "deploy_command_issued_by_this_run": false,
+  "external_platform_write_command_issued_by_this_run": false,
+  "changes": {
+    "percentage_refinement_files": [
+      "src/components/campaign/AutumnCouponBlock.astro",
+      "src/data/offers/autumn-multihouse-localized.ts",
+      "src/templates/AutumnMultiHouseOfferPage.astro",
+      "src/templates/AccommodationPage.astro"
+    ],
+    "preserved_preexisting_dirty_files": [
+      "src/data/offers/autumn-2026-localized.ts",
+      "src/data/offers/autumn-2026.ts",
+      ".tmp-smooth-loop/",
+      "docs/references/",
+      "reports/"
+    ],
+    "booking_and_tracking_contract_changed": false
+  },
+  "routes": {
+    "locales": ["hu", "en", "de", "cs", "sk"],
+    "autumn_offer_routes": 10,
+    "eligible_house_routes": 35,
+    "excluded_house_routes": 10,
+    "legacy_aliases_explicitly_excluded": ["/dandelion-szepvolgyi-vendeghaz/"]
+  },
+  "checks": {
+    "npm_run_check": {"passed": true},
+    "npm_run_build": {"passed": true, "pages_built": 154, "known_warnings": 2},
+    "npm_run_test_tracking": {"passed": true, "tests": 3, "failures": 0},
+    "git_diff_check": {"passed": true},
+    "generated_coupon_terms_scan": {"passed": true, "positive_pages": 50, "code_pages": 50, "terms_complete_pages": 50},
+    "generated_offer_scan": {"passed": true, "offer_pages": 10, "with_code_and_5_percent": 10, "with_numeric_8_percent": 0, "with_numeric_13_percent": 0, "with_extra_5_wording": 0},
+    "excluded_route_scan": {"passed": true, "routes": 10, "with_code": 0, "with_coupon_block": 0},
+    "focused_browser_qa": {"passed": true, "checks": 6, "failures": 0, "console_errors_or_warnings": 0, "viewport_sizes": ["1440x900", "390x844"], "stale_tab_error_recovered": true}
+  }
+}

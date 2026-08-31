@@ -1,5 +1,6 @@
 # build output
 dist/
+.tmp-smooth-loop/
 # generated types
 .astro/
 
@@ -40,6 +41,8 @@ google-credentials.json
 data/geo/raw/*.json
 data/geo/processed/*.json
 reports/dwa-preflight/
+reports/dca-evidence-round/
+reports/dwa/render-qa/
 
 # macOS-specific files
 .DS_Store
