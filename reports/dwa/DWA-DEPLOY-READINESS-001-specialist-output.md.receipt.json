@@ -1,0 +1,8 @@
+{
+  "taskId": "dca-host-task-14e1ca66-50b7-4ec5-bea9-e6560cfcc8b1",
+  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-DEPLOY-READINESS-001-specialist-output.md",
+  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "receivedAt": "2026-08-16T14:35:48.679Z",
+  "noLiveWriteConfirmed": true,
+  "summary": "DWA read-only preflight artifact elkészült: HOLD_REVALIDATION_REQUIRED."
+}

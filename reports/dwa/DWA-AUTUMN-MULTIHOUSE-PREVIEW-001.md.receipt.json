@@ -1,0 +1,38 @@
+{
+  "taskId": "DWA-AUTUMN-MULTIHOUSE-PREVIEW-001",
+  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-AUTUMN-MULTIHOUSE-PREVIEW-001.md",
+  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "branchName": "dwa/autumn-offers-multihouse-preview",
+  "receivedAt": "2026-08-05T14:21:02.0185444+02:00",
+  "routes": [
+    "/ajanlatok/oszi-kettesben/",
+    "/ajanlatok/oszi-csaladi-pihenes/"
+  ],
+  "changedFiles": [
+    "src/pages/ajanlatok/[slug].astro",
+    "src/templates/AutumnMultiHouseOfferPage.astro",
+    "src/data/offers/autumn-multihouse.ts",
+    "reports/dwa/DWA-AUTUMN-MULTIHOUSE-PREVIEW-001.md",
+    "reports/dwa/DWA-AUTUMN-MULTIHOUSE-PREVIEW-001.md.receipt.json"
+  ],
+  "build": { "command": "npm run build", "passed": true, "pagesBuilt": 158 },
+  "check": { "command": "npm run check", "passed": true },
+  "trackingTest": { "command": "npm run test:tracking", "passed": true, "passedTests": 3 },
+  "visualQa": {
+    "desktop": { "viewport": "1440x900", "passed": true },
+    "mobile": { "viewport": "390x844", "passed": true, "horizontalOverflow": false },
+    "coupleHouseCards": 8,
+    "familyHouseCards": 8,
+    "coupleMoodPanels": 3,
+    "familyMoodPanels": 3,
+    "cserelniMarkers": 0
+  },
+  "dsaEscalation": "No DSA validation that the offer, price, rate plan, availability or room mapping applies to all 8 houses. Hold before release revalidation.",
+  "noLiveWriteConfirmed": true,
+  "routeSwitch": false,
+  "deploy": false,
+  "push": false,
+  "commit": false,
+  "finalStatus": "HOLD_REVALIDATION_REQUIRED",
+  "summary": "Preview-only multi-house autumn offer implementation with retained hero/direct-booking contract, project-owned imagery, eight-house decision support without D1 and DSA release hold."
+}

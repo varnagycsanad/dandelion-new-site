@@ -1,0 +1,542 @@
+[
+  {
+    "route": "/ajanlatok/oszi-kettesben/",
+    "key": "hu-pair",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Megéri itt foglalni!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Őszi feltöltődés\na Balaton-felvidéken",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4141,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/hu-pair-desktop.png"
+  },
+  {
+    "route": "/en/offers/autumn-for-two/",
+    "key": "en-pair",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Booking direct pays off!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "An autumn escape\nin the Balaton Uplands",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4123,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/en-pair-desktop.png"
+  },
+  {
+    "route": "/de/angebote/herbst-zu-zweit/",
+    "key": "de-pair",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Direkt buchen und sparen!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Herbstzeit\nim Balaton-Oberland",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4492,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/de-pair-desktop.png"
+  },
+  {
+    "route": "/cs/nabidky/podzim-ve-dvou/",
+    "key": "cs-pair",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Rezervujte přímo a ušetřete!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Podzimní odpočinek\nv Balatonské vrchovině",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4352,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/cs-pair-desktop.png"
+  },
+  {
+    "route": "/sk/ponuky/jesenny-pobyt-vo-dvojici/",
+    "key": "sk-pair",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Rezervujte priamo a ušetrite!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Jesenný oddych\nv Balatonskej vrchovine",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4186,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/sk-pair-desktop.png"
+  },
+  {
+    "route": "/ajanlatok/oszi-csaladi-pihenes/",
+    "key": "hu-family",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Megéri itt foglalni!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Őszi családi\nkikapcsolódás\na Balaton-felvidéken",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4634,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/hu-family-desktop.png"
+  },
+  {
+    "route": "/en/offers/autumn-family-break/",
+    "key": "en-family",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Book direct and save!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "An autumn family\nescape\nin the Balaton Uplands",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4654,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/en-family-desktop.png"
+  },
+  {
+    "route": "/de/angebote/herbst-familie/",
+    "key": "de-family",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Direkt buchen und sparen!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Herbstliche Familienauszeit im Balaton-Oberland",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4848,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/de-family-desktop.png"
+  },
+  {
+    "route": "/cs/nabidky/podzimni-rodinny-pobyt/",
+    "key": "cs-family",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Rezervujte přímo a ušetřete!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Podzimní rodinný\nodpočinek\nv Balatonské vrchovině",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4781,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/cs-family-desktop.png"
+  },
+  {
+    "route": "/sk/ponuky/jesenny-rodinny-pobyt/",
+    "key": "sk-family",
+    "viewport": {
+      "key": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    "badgeText": "Rezervujte priamo a ušetrite!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Jesenný rodinný\noddych\nv Balatonskej vrchovine",
+    "height": 901,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 4819,
+    "scrollWidth": 1426,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 1441,
+    "dialogState": {
+      "mode": "mobile-only-preserved"
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/sk-family-desktop.png"
+  },
+  {
+    "route": "/ajanlatok/oszi-kettesben/",
+    "key": "hu-pair",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Megéri itt foglalni!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Őszi feltöltődés\na Balaton-felvidéken",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5089,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/hu-pair-mobile.png"
+  },
+  {
+    "route": "/en/offers/autumn-for-two/",
+    "key": "en-pair",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Booking direct pays off!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "An autumn escape\nin the Balaton Uplands",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5105,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/en-pair-mobile.png"
+  },
+  {
+    "route": "/de/angebote/herbst-zu-zweit/",
+    "key": "de-pair",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Direkt buchen und sparen!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Herbstzeit\nim Balaton-Oberland",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5240,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/de-pair-mobile.png"
+  },
+  {
+    "route": "/cs/nabidky/podzim-ve-dvou/",
+    "key": "cs-pair",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Rezervujte přímo a ušetřete!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Podzimní odpočinek\nv Balatonské vrchovině",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5078,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/cs-pair-mobile.png"
+  },
+  {
+    "route": "/sk/ponuky/jesenny-pobyt-vo-dvojici/",
+    "key": "sk-pair",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Rezervujte priamo a ušetrite!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Jesenný oddych\nv Balatonskej vrchovine",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5099,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/sk-pair-mobile.png"
+  },
+  {
+    "route": "/ajanlatok/oszi-csaladi-pihenes/",
+    "key": "hu-family",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Megéri itt foglalni!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Őszi családi\nkikapcsolódás\na Balaton-felvidéken",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5982,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/hu-family-mobile.png"
+  },
+  {
+    "route": "/en/offers/autumn-family-break/",
+    "key": "en-family",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Book direct and save!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "An autumn family\nescape\nin the Balaton Uplands",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5895,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/en-family-mobile.png"
+  },
+  {
+    "route": "/de/angebote/herbst-familie/",
+    "key": "de-family",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Direkt buchen und sparen!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Herbstliche Familienauszeit im Balaton-Oberland",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 6046,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/de-family-mobile.png"
+  },
+  {
+    "route": "/cs/nabidky/podzimni-rodinny-pobyt/",
+    "key": "cs-family",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Rezervujte přímo a ušetřete!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Podzimní rodinný\nodpočinek\nv Balatonské vrchovině",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5883,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/cs-family-mobile.png"
+  },
+  {
+    "route": "/sk/ponuky/jesenny-rodinny-pobyt/",
+    "key": "sk-family",
+    "viewport": {
+      "key": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "badgeText": "Rezervujte priamo a ušetrite!",
+    "badgeVisible": true,
+    "dialogOpenBefore": false,
+    "h1": "Jesenný rodinný\noddych\nv Balatonskej vrchovine",
+    "height": 844,
+    "houseCount": 8,
+    "overflowX": false,
+    "poolTextPresent": true,
+    "scrollHeight": 5907,
+    "scrollWidth": 376,
+    "valueAria": "dialog",
+    "valueVisible": true,
+    "width": 391,
+    "dialogState": {
+      "mode": "interactive",
+      "opened": true,
+      "closed": true
+    },
+    "screenshot": "reports/dwa/render-qa/2026-08-06/sk-family-mobile.png"
+  }
+]

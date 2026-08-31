@@ -69,9 +69,39 @@ const sabeeLanguageByLang: Record<AutumnCampaignLang, "Hu" | "En"> = {
   sk: "En"
 };
 
+const sabeeTestTrackingKeys = new Set([
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term"
+]);
+
+function sanitizeSabeeBookingUrl(url: string) {
+  if (!url.includes("ibe.sabeeapp.com")) return url;
+
+  const queryIndex = url.indexOf("?");
+  if (queryIndex === -1) return url;
+
+  const hashIndex = url.indexOf("#", queryIndex);
+  const queryEnd = hashIndex === -1 ? url.length : hashIndex;
+  const query = url.slice(queryIndex + 1, queryEnd);
+  const filteredQuery = query
+    .split("&")
+    .filter((part) => {
+      const [rawKey, rawValue = ""] = part.split("=");
+      const key = decodeURIComponent(rawKey).toLowerCase();
+      const value = decodeURIComponent(rawValue);
+      return !sabeeTestTrackingKeys.has(key) && !(key === "gclid" && /^TEST-/i.test(value));
+    })
+    .join("&");
+
+  return `${url.slice(0, queryIndex)}${filteredQuery ? `?${filteredQuery}` : ""}${hashIndex === -1 ? "" : url.slice(hashIndex)}`;
+}
+
 function localizeBookingUrl(url: string, lang: AutumnCampaignLang) {
   if (!url.includes("ibe.sabeeapp.com")) return url;
-  return url.replace(/([?&]lang=)[^&]*/i, `$1${sabeeLanguageByLang[lang]}`);
+  return sanitizeSabeeBookingUrl(url).replace(/([?&]lang=)[^&]*/i, `$1${sabeeLanguageByLang[lang]}`);
 }
 
 type Copy = {
@@ -116,8 +146,8 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
   en: {
     "oszi-kettesben": {
       seo: {
-        title: "Autumn for two at Fügeház | Dandelion Guesthouses",
-        description: "A romantic autumn escape at Fügeház with a fireplace, wineries, panoramic views and direct booking."
+        title: "Autumn for two in the Balaton Uplands | Dandelion Guesthouses",
+        description: "An autumn escape for two across eight Dandelion guesthouses in the Balaton Uplands, with panoramas, wineries, cosy evenings and direct booking."
       },
       heroTitle: "An autumn escape in the Balaton Uplands",
       heroKicker: "Fügeház · Autumn for two",
@@ -177,7 +207,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
     },
     "oszi-csaladi-pihenes": {
       seo: {
-        title: "Autumn family break at D2 | Dandelion Guesthouses",
+        title: "Autumn family break in the Balaton Uplands | Dandelion Guesthouses",
         description: "An autumn family break in the Balaton Uplands: shared spaces, a garden, grilling and eight different Dandelion houses to choose from."
       },
       heroTitle: "An autumn family escape",
@@ -241,7 +271,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
   },
   de: {
     "oszi-kettesben": {
-      seo: { title: "Herbst zu zweit im Fügeház | Dandelion Gästehäuser", description: "Romantische Auszeit im Herbst im Fügeház mit Kamin, Weingütern, Panoramablick und Direktbuchung." },
+      seo: { title: "Herbst zu zweit im Balaton-Oberland | Dandelion Gästehäuser", description: "Herbstauszeit zu zweit in acht Dandelion-Gästehäusern im Balaton-Oberland: Panorama, Weingüter, gemütliche Abende und Direktbuchung." },
       heroTitle: "Herbstzeit im Balaton-Oberland",
       heroKicker: "Fügeház · Herbst zu zweit",
       heroLead: "Entschleunigen, abschalten und jeden Herbstmoment im Fügeház genießen.",
@@ -276,11 +306,11 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       primaryCta: "PREISE & VERFÜGBARKEIT"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Herbsturlaub mit der Familie im D2 | Dandelion Gästehäuser", description: "Herbstliche Familienauszeit im Balaton-Oberland: gemeinsame Räume, Garten, Grillen und acht verschiedene Dandelion-Häuser zur Auswahl." },
-      heroTitle: "Herbstliche Familienauszeit",
-      heroKicker: "Dandelion D2 · Herbsturlaub mit der Familie",
-      heroLead: "Gemeinsame Zeit, Erlebnisse und naturnahe Tage erwarten Sie im Dandelion D2.",
-      campaignHero: { kicker: "HERBSTURLAUB MIT DER FAMILIE", titleLines: ["Herbstliche Familien", "auszeit"], supportLine: "im Balaton-Oberland", descriptionLines: ["Gemeinsame Zeit. Gemeinsame Erlebnisse.", "Im Dandelion D2 kann die ganze Familie wirklich zusammen sein."], ctaNote: "8 % Preisvorteil gegenüber Buchungsportalen", heroAlt: "Dandelion D2 Gästehaus im Balaton-Oberland", heroMobileAlt: "Dandelion D2 Gästehaus im Balaton-Oberland" },
+      seo: { title: "Herbstliche Familienauszeit im Balaton-Oberland | Dandelion Gästehäuser", description: "Herbstliche Familienauszeit im Balaton-Oberland: acht Dandelion-Gästehäuser mit gemeinsamen Räumen, Gärten, Grillmöglichkeiten, Ausflügen und Direktbuchung." },
+      heroTitle: "Herbstliche Familienauszeit im Balaton-Oberland",
+      heroKicker: "Dandelion-Gästehäuser · Herbstliche Familienauszeit",
+      heroLead: "Gemeinsame Zeit, Erlebnisse und naturnahe Tage erwarten Sie in acht Dandelion-Gästehäusern im Balaton-Oberland.",
+      campaignHero: { kicker: "HERBSTLICHE FAMILIENAUSZEIT", titleLines: ["Herbstliche Familienauszeit im Balaton-Oberland"], descriptionLines: ["Gemeinsame Zeit. Gemeinsame Erlebnisse.", "Wählen Sie aus acht Dandelion-Gästehäusern im Balaton-Oberland."], ctaNote: "8 % Preisvorteil gegenüber Buchungsportalen", heroAlt: "Dandelion-Gästehäuser im Balaton-Oberland", heroMobileAlt: "Dandelion-Gästehäuser im Balaton-Oberland" },
       positioningTitle: "Naturnahe Auszeit im Herbst",
       experienceItems: [
         { title: "Panorama Pool", details: ["44 m³ beheizter Pool", "mit atemberaubender Aussicht"], note: "Nur in der Saison" },
@@ -314,7 +344,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
   },
   cs: {
     "oszi-kettesben": {
-      seo: { title: "Podzim ve dvou ve Fügeházu | Dandelion ubytování", description: "Romantický podzimní pobyt ve Fügeházu s krbem, vinařstvími, panoramaty a přímou rezervací." },
+      seo: { title: "Podzim ve dvou v Balatonské vrchovině | Dandelion ubytování", description: "Podzimní pobyt ve dvou v osmi domech Dandelion v Balatonské vrchovině: panorama, vinařství, útulné večery a přímá rezervace." },
       heroTitle: "Podzimní odpočinek v Balatonské vrchovině", heroKicker: "Fügeház · Podzim ve dvou", heroLead: "Zpomalte, vypněte a užijte si každý podzimní okamžik ve Fügeházu.",
       campaignHero: { kicker: "PODZIM VE DVOU", titleLines: ["Podzimní odpočinek", "v Balatonské vrchovině"], descriptionLines: ["Zpomalte. Vypněte.", "Užijte si každý podzimní okamžik ve Fügeházu."], ctaNote: "8% cenová výhoda oproti rezervačním portálům", heroAlt: "Penzion Fügeház v Balatonské vrchovině", heroMobileAlt: "Penzion Fügeház v Balatonské vrchovině" },
       positioningTitle: "Romantický podzimní pobyt",
@@ -331,7 +361,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       practical: { title: "Vše pro pohodový podzimní pobyt", items: ["Wi-Fi zdarma", "Parkování zdarma", "Klimatizace", "Nekuřácké ubytování", "Domácí mazlíčci vítáni"], supportLabel: "Vybavení pro miminka na vyžádání", supportItems: ["dětská postýlka", "vanička", "jídelní židlička", "stupínek"] }, primaryCta: "CENY A DOSTUPNÉ TERMÍNY"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Podzimní rodinný pobyt v D2 | Dandelion ubytování", description: "Podzimní rodinný pobyt v Balatonské vrchovině: společné prostory, zahrada, grilování a osm různých domů Dandelion na výběr." },
+      seo: { title: "Podzimní rodinný pobyt v Balatonské vrchovině | Dandelion ubytování", description: "Podzimní rodinný pobyt v osmi domech Dandelion v Balatonské vrchovině: společné prostory, zahrady, grilování, výlety a přímá rezervace." },
       heroTitle: "Podzimní rodinný odpočinek", heroKicker: "Dandelion D2 · Podzimní rodinný pobyt", heroLead: "Kvalitní čas, společné zážitky a dny v přírodě čekají v Dandelion D2.",
       campaignHero: { kicker: "PODZIMNÍ RODINNÝ POBYT", titleLines: ["Podzimní rodinný", "odpočinek"], supportLine: "v Balatonské vrchovině", descriptionLines: ["Kvalitní čas. Společné zážitky.", "V Dandelion D2 může být celá rodina opravdu spolu."], ctaNote: "8% cenová výhoda oproti rezervačním portálům", heroAlt: "Penzion Dandelion D2 v Balatonské vrchovině", heroMobileAlt: "Penzion Dandelion D2 v Balatonské vrchovině" },
       positioningTitle: "Podzimní pobyt v přírodě",
@@ -350,7 +380,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
   },
   sk: {
     "oszi-kettesben": {
-      seo: { title: "Jesenný pobyt vo dvojici vo Fügeháze | Dandelion ubytovanie", description: "Romantický jesenný oddych vo Fügeháze s krbom, vinárstvami, panorámou a priamou rezerváciou." },
+      seo: { title: "Jesenný pobyt vo dvojici v Balatonskej vrchovine | Dandelion ubytovanie", description: "Jesenný pobyt vo dvojici v ôsmich domoch Dandelion v Balatonskej vrchovine: panorámy, vinárstva, útulné večery a priama rezervácia." },
       heroTitle: "Jesenný oddych v Balatonskej vrchovine", heroKicker: "Fügeház · Jesenný pobyt vo dvojici", heroLead: "Spomaľte, vypnite a užite si každý jesenný okamih vo Fügeháze.",
       campaignHero: { kicker: "JESENNÝ POBYT VO DVOJICI", titleLines: ["Jesenný oddych", "v Balatonskej vrchovine"], descriptionLines: ["Spomaľte. Vypnite.", "Užite si každý jesenný okamih vo Fügeháze."], ctaNote: "8 % cenová výhoda oproti rezervačným portálom", heroAlt: "Penzión Fügeház v Balatonskej vrchovine", heroMobileAlt: "Penzión Fügeház v Balatonskej vrchovine" },
       positioningTitle: "Romantický jesenný pobyt",
@@ -367,7 +397,7 @@ const copyByLang: Partial<Record<Exclude<AutumnCampaignLang, "hu">, Record<strin
       practical: { title: "Všetko pre pohodový jesenný pobyt", items: ["Wi-Fi zdarma", "Parkovanie zdarma", "Klimatizácia", "Nefajčiarske ubytovanie", "Domáce zvieratá vítané"], supportLabel: "Vybavenie pre bábätká na vyžiadanie", supportItems: ["detská postieľka", "vanička", "detská stolička", "stupienok"] }, primaryCta: "CENY A DOSTUPNÉ TERMÍNY"
     },
     "oszi-csaladi-pihenes": {
-      seo: { title: "Jesenný rodinný pobyt v D2 | Dandelion ubytovanie", description: "Jesenný rodinný pobyt v Balatonskej vrchovine: spoločné priestory, záhrada, grilovanie a osem rôznych domov Dandelion na výber." },
+      seo: { title: "Jesenný rodinný pobyt v Balatonskej vrchovine | Dandelion ubytovanie", description: "Jesenný rodinný pobyt v ôsmich domoch Dandelion v Balatonskej vrchovine: spoločné priestory, záhrady, grilovanie, výlety a priama rezervácia." },
       heroTitle: "Jesenný rodinný oddych", heroKicker: "Dandelion D2 · Jesenný rodinný pobyt", heroLead: "Kvalitný čas, spoločné zážitky a dni v prírode čakajú v Dandelion D2.",
       campaignHero: { kicker: "JESENNÝ RODINNÝ POBYT", titleLines: ["Jesenný rodinný", "oddych"], supportLine: "v Balatonskej vrchovine", descriptionLines: ["Kvalitný čas. Spoločné zážitky.", "V Dandelion D2 môže byť celá rodina naozaj spolu."], ctaNote: "8 % cenová výhoda oproti rezervačným portálom", heroAlt: "Penzión Dandelion D2 v Balatonskej vrchovine", heroMobileAlt: "Penzión Dandelion D2 v Balatonskej vrchovine" },
       positioningTitle: "Jesenný pobyt v prírode",
@@ -395,7 +425,7 @@ function localizedResponsiveMedia(media: AutumnCampaignOffer["campaignHero"]["me
 }
 
 export function localizeAutumnOffer(offer: AutumnCampaignOffer, lang: AutumnCampaignLang): AutumnCampaignOffer {
-  if (lang === "hu") return offer;
+  if (lang === "hu") return { ...offer, bookingUrl: sanitizeSabeeBookingUrl(offer.bookingUrl) };
 
   const copy = copyByLang[lang]?.[offer.slug];
   if (!copy) return offer;
