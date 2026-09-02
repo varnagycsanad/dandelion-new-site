@@ -378,9 +378,9 @@ Publikus site esetén a cél:
 - csak target fájl stage-elhető
 - ellenőrzés: `git diff --cached --name-only`
 - ha más is benne van → STOP
-- ha commit/push kérést kapsz, alapértelmezett célbranch mindig a `main`
-- csak akkor szabad nem a `main` branchre pusholni, ha a user ezt kifejezetten és egyértelműen más branchre kérte
-- ha nincs explicit branch megadva, a feltöltés célja a `main`
+- kézi feladatnál, explicit branch nélkül, a célbranch továbbra is a `main`
+- DCA specialist task esetén a task baseline-jának aktuális tracked upstream ága az explicit végrehajtási cél; a worker ugyanarra az ágra pushol és remote readbackkel igazolja
+- a worker nem használhat rejtett, eltérő knowledge-only célágat; eltérő ág csak `DWA_KNOWLEDGE_PUSH_REF` explicit beállítással engedélyezett
 
 ---
 
