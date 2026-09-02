@@ -139,6 +139,7 @@ const headerText = isEnglishPage
       mobileNavAria: "Mobile navigation",
       mobileStayGroupsAria: "Accommodation groups",
       menuOpenAria: "Open menu",
+      menuCloseAria: "Close menu",
       quickContactOpenAria: "Open quick contact",
       quickContactLabel: "Contact"
     }
@@ -162,6 +163,7 @@ const headerText = isEnglishPage
         mobileNavAria: "Mobile Navigation",
         mobileStayGroupsAria: "Unterkunftsgruppen",
         menuOpenAria: "Menü öffnen",
+        menuCloseAria: "Menü schließen",
         quickContactOpenAria: "Schnellkontakt öffnen",
         quickContactLabel: "Kontakt"
       }
@@ -185,6 +187,7 @@ const headerText = isEnglishPage
           mobileNavAria: "Mobilní navigace",
           mobileStayGroupsAria: "Skupiny ubytování",
           menuOpenAria: "Otevřít menu",
+          menuCloseAria: "Zavřít menu",
           quickContactOpenAria: "Otevřít rychlý kontakt",
           quickContactLabel: "Kontakt"
         }
@@ -208,6 +211,7 @@ const headerText = isEnglishPage
             mobileNavAria: "Mobilná navigácia",
             mobileStayGroupsAria: "Skupiny ubytovania",
             menuOpenAria: "Otvoriť menu",
+            menuCloseAria: "Zavrieť menu",
             quickContactOpenAria: "Otvoriť rýchly kontakt",
             quickContactLabel: "Kontakt"
           }
@@ -230,6 +234,7 @@ const headerText = isEnglishPage
       mobileNavAria: "Mobil navigáció",
       mobileStayGroupsAria: "Szálláscsoportok",
       menuOpenAria: "Menü megnyitása",
+      menuCloseAria: "Menü bezárása",
       quickContactOpenAria: "Gyors kapcsolat megnyitása",
       quickContactLabel: "Kapcsolat"
     };
@@ -1071,7 +1076,16 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
             <span class="dnd-header-cta__label-full">{headerText.bookingLabel}</span>
             <span class="dnd-header-cta__label-short">{headerText.bookingShortLabel}</span>
           </a>
-          <button class="dnd-menu-toggle" type="button" aria-label={headerText.menuOpenAria} aria-expanded="false" data-dnd-menu-toggle>
+          <button
+            class="dnd-menu-toggle"
+            type="button"
+            aria-label={headerText.menuOpenAria}
+            aria-expanded="false"
+            aria-controls="dnd-mobile-menu"
+            data-menu-open-label={headerText.menuOpenAria}
+            data-menu-close-label={headerText.menuCloseAria}
+            data-dnd-menu-toggle
+          >
             <span></span>
             <span></span>
             <span></span>
@@ -1079,7 +1093,7 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         </div>
       </div>
 
-      <nav class="dnd-mobile-menu" aria-label={headerText.mobileNavAria} data-dnd-mobile-menu>
+      <nav id="dnd-mobile-menu" class="dnd-mobile-menu" aria-label={headerText.mobileNavAria} data-dnd-mobile-menu>
         <a href={headerHomeHref}>{headerText.homeLabel}</a>
         <a href={headerStaysHref}>{headerText.staysLabel}</a>
         <div class="dnd-mobile-menu__groups" aria-label={headerText.mobileStayGroupsAria}>
@@ -1204,11 +1218,24 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
           applyHeaderScrollState();
           window.addEventListener("scroll", queueHeaderScrollState, { passive: true });
 
+          const setMenuState = (isOpen) => {
+            toggles.forEach((item) => {
+              item.setAttribute("aria-expanded", String(isOpen));
+              const label = isOpen ? item.dataset.menuCloseLabel : item.dataset.menuOpenLabel;
+              if (label) {
+                item.setAttribute("aria-label", label);
+              }
+            });
+            mobileMenu?.setAttribute("data-open", String(isOpen));
+            document.documentElement.dataset.dndMenuOpen = String(isOpen);
+          };
+
+          setMenuState(false);
+
           toggles.forEach((toggle) => {
             toggle.addEventListener("click", () => {
               const isOpen = header.classList.toggle("is-menu-open");
-              toggles.forEach((item) => item.setAttribute("aria-expanded", String(isOpen)));
-              mobileMenu?.setAttribute("data-open", String(isOpen));
+              setMenuState(isOpen);
               languageToggle?.setAttribute("aria-expanded", "false");
               languagePopover?.setAttribute("data-open", "false");
             });
