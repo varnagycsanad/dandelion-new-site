@@ -1,4 +1,5 @@
 // [CHANGE 2026-07-10 00:00] Preserve ad attribution parameters on Sabee booking links and window opens.
+// [CHANGE 2026-09-03 00:00] Drop known test attribution values before Sabee link decoration.
 (function () {
   const STORAGE_KEY = "dnd_booking_attribution_v1";
   const STORAGE_TTL_MS = 90 * 24 * 60 * 60 * 1000;
@@ -15,6 +16,27 @@
     "msclkid",
     "fbclid"
   ];
+  const TEST_ATTRIBUTION_VALUE_PATTERN = /(^|[-_])test([-_]|$)/i;
+
+  function isTestAttributionValue(value) {
+    return typeof value === "string" && TEST_ATTRIBUTION_VALUE_PATTERN.test(value);
+  }
+
+  function sanitizeAttributionParams(params) {
+    const sanitizedParams = {};
+
+    for (const key of ATTRIBUTION_PARAMS) {
+      const value = params && params[key];
+
+      if (typeof value !== "string" || !value || isTestAttributionValue(value)) {
+        continue;
+      }
+
+      sanitizedParams[key] = value;
+    }
+
+    return sanitizedParams;
+  }
 
   function canUseUrl(value) {
     try {
@@ -57,7 +79,9 @@
         return {};
       }
 
-      return parsedValue.params && typeof parsedValue.params === "object" ? parsedValue.params : {};
+      return parsedValue.params && typeof parsedValue.params === "object"
+        ? sanitizeAttributionParams(parsedValue.params)
+        : {};
     } catch {
       return {};
     }
@@ -103,8 +127,10 @@
     const currentParams = getCurrentAttribution();
     const mergedParams = Object.assign({}, storedParams, currentParams);
 
-    writeStoredAttribution(mergedParams);
-    return mergedParams;
+    const sanitizedParams = sanitizeAttributionParams(mergedParams);
+
+    writeStoredAttribution(sanitizedParams);
+    return sanitizedParams;
   }
 
   function decorateBookingUrl(rawUrl) {
@@ -117,6 +143,10 @@
       const attributionParams = mergeAttributionParams();
 
       for (const key of ATTRIBUTION_PARAMS) {
+        if (url.searchParams.getAll(key).some(isTestAttributionValue)) {
+          url.searchParams.delete(key);
+        }
+
         if (!url.searchParams.has(key) && attributionParams[key]) {
           url.searchParams.set(key, attributionParams[key]);
         }

@@ -1,4 +1,5 @@
 // [CHANGE 2026-07-19 22:18] Cover booking attribution, CTA events and consent without a ParentNode global.
+// [CHANGE 2026-09-03 00:00] Cover removal of known test attribution values.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
@@ -18,11 +19,11 @@ const consentSource = await readFile(
 );
 
 const expectedAttribution = {
-  gclid: "TEST-GCLID-2026",
+  gclid: "valid-gclid-2026",
   utm_source: "google",
   utm_medium: "cpc",
-  utm_campaign: "matine_test",
-  utm_content: "rsa_test",
+  utm_campaign: "kisapati",
+  utm_content: "rsa-variant",
   utm_term: "szent_gyorgy_hegy_szallas"
 };
 
@@ -85,7 +86,7 @@ class FakeAnchor extends FakeElement {
   }
 }
 
-function createAttributionContext(anchors) {
+function createAttributionContext(anchors, currentAttribution = expectedAttribution) {
   const listeners = new Map();
   const documentElement = new FakeElement();
   documentElement.querySelectorAll = () => anchors;
@@ -107,8 +108,8 @@ function createAttributionContext(anchors) {
       hostname: "dandelionhouse.hu",
       origin: "https://dandelionhouse.hu",
       pathname: "/szent-gyorgy-hegy-matine-szallas/",
-      search: `?${new URLSearchParams(expectedAttribution)}`,
-      href: `https://dandelionhouse.hu/szent-gyorgy-hegy-matine-szallas/?${new URLSearchParams(expectedAttribution)}`
+      search: `?${new URLSearchParams(currentAttribution)}`,
+      href: `https://dandelionhouse.hu/szent-gyorgy-hegy-matine-szallas/?${new URLSearchParams(currentAttribution)}`
     },
     open(url) {
       openedUrls.push(url);
@@ -170,6 +171,34 @@ test("decorates Sabee links without ParentNode and preserves existing query para
   assert.equal(existingUrl.searchParams.getAll("gclid").length, 1);
   assert.equal(existingUrl.searchParams.getAll("utm_source").length, 1);
   assert.equal(typeof window.dndResolveBookingUrl, "function");
+});
+
+test("removes known test attribution from current, stored and booking URL parameters", () => {
+  const polluted = new FakeAnchor(
+    "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=KEEP&gclid=existing-test-gclid&utm_campaign=existing_test&utm_content=rsa_test"
+  );
+  const { context, window } = createAttributionContext([polluted], {
+    gclid: "live-test-gclid",
+    utm_campaign: "kisapati",
+    utm_content: "rsa_test"
+  });
+
+  window.localStorage.setItem(
+    "dnd_booking_attribution_v1",
+    JSON.stringify({
+      savedAt: Date.now(),
+      params: { gclid: "stored-test-gclid", utm_source: "google" }
+    })
+  );
+
+  vm.runInContext(attributionSource, context);
+
+  const url = new URL(polluted.href);
+  assert.equal(url.searchParams.get("gclid"), null);
+  assert.equal(url.searchParams.get("utm_campaign"), "kisapati");
+  assert.equal(url.searchParams.get("utm_content"), null);
+  assert.equal(url.searchParams.get("utm_source"), "google");
+  assert.equal(JSON.parse(window.localStorage.getItem("dnd_booking_attribution_v1")).params.gclid, undefined);
 });
 
 test("booking, phone and email clicks still push their dataLayer events", () => {
