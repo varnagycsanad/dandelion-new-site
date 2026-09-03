@@ -381,6 +381,7 @@ Publikus site esetén a cél:
 - kézi feladatnál, explicit branch nélkül, a célbranch továbbra is a `main`
 - DCA specialist task esetén a task baseline-jának aktuális tracked upstream ága az explicit végrehajtási cél; a worker ugyanarra az ágra pushol és remote readbackkel igazolja
 - a worker nem használhat rejtett, eltérő knowledge-only célágat; eltérő ág csak `DWA_KNOWLEDGE_PUSH_REF` explicit beállítással engedélyezett
+- DCA `gitCloseoutMode=DEFERRED` task esetén ez az egyetlen kivétel: a célzott honlap-forrásváltozást a worker nem commitolja és nem pusholja; a külön DCA closeout parancsig folytatható a munka
 
 ---
 

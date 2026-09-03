@@ -525,7 +525,9 @@ async function processTask(task, workerId) {
     }
     if (isApprovedSourceWriteTask(task)) {
       const execution = await runApprovedSourceWrite(task);
-      const knowledge = execution.status === "DWA_SOURCE_WRITE_BUILT" ? await createKnowledgeWrite(task) : null;
+      const knowledge = execution.status === "DWA_SOURCE_WRITE_BUILT" && task.request.gitCloseoutMode !== "DEFERRED"
+        ? await createKnowledgeWrite(task)
+        : null;
       const artifact = [`# ${task.request.requestId} — DWA source implementation artifact`, "", `- Task ID: \`${task.taskId}\``, `- Státusz: **${execution.status}**`, "- Mód: `WRITE`", "- Evidence kind: `DWA_SOURCE_WRITE_BUILD`", `- Exact capability: \`${task.request.requestedCapabilityId}\``, `- Approval ID: \`${task.request.approvalId}\``, `- Forrásprojekt: \`${projectRoot}\``, "", `- Changed source files: \`${execution.changedFiles?.join(", ") || "nincs"}\``, `- Build: \`${execution.status === "DWA_SOURCE_WRITE_BUILT" ? "PASS" : "BLOCKED"}\``, `- Post-read/rollback: \`${execution.rollbackVerified === false ? "NOT_VERIFIED" : "VERIFIED"}\``, "- Deploy/live write: nem történt", "", "## Helyreállítási napló", "", "```json", JSON.stringify(execution.recovery || knowledge?.recovery || {}, null, 2), "```", "", "## Kötelező knowledge delta", "", JSON.stringify(knowledge || { status: "not_started" }, null, 2), ""].join("\n");
       return await postArtifact(task, artifact, {
         liveWriteStatus: "NOT_EXECUTED", postReadVerified: execution.rollbackVerified !== false, artifactStatus: execution.status, evidenceKind: "DWA_SOURCE_WRITE_BUILD", recovery: execution.recovery || knowledge?.recovery,
