@@ -172,6 +172,16 @@ test("decorates Sabee links without ParentNode and preserves existing query para
   assert.equal(typeof window.dndResolveBookingUrl, "function");
 });
 
+test("BaseLayout configures GA4 cross-domain linker for the SabeeApp boundary", async () => {
+  const baseLayoutSource = await readFile(
+    new URL("../src/layouts/BaseLayout.astro", import.meta.url),
+    "utf8"
+  );
+
+  assert.match(baseLayoutSource, /gtag\("set", "linker"/);
+  assert.match(baseLayoutSource, /"dandelionhouse\.hu", "ibe\.sabeeapp\.com"/);
+});
+
 test("booking, phone and email clicks still push their dataLayer events", () => {
   const booking = new FakeAnchor(
     "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendeghazak?p=3970b30e1042d58f&selectedRooms=2be20f0b68a1114a&lang=Hu",

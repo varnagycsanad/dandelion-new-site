@@ -851,6 +851,13 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
         ad_personalization: "denied"
       });
       window.gtag("set", "ads_data_redaction", true);
+      // Keep the GA4 client/session and Google Ads click context across the
+      // Dandelion site -> SabeeApp booking-engine boundary. The existing
+      // attribution script still preserves gclid/UTM values as a fallback;
+      // this linker additionally carries Google's _gl linker parameter.
+      window.gtag("set", "linker", {
+        domains: ["dandelionhouse.hu", "ibe.sabeeapp.com"]
+      });
     </script>
     <script is:inline>
       window.dndLoadGtm = window.dndLoadGtm || (function () {
