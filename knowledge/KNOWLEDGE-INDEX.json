@@ -4,7 +4,7 @@
   "specialistKind": "DWA",
   "owner": "DWA",
   "projectId": "dandelion-web",
-  "repositoryPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
+  "repositoryPath": "C:\\Users\\Csanad Lenovo\\Desktop\\CHATGPT\\dandelion-new-site",
   "indexPath": "knowledge/KNOWLEDGE-INDEX.json",
   "canonicalStatePath": "knowledge/PROJECT-STATE.md",
   "requiredTopics": [
@@ -37,8 +37,8 @@
         "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
         "dwa-project-docs-dwa-ownership-boundaries-md"
       ],
-      "contentHash": "b9855224c411c60b0866f334a3962845fc68e5823f25a90389fcc6c58f9d25c9",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "046165aa33a2516d29c7554f3d92f4f7e57b2e33cb68352c98481512c8a04dca",
+      "lastVerifiedAt": "2026-09-16T15:34:13Z"
     },
     {
       "documentId": "dwa-agent-md",
@@ -54,8 +54,8 @@
       "relatedDocumentIds": [
         "dwa-project-state"
       ],
-      "contentHash": "33e4f788ce502af1480e47387a883c45ce47b76ad82539f7b3c00bc935f220f0",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "287efc54f4887d7adba635b062ecdaefe5de8aa7917e88a1969782c75a6c7b59",
+      "lastVerifiedAt": "2026-09-16T11:03:25Z"
     },
     {
       "documentId": "dwa-readme-md",
@@ -70,8 +70,8 @@
       "relatedDocumentIds": [
         "dwa-project-state"
       ],
-      "contentHash": "8e5f72753b378cc1053d301f3d8dbf36b164eeabdb7dc6677fd1617351056172",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "ef4fdfcaea49c0b323c7993c1a7811211614a87a449699113b8d2fa01536f92d",
+      "lastVerifiedAt": "2026-09-16T11:03:25Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-003-2-specialist-capability-contract-md",
@@ -86,8 +86,8 @@
       "relatedDocumentIds": [
         "dwa-project-state"
       ],
-      "contentHash": "0602279f20d4b1c625e78bf4fcd062bc88f878475b176e7ece0f3a2243392280",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "a98dcf9b7cc2fb888578bad91830ff307872409bb0964acd5edf286559c98499",
+      "lastVerifiedAt": "2026-09-16T11:03:25Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-004-preflight-and-dca-evidence-handoff-md",
@@ -103,8 +103,8 @@
       "relatedDocumentIds": [
         "dwa-project-state"
       ],
-      "contentHash": "491fb427122a56df71431b8a15cc820142f32e14c305da588512805ded6fff52",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "9ea8be6715bf9b6a4778d2f43a183f1b0ba9fa6a4b0458ff6afd61e16dc4d3c0",
+      "lastVerifiedAt": "2026-09-16T11:03:25Z"
     },
     {
       "documentId": "dwa-project-docs-dwa-ownership-boundaries-md",
@@ -120,12 +120,12 @@
       "relatedDocumentIds": [
         "dwa-project-state"
       ],
-      "contentHash": "526ea2b1eef18d16a5266cab47596dfb079b822527ba4bd5d0fef4bfc772c1b1",
-      "lastVerifiedAt": "2026-08-29T14:47:59.637Z"
+      "contentHash": "ef0d8adb80c6c339ce4c64a851e93d577bdfa47064dac6a82cc2db365d70532a",
+      "lastVerifiedAt": "2026-09-16T11:03:25Z"
     }
   ],
-  "lastReviewedAt": "2026-08-29T14:47:59.637Z",
-  "stateHash": "b9855224c411c60b0866f334a3962845fc68e5823f25a90389fcc6c58f9d25c9",
+  "lastReviewedAt": "2026-09-16T15:34:13Z",
+  "stateHash": "046165aa33a2516d29c7554f3d92f4f7e57b2e33cb68352c98481512c8a04dca",
   "sourceCommit": "141682deaaa75d5c93264ab8c694e659f49dda54",
   "ttlDays": 30,
   "openDcaDependencies": [

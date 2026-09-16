@@ -2,11 +2,12 @@
 
 - Specialist: `dandelion-website-agent` / `DWA`
 - Project: `dandelion-web`
-- State reviewed: `2026-08-29T14:47:59.637Z`
+- State reviewed: `2026-09-16` (Lenovo manual development source; live deploy evidence unchanged)
 
 ## Canonical boundary
 
 - A DWA canonical knowledge a webhely saját Astro forrás-, ownership- és preflight-szerződésének összefoglalója.
+- A teljes kézi fejlesztési source of truth a Lenovo `dandelion-new-site` repositoryja: `src/`, `public/`, konfiguráció, build, SEO/QA, trackinghez tartozó fájlok és dokumentáció.
 - A site source és az Ads, GA4, GTM, GSC, Meta, SabeeApp, illetve deploy/live állapot külön kezelendő.
 - Ebben a knowledge-write folyamatban külső platform- vagy weboldal-élesítési write nem történt.
 
@@ -18,11 +19,11 @@
 
 ## Canonical source map
 
-- `AGENT.md` — DOMAIN_SOURCE; SHA-256 `33e4f788ce502af1480e47387a883c45ce47b76ad82539f7b3c00bc935f220f0`.
-- `README.md` — DOMAIN_SOURCE; SHA-256 `8e5f72753b378cc1053d301f3d8dbf36b164eeabdb7dc6677fd1617351056172`.
-- `project-docs/DWA-003.2-specialist-capability-contract.md` — DOMAIN_SOURCE; SHA-256 `0602279f20d4b1c625e78bf4fcd062bc88f878475b176e7ece0f3a2243392280`.
-- `project-docs/DWA-004-preflight-and-dca-evidence-handoff.md` — EVIDENCE; SHA-256 `491fb427122a56df71431b8a15cc820142f32e14c305da588512805ded6fff52`.
-- `project-docs/DWA-OWNERSHIP-BOUNDARIES.md` — DOMAIN_SOURCE; SHA-256 `526ea2b1eef18d16a5266cab47596dfb079b822527ba4bd5d0fef4bfc772c1b1`.
+- `AGENT.md` — DOMAIN_SOURCE; SHA-256 `287efc54f4887d7adba635b062ecdaefe5de8aa7917e88a1969782c75a6c7b59`.
+- `README.md` — DOMAIN_SOURCE; SHA-256 `ef4fdfcaea49c0b323c7993c1a7811211614a87a449699113b8d2fa01536f92d`.
+- `project-docs/DWA-003.2-specialist-capability-contract.md` — DOMAIN_SOURCE; SHA-256 `a98dcf9b7cc2fb888578bad91830ff307872409bb0964acd5edf286559c98499`.
+- `project-docs/DWA-004-preflight-and-dca-evidence-handoff.md` — EVIDENCE; SHA-256 `9ea8be6715bf9b6a4778d2f43a183f1b0ba9fa6a4b0458ff6afd61e16dc4d3c0`.
+- `project-docs/DWA-OWNERSHIP-BOUNDARIES.md` — DOMAIN_SOURCE; SHA-256 `ef0d8adb80c6c339ce4c64a851e93d577bdfa47064dac6a82cc2db365d70532a`.
 
 ## Next decision points
 

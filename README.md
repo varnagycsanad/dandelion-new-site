@@ -37,10 +37,13 @@ A `dist/` csak build output, kézzel nem szerkeszthető.
 ## Lokális workspace
 
 ```text
-C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site
+C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site
 ```
 
-Codex / fejlesztési task esetén ez a kötelező workspace lock.
+Codex / kézi fejlesztési task esetén ez a kötelező workspace lock. Az Astro
+`src/`, `public/`, konfiguráció, SEO/QA, trackinghez tartozó fejlesztési fájlok
+és `project-docs/` dokumentáció itt alkotják a teljes fejlesztési forrást.
+Az ASUS később csak külön jóváhagyott futtatási vagy deploy szerepet kaphat.
 
 ## Fontos szabályfájlok
 

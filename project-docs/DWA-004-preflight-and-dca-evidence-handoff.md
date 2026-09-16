@@ -2,7 +2,7 @@
 
 Statusz: AKTUALIS
 Datum: 2026-07-25
-Repo: `C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site`
+Repo: `C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site`
 Mod: implementacios / preflight-evidence / no-deploy
 
 ## Cel
