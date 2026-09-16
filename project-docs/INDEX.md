@@ -1,12 +1,19 @@
 # Dandelion Project Docs Index
 
 Status: AKTUALIS
-Last checked: 2026-07-13
+Last checked: 2026-09-16
 Use for: dokumentacio navigacio, source-of-truth gyors eligazodas, regi auditok ertelmezese
 
 ## Cel
 
 Ez a fajl a `project-docs/` belepesi pontja.
+
+2026-09-16-i workspace-pontosítás: a jelenlegi kézi fejlesztési source of
+truth a Lenovo `C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site`
+repositoryja. A dátumozott régi tervek, auditok és implementációs összefoglalók
+`Repo:` fejlécében szereplő `C:\Users\cvarn` útvonal a korabeli környezetet
+írja le, nem aktuális workspace-követelmény. Az aktív végrehajtási szabályt az
+`AGENT.md`, a `README.md` és a DWA entrypoint adja.
 
 A projektben sok Markdown dokumentum van, de nem mindegyik aktualis szabaly vagy napi munkaforras. Sok fajl torteneti audit, terv, export vagy munkalap. Ezek hasznosak, de nem szabad oket automatikusan aktualis repoallapotnak tekinteni.
 
