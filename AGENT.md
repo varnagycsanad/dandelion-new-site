@@ -2,7 +2,7 @@
 [CHANGE 2026-05-16 13:25] WordPress media utalás semlegesítve legacy media tiltássá.
 [CHANGE 2026-05-16 14:30] Deploy concurrency szabály rögzítve: futó deploy nem szakítható meg új push miatt.
 [CHANGE 2026-05-16 14:45] Régi /ujsite teszt deploy szöveg root deploy szabályra frissítve.
-[CHANGE 2026-05-16 20:56] Git push alapértelmezés rögzítve: mindig a main a cél, ha nincs kifejezetten más branch meghatározva.
+[CHANGE 2026-09-16] Lenovo kézi source of truth és Git célág: a jelenlegi branch saját upstreamje, külön felülvizsgálattal.
 [CHANGE 2026-05-18 13:22] Tipográfiai guardrail rögzítve: Poppins globális, Playfair csak display/headline, Georgia nem használható önálló UI fontként.
 [CHANGE 2026-05-18 15:06] Betűméret guardrail rögzítve: mobil olvashatóság, skála, 12px alatti tartalmi szöveg tiltása.
 [CHANGE 2026-06-02 22:20] MD audit szabály rögzítve: dokumentációs tasknál a friss auditfájl és státuszjelölések elsődlegesek a régi tervdokumentumokkal szemben.
@@ -57,7 +57,7 @@ TILOS:
 
 Kizárólag ebben a mappában dolgozhat:
 
-C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site
+C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site
 
 Csak ez a projekt a forrás.
 Nem dolgozhat a szerveren.
@@ -378,9 +378,9 @@ Publikus site esetén a cél:
 - csak target fájl stage-elhető
 - ellenőrzés: `git diff --cached --name-only`
 - ha más is benne van → STOP
-- ha commit/push kérést kapsz, alapértelmezett célbranch mindig a `main`
-- csak akkor szabad nem a `main` branchre pusholni, ha a user ezt kifejezetten és egyértelműen más branchre kérte
-- ha nincs explicit branch megadva, a feltöltés célja a `main`
+- commit/push előtt a jelenlegi branch, upstream, diff és deployhatás ellenőrzendő
+- alapértelmezett push-cél csak a jelenlegi branch saját upstreamje lehet, külön felülvizsgált lezáráskor
+- más branchre, különösen `main`-re nincs automatikus push vagy merge
 
 ---
 

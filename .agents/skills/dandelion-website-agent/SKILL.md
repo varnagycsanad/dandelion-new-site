@@ -2,7 +2,7 @@
 
 Statusz: AKTUALIS
 Datum: 2026-07-25
-Repo: `C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site`
+Repo: `C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site`
 Use for: DWA routing, scope, safety gates, DCA/DMA/DSA handoff-boundary
 Do not use for: Ads/Meta/GA4/GTM/GSC remote admin, SabeeApp business truth, secret handling, `dist/` editing
 
