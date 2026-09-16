@@ -620,7 +620,7 @@ Minden Codex task elején:
 
 ```text
 WORKSPACE LOCK:
-C:\Users\cvarn\Desktop\NEW HONLAP\Adatok\dandelion-new-site
+C:\Users\Csanad Lenovo\Desktop\CHATGPT\dandelion-new-site
 ```
 
 Minden task első lépése:
