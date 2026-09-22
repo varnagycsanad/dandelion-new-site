@@ -1,13 +1,16 @@
 {
-  "taskId": "dca-host-task-147877a8-a891-4d9c-9976-016865b4c288",
-  "artifactPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site\\reports\\dwa\\DWA-DEPLOY-READINESS-001-specialist-output.md",
-  "sourceProjectPath": "C:\\Users\\cvarn\\Desktop\\NEW HONLAP\\Adatok\\dandelion-new-site",
-  "receivedAt": "2026-08-18T17:03:05.862Z",
+  "taskId": "local-dca-specialist-delegation-6c65c5eb777e",
+  "artifactPath": "C:\\Users\\CSANAD~1\\AppData\\Local\\Temp\\dca-dwa-task-7WZeex\\reports\\dwa\\DWA-DEPLOY-READINESS-001-specialist-output.md",
+  "sourceProjectPath": "C:\\Users\\CSANAD~1\\AppData\\Local\\Temp\\dca-dwa-task-7WZeex",
+  "receivedAt": "2026-09-22T05:53:10.968Z",
   "noLiveWriteConfirmed": true,
+  "summary": "DWA source continuation completed: two supplied breakfast images converted into tracked WebP assets, integrated on /reggeli-kosar/, and checked with build plus targeted QA; deploy/push not performed.",
   "validatorVersion": "dca-artifact-semantics/v1",
-  "artifactSha256": "492d69c6f75a838ed93d8433ce0c87b489eb404ccbe3904db6afe756af0df391",
-  "artifactBytes": 37622,
-  "artifactStatus": "HOLD_REVALIDATION_REQUIRED",
-  "evidenceKind": "DWA_PREFLIGHT",
-  "summary": "DWA read-only preflight artifact elkészült: HOLD_REVALIDATION_REQUIRED."
+  "artifactSha256": "69df9849d5900cb1fc2194777116f73b1d76cb6415ad39540af9d7726e98144a",
+  "artifactBytes": 9445,
+  "artifactStatus": "DWA_IMPLEMENTATION_COMPLETE_WITH_RELEASE_HOLD",
+  "evidenceKind": "DWA_SOURCE_WRITE_BUILD",
+  "commitHash": "843ab9c",
+  "stagedFiles": [],
+  "workingTreeStatus": "DIRTY"
 }

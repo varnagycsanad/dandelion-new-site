@@ -1,0 +1,178 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import breakfastBasketImage from "../assets/pages/reggeli-kosar/reggeli-kosar-hero.webp";
+import servedBreakfastImage from "../assets/pages/reggeli-kosar/reggeli-kosar-experience.webp";
+
+const canonicalPath = "/reggeli-kosar/";
+const breakfastItems = [
+  "füstölt szalonna és kolbász",
+  "sonka és szalámi",
+  "körözött és fügelekvár",
+  "májkrém",
+  "friss gyümölcs és zöldség",
+  "tea és főtt tojás",
+  "friss pékáru és kemencés kenyér",
+  "gyümölcsjoghurt, tej, vaj és sajt"
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Főoldal", item: "https://dandelionhouse.hu/" },
+      { "@type": "ListItem", position: 2, name: "Reggeli kosár", item: "https://dandelionhouse.hu/reggeli-kosar/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Dandelion reggeli kosár",
+    serviceType: "Érkezés utáni reggeli kiszállítás",
+    areaServed: "D2 és Fügeház vendégei",
+    description: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek."
+  }
+];
+---
+
+<BaseLayout
+  title="Reggeli kosár | Dandelion Vendégházak"
+  description="Érkezés utáni reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, helyi ízekkel és előre egyeztethető érzékenységgel."
+  canonicalPath={canonicalPath}
+  structuredData={structuredData}
+  headerMode="solid"
+>
+  <div class="breakfast-page">
+    <section class="breakfast-hero" aria-labelledby="breakfast-title">
+      <div class="dnd-container breakfast-hero__inner">
+        <div class="breakfast-hero__copy">
+          <span class="breakfast-eyebrow">Érkezés után, helyben</span>
+          <h1 id="breakfast-title">Reggeli kosár a D2 és a Fügeház vendégeinek.</h1>
+          <p>
+            Két ember két reggelije egy gondosan összeállított kosárban, amit az érkezés utáni reggelen
+            a szállásotokhoz viszünk.
+          </p>
+          <div class="breakfast-hero__actions">
+            <a class="breakfast-button breakfast-button--primary" href="#arazas">Árak és részletek</a>
+            <a class="breakfast-button breakfast-button--secondary" href="#tartalom">Mi kerül a kosárba?</a>
+          </div>
+        </div>
+        <div class="breakfast-hero__media" aria-label="Reggeli hangulat a Dandelionnál">
+          <Image src={breakfastBasketImage} alt="Gondosan összeállított Dandelion reggeli kosár friss élelmiszerekkel" widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 55vw" loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <div class="dnd-container breakfast-page__content">
+      <section class="breakfast-intro breakfast-panel" aria-labelledby="intro-title">
+        <div>
+          <span class="breakfast-eyebrow">Egy lassú reggelhez</span>
+          <h2 id="intro-title">A kosár az érkezésetek utáni reggelen érkezik.</h2>
+        </div>
+        <p>
+          A reggeli kiszállítása előre egyeztetett időben történik. Ételérzékenységet vagy különleges
+          kérést kérünk előre jelezni, hogy a lehetőségekhez mérten fel tudjunk készülni.
+        </p>
+      </section>
+
+      <section class="breakfast-grid" id="tartalom" aria-labelledby="contents-title">
+        <div class="breakfast-panel breakfast-list-panel">
+          <span class="breakfast-eyebrow">A kosár tartalma</span>
+          <h2 id="contents-title">Ismerős ízek, tartalmas reggeli.</h2>
+          <ul>
+            {breakfastItems.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="breakfast-card breakfast-card--image">
+          <Image src={servedBreakfastImage} alt="Tálalt reggeli a Dandelion teraszán, kilátással a vidékre" widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
+          <p>D2 és Fügeház vendégeinek, érkezés utáni reggelre.</p>
+        </div>
+      </section>
+
+      <section class="breakfast-panel breakfast-pricing" id="arazas" aria-labelledby="pricing-title">
+        <div class="breakfast-pricing__heading">
+          <span class="breakfast-eyebrow">Árlogika</span>
+          <h2 id="pricing-title">Egyszerűen tervezhető, előre jelezhető feltételekkel.</h2>
+          <p>Minimum 2 főre és minimum 2 napra kérhető.</p>
+        </div>
+        <div class="breakfast-price-grid">
+          <article><strong>3 500 Ft</strong><span>fő / nap, 2 fő esetén</span></article>
+          <article><strong>3 000 Ft</strong><span>fő / nap, 3 főtől</span></article>
+          <article><strong>0–5 év</strong><span>ingyenes, bébiétel nélkül</span></article>
+          <article><strong>2 000 Ft</strong><span>fő / nap, 6–13 év között</span></article>
+          <article><strong>14+ év</strong><span>felnőttár</span></article>
+        </div>
+        <div class="breakfast-decision">
+          <strong>HUMAN_DECISION szükséges:</strong>
+          <span>2 felnőtt + 1 gyermek esetén a felnőtt egységár alkalmazását külön kell jóváhagyni. Ezen az oldalon nincs automatikus vagy bizonytalan végösszeg.</span>
+        </div>
+        <p class="breakfast-example"><strong>Példa:</strong> 2 fő × 3 500 Ft × 2 nap = 14 000 Ft. Ez a példa nem helyettesíti az egyedi egyeztetést.</p>
+      </section>
+
+      <section class="breakfast-panel breakfast-stays" aria-labelledby="stays-title">
+        <div>
+          <span class="breakfast-eyebrow">Válassz szállást</span>
+          <h2 id="stays-title">A reggeli kosár a D2 és a Fügeház vendégeinek készült.</h2>
+        </div>
+        <div class="breakfast-stays__links">
+          <a href="/dandelion-d2/">Dandelion D2 részletei <span aria-hidden="true">→</span></a>
+          <a href="/fuge/">Fügeház részletei <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="breakfast-note" aria-label="Előzetes egyeztetés">
+        <p><strong>Érzékenység vagy kérdés?</strong> Jelezzétek előre, és a rendelés részleteit egyeztetjük.</p>
+        <a href="/kapcsolat/">Kapcsolat</a>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .breakfast-page { background: linear-gradient(180deg, #fbf8f1 0%, #f3eadb 100%); color: #2d241c; padding-bottom: 88px; }
+  .breakfast-hero { padding: 56px 0 42px; }
+  .breakfast-hero__inner { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+  .breakfast-hero__copy { display: grid; gap: 18px; }
+  .breakfast-eyebrow { color: #a56d1f; font-size: var(--dnd-text-2xs); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .breakfast-page h1, .breakfast-page h2 { margin: 0; font-family: var(--dnd-font-display); font-weight: 500; line-height: 1.08; }
+  .breakfast-page h1 { max-width: 11ch; font-size: clamp(2.6rem, 5vw, 5rem); }
+  .breakfast-page h2 { font-size: clamp(1.7rem, 3vw, 2.7rem); }
+  .breakfast-hero p, .breakfast-panel p, .breakfast-note p { margin: 0; font-size: var(--dnd-text-body); line-height: 1.7; }
+  .breakfast-hero__copy > p { max-width: 48ch; color: rgba(45, 36, 28, 0.76); }
+  .breakfast-hero__media { overflow: hidden; border-radius: 24px; box-shadow: 0 22px 56px rgba(56, 37, 20, 0.16); }
+  .breakfast-hero__media :global(img), .breakfast-card--image :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .breakfast-hero__media :global(img) { aspect-ratio: 1.18 / 1; }
+  .breakfast-hero__actions, .breakfast-stays__links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .breakfast-button, .breakfast-stays a, .breakfast-note a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid #38291d; text-decoration: none; font-size: var(--dnd-text-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .breakfast-button--primary { background: #38291d; color: #fff; }
+  .breakfast-button--secondary { color: #38291d; }
+  .breakfast-page__content { display: grid; gap: 22px; }
+  .breakfast-panel { padding: clamp(22px, 4vw, 42px); border: 1px solid rgba(88, 63, 38, 0.13); border-radius: 20px; background: rgba(255, 252, 246, 0.86); box-shadow: 0 18px 46px rgba(43, 28, 14, 0.06); }
+  .breakfast-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: 30px; align-items: end; }
+  .breakfast-intro > div, .breakfast-pricing__heading { display: grid; gap: 12px; }
+  .breakfast-intro p { color: rgba(45, 36, 28, 0.74); }
+  .breakfast-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr); gap: 22px; }
+  .breakfast-list-panel { display: grid; gap: 14px; }
+  .breakfast-list-panel ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 24px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .breakfast-list-panel li { position: relative; padding-left: 20px; font-size: var(--dnd-text-body); line-height: 1.45; }
+  .breakfast-list-panel li::before { content: ""; position: absolute; left: 0; top: 0.58em; width: 7px; height: 7px; border-radius: 50%; background: #d99e2b; }
+  .breakfast-card--image { overflow: hidden; min-height: 100%; border-radius: 20px; background: #38291d; color: #fff; }
+  .breakfast-card--image :global(img) { min-height: 250px; aspect-ratio: 1 / 0.8; }
+  .breakfast-card--image p { padding: 17px 20px 20px; font-size: var(--dnd-text-sm); }
+  .breakfast-pricing { display: grid; gap: 24px; }
+  .breakfast-price-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 11px; }
+  .breakfast-price-grid article { display: grid; gap: 7px; min-height: 112px; padding: 15px; border-radius: 10px; background: #f8efe1; }
+  .breakfast-price-grid strong { font-family: var(--dnd-font-display); font-size: 1.55rem; font-weight: 500; }
+  .breakfast-price-grid span { font-size: var(--dnd-text-sm); line-height: 1.4; }
+  .breakfast-decision { display: grid; gap: 4px; padding: 16px 18px; border-left: 4px solid #d99e2b; background: #fff8e9; font-size: var(--dnd-text-body); line-height: 1.55; }
+  .breakfast-example { color: rgba(45, 36, 28, 0.74); }
+  .breakfast-stays { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px; align-items: center; }
+  .breakfast-stays__links { justify-content: flex-end; }
+  .breakfast-stays a { gap: 12px; color: #38291d; }
+  .breakfast-stays a span { font-size: 1.2rem; }
+  .breakfast-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 0 8px; }
+  .breakfast-note a { min-height: 40px; color: #38291d; }
+  @media (max-width: 900px) { .breakfast-hero__inner, .breakfast-intro, .breakfast-grid, .breakfast-stays { grid-template-columns: 1fr; } .breakfast-price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .breakfast-stays__links { justify-content: flex-start; } }
+  @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 26px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 98px; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
+</style>
