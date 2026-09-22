@@ -16,6 +16,57 @@ const breakfastItems = [
   "gyümölcsjoghurt, tej, vaj és sajt"
 ];
 
+const faqItems = [
+  {
+    question: "Melyik Dandelion vendégházban lehet reggeli kosarat rendelni?",
+    answer: "Reggeli kosár jelenleg a D2 és a Fügeház vendégei számára rendelhető."
+  },
+  {
+    question: "Mennyibe kerül a reggeli kosár?",
+    answer: "Két fő esetén az ár 3 500 Ft/fő/nap. Három főtől a felnőtt ár 3 000 Ft/fő/nap. A 6–13 éves gyermekek részére 2 000 Ft/fő/nap, 0–5 éves kor között pedig ingyenes."
+  },
+  {
+    question: "Mennyibe kerül a reggeli 2 felnőtt és 1 gyermek számára?",
+    answer: "Két felnőtt és egy 6–13 éves gyermek esetén a két felnőtt 3 000 Ft/fő/nap, a gyermek 2 000 Ft/nap, így a reggeli kosár összesen 8 000 Ft/nap."
+  },
+  {
+    question: "Van minimum rendelési mennyiség?",
+    answer: "Igen. A reggeli kosár minimum 2 főre és minimum 2 napra rendelhető."
+  },
+  {
+    question: "Mit jelent a 2 főre, 2 napra rendelt reggeli kosár?",
+    answer: "A kosár két személy két reggelijét tartalmazza. Ennek ára 2 × 3 500 Ft × 2 nap, vagyis összesen 14 000 Ft."
+  },
+  {
+    question: "Mikor kapjuk meg a reggeli kosarat?",
+    answer: "A reggeli kosarat az érkezést követő reggelen szállítjuk ki a vendégházhoz."
+  },
+  {
+    question: "Mit tartalmaz a Dandelion reggeli kosár?",
+    answer: "A kosárban többek között házi füstölt szalonna és kolbász, sonka vagy szalámi, házi körözött, fügelekvár, májkrém, sajtok, főtt tojás, friss zöldségek és gyümölcsök, friss pékáru, kemencés kenyér, joghurt, tej, vaj és tea található."
+  },
+  {
+    question: "Gyermekeknek is rendelhető reggeli?",
+    answer: "Igen. A 6–13 éves gyermekek reggelije 2 000 Ft/fő/nap. A 0–5 éves gyermekek után nem kell fizetni."
+  },
+  {
+    question: "Biztosítotok bébiételt vagy csecsemőételt?",
+    answer: "Nem. A 0–5 éves gyermekek részvétele ingyenes, de külön csecsemő- vagy bébiételt nem biztosítunk."
+  },
+  {
+    question: "Ételérzékenység esetén lehet reggeli kosarat kérni?",
+    answer: "Ételérzékenységet vagy speciális étkezési igényt mindenképpen előre jelezni kell. A lehetőségekről ennek ismeretében tudunk egyeztetni."
+  },
+  {
+    question: "Helyi vagy házi termékek is vannak a kosárban?",
+    answer: "Igen. A kínálat része többek között házi füstölt szalonna, házi füstölt kolbász, házi készítésű körözött és fügelekvár is."
+  },
+  {
+    question: "Elég a reggeli kosár egy teljes reggelihez?",
+    answer: "A kosarat teljes reggelinek állítjuk össze: húsféléket, sajtokat, tojást, zöldséget, gyümölcsöt, pékárut, kenyeret, tejterméket és italt is tartalmaz."
+  }
+];
+
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -32,6 +83,18 @@ const structuredData = [
     serviceType: "Érkezés utáni reggeli kiszállítás",
     areaServed: "D2 és Fügeház vendégei",
     description: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer
+      }
+    }))
   }
 ];
 ---
@@ -104,8 +167,8 @@ const structuredData = [
           <article><strong>14+ év</strong><span>felnőttár</span></article>
         </div>
         <div class="breakfast-decision">
-          <strong>HUMAN_DECISION szükséges:</strong>
-          <span>2 felnőtt + 1 gyermek esetén a felnőtt egységár alkalmazását külön kell jóváhagyni. Ezen az oldalon nincs automatikus vagy bizonytalan végösszeg.</span>
+          <strong>2 felnőtt + 1 gyermek:</strong>
+          <span>6–13 éves gyermek esetén a két felnőtt 3 000 Ft/fő/nap, a gyermek 2 000 Ft/nap, így a kosár összesen 8 000 Ft/nap.</span>
         </div>
         <p class="breakfast-example"><strong>Példa:</strong> 2 fő × 3 500 Ft × 2 nap = 14 000 Ft. Ez a példa nem helyettesíti az egyedi egyeztetést.</p>
       </section>
@@ -124,6 +187,19 @@ const structuredData = [
       <section class="breakfast-note" aria-label="Előzetes egyeztetés">
         <p><strong>Érzékenység vagy kérdés?</strong> Jelezzétek előre, és a rendelés részleteit egyeztetjük.</p>
         <a href="/kapcsolat/">Kapcsolat</a>
+      </section>
+
+      <section class="breakfast-panel breakfast-faq" aria-labelledby="faq-title">
+        <span class="breakfast-eyebrow">Segítünk tervezni</span>
+        <h2 id="faq-title">Gyakori kérdések a Dandelion reggeli kosárról</h2>
+        <div class="breakfast-faq__list">
+          {faqItems.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
       </section>
     </div>
   </div>
@@ -173,6 +249,15 @@ const structuredData = [
   .breakfast-stays a span { font-size: 1.2rem; }
   .breakfast-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 0 8px; }
   .breakfast-note a { min-height: 40px; color: #38291d; }
+  .breakfast-faq { display: grid; gap: 18px; }
+  .breakfast-faq__list { display: grid; gap: 10px; }
+  .breakfast-faq details { border-top: 1px solid rgba(88, 63, 38, 0.16); }
+  .breakfast-faq details:last-child { border-bottom: 1px solid rgba(88, 63, 38, 0.16); }
+  .breakfast-faq summary { cursor: pointer; padding: 17px 34px 17px 0; list-style: none; font-size: var(--dnd-text-body); font-weight: 700; line-height: 1.45; position: relative; }
+  .breakfast-faq summary::-webkit-details-marker { display: none; }
+  .breakfast-faq summary::after { content: "+"; position: absolute; top: 14px; right: 4px; color: #a56d1f; font-size: 1.5rem; font-weight: 400; }
+  .breakfast-faq details[open] summary::after { content: "–"; }
+  .breakfast-faq details p { max-width: 72ch; padding: 0 34px 19px 0; color: rgba(45, 36, 28, 0.76); }
   @media (max-width: 900px) { .breakfast-hero__inner, .breakfast-intro, .breakfast-grid, .breakfast-stays { grid-template-columns: 1fr; } .breakfast-price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .breakfast-stays__links { justify-content: flex-start; } }
   @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 26px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 98px; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
 </style>
