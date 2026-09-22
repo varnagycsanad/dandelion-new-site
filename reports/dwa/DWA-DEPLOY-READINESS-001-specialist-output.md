@@ -44,7 +44,7 @@ The current repo did not contain a prior live `reports/dwa-preflight/latest.json
 - Changed source files: `src/pages/reggeli-kosar.astro`, `src/assets/pages/reggeli-kosar/reggeli-kosar-hero.webp`, `src/assets/pages/reggeli-kosar/reggeli-kosar-experience.webp`
 - Image inputs: user-provided breakfast basket JPG converted to `reggeli-kosar-hero.webp`; user-provided served breakfast JPG converted to `reggeli-kosar-experience.webp`.
 - Both images use the site's tracked `src/assets` + `astro:assets` convention, with Astro-generated responsive sources and accessible Hungarian alt text. The hero asset uses eager loading; the secondary experience asset uses lazy loading.
-- Commit: `843ab9c` (`feat(dwa): add breakfast basket imagery`); the prior page-only commit was `253c0f1`.
+- Source/evidence commit: `5b24aa7` (`feat(dwa): add breakfast basket imagery`); the prior page-only commit was `253c0f1`.
 - Staged scope: the route, the two tracked source assets and this specialist evidence pair only.
 - No source `dist/` edit; generated `dist/` was used only as build output.
 
