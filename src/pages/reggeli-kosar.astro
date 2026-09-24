@@ -19,51 +19,43 @@ const breakfastItems = [
 const faqItems = [
   {
     question: "Melyik Dandelion vendégházban lehet reggeli kosarat rendelni?",
-    answer: "Reggeli kosár jelenleg a D2 és a Fügeház vendégei számára rendelhető."
+    answer: "A reggeli kosár a D2 és a Fügeház vendégeinek rendelhető."
   },
   {
     question: "Mennyibe kerül a reggeli kosár?",
-    answer: "Két fő esetén az ár 3 500 Ft/fő/nap. Három főtől a felnőtt ár 3 000 Ft/fő/nap. A 6–13 éves gyermekek részére 2 000 Ft/fő/nap, 0–5 éves kor között pedig ingyenes."
+    answer: "Két fő esetén 3 500 Ft/fő/nap, három főtől 3 000 Ft/fő/nap a felnőttár. A 6–13 éves gyermekek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."
   },
   {
     question: "Mennyibe kerül a reggeli 2 felnőtt és 1 gyermek számára?",
-    answer: "Két felnőtt és egy 6–13 éves gyermek esetén a két felnőtt 3 000 Ft/fő/nap, a gyermek 2 000 Ft/nap, így a reggeli kosár összesen 8 000 Ft/nap."
+    answer: "A két felnőtt 3 000 Ft/fő/nap, a 6–13 éves gyermek 2 000 Ft/nap, összesen 8 000 Ft/nap."
   },
   {
     question: "Van minimum rendelési mennyiség?",
-    answer: "Igen. A reggeli kosár minimum 2 főre és minimum 2 napra rendelhető."
+    answer: "Igen, minimum 2 főre és minimum 2 napra rendelhető."
   },
   {
     question: "Mit jelent a 2 főre, 2 napra rendelt reggeli kosár?",
-    answer: "A kosár két személy két reggelijét tartalmazza. Ennek ára 2 × 3 500 Ft × 2 nap, vagyis összesen 14 000 Ft."
+    answer: "Két személy két reggelijét; két fő esetén ez minimum 14 000 Ft összesen."
   },
   {
     question: "Mikor kapjuk meg a reggeli kosarat?",
-    answer: "A reggeli kosarat az érkezést követő reggelen szállítjuk ki a vendégházhoz."
+    answer: "Az érkezést követő reggelen, házhoz szállítva érkezik."
   },
   {
     question: "Mit tartalmaz a Dandelion reggeli kosár?",
-    answer: "A kosárban többek között házi füstölt szalonna és kolbász, sonka vagy szalámi, házi körözött, fügelekvár, májkrém, sajtok, főtt tojás, friss zöldségek és gyümölcsök, friss pékáru, kemencés kenyér, joghurt, tej, vaj és tea található."
+    answer: "Húsféléket, tejtermékeket, tojást, friss zöldséget és gyümölcsöt, pékárut, kemencés kenyeret és teát. A részletes tartalmat a kosár listája mutatja."
   },
   {
     question: "Gyermekeknek is rendelhető reggeli?",
-    answer: "Igen. A 6–13 éves gyermekek reggelije 2 000 Ft/fő/nap. A 0–5 éves gyermekek után nem kell fizetni."
+    answer: "Igen. A 6–13 éves gyermek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."
   },
   {
     question: "Biztosítotok bébiételt vagy csecsemőételt?",
-    answer: "Nem. A 0–5 éves gyermekek részvétele ingyenes, de külön csecsemő- vagy bébiételt nem biztosítunk."
+    answer: "Nem, külön bébi- vagy csecsemőételt nem biztosítunk."
   },
   {
     question: "Ételérzékenység esetén lehet reggeli kosarat kérni?",
-    answer: "Ételérzékenységet vagy speciális étkezési igényt mindenképpen előre jelezni kell. A lehetőségekről ennek ismeretében tudunk egyeztetni."
-  },
-  {
-    question: "Helyi vagy házi termékek is vannak a kosárban?",
-    answer: "Igen. A kínálat része többek között házi füstölt szalonna, házi füstölt kolbász, házi készítésű körözött és fügelekvár is."
-  },
-  {
-    question: "Elég a reggeli kosár egy teljes reggelihez?",
-    answer: "A kosarat teljes reggelinek állítjuk össze: húsféléket, sajtokat, tojást, zöldséget, gyümölcsöt, pékárut, kenyeret, tejterméket és italt is tartalmaz."
+    answer: "Igen, de az ételérzékenységet vagy különleges étkezési igényt előre jelezni kell, hogy egyeztethessünk."
   }
 ];
 
@@ -110,11 +102,10 @@ const structuredData = [
     <section class="breakfast-hero" aria-labelledby="breakfast-title">
       <div class="dnd-container breakfast-hero__inner">
         <div class="breakfast-hero__copy">
-          <span class="breakfast-eyebrow">Érkezés után, helyben</span>
+          <span class="breakfast-eyebrow">Reggeli a szálláson</span>
           <h1 id="breakfast-title">Reggeli kosár a D2 és a Fügeház vendégeinek.</h1>
           <p>
-            Két ember két reggelije egy gondosan összeállított kosárban, amit az érkezés utáni reggelen
-            a szállásotokhoz viszünk.
+            Helyi ízekből összeállított reggeli kosár, amelyet az érkezésetek utáni reggelen a házhoz szállítunk.
           </p>
           <div class="breakfast-hero__actions">
             <a class="breakfast-button breakfast-button--primary" href="#arazas">Árak és részletek</a>
@@ -131,11 +122,11 @@ const structuredData = [
       <section class="breakfast-intro breakfast-panel" aria-labelledby="intro-title">
         <div>
           <span class="breakfast-eyebrow">Egy lassú reggelhez</span>
-          <h2 id="intro-title">A kosár az érkezésetek utáni reggelen érkezik.</h2>
+          <h2 id="intro-title">Reggeli az első reggelen, közvetlenül a szálláson.</h2>
         </div>
         <p>
-          A reggeli kiszállítása előre egyeztetett időben történik. Ételérzékenységet vagy különleges
-          kérést kérünk előre jelezni, hogy a lehetőségekhez mérten fel tudjunk készülni.
+          A kosár az érkezést követő reggelen, előre egyeztetett időben érkezik. Ételérzékenységet vagy
+          különleges étkezési igényt kérünk előre jelezni.
         </p>
       </section>
 
@@ -149,14 +140,14 @@ const structuredData = [
         </div>
         <div class="breakfast-card breakfast-card--image">
           <Image src={servedBreakfastImage} alt="Tálalt reggeli a Dandelion teraszán, kilátással a vidékre" widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
-          <p>D2 és Fügeház vendégeinek, érkezés utáni reggelre.</p>
+          <p>Az érkezést követő reggelre, házhoz szállítva.</p>
         </div>
       </section>
 
       <section class="breakfast-panel breakfast-pricing" id="arazas" aria-labelledby="pricing-title">
         <div class="breakfast-pricing__heading">
           <span class="breakfast-eyebrow">Árlogika</span>
-          <h2 id="pricing-title">Egyszerűen tervezhető, előre jelezhető feltételekkel.</h2>
+          <h2 id="pricing-title">Árak és rendelési feltételek</h2>
           <p>Minimum 2 főre és minimum 2 napra kérhető.</p>
         </div>
         <div class="breakfast-price-grid">
@@ -170,13 +161,13 @@ const structuredData = [
           <strong>2 felnőtt + 1 gyermek:</strong>
           <span>6–13 éves gyermek esetén a két felnőtt 3 000 Ft/fő/nap, a gyermek 2 000 Ft/nap, így a kosár összesen 8 000 Ft/nap.</span>
         </div>
-        <p class="breakfast-example"><strong>Példa:</strong> 2 fő × 3 500 Ft × 2 nap = 14 000 Ft. Ez a példa nem helyettesíti az egyedi egyeztetést.</p>
+        <p class="breakfast-example"><strong>Másik példa:</strong> 2 főre, 2 napra 14 000 Ft. A pontos rendelést előre egyeztetjük.</p>
       </section>
 
       <section class="breakfast-panel breakfast-stays" aria-labelledby="stays-title">
         <div>
           <span class="breakfast-eyebrow">Válassz szállást</span>
-          <h2 id="stays-title">A reggeli kosár a D2 és a Fügeház vendégeinek készült.</h2>
+          <h2 id="stays-title">Csak a D2 és a Fügeház vendégeinek.</h2>
         </div>
         <div class="breakfast-stays__links">
           <a href="/dandelion-d2/">Dandelion D2 részletei <span aria-hidden="true">→</span></a>
@@ -185,8 +176,8 @@ const structuredData = [
       </section>
 
       <section class="breakfast-note" aria-label="Előzetes egyeztetés">
-        <p><strong>Érzékenység vagy kérdés?</strong> Jelezzétek előre, és a rendelés részleteit egyeztetjük.</p>
-        <a href="/kapcsolat/">Kapcsolat</a>
+        <p><strong>Érdeklődnél vagy rendelnél?</strong> Írj nekünk a részletekért.</p>
+        <a href="/kapcsolat/">Érdeklődés és rendelés</a>
       </section>
 
       <section class="breakfast-panel breakfast-faq" aria-labelledby="faq-title">
@@ -207,7 +198,7 @@ const structuredData = [
 
 <style>
   .breakfast-page { background: linear-gradient(180deg, #fbf8f1 0%, #f3eadb 100%); color: #2d241c; padding-bottom: 88px; }
-  .breakfast-hero { padding: 56px 0 42px; }
+  .breakfast-hero { padding: clamp(148px, 12vw, 180px) 0 42px; }
   .breakfast-hero__inner { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
   .breakfast-hero__copy { display: grid; gap: 18px; }
   .breakfast-eyebrow { color: #a56d1f; font-size: var(--dnd-text-2xs); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
@@ -259,5 +250,5 @@ const structuredData = [
   .breakfast-faq details[open] summary::after { content: "–"; }
   .breakfast-faq details p { max-width: 72ch; padding: 0 34px 19px 0; color: rgba(45, 36, 28, 0.76); }
   @media (max-width: 900px) { .breakfast-hero__inner, .breakfast-intro, .breakfast-grid, .breakfast-stays { grid-template-columns: 1fr; } .breakfast-price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .breakfast-stays__links { justify-content: flex-start; } }
-  @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 26px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 98px; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
+  @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 92px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 98px; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
 </style>
