@@ -152,17 +152,25 @@ const structuredData = [
           <p>Minimum 2 főre és minimum 2 napra kérhető.</p>
         </div>
         <div class="breakfast-price-grid">
-          <article><strong>3 500 Ft</strong><span>fő / nap, 2 fő esetén</span></article>
-          <article><strong>3 000 Ft</strong><span>fő / nap, 3 főtől</span></article>
-          <article><strong>0–5 év</strong><span>ingyenes, bébiétel nélkül</span></article>
-          <article><strong>2 000 Ft</strong><span>fő / nap, 6–13 év között</span></article>
-          <article><strong>14+ év</strong><span>felnőttár</span></article>
+          <article>
+            <strong>0–5 éves gyermek</strong>
+            <span>Ingyenes</span>
+            <small>Külön bébi- vagy csecsemőételt nem biztosítunk.</small>
+          </article>
+          <article>
+            <strong>6–13 éves gyermek</strong>
+            <span>2 000 Ft/fő/nap</span>
+          </article>
+          <article>
+            <strong>14 éves kortól</strong>
+            <span>Felnőttár</span>
+            <small>2 fő esetén: 3 500 Ft/fő/nap<br />3 főtől: 3 000 Ft/fő/nap</small>
+          </article>
         </div>
         <div class="breakfast-decision">
-          <strong>2 felnőtt + 1 gyermek:</strong>
-          <span>6–13 éves gyermek esetén a két felnőtt 3 000 Ft/fő/nap, a gyermek 2 000 Ft/nap, így a kosár összesen 8 000 Ft/nap.</span>
+          <strong>Konkrét példa: 2 felnőtt + 1 gyermek (6–13 év)</strong>
+          <span>2 felnőtt: 2 × 3 000 Ft = 6 000 Ft/nap<br />1 gyermek: 2 000 Ft/nap<br /><strong>Összesen: 8 000 Ft/nap</strong><br />Minimum 2 napra: 16 000 Ft összesen.</span>
         </div>
-        <p class="breakfast-example"><strong>Másik példa:</strong> 2 főre, 2 napra 14 000 Ft. A pontos rendelést előre egyeztetjük.</p>
       </section>
 
       <section class="breakfast-panel breakfast-stays" aria-labelledby="stays-title">
@@ -229,10 +237,11 @@ const structuredData = [
   .breakfast-card--image :global(img) { min-height: 250px; aspect-ratio: 1 / 0.8; }
   .breakfast-card--image p { padding: 17px 20px 20px; font-size: var(--dnd-text-sm); }
   .breakfast-pricing { display: grid; gap: 24px; }
-  .breakfast-price-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 11px; }
-  .breakfast-price-grid article { display: grid; gap: 7px; min-height: 112px; padding: 15px; border-radius: 10px; background: #f8efe1; }
+  .breakfast-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+  .breakfast-price-grid article { display: grid; align-content: start; gap: 7px; min-height: 146px; padding: 15px; border-radius: 10px; background: #f8efe1; }
   .breakfast-price-grid strong { font-family: var(--dnd-font-display); font-size: 1.55rem; font-weight: 500; }
   .breakfast-price-grid span { font-size: var(--dnd-text-sm); line-height: 1.4; }
+  .breakfast-price-grid small { font-size: var(--dnd-text-sm); line-height: 1.45; }
   .breakfast-decision { display: grid; gap: 4px; padding: 16px 18px; border-left: 4px solid #d99e2b; background: #fff8e9; font-size: var(--dnd-text-body); line-height: 1.55; }
   .breakfast-example { color: rgba(45, 36, 28, 0.74); }
   .breakfast-stays { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px; align-items: center; }
@@ -250,6 +259,6 @@ const structuredData = [
   .breakfast-faq summary::after { content: "+"; position: absolute; top: 14px; right: 4px; color: #a56d1f; font-size: 1.5rem; font-weight: 400; }
   .breakfast-faq details[open] summary::after { content: "–"; }
   .breakfast-faq details p { max-width: 72ch; padding: 0 34px 19px 0; color: rgba(45, 36, 28, 0.76); }
-  @media (max-width: 900px) { .breakfast-hero__inner, .breakfast-intro, .breakfast-grid, .breakfast-stays { grid-template-columns: 1fr; } .breakfast-price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .breakfast-stays__links { justify-content: flex-start; } }
-  @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 92px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 98px; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
+  @media (max-width: 900px) { .breakfast-hero__inner, .breakfast-intro, .breakfast-grid, .breakfast-stays { grid-template-columns: 1fr; } .breakfast-stays__links { justify-content: flex-start; } }
+  @media (max-width: 560px) { .breakfast-page { padding-bottom: 62px; } .breakfast-hero { padding: 92px 0 28px; } .breakfast-page h1 { max-width: 12ch; font-size: clamp(2.3rem, 12vw, 3.35rem); } .breakfast-hero__media { border-radius: 18px; } .breakfast-panel { padding: 20px 17px; border-radius: 16px; } .breakfast-list-panel ul, .breakfast-price-grid { grid-template-columns: 1fr; } .breakfast-list-panel li { font-size: var(--dnd-text-sm); } .breakfast-price-grid article { min-height: 0; padding: 12px; } .breakfast-price-grid strong { font-size: 1.3rem; } .breakfast-price-grid span { font-size: var(--dnd-text-sm); } .breakfast-button, .breakfast-stays a { width: 100%; } }
 </style>
