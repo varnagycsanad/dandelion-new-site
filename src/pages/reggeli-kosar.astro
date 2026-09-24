@@ -5,6 +5,7 @@ import breakfastBasketImage from "../assets/pages/reggeli-kosar/reggeli-kosar-he
 import servedBreakfastImage from "../assets/pages/reggeli-kosar/reggeli-kosar-experience.webp";
 
 const canonicalPath = "/reggeli-kosar/";
+const deliveryWindow = "az érkezést követő reggelen, 8 és 9 óra között";
 const breakfastItems = [
   "füstölt szalonna és kolbász",
   "sonka és szalámi",
@@ -39,7 +40,7 @@ const faqItems = [
   },
   {
     question: "Mikor kapjuk meg a reggeli kosarat?",
-    answer: "Az érkezést követő reggelen, házhoz szállítva érkezik."
+    answer: "Az érkezést követő reggelen, 8 és 9 óra között, házhoz szállítva érkezik."
   },
   {
     question: "Mit tartalmaz a Dandelion reggeli kosár?",
@@ -72,9 +73,9 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "Service",
     name: "Dandelion reggeli kosár",
-    serviceType: "Érkezés utáni reggeli kiszállítás",
+    serviceType: "Érkezés utáni reggeli kiszállítás 8 és 9 óra között",
     areaServed: "D2 és Fügeház vendégei",
-    description: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek."
+    description: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között."
   },
   {
     "@context": "https://schema.org",
@@ -93,7 +94,7 @@ const structuredData = [
 
 <BaseLayout
   title="Reggeli kosár | Dandelion Vendégházak"
-  description="Érkezés utáni reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, helyi ízekkel és előre egyeztethető érzékenységgel."
+  description="Érkezés utáni reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között."
   canonicalPath={canonicalPath}
   structuredData={structuredData}
   headerMode="solid"
@@ -105,7 +106,7 @@ const structuredData = [
           <span class="breakfast-eyebrow">Reggeli a szálláson</span>
           <h1 id="breakfast-title">Reggeli kosár a D2 és a Fügeház vendégeinek.</h1>
           <p>
-            Helyi ízekből összeállított reggeli kosár, amelyet az érkezésetek utáni reggelen a házhoz szállítunk.
+            Helyi ízekből összeállított reggeli kosár, amelyet {deliveryWindow} a házhoz szállítunk.
           </p>
           <div class="breakfast-hero__actions">
             <a class="breakfast-button breakfast-button--primary" href="#arazas">Árak és részletek</a>
@@ -125,7 +126,7 @@ const structuredData = [
           <h2 id="intro-title">Reggeli az első reggelen, közvetlenül a szálláson.</h2>
         </div>
         <p>
-          A kosár az érkezést követő reggelen, előre egyeztetett időben érkezik. Ételérzékenységet vagy
+          A kosár {deliveryWindow} érkezik. Ételérzékenységet vagy
           különleges étkezési igényt kérünk előre jelezni.
         </p>
       </section>
@@ -140,7 +141,7 @@ const structuredData = [
         </div>
         <div class="breakfast-card breakfast-card--image">
           <Image src={servedBreakfastImage} alt="Tálalt reggeli a Dandelion teraszán, kilátással a vidékre" widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
-          <p>Az érkezést követő reggelre, házhoz szállítva.</p>
+          <p>{deliveryWindow}, házhoz szállítva.</p>
         </div>
       </section>
 
