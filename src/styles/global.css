@@ -437,10 +437,6 @@ main {
   background: currentColor;
 }
 
-.dnd-quick-contact {
-  display: none;
-}
-
 .dnd-btn {
   display: inline-flex;
   align-items: center;
@@ -1031,60 +1027,6 @@ video[autoplay][muted]::-webkit-media-controls-start-playback-button {
     width: 38px;
     height: 38px;
     flex: 0 0 38px;
-  }
-
-  .dnd-quick-contact {
-    display: none;
-  }
-
-  .dnd-quick-contact__toggle {
-    min-height: 36px;
-    padding: 0 12px;
-    border: 1px solid rgba(73, 52, 34, 0.16);
-    border-radius: 999px;
-    background: rgba(239, 228, 211, 0.96);
-    color: #2d241c;
-    box-shadow: 0 10px 24px rgba(49, 36, 22, 0.14);
-    font-size: var(--dnd-text-2xs);
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
-
-  .dnd-quick-contact__panel {
-    display: grid;
-    gap: 8px;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(8px);
-    transition: opacity 0.18s ease, transform 0.18s ease;
-  }
-
-  .dnd-quick-contact.is-open .dnd-quick-contact__panel {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-
-  .dnd-quick-contact__item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 7px;
-    min-height: 34px;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: rgba(253, 251, 247, 0.96);
-    color: #2d241c;
-    box-shadow: 0 10px 26px rgba(49, 36, 22, 0.12);
-    font-size: var(--dnd-text-2xs);
-    font-weight: 600;
-  }
-
-  .dnd-quick-contact__item span {
-    font-size: var(--dnd-text-2xs);
-    letter-spacing: 0.08em;
-    opacity: 0.62;
   }
 
   .dnd-mobile-menu {

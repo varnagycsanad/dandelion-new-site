@@ -1,0 +1,426 @@
+---
+interface Props {
+  lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
+}
+
+const { lang = "hu" } = Astro.props;
+const copyByLang = {
+  hu: {
+    groupLabel: "Gyors kapcsolat",
+    bookingButton: "Közvetlen foglalás!",
+    bookingAria: "Megéri nálunk foglalni – a közvetlen foglalás előnyei",
+    phone: "Telefon",
+    phoneAria: "Telefonálás a Dandelion Vendégházaknak",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Üzenet küldése WhatsAppon a Dandelion Vendégházaknak",
+    dialogClose: "Bezárás",
+    dialogKicker: "Közvetlen foglalás",
+    dialogTitle: "Megéri itt foglalni",
+    dialogLead: "A közvetlen foglalás előnyei:",
+    benefits: [
+      "A portálokhoz képest 8%-os árelőnyt kapsz a honlapon való közvetlen foglalással",
+      "Azonnali bankkártyás fizetés",
+      "Gyors, átlátható foglalási folyamat",
+      "Közvetlen kapcsolat a szállásadóval",
+      "Rugalmas ügyintézés"
+    ]
+  },
+  en: {
+    groupLabel: "Quick contact",
+    bookingButton: "Book direct!",
+    bookingAria: "Booking direct pays off – direct booking benefits",
+    phone: "Phone",
+    phoneAria: "Call Dandelion Guesthouses",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Message Dandelion Guesthouses on WhatsApp",
+    dialogClose: "Close",
+    dialogKicker: "Direct booking",
+    dialogTitle: "Booking direct is worth it",
+    dialogLead: "The benefits of booking direct:",
+    benefits: [
+      "You get the best rates when booking on our website",
+      "Instant card payment",
+      "Fast, transparent booking process",
+      "Direct contact with your host",
+      "Flexible assistance"
+    ]
+  },
+  de: {
+    groupLabel: "Schnellkontakt",
+    bookingButton: "Direkt buchen!",
+    bookingAria: "Direkt buchen lohnt sich – Vorteile der Direktbuchung",
+    phone: "Telefon",
+    phoneAria: "Dandelion Gästehäuser anrufen",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Dandelion Gästehäuser über WhatsApp schreiben",
+    dialogClose: "Schließen",
+    dialogKicker: "Direktbuchung",
+    dialogTitle: "Direkt buchen lohnt sich",
+    dialogLead: "Die Vorteile einer Direktbuchung:",
+    benefits: [
+      "Die besten Preise erhalten Sie bei einer Buchung über unsere Website",
+      "Sofortige Kartenzahlung",
+      "Schneller, transparenter Buchungsablauf",
+      "Direkter Kontakt mit dem Gastgeber",
+      "Flexible Abwicklung"
+    ]
+  },
+  cs: {
+    groupLabel: "Rychlý kontakt",
+    bookingButton: "Přímá rezervace!",
+    bookingAria: "Přímá rezervace se vyplatí – výhody přímé rezervace",
+    phone: "Telefon",
+    phoneAria: "Zavolat do Dandelion Guesthouses",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Napsat Dandelion Guesthouses na WhatsApp",
+    dialogClose: "Zavřít",
+    dialogKicker: "Přímá rezervace",
+    dialogTitle: "Přímá rezervace se vyplatí",
+    dialogLead: "Výhody přímé rezervace:",
+    benefits: [
+      "Nejlepší ceny získáte rezervací přímo na našem webu",
+      "Okamžitá platba kartou",
+      "Rychlý a přehledný rezervační proces",
+      "Přímý kontakt s hostitelem",
+      "Flexibilní vyřízení"
+    ]
+  },
+  sk: {
+    groupLabel: "Rýchly kontakt",
+    bookingButton: "Priama rezervácia!",
+    bookingAria: "Priama rezervácia sa oplatí – výhody priamej rezervácie",
+    phone: "Telefón",
+    phoneAria: "Zavolať do Dandelion Guesthouses",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Napísať Dandelion Guesthouses na WhatsApp",
+    dialogClose: "Zavrieť",
+    dialogKicker: "Priama rezervácia",
+    dialogTitle: "Priama rezervácia sa oplatí",
+    dialogLead: "Výhody priamej rezervácie:",
+    benefits: [
+      "Najlepšie ceny získate rezerváciou na našom webe",
+      "Okamžitá platba kartou",
+      "Rýchly a prehľadný rezervačný proces",
+      "Priamy kontakt s hostiteľom",
+      "Flexibilné vybavenie"
+    ]
+  },
+  pl: {
+    groupLabel: "Szybki kontakt",
+    bookingButton: "Rezerwuj bezpośrednio!",
+    bookingAria: "Rezerwacja bezpośrednia się opłaca – korzyści rezerwacji bezpośredniej",
+    phone: "Telefon",
+    phoneAria: "Zadzwoń do Dandelion Guesthouses",
+    whatsapp: "WhatsApp",
+    whatsappAria: "Napisz do Dandelion Guesthouses na WhatsApp",
+    dialogClose: "Zamknij",
+    dialogKicker: "Rezerwacja bezpośrednia",
+    dialogTitle: "Warto rezerwować bezpośrednio",
+    dialogLead: "Korzyści rezerwacji bezpośredniej:",
+    benefits: [
+      "Najlepsze ceny przy rezerwacji na naszej stronie",
+      "Natychmiastowa płatność kartą",
+      "Szybki i przejrzysty proces rezerwacji",
+      "Bezpośredni kontakt z gospodarzem",
+      "Elastyczna obsługa"
+    ]
+  }
+} as const;
+
+const copy = copyByLang[lang] ?? copyByLang.hu;
+---
+
+<nav class="dnd-mobile-quick-actions" aria-label={copy.groupLabel} data-dnd-mobile-quick-actions>
+  <button
+    class="dnd-mobile-quick-actions__button dnd-mobile-quick-actions__button--booking"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls="dnd-mobile-booking-dialog"
+    aria-expanded="false"
+    aria-label={copy.bookingAria}
+    data-dnd-mobile-booking-open
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L12 3Z" /></svg>
+    <span>{copy.bookingButton}</span>
+  </button>
+  <a class="dnd-mobile-quick-actions__button dnd-mobile-quick-actions__button--contact" href="tel:+36207730807" aria-label={copy.phoneAria}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.3 2.2Z" /></svg>
+    <span class="dnd-mobile-quick-actions__sr-only">{copy.phone}</span>
+  </a>
+  <a class="dnd-mobile-quick-actions__button dnd-mobile-quick-actions__button--contact" href="https://wa.me/36207730807" target="_blank" rel="noopener noreferrer" aria-label={copy.whatsappAria}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 20 5.4 16.5A8.2 8.2 0 1 1 8 19l-3.8 1Z" /><path d="M9.1 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.5.6c-.1.1-.1.3 0 .5.5.9 1.3 1.7 2.2 2.2.2.1.4.1.5 0l.7-.6c.2-.1.4-.2.6-.1l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1.2.5-1.9.4-3.4-.5-6.1-3.2-6.6-6.6-.1-.7.1-1.3.4-1.8Z" /></svg>
+    <span class="dnd-mobile-quick-actions__sr-only">{copy.whatsapp}</span>
+  </a>
+</nav>
+
+<dialog class="dnd-mobile-booking-dialog" id="dnd-mobile-booking-dialog" aria-labelledby="dnd-mobile-booking-dialog-title" aria-describedby="dnd-mobile-booking-dialog-lead" data-dnd-mobile-booking-dialog>
+  <div class="dnd-mobile-booking-dialog__card">
+    <button class="dnd-mobile-booking-dialog__close" type="button" aria-label={copy.dialogClose} data-dnd-mobile-booking-close>×</button>
+    <span class="dnd-mobile-booking-dialog__kicker">{copy.dialogKicker}</span>
+    <h2 id="dnd-mobile-booking-dialog-title">{copy.dialogTitle}</h2>
+    <p id="dnd-mobile-booking-dialog-lead">{copy.dialogLead}</p>
+    <ul>
+      {copy.benefits.map((benefit) => <li>{benefit}</li>)}
+    </ul>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    const setup = () => {
+      const quickActions = document.querySelector("[data-dnd-mobile-quick-actions]");
+      const openButton = document.querySelector("[data-dnd-mobile-booking-open]");
+      const dialog = document.querySelector("[data-dnd-mobile-booking-dialog]");
+      const closeButton = dialog?.querySelector("[data-dnd-mobile-booking-close]");
+
+      if (!(openButton instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) {
+        return;
+      }
+
+      const accommodationSections = Array.from(document.querySelectorAll(".d2-hero, .d2-intro"));
+
+      if (quickActions instanceof HTMLElement && accommodationSections.length > 0) {
+        quickActions.classList.add("is-deferred");
+        const syncAccommodationVisibility = () => {
+          const overlapsDecisionContent = accommodationSections.some((section) => {
+            const rect = section.getBoundingClientRect();
+            return rect.bottom > 80 && rect.top < window.innerHeight * 0.92;
+          });
+          quickActions.classList.toggle("is-deferred", overlapsDecisionContent);
+        };
+
+        syncAccommodationVisibility();
+        window.addEventListener("scroll", syncAccommodationVisibility, { passive: true });
+      }
+
+      let returnFocusElement = null;
+      const setExpanded = (expanded) => openButton.setAttribute("aria-expanded", String(expanded));
+      const closeDialog = () => {
+        if (dialog.open) {
+          dialog.close();
+        }
+        setExpanded(false);
+        returnFocusElement?.focus?.();
+        returnFocusElement = null;
+      };
+
+      openButton.addEventListener("click", () => {
+        returnFocusElement = document.activeElement;
+        dialog.showModal();
+        setExpanded(true);
+        closeButton?.focus?.();
+      });
+      closeButton?.addEventListener("click", closeDialog);
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) {
+          closeDialog();
+        }
+      });
+      dialog.addEventListener("close", () => {
+        setExpanded(false);
+        returnFocusElement?.focus?.();
+        returnFocusElement = null;
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setup, { once: true });
+    } else {
+      setup();
+    }
+  })();
+</script>
+
+<style>
+  .dnd-mobile-quick-actions {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .dnd-mobile-quick-actions {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .dnd-mobile-quick-actions.is-deferred {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(18px, 10px, 0);
+    }
+
+    .dnd-mobile-quick-actions__button {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 247, 216, 0.82);
+      border-radius: 50%;
+      color: #fff8e9;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(16, 13, 8, 0.24), inset 0 0 0 1px rgba(72, 46, 11, 0.28);
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .dnd-mobile-quick-actions__button:hover,
+    .dnd-mobile-quick-actions__button:focus-visible {
+      transform: translateY(-2px);
+      outline: 2px solid rgba(255, 247, 216, 0.96);
+      outline-offset: 3px;
+    }
+
+    .dnd-mobile-quick-actions__button--booking {
+      width: 76px;
+      height: 76px;
+      min-height: 0;
+      aspect-ratio: 1;
+      padding: 12px;
+      background: radial-gradient(circle at 35% 28%, rgba(255, 242, 192, 0.25), transparent 34%), linear-gradient(145deg, #d3a84d 0%, #ae7d2d 52%, #8d611f 100%);
+      font-family: var(--dnd-font-display);
+      font-size: 0.73rem;
+      line-height: 1.08;
+      text-align: center;
+    }
+
+    .dnd-mobile-quick-actions__button--booking svg {
+      width: 18px;
+      height: 18px;
+      margin-bottom: 3px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.35;
+    }
+
+    .dnd-mobile-quick-actions__button--contact {
+      width: 50px;
+      height: 50px;
+      background: rgba(52, 43, 34, 0.94);
+    }
+
+    .dnd-mobile-quick-actions__button--contact svg {
+      width: 21px;
+      height: 21px;
+      fill: none;
+      stroke: #fff8e9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.45;
+    }
+
+    .dnd-mobile-booking-dialog {
+      width: min(348px, calc(100% - 32px));
+      max-width: calc(100% - 32px);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #2d241c;
+    }
+
+    .dnd-mobile-booking-dialog::backdrop {
+      background: rgba(20, 16, 10, 0.58);
+      backdrop-filter: blur(3px);
+    }
+
+    .dnd-mobile-booking-dialog__card {
+      position: relative;
+      padding: 24px 26px 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 247, 216, 0.72);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 247, 215, 0.98) 0%, rgba(244, 210, 119, 0.98) 58%, rgba(211, 161, 55, 0.98) 100%);
+      box-shadow: 0 18px 44px rgba(16, 13, 8, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .dnd-mobile-booking-dialog__kicker {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(45, 36, 28, 0.68);
+    }
+
+    .dnd-mobile-booking-dialog h2 {
+      margin: 0;
+      padding-right: 28px;
+      font-family: var(--dnd-font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .dnd-mobile-booking-dialog p {
+      margin: 10px 0 12px;
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .dnd-mobile-booking-dialog ul {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .dnd-mobile-booking-dialog li {
+      position: relative;
+      padding: 8px 0 8px 18px;
+      border-top: 1px solid rgba(45, 36, 28, 0.16);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .dnd-mobile-booking-dialog li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      color: rgba(109, 72, 18, 0.82);
+    }
+
+    .dnd-mobile-booking-dialog__close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(45, 36, 28, 0.2);
+      border-radius: 50%;
+      background: rgba(255, 247, 215, 0.4);
+      color: #2d241c;
+      font: 400 1.35rem/1 var(--dnd-font-body);
+      cursor: pointer;
+    }
+
+    .dnd-mobile-booking-dialog__close:hover,
+    .dnd-mobile-booking-dialog__close:focus-visible {
+      background: rgba(255, 247, 215, 0.78);
+      outline: 2px solid rgba(112, 75, 18, 0.48);
+      outline-offset: 2px;
+    }
+  }
+
+  .dnd-mobile-quick-actions__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

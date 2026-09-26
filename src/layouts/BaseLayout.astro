@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { accommodations } from "../data/accommodations";
 import SiteFooter from "../components/SiteFooter.astro";
+import MobileQuickActions from "../components/MobileQuickActions.astro";
 import {
   SITE_DEFAULT_DESCRIPTION,
   SITE_DEFAULT_DESCRIPTION_DE,
@@ -269,18 +270,6 @@ const schemaScripts = [
     }
   },
   ...structuredDataItems
-];
-
-const quickContacts = [
-  { label: isEnglishPage ? "Phone" : isSlovakPage ? "Telefón" : "Telefon", href: "tel:+36207730807", shortLabel: "TEL" },
-  {
-    label: "E-mail",
-    href: contactPageHref,
-    shortLabel: "MAIL",
-    emailLocalPart,
-    emailDomain
-  },
-  { label: "WhatsApp", href: "https://wa.me/36207730807", shortLabel: "WA" }
 ];
 
 const bookingLanguage = isEnglishPage || isGermanPage || isCzechPage || isSlovakPage ? "En" : "Hu";
@@ -1155,24 +1144,7 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
 
     {!hideFooter && <SiteFooter lang={lang} bookingHrefOverride={bookingHrefOverride} />}
 
-    {!hideHeader && <div class="dnd-quick-contact" data-dnd-quick-contact>
-      <div class="dnd-quick-contact__panel" data-dnd-quick-contact-panel>
-        {quickContacts.map((item) => (
-          <a
-            href={item.href}
-            class="dnd-quick-contact__item"
-            data-mailto-local={item.emailLocalPart}
-            data-mailto-domain={item.emailDomain}
-          >
-            <span>{item.shortLabel}</span>
-            {item.label}
-          </a>
-        ))}
-      </div>
-      <button class="dnd-quick-contact__toggle" type="button" aria-label={headerText.quickContactOpenAria} aria-expanded="false" data-dnd-quick-contact-toggle>
-        {headerText.quickContactLabel}
-      </button>
-    </div>}
+    {!hideHeader && <MobileQuickActions lang={lang} />}
     <!--/email_off-->
 
     <script>
@@ -1208,8 +1180,6 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
           const languageToggle = document.querySelector("[data-dnd-language-toggle]");
           const languagePopover = document.querySelector("[data-dnd-language-popover]");
           const mobileMenu = document.querySelector("[data-dnd-mobile-menu]");
-          const quickContact = document.querySelector("[data-dnd-quick-contact]");
-          const quickContactToggle = document.querySelector("[data-dnd-quick-contact-toggle]");
 
           if (!header) {
             return;
@@ -1270,10 +1240,6 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
             languagePopover?.setAttribute("data-open", String(isOpen));
           });
 
-          quickContactToggle?.addEventListener("click", () => {
-            const isOpen = quickContact?.classList.toggle("is-open") ?? false;
-            quickContactToggle.setAttribute("aria-expanded", String(isOpen));
-          });
         };
 
         const playAutoplayVideo = (video) => {
