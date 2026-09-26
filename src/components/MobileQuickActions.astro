@@ -141,7 +141,7 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     data-dnd-mobile-booking-open
   >
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L12 3Z" /></svg>
-    <span>{copy.bookingButton}</span>
+    <span class="dnd-mobile-quick-actions__sr-only">{copy.bookingButton}</span>
   </button>
   <a class="dnd-mobile-quick-actions__button dnd-mobile-quick-actions__button--contact" href="tel:+36207730807" aria-label={copy.phoneAria}>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.3 2.2Z" /></svg>
@@ -168,29 +168,12 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
 <script is:inline>
   (() => {
     const setup = () => {
-      const quickActions = document.querySelector("[data-dnd-mobile-quick-actions]");
       const openButton = document.querySelector("[data-dnd-mobile-booking-open]");
       const dialog = document.querySelector("[data-dnd-mobile-booking-dialog]");
       const closeButton = dialog?.querySelector("[data-dnd-mobile-booking-close]");
 
       if (!(openButton instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) {
         return;
-      }
-
-      const accommodationSections = Array.from(document.querySelectorAll(".d2-hero, .d2-intro"));
-
-      if (quickActions instanceof HTMLElement && accommodationSections.length > 0) {
-        quickActions.classList.add("is-deferred");
-        const syncAccommodationVisibility = () => {
-          const overlapsDecisionContent = accommodationSections.some((section) => {
-            const rect = section.getBoundingClientRect();
-            return rect.bottom > 80 && rect.top < window.innerHeight * 0.92;
-          });
-          quickActions.classList.toggle("is-deferred", overlapsDecisionContent);
-        };
-
-        syncAccommodationVisibility();
-        window.addEventListener("scroll", syncAccommodationVisibility, { passive: true });
       }
 
       let returnFocusElement = null;
@@ -245,14 +228,8 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 10px;
+      gap: 8px;
       pointer-events: none;
-    }
-
-    .dnd-mobile-quick-actions.is-deferred {
-      opacity: 0;
-      pointer-events: none;
-      transform: translate3d(18px, 10px, 0);
     }
 
     .dnd-mobile-quick-actions__button {
@@ -276,23 +253,18 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     }
 
     .dnd-mobile-quick-actions__button--booking {
-      width: 76px;
-      height: 76px;
+      width: 48px;
+      height: 48px;
       min-height: 0;
       aspect-ratio: 1;
-      padding: 12px;
+      padding: 0;
       background: radial-gradient(circle at 35% 28%, rgba(255, 242, 192, 0.25), transparent 34%), linear-gradient(145deg, #d3a84d 0%, #ae7d2d 52%, #8d611f 100%);
-      font-family: var(--dnd-font-display);
-      font-size: 0.73rem;
-      line-height: 1.08;
-      text-align: center;
     }
 
     .dnd-mobile-quick-actions__button--booking svg {
-      width: 18px;
-      height: 18px;
-      margin-bottom: 3px;
-      fill: none;
+      width: 20px;
+      height: 20px;
+      fill: rgba(255, 248, 233, 0.16);
       stroke: currentColor;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -300,14 +272,14 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     }
 
     .dnd-mobile-quick-actions__button--contact {
-      width: 50px;
-      height: 50px;
-      background: rgba(52, 43, 34, 0.94);
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, #677257 0%, #4f5b47 100%);
     }
 
     .dnd-mobile-quick-actions__button--contact svg {
-      width: 21px;
-      height: 21px;
+      width: 20px;
+      height: 20px;
       fill: none;
       stroke: #fff8e9;
       stroke-linecap: round;
