@@ -112,7 +112,7 @@ export const d2PageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Két hálószobás és nappalis ház Panoráma medence használattal",
+    title: "Két hálószobás és nappalis ház fedett terasszal",
     shortDescription:
       "A D2 egy önálló, családias vendégház fedett terasszal, nagy udvarral és kényelmes közös terekkel. Jó választás, ha a balatoni programok mellé nyugodt bázist szeretnétek, ahol este is van hova visszaérni.",
     highlights: ["Gigabites WIFI", "Légkondi", "Ventilátor", "Jól felszerelt konyha", "Modern fürdőszoba"],

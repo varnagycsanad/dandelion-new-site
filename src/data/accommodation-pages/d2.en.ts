@@ -90,7 +90,7 @@ export const d2EnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "A two-bedroom house with a living room and Panorama Pool access",
+    title: "A two-bedroom family house with a covered terrace",
     shortDescription:
       "D2 is a standalone, family-friendly guesthouse with a covered terrace, a large garden and comfortable shared spaces. It is a good choice if you want a calm base for Balaton days, with somewhere easy to return to in the evening.",
     highlights: ["Gigabit Wi-Fi", "Air conditioning", "Fan", "Well-equipped kitchen", "Modern bathroom"],

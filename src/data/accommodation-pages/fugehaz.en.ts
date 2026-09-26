@@ -79,7 +79,7 @@ export const fugehazEnglishPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Fügeház",
-    title: "Terraces, countryside views and a Panorama Pool",
+    title: "Terraces, countryside views and quiet mornings",
     shortDescription:
       "A comfortable guesthouse for 4 guests, extendable with an extra bed for up to 6 guests, with terraces, outdoor dining and access to the Panorama Pool.",
     supportingLink: {

@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import breakfastBasketHeroImage from "../assets/pages/reggeli-kosar/reggeli-kosar-hero.webp";
 import breakfastBasketExperienceImage from "../assets/pages/reggeli-kosar/reggeli-kosar-experience.webp";
 import type {
   AccommodationPageData,
@@ -637,7 +638,8 @@ function buildDefaultExperienceCta(stayLabel: string, locale: AccommodationPageL
 
 function buildBreakfastBasketCta(stayLabel: string, locale: AccommodationPageLocale): AccommodationPageExperienceCta {
   const isFugehaz = stayLabel.includes("Fügeház");
-  const image = breakfastBasketExperienceImage.src;
+  const imageAsset = isFugehaz ? breakfastBasketExperienceImage : breakfastBasketHeroImage;
+  const image = imageAsset.src;
   const hrefByLocale: Record<AccommodationPageLocale, string> = {
     hu: "/reggeli-kosar/",
     en: "/en/breakfast-basket/",
@@ -650,35 +652,35 @@ function buildBreakfastBasketCta(stayLabel: string, locale: AccommodationPageLoc
     hu: {
       eyebrow: "Külön rendelhető",
       title: "Reggeli kosár az első reggelhez",
-      text: isFugehaz ? "Panorámás teraszon, lassú első reggelhez kérhető reggeli kosár." : "Családias első reggelhez, a fedett teraszon is élvezhető reggeli kosár.",
+      text: isFugehaz ? "A panorámás teraszon is kérhettek reggeli kosarat a lassú, első reggelhez." : "A fedett teraszon is élvezhetitek a külön rendelhető reggeli kosarat az első családi reggelen.",
       ctaLabel: "Reggeli kosár részletei",
       alt: "Tálalt reggeli a Dandelion teraszán"
     },
     en: {
       eyebrow: "Available to order separately",
       title: "A breakfast basket for your first morning",
-      text: isFugehaz ? "A breakfast basket for a slow first morning on the panoramic terrace." : "A breakfast basket for a family first morning, easy to enjoy on the covered terrace.",
+      text: isFugehaz ? "Order a breakfast basket for a slow first morning on the panoramic terrace." : "Order a breakfast basket for a relaxed family morning on the covered terrace.",
       ctaLabel: "Breakfast basket details",
       alt: "A served breakfast on the Dandelion terrace"
     },
     de: {
       eyebrow: "Separat bestellbar",
       title: "Ein Frühstückskorb für den ersten Morgen",
-      text: isFugehaz ? "Ein Frühstückskorb für einen langsamen ersten Morgen auf der Panoramaterrasse." : "Ein Frühstückskorb für einen familiären ersten Morgen, auch auf der überdachten Terrasse.",
+      text: isFugehaz ? "Bestellen Sie einen Frühstückskorb für einen langsamen ersten Morgen auf der Panoramaterrasse." : "Bestellen Sie einen Frühstückskorb für einen entspannten Familienmorgen auf der überdachten Terrasse.",
       ctaLabel: "Details zum Frühstückskorb",
       alt: "Serviertes Frühstück auf der Dandelion-Terrasse"
     },
     cs: {
       eyebrow: "Lze objednat samostatně",
       title: "Snídaňový košík na první ráno",
-      text: isFugehaz ? "Snídaňový košík pro pomalé první ráno na panoramatické terase." : "Snídaňový košík pro první rodinné ráno, který si užijete i na kryté terase.",
+      text: isFugehaz ? "Objednejte si snídaňový košík pro pomalé první ráno na panoramatické terase." : "Objednejte si snídaňový košík pro klidné rodinné ráno na kryté terase.",
       ctaLabel: "Podrobnosti o košíku",
       alt: "Servírovaná snídaně na terase Dandelion"
     },
     sk: {
       eyebrow: "Dá sa objednať samostatne",
       title: "Raňajkový košík na prvé ráno",
-      text: isFugehaz ? "Raňajkový košík pre pomalé prvé ráno na panoramatickej terase." : "Raňajkový košík na rodinné prvé ráno, ktorý si užijete aj na krytej terase.",
+      text: isFugehaz ? "Objednajte si raňajkový košík na pomalé prvé ráno na panoramatickej terase." : "Objednajte si raňajkový košík na pokojné rodinné ráno na krytej terase.",
       ctaLabel: "Podrobnosti o košíku",
       alt: "Servírované raňajky na terase Dandelion"
     }
@@ -691,7 +693,7 @@ function buildBreakfastBasketCta(stayLabel: string, locale: AccommodationPageLoc
     text: copy.text,
     href: hrefByLocale[locale],
     ctaLabel: copy.ctaLabel,
-    image: { src: image, alt: copy.alt, width: 1800, height: 1350 }
+    image: { src: image, alt: copy.alt, width: imageAsset.width, height: imageAsset.height }
   };
 }
 
@@ -1204,7 +1206,7 @@ const accommodationStructuredData = [
   </section>
 
   {canRenderPoolLiveBlock && (
-    <section class="d2-pool-transition" aria-labelledby="d2-pool-transition-title">
+    <section class="d2-pool-transition d2-pool-transition--with-live" aria-labelledby="d2-pool-transition-title">
       <div class="dnd-container d2-pool-transition__inner">
         <div class="d2-pool-transition__copy">
           <span class="dnd-section-kicker">{templateText.poolBlockEyebrow}</span>
@@ -1218,13 +1220,6 @@ const accommodationStructuredData = [
             <a href={pageData.hero.poolHighlight.href}>{templateText.poolBlockCtaLabel}</a>
           )}
         </div>
-      </div>
-    </section>
-  )}
-
-  {canRenderPoolLiveBlock && (
-    <section class="d2-pool-live" aria-labelledby="d2-pool-live-title">
-      <div class="dnd-container d2-pool-live__inner">
         <div class="d2-pool-live__panel" aria-live="polite" data-d2-pool-measurements>
           <div class="d2-pool-live__panel-heading">
             <span class="d2-pool-live__eyebrow">{templateText.poolBlockEyebrow}</span>

@@ -98,7 +98,7 @@ export const fugehazPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Fügeház",
-    title: "Családi pihenés teraszokkal és panorámás medencével",
+    title: "Családi pihenés panorámás teraszokkal",
     shortDescription:
       "4 főre kényelmes, pótággyal bővíthető ház panorámás teraszokkal, grillezési lehetőséggel és Panorama Pool használattal.",
     longDescription: [

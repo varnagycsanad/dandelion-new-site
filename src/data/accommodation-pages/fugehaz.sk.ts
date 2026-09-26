@@ -9,6 +9,7 @@ export const fugehazSlovakPageData = createSlovakAccommodationPage(fugehazEnglis
   location: "Szent György-hegy / Kisapáti",
   region: "Szent György-hegy - Balatonská vrchovina",
   guests: "4-6 hostí",
+  detailTitle: "Panoramatický dom s terasami a pokojnými ránami",
   character: "PANORAMATICKÝ DOM NA POKOJNÝ RODINNÝ POBYT",
   shortDescription: "Panoramatický dom s terasami a pokojnou polohou pri Szent György-hegy.",
   lead: "Fügeház je pre hostí, ktorí chcú výhľady, terasy, pokoj a cítiť krajinu okolo seba. Dobre funguje pre rodinu aj menšiu skupinu.",

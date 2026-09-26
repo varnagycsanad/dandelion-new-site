@@ -89,7 +89,7 @@ export const d2GermanPageData: AccommodationPageData = {
   },
   details: {
     kicker: "Dandelion D2",
-    title: "Haus mit zwei Schlafzimmern, Wohnzimmer und Zugang zum Panorama Pool",
+    title: "Familienhaus mit zwei Schlafzimmern und überdachter Terrasse",
     shortDescription:
       "D2 ist ein eigenständiges, familienfreundliches Gästehaus mit überdachter Terrasse, großem Garten und bequemen Gemeinschaftsbereichen. Eine gute Wahl, wenn Sie für Balaton-Tage eine ruhige Basis suchen, zu der Sie abends gern zurückkehren.",
     highlights: ["Gigabit-WLAN", "Klimaanlage", "Ventilator", "Gut ausgestattete Küche", "Modernes Badezimmer"],

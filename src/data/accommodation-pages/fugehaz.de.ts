@@ -10,6 +10,7 @@ export const fugehazGermanPageData = createGermanAccommodationPage(fugehazEnglis
   location: "Szent György-hegy",
   region: "Balaton-Oberland - Panorama",
   guests: "4-6 Gäste",
+  detailTitle: "Panoramahaus mit Terrassen und ruhigen Morgen",
   character: "Panoramahaus mit Terrassen und ruhiger Lage",
   shortDescription: "Ruhiges Panoramahaus für 4-6 Gäste bei Szent György-hegy, mit Terrassen und Zugang zum Panorama Pool.",
   lead:
