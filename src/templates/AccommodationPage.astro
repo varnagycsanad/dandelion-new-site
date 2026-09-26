@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import breakfastBasketExperienceImage from "../assets/pages/reggeli-kosar/reggeli-kosar-experience.webp";
 import type {
   AccommodationPageData,
   AccommodationPageExperienceCta,
@@ -624,13 +625,73 @@ function buildDefaultExperienceCta(stayLabel: string, locale: AccommodationPageL
   return {
     eyebrow: "Balatoni-felvidéki élmények",
     title: "Programok, bringatúrák és helyi tippek",
-    text: `Nézd meg, merre induljatok a ${stayLabel}-ből: kerékpár, tanúhegyek, borászatok és balatoni napok egy helyen.`,
+    text: `Nézd meg, merre induljatok a ${stayLabel.includes("Fügeház") ? "Fügeházból" : `${stayLabel}-ből`}: kerékpár, tanúhegyek, borászatok és balatoni napok egy helyen.`,
     href: "/elmenyek/",
     ctaLabel: "Élmények megnyitása",
     image: {
       ...commonImage,
       alt: "Kerékpárok szőlősorok mellett a Balaton-felvidéken"
     }
+  };
+}
+
+function buildBreakfastBasketCta(stayLabel: string, locale: AccommodationPageLocale): AccommodationPageExperienceCta {
+  const isFugehaz = stayLabel.includes("Fügeház");
+  const image = breakfastBasketExperienceImage.src;
+  const hrefByLocale: Record<AccommodationPageLocale, string> = {
+    hu: "/reggeli-kosar/",
+    en: "/en/breakfast-basket/",
+    de: "/de/fruehstueckskorb/",
+    cs: "/cs/snidanovy-kosik/",
+    sk: "/sk/ranajkovy-kosik/"
+  };
+
+  const copyByLocale: Record<AccommodationPageLocale, { eyebrow: string; title: string; text: string; ctaLabel: string; alt: string }> = {
+    hu: {
+      eyebrow: "Külön rendelhető",
+      title: "Reggeli kosár az első reggelhez",
+      text: isFugehaz ? "Panorámás teraszon, lassú első reggelhez kérhető reggeli kosár." : "Családias első reggelhez, a fedett teraszon is élvezhető reggeli kosár.",
+      ctaLabel: "Reggeli kosár részletei",
+      alt: "Tálalt reggeli a Dandelion teraszán"
+    },
+    en: {
+      eyebrow: "Available to order separately",
+      title: "A breakfast basket for your first morning",
+      text: isFugehaz ? "A breakfast basket for a slow first morning on the panoramic terrace." : "A breakfast basket for a family first morning, easy to enjoy on the covered terrace.",
+      ctaLabel: "Breakfast basket details",
+      alt: "A served breakfast on the Dandelion terrace"
+    },
+    de: {
+      eyebrow: "Separat bestellbar",
+      title: "Ein Frühstückskorb für den ersten Morgen",
+      text: isFugehaz ? "Ein Frühstückskorb für einen langsamen ersten Morgen auf der Panoramaterrasse." : "Ein Frühstückskorb für einen familiären ersten Morgen, auch auf der überdachten Terrasse.",
+      ctaLabel: "Details zum Frühstückskorb",
+      alt: "Serviertes Frühstück auf der Dandelion-Terrasse"
+    },
+    cs: {
+      eyebrow: "Lze objednat samostatně",
+      title: "Snídaňový košík na první ráno",
+      text: isFugehaz ? "Snídaňový košík pro pomalé první ráno na panoramatické terase." : "Snídaňový košík pro první rodinné ráno, který si užijete i na kryté terase.",
+      ctaLabel: "Podrobnosti o košíku",
+      alt: "Servírovaná snídaně na terase Dandelion"
+    },
+    sk: {
+      eyebrow: "Dá sa objednať samostatne",
+      title: "Raňajkový košík na prvé ráno",
+      text: isFugehaz ? "Raňajkový košík pre pomalé prvé ráno na panoramatickej terase." : "Raňajkový košík na rodinné prvé ráno, ktorý si užijete aj na krytej terase.",
+      ctaLabel: "Podrobnosti o košíku",
+      alt: "Servírované raňajky na terase Dandelion"
+    }
+  };
+
+  const copy = copyByLocale[locale];
+  return {
+    eyebrow: copy.eyebrow,
+    title: copy.title,
+    text: copy.text,
+    href: hrefByLocale[locale],
+    ctaLabel: copy.ctaLabel,
+    image: { src: image, alt: copy.alt, width: 1800, height: 1350 }
   };
 }
 
@@ -719,6 +780,15 @@ const amenityItems =
       }));
 const stayLabel = `${pageData.hero.title} ${pageData.hero.titleAccent}`.replace(/\s+/g, " ").trim();
 const experienceCta = decisionPanel?.experienceCta ?? buildDefaultExperienceCta(stayLabel, lang);
+const breakfastBasketCta = ["D2", "Fügeház"].includes(pageData.hero.titleAccent)
+  ? buildBreakfastBasketCta(stayLabel, lang)
+  : null;
+const localizedPoolBlockTitle = lang === "en" && pageData.hero.titleAccent === "Fügeház"
+  ? "Fügeház stay with pool access"
+  : templateText.poolBlockTitle;
+const localizedPoolBlockIntro = lang === "en" && pageData.hero.titleAccent === "Fügeház"
+  ? "With a Fügeház stay, the shared Panorama Pool is available in season. Check the current water temperature and outdoor values before heading for a swim."
+  : templateText.poolBlockIntro;
 const detailHighlights =
   pageData.details.highlights && pageData.details.highlights.length > 0
     ? pageData.details.highlights
@@ -1138,8 +1208,8 @@ const accommodationStructuredData = [
       <div class="dnd-container d2-pool-transition__inner">
         <div class="d2-pool-transition__copy">
           <span class="dnd-section-kicker">{templateText.poolBlockEyebrow}</span>
-          <h2 id="d2-pool-transition-title">{templateText.poolBlockTitle}</h2>
-          <p>{templateText.poolBlockIntro}</p>
+          <h2 id="d2-pool-transition-title">{localizedPoolBlockTitle}</h2>
+          <p>{localizedPoolBlockIntro}</p>
         </div>
         <div class="d2-pool-transition__aside">
           <span>{templateText.poolIncludedLabel}</span>
@@ -1536,6 +1606,26 @@ const accommodationStructuredData = [
                 ))}
               </div>
             </section>
+          )}
+
+          {breakfastBasketCta && (
+            <a class="d2-experience-cta d2-breakfast-cta" href={breakfastBasketCta.href}>
+              <span class="d2-experience-cta__media">
+                <img
+                  src={breakfastBasketCta.image.src}
+                  alt={breakfastBasketCta.image.alt}
+                  width={breakfastBasketCta.image.width}
+                  height={breakfastBasketCta.image.height}
+                  loading="lazy"
+                />
+              </span>
+              <span class="d2-experience-cta__copy">
+                {breakfastBasketCta.eyebrow && <span class="d2-experience-cta__eyebrow">{breakfastBasketCta.eyebrow}</span>}
+                <strong>{breakfastBasketCta.title}</strong>
+                {breakfastBasketCta.text && <span class="d2-experience-cta__text">{breakfastBasketCta.text}</span>}
+                <span class="d2-experience-cta__link">{breakfastBasketCta.ctaLabel}</span>
+              </span>
+            </a>
           )}
 
           {amenityItems.length > 0 && (
@@ -5540,5 +5630,3 @@ const accommodationStructuredData = [
     }
   }
 </style>
-
-
