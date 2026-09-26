@@ -4,78 +4,122 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import breakfastBasketImage from "../assets/pages/reggeli-kosar/reggeli-kosar-hero.webp";
 import servedBreakfastImage from "../assets/pages/reggeli-kosar/reggeli-kosar-experience.webp";
 
-const canonicalPath = "/reggeli-kosar/";
-const deliveryWindow = "az érkezést követő reggelen, 8 és 9 óra között";
-const breakfastItems = [
-  "füstölt szalonna és kolbász",
-  "sonka és szalámi",
-  "körözött és fügelekvár",
-  "májkrém",
-  "friss gyümölcs és zöldség",
-  "tea és főtt tojás",
-  "friss pékáru és kemencés kenyér",
-  "gyümölcsjoghurt, tej, vaj és sajt"
-];
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
+  canonicalPath?: string;
+}
 
-const faqItems = [
-  {
-    question: "Melyik Dandelion vendégházban lehet reggeli kosarat rendelni?",
-    answer: "A reggeli kosár a D2 és a Fügeház vendégeinek rendelhető."
+const { lang = "hu", canonicalPath = "/reggeli-kosar/" } = Astro.props;
+
+const breakfastCopy = {
+  hu: {
+    title: "Reggeli kosár | Dandelion Vendégházak",
+    description: "Érkezés utáni reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között.",
+    home: "Főoldal",
+    name: "Reggeli kosár",
+    serviceName: "Dandelion reggeli kosár",
+    serviceType: "Érkezés utáni reggeli kiszállítás 8 és 9 óra között",
+    areaServed: "D2 és Fügeház vendégei",
+    serviceDescription: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között.",
+    deliveryWindow: "az érkezést követő reggelen, 8 és 9 óra között",
+    heroEyebrow: "Reggeli a szálláson",
+    heroTitle: "Reggeli kosár a D2 és a Fügeház vendégeinek.",
+    heroText: "Helyi ízekből összeállított reggeli kosár, amelyet az érkezést követő reggelen, 8 és 9 óra között a házhoz szállítunk.",
+    pricingCta: "Árak és részletek",
+    contentsCta: "Mi kerül a kosárba?",
+    heroAlt: "Gondosan összeállított Dandelion reggeli kosár friss élelmiszerekkel",
+    heroAria: "Reggeli hangulat a Dandelionnál",
+    introEyebrow: "Egy lassú reggelhez",
+    introTitle: "Reggeli az első reggelen, közvetlenül a szálláson.",
+    introText: "A kosár az érkezést követő reggelen, 8 és 9 óra között érkezik. Ételérzékenységet vagy különleges étkezési igényt kérünk előre jelezni.",
+    contentsEyebrow: "A kosár tartalma",
+    contentsTitle: "Ismerős ízek, tartalmas reggeli.",
+    items: ["füstölt szalonna és kolbász", "sonka és szalámi", "körözött és fügelekvár", "májkrém", "friss gyümölcs és zöldség", "tea és főtt tojás", "friss pékáru és kemencés kenyér", "gyümölcsjoghurt, tej, vaj és sajt"],
+    servedAlt: "Tálalt reggeli a Dandelion teraszán, kilátással a vidékre",
+    servedText: "házhoz szállítva.",
+    pricingEyebrow: "Árlogika",
+    pricingTitle: "Ki mennyit fizet?",
+    minimum: "Minimum 2 főre és minimum 2 napra kérhető.",
+    freeChild: "0–5 éves gyermek",
+    freeChildNote: "Külön bébi- vagy csecsemőételt nem biztosítunk.",
+    free: "Ingyenes",
+    child: "6–13 éves gyermek",
+    adult: "14 éves kortól",
+    forTwo: "2 fő esetén",
+    fromThree: "3 főtől",
+    adultPriceTwo: "3 500 Ft/fő/nap",
+    adultPriceThree: "3 000 Ft/fő/nap",
+    childPrice: "2 000 Ft/fő/nap",
+    exampleEyebrow: "Nézzük meg egy példán",
+    exampleTitle: "2 felnőtt + 1 gyermek",
+    age: "6–13 év",
+    adults: "2 felnőtt",
+    adultsCalculation: "2 × 3 000 Ft = 6 000 Ft/nap",
+    oneChild: "1 gyermek",
+    childCalculation: "2 000 Ft/nap",
+    total: "Összesen",
+    totalPrice: "8 000 Ft/nap",
+    minimumTotal: "Minimum 2 napra: 16 000 Ft összesen.",
+    staysEyebrow: "Válassz szállást",
+    staysTitle: "Csak a D2 és a Fügeház vendégeinek.",
+    d2Link: "Dandelion D2 részletei",
+    fugeLink: "Fügeház részletei",
+    noteAria: "Előzetes egyeztetés",
+    note: "Érdeklődnél vagy rendelnél? Írj nekünk a részletekért.",
+    contact: "Érdeklődés és rendelés",
+    contactHref: "/kapcsolat/",
+    faqEyebrow: "Segítünk tervezni",
+    faqTitle: "Gyakori kérdések a Dandelion reggeli kosárról",
+    faqItems: [
+      ["Melyik Dandelion vendégházban lehet reggeli kosarat rendelni?", "A reggeli kosár a D2 és a Fügeház vendégeinek rendelhető."],
+      ["Mennyibe kerül a reggeli kosár?", "Két fő esetén 3 500 Ft/fő/nap, három főtől 3 000 Ft/fő/nap a felnőttár. A 6–13 éves gyermekek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."],
+      ["Mennyibe kerül a reggeli 2 felnőtt és 1 gyermek számára?", "A két felnőtt 3 000 Ft/fő/nap, a 6–13 éves gyermek 2 000 Ft/nap, összesen 8 000 Ft/nap."],
+      ["Van minimum rendelési mennyiség?", "Igen, minimum 2 főre és minimum 2 napra rendelhető."],
+      ["Mit jelent a 2 főre, 2 napra rendelt reggeli kosár?", "Két személy két reggelijét; két fő esetén ez minimum 14 000 Ft összesen."],
+      ["Mikor kapjuk meg a reggeli kosarat?", "Az érkezést követő reggelen, 8 és 9 óra között, házhoz szállítva érkezik."],
+      ["Mit tartalmaz a Dandelion reggeli kosár?", "Húsféléket, tejtermékeket, tojást, friss zöldséget és gyümölcsöt, pékárut, kemencés kenyeret és teát. A részletes tartalmat a kosár listája mutatja."],
+      ["Gyermekeknek is rendelhető reggeli?", "Igen. A 6–13 éves gyermek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."],
+      ["Biztosítotok bébiételt vagy csecsemőételt?", "Nem, külön bébi- vagy csecsemőételt nem biztosítunk."],
+      ["Ételérzékenység esetén lehet reggeli kosarat kérni?", "Igen, de az ételérzékenységet vagy különleges étkezési igényt előre jelezni kell, hogy egyeztethessünk."]
+    ]
   },
-  {
-    question: "Mennyibe kerül a reggeli kosár?",
-    answer: "Két fő esetén 3 500 Ft/fő/nap, három főtől 3 000 Ft/fő/nap a felnőttár. A 6–13 éves gyermekek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."
+  en: {
+    title: "Breakfast Basket | Dandelion Guesthouses",
+    description: "A locally sourced breakfast basket delivered to Dandelion D2 and Fügeház guests between 8 and 9 am on the morning after arrival.",
+    home: "Home", name: "Breakfast basket", serviceName: "Dandelion breakfast basket", serviceType: "Breakfast delivery between 8 and 9 am after arrival", areaServed: "Guests staying at D2 and Fügeház", serviceDescription: "A locally sourced breakfast basket delivered to Dandelion D2 and Fügeház guests between 8 and 9 am on the morning after arrival.", deliveryWindow: "between 8 and 9 am on the morning after arrival", heroEyebrow: "Breakfast at your guesthouse", heroTitle: "A breakfast basket for D2 and Fügeház guests.", heroText: "A breakfast basket filled with local flavours, delivered to your accommodation between 8 and 9 am on the morning after arrival.", pricingCta: "Prices and details", contentsCta: "What is in the basket?", heroAlt: "A carefully prepared Dandelion breakfast basket with fresh ingredients", heroAria: "Breakfast at Dandelion", introEyebrow: "For a slower morning", introTitle: "Breakfast on your first morning, right at your accommodation.", introText: "Your basket arrives between 8 and 9 am on the morning after arrival. Please let us know in advance about food allergies or special dietary needs.", contentsEyebrow: "Basket contents", contentsTitle: "Familiar flavours, a generous breakfast.", items: ["smoked bacon and sausage", "ham and salami", "körözött cheese spread and fig jam", "liver pâté", "fresh fruit and vegetables", "tea and boiled eggs", "fresh pastries and oven-baked bread", "fruit yoghurt, milk, butter and cheese"], servedAlt: "A served breakfast on the Dandelion terrace overlooking the countryside", servedText: "delivered to your accommodation.", pricingEyebrow: "Pricing", pricingTitle: "What does it cost?", minimum: "Available for a minimum of 2 people and 2 days.", freeChild: "Child aged 0–5", freeChildNote: "We do not provide separate baby food or infant meals.", free: "Free", child: "Child aged 6–13", adult: "From age 14", forTwo: "For 2 people", fromThree: "From 3 people", adultPriceTwo: "3,500 HUF/person/day", adultPriceThree: "3,000 HUF/person/day", childPrice: "2,000 HUF/person/day", exampleEyebrow: "An example", exampleTitle: "2 adults + 1 child", age: "age 6–13", adults: "2 adults", adultsCalculation: "2 × 3,000 HUF = 6,000 HUF/day", oneChild: "1 child", childCalculation: "2,000 HUF/day", total: "Total", totalPrice: "8,000 HUF/day", minimumTotal: "For the 2-day minimum: 16,000 HUF in total.", staysEyebrow: "Choose your stay", staysTitle: "Available only to D2 and Fügeház guests.", d2Link: "Dandelion D2 details", fugeLink: "Fügeház details", noteAria: "Advance arrangement", note: "Would you like to ask or order? Write to us for details.", contact: "Enquiries and orders", contactHref: "/en/contact/", faqEyebrow: "Planning made easier", faqTitle: "Frequently asked questions about the Dandelion breakfast basket", faqItems: [["Which Dandelion guesthouses offer the breakfast basket?", "The breakfast basket is available to guests staying at D2 and Fügeház."], ["How much does the breakfast basket cost?", "For adults, the price is 3,500 HUF/person/day for two people and 3,000 HUF/person/day from three people. Children aged 6–13 pay 2,000 HUF/person/day; children aged 0–5 eat free."], ["What does breakfast cost for 2 adults and 1 child?", "The two adults pay 3,000 HUF/person/day and the 6–13-year-old child pays 2,000 HUF/day, making 8,000 HUF/day in total."], ["Is there a minimum order?", "Yes, the minimum order is for 2 people and 2 days."], ["What does a breakfast basket for 2 people for 2 days mean?", "It covers two breakfasts for two people; for two people the minimum total is 14,000 HUF."], ["When do we receive the breakfast basket?", "It is delivered between 8 and 9 am on the morning after arrival."], ["What does the Dandelion breakfast basket contain?", "It includes meats, dairy products, eggs, fresh fruit and vegetables, pastries, oven-baked bread and tea. The basket list shows the detailed contents."], ["Can children order breakfast too?", "Yes. Children aged 6–13 pay 2,000 HUF/person/day; children aged 0–5 eat free."], ["Do you provide baby food or infant meals?", "No, we do not provide separate baby food or infant meals."], ["Can I request a breakfast basket with a food allergy?", "Yes, but please tell us about allergies or special dietary needs in advance so we can discuss the options."]]
   },
-  {
-    question: "Mennyibe kerül a reggeli 2 felnőtt és 1 gyermek számára?",
-    answer: "A két felnőtt 3 000 Ft/fő/nap, a 6–13 éves gyermek 2 000 Ft/nap, összesen 8 000 Ft/nap."
+  de: {
+    title: "Frühstückskorb | Dandelion Gästehäuser", description: "Ein Frühstückskorb mit regionalen Produkten, der Gästen im D2 und Fügeház am Morgen nach der Anreise zwischen 8 und 9 Uhr zur Unterkunft gebracht wird.", home: "Startseite", name: "Frühstückskorb", serviceName: "Dandelion Frühstückskorb", serviceType: "Frühstückslieferung zwischen 8 und 9 Uhr am Morgen nach der Anreise", areaServed: "Gäste im D2 und Fügeház", serviceDescription: "Ein regionaler Frühstückskorb für Gäste im Dandelion D2 und Fügeház, am Morgen nach der Anreise zwischen 8 und 9 Uhr geliefert.", deliveryWindow: "am Morgen nach der Anreise zwischen 8 und 9 Uhr", heroEyebrow: "Frühstück in der Unterkunft", heroTitle: "Ein Frühstückskorb für die Gäste von D2 und Fügeház.", heroText: "Ein Frühstückskorb mit regionalen Aromen, den wir am Morgen nach der Anreise zwischen 8 und 9 Uhr zur Unterkunft bringen.", pricingCta: "Preise und Details", contentsCta: "Was ist im Korb?", heroAlt: "Sorgfältig zusammengestellter Dandelion Frühstückskorb mit frischen Lebensmitteln", heroAria: "Frühstück bei Dandelion", introEyebrow: "Für einen langsamen Morgen", introTitle: "Frühstück am ersten Morgen direkt in der Unterkunft.", introText: "Der Korb kommt am Morgen nach der Anreise zwischen 8 und 9 Uhr. Bitte teilen Sie uns Allergien oder besondere Ernährungswünsche vorher mit.", contentsEyebrow: "Inhalt des Korbs", contentsTitle: "Vertraute Aromen, ein reichhaltiges Frühstück.", items: ["geräucherter Speck und Wurst", "Schinken und Salami", "Körözött und Feigenmarmelade", "Leberpastete", "frisches Obst und Gemüse", "Tee und gekochte Eier", "frisches Gebäck und Brot aus dem Ofen", "Fruchtjoghurt, Milch, Butter und Käse"], servedAlt: "Serviertes Frühstück auf der Dandelion-Terrasse mit Blick über die Landschaft", servedText: "zur Unterkunft geliefert.", pricingEyebrow: "Preise", pricingTitle: "Was kostet es?", minimum: "Bestellbar für mindestens 2 Personen und 2 Tage.", freeChild: "Kind 0–5 Jahre", freeChildNote: "Separate Baby- oder Säuglingsnahrung bieten wir nicht an.", free: "Kostenlos", child: "Kind 6–13 Jahre", adult: "Ab 14 Jahren", forTwo: "Für 2 Personen", fromThree: "Ab 3 Personen", adultPriceTwo: "3.500 HUF/Person/Tag", adultPriceThree: "3.000 HUF/Person/Tag", childPrice: "2.000 HUF/Person/Tag", exampleEyebrow: "Ein Beispiel", exampleTitle: "2 Erwachsene + 1 Kind", age: "6–13 Jahre", adults: "2 Erwachsene", adultsCalculation: "2 × 3.000 HUF = 6.000 HUF/Tag", oneChild: "1 Kind", childCalculation: "2.000 HUF/Tag", total: "Gesamt", totalPrice: "8.000 HUF/Tag", minimumTotal: "Bei mindestens 2 Tagen: insgesamt 16.000 HUF.", staysEyebrow: "Unterkunft wählen", staysTitle: "Nur für Gäste von D2 und Fügeház.", d2Link: "Details zu Dandelion D2", fugeLink: "Details zu Fügeház", noteAria: "Vorherige Abstimmung", note: "Möchten Sie fragen oder bestellen? Schreiben Sie uns für weitere Informationen.", contact: "Anfrage und Bestellung", contactHref: "/de/kontakt/", faqEyebrow: "Wir helfen bei der Planung", faqTitle: "Häufige Fragen zum Dandelion Frühstückskorb", faqItems: [["In welchen Dandelion Gästehäusern kann man einen Frühstückskorb bestellen?", "Der Frühstückskorb ist für Gäste im D2 und Fügeház bestellbar."], ["Wie viel kostet der Frühstückskorb?", "Für Erwachsene kostet er bei zwei Personen 3.500 HUF/Person/Tag, ab drei Personen 3.000 HUF/Person/Tag. Kinder von 6–13 Jahren zahlen 2.000 HUF/Person/Tag, Kinder von 0–5 Jahren essen kostenlos."], ["Was kostet das Frühstück für 2 Erwachsene und 1 Kind?", "Die beiden Erwachsenen zahlen je 3.000 HUF/Tag und das Kind von 6–13 Jahren 2.000 HUF/Tag, insgesamt 8.000 HUF/Tag."], ["Gibt es eine Mindestbestellung?", "Ja, die Mindestbestellung gilt für 2 Personen und 2 Tage."], ["Was bedeutet ein Frühstückskorb für 2 Personen und 2 Tage?", "Er umfasst zwei Frühstücke für zwei Personen; bei zwei Personen beträgt der Mindestgesamtpreis 14.000 HUF."], ["Wann erhalten wir den Frühstückskorb?", "Er wird am Morgen nach der Anreise zwischen 8 und 9 Uhr geliefert."], ["Was enthält der Dandelion Frühstückskorb?", "Fleischwaren, Milchprodukte, Eier, frisches Obst und Gemüse, Gebäck, Ofenbrot und Tee. Die genaue Zusammensetzung steht in der Korbliste."], ["Kann man auch für Kinder Frühstück bestellen?", "Ja. Kinder von 6–13 Jahren zahlen 2.000 HUF/Person/Tag, Kinder von 0–5 Jahren essen kostenlos."], ["Bieten Sie Baby- oder Säuglingsnahrung an?", "Nein, separate Baby- oder Säuglingsnahrung bieten wir nicht an."], ["Kann man bei einer Lebensmittelallergie einen Frühstückskorb bestellen?", "Ja, bitte teilen Sie uns Allergien oder besondere Ernährungswünsche vorher mit, damit wir die Möglichkeiten abstimmen können."]]
   },
-  {
-    question: "Van minimum rendelési mennyiség?",
-    answer: "Igen, minimum 2 főre és minimum 2 napra rendelhető."
+  cs: {
+    title: "Snídaňový koš | Dandelion", description: "Snídaňový koš z místních surovin s doručením hostům D2 a Fügeház ráno po příjezdu mezi 8. a 9. hodinou.", home: "Úvod", name: "Snídaňový koš", serviceName: "Snídaňový koš Dandelion", serviceType: "Doručení snídaně mezi 8. a 9. hodinou ráno po příjezdu", areaServed: "Hosté ubytovaní v D2 a Fügeház", serviceDescription: "Snídaňový koš z místních surovin pro hosty D2 a Fügeház s doručením ráno po příjezdu mezi 8. a 9. hodinou.", deliveryWindow: "ráno po příjezdu mezi 8. a 9. hodinou", heroEyebrow: "Snídaně v ubytování", heroTitle: "Snídaňový koš pro hosty D2 a Fügeház.", heroText: "Snídaňový koš z místních chutí doručíme do ubytování ráno po příjezdu mezi 8. a 9. hodinou.", pricingCta: "Ceny a podrobnosti", contentsCta: "Co je v koši?", heroAlt: "Pečlivě připravený snídaňový koš Dandelion s čerstvými potravinami", heroAria: "Snídaně u Dandelion", introEyebrow: "Pro pomalé ráno", introTitle: "Snídaně první ráno přímo v ubytování.", introText: "Koš dorazí ráno po příjezdu mezi 8. a 9. hodinou. Alergie nebo zvláštní stravovací požadavky nám prosím oznamte předem.", contentsEyebrow: "Obsah koše", contentsTitle: "Známé chutě a vydatná snídaně.", items: ["uzená slanina a klobása", "šunka a salám", "körözött a fíková marmeláda", "játrová paštika", "čerstvé ovoce a zelenina", "čaj a vařená vejce", "čerstvé pečivo a chléb z pece", "ovocný jogurt, mléko, máslo a sýr"], servedAlt: "Servírovaná snídaně na terase Dandelion s výhledem do krajiny", servedText: "doručená do ubytování ráno po příjezdu.", pricingEyebrow: "Ceny", pricingTitle: "Kolik snídaně stojí?", minimum: "Objednat lze minimálně pro 2 osoby a na 2 dny.", freeChild: "Dítě 0–5 let", freeChildNote: "Samostatnou kojeneckou ani dětskou stravu neposkytujeme.", free: "Zdarma", child: "Dítě 6–13 let", adult: "Od 14 let", forTwo: "Pro 2 osoby", fromThree: "Od 3 osob", adultPriceTwo: "3 500 HUF/osoba/den", adultPriceThree: "3 000 HUF/osoba/den", childPrice: "2 000 HUF/osoba/den", exampleEyebrow: "Příklad", exampleTitle: "2 dospělí + 1 dítě", age: "6–13 let", adults: "2 dospělí", adultsCalculation: "2 × 3 000 HUF = 6 000 HUF/den", oneChild: "1 dítě", childCalculation: "2 000 HUF/den", total: "Celkem", totalPrice: "8 000 HUF/den", minimumTotal: "Při minimálně 2 dnech: celkem 16 000 HUF.", staysEyebrow: "Vyberte si ubytování", staysTitle: "Pouze pro hosty D2 a Fügeház.", d2Link: "Dandelion D2 podrobnosti", fugeLink: "Fügeház podrobnosti", noteAria: "Předchozí domluva", note: "Chcete se zeptat nebo objednat? Napište nám pro podrobnosti.", contact: "Dotaz a objednávka", contactHref: "/cs/kontakt/", faqEyebrow: "Pomůžeme s plánováním", faqTitle: "Časté otázky ke snídaňovému koši Dandelion", faqItems: [["Ve kterém ubytování Dandelion lze objednat snídaňový koš?", "Snídaňový koš je k dispozici hostům ubytovaným v D2 a Fügeház."], ["Kolik snídaňový koš stojí?", "Pro dospělé stojí 3 500 HUF/osoba/den pro dvě osoby a od tří osob 3 000 HUF/osoba/den. Děti ve věku 6–13 let platí 2 000 HUF/osoba/den, děti 0–5 let snídají zdarma."], ["Kolik stojí snídaně pro 2 dospělé a 1 dítě?", "Dva dospělí platí 3 000 HUF/osoba/den a dítě ve věku 6–13 let 2 000 HUF/den, celkem tedy 8 000 HUF/den."], ["Platí minimální objednávka?", "Ano, minimální objednávka je pro 2 osoby a na 2 dny."], ["Co znamená snídaňový koš pro 2 osoby na 2 dny?", "Zahrnuje dvě snídaně pro dvě osoby; pro dvě osoby je minimální celková cena 14 000 HUF."], ["Kdy snídaňový koš dostaneme?", "Doručíme ho ráno po příjezdu mezi 8. a 9. hodinou."], ["Co snídaňový koš Dandelion obsahuje?", "Obsahuje masné výrobky, mléčné výrobky, vejce, čerstvé ovoce a zeleninu, pečivo, chléb z pece a čaj. Podrobný obsah je uveden v seznamu koše."], ["Lze objednat snídani i pro děti?", "Ano. Děti 6–13 let platí 2 000 HUF/osoba/den, děti 0–5 let snídají zdarma."], ["Poskytujete kojeneckou nebo dětskou stravu?", "Ne, samostatnou kojeneckou ani dětskou stravu neposkytujeme."], ["Lze snídaňový koš objednat při potravinové alergii?", "Ano, alergii nebo zvláštní stravovací požadavek nám ale oznamte předem, abychom mohli možnosti domluvit."]]
   },
-  {
-    question: "Mit jelent a 2 főre, 2 napra rendelt reggeli kosár?",
-    answer: "Két személy két reggelijét; két fő esetén ez minimum 14 000 Ft összesen."
-  },
-  {
-    question: "Mikor kapjuk meg a reggeli kosarat?",
-    answer: "Az érkezést követő reggelen, 8 és 9 óra között, házhoz szállítva érkezik."
-  },
-  {
-    question: "Mit tartalmaz a Dandelion reggeli kosár?",
-    answer: "Húsféléket, tejtermékeket, tojást, friss zöldséget és gyümölcsöt, pékárut, kemencés kenyeret és teát. A részletes tartalmat a kosár listája mutatja."
-  },
-  {
-    question: "Gyermekeknek is rendelhető reggeli?",
-    answer: "Igen. A 6–13 éves gyermek díja 2 000 Ft/fő/nap, 0–5 éves kor között ingyenes."
-  },
-  {
-    question: "Biztosítotok bébiételt vagy csecsemőételt?",
-    answer: "Nem, külön bébi- vagy csecsemőételt nem biztosítunk."
-  },
-  {
-    question: "Ételérzékenység esetén lehet reggeli kosarat kérni?",
-    answer: "Igen, de az ételérzékenységet vagy különleges étkezési igényt előre jelezni kell, hogy egyeztethessünk."
+  sk: {
+    title: "Raňajkový košík | Dandelion", description: "Raňajkový košík z miestnych surovín s doručením hosťom D2 a Fügeház ráno po príchode medzi 8. a 9. hodinou.", home: "Úvod", name: "Raňajkový košík", serviceName: "Raňajkový košík Dandelion", serviceType: "Doručenie raňajok medzi 8. a 9. hodinou ráno po príchode", areaServed: "Hostia ubytovaní v D2 a Fügeház", serviceDescription: "Raňajkový košík z miestnych surovín pre hostí D2 a Fügeház s doručením ráno po príchode medzi 8. a 9. hodinou.", deliveryWindow: "ráno po príchode medzi 8. a 9. hodinou", heroEyebrow: "Raňajky v ubytovaní", heroTitle: "Raňajkový košík pre hostí D2 a Fügeház.", heroText: "Raňajkový košík s miestnymi chuťami doručíme do ubytovania ráno po príchode medzi 8. a 9. hodinou.", pricingCta: "Ceny a podrobnosti", contentsCta: "Čo je v košíku?", heroAlt: "Starostlivo pripravený raňajkový košík Dandelion s čerstvými potravinami", heroAria: "Raňajky v Dandelione", introEyebrow: "Pre pomalé ráno", introTitle: "Raňajky prvé ráno priamo v ubytovaní.", introText: "Košík príde ráno po príchode medzi 8. a 9. hodinou. Alergie alebo špeciálne stravovacie požiadavky nám, prosím, oznámte vopred.", contentsEyebrow: "Obsah košíka", contentsTitle: "Známe chute a sýte raňajky.", items: ["údená slanina a klobása", "šunka a saláma", "körözött a figový džem", "paštéta", "čerstvé ovocie a zelenina", "čaj a varené vajcia", "čerstvé pečivo a chlieb z pece", "ovocný jogurt, mlieko, maslo a syr"], servedAlt: "Servírované raňajky na terase Dandelion s výhľadom do krajiny", servedText: "doručené do ubytovania ráno po príchode.", pricingEyebrow: "Ceny", pricingTitle: "Koľko raňajky stoja?", minimum: "Objednať si ich môžete minimálne pre 2 osoby a na 2 dni.", freeChild: "Dieťa 0–5 rokov", freeChildNote: "Samostatnú dojčenskú ani detskú stravu neposkytujeme.", free: "Zdarma", child: "Dieťa 6–13 rokov", adult: "Od 14 rokov", forTwo: "Pre 2 osoby", fromThree: "Od 3 osôb", adultPriceTwo: "3 500 HUF/osoba/deň", adultPriceThree: "3 000 HUF/osoba/deň", childPrice: "2 000 HUF/osoba/deň", exampleEyebrow: "Príklad", exampleTitle: "2 dospelí + 1 dieťa", age: "6–13 rokov", adults: "2 dospelí", adultsCalculation: "2 × 3 000 HUF = 6 000 HUF/deň", oneChild: "1 dieťa", childCalculation: "2 000 HUF/deň", total: "Spolu", totalPrice: "8 000 HUF/deň", minimumTotal: "Pri minimálne 2 dňoch: spolu 16 000 HUF.", staysEyebrow: "Vyberte si ubytovanie", staysTitle: "Len pre hostí D2 a Fügeház.", d2Link: "Podrobnosti o Dandelion D2", fugeLink: "Podrobnosti o Fügeház", noteAria: "Dohoda vopred", note: "Chcete sa informovať alebo objednať? Napíšte nám pre podrobnosti.", contact: "Dopyt a objednávka", contactHref: "/sk/kontakt/", faqEyebrow: "Pomôžeme s plánovaním", faqTitle: "Časté otázky o raňajkovom košíku Dandelion", faqItems: [["V ktorom ubytovaní Dandelion si možno objednať raňajkový košík?", "Raňajkový košík je k dispozícii hosťom ubytovaným v D2 a Fügeház."], ["Koľko raňajkový košík stojí?", "Pre dospelých stojí 3 500 HUF/osoba/deň pre dve osoby a od troch osôb 3 000 HUF/osoba/deň. Deti vo veku 6–13 rokov platia 2 000 HUF/osoba/deň, deti vo veku 0–5 rokov raňajkujú zdarma."], ["Koľko stoja raňajky pre 2 dospelých a 1 dieťa?", "Dvaja dospelí platia 3 000 HUF/osoba/deň a dieťa vo veku 6–13 rokov 2 000 HUF/deň, spolu teda 8 000 HUF/deň."], ["Platí minimálna objednávka?", "Áno, minimálna objednávka je pre 2 osoby a na 2 dni."], ["Čo znamená raňajkový košík pre 2 osoby na 2 dni?", "Obsahuje dve raňajky pre dve osoby; pre dve osoby je minimálna celková cena 14 000 HUF."], ["Kedy raňajkový košík dostaneme?", "Doručíme ho ráno po príchode medzi 8. a 9. hodinou."], ["Čo raňajkový košík Dandelion obsahuje?", "Obsahuje mäsové výrobky, mliečne výrobky, vajcia, čerstvé ovocie a zeleninu, pečivo, chlieb z pece a čaj. Podrobný obsah je uvedený v zozname košíka."], ["Možno objednať raňajky aj pre deti?", "Áno. Deti vo veku 6–13 rokov platia 2 000 HUF/osoba/deň, deti 0–5 rokov raňajkujú zdarma."], ["Poskytujete dojčenskú alebo detskú stravu?", "Nie, samostatnú dojčenskú ani detskú stravu neposkytujeme."], ["Možno raňajkový košík objednať pri potravinovej alergii?", "Áno, alergiu alebo špeciálnu stravovaciu požiadavku nám však oznámte vopred, aby sme mohli možnosti dohodnúť."]]
   }
-];
+} as const;
 
+const content = breakfastCopy[lang];
+const breakfastItems = content.items;
+const faqItems = content.faqItems.map(([question, answer]) => ({ question, answer }));
+
+const pageUrl = `https://dandelionhouse.hu${canonicalPath}`;
 const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Főoldal", item: "https://dandelionhouse.hu/" },
-      { "@type": "ListItem", position: 2, name: "Reggeli kosár", item: "https://dandelionhouse.hu/reggeli-kosar/" }
+      { "@type": "ListItem", position: 1, name: content.home, item: `https://dandelionhouse.hu${lang === "hu" ? "/" : `/${lang}/`}` },
+      { "@type": "ListItem", position: 2, name: content.name, item: pageUrl }
     ]
   },
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Dandelion reggeli kosár",
-    serviceType: "Érkezés utáni reggeli kiszállítás 8 és 9 óra között",
-    areaServed: "D2 és Fügeház vendégei",
-    description: "Helyi reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között."
+    name: content.serviceName,
+    serviceType: content.serviceType,
+    areaServed: content.areaServed,
+    description: content.serviceDescription
   },
   {
     "@context": "https://schema.org",
@@ -93,9 +137,10 @@ const structuredData = [
 ---
 
 <BaseLayout
-  title="Reggeli kosár | Dandelion Vendégházak"
-  description="Érkezés utáni reggeli kosár kiszállítással a Dandelion D2 és Fügeház vendégeinek, az érkezést követő reggelen 8 és 9 óra között."
+  title={content.title}
+  description={content.description}
   canonicalPath={canonicalPath}
+  lang={lang}
   structuredData={structuredData}
   headerMode="solid"
 >
@@ -103,18 +148,16 @@ const structuredData = [
     <section class="breakfast-hero" aria-labelledby="breakfast-title">
       <div class="dnd-container breakfast-hero__inner">
         <div class="breakfast-hero__copy">
-          <span class="breakfast-eyebrow">Reggeli a szálláson</span>
-          <h1 id="breakfast-title">Reggeli kosár a D2 és a Fügeház vendégeinek.</h1>
-          <p>
-            Helyi ízekből összeállított reggeli kosár, amelyet {deliveryWindow} a házhoz szállítunk.
-          </p>
+          <span class="breakfast-eyebrow">{content.heroEyebrow}</span>
+          <h1 id="breakfast-title">{content.heroTitle}</h1>
+          <p>{content.heroText}</p>
           <div class="breakfast-hero__actions">
-            <a class="breakfast-button breakfast-button--primary" href="#arazas">Árak és részletek</a>
-            <a class="breakfast-button breakfast-button--secondary" href="#tartalom">Mi kerül a kosárba?</a>
+            <a class="breakfast-button breakfast-button--primary" href="#arazas">{content.pricingCta}</a>
+            <a class="breakfast-button breakfast-button--secondary" href="#tartalom">{content.contentsCta}</a>
           </div>
         </div>
-        <div class="breakfast-hero__media" aria-label="Reggeli hangulat a Dandelionnál">
-          <Image src={breakfastBasketImage} alt="Gondosan összeállított Dandelion reggeli kosár friss élelmiszerekkel" widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 55vw" loading="eager" />
+        <div class="breakfast-hero__media" aria-label={content.heroAria}>
+          <Image src={breakfastBasketImage} alt={content.heroAlt} widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 55vw" loading="eager" />
         </div>
       </div>
     </section>
@@ -122,89 +165,88 @@ const structuredData = [
     <div class="dnd-container breakfast-page__content">
       <section class="breakfast-intro breakfast-panel" aria-labelledby="intro-title">
         <div>
-          <span class="breakfast-eyebrow">Egy lassú reggelhez</span>
-          <h2 id="intro-title">Reggeli az első reggelen, közvetlenül a szálláson.</h2>
+          <span class="breakfast-eyebrow">{content.introEyebrow}</span>
+          <h2 id="intro-title">{content.introTitle}</h2>
         </div>
         <p>
-          A kosár {deliveryWindow} érkezik. Ételérzékenységet vagy
-          különleges étkezési igényt kérünk előre jelezni.
+          {content.introText}
         </p>
       </section>
 
       <section class="breakfast-grid" id="tartalom" aria-labelledby="contents-title">
         <div class="breakfast-panel breakfast-list-panel">
-          <span class="breakfast-eyebrow">A kosár tartalma</span>
-          <h2 id="contents-title">Ismerős ízek, tartalmas reggeli.</h2>
+          <span class="breakfast-eyebrow">{content.contentsEyebrow}</span>
+          <h2 id="contents-title">{content.contentsTitle}</h2>
           <ul>
             {breakfastItems.map((item) => <li>{item}</li>)}
           </ul>
         </div>
         <div class="breakfast-card breakfast-card--image">
-          <Image src={servedBreakfastImage} alt="Tálalt reggeli a Dandelion teraszán, kilátással a vidékre" widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
-          <p>{deliveryWindow}, házhoz szállítva.</p>
+          <Image src={servedBreakfastImage} alt={content.servedAlt} widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
+          <p>{content.deliveryWindow}, {content.servedText}</p>
         </div>
       </section>
 
       <section class="breakfast-panel breakfast-pricing" id="arazas" aria-labelledby="pricing-title">
         <div class="breakfast-pricing__heading">
-          <span class="breakfast-eyebrow">Árlogika</span>
-          <h2 id="pricing-title">Ki mennyit fizet?</h2>
-          <p>Minimum 2 főre és minimum 2 napra kérhető.</p>
+          <span class="breakfast-eyebrow">{content.pricingEyebrow}</span>
+          <h2 id="pricing-title">{content.pricingTitle}</h2>
+          <p>{content.minimum}</p>
         </div>
         <div class="breakfast-price-list">
           <article class="breakfast-price-row breakfast-reveal" data-reveal="price">
             <div>
-              <strong>0–5 éves gyermek</strong>
-              <small>Külön bébi- vagy csecsemőételt nem biztosítunk.</small>
+              <strong>{content.freeChild}</strong>
+              <small>{content.freeChildNote}</small>
             </div>
-            <span>Ingyenes</span>
+            <span>{content.free}</span>
           </article>
           <article class="breakfast-price-row breakfast-reveal" data-reveal="price">
-            <strong>6–13 éves gyermek</strong>
-            <span>2 000 Ft/fő/nap</span>
+            <strong>{content.child}</strong>
+            <span>{content.childPrice}</span>
           </article>
           <article class="breakfast-price-row breakfast-price-row--adult breakfast-reveal" data-reveal="price">
-            <strong>14 éves kortól</strong>
+            <strong>{content.adult}</strong>
             <div class="breakfast-price-row__adult-rates">
-              <span><small>2 fő esetén</small>3 500 Ft/fő/nap</span>
-              <span><small>3 főtől</small>3 000 Ft/fő/nap</span>
+              <span><small>{content.forTwo}</small>{content.adultPriceTwo}</span>
+              <span><small>{content.fromThree}</small>{content.adultPriceThree}</span>
             </div>
           </article>
         </div>
         <div class="breakfast-decision breakfast-reveal" data-reveal="example">
-          <span class="breakfast-decision__eyebrow">Nézzük meg egy példán</span>
-          <strong>2 felnőtt + 1 gyermek <small>(6–13 év)</small></strong>
+          <span class="breakfast-decision__eyebrow">{content.exampleEyebrow}</span>
+          <strong>{content.exampleTitle} <small>({content.age})</small></strong>
           <div class="breakfast-decision__calculation">
-            <span><b>2 felnőtt</b><em>2 × 3 000 Ft = 6 000 Ft/nap</em></span>
-            <span><b>1 gyermek</b><em>2 000 Ft/nap</em></span>
+            <span><b>{content.adults}</b><em>{content.adultsCalculation}</em></span>
+            <span><b>{content.oneChild}</b><em>{content.childCalculation}</em></span>
           </div>
           <div class="breakfast-decision__total">
-            <span>Összesen</span>
-            <strong>8 000 Ft/nap</strong>
-            <small>Minimum 2 napra: 16 000 Ft összesen.</small>
+            <span>{content.total}</span>
+            <strong>{content.totalPrice}</strong>
+            <small>{content.minimumTotal}</small>
           </div>
         </div>
       </section>
 
       <section class="breakfast-panel breakfast-stays" aria-labelledby="stays-title">
         <div>
-          <span class="breakfast-eyebrow">Válassz szállást</span>
-          <h2 id="stays-title">Csak a D2 és a Fügeház vendégeinek.</h2>
+          <span class="breakfast-eyebrow">{content.staysEyebrow}</span>
+          <h2 id="stays-title">{content.staysTitle}</h2>
         </div>
         <div class="breakfast-stays__links">
-          <a href="/dandelion-d2/">Dandelion D2 részletei <span aria-hidden="true">→</span></a>
-          <a href="/fuge/">Fügeház részletei <span aria-hidden="true">→</span></a>
+          <a href={lang === "hu" ? "/dandelion-d2/" : `/${lang}/dandelion-d2/`}>{content.d2Link} <span aria-hidden="true">→</span></a>
+          <a href={lang === "hu" ? "/fuge/" : `/${lang}/dandelion-fugehaz/`}>{content.fugeLink} <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
-      <section class="breakfast-note" aria-label="Előzetes egyeztetés">
-        <p><strong>Érdeklődnél vagy rendelnél?</strong> Írj nekünk a részletekért.</p>
-        <a href="/kapcsolat/">Érdeklődés és rendelés</a>
+      <section class="breakfast-note" aria-label={content.noteAria}>
+        <p>{content.note}</p>
+        <a href={content.contactHref}>{content.contact}</a>
       </section>
 
       <section class="breakfast-panel breakfast-faq" aria-labelledby="faq-title">
-        <span class="breakfast-eyebrow">Segítünk tervezni</span>
-        <h2 id="faq-title">Gyakori kérdések a Dandelion reggeli kosárról</h2>
+        <span class="breakfast-eyebrow">{content.faqEyebrow}</span>
+        <h2 id="faq-title">{content.faqTitle}</h2>
         <div class="breakfast-faq__list">
           {faqItems.map((item) => (
             <details>

@@ -537,8 +537,12 @@ const headerOfferLinks = [
     label: isEnglishPage ? "Family autumn break" : isGermanPage ? "Herbst mit der Familie" : isCzechPage ? "Podzimní rodinný pobyt" : isSlovakPage ? "Jesenný rodinný pobyt" : "Családi ajánlat",
     href: isEnglishPage ? `${homeHref}en/offers/autumn-family-break/` : isGermanPage ? `${homeHref}de/angebote/herbst-familie/` : isCzechPage ? `${homeHref}cs/nabidky/podzimni-rodinny-pobyt/` : isSlovakPage ? `${homeHref}sk/ponuky/jesenny-rodinny-pobyt/` : `${homeHref}ajanlatok/oszi-csaladi-pihenes/`
   },
-  // [CHANGE 2026-09-26] A magyar ajánlatok menüje tartalmazza a Reggeli kosár oldalt.
-  ...(lang === "hu" ? [{ label: "Reggeli kosár", href: `${homeHref}reggeli-kosar/` }] : [])
+  // [CHANGE 2026-09-26] A Reggeli kosár minden elérhető nyelven saját oldalra mutat.
+  ...(lang === "hu" ? [{ label: "Reggeli kosár", href: `${homeHref}reggeli-kosar/` }] : []),
+  ...(isEnglishPage ? [{ label: "Breakfast basket", href: `${homeHref}en/breakfast-basket/` }] : []),
+  ...(isGermanPage ? [{ label: "Frühstückskorb", href: `${homeHref}de/fruehstueckskorb/` }] : []),
+  ...(isCzechPage ? [{ label: "Snídaňový koš", href: `${homeHref}cs/snidanovy-kosik/` }] : []),
+  ...(isSlovakPage ? [{ label: "Raňajkový košík", href: `${homeHref}sk/ranajkovy-kosik/` }] : [])
 ];
 
 const transparentHeaderPaths = new Set([
@@ -743,6 +747,16 @@ const languageRoutesByPath: Record<string, { hu: string; en?: string; de?: strin
   "/de/angebote/herbst-familie/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
   "/cs/nabidky/podzimni-rodinny-pobyt/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
   "/sk/ponuky/jesenny-rodinny-pobyt/": { hu: "/ajanlatok/oszi-csaladi-pihenes/", en: "/en/offers/autumn-family-break/", de: "/de/angebote/herbst-familie/", cs: "/cs/nabidky/podzimni-rodinny-pobyt/", sk: "/sk/ponuky/jesenny-rodinny-pobyt/" },
+  "/reggeli-kosar/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/en/breakfast-basket/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/de/fruehstueckskorb/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/cs/snidanovy-kosik/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/sk/ranajkovy-kosik/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/reggeli-kosar/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/en/breakfast-basket/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/de/fruehstueckskorb/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/cs/snidanovy-kosik/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
+  "/sk/ranajkovy-kosik/": { hu: "/reggeli-kosar/", en: "/en/breakfast-basket/", de: "/de/fruehstueckskorb/", cs: "/cs/snidanovy-kosik/", sk: "/sk/ranajkovy-kosik/" },
   "/aszf/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
   "/en/terms-and-conditions/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
   "/de/agb/": { hu: "/aszf/", en: "/en/terms-and-conditions/", de: "/de/agb/", cs: "/cs/obchodni-podminky/", sk: "/sk/obchodne-podmienky/" },
