@@ -102,6 +102,12 @@ const breakfastCopy = {
 const content = breakfastCopy[lang];
 const breakfastItems = content.items;
 const faqItems = content.faqItems.map(([question, answer]) => ({ question, answer }));
+const servedBreakfastText = lang === "cs"
+  ? "Doručíme ho do ubytování ráno po příjezdu mezi 8. a 9. hodinou."
+  : lang === "sk"
+    ? "Doručíme ho do ubytovania ráno po príchode medzi 8. a 9. hodinou."
+    : `${content.deliveryWindow}, ${content.servedText}`;
+const introTitle = lang === "sk" ? "Raňajky hneď prvé ráno priamo v ubytovaní." : content.introTitle;
 
 const pageUrl = `https://dandelionhouse.hu${canonicalPath}`;
 const structuredData = [
@@ -166,7 +172,7 @@ const structuredData = [
       <section class="breakfast-intro breakfast-panel" aria-labelledby="intro-title">
         <div>
           <span class="breakfast-eyebrow">{content.introEyebrow}</span>
-          <h2 id="intro-title">{content.introTitle}</h2>
+          <h2 id="intro-title">{introTitle}</h2>
         </div>
         <p>
           {content.introText}
@@ -183,7 +189,7 @@ const structuredData = [
         </div>
         <div class="breakfast-card breakfast-card--image">
           <Image src={servedBreakfastImage} alt={content.servedAlt} widths={[480, 800, 1200, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
-          <p>{content.deliveryWindow}, {content.servedText}</p>
+          <p>{servedBreakfastText}</p>
         </div>
       </section>
 
