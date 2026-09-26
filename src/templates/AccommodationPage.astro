@@ -527,39 +527,6 @@ function buildSupplementedRelatedStays(items: AccommodationPageRelatedStay[]) {
   return supplementedItems;
 }
 
-function resolveDecisionPanelImage(
-  experience?: AccommodationPageData["decisionPanel"] extends infer T
-    ? T extends { featuredExperience?: infer U }
-      ? U
-      : never
-    : never
-) {
-    if (experience?.image) {
-      return {
-        astroSrc: null,
-        src: experience.image.src,
-        mobileSrc: experience.image.mobileSrc,
-        alt: experience.image.alt,
-        width: experience.image.width ?? 1600,
-        height: experience.image.height ?? 1200
-      };
-  }
-
-  const imageKey = experience?.imageKey;
-  if (!imageKey) return null;
-
-  if (imageKey === "card") return imageSet.card;
-  if (imageKey === "hero-desktop") return imageSet.hero.desktop;
-  if (imageKey === "hero-mobile") return imageSet.hero.mobile;
-
-  if (imageKey.startsWith("gallery:")) {
-    const index = Number.parseInt(imageKey.slice("gallery:".length), 10);
-    return Number.isFinite(index) ? imageSet.gallery[index] ?? null : null;
-  }
-
-  return null;
-}
-
 function buildDefaultExperienceCta(stayLabel: string, locale: AccommodationPageLocale): AccommodationPageExperienceCta {
   const commonImage = {
     src: "/images/bicikli/balaton-felvidek-bicikli-desktop.webp",
@@ -652,7 +619,7 @@ function buildBreakfastBasketCta(stayLabel: string, locale: AccommodationPageLoc
     hu: {
       eyebrow: "Külön rendelhető",
       title: "Reggeli kosár az első reggelhez",
-      text: isFugehaz ? "A panorámás teraszon is kérhettek reggeli kosarat a lassú, első reggelhez." : "A fedett teraszon is élvezhetitek a külön rendelhető reggeli kosarat az első családi reggelen.",
+      text: isFugehaz ? "A panorámás teraszon is kérhettek reggeli kosarat a lassú, első reggelhez." : "A fedett teraszon is élvezhetitek a reggeli kosarat az első családi reggelen.",
       ctaLabel: "Reggeli kosár részletei",
       alt: "Tálalt reggeli a Dandelion teraszán"
     },
@@ -760,7 +727,6 @@ const overviewFacts =
         }))
       );
 const featuredExperience = decisionPanel?.featuredExperience ?? null;
-const featuredExperienceImage = resolveDecisionPanelImage(featuredExperience);
 const decisionReasons = decisionPanel?.reasons ?? [];
 const geoDecision = pageData.geoDecision ?? null;
 const geoDecisionQuestions = geoDecision?.questions ?? [];
@@ -1205,54 +1171,6 @@ const accommodationStructuredData = [
     </div>
   </section>
 
-  {canRenderPoolLiveBlock && (
-    <section class="d2-pool-transition d2-pool-transition--with-live" aria-labelledby="d2-pool-transition-title">
-      <div class="dnd-container d2-pool-transition__inner">
-        <div class="d2-pool-transition__copy">
-          <span class="dnd-section-kicker">{templateText.poolBlockEyebrow}</span>
-          <h2 id="d2-pool-transition-title">{localizedPoolBlockTitle}</h2>
-          <p>{localizedPoolBlockIntro}</p>
-        </div>
-        <div class="d2-pool-transition__aside">
-          <span>{templateText.poolIncludedLabel}</span>
-          <strong>{templateText.poolIncludedText}</strong>
-          {pageData.hero.poolHighlight?.href && (
-            <a href={pageData.hero.poolHighlight.href}>{templateText.poolBlockCtaLabel}</a>
-          )}
-        </div>
-        <div class="d2-pool-live__panel" aria-live="polite" data-d2-pool-measurements>
-          <div class="d2-pool-live__panel-heading">
-            <span class="d2-pool-live__eyebrow">{templateText.poolBlockEyebrow}</span>
-            <h2 id="d2-pool-live-title">{templateText.poolBlockMeasurementsTitle}</h2>
-          </div>
-
-          <div class="d2-pool-live__metrics">
-            <article class="d2-pool-live__metric d2-pool-live__metric--water">
-              <span class="d2-pool-live__gauge" aria-hidden="true"></span>
-              <div>
-                <span class="d2-pool-live__metric-label">{templateText.poolMetricWater}</span>
-                <strong data-d2-pool-value="temperature">{templateText.poolMetricNoData}</strong>
-                <small data-d2-pool-updated data-d2-pool-updated-prefix={templateText.poolMetricUpdatedPrefix} hidden></small>
-              </div>
-            </article>
-            <article class="d2-pool-live__metric">
-              <span class="d2-pool-live__metric-label">{templateText.poolMetricAir}</span>
-              <strong data-d2-pool-value="airTemperature">{templateText.poolMetricNoData}</strong>
-            </article>
-            <article class="d2-pool-live__metric">
-              <span class="d2-pool-live__metric-label">{templateText.poolMetricHumidity}</span>
-              <strong data-d2-pool-value="humidity">{templateText.poolMetricNoData}</strong>
-            </article>
-            <article class="d2-pool-live__metric">
-              <span class="d2-pool-live__metric-label">{templateText.poolMetricPressure}</span>
-              <strong data-d2-pool-value="pressure">{templateText.poolMetricNoData}</strong>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
   <section class="d2-reviews dnd-section" aria-labelledby="accommodation-reviews-title">
     <div class="dnd-container">
       <div class="d2-reviews__shell">
@@ -1493,31 +1411,7 @@ const accommodationStructuredData = [
               <h3>{geoDecision?.title ?? pageData.details.title}</h3>
               <p>{geoDecision?.lead ?? visibleDetailsSummary}</p>
               {featuredExperience && (
-                <div class="d2-decision-feature" aria-label={featuredExperience.label ?? featuredExperience.title}>
-                    {featuredExperienceImage && (
-                      <div class="d2-decision-feature__media">
-                        {featuredExperienceImage.astroSrc ? (
-                          <Image
-                          src={featuredExperienceImage.astroSrc}
-                          alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
-                          loading="lazy"
-                        />
-                        ) : (
-                          <picture>
-                            {"mobileSrc" in featuredExperienceImage && featuredExperienceImage.mobileSrc && (
-                              <source media="(max-width: 767px)" srcset={featuredExperienceImage.mobileSrc} />
-                            )}
-                            <img
-                              src={featuredExperienceImage.src}
-                              alt={"alt" in featuredExperienceImage ? featuredExperienceImage.alt : featuredExperienceImage.alt.hu}
-                              width={featuredExperienceImage.width}
-                              height={featuredExperienceImage.height}
-                              loading="lazy"
-                            />
-                          </picture>
-                        )}
-                      </div>
-                    )}
+                <div class="d2-decision-feature d2-decision-feature--compact" aria-label={featuredExperience.label ?? featuredExperience.title}>
                   <div class="d2-decision-feature__copy">
                     {featuredExperience.label && <span>{featuredExperience.label}</span>}
                     <strong>{featuredExperience.title}</strong>
@@ -1647,6 +1541,54 @@ const accommodationStructuredData = [
       </div>
     </div>
   </section>
+
+  {canRenderPoolLiveBlock && (
+    <section class="d2-pool-transition d2-pool-transition--with-live d2-pool-transition--after-decision" aria-labelledby="d2-pool-transition-title">
+      <div class="dnd-container d2-pool-transition__inner">
+        <div class="d2-pool-transition__copy">
+          <span class="dnd-section-kicker">{templateText.poolBlockEyebrow}</span>
+          <h2 id="d2-pool-transition-title">{localizedPoolBlockTitle}</h2>
+          <p>{localizedPoolBlockIntro}</p>
+        </div>
+        <div class="d2-pool-transition__aside">
+          <span>{templateText.poolIncludedLabel}</span>
+          <strong>{templateText.poolIncludedText}</strong>
+          {pageData.hero.poolHighlight?.href && (
+            <a href={pageData.hero.poolHighlight.href}>{templateText.poolBlockCtaLabel}</a>
+          )}
+        </div>
+        <div class="d2-pool-live__panel" aria-live="polite" data-d2-pool-measurements>
+          <div class="d2-pool-live__panel-heading">
+            <span class="d2-pool-live__eyebrow">{templateText.poolBlockEyebrow}</span>
+            <h2 id="d2-pool-live-title">{templateText.poolBlockMeasurementsTitle}</h2>
+          </div>
+
+          <div class="d2-pool-live__metrics">
+            <article class="d2-pool-live__metric d2-pool-live__metric--water">
+              <span class="d2-pool-live__gauge" aria-hidden="true"></span>
+              <div>
+                <span class="d2-pool-live__metric-label">{templateText.poolMetricWater}</span>
+                <strong data-d2-pool-value="temperature">{templateText.poolMetricNoData}</strong>
+                <small data-d2-pool-updated data-d2-pool-updated-prefix={templateText.poolMetricUpdatedPrefix} hidden></small>
+              </div>
+            </article>
+            <article class="d2-pool-live__metric">
+              <span class="d2-pool-live__metric-label">{templateText.poolMetricAir}</span>
+              <strong data-d2-pool-value="airTemperature">{templateText.poolMetricNoData}</strong>
+            </article>
+            <article class="d2-pool-live__metric">
+              <span class="d2-pool-live__metric-label">{templateText.poolMetricHumidity}</span>
+              <strong data-d2-pool-value="humidity">{templateText.poolMetricNoData}</strong>
+            </article>
+            <article class="d2-pool-live__metric">
+              <span class="d2-pool-live__metric-label">{templateText.poolMetricPressure}</span>
+              <strong data-d2-pool-value="pressure">{templateText.poolMetricNoData}</strong>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <section id="accommodation-gallery" class="d2-gallery dnd-section">
     <div class="dnd-container">
@@ -3626,6 +3568,31 @@ const accommodationStructuredData = [
     border: 1px solid rgba(217, 158, 43, 0.18);
     border-radius: 9px;
     background: linear-gradient(135deg, rgba(255, 248, 236, 0.98), rgba(246, 229, 192, 0.72));
+  }
+
+  .d2-decision-feature--compact {
+    display: block;
+    margin-top: 2px;
+    padding: 9px 11px;
+    border-color: rgba(36, 122, 131, 0.14);
+    border-radius: 7px;
+    background: rgba(247, 250, 248, 0.74);
+  }
+
+  .d2-decision-feature--compact .d2-decision-feature__copy {
+    gap: 2px;
+  }
+
+  .d2-decision-feature--compact .d2-decision-feature__copy strong {
+    font-family: inherit;
+    font-size: var(--dnd-text-sm);
+    font-weight: 750;
+    line-height: 1.25;
+  }
+
+  .d2-decision-feature--compact .d2-decision-feature__copy p {
+    font-size: var(--dnd-text-xs);
+    line-height: 1.4;
   }
 
   .d2-decision-feature__media {
