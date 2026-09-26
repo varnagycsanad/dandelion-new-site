@@ -536,7 +536,9 @@ const headerOfferLinks = [
   {
     label: isEnglishPage ? "Family autumn break" : isGermanPage ? "Herbst mit der Familie" : isCzechPage ? "Podzimní rodinný pobyt" : isSlovakPage ? "Jesenný rodinný pobyt" : "Családi ajánlat",
     href: isEnglishPage ? `${homeHref}en/offers/autumn-family-break/` : isGermanPage ? `${homeHref}de/angebote/herbst-familie/` : isCzechPage ? `${homeHref}cs/nabidky/podzimni-rodinny-pobyt/` : isSlovakPage ? `${homeHref}sk/ponuky/jesenny-rodinny-pobyt/` : `${homeHref}ajanlatok/oszi-csaladi-pihenes/`
-  }
+  },
+  // [CHANGE 2026-09-26] A magyar ajánlatok menüje tartalmazza a Reggeli kosár oldalt.
+  ...(lang === "hu" ? [{ label: "Reggeli kosár", href: `${homeHref}reggeli-kosar/` }] : [])
 ];
 
 const transparentHeaderPaths = new Set([
