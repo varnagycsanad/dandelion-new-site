@@ -16,11 +16,8 @@ import balatonImage from "../../assets/home/experiences/dandelion-home-experienc
 import mountainsImage from "../../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
 import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
-import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
-import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
 import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
-import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
 
 const deTitle = "Dandelion Gästehäuser | Unterkünfte am Balaton";
@@ -28,22 +25,12 @@ const deDescription =
   "Gästehäuser rund um Szent György-hegy, Balaton und Káli-Becken, mit Terrassen, Ausblicken, Pooltagen und Direktbuchung.";
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 
-// [CHANGE 2026-05-29 00:00] German homepage hero video now has poster and VideoObject data for Google indexing.
-const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
-const homepageHeroMobileVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21-mobile-lite.mp4?v=20260606-mobile-lite";
-const homepageHeroPoster = homeHeroPosterImage.src;
-const homepageHeroMobilePoster = homeHeroPosterMobileImage.src;
+const homepageHeroVideo = "/videos/fooldal/hero/dandelion-hajnali-kod-balaton-felvidek-hero-desktop.mp4";
+const homepageHeroMobileVideo = "/videos/fooldal/hero/dandelion-hajnali-kod-balaton-felvidek-hero-mobile.mp4";
+const homepageHeroPoster = "/images/home/hero/dandelion-hajnali-kod-balaton-felvidek-poster-desktop.webp";
+const homepageHeroMobilePoster = "/images/home/hero/dandelion-hajnali-kod-balaton-felvidek-poster-mobile.webp";
 const homepageHeroPosterAlt = "Panorama des Balaton-Oberlands mit Zeugenbergen, Badacsony und Balaton";
-const homepageVideoStructuredData = buildVideoObject({
-  id: "/de/#homepage-hero-video",
-  name: "Dandelion Gästehäuser Startseitenvideo",
-  description: "Startseitenvideo der Dandelion Gästehäuser nahe dem Balaton.",
-  contentUrl: homepageHeroVideo,
-  thumbnailUrl: homepageHeroPoster,
-  uploadDate: "2026-05-21T00:00:00+02:00",
-  inLanguage: "de-DE"
-});
-const homepageStructuredData = [homepageVideoStructuredData, buildHomeGeoFaqStructuredData("de")];
+const homepageStructuredData = [buildHomeGeoFaqStructuredData("de")];
 
 const germanRegionStories = [
   {
@@ -125,11 +112,11 @@ const germanExperiences = [
   structuredData={homepageStructuredData}
 >
   <Hero
-    titleTopLines={["Ruhige", "Gästehäuser"]}
-    titleBottomLines={["nahe", "dem Balaton"]}
-    description="Unterkünfte rund um Szent György-hegy, Balaton und Káli-Becken. Terrassen, Ausblicke, Pooltage und Ruhe."
+    titleTopLines={["Herbstzeit", "zu zweit oder", "mit Familie"]}
+    titleBottomLines={["5 % Rabatt", "direkt buchen"]}
+    description="5 % Kuponrabatt bei direkter Buchung über unsere Website, gültig für Aufenthalte vom 1. September bis 30. November 2026. Code: 26osz5."
     ctas={[
-      { label: "Unterkünfte ansehen", href: "/de/unterkuenfte/" },
+      { label: "Herbstangebot ansehen", href: "/de/angebote/herbst-zu-zweit/" },
       { label: "Verfügbarkeit prüfen", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
     ]}
     videoDesktopSrc={homepageHeroVideo}
@@ -156,6 +143,7 @@ const germanExperiences = [
   />
 
   <AutumnCampaignOffers lang="de" />
+  <NewsletterSignup lang="de" />
   <PanoramaPoolHighlight lang="de" />
   <HomeReviews lang="de" />
 
@@ -178,7 +166,6 @@ const germanExperiences = [
     experiences={germanExperiences}
   />
 
-  <NewsletterSignup lang="de" />
   <HomeGeoFaq lang="de" />
   <GoogleRegionMap lang="de" />
 </BaseLayout>

@@ -175,8 +175,9 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
   <script is:inline>
     (() => {
       const mobileQuery = window.matchMedia("(max-width: 767px)");
+      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      if (!mobileQuery.matches) {
+      if (!mobileQuery.matches || reduceMotionQuery.matches) {
         return;
       }
 
@@ -235,6 +236,29 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
     })();
   </script>
 )}
+
+<script is:inline>
+  (() => {
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!reduceMotionQuery.matches) {
+      return;
+    }
+
+    document.querySelectorAll(".dnd-hero video").forEach((video) => {
+      if (!(video instanceof HTMLVideoElement)) {
+        return;
+      }
+
+      video.pause();
+      video.removeAttribute("autoplay");
+      video.preload = "none";
+      video.querySelectorAll("source").forEach((source) => source.remove());
+      video.removeAttribute("src");
+      video.load();
+    });
+  })();
+</script>
 
 <style>
   .dnd-hero {
@@ -457,7 +481,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: min(100%, 1040px);
+      width: min(100%, 860px);
       text-align: center;
     }
 
@@ -467,7 +491,8 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
     .dnd-hero__title {
       max-width: none;
-      font-size: clamp(30px, 2.35vw, 42px);
+      max-width: 860px;
+      font-size: clamp(28px, 2.15vw, 38px);
       line-height: 1.08;
       font-weight: 400;
       letter-spacing: 0.14em;
@@ -477,7 +502,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
     .dnd-hero__title-block,
     .dnd-hero__title-line {
-      display: inline;
+      display: block;
     }
 
     .dnd-hero__title--split {

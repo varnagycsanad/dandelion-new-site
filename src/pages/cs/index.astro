@@ -16,11 +16,8 @@ import balatonImage from "../../assets/home/experiences/dandelion-home-experienc
 import mountainsImage from "../../assets/home/experiences/dandelion-home-experience-tanuhegyek-01.webp";
 import kisapatiStoryImage from "../../assets/home/region-stories/dandelion-home-tanuhegyek-story-01.webp";
 import balatonStoryImage from "../../assets/home/region-stories/dandelion-home-balaton-story-02.webp";
-import homeHeroPosterImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-20260407.webp";
-import homeHeroPosterMobileImage from "../../assets/home/region-stories/dandelion-home-hero-balaton-badacsony-poster-mobile-20260407.webp";
 import homeRegionOgImage from "../../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import kaliStoryImage from "../../assets/accommodations/koveskal/gallery/dandelion-koveskal-source-001.webp";
-import { buildVideoObject } from "../../data/video-seo";
 import { buildHomeGeoFaqStructuredData } from "../../data/home-geo-faq";
 
 const csTitle = "Dandelion ubytování | Klidné pobyty u Balatonu";
@@ -28,22 +25,12 @@ const csDescription =
   "Ubytování kolem Szent György-hegy, Balatonu a oblasti Káli, s terasami, výhledy, bazénovými dny a přímou rezervací.";
 const englishBookingHref = "https://ibe.sabeeapp.com/v3/p/Dandelion-Vendégházak?p=3970b30e1042d58f&lang=En";
 
-// [CHANGE 2026-05-29 00:00] Czech homepage hero video now has poster and VideoObject data for Google indexing.
-const homepageHeroVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21.mp4?v=20260521";
-const homepageHeroMobileVideo = "/videos/fooldal/hero/DND_Fooldal_hero_05-21-mobile-lite.mp4?v=20260606-mobile-lite";
-const homepageHeroPoster = homeHeroPosterImage.src;
-const homepageHeroMobilePoster = homeHeroPosterMobileImage.src;
+const homepageHeroVideo = "/videos/fooldal/hero/dandelion-hajnali-kod-balaton-felvidek-hero-desktop.mp4";
+const homepageHeroMobileVideo = "/videos/fooldal/hero/dandelion-hajnali-kod-balaton-felvidek-hero-mobile.mp4";
+const homepageHeroPoster = "/images/home/hero/dandelion-hajnali-kod-balaton-felvidek-poster-desktop.webp";
+const homepageHeroMobilePoster = "/images/home/hero/dandelion-hajnali-kod-balaton-felvidek-poster-mobile.webp";
 const homepageHeroPosterAlt = "Panorama Balatonské vrchoviny se svědeckými horami, Badacsony a Balatonem";
-const homepageVideoStructuredData = buildVideoObject({
-  id: "/cs/#homepage-hero-video",
-  name: "Dandelion ubytování úvodní video",
-  description: "Úvodní video ubytování Dandelion poblíž Balatonu.",
-  contentUrl: homepageHeroVideo,
-  thumbnailUrl: homepageHeroPoster,
-  uploadDate: "2026-05-21T00:00:00+02:00",
-  inLanguage: "cs-CZ"
-});
-const homepageStructuredData = [homepageVideoStructuredData, buildHomeGeoFaqStructuredData("cs")];
+const homepageStructuredData = [buildHomeGeoFaqStructuredData("cs")];
 
 const czechRegionStories = [
   {
@@ -125,11 +112,11 @@ const czechExperiences = [
   structuredData={homepageStructuredData}
 >
   <Hero
-    titleTopLines={["Klidné", "ubytování"]}
-    titleBottomLines={["poblíž", "Balatonu"]}
-    description="Ubytování kolem Szent György-hegy, Balatonu a oblasti Káli. Terasy, výhledy, bazénové dny a klid."
+    titleTopLines={["Podzimní odpočinek", "ve dvou nebo", "s rodinou"]}
+    titleBottomLines={["Sleva 5 %", "rezervujte přímo"]}
+    description="Kuponová sleva 5 % při přímé rezervaci na našem webu, platí pro pobyty od 1. září do 30. listopadu 2026. Kód: 26osz5."
     ctas={[
-      { label: "Zobrazit ubytování", href: "/cs/ubytovani/" },
+      { label: "Podzimní nabídka", href: "/cs/nabidky/podzim-ve-dvou/" },
       { label: "Ověřit dostupnost", href: englishBookingHref, target: "_blank", rel: "noopener noreferrer" }
     ]}
     videoDesktopSrc={homepageHeroVideo}
@@ -156,6 +143,7 @@ const czechExperiences = [
   />
 
   <AutumnCampaignOffers lang="cs" />
+  <NewsletterSignup lang="cs" />
   <PanoramaPoolHighlight lang="cs" />
   <HomeReviews lang="cs" />
 
@@ -179,7 +167,6 @@ const czechExperiences = [
     experiences={czechExperiences}
   />
 
-  <NewsletterSignup lang="cs" />
   <HomeGeoFaq lang="cs" />
   <GoogleRegionMap lang="cs" />
 </BaseLayout>
