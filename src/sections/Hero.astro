@@ -13,6 +13,7 @@ interface HeroCta {
 }
 
 interface Props {
+  variant?: "homepage-offer";
   kicker?: string;
   title?: string;
   titleTopLines?: string[];
@@ -42,6 +43,7 @@ interface Props {
 }
 
 const {
+  variant,
   kicker,
   title,
   titleTopLines = ["Reggel", "hegyekkel."],
@@ -78,7 +80,7 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 ---
 
 <!-- [CHANGE 2026-04-17 08:50] Update hero CTA, placement, and typography without redesign -->
-<section class:list={["dnd-hero", overlay && "dnd-hero--overlay", bookingBenefits.length > 0 && "dnd-hero--with-booking-benefits"]}>
+<section class:list={["dnd-hero", variant && `dnd-hero--${variant}`, overlay && "dnd-hero--overlay", bookingBenefits.length > 0 && "dnd-hero--with-booking-benefits"]}>
   {hasVideo ? (
     <video
       class="dnd-hero__video"
@@ -668,6 +670,49 @@ const shouldDeferMobileVideo = Boolean(deferMobileVideo && videoMobileSrc);
 
     .dnd-hero__booking-benefits {
       display: none;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__text {
+      max-width: min(100%, 390px);
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__title {
+      display: block;
+      max-width: 100%;
+      font-size: clamp(1.2rem, 5.3vw, 1.55rem);
+      line-height: 1.13;
+      overflow-wrap: anywhere;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__title-block--top,
+    .dnd-hero--homepage-offer .dnd-hero__title-block--bottom {
+      display: block;
+      margin-top: 0;
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: 0.015em;
+      white-space: normal;
+      text-wrap: balance;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__title-block--bottom {
+      margin-top: 2px;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__title-line,
+    .dnd-hero--homepage-offer .dnd-hero__title-block--bottom .dnd-hero__title-line {
+      display: inline;
+      white-space: normal;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__desc {
+      max-width: 34ch;
+      margin-top: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .dnd-hero--homepage-offer .dnd-hero__cta {
+      padding-right: 76px;
     }
 
   }
