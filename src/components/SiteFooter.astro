@@ -1,5 +1,7 @@
 ---
 import { accommodations } from "../data/accommodations";
+import { Image } from "astro:assets";
+import newsletterSunrise from "../assets/home/newsletter/dandelion-newsletter-sunrise.jpg";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 // [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
@@ -21,34 +23,40 @@ const brevoFormUrl =
   "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
 const footerNewsletterCopy = {
   hu: {
-    title: "Iratkozz fel a Dandelion hírlevelére",
-    text: "Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül e-mailben.",
-    cta: "Iratkozz fel a hírlevélre"
+    title: "5 000 Ft kedvezmény a következő foglalásodhoz",
+    text: "Iratkozz fel, és küldünk egy személyes, egyszer használható 5 000 Ft-os kupont, amelyet közvetlen weboldalas foglalásnál használhatsz fel.",
+    cta: "Kérem az 5 000 Ft-os kupont",
+    imageAlt: "Napfelkelte ködös tájjal a Szent György-hegy környékén"
   },
   en: {
-    title: "Subscribe to the Dandelion newsletter",
-    text: "Inspiration, special offers and Balaton experiences delivered directly to your inbox.",
-    cta: "Subscribe to the newsletter"
+    title: "HUF 5,000 off your next booking",
+    text: "Sign up and we will send you a personal, single-use HUF 5,000 coupon for a direct booking on our website.",
+    cta: "Request the HUF 5,000 coupon",
+    imageAlt: "Sunrise over a misty landscape near Szent György Hill"
   },
   de: {
-    title: "Für den Dandelion-Newsletter anmelden",
-    text: "Inspirationen, besondere Angebote und Erlebnisse am Balaton direkt per E-Mail.",
-    cta: "Zum Newsletter anmelden"
+    title: "5.000 HUF Rabatt auf deine nächste Buchung",
+    text: "Melde dich an und wir senden dir einen persönlichen, einmalig einlösbaren Gutschein über 5.000 HUF für eine direkte Buchung über unsere Website.",
+    cta: "5.000-HUF-Gutschein anfordern",
+    imageAlt: "Sonnenaufgang über einer nebligen Landschaft beim Szent-György-hegy"
   },
   cs: {
-    title: "Přihlaste se k odběru newsletteru Dandelion",
-    text: "Inspirace, speciální nabídky a zážitky u Balatonu přímo e-mailem.",
-    cta: "Přihlásit se k newsletteru"
+    title: "Sleva 5 000 HUF na další rezervaci",
+    text: "Přihlaste se a zašleme vám osobní jednorázový kupón v hodnotě 5 000 HUF pro přímou rezervaci na našem webu.",
+    cta: "Chci kupón v hodnotě 5 000 HUF",
+    imageAlt: "Východ slunce nad mlhavou krajinou u hory Szent György"
   },
   sk: {
-    title: "Prihláste sa na odber newslettera Dandelion",
-    text: "Inšpirácie, špeciálne ponuky a zážitky pri Balatone priamo e-mailom.",
-    cta: "Prihlásiť sa na newsletter"
+    title: "Zľava 5 000 HUF na ďalšiu rezerváciu",
+    text: "Prihláste sa a pošleme vám osobný jednorazový kupón v hodnote 5 000 HUF na priamu rezerváciu cez našu webstránku.",
+    cta: "Chcem kupón v hodnote 5 000 HUF",
+    imageAlt: "Východ slnka nad hmlistou krajinou pri hore Szent György"
   },
   pl: {
-    title: "Zapisz się do newslettera Dandelion",
-    text: "Inspiracje, wyjątkowe oferty i atrakcje nad Balatonem bezpośrednio na e-mail.",
-    cta: "Zapisz się do newslettera"
+    title: "5 000 HUF rabatu na następną rezerwację",
+    text: "Zapisz się, a wyślemy Ci osobisty, jednorazowy kupon o wartości 5 000 HUF na bezpośrednią rezerwację na naszej stronie.",
+    cta: "Poproszę o kupon 5 000 HUF",
+    imageAlt: "Wschód słońca nad mglistym krajobrazem w okolicy Szent György-hegy"
   }
 } as const;
 const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
@@ -61,7 +69,8 @@ const newsletterFormCopy = {
     consent: "Hozzájárulok, hogy a Dandelion Vendégházak hírlevelet és marketingkommunikációt küldjön a megadott e-mail-címre.",
     submit: "Feliratkozom",
     close: "Bezárás",
-    response: "A feliratkozás visszaigazolása"
+    response: "A feliratkozás visszaigazolása",
+    privacyLabel: "Adatkezelési tájékoztató"
   },
   en: {
     emailLabel: "Email address",
@@ -71,7 +80,8 @@ const newsletterFormCopy = {
     consent: "I agree that Dandelion Guesthouses may send newsletters and marketing communications to the email address provided.",
     submit: "Subscribe",
     close: "Close",
-    response: "Signup confirmation"
+    response: "Signup confirmation",
+    privacyLabel: "Privacy Policy"
   },
   de: {
     emailLabel: "E-Mail-Adresse",
@@ -81,7 +91,8 @@ const newsletterFormCopy = {
     consent: "Ich stimme zu, dass Dandelion Gästehäuser Newsletter und Marketingmitteilungen an die angegebene E-Mail-Adresse sendet.",
     submit: "Anmelden",
     close: "Schließen",
-    response: "Anmeldebestätigung"
+    response: "Anmeldebestätigung",
+    privacyLabel: "Datenschutzerklärung"
   },
   cs: {
     emailLabel: "E-mailová adresa",
@@ -91,7 +102,8 @@ const newsletterFormCopy = {
     consent: "Souhlasím se zasíláním newsletteru a marketingové komunikace Dandelion Guesthouses na uvedenou e-mailovou adresu.",
     submit: "Přihlásit se",
     close: "Zavřít",
-    response: "Potvrzení přihlášení"
+    response: "Potvrzení přihlášení",
+    privacyLabel: "Zásady ochrany osobních údajů"
   },
   sk: {
     emailLabel: "E-mailová adresa",
@@ -101,7 +113,8 @@ const newsletterFormCopy = {
     consent: "Súhlasím so zasielaním newslettera a marketingovej komunikácie Dandelion Guesthouses na uvedenú e-mailovú adresu.",
     submit: "Prihlásiť sa",
     close: "Zavrieť",
-    response: "Potvrdenie prihlásenia"
+    response: "Potvrdenie prihlásenia",
+    privacyLabel: "Ochrana osobných údajov"
   },
   pl: {
     emailLabel: "Adres e-mail",
@@ -111,23 +124,33 @@ const newsletterFormCopy = {
     consent: "Wyrażam zgodę na otrzymywanie newslettera i komunikacji marketingowej Dandelion Guesthouses na podany adres e-mail.",
     submit: "Zapisz się",
     close: "Zamknij",
-    response: "Potwierdzenie zapisu"
+    response: "Potwierdzenie zapisu",
+    privacyLabel: "Polityka prywatności"
   }
 } as const;
 const newsletterUiCopy = newsletterFormCopy[lang] ?? newsletterFormCopy.hu;
 const newsletterSuccessCopy = {
-  hu: "Köszönjük! Elküldtük a feliratkozási kérésedet. Ellenőrizd az e-mail-fiókodat a további teendőkért.",
-  en: "Thank you! Your signup request has been sent. Please check your inbox for the next steps.",
-  de: "Vielen Dank! Ihre Anmeldung wurde gesendet. Bitte prüfen Sie Ihren Posteingang für die nächsten Schritte.",
-  cs: "Děkujeme! Vaše žádost o přihlášení byla odeslána. Další kroky najdete ve své e-mailové schránce.",
-  sk: "Ďakujeme! Vaša žiadosť o prihlásenie bola odoslaná. Ďalšie kroky nájdete vo svojej e-mailovej schránke.",
-  pl: "Dziękujemy! Zgłoszenie zostało wysłane. Sprawdź swoją skrzynkę e-mail, aby poznać dalsze kroki."
+  hu: "Köszönjük a feliratkozást! Hamarosan elküldjük a személyes kuponodat e-mailben.",
+  en: "Thank you for signing up! We will send your personal coupon by email shortly.",
+  de: "Vielen Dank für deine Anmeldung! Deinen persönlichen Gutschein senden wir dir bald per E-Mail.",
+  cs: "Děkujeme za přihlášení! Váš osobní kupón vám brzy zašleme e-mailem.",
+  sk: "Ďakujeme za prihlásenie! Váš osobný kupón vám čoskoro pošleme e-mailom.",
+  pl: "Dziękujemy za zapis! Twój osobisty kupon wyślemy wkrótce e-mailem."
 } as const;
 const newsletterSuccess = newsletterSuccessCopy[lang] ?? newsletterSuccessCopy.hu;
 
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+const newsletterPrivacyHref = isEnglishFooter
+  ? `${homeHref}en/privacy-policy/`
+  : isGermanFooter
+    ? `${homeHref}de/datenschutz/`
+    : isCzechFooter
+      ? `${homeHref}cs/ochrana-osobnich-udaju/`
+      : isSlovakFooter
+        ? `${homeHref}sk/ochrana-osobnych-udajov/`
+        : `${homeHref}adatkezelesi-tajekoztato/`;
 const footerLogoSrc = `${homeHref}images/LOGO/dandelion-logo-footer.svg`;
 
 const resolveLocalHref = (href: string) => {
@@ -408,6 +431,7 @@ const slovakLegalLinks = [
 {isSlovakFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -415,8 +439,8 @@ const slovakLegalLinks = [
     <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
       <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
       <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
-        <span aria-hidden="true">→</span>
+      <button type="submit" aria-label={newsletterCopy.cta}>
+        <span>{newsletterCopy.cta}</span>
       </button>
     </form>
     </div>
@@ -481,6 +505,7 @@ const slovakLegalLinks = [
 {isCzechFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -488,8 +513,8 @@ const slovakLegalLinks = [
     <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
       <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
       <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
-        <span aria-hidden="true">→</span>
+      <button type="submit" aria-label={newsletterCopy.cta}>
+        <span>{newsletterCopy.cta}</span>
       </button>
     </form>
     </div>
@@ -554,6 +579,7 @@ const slovakLegalLinks = [
 {isGermanFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -561,8 +587,8 @@ const slovakLegalLinks = [
     <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
       <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
       <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
-        <span aria-hidden="true">→</span>
+      <button type="submit" aria-label={newsletterCopy.cta}>
+        <span>{newsletterCopy.cta}</span>
       </button>
     </form>
     </div>
@@ -627,6 +653,7 @@ const slovakLegalLinks = [
 {!isGermanFooter && !isCzechFooter && !isSlovakFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
   <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
+    <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
     <div>
       <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
       <p>{newsletterCopy.text}</p>
@@ -634,8 +661,8 @@ const slovakLegalLinks = [
     <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
       <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
       <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterUiCopy.openLabel}>
-        <span aria-hidden="true">→</span>
+      <button type="submit" aria-label={newsletterCopy.cta}>
+        <span>{newsletterCopy.cta}</span>
       </button>
     </form>
   </div>
@@ -734,7 +761,7 @@ const slovakLegalLinks = [
 </footer>
 )}
 
-<dialog class="dnd-newsletter-dialog" data-newsletter-dialog aria-labelledby={`newsletter-dialog-title-${lang}`}>
+<div class="dnd-newsletter-dialog" data-newsletter-dialog aria-labelledby={`newsletter-dialog-title-${lang}`} role="dialog" aria-modal="true" hidden>
   <div class="dnd-newsletter-dialog__panel">
     <button class="dnd-newsletter-dialog__close" type="button" data-newsletter-close aria-label={newsletterUiCopy.close}>×</button>
     <span class="dnd-newsletter-signup__kicker">{newsletterCopy.title}</span>
@@ -754,6 +781,7 @@ const slovakLegalLinks = [
         <input type="checkbox" name="OPT_IN" value="1" required />
         <span>{newsletterUiCopy.consent}</span>
       </label>
+      <p class="dnd-newsletter-dialog__privacy"><a href={newsletterPrivacyHref}>{newsletterUiCopy.privacyLabel}</a></p>
       <input type="hidden" name="email_address_check" value="" />
       <input type="hidden" name="locale" value="en" />
       <button type="submit">{newsletterUiCopy.submit}</button>
@@ -769,7 +797,7 @@ const slovakLegalLinks = [
       hidden
     ></iframe>
   </div>
-</dialog>
+</div>
 
 <style>
   .dnd-site-footer {
@@ -970,6 +998,15 @@ const slovakLegalLinks = [
     box-shadow: 0 18px 44px rgba(11, 17, 18, 0.16);
   }
 
+  .dnd-site-footer__newsletter-image {
+    width: clamp(150px, 22vw, 250px);
+    height: 132px;
+    flex: 0 0 clamp(150px, 22vw, 250px);
+    object-fit: cover;
+    border-radius: 16px 5px 16px 5px;
+    box-shadow: 0 10px 24px rgba(11, 17, 18, 0.24);
+  }
+
   .dnd-site-footer__newsletter::before {
     position: absolute;
     right: 21%;
@@ -1042,10 +1079,12 @@ const slovakLegalLinks = [
 
   .dnd-site-footer__newsletter-form button {
     display: inline-flex;
-    width: 58px;
+    min-width: 58px;
+    width: auto;
     align-items: center;
     justify-content: center;
-    flex: 0 0 58px;
+    flex: 0 0 auto;
+    padding: 0 18px;
     border: 0;
     border-radius: 12px;
     border-top-left-radius: 0;
@@ -1053,7 +1092,7 @@ const slovakLegalLinks = [
     background: #f4ca57;
     color: #201913;
     cursor: pointer;
-    font-size: 1.35rem;
+    font-size: var(--dnd-text-sm);
     font-weight: 700;
     line-height: 1;
   }
@@ -1077,21 +1116,28 @@ const slovakLegalLinks = [
   }
 
   .dnd-newsletter-dialog {
-    width: min(92vw, 540px);
-    padding: 0;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    width: auto;
+    max-width: none;
+    height: auto;
     border: 0;
-    border-radius: 18px;
-    background: transparent;
+    border-radius: 0;
+    background: rgba(23, 17, 12, 0.72);
     color: #272018;
   }
 
-  .dnd-newsletter-dialog::backdrop {
-    background: rgba(23, 17, 12, 0.72);
-    backdrop-filter: blur(3px);
+  .dnd-newsletter-dialog[hidden] {
+    display: none;
   }
 
   .dnd-newsletter-dialog__panel {
     position: relative;
+    width: min(100%, 540px);
     padding: 32px;
     border: 1px solid rgba(217, 158, 43, 0.42);
     border-radius: 18px;
@@ -1174,6 +1220,17 @@ const slovakLegalLinks = [
   .dnd-newsletter-dialog__consent input {
     flex: 0 0 auto;
     margin-top: 3px;
+  }
+
+  .dnd-newsletter-dialog__privacy {
+    margin: -4px 0 0;
+    font-size: var(--dnd-text-xs);
+  }
+
+  .dnd-newsletter-dialog__privacy a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
   }
 
   .dnd-newsletter-dialog__form > button {
@@ -1297,6 +1354,13 @@ const slovakLegalLinks = [
       text-align: center;
     }
 
+    .dnd-site-footer__newsletter-image {
+      width: 100%;
+      height: 150px;
+      flex: 0 0 auto;
+      order: -1;
+    }
+
     .dnd-site-footer__newsletter-form {
       width: 100%;
     }
@@ -1311,7 +1375,7 @@ const slovakLegalLinks = [
   const newsletterResponse = newsletterDialog?.querySelector("[data-newsletter-response]");
 
   if (
-    newsletterDialog instanceof HTMLDialogElement &&
+    newsletterDialog instanceof HTMLElement &&
     newsletterEmail instanceof HTMLInputElement &&
     newsletterForm instanceof HTMLFormElement &&
     newsletterSuccess instanceof HTMLElement
@@ -1333,18 +1397,23 @@ const slovakLegalLinks = [
           newsletterResponse.hidden = true;
           newsletterResponse.src = "about:blank";
         }
-        newsletterDialog.showModal();
+        newsletterDialog.hidden = false;
+        document.body.style.overflow = "hidden";
         newsletterEmail.focus();
       });
     });
 
     newsletterDialog.querySelectorAll("[data-newsletter-close]").forEach((closeButton) => {
-      closeButton.addEventListener("click", () => newsletterDialog.close());
+      closeButton.addEventListener("click", () => {
+        newsletterDialog.hidden = true;
+        document.body.style.overflow = "";
+      });
     });
 
     newsletterDialog.addEventListener("click", (event) => {
       if (event.target === newsletterDialog) {
-        newsletterDialog.close();
+        newsletterDialog.hidden = true;
+        document.body.style.overflow = "";
       }
     });
 
