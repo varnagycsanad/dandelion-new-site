@@ -1,15 +1,28 @@
 ---
 const brevoFormUrl =
   "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
-// [CHANGE 2026-08-11 22:05] Hungarian newsletter popup copy changed from formal to informal address.
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs" | "sk" | "pl";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+const copyByLang = {
+  hu: { kicker: "Dandelion hírlevél", title: "Kérd az 5 000 Ft-os kuponodat", intro: "Add meg az e-mail-címed, iratkozz fel a Dandelion hírlevelére, és hamarosan elküldjük a személyes, egyszer használható 5 000 Ft-os kuponodat.", iframeTitle: "Dandelion hírlevél feliratkozás – 5 000 Ft-os kupon" },
+  en: { kicker: "Dandelion newsletter", title: "Request your HUF 5,000 coupon", intro: "Enter your email address, subscribe to the Dandelion newsletter, and we will soon send your personal, single-use HUF 5,000 coupon.", iframeTitle: "Dandelion newsletter signup – HUF 5,000 coupon" },
+  de: { kicker: "Dandelion Newsletter", title: "Fordere deinen 5.000-HUF-Gutschein an", intro: "Gib deine E-Mail-Adresse ein, melde dich für den Dandelion Newsletter an und wir senden dir bald deinen persönlichen, einmalig einlösbaren Gutschein über 5.000 HUF.", iframeTitle: "Dandelion Newsletter-Anmeldung – 5.000-HUF-Gutschein" },
+  cs: { kicker: "Newsletter Dandelion", title: "Požádejte o svůj kupón v hodnotě 5 000 HUF", intro: "Zadejte svůj e-mail, přihlaste se k newsletteru Dandelion a brzy vám zašleme osobní jednorázový kupón v hodnotě 5 000 HUF.", iframeTitle: "Přihlášení k newsletteru Dandelion – kupón 5 000 HUF" },
+  sk: { kicker: "Newsletter Dandelion", title: "Požiadajte o svoj kupón v hodnote 5 000 HUF", intro: "Zadajte svoj e-mail, prihláste sa na odber newslettera Dandelion a čoskoro vám pošleme osobný jednorazový kupón v hodnote 5 000 HUF.", iframeTitle: "Prihlásenie na odber newslettera Dandelion – kupón 5 000 HUF" },
+  pl: { kicker: "Newsletter Dandelion", title: "Poproś o swój kupon 5 000 HUF", intro: "Podaj swój adres e-mail, zapisz się do newslettera Dandelion, a wkrótce wyślemy Ci osobisty, jednorazowy kupon o wartości 5 000 HUF.", iframeTitle: "Zapis do newslettera Dandelion – kupon 5 000 HUF" }
+} as const;
+const copy = copyByLang[lang] ?? copyByLang.hu;
 ---
 
 <div class="dnd-newsletter-popup" data-dnd-newsletter-popup>
   <aside class="dnd-newsletter-popup__card" data-dnd-newsletter-card hidden aria-labelledby="dnd-newsletter-popup-title">
     <button class="dnd-newsletter-popup__dismiss" type="button" data-dnd-newsletter-dismiss aria-label="Hírlevélkártya bezárása">×</button>
-    <span class="dnd-newsletter-popup__kicker">Dandelion hírlevél</span>
-    <h2 id="dnd-newsletter-popup-title">Maradjon képben a balatoni élményekkel</h2>
-    <p>Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül az e-mail-fiókodba.</p>
+    <span class="dnd-newsletter-popup__kicker">{copy.kicker}</span>
+    <h2 id="dnd-newsletter-popup-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
     <button class="dnd-newsletter-popup__trigger" type="button" data-dnd-newsletter-open>Feliratkozom</button>
   </aside>
 
@@ -17,13 +30,14 @@ const brevoFormUrl =
     <div class="dnd-newsletter-popup__surface">
       <div class="dnd-newsletter-popup__dialog-head">
         <div>
-          <span class="dnd-newsletter-popup__kicker">Dandelion hírlevél</span>
-          <h2 id="dnd-newsletter-dialog-title">Iratkozz fel a Dandelion hírlevelére</h2>
+          <span class="dnd-newsletter-popup__kicker">{copy.kicker}</span>
+          <h2 id="dnd-newsletter-dialog-title">{copy.title}</h2>
         </div>
         <button class="dnd-newsletter-popup__close" type="button" data-dnd-newsletter-close aria-label="Feliratkozási ablak bezárása">×</button>
       </div>
+      <p class="dnd-newsletter-popup__intro">{copy.intro}</p>
       <iframe
-        title="Dandelion hírlevél feliratkozás"
+        title={copy.iframeTitle}
         data-src={brevoFormUrl}
         loading="lazy"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -43,7 +57,7 @@ const brevoFormUrl =
 
     const card = root.querySelector("[data-dnd-newsletter-card]");
     const dialog = root.querySelector("[data-dnd-newsletter-dialog]");
-    const openButton = root.querySelector("[data-dnd-newsletter-open]");
+    const openButtons = document.querySelectorAll("[data-dnd-newsletter-open]");
     const closeButton = root.querySelector("[data-dnd-newsletter-close]");
     const dismissButton = root.querySelector("[data-dnd-newsletter-dismiss]");
     const formFrame = root.querySelector("iframe[data-src]");
@@ -118,7 +132,7 @@ const brevoFormUrl =
 
     window.setTimeout(showCard, dwellTime);
     window.addEventListener("scroll", queueScrollCheck, { passive: true });
-    openButton?.addEventListener("click", () => {
+    const openDialog = () => {
       if (!dialog) {
         return;
       }
@@ -136,7 +150,8 @@ const brevoFormUrl =
       } else {
         dialog.setAttribute("open", "");
       }
-    });
+    };
+    openButtons.forEach((button) => button.addEventListener("click", openDialog));
     closeButton?.addEventListener("click", closeDialog);
     dismissButton?.addEventListener("click", () => {
       hideCard();
@@ -284,6 +299,13 @@ const brevoFormUrl =
     justify-content: space-between;
     gap: 18px;
     margin-bottom: 8px;
+  }
+
+  .dnd-newsletter-popup__intro {
+    margin: 0 0 14px;
+    color: rgba(45, 36, 28, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.45;
   }
 
   .dnd-newsletter-popup__dialog h2 {

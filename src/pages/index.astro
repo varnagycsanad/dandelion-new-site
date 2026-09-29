@@ -7,6 +7,7 @@ import RegionStories from "../sections/RegionStories.astro";
 import Experiences from "../sections/Experiences.astro";
 import GoogleRegionMap from "../sections/GoogleRegionMap.astro";
 import NewsletterSignup from "../sections/NewsletterSignup.astro";
+import NewsletterPopup from "../sections/NewsletterPopup.astro";
 import HomeGeoFaq from "../sections/HomeGeoFaq.astro";
 import homeRegionOgImage from "../assets/home/region-stories/szent-gyorgy-hegy-sunrise-sticky-bg-optimized.webp";
 import { toAbsoluteUrl } from "../data/site-seo";
@@ -112,8 +113,11 @@ const homepageStructuredData = [
     ]}
   />
   <AutumnCampaignOffers />
-  <NewsletterSignup lang="hu" />
-  <PanoramaPoolHighlight />
+  <div class="homepage-feature-pair" data-feature-entry>
+    <NewsletterSignup lang="hu" />
+    <PanoramaPoolHighlight />
+  </div>
+  <NewsletterPopup lang="hu" />
   <section class="d2-reviews dnd-section" aria-labelledby="homepage-reviews-title">
     <div class="dnd-container">
       <div class="d2-reviews__shell">
@@ -311,7 +315,109 @@ const homepageStructuredData = [
   <GoogleRegionMap />
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const pair = document.querySelector("[data-feature-entry]");
+    if (!pair) return;
+
+    const reveal = () => pair.classList.add("is-entry-visible");
+    if (!("IntersectionObserver" in window)) {
+      reveal();
+      return;
+    }
+
+    pair.classList.add("is-entry-ready");
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      reveal();
+      observer.disconnect();
+    }, { threshold: 0.22 });
+    observer.observe(pair);
+  })();
+</script>
+
 <style>
+  .homepage-feature-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .homepage-feature-pair > .dnd-newsletter-signup,
+  .homepage-feature-pair > .pool-highlight {
+    min-width: 0;
+    padding: 28px 0;
+  }
+
+  .homepage-feature-pair > .pool-highlight {
+    transition-delay: 120ms;
+  }
+
+  .homepage-feature-pair :global(.dnd-container) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .homepage-feature-pair.is-entry-ready > .dnd-newsletter-signup,
+  .homepage-feature-pair.is-entry-ready > .pool-highlight {
+    opacity: 0;
+    transition: opacity 780ms cubic-bezier(0.22, 1, 0.36, 1), transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .homepage-feature-pair.is-entry-ready > .dnd-newsletter-signup { transform: translateX(-64px) scale(0.97); }
+  .homepage-feature-pair.is-entry-ready > .pool-highlight { transform: translateX(64px) scale(0.97); }
+
+  .homepage-feature-pair.is-entry-ready :global(.dnd-newsletter-signup__image),
+  .homepage-feature-pair.is-entry-ready :global(.pool-highlight__image) {
+    transform: scale(1.04);
+    transition: transform 1120ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .homepage-feature-pair.is-entry-visible > .dnd-newsletter-signup,
+  .homepage-feature-pair.is-entry-visible > .pool-highlight {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .homepage-feature-pair.is-entry-visible :global(.dnd-newsletter-signup__image),
+  .homepage-feature-pair.is-entry-visible :global(.pool-highlight__image) { transform: scale(1); }
+
+  @media (max-width: 900px) {
+    .homepage-feature-pair {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .homepage-feature-pair.is-entry-ready > .dnd-newsletter-signup,
+    .homepage-feature-pair.is-entry-ready > .pool-highlight {
+      transform: translateY(36px) scale(0.98);
+      transition-duration: 640ms;
+    }
+
+    .homepage-feature-pair.is-entry-ready > .pool-highlight { transition-delay: 100ms; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .homepage-feature-pair > .dnd-newsletter-signup,
+    .homepage-feature-pair > .pool-highlight {
+      opacity: 1;
+      transform: none;
+      transition: none !important;
+    }
+
+    .homepage-feature-pair :global(.dnd-newsletter-signup__image),
+    .homepage-feature-pair :global(.pool-highlight__image) {
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   .d2-reviews {
     padding-top: 18px;
     padding-bottom: 20px;

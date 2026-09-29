@@ -26,73 +26,75 @@ const privacyHref = privacyHrefByLang[lang] ?? privacyHrefByLang.hu;
 
 <section class="dnd-section dnd-newsletter-signup" aria-labelledby={`newsletter-signup-title-${lang}`}>
   <div class="dnd-container">
-    <div class="dnd-newsletter-signup__shell">
-      <div class="dnd-newsletter-signup__image-wrap">
-        <Image class="dnd-newsletter-signup__image" src={newsletterSunrise} alt={copy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
-      </div>
+    <div class="dnd-newsletter-signup__shell" id={`newsletter-signup-block-${lang}`}>
       <div class="dnd-newsletter-signup__content">
-        <span class="dnd-newsletter-signup__kicker">{copy.kicker}</span>
-        <h2 id={`newsletter-signup-title-${lang}`}>{copy.title}</h2>
-        <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
-        <form class="dnd-newsletter-signup__form" action={brevoFormUrl} method="POST" target={`newsletter-signup-response-${lang}`} data-newsletter-home-form>
-          <label for={`newsletter-signup-email-${lang}`}>{copy.email}</label>
-          <input id={`newsletter-signup-email-${lang}`} name="EMAIL" type="email" autocomplete="email" required />
-          <label class="dnd-newsletter-signup__consent">
-            <input type="checkbox" name="OPT_IN" value="1" required />
-            <span>{copy.consent}</span>
-          </label>
-          <p class="dnd-newsletter-signup__privacy"><a href={privacyHref}>{copy.privacy}</a></p>
-          <input type="hidden" name="email_address_check" value="" />
-          <input type="hidden" name="locale" value={lang === "hu" ? "hu" : "en"} />
-          <button type="submit">{copy.cta}</button>
-        </form>
-        <p class="dnd-newsletter-signup__note">{copy.note}</p>
-        <p class="dnd-newsletter-signup__success" data-newsletter-home-success role="status" tabindex="-1" hidden>{copy.success}</p>
-        <iframe class="dnd-newsletter-signup__response" name={`newsletter-signup-response-${lang}`} title={copy.email} hidden></iframe>
+        <div class="dnd-newsletter-signup__offer">
+          <span class="dnd-newsletter-signup__kicker">{copy.kicker}</span>
+          <h2 id={`newsletter-signup-title-${lang}`}>{copy.title}</h2>
+          <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
+        </div>
+        <div class="dnd-newsletter-signup__form-panel">
+          <form class="dnd-newsletter-signup__form" action={brevoFormUrl} method="POST" target={`newsletter-signup-response-${lang}`} data-newsletter-home-form>
+            <label class="dnd-newsletter-signup__visually-hidden" for={`newsletter-signup-email-${lang}`}>{copy.email}</label>
+            <input id={`newsletter-signup-email-${lang}`} name="EMAIL" type="email" autocomplete="email" placeholder={copy.email} required />
+            <button type="button" data-dnd-newsletter-open>{copy.cta}</button>
+          </form>
+        </div>
+      </div>
+      <div class="dnd-newsletter-signup__image-wrap">
+          <Image class="dnd-newsletter-signup__image" src={newsletterSunrise} alt={copy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="eager" decoding="sync" />
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .dnd-newsletter-signup { padding: clamp(30px, 5vw, 64px) 0; background: #fbf8f1; }
-  .dnd-newsletter-signup__shell { display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); min-height: 430px; overflow: hidden; border: 1px solid rgba(91, 70, 42, 0.14); border-radius: 32px; background: #fffaf1; box-shadow: 0 20px 52px rgba(80, 57, 31, 0.1); }
-  .dnd-newsletter-signup__image-wrap { min-height: 100%; background: #7e5a36; }
-  .dnd-newsletter-signup__image { display: block; width: 100%; height: 100%; min-height: 430px; object-fit: cover; }
-  .dnd-newsletter-signup__content { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 5vw, 72px); color: #30271d; }
-  .dnd-newsletter-signup__kicker { color: #9b762f; font-size: var(--dnd-text-2xs); font-weight: 700; letter-spacing: var(--dnd-tracking-label); text-transform: uppercase; }
-  .dnd-newsletter-signup h2 { max-width: 12ch; margin: 10px 0 14px; color: #30271d; font-family: var(--dnd-font-display); font-size: clamp(2rem, 3.2vw, 3.25rem); font-weight: 400; line-height: 0.98; }
-  .dnd-newsletter-signup__lead { max-width: 52ch; margin: 0 0 24px; color: rgba(48, 39, 29, 0.75); font-size: var(--dnd-text-md); line-height: 1.6; }
-  .dnd-newsletter-signup__form { display: grid; gap: 10px; max-width: 540px; }
-  .dnd-newsletter-signup__form > label:first-child { color: rgba(48, 39, 29, 0.78); font-size: var(--dnd-text-sm); font-weight: 700; }
-  .dnd-newsletter-signup__form input[type="email"] { width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid rgba(91, 70, 42, 0.28); border-radius: 10px; background: #fff; color: #30271d; font-size: var(--dnd-text-md); }
+  .dnd-newsletter-signup { padding: 28px 0; background: #fbf8f1; }
+  .dnd-newsletter-signup__shell { display: grid; grid-template-columns: minmax(0, 1.56fr) minmax(230px, 0.44fr); height: 280px; min-height: 240px; max-height: 280px; overflow: hidden; border: 1px solid rgba(91, 70, 42, 0.14); border-radius: 22px; background: #fffaf1; box-shadow: 0 12px 30px rgba(80, 57, 31, 0.08); }
+  .dnd-newsletter-signup__content { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: 26px 28px; color: #30271d; }
+  .dnd-newsletter-signup__image-wrap { order: 2; min-height: 280px; background: #7e5a36; }
+  .dnd-newsletter-signup__image { display: block; width: 100%; height: 100%; min-height: 280px; object-fit: cover; object-position: center center; }
+  .dnd-newsletter-signup__offer, .dnd-newsletter-signup__form-panel { min-width: 0; }
+  .dnd-newsletter-signup__offer { padding: 0; }
+  .dnd-newsletter-signup__form-panel { padding: 16px 0 0; }
+  .dnd-newsletter-signup__kicker { display: inline-block; margin-bottom: 14px; color: var(--dnd-accent); font-size: var(--dnd-text-xs); font-weight: 600; letter-spacing: var(--dnd-tracking-label); text-transform: uppercase; }
+  .dnd-newsletter-signup h2 { max-width: 24ch; margin: 0; color: #30271d; font-family: var(--dnd-font-display); font-size: clamp(1.28rem, 1.7vw, 1.62rem); font-weight: 400; line-height: 1.06; }
+  .dnd-newsletter-signup__lead { max-width: 48ch; margin: 12px 0 0; color: rgba(47, 36, 24, 0.78); font-size: 0.74rem; line-height: 1.35; }
+  .dnd-newsletter-signup__form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; width: 100%; }
+  .dnd-newsletter-signup__visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .dnd-newsletter-signup__form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px; width: 100%; }
+  .dnd-newsletter-signup__form input[type="email"] { width: 100%; min-height: 40px; padding: 0 14px; border: 1px solid rgba(91, 70, 42, 0.28); border-radius: 9px; background: #fff; color: #30271d; font-size: 0.8rem; }
+  .dnd-newsletter-signup__form input[type="email"]::placeholder { color: rgba(48, 39, 29, 0.68); opacity: 1; }
   .dnd-newsletter-signup__form input[type="email"]:focus-visible, .dnd-newsletter-signup__form button:focus-visible, .dnd-newsletter-signup__consent input:focus-visible { outline: 3px solid rgba(217, 158, 43, 0.5); outline-offset: 3px; }
-  .dnd-newsletter-signup__consent { display: flex; align-items: flex-start; gap: 9px; color: rgba(48, 39, 29, 0.72); font-size: var(--dnd-text-xs); line-height: 1.45; }
-  .dnd-newsletter-signup__consent input { flex: 0 0 auto; margin-top: 3px; }
-  .dnd-newsletter-signup__privacy { margin: -3px 0 2px; font-size: var(--dnd-text-xs); }
-  .dnd-newsletter-signup__privacy a { color: #8a682b; text-decoration: underline; text-underline-offset: 0.16em; }
-  .dnd-newsletter-signup__form button { min-height: 54px; margin-top: 4px; padding: 0 22px; border: 1px solid #d99e2b; border-radius: 10px; background: #d99e2b; color: #241b12; cursor: pointer; font-size: var(--dnd-text-md); font-weight: 700; }
-  .dnd-newsletter-signup__form button:hover, .dnd-newsletter-signup__form button:focus-visible { background: #f1bd54; }
-  .dnd-newsletter-signup__note { margin: 14px 0 0; color: rgba(48, 39, 29, 0.58); font-size: var(--dnd-text-xs); line-height: 1.4; }
-  .dnd-newsletter-signup__success { margin: 18px 0 0; padding: 16px; border: 1px solid rgba(84, 123, 78, 0.28); border-radius: 10px; background: rgba(226, 241, 220, 0.72); color: #31532e; font-size: var(--dnd-text-md); line-height: 1.5; }
-  @media (max-width: 1024px) { .dnd-newsletter-signup__content { padding: 38px; } .dnd-newsletter-signup h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); } }
+  .dnd-newsletter-signup__form button { min-height: 40px; padding: 0 16px; border: 1px solid rgba(116, 78, 18, 0.12); border-radius: 9px; background: linear-gradient(180deg, #e6ad35 0%, #cf9321 100%); color: #23160a; cursor: pointer; font-size: 0.72rem; font-weight: 600; white-space: nowrap; box-shadow: 0 12px 24px rgba(181, 126, 26, 0.18), inset 0 1px 0 rgba(255, 248, 229, 0.5); transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease, border-color 0.24s ease; }
+  .dnd-newsletter-signup__form button:hover, .dnd-newsletter-signup__form button:focus-visible { transform: translateY(-2px); border-color: rgba(116, 78, 18, 0.2); background: linear-gradient(180deg, #ebb544 0%, #d89d2d 100%); box-shadow: 0 16px 28px rgba(181, 126, 26, 0.24), inset 0 1px 0 rgba(255, 248, 229, 0.6); }
+  @media (max-width: 1024px) {
+    .dnd-newsletter-signup__shell { grid-template-columns: minmax(0, 1.42fr) minmax(210px, 0.58fr); }
+    .dnd-newsletter-signup__content { padding: 24px 22px; }
+    .dnd-newsletter-signup h2 { max-width: 22ch; font-size: clamp(1.22rem, 1.9vw, 1.5rem); }
+  }
   @media (max-width: 720px) {
-    .dnd-newsletter-signup { padding: 28px 0 38px; }
-    .dnd-newsletter-signup__shell { display: block; border-radius: 24px; }
-    .dnd-newsletter-signup__image, .dnd-newsletter-signup__image-wrap { min-height: 0; height: 235px; }
-    .dnd-newsletter-signup__content { padding: 30px 22px 28px; }
-    .dnd-newsletter-signup h2 { max-width: none; font-size: clamp(1.9rem, 9vw, 2.4rem); }
-    .dnd-newsletter-signup__lead { font-size: var(--dnd-text-sm); line-height: 1.5; }
+    .dnd-newsletter-signup { padding: 20px 0 26px; }
+    .dnd-newsletter-signup__shell { display: flex; flex-direction: column; height: auto; min-height: 0; max-height: none; border-radius: 18px; }
+    .dnd-newsletter-signup__image, .dnd-newsletter-signup__image-wrap { min-height: 0; height: 140px; }
+    .dnd-newsletter-signup__image-wrap { order: 1; }
+    .dnd-newsletter-signup__content { order: 2; padding: 20px 18px 20px; }
+    .dnd-newsletter-signup__offer { padding: 0; }
+    .dnd-newsletter-signup__form-panel { padding: 16px 0 0; }
+    .dnd-newsletter-signup__form { grid-template-columns: 1fr; gap: 8px; }
+    .dnd-newsletter-signup h2 { max-width: 22ch; margin: 6px 0 8px; font-size: clamp(1.3rem, 6.5vw, 1.62rem); line-height: 1.06; }
+    .dnd-newsletter-signup__lead { max-width: none; font-size: 0.78rem; line-height: 1.4; }
     .dnd-newsletter-signup__form button { width: 100%; }
   }
+  @media (max-width: 420px) { .dnd-newsletter-signup__image, .dnd-newsletter-signup__image-wrap { height: 130px; } .dnd-newsletter-signup__content { padding: 18px 16px; } }
 </style>
 
 <script>
   document.querySelectorAll("[data-newsletter-home-form]").forEach((form) => {
-    const success = form.parentElement?.querySelector("[data-newsletter-home-success]");
-    if (!(form instanceof HTMLFormElement) || !(success instanceof HTMLElement)) return;
-    form.addEventListener("submit", () => {
-      window.setTimeout(() => { form.hidden = true; success.hidden = false; success.focus(); }, 0);
+    if (!(form instanceof HTMLFormElement)) return;
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      form.querySelector("[data-dnd-newsletter-open]")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
   });
 </script>
