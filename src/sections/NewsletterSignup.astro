@@ -1,210 +1,98 @@
 ---
+import { Image } from "astro:assets";
+import newsletterSunrise from "../assets/home/newsletter/dandelion-newsletter-sunrise.jpg";
+
 interface Props {
-  lang?: "hu" | "en" | "de" | "cs" | "sk";
+  lang?: "hu" | "en" | "de" | "cs" | "sk" | "pl";
 }
+
 const { lang = "hu" } = Astro.props as Props;
 const brevoFormUrl =
   "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
+
 const copyByLang = {
-  hu: {
-    kicker: "Dandelion hírlevél",
-    title: "Akciók és szabad dátumok",
-    lead: "Szezonális ajánlatok és felszabaduló időpontok e-mailben, a Brevo biztonságos feliratkozó űrlapján keresztül.",
-    aria: "Hírlevél feliratkozó űrlap",
-    note: "A feliratkozás a Brevo biztonságos űrlapján történik.",
-  },
-  en: {
-    kicker: "Dandelion newsletter",
-    title: "Offers, special dates and newly available stays by e-mail.",
-    lead: "Quiet updates about seasonal offers, direct booking opportunities and free dates through Brevo's secure signup form.",
-    aria: "Newsletter signup form",
-    note: "Signup is handled through Brevo's secure form.",
-  },
-  de: {
-    kicker: "Dandelion Newsletter",
-    title: "Angebote, besondere Termine und freie Zeiträume per E-Mail.",
-    lead: "Diskrete Hinweise zu saisonalen Angeboten, Direktbuchung und frei gewordenen Terminen über das sichere Brevo-Anmeldeformular.",
-    aria: "Newsletter-Anmeldeformular",
-    note: "Die Anmeldung läuft über das sichere Brevo-Formular.",
-  },
-  cs: {
-    kicker: "Newsletter Dandelion",
-    title: "Nabídky, speciální termíny a uvolněné pobyty e-mailem.",
-    lead: "Nenápadné novinky o sezónních nabídkách, přímé rezervaci a volných termínech přes bezpečný formulář Brevo.",
-    aria: "Formulář pro přihlášení k newsletteru",
-    note: "Přihlášení probíhá přes bezpečný formulář Brevo.",
-  },
-  sk: {
-    kicker: "Newsletter Dandelion",
-    title: "Ponuky, špeciálne termíny a uvoľnené pobyty e-mailom.",
-    lead: "Nenápadné novinky o sezónnych ponukách, priamej rezervácii a voľných termínoch cez bezpečný formulár Brevo.",
-    aria: "Formulár na prihlásenie k newsletteru",
-    note: "Prihlásenie prebieha cez bezpečný formulár Brevo.",
-  }
+  hu: { kicker: "Dandelion hírlevél", title: "5 000 Ft kedvezmény a következő foglalásodhoz", lead: "Iratkozz fel, és küldünk egy személyes, egyszer használható 5 000 Ft-os kupont, amelyet közvetlen weboldalas foglalásnál használhatsz fel.", email: "E-mail-címed", cta: "Kérem az 5 000 Ft-os kupont", consent: "Hozzájárulok, hogy a Dandelion Vendégházak hírlevelet és marketingkommunikációt küldjön a megadott e-mail-címre.", privacy: "Adatkezelési tájékoztató", note: "Személyes, egyszer használható kupon közvetlen weboldalas foglaláshoz.", success: "Köszönjük a feliratkozást! Hamarosan elküldjük a személyes kuponodat e-mailben.", imageAlt: "Napfelkelte ködös tájjal a Szent György-hegy környékén" },
+  en: { kicker: "Dandelion newsletter", title: "HUF 5,000 off your next booking", lead: "Sign up and we will send you a personal, single-use HUF 5,000 coupon for a direct booking on our website.", email: "Your email address", cta: "Request the HUF 5,000 coupon", consent: "I agree that Dandelion Guesthouses may send newsletters and marketing communications to the email address provided.", privacy: "Privacy Policy", note: "Personal, single-use coupon for a direct booking on our website.", success: "Thank you for signing up! We will send your personal coupon by email shortly.", imageAlt: "Sunrise over a misty landscape near Szent György Hill" },
+  de: { kicker: "Dandelion Newsletter", title: "5.000 HUF Rabatt auf deine nächste Buchung", lead: "Melde dich an und wir senden dir einen persönlichen, einmalig einlösbaren Gutschein über 5.000 HUF für eine direkte Buchung über unsere Website.", email: "E-Mail-Adresse", cta: "5.000-HUF-Gutschein anfordern", consent: "Ich stimme zu, dass Dandelion Gästehäuser Newsletter und Marketingmitteilungen an die angegebene E-Mail-Adresse sendet.", privacy: "Datenschutzerklärung", note: "Persönlicher, einmalig einlösbarer Gutschein für eine direkte Buchung über unsere Website.", success: "Vielen Dank für deine Anmeldung! Deinen persönlichen Gutschein senden wir dir bald per E-Mail.", imageAlt: "Sonnenaufgang über einer nebligen Landschaft beim Szent-György-hegy" },
+  cs: { kicker: "Newsletter Dandelion", title: "Sleva 5 000 HUF na další rezervaci", lead: "Přihlaste se a zašleme vám osobní jednorázový kupón v hodnotě 5 000 HUF pro přímou rezervaci na našem webu.", email: "E-mailová adresa", cta: "Chci kupón v hodnotě 5 000 HUF", consent: "Souhlasím se zasíláním newsletteru a marketingové komunikace Dandelion Guesthouses na uvedenou e-mailovou adresu.", privacy: "Zásady ochrany osobních údajů", note: "Osobní jednorázový kupón pro přímou rezervaci na našem webu.", success: "Děkujeme za přihlášení! Váš osobní kupón vám brzy zašleme e-mailem.", imageAlt: "Východ slunce nad mlhavou krajinou u hory Szent György" },
+  sk: { kicker: "Newsletter Dandelion", title: "Zľava 5 000 HUF na ďalšiu rezerváciu", lead: "Prihláste sa a pošleme vám osobný jednorazový kupón v hodnote 5 000 HUF na priamu rezerváciu cez našu webstránku.", email: "E-mailová adresa", cta: "Chcem kupón v hodnote 5 000 HUF", consent: "Súhlasím so zasielaním newslettera a marketingovej komunikácie Dandelion Guesthouses na uvedenú e-mailovú adresu.", privacy: "Ochrana osobných údajov", note: "Osobný jednorazový kupón na priamu rezerváciu cez našu webstránku.", success: "Ďakujeme za prihlásenie! Váš osobný kupón vám čoskoro pošleme e-mailom.", imageAlt: "Východ slnka nad hmlistou krajinou pri hore Szent György" },
+  pl: { kicker: "Newsletter Dandelion", title: "5 000 HUF rabatu na następną rezerwację", lead: "Zapisz się, a wyślemy Ci osobisty, jednorazowy kupon o wartości 5 000 HUF na bezpośrednią rezerwację na naszej stronie.", email: "Adres e-mail", cta: "Poproszę o kupon 5 000 HUF", consent: "Wyrażam zgodę na otrzymywanie newslettera i komunikacji marketingowej Dandelion Guesthouses na podany adres e-mail.", privacy: "Polityka prywatności", note: "Osobisty, jednorazowy kupon na bezpośrednią rezerwację na naszej stronie.", success: "Dziękujemy za zapis! Twój osobisty kupon wyślemy wkrótce e-mailem.", imageAlt: "Wschód słońca nad mglistym krajobrazem w okolicy Szent György-hegy" }
 } as const;
-const copy = copyByLang[lang];
+
+const copy = copyByLang[lang] ?? copyByLang.hu;
+const privacyHrefByLang = { hu: "/adatkezelesi-tajekoztato/", en: "/en/privacy-policy/", de: "/de/datenschutz/", cs: "/cs/ochrana-osobnich-udaju/", sk: "/sk/ochrana-osobnych-udajov/", pl: "/pl/polityka-prywatnosci/" } as const;
+const privacyHref = privacyHrefByLang[lang] ?? privacyHrefByLang.hu;
 ---
 
 <section class="dnd-section dnd-newsletter-signup" aria-labelledby={`newsletter-signup-title-${lang}`}>
   <div class="dnd-container">
     <div class="dnd-newsletter-signup__shell">
-      <div class="dnd-newsletter-signup__copy">
-        <div class="dnd-newsletter-signup__intro">
-          <span class="dnd-newsletter-signup__kicker">{copy.kicker}</span>
-          <h2 id={`newsletter-signup-title-${lang}`}>{copy.title}</h2>
-          <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
-        </div>
-
-        <div class="dnd-newsletter-signup__embed">
-          <iframe
-            title={copy.aria}
-            src={brevoFormUrl}
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            scrolling="auto"
-          ></iframe>
-          <p class="dnd-newsletter-signup__note">{copy.note}</p>
-        </div>
+      <div class="dnd-newsletter-signup__image-wrap">
+        <Image class="dnd-newsletter-signup__image" src={newsletterSunrise} alt={copy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
+      </div>
+      <div class="dnd-newsletter-signup__content">
+        <span class="dnd-newsletter-signup__kicker">{copy.kicker}</span>
+        <h2 id={`newsletter-signup-title-${lang}`}>{copy.title}</h2>
+        <p class="dnd-newsletter-signup__lead">{copy.lead}</p>
+        <form class="dnd-newsletter-signup__form" action={brevoFormUrl} method="POST" target={`newsletter-signup-response-${lang}`} data-newsletter-home-form>
+          <label for={`newsletter-signup-email-${lang}`}>{copy.email}</label>
+          <input id={`newsletter-signup-email-${lang}`} name="EMAIL" type="email" autocomplete="email" required />
+          <label class="dnd-newsletter-signup__consent">
+            <input type="checkbox" name="OPT_IN" value="1" required />
+            <span>{copy.consent}</span>
+          </label>
+          <p class="dnd-newsletter-signup__privacy"><a href={privacyHref}>{copy.privacy}</a></p>
+          <input type="hidden" name="email_address_check" value="" />
+          <input type="hidden" name="locale" value={lang === "hu" ? "hu" : "en"} />
+          <button type="submit">{copy.cta}</button>
+        </form>
+        <p class="dnd-newsletter-signup__note">{copy.note}</p>
+        <p class="dnd-newsletter-signup__success" data-newsletter-home-success role="status" tabindex="-1" hidden>{copy.success}</p>
+        <iframe class="dnd-newsletter-signup__response" name={`newsletter-signup-response-${lang}`} title={copy.email} hidden></iframe>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .dnd-newsletter-signup {
-    padding: 18px 0 26px;
-    background: #fbf8f1;
-  }
-
-  .dnd-newsletter-signup__shell {
-    padding: 22px 26px 20px;
-    border: 1px solid rgba(91, 70, 42, 0.12);
-    border-radius: 26px;
-    background:
-      radial-gradient(circle at top right, rgba(233, 180, 63, 0.1), transparent 28%),
-      linear-gradient(135deg, rgba(255, 254, 250, 0.98), rgba(250, 244, 233, 0.94));
-    box-shadow: 0 18px 34px rgba(80, 57, 31, 0.06);
-  }
-
-  .dnd-newsletter-signup__copy {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-  }
-
-  .dnd-newsletter-signup__intro {
-    display: grid;
-    gap: 6px;
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: 760px;
-  }
-
-  .dnd-newsletter-signup__kicker {
-    display: inline-block;
-    color: rgba(121, 93, 48, 0.82);
-    font-size: var(--dnd-text-2xs);
-    font-weight: 600;
-    letter-spacing: var(--dnd-tracking-label);
-    text-transform: uppercase;
-  }
-
-  .dnd-newsletter-signup h2 {
-    margin: 0;
-    color: rgba(39, 32, 24, 0.94);
-    font-family: var(--dnd-font-display);
-    font-size: clamp(1.16rem, 1.8vw, 1.6rem);
-    font-weight: 400;
-    line-height: 1.06;
-  }
-
-  .dnd-newsletter-signup__lead {
-    margin: 0;
-    color: rgba(39, 32, 24, 0.72);
-    font-size: var(--dnd-text-md);
-    line-height: 1.48;
-  }
-
-  .dnd-newsletter-signup__embed {
-    display: grid;
-    gap: 10px;
-    flex: 0 0 auto;
-    width: min(100%, 420px);
-  }
-
-  .dnd-newsletter-signup__embed iframe {
-    display: block;
-    width: 100%;
-    height: 420px;
-    max-width: 100%;
-    border: 0;
-    background: transparent;
-  }
-
-  .dnd-newsletter-signup__note {
-    margin: 0;
-    max-width: 38ch;
-    color: rgba(39, 32, 24, 0.58);
-    font-size: var(--dnd-text-xs);
-    line-height: 1.35;
-    text-align: left;
-  }
-
-  @media (max-width: 900px) {
-    .dnd-newsletter-signup {
-      padding: 10px 0 22px;
-    }
-
-    .dnd-newsletter-signup__shell {
-      padding: 24px 18px 20px;
-      border-radius: 18px;
-      background:
-        radial-gradient(circle at top right, rgba(233, 180, 63, 0.08), transparent 30%),
-        rgba(255, 253, 248, 0.88);
-      box-shadow: 0 10px 26px rgba(80, 57, 31, 0.045);
-    }
-
-    .dnd-newsletter-signup__copy {
-      display: grid;
-      gap: 14px;
-      justify-items: center;
-    }
-
-    .dnd-newsletter-signup__intro {
-      justify-items: center;
-      gap: 8px;
-      max-width: 30ch;
-      text-align: center;
-    }
-
-    .dnd-newsletter-signup__kicker {
-      font-size: var(--dnd-text-2xs);
-      letter-spacing: 0.16em;
-    }
-
-    .dnd-newsletter-signup h2 {
-      font-size: 1.35rem;
-      line-height: 1.08;
-    }
-
-    .dnd-newsletter-signup__lead {
-      font-size: var(--dnd-text-xs);
-      line-height: 1.42;
-    }
-
-    .dnd-newsletter-signup__embed {
-      width: 100%;
-    }
-
-    .dnd-newsletter-signup__embed iframe {
-      height: 560px;
-    }
-
-    .dnd-newsletter-signup__note {
-      max-width: 30ch;
-      font-size: var(--dnd-text-2xs);
-      text-align: center;
-    }
+  .dnd-newsletter-signup { padding: clamp(30px, 5vw, 64px) 0; background: #fbf8f1; }
+  .dnd-newsletter-signup__shell { display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); min-height: 430px; overflow: hidden; border: 1px solid rgba(91, 70, 42, 0.14); border-radius: 32px; background: #fffaf1; box-shadow: 0 20px 52px rgba(80, 57, 31, 0.1); }
+  .dnd-newsletter-signup__image-wrap { min-height: 100%; background: #7e5a36; }
+  .dnd-newsletter-signup__image { display: block; width: 100%; height: 100%; min-height: 430px; object-fit: cover; }
+  .dnd-newsletter-signup__content { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 5vw, 72px); color: #30271d; }
+  .dnd-newsletter-signup__kicker { color: #9b762f; font-size: var(--dnd-text-2xs); font-weight: 700; letter-spacing: var(--dnd-tracking-label); text-transform: uppercase; }
+  .dnd-newsletter-signup h2 { max-width: 12ch; margin: 10px 0 14px; color: #30271d; font-family: var(--dnd-font-display); font-size: clamp(2rem, 3.2vw, 3.25rem); font-weight: 400; line-height: 0.98; }
+  .dnd-newsletter-signup__lead { max-width: 52ch; margin: 0 0 24px; color: rgba(48, 39, 29, 0.75); font-size: var(--dnd-text-md); line-height: 1.6; }
+  .dnd-newsletter-signup__form { display: grid; gap: 10px; max-width: 540px; }
+  .dnd-newsletter-signup__form > label:first-child { color: rgba(48, 39, 29, 0.78); font-size: var(--dnd-text-sm); font-weight: 700; }
+  .dnd-newsletter-signup__form input[type="email"] { width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid rgba(91, 70, 42, 0.28); border-radius: 10px; background: #fff; color: #30271d; font-size: var(--dnd-text-md); }
+  .dnd-newsletter-signup__form input[type="email"]:focus-visible, .dnd-newsletter-signup__form button:focus-visible, .dnd-newsletter-signup__consent input:focus-visible { outline: 3px solid rgba(217, 158, 43, 0.5); outline-offset: 3px; }
+  .dnd-newsletter-signup__consent { display: flex; align-items: flex-start; gap: 9px; color: rgba(48, 39, 29, 0.72); font-size: var(--dnd-text-xs); line-height: 1.45; }
+  .dnd-newsletter-signup__consent input { flex: 0 0 auto; margin-top: 3px; }
+  .dnd-newsletter-signup__privacy { margin: -3px 0 2px; font-size: var(--dnd-text-xs); }
+  .dnd-newsletter-signup__privacy a { color: #8a682b; text-decoration: underline; text-underline-offset: 0.16em; }
+  .dnd-newsletter-signup__form button { min-height: 54px; margin-top: 4px; padding: 0 22px; border: 1px solid #d99e2b; border-radius: 10px; background: #d99e2b; color: #241b12; cursor: pointer; font-size: var(--dnd-text-md); font-weight: 700; }
+  .dnd-newsletter-signup__form button:hover, .dnd-newsletter-signup__form button:focus-visible { background: #f1bd54; }
+  .dnd-newsletter-signup__note { margin: 14px 0 0; color: rgba(48, 39, 29, 0.58); font-size: var(--dnd-text-xs); line-height: 1.4; }
+  .dnd-newsletter-signup__success { margin: 18px 0 0; padding: 16px; border: 1px solid rgba(84, 123, 78, 0.28); border-radius: 10px; background: rgba(226, 241, 220, 0.72); color: #31532e; font-size: var(--dnd-text-md); line-height: 1.5; }
+  @media (max-width: 1024px) { .dnd-newsletter-signup__content { padding: 38px; } .dnd-newsletter-signup h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); } }
+  @media (max-width: 720px) {
+    .dnd-newsletter-signup { padding: 28px 0 38px; }
+    .dnd-newsletter-signup__shell { display: block; border-radius: 24px; }
+    .dnd-newsletter-signup__image, .dnd-newsletter-signup__image-wrap { min-height: 0; height: 235px; }
+    .dnd-newsletter-signup__content { padding: 30px 22px 28px; }
+    .dnd-newsletter-signup h2 { max-width: none; font-size: clamp(1.9rem, 9vw, 2.4rem); }
+    .dnd-newsletter-signup__lead { font-size: var(--dnd-text-sm); line-height: 1.5; }
+    .dnd-newsletter-signup__form button { width: 100%; }
   }
 </style>
+
+<script>
+  document.querySelectorAll("[data-newsletter-home-form]").forEach((form) => {
+    const success = form.parentElement?.querySelector("[data-newsletter-home-success]");
+    if (!(form instanceof HTMLFormElement) || !(success instanceof HTMLElement)) return;
+    form.addEventListener("submit", () => {
+      window.setTimeout(() => { form.hidden = true; success.hidden = false; success.focus(); }, 0);
+    });
+  });
+</script>

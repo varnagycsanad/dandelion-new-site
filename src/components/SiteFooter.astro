@@ -1,7 +1,5 @@
 ---
 import { accommodations } from "../data/accommodations";
-import { Image } from "astro:assets";
-import newsletterSunrise from "../assets/home/newsletter/dandelion-newsletter-sunrise.jpg";
 
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 // [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
@@ -23,40 +21,34 @@ const brevoFormUrl =
   "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
 const footerNewsletterCopy = {
   hu: {
-    title: "5 000 Ft kedvezmény a következő foglalásodhoz",
-    text: "Iratkozz fel, és küldünk egy személyes, egyszer használható 5 000 Ft-os kupont, amelyet közvetlen weboldalas foglalásnál használhatsz fel.",
-    cta: "Kérem az 5 000 Ft-os kupont",
-    imageAlt: "Napfelkelte ködös tájjal a Szent György-hegy környékén"
+    title: "Iratkozz fel a Dandelion hírlevelére",
+    text: "Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül e-mailben.",
+    cta: "Iratkozz fel a hírlevélre"
   },
   en: {
-    title: "HUF 5,000 off your next booking",
-    text: "Sign up and we will send you a personal, single-use HUF 5,000 coupon for a direct booking on our website.",
-    cta: "Request the HUF 5,000 coupon",
-    imageAlt: "Sunrise over a misty landscape near Szent György Hill"
+    title: "Subscribe to the Dandelion newsletter",
+    text: "Inspiration, special offers and Balaton experiences delivered directly to your inbox.",
+    cta: "Subscribe to the newsletter"
   },
   de: {
-    title: "5.000 HUF Rabatt auf deine nächste Buchung",
-    text: "Melde dich an und wir senden dir einen persönlichen, einmalig einlösbaren Gutschein über 5.000 HUF für eine direkte Buchung über unsere Website.",
-    cta: "5.000-HUF-Gutschein anfordern",
-    imageAlt: "Sonnenaufgang über einer nebligen Landschaft beim Szent-György-hegy"
+    title: "Für den Dandelion-Newsletter anmelden",
+    text: "Inspirationen, besondere Angebote und Erlebnisse am Balaton direkt per E-Mail.",
+    cta: "Zum Newsletter anmelden"
   },
   cs: {
-    title: "Sleva 5 000 HUF na další rezervaci",
-    text: "Přihlaste se a zašleme vám osobní jednorázový kupón v hodnotě 5 000 HUF pro přímou rezervaci na našem webu.",
-    cta: "Chci kupón v hodnotě 5 000 HUF",
-    imageAlt: "Východ slunce nad mlhavou krajinou u hory Szent György"
+    title: "Přihlaste se k odběru newsletteru Dandelion",
+    text: "Inspirace, speciální nabídky a zážitky u Balatonu přímo e-mailem.",
+    cta: "Přihlásit se k newsletteru"
   },
   sk: {
-    title: "Zľava 5 000 HUF na ďalšiu rezerváciu",
-    text: "Prihláste sa a pošleme vám osobný jednorazový kupón v hodnote 5 000 HUF na priamu rezerváciu cez našu webstránku.",
-    cta: "Chcem kupón v hodnote 5 000 HUF",
-    imageAlt: "Východ slnka nad hmlistou krajinou pri hore Szent György"
+    title: "Prihláste sa na odber newslettera Dandelion",
+    text: "Inšpirácie, špeciálne ponuky a zážitky pri Balatone priamo e-mailom.",
+    cta: "Prihlásiť sa na newsletter"
   },
   pl: {
-    title: "5 000 HUF rabatu na następną rezerwację",
-    text: "Zapisz się, a wyślemy Ci osobisty, jednorazowy kupon o wartości 5 000 HUF na bezpośrednią rezerwację na naszej stronie.",
-    cta: "Poproszę o kupon 5 000 HUF",
-    imageAlt: "Wschód słońca nad mglistym krajobrazem w okolicy Szent György-hegy"
+    title: "Zapisz się do newslettera Dandelion",
+    text: "Inspiracje, wyjątkowe oferty i atrakcje nad Balatonem bezpośrednio na e-mail.",
+    cta: "Zapisz się do newslettera"
   }
 } as const;
 const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
@@ -431,7 +423,6 @@ const slovakLegalLinks = [
 {isSlovakFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -505,7 +496,6 @@ const slovakLegalLinks = [
 {isCzechFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -579,7 +569,6 @@ const slovakLegalLinks = [
 {isGermanFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
     <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
       <div>
         <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
         <p>{newsletterCopy.text}</p>
@@ -653,7 +642,6 @@ const slovakLegalLinks = [
 {!isGermanFooter && !isCzechFooter && !isSlovakFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
   <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-    <Image class="dnd-site-footer__newsletter-image" src={newsletterSunrise} alt={newsletterCopy.imageAlt} width={1800} height={1013} format="webp" quality={78} loading="lazy" />
     <div>
       <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
       <p>{newsletterCopy.text}</p>
@@ -998,27 +986,6 @@ const slovakLegalLinks = [
     box-shadow: 0 18px 44px rgba(11, 17, 18, 0.16);
   }
 
-  .dnd-site-footer__newsletter-image {
-    width: clamp(150px, 22vw, 250px);
-    height: 132px;
-    flex: 0 0 clamp(150px, 22vw, 250px);
-    object-fit: cover;
-    border-radius: 16px 5px 16px 5px;
-    box-shadow: 0 10px 24px rgba(11, 17, 18, 0.24);
-  }
-
-  .dnd-site-footer__newsletter::before {
-    position: absolute;
-    right: 21%;
-    bottom: -76px;
-    width: 240px;
-    height: 180px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 247, 233, 0.16), transparent 68%);
-    content: "";
-    pointer-events: none;
-  }
-
   .dnd-site-footer__newsletter > * {
     position: relative;
     z-index: 1;
@@ -1352,13 +1319,6 @@ const slovakLegalLinks = [
       gap: 12px;
       margin-bottom: 28px;
       text-align: center;
-    }
-
-    .dnd-site-footer__newsletter-image {
-      width: 100%;
-      height: 150px;
-      flex: 0 0 auto;
-      order: -1;
     }
 
     .dnd-site-footer__newsletter-form {
