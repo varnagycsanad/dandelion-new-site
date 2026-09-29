@@ -313,10 +313,11 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     font-size: 1.65rem;
   }
 
+  /* [CHANGE 2026-09-29 21:00] Compact hosted Brevo form after removing its duplicate logo/title/intro blocks. */
   .dnd-newsletter-popup__dialog iframe {
     display: block;
     width: 100%;
-    height: 420px;
+    height: 300px;
     max-width: 100%;
     margin: 0;
     border: 0;
@@ -375,7 +376,7 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     }
 
     .dnd-newsletter-popup__dialog iframe {
-      height: 560px;
+      height: 380px;
     }
   }
 </style>
