@@ -8,6 +8,7 @@ import HomeRegionGuide from "../../sections/HomeRegionGuide.astro";
 import RegionStories from "../../sections/RegionStories.astro";
 import Experiences from "../../sections/Experiences.astro";
 import NewsletterSignup from "../../sections/NewsletterSignup.astro";
+import NewsletterPopup from "../../sections/NewsletterPopup.astro";
 import GoogleRegionMap from "../../sections/GoogleRegionMap.astro";
 import HomeGeoFaq from "../../sections/HomeGeoFaq.astro";
 import bikingImage from "../../assets/home/experiences/dandelion-home-experience-bike-01-mobile-optimized.webp";
@@ -143,8 +144,11 @@ const slovakExperiences = [
   />
 
   <AutumnCampaignOffers lang="sk" />
-  <NewsletterSignup lang="sk" />
-  <PanoramaPoolHighlight lang="sk" />
+  <div class="homepage-feature-pair" data-feature-entry>
+    <NewsletterSignup lang="sk" />
+    <PanoramaPoolHighlight lang="sk" />
+  </div>
+  <NewsletterPopup lang="sk" />
   <HomeReviews lang="sk" />
   <HomeRegionGuide lang="sk" />
 
@@ -169,3 +173,34 @@ const slovakExperiences = [
   <HomeGeoFaq lang="sk" />
   <GoogleRegionMap lang="sk" />
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const pair = document.querySelector("[data-feature-entry]");
+    if (!pair) return;
+    const reveal = () => pair.classList.add("is-entry-visible");
+    if (!("IntersectionObserver" in window)) { reveal(); return; }
+    pair.classList.add("is-entry-ready");
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      reveal();
+      observer.disconnect();
+    }, { threshold: 0.22 });
+    observer.observe(pair);
+  })();
+</script>
+
+<style>
+  .homepage-feature-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+  .homepage-feature-pair > :global(.dnd-newsletter-signup), .homepage-feature-pair > :global(.pool-highlight) { min-width: 0; padding: 28px 0; }
+  .homepage-feature-pair > :global(.pool-highlight) { transition-delay: 120ms; }
+  .homepage-feature-pair :global(.dnd-container) { width: 100%; max-width: none; padding: 0; }
+  .homepage-feature-pair.is-entry-ready > :global(.dnd-newsletter-signup), .homepage-feature-pair.is-entry-ready > :global(.pool-highlight) { opacity: 0; transition: opacity 780ms cubic-bezier(0.22, 1, 0.36, 1), transform 780ms cubic-bezier(0.22, 1, 0.36, 1); will-change: opacity, transform; }
+  .homepage-feature-pair.is-entry-ready > :global(.dnd-newsletter-signup) { transform: translateX(-64px) scale(0.97); }
+  .homepage-feature-pair.is-entry-ready > :global(.pool-highlight) { transform: translateX(64px) scale(0.97); }
+  .homepage-feature-pair.is-entry-ready :global(.dnd-newsletter-signup__image), .homepage-feature-pair.is-entry-ready :global(.pool-highlight__image) { transform: scale(1.04); transition: transform 1120ms cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+  .homepage-feature-pair.is-entry-visible > :global(.dnd-newsletter-signup), .homepage-feature-pair.is-entry-visible > :global(.pool-highlight) { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  .homepage-feature-pair.is-entry-visible :global(.dnd-newsletter-signup__image), .homepage-feature-pair.is-entry-visible :global(.pool-highlight__image) { transform: scale(1); }
+  @media (max-width: 900px) { .homepage-feature-pair { grid-template-columns: 1fr; gap: 0; } .homepage-feature-pair.is-entry-ready > :global(.dnd-newsletter-signup), .homepage-feature-pair.is-entry-ready > :global(.pool-highlight) { transform: translateY(36px) scale(0.98); transition-duration: 640ms; } .homepage-feature-pair.is-entry-ready > :global(.pool-highlight) { transition-delay: 100ms; } }
+  @media (prefers-reduced-motion: reduce) { .homepage-feature-pair > :global(.dnd-newsletter-signup), .homepage-feature-pair > :global(.pool-highlight) { opacity: 1; transform: none; transition: none !important; } .homepage-feature-pair :global(.dnd-newsletter-signup__image), .homepage-feature-pair :global(.pool-highlight__image) { transform: none !important; transition: none !important; } }
+</style>
