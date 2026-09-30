@@ -61,77 +61,18 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     const closeButton = root.querySelector("[data-dnd-newsletter-close]");
     const dismissButton = root.querySelector("[data-dnd-newsletter-dismiss]");
     const formFrame = root.querySelector("iframe[data-src]");
-    const storageKey = "dnd-newsletter-popup-dismissed-at";
-    const suppressionWindow = 30 * 24 * 60 * 60 * 1000;
-    const dwellTime = 60 * 1000;
-    let hasShownCard = false;
-    let scrollFrame = 0;
-
-    const canShow = () => {
-      try {
-        const dismissedAt = Number(window.localStorage.getItem(storageKey) || 0);
-        return !dismissedAt || Date.now() - dismissedAt > suppressionWindow;
-      } catch {
-        return true;
-      }
-    };
-
     const pushEvent = (eventName) => {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: eventName });
-    };
-
-    const suppress = () => {
-      try {
-        window.localStorage.setItem(storageKey, String(Date.now()));
-      } catch {
-        // Local storage may be unavailable in restrictive browser contexts.
-      }
-    };
-
-    const showCard = () => {
-      if (hasShownCard || !card || !canShow()) {
-        return;
-      }
-
-      hasShownCard = true;
-      card.hidden = false;
-      pushEvent("dnd_newsletter_popup_impression");
-    };
-
-    const handleScroll = () => {
-      scrollFrame = 0;
-      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-      if (pageHeight > 0 && window.scrollY / pageHeight >= 0.6) {
-        showCard();
-        window.removeEventListener("scroll", queueScrollCheck);
-      }
-    };
-
-    const queueScrollCheck = () => {
-      if (!scrollFrame) {
-        scrollFrame = window.requestAnimationFrame(handleScroll);
-      }
-    };
-
-    const hideCard = () => {
-      if (card) {
-        card.hidden = true;
-      }
-      suppress();
     };
 
     const closeDialog = () => {
       if (dialog?.open) {
         dialog.close();
       }
-      suppress();
       pushEvent("dnd_newsletter_popup_close");
     };
 
-    window.setTimeout(showCard, dwellTime);
-    window.addEventListener("scroll", queueScrollCheck, { passive: true });
     const openDialog = () => {
       if (!dialog) {
         return;
@@ -153,10 +94,6 @@ const copy = copyByLang[lang] ?? copyByLang.hu;
     };
     openButtons.forEach((button) => button.addEventListener("click", openDialog));
     closeButton?.addEventListener("click", closeDialog);
-    dismissButton?.addEventListener("click", () => {
-      hideCard();
-      pushEvent("dnd_newsletter_popup_dismiss");
-    });
     dialog?.addEventListener("cancel", (event) => {
       event.preventDefault();
       closeDialog();

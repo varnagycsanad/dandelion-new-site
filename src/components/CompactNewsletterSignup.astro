@@ -1,0 +1,167 @@
+---
+interface Props {
+  lang?: "hu" | "en" | "de" | "cs" | "sk";
+}
+
+const { lang = "hu" } = Astro.props as Props;
+
+const copyByLang = {
+  hu: {
+    kicker: "DANDELION HÍRLEVÉL",
+    title: "5 000 Ft kedvezmény a következő foglalásodhoz",
+    text: "Iratkozz fel hírlevelünkre, és elküldjük személyes, egyszer használatos 5 000 Ft-os kuponodat.",
+    cta: "Kérem az 5 000 Ft-os kupont"
+  },
+  en: {
+    kicker: "DANDELION NEWSLETTER",
+    title: "HUF 5,000 off your next booking",
+    text: "Subscribe to our newsletter and we will send you a personal, single-use HUF 5,000 coupon.",
+    cta: "Request my HUF 5,000 coupon"
+  },
+  de: {
+    kicker: "DANDELION NEWSLETTER",
+    title: "5.000 HUF Rabatt auf deine nächste Buchung",
+    text: "Melde dich für unseren Newsletter an und wir senden dir deinen persönlichen, einmalig einlösbaren Gutschein über 5.000 HUF.",
+    cta: "Meinen 5.000-HUF-Gutschein anfordern"
+  },
+  cs: {
+    kicker: "NEWSLETTER DANDELION",
+    title: "Sleva 5 000 HUF na další rezervaci",
+    text: "Přihlaste se k odběru newsletteru a zašleme vám osobní jednorázový kupón v hodnotě 5 000 HUF.",
+    cta: "Chci kupón v hodnotě 5 000 HUF"
+  },
+  sk: {
+    kicker: "NEWSLETTER DANDELION",
+    title: "Zľava 5 000 HUF na ďalšiu rezerváciu",
+    text: "Prihláste sa na odber newslettera a pošleme vám osobný jednorazový kupón v hodnote 5 000 HUF.",
+    cta: "Chcem kupón v hodnote 5 000 HUF"
+  }
+} as const;
+
+const copy = copyByLang[lang] ?? copyByLang.hu;
+---
+
+<section class="dnd-compact-newsletter" aria-labelledby={`compact-newsletter-title-${lang}`}>
+  <div class="dnd-container">
+    <div class="dnd-compact-newsletter__shell">
+      <div class="dnd-compact-newsletter__copy">
+        <span class="dnd-compact-newsletter__kicker">{copy.kicker}</span>
+        <h2 id={`compact-newsletter-title-${lang}`}>{copy.title}</h2>
+        <p>{copy.text}</p>
+      </div>
+      <button class="dnd-compact-newsletter__cta" type="button" data-dnd-newsletter-open>{copy.cta}</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dnd-compact-newsletter {
+    padding: 22px 0;
+    background: #fbf8f1;
+  }
+
+  .dnd-compact-newsletter__shell {
+    display: flex;
+    min-height: 150px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 24px 30px;
+    border: 1px solid rgba(91, 70, 42, 0.15);
+    border-radius: 16px;
+    background: linear-gradient(112deg, #fffaf1 0%, #f7f1e4 100%);
+    box-shadow: 0 8px 22px rgba(80, 57, 31, 0.06);
+  }
+
+  .dnd-compact-newsletter__copy {
+    min-width: 0;
+  }
+
+  .dnd-compact-newsletter__kicker {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--dnd-accent);
+    font-size: var(--dnd-text-xs);
+    font-weight: 600;
+    letter-spacing: var(--dnd-tracking-label);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .dnd-compact-newsletter h2 {
+    max-width: 34ch;
+    margin: 0;
+    color: #30271d;
+    font-family: var(--dnd-font-display);
+    font-size: clamp(1.25rem, 2vw, 1.72rem);
+    font-weight: 400;
+    line-height: 1.08;
+  }
+
+  .dnd-compact-newsletter p {
+    max-width: 68ch;
+    margin: 9px 0 0;
+    color: rgba(47, 36, 24, 0.76);
+    font-size: 0.82rem;
+    line-height: 1.42;
+  }
+
+  .dnd-compact-newsletter__cta {
+    flex: 0 0 auto;
+    min-height: 46px;
+    max-width: 260px;
+    padding: 0 20px;
+    border: 1px solid rgba(116, 78, 18, 0.16);
+    border-radius: 8px;
+    background: linear-gradient(180deg, #e6ad35 0%, #cf9321 100%);
+    color: #23160a;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.25;
+    box-shadow: 0 8px 18px rgba(181, 126, 26, 0.15), inset 0 1px 0 rgba(255, 248, 229, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  .dnd-compact-newsletter__cta:hover,
+  .dnd-compact-newsletter__cta:focus-visible {
+    transform: translateY(-1px);
+    background: linear-gradient(180deg, #ebb544 0%, #d89d2d 100%);
+    box-shadow: 0 11px 22px rgba(181, 126, 26, 0.21), inset 0 1px 0 rgba(255, 248, 229, 0.6);
+  }
+
+  .dnd-compact-newsletter__cta:focus-visible {
+    outline: 3px solid rgba(217, 158, 43, 0.45);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .dnd-compact-newsletter {
+      padding: 16px 0 20px;
+    }
+
+    .dnd-compact-newsletter__shell {
+      min-height: 0;
+      align-items: stretch;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 18px;
+      border-radius: 14px;
+    }
+
+    .dnd-compact-newsletter h2 {
+      font-size: clamp(1.25rem, 6vw, 1.55rem);
+    }
+
+    .dnd-compact-newsletter p {
+      margin-top: 8px;
+      font-size: 0.78rem;
+    }
+
+    .dnd-compact-newsletter__cta {
+      width: 100%;
+      max-width: none;
+    }
+  }
+</style>

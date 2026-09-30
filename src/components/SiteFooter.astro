@@ -4,9 +4,6 @@ import { accommodations } from "../data/accommodations";
 // [CHANGE 2026-05-20 00:00] English footer copy and safe English links added while preserving the Hungarian footer layout.
 // [CHANGE 2026-08-11 19:00] Footer logo reduced and integrated into the dark brand block.
 // [CHANGE 2026-08-11 19:30] Footer warmed with a subtle dandelion petal light treatment.
-// [CHANGE 2026-08-11 20:48] Footer newsletter changed to email-first modal signup with Brevo POST handoff.
-// [CHANGE 2026-08-11 21:02] Newsletter submit response replaced with a readable confirmation state.
-// [CHANGE 2026-08-11 22:05] Hungarian newsletter copy changed from formal to informal address.
 interface Props {
   lang?: "hu" | "en" | "de" | "sk" | "pl" | "cs";
   bookingHrefOverride?: string;
@@ -17,132 +14,9 @@ const isEnglishFooter = lang === "en";
 const isGermanFooter = lang === "de";
 const isCzechFooter = lang === "cs";
 const isSlovakFooter = lang === "sk";
-const brevoFormUrl =
-  "https://d45cbe7c.sibforms.com/v2/serve/MUIFACKpKPrp0nwNuackNku75WN9hdMxMVAUPvYNULPddmR-aQ4pe1wxLyqg6u4d21Jo-blvV37HVRZKbvxuYftYLIkN6S7ajl9qCjOx18tAN6JKJwNJ_IFZ8T734t6kjJYrFHDFd5IInkVVxIBf41DiExIF0RJi2TBTLktGdUqc9bo-P7h-0a1ue324AI-1mna3XHb3kWqPfmpycQ==";
-const footerNewsletterCopy = {
-  hu: {
-    title: "Iratkozz fel a Dandelion hírlevelére",
-    text: "Inspirációk, különleges ajánlatok és balatoni élmények közvetlenül e-mailben.",
-    cta: "Iratkozz fel a hírlevélre"
-  },
-  en: {
-    title: "Subscribe to the Dandelion newsletter",
-    text: "Inspiration, special offers and Balaton experiences delivered directly to your inbox.",
-    cta: "Subscribe to the newsletter"
-  },
-  de: {
-    title: "Für den Dandelion-Newsletter anmelden",
-    text: "Inspirationen, besondere Angebote und Erlebnisse am Balaton direkt per E-Mail.",
-    cta: "Zum Newsletter anmelden"
-  },
-  cs: {
-    title: "Přihlaste se k odběru newsletteru Dandelion",
-    text: "Inspirace, speciální nabídky a zážitky u Balatonu přímo e-mailem.",
-    cta: "Přihlásit se k newsletteru"
-  },
-  sk: {
-    title: "Prihláste sa na odber newslettera Dandelion",
-    text: "Inšpirácie, špeciálne ponuky a zážitky pri Balatone priamo e-mailom.",
-    cta: "Prihlásiť sa na newsletter"
-  },
-  pl: {
-    title: "Zapisz się do newslettera Dandelion",
-    text: "Inspiracje, wyjątkowe oferty i atrakcje nad Balatonem bezpośrednio na e-mail.",
-    cta: "Zapisz się do newslettera"
-  }
-} as const;
-const newsletterCopy = footerNewsletterCopy[lang] ?? footerNewsletterCopy.hu;
-const newsletterFormCopy = {
-  hu: {
-    emailLabel: "E-mail-cím",
-    emailPlaceholder: "E-mail-cím",
-    openLabel: "Feliratkozás folytatása",
-    dialogLead: "Ellenőrizd az e-mail-címed, majd erősítsd meg a feliratkozást.",
-    consent: "Hozzájárulok, hogy a Dandelion Vendégházak hírlevelet és marketingkommunikációt küldjön a megadott e-mail-címre.",
-    submit: "Feliratkozom",
-    close: "Bezárás",
-    response: "A feliratkozás visszaigazolása",
-    privacyLabel: "Adatkezelési tájékoztató"
-  },
-  en: {
-    emailLabel: "Email address",
-    emailPlaceholder: "Email address",
-    openLabel: "Continue signup",
-    dialogLead: "Check your email address, then confirm your newsletter signup.",
-    consent: "I agree that Dandelion Guesthouses may send newsletters and marketing communications to the email address provided.",
-    submit: "Subscribe",
-    close: "Close",
-    response: "Signup confirmation",
-    privacyLabel: "Privacy Policy"
-  },
-  de: {
-    emailLabel: "E-Mail-Adresse",
-    emailPlaceholder: "E-Mail-Adresse",
-    openLabel: "Anmeldung fortsetzen",
-    dialogLead: "Prüfen Sie Ihre E-Mail-Adresse und bestätigen Sie anschließend die Anmeldung.",
-    consent: "Ich stimme zu, dass Dandelion Gästehäuser Newsletter und Marketingmitteilungen an die angegebene E-Mail-Adresse sendet.",
-    submit: "Anmelden",
-    close: "Schließen",
-    response: "Anmeldebestätigung",
-    privacyLabel: "Datenschutzerklärung"
-  },
-  cs: {
-    emailLabel: "E-mailová adresa",
-    emailPlaceholder: "E-mailová adresa",
-    openLabel: "Pokračovat v přihlášení",
-    dialogLead: "Zkontrolujte svou e-mailovou adresu a potvrďte přihlášení k newsletteru.",
-    consent: "Souhlasím se zasíláním newsletteru a marketingové komunikace Dandelion Guesthouses na uvedenou e-mailovou adresu.",
-    submit: "Přihlásit se",
-    close: "Zavřít",
-    response: "Potvrzení přihlášení",
-    privacyLabel: "Zásady ochrany osobních údajů"
-  },
-  sk: {
-    emailLabel: "E-mailová adresa",
-    emailPlaceholder: "E-mailová adresa",
-    openLabel: "Pokračovať v prihlásení",
-    dialogLead: "Skontrolujte svoju e-mailovú adresu a potvrďte prihlásenie na odber newslettera.",
-    consent: "Súhlasím so zasielaním newslettera a marketingovej komunikácie Dandelion Guesthouses na uvedenú e-mailovú adresu.",
-    submit: "Prihlásiť sa",
-    close: "Zavrieť",
-    response: "Potvrdenie prihlásenia",
-    privacyLabel: "Ochrana osobných údajov"
-  },
-  pl: {
-    emailLabel: "Adres e-mail",
-    emailPlaceholder: "Adres e-mail",
-    openLabel: "Kontynuuj zapis",
-    dialogLead: "Sprawdź swój adres e-mail i potwierdź zapis do newslettera.",
-    consent: "Wyrażam zgodę na otrzymywanie newslettera i komunikacji marketingowej Dandelion Guesthouses na podany adres e-mail.",
-    submit: "Zapisz się",
-    close: "Zamknij",
-    response: "Potwierdzenie zapisu",
-    privacyLabel: "Polityka prywatności"
-  }
-} as const;
-const newsletterUiCopy = newsletterFormCopy[lang] ?? newsletterFormCopy.hu;
-const newsletterSuccessCopy = {
-  hu: "Köszönjük a feliratkozást! Hamarosan elküldjük a személyes kuponodat e-mailben.",
-  en: "Thank you for signing up! We will send your personal coupon by email shortly.",
-  de: "Vielen Dank für deine Anmeldung! Deinen persönlichen Gutschein senden wir dir bald per E-Mail.",
-  cs: "Děkujeme za přihlášení! Váš osobní kupón vám brzy zašleme e-mailem.",
-  sk: "Ďakujeme za prihlásenie! Váš osobný kupón vám čoskoro pošleme e-mailom.",
-  pl: "Dziękujemy za zapis! Twój osobisty kupon wyślemy wkrótce e-mailem."
-} as const;
-const newsletterSuccess = newsletterSuccessCopy[lang] ?? newsletterSuccessCopy.hu;
-
 const homeHref = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
-const newsletterPrivacyHref = isEnglishFooter
-  ? `${homeHref}en/privacy-policy/`
-  : isGermanFooter
-    ? `${homeHref}de/datenschutz/`
-    : isCzechFooter
-      ? `${homeHref}cs/ochrana-osobnich-udaju/`
-      : isSlovakFooter
-        ? `${homeHref}sk/ochrana-osobnych-udajov/`
-        : `${homeHref}adatkezelesi-tajekoztato/`;
 const footerLogoSrc = `${homeHref}images/LOGO/dandelion-logo-footer.svg`;
 
 const resolveLocalHref = (href: string) => {
@@ -422,19 +296,6 @@ const slovakLegalLinks = [
 
 {isSlovakFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
-    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <div>
-        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
-        <p>{newsletterCopy.text}</p>
-      </div>
-    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
-      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
-      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterCopy.cta}>
-        <span>{newsletterCopy.cta}</span>
-      </button>
-    </form>
-    </div>
 
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
@@ -495,20 +356,6 @@ const slovakLegalLinks = [
 
 {isCzechFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
-    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <div>
-        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
-        <p>{newsletterCopy.text}</p>
-      </div>
-    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
-      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
-      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterCopy.cta}>
-        <span>{newsletterCopy.cta}</span>
-      </button>
-    </form>
-    </div>
-
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}cs/`} class="dnd-site-footer__brand-link" aria-label="Dandelion ubytování úvod">
@@ -568,20 +415,6 @@ const slovakLegalLinks = [
 
 {isGermanFooter && (
   <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
-    <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-      <div>
-        <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
-        <p>{newsletterCopy.text}</p>
-      </div>
-    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
-      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
-      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterCopy.cta}>
-        <span>{newsletterCopy.cta}</span>
-      </button>
-    </form>
-    </div>
-
     <div class="dnd-container dnd-site-footer__inner">
       <div class="dnd-site-footer__brand">
         <a href={`${homeHref}de/`} class="dnd-site-footer__brand-link" aria-label="Dandelion Gästehäuser Startseite">
@@ -641,20 +474,6 @@ const slovakLegalLinks = [
 
 {!isGermanFooter && !isCzechFooter && !isSlovakFooter && (
 <footer class="dnd-site-footer" aria-labelledby="site-footer-title">
-  <div class="dnd-container dnd-site-footer__newsletter" aria-labelledby="footer-newsletter-title">
-    <div>
-      <h2 id="footer-newsletter-title">{newsletterCopy.title}</h2>
-      <p>{newsletterCopy.text}</p>
-    </div>
-    <form class="dnd-site-footer__newsletter-form" data-newsletter-trigger>
-      <label class="dnd-sr-only" for={`footer-newsletter-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
-      <input id={`footer-newsletter-email-${lang}`} name="email" type="email" placeholder={newsletterUiCopy.emailPlaceholder} autocomplete="email" required />
-      <button type="submit" aria-label={newsletterCopy.cta}>
-        <span>{newsletterCopy.cta}</span>
-      </button>
-    </form>
-  </div>
-
   <div class="dnd-container dnd-site-footer__inner">
     <div class="dnd-site-footer__brand">
       <a href={isEnglishFooter ? `${homeHref}en/` : homeHref} class="dnd-site-footer__brand-link" aria-label={isEnglishFooter ? "Dandelion Guesthouses home" : "Dandelion Vendégházak főoldal"}>
@@ -748,44 +567,6 @@ const slovakLegalLinks = [
   </div>
 </footer>
 )}
-
-<div class="dnd-newsletter-dialog" data-newsletter-dialog aria-labelledby={`newsletter-dialog-title-${lang}`} role="dialog" aria-modal="true" hidden>
-  <div class="dnd-newsletter-dialog__panel">
-    <button class="dnd-newsletter-dialog__close" type="button" data-newsletter-close aria-label={newsletterUiCopy.close}>×</button>
-    <span class="dnd-newsletter-signup__kicker">{newsletterCopy.title}</span>
-    <h2 id={`newsletter-dialog-title-${lang}`}>{newsletterCopy.title}</h2>
-    <p class="dnd-newsletter-dialog__lead">{newsletterUiCopy.dialogLead}</p>
-
-    <form
-      class="dnd-newsletter-dialog__form"
-      action={brevoFormUrl}
-      method="POST"
-      target="dnd-newsletter-response"
-      data-newsletter-submit
-    >
-      <label for={`newsletter-dialog-email-${lang}`}>{newsletterUiCopy.emailLabel}</label>
-      <input id={`newsletter-dialog-email-${lang}`} name="EMAIL" type="email" autocomplete="email" required data-newsletter-email />
-      <label class="dnd-newsletter-dialog__consent">
-        <input type="checkbox" name="OPT_IN" value="1" required />
-        <span>{newsletterUiCopy.consent}</span>
-      </label>
-      <p class="dnd-newsletter-dialog__privacy"><a href={newsletterPrivacyHref}>{newsletterUiCopy.privacyLabel}</a></p>
-      <input type="hidden" name="email_address_check" value="" />
-      <input type="hidden" name="locale" value="en" />
-      <button type="submit">{newsletterUiCopy.submit}</button>
-    </form>
-
-    <p class="dnd-newsletter-dialog__success" data-newsletter-success role="status" tabindex="-1" hidden>{newsletterSuccess}</p>
-
-    <iframe
-      class="dnd-newsletter-dialog__response"
-      name="dnd-newsletter-response"
-      title={newsletterUiCopy.response}
-      data-newsletter-response
-      hidden
-    ></iframe>
-  </div>
-</div>
 
 <style>
   .dnd-site-footer {
@@ -1313,77 +1094,5 @@ const slovakLegalLinks = [
       padding-top: 14px;
     }
 
-    .dnd-site-footer__newsletter {
-      align-items: stretch;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 28px;
-      text-align: center;
-    }
-
-    .dnd-site-footer__newsletter-form {
-      width: 100%;
-    }
   }
 </style>
-
-<script>
-  const newsletterDialog = document.querySelector("[data-newsletter-dialog]");
-  const newsletterEmail = newsletterDialog?.querySelector("[data-newsletter-email]");
-  const newsletterForm = newsletterDialog?.querySelector("[data-newsletter-submit]");
-  const newsletterSuccess = newsletterDialog?.querySelector("[data-newsletter-success]");
-  const newsletterResponse = newsletterDialog?.querySelector("[data-newsletter-response]");
-
-  if (
-    newsletterDialog instanceof HTMLElement &&
-    newsletterEmail instanceof HTMLInputElement &&
-    newsletterForm instanceof HTMLFormElement &&
-    newsletterSuccess instanceof HTMLElement
-  ) {
-    document.querySelectorAll("[data-newsletter-trigger]").forEach((trigger) => {
-      trigger.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const emailInput = trigger.querySelector('input[name="email"]');
-        if (!(emailInput instanceof HTMLInputElement) || !emailInput.value.trim()) {
-          return;
-        }
-
-        newsletterForm.hidden = false;
-        newsletterSuccess.hidden = true;
-        newsletterForm.reset();
-        newsletterEmail.value = emailInput.value.trim();
-        if (newsletterResponse instanceof HTMLIFrameElement) {
-          newsletterResponse.hidden = true;
-          newsletterResponse.src = "about:blank";
-        }
-        newsletterDialog.hidden = false;
-        document.body.style.overflow = "hidden";
-        newsletterEmail.focus();
-      });
-    });
-
-    newsletterDialog.querySelectorAll("[data-newsletter-close]").forEach((closeButton) => {
-      closeButton.addEventListener("click", () => {
-        newsletterDialog.hidden = true;
-        document.body.style.overflow = "";
-      });
-    });
-
-    newsletterDialog.addEventListener("click", (event) => {
-      if (event.target === newsletterDialog) {
-        newsletterDialog.hidden = true;
-        document.body.style.overflow = "";
-      }
-    });
-
-    newsletterForm.addEventListener("submit", () => {
-      newsletterForm.hidden = true;
-      newsletterSuccess.hidden = false;
-      newsletterSuccess.focus();
-      if (newsletterResponse instanceof HTMLIFrameElement) {
-        newsletterResponse.hidden = true;
-      }
-    });
-  }
-</script>

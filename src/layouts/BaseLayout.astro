@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import { accommodations } from "../data/accommodations";
 import SiteFooter from "../components/SiteFooter.astro";
+import CompactNewsletterSignup from "../components/CompactNewsletterSignup.astro";
+import NewsletterPopup from "../sections/NewsletterPopup.astro";
 import MobileQuickActions from "../components/MobileQuickActions.astro";
 import {
   SITE_DEFAULT_DESCRIPTION,
@@ -53,6 +55,25 @@ const {
 
 const { hideHeader = false, hideFooter = false } = Astro.props;
 const normalizedCurrentPath = normalizePathname(Astro.url.pathname);
+const isHomepagePath = normalizedCurrentPath === "/" || /^\/(en|de|cs|sk)\/$/.test(normalizedCurrentPath);
+const isExcludedNewsletterPath =
+  isHomepagePath ||
+  normalizedCurrentPath.startsWith("/guide/") ||
+  [
+    "/adatkezelesi-tajekoztato/",
+    "/aszf/",
+    "/impresszum/",
+    "/en/privacy-policy/",
+    "/en/terms-and-conditions/",
+    "/en/imprint/",
+    "/de/datenschutz/",
+    "/de/agb/",
+    "/de/impressum/",
+    "/cs/ochrana-osobnich-udaju/",
+    "/cs/obchodni-podminky/",
+    "/sk/ochrana-osobnych-udajov/",
+    "/sk/obchodne-podmienky/"
+  ].includes(normalizedCurrentPath);
 const resolvedCanonicalPath = canonicalPath ? normalizePathname(canonicalPath) : getCanonicalPath(normalizedCurrentPath);
 const canonicalUrl = toAbsoluteUrl(resolvedCanonicalPath);
 const resolvedOgImage = toAbsoluteUrl(ogImage);
@@ -1141,6 +1162,13 @@ const mobileCurrentLanguageLabel = lang === "cs" ? "CZ" : lang.toUpperCase();
     <main>
       <slot />
     </main>
+
+    {!hideFooter && !isExcludedNewsletterPath && (
+      <>
+        <CompactNewsletterSignup lang={lang === "pl" ? "hu" : lang} />
+        <NewsletterPopup lang={lang} />
+      </>
+    )}
 
     {!hideFooter && <SiteFooter lang={lang} bookingHrefOverride={bookingHrefOverride} />}
 
